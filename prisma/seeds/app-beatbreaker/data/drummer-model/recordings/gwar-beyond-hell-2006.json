@@ -1,0 +1,35 @@
+{
+  "id": "rec:gwar-beyond-hell-2006",
+  "title": "Beyond Hell",
+  "artist": "Gwar",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jizmak-da-gusha"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Go to Hell!",
+      "drummer_ids": ["drummer:jizmak-da-gusha"],
+      "drums": {
+        "description": "Open hi-hats over four on the floor in 4/4 and 3/4 pairs, the floor tom with the kick in eighths, double bass under crashes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:beyond-hell-wikipedia"]
+        }
+      },
+      "style_key": "jizmak",
+      "song_key": "go-to-hell",
+      "youtube": "https://www.youtube.com/watch?v=UzMDw_nHS-U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=751596"
+        }
+      ]
+    }
+  ]
+}

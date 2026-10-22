@@ -1,0 +1,33 @@
+{
+  "id": "rec:animals-as-leaders-parrhesia-2022",
+  "title": "Parrhesia",
+  "artist": "Animals as Leaders",
+  "year": 2022,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:matt-garstka"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Monomyth",
+      "drummer_ids": ["drummer:matt-garstka"],
+      "drums": {
+        "description": "A blistering, fill-dense groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:parrhesia-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1Gi5KtoWY8U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=666803"
+        }
+      ]
+    }
+  ]
+}

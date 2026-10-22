@@ -49,6 +49,28 @@
       "kit_setup_id": "kit:earl-palmer-new-orleans"
     }
   ],
+  "tracks": [
+    {
+      "title": "Ready Teddy",
+      "drummer_ids": ["drummer:earl-palmer"],
+      "drums": {
+        "description": "Stop-time verses, then straight eighths on the ride and a backbeat in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-703570", "src:ready-teddy-wikipedia"]
+        }
+      },
+      "style_key": "earlpalmer",
+      "song_key": "ready-teddy",
+      "youtube": "https://www.youtube.com/watch?v=QtmRwHfp0Ok",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=703570"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:ready-teddy-wikipedia"]

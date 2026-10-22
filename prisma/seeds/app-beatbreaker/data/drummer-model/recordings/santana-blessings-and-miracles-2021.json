@@ -1,0 +1,39 @@
+{
+  "id": "rec:santana-blessings-and-miracles-2021",
+  "title": "Blessings and Miracles",
+  "artist": "Santana",
+  "year": 2021,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cindy-blackman-santana"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Rumbalero",
+      "drummer_ids": ["drummer:cindy-blackman-santana"],
+      "drums": {
+        "description": "A Latin-rock groove on the kit under the percussion section.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:blessings-and-miracles-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9wbN2LgEMiM"
+    },
+    {
+      "title": "America for Sale",
+      "drummer_ids": ["drummer:cindy-blackman-santana"],
+      "drums": {
+        "description": "A heavy rock groove with crashes and fills driving the guitar riff.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:blessings-and-miracles-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MSClpC1G2G8"
+    }
+  ]
+}

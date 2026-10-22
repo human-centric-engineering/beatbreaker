@@ -1,0 +1,33 @@
+{
+  "id": "rec:blondie-call-me-1980",
+  "title": "Call Me",
+  "artist": "Blondie",
+  "year": 1980,
+  "type": "studio_track",
+  "style_ids": ["style:disco"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:keith-forsey"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Call Me",
+      "drummer_ids": ["drummer:keith-forsey"],
+      "drums": {
+        "description": "A pounding, steady eighth-note rock-disco beat under Moroder's synth riff.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:call-me-blondie-song-wikipedia", "src:keith-forsey-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=StKVS0eI85I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=27138"
+        }
+      ]
+    }
+  ]
+}

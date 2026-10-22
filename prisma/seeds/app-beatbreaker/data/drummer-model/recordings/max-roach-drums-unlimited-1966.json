@@ -66,6 +66,26 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Drum Also Waltzes",
+      "drummer_ids": ["drummer:max-roach"],
+      "drums": {
+        "description": "A solo in 3/4 over the bass drum on 1 and the hi-hat on 2, nothing on 3: a study in independence drummers still practise.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:max-roach-bang-drum-also-waltzes",
+            "src:max-roach-drums-unlimited-wikipedia",
+            "src:max-roach-drumeo-drum-also-waltzes"
+          ]
+        }
+      },
+      "style_key": "roach",
+      "song_key": "drum-also-waltzes",
+      "youtube": "https://www.youtube.com/watch?v=_AS71j5nysw"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

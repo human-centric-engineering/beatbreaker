@@ -1,0 +1,48 @@
+{
+  "id": "rec:diana-ross-silk-electric-1982",
+  "title": "Silk Electric",
+  "artist": "Diana Ross",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jonathan-moffett"
+    },
+    {
+      "drummer_id": "drummer:yogi-horton"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Muscles",
+      "drummer_ids": ["drummer:jonathan-moffett"],
+      "drums": {
+        "description": "Moffett played drums and percussion on the Michael Jackson-written and -produced single, a slow, slinky funk groove.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:silk-electric-wikipedia", "src:jonathan-moffett-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3y5TTGhTFvQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5246274"
+        }
+      ]
+    },
+    {
+      "title": "So Close",
+      "drummer_ids": ["drummer:yogi-horton"],
+      "drums": {
+        "description": "Polished New York session drumming on Diana Ross's self-produced album; Horton plays on almost every track except Muscles.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:silk-electric-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LhyFcPWRyrY"
+    }
+  ]
+}

@@ -30,6 +30,56 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Black Focus",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Broken-beat drumming with Kamaal Williams: shuffled, linear sixteenths and a backbeat that slips off 2 and 4.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:black-focus-wikipedia"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "black-focus",
+      "youtube": "https://www.youtube.com/watch?v=4D8YPDdsxYU"
+    },
+    {
+      "title": "Strings of Light",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Accented snares on the 'a' of 1 and the 'e' of 2 surrounded by ghost notes, a sliding backbeat studied by a generation of London drummers.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-sol"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "strings-of-light",
+      "youtube": "https://www.youtube.com/watch?v=bYUR38Yo8aw"
+    },
+    {
+      "title": "Lowrider",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Funk with sixteenths on the hats and a heavy pocket under Kamaal Williams's Rhodes, the track that broke the duo.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:black-focus-wikipedia"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "lowrider",
+      "youtube": "https://www.youtube.com/watch?v=LojaV_kXBI4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4375773"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:yussef-dayes-wikipedia", "src:yussef-dayes-crack-2023"],

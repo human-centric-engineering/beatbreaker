@@ -16,6 +16,28 @@
       "pattern_ids": ["pattern:ringo-ticket-to-ride-archetype"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Ticket to Ride",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "The broken beat: no cymbal backbeat, a flam and the high tom placed where the snare would be, an off-kilter pattern drummers still study.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ticket-to-ride-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "ticket-to-ride",
+      "youtube": "https://www.youtube.com/watch?v=SyNt5zm3U_M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=26426"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:drumheadauthority-ringo", "src:drumeo-ringo"]

@@ -10,5 +10,64 @@
       "drummer_id": "drummer:paul-bostaph",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Killing Fields",
+      "drummer_ids": ["drummer:paul-bostaph"],
+      "drums": {
+        "description": "Opens on a solo drum intro, then fast, precise double-bass thrash.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:divine-intervention-slayer-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nL1NmtTG5Lg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18164"
+        }
+      ]
+    },
+    {
+      "title": "Dittohead",
+      "drummer_ids": ["drummer:paul-bostaph"],
+      "drums": {
+        "description": "A blistering fast thrash beat with relentless double bass and skank beats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:divine-intervention-slayer-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Gvyq6xYPwos",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=53716"
+        }
+      ]
+    },
+    {
+      "title": "Divine Intervention",
+      "drummer_ids": ["drummer:paul-bostaph"],
+      "drums": {
+        "description": "A slow, crushing groove shifting into fast thrash.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:divine-intervention-slayer-album-wikipedia",
+            "src:paul-bostaph-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aqHGaDIVya0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=53765"
+        }
+      ]
+    }
   ]
 }

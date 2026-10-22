@@ -1,0 +1,27 @@
+{
+  "id": "rec:lester-young-quartet-sometimes-im-happy-1943",
+  "title": "Sometimes I'm Happy",
+  "artist": "Lester Young Quartet",
+  "year": 1943,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:bebop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sid-catlett"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Sometimes I'm Happy",
+      "drummer_ids": ["drummer:sid-catlett"],
+      "drums": {
+        "description": "Relaxed, buoyant brushes and hi-hat behind Lester Young's Keynote quartet, Catlett's swing-era time at its most graceful.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sid-catlett-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=XNCVW5VvXpQ"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "rec:the-jimi-hendrix-experience-burning-of-the-midnight-lamp-1967",
+  "title": "Burning of the Midnight Lamp",
+  "artist": "The Jimi Hendrix Experience",
+  "year": 1967,
+  "type": "studio_track",
+  "style_ids": ["style:psychedelic-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mitch-mitchell"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Stars That Play with Laughing Sam's Dice",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A loose psychedelic jam with free fills over a shuffling beat, B-side of Burning of the Midnight Lamp.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:burning-of-the-midnight-lamp-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "laughing-sams-dice",
+      "youtube": "https://www.youtube.com/watch?v=tbK5vOxDXjU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1537495"
+        }
+      ]
+    }
+  ]
+}

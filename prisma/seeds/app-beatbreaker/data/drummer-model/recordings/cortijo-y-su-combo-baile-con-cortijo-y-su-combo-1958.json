@@ -1,0 +1,45 @@
+{
+  "id": "rec:cortijo-y-su-combo-baile-con-cortijo-y-su-combo-1958",
+  "title": "Baile con Cortijo y su Combo",
+  "artist": "Cortijo y su Combo",
+  "year": 1958,
+  "type": "album",
+  "style_ids": ["style:bomba-plena", "style:salsa"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:rafael-cortijo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "El Negro Bembón",
+      "drummer_ids": ["drummer:rafael-cortijo"],
+      "drums": {
+        "description": "Plena-based groove led by the percussion section; one of the Combo's best-known Rivera vehicles.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:wikipedia-rafael-cortijo",
+            "src:musicbrainz-baile-con-cortijo-y-su-combo"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dEut4R6B6jE"
+    },
+    {
+      "title": "El Chivo de la Campana",
+      "drummer_ids": ["drummer:rafael-cortijo"],
+      "drums": {
+        "description": "Bomba played as dance-band music, with Cortijo leading the percussion section from the timbal.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:wikipedia-rafael-cortijo",
+            "src:musicbrainz-baile-con-cortijo-y-su-combo"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=XaU_Fv9bWgk"
+    }
+  ]
+}

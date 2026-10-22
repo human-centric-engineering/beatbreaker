@@ -47,6 +47,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "(I Can't Get No) Satisfaction",
+      "drummer_ids": ["drummer:charlie-watts"],
+      "drums": {
+        "description": "Snare and kick on every beat under eighths, no fills: four on the floor driving the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-16453", "src:charlie-watts-wikipedia"]
+        }
+      },
+      "style_key": "watts",
+      "song_key": "satisfaction",
+      "youtube": "https://www.youtube.com/watch?v=MSSxnv1_J2g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16453"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:charlie-watts-wikipedia"],

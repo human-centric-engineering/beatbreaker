@@ -1,0 +1,36 @@
+{
+  "id": "rec:jefferson-starship-freedom-at-point-zero-1979",
+  "title": "Freedom at Point Zero",
+  "artist": "Jefferson Starship",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:aynsley-dunbar"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Jane",
+      "drummer_ids": ["drummer:aynsley-dunbar"],
+      "drums": {
+        "description": "Punchy hard-rock beat with driving eighths on the hi-hat and big tom fills around the keyboard riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:freedom-at-point-zero-wikipedia",
+            "src:jane-jefferson-starship-song-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LJCuB-uhNgM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=201970"
+        }
+      ]
+    }
+  ]
+}

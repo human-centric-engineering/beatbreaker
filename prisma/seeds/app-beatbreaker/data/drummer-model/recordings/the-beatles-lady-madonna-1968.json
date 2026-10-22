@@ -1,0 +1,35 @@
+{
+  "id": "rec:the-beatles-lady-madonna-1968",
+  "title": "Lady Madonna",
+  "artist": "The Beatles",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Lady Madonna",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Played on brushes, a boogie shuffle under the piano.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lady-madonna-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "lady-madonna",
+      "youtube": "https://www.youtube.com/watch?v=uLRiGX3L-kw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2747"
+        }
+      ]
+    }
+  ]
+}

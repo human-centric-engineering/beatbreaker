@@ -17,5 +17,19 @@
         "source_ids": ["src:wikipedia-nana-vasconcelos"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "O Berimbau",
+      "drummer_ids": ["drummer:nana-vasconcelos"],
+      "drums": {
+        "description": "Solo berimbau with voice, the instrument he took into jazz.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-nana-vasconcelos"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gbGLBWW7ObE"
+    }
   ]
 }

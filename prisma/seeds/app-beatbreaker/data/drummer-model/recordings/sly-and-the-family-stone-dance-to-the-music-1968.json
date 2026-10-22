@@ -1,0 +1,33 @@
+{
+  "id": "rec:sly-and-the-family-stone-dance-to-the-music-1968",
+  "title": "Dance to the Music",
+  "artist": "Sly and the Family Stone",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:greg-errico"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Dance to the Music",
+      "drummer_ids": ["drummer:greg-errico"],
+      "drums": {
+        "description": "A tight, driving soul-funk beat with drum breaks between the instruments' entries.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dance-to-the-music-song-wikipedia", "src:greg-errico-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Jn2PNlhvy8E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=404345"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "rec:fight-war-of-words-1993",
+  "title": "War of Words",
+  "artist": "Fight",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:scott-travis"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Into the Pit",
+      "drummer_ids": ["drummer:scott-travis"],
+      "drums": {
+        "description": "A thrash-speed double-bass beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:scott-travis-wikipedia", "src:war-of-words-fight-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eAEe9JHYIkw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35163"
+        }
+      ]
+    }
+  ]
+}

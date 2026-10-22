@@ -11,6 +11,38 @@
       "why_it_matters": "Listed as a key recording."
     }
   ],
+  "tracks": [
+    {
+      "title": "Healing Hands",
+      "drummer_ids": ["drummer:jonathan-moffett"],
+      "drums": {
+        "description": "A steady, gospel-tinged pop-soul beat on Elton's late-1980s comeback album, where Moffett is the credited drummer alongside Fairlight programming.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sleeping-with-the-past-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ImP5gvqFrnA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=183377"
+        }
+      ]
+    },
+    {
+      "title": "Sacrifice",
+      "drummer_ids": ["drummer:jonathan-moffett"],
+      "drums": {
+        "description": "Soft, restrained ballad time that stays under the keyboards; Moffett is the album's only credited drummer.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sleeping-with-the-past-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NrLkTZrPZA4"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jonathan-moffett-wikipedia"]

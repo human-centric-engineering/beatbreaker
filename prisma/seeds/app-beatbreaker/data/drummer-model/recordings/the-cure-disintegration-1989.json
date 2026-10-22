@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Pictures of You",
+      "drummer_ids": ["drummer:boris-williams"],
+      "drums": {
+        "description": "A slow, steady, spacious beat under layered guitars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:disintegration-the-cure-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UmFFTkjs-O0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4491"
+        }
+      ]
+    },
+    {
+      "title": "Lullaby",
+      "drummer_ids": ["drummer:boris-williams"],
+      "drums": {
+        "description": "A soft, tense groove with a muted snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:disintegration-the-cure-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ijxk-fgcg7c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=95"
+        }
+      ]
+    },
+    {
+      "title": "Fascination Street",
+      "drummer_ids": ["drummer:boris-williams"],
+      "drums": {
+        "description": "A heavy, driving groove locked to the bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:disintegration-the-cure-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7ZsQdLlvuk4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=61783"
+        }
+      ]
+    },
+    {
+      "title": "Lovesong",
+      "drummer_ids": ["drummer:boris-williams"],
+      "drums": {
+        "description": "A simple, steady beat under the keyboard figure.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:disintegration-the-cure-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ks_qOI0lzho",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3988"
+        }
+      ]
+    }
   ]
 }

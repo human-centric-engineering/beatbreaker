@@ -1,0 +1,26 @@
+{
+  "id": "rec:tommy-dorsey-and-his-orchestra-song-of-india-1937",
+  "title": "Song of India",
+  "artist": "Tommy Dorsey and His Orchestra",
+  "year": 1937,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-tough"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Song of India",
+      "drummer_ids": ["drummer:dave-tough"],
+      "drums": {
+        "description": "A swing arrangement of Rimsky-Korsakov with Tough's crisp, understated four-beat time.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dave-tough-wikipedia"]
+        }
+      }
+    }
+  ]
+}

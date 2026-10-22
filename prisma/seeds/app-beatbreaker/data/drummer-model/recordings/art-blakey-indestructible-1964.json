@@ -46,5 +46,21 @@
         "source_ids": ["src:indestructible-wikipedia", "src:bishop-egyptian-intro-2019"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "The Egyptian",
+      "drummer_ids": ["drummer:art-blakey"],
+      "drums": {
+        "description": "His drum intro: a figure on ride and kick, snare triplets, quarter-note triplets of rolls.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bishop-egyptian-intro-2019", "src:indestructible-wikipedia"]
+        }
+      },
+      "style_key": "blakey",
+      "song_key": "the-egyptian",
+      "youtube": "https://www.youtube.com/watch?v=9PsWb32zPNg"
+    }
   ]
 }

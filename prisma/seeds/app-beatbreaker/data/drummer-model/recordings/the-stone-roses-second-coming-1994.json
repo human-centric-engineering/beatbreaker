@@ -40,6 +40,31 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Love Spreads",
+      "drummer_ids": ["drummer:reni"],
+      "drums": {
+        "description": "The ride with the bass drum moving every bar and fills down the toms like Bonham.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:love-spreads-wikipedia",
+            "src:reni-far-out-love-spreads-2022",
+            "src:reni-isolated-drums-love-spreads"
+          ]
+        }
+      },
+      "style_key": "reni",
+      "song_key": "love-spreads",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54720"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:second-coming-wikipedia"]

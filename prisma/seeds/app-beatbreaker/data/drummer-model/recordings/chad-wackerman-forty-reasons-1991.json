@@ -15,5 +15,19 @@
       "name": "Chad Wackerman",
       "drummer_role": "leader"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Forty Reasons",
+      "drummer_ids": ["drummer:chad-wackerman"],
+      "drums": {
+        "description": "A complex, odd-metre fusion groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chad-wackerman-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mJiVeLfGSjQ"
+    }
   ]
 }

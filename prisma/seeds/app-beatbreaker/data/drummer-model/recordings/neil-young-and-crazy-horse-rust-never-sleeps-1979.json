@@ -12,6 +12,32 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Powderfinger",
+      "drummer_ids": ["drummer:ralph-molina"],
+      "drums": {
+        "description": "A steady, mid-tempo rock beat with a heavy, grinding feel.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ralph-molina-wikipedia", "src:rust-never-sleeps-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CVrlsxlODcQ"
+    },
+    {
+      "title": "Hey Hey, My My (Into the Black)",
+      "drummer_ids": ["drummer:ralph-molina"],
+      "drums": {
+        "description": "A slow, crushing, distorted backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ralph-molina-wikipedia", "src:rust-never-sleeps-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=w_hoW6qmeOo"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ralph-molina-wikipedia", "src:rust-never-sleeps-wikipedia"]

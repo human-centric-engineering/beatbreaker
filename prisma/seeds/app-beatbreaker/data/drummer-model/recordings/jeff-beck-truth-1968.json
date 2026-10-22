@@ -12,6 +12,73 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Shapes of Things",
+      "artist": "The Jeff Beck Group",
+      "drummer_ids": ["drummer:micky-waller"],
+      "drums": {
+        "description": "Slow, heavy march-like groove with crashing accents, a weighty reworking of the Yardbirds song that pointed toward heavy rock.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:truth-jeff-beck-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NRkCkepByQ8"
+    },
+    {
+      "title": "Let Me Love You",
+      "artist": "The Jeff Beck Group",
+      "drummer_ids": ["drummer:micky-waller"],
+      "drums": {
+        "description": "Loose, heavy blues-rock shuffle with busy snare and crash fills answering the guitar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:truth-jeff-beck-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=J2yJvyPwpWQ"
+    },
+    {
+      "title": "You Shook Me",
+      "artist": "The Jeff Beck Group",
+      "drummer_ids": ["drummer:micky-waller"],
+      "drums": {
+        "description": "Slow, heavy blues with a big, spacious backbeat that leaves room for the guitar and organ.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:truth-jeff-beck-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_CpV_4e2obA"
+    },
+    {
+      "title": "Rock My Plimsoul",
+      "artist": "The Jeff Beck Group",
+      "drummer_ids": ["drummer:micky-waller"],
+      "drums": {
+        "description": "Mid-tempo blues shuffle played with a loose, swinging feel (album version).",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:truth-jeff-beck-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=u3Kdk4ALYCI"
+    },
+    {
+      "title": "I Ain't Superstitious",
+      "artist": "The Jeff Beck Group",
+      "drummer_ids": ["drummer:micky-waller"],
+      "drums": {
+        "description": "Slow heavy-blues groove where Waller plays around the wah-guitar phrases with rolling tom fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:truth-jeff-beck-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=r6ZwQACHRyo"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:micky-waller-wikipedia"]

@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Historicity",
+      "drummer_ids": ["drummer:marcus-gilmore"],
+      "drums": {
+        "description": "Dense, interlocking odd-metre patterns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:historicity-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PG6UwES2laU"
+    },
+    {
+      "title": "Galang (Trio Riot Version)",
+      "drummer_ids": ["drummer:marcus-gilmore"],
+      "drums": {
+        "description": "M.I.A.'s song reworked with a jittery, electronic-dance-inspired kit groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:historicity-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7TYQmtBA3-8"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:marcus-gilmore-wikipedia"]

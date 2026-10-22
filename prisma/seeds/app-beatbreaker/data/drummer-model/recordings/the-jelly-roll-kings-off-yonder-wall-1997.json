@@ -1,0 +1,63 @@
+{
+  "id": "rec:the-jelly-roll-kings-off-yonder-wall-1997",
+  "title": "Off Yonder Wall",
+  "artist": "The Jelly Roll Kings",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:blues"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sam-carr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "That's Alright Mama",
+      "drummer_ids": ["drummer:sam-carr"],
+      "drums": {
+        "description": "Carr keeps a patient, unfussy shuffle under a guitar solo several minutes long before the vocal enters.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:off-yonder-wall-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ms5opmLmtVY"
+    },
+    {
+      "title": "Look over Yonder Wall",
+      "drummer_ids": ["drummer:sam-carr"],
+      "drums": {
+        "description": "A driving Delta boogie on snare and hat, recorded lo-fi on purpose by producer Robert Palmer.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:off-yonder-wall-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=L8JrNOpWr3o"
+    },
+    {
+      "title": "Sitting on Top of the World",
+      "drummer_ids": ["drummer:sam-carr"],
+      "drums": {
+        "description": "Instrumental modelled on Howlin' Wolf's version of the song, with Carr keeping the trio's time on his minimal kit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:off-yonder-wall-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oEXjxyya1Qc"
+    },
+    {
+      "title": "Have Mercy Baby",
+      "drummer_ids": ["drummer:sam-carr"],
+      "drums": {
+        "description": "Up-tempo juke-joint groove from a trio with no bass player, so Carr's kick does the bottom-end work.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:off-yonder-wall-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LlvK6cIVBmU"
+    }
+  ]
+}

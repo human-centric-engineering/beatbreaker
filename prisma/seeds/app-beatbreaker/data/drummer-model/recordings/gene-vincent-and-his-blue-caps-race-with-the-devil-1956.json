@@ -1,0 +1,27 @@
+{
+  "id": "rec:gene-vincent-and-his-blue-caps-race-with-the-devil-1956",
+  "title": "Race with the Devil",
+  "artist": "Gene Vincent and His Blue Caps",
+  "year": 1956,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dickie-harrell"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Race with the Devil",
+      "drummer_ids": ["drummer:dickie-harrell"],
+      "drums": {
+        "description": "A fast, driving beat with crashing accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:gene-vincent-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4CTso1tx4Bs"
+    }
+  ]
+}

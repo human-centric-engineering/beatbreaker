@@ -1,0 +1,33 @@
+{
+  "id": "rec:mastodon-once-more-round-the-sun-2014",
+  "title": "Once More 'Round the Sun",
+  "artist": "Mastodon",
+  "year": 2014,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brann-dailor"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Motherload",
+      "drummer_ids": ["drummer:brann-dailor"],
+      "drums": {
+        "description": "A bouncing, syncopated groove in a more radio-friendly song.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-motherload-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jWFWazj7Ud8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=392915"
+        }
+      ]
+    }
+  ]
+}

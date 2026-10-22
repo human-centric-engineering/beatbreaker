@@ -10,5 +10,43 @@
       "drummer_id": "drummer:brant-bjork",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Gardenia",
+      "drummer_ids": ["drummer:brant-bjork"],
+      "drums": {
+        "description": "A heavy, rolling groove that switches into a double-time punk push, Bjork's cymbals washing over the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:welcome-to-sky-valley-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yoqhTcZME4w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=40805"
+        }
+      ]
+    },
+    {
+      "title": "Demon Cleaner",
+      "drummer_ids": ["drummer:brant-bjork"],
+      "drums": {
+        "description": "A mid-tempo, laid-back groove with a dry snare and loose hat, the desert-rock feel at its calmest.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:welcome-to-sky-valley-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=B7Ske2eKX2g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10917"
+        }
+      ]
+    }
   ]
 }

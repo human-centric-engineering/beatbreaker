@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Leave Them All Behind",
+      "drummer_ids": ["drummer:loz-colbert"],
+      "drums": {
+        "description": "An eight-minute driving groove built on a steady, hypnotic beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:leave-them-all-behind-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gIsnb1TKYjE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16388"
+        }
+      ]
+    },
+    {
+      "title": "Twisterella",
+      "drummer_ids": ["drummer:loz-colbert"],
+      "drums": {
+        "description": "A jangly, bouncy pop beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:twisterella-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qQ8y87YQDX4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16312"
+        }
+      ]
+    }
   ]
 }

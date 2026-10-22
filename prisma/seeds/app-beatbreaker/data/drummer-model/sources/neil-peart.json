@@ -151,5 +151,101 @@
     "reliability": 0.5,
     "accessed": "2026-10-18",
     "notes": "aiGenerated false. 175 bars, 134 to 180. Bar 15 (x10): the ride in eighths, the snare on 3, the kick on 2, the 'and' of 3, and 4 and its 'and'. Bar 24 (x9) has the same cell as YYZ bar 36 and Subdivisions bar 71, which is doubtful and not used."
+  },
+  {
+    "id": "src:fly-by-night-wikipedia",
+    "type": "encyclopedia",
+    "title": "Fly by Night - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Fly_by_Night",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:2112-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "2112 (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/2112_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:closer-to-the-heart-wikipedia",
+    "type": "encyclopedia",
+    "title": "Closer to the Heart - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Closer_to_the_Heart",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:hemispheres-rush-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Hemispheres (Rush album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Hemispheres_(Rush_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:the-spirit-of-radio-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Spirit of Radio - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Spirit_of_Radio",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:tom-sawyer-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Tom Sawyer (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Tom_Sawyer_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:red-barchetta-wikipedia",
+    "type": "encyclopedia",
+    "title": "Red Barchetta - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Red_Barchetta",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:limelight-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Limelight (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Limelight_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:subdivisions-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Subdivisions (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Subdivisions_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:power-windows-disambiguation-wikipedia",
+    "type": "encyclopedia",
+    "title": "Power windows (disambiguation) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Power_windows_(disambiguation)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:time-stand-still-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Time Stand Still (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Time_Stand_Still_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:clockwork-angels-wikipedia",
+    "type": "encyclopedia",
+    "title": "Clockwork Angels - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Clockwork_Angels",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

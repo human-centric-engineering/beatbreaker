@@ -124,5 +124,45 @@
     "reliability": 0.5,
     "accessed": "2026-10-21",
     "notes": "aiGenerated false; Ivan, 2026. 162 bpm, 158 bars: the snare on 2 and the floor tom on 4 in the intro, the chorus in half time with the snare on 3, the bridge on the floor tom, the backbeat swapped to the floor tom on 2 in bars 93-96, a tom outro."
+  },
+  {
+    "id": "src:ogdens-nut-gone-flake-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ogdens' Nut Gone Flake - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ogdens%27_Nut_Gone_Flake",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:a-nod-is-as-good-as-a-wink-wikipedia",
+    "type": "encyclopedia",
+    "title": "A Nod Is as Good as a Wink... to a Blind Horse - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/A_Nod_Is_as_Good_as_a_Wink..._to_a_Blind_Horse",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:ooh-la-la-faces-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ooh La La (Faces album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ooh_La_La_(Faces_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:itchycoo-park-wikipedia",
+    "type": "encyclopedia",
+    "title": "Itchycoo Park - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Itchycoo_Park",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:sha-la-la-la-lee-wikipedia",
+    "type": "encyclopedia",
+    "title": "Sha-La-La-La-Lee - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sha-La-La-La-Lee",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

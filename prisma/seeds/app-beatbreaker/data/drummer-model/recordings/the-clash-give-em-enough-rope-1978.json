@@ -52,6 +52,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Safe European Home",
+      "drummer_ids": ["drummer:topper-headon"],
+      "drums": {
+        "description": "Kick eighths under the crash, then the hi-hat on the beat, and an outro opened on 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:give-em-enough-rope-wikipedia"]
+        }
+      },
+      "style_key": "headon",
+      "song_key": "safe-european-home",
+      "youtube": "https://www.youtube.com/watch?v=1xgwXkULDCs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22066"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:give-em-enough-rope-wikipedia"],

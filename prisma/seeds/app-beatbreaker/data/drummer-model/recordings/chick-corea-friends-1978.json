@@ -1,0 +1,29 @@
+{
+  "id": "rec:chick-corea-friends-1978",
+  "title": "Friends",
+  "artist": "Chick Corea",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-gadd"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Samba Song",
+      "drummer_ids": ["drummer:steve-gadd"],
+      "drums": {
+        "description": "A samba on the kit: eighths on the ride, the clave on the rim, the surdo in the kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:friends-chick-corea-wikipedia"]
+        }
+      },
+      "style_key": "gadd",
+      "song_key": "samba-song",
+      "youtube": "https://www.youtube.com/watch?v=f5vxYsYsXrE"
+    }
+  ]
+}

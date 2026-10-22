@@ -1,0 +1,27 @@
+{
+  "id": "rec:cab-calloway-and-his-orchestra-paradiddle-1940",
+  "title": "Paradiddle",
+  "artist": "Cab Calloway and His Orchestra",
+  "year": 1940,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cozy-cole"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Paradiddle",
+      "drummer_ids": ["drummer:cozy-cole"],
+      "drums": {
+        "description": "A drum-feature built on the paradiddle rudiment, Cole showing off his rudimental technique over the band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:cozy-cole-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yN0cJQ353gs"
+    }
+  ]
+}

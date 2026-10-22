@@ -47,6 +47,25 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Rhythm-a-ning",
+      "drummer_ids": ["drummer:ari-hoenig"],
+      "drums": {
+        "description": "Monk at a fast tempo, the bridge phrased in long groups of five across the bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:hoenig-aaj-lines-of-oppression-2011",
+            "src:hoenig-jazztimes-lines-of-oppression-2011"
+          ]
+        }
+      },
+      "style_key": "hoenig",
+      "song_key": "rhythm-a-ning",
+      "youtube": "https://www.youtube.com/watch?v=a9Fkd7aQ5pY"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

@@ -39,6 +39,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "We Are Family",
+      "drummer_ids": ["drummer:tony-thompson"],
+      "drums": {
+        "description": "The hat in eighths, the kick on 1 and 3 and a chorus fill down the toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:we-are-family-song-wikipedia",
+            "src:songsterr-53535",
+            "src:tony-thompson-wikipedia"
+          ]
+        }
+      },
+      "style_key": "tonythompson",
+      "song_key": "we-are-family",
+      "youtube": "https://www.youtube.com/watch?v=1Fd41GpwG54",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=53535"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:we-are-family-album-wikipedia"]

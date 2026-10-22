@@ -1,0 +1,35 @@
+{
+  "id": "rec:led-zeppelin-led-zeppelin-1969",
+  "title": "Led Zeppelin",
+  "artist": "Led Zeppelin",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-bonham"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Communication Breakdown",
+      "drummer_ids": ["drummer:john-bonham"],
+      "drums": {
+        "description": "Flat-out eighths with the kick doubled on 1 and 3, proto-punk speed in 1969.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:communication-breakdown-wikipedia"]
+        }
+      },
+      "style_key": "bonham",
+      "song_key": "communication-breakdown",
+      "youtube": "https://www.youtube.com/watch?v=2atkj_KWLl0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=208"
+        }
+      ]
+    }
+  ]
+}

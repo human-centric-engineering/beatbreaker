@@ -1,0 +1,27 @@
+{
+  "id": "rec:elmore-james-the-sky-is-crying-1960",
+  "title": "The Sky Is Crying",
+  "artist": "Elmore James",
+  "year": 1960,
+  "type": "studio_track",
+  "style_ids": ["style:blues", "style:blues-shuffle"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:odie-payne"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Sky Is Crying",
+      "drummer_ids": ["drummer:odie-payne"],
+      "drums": {
+        "description": "Slow blues with a steady, heavy backbeat under the slide guitar, cut with the Broomdusters.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-sky-is-crying-song-wikipedia", "src:odie-payne-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pd7b1Ye6Oc0"
+    }
+  ]
+}

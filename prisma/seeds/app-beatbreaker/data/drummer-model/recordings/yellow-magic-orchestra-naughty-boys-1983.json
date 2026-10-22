@@ -1,0 +1,27 @@
+{
+  "id": "rec:yellow-magic-orchestra-naughty-boys-1983",
+  "title": "Naughty Boys",
+  "artist": "Yellow Magic Orchestra",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:synth-pop", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yukihiro-takahashi"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Kimi ni, Mune Kyun",
+      "drummer_ids": ["drummer:yukihiro-takahashi"],
+      "drums": {
+        "description": "A bright synth-pop groove with programmed and electronic drums over a pop backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:naughty-boys-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DUmG1SlR8fs"
+    }
+  ]
+}

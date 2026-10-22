@@ -47,6 +47,88 @@
       "kit_setup_id": "kit:neil-peart-tama-rosewood"
     }
   ],
+  "tracks": [
+    {
+      "title": "Tom Sawyer",
+      "drummer_ids": ["drummer:neil-peart"],
+      "drums": {
+        "description": "Sixteenths on the hats, the crash on 2, the riff in dotted eighths and a 7/8 synth section with the most air-drummed fill in rock.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-287", "src:tom-sawyer-song-wikipedia"]
+        }
+      },
+      "style_key": "peart",
+      "song_key": "tom-sawyer",
+      "youtube": "https://www.youtube.com/watch?v=auLBLk4ibAk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=287"
+        }
+      ]
+    },
+    {
+      "title": "Red Barchetta",
+      "drummer_ids": ["drummer:neil-peart"],
+      "drums": {
+        "description": "Hat and foot under the guitar, the bell over the foot and sixteenths on the hat, with the solo section in 7/4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:red-barchetta-wikipedia"]
+        }
+      },
+      "style_key": "peart",
+      "song_key": "red-barchetta",
+      "youtube": "https://www.youtube.com/watch?v=PjjNvjURS-s",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22757"
+        }
+      ]
+    },
+    {
+      "title": "YYZ",
+      "drummer_ids": ["drummer:neil-peart"],
+      "drums": {
+        "description": "The Morse-code riff in 10/8 played on the hat's quarters and toms, the ride bell over ghost notes and stops or tom runs every fourth bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:peart-yyz-wikipedia", "src:songsterr-16981"]
+        }
+      },
+      "style_key": "peart",
+      "song_key": "yyz",
+      "youtube": "https://www.youtube.com/watch?v=ftVTWDrtrlc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16981"
+        }
+      ]
+    },
+    {
+      "title": "Limelight",
+      "drummer_ids": ["drummer:neil-peart"],
+      "drums": {
+        "description": "The riff in 7/4, the verse in 6/4, the chorus in 3/4 then 4/4 over a kick on every eighth.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-17265", "src:limelight-song-wikipedia"]
+        }
+      },
+      "style_key": "peart",
+      "song_key": "limelight",
+      "youtube": "https://www.youtube.com/watch?v=ZiRuj2_czzw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17265"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:peart-rush-wikipedia"]

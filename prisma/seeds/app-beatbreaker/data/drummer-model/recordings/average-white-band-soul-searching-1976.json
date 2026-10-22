@@ -15,5 +15,19 @@
       "name": "Steve Ferrone",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Queen of My Soul",
+      "drummer_ids": ["drummer:steve-ferrone"],
+      "drums": {
+        "description": "A smooth, soulful groove with a light backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:soul-searching-average-white-band-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xYl9z3YjBaw"
+    }
   ]
 }

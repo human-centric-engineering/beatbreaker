@@ -18,6 +18,68 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Dizzy's Blues",
+      "drummer_ids": ["drummer:charli-persip"],
+      "drums": {
+        "description": "Drives the full big band through a long blues, kicking the shout choruses with bass-drum and snare accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dizzy-gillespie-at-newport-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=XkQpB83nJDU"
+    },
+    {
+      "title": "Manteca",
+      "drummer_ids": ["drummer:charli-persip"],
+      "drums": {
+        "description": "Moves between the Afro-Cuban groove of the theme and hard swing in the solos, setting up the band's entrances.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dizzy-gillespie-at-newport-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=W_XqcH7A8Bc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4110802"
+        }
+      ]
+    },
+    {
+      "title": "A Night in Tunisia",
+      "drummer_ids": ["drummer:charli-persip"],
+      "drums": {
+        "description": "A Latin-tinged vamp under the theme that opens into driving big-band swing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dizzy-gillespie-at-newport-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eQHpwnXf0mI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4724408"
+        }
+      ]
+    },
+    {
+      "title": "Cool Breeze",
+      "drummer_ids": ["drummer:charli-persip"],
+      "drums": {
+        "description": "Steady, swinging big-band time with crisp section kicks over ten minutes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dizzy-gillespie-at-newport-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Vg1gUwAV_Kw"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:charlie-persip-wikipedia"]

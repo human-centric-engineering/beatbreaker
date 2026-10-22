@@ -24,6 +24,26 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Born Under a Bad Sign",
+      "drummer_ids": ["drummer:al-jackson-jr"],
+      "drums": {
+        "description": "A deep, behind-the-beat blues groove under the riff, the kick locked to Duck Dunn's bass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:born-under-a-bad-sign-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hGawVSpIxM0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=510854"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:born-under-a-bad-sign-wikipedia"]

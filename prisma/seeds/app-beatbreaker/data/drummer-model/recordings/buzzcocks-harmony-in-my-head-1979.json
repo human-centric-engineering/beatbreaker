@@ -1,0 +1,33 @@
+{
+  "id": "rec:buzzcocks-harmony-in-my-head-1979",
+  "title": "Harmony in My Head",
+  "artist": "Buzzcocks",
+  "year": 1979,
+  "type": "studio_track",
+  "style_ids": ["style:punk", "style:new-wave"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-maher"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Harmony in My Head",
+      "drummer_ids": ["drummer:john-maher"],
+      "drums": {
+        "description": "A punchy, aggressive punk beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:harmony-in-my-head-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ecKIoaTWitc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1771044"
+        }
+      ]
+    }
+  ]
+}

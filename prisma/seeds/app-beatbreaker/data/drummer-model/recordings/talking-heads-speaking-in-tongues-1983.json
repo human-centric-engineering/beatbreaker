@@ -1,0 +1,33 @@
+{
+  "id": "rec:talking-heads-speaking-in-tongues-1983",
+  "title": "Speaking in Tongues",
+  "artist": "Talking Heads",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:new-wave", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-frantz"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Burning Down the House",
+      "drummer_ids": ["drummer:chris-frantz"],
+      "drums": {
+        "description": "A punchy, syncopated funk beat with tom accents that drives the band's biggest US hit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:speaking-in-tongues-talking-heads-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_3eC35LoF4U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=55472"
+        }
+      ]
+    }
+  ]
+}

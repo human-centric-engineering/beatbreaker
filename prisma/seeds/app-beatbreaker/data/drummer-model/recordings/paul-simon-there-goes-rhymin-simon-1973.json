@@ -1,0 +1,33 @@
+{
+  "id": "rec:paul-simon-there-goes-rhymin-simon-1973",
+  "title": "There Goes Rhymin' Simon",
+  "artist": "Paul Simon",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-hawkins"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Kodachrome",
+      "drummer_ids": ["drummer:roger-hawkins"],
+      "drums": {
+        "description": "A bright, driving shuffle-tinged backbeat cut at Muscle Shoals that gives the song its bounce.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:kodachrome-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8rlDTK6QI-w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=50190"
+        }
+      ]
+    }
+  ]
+}

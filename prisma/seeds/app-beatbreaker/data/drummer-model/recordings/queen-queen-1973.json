@@ -47,6 +47,28 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Keep Yourself Alive",
+      "drummer_ids": ["drummer:roger-taylor"],
+      "drums": {
+        "description": "Hats on the beat over 2 and 4, the chorus on the ride bell, a break on the toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-51097", "src:queen-album-wikipedia"]
+        }
+      },
+      "style_key": "rogertaylor",
+      "song_key": "keep-yourself-alive",
+      "youtube": "https://www.youtube.com/watch?v=O4QCIursAPA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=51097"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:queen-album-wikipedia"]

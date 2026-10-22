@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Earth A.D.",
+      "drummer_ids": ["drummer:robo"],
+      "drums": {
+        "description": "A blistering, speed-metal-fast punk beat that pushed the Misfits toward thrash.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:robo-wikipedia", "src:earth-a-d-wolfs-blood-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LXEgnZtS_TI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=511370"
+        }
+      ]
+    },
+    {
+      "title": "Death Comes Ripping",
+      "drummer_ids": ["drummer:robo"],
+      "drums": {
+        "description": "A fast hardcore beat with heavy accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:robo-wikipedia", "src:earth-a-d-wolfs-blood-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rC64rcOH6hg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=47273"
+        }
+      ]
+    }
   ]
 }

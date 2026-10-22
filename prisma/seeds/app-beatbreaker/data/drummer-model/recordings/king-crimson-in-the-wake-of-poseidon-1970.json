@@ -12,6 +12,38 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Pictures of a City",
+      "drummer_ids": ["drummer:michael-giles"],
+      "drums": {
+        "description": "Fast jazz-rock unisons and swinging passages, a sequel to Schizoid Man.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:in-the-wake-of-poseidon-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=c7QdzDssvqY"
+    },
+    {
+      "title": "Cat Food",
+      "drummer_ids": ["drummer:michael-giles"],
+      "drums": {
+        "description": "A jazzy, unsettled groove under Keith Tippett's piano, released as a single.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:in-the-wake-of-poseidon-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VmnqX4iNBpI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=541215"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:michael-giles-wikipedia"]

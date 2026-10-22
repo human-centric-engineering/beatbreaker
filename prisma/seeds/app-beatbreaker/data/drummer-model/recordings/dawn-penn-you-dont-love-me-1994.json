@@ -16,5 +16,25 @@
         "source_ids": ["src:wikipedia-steely-and-clevie"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "You Don't Love Me (No, No, No)",
+      "drummer_ids": ["drummer:clevie-browne"],
+      "drums": {
+        "description": "A programmed digital dancehall riddim: sparse kick, rimshot-like snare and a skipping hi-hat under Penn's voice.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-steely-and-clevie"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kizJNYREEIA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1082310"
+        }
+      ]
+    }
   ]
 }

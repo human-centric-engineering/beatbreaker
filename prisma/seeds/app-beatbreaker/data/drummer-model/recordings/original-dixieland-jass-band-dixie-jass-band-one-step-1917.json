@@ -1,0 +1,27 @@
+{
+  "id": "rec:original-dixieland-jass-band-dixie-jass-band-one-step-1917",
+  "title": "Dixie Jass Band One-Step",
+  "artist": "Original Dixieland Jass Band",
+  "year": 1917,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-sbarbaro"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Dixie Jass Band One-Step",
+      "drummer_ids": ["drummer:tony-sbarbaro"],
+      "drums": {
+        "description": "Brisk one-step snare drive on the first jazz recording session.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tony-sbarbaro-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4qb1xxZJqdQ"
+    }
+  ]
+}

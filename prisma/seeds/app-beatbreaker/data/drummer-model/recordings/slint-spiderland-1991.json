@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Breadcrumb Trail",
+      "drummer_ids": ["drummer:britt-walford"],
+      "drums": {
+        "description": "Shifts between delicate, clean passages and heavy, crashing sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:spiderland-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gBfoQjJ7guk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=53794"
+        }
+      ]
+    },
+    {
+      "title": "Washer",
+      "drummer_ids": ["drummer:britt-walford"],
+      "drums": {
+        "description": "A slow, patient build to a crashing climax.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:spiderland-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nmL7rXt1fvI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=486583"
+        }
+      ]
+    },
+    {
+      "title": "Good Morning, Captain",
+      "drummer_ids": ["drummer:britt-walford"],
+      "drums": {
+        "description": "A tense, quiet-loud part that erupts at the end.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:spiderland-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CuqEpjcBfaU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=79889"
+        }
+      ]
+    },
+    {
+      "title": "Nosferatu Man",
+      "drummer_ids": ["drummer:britt-walford"],
+      "drums": {
+        "description": "An angular, odd-meter groove with heavy accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:spiderland-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5ugdrdFrhI0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=53795"
+        }
+      ]
+    }
   ]
 }

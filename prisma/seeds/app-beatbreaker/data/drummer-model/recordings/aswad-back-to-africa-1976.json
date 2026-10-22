@@ -17,5 +17,19 @@
         "source_ids": ["src:wikipedia-drummie-zeb"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Back to Africa",
+      "drummer_ids": ["drummer:drummie-zeb"],
+      "drums": {
+        "description": "A heavy, rolling roots one-drop with a cracking rim and tight hi-hat, on the band's debut single.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:aswad-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZZctAeoPZH8"
+    }
   ]
 }

@@ -16,6 +16,41 @@
         "confidence": "likely",
         "source_ids": ["src:wikipedia-nana-vasconcelos"]
       }
+    },
+    {
+      "drummer_id": "drummer:danny-gottlieb"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Are You Going with Me?",
+      "drummer_ids": ["drummer:danny-gottlieb", "drummer:nana-vasconcelos"],
+      "drums": {
+        "description": "A soft, steady Latin-tinged pulse that builds slowly.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:interchange-road-wikipedia", "src:danny-gottlieb-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_4GyNmXHpIc"
+    },
+    {
+      "title": "James",
+      "drummer_ids": ["drummer:danny-gottlieb"],
+      "drums": {
+        "description": "A light, swinging pop-jazz groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:interchange-road-wikipedia", "src:danny-gottlieb-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fLFdUwkrVVo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6666126"
+        }
+      ]
     }
   ]
 }

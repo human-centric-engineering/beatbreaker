@@ -10,5 +10,60 @@
       "drummer_id": "drummer:vinnie-paul",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Walk",
+      "drummer_ids": ["drummer:vinnie-paul"],
+      "drums": {
+        "description": "A slow, swaggering groove in a lopsided feel with the kick locked to the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:vulgar-display-of-power-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AkFqg5wAuFk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22271"
+        }
+      ]
+    },
+    {
+      "title": "Mouth for War",
+      "drummer_ids": ["drummer:vinnie-paul"],
+      "drums": {
+        "description": "A stomping groove-metal beat with double-bass bursts.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:vulgar-display-of-power-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=a3JSbOt7CLo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49891"
+        }
+      ]
+    },
+    {
+      "title": "Fucking Hostile",
+      "drummer_ids": ["drummer:vinnie-paul"],
+      "drums": {
+        "description": "Fast thrash drumming with relentless double-bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:vulgar-display-of-power-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49882"
+        }
+      ]
+    }
   ]
 }

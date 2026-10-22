@@ -26,6 +26,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "I Don't Care Anymore",
+      "drummer_ids": ["drummer:phil-collins"],
+      "drums": {
+        "description": "A two-bar tom ostinato in eighths instead of a cymbal, the snare joining in the bridge.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-669676", "src:phil-collins-drumeo-12"]
+        }
+      },
+      "style_key": "collins",
+      "song_key": "i-dont-care-anymore",
+      "youtube": "https://www.youtube.com/watch?v=xLpfbcXTeo8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=669676"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:phil-collins-wikipedia", "src:songsterr-669676"]

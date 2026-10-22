@@ -20,6 +20,26 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Get Ready",
+      "drummer_ids": ["drummer:benny-benjamin"],
+      "drums": {
+        "description": "An up-tempo, crisp backbeat with snare pickups into each section.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:get-ready-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mhsYOzdJjI0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=259088"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:get-ready-wikipedia"]

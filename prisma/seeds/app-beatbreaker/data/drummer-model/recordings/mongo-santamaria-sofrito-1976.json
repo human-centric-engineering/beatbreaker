@@ -1,0 +1,27 @@
+{
+  "id": "rec:mongo-santamaria-sofrito-1976",
+  "title": "Sofrito",
+  "artist": "Mongo Santamaría",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:afro-cuban", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mongo-santamaria"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Sofrito",
+      "drummer_ids": ["drummer:mongo-santamaria"],
+      "drums": {
+        "description": "Salsa-funk groove: tumbaos on congas over a funk kit part.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-mongo-santamaria"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VKQ6QErj7Zs"
+    }
+  ]
+}

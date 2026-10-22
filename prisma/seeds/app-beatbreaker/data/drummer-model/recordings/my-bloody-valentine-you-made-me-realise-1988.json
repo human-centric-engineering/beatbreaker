@@ -1,0 +1,33 @@
+{
+  "id": "rec:my-bloody-valentine-you-made-me-realise-1988",
+  "title": "You Made Me Realise",
+  "artist": "My Bloody Valentine",
+  "year": 1988,
+  "type": "studio_track",
+  "style_ids": ["style:shoegaze", "style:noise-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:colm-o-ciosoig"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "You Made Me Realise",
+      "drummer_ids": ["drummer:colm-o-ciosoig"],
+      "drums": {
+        "description": "Fast, pounding drums and the \"holocaust\" section of one chord and a driving beat, stretched for minutes live.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:you-made-me-realise-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=L3hYEwCmMhY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=484614"
+        }
+      ]
+    }
+  ]
+}

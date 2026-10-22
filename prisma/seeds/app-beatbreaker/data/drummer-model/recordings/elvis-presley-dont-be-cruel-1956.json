@@ -1,0 +1,33 @@
+{
+  "id": "rec:elvis-presley-dont-be-cruel-1956",
+  "title": "Don't Be Cruel",
+  "artist": "Elvis Presley",
+  "year": 1956,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:americana"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dj-fontana"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Don't Be Cruel",
+      "drummer_ids": ["drummer:dj-fontana"],
+      "drums": {
+        "description": "A relaxed beat played with Elvis's guitar case as part of the sound.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dont-be-cruel-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=B2YwGBVSfFQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=183631"
+        }
+      ]
+    }
+  ]
+}

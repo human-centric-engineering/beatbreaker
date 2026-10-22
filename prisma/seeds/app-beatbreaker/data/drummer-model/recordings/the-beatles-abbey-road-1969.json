@@ -1,0 +1,116 @@
+{
+  "id": "rec:the-beatles-abbey-road-1969",
+  "title": "Abbey Road",
+  "artist": "The Beatles",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Something",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "A ballad with rimshots on 2 and 4 and fills that enter late, behind the beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:something-beatles-song-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "something",
+      "youtube": "https://www.youtube.com/watch?v=UelDrZ1aFeY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2629"
+        }
+      ]
+    },
+    {
+      "title": "Oh! Darling",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "A 12/8 doo-wop ballad, the hats filling the triplets under McCartney's shouted vocal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:oh-darling-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "oh-darling",
+      "youtube": "https://www.youtube.com/watch?v=9BznFjbcBVs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2794"
+        }
+      ]
+    },
+    {
+      "title": "Octopus's Garden",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "His own song: a lilting sixteenth swing, the bridge played on the floor tom to sound underwater.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:octopus-s-garden-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "octopuss-garden",
+      "youtube": "https://www.youtube.com/watch?v=A7coEcXjd7Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2900"
+        }
+      ]
+    },
+    {
+      "title": "I Want You (She's So Heavy)",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "The heavy riff in 6/8 on the ride and the foot, the drums growing louder across the long fade.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-want-you-she-s-so-heavy-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "i-want-you",
+      "youtube": "https://www.youtube.com/watch?v=tAe2Q_LhY8g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22795"
+        }
+      ]
+    },
+    {
+      "title": "Here Comes the Sun",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "A bright 4/4 with the kick skipping ahead, then the bridge in 11/8, grouped three, three, three and two.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:here-comes-the-sun-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "here-comes-the-sun",
+      "also_song_keys": ["here-comes-the-sun-bridge"],
+      "youtube": "https://www.youtube.com/watch?v=KQetemT1sWc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=60"
+        }
+      ]
+    }
+  ]
+}

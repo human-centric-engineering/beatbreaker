@@ -12,6 +12,21 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Singin' the Blues",
+      "drummer_ids": ["drummer:chauncey-morehouse"],
+      "drums": {
+        "description": "Light, restrained beat that lets Bix's cornet float.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:singin-the-blues-sam-m-lewis-joe-young-con-conrad-and-j-r-robinson-song-wikipedia"
+          ]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:chauncey-morehouse-wikipedia"]

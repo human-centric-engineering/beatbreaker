@@ -10,5 +10,43 @@
       "drummer_id": "drummer:dj-fontana",
       "name": "D. J. Fontana"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Jailhouse Rock",
+      "drummer_ids": ["drummer:dj-fontana"],
+      "drums": {
+        "description": "The stop-time \"chain gang\" hits that open each verse, then a driving swing beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jailhouse-rock-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xqBdTn3_0Rw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15879"
+        }
+      ]
+    },
+    {
+      "title": "(You're So Square) Baby I Don't Care",
+      "drummer_ids": ["drummer:dj-fontana"],
+      "drums": {
+        "description": "A loose, shuffling beat behind the walking bass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:youre-so-square-baby-i-dont-care-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eG7LSTXB5s0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7161072"
+        }
+      ]
+    }
   ]
 }

@@ -18,6 +18,31 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Layla-Joy",
+      "drummer_ids": ["drummer:billy-hart"],
+      "drums": {
+        "description": "Hart's own composition: buoyant, open swing with rolling toms.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:enchance-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HGS3CuAQpV4"
+    },
+    {
+      "title": "Diff Customs",
+      "drummer_ids": ["drummer:billy-hart"],
+      "drums": {
+        "description": "Fast, loose post-bop time that breaks into freer sections.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:enchance-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:billy-hart-wikipedia"]

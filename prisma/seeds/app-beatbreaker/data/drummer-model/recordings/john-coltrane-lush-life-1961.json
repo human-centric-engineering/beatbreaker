@@ -1,0 +1,27 @@
+{
+  "id": "rec:john-coltrane-lush-life-1961",
+  "title": "Lush Life",
+  "artist": "John Coltrane",
+  "year": 1961,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:albert-heath"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "I Hear a Rhapsody",
+      "drummer_ids": ["drummer:albert-heath"],
+      "drums": {
+        "description": "Easy medium swing with Red Garland and Paul Chambers, from the May 1957 Prestige session.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lush-life-john-coltrane-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cCvS1CxlCAM"
+    }
+  ]
+}

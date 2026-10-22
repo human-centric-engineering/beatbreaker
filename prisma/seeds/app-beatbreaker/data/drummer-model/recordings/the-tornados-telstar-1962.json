@@ -15,5 +15,24 @@
       "name": "Clem Cattini",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Telstar",
+      "drummer_ids": ["drummer:clem-cattini"],
+      "drums": {
+        "description": "A galloping, driving beat under Joe Meek's space-age instrumental, the first US number one by a British group.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:telstar-instrumental-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=56910"
+        }
+      ]
+    }
   ]
 }

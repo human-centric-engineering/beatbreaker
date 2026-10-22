@@ -1,0 +1,27 @@
+{
+  "id": "rec:ornette-coleman-tomorrow-is-the-question-1959",
+  "title": "Tomorrow Is the Question!",
+  "artist": "Ornette Coleman",
+  "year": 1959,
+  "type": "album",
+  "style_ids": ["style:cool-jazz", "style:bebop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:shelly-manne"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Tomorrow Is the Question!",
+      "drummer_ids": ["drummer:shelly-manne"],
+      "drums": {
+        "description": "A supple West Coast swing that follows Coleman's free-shaped phrases instead of fixed chorus lengths.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tomorrow-is-the-question-wikipedia", "src:shelly-manne-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Q-4shPO0CcI"
+    }
+  ]
+}

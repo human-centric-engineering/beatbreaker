@@ -48,6 +48,48 @@
       "pattern_ids": ["pattern:rowntree-parklife", "pattern:rowntree-girls-and-boys"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Girls & Boys",
+      "drummer_ids": ["drummer:dave-rowntree"],
+      "drums": {
+        "description": "The drum machine he programmed: four on the floor with the hi-hat open between.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:girls-and-boys-wikipedia", "src:dave-rowntree-wikipedia"]
+        }
+      },
+      "style_key": "rowntree",
+      "song_key": "girls-and-boys",
+      "youtube": "https://www.youtube.com/watch?v=WDswiT87oo8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3028"
+        }
+      ]
+    },
+    {
+      "title": "Parklife",
+      "drummer_ids": ["drummer:dave-rowntree"],
+      "drums": {
+        "description": "The open hi-hat on every beat and the snare on the \"and\" of 4 every other bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:parklife-album-wikipedia"]
+        }
+      },
+      "style_key": "rowntree",
+      "song_key": "parklife",
+      "youtube": "https://www.youtube.com/watch?v=YSuHrTfcikU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=32119"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:parklife-album-wikipedia"]

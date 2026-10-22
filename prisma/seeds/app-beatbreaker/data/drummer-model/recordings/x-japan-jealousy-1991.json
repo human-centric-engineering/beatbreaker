@@ -10,5 +10,25 @@
       "drummer_id": "drummer:yoshiki",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Silent Jealousy",
+      "drummer_ids": ["drummer:yoshiki"],
+      "drums": {
+        "description": "A blazing, symphonic speed-metal beat with relentless double bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yoshiki-wikipedia", "src:jealousy-x-japan-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Oj9bvmzTR2A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=420837"
+        }
+      ]
+    }
   ]
 }

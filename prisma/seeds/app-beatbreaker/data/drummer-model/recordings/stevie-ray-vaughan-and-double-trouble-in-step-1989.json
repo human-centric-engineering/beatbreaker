@@ -10,5 +10,61 @@
       "drummer_id": "drummer:chris-layton",
       "name": "Chris Layton"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Crossfire",
+      "drummer_ids": ["drummer:chris-layton"],
+      "drums": {
+        "description": "Mid-tempo funk-blues backbeat with a tight, sixteenth-note-flavoured hi-hat under the horns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:in-step-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=t54xyIcgbks",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54636"
+        }
+      ]
+    },
+    {
+      "title": "The House Is Rockin'",
+      "drummer_ids": ["drummer:chris-layton"],
+      "drums": {
+        "description": "Upbeat boogie-woogie shuffle with a bright snare backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:in-step-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-G84P5K-W1c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54648"
+        }
+      ]
+    },
+    {
+      "title": "Tightrope",
+      "drummer_ids": ["drummer:chris-layton"],
+      "drums": {
+        "description": "Driving rock-shuffle groove with crisp fills into the choruses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:in-step-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uu7haLxD2WM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54660"
+        }
+      ]
+    }
   ]
 }

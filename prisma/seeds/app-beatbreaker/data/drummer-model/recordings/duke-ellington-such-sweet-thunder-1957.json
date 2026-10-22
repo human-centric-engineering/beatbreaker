@@ -12,6 +12,31 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Such Sweet Thunder",
+      "drummer_ids": ["drummer:sam-woodyard"],
+      "drums": {
+        "description": "A strutting, swaggering medium-tempo swing with a heavy backbeat in the Shakespearean suite.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:such-sweet-thunder-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Madness in Great Ones",
+      "drummer_ids": ["drummer:sam-woodyard"],
+      "drums": {
+        "description": "Sudden, erratic drum accents that depict Hamlet's feigned madness.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:such-sweet-thunder-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZV27D1fcTZI"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:sam-woodyard-wikipedia"]

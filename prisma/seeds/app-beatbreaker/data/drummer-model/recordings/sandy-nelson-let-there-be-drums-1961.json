@@ -15,5 +15,25 @@
       "name": "Sandy Nelson",
       "drummer_role": "leader"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Let There Be Drums",
+      "drummer_ids": ["drummer:sandy-nelson"],
+      "drums": {
+        "description": "A pounding floor-tom pattern carries the instrumental, with drum breaks between the guitar lines.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:let-there-be-drums-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zC9okWm8A6o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4851905"
+        }
+      ]
+    }
   ]
 }

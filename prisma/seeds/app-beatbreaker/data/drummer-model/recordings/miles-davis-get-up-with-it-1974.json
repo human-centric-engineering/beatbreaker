@@ -1,0 +1,38 @@
+{
+  "id": "rec:miles-davis-get-up-with-it-1974",
+  "title": "Get Up with It",
+  "artist": "Miles Davis",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:al-foster"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Rated X",
+      "drummer_ids": ["drummer:al-foster"],
+      "drums": {
+        "description": "Hypnotic, metronomic funk groove that drops in and out under the organ.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:get-up-with-it-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Calypso Frelimo",
+      "drummer_ids": ["drummer:al-foster"],
+      "drums": {
+        "description": "Long calypso-funk groove with crisp hat and rimshots.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:get-up-with-it-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ODNbsRI8mDg"
+    }
+  ]
+}

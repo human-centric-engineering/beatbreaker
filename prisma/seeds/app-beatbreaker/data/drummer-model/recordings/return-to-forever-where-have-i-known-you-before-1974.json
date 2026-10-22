@@ -1,0 +1,33 @@
+{
+  "id": "rec:return-to-forever-where-have-i-known-you-before-1974",
+  "title": "Where Have I Known You Before",
+  "artist": "Return to Forever",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lenny-white"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Vulcan Worlds",
+      "drummer_ids": ["drummer:lenny-white"],
+      "drums": {
+        "description": "Hard-driving jazz-rock with crashing accents behind Stanley Clarke's bass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:where-have-i-known-you-before-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZB-URmzBXLE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2218107"
+        }
+      ]
+    }
+  ]
+}

@@ -38,6 +38,58 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Duel of the Jester and the Tyrant",
+      "drummer_ids": ["drummer:lenny-white"],
+      "drums": {
+        "description": "Heavy half time with the snare on 3, unison eighth-note runs with the band and passages in 7/8.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:romantic-warrior-wikipedia", "src:lenny-white-wikipedia"]
+        }
+      },
+      "style_key": "lennywhite",
+      "song_key": "duel-of-the-jester-and-the-tyrant",
+      "youtube": "https://www.youtube.com/watch?v=1-PFPt88EcQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=914514"
+        }
+      ]
+    },
+    {
+      "title": "Medieval Overture",
+      "drummer_ids": ["drummer:lenny-white"],
+      "drums": {
+        "description": "The album's opener: fanfare-like unison figures and driving fusion time.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:romantic-warrior-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BB4roWRH6Bs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=515705"
+        }
+      ]
+    },
+    {
+      "title": "Sorceress",
+      "drummer_ids": ["drummer:lenny-white"],
+      "drums": {
+        "description": "White's own tune: a funky, swaggering groove with tight ghost notes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:romantic-warrior-wikipedia", "src:lenny-white-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bzDEzafNkfs"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:romantic-warrior-wikipedia"]

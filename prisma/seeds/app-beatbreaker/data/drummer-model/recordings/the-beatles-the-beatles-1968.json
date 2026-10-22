@@ -1,0 +1,95 @@
+{
+  "id": "rec:the-beatles-the-beatles-1968",
+  "title": "The Beatles",
+  "artist": "The Beatles",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "While My Guitar Gently Weeps",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Half time with the snare only on 3, heavy tom fills answering Clapton's guitar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:while-my-guitar-gently-weeps-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "while-my-guitar",
+      "youtube": "https://www.youtube.com/watch?v=VJDJs9dumZI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=373"
+        }
+      ]
+    },
+    {
+      "title": "Birthday",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Two bars: the kick in eighths with the snare on every beat, then a rock beat, and a famous drum break.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:birthday-beatles-song-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "birthday",
+      "youtube": "https://www.youtube.com/watch?v=dhdOPhTHeoE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22728"
+        }
+      ]
+    },
+    {
+      "title": "Yer Blues",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "A slow 12/8 blues on the ride, heavy and raw from the cramped recording room.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yer-blues-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "yer-blues",
+      "youtube": "https://www.youtube.com/watch?v=HEQQ-1rd4A0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=26437"
+        }
+      ]
+    },
+    {
+      "title": "Helter Skelter",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "The crash-ride ridden in eighths over four on the floor, flat-out until Ringo shouts that he has blisters on his fingers.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:helter-skelter-song-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "helter-skelter",
+      "youtube": "https://www.youtube.com/watch?v=vWW2SzoAXMo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22783"
+        }
+      ]
+    }
+  ]
+}

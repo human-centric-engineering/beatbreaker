@@ -1,0 +1,27 @@
+{
+  "id": "rec:eddie-palmieri-palmas-1994",
+  "title": "Palmas",
+  "artist": "Eddie Palmieri",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:giovanni-hidalgo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Palmas",
+      "drummer_ids": ["drummer:giovanni-hidalgo"],
+      "drums": {
+        "description": "Hidalgo's fast, melodic conga work drives Palmieri's Latin-jazz descarga.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:palmas-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=08LfaTFqiEo"
+    }
+  ]
+}

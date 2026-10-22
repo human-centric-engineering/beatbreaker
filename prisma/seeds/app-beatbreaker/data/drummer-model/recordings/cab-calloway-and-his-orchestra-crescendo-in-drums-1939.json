@@ -1,0 +1,27 @@
+{
+  "id": "rec:cab-calloway-and-his-orchestra-crescendo-in-drums-1939",
+  "title": "Crescendo in Drums",
+  "artist": "Cab Calloway and His Orchestra",
+  "year": 1939,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cozy-cole"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Crescendo in Drums",
+      "drummer_ids": ["drummer:cozy-cole"],
+      "drums": {
+        "description": "A drum-feature written for Cole with Calloway's band, building from quiet snare to full tom-tom rolls.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:cozy-cole-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=P-x4OhZ818Y"
+    }
+  ]
+}

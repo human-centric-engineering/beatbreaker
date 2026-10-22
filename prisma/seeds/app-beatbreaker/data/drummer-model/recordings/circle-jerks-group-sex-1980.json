@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Deny Everything",
+      "drummer_ids": ["drummer:lucky-lehrer"],
+      "drums": {
+        "description": "A frantic, ultra-fast beat; Lehrer's jazz-trained hands at hardcore speed.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lucky-lehrer-wikipedia", "src:group-sex-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Y3QTZnKFbKs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6376441"
+        }
+      ]
+    },
+    {
+      "title": "Wasted",
+      "drummer_ids": ["drummer:lucky-lehrer"],
+      "drums": {
+        "description": "A short, breakneck hardcore beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lucky-lehrer-wikipedia", "src:group-sex-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7l9PEXKDoqA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2992272"
+        }
+      ]
+    },
+    {
+      "title": "Red Tape",
+      "drummer_ids": ["drummer:lucky-lehrer"],
+      "drums": {
+        "description": "Fast punk drumming with sharp tom fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lucky-lehrer-wikipedia", "src:group-sex-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SJERE92z8PY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=503900"
+        }
+      ]
+    },
+    {
+      "title": "Live Fast Die Young",
+      "drummer_ids": ["drummer:lucky-lehrer"],
+      "drums": {
+        "description": "A driving punk beat with stop-start accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lucky-lehrer-wikipedia", "src:group-sex-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xZbdyfjLMwc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=69469"
+        }
+      ]
+    }
   ]
 }

@@ -52,6 +52,68 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Hungry Like the Wolf",
+      "drummer_ids": ["drummer:roger-taylor-duran-duran"],
+      "drums": {
+        "description": "The kick on every beat, the hi-hat only from the first chorus, the toms into every fifth bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hungry-like-the-wolf-wikipedia"]
+        }
+      },
+      "style_key": "rogertaylorduran",
+      "song_key": "hungry-like-the-wolf",
+      "youtube": "https://www.youtube.com/watch?v=oJL-lCzEXgI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6313"
+        }
+      ]
+    },
+    {
+      "title": "Save a Prayer",
+      "drummer_ids": ["drummer:roger-taylor-duran-duran"],
+      "drums": {
+        "description": "A cross-stick on 2 and 4 for two verses, the snare from the second chorus, and half time to the fade.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:save-a-prayer-wikipedia"]
+        }
+      },
+      "style_key": "rogertaylorduran",
+      "song_key": "save-a-prayer",
+      "youtube": "https://www.youtube.com/watch?v=6Uxc9eFcZyM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6599"
+        }
+      ]
+    },
+    {
+      "title": "Rio",
+      "drummer_ids": ["drummer:roger-taylor-duran-duran"],
+      "drums": {
+        "description": "One-handed sixteenths on the hi-hat, the kick on the 1 alone, the snare on every beat in the outro.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rio-duran-song-wikipedia"]
+        }
+      },
+      "style_key": "rogertaylorduran",
+      "song_key": "rio",
+      "youtube": "https://www.youtube.com/watch?v=nTizYn3-QN0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=30563"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

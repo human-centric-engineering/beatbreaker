@@ -50,6 +50,78 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Pent-Up House",
+      "drummer_ids": ["drummer:ari-hoenig"],
+      "drums": {
+        "description": "A brisk swing at about 240 with the hi-hat foot on 2 and 4 and comping groups that cut across the bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hoenig-freshsound-ny-standard", "src:hoenig-allsolos"]
+        }
+      },
+      "style_key": "hoenig",
+      "song_key": "pent-up-house",
+      "youtube": "https://www.youtube.com/watch?v=hBsjTfU8UVE"
+    },
+    {
+      "title": "Bessie's Blues",
+      "drummer_ids": ["drummer:ari-hoenig"],
+      "drums": {
+        "description": "A blues at a gallop near 270, the swing almost even, with five-note groupings in the solos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hoenig-freshsound-ny-standard", "src:hoenig-allsolos"]
+        }
+      },
+      "style_key": "hoenig",
+      "song_key": "bessies-blues",
+      "youtube": "https://www.youtube.com/watch?v=wOxfl0zSxDs"
+    },
+    {
+      "title": "In Walked Bud",
+      "drummer_ids": ["drummer:ari-hoenig"],
+      "drums": {
+        "description": "Medium-slow, with Monk's push on the last triplet and melodic drum statements.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hoenig-freshsound-ny-standard", "src:hoenig-allsolos"]
+        }
+      },
+      "style_key": "hoenig",
+      "song_key": "in-walked-bud",
+      "youtube": "https://www.youtube.com/watch?v=fAUsvh-qRlQ"
+    },
+    {
+      "title": "Boplicity",
+      "drummer_ids": ["drummer:ari-hoenig"],
+      "drums": {
+        "description": "Light swing with sudden changes of rhythmic feel inside the form.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hoenig-freshsound-ny-standard", "src:hoenig-allsolos"]
+        }
+      },
+      "style_key": "hoenig",
+      "song_key": "boplicity",
+      "youtube": "https://www.youtube.com/watch?v=WKwiT6PcW7M"
+    },
+    {
+      "title": "Someday My Prince Will Come",
+      "drummer_ids": ["drummer:ari-hoenig"],
+      "drums": {
+        "description": "A fast waltz carried by his hemiola: twos across the three.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hoenig-freshsound-ny-standard", "src:hoenig-allsolos"]
+        }
+      },
+      "style_key": "hoenig",
+      "song_key": "someday-my-prince-will-come",
+      "youtube": "https://www.youtube.com/watch?v=r9fePfFjlXo"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:hoenig-freshsound-ny-standard", "src:ari-hoenig-wikipedia"]

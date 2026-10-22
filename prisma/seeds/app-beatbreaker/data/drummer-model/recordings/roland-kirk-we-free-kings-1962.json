@@ -1,0 +1,39 @@
+{
+  "id": "rec:roland-kirk-we-free-kings-1962",
+  "title": "We Free Kings",
+  "artist": "Roland Kirk",
+  "year": 1962,
+  "type": "album",
+  "style_ids": ["style:bebop", "style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charli-persip"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Three for the Festival",
+      "drummer_ids": ["drummer:charli-persip"],
+      "drums": {
+        "description": "Bright, driving swing under Kirk's multi-horn and flute playing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:we-free-kings-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZofBqtRuq2o"
+    },
+    {
+      "title": "We Free Kings",
+      "drummer_ids": ["drummer:charli-persip"],
+      "drums": {
+        "description": "A relaxed, swinging medium blues feel under Kirk's take on the carol.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:we-free-kings-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=F1U624pq_Kw"
+    }
+  ]
+}

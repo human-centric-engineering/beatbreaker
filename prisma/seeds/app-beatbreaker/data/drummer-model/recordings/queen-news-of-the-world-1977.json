@@ -39,6 +39,28 @@
       "pattern_ids": ["pattern:rogertaylor-watc-chorus"]
     }
   ],
+  "tracks": [
+    {
+      "title": "We Are the Champions",
+      "drummer_ids": ["drummer:roger-taylor"],
+      "drums": {
+        "description": "6/8: the ride in eighths, the snare on the 4, the toms round the pre-chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-35507", "src:news-of-the-world-wikipedia"]
+        }
+      },
+      "style_key": "rogertaylor",
+      "song_key": "we-are-the-champions",
+      "youtube": "https://www.youtube.com/watch?v=04854XqcfCY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35507"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:news-of-the-world-wikipedia"]

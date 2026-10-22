@@ -1,0 +1,28 @@
+{
+  "id": "rec:bernard-purdie-master-drummers-volume-1-1996",
+  "title": "Master Drummers Volume 1",
+  "artist": "Bernard Purdie",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bernard-purdie"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hot Sweat",
+      "drummer_ids": ["drummer:bernard-purdie"],
+      "drums": {
+        "description": "His solo take on Cold Sweat: the backbeat on 2 and the \"and\" of 4, then on 2 and 4 with the kick doubled.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dnn-purdie"]
+        }
+      },
+      "style_key": "bernardpurdie",
+      "song_key": "hot-sweat"
+    }
+  ]
+}

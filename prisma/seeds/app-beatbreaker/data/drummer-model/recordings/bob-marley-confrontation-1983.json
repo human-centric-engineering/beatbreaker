@@ -55,6 +55,23 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Chant Down Babylon",
+      "artist": "Bob Marley & the Wailers",
+      "drummer_ids": ["drummer:santa-davis"],
+      "drums": {
+        "description": "The one drop with the hi-hat opened on the \"and\" of 2 and the high tom on the \"and\" of 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:confrontation-1983-wikipedia"]
+        }
+      },
+      "style_key": "santadavis",
+      "song_key": "chant-down-babylon",
+      "youtube": "https://www.youtube.com/watch?v=6AZAsarTZHo"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:confrontation-1983-wikipedia"]

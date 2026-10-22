@@ -18,6 +18,50 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "My Queen Is Ada Eastman",
+      "drummer_ids": ["drummer:tom-skinner"],
+      "drums": {
+        "description": "Skinner and Eddie Hick's two-drummer groove fusing Caribbean, Afrobeat and jazz rhythms.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:your-queen-is-a-reptile-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=T19IrfO3-LQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1505297"
+        }
+      ]
+    },
+    {
+      "title": "My Queen Is Harriet Tubman",
+      "drummer_ids": ["drummer:tom-skinner"],
+      "drums": {
+        "description": "Relentless, carnival-like double-drum groove under tuba and sax.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:your-queen-is-a-reptile-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=twjaSC5Ym9s"
+    },
+    {
+      "title": "My Queen Is Doreen Lawrence",
+      "drummer_ids": ["drummer:tom-skinner"],
+      "drums": {
+        "description": "Slow-building, heavy groove with interlocking kit parts.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:your-queen-is-a-reptile-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=b7tXkmJmrY0"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:tom-skinner-drummer-wikipedia"]

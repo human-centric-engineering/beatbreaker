@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-young-rascals-the-young-rascals-1966",
+  "title": "The Young Rascals",
+  "artist": "The Young Rascals",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:rock", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dino-danelli"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Mustang Sally",
+      "drummer_ids": ["drummer:dino-danelli"],
+      "drums": {
+        "description": "Steady soul backbeat under the organ vamp, with snare fills leading into each chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-young-rascals-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SDQJE3Kwqi4"
+    }
+  ]
+}

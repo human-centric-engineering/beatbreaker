@@ -11,6 +11,20 @@
       "why_it_matters": "His own record on Profile."
     }
   ],
+  "tracks": [
+    {
+      "title": "Here Comes That Beat!",
+      "drummer_ids": ["drummer:pumpkin"],
+      "drums": {
+        "description": "A tight, electro-funk drum groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:pumpkin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LTjvStUA6ws"
+    }
+  ],
   "release": "Profile",
   "evidence": {
     "confidence": "widely_reported",

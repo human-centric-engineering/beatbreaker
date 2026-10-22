@@ -1,0 +1,27 @@
+{
+  "id": "rec:will-bradley-and-his-orchestra-scrub-me-mama-with-a-boogie-beat-1940",
+  "title": "Scrub Me Mama with a Boogie Beat",
+  "artist": "Will Bradley and His Orchestra",
+  "year": 1940,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ray-mckinley"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Scrub Me Mama with a Boogie Beat",
+      "drummer_ids": ["drummer:ray-mckinley"],
+      "drums": {
+        "description": "Another boogie-woogie novelty with McKinley's eight-to-the-bar shuffle on the snare and his vocal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ray-mckinley-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Jj_fTrt7rLM"
+    }
+  ]
+}

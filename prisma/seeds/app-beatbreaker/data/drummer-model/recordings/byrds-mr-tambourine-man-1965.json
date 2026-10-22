@@ -55,6 +55,37 @@
           "src:blaine-guardian-obituary-2019"
         ]
       }
+    },
+    {
+      "drummer_id": "drummer:michael-clarke"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Mr. Tambourine Man",
+      "drummer_ids": ["drummer:hal-blaine"],
+      "drums": {
+        "description": "Ride eighths with the kick on 1, the \"and\" of 2 and 3; nothing changes but the fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mr-tambourine-man-wikipedia"]
+        }
+      },
+      "style_key": "halblaine",
+      "song_key": "mr-tambourine-man",
+      "youtube": "https://www.youtube.com/watch?v=Swqw5a8I4b4"
+    },
+    {
+      "title": "I'll Feel a Whole Lot Better",
+      "drummer_ids": ["drummer:michael-clarke"],
+      "drums": {
+        "description": "A driving, straight folk-rock beat with a bright snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mr-tambourine-man-album-wikipedia", "src:michael-clarke-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=to-RVV_3anw"
     }
   ],
   "evidence": {

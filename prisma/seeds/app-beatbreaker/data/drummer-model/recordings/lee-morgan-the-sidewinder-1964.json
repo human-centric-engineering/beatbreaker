@@ -18,6 +18,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Sidewinder",
+      "drummer_ids": ["drummer:billy-higgins"],
+      "drums": {
+        "description": "A loose, boogaloo-inflected swing with a backbeat feel that made the tune a jukebox hit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-sidewinder-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NHN6-yWFKPc"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:billy-higgins-wikipedia"]

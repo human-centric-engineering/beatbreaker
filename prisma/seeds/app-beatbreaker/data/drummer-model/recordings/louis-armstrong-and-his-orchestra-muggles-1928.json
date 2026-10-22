@@ -1,0 +1,27 @@
+{
+  "id": "rec:louis-armstrong-and-his-orchestra-muggles-1928",
+  "title": "Muggles",
+  "artist": "Louis Armstrong and His Orchestra",
+  "year": 1928,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zutty-singleton"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Muggles",
+      "drummer_ids": ["drummer:zutty-singleton"],
+      "drums": {
+        "description": "Restrained, swinging cymbal-choke timekeeping.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:zutty-singleton-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=X8o9Qtj8aUo"
+    }
+  ]
+}

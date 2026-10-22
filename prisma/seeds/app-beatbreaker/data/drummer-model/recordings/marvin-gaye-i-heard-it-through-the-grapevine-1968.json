@@ -10,5 +10,28 @@
       "drummer_id": "drummer:uriel-jones",
       "name": "Uriel Jones"
     }
+  ],
+  "tracks": [
+    {
+      "title": "I Heard It Through the Grapevine",
+      "drummer_ids": ["drummer:uriel-jones"],
+      "drums": {
+        "description": "A brooding, mid-tempo groove with tambourine on the backbeat and tom-heavy accents that build the menace.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:i-heard-it-through-the-grapevine-wikipedia",
+            "src:uriel-jones-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cXWHpbpNdHE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8504"
+        }
+      ]
+    }
   ]
 }

@@ -10,5 +10,18 @@
       "drummer_id": "drummer:june-gardner",
       "name": "June Gardner"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Tin Roof Blues",
+      "drummer_ids": ["drummer:june-gardner"],
+      "drums": {
+        "description": "Gardner's loose, swinging New Orleans parade-rooted time.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:june-gardner-wikipedia"]
+        }
+      }
+    }
   ]
 }

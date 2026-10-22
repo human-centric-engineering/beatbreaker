@@ -27,6 +27,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Let's Dance",
+      "drummer_ids": ["drummer:omar-hakim", "drummer:tony-thompson"],
+      "drums": {
+        "description": "A dry, four-on-the-floor dance groove with a tight snare on 2 and 4 and big gated tom accents in the build.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lets-dance-wikipedia", "src:wikipedia-hakim"]
+        }
+      },
+      "style_key": "hakim",
+      "song_key": "lets-dance",
+      "youtube": "https://www.youtube.com/watch?v=VbD_kBJc_gI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29034"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:wikipedia-hakim"]

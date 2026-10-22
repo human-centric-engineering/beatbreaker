@@ -1,0 +1,33 @@
+{
+  "id": "rec:all-allroy-saves-1990",
+  "title": "Allroy Saves",
+  "artist": "All",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:hardcore-punk", "style:pop-punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-stevenson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "She's My Ex",
+      "drummer_ids": ["drummer:bill-stevenson"],
+      "drums": {
+        "description": "Fast, tight punk-pop drumming with intricate snare fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bill-stevenson-wikipedia", "src:allroy-saves-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WMgDhEMyTI4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=679847"
+        }
+      ]
+    }
+  ]
+}

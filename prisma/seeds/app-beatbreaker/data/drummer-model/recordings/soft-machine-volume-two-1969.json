@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Hibou, Anemone and Bear",
+      "drummer_ids": ["drummer:robert-wyatt"],
+      "drums": {
+        "description": "Fast, light jazz drumming in odd meters under organ and brass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:volume-two-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RU5W_QjXo_A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1549757"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:robert-wyatt-wikipedia", "src:volume-two-soft-machine-album-wikipedia"]

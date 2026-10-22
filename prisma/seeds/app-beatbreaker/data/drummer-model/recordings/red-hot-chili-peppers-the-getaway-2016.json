@@ -43,6 +43,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Dark Necessities",
+      "drummer_ids": ["drummer:chad-smith"],
+      "drums": {
+        "description": "One-handed sixteenths on the hi-hat, the snare on 2 alone, the kick leaning into the 1.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-getaway-wikipedia"]
+        }
+      },
+      "style_key": "chadsmith",
+      "song_key": "dark-necessities",
+      "youtube": "https://www.youtube.com/watch?v=Q0oIoR9mLwc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=406578"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-getaway-wikipedia"]

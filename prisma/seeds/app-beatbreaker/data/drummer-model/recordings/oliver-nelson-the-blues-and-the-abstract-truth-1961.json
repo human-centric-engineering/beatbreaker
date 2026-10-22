@@ -1,0 +1,33 @@
+{
+  "id": "rec:oliver-nelson-the-blues-and-the-abstract-truth-1961",
+  "title": "The Blues and the Abstract Truth",
+  "artist": "Oliver Nelson",
+  "year": 1961,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:bebop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roy-haynes"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Stolen Moments",
+      "drummer_ids": ["drummer:roy-haynes"],
+      "drums": {
+        "description": "A relaxed medium swing on the ride under Nelson's voicings, the snare commenting lightly between phrases.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-blues-and-the-abstract-truth-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Q1dK1JHacbQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4308381"
+        }
+      ]
+    }
+  ]
+}

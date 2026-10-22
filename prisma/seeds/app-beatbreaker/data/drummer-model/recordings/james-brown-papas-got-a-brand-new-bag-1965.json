@@ -10,5 +10,19 @@
       "drummer_id": "drummer:melvin-parker",
       "name": "Melvin Parker"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Papa's Got a Brand New Bag",
+      "drummer_ids": ["drummer:melvin-parker"],
+      "drums": {
+        "description": "A choppy, emphatic beat with the kick on the one, a turning point toward funk.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:melvin-parker-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=M7DNkovC2Tk"
+    }
   ]
 }

@@ -1,0 +1,33 @@
+{
+  "id": "rec:morbid-angel-covenant-1993",
+  "title": "Covenant",
+  "artist": "Morbid Angel",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:death-metal", "style:grindcore"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pete-sandoval"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "God of Emptiness",
+      "drummer_ids": ["drummer:pete-sandoval"],
+      "drums": {
+        "description": "A slow, crushing double-kick groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:covenant-morbid-angel-album-wikipedia", "src:blast-beat-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lyPvUIt_YWg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12615"
+        }
+      ]
+    }
+  ]
+}

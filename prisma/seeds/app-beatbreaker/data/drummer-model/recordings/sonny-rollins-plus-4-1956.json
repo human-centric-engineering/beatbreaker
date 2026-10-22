@@ -59,6 +59,26 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Valse Hot",
+      "drummer_ids": ["drummer:max-roach"],
+      "drums": {
+        "description": "An early jazz waltz, played 'boom-tcheek-(hush)' with the third beat left light.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:max-roach-allsolos-valse-hot",
+            "src:max-roach-rollins-plus-4-wikipedia",
+            "src:max-roach-chambert-loir-2024"
+          ]
+        }
+      },
+      "style_key": "roach",
+      "song_key": "valse-hot",
+      "youtube": "https://www.youtube.com/watch?v=VC_y-qenACc"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

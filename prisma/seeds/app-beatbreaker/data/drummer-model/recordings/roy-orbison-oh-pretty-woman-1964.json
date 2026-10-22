@@ -1,0 +1,33 @@
+{
+  "id": "rec:roy-orbison-oh-pretty-woman-1964",
+  "title": "Oh, Pretty Woman",
+  "artist": "Roy Orbison",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:country", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-harman"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Oh, Pretty Woman",
+      "drummer_ids": ["drummer:buddy-harman"],
+      "drums": {
+        "description": "The pounding, tom-heavy beat that opens the record with the riff and keeps it marching.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:oh-pretty-woman-wikipedia", "src:buddy-harman-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=D3a8Seh3Cp4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15568"
+        }
+      ]
+    }
+  ]
+}

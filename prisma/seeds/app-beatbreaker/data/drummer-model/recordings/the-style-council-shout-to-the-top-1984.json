@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-style-council-shout-to-the-top-1984",
+  "title": "Shout to the Top!",
+  "artist": "The Style Council",
+  "year": 1984,
+  "type": "studio_track",
+  "style_ids": ["style:mod-revival"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-white"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Shout to the Top!",
+      "drummer_ids": ["drummer:steve-white"],
+      "drums": {
+        "description": "White's driving, jazz-trained sixteenths on the hat and a light snare propelling the strings.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:shout-to-the-top-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7m94ip38UKs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=460352"
+        }
+      ]
+    }
+  ]
+}

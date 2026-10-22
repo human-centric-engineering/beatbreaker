@@ -10,5 +10,22 @@
       "drummer_id": "drummer:maurice-white",
       "name": "Maurice White"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Rescue Me",
+      "drummer_ids": ["drummer:maurice-white"],
+      "drums": {
+        "description": "A driving Chess Records four-on-the-floor feel with the snare on 2 and 4, pushing the call-and-response vocal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:rescue-me-fontella-bass-song-wikipedia",
+            "src:maurice-white-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=idXeg1iUw5I"
+    }
   ]
 }

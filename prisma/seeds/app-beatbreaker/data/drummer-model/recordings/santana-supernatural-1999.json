@@ -1,0 +1,34 @@
+{
+  "id": "rec:santana-supernatural-1999",
+  "title": "Supernatural",
+  "artist": "Santana",
+  "year": 1999,
+  "type": "album",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:horacio-hernandez"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Africa Bamba",
+      "drummer_ids": ["drummer:horacio-hernandez"],
+      "drums": {
+        "description": "Sixteenth hats over a kick on 1, the a of 1, 2, 3 and the a of 3, a Cuban-tinged pop groove with the snare on 2 and 4.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:supernatural-santana-wikipedia", "src:horacio-hernandez-wikipedia"]
+        }
+      },
+      "style_key": "horaciohernandez",
+      "song_key": "africa-bamba",
+      "youtube": "https://www.youtube.com/watch?v=LALAhQEhN6E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=717963"
+        }
+      ]
+    }
+  ]
+}

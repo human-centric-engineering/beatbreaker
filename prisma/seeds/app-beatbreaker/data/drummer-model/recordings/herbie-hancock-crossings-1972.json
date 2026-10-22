@@ -18,6 +18,44 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Sleeping Giant",
+      "drummer_ids": ["drummer:billy-hart"],
+      "drums": {
+        "description": "A long suite where Hart moves from Afro-Latin grooves to driving funk and open free playing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:crossings-herbie-hancock-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AlDKMABCB2c"
+    },
+    {
+      "title": "Quasar",
+      "drummer_ids": ["drummer:billy-hart"],
+      "drums": {
+        "description": "Sparse, electronic-textured percussion colours.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:crossings-herbie-hancock-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=s-z_kvYf8l0"
+    },
+    {
+      "title": "Water Torture",
+      "drummer_ids": ["drummer:billy-hart"],
+      "drums": {
+        "description": "Slow, atmospheric mallets and cymbal swells.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:crossings-herbie-hancock-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=r639pil86ds"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:billy-hart-wikipedia"]

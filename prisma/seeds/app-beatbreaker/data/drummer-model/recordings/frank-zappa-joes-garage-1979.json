@@ -30,6 +30,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Keep It Greasey",
+      "drummer_ids": ["drummer:vinnie-colaiuta"],
+      "drums": {
+        "description": "With Zappa: a 4/4 opening, then a broken line on the bell over a busy kick through the odd-meter sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:joe-s-garage-wikipedia", "src:colaiuta-md-1982"]
+        }
+      },
+      "style_key": "colaiuta",
+      "song_key": "keep-it-greasey",
+      "youtube": "https://www.youtube.com/watch?v=FwAwA7SlD7M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=604777"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:colaiuta-md-1982", "src:songsterr-604777"]

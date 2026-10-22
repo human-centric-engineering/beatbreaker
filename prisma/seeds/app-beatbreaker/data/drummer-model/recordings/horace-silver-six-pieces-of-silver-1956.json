@@ -1,0 +1,27 @@
+{
+  "id": "rec:horace-silver-six-pieces-of-silver-1956",
+  "title": "Six Pieces of Silver",
+  "artist": "Horace Silver",
+  "year": 1956,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:louis-hayes"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Señor Blues",
+      "drummer_ids": ["drummer:louis-hayes"],
+      "drums": {
+        "description": "A Latin-tinged 6/8 groove under the blues melody.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:6-pieces-of-silver-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yKWphXfIsxs"
+    }
+  ]
+}

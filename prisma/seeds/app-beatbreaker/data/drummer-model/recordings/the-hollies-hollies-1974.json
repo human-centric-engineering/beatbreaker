@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-hollies-hollies-1974",
+  "title": "Hollies",
+  "artist": "The Hollies",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:merseybeat", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bobby-elliott"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Air That I Breathe",
+      "drummer_ids": ["drummer:bobby-elliott"],
+      "drums": {
+        "description": "Slow, spacious ballad with huge overdubbed tom fills drenched in plate reverb, engineered by Alan Parsons.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-air-that-i-breathe-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=S27uehI9FBo"
+    }
+  ]
+}

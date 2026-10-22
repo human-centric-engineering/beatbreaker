@@ -10,5 +10,49 @@
       "drummer_id": "drummer:matt-garstka",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Arithmophobia",
+      "drummer_ids": ["drummer:matt-garstka"],
+      "drums": {
+        "description": "Polyrhythmic, math-heavy groove work with metric illusions.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-madness-of-many-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7O5WsX4SeO4"
+    },
+    {
+      "title": "Inner Assassins",
+      "drummer_ids": ["drummer:matt-garstka"],
+      "drums": {
+        "description": "A heavy, syncopated groove with linear fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-madness-of-many-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9CN1WcQtAUM"
+    },
+    {
+      "title": "The Brain Dance",
+      "drummer_ids": ["drummer:matt-garstka"],
+      "drums": {
+        "description": "Shifting meters and polyrhythmic hi-hat work.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-madness-of-many-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aIE_eU1K1sc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=533181"
+        }
+      ]
+    }
   ]
 }

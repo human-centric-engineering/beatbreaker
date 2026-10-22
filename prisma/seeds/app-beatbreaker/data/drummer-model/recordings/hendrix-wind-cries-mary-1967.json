@@ -24,6 +24,48 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "The Wind Cries Mary",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Quiet, brushed-sounding shuffle feel with snare fills that sigh between the lines rather than drive.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-mitchell"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "wind-cries-mary",
+      "youtube": "https://www.youtube.com/watch?v=wVs7b1vcCr4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9045"
+        }
+      ]
+    },
+    {
+      "title": "Highway Chile",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A rock-and-roll shuffle with a driving snare, the B-side of The Wind Cries Mary.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-mitchell"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "highway-chile",
+      "youtube": "https://www.youtube.com/watch?v=KR13r55Avjc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22557"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:npr-mitchell"]

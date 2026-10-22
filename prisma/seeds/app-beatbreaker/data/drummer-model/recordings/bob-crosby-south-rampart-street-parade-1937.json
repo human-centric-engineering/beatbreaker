@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "South Rampart Street Parade",
+      "drummer_ids": ["drummer:ray-bauduc"],
+      "drums": {
+        "description": "Bauduc's own composition: a New Orleans parade beat translated to the swing band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ray-bauduc-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=T1v3ejPoIVM"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ray-bauduc-wikipedia"]

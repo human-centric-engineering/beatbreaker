@@ -18,6 +18,36 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "A Child Is Born",
+      "drummer_ids": ["drummer:mel-lewis"],
+      "drums": {
+        "description": "A ballad with brushes so soft they almost disappear, Lewis' famous restraint in a big band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:consummation-disambiguation-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10614"
+        }
+      ]
+    },
+    {
+      "title": "Tiptoe",
+      "drummer_ids": ["drummer:mel-lewis"],
+      "drums": {
+        "description": "A light, swinging medium tempo where the drums hold the big band with a small-group touch.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:consummation-disambiguation-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:mel-lewis-wikipedia"]

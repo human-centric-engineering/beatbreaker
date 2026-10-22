@@ -33,6 +33,136 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "If I Ever Lose My Faith in You",
+      "drummer_ids": ["drummer:vinnie-colaiuta"],
+      "drums": {
+        "description": "Hat sixteenths and a busy kick, then the ride and bell in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:if-i-ever-lose-my-faith-in-you-wikipedia"]
+        }
+      },
+      "style_key": "colaiuta",
+      "song_key": "if-i-ever-lose-my-faith-in-you",
+      "youtube": "https://www.youtube.com/watch?v=7km4EHgkQiw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19407"
+        }
+      ]
+    },
+    {
+      "title": "Love Is Stronger Than Justice",
+      "drummer_ids": ["drummer:vinnie-colaiuta"],
+      "drums": {
+        "description": "In 7/8, hat sixteenths, then the ride in quarters over the bar line.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:ten-summoner-s-tales-wikipedia",
+            "src:drumninja-love-is-stronger",
+            "src:colaiuta-md-1993"
+          ]
+        }
+      },
+      "style_key": "colaiuta",
+      "song_key": "love-is-stronger-than-justice",
+      "youtube": "https://www.youtube.com/watch?v=VhBq-ckOvNw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3092438"
+        }
+      ]
+    },
+    {
+      "title": "Fields of Gold",
+      "drummer_ids": ["drummer:vinnie-colaiuta"],
+      "drums": {
+        "description": "A cross-stick on 2 and 4, the kick on 1 and the 'and' of 2, and a shaker: restraint from a virtuoso.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fields-of-gold-wikipedia"]
+        }
+      },
+      "style_key": "colaiuta",
+      "song_key": "fields-of-gold",
+      "youtube": "https://www.youtube.com/watch?v=KLVq0IAzh1A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=397226"
+        }
+      ]
+    },
+    {
+      "title": "Seven Days",
+      "drummer_ids": ["drummer:vinnie-colaiuta"],
+      "drums": {
+        "description": "In 5/4 (felt as 5/8 pairs), the hat accent every quarter over the bar line, coming home every two bars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:seven-days-wikipedia", "src:songsterr-422388"]
+        }
+      },
+      "style_key": "colaiuta",
+      "song_key": "seven-days",
+      "youtube": "https://www.youtube.com/watch?v=pG7_gceIFL4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=422388"
+        }
+      ]
+    },
+    {
+      "title": "Saint Augustine in Hell",
+      "drummer_ids": ["drummer:vinnie-colaiuta"],
+      "drums": {
+        "description": "In 7/8, the ride bell every quarter across two bars and the snare on 3 and 7.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:ten-summoner-s-tales-wikipedia",
+            "src:songsterr-3779971",
+            "src:bonedo-2018-colaiuta"
+          ]
+        }
+      },
+      "style_key": "colaiuta",
+      "song_key": "saint-augustine-in-hell",
+      "youtube": "https://www.youtube.com/watch?v=YdnZh-CLMlM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3779971"
+        }
+      ]
+    },
+    {
+      "title": "Shape of My Heart",
+      "drummer_ids": ["drummer:vinnie-colaiuta"],
+      "drums": {
+        "description": "Hat sixteenths, the kick on 1 and 3 and a cross-stick on 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:shape-of-my-heart-sting-song-wikipedia"]
+        }
+      },
+      "style_key": "colaiuta",
+      "song_key": "shape-of-my-heart",
+      "youtube": "https://www.youtube.com/watch?v=NlwIDxCjL-8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22055"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:colaiuta-md-1993", "src:seven-days-wikipedia", "src:songsterr-422388"]

@@ -15,5 +15,19 @@
       "name": "Bobby Graham",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Downtown",
+      "drummer_ids": ["drummer:bobby-graham"],
+      "drums": {
+        "description": "A building, orchestral pop part that drives the chorus with a big, forward beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:downtown-petula-clark-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=x2OhonbKiOk"
+    }
   ]
 }

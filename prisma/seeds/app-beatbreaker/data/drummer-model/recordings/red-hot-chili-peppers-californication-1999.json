@@ -44,6 +44,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Around the World",
+      "drummer_ids": ["drummer:chad-smith"],
+      "drums": {
+        "description": "Sixteenths on the hi-hat around 2 and 4, then half-open eighths and a ghost-and-hit on 2.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:californication-album-wikipedia"]
+        }
+      },
+      "style_key": "chadsmith",
+      "song_key": "around-the-world",
+      "youtube": "https://www.youtube.com/watch?v=a9eNQZbjpJk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14046"
+        }
+      ]
+    },
+    {
+      "title": "Scar Tissue",
+      "drummer_ids": ["drummer:chad-smith"],
+      "drums": {
+        "description": "Ghost notes all round an accented backbeat, quarters half-open on the hi-hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:californication-album-wikipedia"]
+        }
+      },
+      "style_key": "chadsmith",
+      "song_key": "scar-tissue",
+      "youtube": "https://www.youtube.com/watch?v=mzJj5-lubeM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:californication-album-wikipedia"]

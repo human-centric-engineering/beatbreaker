@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-hollies-look-through-any-window-1965",
+  "title": "Look Through Any Window",
+  "artist": "The Hollies",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bobby-elliott"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Look Through Any Window",
+      "drummer_ids": ["drummer:bobby-elliott"],
+      "drums": {
+        "description": "Bright, driving eighth-note feel under the jangling twelve-string, with short snare fills marking the sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:look-through-any-window-wikipedia", "src:bobby-elliott-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TeYNCvvRA4U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=197641"
+        }
+      ]
+    }
+  ]
+}

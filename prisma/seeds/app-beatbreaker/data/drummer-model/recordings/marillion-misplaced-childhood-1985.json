@@ -12,6 +12,38 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Kayleigh",
+      "drummer_ids": ["drummer:ian-mosley"],
+      "drums": {
+        "description": "A restrained, singing groove with a crisp snare and tasteful fills that carry the band's biggest hit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:kayleigh-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FiM0JiE0h5I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=42673"
+        }
+      ]
+    },
+    {
+      "title": "Heart of Lothian",
+      "drummer_ids": ["drummer:ian-mosley"],
+      "drums": {
+        "description": "A driving, anthemic rock beat inside the album's continuous suite.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:heart-of-lothian-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9pkyZhlK8Q0"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ian-mosley-wikipedia", "src:misplaced-childhood-wikipedia"]

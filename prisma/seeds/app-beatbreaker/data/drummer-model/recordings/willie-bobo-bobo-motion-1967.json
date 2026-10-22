@@ -1,0 +1,27 @@
+{
+  "id": "rec:willie-bobo-bobo-motion-1967",
+  "title": "Bobo Motion",
+  "artist": "Willie Bobo",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:salsa"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:willie-bobo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Evil Ways",
+      "drummer_ids": ["drummer:willie-bobo"],
+      "drums": {
+        "description": "Bobo's original recording of the song Santana made a hit: a cha-cha-soul groove with timbales accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-willie-bobo"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=iSlgD9lJNIE"
+    }
+  ]
+}

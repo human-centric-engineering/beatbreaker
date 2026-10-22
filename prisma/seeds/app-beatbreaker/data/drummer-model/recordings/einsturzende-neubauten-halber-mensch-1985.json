@@ -16,5 +16,49 @@
       "drummer_role": "co_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Yü-Gung (Fütter mein Ego)",
+      "drummer_ids": ["drummer:fm-einheit"],
+      "drums": {
+        "description": "A pounding pattern on metal and found percussion instead of a drum kit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fm-einheit-wikipedia", "src:halber-mensch-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4H2bYIEAFsU"
+    },
+    {
+      "title": "Halber Mensch",
+      "drummer_ids": ["drummer:fm-einheit"],
+      "drums": {
+        "description": "Choral voices over sparse metallic percussion.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fm-einheit-wikipedia", "src:halber-mensch-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ILFB2ASezoY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=880590"
+        }
+      ]
+    },
+    {
+      "title": "Z.N.S.",
+      "drummer_ids": ["drummer:fm-einheit"],
+      "drums": {
+        "description": "Clanging industrial percussion on scrap metal.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fm-einheit-wikipedia", "src:halber-mensch-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vLEYCGeV9hs"
+    }
   ]
 }

@@ -10,5 +10,37 @@
       "drummer_id": "drummer:derek-roddy",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "I, Monarch",
+      "drummer_ids": ["drummer:derek-roddy"],
+      "drums": {
+        "description": "Relentless, precise blasts and double kick at extreme tempos.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:derek-roddy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fO_FutBvDh8"
+    },
+    {
+      "title": "Behold Judas",
+      "drummer_ids": ["drummer:derek-roddy"],
+      "drums": {
+        "description": "Hyper-speed blasts and tight fills into slower sections.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:derek-roddy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sEwVj9nwTrg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4928901"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "id": "rec:johnny-cash-and-june-carter-jackson-1967",
+  "title": "Jackson",
+  "artist": "Johnny Cash and June Carter",
+  "year": 1967,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:americana"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ws-holland"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Jackson",
+      "drummer_ids": ["drummer:ws-holland"],
+      "drums": {
+        "description": "A brisk, chugging country beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jackson-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=m67eqm0mNCQ"
+    }
+  ]
+}

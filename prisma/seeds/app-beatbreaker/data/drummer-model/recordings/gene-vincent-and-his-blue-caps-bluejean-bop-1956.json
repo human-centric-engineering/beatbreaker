@@ -1,0 +1,26 @@
+{
+  "id": "rec:gene-vincent-and-his-blue-caps-bluejean-bop-1956",
+  "title": "Bluejean Bop!",
+  "artist": "Gene Vincent and His Blue Caps",
+  "year": 1956,
+  "type": "album",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dickie-harrell"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Blue Jean Bop",
+      "drummer_ids": ["drummer:dickie-harrell"],
+      "drums": {
+        "description": "A tight, swinging rockabilly beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bluejean-bop-wikipedia"]
+        }
+      }
+    }
+  ]
+}

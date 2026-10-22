@@ -10,5 +10,25 @@
       "drummer_id": "drummer:hellhammer",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Master of Disguise",
+      "drummer_ids": ["drummer:hellhammer"],
+      "drums": {
+        "description": "Fast, varied avant-garde metal drumming that moves through changing tempos and theatrical sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:la-masquerade-infernale-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ttb2gqIH-bg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=653298"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,45 @@
+{
+  "id": "rec:return-to-forever-musicmagic-1977",
+  "title": "Musicmagic",
+  "artist": "Return to Forever",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gerry-brown"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Musicmagic",
+      "drummer_ids": ["drummer:gerry-brown"],
+      "drums": {
+        "description": "Funk-fusion drumming under a horn section, crisp backbeat and fast fills in Return to Forever’s last studio line-up.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:musicmagic-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0SdoKjuDrrQ"
+    },
+    {
+      "title": "The Musician",
+      "drummer_ids": ["drummer:gerry-brown"],
+      "drums": {
+        "description": "A long suite where the drums move between funk grooves and fusion swing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:musicmagic-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZmIcpFfmZ0s",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5459517"
+        }
+      ]
+    }
+  ]
+}

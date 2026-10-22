@@ -53,6 +53,25 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Moment's Notice",
+      "drummer_ids": ["drummer:ari-hoenig"],
+      "drums": {
+        "description": "Coltrane's tune reharmonised into a bright 7/8 head.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:hoenig-aaj-berts-playground-2009",
+            "src:hoenig-berts-playground-release-2008"
+          ]
+        }
+      },
+      "style_key": "hoenig",
+      "song_key": "moments-notice",
+      "youtube": "https://www.youtube.com/watch?v=JnNWrf70NoM"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

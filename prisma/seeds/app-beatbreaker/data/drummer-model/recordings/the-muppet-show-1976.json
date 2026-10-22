@@ -13,6 +13,19 @@
       "why_it_matters": "Verrell played Animal's drums."
     }
   ],
+  "tracks": [
+    {
+      "title": "The Muppet Show Theme",
+      "drummer_ids": ["drummer:ronnie-verrell"],
+      "drums": {
+        "description": "Animal's drumming was Verrell's: a frantic, cymbal-crashing big-band style behind the puppet.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ronnie-verrell-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:ronnie-verrell-wikipedia"]

@@ -1,0 +1,33 @@
+{
+  "id": "rec:grateful-dead-shakedown-street-1978",
+  "title": "Shakedown Street",
+  "artist": "Grateful Dead",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:jam-band", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mickey-hart"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Fire on the Mountain",
+      "drummer_ids": ["drummer:mickey-hart"],
+      "drums": {
+        "description": "A loping, reggae-tinged two-drummer groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mickey-hart-wikipedia", "src:shakedown-street-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=O_YcGpQmYSU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=623766"
+        }
+      ]
+    }
+  ]
+}

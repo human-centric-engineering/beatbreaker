@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "In 'n' Out of Grace",
+      "drummer_ids": ["drummer:dan-peters"],
+      "drums": {
+        "description": "A drum solo opening into a heavy, driving punk groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:superfuzz-bigmuff-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LYKAXJC1Lkk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1675416"
+        }
+      ]
+    }
   ]
 }

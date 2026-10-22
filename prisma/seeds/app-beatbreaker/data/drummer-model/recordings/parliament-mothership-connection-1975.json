@@ -10,5 +10,79 @@
       "drummer_id": "drummer:jerome-brailey",
       "name": "Jerome Brailey"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Give Up the Funk (Tear the Roof off the Sucker)",
+      "drummer_ids": ["drummer:jerome-brailey"],
+      "drums": {
+        "description": "A slow, heavy funk groove that sits on the one under the chant.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jerome-brailey-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xNpNTkSkrU8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=622392"
+        }
+      ]
+    },
+    {
+      "title": "P. Funk (Wants to Get Funked Up)",
+      "drummer_ids": ["drummer:jerome-brailey"],
+      "drums": {
+        "description": "A deep, loose funk groove under the radio-host vocal.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jerome-brailey-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Iq8bTcEIu-E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1472520"
+        }
+      ]
+    },
+    {
+      "title": "Mothership Connection (Star Child)",
+      "drummer_ids": ["drummer:jerome-brailey"],
+      "drums": {
+        "description": "A slow, deep funk groove laid back on the one.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jerome-brailey-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GrmGQeX8naA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=641489"
+        }
+      ]
+    },
+    {
+      "title": "Unfunky UFO",
+      "drummer_ids": ["drummer:jerome-brailey"],
+      "drums": {
+        "description": "A tight, bouncing funk beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jerome-brailey-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jjQ4iYh039g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5835862"
+        }
+      ]
+    }
   ]
 }

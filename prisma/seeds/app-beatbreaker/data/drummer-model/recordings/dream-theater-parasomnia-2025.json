@@ -43,6 +43,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Night Terror",
+      "drummer_ids": ["drummer:mike-portnoy"],
+      "drums": {
+        "description": "Portnoy's return: a heavy, odd-meter groove with double-bass runs and a busy instrumental section.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:parasomnia-album-wikipedia"]
+        }
+      },
+      "style_key": "portnoy",
+      "song_key": "night-terror",
+      "youtube": "https://www.youtube.com/watch?v=2IPT60hvGw4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=760097"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:parasomnia-album-wikipedia"]

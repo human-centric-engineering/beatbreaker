@@ -17,5 +17,52 @@
         "source_ids": ["src:wikipedia-dom-um-romao"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "The Girl from Ipanema",
+      "drummer_ids": ["drummer:dom-um-romao"],
+      "drums": {
+        "description": "A hushed bossa nova on brushes and cross-stick, a soft rim-click pattern under Sinatra and Jobim.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:francis-albert-sinatra-and-antonio-carlos-jobim-wikipedia",
+            "src:wikipedia-dom-um-romao"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NldPFVKYmiw"
+    },
+    {
+      "title": "Dindi",
+      "drummer_ids": ["drummer:dom-um-romao"],
+      "drums": {
+        "description": "Brushes barely touching the snare: a bossa pulse kept so quiet it is felt more than heard under the strings.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:francis-albert-sinatra-and-antonio-carlos-jobim-wikipedia",
+            "src:wikipedia-dom-um-romao"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tjphZl8KX64"
+    },
+    {
+      "title": "Quiet Nights of Quiet Stars",
+      "drummer_ids": ["drummer:dom-um-romao"],
+      "drums": {
+        "description": "Cross-stick bossa with brushed eighths, the Brazilian feel carried by a drummer from Rio rather than an American imitation.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:francis-albert-sinatra-and-antonio-carlos-jobim-wikipedia",
+            "src:wikipedia-dom-um-romao"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uU1mz6WburU"
+    }
   ]
 }

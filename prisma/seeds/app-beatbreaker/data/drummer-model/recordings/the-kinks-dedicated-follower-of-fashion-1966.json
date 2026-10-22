@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-kinks-dedicated-follower-of-fashion-1966",
+  "title": "Dedicated Follower of Fashion",
+  "artist": "The Kinks",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-avory"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Dedicated Follower of Fashion",
+      "drummer_ids": ["drummer:mick-avory"],
+      "drums": {
+        "description": "A jaunty music-hall bounce with a light two-beat feel, where Avory plays to the satire rather than over it.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dedicated-follower-of-fashion-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=stMf0S3xth0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10892"
+        }
+      ]
+    }
+  ]
+}

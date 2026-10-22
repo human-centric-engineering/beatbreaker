@@ -1,0 +1,33 @@
+{
+  "id": "rec:elvis-presley-too-much-1957",
+  "title": "Too Much",
+  "artist": "Elvis Presley",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:americana"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dj-fontana"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Too Much",
+      "drummer_ids": ["drummer:dj-fontana"],
+      "drums": {
+        "description": "A swinging, mid-tempo rock and roll beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:too-much-elvis-presley-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GPc8XNtlDk4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=411769"
+        }
+      ]
+    }
+  ]
+}

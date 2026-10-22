@@ -50,6 +50,29 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Blue Rondo à la Turk",
+      "drummer_ids": ["drummer:joe-morello"],
+      "drums": {
+        "description": "A 9/8 grouped 2+2+2+3 that alternates with straight 4/4 swing for the solos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blue-rondo-wikipedia", "src:joe-morello-wikipedia"]
+        }
+      },
+      "style_key": "morello",
+      "song_key": "blue-rondo-a-la-turk",
+      "also_song_keys": ["blue-rondo-solos"],
+      "youtube": "https://www.youtube.com/watch?v=FqPC-BkylxA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=715238"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

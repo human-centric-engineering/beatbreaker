@@ -43,6 +43,28 @@
       "pattern_ids": ["pattern:budgie-israel"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Israel",
+      "drummer_ids": ["drummer:budgie"],
+      "drums": {
+        "description": "The mid tom on 1 and the snare on 2, 3 and 4, a tom-led groove instead of a backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:israel-siouxsie-wikipedia", "src:songsterr-17648"]
+        }
+      },
+      "style_key": "budgie",
+      "song_key": "israel",
+      "youtube": "https://www.youtube.com/watch?v=-TAlS7J9Ofk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17648"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:israel-siouxsie-wikipedia"]

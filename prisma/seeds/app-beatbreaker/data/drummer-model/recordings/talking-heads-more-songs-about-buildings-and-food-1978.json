@@ -1,0 +1,33 @@
+{
+  "id": "rec:talking-heads-more-songs-about-buildings-and-food-1978",
+  "title": "More Songs About Buildings and Food",
+  "artist": "Talking Heads",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:new-wave", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-frantz"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Take Me to the River",
+      "drummer_ids": ["drummer:chris-frantz"],
+      "drums": {
+        "description": "Slows Al Green's soul song into a heavy, deliberate groove with a deep, dry snare on the backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:more-songs-about-buildings-and-food-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bP3PIn8ff74",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=20101"
+        }
+      ]
+    }
+  ]
+}

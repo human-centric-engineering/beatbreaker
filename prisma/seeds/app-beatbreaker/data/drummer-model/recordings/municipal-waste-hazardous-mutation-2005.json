@@ -1,0 +1,51 @@
+{
+  "id": "rec:municipal-waste-hazardous-mutation-2005",
+  "title": "Hazardous Mutation",
+  "artist": "Municipal Waste",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:grindcore", "style:hardcore-punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-witte"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Born to Party",
+      "drummer_ids": ["drummer:dave-witte"],
+      "drums": {
+        "description": "Fast crossover-thrash skank beats with tight stops and a gang-chorus breakdown.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hazardous-mutation-wikipedia", "src:dave-witte-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1MrQYyYI8W4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1053199"
+        }
+      ]
+    },
+    {
+      "title": "Sadistic Magician",
+      "drummer_ids": ["drummer:dave-witte"],
+      "drums": {
+        "description": "Breakneck thrash beats with crash-heavy accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hazardous-mutation-wikipedia", "src:dave-witte-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9lZ2mNJrnDQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=47941"
+        }
+      ]
+    }
+  ]
+}

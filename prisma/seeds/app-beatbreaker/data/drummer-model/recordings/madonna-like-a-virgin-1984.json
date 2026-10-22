@@ -39,6 +39,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Like a Virgin",
+      "drummer_ids": ["drummer:tony-thompson"],
+      "drums": {
+        "description": "The hat in eighths, the kick on 1 and 3, locked with the bass in the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:like-a-virgin-wikipedia",
+            "src:songsterr-3187882",
+            "src:tony-thompson-wikipedia"
+          ]
+        }
+      },
+      "style_key": "tonythompson",
+      "song_key": "like-a-virgin",
+      "youtube": "https://www.youtube.com/watch?v=s__rX_WL100",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10767"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:like-a-virgin-wikipedia", "src:thompson-moderndrummer-2002"]

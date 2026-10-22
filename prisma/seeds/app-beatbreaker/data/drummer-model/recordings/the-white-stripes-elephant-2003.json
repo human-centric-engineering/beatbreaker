@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Seven Nation Army",
+      "drummer_ids": ["drummer:meg-white"],
+      "drums": {
+        "description": "A plain, stamping kick on quarters with the snare entering later: a beat stripped to the minimum.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:elephant-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0J2QdDbelmY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=265"
+        }
+      ]
+    },
+    {
+      "title": "The Hardest Button to Button",
+      "drummer_ids": ["drummer:meg-white"],
+      "drums": {
+        "description": "Kick and floor tom hitting together in a stark, repeated figure.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:elephant-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=K4dx42YzQCE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=494"
+        }
+      ]
+    },
+    {
+      "title": "Ball and Biscuit",
+      "drummer_ids": ["drummer:meg-white"],
+      "drums": {
+        "description": "A slow, heavy blues beat left wide open for the guitar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:elephant-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xMr86enHvGo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=20550"
+        }
+      ]
+    }
   ]
 }

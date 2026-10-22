@@ -34,6 +34,66 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Matrix",
+      "drummer_ids": ["drummer:roy-haynes"],
+      "drums": {
+        "description": "Broken time on a flat ride, threes, sixes and fives laid over the 4/4 at 288.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:roy-haynes-huopainen-2024", "src:now-he-sings-wikipedia"]
+        }
+      },
+      "style_key": "haynes",
+      "song_key": "matrix",
+      "youtube": "https://www.youtube.com/watch?v=cJuBYSg0wnA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3179550"
+        }
+      ]
+    },
+    {
+      "title": "Now He Sings, Now He Sobs",
+      "drummer_ids": ["drummer:roy-haynes"],
+      "drums": {
+        "description": "Loose, conversational time on the flat ride, the snare and bass drum answering Corea rather than marking beats.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:now-he-sings-wikipedia", "src:roy-haynes-pas-playlist"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9AFhQ1-Vuhc"
+    },
+    {
+      "title": "Steps – What Was",
+      "drummer_ids": ["drummer:roy-haynes"],
+      "drums": {
+        "description": "Opens on an unaccompanied piano, then fast broken time and a long trio exchange.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:now-he-sings-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=foPHn7xGjZE"
+    },
+    {
+      "title": "Windows",
+      "drummer_ids": ["drummer:roy-haynes"],
+      "drums": {
+        "description": "A waltz with accents in odd places and triplets split between snare and bass drum.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:roy-haynes-bishop-windows"]
+        }
+      },
+      "style_key": "haynes",
+      "song_key": "windows",
+      "youtube": "https://www.youtube.com/watch?v=DW9OICMdqHY"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:now-he-sings-wikipedia", "src:roy-haynes-huopainen-2024"]

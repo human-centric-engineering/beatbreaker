@@ -1,0 +1,26 @@
+{
+  "id": "rec:magma-kohntarkosz-1974",
+  "title": "Köhntarkösz",
+  "artist": "Magma",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:christian-vander"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Köhntarkösz",
+      "drummer_ids": ["drummer:christian-vander"],
+      "drums": {
+        "description": "A slow, hypnotic build with rolling toms.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:kohntarkosz-wikipedia"]
+        }
+      }
+    }
+  ]
+}

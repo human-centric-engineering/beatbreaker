@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Ommadawn, Part One",
+      "drummer_ids": ["drummer:pierre-moerlen"],
+      "drums": {
+        "description": "Timpani and percussion that grow under the African drumming climax.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ommadawn-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4mWQoB6L85c"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:pierre-moerlen-wikipedia"]

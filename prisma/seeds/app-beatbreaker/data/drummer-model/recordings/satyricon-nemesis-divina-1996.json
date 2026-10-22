@@ -10,5 +10,61 @@
       "drummer_id": "drummer:frost",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Mother North",
+      "drummer_ids": ["drummer:frost"],
+      "drums": {
+        "description": "Extremely fast, precise blasting with sudden drops to a stately mid-tempo; a landmark of Norwegian black-metal drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:nemesis-divina-wikipedia", "src:frost-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aHfXQCtnyfA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18402"
+        }
+      ]
+    },
+    {
+      "title": "Forhekset",
+      "drummer_ids": ["drummer:frost"],
+      "drums": {
+        "description": "Relentless high-speed blasts and double-kick runs held with machine-like control.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:nemesis-divina-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pEy8zkPfUYQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17802"
+        }
+      ]
+    },
+    {
+      "title": "Du som hater Gud",
+      "drummer_ids": ["drummer:frost"],
+      "drums": {
+        "description": "Fast double-kick drive and blasts alternating with heavy mid-paced sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:nemesis-divina-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Ex8DQMamZPg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17538"
+        }
+      ]
+    }
   ]
 }

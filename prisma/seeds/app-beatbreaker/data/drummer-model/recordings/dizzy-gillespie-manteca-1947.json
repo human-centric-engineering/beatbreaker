@@ -17,5 +17,25 @@
         "source_ids": ["src:wikipedia-chano-pozo"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Manteca",
+      "drummer_ids": ["drummer:chano-pozo"],
+      "drums": {
+        "description": "Pozo's conga ostinato opens and carries the tune he co-wrote: the first Afro-Cuban groove at the centre of a bebop big band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:manteca-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=A4_gX2_phX4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4110802"
+        }
+      ]
+    }
   ]
 }

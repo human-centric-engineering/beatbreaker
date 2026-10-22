@@ -10,5 +10,91 @@
       "drummer_id": "drummer:odie-payne",
       "name": "Odie Payne"
     }
+  ],
+  "tracks": [
+    {
+      "title": "I Need You So Bad",
+      "drummer_ids": ["drummer:odie-payne"],
+      "drums": {
+        "description": "Slow West Side blues with a deep, patient backbeat that leaves room for the vocal.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:west-side-soul-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1MoKLnUtoN0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4388601"
+        }
+      ]
+    },
+    {
+      "title": "All of Your Love",
+      "drummer_ids": ["drummer:odie-payne"],
+      "drums": {
+        "description": "Minor-key groove that switches between a rumba-like feel and a fast shuffle in the solo, the West Side signature.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:west-side-soul-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SvzPNBDt7Eo"
+    },
+    {
+      "title": "I Don't Want No Woman",
+      "drummer_ids": ["drummer:odie-payne"],
+      "drums": {
+        "description": "Medium shuffle in the two-handed double-shuffle manner Payne was known for.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:west-side-soul-wikipedia", "src:odie-payne-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FTfLEoKhRjI"
+    },
+    {
+      "title": "Sweet Home Chicago",
+      "drummer_ids": ["drummer:odie-payne"],
+      "drums": {
+        "description": "Bright, driving shuffle with a strong backbeat, a model Chicago shuffle.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:west-side-soul-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=D0uo947VKhs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4132873"
+        }
+      ]
+    },
+    {
+      "title": "Lookin' Good",
+      "drummer_ids": ["drummer:odie-payne"],
+      "drums": {
+        "description": "Fast instrumental shuffle held at a fierce tempo.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:west-side-soul-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6rRcjfB1YAs"
+    },
+    {
+      "title": "Mama Talk to Your Daughter",
+      "drummer_ids": ["drummer:odie-payne"],
+      "drums": {
+        "description": "Upbeat boogie shuffle with snappy snare.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:west-side-soul-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dNslOrjFQCU"
+    }
   ]
 }

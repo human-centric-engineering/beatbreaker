@@ -11,6 +11,80 @@
       "why_it_matters": "Avant jazz-rock."
     }
   ],
+  "tracks": [
+    {
+      "title": "Vinnie",
+      "drummer_ids": ["drummer:jojo-mayer"],
+      "drums": {
+        "description": "Fast fusion-funk groove with dense ghost-note sixteenths and odd-grouped fills, Mayer's showcase on the band's debut.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:1995-screaming-headless-torsos-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WTmDfijPEQA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=630471"
+        }
+      ]
+    },
+    {
+      "title": "Free Man",
+      "drummer_ids": ["drummer:jojo-mayer"],
+      "drums": {
+        "description": "A heavy funk backbeat with displaced kick figures and sudden double-time bursts.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:1995-screaming-headless-torsos-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OXIzIADr2Ak"
+    },
+    {
+      "title": "Graffiti Cemetery",
+      "drummer_ids": ["drummer:jojo-mayer"],
+      "drums": {
+        "description": "Rapid-fire linear patterns between hands and feet over shifting rock and funk sections.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:1995-screaming-headless-torsos-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=v1rLXQzt_f4"
+    },
+    {
+      "title": "Smile in a Wave",
+      "drummer_ids": ["drummer:jojo-mayer"],
+      "drums": {
+        "description": "Light, swinging brushes-like touch on sticks under the ballad, with spare cymbal colour.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:1995-screaming-headless-torsos-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9GcyuD1TWqI"
+    },
+    {
+      "title": "Cult of the Internal Sun",
+      "drummer_ids": ["drummer:jojo-mayer"],
+      "drums": {
+        "description": "Busy, polyrhythmic funk-metal drumming with metric shifts between riffs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:1995-screaming-headless-torsos-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=349LwyPcVLk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7047566"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jojo-mayer-wikipedia"]

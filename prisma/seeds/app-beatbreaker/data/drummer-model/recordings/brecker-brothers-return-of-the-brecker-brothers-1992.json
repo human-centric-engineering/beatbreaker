@@ -15,5 +15,37 @@
       "name": "Dennis Chambers",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Above & Below",
+      "drummer_ids": ["drummer:dennis-chambers"],
+      "drums": {
+        "description": "A hard-hitting funk-fusion groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dennis-chambers-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5dJTIyI9HUA"
+    },
+    {
+      "title": "Song for Barry",
+      "drummer_ids": ["drummer:dennis-chambers"],
+      "drums": {
+        "description": "A loose, swinging funk groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dennis-chambers-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VC7708J-GrE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6174583"
+        }
+      ]
+    }
   ]
 }

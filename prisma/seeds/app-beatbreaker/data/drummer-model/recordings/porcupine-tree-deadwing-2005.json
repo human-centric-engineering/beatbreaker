@@ -42,6 +42,67 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Halo",
+      "drummer_ids": ["drummer:gavin-harrison"],
+      "drums": {
+        "description": "The open hat alone on 3 with the kick moving around it.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:deadwing-wikipedia"]
+        }
+      },
+      "style_key": "harrison",
+      "song_key": "halo",
+      "youtube": "https://www.youtube.com/watch?v=Vgd174oanT4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15089"
+        }
+      ]
+    },
+    {
+      "title": "Shallow",
+      "drummer_ids": ["drummer:gavin-harrison"],
+      "drums": {
+        "description": "Hard-rock eighths with the snare on the last sixteenth and a busier second bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:shallow-porcupine-tree-song-wikipedia"]
+        }
+      },
+      "style_key": "harrison",
+      "song_key": "shallow",
+      "youtube": "https://www.youtube.com/watch?v=JSu3q1zSrx8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15172"
+        }
+      ]
+    },
+    {
+      "title": "The Start of Something Beautiful",
+      "drummer_ids": ["drummer:gavin-harrison"],
+      "drums": {
+        "description": "Eighths in 5/4 with the hat foot under them and the snare on the 'and's of 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:deadwing-wikipedia", "src:harrison-guitarguitar-2019"]
+        }
+      },
+      "style_key": "harrison",
+      "song_key": "the-start-of-something-beautiful",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=644873"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

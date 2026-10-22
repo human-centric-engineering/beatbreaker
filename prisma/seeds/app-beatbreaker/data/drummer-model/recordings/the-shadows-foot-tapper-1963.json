@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Foot Tapper",
+      "drummer_ids": ["drummer:brian-bennett"],
+      "drums": {
+        "description": "A brisk, swinging beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:foot-tapper-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MSbjX5yxF6I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18121"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:brian-bennett-wikipedia"]

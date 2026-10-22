@@ -15,5 +15,19 @@
       "name": "Sonny Emory",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Love Shack",
+      "drummer_ids": ["drummer:sonny-emory"],
+      "drums": {
+        "description": "A bouncing, driving party beat with a steady backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cosmic-thing-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9SOryJvTAGs"
+    }
   ]
 }

@@ -15,5 +15,25 @@
       "name": "Kenny Malone",
       "drummer_role": "percussion_only"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Jolene",
+      "drummer_ids": ["drummer:kenny-malone"],
+      "drums": {
+        "description": "Malone's own hand-drummed percussion, a muted, rolling pulse under the fingerpicked guitar instead of a kit backbeat.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:kenny-malone-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Ixrje2rXLMA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=448545"
+        }
+      ]
+    }
   ]
 }

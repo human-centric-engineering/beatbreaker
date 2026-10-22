@@ -1,0 +1,55 @@
+{
+  "id": "rec:the-beatles-rubber-soul-1965",
+  "title": "Rubber Soul",
+  "artist": "The Beatles",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Drive My Car",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "A solid, tight rock beat with an overdubbed cowbell, locked to McCartney's bass line.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:drive-my-car-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "drive-my-car",
+      "youtube": "https://www.youtube.com/watch?v=WjwuXrlVmyM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2651"
+        }
+      ]
+    },
+    {
+      "title": "In My Life",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Spare: one hi-hat stroke a bar, the kick and snare saying almost everything in a quietly distinctive pattern.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:in-my-life-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "in-my-life",
+      "youtube": "https://www.youtube.com/watch?v=ngzQTxXEcxQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2814"
+        }
+      ]
+    }
+  ]
+}

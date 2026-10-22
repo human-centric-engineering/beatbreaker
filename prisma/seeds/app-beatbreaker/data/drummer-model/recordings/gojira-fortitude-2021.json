@@ -1,0 +1,33 @@
+{
+  "id": "rec:gojira-fortitude-2021",
+  "title": "Fortitude",
+  "artist": "Gojira",
+  "year": 2021,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mario-duplantier"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Amazonia",
+      "drummer_ids": ["drummer:mario-duplantier"],
+      "drums": {
+        "description": "A tribal, tom-heavy groove inspired by Brazilian rhythms.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fortitude-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=B4CcX720DW4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=481908"
+        }
+      ]
+    }
+  ]
+}

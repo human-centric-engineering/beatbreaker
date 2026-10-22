@@ -54,6 +54,49 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "We and Dem",
+      "drummer_ids": ["drummer:carlton-barrett"],
+      "drums": {
+        "description": "The one drop with a crash on the drop and the high tom on the 'and' of 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:uprising-1980-wikipedia"]
+        }
+      },
+      "style_key": "carltonbarrett",
+      "song_key": "we-and-dem",
+      "youtube": "https://www.youtube.com/watch?v=1qn0gtcvRV8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2968929"
+        }
+      ]
+    },
+    {
+      "title": "Coming In from the Cold",
+      "artist": "Bob Marley & the Wailers",
+      "drummer_ids": ["drummer:santa-davis"],
+      "drums": {
+        "description": "The one drop with the kick on 1 now and then and the rim on the \"and\" of 4.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:uprising-1980-wikipedia"]
+        }
+      },
+      "style_key": "santadavis",
+      "song_key": "coming-in-from-the-cold",
+      "youtube": "https://www.youtube.com/watch?v=TZiMSLu8M8I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1415485"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:uprising-1980-wikipedia"]

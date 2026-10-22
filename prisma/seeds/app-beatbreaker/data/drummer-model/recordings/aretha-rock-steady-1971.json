@@ -35,6 +35,28 @@
       "pattern_ids": ["pattern:purdie-rock-steady-archetype"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Rock Steady",
+      "drummer_ids": ["drummer:bernard-purdie"],
+      "drums": {
+        "description": "The foot on the quarters, the hi-hats opening on the \"and\"s and a crack before 2 and 4, no kick on the 1.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rock-steady-aretha-song-wikipedia", "src:dnn-purdie"]
+        }
+      },
+      "style_key": "bernardpurdie",
+      "song_key": "rock-steady",
+      "youtube": "https://www.youtube.com/watch?v=fGavl_m41LE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=787133"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:rbma-purdie", "src:wiki-mirror-purdie"]

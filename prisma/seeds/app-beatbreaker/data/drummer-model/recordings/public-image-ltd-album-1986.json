@@ -1,0 +1,35 @@
+{
+  "id": "rec:public-image-ltd-album-1986",
+  "title": "Album",
+  "artist": "Public Image Ltd",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:post-punk", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Rise",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "A fat, straight rock backbeat from a jazz drummer, for John Lydon.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:album-pil-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "rise",
+      "youtube": "https://www.youtube.com/watch?v=Vq7JSic1DtM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=802376"
+        }
+      ]
+    }
+  ]
+}

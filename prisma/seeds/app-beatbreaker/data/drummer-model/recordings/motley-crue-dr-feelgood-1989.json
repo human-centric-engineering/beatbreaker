@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Kickstart My Heart",
+      "drummer_ids": ["drummer:tommy-lee"],
+      "drums": {
+        "description": "A fast, relentless double-kick drive with Lee's showman accents.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tommy-lee-wikipedia", "src:dr-feelgood-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CmXWkMlKFkI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12719"
+        }
+      ]
+    },
+    {
+      "title": "Dr. Feelgood",
+      "drummer_ids": ["drummer:tommy-lee"],
+      "drums": {
+        "description": "A slow, heavy, swaggering groove with a fat, compressed snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tommy-lee-wikipedia", "src:dr-feelgood-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=trGX3ET3jTQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22321"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:tommy-lee-wikipedia"]

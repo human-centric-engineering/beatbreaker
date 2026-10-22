@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Hallogallo",
+      "drummer_ids": ["drummer:klaus-dinger"],
+      "drums": {
+        "description": "The motorik beat: a relentless, steady 4/4 with a straight kick on every quarter.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:klaus-dinger-wikipedia", "src:neu-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zndpi8tNZyQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1184874"
+        }
+      ]
+    },
+    {
+      "title": "Negativland",
+      "drummer_ids": ["drummer:klaus-dinger"],
+      "drums": {
+        "description": "A driving motorik beat that speeds up and slows down.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:klaus-dinger-wikipedia", "src:neu-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fhiNtanvImg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3976343"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:klaus-dinger-wikipedia"]

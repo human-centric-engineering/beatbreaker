@@ -13,6 +13,45 @@
       "why_it_matters": "Drove Paul Gonsalves's 27 choruses on 'Diminuendo and Crescendo in Blue' with only bass and piano."
     }
   ],
+  "tracks": [
+    {
+      "title": "Diminuendo and Crescendo in Blue",
+      "drummer_ids": ["drummer:sam-woodyard"],
+      "drums": {
+        "description": "Woodyard's relentless backbeat behind Paul Gonsalves' 27-chorus tenor solo, which brought the Newport crowd to its feet.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:diminuendo-and-crescendo-in-blue-wikipedia",
+            "src:ellington-at-newport-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GgaEqDQLIjk"
+    },
+    {
+      "title": "Jeep's Blues",
+      "drummer_ids": ["drummer:sam-woodyard"],
+      "drums": {
+        "description": "A slow blues with a heavy, swaying shuffle behind Johnny Hodges.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ellington-at-newport-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Newport Jazz Festival Suite",
+      "drummer_ids": ["drummer:sam-woodyard"],
+      "drums": {
+        "description": "A three-part suite written for the festival, Woodyard swinging the band through blues, ballad and an uptempo finale.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ellington-at-newport-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:sam-woodyard-wikipedia", "src:ellington-at-newport-wikipedia"]

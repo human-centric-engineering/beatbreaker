@@ -16,6 +16,21 @@
       "why_it_matters": "Peak Africa 70: his first pattern answered by kick and snare over two bars, held for the length of the side."
     }
   ],
+  "tracks": [
+    {
+      "title": "Expensive Shit",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "Two bars: his first pattern, then kick and snare answering it, a call and response inside the drum part.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:fela-kuti-discography-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "expensive-shit"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:tony-allen-wikipedia", "src:tony-allen-nme-obit"]

@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Shaw 'Nuff",
+      "drummer_ids": ["drummer:sid-catlett"],
+      "drums": {
+        "description": "A swing-era master adapting to bebop: tight, fast cymbal time and snare kicks for the Gillespie–Parker unison line.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sid-catlett-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5hRhCoTCtCg"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:sid-catlett-wikipedia"]

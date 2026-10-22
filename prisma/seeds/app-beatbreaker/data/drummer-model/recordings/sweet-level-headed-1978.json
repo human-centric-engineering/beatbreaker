@@ -1,0 +1,33 @@
+{
+  "id": "rec:sweet-level-headed-1978",
+  "title": "Level Headed",
+  "artist": "Sweet",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:glam-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-tucker"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Love Is Like Oxygen",
+      "drummer_ids": ["drummer:mick-tucker"],
+      "drums": {
+        "description": "A shifting arrangement with a disco-inflected middle section and a rock groove around it.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:level-headed-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zRgWvvkSvfk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=55215"
+        }
+      ]
+    }
+  ]
+}

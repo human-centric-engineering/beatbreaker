@@ -1,0 +1,51 @@
+{
+  "id": "rec:mountain-nantucket-sleighride-1971",
+  "title": "Nantucket Sleighride",
+  "artist": "Mountain",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:corky-laing"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Nantucket Sleighride",
+      "drummer_ids": ["drummer:corky-laing"],
+      "drums": {
+        "description": "A long dynamic arc from quiet tom rolls to full-kit hard rock, with Laing pacing the build.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:corky-laing-wikipedia", "src:nantucket-sleighride-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cPlxsQn5xBI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13132"
+        }
+      ]
+    },
+    {
+      "title": "Don't Look Around",
+      "drummer_ids": ["drummer:corky-laing"],
+      "drums": {
+        "description": "A stomping mid-tempo hard-rock backbeat with heavy accents tied to the riff.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:corky-laing-wikipedia", "src:nantucket-sleighride-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oIyXrQJJ0xo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2466675"
+        }
+      ]
+    }
+  ]
+}

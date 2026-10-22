@@ -1,0 +1,28 @@
+{
+  "id": "rec:fela-upside-down-1976",
+  "title": "Upside Down",
+  "artist": "Fela Ransome-Kuti and the Africa '70",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:afrobeat", "style:west-african", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Upside Down",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "Snare on one under Sandra Izsadore's vocal, the hat foot on the off-beats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:fela-kuti-discography-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "upside-down"
+    }
+  ]
+}

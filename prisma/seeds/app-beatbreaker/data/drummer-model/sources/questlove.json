@@ -187,5 +187,21 @@
     "reliability": 0.8,
     "accessed": "2026-10-18",
     "notes": "Watched as contact sheets: Questlove at 0:12-0:20 (from his left, behind the cymbals) and 1:34-1:38 (front, with Badu): a large round black afro, a full beard, a black long-sleeved button-up shirt open at the collar; a gloss black snare with chrome lugs, a polished metal drum to his right, chrome stands, brass-coloured cymbals; no pick seen in his hair in the frames read."
+  },
+  {
+    "id": "src:do-you-want-more-wikipedia",
+    "type": "encyclopedia",
+    "title": "Do You Want More?!!!??! - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Do_You_Want_More%3F!!!%3F%3F!",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:phrenology-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Phrenology (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Phrenology_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

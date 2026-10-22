@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Da Ya Think I'm Sexy?",
+      "drummer_ids": ["drummer:carmine-appice"],
+      "drums": {
+        "description": "A disco-rock groove with four-on-the-floor kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blondes-have-more-fun-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Hphwfq1wLJs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1692035"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:carmine-appice-wikipedia"]

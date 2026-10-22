@@ -1,0 +1,27 @@
+{
+  "id": "rec:ray-barretto-que-viva-la-musica-1972",
+  "title": "Que Viva la Música",
+  "artist": "Ray Barretto",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:salsa", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ray-barretto"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Que Viva la Música",
+      "drummer_ids": ["drummer:ray-barretto"],
+      "drums": {
+        "description": "A hard salsa with Barretto's conga solo.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-ray-barretto"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=D6fVS7emAXw"
+    }
+  ]
+}

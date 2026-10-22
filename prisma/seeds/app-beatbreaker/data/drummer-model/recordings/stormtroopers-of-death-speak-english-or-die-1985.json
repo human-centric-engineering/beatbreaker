@@ -10,5 +10,25 @@
       "drummer_id": "drummer:charlie-benante",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "March of the S.O.D.",
+      "drummer_ids": ["drummer:charlie-benante"],
+      "drums": {
+        "description": "Crossover thrash: blast-fast hardcore beats and mosh breakdowns in under two minutes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:speak-english-or-die-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MJVIAkKse9o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18444"
+        }
+      ]
+    }
   ]
 }

@@ -16,5 +16,18 @@
         "source_ids": ["src:wikipedia-duduka-da-fonseca"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Partido Out",
+      "drummer_ids": ["drummer:duduka-da-fonseca"],
+      "drums": {
+        "description": "A partido-alto groove reshaped for jazz trio.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-duduka-da-fonseca"]
+        }
+      }
+    }
   ]
 }

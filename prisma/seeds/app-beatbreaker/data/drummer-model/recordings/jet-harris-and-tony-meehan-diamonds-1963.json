@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Diamonds",
+      "drummer_ids": ["drummer:tony-meehan"],
+      "drums": {
+        "description": "A drum-featured instrumental with Meehan's tom fills between the bass-guitar melody lines.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:diamonds-instrumental-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vHyTN5DQT6E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6211480"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:tony-meehan-wikipedia"]

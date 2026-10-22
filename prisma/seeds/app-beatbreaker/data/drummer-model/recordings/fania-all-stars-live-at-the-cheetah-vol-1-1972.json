@@ -1,0 +1,28 @@
+{
+  "id": "rec:fania-all-stars-live-at-the-cheetah-vol-1-1972",
+  "title": "Live at the Cheetah, Vol. 1",
+  "artist": "Fania All-Stars",
+  "year": 1972,
+  "type": "live_track",
+  "style_ids": ["style:salsa", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:orestes-vilato"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Quítate Tú (Pa' Ponerme Yo)",
+      "year": 1971,
+      "drummer_ids": ["drummer:orestes-vilato"],
+      "drums": {
+        "description": "A long live salsa jam with timbale breaks at the Cheetah.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fania-all-stars-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LuqGyeJgT6E"
+    }
+  ]
+}

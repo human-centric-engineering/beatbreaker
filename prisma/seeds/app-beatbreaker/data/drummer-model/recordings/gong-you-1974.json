@@ -1,0 +1,45 @@
+{
+  "id": "rec:gong-you-1974",
+  "title": "You",
+  "artist": "Gong",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pierre-moerlen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Master Builder",
+      "drummer_ids": ["drummer:pierre-moerlen"],
+      "drums": {
+        "description": "Moerlen's propulsive jazz-rock groove drives the long instrumental build.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:you-gong-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Up_t-7DX0qw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1138513"
+        }
+      ]
+    },
+    {
+      "title": "A Sprinkling of Clouds",
+      "drummer_ids": ["drummer:pierre-moerlen"],
+      "drums": {
+        "description": "A hypnotic, steadily accelerating pulse under sequencer-like guitar and synth.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:you-gong-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qkisQYrsCq4"
+    }
+  ]
+}

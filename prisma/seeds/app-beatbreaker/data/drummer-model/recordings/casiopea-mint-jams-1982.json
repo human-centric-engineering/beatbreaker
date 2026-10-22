@@ -15,5 +15,61 @@
       "name": "Akira Jimbo",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Asayake",
+      "drummer_ids": ["drummer:akira-jimbo"],
+      "drums": {
+        "description": "A fast, crisp fusion groove with tight ghost notes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:akira-jimbo-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zvjItvrldIU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=582306"
+        }
+      ]
+    },
+    {
+      "title": "Domino Line",
+      "drummer_ids": ["drummer:akira-jimbo"],
+      "drums": {
+        "description": "A tight funk groove and drum solo.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:akira-jimbo-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=C8LBSTByv8Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4749513"
+        }
+      ]
+    },
+    {
+      "title": "Take Me",
+      "drummer_ids": ["drummer:akira-jimbo"],
+      "drums": {
+        "description": "A smooth, mid-tempo fusion groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:akira-jimbo-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2CANuhzGtKU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1666667"
+        }
+      ]
+    }
   ]
 }

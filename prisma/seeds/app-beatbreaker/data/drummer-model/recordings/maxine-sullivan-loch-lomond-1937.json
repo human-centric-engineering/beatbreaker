@@ -1,0 +1,27 @@
+{
+  "id": "rec:maxine-sullivan-loch-lomond-1937",
+  "title": "Loch Lomond",
+  "artist": "Maxine Sullivan",
+  "year": 1937,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:oneil-spencer"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Loch Lomond",
+      "drummer_ids": ["drummer:oneil-spencer"],
+      "drums": {
+        "description": "A Scottish folk song swung lightly by Claude Thornhill's small group, Spencer's brushes keeping it soft and danceable.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:oneil-spencer-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kHDJH8kxHG0"
+    }
+  ]
+}

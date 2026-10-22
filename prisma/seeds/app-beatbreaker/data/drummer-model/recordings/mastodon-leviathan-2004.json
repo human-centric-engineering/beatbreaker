@@ -10,5 +10,61 @@
       "drummer_id": "drummer:brann-dailor",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Blood and Thunder",
+      "drummer_ids": ["drummer:brann-dailor"],
+      "drums": {
+        "description": "A galloping, tom-heavy groove packed with fills between the riffs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:leviathan-mastodon-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=drp79J-jG0M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12344"
+        }
+      ]
+    },
+    {
+      "title": "Megalodon",
+      "drummer_ids": ["drummer:brann-dailor"],
+      "drums": {
+        "description": "Fast, technical fills and a sudden swerve into a country-picking section with a jazzy drum response.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:leviathan-mastodon-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aOWXqzeWUZg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12292"
+        }
+      ]
+    },
+    {
+      "title": "Iron Tusk",
+      "drummer_ids": ["drummer:brann-dailor"],
+      "drums": {
+        "description": "A short, crushing song driven by thrashing tom patterns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:leviathan-mastodon-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=U__QulYyo0E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12364"
+        }
+      ]
+    }
   ]
 }

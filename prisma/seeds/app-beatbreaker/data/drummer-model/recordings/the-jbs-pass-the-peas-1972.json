@@ -1,0 +1,35 @@
+{
+  "id": "rec:the-jbs-pass-the-peas-1972",
+  "title": "Pass the Peas",
+  "artist": "The J.B.'s",
+  "year": 1972,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jabo-starks"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Pass the Peas",
+      "drummer_ids": ["drummer:jabo-starks"],
+      "drums": {
+        "description": "Straight eighths, the kick on 1 and 3, the snare answering the horns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-1936430", "src:pass-the-peas-wikipedia"]
+        }
+      },
+      "style_key": "jabostarks",
+      "song_key": "pass-the-peas",
+      "youtube": "https://www.youtube.com/watch?v=qMu5SAVkuRM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1936430"
+        }
+      ]
+    }
+  ]
+}

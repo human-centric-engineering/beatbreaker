@@ -1,0 +1,39 @@
+{
+  "id": "rec:snarky-puppy-tell-your-friends-2010",
+  "title": "Tell Your Friends",
+  "artist": "Snarky Puppy",
+  "year": 2010,
+  "type": "album",
+  "style_ids": ["style:gospel"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:robert-searight"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Flood",
+      "drummer_ids": ["drummer:robert-searight"],
+      "drums": {
+        "description": "Gospel-chops fusion with fast fills and hi-hat ghosting.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tell-your-friends-snarky-puppy-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wl_0kRjHbk4"
+    },
+    {
+      "title": "Skate U",
+      "drummer_ids": ["drummer:robert-searight"],
+      "drums": {
+        "description": "A deep, greasy funk groove with gospel-style fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tell-your-friends-snarky-puppy-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=L6pFQa-CwS8"
+    }
+  ]
+}

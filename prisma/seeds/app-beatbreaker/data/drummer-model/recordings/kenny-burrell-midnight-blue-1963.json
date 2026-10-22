@@ -17,5 +17,19 @@
         "source_ids": ["src:wikipedia-ray-barretto"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Chitlins con Carne",
+      "drummer_ids": ["drummer:ray-barretto"],
+      "drums": {
+        "description": "Conga under a slow blues, a model for Latin percussion in soul jazz.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:midnight-blue-kenny-burrell-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ylGjvwXV3HA"
+    }
   ]
 }

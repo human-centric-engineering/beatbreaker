@@ -44,6 +44,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Green Onions",
+      "drummer_ids": ["drummer:al-jackson-jr"],
+      "drums": {
+        "description": "The ride in quarters, a rimshot on 2 and 4, the kick on the swung \"and\" of 2, and no fills: the Stax template.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:green-onions-wikipedia", "src:al-jackson-jr-wikipedia"]
+        }
+      },
+      "style_key": "aljackson",
+      "song_key": "green-onions",
+      "youtube": "https://www.youtube.com/watch?v=VD6izVzuIkU"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:green-onions-album-wikipedia"]

@@ -48,6 +48,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "La Bamba",
+      "drummer_ids": ["drummer:earl-palmer"],
+      "drums": {
+        "description": "Straight eighths on the ride, the kick on 1, the \"and\" of 2 and 3; the verse with the ride in quarters.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-1571276", "src:la-bamba-wikipedia"]
+        }
+      },
+      "style_key": "earlpalmer",
+      "song_key": "la-bamba",
+      "youtube": "https://www.youtube.com/watch?v=BycLmWI97Nc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1571276"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:la-bamba-wikipedia"]

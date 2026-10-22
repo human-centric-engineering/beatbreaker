@@ -16,5 +16,37 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Tonight",
+      "drummer_ids": ["drummer:dennis-thompson"],
+      "drums": {
+        "description": "Tight, clipped rock-and-roll drumming in a short, punchy arrangement.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:back-in-the-usa-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=j9_TybPhoAw"
+    },
+    {
+      "title": "Looking at You",
+      "drummer_ids": ["drummer:dennis-thompson"],
+      "drums": {
+        "description": "A fast, hard-hitting groove that prefigures punk.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:back-in-the-usa-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Xs35h6vogac",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=73341"
+        }
+      ]
+    }
   ]
 }

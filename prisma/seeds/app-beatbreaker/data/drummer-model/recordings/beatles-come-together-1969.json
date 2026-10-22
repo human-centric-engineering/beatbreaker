@@ -38,6 +38,28 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Come Together",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "The floor tom in eighths, kick and mid tom on the beat, and the 'shoot' lick tumbling down the toms in triplets: a part everyone copies.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:come-together-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "come-together",
+      "youtube": "https://www.youtube.com/watch?v=45cYwDMibGo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=62923"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:drumheadauthority-ringo"]

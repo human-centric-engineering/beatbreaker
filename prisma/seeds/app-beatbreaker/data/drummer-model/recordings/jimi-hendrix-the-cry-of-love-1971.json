@@ -1,0 +1,115 @@
+{
+  "id": "rec:jimi-hendrix-the-cry-of-love-1971",
+  "title": "The Cry of Love",
+  "artist": "Jimi Hendrix",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mitch-mitchell"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Straight Ahead",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A tight, funky straight-eight groove from the post-Experience trio with Billy Cox.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-cry-of-love-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "straight-ahead",
+      "youtube": "https://www.youtube.com/watch?v=RMn7-7-H704",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1288107"
+        }
+      ]
+    },
+    {
+      "title": "In from the Storm",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Hard, driving rock beat with rolling fills, one of the last studio tracks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-cry-of-love-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "in-from-the-storm",
+      "youtube": "https://www.youtube.com/watch?v=-zbwAprmRSE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1408222"
+        }
+      ]
+    },
+    {
+      "title": "Freedom",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A syncopated funk-rock groove with a stop-start snare figure.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-cry-of-love-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "freedom",
+      "youtube": "https://www.youtube.com/watch?v=wDvlErh5zcc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9283"
+        }
+      ]
+    },
+    {
+      "title": "Ezy Ryder",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A fast, riff-locked funk-rock beat with cowbell and a stream of snare accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-cry-of-love-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "ezy-ryder",
+      "youtube": "https://www.youtube.com/watch?v=7bvHSm6M77c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9423"
+        }
+      ]
+    },
+    {
+      "title": "Angel",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A gentle soul ballad beat, Mitchell adding the drums over Hendrix's guide.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-cry-of-love-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "angel",
+      "youtube": "https://www.youtube.com/watch?v=hYngN-BZRhI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22538"
+        }
+      ]
+    }
+  ]
+}

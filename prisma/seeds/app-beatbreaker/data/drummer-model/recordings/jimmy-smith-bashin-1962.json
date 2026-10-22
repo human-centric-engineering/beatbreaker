@@ -12,6 +12,38 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Bashin'",
+      "drummer_ids": ["drummer:ed-shaughnessy"],
+      "drums": {
+        "description": "A swinging big-band blues behind Smith's organ, with Oliver Nelson's band and Shaughnessy's punchy shout-chorus fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:bashin-the-unpredictable-jimmy-smith-wikipedia",
+            "src:ed-shaughnessy-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0xeBQzSgaxM"
+    },
+    {
+      "title": "Walk on the Wild Side",
+      "drummer_ids": ["drummer:ed-shaughnessy"],
+      "drums": {
+        "description": "A big-band soul-jazz groove, the drums laying a heavy backbeat under Smith's organ.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:bashin-the-unpredictable-jimmy-smith-wikipedia",
+            "src:ed-shaughnessy-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sY0sdpYZNt4"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ed-shaughnessy-wikipedia"]

@@ -1,0 +1,27 @@
+{
+  "id": "rec:thad-jones-mel-lewis-orchestra-central-park-north-1969",
+  "title": "Central Park North",
+  "artist": "Thad Jones/Mel Lewis Orchestra",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mel-lewis"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Central Park North",
+      "drummer_ids": ["drummer:mel-lewis"],
+      "drums": {
+        "description": "A funky, rock-tinged groove from a big band, Lewis keeping it light and loose under the shout chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:central-park-north-album-wikipedia", "src:mel-lewis-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=d3-HT0GhHWo"
+    }
+  ]
+}

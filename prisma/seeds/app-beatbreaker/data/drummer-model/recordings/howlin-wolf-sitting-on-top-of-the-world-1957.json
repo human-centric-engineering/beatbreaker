@@ -1,0 +1,27 @@
+{
+  "id": "rec:howlin-wolf-sitting-on-top-of-the-world-1957",
+  "title": "Sitting on Top of the World",
+  "artist": "Howlin' Wolf",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:blues"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-phillips"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Sitting on Top of the World",
+      "drummer_ids": ["drummer:earl-phillips"],
+      "drums": {
+        "description": "Slow, swaying Chicago blues groove kept light and steady behind Sumlin's guitar.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sitting-on-top-of-the-world-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3hHtz6FKi3A"
+    }
+  ]
+}

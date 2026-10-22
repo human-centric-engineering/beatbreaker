@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Autumn Leaves",
+      "drummer_ids": ["drummer:paul-motian"],
+      "drums": {
+        "description": "Swinging brushes that drop out for the famous three-way 'conversational' chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:portrait-in-jazz-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2th9PAy8o8U"
+    },
+    {
+      "title": "Blue in Green",
+      "drummer_ids": ["drummer:paul-motian"],
+      "drums": {
+        "description": "Feather-light brush strokes, barely touching the time.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:portrait-in-jazz-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HxEbT_opgQM"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:paul-motian-wikipedia"]

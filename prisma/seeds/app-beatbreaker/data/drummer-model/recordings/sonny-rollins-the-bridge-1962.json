@@ -1,0 +1,39 @@
+{
+  "id": "rec:sonny-rollins-the-bridge-1962",
+  "title": "The Bridge",
+  "artist": "Sonny Rollins",
+  "year": 1962,
+  "type": "album",
+  "style_ids": ["style:hard-bop", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ben-riley"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Without a Song",
+      "drummer_ids": ["drummer:ben-riley"],
+      "drums": {
+        "description": "Light, crisp ride-cymbal time with sparse snare comping under Rollins and Jim Hall, in a piano-less quartet.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-bridge-sonny-rollins-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7k2gO5VJzo4"
+    },
+    {
+      "title": "The Bridge",
+      "drummer_ids": ["drummer:ben-riley"],
+      "drums": {
+        "description": "Fast, buoyant ride-cymbal swing held steady at a very quick tempo for Rollins's comeback title tune.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-bridge-sonny-rollins-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sbfY465lgUY"
+    }
+  ]
+}

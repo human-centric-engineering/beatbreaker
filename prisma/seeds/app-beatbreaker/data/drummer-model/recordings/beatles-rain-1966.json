@@ -14,6 +14,28 @@
       "why_it_matters": "Widely considered his best drumming and his own favourite; inventive tom work."
     }
   ],
+  "tracks": [
+    {
+      "title": "Rain",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Ringo's own favourite: loose and slowed-down heavy, a fill nearly every other bar, the snare running into the high tom.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rain-beatles-song-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "rain",
+      "youtube": "https://www.youtube.com/watch?v=cK5G8fPmWeA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2631"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:footyalmanac-ringo", "src:melodics-ringo"]

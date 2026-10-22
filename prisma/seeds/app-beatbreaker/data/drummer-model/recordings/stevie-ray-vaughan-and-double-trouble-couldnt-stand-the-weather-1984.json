@@ -1,0 +1,63 @@
+{
+  "id": "rec:stevie-ray-vaughan-and-double-trouble-couldnt-stand-the-weather-1984",
+  "title": "Couldn't Stand the Weather",
+  "artist": "Stevie Ray Vaughan and Double Trouble",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-layton"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Couldn't Stand the Weather",
+      "drummer_ids": ["drummer:chris-layton"],
+      "drums": {
+        "description": "Syncopated funk-blues groove with a tight hi-hat and kick figure under the riff after a slow intro.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:couldnt-stand-the-weather-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nO23B5C_Mcw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54645"
+        }
+      ]
+    },
+    {
+      "title": "Cold Shot",
+      "drummer_ids": ["drummer:chris-layton"],
+      "drums": {
+        "description": "Slow, lazy shuffle groove played with heavy, behind-the-beat swing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:couldnt-stand-the-weather-wikipedia", "src:cold-shot-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=m2ou-WIxfLY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54663"
+        }
+      ]
+    },
+    {
+      "title": "Scuttle Buttin'",
+      "drummer_ids": ["drummer:chris-layton"],
+      "drums": {
+        "description": "Very fast two-beat shuffle instrumental that Layton holds at breakneck tempo behind the guitar runs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:couldnt-stand-the-weather-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5r56RRl7-vU"
+    }
+  ]
+}

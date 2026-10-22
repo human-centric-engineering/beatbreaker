@@ -1,0 +1,27 @@
+{
+  "id": "rec:dusty-springfield-son-of-a-preacher-man-1968",
+  "title": "Son of a Preacher Man",
+  "artist": "Dusty Springfield",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:southern-soul", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gene-chrisman"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Son of a Preacher Man",
+      "drummer_ids": ["drummer:gene-chrisman"],
+      "drums": {
+        "description": "A relaxed, Memphis soul groove with a light snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:son-of-a-preacher-man-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8eblDD6zX44"
+    }
+  ]
+}

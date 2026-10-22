@@ -17,5 +17,58 @@
         "source_ids": ["src:wikipedia-milton-banana"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Chega de Saudade",
+      "year": 1959,
+      "drummer_ids": ["drummer:milton-banana"],
+      "drums": {
+        "description": "A soft brush pattern on the snare that moves samba's rhythm into the quiet bossa nova sound.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chega-de-saudade-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BOehLNJeHMI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7153011"
+        }
+      ]
+    },
+    {
+      "title": "Desafinado",
+      "year": 1959,
+      "drummer_ids": ["drummer:milton-banana"],
+      "drums": {
+        "description": "Light, steady brushes under the guitar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chega-de-saudade-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=g6w3a2v_50U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=977100"
+        }
+      ]
+    },
+    {
+      "title": "Bim Bom",
+      "year": 1959,
+      "drummer_ids": ["drummer:milton-banana"],
+      "drums": {
+        "description": "A gentle, swinging bossa beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chega-de-saudade-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qkhDaIcmhng"
+    }
   ]
 }

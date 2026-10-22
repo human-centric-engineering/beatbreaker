@@ -1,0 +1,29 @@
+{
+  "id": "rec:miles-davis-in-a-silent-way-1969",
+  "title": "In a Silent Way",
+  "artist": "Miles Davis",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Shhh/Peaceful",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Sticks on a closed hi-hat for eighteen minutes, hardly a kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:in-a-silent-way-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "in-a-silent-way",
+      "youtube": "https://www.youtube.com/watch?v=VlIyqiIJ98w"
+    }
+  ]
+}

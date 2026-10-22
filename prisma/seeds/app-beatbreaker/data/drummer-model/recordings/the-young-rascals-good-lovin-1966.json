@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Good Lovin'",
+      "drummer_ids": ["drummer:dino-danelli"],
+      "drums": {
+        "description": "Busy, jazz-trained drive on snare and ride with quick fills and a hard stop-start breakdown before the final build.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:good-lovin-wikipedia", "src:dino-danelli-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=t3CQ-5MeRwY"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:dino-danelli-wikipedia"]

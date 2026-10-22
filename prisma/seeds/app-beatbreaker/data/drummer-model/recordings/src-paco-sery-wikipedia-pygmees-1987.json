@@ -1,0 +1,26 @@
+{
+  "id": "rec:src-paco-sery-wikipedia-pygmees-1987",
+  "title": "Pygmées",
+  "artist": "src:paco-sery-wikipedia",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paco-sery"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Pygmées",
+      "drummer_ids": ["drummer:paco-sery"],
+      "drums": {
+        "description": "Fast, polyrhythmic fusion drumming drawing on Ivorian rhythms, in the French band he co-founded.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:paco-sery-wikipedia"]
+        }
+      }
+    }
+  ]
+}

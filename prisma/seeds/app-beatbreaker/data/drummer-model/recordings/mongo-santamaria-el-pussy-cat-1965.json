@@ -1,0 +1,27 @@
+{
+  "id": "rec:mongo-santamaria-el-pussy-cat-1965",
+  "title": "El Pussy Cat",
+  "artist": "Mongo Santamaría",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:afro-cuban", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mongo-santamaria"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "El Pussy Cat",
+      "drummer_ids": ["drummer:mongo-santamaria"],
+      "drums": {
+        "description": "Conga and timbales in a Latin-soul groove with a backbeat, Mongo's crossover style.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-mongo-santamaria"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=r-4Rt8pWCzM"
+    }
+  ]
+}

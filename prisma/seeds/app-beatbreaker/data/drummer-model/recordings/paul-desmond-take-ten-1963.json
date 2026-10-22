@@ -1,0 +1,33 @@
+{
+  "id": "rec:paul-desmond-take-ten-1963",
+  "title": "Take Ten",
+  "artist": "Paul Desmond",
+  "year": 1963,
+  "type": "album",
+  "style_ids": ["style:cool-jazz", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:connie-kay"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Take Ten",
+      "drummer_ids": ["drummer:connie-kay"],
+      "drums": {
+        "description": "Desmond's follow-up to Take Five, with Kay keeping a relaxed groove in five.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:take-ten-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7finO1huMZw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6653306"
+        }
+      ]
+    }
+  ]
+}

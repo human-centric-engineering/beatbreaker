@@ -15,5 +15,31 @@
       "name": "Alphonse Mouzon",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Umbrellas",
+      "drummer_ids": ["drummer:alphonse-mouzon"],
+      "drums": {
+        "description": "Free, propulsive drumming in short bursts.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:alphonse-mouzon-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Z3-LFyxMQhY"
+    },
+    {
+      "title": "Seventh Arrow",
+      "drummer_ids": ["drummer:alphonse-mouzon"],
+      "drums": {
+        "description": "A fast, driving groove with sharp accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:alphonse-mouzon-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=e1lPYa7cjRE"
+    }
   ]
 }

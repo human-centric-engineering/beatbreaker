@@ -10,5 +10,43 @@
       "drummer_id": "drummer:robb-reiner",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Forged in Fire",
+      "drummer_ids": ["drummer:robb-reiner"],
+      "drums": {
+        "description": "A heavy, mid-tempo metal groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:anvil-wikipedia", "src:forged-in-fire-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lZkeaJrLorY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=31333"
+        }
+      ]
+    },
+    {
+      "title": "Winged Assassins",
+      "drummer_ids": ["drummer:robb-reiner"],
+      "drums": {
+        "description": "A fast speed-metal beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:anvil-wikipedia", "src:forged-in-fire-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Bu78xCEHRyk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2313249"
+        }
+      ]
+    }
   ]
 }

@@ -15,5 +15,43 @@
       "name": "Danny Gottlieb",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "San Lorenzo",
+      "drummer_ids": ["drummer:danny-gottlieb"],
+      "drums": {
+        "description": "Soft, flowing cymbal work and a floating groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:danny-gottlieb-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_RrUS2N2MyI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1032472"
+        }
+      ]
+    },
+    {
+      "title": "Phase Dance",
+      "drummer_ids": ["drummer:danny-gottlieb"],
+      "drums": {
+        "description": "A shimmering, ride-led groove that builds slowly.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:danny-gottlieb-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5xwkZUsI5YU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2943131"
+        }
+      ]
+    }
   ]
 }

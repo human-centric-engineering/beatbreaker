@@ -46,5 +46,21 @@
         ]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Afrique",
+      "drummer_ids": ["drummer:art-blakey"],
+      "drums": {
+        "description": "An Afro vamp in three on the ride and toms; later his drum solo in triplets, every note accented.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bishop-afrique-groove-2017", "src:bishop-afrique-solo-2017"]
+        }
+      },
+      "style_key": "blakey",
+      "song_key": "afrique",
+      "youtube": "https://www.youtube.com/watch?v=fQqvFPYE5GE"
+    }
   ]
 }

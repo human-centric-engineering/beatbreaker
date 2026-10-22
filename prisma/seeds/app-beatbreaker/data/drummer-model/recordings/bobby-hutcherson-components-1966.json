@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Components",
+      "drummer_ids": ["drummer:joe-chambers"],
+      "drums": {
+        "description": "Crisp, swinging time with melodic tom accents on Hutcherson's title tune.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:components-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GzbnNy4je5U"
+    },
+    {
+      "title": "Little B's Poem",
+      "drummer_ids": ["drummer:joe-chambers"],
+      "drums": {
+        "description": "Light jazz waltz with a delicate, floating ride.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:components-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3X-GdYVT7Y8"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:joe-chambers-wikipedia"]

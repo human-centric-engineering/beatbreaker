@@ -1,0 +1,33 @@
+{
+  "id": "rec:soft-machine-the-soft-machine-1968",
+  "title": "The Soft Machine",
+  "artist": "Soft Machine",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:robert-wyatt"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hope for Happiness",
+      "drummer_ids": ["drummer:robert-wyatt"],
+      "drums": {
+        "description": "Wyatt's busy jazz-derived drumming pushes the psychedelic song into a fast instrumental.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-soft-machine-disambiguation-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7xlhGlaAH4Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=738889"
+        }
+      ]
+    }
+  ]
+}

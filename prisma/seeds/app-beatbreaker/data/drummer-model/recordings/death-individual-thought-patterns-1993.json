@@ -10,5 +10,43 @@
       "drummer_id": "drummer:gene-hoglan",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "The Philosopher",
+      "drummer_ids": ["drummer:gene-hoglan"],
+      "drums": {
+        "description": "Technical death metal: odd groupings, fills that move across the kit and precise double bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:individual-thought-patterns-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PhQ1Fe0oKPM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6117"
+        }
+      ]
+    },
+    {
+      "title": "Overactive Imagination",
+      "drummer_ids": ["drummer:gene-hoglan"],
+      "drums": {
+        "description": "Complex, shifting tempos with intricate double-bass patterns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:individual-thought-patterns-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rthGmWfnV3o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5278"
+        }
+      ]
+    }
   ]
 }

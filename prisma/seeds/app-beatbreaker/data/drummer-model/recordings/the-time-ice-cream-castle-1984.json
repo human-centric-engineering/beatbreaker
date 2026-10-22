@@ -10,5 +10,25 @@
       "drummer_id": "drummer:jellybean-johnson",
       "name": "Jellybean Johnson"
     }
+  ],
+  "tracks": [
+    {
+      "title": "The Bird",
+      "drummer_ids": ["drummer:jellybean-johnson"],
+      "drums": {
+        "description": "Jellybean's tight, fast funk groove with heavy hat work, recorded live at First Avenue for Purple Rain.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-bird-the-time-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=627Q6F9NOYQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6128765"
+        }
+      ]
+    }
   ]
 }

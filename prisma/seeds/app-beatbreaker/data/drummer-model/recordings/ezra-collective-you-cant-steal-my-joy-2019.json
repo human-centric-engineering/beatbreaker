@@ -18,6 +18,44 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Quest for Coin",
+      "drummer_ids": ["drummer:femi-koleoso"],
+      "drums": {
+        "description": "Fast Afrobeat-jazz groove with relentless open hat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ezra-collective-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RAh6Dj9C9Tc"
+    },
+    {
+      "title": "Why You Mad?",
+      "drummer_ids": ["drummer:femi-koleoso"],
+      "drums": {
+        "description": "Swaggering hip-hop swing with heavy kick placement.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ezra-collective-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=E2bLeZ_WnaY"
+    },
+    {
+      "title": "Chris and Jane",
+      "drummer_ids": ["drummer:femi-koleoso"],
+      "drums": {
+        "description": "Light, bouncing jazz-funk with ghost notes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ezra-collective-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WBNaWz0CQ2s"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ezra-collective-wikipedia"]

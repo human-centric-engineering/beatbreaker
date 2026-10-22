@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Beginning",
+      "drummer_ids": ["drummer:paul-motian"],
+      "drums": {
+        "description": "Free, orchestral percussion: gongs, cymbals and drums colouring the long suite.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-survivors-suite-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jAJ3jsA0gAY"
+    },
+    {
+      "title": "Conclusion",
+      "drummer_ids": ["drummer:paul-motian"],
+      "drums": {
+        "description": "Building, ecstatic free rhythm that rises to a climactic groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-survivors-suite-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3k1QBVEwt1E"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:paul-motian-wikipedia"]

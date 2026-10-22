@@ -16,6 +16,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Bimoya",
+      "drummer_ids": ["drummer:paco-sery"],
+      "drums": {
+        "description": "West African cross-rhythms carried onto the kit under Zawinul’s world-fusion keyboards.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:my-people-joe-zawinul-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UYsMoG3_77s"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:paco-sery-wikipedia"]

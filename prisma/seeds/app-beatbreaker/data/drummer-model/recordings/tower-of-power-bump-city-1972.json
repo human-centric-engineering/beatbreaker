@@ -67,6 +67,42 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "You Got to Funkifize",
+      "drummer_ids": ["drummer:david-garibaldi"],
+      "drums": {
+        "description": "A busy, linear sixteenth-note funk groove split between hands and feet, the ride hand broken up by off-beat snares.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bump-city-wikipedia", "src:david-garibaldi-wikipedia"]
+        }
+      },
+      "style_key": "garibaldi",
+      "song_key": "funkifize",
+      "youtube": "https://www.youtube.com/watch?v=n_olT4v13HE"
+    },
+    {
+      "title": "Down to the Nightclub",
+      "drummer_ids": ["drummer:david-garibaldi"],
+      "drums": {
+        "description": "A fast, shuffling funk groove with ghosted snare sixteenths behind the horns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bump-city-wikipedia"]
+        }
+      },
+      "style_key": "garibaldi",
+      "song_key": "down-to-the-nightclub",
+      "youtube": "https://www.youtube.com/watch?v=VlfeHqEf3Go",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3094073"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:bump-city-wikipedia"]

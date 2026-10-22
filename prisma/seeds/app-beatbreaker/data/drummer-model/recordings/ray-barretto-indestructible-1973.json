@@ -1,0 +1,27 @@
+{
+  "id": "rec:ray-barretto-indestructible-1973",
+  "title": "Indestructible",
+  "artist": "Ray Barretto",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:salsa", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ray-barretto"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Indestructible",
+      "drummer_ids": ["drummer:ray-barretto"],
+      "drums": {
+        "description": "A classic salsa groove with Barretto's conga driving the band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-ray-barretto"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4vPMy4x65vE"
+    }
+  ]
+}

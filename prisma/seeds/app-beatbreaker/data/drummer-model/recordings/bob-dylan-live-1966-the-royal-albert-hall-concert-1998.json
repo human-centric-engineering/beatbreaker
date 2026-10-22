@@ -1,0 +1,49 @@
+{
+  "id": "rec:bob-dylan-live-1966-the-royal-albert-hall-concert-1998",
+  "title": "Live 1966: The \"Royal Albert Hall\" Concert",
+  "artist": "Bob Dylan",
+  "year": 1998,
+  "type": "live_track",
+  "style_ids": ["style:folk-rock", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mickey-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Like a Rolling Stone",
+      "drummer_ids": ["drummer:mickey-jones"],
+      "drums": {
+        "description": "Heavy, crashing drums behind the electric set of the 1966 tour, answering the \"Judas\" heckle.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:the-bootleg-series-vol-4-bob-dylan-live-1966-the-royal-albert-hall-concert-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=IwOfCgkyEj0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22345"
+        }
+      ]
+    },
+    {
+      "title": "Ballad of a Thin Man",
+      "drummer_ids": ["drummer:mickey-jones"],
+      "drums": {
+        "description": "A slow, menacing beat with big accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:the-bootleg-series-vol-4-bob-dylan-live-1966-the-royal-albert-hall-concert-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=we37yX3zpKA"
+    }
+  ]
+}

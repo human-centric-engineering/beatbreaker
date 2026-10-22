@@ -1,0 +1,29 @@
+{
+  "id": "rec:chick-corea-the-leprechaun-1976",
+  "title": "The Leprechaun",
+  "artist": "Chick Corea",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-gadd"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Lenore",
+      "drummer_ids": ["drummer:steve-gadd"],
+      "drums": {
+        "description": "Funk-samba: the backbeat on 2 pushed a sixteenth early, the floor tom on 1, then the hands in turn.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-leprechaun-wikipedia"]
+        }
+      },
+      "style_key": "gadd",
+      "song_key": "lenore",
+      "youtube": "https://www.youtube.com/watch?v=tVo_K37ltuM"
+    }
+  ]
+}

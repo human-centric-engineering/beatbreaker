@@ -1,0 +1,33 @@
+{
+  "id": "rec:motorhead-sacrifice-1995",
+  "title": "Sacrifice",
+  "artist": "Motörhead",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mikkey-dee"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Sacrifice",
+      "drummer_ids": ["drummer:mikkey-dee"],
+      "drums": {
+        "description": "A fast, double-bass-driven metal beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mikkey-dee-wikipedia", "src:sacrifice-motorhead-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Snsti5lJy-c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=458263"
+        }
+      ]
+    }
+  ]
+}

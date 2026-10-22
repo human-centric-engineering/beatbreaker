@@ -60,6 +60,72 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Breakout",
+      "drummer_ids": ["drummer:taylor-hawkins"],
+      "drums": {
+        "description": "A pounding, fill-crammed punk-pop beat with crash-ride eighths and tom rolls into each chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:there-is-nothing-left-to-lose-wikipedia",
+            "src:taylor-hawkins-wikipedia"
+          ]
+        }
+      },
+      "style_key": "taylorhawkins",
+      "song_key": "breakout",
+      "youtube": "https://www.youtube.com/watch?v=4eNBM17tkjI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22492"
+        }
+      ]
+    },
+    {
+      "title": "Aurora",
+      "drummer_ids": ["drummer:taylor-hawkins"],
+      "drums": {
+        "description": "A floating, open-hat groove with Copeland-style hi-hat lifts, Hawkins's own favourite Foo song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:there-is-nothing-left-to-lose-wikipedia",
+            "src:taylor-hawkins-wikipedia"
+          ]
+        }
+      },
+      "style_key": "taylorhawkins",
+      "song_key": "aurora",
+      "youtube": "https://www.youtube.com/watch?v=2Psg8CaJkUQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=68259"
+        }
+      ]
+    },
+    {
+      "title": "Learn to Fly",
+      "drummer_ids": ["drummer:taylor-hawkins"],
+      "drums": {
+        "description": "A loose, bouncing eighth-note beat with crisp snare fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:there-is-nothing-left-to-lose-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1VQ_3sBZEm0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13990"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:there-is-nothing-left-to-lose-wikipedia"]

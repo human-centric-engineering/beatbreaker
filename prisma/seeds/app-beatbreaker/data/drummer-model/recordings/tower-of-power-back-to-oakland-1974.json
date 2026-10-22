@@ -67,6 +67,64 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Oakland Stroke",
+      "drummer_ids": ["drummer:david-garibaldi"],
+      "drums": {
+        "description": "A fast, punchy funk opener near 132 with the hat chopping sixteenths and horn-section hits.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:back-to-oakland-wikipedia"]
+        }
+      },
+      "style_key": "garibaldi",
+      "song_key": "oakland-stroke",
+      "youtube": "https://www.youtube.com/watch?v=DMCBTkm4-7Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6394375"
+        }
+      ]
+    },
+    {
+      "title": "Squib Cakes",
+      "drummer_ids": ["drummer:david-garibaldi"],
+      "drums": {
+        "description": "A long instrumental jam with a busy, linear Garibaldi groove and drum break.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:back-to-oakland-wikipedia", "src:david-garibaldi-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gQIhoKrCPLk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1085130"
+        }
+      ]
+    },
+    {
+      "title": "Don't Change Horses (in the Middle of a Stream)",
+      "drummer_ids": ["drummer:david-garibaldi"],
+      "drums": {
+        "description": "A relaxed, deep-pocket soul groove with crisp ghost notes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:back-to-oakland-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4WAIFl_ezic",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2561917"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:back-to-oakland-wikipedia"]

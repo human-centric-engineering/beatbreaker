@@ -65,6 +65,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Nutville",
+      "drummer_ids": ["drummer:buddy-rich"],
+      "drums": {
+        "description": "The ride in eighths, the snare on every \"and\", ensemble crashes, a drum solo to the end.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:buddy-rich-roar-of-74-wikipedia"]
+        }
+      },
+      "style_key": "buddyrich",
+      "song_key": "nutville",
+      "youtube": "https://www.youtube.com/watch?v=1ODzhDHiltE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4498398"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:buddy-rich-roar-of-74-wikipedia"]

@@ -10,5 +10,49 @@
       "drummer_id": "drummer:bobby-jarzombek",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Resurrection",
+      "drummer_ids": ["drummer:bobby-jarzombek"],
+      "drums": {
+        "description": "A fast, aggressive double-bass groove under Halford's scream.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:bobby-jarzombek-wikipedia",
+            "src:resurrection-halford-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Hsi3OOZh9aQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8980"
+        }
+      ]
+    },
+    {
+      "title": "Made in Hell",
+      "drummer_ids": ["drummer:bobby-jarzombek"],
+      "drums": {
+        "description": "A mid-tempo stomp with crisp double-kick fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:bobby-jarzombek-wikipedia",
+            "src:resurrection-halford-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=crN7lQMQ0RM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8797"
+        }
+      ]
+    }
   ]
 }

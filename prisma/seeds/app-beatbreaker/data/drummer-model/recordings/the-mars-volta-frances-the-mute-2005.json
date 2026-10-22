@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "L'Via L'Viaquez",
+      "drummer_ids": ["drummer:jon-theodore"],
+      "drums": {
+        "description": "Alternates between a crushing rock groove and a salsa section, Theodore switching feel at full tilt.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:frances-the-mute-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=JphZtpafdKY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=68140"
+        }
+      ]
+    },
+    {
+      "title": "Cygnus....Vismund Cygnus",
+      "drummer_ids": ["drummer:jon-theodore"],
+      "drums": {
+        "description": "Dense, polyrhythmic fills over a driving pulse in the album's opening suite.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:frances-the-mute-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jnw7Hi6iIKE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=42736"
+        }
+      ]
+    }
   ]
 }

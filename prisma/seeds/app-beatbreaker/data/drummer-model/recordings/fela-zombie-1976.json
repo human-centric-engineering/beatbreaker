@@ -17,6 +17,36 @@
       "pattern_ids": ["pattern:allen-zombie-archetype"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Mr Follow Follow",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "Floating: the pattern kept light and open under the slow vamp.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:fela-kuti-discography-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "mr-follow-follow",
+      "youtube": "https://www.youtube.com/watch?v=0nklCXMEj8k"
+    },
+    {
+      "title": "Zombie",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "Fast, two bars, the second ending in a mock military march that mocks the soldiers the song is about.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:fela-kuti-discography-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "zombie",
+      "youtube": "https://www.youtube.com/watch?v=Qj5x6pbJMyU"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:tony-allen-wikipedia", "src:tony-allen-nme-obit"],

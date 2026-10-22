@@ -1,0 +1,33 @@
+{
+  "id": "rec:deftones-adrenaline-1995",
+  "title": "Adrenaline",
+  "artist": "Deftones",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:alternative-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:abe-cunningham"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "7 Words",
+      "drummer_ids": ["drummer:abe-cunningham"],
+      "drums": {
+        "description": "A heavy, bouncing groove with syncopated kick and snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:adrenaline-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cqZaWj6haOg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29217"
+        }
+      ]
+    }
+  ]
+}

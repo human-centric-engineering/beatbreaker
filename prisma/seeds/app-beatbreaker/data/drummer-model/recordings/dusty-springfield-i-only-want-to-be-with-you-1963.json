@@ -1,0 +1,33 @@
+{
+  "id": "rec:dusty-springfield-i-only-want-to-be-with-you-1963",
+  "title": "I Only Want to Be with You",
+  "artist": "Dusty Springfield",
+  "year": 1963,
+  "type": "studio_track",
+  "style_ids": ["style:pop-rock-session", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bobby-graham"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "I Only Want to Be with You",
+      "drummer_ids": ["drummer:bobby-graham"],
+      "drums": {
+        "description": "A bright, Motown-styled beat for Springfield's first solo single.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:i-only-want-to-be-with-you-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FFumlgdETTg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=182123"
+        }
+      ]
+    }
+  ]
+}

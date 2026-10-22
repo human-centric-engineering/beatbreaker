@@ -16,5 +16,55 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Love Song",
+      "drummer_ids": ["drummer:rat-scabies"],
+      "drums": {
+        "description": "A breakneck punk beat with an opening drum break.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:love-song-the-damned-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=F5fHfGZENbQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=67512"
+        }
+      ]
+    },
+    {
+      "title": "Smash It Up",
+      "drummer_ids": ["drummer:rat-scabies"],
+      "drums": {
+        "description": "A driving, anthemic beat with big fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:smash-it-up-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=klidqI-5jOw"
+    },
+    {
+      "title": "Machine Gun Etiquette",
+      "drummer_ids": ["drummer:rat-scabies"],
+      "drums": {
+        "description": "Fast, machine-gun snare rolls.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:machine-gun-etiquette-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uXiWK3Y0Gi4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1692300"
+        }
+      ]
+    }
   ]
 }

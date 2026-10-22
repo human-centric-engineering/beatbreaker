@@ -10,5 +10,61 @@
       "drummer_id": "drummer:mike-mangini",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "On the Backs of Angels",
+      "drummer_ids": ["drummer:mike-mangini"],
+      "drums": {
+        "description": "Mangini's first Dream Theater single: a heavy, odd-time groove with dense fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:on-the-backs-of-angels-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nelGZPvml34",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=83320"
+        }
+      ]
+    },
+    {
+      "title": "Bridges in the Sky",
+      "drummer_ids": ["drummer:mike-mangini"],
+      "drums": {
+        "description": "Shifting meters, blast-like double bass and polyrhythmic sections.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:a-dramatic-turn-of-events-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yeg7Ycyp-hk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=86180"
+        }
+      ]
+    },
+    {
+      "title": "Breaking All Illusions",
+      "drummer_ids": ["drummer:mike-mangini"],
+      "drums": {
+        "description": "A long piece moving through many grooves and meters.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:a-dramatic-turn-of-events-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HZlYCvamxKM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=85107"
+        }
+      ]
+    }
   ]
 }

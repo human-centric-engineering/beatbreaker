@@ -1,0 +1,29 @@
+{
+  "id": "rec:wynton-marsalis-wynton-marsalis-1982",
+  "title": "Wynton Marsalis",
+  "artist": "Wynton Marsalis",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Sister Cheryl",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "His own tune, a pretty medium groove, near straight, a cross-stick on 4 (he re-recorded it with his 1980s quintet).",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wynton-marsalis-album-wikipedia", "src:tony-williams-bluenote"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "sister-cheryl",
+      "youtube": "https://www.youtube.com/watch?v=98fTxrwGJTk"
+    }
+  ]
+}

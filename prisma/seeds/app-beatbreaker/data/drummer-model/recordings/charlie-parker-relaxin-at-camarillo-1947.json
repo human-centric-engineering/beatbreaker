@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Relaxin' at Camarillo",
+      "drummer_ids": ["drummer:don-lamond"],
+      "drums": {
+        "description": "A medium blues swing with bebop comping on the snare behind Parker.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:relaxin-at-camarillo-wikipedia", "src:don-lamond-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=iNLzPm7WlM0"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:don-lamond-wikipedia"]

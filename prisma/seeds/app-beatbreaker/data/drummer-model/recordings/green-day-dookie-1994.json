@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Welcome to Paradise",
+      "drummer_ids": ["drummer:tre-cool"],
+      "drums": {
+        "description": "Fast punk drumming with a slower, building middle section.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:welcome-to-paradise-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OR7R9Kuw2fY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8634"
+        }
+      ]
+    },
+    {
+      "title": "Longview",
+      "drummer_ids": ["drummer:tre-cool"],
+      "drums": {
+        "description": "Starts with a quiet, rolling snare-and-tom groove under the bass, then crashes into a fast punk chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:longview-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=42BBdzzgPNM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23529"
+        }
+      ]
+    },
+    {
+      "title": "Basket Case",
+      "drummer_ids": ["drummer:tre-cool"],
+      "drums": {
+        "description": "A fast, driving pop-punk beat with crashing cymbals.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:basket-case-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NUTGr5t3MoY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1401"
+        }
+      ]
+    },
+    {
+      "title": "When I Come Around",
+      "drummer_ids": ["drummer:tre-cool"],
+      "drums": {
+        "description": "A mid-tempo, laid-back groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:when-i-come-around-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=i8dh9gDzmz8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8686"
+        }
+      ]
+    }
   ]
 }

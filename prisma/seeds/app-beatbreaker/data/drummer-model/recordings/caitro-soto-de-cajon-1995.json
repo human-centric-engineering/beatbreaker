@@ -17,5 +17,19 @@
         "source_ids": ["src:elcomercio-cajon-2016"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Toro Mata",
+      "drummer_ids": ["drummer:caitro-soto"],
+      "drums": {
+        "description": "Caitro's cajón in a landó feel under his own best-known song, the Afro-Peruvian cajón pattern that spread worldwide.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:elcomercio-cajon-2016"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UD49CgDY3LY"
+    }
   ]
 }

@@ -12,6 +12,95 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Somebody to Love",
+      "drummer_ids": ["drummer:spencer-dryden"],
+      "drums": {
+        "description": "Driving, insistent rock beat with a busy, jazz-schooled snare hand and fills that push Grace Slick's vocal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:somebody-to-love-jefferson-airplane-song-wikipedia",
+            "src:surrealistic-pillow-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RD4TFzkY5F0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=39153"
+        }
+      ]
+    },
+    {
+      "title": "White Rabbit",
+      "drummer_ids": ["drummer:spencer-dryden"],
+      "drums": {
+        "description": "A Bolero-like march rhythm on the snare that grows in one long crescendo to the final climax.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:white-rabbit-song-wikipedia", "src:surrealistic-pillow-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pnJM_jC7j_4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10761"
+        }
+      ]
+    },
+    {
+      "title": "She Has Funny Cars",
+      "drummer_ids": ["drummer:spencer-dryden"],
+      "drums": {
+        "description": "Opens on a pounding tom-tom figure that carries through the verses under Casady's fuzz bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:she-has-funny-cars-wikipedia", "src:surrealistic-pillow-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7anpSApXtUo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=39152"
+        }
+      ]
+    },
+    {
+      "title": "3/5 of a Mile in 10 Seconds",
+      "drummer_ids": ["drummer:spencer-dryden"],
+      "drums": {
+        "description": "Fast, hard-hitting rock groove with crash accents, the album's most aggressive drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:surrealistic-pillow-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sK-K6cIJTII"
+    },
+    {
+      "title": "Plastic Fantastic Lover",
+      "drummer_ids": ["drummer:spencer-dryden"],
+      "drums": {
+        "description": "Brisk, driving rock beat with a strong backbeat under the stacked vocals.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:surrealistic-pillow-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NUc8vkO3oxY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=417751"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:spencer-dryden-wikipedia", "src:surrealistic-pillow-wikipedia"]

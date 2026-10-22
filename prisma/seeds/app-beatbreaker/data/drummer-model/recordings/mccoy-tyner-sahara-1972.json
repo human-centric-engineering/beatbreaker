@@ -15,5 +15,31 @@
       "name": "Alphonse Mouzon",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Ebony Queen",
+      "drummer_ids": ["drummer:alphonse-mouzon"],
+      "drums": {
+        "description": "A powerful modal groove with heavy cymbal work.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:alphonse-mouzon-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xmD2W4tq1x0"
+    },
+    {
+      "title": "Sahara",
+      "drummer_ids": ["drummer:alphonse-mouzon"],
+      "drums": {
+        "description": "A long modal piece of polyrhythmic drumming.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:alphonse-mouzon-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=W5yOk9A7K6s"
+    }
   ]
 }

@@ -1,0 +1,55 @@
+{
+  "id": "rec:john-coltrane-live-at-birdland-1964",
+  "title": "Live at Birdland",
+  "artist": "John Coltrane",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:elvin-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Afro Blue",
+      "drummer_ids": ["drummer:elvin-jones"],
+      "drums": {
+        "description": "A fast waltz with 6/8 underneath: the feet and snare against the ride in a three-against-two that rolls without a downbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:elvin-jones-afro-blue-wikipedia",
+            "src:live-at-birdland-coltrane-wikipedia"
+          ]
+        }
+      },
+      "style_key": "elvinjones",
+      "song_key": "afro-blue",
+      "youtube": "https://www.youtube.com/watch?v=HjWya9KiHBQ"
+    },
+    {
+      "title": "Your Lady",
+      "drummer_ids": ["drummer:elvin-jones"],
+      "drums": {
+        "description": "A linear, rolling 6/8 figure between kick, hi-hat foot and left hand under the melody.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:live-at-birdland-coltrane-wikipedia",
+            "src:elvin-jones-bishop-key-players"
+          ]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "other",
+          "note": "Todd Bishop, Cruise Ship Drummer (shipdrummer.blogspot.com)"
+        }
+      ],
+      "style_key": "elvinjones",
+      "song_key": "your-lady",
+      "youtube": "https://www.youtube.com/watch?v=ojZlDsqRo1I"
+    }
+  ]
+}

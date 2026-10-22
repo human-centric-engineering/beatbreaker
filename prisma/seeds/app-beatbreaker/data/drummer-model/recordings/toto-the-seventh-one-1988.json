@@ -43,6 +43,28 @@
       "pattern_ids": ["pattern:porcaro-pamela-verse", "pattern:porcaro-pamela-chorus"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Pamela",
+      "drummer_ids": ["drummer:jeff-porcaro"],
+      "drums": {
+        "description": "Eighths on the hats with the 'a' of 2 and of 4, the kick on 1 and 3 and four on the floor in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:pamela-song-wikipedia", "src:songsterr-20076"]
+        }
+      },
+      "style_key": "porcaro",
+      "song_key": "pamela",
+      "youtube": "https://www.youtube.com/watch?v=QCq9751mOFo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=20076"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-seventh-one-wikipedia"]

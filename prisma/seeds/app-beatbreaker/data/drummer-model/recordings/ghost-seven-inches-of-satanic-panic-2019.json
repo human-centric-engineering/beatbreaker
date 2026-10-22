@@ -1,0 +1,35 @@
+{
+  "id": "rec:ghost-seven-inches-of-satanic-panic-2019",
+  "title": "Seven Inches of Satanic Panic",
+  "artist": "Ghost",
+  "year": 2019,
+  "type": "studio_track",
+  "style_ids": ["style:hard-rock", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nameless-ghoul"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Mary on a Cross",
+      "drummer_ids": ["drummer:nameless-ghoul"],
+      "drums": {
+        "description": "The ride in eighths, the kick off the 1 on the \"and\"s; the bell for the chorus, floor-tom turns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-521463", "src:mary-on-a-cross-wikipedia"]
+        }
+      },
+      "style_key": "ghoul",
+      "song_key": "mary-on-a-cross",
+      "youtube": "https://www.youtube.com/watch?v=NmxFxBiCrL4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=521463"
+        }
+      ]
+    }
+  ]
+}

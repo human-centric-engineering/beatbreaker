@@ -18,6 +18,30 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Love, the Mystery Of",
+      "drummer_ids": ["drummer:kofi-ghanaba"],
+      "drums": {
+        "description": "Warren's hand-drummed Ghanaian talking-drum and conga figures under an American big-band arrangement: African drumming answering jazz, the album's idea.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:guy-warren-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Africa Speaks, America Answers",
+      "drummer_ids": ["drummer:kofi-ghanaba"],
+      "drums": {
+        "description": "The title piece sets West African hand-drum patterns against Gene Esposito's swing rhythm section, an early meeting of Ghanaian drumming and jazz.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:guy-warren-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:guy-warren-wikipedia"]

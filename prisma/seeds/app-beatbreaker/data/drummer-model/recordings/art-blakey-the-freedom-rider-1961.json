@@ -42,5 +42,21 @@
         "source_ids": ["src:freedom-rider-wikipedia", "src:bishop-blakey-latin-2020"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "El Toro",
+      "drummer_ids": ["drummer:art-blakey"],
+      "drums": {
+        "description": "A Latin groove on the cymbal bell and two toms, the bell moving across the bar line.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bishop-blakey-latin-2020", "src:freedom-rider-wikipedia"]
+        }
+      },
+      "style_key": "blakey",
+      "song_key": "el-toro",
+      "youtube": "https://www.youtube.com/watch?v=yJdgauXZMnw"
+    }
   ]
 }

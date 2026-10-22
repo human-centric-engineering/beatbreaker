@@ -15,5 +15,19 @@
       "name": "Simon Phillips",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Third Uncle",
+      "drummer_ids": ["drummer:simon-phillips"],
+      "drums": {
+        "description": "Fast, relentless driving eighths with fills between the riff cycles.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:801-live-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xB1gyzP7Hmc"
+    }
   ]
 }

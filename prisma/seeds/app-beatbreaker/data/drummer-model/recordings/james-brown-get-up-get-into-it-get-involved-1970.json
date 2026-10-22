@@ -1,0 +1,29 @@
+{
+  "id": "rec:james-brown-get-up-get-into-it-get-involved-1970",
+  "title": "Get Up, Get into It, Get Involved",
+  "artist": "James Brown",
+  "year": 1970,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clyde-stubblefield"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Get Up, Get into It, Get Involved",
+      "drummer_ids": ["drummer:clyde-stubblefield"],
+      "drums": {
+        "description": "Sixteenths on the hi-hat in one hand, the kick pushing the \"a\" of 1.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-wikipedia"]
+        }
+      },
+      "style_key": "stubblefield",
+      "song_key": "get-involved",
+      "youtube": "https://www.youtube.com/watch?v=P-CpiRXRQUc"
+    }
+  ]
+}

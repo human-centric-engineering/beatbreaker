@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Personality Crisis",
+      "drummer_ids": ["drummer:jerry-nolan"],
+      "drums": {
+        "description": "A loose, swinging rock and roll beat played at punk speed, with a heavy backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:personality-crisis-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ioixZtoTp00",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=411164"
+        }
+      ]
+    },
+    {
+      "title": "Trash",
+      "drummer_ids": ["drummer:jerry-nolan"],
+      "drums": {
+        "description": "A bouncing, girl-group style groove with a heavy snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:trash-new-york-dolls-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wMUnqxmiV2k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=230404"
+        }
+      ]
+    },
+    {
+      "title": "Jet Boy",
+      "drummer_ids": ["drummer:jerry-nolan"],
+      "drums": {
+        "description": "A stomping, driving rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:new-york-dolls-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=B0O_M_qsK2Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5100461"
+        }
+      ]
+    },
+    {
+      "title": "Looking for a Kiss",
+      "drummer_ids": ["drummer:jerry-nolan"],
+      "drums": {
+        "description": "A swaggering beat with a 1950s rock and roll feel.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:new-york-dolls-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5D_DAFhiD5E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=650146"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "id": "rec:cortijo-y-su-combo-fiesta-boricua-1960",
+  "title": "Fiesta Boricua",
+  "artist": "Cortijo y su Combo",
+  "year": 1960,
+  "type": "album",
+  "style_ids": ["style:bomba-plena", "style:salsa"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:rafael-cortijo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Oriza",
+      "drummer_ids": ["drummer:rafael-cortijo"],
+      "drums": {
+        "description": "A Combo staple with Rivera, from the band's run on Puerto Rican television, on a hand-drum and timbal groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-rafael-cortijo", "src:musicbrainz-cortijo-fiesta-boricua"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sFh2Q5p3je8"
+    }
+  ]
+}

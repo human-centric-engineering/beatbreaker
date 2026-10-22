@@ -1,0 +1,27 @@
+{
+  "id": "rec:bela-fleck-edgar-meyer-and-zakir-hussain-as-we-speak-2023",
+  "title": "As We Speak",
+  "artist": "Béla Fleck, Edgar Meyer and Zakir Hussain",
+  "year": 2023,
+  "type": "album",
+  "style_ids": ["style:hindustani-classical", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zakir-hussain"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Pashto",
+      "drummer_ids": ["drummer:zakir-hussain"],
+      "drums": {
+        "description": "Tabla in dialogue with banjo and double bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:zakir-hussain-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2SFk0ttVcQA"
+    }
+  ]
+}

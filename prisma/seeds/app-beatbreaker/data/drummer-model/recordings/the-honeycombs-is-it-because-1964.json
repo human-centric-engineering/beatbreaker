@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-honeycombs-is-it-because-1964",
+  "title": "Is It Because",
+  "artist": "The Honeycombs",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:honey-lantree"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Is It Because",
+      "drummer_ids": ["drummer:honey-lantree"],
+      "drums": {
+        "description": "The follow-up single, another Joe Meek production built on Lantree's heavy beat-group backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:honey-lantree-wikipedia", "src:the-honeycombs-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=p7xPSx60Mm8"
+    }
+  ]
+}

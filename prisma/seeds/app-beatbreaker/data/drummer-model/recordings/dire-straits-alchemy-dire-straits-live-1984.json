@@ -1,0 +1,33 @@
+{
+  "id": "rec:dire-straits-alchemy-dire-straits-live-1984",
+  "title": "Alchemy: Dire Straits Live",
+  "artist": "Dire Straits",
+  "year": 1984,
+  "type": "live_track",
+  "style_ids": ["style:rock", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:terry-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Telegraph Road",
+      "drummer_ids": ["drummer:terry-williams"],
+      "drums": {
+        "description": "A long live build from a quiet groove to a pounding climax.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:alchemy-dire-straits-live-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=EX2n2ftbdZU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=28782"
+        }
+      ]
+    }
+  ]
+}

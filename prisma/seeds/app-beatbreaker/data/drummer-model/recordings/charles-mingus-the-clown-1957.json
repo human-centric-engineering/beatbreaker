@@ -1,0 +1,27 @@
+{
+  "id": "rec:charles-mingus-the-clown-1957",
+  "title": "The Clown",
+  "artist": "Charles Mingus",
+  "year": 1957,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dannie-richmond"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Haitian Fight Song",
+      "drummer_ids": ["drummer:dannie-richmond"],
+      "drums": {
+        "description": "A slow, brooding build into a fierce, churning swing, the drums following Mingus’s accelerations.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-clown-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6OFleiE81-E"
+    }
+  ]
+}

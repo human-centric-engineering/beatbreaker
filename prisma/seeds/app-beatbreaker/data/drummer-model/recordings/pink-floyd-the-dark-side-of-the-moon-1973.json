@@ -49,6 +49,49 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Time",
+      "drummer_ids": ["drummer:nick-mason"],
+      "drums": {
+        "description": "The roto-tom intro answering a heartbeat kick in sextuplets, then half time with the snare on 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:time-pink-floyd-wikipedia"]
+        }
+      },
+      "style_key": "nickmason",
+      "song_key": "time",
+      "also_song_keys": ["time-roto-toms"],
+      "youtube": "https://www.youtube.com/watch?v=Qr0-7Ds79zo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15873"
+        }
+      ]
+    },
+    {
+      "title": "Money",
+      "drummer_ids": ["drummer:nick-mason"],
+      "drums": {
+        "description": "A 7/4 groove with the snare on 2, 4 and 6, and a guitar solo in 4/4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:money-pink-floyd-wikipedia"]
+        }
+      },
+      "style_key": "nickmason",
+      "song_key": "money",
+      "youtube": "https://www.youtube.com/watch?v=-0kcet4aPpQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15761"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-dark-side-of-the-moon-wikipedia"]

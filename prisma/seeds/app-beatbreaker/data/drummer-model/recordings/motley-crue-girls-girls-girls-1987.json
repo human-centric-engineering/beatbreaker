@@ -1,0 +1,36 @@
+{
+  "id": "rec:motley-crue-girls-girls-girls-1987",
+  "title": "Girls, Girls, Girls",
+  "artist": "Mötley Crüe",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tommy-lee"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Wild Side",
+      "drummer_ids": ["drummer:tommy-lee"],
+      "drums": {
+        "description": "A heavy, syncopated groove with machine-tight double-bass passages.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:tommy-lee-wikipedia",
+            "src:girls-girls-girls-motley-crue-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4Hihge6FFVw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13571"
+        }
+      ]
+    }
+  ]
+}

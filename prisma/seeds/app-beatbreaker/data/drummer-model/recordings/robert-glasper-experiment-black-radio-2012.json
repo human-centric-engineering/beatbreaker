@@ -11,6 +11,44 @@
       "why_it_matters": "The record that won the Best R&B Album Grammy with his drumming at its centre."
     }
   ],
+  "tracks": [
+    {
+      "title": "Afro Blue",
+      "drummer_ids": ["drummer:chris-dave"],
+      "drums": {
+        "description": "A loose, swung neo-soul groove with displaced, J Dilla-inspired kick placements.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:chris-dave-wikipedia", "src:black-radio-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=H_hT61-E5kg"
+    },
+    {
+      "title": "Cherish the Day",
+      "drummer_ids": ["drummer:chris-dave"],
+      "drums": {
+        "description": "A laid-back neo-soul groove with off-kilter ghost notes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chris-dave-wikipedia", "src:black-radio-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=iYJ-xyeyhlc"
+    },
+    {
+      "title": "Ah Yeah",
+      "drummer_ids": ["drummer:chris-dave"],
+      "drums": {
+        "description": "A slippery, behind-the-beat hip-hop groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chris-dave-wikipedia", "src:black-radio-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oN0tFgLcp4g"
+    }
+  ],
   "release": "Blue Note",
   "evidence": {
     "confidence": "widely_reported",

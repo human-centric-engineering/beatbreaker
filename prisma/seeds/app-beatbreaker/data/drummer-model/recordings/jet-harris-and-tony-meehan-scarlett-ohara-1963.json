@@ -1,0 +1,27 @@
+{
+  "id": "rec:jet-harris-and-tony-meehan-scarlett-ohara-1963",
+  "title": "Scarlett O'Hara",
+  "artist": "Jet Harris and Tony Meehan",
+  "year": 1963,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-meehan"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Scarlett O'Hara",
+      "drummer_ids": ["drummer:tony-meehan"],
+      "drums": {
+        "description": "A light, swinging beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jet-harris-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=H2ePG1LWGIM"
+    }
+  ]
+}

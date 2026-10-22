@@ -10,5 +10,61 @@
       "drummer_id": "drummer:sean-reinert",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Flattening of Emotions",
+      "drummer_ids": ["drummer:sean-reinert"],
+      "drums": {
+        "description": "Precise, jazz-informed death metal drumming with blast beats and odd accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:human-death-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yuPoJgnGdcI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6693"
+        }
+      ]
+    },
+    {
+      "title": "Lack of Comprehension",
+      "drummer_ids": ["drummer:sean-reinert"],
+      "drums": {
+        "description": "Fast, technical double-bass and fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:human-death-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ufe3UEtIu8g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5343"
+        }
+      ]
+    },
+    {
+      "title": "Suicide Machine",
+      "drummer_ids": ["drummer:sean-reinert"],
+      "drums": {
+        "description": "A thrashing, tight groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:human-death-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yayGNUcf6uI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=392899"
+        }
+      ]
+    }
   ]
 }

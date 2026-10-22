@@ -1,0 +1,33 @@
+{
+  "id": "rec:oasis-whatever-1994",
+  "title": "Whatever",
+  "artist": "Oasis",
+  "year": 1994,
+  "type": "studio_track",
+  "style_ids": ["style:britpop", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-mccarroll"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Whatever",
+      "drummer_ids": ["drummer:tony-mccarroll"],
+      "drums": {
+        "description": "A simple mid-tempo backbeat under the string arrangement on the non-album single.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:whatever-oasis-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=EHfx9LXzxpw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49235"
+        }
+      ]
+    }
+  ]
+}

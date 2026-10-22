@@ -1,0 +1,33 @@
+{
+  "id": "rec:chuck-berry-school-days-1957",
+  "title": "School Days",
+  "artist": "Chuck Berry",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fred-below"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "School Days",
+      "drummer_ids": ["drummer:fred-below"],
+      "drums": {
+        "description": "Swinging rock and roll backbeat that answers the call-and-response guitar breaks.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:school-days-chuck-berry-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DHG5-GxI_Es",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4585688"
+        }
+      ]
+    }
+  ]
+}

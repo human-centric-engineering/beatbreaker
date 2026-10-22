@@ -232,5 +232,45 @@
     "reliability": 0.6,
     "accessed": "2026-10-15",
     "notes": "rev 7743065. Human. 6/8 in sixteenths with triplet-32nd drags. Left out. Read from the part JSON."
+  },
+  {
+    "id": "src:in-absentia-wikipedia",
+    "type": "encyclopedia",
+    "title": "In Absentia - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/In_Absentia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:deadwing-wikipedia",
+    "type": "encyclopedia",
+    "title": "Deadwing - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Deadwing",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:shallow-porcupine-tree-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Shallow (Porcupine Tree song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Shallow_(Porcupine_Tree_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:fear-of-a-blank-planet-wikipedia",
+    "type": "encyclopedia",
+    "title": "Fear of a Blank Planet - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Fear_of_a_Blank_Planet",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:closure-continuation-wikipedia",
+    "type": "encyclopedia",
+    "title": "Closure/Continuation - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Closure%2FContinuation",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

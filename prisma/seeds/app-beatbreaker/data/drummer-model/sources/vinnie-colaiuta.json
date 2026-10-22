@@ -160,5 +160,53 @@
     "reliability": 0.6,
     "accessed": "2026-10-15",
     "notes": "Human. At 136: the intro in 4/4, then 19/16, 23/16, 7/4 and 6/4."
+  },
+  {
+    "id": "src:joe-s-garage-wikipedia",
+    "type": "encyclopedia",
+    "title": "Joe's Garage - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Joe's_Garage",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:if-i-ever-lose-my-faith-in-you-wikipedia",
+    "type": "encyclopedia",
+    "title": "If I Ever Lose My Faith in You - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/If_I_Ever_Lose_My_Faith_in_You",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:ten-summoner-s-tales-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ten Summoner's Tales - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ten_Summoner's_Tales",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:fields-of-gold-wikipedia",
+    "type": "encyclopedia",
+    "title": "Fields of Gold - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Fields_of_Gold",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:shape-of-my-heart-sting-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Shape of My Heart (Sting song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Shape_of_My_Heart_(Sting_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:i-hung-my-head-wikipedia",
+    "type": "encyclopedia",
+    "title": "I Hung My Head - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/I_Hung_My_Head",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

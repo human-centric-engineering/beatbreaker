@@ -12,6 +12,56 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Billion Dollar Babies",
+      "drummer_ids": ["drummer:neal-smith"],
+      "drums": {
+        "description": "Hard-rock drumming with heavy tom fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:billion-dollar-babies-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4JhQ-fjPDGo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1038"
+        }
+      ]
+    },
+    {
+      "title": "No More Mr. Nice Guy",
+      "drummer_ids": ["drummer:neal-smith"],
+      "drums": {
+        "description": "A punchy, tight rock groove with crisp fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:billion-dollar-babies-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KN6ngThqMEs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=929"
+        }
+      ]
+    },
+    {
+      "title": "Elected",
+      "drummer_ids": ["drummer:neal-smith"],
+      "drums": {
+        "description": "A bombastic, driving rock beat under the horns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:billion-dollar-babies-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZQAkjdrgo7M"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:neal-smith-drummer-wikipedia"]

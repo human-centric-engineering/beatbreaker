@@ -44,6 +44,28 @@
       "pattern_ids": ["pattern:rowntree-coffee-and-tv-beetlebum"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Coffee & TV",
+      "drummer_ids": ["drummer:dave-rowntree"],
+      "drums": {
+        "description": "One bar for the whole song: the kick on 1 and its \"and\", 3 and its \"and\".",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blur-13-album-wikipedia"]
+        }
+      },
+      "style_key": "rowntree",
+      "song_key": "coffee-and-tv",
+      "youtube": "https://www.youtube.com/watch?v=6oqXVx3sBOk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=27192"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:blur-13-album-wikipedia"]

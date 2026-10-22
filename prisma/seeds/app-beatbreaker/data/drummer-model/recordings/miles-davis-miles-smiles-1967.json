@@ -50,6 +50,50 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Freedom Jazz Dance",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Between swing and straight, rimshots answering a jagged line.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:miles-smiles-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "freedom-jazz-dance",
+      "youtube": "https://www.youtube.com/watch?v=i2cZf4g_jgo"
+    },
+    {
+      "title": "Circle",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "A soft brushed waltz ballad.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:miles-smiles-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "circle",
+      "youtube": "https://www.youtube.com/watch?v=BY3hTwc7cls"
+    },
+    {
+      "title": "Footprints",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "6/4 played as 12/8, floating between three and four.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:miles-smiles-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "footprints",
+      "youtube": "https://www.youtube.com/watch?v=O-rrt8IYhe0"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:tony-williams-wikipedia"]

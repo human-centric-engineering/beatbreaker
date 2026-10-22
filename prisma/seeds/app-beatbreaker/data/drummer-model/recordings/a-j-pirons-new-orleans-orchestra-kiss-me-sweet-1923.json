@@ -12,6 +12,19 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Kiss Me Sweet",
+      "drummer_ids": ["drummer:louis-cottrell-sr"],
+      "drums": {
+        "description": "Gentle, steady dance beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:louis-cottrell-sr-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:louis-cottrell-sr-wikipedia"]

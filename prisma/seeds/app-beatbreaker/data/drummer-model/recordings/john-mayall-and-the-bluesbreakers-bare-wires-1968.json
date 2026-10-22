@@ -15,5 +15,18 @@
       "name": "Jon Hiseman",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Bare Wires Suite",
+      "drummer_ids": ["drummer:jon-hiseman"],
+      "drums": {
+        "description": "Jazz-inflected blues drumming moving through the sections of Mayall’s suite.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bare-wires-wikipedia"]
+        }
+      }
+    }
   ]
 }

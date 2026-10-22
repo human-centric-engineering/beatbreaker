@@ -1,0 +1,29 @@
+{
+  "id": "rec:melvin-bliss-synthetic-substitution-1973",
+  "title": "Synthetic Substitution",
+  "artist": "Melvin Bliss",
+  "year": 1973,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bernard-purdie"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Synthetic Substitution",
+      "drummer_ids": ["drummer:bernard-purdie"],
+      "drums": {
+        "description": "The much-sampled break: a plain backbeat over a fast-footed kick that swings a little.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:melvin-bliss-wikipedia"]
+        }
+      },
+      "style_key": "bernardpurdie",
+      "song_key": "synthetic-substitution",
+      "youtube": "https://www.youtube.com/watch?v=aPw0ua8U6fc"
+    }
+  ]
+}

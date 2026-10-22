@@ -18,6 +18,56 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Basra",
+      "drummer_ids": ["drummer:pete-la-roca"],
+      "drums": {
+        "description": "A hypnotic, Middle Eastern-flavoured drone groove on toms and cymbals, La Roca's signature.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:basra-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=e3KX2SmKqT4"
+    },
+    {
+      "title": "Malagueña",
+      "drummer_ids": ["drummer:pete-la-roca"],
+      "drums": {
+        "description": "Spanish-tinged triplet rhythms on toms turning to fast swing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:basra-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6gp6xb-WJT0"
+    },
+    {
+      "title": "Candu",
+      "drummer_ids": ["drummer:pete-la-roca"],
+      "drums": {
+        "description": "Up-tempo modal swing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:basra-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Nq-IEpm-hdk"
+    },
+    {
+      "title": "Lazy Afternoon",
+      "drummer_ids": ["drummer:pete-la-roca"],
+      "drums": {
+        "description": "Slow, floating ballad time.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:basra-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9w3vCX-9zok"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:pete-la-roca-wikipedia"]

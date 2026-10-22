@@ -15,5 +15,25 @@
       "name": "Steve Jordan",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Angry",
+      "drummer_ids": ["drummer:steve-jordan"],
+      "drums": {
+        "description": "A driving, punchy rock beat in the Charlie Watts tradition.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hackney-diamonds-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_mEC54eTuGw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=562468"
+        }
+      ]
+    }
   ]
 }

@@ -15,5 +15,18 @@
       "name": "Narada Michael Walden",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Vision Is a Naked Sword",
+      "drummer_ids": ["drummer:narada-michael-walden"],
+      "drums": {
+        "description": "Fiery fusion drumming with the London Symphony Orchestra, fast fills between orchestral sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:apocalypse-mahavishnu-orchestra-album-wikipedia"]
+        }
+      }
+    }
   ]
 }

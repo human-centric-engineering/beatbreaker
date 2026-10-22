@@ -205,5 +205,21 @@
     "reliability": 0.55,
     "accessed": "2026-10-19",
     "notes": "Read through the meta API: aiGenerated false, revision 78006 (2010); drum track named 'Percussion'. Its first revision, by Knard25; the 2025 revisions edit the bass and the kit's sounds. Marked tempo 125; 85 bars marked intro, verses and break. The kick on 1 and 3, the backbeat with the hat on 2 and the foot on 4, and four sixteenths on the snare on 4 at the end of every eight-bar phrase. Its snare notes are all marked ghost; read as the backbeat, which is how the record sounds."
+  },
+  {
+    "id": "src:do-you-love-me-wikipedia-benjamin",
+    "type": "encyclopedia",
+    "title": "Do You Love Me - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Do_You_Love_Me",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:going-to-a-go-go-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Going to a Go-Go - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Going_to_a_Go-Go",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

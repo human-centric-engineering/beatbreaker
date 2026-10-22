@@ -61,6 +61,52 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Rosanna",
+      "drummer_ids": ["drummer:jeff-porcaro"],
+      "drums": {
+        "description": "The Rosanna shuffle: a half-time shuffle with hats on the outer triplets, ghost notes between, the backbeat on 3 and a Bo Diddley kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rosanna-wikipedia", "src:songsterr-19993"]
+        }
+      },
+      "style_key": "porcaro",
+      "song_key": "rosanna",
+      "youtube": "https://www.youtube.com/watch?v=qmOLtTGvsbM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19993"
+        }
+      ]
+    },
+    {
+      "title": "Africa",
+      "drummer_ids": ["drummer:jeff-porcaro"],
+      "drums": {
+        "description": "A looped sixteenth-note groove on the hats with the kick on 1, the 'a' of 1 and 2, layered with percussion he played himself.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:africa-song-wikipedia",
+            "src:africa-toto-wikipedia",
+            "src:songsterr-51025"
+          ]
+        }
+      },
+      "style_key": "porcaro",
+      "song_key": "africa",
+      "youtube": "https://www.youtube.com/watch?v=FTQbiNvZqaY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=51025"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:toto-iv-wikipedia"]

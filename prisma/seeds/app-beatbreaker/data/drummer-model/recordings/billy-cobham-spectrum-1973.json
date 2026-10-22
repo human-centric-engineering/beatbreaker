@@ -68,6 +68,96 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Quadrant 4",
+      "drummer_ids": ["drummer:billy-cobham"],
+      "drums": {
+        "description": "A shuffle at 240 bpm on both bass drums, every beat and its last triplet, under a jazz ride.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:spectrum-cobham-wikipedia",
+            "src:songsterr-519969",
+            "src:billy-cobham-hudson-book"
+          ]
+        }
+      },
+      "style_key": "cobham",
+      "song_key": "quadrant-4",
+      "youtube": "https://www.youtube.com/watch?v=P25IQpk_p9A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=519969"
+        }
+      ]
+    },
+    {
+      "title": "Spectrum",
+      "drummer_ids": ["drummer:billy-cobham"],
+      "drums": {
+        "description": "In 7/8, the hat opening on the 'and' of 1 and of 3, the snare filling between the kicks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:spectrum-cobham-wikipedia", "src:songsterr-1324254"]
+        }
+      },
+      "style_key": "cobham",
+      "song_key": "spectrum",
+      "youtube": "https://www.youtube.com/watch?v=gPUHP4VF4cU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1324254"
+        }
+      ]
+    },
+    {
+      "title": "Stratus",
+      "drummer_ids": ["drummer:billy-cobham"],
+      "drums": {
+        "description": "Sixteenths on the hat with one hand, the snare on 2, the 'e' of 3 and 4, the kick round it: a groove later sampled by Massive Attack.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:stratus-song-wikipedia",
+            "src:songsterr-64400",
+            "src:billy-cobham-hudson-book"
+          ]
+        }
+      },
+      "style_key": "cobham",
+      "song_key": "stratus",
+      "youtube": "https://www.youtube.com/watch?v=qjQ3UWy1GsA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=64400"
+        }
+      ]
+    },
+    {
+      "title": "Red Baron",
+      "drummer_ids": ["drummer:billy-cobham"],
+      "drums": {
+        "description": "Eighths on the hat, the snare on 2, the 'e' of 3 and 4 and the kick on the 'a' of 1, a laid-back fusion funk.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:spectrum-cobham-wikipedia", "src:billy-cobham-hudson-book"]
+        }
+      },
+      "style_key": "cobham",
+      "song_key": "red-baron",
+      "youtube": "https://www.youtube.com/watch?v=ptsgQ1uYqkA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=791843"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:spectrum-cobham-wikipedia", "src:billy-cobham-wikipedia"]

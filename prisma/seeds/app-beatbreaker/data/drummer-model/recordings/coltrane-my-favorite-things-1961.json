@@ -44,6 +44,22 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "My Favorite Things",
+      "drummer_ids": ["drummer:elvin-jones"],
+      "drums": {
+        "description": "A 3/4 waltz turned into a churning six-feel, the ride and snare cross-rhythms building behind the soprano for fourteen minutes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:my-favorite-things-album-wikipedia", "src:wikipedia-elvin"]
+        }
+      },
+      "style_key": "elvinjones",
+      "song_key": "my-favorite-things",
+      "youtube": "https://www.youtube.com/watch?v=JQvc-Gkwhow"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:britannica-elvin"]

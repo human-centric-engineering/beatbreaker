@@ -71,6 +71,88 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "War Pigs",
+      "drummer_ids": ["drummer:bill-ward"],
+      "drums": {
+        "description": "Hats under the stabs in the verse; the snare on 2, the \"e\" of 3 and 4 in the riff, a jazz drummer's swing in a heavy band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-10137", "src:ward-moderndrummer-2020"]
+        }
+      },
+      "style_key": "billward",
+      "song_key": "war-pigs",
+      "youtube": "https://www.youtube.com/watch?v=K3b6SGoN6dA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10137"
+        }
+      ]
+    },
+    {
+      "title": "Paranoid",
+      "drummer_ids": ["drummer:bill-ward"],
+      "drums": {
+        "description": "The kick in eighths under hats in quarters, a stop every fourth bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-296", "src:paranoid-album-wikipedia"]
+        }
+      },
+      "style_key": "billward",
+      "song_key": "paranoid",
+      "youtube": "https://www.youtube.com/watch?v=0qanF-91aJo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=296"
+        }
+      ]
+    },
+    {
+      "title": "Iron Man",
+      "drummer_ids": ["drummer:bill-ward"],
+      "drums": {
+        "description": "The kick with the riff, a fill every fourth bar; the solo and the outro at double time.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-8", "src:ward-faroutmagazine-2024"]
+        }
+      },
+      "style_key": "billward",
+      "song_key": "iron-man",
+      "youtube": "https://www.youtube.com/watch?v=b3-QqGVt-tM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8"
+        }
+      ]
+    },
+    {
+      "title": "Fairies Wear Boots",
+      "drummer_ids": ["drummer:bill-ward"],
+      "drums": {
+        "description": "A shuffle on the ride's bell, the snare on 2, the \"and\" of 3 and a pair into the bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-26800", "src:paranoid-album-wikipedia"]
+        }
+      },
+      "style_key": "billward",
+      "song_key": "fairies-wear-boots",
+      "youtube": "https://www.youtube.com/watch?v=jz7hIpRv-jc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=26800"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:paranoid-album-wikipedia"]

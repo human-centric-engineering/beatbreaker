@@ -49,6 +49,28 @@
       "pattern_ids": ["pattern:davis-look-back-in-anger"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Look Back in Anger",
+      "drummer_ids": ["drummer:dennis-davis"],
+      "drums": {
+        "description": "A frantic, driving beat with a long drum break in the extended section.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lodger-album-wikipedia"]
+        }
+      },
+      "style_key": "dennisdavis",
+      "song_key": "look-back-in-anger",
+      "youtube": "https://www.youtube.com/watch?v=eszZfu_1JM0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=468068"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:lodger-album-wikipedia"]

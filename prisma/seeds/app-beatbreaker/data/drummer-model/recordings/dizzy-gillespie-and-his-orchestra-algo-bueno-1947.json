@@ -1,0 +1,27 @@
+{
+  "id": "rec:dizzy-gillespie-and-his-orchestra-algo-bueno-1947",
+  "title": "Algo Bueno",
+  "artist": "Dizzy Gillespie and His Orchestra",
+  "year": 1947,
+  "type": "studio_track",
+  "style_ids": ["style:afro-cuban", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chano-pozo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Algo Bueno",
+      "drummer_ids": ["drummer:chano-pozo"],
+      "drums": {
+        "description": "Woody'n You in a Latin feel, Pozo's conga under the swing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-chano-pozo"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BCOE2IcdvrA"
+    }
+  ]
+}

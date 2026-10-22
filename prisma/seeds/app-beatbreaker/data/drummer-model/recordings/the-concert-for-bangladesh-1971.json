@@ -17,6 +17,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Bangla Dhun",
+      "drummer_ids": ["drummer:alla-rakha"],
+      "drums": {
+        "description": "Tabla accompaniment and solos in the opening Ravi Shankar set.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:alla-rakha-wikipedia",
+            "src:the-concert-for-bangladesh-album-wikipedia"
+          ]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:alla-rakha-wikipedia"],

@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Hot Toddy",
+      "drummer_ids": ["drummer:ronnie-verrell"],
+      "drums": {
+        "description": "A smooth, swinging British big band, Verrell's crisp time and setups under the brass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ted-heath-bandleader-wikipedia", "src:ronnie-verrell-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LByCT2FEI9A"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:ronnie-verrell-wikipedia"]

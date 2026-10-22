@@ -60,6 +60,90 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Aces High",
+      "drummer_ids": ["drummer:nicko-mcbrain"],
+      "drums": {
+        "description": "Ride on every beat and the snare on 2 and 4 at full speed, the kick following the bass, all on a single pedal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:aces-high-wikipedia", "src:nicko-mcbrain-wikipedia"]
+        }
+      },
+      "style_key": "mcbrain",
+      "song_key": "aces-high",
+      "youtube": "https://www.youtube.com/watch?v=Xg9aQvjMS60",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10018"
+        }
+      ]
+    },
+    {
+      "title": "2 Minutes to Midnight",
+      "drummer_ids": ["drummer:nicko-mcbrain"],
+      "drums": {
+        "description": "Ride or hi-hats in eighths over 2 and 4, with a half-time pre-chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:2-minutes-to-midnight-wikipedia"]
+        }
+      },
+      "style_key": "mcbrain",
+      "song_key": "2-minutes-to-midnight",
+      "youtube": "https://www.youtube.com/watch?v=9qbRHY1l0vc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=523"
+        }
+      ]
+    },
+    {
+      "title": "Powerslave",
+      "drummer_ids": ["drummer:nicko-mcbrain"],
+      "drums": {
+        "description": "Half-open hi-hats in eighths over the kick in pairs, the bell on every beat in the chorus, and the kick on every beat under the solos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:powerslave-wikipedia"]
+        }
+      },
+      "style_key": "mcbrain",
+      "song_key": "powerslave",
+      "also_song_keys": ["powerslave-solos"],
+      "youtube": "https://www.youtube.com/watch?v=Mw-o_cSdqmI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10074"
+        }
+      ]
+    },
+    {
+      "title": "Rime of the Ancient Mariner",
+      "drummer_ids": ["drummer:nicko-mcbrain"],
+      "drums": {
+        "description": "Thirteen minutes: the gallop on hi-hats and kick together, a one-foot shuffle in the middle verses, and triplets under the rain and the solos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:powerslave-wikipedia"]
+        }
+      },
+      "style_key": "mcbrain",
+      "song_key": "rime-of-the-ancient-mariner",
+      "also_song_keys": ["rime-of-the-ancient-mariner-verses", "rime-of-the-ancient-mariner-solos"],
+      "youtube": "https://www.youtube.com/watch?v=OSDZj_jh5cE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23784"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:powerslave-wikipedia"]

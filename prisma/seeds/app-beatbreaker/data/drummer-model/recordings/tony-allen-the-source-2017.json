@@ -16,6 +16,22 @@
       "why_it_matters": "His late statement as a leader, bringing Afrobeat back to the jazz he learned from: Blakey and Roach meet Africa 70."
     }
   ],
+  "tracks": [
+    {
+      "title": "Moody Boy",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "A big band around snare on one, his own pattern at the centre of the arrangement.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "moody-boy",
+      "youtube": "https://www.youtube.com/watch?v=3VVNRWpiRFk"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:tony-allen-wikipedia"]

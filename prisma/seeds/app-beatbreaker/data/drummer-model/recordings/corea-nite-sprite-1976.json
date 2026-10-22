@@ -27,5 +27,21 @@
         }
       ]
     }
+  ],
+  "tracks": [
+    {
+      "title": "Nite Sprite",
+      "drummer_ids": ["drummer:steve-gadd"],
+      "drums": {
+        "description": "A rollicking funk sixteenth on the hats, the small rack tom answering the backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-leprechaun-wikipedia", "src:remo-profile"]
+        }
+      },
+      "style_key": "gadd",
+      "song_key": "nite-sprite",
+      "youtube": "https://www.youtube.com/watch?v=uRz2VCIhBB0"
+    }
   ]
 }

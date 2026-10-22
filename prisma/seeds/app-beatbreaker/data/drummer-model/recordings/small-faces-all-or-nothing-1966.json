@@ -40,6 +40,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "All or Nothing",
+      "drummer_ids": ["drummer:kenney-jones"],
+      "drums": {
+        "description": "Eighths with the hat half-open on 2 and 4, a roll into every \"all or nothing\".",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-574302", "src:small-faces-wikipedia"]
+        }
+      },
+      "style_key": "kenneyjones",
+      "song_key": "all-or-nothing",
+      "youtube": "https://www.youtube.com/watch?v=8nIAzRS5PPo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=247831"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:small-faces-wikipedia"]

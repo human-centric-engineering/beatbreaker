@@ -1,0 +1,33 @@
+{
+  "id": "rec:roxy-music-stranded-1973",
+  "title": "Stranded",
+  "artist": "Roxy Music",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:glam-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-thompson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Street Life",
+      "drummer_ids": ["drummer:paul-thompson"],
+      "drums": {
+        "description": "A heavy, pounding rock groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stranded-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=g_dTFdRAvN0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1281877"
+        }
+      ]
+    }
+  ]
+}

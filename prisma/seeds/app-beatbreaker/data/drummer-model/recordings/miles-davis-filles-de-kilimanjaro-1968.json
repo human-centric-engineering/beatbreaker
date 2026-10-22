@@ -1,0 +1,29 @@
+{
+  "id": "rec:miles-davis-filles-de-kilimanjaro-1968",
+  "title": "Filles de Kilimanjaro",
+  "artist": "Miles Davis",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Frelon Brun",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Straight-eighth funk: a busy ride, ghosted snare, syncopated kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:filles-de-kilimanjaro-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "frelon-brun",
+      "youtube": "https://www.youtube.com/watch?v=BiGf9nQsqe4"
+    }
+  ]
+}

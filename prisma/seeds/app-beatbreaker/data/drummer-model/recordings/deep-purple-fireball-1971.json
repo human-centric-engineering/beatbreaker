@@ -48,6 +48,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Fireball",
+      "drummer_ids": ["drummer:ian-paice"],
+      "drums": {
+        "description": "Two bass drums in eighths, the ride bell in quarters, the snare in 3+3+2 in the intro.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-29173", "src:fireball-song-wikipedia"]
+        }
+      },
+      "style_key": "paice",
+      "song_key": "fireball",
+      "youtube": "https://www.youtube.com/watch?v=NLWx7lSZw-c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29173"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:fireball-song-wikipedia"]

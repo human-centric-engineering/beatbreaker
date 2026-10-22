@@ -38,6 +38,66 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Squonk",
+      "drummer_ids": ["drummer:phil-collins"],
+      "drums": {
+        "description": "Slow and heavy, meant to sound like Kashmir: the snare accented, the hats in eighths, then the ride.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:trick-of-the-tail-wikipedia", "src:songsterr-36370"]
+        }
+      },
+      "style_key": "collins",
+      "song_key": "squonk",
+      "youtube": "https://www.youtube.com/watch?v=xmUSL1njm84",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=36370"
+        }
+      ]
+    },
+    {
+      "title": "Dance on a Volcano",
+      "drummer_ids": ["drummer:phil-collins"],
+      "drums": {
+        "description": "7/8: the kick and the hat foot on every eighth, then the ride, then the bell over a busy snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:trick-of-the-tail-wikipedia", "src:songsterr-36377"]
+        }
+      },
+      "style_key": "collins",
+      "song_key": "dance-on-a-volcano",
+      "youtube": "https://www.youtube.com/watch?v=sjRQgTbbfwA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=36377"
+        }
+      ]
+    },
+    {
+      "title": "Los Endos",
+      "drummer_ids": ["drummer:phil-collins"],
+      "drums": {
+        "description": "The closing instrumental: a fast, tom-heavy Latin-rock drive that Collins built the album's finale around.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:trick-of-the-tail-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=EjFVJnrMqXI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=658930"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:trick-of-the-tail-wikipedia"]

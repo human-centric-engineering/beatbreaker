@@ -12,6 +12,42 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Cinnamon Girl",
+      "drummer_ids": ["drummer:ralph-molina"],
+      "drums": {
+        "description": "A simple, heavy backbeat that sits under the riff, the Crazy Horse ragged-glory sound.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ralph-molina-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Down by the River",
+      "drummer_ids": ["drummer:ralph-molina"],
+      "drums": {
+        "description": "A steady, loping groove held under nine minutes of guitar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ralph-molina-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Cowgirl in the Sand",
+      "drummer_ids": ["drummer:ralph-molina"],
+      "drums": {
+        "description": "A long, loose, driving groove behind the guitar jam.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ralph-molina-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ETai83iIsiA"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ralph-molina-wikipedia", "src:everybody-knows-this-is-nowhere-wikipedia"]

@@ -1,0 +1,27 @@
+{
+  "id": "rec:mongo-santamaria-stone-soul-1969",
+  "title": "Stone Soul",
+  "artist": "Mongo Santamaría",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:afro-cuban", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mongo-santamaria"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Cloud Nine",
+      "drummer_ids": ["drummer:mongo-santamaria"],
+      "drums": {
+        "description": "Mongo's congas recast the Temptations' psychedelic soul as a Latin-funk groove, a 1969 hit.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-mongo-santamaria"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UOXF6qKmbPQ"
+    }
+  ]
+}

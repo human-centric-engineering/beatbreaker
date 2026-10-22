@@ -31,6 +31,50 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Big Swing Face",
+      "drummer_ids": ["drummer:buddy-rich"],
+      "drums": {
+        "description": "The ride and the foot under ghosted comps, ensemble kicks, a 2-and-4 trumpet chorus, the roll stop.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:buddy-rich-big-swing-face-wikipedia", "src:buddy-rich-fidyk-md-2012"]
+        }
+      },
+      "style_key": "buddyrich",
+      "song_key": "big-swing-face",
+      "youtube": "https://www.youtube.com/watch?v=67W7-0cLZoE"
+    },
+    {
+      "title": "Love for Sale",
+      "drummer_ids": ["drummer:buddy-rich"],
+      "drums": {
+        "description": "The head on the stick hi-hat, open on the beats; ride and foot for the solos; ensemble kicks and stops.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:buddy-rich-big-swing-face-wikipedia", "src:buddy-rich-fidyk-md-2012"]
+        }
+      },
+      "style_key": "buddyrich",
+      "song_key": "love-for-sale",
+      "youtube": "https://www.youtube.com/watch?v=WwOWOtW0kn8"
+    },
+    {
+      "title": "Mexicali Nose",
+      "drummer_ids": ["drummer:buddy-rich"],
+      "drums": {
+        "description": "A Latin bell and a cowbell, the head on half-open hats, drum solos in threes across the bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:buddy-rich-big-swing-face-wikipedia"]
+        }
+      },
+      "style_key": "buddyrich",
+      "song_key": "mexicali-nose",
+      "youtube": "https://www.youtube.com/watch?v=5F__mf0tYjA"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:buddy-rich-big-swing-face-wikipedia"]

@@ -10,5 +10,25 @@
       "drummer_id": "drummer:max-kolesne",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Black Force Domain",
+      "drummer_ids": ["drummer:max-kolesne"],
+      "drums": {
+        "description": "Unrelenting, very fast blasts and double kick, Brazilian death metal at full speed.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:krisiun-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WzVSLvqMEeA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2632325"
+        }
+      ]
+    }
   ]
 }

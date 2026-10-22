@@ -1,0 +1,35 @@
+{
+  "id": "rec:led-zeppelin-led-zeppelin-ii-1969",
+  "title": "Led Zeppelin II",
+  "artist": "Led Zeppelin",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-bonham"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Whole Lotta Love",
+      "drummer_ids": ["drummer:john-bonham"],
+      "drums": {
+        "description": "Heavy straight eighths with the kick answering the riff, around the psychedelic break.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:whole-lotta-love-wikipedia"]
+        }
+      },
+      "style_key": "bonham",
+      "song_key": "whole-lotta-love",
+      "youtube": "https://www.youtube.com/watch?v=HQmmM_qwG4k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=449"
+        }
+      ]
+    }
+  ]
+}

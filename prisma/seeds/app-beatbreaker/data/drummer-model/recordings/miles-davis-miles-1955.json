@@ -42,5 +42,24 @@
         "source_ids": ["src:bishop-philly-joe-the-theme-2014"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "The Theme",
+      "drummer_ids": ["drummer:philly-joe-jones"],
+      "drums": {
+        "description": "A crisp medium-up swing with his trademark rimshot on the 4 of each bar, the quintet's set-closer.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:miles-new-miles-davis-quintet-wikipedia",
+            "src:philly-joe-jones-wikipedia"
+          ]
+        }
+      },
+      "style_key": "phillyjoe",
+      "song_key": "the-theme",
+      "youtube": "https://www.youtube.com/watch?v=c88Mp8jEKs8"
+    }
   ]
 }

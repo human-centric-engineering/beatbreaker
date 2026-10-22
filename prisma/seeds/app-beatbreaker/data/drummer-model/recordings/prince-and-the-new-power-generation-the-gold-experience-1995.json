@@ -11,6 +11,44 @@
       "why_it_matters": "Listed as a key recording."
     }
   ],
+  "tracks": [
+    {
+      "title": "Endorphinmachine",
+      "drummer_ids": ["drummer:michael-bland"],
+      "drums": {
+        "description": "Fast, heavy rock groove with relentless double-time snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-gold-experience-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=09vNPhIk4QU"
+    },
+    {
+      "title": "Gold",
+      "drummer_ids": ["drummer:michael-bland"],
+      "drums": {
+        "description": "Big, anthemic half-time ballad beat with huge crashes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:gold-prince-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7IQE62Vn4_U"
+    },
+    {
+      "title": "P Control",
+      "drummer_ids": ["drummer:michael-bland"],
+      "drums": {
+        "description": "Hard-hitting hip-hop funk beat with punchy kick.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-gold-experience-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uoH7n2RDS_M"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:michael-bland-wikipedia"]

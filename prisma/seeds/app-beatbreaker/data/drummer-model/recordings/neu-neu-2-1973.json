@@ -1,0 +1,27 @@
+{
+  "id": "rec:neu-neu-2-1973",
+  "title": "Neu! 2",
+  "artist": "Neu!",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:krautrock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:klaus-dinger"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Für Immer",
+      "drummer_ids": ["drummer:klaus-dinger"],
+      "drums": {
+        "description": "A long, hypnotic motorik groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:klaus-dinger-wikipedia", "src:neu-2-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=V85AjBFDmbI"
+    }
+  ]
+}

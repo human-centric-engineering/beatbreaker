@@ -1,0 +1,33 @@
+{
+  "id": "rec:emerson-lake-and-palmer-works-volume-1-1977",
+  "title": "Works Volume 1",
+  "artist": "Emerson, Lake & Palmer",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carl-palmer"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Fanfare for the Common Man",
+      "drummer_ids": ["drummer:carl-palmer"],
+      "drums": {
+        "description": "A steady, shuffling groove under the Copland theme.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:works-volume-1-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=c2zurZig4L8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=504374"
+        }
+      ]
+    }
+  ]
+}

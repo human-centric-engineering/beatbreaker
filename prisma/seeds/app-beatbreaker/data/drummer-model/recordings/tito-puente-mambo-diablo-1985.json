@@ -1,0 +1,35 @@
+{
+  "id": "rec:tito-puente-mambo-diablo-1985",
+  "title": "Mambo Diablo",
+  "artist": "Tito Puente",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:mambo", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tito-puente"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Mambo Diablo",
+      "drummer_ids": ["drummer:tito-puente"],
+      "drums": {
+        "description": "With his Latin Ensemble: the shell, the low drum open on each 4, an octet in no hurry.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-puente"]
+        }
+      },
+      "style_key": "puente",
+      "song_key": "mambo-diablo",
+      "youtube": "https://www.youtube.com/watch?v=2Ki7U545CVM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2355256"
+        }
+      ]
+    }
+  ]
+}

@@ -18,6 +18,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Free Slave",
+      "drummer_ids": ["drummer:roy-brooks"],
+      "drums": {
+        "description": "Driving, intense hard-bop drumming on his live date.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-free-slave-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8ouSDYlwpfo"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:roy-brooks-wikipedia"]

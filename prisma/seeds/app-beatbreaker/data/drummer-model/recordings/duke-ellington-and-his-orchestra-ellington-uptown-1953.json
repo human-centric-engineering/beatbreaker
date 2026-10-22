@@ -1,0 +1,28 @@
+{
+  "id": "rec:duke-ellington-and-his-orchestra-ellington-uptown-1953",
+  "title": "Ellington Uptown",
+  "artist": "Duke Ellington and His Orchestra",
+  "year": 1953,
+  "type": "album",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:louie-bellson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Caravan",
+      "year": 1952,
+      "drummer_ids": ["drummer:louie-bellson"],
+      "drums": {
+        "description": "A Latin-tinged groove on the toms opening into a swing, with Bellson's double-bass-drum drive.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ellington-uptown-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TCenYn4DtYA"
+    }
+  ]
+}

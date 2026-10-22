@@ -54,6 +54,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Start Me Up",
+      "drummer_ids": ["drummer:charlie-watts"],
+      "drums": {
+        "description": "The plainest beat there is, a pushed kick under the riff, sixteenths on the snare at the ends of lines.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-16469", "src:tattoo-you-wikipedia"]
+        }
+      },
+      "style_key": "watts",
+      "song_key": "start-me-up",
+      "youtube": "https://www.youtube.com/watch?v=SGyOaCXr8Lw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16469"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:charlie-watts-wikipedia"],

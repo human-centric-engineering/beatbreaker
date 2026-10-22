@@ -1,0 +1,26 @@
+{
+  "id": "rec:woody-herman-and-his-orchestra-northwest-passage-1945",
+  "title": "Northwest Passage",
+  "artist": "Woody Herman and His Orchestra",
+  "year": 1945,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-tough"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Northwest Passage",
+      "drummer_ids": ["drummer:dave-tough"],
+      "drums": {
+        "description": "A fast swing chart where Tough's light, propulsive cymbal beat carries the whole band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:woody-herman-wikipedia"]
+        }
+      }
+    }
+  ]
+}

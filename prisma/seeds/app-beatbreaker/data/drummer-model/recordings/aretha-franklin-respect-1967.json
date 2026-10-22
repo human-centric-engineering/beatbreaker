@@ -10,5 +10,19 @@
       "drummer_id": "drummer:roger-hawkins",
       "name": "Roger Hawkins"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Respect",
+      "drummer_ids": ["drummer:roger-hawkins"],
+      "drums": {
+        "description": "A tight, punchy Muscle Shoals backbeat with snare hits on the stops and breaks behind the 'R-E-S-P-E-C-T' bridge.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:respect-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=A134hShx_gw"
+    }
   ]
 }

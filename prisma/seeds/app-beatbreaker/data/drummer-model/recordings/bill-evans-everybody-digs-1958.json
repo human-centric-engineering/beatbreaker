@@ -34,5 +34,21 @@
         "source_ids": ["src:bishop-philly-joe-minority-2023"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Minority",
+      "drummer_ids": ["drummer:philly-joe-jones"],
+      "drums": {
+        "description": "Fast swing near 245 with Philly Joe's crisp ride and trades with Evans.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:everybody-digs-bill-evans-wikipedia"]
+        }
+      },
+      "style_key": "phillyjoe",
+      "song_key": "minority",
+      "youtube": "https://www.youtube.com/watch?v=W6WCimfyTVs"
+    }
   ]
 }

@@ -12,6 +12,62 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Photograph",
+      "drummer_ids": ["drummer:rick-allen"],
+      "drums": {
+        "description": "A tight, polished hard-rock backbeat with gated crash accents, played on a conventional kit before his accident.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rick-allen-drummer-wikipedia", "src:pyromania-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=D4dHr8evt6k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2442"
+        }
+      ]
+    },
+    {
+      "title": "Rock of Ages",
+      "drummer_ids": ["drummer:rick-allen"],
+      "drums": {
+        "description": "A huge, stripped stomp of kick and snare with an echoing, gated snare sound.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rick-allen-drummer-wikipedia", "src:pyromania-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nhSdljm909Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=483"
+        }
+      ]
+    },
+    {
+      "title": "Foolin'",
+      "drummer_ids": ["drummer:rick-allen"],
+      "drums": {
+        "description": "A mid-tempo build from clean picking to a heavy half-time backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:rick-allen-drummer-wikipedia", "src:pyromania-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9SnxBvH-0Mc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5233"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:rick-allen-drummer-wikipedia", "src:pyromania-album-wikipedia"]

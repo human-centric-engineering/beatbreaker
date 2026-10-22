@@ -10,5 +10,90 @@
       "drummer_id": "drummer:willie-big-eyes-smith",
       "name": "Willie \"Big Eyes\" Smith"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Mannish Boy",
+      "drummer_ids": ["drummer:willie-big-eyes-smith"],
+      "drums": {
+        "description": "The stop-time riff hammered out live in the room, with Smith landing every band hit hard and Johnny Winter shouting over it.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hard-again-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RxgCGd_Meu8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=47915"
+        }
+      ]
+    },
+    {
+      "title": "I Can't Be Satisfied",
+      "drummer_ids": ["drummer:willie-big-eyes-smith"],
+      "drums": {
+        "description": "A fast, driving shuffle remake of Muddy's 1948 side; the energy reviewers credited to Smith's drumming.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hard-again-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LG95MseHfgA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6036866"
+        }
+      ]
+    },
+    {
+      "title": "The Blues Had a Baby and They Named It Rock and Roll, Pt. 2",
+      "drummer_ids": ["drummer:willie-big-eyes-smith"],
+      "drums": {
+        "description": "Up-tempo boogie that leans toward rock and roll, with a straight, pounding snare backbeat.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hard-again-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Bus Driver",
+      "drummer_ids": ["drummer:willie-big-eyes-smith"],
+      "drums": {
+        "description": "A Chicago blues from Muddy's touring band of the time, with Smith's shuffle at the centre of the live-in-the-room sound.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hard-again-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eh_dB-bRSpk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=732167"
+        }
+      ]
+    },
+    {
+      "title": "Crosseyed Cat",
+      "drummer_ids": ["drummer:willie-big-eyes-smith"],
+      "drums": {
+        "description": "A swinging mid-tempo shuffle, loose and live under the harmonica.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hard-again-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bE8lNK9ZZw8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2698681"
+        }
+      ]
+    }
   ]
 }

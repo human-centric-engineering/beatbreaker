@@ -1,0 +1,33 @@
+{
+  "id": "rec:jack-white-lazaretto-2014",
+  "title": "Lazaretto",
+  "artist": "Jack White",
+  "year": 2014,
+  "type": "album",
+  "style_ids": ["style:hip-hop-breakbeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:daru-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Lazaretto",
+      "drummer_ids": ["drummer:daru-jones"],
+      "drums": {
+        "description": "A hard-hitting, hip-hop-inflected rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wweek-daru-jones-2018", "src:lazaretto-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bT2z1bKM6dM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=395168"
+        }
+      ]
+    }
+  ]
+}

@@ -18,6 +18,44 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Giant Steps",
+      "drummer_ids": ["drummer:bill-stewart"],
+      "drums": {
+        "description": "Fast, conversational swing with melodic, phrase-shaped fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:trio-99-00-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4rdHObblzPg"
+    },
+    {
+      "title": "Capricorn",
+      "drummer_ids": ["drummer:bill-stewart"],
+      "drums": {
+        "description": "Light, melodic jazz-waltz time.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:trio-99-00-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xV-n7lRygdo"
+    },
+    {
+      "title": "The Sun in Montreal",
+      "drummer_ids": ["drummer:bill-stewart"],
+      "drums": {
+        "description": "Gentle, floating straight-eighth groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:trio-99-00-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MhHWOk9kO6Y"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:bill-stewart-musician-wikipedia"]

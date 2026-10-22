@@ -37,6 +37,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "...And So to F...",
+      "drummer_ids": ["drummer:phil-collins"],
+      "drums": {
+        "description": "Brand X in nine: the ride in eighths and the kick on the bass line's notes, a part Collins said he struggled to play.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:phil-collins-faroutmagazine-and-so-to-f", "src:songsterr-1477092"]
+        }
+      },
+      "style_key": "collins",
+      "song_key": "and-so-to-f",
+      "youtube": "https://www.youtube.com/watch?v=7x2IHJK8PDc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1477092"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:product-brand-x-wikipedia", "src:phil-collins-faroutmagazine-and-so-to-f"]

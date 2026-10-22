@@ -44,6 +44,51 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "One of These Days",
+      "drummer_ids": ["drummer:nick-mason"],
+      "drums": {
+        "description": "The toms galloping in triplets with the doubled bass, then the crash ridden on the beat over 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:one-of-these-days-wikipedia",
+            "src:pink-floyd-pompeii-one-of-these-days-film"
+          ]
+        }
+      },
+      "style_key": "nickmason",
+      "song_key": "one-of-these-days",
+      "youtube": "https://www.youtube.com/watch?v=CK_BcyKOAt4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15419"
+        }
+      ]
+    },
+    {
+      "title": "Echoes",
+      "drummer_ids": ["drummer:nick-mason"],
+      "drums": {
+        "description": "Twenty-three minutes: the ride with sixteenths round 2, then the funk jam with the crash on 2.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:echoes-pink-floyd-wikipedia"]
+        }
+      },
+      "style_key": "nickmason",
+      "song_key": "echoes",
+      "youtube": "https://www.youtube.com/watch?v=OcDiOUQBFd4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=50540"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:meddle-wikipedia"]

@@ -45,6 +45,50 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Look-Ka Py Py",
+      "drummer_ids": ["drummer:zigaboo-modeliste"],
+      "drums": {
+        "description": "A stuttering, linear funk pattern with the snare and kick trading sixteenths and the hat opened on the off-beats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:look-ka-py-py-wikipedia", "src:zigaboo-drum-schlueter-2012"]
+        }
+      },
+      "style_key": "zigaboo",
+      "song_key": "look-ka-py-py",
+      "youtube": "https://www.youtube.com/watch?v=uwzBZQX2cqQ"
+    },
+    {
+      "title": "Funky Miracle",
+      "drummer_ids": ["drummer:zigaboo-modeliste"],
+      "drums": {
+        "description": "Hats opened on 2 and 4 with the snare running off the backbeat in ghosted sixteenths.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:look-ka-py-py-wikipedia"]
+        }
+      },
+      "style_key": "zigaboo",
+      "song_key": "funky-miracle",
+      "youtube": "https://www.youtube.com/watch?v=ZCRBUsKeVa4"
+    },
+    {
+      "title": "Little Old Money Maker",
+      "drummer_ids": ["drummer:zigaboo-modeliste"],
+      "drums": {
+        "description": "Kick and snare taking turns, the hat opened on the ands, New Orleans second-line under funk.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:look-ka-py-py-wikipedia"]
+        }
+      },
+      "style_key": "zigaboo",
+      "song_key": "little-old-money-maker",
+      "youtube": "https://www.youtube.com/watch?v=ZWyOLR7JSAE"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:look-ka-py-py-wikipedia"]

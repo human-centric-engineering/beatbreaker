@@ -178,5 +178,21 @@
     "reliability": 0.7,
     "accessed": "2026-10-15",
     "notes": "Terri Lyne Carrington: 'He's very responsible for so many things in my life.' Read in full."
+  },
+  {
+    "id": "src:jacknife-wikipedia",
+    "type": "encyclopedia",
+    "title": "Jacknife (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jacknife_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:timeless-john-abercrombie-wikipedia",
+    "type": "encyclopedia",
+    "title": "Timeless (John Abercrombie album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Timeless_(John_Abercrombie_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

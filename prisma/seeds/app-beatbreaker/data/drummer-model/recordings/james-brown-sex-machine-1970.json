@@ -44,6 +44,28 @@
       "pattern_ids": ["pattern:starks-sex-machine-archetype"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Get Up (I Feel Like Being a) Sex Machine",
+      "drummer_ids": ["drummer:jabo-starks"],
+      "drums": {
+        "description": "Swinging hats opening on the \"and\"s of 1 and 3, a sixteenth slipped in before 3: Jabo swings the beat hard.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-10223", "src:rollingstone-starks"]
+        }
+      },
+      "style_key": "jabostarks",
+      "song_key": "sex-machine",
+      "youtube": "https://www.youtube.com/watch?v=y-_6YapZ_44",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10223"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:wapo-starks", "src:rollingstone-starks"]

@@ -16,5 +16,19 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Breakerfall",
+      "drummer_ids": ["drummer:matt-cameron"],
+      "drums": {
+        "description": "Fast, driving punk-tinged rock drumming, his first Pearl Jam album.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:binaural-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nRK7n61hlp8"
+    }
   ]
 }

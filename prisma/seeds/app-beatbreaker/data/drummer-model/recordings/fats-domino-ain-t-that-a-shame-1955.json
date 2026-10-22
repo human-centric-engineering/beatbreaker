@@ -1,0 +1,27 @@
+{
+  "id": "rec:fats-domino-ain-t-that-a-shame-1955",
+  "title": "Ain't That a Shame",
+  "artist": "Fats Domino",
+  "year": 1955,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cornelius-coleman"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Ain't That a Shame",
+      "drummer_ids": ["drummer:cornelius-coleman"],
+      "drums": {
+        "description": "Heavy, driving rock-and-roll backbeat with triplet shuffle.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ain-t-that-a-shame-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1Pqs_WZdUdM"
+    }
+  ]
+}

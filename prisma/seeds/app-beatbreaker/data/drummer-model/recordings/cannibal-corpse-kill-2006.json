@@ -10,5 +10,43 @@
       "drummer_id": "drummer:paul-mazurkiewicz",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Make Them Suffer",
+      "drummer_ids": ["drummer:paul-mazurkiewicz"],
+      "drums": {
+        "description": "A driving mid-tempo groove with double kick.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:paul-mazurkiewicz-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gyUylnlRK0o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23624"
+        }
+      ]
+    },
+    {
+      "title": "Death Walking Terror",
+      "drummer_ids": ["drummer:paul-mazurkiewicz"],
+      "drums": {
+        "description": "Fast blasts and thrash beats.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:paul-mazurkiewicz-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7qqcZIHxyRI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=27863"
+        }
+      ]
+    }
   ]
 }

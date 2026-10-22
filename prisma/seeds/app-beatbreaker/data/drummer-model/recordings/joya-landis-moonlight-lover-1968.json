@@ -17,5 +17,19 @@
         "source_ids": ["src:santa-davis-reggae-be-2012"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Moonlight Lover",
+      "drummer_ids": ["drummer:hugh-malcolm"],
+      "drums": {
+        "description": "A sweet, light rocksteady groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:carlton-barrett-moderndrummer-1983"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=j8Y_L8ctdiI"
+    }
   ]
 }

@@ -12,6 +12,56 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Runnin' with the Devil",
+      "drummer_ids": ["drummer:alex-van-halen"],
+      "drums": {
+        "description": "A heavy, steady eighth-note groove with big fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:van-halen-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=i5txwFv-zYM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23728"
+        }
+      ]
+    },
+    {
+      "title": "Ain't Talkin' 'bout Love",
+      "drummer_ids": ["drummer:alex-van-halen"],
+      "drums": {
+        "description": "A driving, simple rock beat with crashing accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:van-halen-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qtwBFz6lfrY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=210"
+        }
+      ]
+    },
+    {
+      "title": "You Really Got Me",
+      "drummer_ids": ["drummer:alex-van-halen"],
+      "drums": {
+        "description": "Fast, hard-hitting rock drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:van-halen-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9X6e7uctAww"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:alex-van-halen-wikipedia"]

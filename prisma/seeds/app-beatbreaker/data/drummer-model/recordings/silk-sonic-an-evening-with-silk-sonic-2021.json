@@ -11,6 +11,80 @@
       "why_it_matters": "The duo with Bruno Mars."
     }
   ],
+  "tracks": [
+    {
+      "title": "Leave the Door Open",
+      "drummer_ids": ["drummer:anderson-paak"],
+      "drums": {
+        "description": "A laid-back, 1970s-soul backbeat with slick ghost notes, played by .Paak.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:anderson-paak-wikipedia", "src:an-evening-with-silk-sonic-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wIyNAsmGrl0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1338977"
+        }
+      ]
+    },
+    {
+      "title": "Skate",
+      "drummer_ids": ["drummer:anderson-paak"],
+      "drums": {
+        "description": "A smooth, disco-tinged soul groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:anderson-paak-wikipedia", "src:an-evening-with-silk-sonic-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CEw-7cMnBDY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=934507"
+        }
+      ]
+    },
+    {
+      "title": "Smokin out the Window",
+      "drummer_ids": ["drummer:anderson-paak"],
+      "drums": {
+        "description": "A relaxed, soulful backbeat with tight fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:anderson-paak-wikipedia", "src:an-evening-with-silk-sonic-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GG7fLOmlhYg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1140841"
+        }
+      ]
+    },
+    {
+      "title": "Fly as Me",
+      "drummer_ids": ["drummer:anderson-paak"],
+      "drums": {
+        "description": "A funky, syncopated groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:anderson-paak-wikipedia", "src:an-evening-with-silk-sonic-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=IQQ-87RSCRM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=664365"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:anderson-paak-wikipedia"]

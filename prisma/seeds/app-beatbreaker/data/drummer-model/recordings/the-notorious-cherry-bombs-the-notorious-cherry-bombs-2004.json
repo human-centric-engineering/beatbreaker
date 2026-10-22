@@ -1,0 +1,30 @@
+{
+  "id": "rec:the-notorious-cherry-bombs-the-notorious-cherry-bombs-2004",
+  "title": "The Notorious Cherry Bombs",
+  "artist": "The Notorious Cherry Bombs",
+  "year": 2004,
+  "type": "album",
+  "style_ids": ["style:country"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:eddie-bayers"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "It's Hard to Kiss the Lips at Night That Chew Your Ass Out All Day Long",
+      "drummer_ids": ["drummer:eddie-bayers"],
+      "drums": {
+        "description": "A swaggering honky-tonk shuffle from a band of Nashville session players.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:the-notorious-cherry-bombs-album-wikipedia",
+            "src:eddie-bayers-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pjkLf_X88WM"
+    }
+  ]
+}

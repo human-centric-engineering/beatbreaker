@@ -1,0 +1,27 @@
+{
+  "id": "rec:aswad-warrior-charge-1980",
+  "title": "Warrior Charge",
+  "artist": "Aswad",
+  "year": 1980,
+  "type": "studio_track",
+  "style_ids": ["style:reggae"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:drummie-zeb"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Warrior Charge",
+      "drummer_ids": ["drummer:drummie-zeb"],
+      "drums": {
+        "description": "A militant steppers rhythm with the bass drum on every beat, from the Babylon soundtrack.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:babylon-disambiguation-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VhMOVtpE320"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "id": "rec:the-doors-morrison-hotel-1970",
+  "title": "Morrison Hotel",
+  "artist": "The Doors",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-densmore"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Roadhouse Blues",
+      "drummer_ids": ["drummer:john-densmore"],
+      "drums": {
+        "description": "Straight, driving boogie shuffle with a heavy backbeat, much simpler than his early jazz-based parts.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:roadhouse-blues-wikipedia", "src:morrison-hotel-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BgQg3J7xU1k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6665"
+        }
+      ]
+    },
+    {
+      "title": "Peace Frog",
+      "drummer_ids": ["drummer:john-densmore"],
+      "drums": {
+        "description": "Syncopated funk-rock groove with busy hi-hat and kick figures locked to the wah guitar riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:peace-frog-wikipedia", "src:morrison-hotel-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=F6EMr-z_vWg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6162"
+        }
+      ]
+    }
+  ]
+}

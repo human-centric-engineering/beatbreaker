@@ -48,6 +48,66 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Highway Star",
+      "drummer_ids": ["drummer:ian-paice"],
+      "drums": {
+        "description": "Snare eighths into open hats in quarters, the crash pushed onto the \"and\" of 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-490", "src:machine-head-wikipedia"]
+        }
+      },
+      "style_key": "paice",
+      "song_key": "highway-star",
+      "youtube": "https://www.youtube.com/watch?v=7ZhFFxvrbgk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=490"
+        }
+      ]
+    },
+    {
+      "title": "Smoke on the Water",
+      "drummer_ids": ["drummer:ian-paice"],
+      "drums": {
+        "description": "Hats in sixteenths, then the half-open hat on the beats with ghost notes, the snare under the solo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-329", "src:machine-head-wikipedia"]
+        }
+      },
+      "style_key": "paice",
+      "song_key": "smoke-on-the-water",
+      "youtube": "https://www.youtube.com/watch?v=Q2FzZSBD5LE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=329"
+        }
+      ]
+    },
+    {
+      "title": "Lazy",
+      "drummer_ids": ["drummer:ian-paice"],
+      "drums": {
+        "description": "A swung blues-rock shuffle with fast single-stroke fills, Paice's jazz-trained swing in a hard-rock band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:machine-head-wikipedia", "src:paice-moderndrummer-2020"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KnIgXtE4K5U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5465"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:machine-head-wikipedia"]

@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-shadows-man-of-mystery-1960",
+  "title": "Man of Mystery",
+  "artist": "The Shadows",
+  "year": 1960,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-meehan"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Man of Mystery",
+      "drummer_ids": ["drummer:tony-meehan"],
+      "drums": {
+        "description": "A brushed, moody beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:man-of-mystery-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ftCr0kKMmY4"
+    }
+  ]
+}

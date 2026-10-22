@@ -10,5 +10,61 @@
       "drummer_id": "drummer:fenriz",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Kathaarian Life Code",
+      "drummer_ids": ["drummer:fenriz"],
+      "drums": {
+        "description": "Raw, primitive blasts and plodding mid-tempo sections recorded lo-fi; the sound of the band's turn to black metal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:a-blaze-in-the-northern-sky-wikipedia", "src:fenriz-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vJ96iVbA_No",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=28973"
+        }
+      ]
+    },
+    {
+      "title": "In the Shadow of the Horns",
+      "drummer_ids": ["drummer:fenriz"],
+      "drums": {
+        "description": "A rocking, Celtic Frost-style mid-tempo beat that switches into fast, flat blast sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:a-blaze-in-the-northern-sky-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=anR6N-GWN_4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6526"
+        }
+      ]
+    },
+    {
+      "title": "A Blaze in the Northern Sky",
+      "drummer_ids": ["drummer:fenriz"],
+      "drums": {
+        "description": "Simple, fast snare-and-kick drive buried in the murky mix.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:a-blaze-in-the-northern-sky-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WDi99nXhObs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=387471"
+        }
+      ]
+    }
   ]
 }

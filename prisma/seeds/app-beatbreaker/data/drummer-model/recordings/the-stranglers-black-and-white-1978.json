@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-stranglers-black-and-white-1978",
+  "title": "Black and White",
+  "artist": "The Stranglers",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:punk", "style:new-wave"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jet-black"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Nice 'n' Sleazy",
+      "drummer_ids": ["drummer:jet-black"],
+      "drums": {
+        "description": "A sparse, reggae-tinged groove leaving room for the bass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:nice-n-sleazy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OYqllpnyWrY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=251151"
+        }
+      ]
+    }
+  ]
+}

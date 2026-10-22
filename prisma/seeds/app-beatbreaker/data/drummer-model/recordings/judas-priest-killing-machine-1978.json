@@ -10,5 +10,61 @@
       "drummer_id": "drummer:les-binks",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Hell Bent for Leather",
+      "drummer_ids": ["drummer:les-binks"],
+      "drums": {
+        "description": "A fast, galloping metal beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:les-binks-wikipedia", "src:killing-machine-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YXJtz1TgmIM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10455"
+        }
+      ]
+    },
+    {
+      "title": "Delivering the Goods",
+      "drummer_ids": ["drummer:les-binks"],
+      "drums": {
+        "description": "A heavy, swaggering rock backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:les-binks-wikipedia", "src:killing-machine-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bNHdpshFiZw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=71889"
+        }
+      ]
+    },
+    {
+      "title": "Running Wild",
+      "drummer_ids": ["drummer:les-binks"],
+      "drums": {
+        "description": "A fast, driving metal beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:les-binks-wikipedia", "src:killing-machine-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hV2nle-YEAk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=40038"
+        }
+      ]
+    }
   ]
 }

@@ -16,5 +16,45 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Brave Captain",
+      "artist": "Firehose",
+      "drummer_ids": ["drummer:george-hurley"],
+      "drums": {
+        "description": "A mid-tempo, swinging groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ragin-full-on-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Upwj_YXpLk0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=185881"
+        }
+      ]
+    },
+    {
+      "title": "Chemical Wire",
+      "artist": "Firehose",
+      "drummer_ids": ["drummer:george-hurley"],
+      "drums": {
+        "description": "A driving, punky groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ragin-full-on-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qgIATwuNwjU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2590657"
+        }
+      ]
+    }
   ]
 }

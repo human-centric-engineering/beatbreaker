@@ -16,5 +16,19 @@
       "drummer_role": "co_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Djed",
+      "drummer_ids": ["drummer:john-mcentire"],
+      "drums": {
+        "description": "Twenty minutes of shifting, looped grooves edited together in the studio, a landmark of post-rock.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:millions-now-living-will-never-die-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GHRB6kFIfJ0"
+    }
   ]
 }

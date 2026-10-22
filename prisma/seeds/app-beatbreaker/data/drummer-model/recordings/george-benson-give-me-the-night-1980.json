@@ -15,5 +15,25 @@
       "name": "Carlos Vega",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Give Me the Night",
+      "drummer_ids": ["drummer:carlos-vega"],
+      "drums": {
+        "description": "A tight, glossy disco-funk groove with crisp sixteenth hats.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:give-me-the-night-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Omnpu8mzX4c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3417826"
+        }
+      ]
+    }
   ]
 }

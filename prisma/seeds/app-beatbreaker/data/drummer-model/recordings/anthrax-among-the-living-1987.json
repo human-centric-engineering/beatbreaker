@@ -10,5 +10,79 @@
       "drummer_id": "drummer:charlie-benante",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Among the Living",
+      "drummer_ids": ["drummer:charlie-benante"],
+      "drums": {
+        "description": "Fast thrash with tight double bass and precise snare, a crossover of hardcore punch and metal speed.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:among-the-living-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7mRDSW9-i_E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=25505"
+        }
+      ]
+    },
+    {
+      "title": "Caught in a Mosh",
+      "drummer_ids": ["drummer:charlie-benante"],
+      "drums": {
+        "description": "A thrash groove switching between half-time mosh sections and fast skank beats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:among-the-living-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zlLn0UicWrM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=25501"
+        }
+      ]
+    },
+    {
+      "title": "Indians",
+      "drummer_ids": ["drummer:charlie-benante"],
+      "drums": {
+        "description": "A galloping thrash beat, double bass under the 'war dance' breakdown that became a live staple.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:indians-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RzpRU347BDU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1593"
+        }
+      ]
+    },
+    {
+      "title": "I Am the Law",
+      "drummer_ids": ["drummer:charlie-benante"],
+      "drums": {
+        "description": "A mid-tempo stomp with a heavy, marching snare that breaks into thrash.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-am-the-law-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=i_Pga70f_YQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1735"
+        }
+      ]
+    }
   ]
 }

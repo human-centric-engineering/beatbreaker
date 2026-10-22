@@ -1,0 +1,33 @@
+{
+  "id": "rec:korn-untouchables-2002",
+  "title": "Untouchables",
+  "artist": "Korn",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:nu-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:david-silveria"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Here to Stay",
+      "drummer_ids": ["drummer:david-silveria"],
+      "drums": {
+        "description": "A heavy, driving groove with stuttering kick patterns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:untouchables-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pr3x7tS__dE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=11172"
+        }
+      ]
+    }
+  ]
+}

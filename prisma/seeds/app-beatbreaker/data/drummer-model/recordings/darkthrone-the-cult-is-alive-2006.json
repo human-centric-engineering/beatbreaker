@@ -1,0 +1,33 @@
+{
+  "id": "rec:darkthrone-the-cult-is-alive-2006",
+  "title": "The Cult Is Alive",
+  "artist": "Darkthrone",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fenriz"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Too Old, Too Cold",
+      "drummer_ids": ["drummer:fenriz"],
+      "drums": {
+        "description": "A crust-punk d-beat and rocking backbeat, the band's later punk-metal style.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-cult-is-alive-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Kze6ULtcIlE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=28966"
+        }
+      ]
+    }
+  ]
+}

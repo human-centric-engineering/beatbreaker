@@ -1,0 +1,35 @@
+{
+  "id": "rec:the-jimi-hendrix-experience-purple-haze-1967",
+  "title": "Purple Haze",
+  "artist": "The Jimi Hendrix Experience",
+  "year": 1967,
+  "type": "studio_track",
+  "style_ids": ["style:psychedelic-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mitch-mitchell"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Purple Haze",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A heavy half-time groove broken by snare-and-tom flurries between Hendrix's phrases, the kick doubling Redding's bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:purple-haze-wikipedia", "src:wikipedia-mitchell"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "purple-haze",
+      "youtube": "https://www.youtube.com/watch?v=cJunCsrhJjg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=310"
+        }
+      ]
+    }
+  ]
+}

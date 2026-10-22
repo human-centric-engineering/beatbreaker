@@ -12,6 +12,62 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Aqualung",
+      "drummer_ids": ["drummer:clive-bunker"],
+      "drums": {
+        "description": "Moves between crashing accents on the riff, near silence in the acoustic verse and an up-tempo rock section, all inside one track.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:aqualung-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=N4zPu3ISCGs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23535"
+        }
+      ]
+    },
+    {
+      "title": "Locomotive Breath",
+      "drummer_ids": ["drummer:clive-bunker"],
+      "drums": {
+        "description": "After the piano intro a relentless hi-hat and snare chug drives the song like the runaway train in the lyric.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:locomotive-breath-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eSUdlUmtg3Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10225"
+        }
+      ]
+    },
+    {
+      "title": "Cross-Eyed Mary",
+      "drummer_ids": ["drummer:clive-bunker"],
+      "drums": {
+        "description": "A strutting mid-tempo groove with heavy accents locked to the riff.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:aqualung-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0ufuH4vZ77w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10334"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:clive-bunker-wikipedia"]

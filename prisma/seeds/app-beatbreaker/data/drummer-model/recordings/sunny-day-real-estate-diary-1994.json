@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Seven",
+      "drummer_ids": ["drummer:william-goldsmith"],
+      "drums": {
+        "description": "Dynamic, tumbling tom-heavy patterns that swell between quiet verses and loud choruses, a model for emo drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:diary-sunny-day-real-estate-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ps4phnAhv6U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=55160"
+        }
+      ]
+    },
+    {
+      "title": "In Circles",
+      "drummer_ids": ["drummer:william-goldsmith"],
+      "drums": {
+        "description": "A shifting, melodic part with rolling toms and dynamic swells.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:diary-sunny-day-real-estate-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-V6uVnwhRpQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=80058"
+        }
+      ]
+    },
+    {
+      "title": "Song About an Angel",
+      "drummer_ids": ["drummer:william-goldsmith"],
+      "drums": {
+        "description": "A building, intense part that grows from quiet to crashing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:diary-sunny-day-real-estate-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ETtXtl-VXcY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=541854"
+        }
+      ]
+    },
+    {
+      "title": "47",
+      "drummer_ids": ["drummer:william-goldsmith"],
+      "drums": {
+        "description": "Tight, angular patterns with heavy tom accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:diary-sunny-day-real-estate-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zFWDHS7nKWI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1630591"
+        }
+      ]
+    }
   ]
 }

@@ -11,6 +11,20 @@
       "why_it_matters": "Listed among his album credits."
     }
   ],
+  "tracks": [
+    {
+      "title": "In the Morning",
+      "drummer_ids": ["drummer:teddy-campbell"],
+      "drums": {
+        "description": "A deep hip-hop-gospel groove with heavy backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:incredible-mary-mary-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lPkPGZNAzbg"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:teddy-campbell-wikipedia"]

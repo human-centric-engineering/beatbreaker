@@ -62,6 +62,34 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Right Time",
+      "drummer_ids": ["drummer:leroy-wallace", "drummer:sly-dunbar"],
+      "drums": {
+        "description": "A heavy rockers rhythm with a double-time hi-hat, cut at Channel One.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mighty-diamonds-wikipedia"]
+        }
+      },
+      "style_key": "slydunbar",
+      "song_key": "right-time",
+      "youtube": "https://www.youtube.com/watch?v=HP_NSG55WAU"
+    },
+    {
+      "title": "I Need a Roof",
+      "drummer_ids": ["drummer:leroy-wallace"],
+      "drums": {
+        "description": "A steady, deep one-drop under the harmonies.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mighty-diamonds-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oWM28DTLoxM"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:right-time-album-wikipedia"]

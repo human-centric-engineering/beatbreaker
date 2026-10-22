@@ -48,6 +48,26 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Fire on the Bayou",
+      "drummer_ids": ["drummer:zigaboo-modeliste"],
+      "drums": {
+        "description": "A heavy, swampy second-line funk groove with snare drags and syncopated kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fire-on-the-bayou-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eTvnXoFdHLY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3415919"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:fire-on-the-bayou-wikipedia"]

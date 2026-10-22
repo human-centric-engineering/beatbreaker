@@ -1,0 +1,28 @@
+{
+  "id": "rec:syl-johnson-total-explosion-1976",
+  "title": "Total Explosion",
+  "artist": "Syl Johnson",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:howard-grimes"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Take Me to the River",
+      "year": 1975,
+      "drummer_ids": ["drummer:howard-grimes"],
+      "drums": {
+        "description": "The Hi rhythm section's deep pocket: a heavy, unhurried backbeat with a muffled kick locked to the bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:take-me-to-the-river-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jF-VGjAwh9E"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "rec:satyricon-volcano-2002",
+  "title": "Volcano",
+  "artist": "Satyricon",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:frost"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Fuel for Hatred",
+      "drummer_ids": ["drummer:frost"],
+      "drums": {
+        "description": "A stripped-down, heavy rock-metal groove, a sharp turn away from blasting.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:volcano-satyricon-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eXNJcamjSaQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18293"
+        }
+      ]
+    }
+  ]
+}

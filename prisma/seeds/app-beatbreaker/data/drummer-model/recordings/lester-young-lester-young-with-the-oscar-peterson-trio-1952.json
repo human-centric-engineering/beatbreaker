@@ -1,0 +1,27 @@
+{
+  "id": "rec:lester-young-lester-young-with-the-oscar-peterson-trio-1952",
+  "title": "Lester Young with the Oscar Peterson Trio",
+  "artist": "Lester Young",
+  "year": 1952,
+  "type": "album",
+  "style_ids": ["style:big-band-swing", "style:bebop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jc-heard"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Ad Lib Blues",
+      "drummer_ids": ["drummer:jc-heard"],
+      "drums": {
+        "description": "A relaxed medium blues, Heard's brushes and soft hi-hat keeping a quiet, swinging pulse under Lester Young.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lester-young-with-the-oscar-peterson-trio-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fPHj9uNZOgk"
+    }
+  ]
+}

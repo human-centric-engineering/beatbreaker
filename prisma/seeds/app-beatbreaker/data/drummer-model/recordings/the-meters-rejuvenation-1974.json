@@ -48,6 +48,62 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Just Kissed My Baby",
+      "drummer_ids": ["drummer:zigaboo-modeliste"],
+      "drums": {
+        "description": "Ghost notes round a backbeat on 2 and 4 with the kick displaced across the bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rejuvenation-meters-wikipedia"]
+        }
+      },
+      "style_key": "zigaboo",
+      "song_key": "just-kissed-my-baby",
+      "youtube": "https://www.youtube.com/watch?v=bOqYjJTdRg4"
+    },
+    {
+      "title": "People Say",
+      "drummer_ids": ["drummer:zigaboo-modeliste"],
+      "drums": {
+        "description": "Half-swung sixteenths with the backbeat moved to the and of the beat in places.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rejuvenation-meters-wikipedia"]
+        }
+      },
+      "style_key": "zigaboo",
+      "song_key": "people-say",
+      "youtube": "https://www.youtube.com/watch?v=UpEmtoTv2iw"
+    },
+    {
+      "title": "Jungle Man",
+      "drummer_ids": ["drummer:zigaboo-modeliste"],
+      "drums": {
+        "description": "Half-swung sixteenths on the hats and a snare that skips between beats.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:rejuvenation-meters-wikipedia"]
+        }
+      },
+      "style_key": "zigaboo",
+      "song_key": "jungle-man",
+      "youtube": "https://www.youtube.com/watch?v=M9DYx6OAYIc"
+    },
+    {
+      "title": "Hey Pocky A-Way",
+      "drummer_ids": ["drummer:zigaboo-modeliste"],
+      "drums": {
+        "description": "A second-line street beat turned into funk, the Mardi Gras Indian groove on the kit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rejuvenation-meters-wikipedia", "src:zigaboo-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VGVVkQhruBI"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:rejuvenation-wikipedia"]

@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Honeysuckle Rose",
+      "drummer_ids": ["drummer:george-wettling"],
+      "drums": {
+        "description": "Wettling's driving Chicago-style swing with cymbal crashes behind Fats Waller and Bunny Berigan.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:george-wettling-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DxQwwryDXuk"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:george-wettling-wikipedia"]

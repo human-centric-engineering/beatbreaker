@@ -15,6 +15,88 @@
       "why_it_matters": "Debut album; includes 'Sherpa'."
     }
   ],
+  "tracks": [
+    {
+      "title": "Sherpa",
+      "drummer_ids": ["drummer:klek-de-poitrine"],
+      "drums": {
+        "description": "Triplets in 12/8 with a four-bar kick cycle under 2 and 4, then dotted quarters for the build.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      },
+      "style_key": "klek",
+      "song_key": "sherpa",
+      "youtube": "https://www.youtube.com/watch?v=2lUC8Gimxz8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2739593"
+        }
+      ]
+    },
+    {
+      "title": "Tohogd",
+      "drummer_ids": ["drummer:klek-de-poitrine"],
+      "drums": {
+        "description": "A 7/8 groove built a loop at a time, then a 4/4 groove laid across the 7/8 bar lines.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      },
+      "style_key": "klek",
+      "song_key": "tohogd",
+      "youtube": "https://www.youtube.com/watch?v=9c_KRcKLAqg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4039482"
+        }
+      ]
+    },
+    {
+      "title": "Tamebsz",
+      "drummer_ids": ["drummer:klek-de-poitrine"],
+      "drums": {
+        "description": "Hi-hats on the beat, the kick on 1 and the \"and\" of 2, a snare pickup into each bar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      },
+      "style_key": "klek",
+      "song_key": "tamebsz",
+      "youtube": "https://www.youtube.com/watch?v=Gq_7IV7IRxM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4046299"
+        }
+      ]
+    },
+    {
+      "title": "Ababa Hotel",
+      "drummer_ids": ["drummer:klek-de-poitrine"],
+      "drums": {
+        "description": "In 7/8: ride eighths with the snare on the third eighth and the \"and\" of the last two.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      },
+      "style_key": "klek",
+      "song_key": "ababa-hotel",
+      "youtube": "https://www.youtube.com/watch?v=tJTtsuGML5Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4595298"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:wikipedia-angine"]

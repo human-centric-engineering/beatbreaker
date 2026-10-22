@@ -10,5 +10,19 @@
       "drummer_id": "drummer:john-boudreaux",
       "name": "John Boudreaux"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Ya Ya",
+      "drummer_ids": ["drummer:john-boudreaux"],
+      "drums": {
+        "description": "Loose, rolling New Orleans groove with second-line snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ya-ya-lee-dorsey-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RLhTZJ4mjfg"
+    }
   ]
 }

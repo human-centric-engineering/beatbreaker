@@ -10,5 +10,19 @@
       "drummer_id": "drummer:uriel-jones",
       "name": "Uriel Jones"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Ain't No Mountain High Enough",
+      "drummer_ids": ["drummer:uriel-jones"],
+      "drums": {
+        "description": "A galloping, gospel-flavoured beat that pushes the chorus, the snare and tambourine driving the duet forward.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:uriel-jones-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ABfQuZqq8wg"
+    }
   ]
 }

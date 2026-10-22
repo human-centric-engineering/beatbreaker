@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Wild in the Streets",
+      "drummer_ids": ["drummer:lucky-lehrer"],
+      "drums": {
+        "description": "A fast, rocking punk beat with big crashes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:lucky-lehrer-wikipedia",
+            "src:wild-in-the-streets-circle-jerks-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1qbNrzHCMnM"
+    },
+    {
+      "title": "Letter Bomb",
+      "drummer_ids": ["drummer:lucky-lehrer"],
+      "drums": {
+        "description": "A blistering hardcore beat with tight snare rolls.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:lucky-lehrer-wikipedia",
+            "src:wild-in-the-streets-circle-jerks-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=X41O8Q1xHDA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=751835"
+        }
+      ]
+    }
   ]
 }

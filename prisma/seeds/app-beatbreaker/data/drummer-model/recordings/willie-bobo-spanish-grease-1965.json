@@ -17,5 +17,19 @@
         "source_ids": ["src:wikipedia-willie-bobo"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Spanish Grease",
+      "drummer_ids": ["drummer:willie-bobo"],
+      "drums": {
+        "description": "Bobo's timbales and a boogaloo backbeat under a Latin-soul vamp, his signature crossover groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:spanish-grease-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UwUoaEaG1B0"
+    }
   ]
 }

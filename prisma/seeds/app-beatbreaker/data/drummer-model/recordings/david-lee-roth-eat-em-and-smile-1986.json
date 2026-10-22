@@ -15,5 +15,55 @@
       "name": "Gregg Bissonette",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Yankee Rose",
+      "drummer_ids": ["drummer:gregg-bissonette"],
+      "drums": {
+        "description": "A swaggering hard-rock beat with fast double-kick fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:eat-em-and-smile-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=t4PgA_fufDQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23892"
+        }
+      ]
+    },
+    {
+      "title": "Shy Boy",
+      "drummer_ids": ["drummer:gregg-bissonette"],
+      "drums": {
+        "description": "A blistering, fast tempo with rapid kick and tom runs locked to Billy Sheehan's bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:eat-em-and-smile-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GYyuK2JcaSg"
+    },
+    {
+      "title": "Goin' Crazy!",
+      "drummer_ids": ["drummer:gregg-bissonette"],
+      "drums": {
+        "description": "A bouncy, upbeat rock groove with crisp fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:eat-em-and-smile-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=k21BOaJQf8k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=402884"
+        }
+      ]
+    }
   ]
 }

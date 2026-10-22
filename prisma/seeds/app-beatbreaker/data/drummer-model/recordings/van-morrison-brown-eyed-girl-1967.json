@@ -1,0 +1,33 @@
+{
+  "id": "rec:van-morrison-brown-eyed-girl-1967",
+  "title": "Brown Eyed Girl",
+  "artist": "Van Morrison",
+  "year": 1967,
+  "type": "studio_track",
+  "style_ids": ["style:pop-rock-session", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gary-chester"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Brown Eyed Girl",
+      "drummer_ids": ["drummer:gary-chester"],
+      "drums": {
+        "description": "A bright, bouncing pop beat with a quick tom fill into the verses.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:brown-eyed-girl-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UfmkgQRmmeE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=309"
+        }
+      ]
+    }
+  ]
+}

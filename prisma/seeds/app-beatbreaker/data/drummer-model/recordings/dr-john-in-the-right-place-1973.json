@@ -52,6 +52,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Right Place Wrong Time",
+      "drummer_ids": ["drummer:zigaboo-modeliste"],
+      "drums": {
+        "description": "A loose, syncopated New Orleans funk groove with ghost notes around a laid-back backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:in-the-right-place-wikipedia", "src:zigaboo-wikipedia"]
+        }
+      },
+      "style_key": "zigaboo",
+      "song_key": "right-place-wrong-time",
+      "youtube": "https://www.youtube.com/watch?v=W4PjWgiH-LQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5775"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:in-the-right-place-wikipedia"]

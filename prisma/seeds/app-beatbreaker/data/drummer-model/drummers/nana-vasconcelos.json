@@ -73,6 +73,7 @@
   },
   "beatbreaker": {
     "group": "Samba and Brazilian jazz drummers",
-    "build_priority": 3
+    "build_priority": 3,
+    "songs_short_because": "15-b sweep (2026-10-22): A percussionist, not a kit drummer."
   }
 }

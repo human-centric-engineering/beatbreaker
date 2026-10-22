@@ -12,6 +12,19 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Bouncing Around",
+      "drummer_ids": ["drummer:louis-cottrell-sr"],
+      "drums": {
+        "description": "Cottrell's light, precise New Orleans parade-style snare technique on an early dance-orchestra side.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:louis-cottrell-sr-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:louis-cottrell-sr-wikipedia"]

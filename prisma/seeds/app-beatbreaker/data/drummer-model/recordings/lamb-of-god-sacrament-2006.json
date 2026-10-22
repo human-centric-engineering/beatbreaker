@@ -10,5 +10,43 @@
       "drummer_id": "drummer:chris-adler",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Redneck",
+      "drummer_ids": ["drummer:chris-adler"],
+      "drums": {
+        "description": "Precise, aggressive double-bass with intricate syncopated hand patterns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sacrament-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oqdZpxkzNvc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24278"
+        }
+      ]
+    },
+    {
+      "title": "Walk with Me in Hell",
+      "drummer_ids": ["drummer:chris-adler"],
+      "drums": {
+        "description": "Heavy groove with fast, precise double-bass accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sacrament-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QWkhCxCcWSE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23662"
+        }
+      ]
+    }
   ]
 }

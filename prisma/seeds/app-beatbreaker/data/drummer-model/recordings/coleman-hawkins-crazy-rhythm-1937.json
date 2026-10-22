@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Crazy Rhythm",
+      "drummer_ids": ["drummer:tommy-benford"],
+      "drums": {
+        "description": "Steady, swinging beat behind Hawkins and Benny Carter in Paris.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tommy-benford-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qZEWZZhd_jo"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:tommy-benford-wikipedia"]

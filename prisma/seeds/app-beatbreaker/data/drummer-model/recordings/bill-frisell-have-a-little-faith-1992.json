@@ -18,6 +18,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Live to Tell",
+      "drummer_ids": ["drummer:joey-baron"],
+      "drums": {
+        "description": "A spacious, understated groove with soft cymbals behind Frisell's guitar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:joey-baron-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mbwVhNvkhw0"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:joey-baron-wikipedia"]

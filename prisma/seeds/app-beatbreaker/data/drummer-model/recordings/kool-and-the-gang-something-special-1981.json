@@ -1,0 +1,36 @@
+{
+  "id": "rec:kool-and-the-gang-something-special-1981",
+  "title": "Something Special",
+  "artist": "Kool & the Gang",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:funk", "style:disco"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:george-brown"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Get Down On It",
+      "drummer_ids": ["drummer:george-brown"],
+      "drums": {
+        "description": "A mid-tempo, buoyant funk-pop backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:something-special-kool-and-the-gang-album-wikipedia",
+            "src:george-brown-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Wjh4p2uIvVU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=398394"
+        }
+      ]
+    }
+  ]
+}

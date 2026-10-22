@@ -10,5 +10,97 @@
       "drummer_id": "drummer:chris-pennie",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Sugar Coated Sour",
+      "drummer_ids": ["drummer:chris-pennie"],
+      "drums": {
+        "description": "Jazz-informed mathcore: stop-start odd-time figures and blast bursts played with fusion precision.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:calculating-infinity-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6iczM4AJWgY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29978"
+        }
+      ]
+    },
+    {
+      "title": "43% Burnt",
+      "drummer_ids": ["drummer:chris-pennie"],
+      "drums": {
+        "description": "Shifting odd meters and a famous slow, swung breakdown that drummers learn as a mathcore benchmark.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:calculating-infinity-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jiKjcrniJKY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5753"
+        }
+      ]
+    },
+    {
+      "title": "Jim Fear",
+      "drummer_ids": ["drummer:chris-pennie"],
+      "drums": {
+        "description": "Rapid tempo changes between grind blasts and jazz-like ride patterns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:calculating-infinity-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LIUlwz7FTFw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=541846"
+        }
+      ]
+    },
+    {
+      "title": "Destro's Secret",
+      "drummer_ids": ["drummer:chris-pennie"],
+      "drums": {
+        "description": "Displaced accents and polyrhythmic kick figures under dissonant riffs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:calculating-infinity-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aavFUKwUSXQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1004072"
+        }
+      ]
+    },
+    {
+      "title": "Clip the Apex... Accept Instruction",
+      "drummer_ids": ["drummer:chris-pennie"],
+      "drums": {
+        "description": "Frantic, angular unison hits with the guitars in uneven groupings.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:calculating-infinity-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Fe4ugQOtSBo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=474001"
+        }
+      ]
+    }
   ]
 }

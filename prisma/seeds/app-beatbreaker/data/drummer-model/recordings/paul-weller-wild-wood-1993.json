@@ -16,5 +16,37 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Sunflower",
+      "drummer_ids": ["drummer:steve-white"],
+      "drums": {
+        "description": "Powerful, swinging rock beat with big fills, White's loose touch behind Weller's solo return.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sunflower-paul-weller-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BeiB9x5XT_0"
+    },
+    {
+      "title": "Wild Wood",
+      "drummer_ids": ["drummer:steve-white"],
+      "drums": {
+        "description": "Soft, brushed-feel folk groove, mostly rim and light hat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:steve-white-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=A9_ffgwLVCs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=50193"
+        }
+      ]
+    }
   ]
 }

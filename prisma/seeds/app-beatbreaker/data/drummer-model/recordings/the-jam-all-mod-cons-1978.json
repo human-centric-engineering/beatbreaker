@@ -41,6 +41,40 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Down in the Tube Station at Midnight",
+      "drummer_ids": ["drummer:rick-buckler"],
+      "drums": {
+        "description": "The kick under Foxton's bass riff, then a tense eighth-note verse round the hi-hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:down-in-the-tube-station-wikipedia"]
+        }
+      },
+      "style_key": "buckler",
+      "song_key": "tube-station",
+      "youtube": "https://www.youtube.com/watch?v=hf4EFDGP4yg"
+    },
+    {
+      "title": "'A' Bomb in Wardour Street",
+      "drummer_ids": ["drummer:rick-buckler"],
+      "drums": {
+        "description": "Flat-out punk eighths with crashes on the chorus hits.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:all-mod-cons-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BLT_AXy4H0w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=912709"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:all-mod-cons-wikipedia"]

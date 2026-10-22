@@ -10,5 +10,91 @@
       "drummer_id": "drummer:sam-lay",
       "name": "Sam Lay"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Born in Chicago",
+      "drummer_ids": ["drummer:sam-lay"],
+      "drums": {
+        "description": "A hard, fast Chicago shuffle with a heavy backbeat that put the city's blues drumming in front of a rock audience.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:paul-butterfield-blues-band-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kCjFRNWN3o4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1350950"
+        }
+      ]
+    },
+    {
+      "title": "Shake Your Money-Maker",
+      "drummer_ids": ["drummer:sam-lay"],
+      "drums": {
+        "description": "Driving straight-eighth boogie under Bloomfield's slide riff, pushed hard on snare and kick.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:paul-butterfield-blues-band-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QbCnkcYA40U"
+    },
+    {
+      "title": "Blues with a Feeling",
+      "drummer_ids": ["drummer:sam-lay"],
+      "drums": {
+        "description": "Slow blues with a deep, behind-the-beat triplet feel that leaves room for the harmonica.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:paul-butterfield-blues-band-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1DvgGo68kwU"
+    },
+    {
+      "title": "I Got My Mojo Working",
+      "drummer_ids": ["drummer:sam-lay"],
+      "drums": {
+        "description": "Lay sings lead as well as drumming, over the bouncing two-beat Chicago groove he had played behind Muddy Waters.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:paul-butterfield-blues-band-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=96bQT9u3Gyc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5978975"
+        }
+      ]
+    },
+    {
+      "title": "Mystery Train",
+      "drummer_ids": ["drummer:sam-lay"],
+      "drums": {
+        "description": "A rolling train-rhythm shuffle that shows the Chicago blues feel going into rock.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:paul-butterfield-blues-band-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1r930W1zZDM"
+    },
+    {
+      "title": "Look Over Yonders Wall",
+      "drummer_ids": ["drummer:sam-lay"],
+      "drums": {
+        "description": "Mid-tempo Chicago shuffle with a firm two and four, closing the album.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:paul-butterfield-blues-band-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qoKoIeFiJFc"
+    }
   ]
 }

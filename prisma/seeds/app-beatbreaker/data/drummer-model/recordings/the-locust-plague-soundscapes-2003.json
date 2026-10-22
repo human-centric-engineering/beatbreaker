@@ -7,10 +7,22 @@
   "type": "album",
   "style_ids": ["style:grindcore", "style:experimental-rock", "style:punk"],
   "personnel": [
-    { "name": "Justin Pearson", "role": "bass, vocals" },
-    { "name": "Bobby Bray", "role": "guitar, vocals" },
-    { "name": "Joey Karam", "role": "keyboards, vocals" },
-    { "name": "Gabe Serbian", "role": "drums" }
+    {
+      "name": "Justin Pearson",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Bobby Bray",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Joey Karam",
+      "role": "keyboards, vocals"
+    },
+    {
+      "name": "Gabe Serbian",
+      "role": "drums"
+    }
   ],
   "producer": "Alex Newport",
   "drum_performances": [
@@ -34,6 +46,91 @@
           "src:songsterr-5426372"
         ]
       }
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Teenage Mustache",
+      "drummer_ids": ["drummer:gabe-serbian"],
+      "drums": {
+        "description": "Under a minute, stepping up from 160 to 200: blasts, stops and lurching math-rock figures in quick succession.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:locust-plague-soundscapes-wikipedia",
+            "src:serbian-moderndrummer-2008"
+          ]
+        }
+      },
+      "style_key": "locust",
+      "song_key": "teenage-mustache",
+      "youtube": "https://www.youtube.com/watch?v=_S18YxvRPn0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1761834"
+        }
+      ]
+    },
+    {
+      "title": "The Half-Eaten Sausage Would Like to See You in His Office",
+      "drummer_ids": ["drummer:gabe-serbian"],
+      "drums": {
+        "description": "Mid-tempo stomps that break into blasts near 120 and an end that speeds and slows.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:locust-plague-soundscapes-wikipedia"]
+        }
+      },
+      "style_key": "locust",
+      "song_key": "the-half-eaten-sausage",
+      "youtube": "https://www.youtube.com/watch?v=7l1qm2QZztc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5426372"
+        }
+      ]
+    },
+    {
+      "title": "Pickup Truck Full of Forty Minutes",
+      "drummer_ids": ["drummer:gabe-serbian"],
+      "drums": {
+        "description": "A fast beat, a burst in threes at 210 and a collapsing slow ending.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:locust-plague-soundscapes-wikipedia"]
+        }
+      },
+      "style_key": "locust",
+      "song_key": "pickup-truck-full-of-forty-minutes",
+      "youtube": "https://www.youtube.com/watch?v=R2CYJNOPAoE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5184654"
+        }
+      ]
+    },
+    {
+      "title": "Anything Jesus Does, I Can Do Better",
+      "drummer_ids": ["drummer:gabe-serbian"],
+      "drums": {
+        "description": "Three tempos in seconds, each change hit dead on with the synth stabs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:locust-plague-soundscapes-wikipedia"]
+        }
+      },
+      "style_key": "locust",
+      "song_key": "anything-jesus-does",
+      "youtube": "https://www.youtube.com/watch?v=YS6V3QZsm48",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=958696"
+        }
+      ]
     }
   ],
   "evidence": {

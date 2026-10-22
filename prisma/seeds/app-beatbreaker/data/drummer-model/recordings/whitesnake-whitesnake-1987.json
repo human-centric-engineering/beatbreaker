@@ -1,0 +1,50 @@
+{
+  "id": "rec:whitesnake-whitesnake-1987",
+  "title": "Whitesnake",
+  "artist": "Whitesnake",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:aynsley-dunbar"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Still of the Night",
+      "drummer_ids": ["drummer:aynsley-dunbar"],
+      "drums": {
+        "description": "Heavy riff-locked rock drumming with a slow, half-time middle section and thunderous fills into the return of the main riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:whitesnake-album-wikipedia", "src:still-of-the-night-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=swPt9HBRXuE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22085"
+        }
+      ]
+    },
+    {
+      "title": "Here I Go Again '87",
+      "drummer_ids": ["drummer:aynsley-dunbar"],
+      "drums": {
+        "description": "Album re-recording of the 1982 song: a big, straight rock backbeat with crashes on the downbeats; the US radio mix single used Denny Carmassi instead.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:whitesnake-album-wikipedia", "src:here-i-go-again-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4449781"
+        }
+      ]
+    }
+  ]
+}

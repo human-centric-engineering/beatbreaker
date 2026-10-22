@@ -15,5 +15,55 @@
       "name": "Liberty DeVitto",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Movin' Out (Anthony's Song)",
+      "drummer_ids": ["drummer:liberty-devitto"],
+      "drums": {
+        "description": "A loping, syncopated groove with strong backbeat accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-stranger-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7nfEYV7nWc0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=707330"
+        }
+      ]
+    },
+    {
+      "title": "Only the Good Die Young",
+      "drummer_ids": ["drummer:liberty-devitto"],
+      "drums": {
+        "description": "A bouncing, Latin-flavoured shuffle with busy fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-stranger-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Crif5E67ar0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=66188"
+        }
+      ]
+    },
+    {
+      "title": "Scenes from an Italian Restaurant",
+      "drummer_ids": ["drummer:liberty-devitto"],
+      "drums": {
+        "description": "A suite of changing feels, from ballad to swing to fast rock and roll.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-stranger-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=izzM9LXqP-U"
+    }
   ]
 }

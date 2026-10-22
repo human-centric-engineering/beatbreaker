@@ -1,0 +1,33 @@
+{
+  "id": "rec:journey-departure-1980",
+  "title": "Departure",
+  "artist": "Journey",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-smith"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Any Way You Want It",
+      "drummer_ids": ["drummer:steve-smith"],
+      "drums": {
+        "description": "A stomping rock groove with big tom fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:departure-journey-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=atxUuldUcfI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10257"
+        }
+      ]
+    }
+  ]
+}

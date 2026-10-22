@@ -1,0 +1,29 @@
+{
+  "id": "rec:weather-report-domino-theory-1984",
+  "title": "Domino Theory",
+  "artist": "Weather Report",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:omar-hakim"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Predator",
+      "drummer_ids": ["drummer:omar-hakim"],
+      "drums": {
+        "description": "A fast, layered fusion groove where Hakim's kit and the drum machine part interlock.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:domino-theory-wikipedia"]
+        }
+      },
+      "style_key": "hakim",
+      "song_key": "predator",
+      "youtube": "https://www.youtube.com/watch?v=H1PmYvO8W-Y"
+    }
+  ]
+}

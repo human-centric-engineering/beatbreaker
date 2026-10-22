@@ -1,0 +1,63 @@
+{
+  "id": "rec:yellow-magic-orchestra-solid-state-survivor-1979",
+  "title": "Solid State Survivor",
+  "artist": "Yellow Magic Orchestra",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:synth-pop", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yukihiro-takahashi"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Rydeen",
+      "drummer_ids": ["drummer:yukihiro-takahashi"],
+      "drums": {
+        "description": "A galloping acoustic and electronic drum part locked to the sequencer, the drums machine-tight but played by hand.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:solid-state-survivor-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Yxep-gS-Btg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1477527"
+        }
+      ]
+    },
+    {
+      "title": "Behind the Mask",
+      "drummer_ids": ["drummer:yukihiro-takahashi"],
+      "drums": {
+        "description": "A slow, heavy, mechanical groove with electronic drums that later attracted Michael Jackson and Eric Clapton.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:solid-state-survivor-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=02IvYUAJbtY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2263578"
+        }
+      ]
+    },
+    {
+      "title": "Technopolis",
+      "drummer_ids": ["drummer:yukihiro-takahashi"],
+      "drums": {
+        "description": "A straight, motorik groove synced to the sequencer, the template for technopop.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:solid-state-survivor-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=di_L7O56ZXE"
+    }
+  ]
+}

@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Spoonman",
+      "drummer_ids": ["drummer:matt-cameron"],
+      "drums": {
+        "description": "A groove in 7/4 with a spoons solo by Artis the Spoonman over the kit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:superunknown-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=T0_zzCLLRvE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18672"
+        }
+      ]
+    },
+    {
+      "title": "Black Hole Sun",
+      "drummer_ids": ["drummer:matt-cameron"],
+      "drums": {
+        "description": "A slow, steady groove with big fills into the choruses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:superunknown-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3mbBbFH9fAg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=227"
+        }
+      ]
+    },
+    {
+      "title": "The Day I Tried to Live",
+      "drummer_ids": ["drummer:matt-cameron"],
+      "drums": {
+        "description": "A heavy groove that switches between 7/8 and 4/4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:superunknown-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dbckIuT_YDc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=83713"
+        }
+      ]
+    },
+    {
+      "title": "Fell on Black Days",
+      "drummer_ids": ["drummer:matt-cameron"],
+      "drums": {
+        "description": "A slow, heavy groove in 6/4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:superunknown-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ySzrJ4GRF7s",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19633"
+        }
+      ]
+    }
   ]
 }

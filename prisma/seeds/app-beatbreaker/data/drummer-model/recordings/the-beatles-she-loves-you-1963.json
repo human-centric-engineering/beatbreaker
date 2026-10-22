@@ -1,0 +1,35 @@
+{
+  "id": "rec:the-beatles-she-loves-you-1963",
+  "title": "She Loves You",
+  "artist": "The Beatles",
+  "year": 1963,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "She Loves You",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Opens on a floor-tom tumble, the floor tom drives the verse and washy, half-open hats fill the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:she-loves-you-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "she-loves-you",
+      "youtube": "https://www.youtube.com/watch?v=nGbWU8S3vzs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23711"
+        }
+      ]
+    }
+  ]
+}

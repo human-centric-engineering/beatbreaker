@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Begin the Beguine",
+      "drummer_ids": ["drummer:cliff-leeman"],
+      "drums": {
+        "description": "A beguine-flavoured swing with a smooth, flowing beat that made it Shaw's biggest hit.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cliff-leeman-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-XeHQQ1Vlfc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4312273"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:cliff-leeman-wikipedia"]

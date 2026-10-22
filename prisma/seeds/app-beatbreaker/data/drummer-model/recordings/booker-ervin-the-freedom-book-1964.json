@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "A Day to Mourn",
+      "drummer_ids": ["drummer:alan-dawson"],
+      "drums": {
+        "description": "Brooding, open drumming with mallet colour, in Ervin’s free-leaning hard bop.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-freedom-book-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CPfSgKkl_HM"
+    },
+    {
+      "title": "Grant's Stand",
+      "drummer_ids": ["drummer:alan-dawson"],
+      "drums": {
+        "description": "Fast, crisp hard-bop swing with precise snare comping.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-freedom-book-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3Kyg7yP4tjM"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:alan-dawson-wikipedia"]

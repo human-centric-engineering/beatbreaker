@@ -15,5 +15,43 @@
       "name": "Dennis Chambers",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Blue Matter",
+      "drummer_ids": ["drummer:dennis-chambers"],
+      "drums": {
+        "description": "A deep, heavy funk groove with ghosted snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dennis-chambers-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vddHCJYH89Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6348659"
+        }
+      ]
+    },
+    {
+      "title": "Trim",
+      "drummer_ids": ["drummer:dennis-chambers"],
+      "drums": {
+        "description": "A fast funk-fusion groove with blistering fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dennis-chambers-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vvr8i-3BZy8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2592915"
+        }
+      ]
+    }
   ]
 }

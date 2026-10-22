@@ -20,6 +20,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Money (That's What I Want)",
+      "drummer_ids": ["drummer:benny-benjamin"],
+      "drums": {
+        "description": "A driving, piano-led R&B beat with heavy backbeats, one of Motown's first hits.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:money-wikipedia", "src:benny-benjamin-wikipedia"]
+        }
+      },
+      "style_key": "bennybenjamin",
+      "song_key": "money",
+      "youtube": "https://www.youtube.com/watch?v=DvORle6h5r8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=603770"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:money-wikipedia"]

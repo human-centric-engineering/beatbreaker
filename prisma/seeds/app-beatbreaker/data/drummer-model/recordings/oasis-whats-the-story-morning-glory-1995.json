@@ -52,6 +52,126 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Wonderwall",
+      "drummer_ids": ["drummer:alan-white-oasis"],
+      "drums": {
+        "description": "Enters late with a shuffling sixteenth-note groove and a heavy, syncopated snare, building to cymbal-washed choruses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wonderwall-wikipedia-oasis", "src:alan-white-oasis-wikipedia"]
+        }
+      },
+      "style_key": "alanwhite",
+      "song_key": "wonderwall",
+      "youtube": "https://www.youtube.com/watch?v=bx1Bh8ZvH84",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2"
+        }
+      ]
+    },
+    {
+      "title": "Don't Look Back in Anger",
+      "drummer_ids": ["drummer:alan-white-oasis"],
+      "drums": {
+        "description": "A steady, Beatles-style backbeat with simple tom fills into the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dont-look-back-in-anger-wikipedia"]
+        }
+      },
+      "style_key": "alanwhite",
+      "song_key": "dont-look-back-in-anger",
+      "youtube": "https://www.youtube.com/watch?v=cmpRLQZkTb8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15472"
+        }
+      ]
+    },
+    {
+      "title": "Roll With It",
+      "drummer_ids": ["drummer:alan-white-oasis"],
+      "drums": {
+        "description": "A bouncing, Status Quo-like straight-eight rock beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:morning-glory-album-wikipedia"]
+        }
+      },
+      "style_key": "alanwhite",
+      "song_key": "roll-with-it",
+      "youtube": "https://www.youtube.com/watch?v=DrARl0dzd-0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49269"
+        }
+      ]
+    },
+    {
+      "title": "Morning Glory",
+      "drummer_ids": ["drummer:alan-white-oasis"],
+      "drums": {
+        "description": "A driving, crash-ride eighth-note beat under the wall of guitars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:morning-glory-album-wikipedia"]
+        }
+      },
+      "style_key": "alanwhite",
+      "song_key": "morning-glory",
+      "youtube": "https://www.youtube.com/watch?v=Wm54XyLwBAk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15823"
+        }
+      ]
+    },
+    {
+      "title": "Champagne Supernova",
+      "drummer_ids": ["drummer:alan-white-oasis"],
+      "drums": {
+        "description": "A slow, building backbeat that swells into a heavy psychedelic coda.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:morning-glory-album-wikipedia"]
+        }
+      },
+      "style_key": "alanwhite",
+      "song_key": "champagne-supernova",
+      "youtube": "https://www.youtube.com/watch?v=tI-5uv4wryI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49284"
+        }
+      ]
+    },
+    {
+      "title": "Hello",
+      "drummer_ids": ["drummer:alan-white-oasis"],
+      "drums": {
+        "description": "A glam-rock stomp with a heavy, thumping snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:morning-glory-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7HF1Sfos3v4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49259"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:morning-glory-album-wikipedia"]

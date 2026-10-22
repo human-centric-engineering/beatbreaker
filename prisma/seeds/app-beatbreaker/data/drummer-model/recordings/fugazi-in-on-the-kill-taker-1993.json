@@ -1,0 +1,33 @@
+{
+  "id": "rec:fugazi-in-on-the-kill-taker-1993",
+  "title": "In on the Kill Taker",
+  "artist": "Fugazi",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:post-hardcore", "style:hardcore-punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brendan-canty"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Smallpox Champion",
+      "drummer_ids": ["drummer:brendan-canty"],
+      "drums": {
+        "description": "A heavy, pounding tom-driven beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:in-on-the-kill-taker-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qOeyuFQpY8o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1426273"
+        }
+      ]
+    }
+  ]
+}

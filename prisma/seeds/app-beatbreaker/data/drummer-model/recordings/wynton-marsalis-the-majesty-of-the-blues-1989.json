@@ -18,6 +18,44 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Majesty of the Blues (The Puheeman Strut)",
+      "drummer_ids": ["drummer:herlin-riley"],
+      "drums": {
+        "description": "Riley's slow, deep New Orleans backbeat and street-beat inflections under a jazz blues.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-majesty-of-the-blues-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=D1FZLD35vpg"
+    },
+    {
+      "title": "Hickory Dickory Dock",
+      "drummer_ids": ["drummer:herlin-riley"],
+      "drums": {
+        "description": "Swinging, second-line-flavoured groove with snare press rolls.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-majesty-of-the-blues-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PIttEFFSNUw"
+    },
+    {
+      "title": "The New Orleans Function",
+      "drummer_ids": ["drummer:herlin-riley"],
+      "drums": {
+        "description": "A funeral dirge into a parade beat, Riley playing the street drummer's role.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-majesty-of-the-blues-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gKHM53iv2VI"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:herlin-riley-wikipedia"]

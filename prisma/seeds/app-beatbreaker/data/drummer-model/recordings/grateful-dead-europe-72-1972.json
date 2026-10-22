@@ -1,0 +1,33 @@
+{
+  "id": "rec:grateful-dead-europe-72-1972",
+  "title": "Europe '72",
+  "artist": "Grateful Dead",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:jam-band", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-kreutzmann"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Jack Straw",
+      "drummer_ids": ["drummer:bill-kreutzmann"],
+      "drums": {
+        "description": "A light, steady country-rock beat, Kreutzmann as sole drummer.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bill-kreutzmann-wikipedia", "src:europe-72-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VywzPSreQJw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=194032"
+        }
+      ]
+    }
+  ]
+}

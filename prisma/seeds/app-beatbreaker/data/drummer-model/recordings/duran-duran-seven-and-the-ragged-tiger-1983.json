@@ -40,6 +40,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Reflex",
+      "drummer_ids": ["drummer:roger-taylor-duran-duran"],
+      "drums": {
+        "description": "Hi-hat sixteenths with a gap before every beat, the kick on the \"and\" of 2.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-reflex-wikipedia"]
+        }
+      },
+      "style_key": "rogertaylorduran",
+      "song_key": "the-reflex",
+      "youtube": "https://www.youtube.com/watch?v=J5ebkj9x5Ko",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=415598"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-reflex-wikipedia"]

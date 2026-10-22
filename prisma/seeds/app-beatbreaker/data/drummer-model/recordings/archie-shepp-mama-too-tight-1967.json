@@ -1,0 +1,27 @@
+{
+  "id": "rec:archie-shepp-mama-too-tight-1967",
+  "title": "Mama Too Tight",
+  "artist": "Archie Shepp",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:free-jazz", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:beaver-harris"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Mama Too Tight",
+      "drummer_ids": ["drummer:beaver-harris"],
+      "drums": {
+        "description": "A loose, R&B-tinged swing that slips into free passages.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mama-too-tight-wikipedia", "src:beaver-harris-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Jkg_fO9fhpk"
+    }
+  ]
+}

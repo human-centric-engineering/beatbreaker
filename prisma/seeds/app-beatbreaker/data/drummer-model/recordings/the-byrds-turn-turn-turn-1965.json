@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-byrds-turn-turn-turn-1965",
+  "title": "Turn! Turn! Turn!",
+  "artist": "The Byrds",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:folk-rock", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:michael-clarke"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Turn! Turn! Turn!",
+      "drummer_ids": ["drummer:michael-clarke"],
+      "drums": {
+        "description": "A simple, steady folk-rock backbeat with tambourine-like hi-hat under the jangling guitars.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:turn-turn-turn-wikipedia", "src:michael-clarke-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xVOJla2vYx8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=61474"
+        }
+      ]
+    }
+  ]
+}

@@ -73,6 +73,165 @@
           "src:songsterr-12084"
         ]
       }
+    },
+    {
+      "drummer_id": "drummer:chad-channing"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Polly",
+      "drummer_ids": ["drummer:chad-channing"],
+      "drums": {
+        "description": "Soft cymbal touches on the 1990 recording kept on the album, his one track on Nevermind.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:nevermind-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3H0NHHKBemg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=233"
+        }
+      ]
+    },
+    {
+      "title": "Smells Like Teen Spirit",
+      "drummer_ids": ["drummer:dave-grohl"],
+      "drums": {
+        "description": "The disco-born chorus beat under crash and open hat, closed-hat verses and sixteenth-note snare rolls in, one of rock's most imitated drum intros.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:grohl-musicradar-teen-spirit-2026", "src:grohl-okayplayer-2021"]
+        }
+      },
+      "style_key": "grohl",
+      "song_key": "smells-like-teen-spirit",
+      "youtube": "https://www.youtube.com/watch?v=hTWKbfoikeg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=269"
+        }
+      ]
+    },
+    {
+      "title": "In Bloom",
+      "drummer_ids": ["drummer:dave-grohl"],
+      "drums": {
+        "description": "Sixteenths on the hats, the kick doubled on 1 and 3, off-beat open hats in the chorus and rolls into each section.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:nevermind-wikipedia", "src:in-bloom-wikipedia", "src:songsterr-295"]
+        }
+      },
+      "style_key": "grohl",
+      "song_key": "in-bloom",
+      "youtube": "https://www.youtube.com/watch?v=PbgKEjNBHqM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=295"
+        }
+      ]
+    },
+    {
+      "title": "Come as You Are",
+      "drummer_ids": ["drummer:dave-grohl"],
+      "drums": {
+        "description": "The ride and kick in a two-bar figure, refrains of snare sixteenths and crashes on the beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:grohl-npr-fresh-air-2021",
+            "src:come-as-you-are-nirvana-song-wikipedia"
+          ]
+        }
+      },
+      "style_key": "grohl",
+      "song_key": "come-as-you-are",
+      "youtube": "https://www.youtube.com/watch?v=vabnZ9-ex7o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14"
+        }
+      ]
+    },
+    {
+      "title": "Breed",
+      "drummer_ids": ["drummer:dave-grohl"],
+      "drums": {
+        "description": "A sixteenth-note snare intro, open hats on the beat and ride and crash pushes in the chorus at full punk speed.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:nevermind-wikipedia",
+            "src:breed-song-wikipedia",
+            "src:paramount-1991-film",
+            "src:songsterr-10779"
+          ]
+        }
+      },
+      "style_key": "grohl",
+      "song_key": "breed",
+      "youtube": "https://www.youtube.com/watch?v=tGc8jL4dzao",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10779"
+        }
+      ]
+    },
+    {
+      "title": "Lithium",
+      "drummer_ids": ["drummer:dave-grohl"],
+      "drums": {
+        "description": "Ride and cross-stick verses, the kick on the 'and' of 4, then a pounding four-bar chorus and an open-hat bridge.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:nevermind-wikipedia",
+            "src:lithium-nirvana-song-wikipedia",
+            "src:songsterr-34"
+          ]
+        }
+      },
+      "style_key": "grohl",
+      "song_key": "lithium",
+      "youtube": "https://www.youtube.com/watch?v=pkcJEvMcnEg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=34"
+        }
+      ]
+    },
+    {
+      "title": "Territorial Pissings",
+      "drummer_ids": ["drummer:dave-grohl"],
+      "drums": {
+        "description": "Flat out: open hats on the beat, crashes on every beat and the snare on every beat to the end.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:nevermind-wikipedia",
+            "src:songsterr-12084",
+            "src:live-at-reading-wikipedia"
+          ]
+        }
+      },
+      "style_key": "grohl",
+      "song_key": "territorial-pissings",
+      "youtube": "https://www.youtube.com/watch?v=x6XBlkvTmv8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12084"
+        }
+      ]
     }
   ],
   "evidence": {

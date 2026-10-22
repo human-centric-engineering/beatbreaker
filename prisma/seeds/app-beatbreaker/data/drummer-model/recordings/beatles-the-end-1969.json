@@ -15,6 +15,28 @@
       "why_it_matters": "His only Beatles drum solo."
     }
   ],
+  "tracks": [
+    {
+      "title": "The End",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "His only Beatles drum solo: the kick in eighths under sixteenths round the toms, recorded across the stereo picture.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-end-beatles-song-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "the-end",
+      "youtube": "https://www.youtube.com/watch?v=12R4FzIhdoQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2841"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:melodics-ringo"]

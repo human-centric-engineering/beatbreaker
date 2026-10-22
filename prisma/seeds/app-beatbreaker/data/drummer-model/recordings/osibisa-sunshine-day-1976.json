@@ -16,6 +16,26 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Sunshine Day",
+      "drummer_ids": ["drummer:sol-amarfio"],
+      "drums": {
+        "description": "A bright disco-highlife groove: four-on-the-floor kick with Afro percussion layered on top.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sol-amarfio-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pJ3rKjQpIVg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1633423"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:sol-amarfio-wikipedia"],

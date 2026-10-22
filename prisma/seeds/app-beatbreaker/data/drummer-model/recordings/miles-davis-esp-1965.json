@@ -1,0 +1,29 @@
+{
+  "id": "rec:miles-davis-esp-1965",
+  "title": "E.S.P.",
+  "artist": "Miles Davis",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Agitation",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Opens with his march-like snare solo, then swings hard behind the horns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:esp-miles-davis-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "agitation",
+      "youtube": "https://www.youtube.com/watch?v=FDNtizyRIY8"
+    }
+  ]
+}

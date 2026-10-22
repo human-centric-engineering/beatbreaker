@@ -196,5 +196,21 @@
     "reliability": 0.8,
     "accessed": "2026-10-20",
     "notes": "His go-to cymbals: a 22\" HHX MAX Ride; 7\", 9\" and 11\" MAXX splashes; MAX bell chimes; 18\" AAX O-Zone and X-Plosion and 19\" HHX X-Plosion crashes; two chinas, an 18\" HHX Chinese and a 19\" Paragon Chinese; the HH Mid and HH Low Max Stax (a china stacked on a splash or crash)."
+  },
+  {
+    "id": "src:six-degrees-of-inner-turbulence-wikipedia",
+    "type": "encyclopedia",
+    "title": "Six Degrees of Inner Turbulence - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Six_Degrees_of_Inner_Turbulence",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:pull-me-under-wikipedia",
+    "type": "encyclopedia",
+    "title": "Pull Me Under - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Pull_Me_Under",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

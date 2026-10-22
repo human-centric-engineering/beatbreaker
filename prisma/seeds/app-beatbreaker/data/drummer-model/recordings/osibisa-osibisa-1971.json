@@ -1,0 +1,39 @@
+{
+  "id": "rec:osibisa-osibisa-1971",
+  "title": "Osibisa",
+  "artist": "Osibisa",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:afro-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sol-amarfio"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Music for Gong Gong",
+      "drummer_ids": ["drummer:sol-amarfio"],
+      "drums": {
+        "description": "Amarfio's kit lays a rock backbeat over Ghanaian bell and hand-drum polyrhythm, the Afro-rock sound Osibisa made famous.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:osibisa-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=IALpmwOm8Vs"
+    },
+    {
+      "title": "Ayiko Bia",
+      "drummer_ids": ["drummer:sol-amarfio"],
+      "drums": {
+        "description": "Highlife-derived groove on kit with the band's congas, layered polyrhythm under the horns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:osibisa-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DCHUfkertmI"
+    }
+  ]
+}

@@ -18,6 +18,56 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Fat Time",
+      "drummer_ids": ["drummer:al-foster"],
+      "drums": {
+        "description": "Swinging, loose funk-jazz groove behind Miles' comeback.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-man-with-the-horn-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xGd9_atxTfo"
+    },
+    {
+      "title": "Back Seat Betty",
+      "drummer_ids": ["drummer:al-foster"],
+      "drums": {
+        "description": "Heavy rock-funk backbeat with sharp cymbal accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-man-with-the-horn-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Hr73U_gPIDw"
+    },
+    {
+      "title": "Aïda",
+      "drummer_ids": ["drummer:al-foster"],
+      "drums": {
+        "description": "Up-tempo driving funk with busy snare chatter.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-man-with-the-horn-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OzyrBj7HGHs"
+    },
+    {
+      "title": "Ursula",
+      "drummer_ids": ["drummer:al-foster"],
+      "drums": {
+        "description": "A brisk acoustic swing ride pattern, Foster's jazz roots under the electric band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-man-with-the-horn-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-mNK4kSfRME"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:al-foster-wikipedia"]

@@ -1,0 +1,26 @@
+{
+  "id": "rec:william-parker-quartet-raining-on-the-moon-2002",
+  "title": "Raining on the Moon",
+  "artist": "William Parker Quartet",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:free-jazz", "style:reggae"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hamid-drake"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Raining on the Moon",
+      "drummer_ids": ["drummer:hamid-drake"],
+      "drums": {
+        "description": "A relaxed, buoyant swing with Drake's frame-drum-like touch on the toms.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hamid-drake-wikipedia"]
+        }
+      }
+    }
+  ]
+}

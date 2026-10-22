@@ -15,5 +15,43 @@
       "name": "Matt Chamberlain",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Criminal",
+      "drummer_ids": ["drummer:matt-chamberlain"],
+      "drums": {
+        "description": "A slinky, heavy groove with a deep snare under the piano.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tidal-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FFOzayDpWoI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=722373"
+        }
+      ]
+    },
+    {
+      "title": "Shadowboxer",
+      "drummer_ids": ["drummer:matt-chamberlain"],
+      "drums": {
+        "description": "A sparse, brushed, jazz-tinged pulse under the ballad.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tidal-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2xbM8y4K8kw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2898084"
+        }
+      ]
+    }
   ]
 }

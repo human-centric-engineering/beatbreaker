@@ -1,0 +1,33 @@
+{
+  "id": "rec:fugazi-13-songs-1989",
+  "title": "13 Songs",
+  "artist": "Fugazi",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:post-hardcore", "style:hardcore-punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brendan-canty"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Waiting Room",
+      "drummer_ids": ["drummer:brendan-canty"],
+      "drums": {
+        "description": "A tight, stop-start groove that drops out and returns with the bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:13-songs-fugazi-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=C3LXkdpHNOQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7584"
+        }
+      ]
+    }
+  ]
+}

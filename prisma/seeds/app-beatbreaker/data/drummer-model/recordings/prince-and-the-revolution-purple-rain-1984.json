@@ -10,5 +10,85 @@
       "drummer_id": "drummer:bobby-z",
       "name": "Bobby Z."
     }
+  ],
+  "tracks": [
+    {
+      "title": "Purple Rain",
+      "drummer_ids": ["drummer:bobby-z"],
+      "drums": {
+        "description": "Slow, heavy 4/4 backbeat with a huge gated snare on 2 and 4, recorded live with the Revolution at First Avenue in August 1983.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:purple-rain-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uW1UIDYmYyI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=643545"
+        }
+      ]
+    },
+    {
+      "title": "Let's Go Crazy",
+      "drummer_ids": ["drummer:bobby-z"],
+      "drums": {
+        "description": "Fast driving eighths, Bobby Z's kit doubled by a Linn LM-1 pattern, the sound of the Revolution's rock-funk.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:let-s-go-crazy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aXJhDltzYVQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6646875"
+        }
+      ]
+    },
+    {
+      "title": "I Would Die 4 U",
+      "drummer_ids": ["drummer:bobby-z"],
+      "drums": {
+        "description": "A relentless, fill-free sixteenth-note dance pulse, also from the First Avenue recording.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:i-would-die-4-u-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=iGCIdHrRXW0"
+    },
+    {
+      "title": "Baby I'm a Star",
+      "drummer_ids": ["drummer:bobby-z"],
+      "drums": {
+        "description": "Up-tempo funk party groove that drops to handclaps and kick before building back, cut live at First Avenue.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bobby-z-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NEvxLjxkEz8"
+    },
+    {
+      "title": "Computer Blue",
+      "drummer_ids": ["drummer:bobby-z"],
+      "drums": {
+        "description": "Mechanical, accented rock-funk groove with stop hits, live kit against drum machine.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:computer-blue-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wyKeCYYzIRk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4499240"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "id": "rec:archie-shepp-the-magic-of-ju-ju-1967",
+  "title": "The Magic of Ju-Ju",
+  "artist": "Archie Shepp",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:free-jazz", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:beaver-harris"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Magic of Ju-Ju",
+      "drummer_ids": ["drummer:beaver-harris"],
+      "drums": {
+        "description": "An extended, polyrhythmic drum-and-percussion groove, the drummers driving the 18-minute piece.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-magic-of-ju-ju-wikipedia", "src:beaver-harris-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fgf_OKD2OSY"
+    }
+  ]
+}

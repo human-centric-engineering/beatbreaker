@@ -10,5 +10,90 @@
       "drummer_id": "drummer:ben-koller",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Concubine",
+      "drummer_ids": ["drummer:ben-koller"],
+      "drums": {
+        "description": "Blast beats and d-beat bursts compressed into a minute and a half, Koller switching feels every few bars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jane-doe-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=JrAxmXDSiuA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4001"
+        }
+      ]
+    },
+    {
+      "title": "Fault and Fracture",
+      "drummer_ids": ["drummer:ben-koller"],
+      "drums": {
+        "description": "Chaotic, lurching mathcore patterns with tom rolls and abrupt tempo changes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jane-doe-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=38m1NXeQP4E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=28531"
+        }
+      ]
+    },
+    {
+      "title": "Homesick",
+      "drummer_ids": ["drummer:ben-koller"],
+      "drums": {
+        "description": "Fast hardcore beats broken by heavy half-time breakdowns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jane-doe-album-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Hell to Pay",
+      "drummer_ids": ["drummer:ben-koller"],
+      "drums": {
+        "description": "Pummelling tom-led groove that builds into frantic snare work.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jane-doe-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MkdOruB5Zuw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=470413"
+        }
+      ]
+    },
+    {
+      "title": "Jane Doe",
+      "drummer_ids": ["drummer:ben-koller"],
+      "drums": {
+        "description": "An eleven-minute slow build: sparse floor-tom and cymbal swells that grow into crushing doom-paced hits.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jane-doe-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2WGbgnDQF6A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3919"
+        }
+      ]
+    }
   ]
 }

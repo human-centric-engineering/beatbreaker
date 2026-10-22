@@ -17,5 +17,37 @@
         "source_ids": ["src:waxpoetics-robertinho-bateria"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Ponta de Areia",
+      "drummer_ids": ["drummer:robertinho-silva"],
+      "drums": {
+        "description": "A light, lilting Brazilian groove under Milton Nascimento's voice.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:native-dancer-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VFPIB4rFPIA"
+    },
+    {
+      "title": "Beauty and the Beast",
+      "drummer_ids": ["drummer:robertinho-silva"],
+      "drums": {
+        "description": "A funky, Brazilian-jazz groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:native-dancer-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8DTTx_hb_Gs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4831802"
+        }
+      ]
+    }
   ]
 }

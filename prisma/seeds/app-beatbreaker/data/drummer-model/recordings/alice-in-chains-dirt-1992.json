@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Would?",
+      "drummer_ids": ["drummer:sean-kinney"],
+      "drums": {
+        "description": "A heavy, steady groove with tom accents under the bass line.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dirt-alice-in-chains-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Nco_kh8xJDs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=59895"
+        }
+      ]
+    },
+    {
+      "title": "Them Bones",
+      "drummer_ids": ["drummer:sean-kinney"],
+      "drums": {
+        "description": "A heavy groove in 7/8 against the riff, with crashing accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dirt-alice-in-chains-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zTuD8k3JvxQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22808"
+        }
+      ]
+    },
+    {
+      "title": "Rooster",
+      "drummer_ids": ["drummer:sean-kinney"],
+      "drums": {
+        "description": "A slow, marching snare and tom pattern that builds into heavy choruses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dirt-alice-in-chains-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uAE6Il6OTcs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=25017"
+        }
+      ]
+    },
+    {
+      "title": "Dam That River",
+      "drummer_ids": ["drummer:sean-kinney"],
+      "drums": {
+        "description": "A driving, heavy groove with a stop-start riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dirt-alice-in-chains-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Vtpgj9CQvJo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=25027"
+        }
+      ]
+    }
   ]
 }

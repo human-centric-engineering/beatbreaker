@@ -46,6 +46,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Just",
+      "drummer_ids": ["drummer:phil-selway"],
+      "drums": {
+        "description": "The riff on the ride, the kick on 1, its \"e\" and its \"and\", the snare pushed.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-bends-wikipedia"]
+        }
+      },
+      "style_key": "selway",
+      "song_key": "just",
+      "youtube": "https://www.youtube.com/watch?v=oIFLtNYI3Ls",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=51255"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-bends-wikipedia"]

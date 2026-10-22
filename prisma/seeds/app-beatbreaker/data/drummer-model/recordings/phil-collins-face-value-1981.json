@@ -59,6 +59,48 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "In the Air Tonight",
+      "drummer_ids": ["drummer:phil-collins"],
+      "drums": {
+        "description": "The CR-78 alone under the verse, then the fill, two toms and a kick in threes, and the gated drums.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:in-the-air-tonight-wikipedia", "src:songsterr-50420"]
+        }
+      },
+      "style_key": "collins",
+      "song_key": "in-the-air-tonight",
+      "youtube": "https://www.youtube.com/watch?v=YkADj0TPrJA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=50420"
+        }
+      ]
+    },
+    {
+      "title": "I Missed Again",
+      "drummer_ids": ["drummer:phil-collins"],
+      "drums": {
+        "description": "The horns' song: hats opening on the \"and\"s of 1 and 4, the kick pushing the \"and\"s.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-1061008", "src:phil-collins-drumeo-12"]
+        }
+      },
+      "style_key": "collins",
+      "song_key": "i-missed-again",
+      "youtube": "https://www.youtube.com/watch?v=yr-SNCtoyPk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1061008"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:in-the-air-tonight-wikipedia", "src:phil-collins-drumeo-12"]

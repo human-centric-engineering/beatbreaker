@@ -1,0 +1,36 @@
+{
+  "id": "rec:killing-joke-extremities-dirt-and-various-repressed-emotions-1990",
+  "title": "Extremities, Dirt and Various Repressed Emotions",
+  "artist": "Killing Joke",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:industrial", "style:post-punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:martin-atkins"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Money Is Not Our God",
+      "drummer_ids": ["drummer:martin-atkins"],
+      "drums": {
+        "description": "A pounding, heavy industrial-rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:martin-atkins-wikipedia",
+            "src:extremities-dirt-and-various-repressed-emotions-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Z7TYBL59-K4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=573886"
+        }
+      ]
+    }
+  ]
+}

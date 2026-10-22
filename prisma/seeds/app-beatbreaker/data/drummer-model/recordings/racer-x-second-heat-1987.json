@@ -10,5 +10,25 @@
       "drummer_id": "drummer:scott-travis",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Scarified",
+      "drummer_ids": ["drummer:scott-travis"],
+      "drums": {
+        "description": "Fast, technical shred-metal drumming.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:scott-travis-wikipedia", "src:second-heat-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fOyxIt0m-x8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16813"
+        }
+      ]
+    }
   ]
 }

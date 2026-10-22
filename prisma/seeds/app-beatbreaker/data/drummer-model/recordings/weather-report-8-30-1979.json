@@ -18,6 +18,44 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Birdland",
+      "drummer_ids": ["drummer:peter-erskine"],
+      "drums": {
+        "description": "A live, harder-swinging version of the hit, the drums pushing the shuffle groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:8-30-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rI87xvv-OJE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=20757"
+        }
+      ]
+    },
+    {
+      "title": "Teen Town",
+      "drummer_ids": ["drummer:peter-erskine"],
+      "drums": {
+        "description": "Fast, tight sixteenth-note groove locked to Pastorius’s bass line.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:8-30-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=a3113eNj4IA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=21920"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:peter-erskine-wikipedia"]

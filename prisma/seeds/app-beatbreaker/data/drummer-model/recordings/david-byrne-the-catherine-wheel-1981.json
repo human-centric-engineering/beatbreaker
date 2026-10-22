@@ -1,0 +1,39 @@
+{
+  "id": "rec:david-byrne-the-catherine-wheel-1981",
+  "title": "The Catherine Wheel",
+  "artist": "David Byrne",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yogi-horton"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "His Wife Refused",
+      "drummer_ids": ["drummer:yogi-horton"],
+      "drums": {
+        "description": "Interlocking, African-influenced funk drumming for Twyla Tharp's dance score, locked to layered percussion.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-catherine-wheel-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pxs7EryeX9w"
+    },
+    {
+      "title": "Big Business",
+      "drummer_ids": ["drummer:yogi-horton"],
+      "drums": {
+        "description": "A tight, repetitive funk groove built with percussion arranger John Chernoff's polyrhythms in mind.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-catherine-wheel-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6V2G4gmHmVc"
+    }
+  ]
+}

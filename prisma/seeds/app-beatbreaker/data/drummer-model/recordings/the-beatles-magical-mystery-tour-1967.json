@@ -1,0 +1,75 @@
+{
+  "id": "rec:the-beatles-magical-mystery-tour-1967",
+  "title": "Magical Mystery Tour",
+  "artist": "The Beatles",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Penny Lane",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Hats only on 2 and 4 with the kick bouncing under them, a light, crisp pattern under the piano.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:penny-lane-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "penny-lane",
+      "youtube": "https://www.youtube.com/watch?v=S-rB0pHI9fU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2646"
+        }
+      ]
+    },
+    {
+      "title": "All You Need Is Love",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "The verse in 7/4 with the snare on every beat, then the chorus in 4/4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:all-you-need-is-love-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "all-you-need-is-love",
+      "youtube": "https://www.youtube.com/watch?v=Mki34tyoCp0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=78"
+        }
+      ]
+    },
+    {
+      "title": "I Am the Walrus",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "A plain, heavy beat that turns into lumbering quarter notes on kick and snare under the strings.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-am-the-walrus-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "i-am-the-walrus",
+      "youtube": "https://www.youtube.com/watch?v=t1Jm5epJr10",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22786"
+        }
+      ]
+    }
+  ]
+}

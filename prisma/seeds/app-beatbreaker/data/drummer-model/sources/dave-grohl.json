@@ -295,5 +295,69 @@
     "reliability": 0.6,
     "accessed": "2026-10-18",
     "notes": "aiGenerated false (meta API), revision 9490336; 164 bars at 158."
+  },
+  {
+    "id": "src:in-bloom-wikipedia",
+    "type": "encyclopedia",
+    "title": "In Bloom - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/In_Bloom",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:come-as-you-are-nirvana-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Come as You Are (Nirvana song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Come_as_You_Are_(Nirvana_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:breed-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Breed (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Breed_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:lithium-nirvana-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Lithium (Nirvana song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Lithium_(Nirvana_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:heart-shaped-box-wikipedia",
+    "type": "encyclopedia",
+    "title": "Heart-Shaped Box - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Heart-Shaped_Box",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:this-is-a-call-wikipedia",
+    "type": "encyclopedia",
+    "title": "This Is a Call - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/This_Is_a_Call",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:monkey-wrench-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Monkey Wrench (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Monkey_Wrench_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:no-one-knows-wikipedia",
+    "type": "encyclopedia",
+    "title": "No One Knows - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/No_One_Knows",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

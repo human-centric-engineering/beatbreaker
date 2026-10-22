@@ -16,5 +16,49 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Albatross",
+      "drummer_ids": ["drummer:reed-mullin"],
+      "drums": {
+        "description": "A swinging, Southern-metal groove with a heavy backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:reed-mullin-wikipedia",
+            "src:deliverance-corrosion-of-conformity-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rKPicUnsPPg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=34787"
+        }
+      ]
+    },
+    {
+      "title": "Clean My Wounds",
+      "drummer_ids": ["drummer:reed-mullin"],
+      "drums": {
+        "description": "A thick, bluesy stoner-metal groove with heavy accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:reed-mullin-wikipedia",
+            "src:deliverance-corrosion-of-conformity-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yvsQsao1F88",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=28549"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,33 @@
+{
+  "id": "rec:candido-thousand-finger-man-1970",
+  "title": "Thousand Finger Man",
+  "artist": "Candido",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:candido-camero"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Thousand Finger Man",
+      "drummer_ids": ["drummer:candido-camero"],
+      "drums": {
+        "description": "A conga showcase built on the nickname: fast multi-drum tumbaos and slaps over a soul-jazz groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-candido-camero"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-LiiqI0kEJA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3107539"
+        }
+      ]
+    }
+  ]
+}

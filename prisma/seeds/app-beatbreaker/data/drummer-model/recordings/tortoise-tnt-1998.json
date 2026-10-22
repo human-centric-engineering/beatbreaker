@@ -16,5 +16,37 @@
       "drummer_role": "co_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "TNT",
+      "drummer_ids": ["drummer:john-mcentire"],
+      "drums": {
+        "description": "A loose, jazz-inflected groove that opens the album.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tnt-tortoise-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WuitmtCZYoY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1318268"
+        }
+      ]
+    },
+    {
+      "title": "Ten-Day Interval",
+      "drummer_ids": ["drummer:john-mcentire"],
+      "drums": {
+        "description": "A light, interlocking groove under the vibes and marimba.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tnt-tortoise-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hJQBXfdiOCc"
+    }
   ]
 }

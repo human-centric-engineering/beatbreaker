@@ -43,6 +43,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Dani California",
+      "drummer_ids": ["drummer:chad-smith"],
+      "drums": {
+        "description": "A ghost after 2 and before the 1, then a chorus riding the crash in eighths.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stadium-arcadium-wikipedia"]
+        }
+      },
+      "style_key": "chadsmith",
+      "song_key": "dani-california",
+      "youtube": "https://www.youtube.com/watch?v=Sb5aq5HcS1A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=302"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:stadium-arcadium-wikipedia"]

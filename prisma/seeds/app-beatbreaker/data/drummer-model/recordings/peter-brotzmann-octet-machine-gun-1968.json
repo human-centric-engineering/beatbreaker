@@ -18,6 +18,25 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Machine Gun",
+      "drummer_ids": ["drummer:han-bennink"],
+      "drums": {
+        "description": "Raw, battering free percussion alongside Sven-Åke Johansson, a landmark of European free jazz.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:han-bennink-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=882184"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:han-bennink-wikipedia"]

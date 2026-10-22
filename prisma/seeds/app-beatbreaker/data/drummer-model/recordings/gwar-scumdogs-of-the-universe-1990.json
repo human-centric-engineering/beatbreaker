@@ -67,6 +67,48 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "The Salaminizer",
+      "drummer_ids": ["drummer:jizmak-da-gusha"],
+      "drums": {
+        "description": "His crossover beat (open hi-hats on the beats, kick off the beat, crash on the \"and\" of 4), a half-time riff on the ride, and 6/4 bars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:scumdogs-wikipedia", "src:jizmak-wikipedia"]
+        }
+      },
+      "style_key": "jizmak",
+      "song_key": "the-salaminizer",
+      "youtube": "https://www.youtube.com/watch?v=6pSzmvu3Rfc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=688675"
+        }
+      ]
+    },
+    {
+      "title": "Sick of You",
+      "drummer_ids": ["drummer:jizmak-da-gusha"],
+      "drums": {
+        "description": "The ride over four on the floor with no snare, chorus hits, and a breakdown of hi-hats that builds to sixteenths.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:scumdogs-wikipedia"]
+        }
+      },
+      "style_key": "jizmak",
+      "song_key": "sick-of-you",
+      "youtube": "https://www.youtube.com/watch?v=Dbnm-0r3suM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8180"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:scumdogs-wikipedia", "src:gwar-members-wikipedia"]

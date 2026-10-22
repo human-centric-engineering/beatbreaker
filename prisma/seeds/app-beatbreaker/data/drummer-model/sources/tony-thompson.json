@@ -187,5 +187,61 @@
     "reliability": 0.6,
     "accessed": "2026-10-19",
     "notes": "aiGenerated false (meta API), revision 8035578; 162 bars at 112, one of 2/4; sections marked; 'Tony Thompson - Drums'."
+  },
+  {
+    "id": "src:everybody-dance-chic-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Everybody Dance (Chic song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Everybody_Dance_(Chic_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:i-want-your-love-chic-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "I Want Your Love (Chic song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/I_Want_Your_Love_(Chic_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:we-are-family-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "We Are Family (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/We_Are_Family_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:upside-down-diana-ross-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Upside Down (Diana Ross song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Upside_Down_(Diana_Ross_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:let-s-dance-david-bowie-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Let's Dance (David Bowie song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Let's_Dance_(David_Bowie_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:get-it-on-t-rex-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Get It On (T. Rex song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Get_It_On_(T._Rex_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:addicted-to-love-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Addicted to Love (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Addicted_to_Love_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

@@ -18,6 +18,80 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "I'll Remember April",
+      "drummer_ids": ["drummer:denzil-best"],
+      "drums": {
+        "description": "Soft, swinging brushwork that follows Garner's long, teasing introduction and locks into the beat behind his left hand.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:concert-by-the-sea-wikipedia", "src:denzil-best-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=I_aILGaLqyc"
+    },
+    {
+      "title": "Teach Me Tonight",
+      "drummer_ids": ["drummer:denzil-best"],
+      "drums": {
+        "description": "Light brushes on a slow ballad, holding time quietly under Garner's lush chords.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:concert-by-the-sea-wikipedia", "src:denzil-best-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Nr2xrzJTuV4"
+    },
+    {
+      "title": "Autumn Leaves",
+      "drummer_ids": ["drummer:denzil-best"],
+      "drums": {
+        "description": "Brushes at a ballad pace that follow Garner through rubato passages and back into tempo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:concert-by-the-sea-wikipedia", "src:denzil-best-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wiLiipJ7UmE"
+    },
+    {
+      "title": "It's All Right with Me",
+      "drummer_ids": ["drummer:denzil-best"],
+      "drums": {
+        "description": "Brisk, even brushwork at a fast tempo, keeping the trio light on its feet.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:concert-by-the-sea-wikipedia", "src:denzil-best-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=F4Be74AFaek"
+    },
+    {
+      "title": "Red Top",
+      "drummer_ids": ["drummer:denzil-best"],
+      "drums": {
+        "description": "A relaxed medium swing on brushes, the trio's groove at its easiest.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:concert-by-the-sea-wikipedia", "src:denzil-best-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LvS331QJGI8"
+    },
+    {
+      "title": "April in Paris",
+      "drummer_ids": ["drummer:denzil-best"],
+      "drums": {
+        "description": "Brushes under Garner's dramatic, shifting dynamics, staying even as the piano swells and drops.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:concert-by-the-sea-wikipedia", "src:denzil-best-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MSHRPFLleWo"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:denzil-best-wikipedia"]

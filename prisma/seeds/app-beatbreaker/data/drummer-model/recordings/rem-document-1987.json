@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "It's the End of the World as We Know It (And I Feel Fine)",
+      "drummer_ids": ["drummer:bill-berry"],
+      "drums": {
+        "description": "Starts on the drums alone, then holds a fast, relentless snare-and-hat drive that never lets up under the rapid-fire vocal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:document-rem-album-wikipedia", "src:bill-berry-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wa43FNUdpU8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=78785"
+        }
+      ]
+    },
+    {
+      "title": "The One I Love",
+      "drummer_ids": ["drummer:bill-berry"],
+      "drums": {
+        "description": "A plain, heavy backbeat with big crash accents into each chorus, simple enough to leave the riff the spotlight.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:document-rem-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=j7oQEPfe-O8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=78784"
+        }
+      ]
+    },
+    {
+      "title": "Finest Worksong",
+      "drummer_ids": ["drummer:bill-berry"],
+      "drums": {
+        "description": "A stomping, heavily accented beat with a hard snare that gives the album opener its brassy, industrial push.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:document-rem-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=559eWB93jW4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17118"
+        }
+      ]
+    }
   ]
 }

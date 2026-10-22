@@ -73,6 +73,21 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Africa Unite",
+      "artist": "Bob Marley & the Wailers",
+      "drummer_ids": ["drummer:santa-davis"],
+      "drums": {
+        "description": "A rolling one drop under the anthem, on the side of Survival that he and other drummers played.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:survival-1979-wikipedia", "src:santa-davis-i-never-knew-africa-unite"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=psm68xZPZTA"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:survival-1979-wikipedia"]

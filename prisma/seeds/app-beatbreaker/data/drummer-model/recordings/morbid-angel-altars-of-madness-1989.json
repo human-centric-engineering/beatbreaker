@@ -10,5 +10,61 @@
       "drummer_id": "drummer:pete-sandoval",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Immortal Rites",
+      "drummer_ids": ["drummer:pete-sandoval"],
+      "drums": {
+        "description": "Blast beats and double kick at speeds then new for death metal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blast-beat-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=36eC3xmeNR0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12734"
+        }
+      ]
+    },
+    {
+      "title": "Chapel of Ghouls",
+      "drummer_ids": ["drummer:pete-sandoval"],
+      "drums": {
+        "description": "Blasts, double kick and abrupt tempo shifts.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:blast-beat-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HsKP30C4D7s",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=76335"
+        }
+      ]
+    },
+    {
+      "title": "Maze of Torment",
+      "drummer_ids": ["drummer:pete-sandoval"],
+      "drums": {
+        "description": "Rapid blasts and double-kick gallops.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:blast-beat-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FqvnlceOyes",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13568"
+        }
+      ]
+    }
   ]
 }

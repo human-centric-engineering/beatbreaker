@@ -12,6 +12,56 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Tenth Avenue Freeze-Out",
+      "drummer_ids": ["drummer:max-weinberg"],
+      "drums": {
+        "description": "A tight, horn-led soul groove with a crisp snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-weinberg-wikipedia", "src:born-to-run-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=r1twvwbB_cU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=387355"
+        }
+      ]
+    },
+    {
+      "title": "Backstreets",
+      "drummer_ids": ["drummer:max-weinberg"],
+      "drums": {
+        "description": "A dramatic, building rock backbeat with long rolls into each chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-weinberg-wikipedia", "src:born-to-run-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YnNnYjlF1Us"
+    },
+    {
+      "title": "Jungleland",
+      "drummer_ids": ["drummer:max-weinberg"],
+      "drums": {
+        "description": "A nine-minute arc where Weinberg moves from rolls to full-band rock.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-weinberg-wikipedia", "src:born-to-run-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lW1RAYYs8RI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=409540"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:max-weinberg-wikipedia"]

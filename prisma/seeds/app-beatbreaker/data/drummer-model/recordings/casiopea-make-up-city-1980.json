@@ -1,0 +1,33 @@
+{
+  "id": "rec:casiopea-make-up-city-1980",
+  "title": "Make Up City",
+  "artist": "Casiopea",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:akira-jimbo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Fightman",
+      "drummer_ids": ["drummer:akira-jimbo"],
+      "drums": {
+        "description": "A fast, precise funk-fusion groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:casiopea-wikipedia", "src:akira-jimbo-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AIqUP0KmnQ4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=752764"
+        }
+      ]
+    }
+  ]
+}

@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "School's Out",
+      "drummer_ids": ["drummer:neal-smith"],
+      "drums": {
+        "description": "A swaggering, heavy rock groove with crashing fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:school-s-out-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2Oo8QzDHimQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=559847"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:neal-smith-drummer-wikipedia"]

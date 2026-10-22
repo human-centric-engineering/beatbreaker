@@ -10,5 +10,25 @@
       "drummer_id": "drummer:paul-bostaph",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Twisted into Form",
+      "drummer_ids": ["drummer:paul-bostaph"],
+      "drums": {
+        "description": "Technical thrash with intricate fills and fast double bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:twisted-into-form-wikipedia", "src:paul-bostaph-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SGH57zX6XW0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=494206"
+        }
+      ]
+    }
   ]
 }

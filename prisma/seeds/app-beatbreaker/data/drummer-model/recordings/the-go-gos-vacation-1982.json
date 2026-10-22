@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Vacation",
+      "drummer_ids": ["drummer:gina-schock"],
+      "drums": {
+        "description": "A bouncing new-wave pop beat with snare-and-tom fills pushing the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:vacation-the-go-gos-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2RHTiXvELNg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=55978"
+        }
+      ]
+    }
   ]
 }

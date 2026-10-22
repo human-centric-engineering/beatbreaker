@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "X Offender",
+      "drummer_ids": ["drummer:clem-burke"],
+      "drums": {
+        "description": "A girl-group beat played with punk energy, the toms and fills carrying the sixties pastiche.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blondie-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kDCwRuqdd70",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=86389"
+        }
+      ]
+    }
   ]
 }

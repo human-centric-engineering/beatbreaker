@@ -11,6 +11,92 @@
       "why_it_matters": "Listed as a key recording."
     }
   ],
+  "tracks": [
+    {
+      "title": "Gett Off",
+      "drummer_ids": ["drummer:michael-bland"],
+      "drums": {
+        "description": "Hard, swung sixteenth-note funk groove with heavy ghost notes and a cracking backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:gett-off-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6f4BwQFF-Os",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5081928"
+        }
+      ]
+    },
+    {
+      "title": "Cream",
+      "drummer_ids": ["drummer:michael-bland"],
+      "drums": {
+        "description": "Laid-back, T. Rex-style boogie shuffle with a fat snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cream-prince-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rrbFQEcpJ3A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6316306"
+        }
+      ]
+    },
+    {
+      "title": "Daddy Pop",
+      "drummer_ids": ["drummer:michael-bland"],
+      "drums": {
+        "description": "Fast, busy funk with linear hat-and-snare figures.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:diamonds-and-pearls-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mJWVUrLAjyA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6316329"
+        }
+      ]
+    },
+    {
+      "title": "Live 4 Love",
+      "drummer_ids": ["drummer:michael-bland"],
+      "drums": {
+        "description": "Heavy rock-funk beat with big fills into the chorus.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:diamonds-and-pearls-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SzGwYUESxf8"
+    },
+    {
+      "title": "Thunder",
+      "drummer_ids": ["drummer:michael-bland"],
+      "drums": {
+        "description": "Driving tom-heavy groove that builds through the opening track.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:diamonds-and-pearls-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6LqI7TElSPA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3148538"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:michael-bland-wikipedia"]

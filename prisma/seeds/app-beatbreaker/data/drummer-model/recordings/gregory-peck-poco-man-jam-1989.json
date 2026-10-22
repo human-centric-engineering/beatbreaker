@@ -16,5 +16,19 @@
         "source_ids": ["src:wikipedia-steely-and-clevie"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Poco Man Jam",
+      "drummer_ids": ["drummer:clevie-browne"],
+      "drums": {
+        "description": "The Poco riddim's skipping, programmed kick-and-snare figure, a dancehall staple.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-steely-and-clevie"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RPVxmnUA3Hs"
+    }
   ]
 }

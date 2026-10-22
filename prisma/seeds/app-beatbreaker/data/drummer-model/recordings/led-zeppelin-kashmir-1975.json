@@ -27,6 +27,32 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Kashmir",
+      "drummer_ids": ["drummer:john-bonham"],
+      "drums": {
+        "description": "Plain eighths and a huge laid-back backbeat in 4/4 against a riff in three.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:bonham-wikipedia-kashmir",
+            "src:bonham-guitar-player-kashmir",
+            "src:bonham-mehldau-rock-hemiolas"
+          ]
+        }
+      },
+      "style_key": "bonham",
+      "song_key": "kashmir",
+      "youtube": "https://www.youtube.com/watch?v=PD-MdiUm1_Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=288"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:bonham-wikipedia-kashmir"]

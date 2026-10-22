@@ -1,0 +1,39 @@
+{
+  "id": "rec:john-coltrane-coltrane-1957",
+  "title": "Coltrane",
+  "artist": "John Coltrane",
+  "year": 1957,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:albert-heath"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Straight Street",
+      "drummer_ids": ["drummer:albert-heath"],
+      "drums": {
+        "description": "Crisp, light hard-bop swing behind the young Coltrane.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:coltrane-1957-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=C_UDuXdNXK4"
+    },
+    {
+      "title": "Violets for Your Furs",
+      "drummer_ids": ["drummer:albert-heath"],
+      "drums": {
+        "description": "Soft, unhurried brushes on Coltrane’s ballad.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:coltrane-1957-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4cUYQ8fp0UQ"
+    }
+  ]
+}

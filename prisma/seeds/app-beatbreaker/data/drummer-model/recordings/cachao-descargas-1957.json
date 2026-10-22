@@ -17,5 +17,61 @@
         "source_ids": ["src:wikipedia-guillermo-barreto"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Descarga Cubana",
+      "drummer_ids": ["drummer:guillermo-barreto"],
+      "drums": {
+        "description": "Barreto's timbales cáscara and abanico rolls drive the first studio descarga, Cachao's jam-session format.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:cuban-jam-sessions-in-miniature-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=d6MsALDJI2w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3503848"
+        }
+      ]
+    },
+    {
+      "title": "Controversia de Metales",
+      "drummer_ids": ["drummer:guillermo-barreto"],
+      "drums": {
+        "description": "Timbales cascara and bell patterns under the trumpets' call and response.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cuban-jam-sessions-in-miniature-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nROrI-hLPUI"
+    },
+    {
+      "title": "Trombón Criollo",
+      "drummer_ids": ["drummer:guillermo-barreto"],
+      "drums": {
+        "description": "Barreto's timbales keep a mambo-descarga groove under Generoso Jiménez's trombone.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cuban-jam-sessions-in-miniature-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TMAZv_dHpMs"
+    },
+    {
+      "title": "Guajeo de Saxos",
+      "drummer_ids": ["drummer:guillermo-barreto"],
+      "drums": {
+        "description": "Bell and cáscara patterns behind the saxophone guajeos.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cuban-jam-sessions-in-miniature-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hXdeE18uEg0"
+    }
   ]
 }

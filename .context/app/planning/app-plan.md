@@ -4926,6 +4926,46 @@ one is associated with, within reason.
 | 15-c | **The index in the app.** An API for drummers, bands and songs (`GET /api/v1/catalogue/index?q=`) that searches built drummers, candidates, bands and every track. Each drummer's sheet gets a **song table** (title, band, record, year, what the drums do, and scored or not). A scored row opens the song in the Studio, and every row with a link plays it through the click-to-load embeds the reference links already use (`reference-embeds.tsx`, the CSP origins already allowed). The picker's search falls back to the index under D75                           | Searching "how soon is now" finds Mike Joyce and says the song is not scored yet; searching "Queen" finds Roger Taylor; the song table for Kenney Jones lists his seven scored songs as scored and his Small Faces songs as not; a song with a link plays from the table without leaving the app; a candidate appears in search but not on the Drummers tab                                 |
 | 15-d | **What to build next.** The candidates ranked by D72's evidence and their transcriptions, and the next drummer batches planned from that ranking                                                                                                                                                                                                                                                                                                                                                                                                                           | The next batch of drummers is chosen from the ranking, with its forks briefed                                                                                                                                                                                                                                                                                                               |
 
+**15-b and 15-c as built (2026-10-22, branch `phase-15bc-songs`):**
+
+- **Research** ran as sixteen forks: four over the 97 built drummers and the
+  rest over the 497 candidates by genre group, each writing one file per
+  drummer to the scratchpad, merged by script. 3,508 songs on 549 drummers;
+  720 new recording records and 1,481 new sources (every new URL checked to
+  exist: Wikipedia pages through its API, others by GET). Most lines on less
+  famous songs are `likely`: the forks wrote them from what they knew, and the
+  cited page often confirms the credit and the track list rather than the
+  drumming. A line whose only song source failed falls back to the drummer's
+  own source, marked `likely` with a note saying so.
+- **Short lists are on the record, not hidden.** A drummer under D73's range
+  carries `beatbreaker.songs_short_because`: the fork's reason (thin recorded
+  work, no per-track credits, a traditional master with no commercial tracks),
+  a plain "no more songs with a confirmed drum credit and a source were found",
+  or "not reached". The model test fails a short list without one.
+- **Credits left out on purpose** (forks' notes): Bobby Graham's Kinks and
+  Dave Clark Five hits (so Dave Clark has no songs, and the existing records
+  crediting him on Glad All Over and Bits and Pieces want checking), Ernest
+  Carter's Born to Run, Melvin Billups on Roll Over Beethoven (the existing
+  record lists Fred Below), Tony McCarroll not on Some Might Say, Andy White's
+  album Love Me Do.
+- **YouTube links** were found by search (official uploads first: the
+  artist's "- Topic" channel, then the artist's or label's channel, then VEVO)
+  and kept only when the oEmbed title named the song; `npm run
+lineage:check-links` then re-checked every stored link. **Spotify links are
+  not done**: Spotify has no keyless search, and a link may not be guessed.
+  With a client-credentials key the same finder fills them; until then every
+  row plays from YouTube where it can.
+- **Songsterr** tabs were found through its public search (title and artist
+  match, and a drum track); other transcriptions are the ones the forks knew.
+- **Several style songs, one record song:** `also_song_keys` lets one track
+  name every catalogue song that plays it (Rime of the Ancient Mariner's
+  parts, Here Comes the Sun's bridge).
+- **15-c:** `GET /api/v1/catalogue/index?q=`, the song table on
+  `/drummers/[slug]`, `/studio?style=&song=`, and the picker's fallback, as
+  `drummers.md` describes. The index is built from the lineage tables and kept
+  in process for five minutes. Not checked in a browser (no Chrome connection
+  here); the component tests cover the table and the fallback.
+
 **Not in Phase 15:** scoring the songs. Each one is still a drummer batch of
 its own (`drumming-research.md`). Also out: a request or vote for a song;
 licensing review of song titles beyond D10.

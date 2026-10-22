@@ -1,0 +1,33 @@
+{
+  "id": "rec:roxy-music-siren-1975",
+  "title": "Siren",
+  "artist": "Roxy Music",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:glam-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-thompson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Love Is the Drug",
+      "drummer_ids": ["drummer:paul-thompson"],
+      "drums": {
+        "description": "A tight, funky disco-rock groove that drives the hit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:siren-roxy-music-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0n3OepDn5GU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16275"
+        }
+      ]
+    }
+  ]
+}

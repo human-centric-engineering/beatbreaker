@@ -34,6 +34,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Rocker",
+      "drummer_ids": ["drummer:brian-downey"],
+      "drums": {
+        "description": "Straight eighths at a gallop, the toms playing the riff under the ride, and stabs with the band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:vagabonds-wikipedia", "src:downey-hotpress-2024-vagabonds"]
+        }
+      },
+      "style_key": "downey",
+      "song_key": "the-rocker",
+      "youtube": "https://www.youtube.com/watch?v=f62p2J98S8A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2167156"
+        }
+      ]
+    },
+    {
+      "title": "Little Girl in Bloom",
+      "drummer_ids": ["drummer:brian-downey"],
+      "drums": {
+        "description": "Slow and spacious: the snare on 3 alone with the toms on 1, the ride, and a soloing outro.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:vagabonds-wikipedia"]
+        }
+      },
+      "style_key": "downey",
+      "song_key": "little-girl-in-bloom",
+      "youtube": "https://www.youtube.com/watch?v=qhD-PXQzx8M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=264407"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:vagabonds-wikipedia"]

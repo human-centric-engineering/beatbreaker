@@ -17,5 +17,37 @@
         "source_ids": ["src:wikipedia-lloyd-knibb"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Confucius",
+      "drummer_ids": ["drummer:lloyd-knibb"],
+      "drums": {
+        "description": "A brisk ska beat with Knibb's cross-stick accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-skatalites"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rBd37UwMD9o"
+    },
+    {
+      "title": "Freedom Sounds",
+      "drummer_ids": ["drummer:lloyd-knibb"],
+      "drums": {
+        "description": "A swinging ska groove that leans on the jazz the band came from.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-skatalites"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=l6V3wBgOBgg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4278023"
+        }
+      ]
+    }
   ]
 }

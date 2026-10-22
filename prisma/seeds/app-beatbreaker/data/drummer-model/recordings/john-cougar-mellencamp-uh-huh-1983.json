@@ -1,0 +1,44 @@
+{
+  "id": "rec:john-cougar-mellencamp-uh-huh-1983",
+  "title": "Uh-Huh",
+  "artist": "John Cougar Mellencamp",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:rock", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenny-aronoff"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Pink Houses",
+      "drummer_ids": ["drummer:kenny-aronoff"],
+      "drums": {
+        "description": "A solid, chugging heartland-rock beat with a punchy backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:uh-huh-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bB4FD5VkHak",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1543039"
+        }
+      ]
+    },
+    {
+      "title": "Authority Song",
+      "drummer_ids": ["drummer:kenny-aronoff"],
+      "drums": {
+        "description": "A driving, energetic rock beat with snare rolls into the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:uh-huh-wikipedia"]
+        }
+      }
+    }
+  ]
+}

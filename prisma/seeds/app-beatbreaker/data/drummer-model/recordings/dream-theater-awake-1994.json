@@ -43,6 +43,46 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Mirror",
+      "drummer_ids": ["drummer:mike-portnoy"],
+      "drums": {
+        "description": "A down-tuned, stop-start metal groove that locks the kick to Petrucci's seven-string riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:awake-dream-theater-wikipedia"]
+        }
+      },
+      "style_key": "portnoy",
+      "song_key": "the-mirror",
+      "youtube": "https://www.youtube.com/watch?v=rwscRurgXbQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6200"
+        }
+      ]
+    },
+    {
+      "title": "Erotomania",
+      "drummer_ids": ["drummer:mike-portnoy"],
+      "drums": {
+        "description": "An instrumental full of unison odd-meter figures and rapid tom fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:awake-dream-theater-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OLB7JYl34y4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5793"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:awake-dream-theater-wikipedia"]

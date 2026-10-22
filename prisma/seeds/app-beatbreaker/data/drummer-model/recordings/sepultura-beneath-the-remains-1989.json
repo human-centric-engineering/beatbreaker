@@ -10,5 +10,43 @@
       "drummer_id": "drummer:igor-cavalera",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Beneath the Remains",
+      "drummer_ids": ["drummer:igor-cavalera"],
+      "drums": {
+        "description": "Fast, ferocious thrash with skank beats and double bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:beneath-the-remains-wikipedia", "src:igor-cavalera-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GQ5ejXzQu3Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=34003"
+        }
+      ]
+    },
+    {
+      "title": "Inner Self",
+      "drummer_ids": ["drummer:igor-cavalera"],
+      "drums": {
+        "description": "Thrash with a mid-tempo groove section and fast, aggressive fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:beneath-the-remains-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ysmRIgM9sko",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17885"
+        }
+      ]
+    }
   ]
 }

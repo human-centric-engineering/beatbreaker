@@ -1,0 +1,28 @@
+{
+  "id": "rec:fela-fear-not-for-man-1977",
+  "title": "Fear Not for Man",
+  "artist": "Fela Anikulapo Kuti and Africa 70",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:afrobeat", "style:west-african", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Fear Not for Man",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "The buzz roll returns as a bar marker over the chicking hat foot.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:fela-kuti-discography-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "fear-not-for-man"
+    }
+  ]
+}

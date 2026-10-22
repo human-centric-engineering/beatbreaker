@@ -33,6 +33,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Give It Up or Turnit a Loose",
+      "drummer_ids": ["drummer:clyde-stubblefield"],
+      "drums": {
+        "description": "The Sex Machine version with Bootsy on bass, the drums carrying the \"clap your hands, stomp your feet\" break.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-wiki-give-it-up"]
+        }
+      },
+      "style_key": "stubblefield",
+      "song_key": "give-it-up",
+      "youtube": "https://www.youtube.com/watch?v=MtPOpre61NI"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:stubblefield-wiki-give-it-up", "src:stubblefield-bb-research"]

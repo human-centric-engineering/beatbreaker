@@ -10,5 +10,19 @@
       "drummer_id": "drummer:clifton-james",
       "name": "Clifton James"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Bo Diddley",
+      "drummer_ids": ["drummer:clifton-james"],
+      "drums": {
+        "description": "The \"Bo Diddley beat\" played on the toms rather than the snare, under maracas.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bo-diddley-disambiguation-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WJLy-Fnedy8"
+    }
   ]
 }

@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Sliver",
+      "drummer_ids": ["drummer:dan-peters"],
+      "drums": {
+        "description": "A simple, pounding pop-punk beat, his only Nirvana recording.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sliver-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QECJ9pCyhns",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7949"
+        }
+      ]
+    }
   ]
 }

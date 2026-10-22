@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Only Shallow",
+      "drummer_ids": ["drummer:colm-o-ciosoig"],
+      "drums": {
+        "description": "The snare hits that open the album, then a heavy, steady beat beneath the guitar wash.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:loveless-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wdXGll5sc6Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12757"
+        }
+      ]
+    },
+    {
+      "title": "When You Sleep",
+      "drummer_ids": ["drummer:colm-o-ciosoig"],
+      "drums": {
+        "description": "A simple, propulsive pop beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:loveless-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hcOhXThqh_0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13618"
+        }
+      ]
+    },
+    {
+      "title": "Soon",
+      "drummer_ids": ["drummer:colm-o-ciosoig"],
+      "drums": {
+        "description": "A sampled dance-style loop of his drumming, the closing track's baggy groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:soon-my-bloody-valentine-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ufoWlmEwFhQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=48057"
+        }
+      ]
+    }
   ]
 }

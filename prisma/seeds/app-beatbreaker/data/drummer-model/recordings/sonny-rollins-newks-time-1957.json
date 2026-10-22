@@ -38,5 +38,21 @@
         "source_ids": ["src:bishop-philly-joe-afro-6-2019"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Asiatic Raes",
+      "drummer_ids": ["drummer:philly-joe-jones"],
+      "drums": {
+        "description": "Kenny Dorham's tune in a 6/8 Latin-tinged feel that opens into swing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:newks-time-wikipedia"]
+        }
+      },
+      "style_key": "phillyjoe",
+      "song_key": "asiatic-raes",
+      "youtube": "https://www.youtube.com/watch?v=rMdbRwns2cA"
+    }
   ]
 }

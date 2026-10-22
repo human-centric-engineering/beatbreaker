@@ -10,5 +10,61 @@
       "drummer_id": "drummer:ben-koller",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Dark Horse",
+      "drummer_ids": ["drummer:ben-koller"],
+      "drums": {
+        "description": "Opens on a rolling double-time groove and fast fills that drive the album's thrash-leaning sound.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:axe-to-fall-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OY_L13vHLuo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=66737"
+        }
+      ]
+    },
+    {
+      "title": "Axe to Fall",
+      "drummer_ids": ["drummer:ben-koller"],
+      "drums": {
+        "description": "Relentless blast beats with off-kilter stops.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:axe-to-fall-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7jjBinzryFY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35642"
+        }
+      ]
+    },
+    {
+      "title": "Reap What You Sow",
+      "drummer_ids": ["drummer:ben-koller"],
+      "drums": {
+        "description": "Driving punk beat with cymbal-heavy accents and abrupt breakdowns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:axe-to-fall-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=T2jPlkcv_rg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3090050"
+        }
+      ]
+    }
   ]
 }

@@ -166,6 +166,100 @@
         }
       }
     },
+    "tracks": {
+      "type": "array",
+      "description": "The songs on this recording picked for what the drumming does (Phase 15-b, D73), not every track.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "drummer_ids", "drums"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The song's title as released."
+          },
+          "artist": {
+            "type": "string",
+            "description": "The song's credited artist, where it is not the recording's."
+          },
+          "year": {
+            "$ref": "common.schema.json#/$defs/Year",
+            "description": "The song's release year, where it is not the recording's."
+          },
+          "drummer_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "common.schema.json#/$defs/Id"
+            },
+            "description": "Who drums on it. Each has a drum_performance on the recording."
+          },
+          "drums": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["description", "evidence"],
+            "description": "One line on what the drums do, with a source.",
+            "properties": {
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "evidence": {
+                "$ref": "common.schema.json#/$defs/Evidence"
+              }
+            }
+          },
+          "transcriptions": {
+            "type": "array",
+            "description": "Human transcriptions known to exist. Empty or absent: none found.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["site"],
+              "properties": {
+                "site": {
+                  "enum": ["songsterr", "drumeo", "hudson", "modern_drummer", "book", "other"]
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "note": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "spotify": {
+            "type": "string",
+            "pattern": "^https://open\\.spotify\\.com/track/[A-Za-z0-9]{22}$",
+            "description": "The track on Spotify, rebuilt from its id; passed the oEmbed check."
+          },
+          "youtube": {
+            "type": "string",
+            "pattern": "^https://www\\.youtube\\.com/watch\\?v=[A-Za-z0-9_-]{11}$",
+            "description": "The song on YouTube, an official upload first; rebuilt from its id; passed the oEmbed check."
+          },
+          "style_key": {
+            "type": "string",
+            "description": "The catalogue style whose song plays it. With song_key, it is scored."
+          },
+          "song_key": {
+            "type": "string",
+            "description": "The key of the style's song that plays it (Style.songs)."
+          },
+          "also_song_keys": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            },
+            "description": "Other songs of the same style that play this one: a song the catalogue holds as several (Rime of the Ancient Mariner's parts). song_key is the one the table opens."
+          }
+        }
+      }
+    },
     "sampled_by": {
       "type": "array",
       "description": "Breakbeat and sampling legacy.",

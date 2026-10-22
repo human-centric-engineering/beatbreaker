@@ -1,0 +1,26 @@
+{
+  "id": "rec:huey-piano-smith-his-clowns-rockin-pneumonia-and-the-boogie-woogie-flu-1957",
+  "title": "Rockin' Pneumonia and the Boogie Woogie Flu",
+  "artist": "Huey \"Piano\" Smith & His Clowns",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charles-hungry-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Rockin' Pneumonia and the Boogie Woogie Flu",
+      "drummer_ids": ["drummer:charles-hungry-williams"],
+      "drums": {
+        "description": "Driving, syncopated New Orleans groove, an early 'funky' drum feel in R&B.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:rockin-pneumonia-and-the-boogie-woogie-flu-wikipedia"]
+        }
+      }
+    }
+  ]
+}

@@ -16,5 +16,233 @@
       "name": "Mitch Mitchell",
       "drummer_role": "co_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Rainy Day, Dream Away",
+      "drummer_ids": ["drummer:buddy-miles"],
+      "drums": {
+        "description": "Loose, jazzy shuffle feel in a jam-session setting with organ and saxophone; Miles replaces Mitch Mitchell on this track.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:electric-ladyland-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pI4QjndgNAU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9150"
+        }
+      ]
+    },
+    {
+      "title": "Still Raining, Still Dreaming",
+      "drummer_ids": ["drummer:buddy-miles"],
+      "drums": {
+        "description": "Continuation of the same session, with Miles pushing a harder funk-blues groove under wah-wah guitar.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:electric-ladyland-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QDMeyLnnhpI"
+    },
+    {
+      "title": "Voodoo Child (Slight Return)",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Wah-wah intro answered by a crashing, fill-heavy hard-rock groove that rarely plays the same bar twice.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:voodoo-child-slight-return-wikipedia",
+            "src:electric-ladyland-wikipedia"
+          ]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "voodoo-child",
+      "youtube": "https://www.youtube.com/watch?v=qFfnlYbFEiE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=39280"
+        }
+      ]
+    },
+    {
+      "title": "Voodoo Chile",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Fifteen minutes of slow blues jam, Mitchell swinging the shuffle and stretching into free fills alongside Winwood and Casady.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:electric-ladyland-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "voodoo-chile",
+      "youtube": "https://www.youtube.com/watch?v=yNC0sF9KgM4"
+    },
+    {
+      "title": "Crosstown Traffic",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A tight, punchy backbeat with snare pushes that kick the riff along.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:crosstown-traffic-wikipedia", "src:electric-ladyland-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "crosstown-traffic",
+      "youtube": "https://www.youtube.com/watch?v=px5kIbXbgvU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22548"
+        }
+      ]
+    },
+    {
+      "title": "1983… (A Merman I Should Turn to Be)",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Long, floating jazz time with ride washes and a free drum section in the underwater middle.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:electric-ladyland-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "merman",
+      "youtube": "https://www.youtube.com/watch?v=wjL8NrkIC6M"
+    },
+    {
+      "title": "All Along the Watchtower",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A steady rock backbeat with tambourine-like hat and tom fills between the guitar solos' sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:all-along-the-watchtower-wikipedia",
+            "src:electric-ladyland-wikipedia"
+          ]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "watchtower",
+      "youtube": "https://www.youtube.com/watch?v=TLV4_xaYynY"
+    },
+    {
+      "title": "Gypsy Eyes",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "An odd, shuffling groove with the kick and snare interlocking behind a stuttering guitar figure.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:electric-ladyland-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "gypsy-eyes",
+      "youtube": "https://www.youtube.com/watch?v=QecC_u8WKbU"
+    },
+    {
+      "title": "Long Hot Summer Night",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A rolling mid-tempo groove with Al Kooper on piano and Mitchell's fills dropping between the vocal lines.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:electric-ladyland-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "long-hot-summer-night",
+      "youtube": "https://www.youtube.com/watch?v=H544OpUSGxw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22566"
+        }
+      ]
+    },
+    {
+      "title": "Come On (Let the Good Times Roll)",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A fast blues shuffle pushed by the snare, live-in-the-room.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:electric-ladyland-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "come-on",
+      "youtube": "https://www.youtube.com/watch?v=oQ2BFYiUn7k"
+    },
+    {
+      "title": "House Burning Down",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Snare rolls and a marching feel in the intro, then a pushing half-time groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:electric-ladyland-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "house-burning-down",
+      "youtube": "https://www.youtube.com/watch?v=iaJ3-4h7RV4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=408964"
+        }
+      ]
+    },
+    {
+      "title": "Little Miss Strange",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Noel Redding's song, a bright pop-rock beat with neat fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:electric-ladyland-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "little-miss-strange",
+      "youtube": "https://www.youtube.com/watch?v=3X0n-r36_84",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22565"
+        }
+      ]
+    },
+    {
+      "title": "Have You Ever Been (to Electric Ladyland)",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A gentle soul ballad groove with soft, falsetto-matching cymbals.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:electric-ladyland-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "have-you-ever-been",
+      "youtube": "https://www.youtube.com/watch?v=-PMSZNo_k1M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22555"
+        }
+      ]
+    }
   ]
 }

@@ -67,6 +67,56 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "My Generation",
+      "drummer_ids": ["drummer:keith-moon"],
+      "drums": {
+        "description": "The ride in eighths, stops for the stuttered vocal and triplet rolls on snare and floor tom, chaos that redefined rock drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:my-generation-wikipedia",
+            "src:songsterr-17313",
+            "src:moon-farout-how-to-play-2022"
+          ]
+        }
+      },
+      "style_key": "moon",
+      "song_key": "my-generation",
+      "youtube": "https://www.youtube.com/watch?v=qN5zw04WxCc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17313"
+        }
+      ]
+    },
+    {
+      "title": "The Kids Are Alright",
+      "drummer_ids": ["drummer:keith-moon"],
+      "drums": {
+        "description": "A Motown beat on the ride with the snare on every beat, tom and crash fills and crashes in dotted quarters.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:the-kids-are-alright-song-wikipedia",
+            "src:shepperton-1978-film",
+            "src:songsterr-21009"
+          ]
+        }
+      },
+      "style_key": "moon",
+      "song_key": "the-kids-are-alright",
+      "youtube": "https://www.youtube.com/watch?v=afam2nIae4o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=21009"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:my-generation-album-wikipedia"]

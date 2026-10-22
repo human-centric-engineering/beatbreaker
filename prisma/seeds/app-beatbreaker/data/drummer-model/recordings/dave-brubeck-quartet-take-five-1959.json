@@ -54,6 +54,23 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Take Five",
+      "drummer_ids": ["drummer:joe-morello"],
+      "drums": {
+        "description": "A 5/4 ride pattern split 3+2 with a rim click, then a famous melodic drum solo over the piano vamp.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:take-five-wikipedia", "src:joe-morello-wikipedia"]
+        }
+      },
+      "style_key": "morello",
+      "song_key": "take-five",
+      "also_song_keys": ["take-five-solo"],
+      "youtube": "https://www.youtube.com/watch?v=JXi3rHqnAIU"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

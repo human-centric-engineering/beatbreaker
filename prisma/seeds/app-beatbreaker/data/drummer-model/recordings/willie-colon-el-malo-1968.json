@@ -17,5 +17,33 @@
         "source_ids": ["src:wikipedia-nicky-marrero"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Jazzy",
+      "year": 1967,
+      "drummer_ids": ["drummer:nicky-marrero"],
+      "drums": {
+        "description": "Crisp timbale fills and cáscara driving the young Colón band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:el-malo-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FH6TYdIC8eQ"
+    },
+    {
+      "title": "El Malo",
+      "year": 1967,
+      "drummer_ids": ["drummer:nicky-marrero"],
+      "drums": {
+        "description": "A hard, street salsa groove with timbale breaks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:el-malo-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gPiLlOjvLo0"
+    }
   ]
 }

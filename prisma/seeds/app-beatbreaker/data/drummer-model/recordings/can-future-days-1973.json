@@ -1,0 +1,33 @@
+{
+  "id": "rec:can-future-days-1973",
+  "title": "Future Days",
+  "artist": "Can",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:krautrock", "style:experimental-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jaki-liebezeit"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Moonshake",
+      "drummer_ids": ["drummer:jaki-liebezeit"],
+      "drums": {
+        "description": "A bouncy, compact pop groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jaki-liebezeit-wikipedia", "src:future-days-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PQ9ADx3qniQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=906965"
+        }
+      ]
+    }
+  ]
+}

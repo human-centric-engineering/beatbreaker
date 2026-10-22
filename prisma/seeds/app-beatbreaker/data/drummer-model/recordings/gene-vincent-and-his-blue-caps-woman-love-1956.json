@@ -1,0 +1,27 @@
+{
+  "id": "rec:gene-vincent-and-his-blue-caps-woman-love-1956",
+  "title": "Woman Love",
+  "artist": "Gene Vincent and His Blue Caps",
+  "year": 1956,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dickie-harrell"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Woman Love",
+      "drummer_ids": ["drummer:dickie-harrell"],
+      "drums": {
+        "description": "A heavy, slapping rockabilly backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:be-bop-a-lula-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=u48gZ-oT-Ms"
+    }
+  ]
+}

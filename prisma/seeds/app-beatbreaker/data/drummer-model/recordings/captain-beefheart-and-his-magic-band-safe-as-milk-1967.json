@@ -12,6 +12,32 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Electricity",
+      "drummer_ids": ["drummer:john-french"],
+      "drums": {
+        "description": "A heavy, primal tom-driven blues beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:john-french-musician-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lBGGunX2QYU"
+    },
+    {
+      "title": "Abba Zaba",
+      "drummer_ids": ["drummer:john-french"],
+      "drums": {
+        "description": "A loping, tom-heavy groove with African-influenced patterns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:john-french-musician-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rftlU7beOvw"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:john-french-musician-wikipedia"]

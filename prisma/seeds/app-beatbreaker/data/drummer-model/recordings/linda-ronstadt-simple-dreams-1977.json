@@ -15,5 +15,37 @@
       "name": "Rick Marotta",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "It's So Easy",
+      "drummer_ids": ["drummer:rick-marotta"],
+      "drums": {
+        "description": "A driving, Buddy Holly-style rock beat with a punchy backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:simple-dreams-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=__627t2bzJM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5510291"
+        }
+      ]
+    },
+    {
+      "title": "Poor Poor Pitiful Me",
+      "drummer_ids": ["drummer:rick-marotta"],
+      "drums": {
+        "description": "An up-tempo rock beat with energy and fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:simple-dreams-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SSJTM6dRsX4"
+    }
   ]
 }

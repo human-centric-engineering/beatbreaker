@@ -15,5 +15,25 @@
       "name": "Kenny Malone",
       "drummer_role": "percussion_only"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Don't It Make My Brown Eyes Blue",
+      "drummer_ids": ["drummer:kenny-malone"],
+      "drums": {
+        "description": "Light, brushed percussion that keeps the piano ballad moving without a heavy backbeat.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:kenny-malone-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hQgTjFCTlao",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2996729"
+        }
+      ]
+    }
   ]
 }

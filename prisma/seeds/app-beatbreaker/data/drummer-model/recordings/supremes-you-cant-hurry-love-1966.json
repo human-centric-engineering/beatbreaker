@@ -20,6 +20,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "You Can't Hurry Love",
+      "drummer_ids": ["drummer:benny-benjamin"],
+      "drums": {
+        "description": "The galloping Motown snare on every beat with a hint of shuffle, under Jamerson's bass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:you-cant-hurry-love-wikipedia", "src:benjamin-drum-magazine-2018"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ovoBi3pXD_A"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:you-cant-hurry-love-wikipedia"]

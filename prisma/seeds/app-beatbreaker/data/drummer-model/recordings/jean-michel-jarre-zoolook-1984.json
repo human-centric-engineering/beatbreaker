@@ -1,0 +1,27 @@
+{
+  "id": "rec:jean-michel-jarre-zoolook-1984",
+  "title": "Zoolook",
+  "artist": "Jean-Michel Jarre",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yogi-horton"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Zoolook",
+      "drummer_ids": ["drummer:yogi-horton"],
+      "drums": {
+        "description": "Live funk drums set against LinnDrum programming and sampled voices on Jarre's sampler-built album.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:zoolook-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-F36bJ57TmM"
+    }
+  ]
+}

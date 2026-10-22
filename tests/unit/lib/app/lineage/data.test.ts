@@ -269,3 +269,104 @@ describe('findLineageSlug', () => {
     expect(await findLineageSlug('Nobody')).toBeNull();
   });
 });
+
+describe('getCatalogueIndex', () => {
+  const nodes = [
+    {
+      slug: 'mike-joyce',
+      label: 'Mike Joyce',
+      candidate: true,
+      styleKey: 'stale-key',
+      record: {
+        affiliations: [{ name: 'The Smiths' }, { name: 'The Smiths' }, { name: '  ' }, { bad: 1 }],
+      },
+    },
+    {
+      slug: 'roger-taylor',
+      label: 'Roger Taylor',
+      candidate: false,
+      styleKey: 'roger-taylor',
+      record: 'not an object',
+    },
+  ];
+  const recordings = [
+    {
+      id: 'rec:m',
+      title: 'Meat Is Murder',
+      artist: 'The Smiths',
+      year: 1985,
+      record: {
+        tracks: [
+          {
+            title: 'How Soon Is Now?',
+            drummer_ids: ['drummer:mike-joyce'],
+            drums: { description: 'Backbeat.' },
+          },
+        ],
+      },
+    },
+  ];
+
+  // the cache is module state: each test gets a fresh module
+  async function load() {
+    vi.resetModules();
+    const data = await import('@/lib/app/lineage/data');
+    const db = (await import('@/lib/db/client')).prisma;
+    vi.mocked(db.lineageNode.findMany).mockResolvedValue(nodes as never);
+    vi.mocked(db.lineageRecording.findMany).mockResolvedValue(recordings as never);
+    return { getCatalogueIndex: data.getCatalogueIndex, db };
+  }
+
+  it('builds drummers with deduped bands, a candidate with no style, and the songs', async () => {
+    const { getCatalogueIndex, db } = await load();
+    const index = await getCatalogueIndex(1000);
+    expect(index.drummers).toEqual([
+      {
+        slug: 'mike-joyce',
+        label: 'Mike Joyce',
+        candidate: true,
+        styleKey: null,
+        bands: ['The Smiths'],
+      },
+      {
+        slug: 'roger-taylor',
+        label: 'Roger Taylor',
+        candidate: false,
+        styleKey: 'roger-taylor',
+        bands: [],
+      },
+    ]);
+    expect(index.songs).toEqual([
+      expect.objectContaining({
+        title: 'How Soon Is Now?',
+        artist: 'The Smiths',
+        record: 'Meat Is Murder',
+        year: 1985,
+        drummerIds: ['drummer:mike-joyce'],
+        scored: null,
+      }),
+    ]);
+    expect(db.lineageNode.findMany).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { kind: 'drummer', modelled: true } })
+    );
+  });
+
+  it('is reused within five minutes and read again after', async () => {
+    const { getCatalogueIndex, db } = await load();
+    await getCatalogueIndex(1000);
+    await getCatalogueIndex(1000 + 5 * 60 * 1000);
+    expect(db.lineageNode.findMany).toHaveBeenCalledTimes(1);
+    await getCatalogueIndex(1000 + 5 * 60 * 1000 + 1);
+    expect(db.lineageNode.findMany).toHaveBeenCalledTimes(2);
+  });
+
+  it('does not keep a failed read', async () => {
+    const { getCatalogueIndex, db } = await load();
+    vi.mocked(db.lineageRecording.findMany).mockRejectedValueOnce(new Error('down'));
+    await expect(getCatalogueIndex(1000)).rejects.toThrow('down');
+    await expect(getCatalogueIndex(1001)).resolves.toMatchObject({
+      drummers: [{ slug: 'mike-joyce' }, { slug: 'roger-taylor' }],
+    });
+    expect(db.lineageNode.findMany).toHaveBeenCalledTimes(2);
+  });
+});

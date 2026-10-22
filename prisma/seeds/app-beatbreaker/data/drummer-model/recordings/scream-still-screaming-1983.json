@@ -16,5 +16,67 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Came Without Warning",
+      "drummer_ids": ["drummer:kent-stax"],
+      "drums": {
+        "description": "Fast, precise DC hardcore drumming with a pop-tinged lift.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:scream-band-wikipedia", "src:still-screaming-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7qXaKadDFns"
+    },
+    {
+      "title": "Solidarity",
+      "drummer_ids": ["drummer:kent-stax"],
+      "drums": {
+        "description": "A driving hardcore beat that halves into a heavy groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:scream-band-wikipedia", "src:still-screaming-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=l-5-G6AyGZY"
+    },
+    {
+      "title": "We're Fed Up",
+      "drummer_ids": ["drummer:kent-stax"],
+      "drums": {
+        "description": "A fast, punchy punk beat with clean snare fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:scream-band-wikipedia", "src:still-screaming-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tbvqtD4-KEE"
+    },
+    {
+      "title": "Ultra Violence",
+      "drummer_ids": ["drummer:kent-stax"],
+      "drums": {
+        "description": "A blistering hardcore beat with abrupt stops.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:scream-band-wikipedia", "src:still-screaming-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=of_7T_L6b9Q"
+    },
+    {
+      "title": "Human Behavior",
+      "drummer_ids": ["drummer:kent-stax"],
+      "drums": {
+        "description": "A fast punk beat with shifting halftime sections.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:scream-band-wikipedia", "src:still-screaming-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Aftg83HWefA"
+    }
   ]
 }

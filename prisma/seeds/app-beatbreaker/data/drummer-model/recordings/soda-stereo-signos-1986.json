@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Signos (album)",
+      "drummer_ids": ["drummer:charly-alberti"],
+      "drums": {
+        "description": "A driving, precise new wave beat with electronic tom colour.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:signos-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zsCxZr9hRng",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54003"
+        }
+      ]
+    },
+    {
+      "title": "Prófugos",
+      "drummer_ids": ["drummer:charly-alberti"],
+      "drums": {
+        "description": "A tense, propulsive beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:signos-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eguctGjUNLI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=88072"
+        }
+      ]
+    }
   ]
 }

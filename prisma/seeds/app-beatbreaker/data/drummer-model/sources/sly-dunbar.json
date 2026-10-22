@@ -106,5 +106,21 @@
     "reliability": 0.45,
     "accessed": "2026-10-21",
     "notes": "Human (aiGenerated false), revision 589342 by Juston Murphy, 2023; 51 bars at 109, three distinct: hats in sixteenths, the snare on 1 and 3 of the tab's bars, the bass drum on 2, its last sixteenth and the 'and' of 4, a wood block (GM 77) on every beat; the first bar opens the hat on its 1."
+  },
+  {
+    "id": "src:nightclubbing-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Nightclubbing - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Nightclubbing",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:infidels-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Infidels (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Infidels_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

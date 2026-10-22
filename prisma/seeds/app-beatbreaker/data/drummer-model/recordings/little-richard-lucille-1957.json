@@ -1,0 +1,33 @@
+{
+  "id": "rec:little-richard-lucille-1957",
+  "title": "Lucille",
+  "artist": "Little Richard",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charles-connor"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Lucille",
+      "drummer_ids": ["drummer:charles-connor"],
+      "drums": {
+        "description": "A pounding, train-like straight-eighth beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lucille-little-richard-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yjZtZye7aeI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3565584"
+        }
+      ]
+    }
+  ]
+}

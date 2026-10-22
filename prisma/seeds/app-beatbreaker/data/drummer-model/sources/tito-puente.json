@@ -16,5 +16,21 @@
     "reliability": 0.7,
     "accessed": "2026-10-14",
     "notes": "The 1942 Machito Decca sides: cáscara on the timbales with bass drum and cymbals to \"kick\" the arrangement."
+  },
+  {
+    "id": "src:dance-mania-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Dance Mania (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Dance_Mania_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:oye-como-va-tito-wikipedia",
+    "type": "encyclopedia",
+    "title": "Oye Cómo Va - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Oye_C%C3%B3mo_Va",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

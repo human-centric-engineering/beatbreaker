@@ -17,5 +17,37 @@
         "source_ids": ["src:wikipedia-dom-um-romao"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Batida Diferente",
+      "drummer_ids": ["drummer:dom-um-romao"],
+      "drums": {
+        "description": "A driving samba-jazz beat, the batida of the title, on snare and hi-hat with Brazilian players around Adderley.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:cannonball-s-bossa-nova-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fRvbZ2UB-BE"
+    },
+    {
+      "title": "Corcovado",
+      "drummer_ids": ["drummer:dom-um-romao"],
+      "drums": {
+        "description": "A soft bossa groove of cross-stick and brushes under the alto.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:cannonball-s-bossa-nova-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=open6GCI6ZA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7292425"
+        }
+      ]
+    }
   ]
 }

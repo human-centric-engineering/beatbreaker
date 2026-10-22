@@ -12,6 +12,19 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Brand New Cadillac",
+      "drummer_ids": ["drummer:bobby-woodman"],
+      "drums": {
+        "description": "A hard, driving British rock and roll beat with a pounding backbeat, later covered by the Clash.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:brand-new-cadillac-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:bobbie-clarke-wikipedia"]

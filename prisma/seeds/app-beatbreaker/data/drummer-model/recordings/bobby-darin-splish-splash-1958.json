@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Splish Splash",
+      "drummer_ids": ["drummer:panama-francis"],
+      "drums": {
+        "description": "A bouncing rock-and-roll shuffle with a heavy backbeat, a New York session drummer's take on the new music.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:splish-splash-song-wikipedia", "src:panama-francis-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jZVpCLJYeWw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=371663"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:panama-francis-wikipedia"]

@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Dipper Mouth Blues",
+      "drummer_ids": ["drummer:baby-dodds"],
+      "drums": {
+        "description": "Dodds' woodblock and rim timekeeping, the acoustic-era substitute for a full kit, under Oliver's famous cornet solo.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:baby-dodds-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5C3gNkO_jKk"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:baby-dodds-wikipedia"]

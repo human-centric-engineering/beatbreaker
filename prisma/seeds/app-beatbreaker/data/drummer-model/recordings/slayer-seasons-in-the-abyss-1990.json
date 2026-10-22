@@ -1,0 +1,75 @@
+{
+  "id": "rec:slayer-seasons-in-the-abyss-1990",
+  "title": "Seasons in the Abyss",
+  "artist": "Slayer",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-lombardo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "War Ensemble",
+      "drummer_ids": ["drummer:dave-lombardo"],
+      "drums": {
+        "description": "Eighths on both feet under a snare on every beat, the skank beat and a two-bar march.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:seasons-in-the-abyss-wikipedia"]
+        }
+      },
+      "style_key": "lombardo",
+      "song_key": "war-ensemble",
+      "youtube": "https://www.youtube.com/watch?v=jqnC54vbUbU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18010"
+        }
+      ]
+    },
+    {
+      "title": "Dead Skin Mask",
+      "drummer_ids": ["drummer:dave-lombardo"],
+      "drums": {
+        "description": "No snare at first: floor tom and bell on 2 and 4 over the hi-hat foot, then double bass and a gallop under the ride.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:seasons-in-the-abyss-wikipedia"]
+        }
+      },
+      "style_key": "lombardo",
+      "song_key": "dead-skin-mask",
+      "youtube": "https://www.youtube.com/watch?v=bRMjNtYpNUo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18024"
+        }
+      ]
+    },
+    {
+      "title": "Seasons in the Abyss",
+      "drummer_ids": ["drummer:dave-lombardo"],
+      "drums": {
+        "description": "A straight rock beat at 152 bpm on ride or open hats, the snare doubling at the end of the bar and the mid tom answering.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:seasons-in-the-abyss-wikipedia"]
+        }
+      },
+      "style_key": "lombardo",
+      "song_key": "seasons-in-the-abyss",
+      "youtube": "https://www.youtube.com/watch?v=DECp8LKurKs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17564"
+        }
+      ]
+    }
+  ]
+}

@@ -43,6 +43,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "D'You Know What I Mean?",
+      "drummer_ids": ["drummer:alan-white-oasis"],
+      "drums": {
+        "description": "A slow, loping, heavy backbeat after the helicopter-noise intro, under a dense wall of guitars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:be-here-now-album-wikipedia"]
+        }
+      },
+      "style_key": "alanwhite",
+      "song_key": "dyou-know-what-i-mean",
+      "youtube": "https://www.youtube.com/watch?v=jyJU2136ym4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49272"
+        }
+      ]
+    },
+    {
+      "title": "Stand By Me",
+      "drummer_ids": ["drummer:alan-white-oasis"],
+      "drums": {
+        "description": "A mid-tempo ballad backbeat with big fills into the choruses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:be-here-now-album-wikipedia"]
+        }
+      },
+      "style_key": "alanwhite",
+      "song_key": "stand-by-me",
+      "youtube": "https://www.youtube.com/watch?v=maTP315XZCQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49244"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:be-here-now-album-wikipedia"]

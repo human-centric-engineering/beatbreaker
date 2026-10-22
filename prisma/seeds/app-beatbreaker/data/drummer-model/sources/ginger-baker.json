@@ -7,5 +7,93 @@
     "reliability": 0.7,
     "accessed": "2026-10-14",
     "notes": "Patterns built up, varied and dropped, with complementary rhythms on hi-hat, ride, double-bass drums and toms simultaneously (as quoted in drumming-research.md section T)."
+  },
+  {
+    "id": "src:ginger-baker-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ginger Baker - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ginger_Baker",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:disraeli-gears-wikipedia",
+    "type": "encyclopedia",
+    "title": "Disraeli Gears - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Disraeli_Gears",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wheels-of-fire-wikipedia",
+    "type": "encyclopedia",
+    "title": "Wheels of Fire - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Wheels_of_Fire",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:sunshine-of-your-love-wikipedia",
+    "type": "encyclopedia",
+    "title": "Sunshine of Your Love - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sunshine_of_Your_Love",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:white-room-wikipedia",
+    "type": "encyclopedia",
+    "title": "White Room - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/White_Room",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:crossroads-cream-wikipedia",
+    "type": "encyclopedia",
+    "title": "Crossroads (Cream song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Crossroads_(Cream_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:i-feel-free-wikipedia",
+    "type": "encyclopedia",
+    "title": "I Feel Free - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/I_Feel_Free",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:badge-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Badge (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Badge_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:goodbye-cream-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Goodbye (Cream album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Goodbye_(Cream_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:blind-faith-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Blind Faith (Blind Faith album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Blind_Faith_(Blind_Faith_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:fela-live-ginger-baker-wikipedia",
+    "type": "encyclopedia",
+    "title": "Live! (Fela Kuti album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Live!_(Fela_Kuti_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

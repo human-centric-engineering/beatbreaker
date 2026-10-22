@@ -15,6 +15,27 @@
       "why_it_matters": "A simple beat syncopated by as little as an eighth note, landing between punk drive and reggae dance."
     }
   ],
+  "tracks": [
+    {
+      "title": "Roxanne",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "The verse keeps the kick off the 1 with a hi-hat bark on the \"and\" of 4, then the chorus turns into straight rock.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:outlandos-damour-wikipedia", "src:musicradar-copeland-howto"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "roxanne",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=21943"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:faroutmag-copeland"]

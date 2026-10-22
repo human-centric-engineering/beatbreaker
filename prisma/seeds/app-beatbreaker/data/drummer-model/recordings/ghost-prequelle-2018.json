@@ -36,6 +36,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Rats",
+      "drummer_ids": ["drummer:nameless-ghoul"],
+      "drums": {
+        "description": "The ride in quarters over the kick in 3+3+2, crash and snare stabs on the riff, a half-time solo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-441770", "src:ghost-prequelle-wikipedia"]
+        }
+      },
+      "style_key": "ghoul",
+      "song_key": "rats",
+      "youtube": "https://www.youtube.com/watch?v=C_ijc7A5oAc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=441770"
+        }
+      ]
+    },
+    {
+      "title": "Dance Macabre",
+      "drummer_ids": ["drummer:nameless-ghoul"],
+      "drums": {
+        "description": "Four on the floor with the hat foot under the ride, half-open hats on the verse: a disco stomp in a metal band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-442661", "src:ghost-prequelle-wikipedia"]
+        }
+      },
+      "style_key": "ghoul",
+      "song_key": "dance-macabre",
+      "youtube": "https://www.youtube.com/watch?v=7Gr63DiEUxw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=442661"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:ghost-prequelle-wikipedia"]

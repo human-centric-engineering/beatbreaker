@@ -44,6 +44,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "California Girls",
+      "drummer_ids": ["drummer:hal-blaine"],
+      "drums": {
+        "description": "The snare doubled on the floor tom with no cymbal keeping time, then a chorus on every beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:california-girls-wikipedia"]
+        }
+      },
+      "style_key": "halblaine",
+      "song_key": "california-girls",
+      "youtube": "https://www.youtube.com/watch?v=DR2lvcdKSdU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2556"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:california-girls-wikipedia"]

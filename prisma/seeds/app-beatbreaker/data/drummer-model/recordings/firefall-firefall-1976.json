@@ -15,5 +15,25 @@
       "name": "Michael Clarke",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "You Are the Woman",
+      "drummer_ids": ["drummer:michael-clarke"],
+      "drums": {
+        "description": "A soft, steady soft-rock backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:michael-clarke-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=d6Gy8qtOq3M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3864030"
+        }
+      ]
+    }
   ]
 }

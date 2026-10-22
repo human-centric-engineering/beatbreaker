@@ -1,0 +1,27 @@
+{
+  "id": "rec:don-drummond-eastern-standard-time-1964",
+  "title": "Eastern Standard Time",
+  "artist": "Don Drummond",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:ska", "style:rocksteady"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lloyd-knibb"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Eastern Standard Time",
+      "drummer_ids": ["drummer:lloyd-knibb"],
+      "drums": {
+        "description": "A loping, swung ska beat under Drummond's trombone.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-skatalites"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=G5Ysm3qc0KY"
+    }
+  ]
+}

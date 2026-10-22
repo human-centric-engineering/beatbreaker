@@ -17,5 +17,31 @@
         "source_ids": ["src:wikipedia-candido-camero"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Con Alma",
+      "drummer_ids": ["drummer:candido-camero"],
+      "drums": {
+        "description": "Cándido's congas play a lilting Afro-Cuban figure under Gillespie's first recording of Con Alma, part of the Afro small-group side.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-candido-camero"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=s6Ud1Mays9A"
+    },
+    {
+      "title": "Caravan",
+      "drummer_ids": ["drummer:candido-camero"],
+      "drums": {
+        "description": "Conga tumbaos and open tones under the Ellington tune, Latin percussion carrying the groove of a bebop band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-candido-camero"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2NwE7rWlHMU"
+    }
   ]
 }

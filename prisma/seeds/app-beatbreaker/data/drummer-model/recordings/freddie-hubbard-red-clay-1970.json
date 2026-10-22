@@ -43,6 +43,30 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Red Clay",
+      "drummer_ids": ["drummer:lenny-white"],
+      "drums": {
+        "description": "A medium funk-jazz groove with a crisp hat and snare that Todd Bishop transcribes as a groove of the day.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:red-clay-album-wikipedia", "src:lenny-white-bishop-red-clay"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4432653"
+        },
+        {
+          "site": "other",
+          "note": "Todd Bishop, Cruise Ship Drummer: Groove o' the day, Red Clay"
+        }
+      ],
+      "youtube": "https://www.youtube.com/watch?v=yFwg2s4jpWI"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:lenny-white-wikipedia", "src:lenny-white-bishop-red-clay"]

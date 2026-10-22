@@ -16,5 +16,19 @@
         "source_ids": ["src:skabook-drumbago"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Forward March",
+      "drummer_ids": ["drummer:drumbago"],
+      "drums": {
+        "description": "A brisk, marching ska beat for Jamaican independence.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:skabook-drumbago"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4RYaMH9wB84"
+    }
   ]
 }

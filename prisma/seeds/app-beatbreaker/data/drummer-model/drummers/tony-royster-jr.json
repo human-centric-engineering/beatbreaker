@@ -72,6 +72,7 @@
   },
   "beatbreaker": {
     "group": "Gospel and gospel chops drummers",
-    "build_priority": 2
+    "build_priority": 2,
+    "songs_short_because": "Not reached in the 15-b sweep (2026-10-22): songs still to research."
   }
 }

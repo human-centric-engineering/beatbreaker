@@ -16,5 +16,49 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Kick Out the Jams",
+      "drummer_ids": ["drummer:dennis-thompson"],
+      "drums": {
+        "description": "A pounding, heavy proto-punk beat played live at the Grande Ballroom.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:kick-out-the-jams-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=u-vCEFikGgc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2009721"
+        }
+      ]
+    },
+    {
+      "title": "Ramblin' Rose",
+      "drummer_ids": ["drummer:dennis-thompson"],
+      "drums": {
+        "description": "Fast, frantic rock drumming that pushes the tempo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:kick-out-the-jams-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qUzgztAtezo"
+    },
+    {
+      "title": "Rocket Reducer No. 62 (Rama Lama Fa Fa Fa)",
+      "drummer_ids": ["drummer:dennis-thompson"],
+      "drums": {
+        "description": "Hard, relentless driving eighths with crashing fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:kick-out-the-jams-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Np5xxhUXmK8"
+    }
   ]
 }

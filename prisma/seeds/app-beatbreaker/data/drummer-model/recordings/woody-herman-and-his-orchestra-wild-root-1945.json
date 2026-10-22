@@ -1,0 +1,27 @@
+{
+  "id": "rec:woody-herman-and-his-orchestra-wild-root-1945",
+  "title": "Wild Root",
+  "artist": "Woody Herman and His Orchestra",
+  "year": 1945,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-tough"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Wild Root",
+      "drummer_ids": ["drummer:dave-tough"],
+      "drums": {
+        "description": "A riff tune with tight brass hits that Tough set up with snare and bass-drum kicks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:woody-herman-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=JcenmgzRqno"
+    }
+  ]
+}

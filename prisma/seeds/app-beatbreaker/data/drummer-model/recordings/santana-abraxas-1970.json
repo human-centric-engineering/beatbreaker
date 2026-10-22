@@ -56,6 +56,96 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Oye Como Va",
+      "drummer_ids": ["drummer:jose-areas"],
+      "drums": {
+        "description": "Timbales in a cha-cha-chá groove on the Tito Puente cover.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-jose-areas", "src:abraxas-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=J7ATTjg7tpE"
+    },
+    {
+      "title": "Black Magic Woman / Gypsy Queen",
+      "drummer_ids": ["drummer:jose-areas"],
+      "drums": {
+        "description": "Timbales in a Latin-rock groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-jose-areas", "src:abraxas-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=M91Mc-y5xJY"
+    },
+    {
+      "title": "El Nicoya",
+      "drummer_ids": ["drummer:jose-areas"],
+      "drums": {
+        "description": "A short timbales and conga piece written by Areas.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-jose-areas", "src:abraxas-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=q4SCll_lSag"
+    },
+    {
+      "title": "Black Magic Woman",
+      "drummer_ids": ["drummer:michael-shrieve"],
+      "drums": {
+        "description": "The hat opened in threes over a kick while bongos and congas carry the groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:black-magic-woman-wikipedia", "src:abraxas-album-wikipedia"]
+        }
+      },
+      "style_key": "shrieve",
+      "song_key": "black-magic-woman",
+      "youtube": "https://www.youtube.com/watch?v=9wT1s96JIb0"
+    },
+    {
+      "title": "Samba Pa Ti",
+      "drummer_ids": ["drummer:michael-shrieve"],
+      "drums": {
+        "description": "A slow ballad turned into a gentle Latin groove: sixteenths on the hat and two on the snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:abraxas-album-wikipedia"]
+        }
+      },
+      "style_key": "shrieve",
+      "song_key": "samba-pa-ti",
+      "youtube": "https://www.youtube.com/watch?v=timZoOs9ozo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17329"
+        }
+      ]
+    },
+    {
+      "title": "Incident at Neshabur",
+      "drummer_ids": ["drummer:michael-shrieve"],
+      "drums": {
+        "description": "Shifting meters and a jazz-rock swing section, Shrieve's jazz side on Abraxas.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:abraxas-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=juJpl0y9LK8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7009736"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:michael-shrieve-wikipedia", "src:songsterr-357"]

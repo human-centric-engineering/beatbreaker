@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Four Brothers",
+      "drummer_ids": ["drummer:don-lamond"],
+      "drums": {
+        "description": "Light, propulsive swing on the ride cymbal with bebop bass-drum bombs under the saxophone section.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:don-lamond-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gQ-6P4zLbvY"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:don-lamond-wikipedia"]

@@ -1,0 +1,27 @@
+{
+  "id": "rec:charlie-parker-carvin-the-bird-1947",
+  "title": "Carvin' the Bird",
+  "artist": "Charlie Parker",
+  "year": 1947,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:bebop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:don-lamond"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Carvin' the Bird",
+      "drummer_ids": ["drummer:don-lamond"],
+      "drums": {
+        "description": "A medium-fast blues from Parker's Dial session, Lamond's ride and snare comping the bebop way behind Parker and Howard McGhee.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:relaxin-at-camarillo-wikipedia", "src:don-lamond-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=w73TCVTLQTQ"
+    }
+  ]
+}

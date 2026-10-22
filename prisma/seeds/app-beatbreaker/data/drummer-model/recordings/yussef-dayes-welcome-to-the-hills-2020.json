@@ -1,0 +1,68 @@
+{
+  "id": "rec:yussef-dayes-welcome-to-the-hills-2020",
+  "title": "Welcome to the Hills",
+  "artist": "Yussef Dayes",
+  "year": 2020,
+  "type": "live_track",
+  "style_ids": ["style:uk-jazz", "style:broken-beat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yussef-dayes"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Jamaican Links",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Half-time reggae with the snare on 3, played near straight, his Jamaican heritage in a live trio setting.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-songsterr-jamaican-links"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "jamaican-links",
+      "youtube": "https://www.youtube.com/watch?v=hUC9GiqiJsw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1273078"
+        }
+      ]
+    },
+    {
+      "title": "Encore ~ Babylon Burning",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Half-time with the snare on 3 and the kick piling up on 4, a live closer.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:yussef-dayes-wikipedia"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "encore-babylon-burning"
+    },
+    {
+      "title": "For My Ladies",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Half-time with a rim click on 3, a laid-back reggae-tinged groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:yussef-dayes-wikipedia"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "for-my-ladies",
+      "youtube": "https://www.youtube.com/watch?v=Pd8UiYI2hhg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5759667"
+        }
+      ]
+    }
+  ]
+}

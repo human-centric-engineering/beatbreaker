@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Blinded by the Light",
+      "drummer_ids": ["drummer:chris-slade"],
+      "drums": {
+        "description": "A steady rock groove with fills under the long synth sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-roaring-silence-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oWqBTAk0Qk8"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:chris-slade-wikipedia", "src:the-roaring-silence-wikipedia"]

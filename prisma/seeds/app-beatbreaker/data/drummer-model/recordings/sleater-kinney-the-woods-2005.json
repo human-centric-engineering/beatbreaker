@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "The Fox",
+      "drummer_ids": ["drummer:janet-weiss"],
+      "drums": {
+        "description": "A heavy, thunderous beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:janet-weiss-wikipedia", "src:the-woods-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rviz1jd2zKs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2051172"
+        }
+      ]
+    },
+    {
+      "title": "Entertain",
+      "drummer_ids": ["drummer:janet-weiss"],
+      "drums": {
+        "description": "A fast, driving rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:janet-weiss-wikipedia", "src:the-woods-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MbxRu7fwR24",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=656972"
+        }
+      ]
+    },
+    {
+      "title": "Let's Call It Love",
+      "drummer_ids": ["drummer:janet-weiss"],
+      "drums": {
+        "description": "A long, jam-based piece with heavy, propulsive drumming.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:janet-weiss-wikipedia", "src:the-woods-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ifD7bJgw0Tc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4564076"
+        }
+      ]
+    }
   ]
 }

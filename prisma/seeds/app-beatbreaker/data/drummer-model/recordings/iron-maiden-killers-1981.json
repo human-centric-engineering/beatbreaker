@@ -55,6 +55,67 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Wrathchild",
+      "drummer_ids": ["drummer:clive-burr"],
+      "drums": {
+        "description": "A swaggering mid-tempo beat with tom accents that answer Harris's bass intro.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:killers-iron-maiden-album-wikipedia", "src:clive-burr-wikipedia"]
+        }
+      },
+      "style_key": "burr",
+      "song_key": "wrathchild",
+      "youtube": "https://www.youtube.com/watch?v=io4ObwuO24w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10036"
+        }
+      ]
+    },
+    {
+      "title": "Killers",
+      "drummer_ids": ["drummer:clive-burr"],
+      "drums": {
+        "description": "A slow, menacing tom intro under Di'Anno's screams, then a fast driving gallop.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:killers-iron-maiden-album-wikipedia"]
+        }
+      },
+      "style_key": "burr",
+      "song_key": "killers",
+      "also_song_keys": ["killers-opening"],
+      "youtube": "https://www.youtube.com/watch?v=w1Fw71X4uiM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10051"
+        }
+      ]
+    },
+    {
+      "title": "Murders in the Rue Morgue",
+      "drummer_ids": ["drummer:clive-burr"],
+      "drums": {
+        "description": "A quiet intro then a fast, busy rock beat with constant fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:killers-iron-maiden-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RaZRQT8WNOA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=38645"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:killers-iron-maiden-album-wikipedia"]

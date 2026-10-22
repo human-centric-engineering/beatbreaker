@@ -93,7 +93,8 @@
   },
   "beatbreaker": {
     "group": "Hard bop drummers",
-    "build_priority": 3
+    "build_priority": 3,
+    "songs_short_because": "Not reached in the 15-b sweep (2026-10-22): songs still to research."
   },
   "relationships": [
     {

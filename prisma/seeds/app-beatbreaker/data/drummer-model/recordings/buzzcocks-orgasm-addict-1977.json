@@ -1,0 +1,32 @@
+{
+  "id": "rec:buzzcocks-orgasm-addict-1977",
+  "title": "Orgasm Addict",
+  "artist": "Buzzcocks",
+  "year": 1977,
+  "type": "studio_track",
+  "style_ids": ["style:punk", "style:new-wave"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-maher"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Orgasm Addict",
+      "drummer_ids": ["drummer:john-maher"],
+      "drums": {
+        "description": "Frantic, tight eighth-note drumming with snappy fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:orgasm-addict-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1771012"
+        }
+      ]
+    }
+  ]
+}

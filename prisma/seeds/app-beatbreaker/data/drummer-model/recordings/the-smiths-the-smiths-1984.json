@@ -35,6 +35,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "What Difference Does It Make?",
+      "drummer_ids": ["drummer:mike-joyce"],
+      "drums": {
+        "description": "Quarters on the hat, 1 and 3 against 2 and 4, a crash every four bars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-17436", "src:mike-joyce-wikipedia"]
+        }
+      },
+      "style_key": "mikejoyce",
+      "song_key": "what-difference-does-it-make",
+      "youtube": "https://www.youtube.com/watch?v=To5ar3g5UdM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17436"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-smiths-wikipedia"]

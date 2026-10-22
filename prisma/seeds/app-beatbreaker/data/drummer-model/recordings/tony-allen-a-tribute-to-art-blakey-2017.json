@@ -1,0 +1,43 @@
+{
+  "id": "rec:tony-allen-a-tribute-to-art-blakey-2017",
+  "title": "A Tribute to Art Blakey and the Jazz Messengers",
+  "artist": "Tony Allen",
+  "year": 2017,
+  "type": "album",
+  "style_ids": ["style:afrobeat", "style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Moanin'",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "The Blakey tribute: a shuffle on the hat, kick on 1 and its \"e\", Afrobeat feet under a hard-bop tune.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:tony-allen-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "moanin",
+      "youtube": "https://www.youtube.com/watch?v=EUNgTyJaDTg"
+    },
+    {
+      "title": "A Night in Tunisia",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "Blakey's floor-tom ostinato from the original, with Allen's foot on every \"and\" under it.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:tony-allen-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "night-in-tunisia",
+      "youtube": "https://www.youtube.com/watch?v=75uYqup1KuY"
+    }
+  ]
+}

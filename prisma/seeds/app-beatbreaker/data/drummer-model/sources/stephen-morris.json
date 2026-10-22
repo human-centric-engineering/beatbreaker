@@ -187,5 +187,45 @@
     "reliability": 0.5,
     "accessed": "2026-10-18",
     "notes": "Human tab, revision 9321615, 2026. 4/4 at 168 after a first bar at 163."
+  },
+  {
+    "id": "src:disorder-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Disorder (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Disorder_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:shadowplay-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Shadowplay (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Shadowplay_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:she-s-lost-control-wikipedia",
+    "type": "encyclopedia",
+    "title": "She's Lost Control - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/She's_Lost_Control",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:transmission-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Transmission (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Transmission_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:age-of-consent-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Age of Consent (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Age_of_Consent_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

@@ -15,5 +15,43 @@
       "name": "Steve Smith",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Don't Stop Believin'",
+      "drummer_ids": ["drummer:steve-smith"],
+      "drums": {
+        "description": "A drum entry that builds from eighths on the hat into a driving rock groove, the song’s lift carried by the drums.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:escape-journey-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VcjzHMhBtf0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10681"
+        }
+      ]
+    },
+    {
+      "title": "Who's Crying Now",
+      "drummer_ids": ["drummer:steve-smith"],
+      "drums": {
+        "description": "A slow, steady rock ballad groove with tasteful fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:escape-journey-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2q4RwTIkYk0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10728"
+        }
+      ]
+    }
   ]
 }

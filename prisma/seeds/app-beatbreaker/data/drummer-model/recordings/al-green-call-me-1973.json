@@ -1,0 +1,33 @@
+{
+  "id": "rec:al-green-call-me-1973",
+  "title": "Call Me",
+  "artist": "Al Green",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:howard-grimes"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Here I Am (Come and Take Me)",
+      "drummer_ids": ["drummer:howard-grimes"],
+      "drums": {
+        "description": "A swaying mid-tempo backbeat with a muted, thuddy snare, the sound Willie Mitchell got by miking the kit closely in a dead room.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:call-me-al-green-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aTpDFXhgGjM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3872302"
+        }
+      ]
+    }
+  ]
+}

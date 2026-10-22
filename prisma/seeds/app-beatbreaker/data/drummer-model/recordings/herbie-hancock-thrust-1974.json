@@ -59,6 +59,82 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Actual Proof",
+      "drummer_ids": ["drummer:mike-clark"],
+      "drums": {
+        "description": "Every bar different, the accents moving round the sixteenths, ghost notes between: a landmark of linear funk drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:mike-clark-drum-channel-actual-proof",
+            "src:actual-proof-groveman-drums"
+          ]
+        }
+      },
+      "style_key": "mikeclark",
+      "song_key": "actual-proof",
+      "youtube": "https://www.youtube.com/watch?v=6x3QtLCAPp8"
+    },
+    {
+      "title": "Palm Grease",
+      "drummer_ids": ["drummer:mike-clark"],
+      "drums": {
+        "description": "The snare on 2 and 4, then on the \"and\" of 2 and of 4, the riff across the bar line.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-1866843", "src:palm-grease-simone-pannozzo"]
+        }
+      },
+      "style_key": "mikeclark",
+      "song_key": "palm-grease",
+      "youtube": "https://www.youtube.com/watch?v=sRn7WlikdUA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1866843"
+        }
+      ]
+    },
+    {
+      "title": "Spank-A-Lee",
+      "drummer_ids": ["drummer:mike-clark"],
+      "drums": {
+        "description": "A two-bar groove, ghosts round the backbeat, the hat opened on 3 and 4 in the second bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:spank-a-lee-daniele-atzori", "src:thrust-album-wikipedia"]
+        }
+      },
+      "style_key": "mikeclark",
+      "song_key": "spank-a-lee",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4659494"
+        }
+      ]
+    },
+    {
+      "title": "Butterfly",
+      "drummer_ids": ["drummer:mike-clark"],
+      "drums": {
+        "description": "A slow, airy groove, light cymbal colour and soft ghost notes under the melody.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:thrust-album-wikipedia", "src:mike-clark-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-_mSzscIhyg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5952210"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:thrust-album-wikipedia"]

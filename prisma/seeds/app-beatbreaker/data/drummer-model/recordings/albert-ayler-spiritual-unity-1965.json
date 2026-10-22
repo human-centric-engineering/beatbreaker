@@ -18,6 +18,44 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Ghosts: First Variation",
+      "drummer_ids": ["drummer:sunny-murray"],
+      "drums": {
+        "description": "Continuous cymbal washes and snare flurries with no regular pulse, Murray's 'sound' approach.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sunny-murray-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=g5pyylHgkzc"
+    },
+    {
+      "title": "The Wizard",
+      "drummer_ids": ["drummer:sunny-murray"],
+      "drums": {
+        "description": "Free, shimmering cymbal pulse under Ayler's wild tenor.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sunny-murray-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YsdEHrqikeU"
+    },
+    {
+      "title": "Spirits",
+      "drummer_ids": ["drummer:sunny-murray"],
+      "drums": {
+        "description": "Rolling, pulse-free waves of sound.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sunny-murray-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PT-yCncB2mU"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:sunny-murray-wikipedia"]

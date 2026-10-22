@@ -1,0 +1,27 @@
+{
+  "id": "rec:roland-alphonso-phoenix-city-1965",
+  "title": "Phoenix City",
+  "artist": "Roland Alphonso",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:ska", "style:rocksteady"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lloyd-knibb"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Phoenix City",
+      "drummer_ids": ["drummer:lloyd-knibb"],
+      "drums": {
+        "description": "A fast, driving ska rhythm with rim accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-skatalites"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fj65rB4PI4w"
+    }
+  ]
+}

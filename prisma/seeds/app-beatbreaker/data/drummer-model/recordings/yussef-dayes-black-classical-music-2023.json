@@ -55,6 +55,246 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Black Classical Music",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Jungle-ish and linear, the hi-hat foot on the 'ands' and the backbeat moved off 2.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:yussef-dayes-drumhub-bcm",
+            "src:yussef-dayes-wikipedia-bcm",
+            "src:yussef-dayes-nonesuch-2023"
+          ]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "black-classical-music",
+      "youtube": "https://www.youtube.com/watch?v=qw6MY45tK6o"
+    },
+    {
+      "title": "Afro Cubanism",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Afro-Cuban feel with a buzz on the 'a' of 2, toms inside the groove and a cymbal stack over two bars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "afro-cubanism",
+      "youtube": "https://www.youtube.com/watch?v=ajbWDEwO444"
+    },
+    {
+      "title": "Raisins Under the Sun",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Sixteenths on the hats, the snare on 2 and 4 with ghost pickups.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "raisins-under-the-sun",
+      "youtube": "https://www.youtube.com/watch?v=obTuK66_JLQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4752169"
+        }
+      ]
+    },
+    {
+      "title": "Rust",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "With Tom Misch: the snare scattered across 2, the 'and' of 2, the 'e' of 3 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "rust",
+      "youtube": "https://www.youtube.com/watch?v=YASaUI9bhQY"
+    },
+    {
+      "title": "Turquoise Galaxy",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Played in eighth-note triplets at half time, a ghost on every middle triplet.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "turquoise-galaxy",
+      "youtube": "https://www.youtube.com/watch?v=vIBE-ylmqb4"
+    },
+    {
+      "title": "The Light",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Linear and dense, the kick never on 1.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "the-light",
+      "youtube": "https://www.youtube.com/watch?v=h0Ik2z7uq-E"
+    },
+    {
+      "title": "Pon di Plaza",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Reggae with sixteenths on the hats and a rim click on dotted eighths.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "pon-di-plaza",
+      "youtube": "https://www.youtube.com/watch?v=TAr-Rz5Jmkw"
+    },
+    {
+      "title": "Chasing the Drum",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Ghost notes and the high tom woven through the groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "chasing-the-drum",
+      "youtube": "https://www.youtube.com/watch?v=ZL6dBd9HkY4"
+    },
+    {
+      "title": "Birds of Paradise",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "A rim click on 2 and 4 under eighths and bursts of sixteenths.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "birds-of-paradise",
+      "youtube": "https://www.youtube.com/watch?v=sadDUr43vaU"
+    },
+    {
+      "title": "Gelato",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Four on the floor for once, rim clicks between the ride and a flammed tom fill.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "gelato",
+      "youtube": "https://www.youtube.com/watch?v=Atj2kjo8S1Q"
+    },
+    {
+      "title": "Marching Band",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "With Masego: the snares off and the drum played as a tom, the hi-hat foot on the 'ands'.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm", "src:yussef-dayes-nonesuch-2023"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "marching-band",
+      "youtube": "https://www.youtube.com/watch?v=SbFMuvF3f7Q"
+    },
+    {
+      "title": "Presidential",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Busy sixteenth hats and the kick walking through the first half of the bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "presidential",
+      "youtube": "https://www.youtube.com/watch?v=BW_FYY21pfM"
+    },
+    {
+      "title": "Jukebox",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "A plain 2 and 4 for once, the kick and hats doing the talking.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "jukebox",
+      "youtube": "https://www.youtube.com/watch?v=Du068Udhccs"
+    },
+    {
+      "title": "Woman's Touch",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Sixteenth hats and a rim click on 2 and 4, ghost notes in pairs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "womans-touch",
+      "youtube": "https://www.youtube.com/watch?v=tH36VHfgiUc"
+    },
+    {
+      "title": "Tioga Pass",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "With Rocco Palladino: three kicks in a row on 3, 3e and 3&, a buzz on the 'and' of 4, faster live.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:yussef-dayes-drumhub-bcm",
+            "src:yussef-dayes-songsterr-tioga",
+            "src:yussef-dayes-nonesuch-2023"
+          ]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "tioga-pass",
+      "youtube": "https://www.youtube.com/watch?v=wLe4vGtji1c"
+    },
+    {
+      "title": "Cowrie Charms",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Flams on the 'and' of 1 and of 2, kick pairs and the stack on the 'and' of 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-bcm"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "cowrie-charms",
+      "youtube": "https://www.youtube.com/watch?v=JiAZQzZQulA"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

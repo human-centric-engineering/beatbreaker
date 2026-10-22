@@ -1,0 +1,27 @@
+{
+  "id": "rec:rem-reckoning-1984",
+  "title": "Reckoning",
+  "artist": "R.E.M.",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:alternative-rock", "style:indie-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-berry"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "So. Central Rain (I'm Sorry)",
+      "drummer_ids": ["drummer:bill-berry"],
+      "drums": {
+        "description": "A steady mid-tempo beat in the verses that opens up onto the crash cymbal for the choruses, with Berry also singing harmony.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:reckoning-rem-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=msWi0c4tHV8"
+    }
+  ]
+}

@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Fire Waltz",
+      "drummer_ids": ["drummer:ed-blackwell"],
+      "drums": {
+        "description": "A rolling, propulsive 3/4 swing with parade-drum snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ed-blackwell-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=53k1ldSfKLk"
+    },
+    {
+      "title": "The Prophet",
+      "drummer_ids": ["drummer:ed-blackwell"],
+      "drums": {
+        "description": "Loose, melodic time with crisp tom phrases.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ed-blackwell-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KYyBWXcKL-g"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ed-blackwell-wikipedia"]

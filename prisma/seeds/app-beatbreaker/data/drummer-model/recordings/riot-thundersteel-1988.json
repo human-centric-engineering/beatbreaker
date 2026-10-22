@@ -10,5 +10,61 @@
       "drummer_id": "drummer:bobby-jarzombek",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Thundersteel",
+      "drummer_ids": ["drummer:bobby-jarzombek"],
+      "drums": {
+        "description": "A blazing power-metal gallop with fast double bass and technical fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bobby-jarzombek-wikipedia", "src:thundersteel-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BjrhukAsi9I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=68135"
+        }
+      ]
+    },
+    {
+      "title": "Fight or Fall",
+      "drummer_ids": ["drummer:bobby-jarzombek"],
+      "drums": {
+        "description": "Fast, precise double-bass power metal.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bobby-jarzombek-wikipedia", "src:thundersteel-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4AvXPs93Hgs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=871129"
+        }
+      ]
+    },
+    {
+      "title": "Flight of the Warrior",
+      "drummer_ids": ["drummer:bobby-jarzombek"],
+      "drums": {
+        "description": "A driving, galloping metal beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bobby-jarzombek-wikipedia", "src:thundersteel-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PkALWbHqCI0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2439339"
+        }
+      ]
+    }
   ]
 }

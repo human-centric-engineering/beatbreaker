@@ -11,6 +11,20 @@
       "why_it_matters": "The choir he founded with his mother; his Grammy."
     }
   ],
+  "tracks": [
+    {
+      "title": "Stomp",
+      "drummer_ids": ["drummer:robert-searight"],
+      "drums": {
+        "description": "A hip-hop-gospel groove with heavy backbeats under a choir.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:god-s-property-from-kirk-franklin-s-nu-nation-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qJrWEStLfH0"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:robert-searight-wikipedia"]

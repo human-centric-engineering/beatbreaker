@@ -1,0 +1,33 @@
+{
+  "id": "rec:motorhead-iron-fist-1982",
+  "title": "Iron Fist",
+  "artist": "Motörhead",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:metal", "style:new-wave-of-british-heavy-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-taylor"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Iron Fist",
+      "drummer_ids": ["drummer:phil-taylor"],
+      "drums": {
+        "description": "A fast, heavy rock beat with double-bass pushes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:phil-taylor-musician-wikipedia", "src:iron-fist-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2m3s3ahr9NI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35610"
+        }
+      ]
+    }
+  ]
+}

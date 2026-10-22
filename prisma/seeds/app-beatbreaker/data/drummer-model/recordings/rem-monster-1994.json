@@ -1,0 +1,33 @@
+{
+  "id": "rec:rem-monster-1994",
+  "title": "Monster",
+  "artist": "R.E.M.",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:alternative-rock", "style:indie-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-berry"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "What's the Frequency, Kenneth?",
+      "drummer_ids": ["drummer:bill-berry"],
+      "drums": {
+        "description": "A tight, driving straight-eighth beat under the tremolo guitar on the loud, glam-leaning Monster.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:monster-rem-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jWkMhCLkVOg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16412"
+        }
+      ]
+    }
+  ]
+}

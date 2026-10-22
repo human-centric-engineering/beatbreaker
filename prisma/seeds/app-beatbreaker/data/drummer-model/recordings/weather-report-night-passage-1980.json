@@ -18,6 +18,38 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Night Passage",
+      "drummer_ids": ["drummer:peter-erskine"],
+      "drums": {
+        "description": "A swinging, airy groove that mixes jazz ride with fusion backbeats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:night-passage-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_vxhUebW_-U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=738270"
+        }
+      ]
+    },
+    {
+      "title": "Rockin' in Rhythm",
+      "drummer_ids": ["drummer:peter-erskine"],
+      "drums": {
+        "description": "A big-band swing feel on the kit for the band’s Ellington cover.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:night-passage-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PzXu0oLpDss"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:peter-erskine-wikipedia"]

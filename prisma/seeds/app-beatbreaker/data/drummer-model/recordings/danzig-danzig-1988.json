@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Mother",
+      "drummer_ids": ["drummer:chuck-biscuits"],
+      "drums": {
+        "description": "A slow, heavy, stomping groove with a huge snare under Danzig's baritone.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:chuck-biscuits-wikipedia", "src:danzig-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vPzfKe_G4Ng",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5411"
+        }
+      ]
+    },
+    {
+      "title": "Twist of Cain",
+      "drummer_ids": ["drummer:chuck-biscuits"],
+      "drums": {
+        "description": "A mid-tempo, swinging metal groove with heavy accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:chuck-biscuits-wikipedia", "src:danzig-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=h-hFg9XiBpA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5671"
+        }
+      ]
+    }
   ]
 }

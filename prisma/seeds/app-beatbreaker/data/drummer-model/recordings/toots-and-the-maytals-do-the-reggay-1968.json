@@ -1,0 +1,27 @@
+{
+  "id": "rec:toots-and-the-maytals-do-the-reggay-1968",
+  "title": "Do the Reggay",
+  "artist": "Toots and the Maytals",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:reggae", "style:rocksteady"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:winston-grennan"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Do the Reggay",
+      "drummer_ids": ["drummer:winston-grennan"],
+      "drums": {
+        "description": "An early reggae beat, the rocksteady slowed and skanked, on the first record to name the genre.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:do-the-reggay-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bGkpDM4M7P4"
+    }
+  ]
+}

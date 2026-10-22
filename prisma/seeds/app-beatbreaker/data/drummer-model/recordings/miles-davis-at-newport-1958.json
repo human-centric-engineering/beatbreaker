@@ -43,6 +43,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Ah-Leu-Cha",
+      "drummer_ids": ["drummer:jimmy-cobb"],
+      "drums": {
+        "description": "With Miles at Newport: the ride and foot, the snare answering the horns on the 'and's.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:at-newport-1958-wikipedia", "src:jimmy-cobb-galaher-ah-leu-cha"]
+        }
+      },
+      "style_key": "jimmycobb",
+      "song_key": "ah-leu-cha",
+      "youtube": "https://www.youtube.com/watch?v=XgmxhA3E8So",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7201726"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:jimmy-cobb-galaher-ah-leu-cha", "src:jimmy-cobb-wikipedia"]

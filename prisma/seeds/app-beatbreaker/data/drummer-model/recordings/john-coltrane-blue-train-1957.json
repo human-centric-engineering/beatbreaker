@@ -46,5 +46,33 @@
         "source_ids": ["src:bishop-philly-joe-locomotion-2013"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Locomotion",
+      "drummer_ids": ["drummer:philly-joe-jones"],
+      "drums": {
+        "description": "A very fast blues at about 270 that opens and trades with drum breaks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blue-train-album-wikipedia"]
+        }
+      },
+      "style_key": "phillyjoe",
+      "song_key": "locomotion",
+      "youtube": "https://www.youtube.com/watch?v=tOAldzgQ9nY"
+    },
+    {
+      "title": "Moment's Notice",
+      "drummer_ids": ["drummer:philly-joe-jones"],
+      "drums": {
+        "description": "Stop-time breaks and a driving swing through Coltrane's fast-moving changes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blue-train-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=iosNQMGMVwY"
+    }
   ]
 }

@@ -1,0 +1,51 @@
+{
+  "id": "rec:little-feat-feats-don-t-fail-me-now-1974",
+  "title": "Feats Don't Fail Me Now",
+  "artist": "Little Feat",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:americana", "style:new-orleans-funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:richie-hayward"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Spanish Moon",
+      "drummer_ids": ["drummer:richie-hayward"],
+      "drums": {
+        "description": "A dark, funky groove with conga-like tom work.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:richie-hayward-wikipedia", "src:feats-don-t-fail-me-now-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=o6ljNi7RRmE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=213634"
+        }
+      ]
+    },
+    {
+      "title": "Oh Atlanta",
+      "drummer_ids": ["drummer:richie-hayward"],
+      "drums": {
+        "description": "A driving, upbeat rock-boogie beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:richie-hayward-wikipedia", "src:feats-don-t-fail-me-now-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lZjDqdCmjqo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=213637"
+        }
+      ]
+    }
+  ]
+}

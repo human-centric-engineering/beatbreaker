@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Bone Machine",
+      "drummer_ids": ["drummer:dave-lovering"],
+      "drums": {
+        "description": "Opens on Lovering alone, a booming kick-and-snare beat captured in a live room, before the band falls in on top.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:surfer-rosa-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NdgWYGKU3xo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14915"
+        }
+      ]
+    },
+    {
+      "title": "Gigantic",
+      "drummer_ids": ["drummer:dave-lovering"],
+      "drums": {
+        "description": "A plain, steady eighth-note beat under Kim Deal's lead vocal that builds with the band into the loud choruses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:surfer-rosa-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xJncHEZ3URs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=50572"
+        }
+      ]
+    },
+    {
+      "title": "Where Is My Mind?",
+      "drummer_ids": ["drummer:dave-lovering"],
+      "drums": {
+        "description": "A slow, patient backbeat that holds dead still while the guitars swing between quiet and loud around it.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:surfer-rosa-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OJ62RzJkYUo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14912"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,33 @@
+{
+  "id": "rec:mastodon-remission-2002",
+  "title": "Remission",
+  "artist": "Mastodon",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brann-dailor"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "March of the Fire Ants",
+      "drummer_ids": ["drummer:brann-dailor"],
+      "drums": {
+        "description": "Constant tom runs and hand-foot fills underneath every riff, the busy approach he became known for.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:remission-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mr9kY98EzVM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12431"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "rec:buddy-holly-everyday-1957",
+  "title": "Everyday",
+  "artist": "Buddy Holly",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jerry-allison"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Everyday",
+      "drummer_ids": ["drummer:jerry-allison"],
+      "drums": {
+        "description": "No drums at all: Allison slaps his knees for the rhythm under the celesta.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:everyday-buddy-holly-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=EqWwy6BCxxU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4703832"
+        }
+      ]
+    }
+  ]
+}

@@ -11,6 +11,62 @@
       "why_it_matters": "His first studio album with the band."
     }
   ],
+  "tracks": [
+    {
+      "title": "This",
+      "drummer_ids": ["drummer:johnny-rabb"],
+      "drums": {
+        "description": "Straight, hard-hitting rock backbeat with an open-hat lift into the chorus, Rabb's first single with the band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:see-what-you-started-by-continuing-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=F6KMzCRcAVw"
+    },
+    {
+      "title": "Hurricane",
+      "drummer_ids": ["drummer:johnny-rabb"],
+      "drums": {
+        "description": "Driving eighth-note rock groove with tom-heavy fills between sections.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:see-what-you-started-by-continuing-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4H43Zq_TsyE"
+    },
+    {
+      "title": "AYTA (Are You The Answer)",
+      "drummer_ids": ["drummer:johnny-rabb"],
+      "drums": {
+        "description": "Mid-tempo half-time feel that opens into a full backbeat, with crash-ride accents on the hooks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:see-what-you-started-by-continuing-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HLsKd5C2DSk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1698882"
+        }
+      ]
+    },
+    {
+      "title": "Contagious",
+      "drummer_ids": ["drummer:johnny-rabb"],
+      "drums": {
+        "description": "Bouncing rock shuffle feel with snare ghosting between the backbeats.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:see-what-you-started-by-continuing-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HTnWDX-VqCM"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:johnny-rabb-wikipedia"]

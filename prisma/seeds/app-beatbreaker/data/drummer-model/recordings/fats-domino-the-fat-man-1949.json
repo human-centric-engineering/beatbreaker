@@ -67,6 +67,20 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "The Fat Man",
+      "drummer_ids": ["drummer:earl-palmer"],
+      "drums": {
+        "description": "A New Orleans backbeat under Domino's rolling piano, one of the records Palmer's backbeat helped turn into rock and roll.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-fat-man-wikipedia", "src:earl-palmer-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gjtRJCkSaiY"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-fat-man-wikipedia"]

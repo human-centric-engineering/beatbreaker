@@ -1,0 +1,30 @@
+{
+  "id": "rec:john-abercrombie-timeless-1975",
+  "title": "Timeless",
+  "artist": "John Abercrombie",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jack-dejohnette"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Timeless",
+      "drummer_ids": ["drummer:jack-dejohnette"],
+      "drums": {
+        "description": "ECM's open time: cymbal washes and a floating pulse rather than a stated beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:bishop-dejohnette-timeless",
+            "src:timeless-john-abercrombie-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9khSUIMjBuk"
+    }
+  ]
+}

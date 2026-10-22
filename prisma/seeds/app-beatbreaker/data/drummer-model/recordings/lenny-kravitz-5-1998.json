@@ -30,6 +30,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Straight Cold Player",
+      "drummer_ids": ["drummer:cindy-blackman-santana"],
+      "drums": {
+        "description": "Her one studio track with Kravitz: a hard, open rock groove where he otherwise played the drums himself.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cindy-blackman-drum-magazine-kravitz"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zuE7t2_y1aE"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:cindy-blackman-drum-magazine-kravitz"]

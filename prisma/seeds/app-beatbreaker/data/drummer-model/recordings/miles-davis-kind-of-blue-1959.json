@@ -69,6 +69,100 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "So What",
+      "drummer_ids": ["drummer:jimmy-cobb"],
+      "drums": {
+        "description": "The ride, the band's two-note answer on snare and bass drum, and the crash that opens Miles's solo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:so-what-miles-davis-composition-wikipedia",
+            "src:songsterr-400187",
+            "src:jimmy-cobb-vintage-drum-forum"
+          ]
+        }
+      },
+      "style_key": "jimmycobb",
+      "song_key": "so-what",
+      "youtube": "https://www.youtube.com/watch?v=zqNTltOGh5c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=400187"
+        }
+      ]
+    },
+    {
+      "title": "Freddie Freeloader",
+      "drummer_ids": ["drummer:jimmy-cobb"],
+      "drums": {
+        "description": "A relaxed medium blues swing on the ride with Wynton Kelly at the piano.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:freddie-freeloader-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZZcuSBouhVA"
+    },
+    {
+      "title": "Blue in Green",
+      "drummer_ids": ["drummer:jimmy-cobb"],
+      "drums": {
+        "description": "Brushes on the cymbal and the foot on 2 and 4 under Bill Evans's ten-bar ballad.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:blue-in-green-wikipedia",
+            "src:songsterr-73923",
+            "src:kind-of-blue-wikipedia"
+          ]
+        }
+      },
+      "style_key": "jimmycobb",
+      "song_key": "blue-in-green",
+      "youtube": "https://www.youtube.com/watch?v=TLDflhhdPCg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=73923"
+        }
+      ]
+    },
+    {
+      "title": "All Blues",
+      "drummer_ids": ["drummer:jimmy-cobb"],
+      "drums": {
+        "description": "The 6/8 blues felt in 3/4, the cymbal on 2 and 3 and the snare and foot on 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:all-blues-wikipedia", "src:songsterr-462015"]
+        }
+      },
+      "style_key": "jimmycobb",
+      "song_key": "all-blues",
+      "youtube": "https://www.youtube.com/watch?v=-488UORrfJ0"
+    },
+    {
+      "title": "Flamenco Sketches",
+      "drummer_ids": ["drummer:jimmy-cobb"],
+      "drums": {
+        "description": "Barely there: soft brushes and cymbal colour under the modal scales.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:kind-of-blue-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nTwp1sgUJrM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=719032"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:kind-of-blue-wikipedia"]

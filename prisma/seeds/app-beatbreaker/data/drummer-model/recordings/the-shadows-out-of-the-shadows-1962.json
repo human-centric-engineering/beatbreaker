@@ -1,0 +1,26 @@
+{
+  "id": "rec:the-shadows-out-of-the-shadows-1962",
+  "title": "Out of the Shadows",
+  "artist": "The Shadows",
+  "year": 1962,
+  "type": "album",
+  "style_ids": ["style:rock-and-roll", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-bennett"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Little B",
+      "drummer_ids": ["drummer:brian-bennett"],
+      "drums": {
+        "description": "Bennett's drum solo feature, played live as his showcase.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:out-of-the-shadows-wikipedia"]
+        }
+      }
+    }
+  ]
+}

@@ -18,6 +18,62 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Adam's Apple",
+      "drummer_ids": ["drummer:joe-chambers"],
+      "drums": {
+        "description": "Funky, boogaloo-tinged straight-eighth groove, unusual for a Blue Note date.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:adam-s-apple-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0wnu1Y7lTVc"
+    },
+    {
+      "title": "Footprints",
+      "drummer_ids": ["drummer:joe-chambers"],
+      "drums": {
+        "description": "The first recording of Footprints: a loose 6/4 feel with a swaying, open ride.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:footprints-composition-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LgaIUqH0w6c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2060414"
+        }
+      ]
+    },
+    {
+      "title": "Teru",
+      "drummer_ids": ["drummer:joe-chambers"],
+      "drums": {
+        "description": "Gentle ballad brushwork.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:adam-s-apple-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1N6AmFNlgWU"
+    },
+    {
+      "title": "El Gaucho",
+      "drummer_ids": ["drummer:joe-chambers"],
+      "drums": {
+        "description": "Bossa-flavoured groove that swings in the solos.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:adam-s-apple-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=M2OdRxp_nDA"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:joe-chambers-wikipedia"]

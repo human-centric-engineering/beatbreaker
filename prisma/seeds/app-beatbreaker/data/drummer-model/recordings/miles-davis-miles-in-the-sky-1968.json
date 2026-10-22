@@ -1,0 +1,29 @@
+{
+  "id": "rec:miles-davis-miles-in-the-sky-1968",
+  "title": "Miles in the Sky",
+  "artist": "Miles Davis",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Stuff",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Miles goes electric: a straight R&B backbeat on a long vamp.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:miles-in-the-sky-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "stuff",
+      "youtube": "https://www.youtube.com/watch?v=C9rDt8SuH7k"
+    }
+  ]
+}

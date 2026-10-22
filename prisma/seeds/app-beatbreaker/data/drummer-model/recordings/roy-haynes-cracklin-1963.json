@@ -38,6 +38,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Bad News Blues",
+      "drummer_ids": ["drummer:roy-haynes"],
+      "drums": {
+        "description": "A dotted-eighth cymbal that sketches a shuffle, light backbeats, accents on the \"and\" of 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:roy-haynes-bishop-bad-news-blues", "src:cracklin-wikipedia"]
+        }
+      },
+      "style_key": "haynes",
+      "song_key": "bad-news-blues",
+      "youtube": "https://www.youtube.com/watch?v=zcln6UOn3u8"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:cracklin-wikipedia", "src:roy-haynes-bishop-bad-news-blues"]

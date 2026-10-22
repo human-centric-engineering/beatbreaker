@@ -1,0 +1,28 @@
+{
+  "id": "rec:fela-he-miss-road-1975",
+  "title": "He Miss Road",
+  "artist": "Fela Ransome-Kuti and the Africa '70",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:afrobeat", "style:west-african", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "He Miss Road",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "Snare on one over the chicking hat foot, the kick kept off the downbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:fela-kuti-discography-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "he-miss-road"
+    }
+  ]
+}

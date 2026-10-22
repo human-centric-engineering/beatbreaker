@@ -25,6 +25,23 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Mind Ecology",
+      "drummer_ids": ["drummer:vikku-vinayakram", "drummer:zakir-hussain"],
+      "drums": {
+        "description": "Ghatam in fast unison passages with tabla and violin.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:th-vinayakram-wikipedia",
+            "src:natural-elements-shakti-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=IZFXsF87-iI"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:th-vinayakram-wikipedia"]

@@ -18,6 +18,56 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Mars",
+      "drummer_ids": ["drummer:rashied-ali"],
+      "drums": {
+        "description": "Free, pulse-less storms on snare, toms and cymbals in duet with Coltrane.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rashied-ali-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RyIPmmCmIb0"
+    },
+    {
+      "title": "Venus",
+      "drummer_ids": ["drummer:rashied-ali"],
+      "drums": {
+        "description": "A quiet, shimmering cymbal-led duet that swells and recedes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:rashied-ali-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5RvXZPvLyr4"
+    },
+    {
+      "title": "Jupiter",
+      "drummer_ids": ["drummer:rashied-ali"],
+      "drums": {
+        "description": "Rolling, high-energy free drumming with sleigh bells.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:rashied-ali-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=n03AiKu6LVo"
+    },
+    {
+      "title": "Saturn",
+      "drummer_ids": ["drummer:rashied-ali"],
+      "drums": {
+        "description": "Long free-time duet where the drums carry the energy without a fixed beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:rashied-ali-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kY0wrGh-9Sw"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:rashied-ali-wikipedia"]

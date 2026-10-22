@@ -17,5 +17,18 @@
         "source_ids": ["src:wikipedia-ignacio-berroa"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Codes",
+      "drummer_ids": ["drummer:ignacio-berroa"],
+      "drums": {
+        "description": "Berroa plays Afro-Cuban clave patterns on a jazz kit, splitting the clave between feet and hands.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-ignacio-berroa"]
+        }
+      }
+    }
   ]
 }

@@ -11,6 +11,29 @@
       "why_it_matters": "Session drummer."
     }
   ],
+  "tracks": [
+    {
+      "title": "The Message",
+      "drummer_ids": ["drummer:keith-leblanc"],
+      "drums": {
+        "description": "The Sugar Hill house band's sparse, funky groove under the rap.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:keith-leblanc-wikipedia",
+            "src:the-message-grandmaster-flash-and-the-furious-five-song-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wodGHNLs53w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6398713"
+        }
+      ]
+    }
+  ],
   "release": "Sugar Hill",
   "evidence": {
     "confidence": "widely_reported",

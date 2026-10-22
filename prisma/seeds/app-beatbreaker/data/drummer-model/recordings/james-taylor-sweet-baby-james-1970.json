@@ -15,5 +15,37 @@
       "name": "Russ Kunkel",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Fire and Rain",
+      "drummer_ids": ["drummer:russ-kunkel"],
+      "drums": {
+        "description": "A soft, sparse part on brushes that set the singer-songwriter drum sound.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sweet-baby-james-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_1nKGVDhQ60",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19877"
+        }
+      ]
+    },
+    {
+      "title": "Country Road",
+      "drummer_ids": ["drummer:russ-kunkel"],
+      "drums": {
+        "description": "A gentle, rolling groove with brushes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sweet-baby-james-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jKNZe0qWmpM"
+    }
   ]
 }

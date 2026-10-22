@@ -72,6 +72,7 @@
   },
   "beatbreaker": {
     "group": "New Orleans and early jazz drummers",
-    "build_priority": 2
+    "build_priority": 2,
+    "songs_short_because": "15-b sweep (2026-10-22): no more songs with a confirmed drum credit and a source were found."
   }
 }

@@ -1,0 +1,30 @@
+{
+  "id": "rec:frank-zappa-ship-arriving-too-late-to-save-a-drowning-witch-1982",
+  "title": "Ship Arriving Too Late to Save a Drowning Witch",
+  "artist": "Frank Zappa",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chad-wackerman"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Valley Girl",
+      "drummer_ids": ["drummer:chad-wackerman"],
+      "drums": {
+        "description": "A steady, straight new-wave beat under Moon Zappa's monologue.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:ship-arriving-too-late-to-save-a-drowning-witch-wikipedia",
+            "src:chad-wackerman-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=R5Q1yVLSR3I"
+    }
+  ]
+}

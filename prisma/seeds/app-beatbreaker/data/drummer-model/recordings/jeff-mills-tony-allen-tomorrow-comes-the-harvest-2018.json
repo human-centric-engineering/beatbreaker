@@ -1,0 +1,29 @@
+{
+  "id": "rec:jeff-mills-tony-allen-tomorrow-comes-the-harvest-2018",
+  "title": "Tomorrow Comes the Harvest",
+  "artist": "Jeff Mills and Tony Allen",
+  "year": 2018,
+  "type": "album",
+  "style_ids": ["style:afrobeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Locked & Loaded",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "His first pattern on his own kit beside Jeff Mills's TR-909: acoustic Afrobeat feet against a drum machine.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:tony-allen-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "locked-and-loaded",
+      "youtube": "https://www.youtube.com/watch?v=huFvT521Jqo"
+    }
+  ]
+}

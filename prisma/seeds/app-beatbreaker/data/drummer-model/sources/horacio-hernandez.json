@@ -16,5 +16,37 @@
     "reliability": 0.65,
     "accessed": "2026-10-14",
     "notes": "The book introduces three- and four-limb ostinato patterns; clave in the right hand with the hi-hat foot on the downbeat."
+  },
+  {
+    "id": "src:horacio-hernandez-wikipedia",
+    "type": "encyclopedia",
+    "title": "Horacio Hernández - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Horacio_Hern%C3%A1ndez",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:supernatural-santana-wikipedia",
+    "type": "encyclopedia",
+    "title": "Supernatural (Santana album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Supernatural_(Santana_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:habana-roy-hargrove-wikipedia",
+    "type": "encyclopedia",
+    "title": "Habana (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Habana_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:triangulo-camilo-wikipedia",
+    "type": "encyclopedia",
+    "title": "Triángulo (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Tri%C3%A1ngulo_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

@@ -1,0 +1,33 @@
+{
+  "id": "rec:fleetwood-mac-albatross-1968",
+  "title": "Albatross",
+  "artist": "Fleetwood Mac",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-fleetwood"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Albatross",
+      "drummer_ids": ["drummer:mick-fleetwood"],
+      "drums": {
+        "description": "Played with soft mallets on toms and cymbals, a slow, wave-like pulse under the slide guitar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:albatross-instrumental-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=T69Vzl4Cnl8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7430"
+        }
+      ]
+    }
+  ]
+}

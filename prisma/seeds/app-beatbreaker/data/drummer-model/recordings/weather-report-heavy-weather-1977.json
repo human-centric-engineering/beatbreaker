@@ -15,5 +15,54 @@
       "name": "Alex Acuña",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Birdland",
+      "drummer_ids": ["drummer:alex-acuna"],
+      "drums": {
+        "description": "A buoyant, shuffling groove with Latin percussion colours.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:alex-acuna-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rI87xvv-OJE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=20757"
+        }
+      ]
+    },
+    {
+      "title": "Palladium",
+      "drummer_ids": ["drummer:alex-acuna"],
+      "drums": {
+        "description": "A Latin-tinged, syncopated fusion groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:alex-acuna-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cW7IdhfCHVo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=20720"
+        }
+      ]
+    },
+    {
+      "title": "The Juggler",
+      "drummer_ids": ["drummer:alex-acuna"],
+      "drums": {
+        "description": "Soft, colouristic percussion around a floating theme.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:alex-acuna-wikipedia"]
+        }
+      }
+    }
   ]
 }

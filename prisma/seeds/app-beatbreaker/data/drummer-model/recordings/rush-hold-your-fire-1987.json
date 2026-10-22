@@ -1,0 +1,35 @@
+{
+  "id": "rec:rush-hold-your-fire-1987",
+  "title": "Hold Your Fire",
+  "artist": "Rush",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neil-peart"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Time Stand Still",
+      "drummer_ids": ["drummer:neil-peart"],
+      "drums": {
+        "description": "Four on the floor under the bell and timbales, the hat in a figure and a bridge in 7/4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:time-stand-still-song-wikipedia"]
+        }
+      },
+      "style_key": "peart",
+      "song_key": "time-stand-still",
+      "youtube": "https://www.youtube.com/watch?v=dMSFqXGZ5TQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=52545"
+        }
+      ]
+    }
+  ]
+}

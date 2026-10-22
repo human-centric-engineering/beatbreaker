@@ -1,0 +1,57 @@
+{
+  "id": "rec:stan-getz-and-joao-gilberto-getz-gilberto-1964",
+  "title": "Getz/Gilberto",
+  "artist": "Stan Getz and João Gilberto",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:bossa-nova", "style:samba"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:milton-banana"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Girl from Ipanema",
+      "drummer_ids": ["drummer:milton-banana"],
+      "drums": {
+        "description": "Understated bossa nova on the snare with brushes and rim, on the record that took the style worldwide.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:getz-gilberto-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kLO8XoNf5EM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=402454"
+        }
+      ]
+    },
+    {
+      "title": "Corcovado",
+      "drummer_ids": ["drummer:milton-banana"],
+      "drums": {
+        "description": "Soft brushwork in a slow bossa.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:getz-gilberto-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VEMWhrfFVDc"
+    },
+    {
+      "title": "Doralice",
+      "drummer_ids": ["drummer:milton-banana"],
+      "drums": {
+        "description": "A light, up-tempo bossa groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:getz-gilberto-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hU3IUUIZxEg"
+    }
+  ]
+}

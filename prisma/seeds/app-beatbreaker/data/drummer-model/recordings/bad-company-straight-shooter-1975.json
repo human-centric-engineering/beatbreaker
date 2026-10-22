@@ -1,0 +1,51 @@
+{
+  "id": "rec:bad-company-straight-shooter-1975",
+  "title": "Straight Shooter",
+  "artist": "Bad Company",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:simon-kirke"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Feel Like Makin' Love",
+      "drummer_ids": ["drummer:simon-kirke"],
+      "drums": {
+        "description": "Acoustic verses then a heavy stop-start rock chorus that Kirke drives.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:simon-kirke-wikipedia",
+            "src:straight-shooter-bad-company-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OEPvv9pjIoQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22909"
+        }
+      ]
+    },
+    {
+      "title": "Shooting Star",
+      "drummer_ids": ["drummer:simon-kirke"],
+      "drums": {
+        "description": "A mid-tempo backbeat that builds from brushes-quiet verses to a full-band chorus.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:simon-kirke-wikipedia",
+            "src:straight-shooter-bad-company-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QWkpenUniVg"
+    }
+  ]
+}

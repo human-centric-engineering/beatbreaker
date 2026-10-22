@@ -1,0 +1,27 @@
+{
+  "id": "rec:frank-frost-my-back-scratcher-1966",
+  "title": "My Back Scratcher",
+  "artist": "Frank Frost",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:blues"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sam-carr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "My Back Scratcher",
+      "drummer_ids": ["drummer:sam-carr"],
+      "drums": {
+        "description": "Frost's minor 1966 hit, with Carr keeping time on the same stripped-down snare, bass drum and hi-hat kit.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sam-carr-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ji9JFghrPXk"
+    }
+  ]
+}

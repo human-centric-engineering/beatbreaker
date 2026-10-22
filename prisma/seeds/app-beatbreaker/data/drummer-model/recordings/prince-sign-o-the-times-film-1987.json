@@ -53,6 +53,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Housequake",
+      "drummer_ids": ["drummer:sheila-e"],
+      "drums": {
+        "description": "Live in the Sign o' the Times film: a pounding James Brown-style funk beat with Sheila on kit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sheila-e-sott-footage", "src:sheila-e-wikipedia"]
+        }
+      },
+      "style_key": "sheilae",
+      "song_key": "housequake",
+      "youtube": "https://www.youtube.com/watch?v=em6h7OhEdQY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3331198"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:sign-o-the-times-film-wikipedia"]

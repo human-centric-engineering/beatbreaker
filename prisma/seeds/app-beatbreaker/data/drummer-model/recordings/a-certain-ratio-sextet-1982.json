@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Knife Slits Water",
+      "drummer_ids": ["drummer:donald-johnson"],
+      "drums": {
+        "description": "A fast, Latin-funk groove with busy percussion.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sextet-a-certain-ratio-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sSZCgCgML7s",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=716934"
+        }
+      ]
+    }
   ]
 }

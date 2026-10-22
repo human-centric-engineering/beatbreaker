@@ -13,6 +13,7 @@ import {
   useState,
 } from 'react';
 
+import { IndexFallback } from '@/components/app/studio/index-fallback';
 import '@/components/app/studio/style-picker.css';
 import {
   type PickerEntry,
@@ -325,14 +326,20 @@ function Crate({
           ))}
         </nav>
 
-        <div id={`${uid}-list`} className="pick-list" role="listbox" aria-label={section.label}>
-          {shown.groups.length === 0 ? (
-            <p className="pick-empty">
-              Nothing in the crate matches “{query.trim()}”. Try a feel, a meter or a drummer’s
-              name.
-            </p>
-          ) : (
-            shown.groups.map(([group, entries]) => (
+        {shown.groups.length === 0 ? (
+          // not a listbox: what is here when nothing matches is text and links, not options
+          <div id={`${uid}-list`} className="pick-list">
+            <div className="pick-empty">
+              <p>
+                Nothing in the crate matches “{query.trim()}”. Try a feel, a meter or a drummer’s
+                name.
+              </p>
+              <IndexFallback query={query} />
+            </div>
+          </div>
+        ) : (
+          <div id={`${uid}-list`} className="pick-list" role="listbox" aria-label={section.label}>
+            {shown.groups.map(([group, entries]) => (
               <section
                 key={group}
                 id={groupId(group)}
@@ -359,9 +366,9 @@ function Crate({
                   ))}
                 </div>
               </section>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       <footer className="pick-ft" aria-hidden="true">

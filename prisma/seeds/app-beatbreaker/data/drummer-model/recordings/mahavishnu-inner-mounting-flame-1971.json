@@ -42,6 +42,46 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Meeting of the Spirits",
+      "drummer_ids": ["drummer:billy-cobham"],
+      "drums": {
+        "description": "The Mahavishnu Orchestra's first track, in 6/4 at 180: the ride and hi-hat foot with one snare a bar, building to double-bass storms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-inner-mounting-flame-wikipedia", "src:songsterr-13040"]
+        }
+      },
+      "style_key": "cobham",
+      "song_key": "meeting-of-the-spirits",
+      "youtube": "https://www.youtube.com/watch?v=WhzDBGiOTvg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13040"
+        }
+      ]
+    },
+    {
+      "title": "Vital Transformation",
+      "drummer_ids": ["drummer:billy-cobham"],
+      "drums": {
+        "description": "A fast odd-meter vamp with double bass drums under the theme, the power-fusion drumming that made his name.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-inner-mounting-flame-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rMPcmS1P83U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12855"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:billy-cobham-wikipedia"]

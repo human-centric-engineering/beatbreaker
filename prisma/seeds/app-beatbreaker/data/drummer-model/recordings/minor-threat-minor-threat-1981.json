@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Filler",
+      "drummer_ids": ["drummer:jeff-nelson"],
+      "drums": {
+        "description": "A blazing, minimal hardcore beat on snare and hats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jeff-nelson-wikipedia", "src:first-two-seven-inches-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=m3mUUupDtVA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=424020"
+        }
+      ]
+    },
+    {
+      "title": "Straight Edge",
+      "drummer_ids": ["drummer:jeff-nelson"],
+      "drums": {
+        "description": "Under a minute of fast, clean hardcore drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jeff-nelson-wikipedia", "src:first-two-seven-inches-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gsAu-nOg3Tw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=43527"
+        }
+      ]
+    },
+    {
+      "title": "Minor Threat",
+      "drummer_ids": ["drummer:jeff-nelson"],
+      "drums": {
+        "description": "A fast beat with a halftime breakdown.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jeff-nelson-wikipedia", "src:first-two-seven-inches-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=smM_bphb6pU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=43528"
+        }
+      ]
+    }
   ]
 }

@@ -10,5 +10,64 @@
       "drummer_id": "drummer:buddy-miles",
       "name": "Buddy Miles"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Machine Gun",
+      "drummer_ids": ["drummer:buddy-miles"],
+      "drums": {
+        "description": "Long live jam where Miles plays snare rolls that imitate gunfire and a slow, heavy funk-rock groove under Hendrix's feedback.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:band-of-gypsys-wikipedia",
+            "src:machine-gun-jimi-hendrix-song-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=V7TxGJyfeXk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=39274"
+        }
+      ]
+    },
+    {
+      "title": "Changes",
+      "drummer_ids": ["drummer:buddy-miles"],
+      "drums": {
+        "description": "Miles's own song, sung by him: a tight R&B-funk backbeat with fat snare and steady kick, the most soul-based groove on the record.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:band-of-gypsys-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=paFBxS-NUFw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22546"
+        }
+      ]
+    },
+    {
+      "title": "Who Knows",
+      "drummer_ids": ["drummer:buddy-miles"],
+      "drums": {
+        "description": "Laid-back, slow funk groove that Miles holds with a heavy backbeat while trading vocal lines with Hendrix.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:band-of-gypsys-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AFHlolQ8N-A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8817"
+        }
+      ]
+    }
   ]
 }

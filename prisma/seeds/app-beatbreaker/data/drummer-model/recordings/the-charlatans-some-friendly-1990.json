@@ -16,5 +16,31 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Then",
+      "drummer_ids": ["drummer:jon-brookes"],
+      "drums": {
+        "description": "A loping, baggy groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:charlatans-wikipedia", "src:some-friendly-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7xHeYPEQGf8"
+    },
+    {
+      "title": "Sproston Green",
+      "drummer_ids": ["drummer:jon-brookes"],
+      "drums": {
+        "description": "A driving, building rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:charlatans-wikipedia", "src:some-friendly-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oYEn5369AMQ"
+    }
   ]
 }

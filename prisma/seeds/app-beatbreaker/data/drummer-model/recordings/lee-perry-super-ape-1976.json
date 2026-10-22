@@ -17,5 +17,20 @@
         "source_ids": ["src:unitedreggae-mikey-boo-2017"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Croaking Lizard",
+      "artist": "The Upsetters",
+      "drummer_ids": ["drummer:mikey-boo-richards"],
+      "drums": {
+        "description": "A dubbed-out, heavy roots rhythm.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:super-ape-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WfWzw02gz6c"
+    }
   ]
 }

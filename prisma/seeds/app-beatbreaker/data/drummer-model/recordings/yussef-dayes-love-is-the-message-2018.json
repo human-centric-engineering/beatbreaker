@@ -30,6 +30,28 @@
       "pattern_ids": ["pattern:yussef-dayes-love-is-the-message"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Love Is the Message",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "The snare on the 'and' of 2, ghost notes and a pickup into every 1, a groove played faster still live.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-litm", "src:yussef-dayes-vinylfactory-litm"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "love-is-the-message",
+      "youtube": "https://www.youtube.com/watch?v=NwVtIPeYIeQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=697443"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:yussef-dayes-vinylfactory-litm", "src:yussef-dayes-drumhub-litm"]

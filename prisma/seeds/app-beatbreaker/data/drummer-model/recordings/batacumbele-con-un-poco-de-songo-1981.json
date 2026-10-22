@@ -1,0 +1,27 @@
+{
+  "id": "rec:batacumbele-con-un-poco-de-songo-1981",
+  "title": "Con un Poco de Songo",
+  "artist": "Batacumbele",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:giovanni-hidalgo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Con un Poco de Songo",
+      "drummer_ids": ["drummer:giovanni-hidalgo"],
+      "drums": {
+        "description": "The teenage Hidalgo's congas with Changuito's timbales: Cuban songo transplanted to Puerto Rico, multi-conga runs at speed.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-giovanni-hidalgo"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MHPYJxP0vt0"
+    }
+  ]
+}

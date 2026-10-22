@@ -1,0 +1,29 @@
+{
+  "id": "rec:los-van-van-y-que-se-sepa-1973",
+  "title": "Y que se sepa",
+  "artist": "Los Van Van",
+  "year": 1973,
+  "type": "studio_track",
+  "style_ids": ["style:songo", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:changuito"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Y que se sepa",
+      "drummer_ids": ["drummer:changuito"],
+      "drums": {
+        "description": "A slow early songo single: the kick on both bombos and often the offbeat after the first.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:changuito-timba-moore"]
+        }
+      },
+      "style_key": "changuito",
+      "song_key": "y-que-se-sepa",
+      "youtube": "https://www.youtube.com/watch?v=BMuJV2m2MIw"
+    }
+  ]
+}

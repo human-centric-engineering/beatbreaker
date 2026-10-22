@@ -1,0 +1,33 @@
+{
+  "id": "rec:cannibal-corpse-eaten-back-to-life-1990",
+  "title": "Eaten Back to Life",
+  "artist": "Cannibal Corpse",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-mazurkiewicz"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "A Skull Full of Maggots",
+      "drummer_ids": ["drummer:paul-mazurkiewicz"],
+      "drums": {
+        "description": "Fast thrash beats with tom-heavy fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:eaten-back-to-life-wikipedia", "src:paul-mazurkiewicz-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TUktnFv1CoA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=27859"
+        }
+      ]
+    }
+  ]
+}

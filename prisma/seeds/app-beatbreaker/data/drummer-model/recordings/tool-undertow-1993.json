@@ -37,6 +37,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Sober",
+      "drummer_ids": ["drummer:danny-carey"],
+      "drums": {
+        "description": "A heavy, deliberate groove with tom accents under the riff and huge dynamic drops.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:danny-carey-wikipedia", "src:carey-louder-2022"]
+        }
+      },
+      "style_key": "carey",
+      "song_key": "sober",
+      "youtube": "https://www.youtube.com/watch?v=nspxAG12Cpc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19923"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:tool-wikipedia", "src:songsterr-19923"]

@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-damned-the-black-album-1980",
+  "title": "The Black Album",
+  "artist": "The Damned",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:punk", "style:gothic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:rat-scabies"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Wait for the Blackout",
+      "drummer_ids": ["drummer:rat-scabies"],
+      "drums": {
+        "description": "A propulsive, gothic-tinged beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-black-album-the-damned-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WAD363eDTtc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=762622"
+        }
+      ]
+    }
+  ]
+}

@@ -15,5 +15,43 @@
       "name": "Larrie Londin",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Be Good to Yourself",
+      "drummer_ids": ["drummer:larrie-londin"],
+      "drums": {
+        "description": "A punchy, straight-eighth arena-rock beat with big tom fills into the choruses.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:larrie-londin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5PZxhOtO01g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10322"
+        }
+      ]
+    },
+    {
+      "title": "Girl Can't Help It",
+      "drummer_ids": ["drummer:larrie-londin"],
+      "drums": {
+        "description": "A mid-tempo half-time rock groove with a big, roomy snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:larrie-londin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=h9TgWj2Kln4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1475538"
+        }
+      ]
+    }
   ]
 }

@@ -15,5 +15,43 @@
       "name": "Paul Wertico",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "First Circle",
+      "drummer_ids": ["drummer:paul-wertico"],
+      "drums": {
+        "description": "Hand claps and kit in a long 22/8 cycle, the drums making the odd meter feel like a dance.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:first-circle-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9r_MbChsDck",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=423329"
+        }
+      ]
+    },
+    {
+      "title": "Yolanda, You Learn",
+      "drummer_ids": ["drummer:paul-wertico"],
+      "drums": {
+        "description": "A bright, driving straight-eighth feel with light ride and snare accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:first-circle-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rC8KGpbwfU4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1874246"
+        }
+      ]
+    }
   ]
 }

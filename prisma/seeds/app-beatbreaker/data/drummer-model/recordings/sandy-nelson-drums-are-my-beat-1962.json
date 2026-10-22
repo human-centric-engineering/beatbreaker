@@ -1,0 +1,27 @@
+{
+  "id": "rec:sandy-nelson-drums-are-my-beat-1962",
+  "title": "Drums Are My Beat",
+  "artist": "Sandy Nelson",
+  "year": 1962,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sandy-nelson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Drums Are My Beat",
+      "drummer_ids": ["drummer:sandy-nelson"],
+      "drums": {
+        "description": "Another drum-led instrumental with tom features.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sandy-nelson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rSGinvPJFSs"
+    }
+  ]
+}

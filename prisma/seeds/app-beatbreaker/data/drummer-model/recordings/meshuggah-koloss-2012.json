@@ -37,6 +37,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Do Not Look Down",
+      "drummer_ids": ["drummer:tomas-haake"],
+      "drums": {
+        "description": "The crash on the beat, a rimshot on 3, the kick spare and swaying across the bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-269211", "src:koloss-wikipedia"]
+        }
+      },
+      "style_key": "haake",
+      "song_key": "do-not-look-down",
+      "youtube": "https://www.youtube.com/watch?v=FE7AuXNi2rU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=269211"
+        }
+      ]
+    },
+    {
+      "title": "Demiurge",
+      "drummer_ids": ["drummer:tomas-haake"],
+      "drums": {
+        "description": "The crash on the beat, ghosted snare between the kicks, crushing and slow.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-383114", "src:koloss-wikipedia"]
+        }
+      },
+      "style_key": "haake",
+      "song_key": "demiurge",
+      "youtube": "https://www.youtube.com/watch?v=zg2076b5Lqc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=383114"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:meshuggah-wikipedia", "src:songsterr-269211", "src:songsterr-383114"]

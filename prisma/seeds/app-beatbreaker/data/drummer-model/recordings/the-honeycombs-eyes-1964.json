@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-honeycombs-eyes-1964",
+  "title": "Eyes",
+  "artist": "The Honeycombs",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:honey-lantree"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Eyes",
+      "drummer_ids": ["drummer:honey-lantree"],
+      "drums": {
+        "description": "Third single, also mimed by the band in the 1965 film Pop Gear; Lantree said she played on every Honeycombs track.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:honey-lantree-wikipedia", "src:the-honeycombs-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Upk3NJ03Nd0"
+    }
+  ]
+}

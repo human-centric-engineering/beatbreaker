@@ -1,0 +1,27 @@
+{
+  "id": "rec:ted-heath-and-his-music-swingin-shepherd-blues-1958",
+  "title": "Swingin' Shepherd Blues",
+  "artist": "Ted Heath and His Music",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ronnie-verrell"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Swingin' Shepherd Blues",
+      "drummer_ids": ["drummer:ronnie-verrell"],
+      "drums": {
+        "description": "A light, swinging medium-tempo shuffle from Britain's leading big band, Verrell's crisp brushes and hat under the flute melody.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ronnie-verrell-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qvbyxVa4y6s"
+    }
+  ]
+}

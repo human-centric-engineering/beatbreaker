@@ -27,5 +27,25 @@
         "source_ids": ["src:wikipedia-armando-peraza"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Afro Blue",
+      "drummer_ids": ["drummer:armando-peraza", "drummer:mongo-santamaria"],
+      "drums": {
+        "description": "Bongos and percussion in a 6/8 Afro-Cuban groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-armando-peraza"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qt4G7C_dYdw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17471"
+        }
+      ]
+    }
   ]
 }

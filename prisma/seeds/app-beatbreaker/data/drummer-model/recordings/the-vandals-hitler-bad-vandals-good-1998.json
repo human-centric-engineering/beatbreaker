@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "People That Are Going to Hell",
+      "drummer_ids": ["drummer:josh-freese"],
+      "drums": {
+        "description": "Fast, tight pop-punk eighths and snare fills that open the album.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hitler-bad-vandals-good-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HHKXNB-_eMQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2003179"
+        }
+      ]
+    },
+    {
+      "title": "My Girlfriend's Dead",
+      "drummer_ids": ["drummer:josh-freese"],
+      "drums": {
+        "description": "A bright, quick pop-punk beat with tight, clean fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hitler-bad-vandals-good-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=O8Sl_-reaBo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=21916"
+        }
+      ]
+    }
   ]
 }

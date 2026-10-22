@@ -99,6 +99,8 @@ describe('StylePicker', () => {
     await user.click(screen.getByRole('button', { name: /^Style:/ }));
     await user.type(screen.getByRole('combobox'), 'zzz');
     expect(screen.getByText(/Nothing in the crate matches “zzz”/)).toBeTruthy();
+    // what shows when nothing matches is text, not options in a listbox
+    expect(screen.queryByRole('listbox')).toBeNull();
     await user.keyboard('{ArrowDown}{Enter}');
     expect(onPick).not.toHaveBeenCalled();
   });

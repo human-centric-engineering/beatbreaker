@@ -1,0 +1,30 @@
+{
+  "id": "rec:public-image-ltd-this-is-what-you-want-this-is-what-you-get-1984",
+  "title": "This Is What You Want... This Is What You Get",
+  "artist": "Public Image Ltd",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:industrial", "style:post-punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:martin-atkins"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Bad Life",
+      "drummer_ids": ["drummer:martin-atkins"],
+      "drums": {
+        "description": "A driving dance-rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:martin-atkins-wikipedia",
+            "src:this-is-what-you-want-this-is-what-you-get-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fwD7_iQ5S6Q"
+    }
+  ]
+}

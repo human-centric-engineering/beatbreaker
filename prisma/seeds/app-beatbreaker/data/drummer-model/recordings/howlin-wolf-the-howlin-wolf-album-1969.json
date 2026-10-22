@@ -10,5 +10,49 @@
       "drummer_id": "drummer:morris-jennings",
       "name": "Morris Jennings"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Spoonful",
+      "drummer_ids": ["drummer:morris-jennings"],
+      "drums": {
+        "description": "Psychedelic remake with a heavy, plodding rock backbeat in place of the original Chicago shuffle.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-howlin-wolf-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tbwOt_9LAR8"
+    },
+    {
+      "title": "Smokestack Lightning",
+      "drummer_ids": ["drummer:morris-jennings"],
+      "drums": {
+        "description": "The one-chord vamp reworked with a funk-rock beat under fuzz and wah guitar.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-howlin-wolf-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VMUt8KdDtTY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=198050"
+        }
+      ]
+    },
+    {
+      "title": "Evil",
+      "drummer_ids": ["drummer:morris-jennings"],
+      "drums": {
+        "description": "Slow, heavy groove with a big rock snare under the electric arrangement.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-howlin-wolf-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fE-yuA4QuVI"
+    }
   ]
 }

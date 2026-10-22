@@ -46,6 +46,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Jumpin' Jack Flash",
+      "drummer_ids": ["drummer:charlie-watts"],
+      "drums": {
+        "description": "One groove, the kick on 1, the \"and\" of 2 and 3, the riff alone at the top.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-16426"]
+        }
+      },
+      "style_key": "watts",
+      "song_key": "jumpin-jack-flash",
+      "youtube": "https://www.youtube.com/watch?v=DARZS3ipWoI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16426"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:charlie-watts-wikipedia"],

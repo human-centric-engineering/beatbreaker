@@ -1,0 +1,27 @@
+{
+  "id": "rec:lightning-bolt-fantasy-empire-2015",
+  "title": "Fantasy Empire",
+  "artist": "Lightning Bolt",
+  "year": 2015,
+  "type": "album",
+  "style_ids": ["style:noise-rock", "style:experimental-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-chippendale"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Metal East",
+      "drummer_ids": ["drummer:brian-chippendale"],
+      "drums": {
+        "description": "Hammering double-time patterns with the kick and toms driving a metal-like riff, cleaner recorded than the earlier albums.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fantasy-empire-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2ASYmKRIbo8"
+    }
+  ]
+}

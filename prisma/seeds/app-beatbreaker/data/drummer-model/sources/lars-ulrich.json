@@ -187,5 +187,13 @@
     "reliability": 0.6,
     "accessed": "2026-10-19",
     "notes": "Human tab (aiGenerated false). rev 9670373, by Metallord, 2026-10-11; 'Lars Ulrich | Gretsch USA Custom'. 93, then 89."
+  },
+  {
+    "id": "src:enter-sandman-wikipedia",
+    "type": "encyclopedia",
+    "title": "Enter Sandman - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Enter_Sandman",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

@@ -1,0 +1,33 @@
+{
+  "id": "rec:love-and-rockets-love-and-rockets-1989",
+  "title": "Love and Rockets",
+  "artist": "Love and Rockets",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:gothic-rock", "style:post-punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kevin-haskins"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "So Alive",
+      "drummer_ids": ["drummer:kevin-haskins"],
+      "drums": {
+        "description": "A slow, sultry groove with a steady backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:love-and-rockets-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RLQH-Ay6XAc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=580904"
+        }
+      ]
+    }
+  ]
+}

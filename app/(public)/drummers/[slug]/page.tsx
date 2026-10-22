@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { cache } from 'react';
 import { z } from 'zod';
 
+import { SongTable } from '@/components/app/drummers/song-table';
 import { studioStyleHref } from '@/components/app/shell/studio-address';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -16,6 +17,7 @@ import {
 } from '@/lib/app/lineage/layout';
 import { readDrummerRecord } from '@/lib/app/lineage/record';
 import { type Relation, relationsOf } from '@/lib/app/lineage/relations';
+import { songsFor } from '@/lib/app/lineage/songs';
 import { sanitizeUrl } from '@/lib/security/sanitize';
 
 /**
@@ -23,8 +25,8 @@ import { sanitizeUrl } from '@/lib/security/sanitize';
  *
  * A drummer with a record gets the record: who they are, what marks their
  * playing and how sure each claim is, the rhythmic devices they play with the
- * sources for each (12-b), the recordings, and who they learned
- * from and passed it on to. **Play** opens the Studio on their style. Someone
+ * sources for each (12-b), their songs (15-c), the recordings, and who they
+ * learned from and passed it on to. **Play** opens the Studio on their style. Someone
  * the records only name (a stub) gets the links that name them.
  */
 
@@ -290,6 +292,8 @@ export default async function DrummerPage({ params }: { params: Params }) {
           </ol>
         </section>
       )}
+
+      <SongTable songs={songsFor(node.id, profile.recordings)} />
 
       {profile.recordings.length > 0 && (
         <section className="space-y-3">

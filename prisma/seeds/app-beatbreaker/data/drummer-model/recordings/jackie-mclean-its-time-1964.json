@@ -42,6 +42,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "It's Time",
+      "drummer_ids": ["drummer:roy-haynes"],
+      "drums": {
+        "description": "A \"strong broken up 3 feel\" laid over the 4/4 at 266, phrases of two, three and four beats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:roy-haynes-bishop-its-time", "src:its-time-wikipedia"]
+        }
+      },
+      "style_key": "haynes",
+      "song_key": "its-time",
+      "youtube": "https://www.youtube.com/watch?v=xVl5G-gxndM"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:its-time-wikipedia", "src:roy-haynes-bishop-its-time"]

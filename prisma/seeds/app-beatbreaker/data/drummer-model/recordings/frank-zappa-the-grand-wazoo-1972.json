@@ -12,6 +12,38 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "The Grand Wazoo",
+      "drummer_ids": ["drummer:aynsley-dunbar"],
+      "drums": {
+        "description": "A big-band shuffle groove that Dunbar swings hard under the horns, mixing rock weight with jazz ride-cymbal phrasing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-grand-wazoo-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=r_t8ZIny0yc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1253370"
+        }
+      ]
+    },
+    {
+      "title": "Eat That Question",
+      "drummer_ids": ["drummer:aynsley-dunbar"],
+      "drums": {
+        "description": "Driving jazz-rock groove with heavy snare accents and fills that answer the electric piano lines.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-grand-wazoo-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RonvGAZRipA"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:aynsley-dunbar-wikipedia"]

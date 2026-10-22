@@ -98,5 +98,13 @@
     "reliability": 0.8,
     "accessed": "2026-10-14",
     "notes": "Hat patterns that \"make cruel demands on limb independence\" set against kick and snare."
+  },
+  {
+    "id": "src:fela-kuti-discography-wikipedia",
+    "type": "encyclopedia",
+    "title": "Fela Kuti discography - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Fela_Kuti_discography",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

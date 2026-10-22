@@ -43,6 +43,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Kelly Blue",
+      "drummer_ids": ["drummer:jimmy-cobb"],
+      "drums": {
+        "description": "The head's spare ride, then the time and the comps, then a cross-stick on 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:kelly-blue-wikipedia", "src:songsterr-902578"]
+        }
+      },
+      "style_key": "jimmycobb",
+      "song_key": "kelly-blue",
+      "youtube": "https://www.youtube.com/watch?v=2C7uknOL_5Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=902578"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:kelly-blue-wikipedia"]

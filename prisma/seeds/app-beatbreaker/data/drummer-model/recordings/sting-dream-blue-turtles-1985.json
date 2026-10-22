@@ -28,6 +28,88 @@
       "why_it_matters": "Defined the groove of Sting's first solo album; also in the Bring on the Night film."
     }
   ],
+  "tracks": [
+    {
+      "title": "If You Love Somebody Set Them Free",
+      "drummer_ids": ["drummer:omar-hakim"],
+      "drums": {
+        "description": "A propulsive pop-funk groove, Hakim's jazz-trained hi-hat and ghost notes under a gospel feel.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dream-of-the-blue-turtles-wikipedia", "src:wikipedia-hakim"]
+        }
+      },
+      "style_key": "hakim",
+      "song_key": "if-you-love-somebody-set-them-free",
+      "youtube": "https://www.youtube.com/watch?v=LSGl3d4KOMk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5627623"
+        }
+      ]
+    },
+    {
+      "title": "Love Is the Seventh Wave",
+      "drummer_ids": ["drummer:omar-hakim"],
+      "drums": {
+        "description": "A reggae-tinged groove with rim clicks and a lilting hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dream-of-the-blue-turtles-wikipedia"]
+        }
+      },
+      "style_key": "hakim",
+      "song_key": "love-is-the-seventh-wave",
+      "youtube": "https://www.youtube.com/watch?v=uXZistami3c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=802259"
+        }
+      ]
+    },
+    {
+      "title": "Fortress Around Your Heart",
+      "drummer_ids": ["drummer:omar-hakim"],
+      "drums": {
+        "description": "A mid-tempo ballad groove with crisp snare and dynamic fills into the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dream-of-the-blue-turtles-wikipedia"]
+        }
+      },
+      "style_key": "hakim",
+      "song_key": "fortress-around-your-heart",
+      "youtube": "https://www.youtube.com/watch?v=OiPiRKbNCWY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=422383"
+        }
+      ]
+    },
+    {
+      "title": "Consider Me Gone",
+      "drummer_ids": ["drummer:omar-hakim"],
+      "drums": {
+        "description": "A jazzy, swung shuffle groove with brushed-sounding snare and a walking-bass feel.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dream-of-the-blue-turtles-wikipedia"]
+        }
+      },
+      "style_key": "hakim",
+      "song_key": "consider-me-gone",
+      "youtube": "https://www.youtube.com/watch?v=5JklHGVUa_c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1549175"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:roland-hakim", "src:wikipedia-hakim"]

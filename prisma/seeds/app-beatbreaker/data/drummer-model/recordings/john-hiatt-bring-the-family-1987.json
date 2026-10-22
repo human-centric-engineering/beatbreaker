@@ -1,0 +1,27 @@
+{
+  "id": "rec:john-hiatt-bring-the-family-1987",
+  "title": "Bring the Family",
+  "artist": "John Hiatt",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jim-keltner"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Thing Called Love",
+      "drummer_ids": ["drummer:jim-keltner"],
+      "drums": {
+        "description": "A slinky, behind-the-beat groove recorded in a few days with Ry Cooder and Nick Lowe.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bring-the-family-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FCOtU1rDQh8"
+    }
+  ]
+}

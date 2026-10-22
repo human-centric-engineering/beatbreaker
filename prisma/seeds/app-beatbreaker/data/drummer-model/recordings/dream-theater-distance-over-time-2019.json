@@ -1,0 +1,33 @@
+{
+  "id": "rec:dream-theater-distance-over-time-2019",
+  "title": "Distance over Time",
+  "artist": "Dream Theater",
+  "year": 2019,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-mangini"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Untethered Angel",
+      "drummer_ids": ["drummer:mike-mangini"],
+      "drums": {
+        "description": "A heavy, driving groove with technical fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:distance-over-time-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gylxuO6dKOw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=447941"
+        }
+      ]
+    }
+  ]
+}

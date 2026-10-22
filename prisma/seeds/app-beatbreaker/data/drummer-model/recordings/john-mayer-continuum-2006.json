@@ -1,0 +1,51 @@
+{
+  "id": "rec:john-mayer-continuum-2006",
+  "title": "Continuum",
+  "artist": "John Mayer",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:rock", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-jordan"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Gravity",
+      "drummer_ids": ["drummer:steve-jordan"],
+      "drums": {
+        "description": "A slow, deep blues groove with a heavy, behind-the-beat snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:continuum-john-mayer-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6lgpcZxi74Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=39716"
+        }
+      ]
+    },
+    {
+      "title": "Waiting on the World to Change",
+      "drummer_ids": ["drummer:steve-jordan"],
+      "drums": {
+        "description": "A relaxed, sixties-soul groove with a fat backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:continuum-john-mayer-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oBIxScJ5rlY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=30592"
+        }
+      ]
+    }
+  ]
+}

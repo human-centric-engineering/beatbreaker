@@ -55,6 +55,100 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Larks' Tongues in Aspic, Part Two",
+      "drummer_ids": ["drummer:bill-bruford"],
+      "drums": {
+        "description": "The riff in 10/8, the snare on its accents, ride and hat foot on the quarters.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-469026", "src:larks-tongues-wikipedia"]
+        }
+      },
+      "style_key": "bruford",
+      "song_key": "larks-tongues-part-two",
+      "youtube": "https://www.youtube.com/watch?v=jX0caf1HvNs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10987"
+        }
+      ]
+    },
+    {
+      "title": "Larks' Tongues in Aspic, Part One",
+      "drummer_ids": ["drummer:jamie-muir"],
+      "drums": {
+        "description": "Muir's mbira, bells and found percussion open the piece before Bruford's kit enters.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:larks-tongues-in-aspic-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VtxFAA0xlg8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=451418"
+        }
+      ]
+    },
+    {
+      "title": "The Talking Drum",
+      "drummer_ids": ["drummer:jamie-muir"],
+      "drums": {
+        "description": "A long crescendo over a hypnotic ostinato, Muir's hand percussion layered on Bruford's kit.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:larks-tongues-in-aspic-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OX6WB0vlDUg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1309850"
+        }
+      ]
+    },
+    {
+      "title": "Easy Money",
+      "drummer_ids": ["drummer:jamie-muir"],
+      "drums": {
+        "description": "Muir adds unusual percussion and effects, among them a laughing bag, over the heavy groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:larks-tongues-in-aspic-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LxaM5ex1isc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=435533"
+        }
+      ]
+    },
+    {
+      "title": "Exiles",
+      "drummer_ids": ["drummer:jamie-muir"],
+      "drums": {
+        "description": "Textural percussion colour under the ballad.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:larks-tongues-in-aspic-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nMeFafKx7GI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=384079"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:larks-tongues-wikipedia"]

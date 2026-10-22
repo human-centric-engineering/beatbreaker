@@ -1,0 +1,33 @@
+{
+  "id": "rec:minor-threat-salad-days-1985",
+  "title": "Salad Days",
+  "artist": "Minor Threat",
+  "year": 1985,
+  "type": "studio_track",
+  "style_ids": ["style:hardcore-punk", "style:punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jeff-nelson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Salad Days",
+      "drummer_ids": ["drummer:jeff-nelson"],
+      "drums": {
+        "description": "A more melodic, mid-tempo punk beat with ringing toms.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jeff-nelson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4LQ45Chpj-4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=43529"
+        }
+      ]
+    }
+  ]
+}

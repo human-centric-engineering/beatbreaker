@@ -14,6 +14,22 @@
       "why_it_matters": "Earth stripped to its two permanent members; drums carry half the arrangement."
     }
   ],
+  "tracks": [
+    {
+      "title": "Cats on the Briar",
+      "drummer_ids": ["drummer:adrienne-davies"],
+      "drums": {
+        "description": "A stripped duo groove where the drums carry as much melody as time, Davies and Carlson alone.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:brooklyn-rail-davies"]
+        }
+      },
+      "style_key": "davies",
+      "song_key": "cats-on-the-briar",
+      "youtube": "https://www.youtube.com/watch?v=suVxSq0YCOY"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:brooklyn-rail-davies"]

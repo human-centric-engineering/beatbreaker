@@ -1,0 +1,33 @@
+{
+  "id": "rec:john-lennon-instant-karma-1970",
+  "title": "Instant Karma!",
+  "artist": "John Lennon",
+  "year": 1970,
+  "type": "studio_track",
+  "style_ids": ["style:progressive-rock", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alan-white"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Instant Karma!",
+      "drummer_ids": ["drummer:alan-white"],
+      "drums": {
+        "description": "A heavy, echoed beat with a big snare under the piano, recorded in a day.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:instant-karma-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Ku7sCZfsgNo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3578716"
+        }
+      ]
+    }
+  ]
+}

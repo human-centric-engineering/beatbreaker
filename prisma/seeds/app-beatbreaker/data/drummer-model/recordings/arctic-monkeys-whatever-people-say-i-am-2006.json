@@ -47,6 +47,49 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "I Bet You Look Good on the Dancefloor",
+      "year": 2005,
+      "drummer_ids": ["drummer:matt-helders"],
+      "drums": {
+        "description": "The snare on every beat and four on the floor in the chorus, at full tilt.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-25720", "src:whatever-people-say-wikipedia"]
+        }
+      },
+      "style_key": "helders",
+      "song_key": "i-bet-you-look-good",
+      "youtube": "https://www.youtube.com/watch?v=CYpn8yUnX_c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=25720"
+        }
+      ]
+    },
+    {
+      "title": "The View from the Afternoon",
+      "drummer_ids": ["drummer:matt-helders"],
+      "drums": {
+        "description": "The album's opening drum intro: the floor tom in eighths, then sixteenths on the hat round the snare; the chorus on the \"and\"s.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-25723", "src:whatever-people-say-wikipedia"]
+        }
+      },
+      "style_key": "helders",
+      "song_key": "the-view-from-the-afternoon",
+      "youtube": "https://www.youtube.com/watch?v=PeQAZsyucbQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=25723"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:whatever-people-say-wikipedia"]

@@ -12,6 +12,74 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "I'm a Man",
+      "drummer_ids": ["drummer:danny-seraphine"],
+      "drums": {
+        "description": "A jazz-rock groove with an extended drum solo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:danny-seraphine-wikipedia",
+            "src:chicago-transit-authority-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cBGyFrHF1eU"
+    },
+    {
+      "title": "Beginnings",
+      "drummer_ids": ["drummer:danny-seraphine"],
+      "drums": {
+        "description": "A light, Latin-tinged rock groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:danny-seraphine-wikipedia",
+            "src:chicago-transit-authority-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TBDtqz6cgko"
+    },
+    {
+      "title": "Questions 67 and 68",
+      "drummer_ids": ["drummer:danny-seraphine"],
+      "drums": {
+        "description": "A driving, horn-rock beat with jazz-influenced fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:danny-seraphine-wikipedia",
+            "src:chicago-transit-authority-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0TKaFqhmmg4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=173676"
+        }
+      ]
+    },
+    {
+      "title": "Does Anybody Really Know What Time It Is?",
+      "drummer_ids": ["drummer:danny-seraphine"],
+      "drums": {
+        "description": "A swinging, jazz-rock pop beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:danny-seraphine-wikipedia",
+            "src:chicago-transit-authority-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9FzCWLOHUes"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:danny-seraphine-wikipedia"]

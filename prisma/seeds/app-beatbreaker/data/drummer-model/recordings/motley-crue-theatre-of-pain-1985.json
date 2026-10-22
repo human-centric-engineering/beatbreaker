@@ -1,0 +1,33 @@
+{
+  "id": "rec:motley-crue-theatre-of-pain-1985",
+  "title": "Theatre of Pain",
+  "artist": "Mötley Crüe",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tommy-lee"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Home Sweet Home",
+      "drummer_ids": ["drummer:tommy-lee"],
+      "drums": {
+        "description": "A power ballad with a massive, delayed backbeat entry after the piano intro.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tommy-lee-wikipedia", "src:theatre-of-pain-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Gmrh42foUsg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12765"
+        }
+      ]
+    }
+  ]
+}

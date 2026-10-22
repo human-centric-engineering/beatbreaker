@@ -59,6 +59,33 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "No One Knows",
+      "drummer_ids": ["drummer:dave-grohl"],
+      "drums": {
+        "description": "A rock shuffle in quarters, triplet fills on snare and toms and the kick in quarter-note triplets, the drumming that powered Songs for the Deaf.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:songs-for-the-deaf-wikipedia",
+            "src:grohl-wikipedia",
+            "src:no-one-knows-wikipedia",
+            "src:songsterr-17108"
+          ]
+        }
+      },
+      "style_key": "grohl",
+      "song_key": "no-one-knows",
+      "youtube": "https://www.youtube.com/watch?v=s88r_q7oufE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17108"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:songs-for-the-deaf-wikipedia"]

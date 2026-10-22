@@ -1,0 +1,33 @@
+{
+  "id": "rec:rem-out-of-time-1991",
+  "title": "Out of Time",
+  "artist": "R.E.M.",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:alternative-rock", "style:indie-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-berry"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Losing My Religion",
+      "drummer_ids": ["drummer:bill-berry"],
+      "drums": {
+        "description": "A light, steady backbeat that enters under the mandolin and keeps the song moving without ever crowding it.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:out-of-time-rem-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xwtdhWltSIg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16245"
+        }
+      ]
+    }
+  ]
+}

@@ -196,5 +196,21 @@
     "reliability": 0.5,
     "accessed": "2026-10-18",
     "notes": "aiGenerated false, revision 1543334 (2025-03-17). 140, a 110 section, 140, 110; 187 bars. The intro and techno sections: the hat in 16ths over a kick on every beat (four on the floor); the verse a backbeat with the kick in a 1-2-3-4 burst of 16ths; 43 empty bars (samples)."
+  },
+  {
+    "id": "src:savior-sorrow-wikipedia",
+    "type": "encyclopedia",
+    "title": "Savior Sorrow - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Savior_Sorrow",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:the-righteous-and-the-butterfly-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Righteous & the Butterfly - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Righteous_%26_the_Butterfly",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

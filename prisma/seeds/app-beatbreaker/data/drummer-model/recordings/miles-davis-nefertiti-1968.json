@@ -48,6 +48,36 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Madness",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Broken time: the ride in pieces, snare and kick answering the horns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:nefertiti-miles-davis-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "madness",
+      "youtube": "https://www.youtube.com/watch?v=UMQBo39HVmE"
+    },
+    {
+      "title": "Nefertiti",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "The horns repeat the tune and the drums are the soloist: press rolls and swells throughout.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:nefertiti-miles-davis-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "nefertiti",
+      "youtube": "https://www.youtube.com/watch?v=F2zUua79c6U"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:tony-williams-wikipedia"]

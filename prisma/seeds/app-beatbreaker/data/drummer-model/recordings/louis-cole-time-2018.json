@@ -11,6 +11,44 @@
       "why_it_matters": "Brainfeeder album."
     }
   ],
+  "tracks": [
+    {
+      "title": "Things",
+      "drummer_ids": ["drummer:louis-cole"],
+      "drums": {
+        "description": "A tight, fast sixteenth-note funk groove, played with a very light touch and sudden bursts of fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:time-louis-cole-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Ro8HJoAwFco"
+    },
+    {
+      "title": "Freaky Times",
+      "drummer_ids": ["drummer:louis-cole"],
+      "drums": {
+        "description": "A slick, high-speed funk groove with ghost-note runs and hi-hat accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:time-louis-cole-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sfiyTTP3WRw"
+    },
+    {
+      "title": "Weird Part of the Night",
+      "drummer_ids": ["drummer:louis-cole"],
+      "drums": {
+        "description": "A dry, close-miked electro-funk groove played on an acoustic kit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:time-louis-cole-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mUZWEKWOq1g"
+    }
+  ],
   "release": "Brainfeeder",
   "evidence": {
     "confidence": "widely_reported",

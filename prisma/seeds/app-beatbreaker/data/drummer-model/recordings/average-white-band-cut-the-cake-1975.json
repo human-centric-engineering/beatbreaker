@@ -1,0 +1,33 @@
+{
+  "id": "rec:average-white-band-cut-the-cake-1975",
+  "title": "Cut the Cake",
+  "artist": "Average White Band",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:funk", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-ferrone"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Cut the Cake",
+      "drummer_ids": ["drummer:steve-ferrone"],
+      "drums": {
+        "description": "A tight, crisp funk groove with fast hi-hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:cut-the-cake-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cNC-pz4sxbM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2932082"
+        }
+      ]
+    }
+  ]
+}

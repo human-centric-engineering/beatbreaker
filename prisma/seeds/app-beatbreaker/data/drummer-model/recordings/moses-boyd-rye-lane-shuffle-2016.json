@@ -1,0 +1,27 @@
+{
+  "id": "rec:moses-boyd-rye-lane-shuffle-2016",
+  "title": "Rye Lane Shuffle",
+  "artist": "Moses Boyd",
+  "year": 2016,
+  "type": "studio_track",
+  "style_ids": ["style:uk-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:moses-boyd"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Rye Lane Shuffle",
+      "drummer_ids": ["drummer:moses-boyd"],
+      "drums": {
+        "description": "A shuffling, Afro-swing groove on Boyd's breakthrough single.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:moses-boyd-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MN8EieT-LSw"
+    }
+  ]
+}

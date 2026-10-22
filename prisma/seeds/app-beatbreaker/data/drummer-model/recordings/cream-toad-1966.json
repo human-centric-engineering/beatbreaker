@@ -21,6 +21,22 @@
       "pattern_ids": ["pattern:baker-toad-ostinato-archetype"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Toad",
+      "drummer_ids": ["drummer:ginger-baker"],
+      "drums": {
+        "description": "One of the first extended drum solos on a rock album, built on double bass and tom patterns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ginger-baker-toad-wikipedia"]
+        }
+      },
+      "style_key": "baker",
+      "song_key": "toad",
+      "youtube": "https://www.youtube.com/watch?v=Ky-RD2_b4xs"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported"
   }

@@ -1,0 +1,26 @@
+{
+  "id": "rec:billy-taylor-trio-billy-taylor-trio-with-candido-1954",
+  "title": "Billy Taylor Trio with Candido",
+  "artist": "Billy Taylor Trio",
+  "year": 1954,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:candido-camero"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Mambo Inn",
+      "drummer_ids": ["drummer:candido-camero"],
+      "drums": {
+        "description": "Cándido plays several tuned congas at once, melodic tumbaos under a piano trio, the multi-drum technique he pioneered.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-candido-camero"]
+        }
+      }
+    }
+  ]
+}

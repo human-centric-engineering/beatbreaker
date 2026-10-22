@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Man on the Moon",
+      "drummer_ids": ["drummer:bill-berry"],
+      "drums": {
+        "description": "A relaxed mid-tempo groove that lifts with crashes into the chorus; Berry also co-wrote the song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:automatic-for-the-people-wikipedia", "src:bill-berry-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dLxpNiF0YKs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17257"
+        }
+      ]
+    }
   ]
 }

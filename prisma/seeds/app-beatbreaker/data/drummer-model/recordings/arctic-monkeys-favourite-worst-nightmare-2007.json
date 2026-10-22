@@ -49,6 +49,68 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Brianstorm",
+      "drummer_ids": ["drummer:matt-helders"],
+      "drums": {
+        "description": "Toms round the snare over four on the floor, then the hat in sixteenths, then 3+3+2.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-24230", "src:favourite-worst-nightmare-wikipedia"]
+        }
+      },
+      "style_key": "helders",
+      "song_key": "brianstorm",
+      "youtube": "https://www.youtube.com/watch?v=30w8DyEJ__0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24230"
+        }
+      ]
+    },
+    {
+      "title": "Teddy Picker",
+      "drummer_ids": ["drummer:matt-helders"],
+      "drums": {
+        "description": "Eighths on the hat opened on the \"and\" of 4, the snare on every beat in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-25711"]
+        }
+      },
+      "style_key": "helders",
+      "song_key": "teddy-picker",
+      "youtube": "https://www.youtube.com/watch?v=VredAgNScOw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=25711"
+        }
+      ]
+    },
+    {
+      "title": "Fluorescent Adolescent",
+      "drummer_ids": ["drummer:matt-helders"],
+      "drums": {
+        "description": "Stabs on snare, floor tom and kick together, then sixteenths on the hat opened on the \"e\" of 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-24229"]
+        }
+      },
+      "style_key": "helders",
+      "song_key": "fluorescent-adolescent",
+      "youtube": "https://www.youtube.com/watch?v=ma9I9VBKPiw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24229"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:favourite-worst-nightmare-wikipedia"]

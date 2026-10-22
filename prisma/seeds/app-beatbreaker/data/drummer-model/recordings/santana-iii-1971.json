@@ -64,6 +64,76 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "No One to Depend On",
+      "drummer_ids": ["drummer:jose-areas"],
+      "drums": {
+        "description": "Timbales in a driving Latin-rock groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-jose-areas", "src:santana-1971-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZyRmZe_9Z3I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1259994"
+        }
+      ]
+    },
+    {
+      "title": "Toussaint L'Overture",
+      "drummer_ids": ["drummer:jose-areas"],
+      "drums": {
+        "description": "Timbales in a fast Latin-rock jam.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-jose-areas", "src:santana-1971-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=69l5TmrCaiY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6927887"
+        }
+      ]
+    },
+    {
+      "title": "Taboo",
+      "drummer_ids": ["drummer:michael-shrieve"],
+      "drums": {
+        "description": "Slow, with a cross-stick verse and the hat open on the ands.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:santana-iii-wikipedia"]
+        }
+      },
+      "style_key": "shrieve",
+      "song_key": "taboo",
+      "youtube": "https://www.youtube.com/watch?v=ZvzcOCLmHoM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1815434"
+        }
+      ]
+    },
+    {
+      "title": "Everybody's Everything",
+      "drummer_ids": ["drummer:michael-shrieve"],
+      "drums": {
+        "description": "A tight soul-rock groove with horns, Shrieve's backbeat under the Tower of Power section.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:santana-iii-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kT7B10NZyv8"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

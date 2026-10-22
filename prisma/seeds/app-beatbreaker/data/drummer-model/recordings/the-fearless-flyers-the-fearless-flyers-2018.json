@@ -1,0 +1,45 @@
+{
+  "id": "rec:the-fearless-flyers-the-fearless-flyers-2018",
+  "title": "The Fearless Flyers",
+  "artist": "The Fearless Flyers",
+  "year": 2018,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nate-smith"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Ace of Aces",
+      "drummer_ids": ["drummer:nate-smith"],
+      "drums": {
+        "description": "Nate Smith's deep-pocket, ghost-note funk with fat, dry snare, played standing at a minimal kit.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-fearless-flyers-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=72_zXigcOrA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2378211"
+        }
+      ]
+    },
+    {
+      "title": "Assassin",
+      "drummer_ids": ["drummer:nate-smith"],
+      "drums": {
+        "description": "Tight, syncopated funk groove with crisp hi-hat accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-fearless-flyers-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=znB6GDpRaAI"
+    }
+  ]
+}

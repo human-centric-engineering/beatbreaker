@@ -1,0 +1,27 @@
+{
+  "id": "rec:horace-silver-silver-s-serenade-1963",
+  "title": "Silver's Serenade",
+  "artist": "Horace Silver",
+  "year": 1963,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roy-brooks"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Silver's Serenade",
+      "drummer_ids": ["drummer:roy-brooks"],
+      "drums": {
+        "description": "A medium, swinging groove with crisp comping.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:silver-s-serenade-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dXQC1JemiAQ"
+    }
+  ]
+}

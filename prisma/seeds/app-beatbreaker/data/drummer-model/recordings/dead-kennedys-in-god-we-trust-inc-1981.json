@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Nazi Punks Fuck Off",
+      "drummer_ids": ["drummer:dh-peligro"],
+      "drums": {
+        "description": "A blistering, ultra-fast hardcore beat with sudden stops.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dh-peligro-wikipedia", "src:in-god-we-trust-inc-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PzHLPnGuVSQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29087"
+        }
+      ]
+    }
   ]
 }

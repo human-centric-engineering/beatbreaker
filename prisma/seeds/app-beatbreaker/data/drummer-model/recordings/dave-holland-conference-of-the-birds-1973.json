@@ -18,6 +18,50 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Four Winds",
+      "drummer_ids": ["drummer:barry-altschul"],
+      "drums": {
+        "description": "Fast, open swing that shifts between time and free playing behind Braxton and Rivers.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:barry-altschul-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VxeXkPPUS_g"
+    },
+    {
+      "title": "Conference of the Birds",
+      "drummer_ids": ["drummer:barry-altschul"],
+      "drums": {
+        "description": "Delicate, colouristic percussion with marimba and cymbals in a pulse-free ballad.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:barry-altschul-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=v-a8LQxAjPE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1719630"
+        }
+      ]
+    },
+    {
+      "title": "Interception",
+      "drummer_ids": ["drummer:barry-altschul"],
+      "drums": {
+        "description": "Driving, loose up-tempo time that breaks into free sections.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:barry-altschul-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Yl-_DybInj0"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:barry-altschul-wikipedia"]

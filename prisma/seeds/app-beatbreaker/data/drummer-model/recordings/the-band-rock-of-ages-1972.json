@@ -49,6 +49,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Don't Do It",
+      "drummer_ids": ["drummer:levon-helm"],
+      "drums": {
+        "description": "Live with Allen Toussaint's horns: a busy syncopated kick, the snare on 2 and 4 and their \"a\"s, the ride under the horns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rock-of-ages-wikipedia"]
+        }
+      },
+      "style_key": "levonhelm",
+      "song_key": "dont-do-it",
+      "youtube": "https://www.youtube.com/watch?v=ZjbAppJtx7E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1861841"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:rock-of-ages-wikipedia"]

@@ -10,5 +10,61 @@
       "drummer_id": "drummer:nick-barker",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Funeral in Carpathia",
+      "drummer_ids": ["drummer:nick-barker"],
+      "drums": {
+        "description": "Long-form piece where sustained blast beats alternate with double-kick gallops and slower gothic sections, with fast tom runs marking each change.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dusk-and-her-embrace-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6MTNE0XBagw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=28624"
+        }
+      ]
+    },
+    {
+      "title": "Malice Through the Looking Glass",
+      "drummer_ids": ["drummer:nick-barker"],
+      "drums": {
+        "description": "Relentless blast beats and double-bass runs at the top of the tempo range, broken by tight unison stops with the guitars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dusk-and-her-embrace-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=B9SkXJ6sdrI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4071"
+        }
+      ]
+    },
+    {
+      "title": "Dusk and Her Embrace",
+      "drummer_ids": ["drummer:nick-barker"],
+      "drums": {
+        "description": "The title track moves between a mid-tempo double-kick drive and fast blasts, with tom fills setting up the symphonic swells.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dusk-and-her-embrace-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xLbb_6dJ2HI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=28574"
+        }
+      ]
+    }
   ]
 }

@@ -53,6 +53,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Wasted Years",
+      "drummer_ids": ["drummer:nicko-mcbrain"],
+      "drums": {
+        "description": "The kick on every beat under hi-hat eighths, the chorus crashing on 1 and 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wasted-years-wikipedia"]
+        }
+      },
+      "style_key": "mcbrain",
+      "song_key": "wasted-years",
+      "youtube": "https://www.youtube.com/watch?v=Ij99dud8-0A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10083"
+        }
+      ]
+    },
+    {
+      "title": "Alexander the Great",
+      "drummer_ids": ["drummer:nicko-mcbrain"],
+      "drums": {
+        "description": "Open hi-hats in quarters over the kick on the riff, runs down the toms, and the solos in 6/8.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:somewhere-in-time-iron-maiden-wikipedia"]
+        }
+      },
+      "style_key": "mcbrain",
+      "song_key": "alexander-the-great",
+      "youtube": "https://www.youtube.com/watch?v=ugK-O2FU_X8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=38617"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:somewhere-in-time-iron-maiden-wikipedia", "src:songsterr-38617"]

@@ -1,0 +1,35 @@
+{
+  "id": "rec:the-beatles-beatles-for-sale-1964",
+  "title": "Beatles for Sale",
+  "artist": "The Beatles",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Eight Days a Week",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Quarter notes on washy hats with a light swing, the kick and snare kept simple under the handclaps.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:eight-days-a-week-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "eight-days-a-week",
+      "youtube": "https://www.youtube.com/watch?v=kle2xHhRHg4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22763"
+        }
+      ]
+    }
+  ]
+}

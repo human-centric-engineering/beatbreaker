@@ -1,0 +1,33 @@
+{
+  "id": "rec:ride-fall-1990",
+  "title": "Fall",
+  "artist": "Ride",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:shoegaze", "style:indie-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:loz-colbert"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Taste",
+      "drummer_ids": ["drummer:loz-colbert"],
+      "drums": {
+        "description": "A propulsive, bright indie beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fall-disambiguation-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=APqGzOD0fUk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3155897"
+        }
+      ]
+    }
+  ]
+}

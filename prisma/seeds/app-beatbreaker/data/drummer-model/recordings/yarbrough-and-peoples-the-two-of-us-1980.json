@@ -1,0 +1,36 @@
+{
+  "id": "rec:yarbrough-and-peoples-the-two-of-us-1980",
+  "title": "The Two of Us",
+  "artist": "Yarbrough & Peoples",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jonathan-moffett"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Don't Stop the Music",
+      "drummer_ids": ["drummer:jonathan-moffett"],
+      "drums": {
+        "description": "A slow, heavy electro-funk groove whose drum beat has been sampled more than forty times, by TLC, Diddy, Alicia Keys and others.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:jonathan-moffett-wikipedia",
+            "src:the-two-of-us-yarbrough-and-peoples-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aK2-L2y25Bg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2202841"
+        }
+      ]
+    }
+  ]
+}

@@ -64,6 +64,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Jordu",
+      "drummer_ids": ["drummer:max-roach"],
+      "drums": {
+        "description": "The A figure played off the beat, on it, then off it again, with floor-tom set-ups for the horns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:max-roach-bishop-jordu",
+            "src:max-roach-jazzomat",
+            "src:max-roach-clifford-brown-wikipedia"
+          ]
+        }
+      },
+      "style_key": "roach",
+      "song_key": "jordu",
+      "youtube": "https://www.youtube.com/watch?v=GslhRUBgXNI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3043559"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

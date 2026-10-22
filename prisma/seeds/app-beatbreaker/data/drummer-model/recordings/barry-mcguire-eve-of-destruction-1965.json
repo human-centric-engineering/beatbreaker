@@ -41,6 +41,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Eve of Destruction",
+      "drummer_ids": ["drummer:hal-blaine"],
+      "drums": {
+        "description": "Hi-hat eighths over a busy kick, with a tambourine in eighths.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:eve-of-destruction-wikipedia"]
+        }
+      },
+      "style_key": "halblaine",
+      "song_key": "eve-of-destruction",
+      "youtube": "https://www.youtube.com/watch?v=_38SWIIKITE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=439746"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:eve-of-destruction-wikipedia"]

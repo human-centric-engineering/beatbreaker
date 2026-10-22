@@ -39,6 +39,46 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Seek & Destroy",
+      "drummer_ids": ["drummer:lars-ulrich"],
+      "drums": {
+        "description": "A mid-tempo thrash shuffle with the kick on the riff and a gallop in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:kill-em-all-wikipedia"]
+        }
+      },
+      "style_key": "ulrich",
+      "song_key": "seek-and-destroy",
+      "youtube": "https://www.youtube.com/watch?v=FLTchCiC0T0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=247"
+        }
+      ]
+    },
+    {
+      "title": "Whiplash",
+      "drummer_ids": ["drummer:lars-ulrich"],
+      "drums": {
+        "description": "Speed-metal straight eighths with a crash on every beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:kill-em-all-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=beWvPkYHaic",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29489"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:kill-em-all-wikipedia"]

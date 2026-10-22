@@ -1,0 +1,33 @@
+{
+  "id": "rec:yes-going-for-the-one-1977",
+  "title": "Going for the One",
+  "artist": "Yes",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alan-white"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Going for the One",
+      "drummer_ids": ["drummer:alan-white"],
+      "drums": {
+        "description": "A driving, fast rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:going-for-the-one-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HMwlvmqQZOw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=383070"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "rec:iron-butterfly-ball-1969",
+  "title": "Ball",
+  "artist": "Iron Butterfly",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ron-bushy"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "In the Time of Our Lives",
+      "drummer_ids": ["drummer:ron-bushy"],
+      "drums": {
+        "description": "Co-written by Bushy: a slow, heavy, march-like groove with dramatic tom fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ball-iron-butterfly-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8ZvvcJ0DEu4"
+    },
+    {
+      "title": "Soul Experience",
+      "drummer_ids": ["drummer:ron-bushy"],
+      "drums": {
+        "description": "Upbeat, soul-tinged rock backbeat that drove the album's single.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ball-iron-butterfly-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TKvoMiuLxgU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1693698"
+        }
+      ]
+    }
+  ]
+}

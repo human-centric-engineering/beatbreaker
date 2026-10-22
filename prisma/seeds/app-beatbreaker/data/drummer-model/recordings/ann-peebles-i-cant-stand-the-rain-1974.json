@@ -1,0 +1,28 @@
+{
+  "id": "rec:ann-peebles-i-cant-stand-the-rain-1974",
+  "title": "I Can't Stand the Rain",
+  "artist": "Ann Peebles",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:howard-grimes"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "I Can't Stand the Rain",
+      "year": 1973,
+      "drummer_ids": ["drummer:howard-grimes"],
+      "drums": {
+        "description": "A dry, tight Hi Records shuffle-free backbeat under the famous electric-timbale 'raindrops', the snare tuned high and played with almost no fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-cant-stand-the-rain-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SmGig_b2QLI"
+    }
+  ]
+}

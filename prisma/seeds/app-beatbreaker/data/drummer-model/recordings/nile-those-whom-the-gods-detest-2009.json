@@ -1,0 +1,33 @@
+{
+  "id": "rec:nile-those-whom-the-gods-detest-2009",
+  "title": "Those Whom the Gods Detest",
+  "artist": "Nile",
+  "year": 2009,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:george-kollias"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Kafir!",
+      "drummer_ids": ["drummer:george-kollias"],
+      "drums": {
+        "description": "Hyper-fast blasts alternating with a slow, chanting groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:those-whom-the-gods-detest-wikipedia", "src:george-kollias-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5tN0CdK8u2w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=407240"
+        }
+      ]
+    }
+  ]
+}

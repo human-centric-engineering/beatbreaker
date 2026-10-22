@@ -80,6 +80,7 @@
   },
   "beatbreaker": {
     "group": "Samba and Brazilian jazz drummers",
-    "build_priority": 1
+    "build_priority": 1,
+    "songs_short_because": "15-b sweep (2026-10-22): Machado's own samba-jazz albums lack track-level sources here; the three listed are from the Jobim album he is credited on."
   }
 }

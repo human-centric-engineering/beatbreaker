@@ -1,0 +1,38 @@
+{
+  "id": "rec:prince-and-the-new-power-generation-love-symbol-album-1992",
+  "title": "Love Symbol Album",
+  "artist": "Prince and the New Power Generation",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:minneapolis-sound"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:michael-bland"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "My Name Is Prince",
+      "drummer_ids": ["drummer:michael-bland"],
+      "drums": {
+        "description": "Hip-hop-influenced live funk beat with hard, dry snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:my-name-is-prince-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=w0g9Qkrc8nE"
+    },
+    {
+      "title": "Sexy MF",
+      "drummer_ids": ["drummer:michael-bland"],
+      "drums": {
+        "description": "Loose, jazzy funk swing with brushed-sounding ghosting under the horns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sexy-mf-wikipedia"]
+        }
+      }
+    }
+  ]
+}

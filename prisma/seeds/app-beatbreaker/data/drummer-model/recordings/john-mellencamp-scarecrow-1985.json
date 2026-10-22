@@ -15,5 +15,44 @@
       "name": "Kenny Aronoff",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Small Town",
+      "artist": "John Cougar Mellencamp",
+      "drummer_ids": ["drummer:kenny-aronoff"],
+      "drums": {
+        "description": "A steady, heartland rock beat with a strong backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:scarecrow-john-mellencamp-album-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "R.O.C.K. in the U.S.A.",
+      "artist": "John Cougar Mellencamp",
+      "drummer_ids": ["drummer:kenny-aronoff"],
+      "drums": {
+        "description": "A fast, sixties-style rock and roll beat with tom fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:r-o-c-k-in-the-u-s-a-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Rain on the Scarecrow",
+      "artist": "John Cougar Mellencamp",
+      "drummer_ids": ["drummer:kenny-aronoff"],
+      "drums": {
+        "description": "A heavy, pounding beat with the toms driving the protest song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:scarecrow-john-mellencamp-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Me-YOqjTf9M"
+    }
   ]
 }

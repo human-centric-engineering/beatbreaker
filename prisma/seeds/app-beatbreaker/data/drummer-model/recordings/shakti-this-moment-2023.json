@@ -17,6 +17,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Shrini's Dream",
+      "drummer_ids": ["drummer:zakir-hussain"],
+      "drums": {
+        "description": "Tabla in a fast, joyful Indo-fusion piece.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:zakir-hussain-wikipedia", "src:this-moment-shakti-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GUgzRR2tp2A"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:zakir-hussain-wikipedia"]

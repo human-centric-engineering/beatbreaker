@@ -17,5 +17,73 @@
         "source_ids": ["src:wikipedia-style-scott"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Night Nurse",
+      "drummer_ids": ["drummer:style-scott"],
+      "drums": {
+        "description": "A slow one-drop with kick and rimshot on three and a tight, crisp hi-hat: the Roots Radics' early-dancehall feel.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-style-scott"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PvheubKIJz8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=194474"
+        }
+      ]
+    },
+    {
+      "title": "Cool Down the Pace",
+      "drummer_ids": ["drummer:style-scott"],
+      "drums": {
+        "description": "A heavy, laid-back rockers groove with rimshots and short tom fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-style-scott"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2r5V-__Xs8w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3126253"
+        }
+      ]
+    },
+    {
+      "title": "Hot Stepper",
+      "drummer_ids": ["drummer:style-scott"],
+      "drums": {
+        "description": "A steppers-tinged Roots Radics groove with the kick on every beat and rimshot accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-style-scott"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=t49o-59kPyA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2781869"
+        }
+      ]
+    },
+    {
+      "title": "Stranger in Town",
+      "drummer_ids": ["drummer:style-scott"],
+      "drums": {
+        "description": "A slow, heavy one-drop with crisp hi-hat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-style-scott"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wTMgcrPhR2M"
+    }
   ]
 }

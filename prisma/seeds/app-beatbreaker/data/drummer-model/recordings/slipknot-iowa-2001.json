@@ -91,6 +91,68 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "People = Shit",
+      "drummer_ids": ["drummer:joey-jordison"],
+      "drums": {
+        "description": "A blast beat at double the tempo, the crash in eighths over a syncopated kick, toms over double bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-14043", "src:iowa-album-wikipedia"]
+        }
+      },
+      "style_key": "jordison",
+      "song_key": "people-equals-shit",
+      "youtube": "https://www.youtube.com/watch?v=qqK1FrO3BdM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14043"
+        }
+      ]
+    },
+    {
+      "title": "Disasterpiece",
+      "drummer_ids": ["drummer:joey-jordison"],
+      "drums": {
+        "description": "Blasts, double bass under the china, a skank beat on the ride, a snare roll, half-time choruses: his live showcase.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-18193", "src:disasterpiece-drumcam-video"]
+        }
+      },
+      "style_key": "jordison",
+      "song_key": "disasterpiece",
+      "youtube": "https://www.youtube.com/watch?v=TPSenKymLwk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18193"
+        }
+      ]
+    },
+    {
+      "title": "The Heretic Anthem",
+      "drummer_ids": ["drummer:joey-jordison"],
+      "drums": {
+        "description": "Double bass under the hats and the china, a half-time chorus on the crash, the floor tom in eighths.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-18446"]
+        }
+      },
+      "style_key": "jordison",
+      "song_key": "the-heretic-anthem",
+      "youtube": "https://www.youtube.com/watch?v=26PRhCJtgPQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18446"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:iowa-album-wikipedia"]

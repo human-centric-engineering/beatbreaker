@@ -12,6 +12,19 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "This Is Me",
+      "drummer_ids": ["drummer:jc-heard"],
+      "drums": {
+        "description": "Heard's own date as leader, with tasteful brushwork and a crisp, swinging ride.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jc-heard-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jc-heard-wikipedia"]

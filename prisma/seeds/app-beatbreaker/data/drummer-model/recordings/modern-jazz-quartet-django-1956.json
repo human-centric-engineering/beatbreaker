@@ -18,6 +18,38 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Django",
+      "drummer_ids": ["drummer:kenny-clarke"],
+      "drums": {
+        "description": "Restrained, chamber-like time on brushes and cymbal that shifts with John Lewis's changing sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:django-mjq-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wXnkD7_5vqM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3910476"
+        }
+      ]
+    },
+    {
+      "title": "La Ronde Suite",
+      "drummer_ids": ["drummer:kenny-clarke"],
+      "drums": {
+        "description": "A suite that features each member in turn, including a drum feature for Clarke.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:django-mjq-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tpUZk4Nptpw"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:kenny-clarke-wikipedia"]

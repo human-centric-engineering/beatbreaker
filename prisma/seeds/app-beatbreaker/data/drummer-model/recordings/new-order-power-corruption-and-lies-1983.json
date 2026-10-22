@@ -39,6 +39,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Age of Consent",
+      "drummer_ids": ["drummer:stephen-morris"],
+      "drums": {
+        "description": "The kick on every beat, the hat in threes on 1 and 3 and the floor tom on the 'and' of 4, live drums driving New Order's electronic pop.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:age-of-consent-song-wikipedia", "src:songsterr-48463"]
+        }
+      },
+      "style_key": "stephenmorris",
+      "song_key": "age-of-consent",
+      "youtube": "https://www.youtube.com/watch?v=hZXxmhok1AU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=48463"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:power-corruption-and-lies-wikipedia"]

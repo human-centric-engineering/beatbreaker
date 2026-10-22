@@ -56,6 +56,27 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Gimme Shelter",
+      "drummer_ids": ["drummer:charlie-watts"],
+      "drums": {
+        "description": "The ride for the intro, the kick on 1, 3 and their \"and\"s, a tom figure in every fourth bar of the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-380", "src:let-it-bleed-wikipedia"]
+        }
+      },
+      "style_key": "watts",
+      "song_key": "gimme-shelter",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=380"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:charlie-watts-wikipedia"],

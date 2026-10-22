@@ -10,5 +10,61 @@
       "drummer_id": "drummer:mick-harris",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "You Suffer",
+      "drummer_ids": ["drummer:mick-harris"],
+      "drums": {
+        "description": "A single burst of blast beat, the whole song lasting about a second.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mick-harris-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_-ywSPWu3K8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=385249"
+        }
+      ]
+    },
+    {
+      "title": "Scum",
+      "drummer_ids": ["drummer:mick-harris"],
+      "drums": {
+        "description": "Blasts and pounding mid-tempo hardcore beats.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mick-harris-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kxI-rXf2CH4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14385"
+        }
+      ]
+    },
+    {
+      "title": "Siege of Power",
+      "drummer_ids": ["drummer:mick-harris"],
+      "drums": {
+        "description": "Hardcore d-beats breaking into blast beats.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mick-harris-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=avcFOlJr110",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=408700"
+        }
+      ]
+    }
   ]
 }

@@ -54,6 +54,68 @@
       "pattern_ids": ["pattern:selway-15-step", "pattern:selway-reckoner"]
     }
   ],
+  "tracks": [
+    {
+      "title": "15 Step",
+      "drummer_ids": ["drummer:phil-selway"],
+      "drums": {
+        "description": "In 5/4, the snare stuttering round 2 and 3, his kit over a drum machine.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:15-step-wikipedia"]
+        }
+      },
+      "style_key": "selway",
+      "song_key": "15-step",
+      "youtube": "https://www.youtube.com/watch?v=xpqk9MD6vLM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=41634"
+        }
+      ]
+    },
+    {
+      "title": "Reckoner",
+      "drummer_ids": ["drummer:phil-selway"],
+      "drums": {
+        "description": "The ride and its bell, ghost notes round 2 and 4, the kick on the \"and\"s.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:in-rainbows-wikipedia"]
+        }
+      },
+      "style_key": "selway",
+      "song_key": "reckoner",
+      "youtube": "https://www.youtube.com/watch?v=_uofQD-N6UI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=464393"
+        }
+      ]
+    },
+    {
+      "title": "Bodysnatchers",
+      "drummer_ids": ["drummer:phil-selway"],
+      "drums": {
+        "description": "The kick on every \"and\" under the ride, then the floor tom, then the snare alone.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:in-rainbows-wikipedia"]
+        }
+      },
+      "style_key": "selway",
+      "song_key": "bodysnatchers",
+      "youtube": "https://www.youtube.com/watch?v=nIQxhSvSRnQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=34780"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:in-rainbows-wikipedia"]

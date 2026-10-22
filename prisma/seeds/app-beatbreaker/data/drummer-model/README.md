@@ -103,3 +103,13 @@ Any claim can carry `evidence` with a confidence (`verified`, `widely_reported`,
 - `beatbreaker.build_priority`: 1, 2 or 3, the candidate's place in its genre's queue.
 - In the app a candidate's lineage node is modelled (it has a record) and flagged `candidate`: its page and BeatBuddy read the record, while the map draws it like a stub, shown only where it has an edge to another person, with its own years and genres.
 - `meta.schema_version` is `const: "1.6.0"`.
+
+## Tracks (BeatBreaker Phase 15-b)
+
+Recordings carry no schema version, so `tracks` is added without a bump.
+
+- `recording.tracks[]`: the songs on the record picked for what the drumming does (D73), not every track. Each has its `title`, `artist` and `year` (only where they differ from the recording's), `drummer_ids` (each with a `drum_performance` on the recording), and `drums`: one line on what the drums do, with `evidence` that cites the source registry.
+- `transcriptions[]`: human transcriptions known to exist (`songsterr`, `drumeo`, `hudson`, `modern_drummer`, `book`, `other`), with a URL where there is one.
+- `spotify` and `youtube`: the song's track and video, stored as `parseReferenceLink` rebuilds them (`https://open.spotify.com/track/<id>`, `https://www.youtube.com/watch?v=<id>`). A link may not be guessed: `npm run lineage:check-links` resolves each one by oEmbed and fails any whose title does not name the song (`-- --fix` drops them). It needs the network, so it is run by hand per batch, not in CI.
+- `style_key` and `song_key` (with `also_song_keys` for a song the catalogue holds as several): the catalogue song that plays the track. That link is what "scored" means (D74). A test fails if a drummer style's song has no track naming it, or a track names a song that is not there.
+- `beatbreaker.songs_short_because` on a drummer: why their song list is under D73's range (8 built, 5 candidate). Without it a short list fails the model test.

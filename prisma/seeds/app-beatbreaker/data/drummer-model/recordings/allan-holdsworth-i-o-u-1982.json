@@ -1,0 +1,63 @@
+{
+  "id": "rec:allan-holdsworth-i-o-u-1982",
+  "title": "I.O.U.",
+  "artist": "Allan Holdsworth",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gary-husband"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Letters of Marque",
+      "drummer_ids": ["drummer:gary-husband"],
+      "drums": {
+        "description": "Fluid, cymbal-led fusion time in a trio, Husband filling around Holdsworth’s legato lines.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-o-u-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eNu3WfJmCLs"
+    },
+    {
+      "title": "Where Is One?",
+      "drummer_ids": ["drummer:gary-husband"],
+      "drums": {
+        "description": "Open, rubato-leaning drumming that breathes with the chords rather than locking to a groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-o-u-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7Fzwx9YsPRs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1296134"
+        }
+      ]
+    },
+    {
+      "title": "Out from Under",
+      "drummer_ids": ["drummer:gary-husband"],
+      "drums": {
+        "description": "Busy, crisp fusion drumming with fast tom runs between phrases.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-o-u-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Uzd8wM6HTTc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7060529"
+        }
+      ]
+    }
+  ]
+}

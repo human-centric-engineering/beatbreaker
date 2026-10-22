@@ -26,6 +26,22 @@
       "pattern_ids": ["pattern:starks-soul-power-ride-archetype"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Soul Power",
+      "drummer_ids": ["drummer:jabo-starks"],
+      "drums": {
+        "description": "Shuffling verses on the hats, B sections moving to the ride with the bell on 2 and 4.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:pas-starks", "src:rollingstone-starks"]
+        }
+      },
+      "style_key": "jabostarks",
+      "song_key": "soul-power",
+      "youtube": "https://www.youtube.com/watch?v=3MsBs9QEwWc"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:rollingstone-starks"]

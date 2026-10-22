@@ -42,6 +42,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Chinatown",
+      "drummer_ids": ["drummer:brian-downey"],
+      "drums": {
+        "description": "A snare roll in, a hard shuffle on the bass line, and hand-and-foot triplets.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:chinatown-wikipedia"]
+        }
+      },
+      "style_key": "downey",
+      "song_key": "chinatown",
+      "youtube": "https://www.youtube.com/watch?v=MUv8f2Mxrok"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:chinatown-wikipedia"]

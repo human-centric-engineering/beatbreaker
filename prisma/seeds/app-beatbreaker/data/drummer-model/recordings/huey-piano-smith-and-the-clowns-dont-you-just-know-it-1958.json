@@ -10,5 +10,19 @@
       "drummer_id": "drummer:charles-hungry-williams",
       "name": "Charles \"Hungry\" Williams"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Don't You Just Know It",
+      "drummer_ids": ["drummer:charles-hungry-williams"],
+      "drums": {
+        "description": "Williams' fast, rolling New Orleans shuffle with syncopated bass-drum and snare figures that helped shape funk.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:charles-hungry-williams-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1gdDubu1L2Q"
+    }
   ]
 }

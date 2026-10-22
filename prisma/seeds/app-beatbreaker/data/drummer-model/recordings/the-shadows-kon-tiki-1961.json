@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-shadows-kon-tiki-1961",
+  "title": "Kon-Tiki",
+  "artist": "The Shadows",
+  "year": 1961,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-meehan"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Kon-Tiki",
+      "drummer_ids": ["drummer:tony-meehan"],
+      "drums": {
+        "description": "A rolling, tom-heavy beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:kon-tiki-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UuUNLBT752M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18597"
+        }
+      ]
+    }
+  ]
+}

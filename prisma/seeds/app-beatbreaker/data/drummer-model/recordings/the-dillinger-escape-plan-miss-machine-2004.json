@@ -10,5 +10,61 @@
       "drummer_id": "drummer:chris-pennie",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Panasonic Youth",
+      "drummer_ids": ["drummer:chris-pennie"],
+      "drums": {
+        "description": "Explosive opener of blast beats and cut-up grooves that snap between metres.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:miss-machine-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZncEPhWUDsw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=33251"
+        }
+      ]
+    },
+    {
+      "title": "Setting Fire to Sleeping Giants",
+      "drummer_ids": ["drummer:chris-pennie"],
+      "drums": {
+        "description": "A slower, more song-like groove with industrial-tinged backbeat and big fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:miss-machine-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2dQ2-t_v25g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29980"
+        }
+      ]
+    },
+    {
+      "title": "Unretrofied",
+      "drummer_ids": ["drummer:chris-pennie"],
+      "drums": {
+        "description": "Melodic mid-tempo rock beat with syncopated kick under the chorus.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:miss-machine-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YKRV0zvSnvo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29979"
+        }
+      ]
+    }
   ]
 }

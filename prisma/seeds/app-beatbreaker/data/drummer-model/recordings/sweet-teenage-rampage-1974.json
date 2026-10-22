@@ -1,0 +1,33 @@
+{
+  "id": "rec:sweet-teenage-rampage-1974",
+  "title": "Teenage Rampage",
+  "artist": "Sweet",
+  "year": 1974,
+  "type": "studio_track",
+  "style_ids": ["style:glam-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-tucker"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Teenage Rampage",
+      "drummer_ids": ["drummer:mick-tucker"],
+      "drums": {
+        "description": "A chanting, stomping glam beat with handclaps and pounding toms.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:teenage-rampage-wikipedia", "src:mick-tucker-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AdPpQRzcSk8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=691970"
+        }
+      ]
+    }
+  ]
+}

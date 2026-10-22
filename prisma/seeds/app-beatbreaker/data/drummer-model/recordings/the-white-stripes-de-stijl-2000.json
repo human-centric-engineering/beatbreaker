@@ -16,5 +16,19 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Death Letter",
+      "drummer_ids": ["drummer:meg-white"],
+      "drums": {
+        "description": "Heavy, crashing blues drumming under Son House’s song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:de-stijl-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hgSG6qvxTcE"
+    }
   ]
 }

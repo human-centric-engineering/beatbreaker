@@ -48,6 +48,69 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "R U Mine?",
+      "year": 2012,
+      "drummer_ids": ["drummer:matt-helders"],
+      "drums": {
+        "description": "Open hats in eighths, the snare on the \"e\" of 3 and the kick on the \"a\"s; stabs in the verse.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-90203", "src:helders-drumeo-2025"]
+        }
+      },
+      "style_key": "helders",
+      "song_key": "r-u-mine",
+      "youtube": "https://www.youtube.com/watch?v=VQH8ZTgna3Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=90203"
+        }
+      ]
+    },
+    {
+      "title": "Do I Wanna Know?",
+      "drummer_ids": ["drummer:matt-helders"],
+      "drums": {
+        "description": "The kick on every beat and the snare on 2 and 4, nothing else; the chorus on the crashes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-383929", "src:am-album-wikipedia"]
+        }
+      },
+      "style_key": "helders",
+      "song_key": "do-i-wanna-know",
+      "youtube": "https://www.youtube.com/watch?v=bpOSxM0rNPM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=383929"
+        }
+      ]
+    },
+    {
+      "title": "Arabella",
+      "drummer_ids": ["drummer:matt-helders"],
+      "drums": {
+        "description": "Quarters on the hat, then the hat foot in eighths, then the crash in quarters over two kicks on 1.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-385002", "src:am-album-wikipedia"]
+        }
+      },
+      "style_key": "helders",
+      "song_key": "arabella",
+      "youtube": "https://www.youtube.com/watch?v=Nj8r3qmOoZ8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=385002"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:am-album-wikipedia"]

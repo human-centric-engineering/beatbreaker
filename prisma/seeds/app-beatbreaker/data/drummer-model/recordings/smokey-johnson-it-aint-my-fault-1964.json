@@ -10,5 +10,19 @@
       "drummer_id": "drummer:smokey-johnson",
       "name": "Smokey Johnson"
     }
+  ],
+  "tracks": [
+    {
+      "title": "It Ain't My Fault",
+      "drummer_ids": ["drummer:smokey-johnson"],
+      "drums": {
+        "description": "A syncopated second-line drum figure that became a New Orleans brass-band standard.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:smokey-johnson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0iuBS7aa7Rs"
+    }
   ]
 }

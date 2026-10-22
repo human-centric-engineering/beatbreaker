@@ -1,0 +1,35 @@
+{
+  "id": "rec:the-beatles-revolver-1966",
+  "title": "Revolver",
+  "artist": "The Beatles",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Taxman",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "The kick on the 'a' of 2, a cowbell part and the chorus ridden on the crash, a tight, punchy groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:taxman-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "taxman",
+      "youtube": "https://www.youtube.com/watch?v=gMdcE8jdz70",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17316"
+        }
+      ]
+    }
+  ]
+}

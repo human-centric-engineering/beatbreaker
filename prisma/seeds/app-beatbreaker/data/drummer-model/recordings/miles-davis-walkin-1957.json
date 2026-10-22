@@ -1,0 +1,39 @@
+{
+  "id": "rec:miles-davis-walkin-1957",
+  "title": "Walkin'",
+  "artist": "Miles Davis",
+  "year": 1957,
+  "type": "album",
+  "style_ids": ["style:bebop", "style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenny-clarke"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Walkin'",
+      "drummer_ids": ["drummer:kenny-clarke"],
+      "drums": {
+        "description": "A deep medium blues groove on the ride that helped define the hard-bop sound.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:walkin-miles-davis-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-CEnBVQoMsA"
+    },
+    {
+      "title": "Blue 'n' Boogie",
+      "drummer_ids": ["drummer:kenny-clarke"],
+      "drums": {
+        "description": "Up-tempo swing with crisp kicks for the horn riffs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:walkin-miles-davis-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hkC8gSOmTes"
+    }
+  ]
+}

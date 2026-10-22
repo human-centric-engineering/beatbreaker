@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "What We All Want",
+      "drummer_ids": ["drummer:hugo-burnham"],
+      "drums": {
+        "description": "A heavy, funky groove locked to the bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:solid-gold-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WHVAahhreSQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=717414"
+        }
+      ]
+    }
   ]
 }

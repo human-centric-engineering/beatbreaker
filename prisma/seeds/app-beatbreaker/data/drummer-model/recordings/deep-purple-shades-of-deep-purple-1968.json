@@ -43,6 +43,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Hush",
+      "drummer_ids": ["drummer:ian-paice"],
+      "drums": {
+        "description": "Open hats in quarters over a busy kick, the snare on every beat for the \"na na na\" bars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-6134", "src:shades-of-deep-purple-wikipedia"]
+        }
+      },
+      "style_key": "paice",
+      "song_key": "hush",
+      "youtube": "https://www.youtube.com/watch?v=u1kZ9zYr7kk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6134"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:shades-of-deep-purple-wikipedia"]

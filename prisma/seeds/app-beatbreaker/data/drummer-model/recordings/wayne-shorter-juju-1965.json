@@ -1,0 +1,35 @@
+{
+  "id": "rec:wayne-shorter-juju-1965",
+  "title": "JuJu",
+  "artist": "Wayne Shorter",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:elvin-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Juju",
+      "drummer_ids": ["drummer:elvin-jones"],
+      "drums": {
+        "description": "A 3/4 jazz waltz ride over 6/8 feet and a rim click on 2, polyrhythm as the groove itself.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:juju-shorter-album-wikipedia", "src:allsolos-elvin"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "other",
+          "note": "Todd Bishop, Cruise Ship Drummer (shipdrummer.blogspot.com)"
+        }
+      ],
+      "style_key": "elvinjones",
+      "song_key": "juju",
+      "youtube": "https://www.youtube.com/watch?v=-l8pkVPYykE"
+    }
+  ]
+}

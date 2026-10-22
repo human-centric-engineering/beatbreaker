@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "My War",
+      "drummer_ids": ["drummer:bill-stevenson"],
+      "drums": {
+        "description": "A heavy, pounding hardcore beat that slows toward the sludgy second side.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bill-stevenson-wikipedia", "src:my-war-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ga6v91ZGL1U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22535"
+        }
+      ]
+    }
   ]
 }

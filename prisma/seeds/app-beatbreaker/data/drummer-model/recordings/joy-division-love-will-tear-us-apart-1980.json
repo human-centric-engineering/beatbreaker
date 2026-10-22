@@ -45,6 +45,28 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Love Will Tear Us Apart",
+      "drummer_ids": ["drummer:stephen-morris"],
+      "drums": {
+        "description": "Sixteenths on the hat around the snare, two open on the 'and' of 3, the kick on every beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:love-will-tear-us-apart-wikipedia", "src:songsterr-10209"]
+        }
+      },
+      "style_key": "stephenmorris",
+      "song_key": "love-will-tear-us-apart",
+      "youtube": "https://www.youtube.com/watch?v=zuuObGsB0No",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10209"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:love-will-tear-us-apart-wikipedia"]

@@ -16,5 +16,54 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Cherub Rock",
+      "drummer_ids": ["drummer:jimmy-chamberlin"],
+      "drums": {
+        "description": "Opens with a crisp snare figure under the clean guitar before the band crashes in; busy, rolling snare work throughout.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:siamese-dream-wikipedia", "src:jimmy-chamberlin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=q-KE9lvU810"
+    },
+    {
+      "title": "Geek U.S.A.",
+      "drummer_ids": ["drummer:jimmy-chamberlin"],
+      "drums": {
+        "description": "Fast, flailing rolls and a near-jazz double-time section; one of the parts that made his name.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:siamese-dream-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=u_4Ok35HEJQ"
+    },
+    {
+      "title": "Today",
+      "drummer_ids": ["drummer:jimmy-chamberlin"],
+      "drums": {
+        "description": "Sits out the clean intro, then a hard, steady backbeat with snare fills pushing into the loud chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:siamese-dream-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xmUZ6nCFNoU"
+    },
+    {
+      "title": "Silverfuck",
+      "drummer_ids": ["drummer:jimmy-chamberlin"],
+      "drums": {
+        "description": "An eight-minute workout of tempo changes, a long near-silent break and a rebuilding to a crushing end.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:siamese-dream-wikipedia"]
+        }
+      }
+    }
   ]
 }

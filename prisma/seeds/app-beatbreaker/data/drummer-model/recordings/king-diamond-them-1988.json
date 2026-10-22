@@ -1,0 +1,33 @@
+{
+  "id": "rec:king-diamond-them-1988",
+  "title": "Them",
+  "artist": "King Diamond",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mikkey-dee"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Welcome Home",
+      "drummer_ids": ["drummer:mikkey-dee"],
+      "drums": {
+        "description": "A heavy, galloping metal groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mikkey-dee-wikipedia", "src:them-king-diamond-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1B1BdIdT3B0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=40578"
+        }
+      ]
+    }
+  ]
+}

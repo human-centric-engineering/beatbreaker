@@ -54,6 +54,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Rope",
+      "drummer_ids": ["drummer:taylor-hawkins"],
+      "drums": {
+        "description": "A syncopated, stop-start groove with a Hawkins drum break mid-song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wasting-light-wikipedia", "src:taylor-hawkins-wikipedia"]
+        }
+      },
+      "style_key": "taylorhawkins",
+      "song_key": "rope",
+      "youtube": "https://www.youtube.com/watch?v=kbpqZT_56Ns",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=76321"
+        }
+      ]
+    },
+    {
+      "title": "Walk",
+      "drummer_ids": ["drummer:taylor-hawkins"],
+      "drums": {
+        "description": "Builds from a sparse verse to a straight, cymbal-heavy anthem groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wasting-light-wikipedia"]
+        }
+      },
+      "style_key": "taylorhawkins",
+      "song_key": "walk",
+      "youtube": "https://www.youtube.com/watch?v=4PkcfQtibmU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=83271"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:wasting-light-wikipedia"]

@@ -56,6 +56,66 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Soul Sacrifice",
+      "drummer_ids": ["drummer:jose-areas"],
+      "drums": {
+        "description": "Timbales and congas in the Latin-rock jam famous from Woodstock.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-jose-areas"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=iFvLDAU6EhA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17533"
+        }
+      ]
+    },
+    {
+      "title": "Evil Ways",
+      "drummer_ids": ["drummer:jose-areas", "drummer:michael-shrieve"],
+      "drums": {
+        "description": "Timbales in a mid-tempo Latin-rock groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-jose-areas"]
+        }
+      },
+      "style_key": "shrieve",
+      "song_key": "evil-ways",
+      "youtube": "https://www.youtube.com/watch?v=gVPUAntzOl4"
+    },
+    {
+      "title": "Jingo",
+      "drummer_ids": ["drummer:jose-areas", "drummer:michael-shrieve"],
+      "drums": {
+        "description": "Timbales in a fast, conga-driven Afro-Cuban rock groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-jose-areas"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DgGHeT9U9g0"
+    },
+    {
+      "title": "Persuasion",
+      "drummer_ids": ["drummer:michael-shrieve"],
+      "drums": {
+        "description": "Hats, then floor tom and kick together in eighths, a rock drive under the percussion.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:santana-1969-album-wikipedia"]
+        }
+      },
+      "style_key": "shrieve",
+      "song_key": "persuasion",
+      "youtube": "https://www.youtube.com/watch?v=KLWdtJ0_uCY"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:michael-shrieve-wikipedia", "src:songsterr-3582839"]

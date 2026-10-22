@@ -14,6 +14,28 @@
       "why_it_matters": "One of Bland's biggest hits; pre-James Brown Starks with gospel-driven R&B drive."
     }
   ],
+  "tracks": [
+    {
+      "title": "Turn On Your Love Light",
+      "drummer_ids": ["drummer:jabo-starks"],
+      "drums": {
+        "description": "Gospel R&B in swung eighths, moving to the ride to lift the band (Starks is the probable drummer).",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:pas-starks"]
+        }
+      },
+      "style_key": "jabostarks",
+      "song_key": "love-light",
+      "youtube": "https://www.youtube.com/watch?v=StdN_CiCNS4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3739612"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:pas-starks", "src:udiscover-starks"]

@@ -45,6 +45,46 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Ooh La La",
+      "drummer_ids": ["drummer:kenney-jones"],
+      "drums": {
+        "description": "The cross-stick on 2 and 4, the kick on 1, and nothing else.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-34815", "src:ooh-la-la-faces-album-wikipedia"]
+        }
+      },
+      "style_key": "kenneyjones",
+      "song_key": "ooh-la-la",
+      "youtube": "https://www.youtube.com/watch?v=bRukNU3jkIM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=34815"
+        }
+      ]
+    },
+    {
+      "title": "Cindy Incidentally",
+      "drummer_ids": ["drummer:kenney-jones"],
+      "drums": {
+        "description": "A loping mid-tempo backbeat, relaxed and behind the beat, under the honky-tonk piano.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ooh-la-la-faces-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0wGA9GzHvaE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4827940"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:faces-band-wikipedia"]

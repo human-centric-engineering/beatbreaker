@@ -30,6 +30,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Polar AC",
+      "drummer_ids": ["drummer:jack-dejohnette"],
+      "drums": {
+        "description": "A fast, pushing groove with busy, conversational comping on snare and bass drum.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-dejohnette-polar-ac", "src:polar-ac-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ngZaa2ZLLyE"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:polar-ac-wikipedia", "src:bishop-dejohnette-polar-ac"]

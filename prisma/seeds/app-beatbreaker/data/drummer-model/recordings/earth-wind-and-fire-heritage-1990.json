@@ -15,5 +15,19 @@
       "name": "Sonny Emory",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Heritage",
+      "drummer_ids": ["drummer:sonny-emory"],
+      "drums": {
+        "description": "A tight, funky groove under the horns and vocals.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:heritage-earth-wind-and-fire-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hHxlGEjItnk"
+    }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-go-gos-talk-show-1984",
+  "title": "Talk Show",
+  "artist": "The Go-Go's",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:new-wave", "style:punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gina-schock"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Head over Heels",
+      "drummer_ids": ["drummer:gina-schock"],
+      "drums": {
+        "description": "A driving, up-tempo beat under the piano riff, with tight fills between the phrases.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:talk-show-the-go-gos-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jQyazt4RDTM"
+    }
+  ]
+}

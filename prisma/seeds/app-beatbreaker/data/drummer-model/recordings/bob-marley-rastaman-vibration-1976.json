@@ -47,6 +47,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Positive Vibration",
+      "drummer_ids": ["drummer:carlton-barrett"],
+      "drums": {
+        "description": "A roll in, then the one drop with the hat opened on the 'and' of 4 and a cymbal alone for the breaks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rastaman-vibration-wikipedia"]
+        }
+      },
+      "style_key": "carltonbarrett",
+      "song_key": "positive-vibration",
+      "youtube": "https://www.youtube.com/watch?v=b0DU5uhoq-4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1423905"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:rastaman-vibration-wikipedia"]

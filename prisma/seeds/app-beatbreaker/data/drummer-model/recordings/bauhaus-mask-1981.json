@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Kick in the Eye",
+      "drummer_ids": ["drummer:kevin-haskins"],
+      "drums": {
+        "description": "A funky, danceable groove with crisp hi-hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mask-bauhaus-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GmWjRqJoCe0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=69195"
+        }
+      ]
+    },
+    {
+      "title": "The Passion of Lovers",
+      "drummer_ids": ["drummer:kevin-haskins"],
+      "drums": {
+        "description": "A tight, bouncing post-punk beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mask-bauhaus-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2FReAJa_7L8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=169625"
+        }
+      ]
+    }
   ]
 }

@@ -50,6 +50,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "I Can't Explain",
+      "drummer_ids": ["drummer:keith-moon"],
+      "drums": {
+        "description": "The debut single: eighths on the hat in a two-bar pair and a snare-and-floor-tom fill every fourth bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-can-t-explain-wikipedia", "src:songsterr-21045"]
+        }
+      },
+      "style_key": "moon",
+      "song_key": "i-cant-explain",
+      "youtube": "https://www.youtube.com/watch?v=h3h--K5928M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=21045"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:i-cant-explain-wikipedia"]

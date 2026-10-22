@@ -32,6 +32,25 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Mother Popcorn",
+      "drummer_ids": ["drummer:clyde-stubblefield"],
+      "drums": {
+        "description": "Quarters on the hi-hat, the backbeat on 2 and the \"and\" of 4, the snare busy with the horns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:stubblefield-wiki-mother-popcorn",
+            "src:stubblefield-funklet-mother-popcorn"
+          ]
+        }
+      },
+      "style_key": "stubblefield",
+      "song_key": "mother-popcorn",
+      "youtube": "https://www.youtube.com/watch?v=SLJLvPYxwlk"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": [

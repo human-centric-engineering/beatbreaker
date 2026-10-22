@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-strokes-first-impressions-of-earth-2006",
+  "title": "First Impressions of Earth",
+  "artist": "The Strokes",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:indie-rock", "style:garage-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fab-moretti"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Juicebox",
+      "drummer_ids": ["drummer:fab-moretti"],
+      "drums": {
+        "description": "A heavier, driving rock groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fab-moretti-wikipedia", "src:first-impressions-of-earth-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Xd48VTFcQDI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23717"
+        }
+      ]
+    }
+  ]
+}

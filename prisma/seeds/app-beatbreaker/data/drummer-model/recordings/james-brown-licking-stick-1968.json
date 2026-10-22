@@ -1,0 +1,35 @@
+{
+  "id": "rec:james-brown-licking-stick-1968",
+  "title": "Licking Stick – Licking Stick",
+  "artist": "James Brown",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jabo-starks"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Licking Stick – Licking Stick",
+      "drummer_ids": ["drummer:jabo-starks"],
+      "drums": {
+        "description": "The backbeat a cross-stick, with rim clicks on the \"a\" of 2 and the \"e\" of 3, the hats opening after 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-4694682", "src:licking-stick-wikipedia"]
+        }
+      },
+      "style_key": "jabostarks",
+      "song_key": "licking-stick",
+      "youtube": "https://www.youtube.com/watch?v=gonP6W902xE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4694682"
+        }
+      ]
+    }
+  ]
+}

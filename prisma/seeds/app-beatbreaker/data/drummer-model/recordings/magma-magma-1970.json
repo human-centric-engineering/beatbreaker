@@ -1,0 +1,33 @@
+{
+  "id": "rec:magma-magma-1970",
+  "title": "Magma",
+  "artist": "Magma",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:christian-vander"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Kobaïa",
+      "drummer_ids": ["drummer:christian-vander"],
+      "drums": {
+        "description": "A jazz-rock part with constant cymbal and fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:kobaia-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=u8LUKYSJiY4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=881533"
+        }
+      ]
+    }
+  ]
+}

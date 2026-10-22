@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Search and Destroy",
+      "drummer_ids": ["drummer:scott-asheton"],
+      "drums": {
+        "description": "Fast, hard-hitting drumming under the guitar onslaught.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:raw-power-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LC9km8qnbOY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5063823"
+        }
+      ]
+    },
+    {
+      "title": "Raw Power",
+      "drummer_ids": ["drummer:scott-asheton"],
+      "drums": {
+        "description": "A pounding, unvaried rock beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:raw-power-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dlnNnkmHV40",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=447627"
+        }
+      ]
+    }
   ]
 }

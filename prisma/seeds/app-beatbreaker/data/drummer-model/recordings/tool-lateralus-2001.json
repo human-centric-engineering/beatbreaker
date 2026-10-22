@@ -37,6 +37,84 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Grudge",
+      "drummer_ids": ["drummer:danny-carey"],
+      "drums": {
+        "description": "Switches between 5/4 and 4/4 with long tom runs, a near-minute-long build at the end.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lateralus-wikipedia", "src:carey-musicradar-2020"]
+        }
+      },
+      "style_key": "carey",
+      "song_key": "the-grudge",
+      "youtube": "https://www.youtube.com/watch?v=3BXyEUOuNds",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=20085"
+        }
+      ]
+    },
+    {
+      "title": "Ticks and Leeches",
+      "drummer_ids": ["drummer:danny-carey"],
+      "drums": {
+        "description": "Opens on a ferocious tom-tom pattern that became one of Carey's signature performances.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lateralus-wikipedia", "src:carey-drumeo-genius"]
+        }
+      },
+      "style_key": "carey",
+      "song_key": "ticks-and-leeches",
+      "youtube": "https://www.youtube.com/watch?v=q0BOpkA2Vs4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=56862"
+        }
+      ]
+    },
+    {
+      "title": "Schism",
+      "drummer_ids": ["drummer:danny-carey"],
+      "drums": {
+        "description": "Constant meter changes (5/8, 7/8, 6/8 and more) carried by a flowing, tom-heavy groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:schism-song-wikipedia", "src:carey-musicradar-2020"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MM62wjLrgmA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6700"
+        }
+      ]
+    },
+    {
+      "title": "Lateralus",
+      "drummer_ids": ["drummer:danny-carey"],
+      "drums": {
+        "description": "A groove built on Fibonacci meters (9/8, 8/8, 7/8) with a long, building drum part.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lateralus-wikipedia", "src:carey-drumeo-genius"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Y7JG63IuaWs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=20198"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:tool-wikipedia", "src:carey-musicradar-2020", "src:carey-drumeo-genius"]

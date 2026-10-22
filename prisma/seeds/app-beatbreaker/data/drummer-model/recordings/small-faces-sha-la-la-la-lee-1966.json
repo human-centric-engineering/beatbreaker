@@ -1,0 +1,33 @@
+{
+  "id": "rec:small-faces-sha-la-la-la-lee-1966",
+  "title": "Sha-La-La-La-Lee",
+  "artist": "Small Faces",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:rock", "style:rnb-soul", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenney-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Sha-La-La-La-Lee",
+      "drummer_ids": ["drummer:kenney-jones"],
+      "drums": {
+        "description": "A bright mod-pop beat, four on the floor and snare fills into the chorus.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sha-la-la-la-lee-wikipedia", "src:small-faces-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fNL4l0rSpf8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=247842"
+        }
+      ]
+    }
+  ]
+}

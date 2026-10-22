@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-allman-brothers-band-eat-a-peach-1972",
+  "title": "Eat a Peach",
+  "artist": "The Allman Brothers Band",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:southern-rock", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jaimoe"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Mountain Jam",
+      "drummer_ids": ["drummer:jaimoe"],
+      "drums": {
+        "description": "A half-hour jam on Donovan's melody with an extended drum section where the two drummers improvise together.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mountain-jam-wikipedia", "src:jaimoe-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5-3L1MFBKZY"
+    }
+  ]
+}

@@ -53,6 +53,70 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Jamming",
+      "drummer_ids": ["drummer:carlton-barrett"],
+      "drums": {
+        "description": "Steppers: the kick on every beat, the hat on the beats and the rim on 3 and the 'and' of 4, with a triplet break.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:exodus-1977-wikipedia",
+            "src:songsterr-371539",
+            "src:carlton-barrett-making-music-1987"
+          ]
+        }
+      },
+      "style_key": "carltonbarrett",
+      "song_key": "jamming",
+      "youtube": "https://www.youtube.com/watch?v=oqVy6eRXc7Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3604035"
+        }
+      ]
+    },
+    {
+      "title": "Waiting in Vain",
+      "drummer_ids": ["drummer:carlton-barrett"],
+      "drums": {
+        "description": "The one drop with a triplet on the hat before each drop, opened into the 1, and stabs for the bridge.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:waiting-in-vain-wikipedia", "src:one-drop-rhythm-wikipedia"]
+        }
+      },
+      "style_key": "carltonbarrett",
+      "song_key": "waiting-in-vain",
+      "youtube": "https://www.youtube.com/watch?v=IWxbhC44p2w"
+    },
+    {
+      "title": "Three Little Birds",
+      "drummer_ids": ["drummer:carlton-barrett"],
+      "drums": {
+        "description": "A two-bar figure: the rim on the 'and' of 1 and the hat half-opened on 4, then on 2 with accents on 3 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:three-little-birds-wikipedia",
+            "src:songsterr-19635",
+            "src:thatdrumblog-three-little-birds-2025"
+          ]
+        }
+      },
+      "style_key": "carltonbarrett",
+      "song_key": "three-little-birds",
+      "youtube": "https://www.youtube.com/watch?v=HNBCVM4KbUM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2648372"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:exodus-1977-wikipedia"]

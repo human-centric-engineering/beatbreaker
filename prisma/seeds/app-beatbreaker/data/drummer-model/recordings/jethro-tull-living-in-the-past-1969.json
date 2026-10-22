@@ -1,0 +1,33 @@
+{
+  "id": "rec:jethro-tull-living-in-the-past-1969",
+  "title": "Living in the Past",
+  "artist": "Jethro Tull",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:blues-rock", "style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clive-bunker"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Living in the Past",
+      "drummer_ids": ["drummer:clive-bunker"],
+      "drums": {
+        "description": "A light, swinging groove in 5/4, the odd meter played so smoothly that it became a top-three UK single.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:living-in-the-past-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8mSIX8G_0Mk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=39218"
+        }
+      ]
+    }
+  ]
+}

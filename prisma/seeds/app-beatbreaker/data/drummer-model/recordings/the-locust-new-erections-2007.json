@@ -7,11 +7,26 @@
   "type": "album",
   "style_ids": ["style:experimental-rock", "style:grindcore", "style:math-rock"],
   "personnel": [
-    { "name": "Justin Pearson", "role": "bass, vocals" },
-    { "name": "Bobby Bray", "role": "guitar, vocals" },
-    { "name": "Joey Karam", "role": "keyboards, vocals" },
-    { "name": "Gabe Serbian", "role": "drums, guitar" },
-    { "name": "Wesley Eisold", "role": "backing vocals (track 4)" }
+    {
+      "name": "Justin Pearson",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Bobby Bray",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Joey Karam",
+      "role": "keyboards, vocals"
+    },
+    {
+      "name": "Gabe Serbian",
+      "role": "drums, guitar"
+    },
+    {
+      "name": "Wesley Eisold",
+      "role": "backing vocals (track 4)"
+    }
   ],
   "producer": "Alex Newport (production, engineering, mixing)",
   "drum_performances": [
@@ -32,5 +47,44 @@
       }
     }
   ],
-  "evidence": { "confidence": "verified", "source_ids": ["src:locust-new-erections-wikipedia"] }
+  "tracks": [
+    {
+      "title": "AOTKPTA",
+      "drummer_ids": ["drummer:gabe-serbian"],
+      "drums": {
+        "description": "A longer New Erections track with grinding sections at 160 to 180 and heavy half-time drops.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:locust-new-erections-wikipedia", "src:serbian-moderndrummer-2008"]
+        }
+      },
+      "style_key": "locust",
+      "song_key": "aotkpta",
+      "youtube": "https://www.youtube.com/watch?v=37GOdU-gUAw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2454468"
+        }
+      ]
+    },
+    {
+      "title": "God Wants Us All to Work in Factories",
+      "drummer_ids": ["drummer:gabe-serbian"],
+      "drums": {
+        "description": "A slow, heavy pound around 110 that lurches into faster thrash at 140.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:locust-new-erections-wikipedia"]
+        }
+      },
+      "style_key": "locust",
+      "song_key": "god-wants-us-all-to-work-in-factories",
+      "youtube": "https://www.youtube.com/watch?v=PjCtKzLaX-c"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:locust-new-erections-wikipedia"]
+  }
 }

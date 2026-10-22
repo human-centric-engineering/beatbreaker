@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "25 or 6 to 4",
+      "drummer_ids": ["drummer:danny-seraphine"],
+      "drums": {
+        "description": "A driving, horn-rock beat with powerful fills.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:danny-seraphine-wikipedia", "src:chicago-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8A3HZvGN0qs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4958"
+        }
+      ]
+    },
+    {
+      "title": "Make Me Smile",
+      "drummer_ids": ["drummer:danny-seraphine"],
+      "drums": {
+        "description": "A swinging, jazz-rock groove with horn punctuations.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:danny-seraphine-wikipedia", "src:chicago-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nMk-Qdajf3M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=28199"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:danny-seraphine-wikipedia"]

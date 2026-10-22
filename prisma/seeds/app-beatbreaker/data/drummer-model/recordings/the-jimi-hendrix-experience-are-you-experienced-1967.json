@@ -1,0 +1,148 @@
+{
+  "id": "rec:the-jimi-hendrix-experience-are-you-experienced-1967",
+  "title": "Are You Experienced",
+  "artist": "The Jimi Hendrix Experience",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mitch-mitchell"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Foxy Lady",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A slow, swaggering beat with open hats and fills that run straight through the bar line, jazz phrasing on a rock groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:foxy-lady-wikipedia", "src:wikipedia-mitchell"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "foxey-lady"
+    },
+    {
+      "title": "Red House",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A slow 12/8 blues: brushes-light triplet comping that lets Hendrix's guitar lead.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:red-house-wikipedia", "src:are-you-experienced-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "red-house",
+      "youtube": "https://www.youtube.com/watch?v=_whI9m0SFys",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1399"
+        }
+      ]
+    },
+    {
+      "title": "Third Stone from the Sun",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Fast jazz ride-cymbal swing under the guitar melody, then free-time washes for the spacey middle.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:are-you-experienced-wikipedia", "src:wikipedia-mitchell"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "third-stone",
+      "youtube": "https://www.youtube.com/watch?v=Zts332Y-nyg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2591969"
+        }
+      ]
+    },
+    {
+      "title": "I Don't Live Today",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A tom-tom tribal pattern that never settles on a backbeat, rumbling under the feedback.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:are-you-experienced-wikipedia", "src:wikipedia-mitchell"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "i-dont-live-today",
+      "youtube": "https://www.youtube.com/watch?v=KcbE9bHvj2g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1287925"
+        }
+      ]
+    },
+    {
+      "title": "Love or Confusion",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Heavy toms and a pounding half-time feel under the droning guitar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:are-you-experienced-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "love-or-confusion",
+      "youtube": "https://www.youtube.com/watch?v=1b9BgHDTgWA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5951860"
+        }
+      ]
+    },
+    {
+      "title": "Can You See Me",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Up-tempo straight-eight rock with crash-heavy fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:are-you-experienced-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "can-you-see-me",
+      "youtube": "https://www.youtube.com/watch?v=1K9Rf2BkZDY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9248"
+        }
+      ]
+    },
+    {
+      "title": "Are You Experienced?",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A march-like snare and kick figure that sits under backwards guitar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:are-you-experienced-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "are-you-experienced",
+      "youtube": "https://www.youtube.com/watch?v=F2zavD9w98E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22539"
+        }
+      ]
+    }
+  ]
+}

@@ -15,5 +15,19 @@
       "name": "Ed Greene",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Love's Theme",
+      "drummer_ids": ["drummer:ed-greene"],
+      "drums": {
+        "description": "A lush, gently pushing proto-disco beat with sixteenth hats, an early disco hit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:loves-theme-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-Onp0-5_rdI"
+    }
   ]
 }

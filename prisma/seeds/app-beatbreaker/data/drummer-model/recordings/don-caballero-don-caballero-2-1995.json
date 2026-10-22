@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Please Tokio, Please THIS IS TOKIO",
+      "drummer_ids": ["drummer:damon-che"],
+      "drums": {
+        "description": "Lurching, shifting meters with the drums carrying as much melody and argument as the guitars.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:don-caballero-2-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WVFoD5VlzuI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5170789"
+        }
+      ]
+    }
   ]
 }

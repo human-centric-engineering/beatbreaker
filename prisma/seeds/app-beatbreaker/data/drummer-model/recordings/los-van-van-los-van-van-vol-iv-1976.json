@@ -1,0 +1,85 @@
+{
+  "id": "rec:los-van-van-los-van-van-vol-iv-1976",
+  "title": "Los Van Van Vol. IV",
+  "artist": "Los Van Van",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:songo", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:changuito"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Te traigo",
+      "drummer_ids": ["drummer:changuito"],
+      "drums": {
+        "description": "A minor-key songo whose kick takes two claves to repeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:changuito-timba-moore"]
+        }
+      },
+      "style_key": "changuito",
+      "song_key": "te-traigo",
+      "youtube": "https://www.youtube.com/watch?v=MgECMo5IrLc"
+    },
+    {
+      "title": "Dale dos",
+      "drummer_ids": ["drummer:changuito"],
+      "drums": {
+        "description": "The closing songo, the kick on the 2-side bombo and nowhere else.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:changuito-timba-moore"]
+        }
+      },
+      "style_key": "changuito",
+      "song_key": "dale-dos",
+      "youtube": "https://www.youtube.com/watch?v=4uh3dxK0Ock"
+    },
+    {
+      "title": "Tu decisión, ¿cuál es?",
+      "drummer_ids": ["drummer:changuito"],
+      "drums": {
+        "description": "A rare 3-2 songo, very fast, the drums in half time until they join the rumba.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:changuito-timba-moore"]
+        }
+      },
+      "style_key": "changuito",
+      "song_key": "tu-decision",
+      "youtube": "https://www.youtube.com/watch?v=d42OnBhahJ8"
+    },
+    {
+      "title": "Por qué lo haces",
+      "drummer_ids": ["drummer:changuito"],
+      "drums": {
+        "description": "A rollicking songo with the kick on 1 and both bombos, different every time round.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:changuito-timba-moore"]
+        }
+      },
+      "style_key": "changuito",
+      "song_key": "por-que-lo-haces",
+      "youtube": "https://www.youtube.com/watch?v=AM2fHIRGAFk"
+    },
+    {
+      "title": "No digas que no, compadre",
+      "drummer_ids": ["drummer:changuito"],
+      "drums": {
+        "description": "Kick and snare as a half-time R&B figure, the snare on the downbeat of the 3-side.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:changuito-timba-moore"]
+        }
+      },
+      "style_key": "changuito",
+      "song_key": "no-digas-que-no",
+      "youtube": "https://www.youtube.com/watch?v=QzQ8QpufEj8"
+    }
+  ]
+}

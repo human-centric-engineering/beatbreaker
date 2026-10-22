@@ -1,0 +1,33 @@
+{
+  "id": "rec:patsy-cline-i-fall-to-pieces-1961",
+  "title": "I Fall to Pieces",
+  "artist": "Patsy Cline",
+  "year": 1961,
+  "type": "studio_track",
+  "style_ids": ["style:country", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-harman"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "I Fall to Pieces",
+      "drummer_ids": ["drummer:buddy-harman"],
+      "drums": {
+        "description": "A gentle brushed shuffle, the restrained Nashville Sound backbeat under Cline's ballad.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:i-fall-to-pieces-wikipedia", "src:buddy-harman-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gEcZ8BlsJhI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=234095"
+        }
+      ]
+    }
+  ]
+}

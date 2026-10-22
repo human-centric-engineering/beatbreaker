@@ -38,6 +38,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Secular Haze",
+      "drummer_ids": ["drummer:nameless-ghoul"],
+      "drums": {
+        "description": "A 6/8 waltz: crashes in eighths over an oom-pah-pah, the ride and ghost notes for the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-386459", "src:ghost-infestissumam-wikipedia"]
+        }
+      },
+      "style_key": "ghoul",
+      "song_key": "secular-haze",
+      "youtube": "https://www.youtube.com/watch?v=vyQZ13jobIY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=386459"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:ghost-infestissumam-wikipedia"]

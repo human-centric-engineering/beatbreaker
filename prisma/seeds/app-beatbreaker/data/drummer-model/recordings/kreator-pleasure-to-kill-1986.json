@@ -10,5 +10,43 @@
       "drummer_id": "drummer:ventor",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Pleasure to Kill",
+      "drummer_ids": ["drummer:ventor"],
+      "drums": {
+        "description": "Raw, chaotic Teutonic thrash at extreme speed, early blast-like beats that influenced death metal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:pleasure-to-kill-wikipedia", "src:jurgen-reil-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Y90LJipRCFk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=11253"
+        }
+      ]
+    },
+    {
+      "title": "Riot of Violence",
+      "drummer_ids": ["drummer:ventor"],
+      "drums": {
+        "description": "Fast, punk-derived thrash beats sung by Ventor himself from behind the kit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:pleasure-to-kill-wikipedia", "src:jurgen-reil-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0ZZVlFdk5UU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=408647"
+        }
+      ]
+    }
   ]
 }

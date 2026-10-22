@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Calcutta Cutie",
+      "drummer_ids": ["drummer:roy-brooks"],
+      "drums": {
+        "description": "A light, Latin-tinged groove from the 1963 quintet session.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:song-for-my-father-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7p78zIW0jF8"
+    },
+    {
+      "title": "Lonely Woman",
+      "drummer_ids": ["drummer:roy-brooks"],
+      "drums": {
+        "description": "Soft brushes on Silver’s ballad.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:song-for-my-father-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fJyq_F0g3KE"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:roy-brooks-wikipedia"]

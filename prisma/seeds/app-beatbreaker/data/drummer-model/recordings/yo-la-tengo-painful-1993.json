@@ -16,5 +16,37 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Big Day Coming",
+      "drummer_ids": ["drummer:georgia-hubley"],
+      "drums": {
+        "description": "A hushed, steady pulse under drones.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:georgia-hubley-wikipedia", "src:painful-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dmvXdKXi-tk"
+    },
+    {
+      "title": "From a Motel 6",
+      "drummer_ids": ["drummer:georgia-hubley"],
+      "drums": {
+        "description": "A driving, motorik indie-rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:georgia-hubley-wikipedia", "src:painful-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4GE5nj010Ok",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2869664"
+        }
+      ]
+    }
   ]
 }

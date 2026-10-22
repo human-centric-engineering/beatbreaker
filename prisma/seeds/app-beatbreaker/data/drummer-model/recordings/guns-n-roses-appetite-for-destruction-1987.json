@@ -12,6 +12,116 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Welcome to the Jungle",
+      "drummer_ids": ["drummer:steven-adler"],
+      "drums": {
+        "description": "A loose, swinging hard-rock groove with a funky, shuffle-tinged feel on the hi-hat that defined Appetite's swagger.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:steven-adler-wikipedia", "src:appetite-for-destruction-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=o1tj2zJ2Wvg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=441"
+        }
+      ]
+    },
+    {
+      "title": "Sweet Child o' Mine",
+      "drummer_ids": ["drummer:steven-adler"],
+      "drums": {
+        "description": "A simple, steady backbeat with open hats and a rolling tom fill into the 'Where do we go' breakdown.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:steven-adler-wikipedia", "src:appetite-for-destruction-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1w7OgIMMRc4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23"
+        }
+      ]
+    },
+    {
+      "title": "Paradise City",
+      "drummer_ids": ["drummer:steven-adler"],
+      "drums": {
+        "description": "A mid-tempo groove that doubles into a fast punk-rock coda.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:steven-adler-wikipedia", "src:appetite-for-destruction-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Rbm6GXllBiw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10142"
+        }
+      ]
+    },
+    {
+      "title": "Nightrain",
+      "drummer_ids": ["drummer:steven-adler"],
+      "drums": {
+        "description": "A shuffling, behind-the-beat rock groove with a fat snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:steven-adler-wikipedia", "src:appetite-for-destruction-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VMDljoM5JFI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19645"
+        }
+      ]
+    },
+    {
+      "title": "Rocket Queen",
+      "drummer_ids": ["drummer:steven-adler"],
+      "drums": {
+        "description": "A funky, syncopated groove with tom-heavy breakdowns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:steven-adler-wikipedia", "src:appetite-for-destruction-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YxW9iekNSek",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=527"
+        }
+      ]
+    },
+    {
+      "title": "Mr. Brownstone",
+      "drummer_ids": ["drummer:steven-adler"],
+      "drums": {
+        "description": "A Bo Diddley-style tom-heavy beat under the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:steven-adler-wikipedia", "src:appetite-for-destruction-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=27rKrR424cA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=336"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:steven-adler-wikipedia"]

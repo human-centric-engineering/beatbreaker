@@ -1,0 +1,51 @@
+{
+  "id": "rec:muse-black-holes-and-revelations-2006",
+  "title": "Black Holes and Revelations",
+  "artist": "Muse",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:alternative-rock", "style:progressive-rock", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dominic-howard"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Supermassive Black Hole",
+      "drummer_ids": ["drummer:dominic-howard"],
+      "drums": {
+        "description": "A dry, tight mid-tempo groove leaning on funk and dance-rock rather than speed.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:black-holes-and-revelations-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Xsp3_a-PMTw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23053"
+        }
+      ]
+    },
+    {
+      "title": "Knights of Cydonia",
+      "drummer_ids": ["drummer:dominic-howard"],
+      "drums": {
+        "description": "A galloping, Western-film beat on the snare and toms that builds into a fast rock finale.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:black-holes-and-revelations-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=G_sBOsh-vyI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14019"
+        }
+      ]
+    }
+  ]
+}

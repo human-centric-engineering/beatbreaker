@@ -45,6 +45,72 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Night Does Not Belong to God",
+      "drummer_ids": ["drummer:ii-sleep-token"],
+      "drums": {
+        "description": "The hi-hat foot on the beat and the snare on 3, crashes in dotted quarters across the bar, then chinas.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sundowning-wikipedia"]
+        }
+      },
+      "style_key": "sleeptoken",
+      "song_key": "the-night-does-not-belong-to-god",
+      "youtube": "https://www.youtube.com/watch?v=FrbwVzgvl3E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=583825"
+        }
+      ]
+    },
+    {
+      "title": "The Offering",
+      "drummer_ids": ["drummer:ii-sleep-token"],
+      "drums": {
+        "description": "Half time on the china with ghosts into the bar, a tom build-up, and R-L-R-kick runs between china and toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sundowning-wikipedia", "src:ii-sleep-token-drumeo-offering"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=467739"
+        },
+        {
+          "site": "drumeo",
+          "url": "https://www.youtube.com/watch?v=NhT-t5IXtU8"
+        }
+      ],
+      "style_key": "sleeptoken",
+      "song_key": "the-offering",
+      "youtube": "https://www.youtube.com/watch?v=-cUXKKf6my0"
+    },
+    {
+      "title": "Higher",
+      "drummer_ids": ["drummer:ii-sleep-token"],
+      "drums": {
+        "description": "Ghosted snare figures under the ride in quarters, the snare once in two bars, crashes in half notes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sundowning-wikipedia"]
+        }
+      },
+      "style_key": "sleeptoken",
+      "song_key": "higher",
+      "youtube": "https://www.youtube.com/watch?v=IhoSDCVb4n0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=483338"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:sundowning-wikipedia"]

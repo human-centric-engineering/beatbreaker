@@ -1,0 +1,49 @@
+{
+  "id": "rec:mushroomhead-the-righteous-the-butterfly-2014",
+  "title": "The Righteous & the Butterfly",
+  "artist": "Mushroomhead",
+  "year": 2014,
+  "type": "album",
+  "style_ids": ["style:alternative-metal", "style:industrial-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-felton"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Qwerty",
+      "drummer_ids": ["drummer:steve-felton"],
+      "drums": {
+        "description": "Half time with the feet in sixteenths, chinas and splashes on the beat, stops and hits.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-righteous-and-the-butterfly-wikipedia"]
+        }
+      },
+      "style_key": "skinny",
+      "song_key": "qwerty",
+      "youtube": "https://www.youtube.com/watch?v=1JZGFjufJEY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=480174"
+        }
+      ]
+    },
+    {
+      "title": "We Are the Truth",
+      "drummer_ids": ["drummer:steve-felton"],
+      "drums": {
+        "description": "A tom groove in triplets under crashes on 1 and 3, the kick alone, then the snare in triplets.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-righteous-and-the-butterfly-wikipedia"]
+        }
+      },
+      "style_key": "skinny",
+      "song_key": "we-are-the-truth",
+      "youtube": "https://www.youtube.com/watch?v=NxviGrBMKKY"
+    }
+  ]
+}

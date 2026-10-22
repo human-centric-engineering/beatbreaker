@@ -10,5 +10,61 @@
       "drummer_id": "drummer:vinnie-paul",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Cowboys from Hell",
+      "drummer_ids": ["drummer:vinnie-paul"],
+      "drums": {
+        "description": "A swinging, heavy groove-metal pattern with double-bass accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:cowboys-from-hell-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=i97OkCXwotE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=230"
+        }
+      ]
+    },
+    {
+      "title": "Cemetery Gates",
+      "drummer_ids": ["drummer:vinnie-paul"],
+      "drums": {
+        "description": "A ballad that builds into a heavy, driving metal groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:cowboys-from-hell-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RVMvART9kb8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14038"
+        }
+      ]
+    },
+    {
+      "title": "Domination",
+      "drummer_ids": ["drummer:vinnie-paul"],
+      "drums": {
+        "description": "Fast thrash double-bass into a crushing half-time breakdown.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:cowboys-from-hell-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aDACorIaxNw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=26781"
+        }
+      ]
+    }
   ]
 }

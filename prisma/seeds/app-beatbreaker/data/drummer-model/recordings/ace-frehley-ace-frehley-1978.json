@@ -1,0 +1,33 @@
+{
+  "id": "rec:ace-frehley-ace-frehley-1978",
+  "title": "Ace Frehley",
+  "artist": "Ace Frehley",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:anton-fig"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "New York Groove",
+      "drummer_ids": ["drummer:anton-fig"],
+      "drums": {
+        "description": "A stomping, glam-rock beat with handclaps on 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ace-frehley-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DXeeY9D9u94",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=413406"
+        }
+      ]
+    }
+  ]
+}

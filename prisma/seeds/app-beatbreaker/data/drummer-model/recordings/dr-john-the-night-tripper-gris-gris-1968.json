@@ -1,0 +1,37 @@
+{
+  "id": "rec:dr-john-the-night-tripper-gris-gris-1968",
+  "title": "Gris-Gris",
+  "artist": "Dr. John, the Night Tripper",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:new-orleans-funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-boudreaux"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "I Walk on Gilded Splinters",
+      "drummer_ids": ["drummer:john-boudreaux"],
+      "drums": {
+        "description": "Hypnotic, voodoo-ritual tom groove that barely changes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:gris-gris-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Mama Roux",
+      "drummer_ids": ["drummer:john-boudreaux"],
+      "drums": {
+        "description": "Second-line shuffle with Mardi Gras Indian feel.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:gris-gris-wikipedia"]
+        }
+      }
+    }
+  ]
+}

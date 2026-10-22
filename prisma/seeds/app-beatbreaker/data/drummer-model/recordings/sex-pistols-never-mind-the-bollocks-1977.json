@@ -59,6 +59,163 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "God Save the Queen",
+      "drummer_ids": ["drummer:paul-cook"],
+      "drums": {
+        "description": "Stabs, the half-open hat on the beat, then the ride and a tom roll.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:god-save-the-queen-sex-pistols-wikipedia",
+            "src:songsterr-345",
+            "src:never-mind-the-bollocks-wikipedia"
+          ]
+        }
+      },
+      "style_key": "paulcook",
+      "song_key": "god-save-the-queen",
+      "youtube": "https://www.youtube.com/watch?v=yqrAPOZxgzU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=345"
+        }
+      ]
+    },
+    {
+      "title": "Pretty Vacant",
+      "drummer_ids": ["drummer:paul-cook"],
+      "drums": {
+        "description": "Eighths on the floor tom, the open hat in the verse and the ride in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:pretty-vacant-wikipedia",
+            "src:sex-pistols-pretty-vacant-video-1977",
+            "src:songsterr-8706"
+          ]
+        }
+      },
+      "style_key": "paulcook",
+      "song_key": "pretty-vacant",
+      "youtube": "https://www.youtube.com/watch?v=R6GDdKrQ8EI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8706"
+        }
+      ]
+    },
+    {
+      "title": "Holidays in the Sun",
+      "drummer_ids": ["drummer:paul-cook"],
+      "drums": {
+        "description": "The marching-boots intro, then the ride with the kick off the 1, eighths in the verse and crashes on every beat at the end.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:holiday-in-the-sun-wikipedia",
+            "src:songsterr-612",
+            "src:never-mind-the-bollocks-wikipedia"
+          ]
+        }
+      },
+      "style_key": "paulcook",
+      "song_key": "holidays-in-the-sun",
+      "youtube": "https://www.youtube.com/watch?v=2Ah1JM9mf60",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=612"
+        }
+      ]
+    },
+    {
+      "title": "Bodies",
+      "drummer_ids": ["drummer:paul-cook"],
+      "drums": {
+        "description": "The open hat on the beat and crashes on 2 and 4 in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:never-mind-the-bollocks-here-s-the-sex-pistols-wikipedia",
+            "src:never-mind-the-bollocks-wikipedia"
+          ]
+        }
+      },
+      "style_key": "paulcook",
+      "song_key": "bodies",
+      "youtube": "https://www.youtube.com/watch?v=3EqT5E609oU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8703"
+        }
+      ]
+    },
+    {
+      "title": "No Feelings",
+      "drummer_ids": ["drummer:paul-cook"],
+      "drums": {
+        "description": "The hat in quarters, the ride in the chorus and the open hat through the solo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:never-mind-the-bollocks-here-s-the-sex-pistols-wikipedia",
+            "src:never-mind-the-bollocks-wikipedia"
+          ]
+        }
+      },
+      "style_key": "paulcook",
+      "song_key": "no-feelings",
+      "youtube": "https://www.youtube.com/watch?v=G6R6rbPDlvY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8705"
+        }
+      ]
+    },
+    {
+      "title": "E.M.I.",
+      "drummer_ids": ["drummer:paul-cook"],
+      "drums": {
+        "description": "The kick in eighths under the hat foot, the ride and the kick off the 1 in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:e-m-i-song-wikipedia"]
+        }
+      },
+      "style_key": "paulcook",
+      "song_key": "emi"
+    },
+    {
+      "title": "Problems",
+      "drummer_ids": ["drummer:paul-cook"],
+      "drums": {
+        "description": "Eighths on the hat, the kick on every beat and the 'and' of 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:never-mind-the-bollocks-here-s-the-sex-pistols-wikipedia",
+            "src:songsterr-53202",
+            "src:never-mind-the-bollocks-wikipedia"
+          ]
+        }
+      },
+      "style_key": "paulcook",
+      "song_key": "problems",
+      "youtube": "https://www.youtube.com/watch?v=qo2q5idipT4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=53202"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:never-mind-the-bollocks-wikipedia"]

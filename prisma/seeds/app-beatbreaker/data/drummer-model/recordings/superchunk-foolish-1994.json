@@ -16,5 +16,19 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Driveway to Driveway",
+      "drummer_ids": ["drummer:jon-wurster"],
+      "drums": {
+        "description": "A steady, mid-tempo indie-rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jon-wurster-wikipedia", "src:foolish-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=riYjYRrGHcE"
+    }
   ]
 }

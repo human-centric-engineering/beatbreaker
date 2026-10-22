@@ -10,5 +10,25 @@
       "drummer_id": "drummer:george-kollias",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Ithyphallic",
+      "drummer_ids": ["drummer:george-kollias"],
+      "drums": {
+        "description": "Precise blasts, double kick and slow, crushing tom passages.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:george-kollias-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tz4Bu9GSoDQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=48713"
+        }
+      ]
+    }
   ]
 }

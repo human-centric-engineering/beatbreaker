@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "He Ain't Heavy, He's My Brother",
+      "drummer_ids": ["drummer:bobby-elliott"],
+      "drums": {
+        "description": "Slow orchestral ballad where Elliott plays with restraint and lets the arrangement build.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bobby-elliott-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eUWZqbumaZo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=528869"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:bobby-elliott-wikipedia"]

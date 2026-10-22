@@ -10,5 +10,70 @@
       "drummer_id": "drummer:chris-layton",
       "name": "Chris Layton"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Pride and Joy",
+      "drummer_ids": ["drummer:chris-layton"],
+      "drums": {
+        "description": "Driving Texas shuffle with a heavy triplet feel on the ride and a strong backbeat, a standard blues-rock shuffle lesson.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:pride-and-joy-stevie-ray-vaughan-song-wikipedia",
+            "src:texas-flood-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=I3MTGhRC82s",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=240"
+        }
+      ]
+    },
+    {
+      "title": "Love Struck Baby",
+      "drummer_ids": ["drummer:chris-layton"],
+      "drums": {
+        "description": "Fast, rockabilly-influenced straight-eighth drive with snappy snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:texas-flood-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nnbnRWHDFpw"
+    },
+    {
+      "title": "Texas Flood",
+      "drummer_ids": ["drummer:chris-layton"],
+      "drums": {
+        "description": "Slow 12/8 blues where Layton holds a sparse, deep groove and builds with the guitar solos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:texas-flood-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KC5H9P4F5Uk"
+    },
+    {
+      "title": "Rude Mood",
+      "drummer_ids": ["drummer:chris-layton"],
+      "drums": {
+        "description": "Fast boogie shuffle instrumental played at high tempo with a light, steady touch.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:texas-flood-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YpvxtQ0gUPU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24012"
+        }
+      ]
+    }
   ]
 }

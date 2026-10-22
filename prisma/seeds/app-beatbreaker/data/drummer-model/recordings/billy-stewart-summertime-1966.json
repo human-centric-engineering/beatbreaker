@@ -10,5 +10,25 @@
       "drummer_id": "drummer:maurice-white",
       "name": "Maurice White"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Summertime",
+      "drummer_ids": ["drummer:maurice-white"],
+      "drums": {
+        "description": "A jazz standard turned into an uptempo soul workout, the drums driving hard with fills that egg on Stewart's scatting.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:maurice-white-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DNCrqIgEbJU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=370169"
+        }
+      ]
+    }
   ]
 }

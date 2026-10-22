@@ -1,0 +1,33 @@
+{
+  "id": "rec:traveling-wilburys-traveling-wilburys-vol-1-1988",
+  "title": "Traveling Wilburys Vol. 1",
+  "artist": "Traveling Wilburys",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jim-keltner"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Handle with Care",
+      "drummer_ids": ["drummer:jim-keltner"],
+      "drums": {
+        "description": "A warm, loose mid-tempo beat, Keltner credited as \"Buster Sidebury\".",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:traveling-wilburys-vol-1-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1o4s1KVJaVA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2437"
+        }
+      ]
+    }
+  ]
+}

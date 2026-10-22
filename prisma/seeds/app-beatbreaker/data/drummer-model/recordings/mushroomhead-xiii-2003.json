@@ -7,15 +7,42 @@
   "type": "album",
   "style_ids": ["style:alternative-metal", "style:industrial-metal"],
   "personnel": [
-    { "name": "Jeffrey Nothing", "role": "clean vocals" },
-    { "name": "J Mann", "role": "unclean and rapped vocals" },
-    { "name": "Bronson", "role": "guitars" },
-    { "name": "Gravy (Dave Felton)", "role": "guitars" },
-    { "name": "Pig Benis", "role": "bass" },
-    { "name": "Shmotz", "role": "keyboards, samples" },
-    { "name": "St1tch", "role": "electronics, programming, samples, turntables" },
-    { "name": "Skinny (Steve Felton)", "role": "drums, percussion; producer" },
-    { "name": "Jens Kidman", "role": "guest vocals (The Dream Is Over)" }
+    {
+      "name": "Jeffrey Nothing",
+      "role": "clean vocals"
+    },
+    {
+      "name": "J Mann",
+      "role": "unclean and rapped vocals"
+    },
+    {
+      "name": "Bronson",
+      "role": "guitars"
+    },
+    {
+      "name": "Gravy (Dave Felton)",
+      "role": "guitars"
+    },
+    {
+      "name": "Pig Benis",
+      "role": "bass"
+    },
+    {
+      "name": "Shmotz",
+      "role": "keyboards, samples"
+    },
+    {
+      "name": "St1tch",
+      "role": "electronics, programming, samples, turntables"
+    },
+    {
+      "name": "Skinny (Steve Felton)",
+      "role": "drums, percussion; producer"
+    },
+    {
+      "name": "Jens Kidman",
+      "role": "guest vocals (The Dream Is Over)"
+    }
   ],
   "producer": "Mushroomhead, Steve Felton, Johnny K and Matt Wallace (mix); Mars Studio, Shalersville, Ohio",
   "drum_performances": [
@@ -39,5 +66,70 @@
       }
     }
   ],
-  "evidence": { "confidence": "verified", "source_ids": ["src:mushroomhead-xiii-wikipedia"] }
+  "tracks": [
+    {
+      "title": "Sun Doesn't Rise",
+      "drummer_ids": ["drummer:steve-felton"],
+      "drums": {
+        "description": "The kick in dotted eighths under open hat eighths with a crash on every 1, and a mid-tom intro figure.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mushroomhead-xiii-wikipedia"]
+        }
+      },
+      "style_key": "skinny",
+      "song_key": "sun-doesnt-rise",
+      "youtube": "https://www.youtube.com/watch?v=kOaqcfTZgno",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12854"
+        }
+      ]
+    },
+    {
+      "title": "Kill Tomorrow",
+      "drummer_ids": ["drummer:steve-felton"],
+      "drums": {
+        "description": "Half time with continuous sixteenth double bass for a third of the song and a tom break in quarter-note triplets.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mushroomhead-xiii-wikipedia"]
+        }
+      },
+      "style_key": "skinny",
+      "song_key": "kill-tomorrow",
+      "youtube": "https://www.youtube.com/watch?v=fNPGhxfbQxk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=47992"
+        }
+      ]
+    },
+    {
+      "title": "Becoming Cold",
+      "drummer_ids": ["drummer:steve-felton"],
+      "drums": {
+        "description": "Three sixteenths of kick on the 1 under an open-closed hat, double-bass bursts and a half-time chorus.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mushroomhead-xiii-wikipedia"]
+        }
+      },
+      "style_key": "skinny",
+      "song_key": "becoming-cold",
+      "youtube": "https://www.youtube.com/watch?v=rb_q-1H2kp8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=573806"
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:mushroomhead-xiii-wikipedia"]
+  }
 }

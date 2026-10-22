@@ -52,6 +52,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "No Nuclear War",
+      "drummer_ids": ["drummer:santa-davis"],
+      "drums": {
+        "description": "Rockers: the kick on 1 and 2, the snare on 3 then its \"and\", the hi-hat out for the dub passages.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:no-nuclear-war-wikipedia"]
+        }
+      },
+      "style_key": "santadavis",
+      "song_key": "no-nuclear-war",
+      "youtube": "https://www.youtube.com/watch?v=wvCuRish3pE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2231868"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:no-nuclear-war-wikipedia"]

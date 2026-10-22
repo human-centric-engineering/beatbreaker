@@ -18,6 +18,56 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Black Codes (From the Underground)",
+      "drummer_ids": ["drummer:jeff-tain-watts"],
+      "drums": {
+        "description": "Shifting metres and dense, Elvin Jones-derived triplet polyrhythms under the fast title track.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:black-codes-from-the-underground-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7Z8ZTdDoDps"
+    },
+    {
+      "title": "Delfeayo's Dilemma",
+      "drummer_ids": ["drummer:jeff-tain-watts"],
+      "drums": {
+        "description": "Fast swing with heavy, rolling tom fills and displaced accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:black-codes-from-the-underground-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DRjttTJEksY"
+    },
+    {
+      "title": "Phryzzinian Man",
+      "drummer_ids": ["drummer:jeff-tain-watts"],
+      "drums": {
+        "description": "Polyrhythmic medium groove with metric modulation.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:black-codes-from-the-underground-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Vo3qMI9BOVI"
+    },
+    {
+      "title": "Chambers of Tain",
+      "drummer_ids": ["drummer:jeff-tain-watts"],
+      "drums": {
+        "description": "Watts's own composition: fast, explosive drums driving the quintet.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:black-codes-from-the-underground-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MizG1rOZx2k"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jeff-tain-watts-wikipedia"]

@@ -1,0 +1,33 @@
+{
+  "id": "rec:nick-lowe-labour-of-lust-1979",
+  "title": "Labour of Lust",
+  "artist": "Nick Lowe",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:rock", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:terry-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Cruel to Be Kind",
+      "drummer_ids": ["drummer:terry-williams"],
+      "drums": {
+        "description": "A bright, solid power-pop beat played by Rockpile.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cruel-to-be-kind-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0Vo4lNb0w48",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=230738"
+        }
+      ]
+    }
+  ]
+}

@@ -46,6 +46,68 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Rock Show",
+      "drummer_ids": ["drummer:travis-barker"],
+      "drums": {
+        "description": "Ride eighths at full tilt and a chorus in punk time.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-rock-show-wikipedia"]
+        }
+      },
+      "style_key": "barker",
+      "song_key": "the-rock-show",
+      "youtube": "https://www.youtube.com/watch?v=z7hhDINyBP0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3017"
+        }
+      ]
+    },
+    {
+      "title": "First Date",
+      "drummer_ids": ["drummer:travis-barker"],
+      "drums": {
+        "description": "The snare on the \"and\" of 3 under an open hi-hat, and stops on snare and mid tom in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:first-date-wikipedia"]
+        }
+      },
+      "style_key": "barker",
+      "song_key": "first-date",
+      "youtube": "https://www.youtube.com/watch?v=vVy9Lgpg1m8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6703"
+        }
+      ]
+    },
+    {
+      "title": "Stay Together for the Kids",
+      "drummer_ids": ["drummer:travis-barker"],
+      "drums": {
+        "description": "Tight sixteenths on the hi-hat in the verse, crash eighths and the kick in threes in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stay-together-for-the-kids-wikipedia"]
+        }
+      },
+      "style_key": "barker",
+      "song_key": "stay-together-for-the-kids",
+      "youtube": "https://www.youtube.com/watch?v=k1BFHYtZlAU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22186"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:take-off-your-pants-and-jacket-wikipedia"]

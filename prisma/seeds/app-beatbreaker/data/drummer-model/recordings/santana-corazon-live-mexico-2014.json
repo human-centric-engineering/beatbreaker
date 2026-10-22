@@ -34,6 +34,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Corazón Espinado",
+      "drummer_ids": ["drummer:cindy-blackman-santana"],
+      "drums": {
+        "description": "Live in Guadalajara: hi-hat eighths, then the ride, then crash and snare on every beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:santana-corazon-live-2014"]
+        }
+      },
+      "style_key": "cindyblackman",
+      "song_key": "corazon-espinado",
+      "youtube": "https://www.youtube.com/watch?v=t6omUxqhG78"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:santana-corazon-live-2014", "src:songsterr-5178015"]

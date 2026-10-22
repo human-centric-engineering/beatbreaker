@@ -15,5 +15,37 @@
       "name": "Abe Laboriel Jr.",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Lonely Road",
+      "drummer_ids": ["drummer:abe-laboriel-jr"],
+      "drums": {
+        "description": "A heavy, slightly behind-the-beat rock groove recorded live with the band in the studio.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:driving-rain-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RPxaexS7gKA"
+    },
+    {
+      "title": "Driving Rain",
+      "drummer_ids": ["drummer:abe-laboriel-jr"],
+      "drums": {
+        "description": "A loose, upbeat groove with a bright hi-hat in a quickly recorded live take.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:driving-rain-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oEbUcRJgno8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=234519"
+        }
+      ]
+    }
   ]
 }

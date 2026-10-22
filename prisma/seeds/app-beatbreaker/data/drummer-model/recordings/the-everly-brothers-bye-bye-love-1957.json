@@ -15,5 +15,25 @@
       "name": "Buddy Harman",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Bye Bye Love",
+      "drummer_ids": ["drummer:buddy-harman"],
+      "drums": {
+        "description": "A brisk country two-beat with a snare backbeat under the open-chord guitar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:buddy-harman-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OTkuNm_ZxU0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2324211"
+        }
+      ]
+    }
   ]
 }

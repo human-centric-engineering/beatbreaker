@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Biblical Violence",
+      "drummer_ids": ["drummer:zach-hill"],
+      "drums": {
+        "description": "Hyperactive, near-constant fills and blast-speed tom work against Spencer Seim's guitar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hold-your-horse-is-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=g_V4ulgbM-0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=474375"
+        }
+      ]
+    },
+    {
+      "title": "Republic of Rough and Ready",
+      "drummer_ids": ["drummer:zach-hill"],
+      "drums": {
+        "description": "Frantic, shifting math-rock rhythms with the drums as a lead instrument.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hold-your-horse-is-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dPZ-ZoMYQZo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=37438"
+        }
+      ]
+    }
   ]
 }

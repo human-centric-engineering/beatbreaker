@@ -1,0 +1,33 @@
+{
+  "id": "rec:little-walter-my-babe-1955",
+  "title": "My Babe",
+  "artist": "Little Walter",
+  "year": 1955,
+  "type": "studio_track",
+  "style_ids": ["style:blues", "style:blues-shuffle"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fred-below"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "My Babe",
+      "drummer_ids": ["drummer:fred-below"],
+      "drums": {
+        "description": "Bouncing, upbeat two-beat shuffle with a strong backbeat that drove the hit.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:my-babe-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=m_MWXscp6_Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=73166"
+        }
+      ]
+    }
+  ]
+}

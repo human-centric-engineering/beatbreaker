@@ -38,5 +38,27 @@
         "source_ids": ["src:nigeria-grant-green-wikipedia", "src:bishop-blakey-afro-2014"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "It Ain't Necessarily So",
+      "drummer_ids": ["drummer:art-blakey"],
+      "drums": {
+        "description": "A triplet Afro feel on the bell, rim click and toms; a heavy shuffle under the solos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bishop-blakey-afro-2014", "src:nigeria-grant-green-wikipedia"]
+        }
+      },
+      "style_key": "blakey",
+      "song_key": "it-aint-necessarily-so",
+      "youtube": "https://www.youtube.com/watch?v=VDDQsIu9FFE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=632405"
+        }
+      ]
+    }
   ]
 }

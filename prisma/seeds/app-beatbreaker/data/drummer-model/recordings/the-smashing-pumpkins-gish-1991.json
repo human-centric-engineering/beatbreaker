@@ -16,5 +16,31 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "I Am One",
+      "drummer_ids": ["drummer:jimmy-chamberlin"],
+      "drums": {
+        "description": "A heavy, driving rock beat broken up by quick, jazz-trained snare and tom fills between the riffs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:gish-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Pi6RJmUNBbw"
+    },
+    {
+      "title": "Siva",
+      "drummer_ids": ["drummer:jimmy-chamberlin"],
+      "drums": {
+        "description": "Hard-hitting fills and abrupt changes of feel that steer the band through the loud and quiet sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:gish-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=F3wAtWywrP4"
+    }
   ]
 }

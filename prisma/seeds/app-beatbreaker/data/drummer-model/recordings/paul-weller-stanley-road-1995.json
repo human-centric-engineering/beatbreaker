@@ -1,0 +1,69 @@
+{
+  "id": "rec:paul-weller-stanley-road-1995",
+  "title": "Stanley Road",
+  "artist": "Paul Weller",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:mod-revival"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-white"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Changingman",
+      "drummer_ids": ["drummer:steve-white"],
+      "drums": {
+        "description": "Heavy, swaggering rock groove with a fat snare and tom fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-changingman-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0v9WhRpQw8E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=234752"
+        }
+      ]
+    },
+    {
+      "title": "You Do Something to Me",
+      "drummer_ids": ["drummer:steve-white"],
+      "drums": {
+        "description": "Slow, restrained ballad beat with tasteful ride and fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:you-do-something-to-me-paul-weller-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tM1rSTOs7Zs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=21353"
+        }
+      ]
+    },
+    {
+      "title": "Broken Stones",
+      "drummer_ids": ["drummer:steve-white"],
+      "drums": {
+        "description": "Gentle, soul-inflected groove with light ghost notes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:stanley-road-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=N_M8m4Yr7vc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=234711"
+        }
+      ]
+    }
+  ]
+}

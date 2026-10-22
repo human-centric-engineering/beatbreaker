@@ -1,0 +1,33 @@
+{
+  "id": "rec:oasis-standing-on-the-shoulder-of-giants-2000",
+  "title": "Standing on the Shoulder of Giants",
+  "artist": "Oasis",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:britpop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alan-white-oasis"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Go Let It Out",
+      "drummer_ids": ["drummer:alan-white-oasis"],
+      "drums": {
+        "description": "A loose, swinging, breakbeat-inflected groove that grooves rather than drives.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:standing-on-the-shoulder-of-giants-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-6X0rOC32AA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23525"
+        }
+      ]
+    }
+  ]
+}

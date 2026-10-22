@@ -1,0 +1,55 @@
+{
+  "id": "rec:slayer-reign-in-blood-1986",
+  "title": "Reign in Blood",
+  "artist": "Slayer",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-lombardo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Necrophobic",
+      "drummer_ids": ["drummer:dave-lombardo"],
+      "drums": {
+        "description": "The fastest track on Reign in Blood: the skank beat on open hats and ride near 250 bpm, with half-time bars dropped in.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:reign-in-blood-wikipedia"]
+        }
+      },
+      "style_key": "lombardo",
+      "song_key": "necrophobic",
+      "youtube": "https://www.youtube.com/watch?v=PiyZkC6iV7U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=53719"
+        }
+      ]
+    },
+    {
+      "title": "Jesus Saves",
+      "drummer_ids": ["drummer:dave-lombardo"],
+      "drums": {
+        "description": "The skank beat on the ride bell after a splash, then on open hats, the bell over a snare on every beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:reign-in-blood-wikipedia"]
+        }
+      },
+      "style_key": "lombardo",
+      "song_key": "jesus-saves",
+      "youtube": "https://www.youtube.com/watch?v=NIqH6rrmqh0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=53758"
+        }
+      ]
+    }
+  ]
+}

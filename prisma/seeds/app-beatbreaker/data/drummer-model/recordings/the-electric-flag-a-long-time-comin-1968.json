@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-electric-flag-a-long-time-comin-1968",
+  "title": "A Long Time Comin'",
+  "artist": "The Electric Flag",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:funk-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-miles"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Killing Floor",
+      "drummer_ids": ["drummer:buddy-miles"],
+      "drums": {
+        "description": "Horn-driven blues-rock reworking of the Howlin' Wolf song that Miles drives with a fast, R&B-style backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:a-long-time-comin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZycIewGWdN8"
+    }
+  ]
+}

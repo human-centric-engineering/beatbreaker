@@ -1,0 +1,27 @@
+{
+  "id": "rec:gene-krupa-wire-brush-stomp-1938",
+  "title": "Wire Brush Stomp",
+  "artist": "Gene Krupa and His Orchestra",
+  "year": 1938,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gene-krupa"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Wire Brush Stomp",
+      "drummer_ids": ["drummer:gene-krupa"],
+      "drums": {
+        "description": "A brushes feature for his own band, the snare swept and slapped at a fast stomp.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:gene-krupa-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=n8N_AsIxj9o"
+    }
+  ]
+}

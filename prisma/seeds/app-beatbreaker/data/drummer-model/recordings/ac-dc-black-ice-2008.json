@@ -44,6 +44,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Rock 'n' Roll Train",
+      "drummer_ids": ["drummer:phil-rudd"],
+      "drums": {
+        "description": "The kick on every beat, the hats leaned on it, open after the crash in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-22097", "src:black-ice-sound-on-sound-2009"]
+        }
+      },
+      "style_key": "rudd",
+      "song_key": "rock-n-roll-train",
+      "youtube": "https://www.youtube.com/watch?v=FrFvNphZ5BQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22097"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:black-ice-wikipedia"]

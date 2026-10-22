@@ -1,0 +1,33 @@
+{
+  "id": "rec:ride-ride-1990",
+  "title": "Ride",
+  "artist": "Ride",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:shoegaze", "style:indie-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:loz-colbert"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Drive Blind",
+      "drummer_ids": ["drummer:loz-colbert"],
+      "drums": {
+        "description": "A fast, crashing beat with a long noise section live.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ride-ep-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mIkdTbn0KLU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16886"
+        }
+      ]
+    }
+  ]
+}

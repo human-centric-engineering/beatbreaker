@@ -44,6 +44,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Dirty Deeds Done Dirt Cheap",
+      "drummer_ids": ["drummer:phil-rudd"],
+      "drums": {
+        "description": "Eighths on the floor tom, the verse snare on 1 and the \"and\" of 3, crashes on 1, 2 and 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-8625", "src:dirty-deeds-done-dirt-cheap-wikipedia"]
+        }
+      },
+      "style_key": "rudd",
+      "song_key": "dirty-deeds-done-dirt-cheap",
+      "youtube": "https://www.youtube.com/watch?v=whQQpwwvSh4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8625"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:dirty-deeds-done-dirt-cheap-wikipedia"]

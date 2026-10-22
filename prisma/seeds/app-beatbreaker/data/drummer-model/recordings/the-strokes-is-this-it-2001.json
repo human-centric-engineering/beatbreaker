@@ -16,5 +16,78 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "The Modern Age",
+      "drummer_ids": ["drummer:fab-moretti"],
+      "drums": {
+        "description": "A stiff, compressed garage-rock beat played with machine-like steadiness.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fab-moretti-wikipedia", "src:is-this-it-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RzO7IGWGxu8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49199"
+        }
+      ]
+    },
+    {
+      "title": "Hard to Explain",
+      "drummer_ids": ["drummer:fab-moretti"],
+      "drums": {
+        "description": "A beat played so tightly and processed so heavily that it sounds like a drum machine.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fab-moretti-wikipedia", "src:is-this-it-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BXkm6h6uq0k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23206"
+        }
+      ]
+    },
+    {
+      "title": "Last Nite",
+      "drummer_ids": ["drummer:fab-moretti"],
+      "drums": {
+        "description": "A simple, driving Motown-style backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fab-moretti-wikipedia", "src:is-this-it-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TOypSnKFHrE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19390"
+        }
+      ]
+    },
+    {
+      "title": "Someday",
+      "drummer_ids": ["drummer:fab-moretti"],
+      "drums": {
+        "description": "A bright, steady rock beat with a crisp snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fab-moretti-wikipedia", "src:is-this-it-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24322"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "id": "rec:pat-metheny-and-lyle-mays-as-falls-wichita-so-falls-wichita-falls-1981",
+  "title": "As Falls Wichita, So Falls Wichita Falls",
+  "artist": "Pat Metheny and Lyle Mays",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:jazz", "style:samba"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nana-vasconcelos"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "As Falls Wichita, So Falls Wichita Falls",
+      "drummer_ids": ["drummer:nana-vasconcelos"],
+      "drums": {
+        "description": "Percussion and berimbau colour across the long title piece.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:as-falls-wichita-so-falls-wichita-falls-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tcz4aWGi4AU"
+    }
+  ]
+}

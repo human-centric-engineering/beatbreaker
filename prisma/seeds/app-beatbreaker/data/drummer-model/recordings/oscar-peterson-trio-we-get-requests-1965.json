@@ -18,6 +18,44 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Corcovado",
+      "drummer_ids": ["drummer:ed-thigpen"],
+      "drums": {
+        "description": "Soft bossa nova brushwork, exemplary of his brush technique.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:we-get-requests-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=t8psq0z1X3A"
+    },
+    {
+      "title": "You Look Good to Me",
+      "drummer_ids": ["drummer:ed-thigpen"],
+      "drums": {
+        "description": "Light, swinging brushes and bowed-bass interplay.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:we-get-requests-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4G8D9lwUwcI"
+    },
+    {
+      "title": "The Girl from Ipanema",
+      "drummer_ids": ["drummer:ed-thigpen"],
+      "drums": {
+        "description": "A gentle bossa groove with brushes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:we-get-requests-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6qGHyu5an1M"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ed-thigpen-wikipedia"]

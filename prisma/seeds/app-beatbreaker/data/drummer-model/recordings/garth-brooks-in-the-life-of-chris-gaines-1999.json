@@ -15,5 +15,19 @@
       "name": "Eddie Bayers",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Lost in You",
+      "drummer_ids": ["drummer:eddie-bayers"],
+      "drums": {
+        "description": "A slow, laid-back pop-R&B groove with a soft snare and sparse kick.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:eddie-bayers-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OPFol0484MQ"
+    }
   ]
 }

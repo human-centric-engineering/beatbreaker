@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-white-stripes-icky-thump-2007",
+  "title": "Icky Thump",
+  "artist": "The White Stripes",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:garage-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:meg-white"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Icky Thump",
+      "drummer_ids": ["drummer:meg-white"],
+      "drums": {
+        "description": "A heavy, stop-start beat with pounding accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:icky-thump-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1OjTspCqvk8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23238"
+        }
+      ]
+    }
+  ]
+}

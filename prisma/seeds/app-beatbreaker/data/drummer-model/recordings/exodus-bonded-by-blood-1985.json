@@ -10,5 +10,60 @@
       "drummer_id": "drummer:tom-hunting",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Bonded by Blood",
+      "drummer_ids": ["drummer:tom-hunting"],
+      "drums": {
+        "description": "Fast Bay Area thrash, Hunting's tight skank beat driving the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bonded-by-blood-wikipedia", "src:exodus-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7kmT5llotS8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7002"
+        }
+      ]
+    },
+    {
+      "title": "A Lesson in Violence",
+      "drummer_ids": ["drummer:tom-hunting"],
+      "drums": {
+        "description": "Breakneck thrash beats with violent tempo shifts.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bonded-by-blood-wikipedia", "src:exodus-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=34633"
+        }
+      ]
+    },
+    {
+      "title": "Strike of the Beast",
+      "drummer_ids": ["drummer:tom-hunting"],
+      "drums": {
+        "description": "A fast, galloping thrash beat with aggressive fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bonded-by-blood-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=iSHsNbhQkw0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=67911"
+        }
+      ]
+    }
   ]
 }

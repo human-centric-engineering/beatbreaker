@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-young-rascals-ive-been-lonely-too-long-1967",
+  "title": "I've Been Lonely Too Long",
+  "artist": "The Young Rascals",
+  "year": 1967,
+  "type": "studio_track",
+  "style_ids": ["style:rock", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dino-danelli"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "I've Been Lonely Too Long",
+      "drummer_ids": ["drummer:dino-danelli"],
+      "drums": {
+        "description": "Soul groove with a light, swinging backbeat and tasteful snare pickups behind the vocal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ive-been-lonely-too-long-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dWFh3Hf7TlM"
+    }
+  ]
+}

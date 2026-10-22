@@ -63,6 +63,31 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Funky Drummer",
+      "drummer_ids": ["drummer:clyde-stubblefield"],
+      "drums": {
+        "description": "One-handed sixteenths on the hi-hat with the snare accent on the \"a\" of 3: the break sampled on more than a thousand records.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:stubblefield-wiki-funky-drummer",
+            "src:stubblefield-funklet-funky-drummer"
+          ]
+        }
+      },
+      "style_key": "stubblefield",
+      "song_key": "funky-drummer",
+      "youtube": "https://www.youtube.com/watch?v=QXw6YZltKJk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4903001"
+        }
+      ]
+    }
+  ],
   "sampled_by": [
     {
       "artist": "Public Enemy",

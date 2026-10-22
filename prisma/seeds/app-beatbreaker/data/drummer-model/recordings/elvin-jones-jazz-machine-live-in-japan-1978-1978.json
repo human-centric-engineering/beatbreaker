@@ -1,0 +1,35 @@
+{
+  "id": "rec:elvin-jones-jazz-machine-live-in-japan-1978-1978",
+  "title": "Live in Japan 1978",
+  "artist": "Elvin Jones Jazz Machine",
+  "year": 1978,
+  "type": "live_track",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:elvin-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "A Love Supreme",
+      "drummer_ids": ["drummer:elvin-jones"],
+      "drums": {
+        "description": "Played live in Japan as a mozambique on the cymbal bell, kick on 1 and hi-hat foot on 3.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-elvin", "src:elvin-jones-bishop-key-players"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "other",
+          "note": "Todd Bishop, Cruise Ship Drummer (shipdrummer.blogspot.com)"
+        }
+      ],
+      "style_key": "elvinjones",
+      "song_key": "a-love-supreme-live",
+      "youtube": "https://www.youtube.com/watch?v=jDOPjWOr5dE"
+    }
+  ]
+}

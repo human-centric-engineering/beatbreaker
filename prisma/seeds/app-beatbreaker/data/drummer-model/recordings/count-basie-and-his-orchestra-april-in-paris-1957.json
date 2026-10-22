@@ -1,0 +1,28 @@
+{
+  "id": "rec:count-basie-and-his-orchestra-april-in-paris-1957",
+  "title": "April in Paris",
+  "artist": "Count Basie and His Orchestra",
+  "year": 1957,
+  "type": "album",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sonny-payne"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "April in Paris",
+      "year": 1955,
+      "drummer_ids": ["drummer:sonny-payne"],
+      "drums": {
+        "description": "The 'one more time' shout endings, each landed with Payne's thunderous cymbal hits.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:april-in-paris-album-wikipedia", "src:sonny-payne-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=O3-jTzSgU38"
+    }
+  ]
+}

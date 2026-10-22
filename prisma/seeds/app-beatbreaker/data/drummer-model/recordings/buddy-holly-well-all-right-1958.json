@@ -1,0 +1,27 @@
+{
+  "id": "rec:buddy-holly-well-all-right-1958",
+  "title": "Well... All Right",
+  "artist": "Buddy Holly",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jerry-allison"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Well... All Right",
+      "drummer_ids": ["drummer:jerry-allison"],
+      "drums": {
+        "description": "Spare, ride-cymbal-only accompaniment that leaves space for the acoustic guitar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:heartbeat-buddy-holly-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uTgcvwJn8tM"
+    }
+  ]
+}

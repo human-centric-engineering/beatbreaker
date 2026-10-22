@@ -39,6 +39,28 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Angel of Death",
+      "drummer_ids": ["drummer:dave-lombardo"],
+      "drums": {
+        "description": "The skank beat at full speed (over 200 bpm) and the famous double-bass break at half tempo with a tresillo on the toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blabbermouth-lombardo-aod"]
+        }
+      },
+      "style_key": "lombardo",
+      "song_key": "angel-of-death",
+      "youtube": "https://www.youtube.com/watch?v=TnRZhLRv6eM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17586"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:wikipedia-lombardo", "src:blabbermouth-lombardo-aod"]

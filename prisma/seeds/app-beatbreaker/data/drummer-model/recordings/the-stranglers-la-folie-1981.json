@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-stranglers-la-folie-1981",
+  "title": "La Folie",
+  "artist": "The Stranglers",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:punk", "style:new-wave"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jet-black"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Golden Brown",
+      "drummer_ids": ["drummer:jet-black"],
+      "drums": {
+        "description": "A waltz groove whose 3/4 bars are broken by bars of 4/4 (or 13/8), under the harpsichord.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:golden-brown-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7KIHvuMl4Kk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19140"
+        }
+      ]
+    }
+  ]
+}

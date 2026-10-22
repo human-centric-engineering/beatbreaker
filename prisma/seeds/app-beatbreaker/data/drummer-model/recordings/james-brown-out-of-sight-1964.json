@@ -10,5 +10,19 @@
       "drummer_id": "drummer:melvin-parker",
       "name": "Melvin Parker"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Out of Sight",
+      "drummer_ids": ["drummer:melvin-parker"],
+      "drums": {
+        "description": "A crisp, driving soul beat with hard snare backbeats.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:melvin-parker-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zieXmNwHGYA"
+    }
   ]
 }

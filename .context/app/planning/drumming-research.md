@@ -17341,6 +17341,1021 @@ for the list. It is not part of 15-a.
 - **Rock and after:** emo after the 1990s, 2010s indie, and punk from Japan, Australia and Latin America are thin. Traditional gospel, go-go (no source for Ricky "Sugarfoot" Wellman) and Philly soul beyond Earl Young found no one.
 - **Named but not reached:** El Estepario Siberiano, Lewis Nash, Gregory Hutchinson, Dee Dee Chandler, Walter Johnson and Cie Frazier.
 
+## DB. Songs on the index (15-b, 2026-10-22)
+
+What D73 asks to count for each drummer: songs picked for the drumming, how many a catalogue style plays (scored), how many have a known human transcription (Songsterr found by its search; Drumeo, Hudson, Modern Drummer and books from the forks), and how many carry a YouTube or Spotify link that passed the oEmbed check. Spotify is not done: Spotify has no keyless search (see Phase 15 in `app-plan.md`). "(short)" marks a list under D73's range; its record says why in `beatbreaker.songs_short_because`.
+
+Totals: 3508 songs on 549 of 594 drummers; 1021 scored, 2169 with a known transcription, 3319 with a YouTube link, 0 with a Spotify link. 196 lists are short, each with `songs_short_because`.
+
+**Built drummers**
+
+| Drummer                    | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Adrienne Davies            | 15    | 15     | 4           | 15      | 0       |
+| Al Jackson Jr.             | 12    | 11     | 10          | 12      | 0       |
+| Alan White (Oasis)         | 10    | 8      | 10          | 10      | 0       |
+| Antonio Sánchez (short)    | 6     | 4      | 2           | 6       | 0       |
+| Ari Hoenig                 | 10    | 10     | 0           | 10      | 0       |
+| Art Blakey                 | 9     | 8      | 3           | 9       | 0       |
+| Benny Benjamin             | 8     | 5      | 6           | 8       | 0       |
+| Bernard Purdie             | 12    | 12     | 6           | 11      | 0       |
+| Bill Bruford               | 9     | 7      | 9           | 9       | 0       |
+| Bill Ward                  | 9     | 9      | 6           | 9       | 0       |
+| Billy Cobham               | 10    | 7      | 7           | 10      | 0       |
+| Brian Blade                | 8     | 3      | 4           | 8       | 0       |
+| Brian Downey               | 13    | 13     | 11          | 12      | 0       |
+| Buddy Rich                 | 8     | 5      | 2           | 7       | 0       |
+| Budgie                     | 8     | 8      | 6           | 8       | 0       |
+| Carlton Barrett            | 10    | 9      | 8           | 10      | 0       |
+| Chad Smith                 | 10    | 10     | 9           | 10      | 0       |
+| Changuito                  | 12    | 12     | 0           | 12      | 0       |
+| Charlie Watts              | 12    | 11     | 12          | 11      | 0       |
+| Cindy Blackman Santana     | 8     | 3      | 1           | 7       | 0       |
+| Clive Burr                 | 12    | 8      | 11          | 12      | 0       |
+| Clyde Stubblefield         | 9     | 7      | 2           | 9       | 0       |
+| Dafnis Prieto              | 10    | 4      | 0           | 6       | 0       |
+| Danny Carey                | 13    | 9      | 12          | 13      | 0       |
+| Dave Grohl                 | 11    | 11     | 11          | 11      | 0       |
+| Dave Lombardo              | 13    | 13     | 13          | 13      | 0       |
+| Dave Rowntree              | 8     | 8      | 8           | 8       | 0       |
+| David Garibaldi            | 9     | 7      | 5           | 9       | 0       |
+| Dennis Davis               | 10    | 8      | 10          | 10      | 0       |
+| Earl Palmer                | 11    | 8      | 8           | 11      | 0       |
+| Elvin Jones                | 13    | 13     | 6           | 13      | 0       |
+| Gabe Serbian (short)       | 6     | 6      | 5           | 6       | 0       |
+| Gavin Harrison             | 8     | 8      | 8           | 7       | 0       |
+| Gene Krupa                 | 8     | 4      | 2           | 7       | 0       |
+| Ginger Baker               | 13    | 11     | 9           | 12      | 0       |
+| Hal Blaine                 | 8     | 8      | 7           | 8       | 0       |
+| Horacio Hernández          | 8     | 8      | 1           | 6       | 0       |
+| II                         | 12    | 12     | 12          | 11      | 0       |
+| Ian Paice                  | 10    | 8      | 10          | 10      | 0       |
+| Jabo Starks                | 9     | 9      | 7           | 9       | 0       |
+| Jack DeJohnette            | 10    | 6      | 1           | 8       | 0       |
+| James Gadson               | 8     | 6      | 5           | 8       | 0       |
+| Jeff Porcaro               | 10    | 9      | 9           | 10      | 0       |
+| Jimmy Cobb                 | 9     | 5      | 6           | 9       | 0       |
+| Jizmak Da Gusha            | 11    | 11     | 11          | 11      | 0       |
+| Joe Morello                | 8     | 2      | 3           | 8       | 0       |
+| Joey Jordison              | 11    | 11     | 11          | 11      | 0       |
+| John Bonham                | 12    | 11     | 12          | 12      | 0       |
+| Keith Moon                 | 8     | 8      | 8           | 8       | 0       |
+| Kenney Jones               | 10    | 7      | 8           | 9       | 0       |
+| Klek de Poitrine           | 9     | 9      | 9           | 9       | 0       |
+| Lars Ulrich                | 13    | 9      | 13          | 13      | 0       |
+| Lenny White                | 8     | 3      | 5           | 8       | 0       |
+| Levon Helm                 | 8     | 8      | 6           | 8       | 0       |
+| Matt Helders               | 9     | 9      | 9           | 9       | 0       |
+| Max Roach                  | 9     | 7      | 2           | 8       | 0       |
+| Michael Shrieve            | 12    | 8      | 5           | 12      | 0       |
+| Mike Clark (short)         | 5     | 4      | 4           | 4       | 0       |
+| Mike Joyce                 | 8     | 8      | 8           | 8       | 0       |
+| Mike Portnoy               | 13    | 9      | 11          | 13      | 0       |
+| Mitch Mitchell             | 45    | 45     | 37          | 44      | 0       |
+| Nameless Ghoul (drums)     | 12    | 12     | 12          | 12      | 0       |
+| Neil Peart                 | 13    | 12     | 12          | 13      | 0       |
+| Nick Mason                 | 10    | 10     | 9           | 10      | 0       |
+| Nicko McBrain              | 22    | 22     | 22          | 22      | 0       |
+| Omar Hakim                 | 18    | 17     | 15          | 18      | 0       |
+| Paul Cook                  | 8     | 8      | 6           | 7       | 0       |
+| Phil Collins               | 14    | 13     | 13          | 14      | 0       |
+| Phil Rudd                  | 11    | 10     | 11          | 11      | 0       |
+| Phil Selway                | 8     | 8      | 8           | 8       | 0       |
+| Philly Joe Jones           | 10    | 8      | 0           | 10      | 0       |
+| Questlove                  | 9     | 8      | 8           | 7       | 0       |
+| Reni                       | 8     | 8      | 8           | 7       | 0       |
+| Rick Buckler               | 8     | 5      | 6           | 8       | 0       |
+| Ringo Starr                | 42    | 42     | 42          | 42      | 0       |
+| Roger Taylor               | 12    | 11     | 11          | 12      | 0       |
+| Roger Taylor (Duran Duran) | 8     | 8      | 7           | 8       | 0       |
+| Roy Haynes                 | 10    | 6      | 2           | 10      | 0       |
+| Santa Davis                | 8     | 7      | 4           | 8       | 0       |
+| Sheila E.                  | 10    | 8      | 4           | 10      | 0       |
+| Skinny                     | 12    | 12     | 11          | 12      | 0       |
+| Sly Dunbar                 | 9     | 5      | 4           | 9       | 0       |
+| Stephen Morris             | 10    | 10     | 10          | 10      | 0       |
+| Steve Gadd                 | 15    | 15     | 9           | 14      | 0       |
+| Stewart Copeland           | 40    | 40     | 38          | 39      | 0       |
+| Taylor Hawkins             | 13    | 10     | 13          | 13      | 0       |
+| Tito Puente                | 11    | 11     | 2           | 10      | 0       |
+| Tomas Haake                | 9     | 8      | 9           | 9       | 0       |
+| Tony Allen                 | 34    | 34     | 3           | 16      | 0       |
+| Tony Thompson              | 10    | 10     | 9           | 10      | 0       |
+| Tony Williams              | 32    | 32     | 6           | 32      | 0       |
+| Topper Headon              | 10    | 10     | 10          | 10      | 0       |
+| Travis Barker              | 9     | 9      | 9           | 9       | 0       |
+| Vinnie Colaiuta            | 8     | 8      | 7           | 8       | 0       |
+| Woody Woodmansey           | 8     | 8      | 8           | 8       | 0       |
+| Yussef Dayes               | 27    | 27     | 9           | 26      | 0       |
+| Zigaboo Modeliste          | 11    | 8      | 3           | 11      | 0       |
+
+**Candidates — African jazz drummers**
+
+| Drummer                | Songs | Scored | Transcribed | YouTube | Spotify |
+| ---------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Kofi Ghanaba (short)   | 2     | 0      | 0           | 0       | 0       |
+| Louis Moholo (short)   | 4     | 0      | 0           | 2       | 0       |
+| Makaya Ntshoko (short) | 3     | 0      | 0           | 3       | 0       |
+
+**Candidates — Afro-Cuban and Latin jazz drummers**
+
+| Drummer                           | Songs | Scored | Transcribed | YouTube | Spotify |
+| --------------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Carlos "Patato" Valdés (short)    | 4     | 0      | 0           | 3       | 0       |
+| Chano Pozo                        | 5     | 0      | 1           | 3       | 0       |
+| Cándido Camero                    | 5     | 0      | 1           | 4       | 0       |
+| Enrique Plá (short)               | 4     | 0      | 0           | 4       | 0       |
+| Giovanni Hidalgo (short)          | 3     | 0      | 0           | 3       | 0       |
+| Guillermo Barreto (short)         | 4     | 0      | 1           | 4       | 0       |
+| Ignacio Berroa (short)            | 1     | 0      | 0           | 0       | 0       |
+| Mongo Santamaría                  | 5     | 0      | 2           | 5       | 0       |
+| Steve Berrios (short)             | 2     | 0      | 0           | 1       | 0       |
+| Tata Güines (short)               | 2     | 0      | 0           | 1       | 0       |
+| Walfredo de los Reyes Sr. (short) | 0     | 0      | 0           | 0       | 0       |
+| Willie Bobo (short)               | 4     | 0      | 0           | 4       | 0       |
+
+**Candidates — Afro-Peruvian drummers**
+
+| Drummer             | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Caitro Soto (short) | 1     | 0      | 0           | 1       | 0       |
+
+**Candidates — Afro-rock drummers**
+
+| Drummer     | Songs | Scored | Transcribed | YouTube | Spotify |
+| ----------- | ----- | ------ | ----------- | ------- | ------- |
+| Sol Amarfio | 6     | 0      | 2           | 6       | 0       |
+
+**Candidates — Alternative rock drummers**
+
+| Drummer          | Songs | Scored | Transcribed | YouTube | Spotify |
+| ---------------- | ----- | ------ | ----------- | ------- | ------- |
+| Bill Berry       | 11    | 0      | 8           | 11      | 0       |
+| Dave Lovering    | 10    | 0      | 10          | 10      | 0       |
+| Dominic Howard   | 10    | 0      | 10          | 10      | 0       |
+| Jimmy Chamberlin | 9     | 0      | 0           | 8       | 0       |
+| Joey Castillo    | 9     | 0      | 9           | 9       | 0       |
+| Josh Freese      | 10    | 0      | 10          | 10      | 0       |
+| Stephen Perkins  | 9     | 0      | 7           | 8       | 0       |
+
+**Candidates — Bebop drummers**
+
+| Drummer        | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------- | ----- | ------ | ----------- | ------- | ------- |
+| Ben Riley      | 9     | 0      | 2           | 9       | 0       |
+| Charli Persip  | 10    | 0      | 2           | 7       | 0       |
+| Denzil Best    | 6     | 0      | 0           | 6       | 0       |
+| Frankie Dunlop | 8     | 0      | 0           | 8       | 0       |
+| Kenny Clarke   | 9     | 0      | 3           | 9       | 0       |
+| Stan Levey     | 7     | 0      | 0           | 6       | 0       |
+
+**Candidates — Black metal drummers**
+
+| Drummer     | Songs | Scored | Transcribed | YouTube | Spotify |
+| ----------- | ----- | ------ | ----------- | ------- | ------- |
+| Fenriz      | 9     | 0      | 9           | 9       | 0       |
+| Frost       | 9     | 0      | 9           | 9       | 0       |
+| Hellhammer  | 7     | 0      | 6           | 7       | 0       |
+| Nick Barker | 10    | 0      | 10          | 9       | 0       |
+
+**Candidates — Blue-eyed soul drummers**
+
+| Drummer      | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------ | ----- | ------ | ----------- | ------- | ------- |
+| Dino Danelli | 7     | 0      | 1           | 7       | 0       |
+
+**Candidates — Blues and psychedelic rock drummers**
+
+| Drummer        | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------- | ----- | ------ | ----------- | ------- | ------- |
+| Aynsley Dunbar | 9     | 0      | 7           | 7       | 0       |
+| Buddy Miles    | 6     | 0      | 4           | 6       | 0       |
+| John Densmore  | 9     | 0      | 9           | 9       | 0       |
+| Mick Fleetwood | 8     | 0      | 8           | 8       | 0       |
+| Micky Waller   | 7     | 0      | 2           | 7       | 0       |
+| Ron Bushy      | 8     | 0      | 7           | 8       | 0       |
+| Spencer Dryden | 7     | 0      | 4           | 7       | 0       |
+
+**Candidates — Blues drummers**
+
+| Drummer                     | Songs | Scored | Transcribed | YouTube | Spotify |
+| --------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Chris Layton                | 10    | 0      | 7           | 10      | 0       |
+| Earl Phillips               | 6     | 0      | 3           | 6       | 0       |
+| Francis Clay                | 5     | 0      | 0           | 4       | 0       |
+| Fred Below                  | 7     | 0      | 5           | 7       | 0       |
+| James 'Peck' Curtis (short) | 4     | 0      | 0           | 2       | 0       |
+| Morris Jennings             | 8     | 0      | 3           | 8       | 0       |
+| Odie Payne                  | 8     | 0      | 2           | 8       | 0       |
+| Sam Carr                    | 6     | 0      | 0           | 6       | 0       |
+| Sam Lay                     | 10    | 0      | 4           | 10      | 0       |
+| Willie "Big Eyes" Smith     | 9     | 0      | 7           | 7       | 0       |
+
+**Candidates — Bomba and plena drummers**
+
+| Drummer        | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------- | ----- | ------ | ----------- | ------- | ------- |
+| Rafael Cortijo | 9     | 0      | 0           | 9       | 0       |
+
+**Candidates — British Invasion drummers**
+
+| Drummer            | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------------ | ----- | ------ | ----------- | ------- | ------- |
+| Bobby Elliott      | 9     | 0      | 8           | 9       | 0       |
+| Dave Clark (short) | 0     | 0      | 0           | 0       | 0       |
+| Honey Lantree      | 5     | 0      | 2           | 5       | 0       |
+| Mick Avory         | 8     | 0      | 7           | 7       | 0       |
+| Viv Prince         | 6     | 0      | 0           | 6       | 0       |
+
+**Candidates — Britpop drummers**
+
+| Drummer        | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------- | ----- | ------ | ----------- | ------- | ------- |
+| Tony McCarroll | 9     | 0      | 9           | 9       | 0       |
+
+**Candidates — Contemporary R&B drummers**
+
+| Drummer                      | Songs | Scored | Transcribed | YouTube | Spotify |
+| ---------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Jonathan "Sugarfoot" Moffett | 9     | 0      | 5           | 9       | 0       |
+| Yogi Horton                  | 7     | 0      | 2           | 7       | 0       |
+
+**Candidates — Cool jazz drummers**
+
+| Drummer        | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------- | ----- | ------ | ----------- | ------- | ------- |
+| Chico Hamilton | 8     | 0      | 0           | 7       | 0       |
+| Connie Kay     | 10    | 0      | 2           | 10      | 0       |
+| Shelly Manne   | 6     | 0      | 0           | 6       | 0       |
+
+**Candidates — Country drummers**
+
+| Drummer               | Songs | Scored | Transcribed | YouTube | Spotify |
+| --------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Buddy Harman          | 6     | 0      | 5           | 6       | 0       |
+| Eddie Bayers (short)  | 3     | 0      | 1           | 3       | 0       |
+| Kenny Malone (short)  | 3     | 0      | 3           | 3       | 0       |
+| Larrie Londin (short) | 4     | 0      | 3           | 4       | 0       |
+
+**Candidates — Cuban son and timba drummers**
+
+| Drummer                | Songs | Scored | Transcribed | YouTube | Spotify |
+| ---------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Amadito Valdés (short) | 4     | 0      | 0           | 4       | 0       |
+| Blas Egües (short)     | 0     | 0      | 0           | 0       | 0       |
+
+**Candidates — Dancehall drummers**
+
+| Drummer                           | Songs | Scored | Transcribed | YouTube | Spotify |
+| --------------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Cleveland "Clevie" Browne (short) | 3     | 0      | 1           | 3       | 0       |
+| Style Scott                       | 5     | 0      | 3           | 5       | 0       |
+
+**Candidates — Death metal and grindcore drummers**
+
+| Drummer             | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Chris Reifert       | 5     | 0      | 4           | 5       | 0       |
+| Danny Herrera       | 5     | 0      | 5           | 5       | 0       |
+| Dave Witte (short)  | 4     | 0      | 3           | 3       | 0       |
+| Derek Roddy         | 5     | 0      | 2           | 5       | 0       |
+| Flo Mounier         | 5     | 0      | 4           | 5       | 0       |
+| George Kollias      | 5     | 0      | 4           | 4       | 0       |
+| Hannes Grossmann    | 5     | 0      | 4           | 5       | 0       |
+| Ken Owen            | 6     | 0      | 6           | 5       | 0       |
+| Max Kolesne (short) | 4     | 0      | 3           | 4       | 0       |
+| Mick Harris         | 6     | 0      | 5           | 6       | 0       |
+| Paul Mazurkiewicz   | 6     | 0      | 6           | 5       | 0       |
+| Pete Sandoval       | 7     | 0      | 7           | 7       | 0       |
+
+**Candidates — Disco drummers**
+
+| Drummer      | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------ | ----- | ------ | ----------- | ------- | ------- |
+| Earl Young   | 5     | 0      | 3           | 5       | 0       |
+| Keith Forsey | 6     | 0      | 6           | 6       | 0       |
+
+**Candidates — Experimental rock drummers**
+
+| Drummer     | Songs | Scored | Transcribed | YouTube | Spotify |
+| ----------- | ----- | ------ | ----------- | ------- | ------- |
+| John French | 5     | 0      | 1           | 5       | 0       |
+
+**Candidates — Folk rock drummers**
+
+| Drummer        | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------- | ----- | ------ | ----------- | ------- | ------- |
+| Michael Clarke | 5     | 0      | 4           | 5       | 0       |
+
+**Candidates — Free jazz drummers**
+
+| Drummer                        | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------------------------ | ----- | ------ | ----------- | ------- | ------- |
+| Andrew Cyrille                 | 5     | 0      | 0           | 5       | 0       |
+| Barry Altschul (short)         | 4     | 0      | 1           | 4       | 0       |
+| Beaver Harris (short)          | 2     | 0      | 0           | 2       | 0       |
+| Ed Blackwell                   | 6     | 0      | 0           | 6       | 0       |
+| Famoudou Don Moye              | 5     | 0      | 2           | 5       | 0       |
+| Günter "Baby" Sommer (short)   | 0     | 0      | 0           | 0       | 0       |
+| Hamid Drake (short)            | 2     | 0      | 0           | 0       | 0       |
+| Han Bennink                    | 6     | 0      | 2           | 5       | 0       |
+| Joey Baron                     | 5     | 0      | 1           | 2       | 0       |
+| John Stevens (short)           | 1     | 0      | 0           | 1       | 0       |
+| Masahiko Togashi (short)       | 0     | 0      | 0           | 0       | 0       |
+| Milford Graves (short)         | 4     | 0      | 0           | 4       | 0       |
+| Pierre Favre (short)           | 0     | 0      | 0           | 0       | 0       |
+| Rashied Ali                    | 6     | 0      | 0           | 6       | 0       |
+| Ronald Shannon Jackson (short) | 2     | 0      | 0           | 2       | 0       |
+| Steve McCall                   | 5     | 0      | 0           | 5       | 0       |
+| Sunny Murray                   | 5     | 0      | 0           | 5       | 0       |
+| Susie Ibarra (short)           | 1     | 0      | 0           | 1       | 0       |
+| Takeo Moriyama (short)         | 0     | 0      | 0           | 0       | 0       |
+| Tony Oxley                     | 5     | 0      | 1           | 5       | 0       |
+
+**Candidates — Funk drummers**
+
+| Drummer                 | Songs | Scored | Transcribed | YouTube | Spotify |
+| ----------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Clayton Fillyau (short) | 4     | 0      | 1           | 4       | 0       |
+| George "Funky" Brown    | 6     | 0      | 6           | 6       | 0       |
+| Greg Errico             | 6     | 0      | 5           | 6       | 0       |
+| Idris Muhammad          | 6     | 0      | 2           | 6       | 0       |
+| Jerome Brailey          | 6     | 0      | 5           | 6       | 0       |
+| Melvin Parker (short)   | 3     | 0      | 1           | 3       | 0       |
+| Nikki Glaspie (short)   | 1     | 0      | 0           | 1       | 0       |
+| Tiki Fulwood            | 6     | 0      | 3           | 6       | 0       |
+
+**Candidates — Fusion drummers**
+
+| Drummer                        | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------------------------ | ----- | ------ | ----------- | ------- | ------- |
+| Airto Moreira                  | 5     | 0      | 1           | 5       | 0       |
+| Akira Jimbo (short)            | 4     | 0      | 4           | 4       | 0       |
+| Alex Acuña (short)             | 3     | 0      | 2           | 2       | 0       |
+| Alphonse Mouzon                | 5     | 0      | 1           | 5       | 0       |
+| Anika Nilles (short)           | 0     | 0      | 0           | 0       | 0       |
+| Chad Wackerman (short)         | 3     | 0      | 1           | 3       | 0       |
+| Chester Thompson               | 6     | 0      | 2           | 6       | 0       |
+| Danny Gottlieb                 | 5     | 0      | 3           | 5       | 0       |
+| Dave Weckl (short)             | 4     | 0      | 2           | 4       | 0       |
+| Dennis Chambers (short)        | 4     | 0      | 3           | 4       | 0       |
+| Dom Um Romão                   | 7     | 0      | 1           | 7       | 0       |
+| Don Alias                      | 5     | 0      | 1           | 5       | 0       |
+| Gary Husband                   | 5     | 0      | 3           | 5       | 0       |
+| Gerry Brown (short)            | 2     | 0      | 1           | 2       | 0       |
+| Harvey Mason                   | 6     | 0      | 3           | 6       | 0       |
+| John Guerin                    | 5     | 0      | 5           | 5       | 0       |
+| Jon Hiseman                    | 5     | 0      | 1           | 4       | 0       |
+| Keith Carlock                  | 7     | 0      | 7           | 7       | 0       |
+| Louis Cole (short)             | 4     | 0      | 1           | 4       | 0       |
+| Marco Minnemann                | 5     | 0      | 3           | 5       | 0       |
+| Narada Michael Walden          | 5     | 0      | 2           | 4       | 0       |
+| Paco Sery (short)              | 2     | 0      | 0           | 1       | 0       |
+| Paul Wertico                   | 5     | 0      | 3           | 5       | 0       |
+| Peter Erskine                  | 6     | 0      | 3           | 6       | 0       |
+| Ralph Humphrey                 | 5     | 0      | 3           | 5       | 0       |
+| Robert "Sput" Searight (short) | 4     | 0      | 1           | 3       | 0       |
+| Senri Kawaguchi (short)        | 0     | 0      | 0           | 0       | 0       |
+| Simon Phillips                 | 6     | 0      | 5           | 6       | 0       |
+| Steve Smith                    | 5     | 0      | 5           | 5       | 0       |
+| Virgil Donati (short)          | 2     | 0      | 1           | 2       | 0       |
+
+**Candidates — Garage rock and proto-punk drummers**
+
+| Drummer         | Songs | Scored | Transcribed | YouTube | Spotify |
+| --------------- | ----- | ------ | ----------- | ------- | ------- |
+| Chris Dangerous | 5     | 0      | 5           | 5       | 0       |
+| Dennis Thompson | 6     | 0      | 3           | 6       | 0       |
+| Meg White       | 7     | 0      | 6           | 7       | 0       |
+| Moe Tucker      | 6     | 0      | 2           | 5       | 0       |
+| Scott Asheton   | 7     | 0      | 7           | 7       | 0       |
+
+**Candidates — Glam and art rock drummers**
+
+| Drummer                    | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Mick Tucker                | 5     | 0      | 4           | 5       | 0       |
+| Neal Smith (Alice Cooper)  | 7     | 0      | 5           | 7       | 0       |
+| Paul Thompson (Roxy Music) | 6     | 0      | 6           | 6       | 0       |
+
+**Candidates — Gospel and gospel chops drummers**
+
+| Drummer                     | Songs | Scored | Transcribed | YouTube | Spotify |
+| --------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Aaron Spears (short)        | 0     | 0      | 0           | 0       | 0       |
+| Calvin Rodgers (short)      | 0     | 0      | 0           | 0       | 0       |
+| Cora Coleman-Dunham (short) | 0     | 0      | 0           | 0       | 0       |
+| Eric Moore (short)          | 1     | 0      | 0           | 0       | 0       |
+| Gerald Heyward (short)      | 0     | 0      | 0           | 0       | 0       |
+| Joel Smith (short)          | 0     | 0      | 0           | 0       | 0       |
+| Marvin McQuitty (short)     | 0     | 0      | 0           | 0       | 0       |
+| Teddy Campbell (short)      | 1     | 0      | 0           | 1       | 0       |
+| Tony Royster Jr. (short)    | 0     | 0      | 0           | 0       | 0       |
+
+**Candidates — Groove, nu and industrial metal drummers**
+
+| Drummer         | Songs | Scored | Transcribed | YouTube | Spotify |
+| --------------- | ----- | ------ | ----------- | ------- | ------- |
+| Abe Cunningham  | 7     | 0      | 7           | 7       | 0       |
+| Chris Adler     | 6     | 0      | 6           | 6       | 0       |
+| David Silveria  | 7     | 0      | 7           | 7       | 0       |
+| Raymond Herrera | 6     | 0      | 6           | 6       | 0       |
+| Vinnie Paul     | 8     | 0      | 8           | 7       | 0       |
+
+**Candidates — Grunge drummers**
+
+| Drummer       | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------- | ----- | ------ | ----------- | ------- | ------- |
+| Chad Channing | 7     | 0      | 6           | 7       | 0       |
+| Dale Crover   | 6     | 0      | 6           | 6       | 0       |
+| Dan Peters    | 6     | 0      | 6           | 5       | 0       |
+| Matt Cameron  | 9     | 0      | 8           | 9       | 0       |
+| Patty Schemel | 5     | 0      | 5           | 4       | 0       |
+| Sean Kinney   | 7     | 0      | 7           | 7       | 0       |
+
+**Candidates — Hard bop drummers**
+
+| Drummer                    | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Alan Dawson (short)        | 4     | 0      | 0           | 4       | 0       |
+| Albert "Tootie" Heath      | 5     | 0      | 0           | 5       | 0       |
+| Art Taylor                 | 5     | 0      | 2           | 5       | 0       |
+| Billy Higgins              | 6     | 0      | 1           | 6       | 0       |
+| Dannie Richmond            | 6     | 0      | 3           | 6       | 0       |
+| Ed Thigpen                 | 6     | 0      | 0           | 5       | 0       |
+| Frank Butler (short)       | 2     | 0      | 0           | 2       | 0       |
+| Louis Hayes                | 5     | 0      | 1           | 5       | 0       |
+| Phil Seamen (short)        | 1     | 0      | 0           | 1       | 0       |
+| Ralph Peterson Jr. (short) | 0     | 0      | 0           | 0       | 0       |
+| Roy Brooks (short)         | 4     | 0      | 0           | 4       | 0       |
+| Vernel Fournier (short)    | 4     | 0      | 1           | 2       | 0       |
+
+**Candidates — Hard rock drummers**
+
+| Drummer        | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------- | ----- | ------ | ----------- | ------- | ------- |
+| Alex Van Halen | 7     | 0      | 6           | 7       | 0       |
+| Carmine Appice | 5     | 0      | 3           | 5       | 0       |
+| Chris Slade    | 5     | 0      | 3           | 5       | 0       |
+| Corky Laing    | 6     | 0      | 5           | 6       | 0       |
+| Cozy Powell    | 7     | 0      | 5           | 7       | 0       |
+| Peter Criss    | 6     | 0      | 5           | 6       | 0       |
+| Rick Allen     | 6     | 0      | 6           | 6       | 0       |
+| Sandy West     | 6     | 0      | 5           | 5       | 0       |
+| Simon Kirke    | 7     | 0      | 6           | 7       | 0       |
+| Steven Adler   | 7     | 0      | 7           | 7       | 0       |
+| Tommy Aldridge | 6     | 0      | 6           | 6       | 0       |
+| Tommy Lee      | 7     | 0      | 7           | 7       | 0       |
+
+**Candidates — Hardcore punk drummers**
+
+| Drummer        | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------- | ----- | ------ | ----------- | ------- | ------- |
+| Bill Stevenson | 7     | 0      | 7           | 7       | 0       |
+| Chuck Biscuits | 6     | 0      | 5           | 6       | 0       |
+| D. H. Peligro  | 7     | 0      | 6           | 7       | 0       |
+| Earl Hudson    | 7     | 0      | 7           | 6       | 0       |
+| Jeff Nelson    | 6     | 0      | 5           | 6       | 0       |
+| Kent Stax      | 5     | 0      | 0           | 5       | 0       |
+| Lucky Lehrer   | 6     | 0      | 5           | 6       | 0       |
+| Reed Mullin    | 6     | 0      | 4           | 6       | 0       |
+| Robo           | 7     | 0      | 7           | 7       | 0       |
+
+**Candidates — Heartland and roots rock drummers**
+
+| Drummer        | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------- | ----- | ------ | ----------- | ------- | ------- |
+| Max Weinberg   | 8     | 0      | 7           | 8       | 0       |
+| Ralph Molina   | 6     | 0      | 0           | 3       | 0       |
+| Richie Hayward | 7     | 0      | 7           | 7       | 0       |
+
+**Candidates — Heavy metal drummers**
+
+| Drummer         | Songs | Scored | Transcribed | YouTube | Spotify |
+| --------------- | ----- | ------ | ----------- | ------- | ------- |
+| Bobby Jarzombek | 6     | 0      | 5           | 6       | 0       |
+| Denise Dufort   | 6     | 0      | 5           | 5       | 0       |
+| Les Binks       | 6     | 0      | 5           | 6       | 0       |
+| Mikkey Dee      | 6     | 0      | 6           | 6       | 0       |
+| Phil Taylor     | 7     | 0      | 7           | 7       | 0       |
+| Robb Reiner     | 6     | 0      | 5           | 6       | 0       |
+| Scott Travis    | 6     | 0      | 6           | 6       | 0       |
+| Yoshiki         | 6     | 0      | 6           | 6       | 0       |
+
+**Candidates — Hip-hop and neo-soul drummers**
+
+| Drummer                   | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Anderson .Paak (short)    | 4     | 0      | 4           | 4       | 0       |
+| Chris Dave (short)        | 3     | 0      | 0           | 3       | 0       |
+| Daru Jones (short)        | 1     | 0      | 1           | 1       | 0       |
+| Karriem Riggins (short)   | 0     | 0      | 0           | 0       | 0       |
+| Keith LeBlanc (short)     | 3     | 0      | 1           | 2       | 0       |
+| Mark Colenburg (short)    | 0     | 0      | 0           | 0       | 0       |
+| Pumpkin                   | 5     | 0      | 1           | 5       | 0       |
+| Ronald Bruner Jr. (short) | 3     | 0      | 2           | 3       | 0       |
+
+**Candidates — Indian classical drummers**
+
+| Drummer                          | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Alla Rakha (short)               | 3     | 0      | 0           | 2       | 0       |
+| Kishan Maharaj (short)           | 0     | 0      | 0           | 0       | 0       |
+| Palghat Mani Iyer (short)        | 0     | 0      | 0           | 0       | 0       |
+| T. H. "Vikku" Vinayakram (short) | 4     | 0      | 0           | 4       | 0       |
+| Zakir Hussain                    | 6     | 0      | 0           | 6       | 0       |
+
+**Candidates — Indian film and fusion drummers**
+
+| Drummer              | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Ranjit Barot (short) | 0     | 0      | 0           | 0       | 0       |
+| Sivamani (short)     | 0     | 0      | 0           | 0       | 0       |
+| Trilok Gurtu (short) | 0     | 0      | 0           | 0       | 0       |
+
+**Candidates — Indie rock drummers**
+
+| Drummer        | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------- | ----- | ------ | ----------- | ------- | ------- |
+| Fab Moretti    | 7     | 0      | 7           | 6       | 0       |
+| Gary Young     | 6     | 0      | 6           | 6       | 0       |
+| Georgia Hubley | 6     | 0      | 4           | 6       | 0       |
+| Glenn Kotche   | 6     | 0      | 6           | 6       | 0       |
+| Janet Weiss    | 6     | 0      | 6           | 6       | 0       |
+| Jon Brookes    | 6     | 0      | 1           | 6       | 0       |
+| Jon Wurster    | 5     | 0      | 3           | 5       | 0       |
+| Matt Tong      | 6     | 0      | 6           | 6       | 0       |
+
+**Candidates — Industrial drummers**
+
+| Drummer       | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------- | ----- | ------ | ----------- | ------- | ------- |
+| F.M. Einheit  | 5     | 0      | 2           | 5       | 0       |
+| Martin Atkins | 5     | 0      | 2           | 5       | 0       |
+
+**Candidates — Irish traditional drummers**
+
+| Drummer                         | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Johnny "Ringo" McDonagh (short) | 0     | 0      | 0           | 0       | 0       |
+
+**Candidates — Jam band drummers**
+
+| Drummer         | Songs | Scored | Transcribed | YouTube | Spotify |
+| --------------- | ----- | ------ | ----------- | ------- | ------- |
+| Bill Kreutzmann | 6     | 0      | 2           | 6       | 0       |
+| Mickey Hart     | 6     | 0      | 2           | 6       | 0       |
+
+**Candidates — Jazz rock drummers**
+
+| Drummer         | Songs | Scored | Transcribed | YouTube | Spotify |
+| --------------- | ----- | ------ | ----------- | ------- | ------- |
+| Danny Seraphine | 7     | 0      | 4           | 7       | 0       |
+
+**Candidates — Krautrock drummers**
+
+| Drummer        | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------- | ----- | ------ | ----------- | ------- | ------- |
+| Jaki Liebezeit | 7     | 0      | 6           | 7       | 0       |
+| Klaus Dinger   | 6     | 0      | 4           | 6       | 0       |
+
+**Candidates — Latin rock drummers**
+
+| Drummer              | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Armando Peraza       | 5     | 0      | 3           | 5       | 0       |
+| José "Chepito" Areas | 8     | 1      | 3           | 8       | 0       |
+
+**Candidates — Live electronic and drum and bass drummers**
+
+| Drummer        | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------- | ----- | ------ | ----------- | ------- | ------- |
+| Deantoni Parks | 6     | 0      | 3           | 5       | 0       |
+| Johnny Rabb    | 6     | 0      | 3           | 6       | 0       |
+| Jojo Mayer     | 5     | 0      | 2           | 5       | 0       |
+| Mark Guiliana  | 8     | 0      | 6           | 8       | 0       |
+
+**Candidates — Metalcore and mathcore drummers**
+
+| Drummer      | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------ | ----- | ------ | ----------- | ------- | ------- |
+| Ben Koller   | 8     | 0      | 7           | 7       | 0       |
+| Chris Pennie | 8     | 0      | 8           | 8       | 0       |
+
+**Candidates — Middle Eastern and Persian drummers**
+
+| Drummer                 | Songs | Scored | Transcribed | YouTube | Spotify |
+| ----------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Hossam Ramzy (short)    | 4     | 0      | 1           | 4       | 0       |
+| Hossein Tehrani (short) | 0     | 0      | 0           | 0       | 0       |
+| Mısırlı Ahmet (short)   | 0     | 0      | 0           | 0       | 0       |
+| Okay Temiz (short)      | 0     | 0      | 0           | 0       | 0       |
+
+**Candidates — Minneapolis sound drummers**
+
+| Drummer                   | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Bobby Z.                  | 6     | 0      | 4           | 6       | 0       |
+| Jellybean Johnson (short) | 2     | 0      | 2           | 2       | 0       |
+| Michael Bland             | 10    | 0      | 4           | 9       | 0       |
+
+**Candidates — Mod and mod revival drummers**
+
+| Drummer     | Songs | Scored | Transcribed | YouTube | Spotify |
+| ----------- | ----- | ------ | ----------- | ------- | ------- |
+| Steve White | 10    | 0      | 6           | 9       | 0       |
+| Zak Starkey | 6     | 0      | 5           | 5       | 0       |
+
+**Candidates — Modal and post-bop drummers**
+
+| Drummer           | Songs | Scored | Transcribed | YouTube | Spotify |
+| ----------------- | ----- | ------ | ----------- | ------- | ------- |
+| Al Foster         | 8     | 0      | 1           | 7       | 0       |
+| Billy Hart        | 8     | 0      | 0           | 7       | 0       |
+| Daniel Humair     | 5     | 0      | 0           | 4       | 0       |
+| Jeff "Tain" Watts | 8     | 0      | 0           | 8       | 0       |
+| Joe Chambers      | 7     | 0      | 1           | 7       | 0       |
+| Jon Christensen   | 7     | 0      | 0           | 7       | 0       |
+| Paul Motian       | 10    | 0      | 1           | 10      | 0       |
+| Pete La Roca      | 9     | 0      | 2           | 9       | 0       |
+
+**Candidates — Modern jazz drummers**
+
+| Drummer                       | Songs | Scored | Transcribed | YouTube | Spotify |
+| ----------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Bill Stewart                  | 7     | 0      | 0           | 6       | 0       |
+| Femi Koleoso                  | 7     | 0      | 1           | 7       | 0       |
+| Herlin Riley (short)          | 4     | 0      | 0           | 4       | 0       |
+| Jim Black (short)             | 0     | 0      | 0           | 0       | 0       |
+| Kassa Overall (short)         | 2     | 0      | 0           | 2       | 0       |
+| Makaya McCraven               | 5     | 0      | 0           | 4       | 0       |
+| Marcus Gilmore (short)        | 4     | 0      | 0           | 4       | 0       |
+| Moses Boyd                    | 5     | 0      | 0           | 5       | 0       |
+| Nate Smith (short)            | 3     | 0      | 2           | 3       | 0       |
+| Seb Rochford (short)          | 0     | 0      | 0           | 0       | 0       |
+| Terri Lyne Carrington (short) | 4     | 0      | 0           | 3       | 0       |
+| Tom Skinner                   | 7     | 0      | 4           | 7       | 0       |
+| Tyshawn Sorey (short)         | 0     | 0      | 0           | 0       | 0       |
+
+**Candidates — New Orleans R&B and funk drummers**
+
+| Drummer                           | Songs | Scored | Transcribed | YouTube | Spotify |
+| --------------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Charles "Hungry" Williams (short) | 2     | 0      | 0           | 1       | 0       |
+| Cornelius "Tenoo" Coleman (short) | 4     | 0      | 1           | 4       | 0       |
+| Herman Ernest III (short)         | 3     | 0      | 1           | 3       | 0       |
+| James Black (short)               | 2     | 0      | 0           | 1       | 0       |
+| John Boudreaux (short)            | 4     | 0      | 0           | 2       | 0       |
+| Johnny Vidacovich (short)         | 1     | 0      | 0           | 1       | 0       |
+| June Gardner (short)              | 4     | 0      | 1           | 3       | 0       |
+| Russell Batiste Jr. (short)       | 0     | 0      | 0           | 0       | 0       |
+| Smokey Johnson (short)            | 3     | 0      | 0           | 3       | 0       |
+| Stanton Moore (short)             | 1     | 0      | 0           | 1       | 0       |
+| Walter "Popee" Lastie (short)     | 1     | 0      | 0           | 1       | 0       |
+
+**Candidates — New Orleans and early jazz drummers**
+
+| Drummer                        | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------------------------ | ----- | ------ | ----------- | ------- | ------- |
+| "Uncle" Lionel Batiste (short) | 0     | 0      | 0           | 0       | 0       |
+| Baby Dodds (short)             | 4     | 0      | 0           | 4       | 0       |
+| Ben Pollack (short)            | 2     | 0      | 0           | 2       | 0       |
+| Bob French (short)             | 0     | 0      | 0           | 0       | 0       |
+| Chauncey Morehouse (short)     | 2     | 0      | 0           | 0       | 0       |
+| George Wettling (short)        | 2     | 0      | 0           | 2       | 0       |
+| Jimmy Bertrand (short)         | 2     | 0      | 0           | 2       | 0       |
+| Kaiser Marshall (short)        | 2     | 0      | 0           | 2       | 0       |
+| Louis Cottrell Sr. (short)     | 2     | 0      | 0           | 0       | 0       |
+| Minor Hall (short)             | 1     | 0      | 0           | 0       | 0       |
+| Paul Barbarin (short)          | 2     | 0      | 0           | 2       | 0       |
+| Ray Bauduc (short)             | 2     | 0      | 0           | 1       | 0       |
+| Tommy Benford (short)          | 2     | 0      | 0           | 1       | 0       |
+| Tony Sbarbaro (short)          | 4     | 0      | 0           | 3       | 0       |
+| Tubby Hall (short)             | 2     | 0      | 0           | 1       | 0       |
+| Zutty Singleton (short)        | 3     | 0      | 0           | 3       | 0       |
+
+**Candidates — New wave drummers**
+
+| Drummer      | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------ | ----- | ------ | ----------- | ------- | ------- |
+| Alan Myers   | 5     | 0      | 4           | 5       | 0       |
+| Chris Frantz | 10    | 0      | 10          | 10      | 0       |
+| Clem Burke   | 7     | 0      | 7           | 7       | 0       |
+| Gina Schock  | 5     | 0      | 4           | 5       | 0       |
+| Pete Thomas  | 6     | 0      | 2           | 6       | 0       |
+
+**Candidates — Noise rock and no wave drummers**
+
+| Drummer           | Songs | Scored | Transcribed | YouTube | Spotify |
+| ----------------- | ----- | ------ | ----------- | ------- | ------- |
+| Brian Chippendale | 5     | 0      | 2           | 5       | 0       |
+| Jim Sclavunos     | 5     | 0      | 2           | 4       | 0       |
+| Steve Shelley     | 7     | 0      | 2           | 7       | 0       |
+
+**Candidates — Nyabinghi drummers**
+
+| Drummer             | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Count Ossie (short) | 3     | 0      | 0           | 3       | 0       |
+
+**Candidates — Pipe band drummers**
+
+| Drummer                | Songs | Scored | Transcribed | YouTube | Spotify |
+| ---------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Alex Duthart (short)   | 0     | 0      | 0           | 0       | 0       |
+| Jim Kilpatrick (short) | 0     | 0      | 0           | 0       | 0       |
+
+**Candidates — Pop and session drummers**
+
+| Drummer                          | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Abe Laboriel Jr. (short)         | 4     | 0      | 3           | 4       | 0       |
+| Andy Newmark                     | 8     | 0      | 4           | 7       | 0       |
+| Andy White (short)               | 3     | 1      | 3           | 3       | 0       |
+| Anton Fig (short)                | 4     | 0      | 4           | 4       | 0       |
+| Bobby Graham                     | 5     | 0      | 4           | 5       | 0       |
+| Carlos Vega (short)              | 3     | 0      | 3           | 3       | 0       |
+| Clem Cattini (short)             | 2     | 0      | 2           | 1       | 0       |
+| Dennis Wilson (short)            | 3     | 0      | 2           | 3       | 0       |
+| Ed Greene (short)                | 3     | 0      | 2           | 3       | 0       |
+| Gary Chester (short)             | 4     | 0      | 3           | 4       | 0       |
+| Gene Chrisman (short)            | 4     | 0      | 3           | 4       | 0       |
+| Gregg Bissonette                 | 5     | 0      | 4           | 5       | 0       |
+| Jim Gordon                       | 6     | 0      | 5           | 6       | 0       |
+| Jim Keltner (short)              | 4     | 0      | 3           | 4       | 0       |
+| John 'JR' Robinson               | 5     | 0      | 4           | 5       | 0       |
+| Karen Carpenter (short)          | 2     | 0      | 0           | 2       | 0       |
+| Kenny Aronoff                    | 6     | 0      | 1           | 2       | 0       |
+| Leon "Ndugu" Chancler (short)    | 2     | 0      | 1           | 2       | 0       |
+| Liberty DeVitto                  | 6     | 0      | 5           | 6       | 0       |
+| Lloyd Ryan (short)               | 0     | 0      | 0           | 0       | 0       |
+| Manu Katché                      | 5     | 0      | 5           | 5       | 0       |
+| Matt Chamberlain (short)         | 3     | 0      | 3           | 3       | 0       |
+| Paul Humphrey (short)            | 2     | 0      | 1           | 2       | 0       |
+| Rick Marotta (short)             | 3     | 0      | 2           | 3       | 0       |
+| Ricky Lawson (short)             | 1     | 0      | 0           | 1       | 0       |
+| Ron Tutt (short)                 | 4     | 0      | 3           | 4       | 0       |
+| Russ Kunkel                      | 5     | 0      | 4           | 5       | 0       |
+| Shawn Pelton (short)             | 0     | 0      | 0           | 0       | 0       |
+| Shuichi "Ponta" Murakami (short) | 0     | 0      | 0           | 0       | 0       |
+| Sonny Emory (short)              | 2     | 0      | 0           | 2       | 0       |
+| Sterling Campbell (short)        | 2     | 0      | 2           | 2       | 0       |
+| Steve Ferrone                    | 5     | 0      | 3           | 5       | 0       |
+| Steve Jordan                     | 6     | 0      | 6           | 6       | 0       |
+
+**Candidates — Post-hardcore and emo drummers**
+
+| Drummer                   | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Brendan Canty             | 6     | 0      | 6           | 6       | 0       |
+| David Sandström (short)   | 4     | 0      | 0           | 3       | 0       |
+| William Goldsmith (short) | 4     | 0      | 4           | 4       | 0       |
+
+**Candidates — Post-punk and gothic rock drummers**
+
+| Drummer                | Songs | Scored | Transcribed | YouTube | Spotify |
+| ---------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Boris Williams         | 8     | 0      | 8           | 8       | 0       |
+| Donald Johnson (short) | 2     | 0      | 1           | 2       | 0       |
+| Hugo Burnham           | 5     | 0      | 5           | 5       | 0       |
+| Kenny Morris           | 5     | 0      | 5           | 5       | 0       |
+| Kevin Haskins          | 6     | 0      | 6           | 6       | 0       |
+| Lol Tolhurst           | 6     | 0      | 6           | 6       | 0       |
+| Palmolive (short)      | 3     | 0      | 0           | 3       | 0       |
+| Paul Ferguson          | 6     | 0      | 5           | 6       | 0       |
+| Pete de Freitas        | 6     | 0      | 5           | 6       | 0       |
+| Thomas Wydler          | 5     | 0      | 5           | 5       | 0       |
+
+**Candidates — Post-rock drummers**
+
+| Drummer               | Songs | Scored | Transcribed | YouTube | Spotify |
+| --------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Britt Walford         | 5     | 0      | 5           | 5       | 0       |
+| John McEntire (short) | 4     | 0      | 1           | 4       | 0       |
+
+**Candidates — Progressive and math rock drummers**
+
+| Drummer                  | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------------------ | ----- | ------ | ----------- | ------- | ------- |
+| Alan White (Yes)         | 6     | 0      | 4           | 5       | 0       |
+| Barriemore Barlow        | 5     | 0      | 5           | 5       | 0       |
+| Carl Palmer              | 6     | 0      | 4           | 6       | 0       |
+| Christian Vander (short) | 4     | 0      | 2           | 3       | 0       |
+| Clive Bunker             | 8     | 0      | 8           | 8       | 0       |
+| Damon Che                | 6     | 0      | 6           | 6       | 0       |
+| Ian Mosley               | 7     | 0      | 5           | 7       | 0       |
+| Jamie Muir (short)       | 4     | 0      | 4           | 4       | 0       |
+| John Weathers            | 7     | 0      | 7           | 6       | 0       |
+| Jon Theodore             | 8     | 0      | 8           | 8       | 0       |
+| Michael Giles            | 7     | 0      | 6           | 7       | 0       |
+| Pierre Moerlen           | 7     | 0      | 1           | 5       | 0       |
+| Pierre van der Linden    | 6     | 0      | 3           | 6       | 0       |
+| Robert Wyatt             | 6     | 0      | 4           | 6       | 0       |
+| Terry Bozzio             | 8     | 0      | 2           | 8       | 0       |
+| Thomas Pridgen           | 6     | 0      | 6           | 6       | 0       |
+| Zach Hill                | 7     | 0      | 5           | 7       | 0       |
+
+**Candidates — Progressive metal drummers**
+
+| Drummer          | Songs | Scored | Transcribed | YouTube | Spotify |
+| ---------------- | ----- | ------ | ----------- | ------- | ------- |
+| Brann Dailor     | 8     | 0      | 8           | 7       | 0       |
+| Mario Duplantier | 8     | 0      | 8           | 8       | 0       |
+| Matt Garstka     | 7     | 0      | 5           | 7       | 0       |
+| Mike Mangini     | 8     | 0      | 8           | 8       | 0       |
+| Sean Reinert     | 7     | 0      | 6           | 7       | 0       |
+
+**Candidates — Punk drummers**
+
+| Drummer       | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------- | ----- | ------ | ----------- | ------- | ------- |
+| George Hurley | 6     | 0      | 5           | 5       | 0       |
+| Jerry Nolan   | 8     | 0      | 7           | 8       | 0       |
+| Jet Black     | 8     | 0      | 7           | 8       | 0       |
+| John Maher    | 8     | 0      | 7           | 6       | 0       |
+| Marky Ramone  | 8     | 0      | 8           | 6       | 0       |
+| Rat Scabies   | 7     | 0      | 5           | 7       | 0       |
+| Tobi Vail     | 6     | 0      | 6           | 6       | 0       |
+| Tommy Ramone  | 8     | 0      | 8           | 8       | 0       |
+| Tré Cool      | 9     | 0      | 9           | 9       | 0       |
+
+**Candidates — Reggae drummers**
+
+| Drummer                            | Songs | Scored | Transcribed | YouTube | Spotify |
+| ---------------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Drummie Zeb                        | 6     | 0      | 3           | 6       | 0       |
+| Leroy "Horsemouth" Wallace (short) | 4     | 1      | 2           | 4       | 0       |
+| Mikey "Boo" Richards (short)       | 4     | 0      | 3           | 4       | 0       |
+| Paul Douglas                       | 6     | 0      | 3           | 6       | 0       |
+| Winston Grennan                    | 5     | 0      | 4           | 5       | 0       |
+
+**Candidates — Rock and roll and roots drummers**
+
+| Drummer                | Songs | Scored | Transcribed | YouTube | Spotify |
+| ---------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Bobbie Clarke (short)  | 1     | 0      | 0           | 0       | 0       |
+| Brian Bennett          | 7     | 0      | 5           | 6       | 0       |
+| Carlo Little (short)   | 2     | 0      | 0           | 2       | 0       |
+| Charles Connor (short) | 4     | 0      | 1           | 4       | 0       |
+| Clifton James          | 6     | 0      | 2           | 6       | 0       |
+| D. J. Fontana          | 7     | 0      | 7           | 7       | 0       |
+| Dickie Harrell (short) | 4     | 0      | 0           | 2       | 0       |
+| Jerry Allison          | 7     | 0      | 6           | 6       | 0       |
+| Jimmy Van Eaton        | 6     | 0      | 5           | 5       | 0       |
+| Mickey Jones           | 5     | 0      | 3           | 5       | 0       |
+| Sandy Nelson           | 5     | 0      | 1           | 5       | 0       |
+| Terry Williams         | 6     | 1      | 5           | 6       | 0       |
+| Tony Meehan            | 6     | 0      | 3           | 6       | 0       |
+| W. S. Holland          | 6     | 0      | 3           | 6       | 0       |
+
+**Candidates — Rock en español drummers**
+
+| Drummer        | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------- | ----- | ------ | ----------- | ------- | ------- |
+| Charly Alberti | 7     | 0      | 6           | 7       | 0       |
+
+**Candidates — Salsa drummers**
+
+| Drummer                | Songs | Scored | Transcribed | YouTube | Spotify |
+| ---------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Manny Oquendo (short)  | 3     | 0      | 0           | 3       | 0       |
+| Nicky Marrero (short)  | 4     | 0      | 1           | 4       | 0       |
+| Orestes Vilató (short) | 3     | 0      | 1           | 3       | 0       |
+| Ray Barretto           | 6     | 1      | 0           | 6       | 0       |
+
+**Candidates — Samba and Brazilian jazz drummers**
+
+| Drummer                   | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Duduka Da Fonseca (short) | 2     | 0      | 0           | 0       | 0       |
+| Edison Machado (short)    | 3     | 0      | 1           | 3       | 0       |
+| Luciano Perrone (short)   | 1     | 0      | 0           | 1       | 0       |
+| Milton Banana             | 6     | 0      | 3           | 6       | 0       |
+| Naná Vasconcelos (short)  | 4     | 0      | 0           | 4       | 0       |
+| Robertinho Silva (short)  | 3     | 0      | 2           | 3       | 0       |
+| Wilson das Neves (short)  | 2     | 0      | 0           | 1       | 0       |
+
+**Candidates — Shoegaze drummers**
+
+| Drummer        | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------- | ----- | ------ | ----------- | ------- | ------- |
+| Colm Ó Cíosóig | 6     | 0      | 6           | 6       | 0       |
+| Loz Colbert    | 7     | 0      | 7           | 6       | 0       |
+
+**Candidates — Ska and rocksteady drummers**
+
+| Drummer              | Songs | Scored | Transcribed | YouTube | Spotify |
+| -------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Drumbago (short)     | 2     | 0      | 0           | 2       | 0       |
+| Hugh Malcolm (short) | 1     | 0      | 0           | 1       | 0       |
+| Lloyd Knibb          | 6     | 0      | 3           | 5       | 0       |
+
+**Candidates — Soul and Motown drummers**
+
+| Drummer                | Songs | Scored | Transcribed | YouTube | Spotify |
+| ---------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Howard Grimes          | 5     | 1      | 3           | 5       | 0       |
+| Maurice White (short)  | 3     | 0      | 2           | 3       | 0       |
+| Richard 'Pistol' Allen | 6     | 0      | 3           | 5       | 0       |
+| Roger Hawkins          | 7     | 0      | 4           | 7       | 0       |
+| Uriel Jones            | 8     | 0      | 5           | 8       | 0       |
+| Willie Hall (short)    | 3     | 0      | 2           | 3       | 0       |
+
+**Candidates — Southern rock drummers**
+
+| Drummer      | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------ | ----- | ------ | ----------- | ------- | ------- |
+| Butch Trucks | 6     | 0      | 4           | 5       | 0       |
+| Jaimoe       | 6     | 0      | 4           | 5       | 0       |
+
+**Candidates — Stoner rock and doom drummers**
+
+| Drummer     | Songs | Scored | Transcribed | YouTube | Spotify |
+| ----------- | ----- | ------ | ----------- | ------- | ------- |
+| Brant Bjork | 5     | 0      | 4           | 4       | 0       |
+
+**Candidates — Surf rock drummers**
+
+| Drummer                           | Songs | Scored | Transcribed | YouTube | Spotify |
+| --------------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Ron Wilson (The Surfaris) (short) | 2     | 0      | 2           | 2       | 0       |
+
+**Candidates — Swing and big band drummers**
+
+| Drummer                 | Songs | Scored | Transcribed | YouTube | Spotify |
+| ----------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Big Sid Catlett (short) | 4     | 0      | 0           | 3       | 0       |
+| Chick Webb              | 5     | 0      | 0           | 5       | 0       |
+| Cliff Leeman (short)    | 2     | 0      | 1           | 2       | 0       |
+| Cozy Cole               | 5     | 0      | 0           | 4       | 0       |
+| Dave Tough              | 5     | 0      | 0           | 3       | 0       |
+| Don Lamond              | 5     | 0      | 0           | 5       | 0       |
+| Dottie Dodgion (short)  | 1     | 0      | 0           | 1       | 0       |
+| Ed Shaughnessy (short)  | 3     | 0      | 0           | 2       | 0       |
+| J. C. Heard (short)     | 3     | 0      | 0           | 2       | 0       |
+| Jack Parnell (short)    | 1     | 0      | 0           | 0       | 0       |
+| Jimmy Crawford (short)  | 3     | 0      | 0           | 3       | 0       |
+| Louie Bellson (short)   | 3     | 0      | 0           | 3       | 0       |
+| Mel Lewis               | 5     | 0      | 1           | 1       | 0       |
+| O'Neil Spencer (short)  | 4     | 0      | 0           | 4       | 0       |
+| Panama Francis          | 5     | 0      | 4           | 5       | 0       |
+| Papa Jo Jones           | 5     | 0      | 0           | 5       | 0       |
+| Pauline Braddy (short)  | 1     | 0      | 0           | 1       | 0       |
+| Ray McKinley (short)    | 3     | 0      | 0           | 3       | 0       |
+| Ronnie Verrell (short)  | 3     | 0      | 0           | 2       | 0       |
+| Sam Woodyard            | 5     | 0      | 0           | 2       | 0       |
+| Shadow Wilson           | 5     | 0      | 1           | 5       | 0       |
+| Sherrie Maricle (short) | 1     | 0      | 0           | 1       | 0       |
+| Sonny Greer             | 5     | 0      | 0           | 3       | 0       |
+| Sonny Payne             | 5     | 0      | 0           | 5       | 0       |
+| Specs Powell (short)    | 1     | 0      | 0           | 0       | 0       |
+| Viola Smith (short)     | 1     | 0      | 0           | 0       | 0       |
+
+**Candidates — Synth-pop drummers**
+
+| Drummer            | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------------ | ----- | ------ | ----------- | ------- | ------- |
+| Yukihiro Takahashi | 6     | 0      | 2           | 6       | 0       |
+
+**Candidates — Taiko and samul nori drummers**
+
+| Drummer                 | Songs | Scored | Transcribed | YouTube | Spotify |
+| ----------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Daihachi Oguchi (short) | 0     | 0      | 0           | 0       | 0       |
+| Eitetsu Hayashi (short) | 0     | 0      | 0           | 0       | 0       |
+| Kim Duk-soo (short)     | 0     | 0      | 0           | 0       | 0       |
+
+**Candidates — Thrash metal drummers**
+
+| Drummer         | Songs | Scored | Transcribed | YouTube | Spotify |
+| --------------- | ----- | ------ | ----------- | ------- | ------- |
+| Charlie Benante | 7     | 0      | 6           | 7       | 0       |
+| Dirk Verbeuren  | 5     | 0      | 4           | 4       | 0       |
+| Eloy Casagrande | 5     | 0      | 4           | 5       | 0       |
+| Gar Samuelson   | 6     | 0      | 6           | 6       | 0       |
+| Gene Hoglan     | 6     | 0      | 6           | 6       | 0       |
+| Igor Cavalera   | 6     | 0      | 6           | 6       | 0       |
+| Nick Menza      | 6     | 0      | 6           | 6       | 0       |
+| Paul Bostaph    | 5     | 0      | 5           | 5       | 0       |
+| Tom Hunting     | 5     | 0      | 5           | 4       | 0       |
+| Ventor          | 5     | 0      | 5           | 5       | 0       |
+
+**Candidates — Trip hop drummers**
+
+| Drummer      | Songs | Scored | Transcribed | YouTube | Spotify |
+| ------------ | ----- | ------ | ----------- | ------- | ------- |
+| Clive Deamer | 6     | 0      | 4           | 4       | 0       |
+
+**Candidates — West African traditional drummers**
+
+| Drummer                      | Songs | Scored | Transcribed | YouTube | Spotify |
+| ---------------------------- | ----- | ------ | ----------- | ------- | ------- |
+| Babatunde Olatunji           | 5     | 0      | 1           | 5       | 0       |
+| Doudou N'Diaye Rose (short)  | 1     | 0      | 0           | 0       | 0       |
+| Famoudou Konaté (short)      | 0     | 0      | 0           | 0       | 0       |
+| Mamady Keïta (short)         | 0     | 0      | 0           | 0       | 0       |
+| Mustapha Tettey Addy (short) | 0     | 0      | 0           | 0       | 0       |
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

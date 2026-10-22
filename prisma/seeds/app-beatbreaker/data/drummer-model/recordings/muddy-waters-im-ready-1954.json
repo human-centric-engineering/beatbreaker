@@ -1,0 +1,33 @@
+{
+  "id": "rec:muddy-waters-im-ready-1954",
+  "title": "I'm Ready",
+  "artist": "Muddy Waters",
+  "year": 1954,
+  "type": "studio_track",
+  "style_ids": ["style:blues", "style:blues-shuffle"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fred-below"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "I'm Ready",
+      "drummer_ids": ["drummer:fred-below"],
+      "drums": {
+        "description": "Stop-time sixteen-bar figure with hard unison accents and a solid shuffle in between.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:im-ready-muddy-waters-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wQlCLF6bzUQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4891593"
+        }
+      ]
+    }
+  ]
+}

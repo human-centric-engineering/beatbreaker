@@ -1,0 +1,27 @@
+{
+  "id": "rec:tortoise-standards-2001",
+  "title": "Standards",
+  "artist": "Tortoise",
+  "year": 2001,
+  "type": "album",
+  "style_ids": ["style:post-rock", "style:experimental-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-mcentire"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Seneca",
+      "drummer_ids": ["drummer:john-mcentire"],
+      "drums": {
+        "description": "A heavy, crashing groove with electronic processing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:standards-tortoise-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MlRSqnxZ-PA"
+    }
+  ]
+}

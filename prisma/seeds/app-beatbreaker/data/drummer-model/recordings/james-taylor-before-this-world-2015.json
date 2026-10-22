@@ -1,0 +1,29 @@
+{
+  "id": "rec:james-taylor-before-this-world-2015",
+  "title": "Before This World",
+  "artist": "James Taylor",
+  "year": 2015,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-gadd"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Stretch of the Highway",
+      "drummer_ids": ["drummer:steve-gadd"],
+      "drums": {
+        "description": "A rolling groove, a cross-stick in the verse, on a warm kit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:before-this-world-wikipedia"]
+        }
+      },
+      "style_key": "gadd",
+      "song_key": "stretch-of-the-highway",
+      "youtube": "https://www.youtube.com/watch?v=_oQ1TKaAidA"
+    }
+  ]
+}

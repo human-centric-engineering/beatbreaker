@@ -15,5 +15,25 @@
       "name": "Clem Cattini",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Shakin' All Over",
+      "drummer_ids": ["drummer:clem-cattini"],
+      "drums": {
+        "description": "A taut, rumbling beat with stops that set off the tremolo guitar riff, a landmark of British rock and roll.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:shakin-all-over-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eiOs02YatUg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10624"
+        }
+      ]
+    }
   ]
 }

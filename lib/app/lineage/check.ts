@@ -5,9 +5,11 @@
  * Shape is the schemas' job (Ajv, in the test). This is what a schema cannot
  * say: that ids are unique and resolve, that a recording a drummer lists has
  * them on it, that a pattern's lanes fit its grid, that a masked performer's
- * real identity is not stored, that every rhythmic device cites a source.
+ * real identity is not stored, that every rhythmic device cites a source,
+ * that a song on a recording is played by someone on it.
  */
 
+import { parseReferenceLink } from '@/lib/app/breaks/links';
 import { RELATIONSHIPS } from '@/lib/app/lineage/build';
 import type { Corpus } from '@/lib/app/lineage/corpus';
 import type { LineageGraph } from '@/lib/app/lineage/types';
@@ -143,6 +145,51 @@ export function checkCorpus(corpus: Corpus): string[] {
     for (const id of cited) {
       if (defined.has(id) && !sources.has(id)) {
         errors.push(`${file} contribution: ${id} is not in the source registry`);
+      }
+    }
+  }
+
+  /* A song on the index (15-b, D73): played by someone on the record, a line
+     on its drums that cites the registry, and links stored as the provider's
+     own address rebuilt from the id, the shape `parseReferenceLink` gives. */
+  const styleKeys = new Map(
+    corpus.drummers.flatMap(({ record }) =>
+      record.beatbreaker?.style_key ? [[record.meta.id, record.beatbreaker.style_key]] : []
+    )
+  );
+  for (const { file, record } of corpus.recordings) {
+    const playing = new Set(record.drum_performances.map((p) => p.drummer_id));
+    const titles = new Set<string>();
+    for (const t of record.tracks ?? []) {
+      const name = `${file} track "${t.title}"`;
+      const folded = t.title.toLowerCase();
+      if (titles.has(folded)) errors.push(`${name}: listed twice`);
+      titles.add(folded);
+      for (const d of t.drummer_ids) {
+        if (!playing.has(d)) errors.push(`${name}: ${d} has no drum_performance on the recording`);
+      }
+      const cited = t.drums.evidence?.source_ids ?? [];
+      if (cited.length === 0) errors.push(`${name}: the line on the drums cites no source`);
+      for (const id of cited) {
+        if (!sources.has(id)) errors.push(`${name}: ${id} is not in the source registry`);
+      }
+      for (const [provider, url] of [
+        ['spotify', t.spotify],
+        ['youtube', t.youtube],
+      ] as const) {
+        if (url === undefined) continue;
+        const link = parseReferenceLink(url);
+        if (link?.provider !== provider || link.canonicalUrl !== url) {
+          errors.push(`${name}: ${provider} link ${url} is not one parseReferenceLink rebuilds`);
+        }
+      }
+      if (t.song_key !== undefined) {
+        const own = t.drummer_ids.map((d) => styleKeys.get(d));
+        if (t.style_key === undefined || !own.includes(t.style_key)) {
+          errors.push(`${name}: song_key needs the style_key of a drummer on it`);
+        }
+      } else if (t.style_key !== undefined || t.also_song_keys !== undefined) {
+        errors.push(`${name}: style_key or also_song_keys without a song_key`);
       }
     }
   }

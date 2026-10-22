@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Kid from Red Bank",
+      "drummer_ids": ["drummer:sonny-payne"],
+      "drums": {
+        "description": "Big, explosive bass-drum and cymbal hits behind Basie's piano feature, Payne's showman style at its peak.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-atomic-mr-basie-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8R0KmnsqFew"
+    },
+    {
+      "title": "Li'l Darlin'",
+      "drummer_ids": ["drummer:sonny-payne"],
+      "drums": {
+        "description": "An ultra-slow swing ballad held together by a soft, patient ride beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-atomic-mr-basie-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nqn4nyZz0to"
+    },
+    {
+      "title": "Splanky",
+      "drummer_ids": ["drummer:sonny-payne"],
+      "drums": {
+        "description": "A medium swing riff with Payne's big setups and bombs under the brass shouts.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-atomic-mr-basie-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VYO3gC962PM"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:sonny-payne-wikipedia"]

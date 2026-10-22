@@ -46,6 +46,56 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Anesthetize",
+      "drummer_ids": ["drummer:gavin-harrison"],
+      "drums": {
+        "description": "Seventeen minutes: part one on the toms alone, ghosted sixteenths accented 3+3+2, his showcase for rhythmic illusion.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:fear-of-a-blank-planet-wikipedia",
+            "src:songsterr-50753",
+            "src:hudson-rhythmic-composition"
+          ]
+        }
+      },
+      "style_key": "harrison",
+      "song_key": "anesthetize",
+      "youtube": "https://www.youtube.com/watch?v=kgwgtERCVI4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=50753"
+        }
+      ]
+    },
+    {
+      "title": "Fear of a Blank Planet",
+      "drummer_ids": ["drummer:gavin-harrison"],
+      "drums": {
+        "description": "In 6/4, the hat loud on the beat and soft between, the snare on 2, 4 and 6.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:fear-of-a-blank-planet-wikipedia",
+            "src:songsterr-50744",
+            "src:bonedo-harrison-2020"
+          ]
+        }
+      },
+      "style_key": "harrison",
+      "song_key": "fear-of-a-blank-planet",
+      "youtube": "https://www.youtube.com/watch?v=EQywPv5DBpw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=50744"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

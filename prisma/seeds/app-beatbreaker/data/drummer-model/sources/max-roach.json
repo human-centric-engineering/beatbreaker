@@ -340,5 +340,21 @@
     "reliability": 0.7,
     "accessed": "2026-10-15",
     "notes": "Nola Penthouse, New York, 31 August and 6 September 1960; Candid, January 1961. Abbey Lincoln; Babatunde Olatunji, Ray Mantilla and Tomas du Vall on percussion (side two). Driva' Man in 5/4 with a hit on every 1; the drums tuned to Lincoln's voice in Triptych."
+  },
+  {
+    "id": "src:st-thomas-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "St. Thomas (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/St._Thomas_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:sonny-clark-trio-wikipedia",
+    "type": "encyclopedia",
+    "title": "Sonny Clark Trio - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sonny_Clark_Trio",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

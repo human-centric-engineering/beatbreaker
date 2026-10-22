@@ -1,0 +1,28 @@
+{
+  "id": "rec:fela-london-scene-1971",
+  "title": "Fela's London Scene",
+  "artist": "Fela Ransome-Kuti and the Africa '70",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:afrobeat", "style:west-african", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Buy Africa",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "Slow and roomy: the pattern floats, kicks in pairs and the snare in loose clusters with no fixed backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:fela-kuti-discography-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "buy-africa"
+    }
+  ]
+}

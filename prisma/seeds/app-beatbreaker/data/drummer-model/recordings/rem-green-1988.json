@@ -1,0 +1,45 @@
+{
+  "id": "rec:rem-green-1988",
+  "title": "Green",
+  "artist": "R.E.M.",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:alternative-rock", "style:indie-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-berry"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Orange Crush",
+      "drummer_ids": ["drummer:bill-berry"],
+      "drums": {
+        "description": "A marching snare figure under the verses gives way to a full-kit drive in the chorus, matching the song's military imagery.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:green-rem-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=66C66JM9F1k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=51886"
+        }
+      ]
+    },
+    {
+      "title": "Stand",
+      "drummer_ids": ["drummer:bill-berry"],
+      "drums": {
+        "description": "A bouncy, deliberately simple backbeat that carries the key changes of the band's cheeriest single.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:green-rem-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bLaSXpqp__E"
+    }
+  ]
+}

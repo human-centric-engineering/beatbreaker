@@ -18,6 +18,60 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Poinciana",
+      "drummer_ids": ["drummer:vernel-fournier"],
+      "drums": {
+        "description": "A New Orleans-derived groove of mallet-like tom figures and rim, the famous \"Poinciana beat\".",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:at-the-pershing-but-not-for-me-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3814379"
+        }
+      ]
+    },
+    {
+      "title": "But Not for Me",
+      "drummer_ids": ["drummer:vernel-fournier"],
+      "drums": {
+        "description": "Light, crisp swing with soft brushes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:at-the-pershing-but-not-for-me-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Surrey with the Fringe on Top",
+      "drummer_ids": ["drummer:vernel-fournier"],
+      "drums": {
+        "description": "Bright, swinging brushwork with space around the piano.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:at-the-pershing-but-not-for-me-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wTET9-DFCbc"
+    },
+    {
+      "title": "Music, Music, Music",
+      "drummer_ids": ["drummer:vernel-fournier"],
+      "drums": {
+        "description": "A light, bouncy medium swing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:at-the-pershing-but-not-for-me-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yuHZncyPL9Q"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:vernel-fournier-wikipedia"]

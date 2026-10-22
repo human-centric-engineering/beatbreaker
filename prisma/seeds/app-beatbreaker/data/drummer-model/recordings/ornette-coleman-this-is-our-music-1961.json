@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Blues Connotation",
+      "drummer_ids": ["drummer:ed-blackwell"],
+      "drums": {
+        "description": "Fast, melodic drumming with New Orleans parade-drum roots, phrasing like a horn.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ed-blackwell-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NwEoe84X99c"
+    },
+    {
+      "title": "Beauty Is a Rare Thing",
+      "drummer_ids": ["drummer:ed-blackwell"],
+      "drums": {
+        "description": "Free, pulseless rolls and colours under a rubato theme.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ed-blackwell-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-QhBxt5VX-s"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ed-blackwell-wikipedia"]

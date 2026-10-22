@@ -16,5 +16,37 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Captain Caveman",
+      "drummer_ids": ["drummer:brian-chippendale"],
+      "drums": {
+        "description": "A pounding, near-continuous barrage on a small kit, the drums as much lead instrument as rhythm.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hypermagic-mountain-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ygBww2ozQIA"
+    },
+    {
+      "title": "Dead Cowboy",
+      "drummer_ids": ["drummer:brian-chippendale"],
+      "drums": {
+        "description": "Galloping, chaotic tom patterns that lurch between locked grooves and free bursts.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hypermagic-mountain-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=M4_vfNIDdU8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6120221"
+        }
+      ]
+    }
   ]
 }

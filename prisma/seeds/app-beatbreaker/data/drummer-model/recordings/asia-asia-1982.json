@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Heat of the Moment",
+      "drummer_ids": ["drummer:carl-palmer"],
+      "drums": {
+        "description": "A punchy, arena-rock beat with big fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:asia-asia-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lCALGlGuVUA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2007"
+        }
+      ]
+    },
+    {
+      "title": "Only Time Will Tell",
+      "drummer_ids": ["drummer:carl-palmer"],
+      "drums": {
+        "description": "A steady, synth-rock groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:asia-asia-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AWs8SbT4__E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1910"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:carl-palmer-wikipedia"]

@@ -42,6 +42,40 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Feelin' the Same Way",
+      "drummer_ids": ["drummer:brian-blade"],
+      "drums": {
+        "description": "The floor tom carrying the time, no cymbals, the snare on 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-10368", "src:come-away-with-me-wikipedia"]
+        }
+      },
+      "style_key": "brianblade",
+      "song_key": "feelin-the-same-way",
+      "youtube": "https://www.youtube.com/watch?v=3Xtscufftes",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10368"
+        }
+      ]
+    },
+    {
+      "title": "Seven Years",
+      "drummer_ids": ["drummer:brian-blade"],
+      "drums": {
+        "description": "Soft brushes and percussion under the acoustic guitar, almost silent.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:come-away-with-me-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zwcMlP9ZMZg"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:come-away-with-me-wikipedia"]

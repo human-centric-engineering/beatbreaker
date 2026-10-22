@@ -1,0 +1,35 @@
+{
+  "id": "rec:otis-redding-hard-to-handle-1968",
+  "title": "Hard to Handle",
+  "artist": "Otis Redding",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:al-jackson-jr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hard to Handle",
+      "drummer_ids": ["drummer:al-jackson-jr"],
+      "drums": {
+        "description": "One-hand sixteenths on the hi-hat, the kick on the \"a\" of 2 into 3, stops, and the ride for the refrain.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hard-to-handle-song-wikipedia"]
+        }
+      },
+      "style_key": "aljackson",
+      "song_key": "hard-to-handle",
+      "youtube": "https://www.youtube.com/watch?v=2B4mGgDNlk4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16797"
+        }
+      ]
+    }
+  ]
+}

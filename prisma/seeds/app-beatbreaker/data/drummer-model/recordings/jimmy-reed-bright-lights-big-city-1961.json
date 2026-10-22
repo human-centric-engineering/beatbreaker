@@ -10,5 +10,25 @@
       "drummer_id": "drummer:earl-phillips",
       "name": "Earl Phillips"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Bright Lights, Big City",
+      "drummer_ids": ["drummer:earl-phillips"],
+      "drums": {
+        "description": "Relaxed, loping shuffle kept simple and steady, the laid-back Reed groove many blues bands copy.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wp-bright-lights-big-city"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mSCLxx8TloA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2388388"
+        }
+      ]
+    }
   ]
 }

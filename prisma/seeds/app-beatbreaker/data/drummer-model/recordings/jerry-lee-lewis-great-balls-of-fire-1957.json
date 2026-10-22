@@ -1,0 +1,33 @@
+{
+  "id": "rec:jerry-lee-lewis-great-balls-of-fire-1957",
+  "title": "Great Balls of Fire",
+  "artist": "Jerry Lee Lewis",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jimmy-van-eaton"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Great Balls of Fire",
+      "drummer_ids": ["drummer:jimmy-van-eaton"],
+      "drums": {
+        "description": "A driving, jazz-tinged shuffle with crashing accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:great-balls-of-fire-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lgCNOsSYP4I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=11691"
+        }
+      ]
+    }
+  ]
+}

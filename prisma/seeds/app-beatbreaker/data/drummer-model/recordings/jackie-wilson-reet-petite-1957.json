@@ -10,5 +10,25 @@
       "drummer_id": "drummer:panama-francis",
       "name": "Panama Francis"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Reet Petite",
+      "drummer_ids": ["drummer:panama-francis"],
+      "drums": {
+        "description": "A swinging, big-band-derived rock-and-roll beat with snare fills answering the horns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:panama-francis-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3lZ2xjoBoXU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=21655"
+        }
+      ]
+    }
   ]
 }

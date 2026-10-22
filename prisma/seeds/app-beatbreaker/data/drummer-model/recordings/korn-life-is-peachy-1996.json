@@ -1,0 +1,33 @@
+{
+  "id": "rec:korn-life-is-peachy-1996",
+  "title": "Life Is Peachy",
+  "artist": "Korn",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:nu-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:david-silveria"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "A.D.I.D.A.S.",
+      "drummer_ids": ["drummer:david-silveria"],
+      "drums": {
+        "description": "A bouncing, hip-hop-style groove on a tight snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:life-is-peachy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=239vHrwt8Rs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=32797"
+        }
+      ]
+    }
+  ]
+}

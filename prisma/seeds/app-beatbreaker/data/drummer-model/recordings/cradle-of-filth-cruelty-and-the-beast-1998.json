@@ -1,0 +1,51 @@
+{
+  "id": "rec:cradle-of-filth-cruelty-and-the-beast-1998",
+  "title": "Cruelty and the Beast",
+  "artist": "Cradle of Filth",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nick-barker"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Cruelty Brought Thee Orchids",
+      "drummer_ids": ["drummer:nick-barker"],
+      "drums": {
+        "description": "Machine-like double-kick under alternating blast and thrash beats; the album's thin drum sound was criticised, but the playing is precise at extreme speed.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:cruelty-and-the-beast-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gUEg58_OEto",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=28620"
+        }
+      ]
+    },
+    {
+      "title": "Beneath the Howling Stars",
+      "drummer_ids": ["drummer:nick-barker"],
+      "drums": {
+        "description": "Fast blast sections and galloping double bass, with Barker driving the many tempo changes of the arrangement.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:cruelty-and-the-beast-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=E2ioAvUNd0s",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=28632"
+        }
+      ]
+    }
+  ]
+}

@@ -43,6 +43,28 @@
       "pattern_ids": ["pattern:rowntree-theres-no-other-way"]
     }
   ],
+  "tracks": [
+    {
+      "title": "There's No Other Way",
+      "drummer_ids": ["drummer:dave-rowntree"],
+      "drums": {
+        "description": "Baggy: a Madchester shuffle with the snare on the \"a\" of 2 and the \"and\" of 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:leisure-album-wikipedia"]
+        }
+      },
+      "style_key": "rowntree",
+      "song_key": "theres-no-other-way",
+      "youtube": "https://www.youtube.com/watch?v=LJzCYSdrHMI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2839614"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:leisure-album-wikipedia"]

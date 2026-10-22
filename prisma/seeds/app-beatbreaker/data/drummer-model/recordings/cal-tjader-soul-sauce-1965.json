@@ -17,5 +17,19 @@
         "source_ids": ["src:wikipedia-willie-bobo"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Soul Sauce (Guachi Guaro)",
+      "drummer_ids": ["drummer:willie-bobo"],
+      "drums": {
+        "description": "Bobo's timbales and bongos drive Tjader's remake of Gillespie and Pozo's Guarachi Guaro into a Latin-soul hit.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-willie-bobo"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=N6g1ncgl8Oo"
+    }
   ]
 }

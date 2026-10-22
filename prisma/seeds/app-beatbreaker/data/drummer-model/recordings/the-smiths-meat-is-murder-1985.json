@@ -39,6 +39,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Barbarism Begins at Home",
+      "drummer_ids": ["drummer:mike-joyce"],
+      "drums": {
+        "description": "Funk in eighths for seven minutes, the hat lifted on the \"a\" of 4, a splash on 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-18076", "src:barbarism-begins-at-home-wikipedia"]
+        }
+      },
+      "style_key": "mikejoyce",
+      "song_key": "barbarism-begins-at-home",
+      "youtube": "https://www.youtube.com/watch?v=pAieGbjvBGk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18076"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:barbarism-begins-at-home-wikipedia"]

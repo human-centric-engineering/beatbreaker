@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-kinks-days-1968",
+  "title": "Days",
+  "artist": "The Kinks",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-avory"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Days",
+      "drummer_ids": ["drummer:mick-avory"],
+      "drums": {
+        "description": "Restrained ballad drumming that grows with the arrangement and never crowds the vocal.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:days-the-kinks-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sfyzaiT_rRU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1635285"
+        }
+      ]
+    }
+  ]
+}

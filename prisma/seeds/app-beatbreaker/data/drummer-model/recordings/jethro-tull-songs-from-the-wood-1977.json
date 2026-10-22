@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Songs from the Wood",
+      "drummer_ids": ["drummer:barriemore-barlow"],
+      "drums": {
+        "description": "Intricate, folk-rock patterns with odd accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songs-from-the-wood-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=z4UYX2qpUK0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=375788"
+        }
+      ]
+    },
+    {
+      "title": "Cup of Wonder",
+      "drummer_ids": ["drummer:barriemore-barlow"],
+      "drums": {
+        "description": "A lively, folk-rock beat with busy fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songs-from-the-wood-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KNc2uifQuGw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=375777"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:barriemore-barlow-wikipedia"]

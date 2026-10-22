@@ -1,0 +1,33 @@
+{
+  "id": "rec:traffic-the-low-spark-of-high-heeled-boys-1971",
+  "title": "The Low Spark of High Heeled Boys",
+  "artist": "Traffic",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jim-gordon"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Low Spark of High Heeled Boys",
+      "drummer_ids": ["drummer:jim-gordon"],
+      "drums": {
+        "description": "A long, hypnotic jazz-rock groove that rides through the twelve-minute track.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-low-spark-of-high-heeled-boys-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vDGorIWYz-A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=434995"
+        }
+      ]
+    }
+  ]
+}

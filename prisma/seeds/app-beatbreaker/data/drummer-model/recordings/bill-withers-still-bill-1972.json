@@ -61,6 +61,101 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Use Me",
+      "drummer_ids": ["drummer:james-gadson"],
+      "drums": {
+        "description": "The rim click and kick trading sixteenths under the hats, then the stop-start breaks: a classic pocket.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:use-me-wikipedia",
+            "src:gadson-bishop-use-me-breaks",
+            "src:gadson-drummercafe-use-me"
+          ]
+        }
+      },
+      "style_key": "gadson",
+      "song_key": "use-me-withers",
+      "youtube": "https://www.youtube.com/watch?v=LuzlbR5V_hc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=843207"
+        }
+      ]
+    },
+    {
+      "title": "Lean on Me",
+      "drummer_ids": ["drummer:james-gadson"],
+      "drums": {
+        "description": "Simple, warm and behind the beat, letting the piano and the singalong carry the song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lean-on-me-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dtC1W-6hwIU"
+    },
+    {
+      "title": "Kissing My Love",
+      "drummer_ids": ["drummer:james-gadson"],
+      "drums": {
+        "description": "Half-swung sixteenths on the hats and a kick that leaves the bar open, an often-sampled break.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:still-bill-wikipedia", "src:gadson-bishop-still-bill-grooves"]
+        }
+      },
+      "style_key": "gadson",
+      "song_key": "kissing-my-love",
+      "youtube": "https://www.youtube.com/watch?v=oNMtVGfatmU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2913731"
+        }
+      ]
+    },
+    {
+      "title": "Who Is He (And What Is He to You)?",
+      "drummer_ids": ["drummer:james-gadson"],
+      "drums": {
+        "description": "Eighths with the hat opened on the 'and' of 2 and shut on 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:who-is-he-and-what-is-he-to-you-wikipedia",
+            "src:gadson-bishop-still-bill-grooves"
+          ]
+        }
+      },
+      "style_key": "gadson",
+      "song_key": "who-is-he",
+      "youtube": "https://www.youtube.com/watch?v=T4JtCCWB6Y4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=690607"
+        }
+      ]
+    },
+    {
+      "title": "Lonely Town, Lonely Street",
+      "drummer_ids": ["drummer:james-gadson"],
+      "drums": {
+        "description": "Eighths on the hat over swung sixteenths in the kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:still-bill-wikipedia", "src:gadson-bishop-still-bill-grooves"]
+        }
+      },
+      "style_key": "gadson",
+      "song_key": "lonely-town",
+      "youtube": "https://www.youtube.com/watch?v=FrHO_EC63-k"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:still-bill-wikipedia"]

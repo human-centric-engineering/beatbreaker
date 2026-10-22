@@ -49,6 +49,143 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "I Wanna Be Adored",
+      "drummer_ids": ["drummer:reni"],
+      "drums": {
+        "description": "The slow build: the bass drum alone on every beat, then eighths on the hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-wanna-be-adored-wikipedia", "src:songsterr-19352"]
+        }
+      },
+      "style_key": "reni",
+      "song_key": "i-wanna-be-adored",
+      "youtube": "https://www.youtube.com/watch?v=4D2qcbu26gs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19352"
+        }
+      ]
+    },
+    {
+      "title": "She Bangs the Drums",
+      "drummer_ids": ["drummer:reni"],
+      "drums": {
+        "description": "The hat alone, then the bass drum on the 'and's under eighths, a skipping, swinging indie groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:she-bangs-the-drums-wikipedia",
+            "src:songsterr-24335",
+            "src:stone-roses-bass-and-drums-betheriel"
+          ]
+        }
+      },
+      "style_key": "reni",
+      "song_key": "she-bangs-the-drums",
+      "youtube": "https://www.youtube.com/watch?v=wD6Pq0bSMPo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24335"
+        }
+      ]
+    },
+    {
+      "title": "Waterfall",
+      "drummer_ids": ["drummer:reni"],
+      "drums": {
+        "description": "The bass drum on every beat, sixteenths on the hat and the snare on the 'a' of 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:waterfall-the-stone-roses-song-wikipedia",
+            "src:reni-isolated-drums-box-set-go",
+            "src:songsterr-26803"
+          ]
+        }
+      },
+      "style_key": "reni",
+      "song_key": "waterfall",
+      "youtube": "https://www.youtube.com/watch?v=7NrLBlw9WZE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=26803"
+        }
+      ]
+    },
+    {
+      "title": "Made of Stone",
+      "drummer_ids": ["drummer:reni"],
+      "drums": {
+        "description": "No snare in the verse, the hat opened on the offbeats and the snare on the 'a' of 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:made-of-stone-wikipedia",
+            "src:reni-isolated-drums-box-set-go",
+            "src:songsterr-19501"
+          ]
+        }
+      },
+      "style_key": "reni",
+      "song_key": "made-of-stone",
+      "youtube": "https://www.youtube.com/watch?v=tw1XuWBz_EE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19501"
+        }
+      ]
+    },
+    {
+      "title": "This Is the One",
+      "drummer_ids": ["drummer:reni"],
+      "drums": {
+        "description": "The hi-hat foot alone for a minute, then the open hat and the bass drum on the 'a' of 2.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-stone-roses-album-wikipedia", "src:songsterr-19403"]
+        }
+      },
+      "style_key": "reni",
+      "song_key": "this-is-the-one",
+      "youtube": "https://www.youtube.com/watch?v=DbyrOBVDtR4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19403"
+        }
+      ]
+    },
+    {
+      "title": "I Am the Resurrection",
+      "drummer_ids": ["drummer:reni"],
+      "drums": {
+        "description": "The snare on every beat, then the chorus, the build and a long funk coda.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:i-am-the-resurrection-wikipedia",
+            "src:reni-isolated-drums-box-set-go"
+          ]
+        }
+      },
+      "style_key": "reni",
+      "song_key": "i-am-the-resurrection",
+      "youtube": "https://www.youtube.com/watch?v=vY9g-PgSiGA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24332"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-stone-roses-album-wikipedia"]

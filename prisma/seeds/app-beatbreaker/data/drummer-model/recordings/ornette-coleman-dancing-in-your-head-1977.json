@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Theme from a Symphony (Variation One)",
+      "drummer_ids": ["drummer:ronald-shannon-jackson"],
+      "drums": {
+        "description": "Thundering, funk-and-march drumming around Coleman's harmolodic theme.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ronald-shannon-jackson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=G5glQWR-A40"
+    },
+    {
+      "title": "Theme from a Symphony (Variation Two)",
+      "drummer_ids": ["drummer:ronald-shannon-jackson"],
+      "drums": {
+        "description": "Driving, dense polyrhythms that push the electric band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ronald-shannon-jackson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pFEZD3lYU0U"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ronald-shannon-jackson-wikipedia"]

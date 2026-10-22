@@ -15,5 +15,25 @@
       "name": "Carlos Vega",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Physical",
+      "drummer_ids": ["drummer:carlos-vega"],
+      "drums": {
+        "description": "A punchy, synth-pop rock beat with a big backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:physical-olivia-newton-john-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vWz9VN40nCA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49440"
+        }
+      ]
+    }
   ]
 }

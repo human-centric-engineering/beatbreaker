@@ -16,6 +16,23 @@
         "confidence": "widely_reported",
         "source_ids": ["src:wikipedia-ray-barretto"]
       }
+    },
+    {
+      "drummer_id": "drummer:orestes-vilato"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Acid",
+      "drummer_ids": ["drummer:orestes-vilato", "drummer:ray-barretto"],
+      "drums": {
+        "description": "Timbales and cowbell under Barretto's Latin-soul groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-orestes-vilato"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4_gLAxcdLL4"
     }
   ]
 }

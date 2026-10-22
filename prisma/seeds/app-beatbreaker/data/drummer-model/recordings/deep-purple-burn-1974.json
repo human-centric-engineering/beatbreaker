@@ -43,6 +43,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Burn",
+      "drummer_ids": ["drummer:ian-paice"],
+      "drums": {
+        "description": "The riff over the hat foot, then the snare in sixteenths between the vocal lines, every other bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-6383", "src:burn-album-wikipedia"]
+        }
+      },
+      "style_key": "paice",
+      "song_key": "burn-1974",
+      "youtube": "https://www.youtube.com/watch?v=jgbf03MJyS4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6383"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:burn-album-wikipedia"]

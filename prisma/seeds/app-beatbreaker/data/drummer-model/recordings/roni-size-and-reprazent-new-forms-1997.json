@@ -16,5 +16,35 @@
       "drummer_role": "co_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Brown Paper Bag",
+      "drummer_ids": ["drummer:clive-deamer"],
+      "drums": {
+        "description": "Live drum and bass: fast, syncopated breakbeat kit playing over acoustic bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:new-forms-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=650025"
+        }
+      ]
+    },
+    {
+      "title": "Herald",
+      "drummer_ids": ["drummer:clive-deamer"],
+      "drums": {
+        "description": "Jungle breakbeats played live on an acoustic kit at drum and bass tempo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:new-forms-wikipedia"]
+        }
+      }
+    }
   ]
 }

@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Don Caballero 3",
+      "drummer_ids": ["drummer:damon-che"],
+      "drums": {
+        "description": "Long interlocking odd-time grooves that Che reshapes from bar to bar, a template for math rock drumming.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:what-burns-never-returns-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ed2hpoblBIs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=451004"
+        }
+      ]
+    },
+    {
+      "title": "Delivering the Groceries at 138 Beats Per Minute",
+      "drummer_ids": ["drummer:damon-che"],
+      "drums": {
+        "description": "A tight, fast groove against looping guitar figures, the title naming the tempo Che holds while the accents move around.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:what-burns-never-returns-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8Te5GacgqMo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2922745"
+        }
+      ]
+    },
+    {
+      "title": "In the Absence of Strong Evidence to the Contrary, One May Step Out of the Way of the Charging Bull",
+      "drummer_ids": ["drummer:damon-che"],
+      "drums": {
+        "description": "Dense, muscular fills and sudden dynamic drops between the riffs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:what-burns-never-returns-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eB15DiAkb6w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2033157"
+        }
+      ]
+    }
   ]
 }

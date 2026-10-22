@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Possession",
+      "drummer_ids": ["drummer:ron-bushy"],
+      "drums": {
+        "description": "Plodding heavy-rock beat with a thick snare under the organ, from the band's debut.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:heavy-iron-butterfly-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=i56MdIrSc5I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=417790"
+        }
+      ]
+    },
+    {
+      "title": "Unconscious Power",
+      "drummer_ids": ["drummer:ron-bushy"],
+      "drums": {
+        "description": "Mid-tempo psychedelic rock groove with accented hits locked to the organ riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:heavy-iron-butterfly-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ppi-CHM3CeE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=417791"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ron-bushy-wikipedia"]

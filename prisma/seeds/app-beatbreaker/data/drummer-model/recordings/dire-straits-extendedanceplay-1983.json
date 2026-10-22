@@ -1,0 +1,33 @@
+{
+  "id": "rec:dire-straits-extendedanceplay-1983",
+  "title": "ExtendedancEPlay",
+  "artist": "Dire Straits",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:rock", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:terry-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Twisting by the Pool",
+      "drummer_ids": ["drummer:terry-williams"],
+      "drums": {
+        "description": "A bouncy, retro rock and roll shuffle.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:twisting-by-the-pool-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DsJ5aYK-S6Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=30095"
+        }
+      ]
+    }
+  ]
+}

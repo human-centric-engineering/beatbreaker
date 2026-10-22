@@ -36,6 +36,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Satanized",
+      "drummer_ids": ["drummer:nameless-ghoul"],
+      "drums": {
+        "description": "A heavy 12/8: open hats on the pulses, the snare on 2 and 4, the kick on most eighths, a bar of 6/8.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-1103383", "src:ghost-skeleta-wikipedia"]
+        }
+      },
+      "style_key": "ghoul",
+      "song_key": "satanized",
+      "youtube": "https://www.youtube.com/watch?v=mGR2M2mBJXU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1103383"
+        }
+      ]
+    },
+    {
+      "title": "Lachryma",
+      "drummer_ids": ["drummer:nameless-ghoul"],
+      "drums": {
+        "description": "Open hats in quarters, then the ride, the kick on 1 and 3; snare runs into a crash on the \"and\" of 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-1285917", "src:ghost-skeleta-wikipedia"]
+        }
+      },
+      "style_key": "ghoul",
+      "song_key": "lachryma",
+      "youtube": "https://www.youtube.com/watch?v=DLG9oTH-ZbQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1285917"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:ghost-skeleta-wikipedia"]

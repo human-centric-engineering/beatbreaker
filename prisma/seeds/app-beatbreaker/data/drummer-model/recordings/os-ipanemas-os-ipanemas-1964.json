@@ -16,5 +16,30 @@
         "source_ids": ["src:wikipedia-wilson-das-neves"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Jangal",
+      "drummer_ids": ["drummer:wilson-das-neves"],
+      "drums": {
+        "description": "A hard-swinging samba-jazz groove with batucada accents on the kit.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-wilson-das-neves"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nHFaHLP4PLI"
+    },
+    {
+      "title": "Ritmo Oriental",
+      "drummer_ids": ["drummer:wilson-das-neves"],
+      "drums": {
+        "description": "A driving, percussive samba groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-wilson-das-neves"]
+        }
+      }
+    }
   ]
 }

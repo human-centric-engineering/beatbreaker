@@ -34,5 +34,61 @@
     "reliability": 0.7,
     "accessed": "2026-10-14",
     "notes": "Jones superimposed two cross-beats over every measure of a 3/4 waltz (2:3) on Coltrane's 1963 recording."
+  },
+  {
+    "id": "src:my-favorite-things-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "My Favorite Things (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/My_Favorite_Things_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:live-at-birdland-coltrane-wikipedia",
+    "type": "encyclopedia",
+    "title": "Live at Birdland (John Coltrane album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Live_at_Birdland_(John_Coltrane_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:juju-shorter-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "JuJu (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/JuJu_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:a-love-supreme-wikipedia",
+    "type": "encyclopedia",
+    "title": "A Love Supreme - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/A_Love_Supreme",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:crescent-coltrane-wikipedia",
+    "type": "encyclopedia",
+    "title": "Crescent (John Coltrane album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Crescent_(John_Coltrane_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:speak-no-evil-wikipedia",
+    "type": "encyclopedia",
+    "title": "Speak No Evil (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Speak_No_Evil_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:impressions-coltrane-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Impressions (John Coltrane album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Impressions_(John_Coltrane_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

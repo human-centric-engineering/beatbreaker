@@ -1,0 +1,39 @@
+{
+  "id": "rec:gerry-mulligan-and-stan-getz-gerry-mulligan-meets-stan-getz-1957",
+  "title": "Gerry Mulligan Meets Stan Getz",
+  "artist": "Gerry Mulligan and Stan Getz",
+  "year": 1957,
+  "type": "album",
+  "style_ids": ["style:bebop", "style:cool-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stan-levey"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Let's Fall in Love",
+      "drummer_ids": ["drummer:stan-levey"],
+      "drums": {
+        "description": "Unobtrusive medium swing behind the two saxophones' interplay.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:gerry-mulligan-meets-stan-getz-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sy788WxI8UU"
+    },
+    {
+      "title": "Anything Goes",
+      "drummer_ids": ["drummer:stan-levey"],
+      "drums": {
+        "description": "Brisk, crisp swing at a quick tempo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:gerry-mulligan-meets-stan-getz-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=033SEWw74p4"
+    }
+  ]
+}

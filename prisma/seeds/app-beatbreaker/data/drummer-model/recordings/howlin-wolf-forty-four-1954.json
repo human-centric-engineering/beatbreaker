@@ -1,0 +1,27 @@
+{
+  "id": "rec:howlin-wolf-forty-four-1954",
+  "title": "Forty Four",
+  "artist": "Howlin' Wolf",
+  "year": 1954,
+  "type": "studio_track",
+  "style_ids": ["style:blues"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-phillips"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Forty Four",
+      "drummer_ids": ["drummer:earl-phillips"],
+      "drums": {
+        "description": "An insistent, martial rhythm that drives the ensemble arrangement under the guitar lines.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:forty-four-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=peog80pRDps"
+    }
+  ]
+}

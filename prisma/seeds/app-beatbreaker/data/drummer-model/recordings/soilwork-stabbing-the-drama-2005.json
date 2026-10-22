@@ -10,5 +10,43 @@
       "drummer_id": "drummer:dirk-verbeuren",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Stabbing the Drama",
+      "drummer_ids": ["drummer:dirk-verbeuren"],
+      "drums": {
+        "description": "Melodic death metal: blast beats and fast double bass switching to a groove chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stabbing-the-drama-wikipedia", "src:dirk-verbeuren-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=W34SmvHeZDg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18754"
+        }
+      ]
+    },
+    {
+      "title": "Nerve",
+      "drummer_ids": ["drummer:dirk-verbeuren"],
+      "drums": {
+        "description": "A driving double-bass groove under the melodic chorus, with blast-beat verses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stabbing-the-drama-wikipedia", "src:dirk-verbeuren-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QcXVnyiQjBE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54055"
+        }
+      ]
+    }
   ]
 }

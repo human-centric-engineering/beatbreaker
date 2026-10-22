@@ -1,0 +1,33 @@
+{
+  "id": "rec:funky-4-1-that-s-the-joint-1980",
+  "title": "That's the Joint",
+  "artist": "Funky 4 + 1",
+  "year": 1980,
+  "type": "studio_track",
+  "style_ids": ["style:hip-hop-breakbeat", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pumpkin"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "That's the Joint",
+      "drummer_ids": ["drummer:pumpkin"],
+      "drums": {
+        "description": "A live funky drum groove under one of the first party-rap records.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:pumpkin-wikipedia", "src:that-s-the-joint-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9y6MaX734YU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1013946"
+        }
+      ]
+    }
+  ]
+}

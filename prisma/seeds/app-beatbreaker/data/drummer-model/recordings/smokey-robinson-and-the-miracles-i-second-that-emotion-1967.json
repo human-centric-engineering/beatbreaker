@@ -1,0 +1,27 @@
+{
+  "id": "rec:smokey-robinson-and-the-miracles-i-second-that-emotion-1967",
+  "title": "I Second That Emotion",
+  "artist": "Smokey Robinson and the Miracles",
+  "year": 1967,
+  "type": "studio_track",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:uriel-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "I Second That Emotion",
+      "drummer_ids": ["drummer:uriel-jones"],
+      "drums": {
+        "description": "A light, buoyant mid-tempo groove with tambourine on the backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:uriel-jones-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zp32JdgG6hg"
+    }
+  ]
+}

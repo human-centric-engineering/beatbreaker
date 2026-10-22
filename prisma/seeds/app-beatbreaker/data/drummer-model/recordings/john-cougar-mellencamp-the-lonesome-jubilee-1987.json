@@ -1,0 +1,26 @@
+{
+  "id": "rec:john-cougar-mellencamp-the-lonesome-jubilee-1987",
+  "title": "The Lonesome Jubilee",
+  "artist": "John Cougar Mellencamp",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:rock", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenny-aronoff"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Paper in Fire",
+      "drummer_ids": ["drummer:kenny-aronoff"],
+      "drums": {
+        "description": "A propulsive beat under the fiddle and accordion, rock drums with a folk band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-lonesome-jubilee-wikipedia"]
+        }
+      }
+    }
+  ]
+}

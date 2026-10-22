@@ -48,6 +48,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Donna",
+      "drummer_ids": ["drummer:earl-palmer"],
+      "drums": {
+        "description": "A slow 12/8 ballad: the hat on every eighth, the snare on 2 and 4, the kick on 1 and pushing into 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-79148", "src:donna-wikipedia"]
+        }
+      },
+      "style_key": "earlpalmer",
+      "song_key": "donna",
+      "youtube": "https://www.youtube.com/watch?v=0iJCAcKIwdI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1149637"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:donna-wikipedia"]

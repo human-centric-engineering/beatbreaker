@@ -1,0 +1,29 @@
+{
+  "id": "rec:john-coltrane-impressions-1963",
+  "title": "Impressions",
+  "artist": "John Coltrane",
+  "year": 1963,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:elvin-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Impressions",
+      "drummer_ids": ["drummer:elvin-jones"],
+      "drums": {
+        "description": "A near-even gallop at about 270 bpm, 3/4 phrases running across the 4/4 bar line.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:impressions-coltrane-album-wikipedia", "src:allsolos-elvin"]
+        }
+      },
+      "style_key": "elvinjones",
+      "song_key": "impressions",
+      "youtube": "https://www.youtube.com/watch?v=7RRxiUw6bkk"
+    }
+  ]
+}

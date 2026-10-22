@@ -169,5 +169,61 @@
     "reliability": 0.6,
     "accessed": "2026-10-18",
     "notes": "aiGenerated false, revision 7479207; 244 bars at 158; the track named 'Keith Moon | Premier Custom Built Chromed Steel | Drums'."
+  },
+  {
+    "id": "src:i-can-t-explain-wikipedia",
+    "type": "encyclopedia",
+    "title": "I Can't Explain - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/I_Can't_Explain",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:my-generation-wikipedia",
+    "type": "encyclopedia",
+    "title": "My Generation - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/My_Generation",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:the-kids-are-alright-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Kids Are Alright (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Kids_Are_Alright_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:pinball-wizard-wikipedia",
+    "type": "encyclopedia",
+    "title": "Pinball Wizard - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Pinball_Wizard",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:baba-o-riley-wikipedia",
+    "type": "encyclopedia",
+    "title": "Baba O'Riley - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Baba_O'Riley",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:won-t-get-fooled-again-wikipedia",
+    "type": "encyclopedia",
+    "title": "Won't Get Fooled Again - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Won't_Get_Fooled_Again",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:who-are-you-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Who Are You (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Who_Are_You_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

@@ -17,6 +17,44 @@
       "drummer_role": "co_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Jessica",
+      "drummer_ids": ["drummer:butch-trucks", "drummer:jaimoe"],
+      "drums": {
+        "description": "A bright, galloping instrumental feel with Trucks' driving snare and Jaimoe's cymbal work pushing the long build.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jessica-instrumental-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vTOozRAJ8dU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=445"
+        }
+      ]
+    },
+    {
+      "title": "Ramblin' Man",
+      "drummer_ids": ["drummer:butch-trucks"],
+      "drums": {
+        "description": "A country-rock backbeat, straight and steady, with the two drummers playing as one.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ramblin-man-the-allman-brothers-band-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Wa4DCp6cl2U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23595"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": [

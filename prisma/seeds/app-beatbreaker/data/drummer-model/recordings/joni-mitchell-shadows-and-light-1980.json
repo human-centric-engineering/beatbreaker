@@ -15,5 +15,31 @@
       "name": "Don Alias",
       "drummer_role": "drums_and_percussion"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Coyote",
+      "drummer_ids": ["drummer:don-alias"],
+      "drums": {
+        "description": "Kit and hand-drum feel on stage behind Mitchell and Pastorius, loose and conversational.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:shadows-and-light-joni-mitchell-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LsJunrvPw_g"
+    },
+    {
+      "title": "Black Crow",
+      "drummer_ids": ["drummer:don-alias"],
+      "drums": {
+        "description": "Driving, propulsive kit work that pushes the song harder than the studio version.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:shadows-and-light-joni-mitchell-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tlserxa04Sw"
+    }
   ]
 }

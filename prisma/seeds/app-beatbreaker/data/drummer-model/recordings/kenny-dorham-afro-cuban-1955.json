@@ -17,5 +17,31 @@
         "source_ids": ["src:wikipedia-patato-valdes"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Afrodisia",
+      "drummer_ids": ["drummer:patato-valdes"],
+      "drums": {
+        "description": "Patato's congas give Dorham's hard-bop line an Afro-Cuban groove alongside Art Blakey.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:afro-cuban-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pylNtRaq2d4"
+    },
+    {
+      "title": "Basheer's Dream",
+      "drummer_ids": ["drummer:patato-valdes"],
+      "drums": {
+        "description": "Conga tumbao under a minor Latin-jazz theme, Patato with Blakey on kit.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:afro-cuban-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ysZVbbkcuE0"
+    }
   ]
 }

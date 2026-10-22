@@ -51,6 +51,67 @@
       "pattern_ids": ["pattern:davis-golden-years"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Golden Years",
+      "year": 1975,
+      "drummer_ids": ["drummer:dennis-davis"],
+      "drums": {
+        "description": "A light, swinging funk beat with handclaps and tight hi-hat work.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:station-to-station-album-wikipedia"]
+        }
+      },
+      "style_key": "dennisdavis",
+      "song_key": "golden-years",
+      "youtube": "https://www.youtube.com/watch?v=ApHM1ct4tdM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=407358"
+        }
+      ]
+    },
+    {
+      "title": "Station to Station",
+      "drummer_ids": ["drummer:dennis-davis"],
+      "drums": {
+        "description": "A slow, train-like march that turns into a fast funk-rock groove halfway through.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:station-to-station-album-wikipedia"]
+        }
+      },
+      "style_key": "dennisdavis",
+      "song_key": "station-to-station",
+      "youtube": "https://www.youtube.com/watch?v=ZpIhsGg2SJ0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2022017"
+        }
+      ]
+    },
+    {
+      "title": "Stay",
+      "drummer_ids": ["drummer:dennis-davis"],
+      "drums": {
+        "description": "A tight, aggressive funk groove with syncopated kick and cowbell.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:station-to-station-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eGuu7NiALvo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=397283"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:station-to-station-album-wikipedia"]

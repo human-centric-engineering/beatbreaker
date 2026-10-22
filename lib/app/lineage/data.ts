@@ -10,6 +10,8 @@
 import { z } from 'zod';
 
 import { slugOf } from '@/lib/app/lineage/build';
+import type { CatalogueIndex, IndexDrummer } from '@/lib/app/lineage/search';
+import { readSongs } from '@/lib/app/lineage/songs';
 import { prisma } from '@/lib/db/client';
 import { logger } from '@/lib/logging';
 import {
@@ -226,4 +228,58 @@ export async function findLineageSlug(nameOrSlug: string): Promise<string | null
     orderBy: { slug: 'asc' },
   });
   return bySlug?.slug ?? null;
+}
+
+const affiliationsOf = z
+  .object({
+    affiliations: z.array(z.object({ name: z.string().trim().min(1) }).catch({ name: '' })),
+  })
+  .catch({ affiliations: [] });
+
+/** How long a built index is reused before the tables are read again. */
+const INDEX_TTL_MS = 5 * 60 * 1000;
+let indexCache: { at: number; index: Promise<CatalogueIndex> } | null = null;
+
+async function readCatalogueIndex(): Promise<CatalogueIndex> {
+  const [nodes, recordings] = await Promise.all([
+    prisma.lineageNode.findMany({
+      where: { kind: 'drummer', modelled: true },
+      select: { slug: true, label: true, candidate: true, styleKey: true, record: true },
+      orderBy: { label: 'asc' },
+    }),
+    prisma.lineageRecording.findMany({ orderBy: [{ year: 'asc' }, { title: 'asc' }] }),
+  ]);
+  const drummers: IndexDrummer[] = nodes.map((n) => ({
+    slug: n.slug,
+    label: n.label,
+    candidate: n.candidate,
+    styleKey: n.candidate ? null : n.styleKey,
+    bands: [
+      ...new Set(
+        affiliationsOf
+          .parse(n.record)
+          .affiliations.map((a) => a.name)
+          .filter(Boolean)
+      ),
+    ],
+  }));
+  return { drummers, songs: recordings.flatMap(readSongs) };
+}
+
+/**
+ * Every built and candidate drummer with their bands, and every song on every
+ * recording (15-c). A few thousand rows of JSON to read and fold, and the
+ * search runs as you type, so one build is kept for {@link INDEX_TTL_MS}: the
+ * tables change only when the seed runs.
+ */
+export function getCatalogueIndex(now = Date.now()): Promise<CatalogueIndex> {
+  if (!indexCache || now - indexCache.at > INDEX_TTL_MS) {
+    const index = readCatalogueIndex();
+    indexCache = { at: now, index };
+    // a failed read is not kept: the next search tries the tables again
+    index.catch(() => {
+      if (indexCache?.index === index) indexCache = null;
+    });
+  }
+  return indexCache.index;
 }

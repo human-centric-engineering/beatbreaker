@@ -26,6 +26,22 @@
       "pattern_ids": ["pattern:starks-super-bad-archetype"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Super Bad",
+      "drummer_ids": ["drummer:jabo-starks"],
+      "drums": {
+        "description": "The snare on the 1 and the \"and\" of 2, then a bridge on the ride bell with the hat foot on every beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rollingstone-starks", "src:pas-starks"]
+        }
+      },
+      "style_key": "jabostarks",
+      "song_key": "super-bad",
+      "youtube": "https://www.youtube.com/watch?v=XV9a3tUPqTo"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:wapo-starks", "src:rollingstone-starks"]

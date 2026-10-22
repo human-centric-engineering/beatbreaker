@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Lola",
+      "drummer_ids": ["drummer:palmolive"],
+      "drums": {
+        "description": "A loose, off-kilter beat on the Kinks cover.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-raincoats-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mkBk9z6UfRY"
+    },
+    {
+      "title": "No Side to Fall In",
+      "drummer_ids": ["drummer:palmolive"],
+      "drums": {
+        "description": "An irregular, sparse beat that follows the song.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-raincoats-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=riIHQ8BV-kk"
+    },
+    {
+      "title": "Off Duty Trip",
+      "drummer_ids": ["drummer:palmolive"],
+      "drums": {
+        "description": "A loping, off-balance beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-raincoats-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Gry6-VLmO_8"
+    }
   ]
 }

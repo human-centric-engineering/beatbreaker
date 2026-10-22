@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Caldonia",
+      "drummer_ids": ["drummer:dave-tough"],
+      "drums": {
+        "description": "A jump-blues romp with a driving shuffle and bebop-tinged snare accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dave-tough-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=b9GuqG2HleU"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:dave-tough-wikipedia"]

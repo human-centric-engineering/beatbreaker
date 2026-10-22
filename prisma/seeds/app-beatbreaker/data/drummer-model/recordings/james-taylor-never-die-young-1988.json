@@ -15,5 +15,25 @@
       "name": "Carlos Vega",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Never Die Young",
+      "drummer_ids": ["drummer:carlos-vega"],
+      "drums": {
+        "description": "A relaxed, flowing groove with light ghost notes under the acoustic guitar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:never-die-young-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FbGrD4hxoBI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=200688"
+        }
+      ]
+    }
   ]
 }

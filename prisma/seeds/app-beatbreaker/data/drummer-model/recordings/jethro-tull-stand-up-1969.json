@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "A New Day Yesterday",
+      "drummer_ids": ["drummer:clive-bunker"],
+      "drums": {
+        "description": "A heavy, swaggering half-time blues groove, the tom fills answering each turn of the guitar riff.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:stand-up-jethro-tull-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=JajGBIfGWZM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10459"
+        }
+      ]
+    },
+    {
+      "title": "Nothing Is Easy",
+      "drummer_ids": ["drummer:clive-bunker"],
+      "drums": {
+        "description": "Starts as a swung jazz feel on the ride and turns into hard-driving rock, with busy fills between the sections.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:stand-up-jethro-tull-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Nu_xOl-I7Lc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=362048"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:clive-bunker-wikipedia"]

@@ -34,6 +34,46 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Africa Speaks",
+      "drummer_ids": ["drummer:cindy-blackman-santana"],
+      "drums": {
+        "description": "The title track: a heavy Afro-Latin groove pounded on the toms and crashes under Buika's voice.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:africa-speaks-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pB4UtKmDH3w"
+    },
+    {
+      "title": "Breaking Down the Door",
+      "drummer_ids": ["drummer:cindy-blackman-santana"],
+      "drums": {
+        "description": "The kick on every beat, the snare on the \"a\" of 1 and 3 and the \"and\" of 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:africa-speaks-wikipedia"]
+        }
+      },
+      "style_key": "cindyblackman",
+      "song_key": "breaking-down-the-door",
+      "youtube": "https://www.youtube.com/watch?v=J5OspxMTwis"
+    },
+    {
+      "title": "Los Invisibles",
+      "drummer_ids": ["drummer:cindy-blackman-santana"],
+      "drums": {
+        "description": "A driving Latin-rock groove, the ride and snare pushing the band through a jam.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:africa-speaks-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1tosh8K1mN8"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:africa-speaks-wikipedia", "src:songsterr-4521944"]

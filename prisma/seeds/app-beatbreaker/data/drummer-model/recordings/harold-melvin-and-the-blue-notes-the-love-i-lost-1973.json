@@ -10,5 +10,19 @@
       "drummer_id": "drummer:earl-young",
       "name": "Earl Young"
     }
+  ],
+  "tracks": [
+    {
+      "title": "The Love I Lost",
+      "drummer_ids": ["drummer:earl-young"],
+      "drums": {
+        "description": "Four-on-the-floor kick with open-and-closed hi-hat sixteenths: the record credited with inventing the disco beat.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:earl-young-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZTt649Hvtxs"
+    }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "id": "rec:death-grips-exmilitary-2011",
+  "title": "Exmilitary",
+  "artist": "Death Grips",
+  "year": 2011,
+  "type": "album",
+  "style_ids": ["style:math-rock", "style:noise-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zach-hill"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Guillotine",
+      "drummer_ids": ["drummer:zach-hill"],
+      "drums": {
+        "description": "Hill's drumming, chopped and sampled, under a punishing low-end beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:exmilitary-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Orlbo9WkZ2E"
+    }
+  ]
+}

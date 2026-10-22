@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-crickets-not-fade-away-1957",
+  "title": "Not Fade Away",
+  "artist": "The Crickets",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jerry-allison"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Not Fade Away",
+      "drummer_ids": ["drummer:jerry-allison"],
+      "drums": {
+        "description": "The Bo Diddley beat played on a cardboard box.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:not-fade-away-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NChUN0Thf24",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=706746"
+        }
+      ]
+    }
+  ]
+}

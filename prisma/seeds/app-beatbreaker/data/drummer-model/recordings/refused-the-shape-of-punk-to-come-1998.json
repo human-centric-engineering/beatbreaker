@@ -16,5 +16,54 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "New Noise",
+      "drummer_ids": ["drummer:david-sandstrom"],
+      "drums": {
+        "description": "A slow build to explosive hardcore with tight, crashing accents and a drum-led breakdown.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:shape-of-punk-to-come-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NkAe30aEG5c"
+    },
+    {
+      "title": "Refused Are Fuckin Dead",
+      "drummer_ids": ["drummer:david-sandstrom"],
+      "drums": {
+        "description": "A frantic, shifting hardcore beat with jazz and electronic breaks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:shape-of-punk-to-come-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Summerholidays vs. Punkroutine",
+      "drummer_ids": ["drummer:david-sandstrom"],
+      "drums": {
+        "description": "A driving punk beat with tight stops and dynamic shifts.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:shape-of-punk-to-come-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5wn_2dT-9NI"
+    },
+    {
+      "title": "The Deadly Rhythm",
+      "drummer_ids": ["drummer:david-sandstrom"],
+      "drums": {
+        "description": "A swinging jazz break dropped into fast hardcore.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:shape-of-punk-to-come-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bJJlo_6YMIc"
+    }
   ]
 }

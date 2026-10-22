@@ -38,6 +38,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Black Friday",
+      "drummer_ids": ["drummer:jeff-porcaro"],
+      "drums": {
+        "description": "The twenty-year-old session drummer driving Steely Dan's shuffle with crisp, swinging hats.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:katy-lied-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=atZ7BlqSPUg"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:katy-lied-wikipedia"]

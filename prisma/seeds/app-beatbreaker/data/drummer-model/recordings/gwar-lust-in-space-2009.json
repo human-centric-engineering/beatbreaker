@@ -43,6 +43,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Let Us Slay",
+      "drummer_ids": ["drummer:jizmak-da-gusha"],
+      "drums": {
+        "description": "Triplets on both bass drums, a riff in 6/4 and 2/4, half time on the crash, and the thrash beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lust-in-space-wikipedia"]
+        }
+      },
+      "style_key": "jizmak",
+      "song_key": "let-us-slay",
+      "youtube": "https://www.youtube.com/watch?v=2NzA4XLjRaM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=688679"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:lust-in-space-wikipedia"]

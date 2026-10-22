@@ -142,5 +142,29 @@
     "reliability": 0.6,
     "accessed": "2026-10-15",
     "notes": "aiGenerated false, checked through the meta API. Mostly 6/8 and 5/8 in sixteenths, which BeatBreaker's eighth-note meters cannot hold; read, not written."
+  },
+  {
+    "id": "src:fear-inoculum-wikipedia",
+    "type": "encyclopedia",
+    "title": "Fear Inoculum - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Fear_Inoculum",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:schism-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Schism (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Schism_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:lateralus-wikipedia",
+    "type": "encyclopedia",
+    "title": "Lateralus - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Lateralus",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

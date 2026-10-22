@@ -1,0 +1,33 @@
+{
+  "id": "rec:chick-corea-elektric-band-light-years-1987",
+  "title": "Light Years",
+  "artist": "Chick Corea Elektric Band",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-weckl"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Light Years",
+      "drummer_ids": ["drummer:dave-weckl"],
+      "drums": {
+        "description": "A crisp, pop-fusion groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:light-years-chick-corea-album-wikipedia", "src:dave-weckl-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=iHZ-pTtShQc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4768802"
+        }
+      ]
+    }
+  ]
+}

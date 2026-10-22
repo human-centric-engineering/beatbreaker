@@ -45,6 +45,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Anarchy in the U.K.",
+      "drummer_ids": ["drummer:paul-cook"],
+      "drums": {
+        "description": "The rack tom and hats in eighths under the opening, then a chorus of crashes and snare runs, a solid mid-tempo punk drive.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:anarchy-in-the-uk-wikipedia", "src:songsterr-8702"]
+        }
+      },
+      "style_key": "paulcook",
+      "song_key": "anarchy-in-the-uk",
+      "youtube": "https://www.youtube.com/watch?v=cBojbjoMttI"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:anarchy-in-the-uk-wikipedia"]

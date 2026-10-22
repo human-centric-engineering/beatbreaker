@@ -40,6 +40,26 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "You've Lost That Lovin' Feelin'",
+      "drummer_ids": ["drummer:earl-palmer"],
+      "drums": {
+        "description": "A slow Wall of Sound build: sparse at first, then big backbeats and fills as the song swells to its climax.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lovin-feelin-wikipedia", "src:earl-palmer-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xbg1gkWb0Wo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16409"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:lovin-feelin-wikipedia"]

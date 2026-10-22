@@ -12,6 +12,62 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Break On Through (To the Other Side)",
+      "drummer_ids": ["drummer:john-densmore"],
+      "drums": {
+        "description": "A bossa nova groove adapted to rock: a clave pattern as a rim click under a driving ride-cymbal pattern.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:break-on-through-to-the-other-side-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NFeUko-lQHg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5287"
+        }
+      ]
+    },
+    {
+      "title": "Light My Fire",
+      "drummer_ids": ["drummer:john-densmore"],
+      "drums": {
+        "description": "Opens with a snare crack into a Latin-tinged rock groove, and keeps a light, jazzy time through the long organ and guitar solos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:light-my-fire-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qoX6AKuYWL8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5400"
+        }
+      ]
+    },
+    {
+      "title": "The End",
+      "drummer_ids": ["drummer:john-densmore"],
+      "drums": {
+        "description": "Long, mostly improvised piece where Densmore uses tom and cymbal colour, raga-like pulses and dynamic swells that peak in a frantic climax.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-end-the-doors-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9pRGoSbYHQE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5432"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:john-densmore-wikipedia"]

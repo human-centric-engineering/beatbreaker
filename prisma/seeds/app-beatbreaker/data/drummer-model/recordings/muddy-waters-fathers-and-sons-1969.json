@@ -10,5 +10,49 @@
       "drummer_id": "drummer:sam-lay",
       "name": "Sam Lay"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Mean Disposition",
+      "drummer_ids": ["drummer:sam-lay"],
+      "drums": {
+        "description": "A long Muddy blues with Lay and Duck Dunn as the rhythm section, playing the classic 1950s Chess feel rather than Electric Mud's psychedelia.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:fathers-and-sons-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=huaig3i2eTc"
+    },
+    {
+      "title": "Forty Days and Forty Nights",
+      "drummer_ids": ["drummer:sam-lay"],
+      "drums": {
+        "description": "Lay's Chicago backbeat under Muddy, Bloomfield and Butterfield, from the sessions that revisited Muddy's 1950s sound.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:fathers-and-sons-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=h4XUjdQ37Og"
+    },
+    {
+      "title": "I'm Ready",
+      "drummer_ids": ["drummer:sam-lay"],
+      "drums": {
+        "description": "The swaggering, stop-start Chicago groove of Muddy's 1954 original, played harder in a 1969 studio.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:fathers-and-sons-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wQlCLF6bzUQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4891593"
+        }
+      ]
+    }
   ]
 }

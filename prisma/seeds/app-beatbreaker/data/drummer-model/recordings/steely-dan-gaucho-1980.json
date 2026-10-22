@@ -1,0 +1,49 @@
+{
+  "id": "rec:steely-dan-gaucho-1980",
+  "title": "Gaucho",
+  "artist": "Steely Dan",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-gadd"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Glamour Profession",
+      "drummer_ids": ["drummer:steve-gadd"],
+      "drums": {
+        "description": "Steely Dan's disco: the kick on every beat, eighths on the hats' \"and\"s, opening on the last.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:gaucho-album-wikipedia"]
+        }
+      },
+      "style_key": "gadd",
+      "song_key": "glamour-profession",
+      "youtube": "https://www.youtube.com/watch?v=-HqYUPhuVJ4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=64450"
+        }
+      ]
+    },
+    {
+      "title": "Third World Man",
+      "drummer_ids": ["drummer:steve-gadd"],
+      "drums": {
+        "description": "Slow and dark, eighths on the hats, ghost notes round the backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:gaucho-album-wikipedia"]
+        }
+      },
+      "style_key": "gadd",
+      "song_key": "third-world-man",
+      "youtube": "https://www.youtube.com/watch?v=XGQtq9PD9iA"
+    }
+  ]
+}

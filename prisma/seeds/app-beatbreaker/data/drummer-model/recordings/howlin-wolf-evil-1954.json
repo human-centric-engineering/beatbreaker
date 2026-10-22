@@ -1,0 +1,27 @@
+{
+  "id": "rec:howlin-wolf-evil-1954",
+  "title": "Evil",
+  "artist": "Howlin' Wolf",
+  "year": 1954,
+  "type": "studio_track",
+  "style_ids": ["style:blues"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-phillips"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Evil",
+      "drummer_ids": ["drummer:earl-phillips"],
+      "drums": {
+        "description": "Slow, heavy blues with a firm backbeat behind Wolf and the two guitars.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:evil-howlin-wolf-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fE-yuA4QuVI"
+    }
+  ]
+}

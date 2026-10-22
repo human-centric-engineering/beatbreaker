@@ -10,5 +10,70 @@
       "drummer_id": "drummer:phil-taylor",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Overkill",
+      "drummer_ids": ["drummer:phil-taylor"],
+      "drums": {
+        "description": "The double-bass-drum gallop at the start, among the first in rock, that thrash drummers learned from.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:phil-taylor-musician-wikipedia",
+            "src:overkill-motorhead-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MlzTET_8SQg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35609"
+        }
+      ]
+    },
+    {
+      "title": "No Class",
+      "drummer_ids": ["drummer:phil-taylor"],
+      "drums": {
+        "description": "A shuffling, boogie-tinged rock beat played loud and fast.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:phil-taylor-musician-wikipedia",
+            "src:overkill-motorhead-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fg_bWlmbeb0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=47781"
+        }
+      ]
+    },
+    {
+      "title": "Stay Clean",
+      "drummer_ids": ["drummer:phil-taylor"],
+      "drums": {
+        "description": "A fast, driving rock beat with a pushing snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:phil-taylor-musician-wikipedia",
+            "src:overkill-motorhead-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eilzQSthLCY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=87331"
+        }
+      ]
+    }
   ]
 }

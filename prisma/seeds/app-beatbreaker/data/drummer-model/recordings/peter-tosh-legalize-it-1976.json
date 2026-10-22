@@ -71,6 +71,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Ketchy Shuby",
+      "drummer_ids": ["drummer:santa-davis"],
+      "drums": {
+        "description": "The one drop under Tosh: the hi-hat on the beats then in eighths, the rim moved to the \"and\" of 4 now and then.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:legalize-it-wikipedia", "src:santa-davis-wikipedia"]
+        }
+      },
+      "style_key": "santadavis",
+      "song_key": "ketchy-shuby",
+      "youtube": "https://www.youtube.com/watch?v=Hf23CXG-dUI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5500602"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:legalize-it-wikipedia"]

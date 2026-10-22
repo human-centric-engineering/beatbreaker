@@ -1,0 +1,27 @@
+{
+  "id": "rec:james-brown-there-was-a-time-1968",
+  "title": "There Was a Time",
+  "artist": "James Brown",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clyde-stubblefield"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "There Was a Time",
+      "drummer_ids": ["drummer:clyde-stubblefield"],
+      "drums": {
+        "description": "A loose, open funk groove under Brown's roll-call of dances, one of the records his Wikipedia entry credits to him.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:stubblefield-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Wm3i9-K1LiQ"
+    }
+  ]
+}

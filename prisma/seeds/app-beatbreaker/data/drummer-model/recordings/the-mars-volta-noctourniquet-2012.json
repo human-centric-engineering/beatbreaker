@@ -11,6 +11,86 @@
       "why_it_matters": "His Mars Volta album."
     }
   ],
+  "tracks": [
+    {
+      "title": "The Malkin Jewel",
+      "drummer_ids": ["drummer:deantoni-parks"],
+      "drums": {
+        "description": "A lurching, staccato groove Parks plays with machine-like precision, locking every hit to the bass line instead of filling.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:noctourniquet-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Yh0stkLanx4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5660560"
+        }
+      ]
+    },
+    {
+      "title": "Aegis",
+      "drummer_ids": ["drummer:deantoni-parks"],
+      "drums": {
+        "description": "Clipped, dry backbeat with edited-sounding hi-hat figures under the song's slow build, Parks playing a live kit like a programmed beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:noctourniquet-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rjijsSsV_vY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=530052"
+        }
+      ]
+    },
+    {
+      "title": "Dyslexicon",
+      "drummer_ids": ["drummer:deantoni-parks"],
+      "drums": {
+        "description": "Jittery broken sixteenth-note patterns on an acoustic kit that imitate a cut-up electronic beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:noctourniquet-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Oe8SgMRudIc"
+    },
+    {
+      "title": "Empty Vessels Make the Loudest Sound",
+      "drummer_ids": ["drummer:deantoni-parks"],
+      "drums": {
+        "description": "Spare, restrained time under the ballad before a heavy half-time lift in the chorus.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:noctourniquet-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=d9LUsymW-zs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=702157"
+        }
+      ]
+    },
+    {
+      "title": "Molochwalker",
+      "drummer_ids": ["drummer:deantoni-parks"],
+      "drums": {
+        "description": "Fast, driving straight-eighth rock beat broken by stop-time hits, the album's most aggressive drumming.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:noctourniquet-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qnKqWnHywQ0"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:deantoni-parks-wikipedia"]

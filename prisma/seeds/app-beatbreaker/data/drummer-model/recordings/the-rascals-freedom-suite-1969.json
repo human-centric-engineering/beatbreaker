@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-rascals-freedom-suite-1969",
+  "title": "Freedom Suite",
+  "artist": "The Rascals",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:rock", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dino-danelli"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Boom",
+      "drummer_ids": ["drummer:dino-danelli"],
+      "drums": {
+        "description": "A thirteen-minute instrumental credited to Danelli, largely an extended drum feature showing his jazz technique on toms and snare.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:freedom-suite-the-rascals-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xYzBZlxKzr4"
+    }
+  ]
+}

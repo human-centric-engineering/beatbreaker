@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "One to Another",
+      "drummer_ids": ["drummer:jon-brookes"],
+      "drums": {
+        "description": "A driving, breakbeat-influenced rock beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:charlatans-wikipedia", "src:tellin-stories-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yXs8zmfqXvg"
+    },
+    {
+      "title": "North Country Boy",
+      "drummer_ids": ["drummer:jon-brookes"],
+      "drums": {
+        "description": "A bright, steady pop-rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:charlatans-wikipedia", "src:tellin-stories-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xBAxEQZViTU"
+    },
+    {
+      "title": "How High",
+      "drummer_ids": ["drummer:jon-brookes"],
+      "drums": {
+        "description": "A fast, pounding rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:charlatans-wikipedia", "src:tellin-stories-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=I7AMfNy2MsI"
+    }
   ]
 }

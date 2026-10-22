@@ -17,5 +17,18 @@
         "source_ids": ["src:wikipedia-tata-guines"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Pasaporte",
+      "drummer_ids": ["drummer:tata-guines"],
+      "drums": {
+        "description": "Two generations of Cuban conga, Tata and Angá Díaz, trading rumba tumbaos and slaps.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-tata-guines"]
+        }
+      }
+    }
   ]
 }

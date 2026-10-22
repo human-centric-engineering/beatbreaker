@@ -10,5 +10,61 @@
       "drummer_id": "drummer:flo-mounier",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Slit Your Guts",
+      "drummer_ids": ["drummer:flo-mounier"],
+      "drums": {
+        "description": "Very fast blasts and gravity rolls broken by technical fills and tempo jumps.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:cryptopsy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FbA6OJDiaGU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5170"
+        }
+      ]
+    },
+    {
+      "title": "Phobophile",
+      "drummer_ids": ["drummer:flo-mounier"],
+      "drums": {
+        "description": "Technical blasts, double kick and jazz-tinged fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cryptopsy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dbkT4WoGalk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5129"
+        }
+      ]
+    },
+    {
+      "title": "Crown of Horns",
+      "drummer_ids": ["drummer:flo-mounier"],
+      "drums": {
+        "description": "Blasts and mid-tempo grooves with dense fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cryptopsy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3UHKlfywGig",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=32734"
+        }
+      ]
+    }
   ]
 }

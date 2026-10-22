@@ -12,6 +12,80 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "The Chain",
+      "drummer_ids": ["drummer:mick-fleetwood"],
+      "drums": {
+        "description": "A straight quarter-note kick drum through the verses, then the full kit enters behind the famous bass line in the outro.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-chain-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kBYHwH1Vb-c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7881"
+        }
+      ]
+    },
+    {
+      "title": "Go Your Own Way",
+      "drummer_ids": ["drummer:mick-fleetwood"],
+      "drums": {
+        "description": "Buckingham's idea for a variation on the \"Street Fighting Man\" groove: the beat moves across the toms with the bass drum on the middle beat instead of a plain backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:go-your-own-way-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ozl3L9fhKtE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7365"
+        }
+      ]
+    },
+    {
+      "title": "Dreams",
+      "drummer_ids": ["drummer:mick-fleetwood"],
+      "drums": {
+        "description": "Simple, steady backbeat with a light hi-hat and a dry, damped snare that sits deep in the pocket.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dreams-fleetwood-mac-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Y3ywicffOj4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23726"
+        }
+      ]
+    },
+    {
+      "title": "Don't Stop",
+      "drummer_ids": ["drummer:mick-fleetwood"],
+      "drums": {
+        "description": "Bouncy shuffle-feel pop groove with a strong backbeat under the piano.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dont-stop-fleetwood-mac-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0hGhl7ki3HM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=388613"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:mick-fleetwood-wikipedia"]

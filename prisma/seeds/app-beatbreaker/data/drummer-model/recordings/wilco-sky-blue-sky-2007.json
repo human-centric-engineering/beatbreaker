@@ -1,0 +1,33 @@
+{
+  "id": "rec:wilco-sky-blue-sky-2007",
+  "title": "Sky Blue Sky",
+  "artist": "Wilco",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:indie-rock", "style:experimental-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:glenn-kotche"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Impossible Germany",
+      "drummer_ids": ["drummer:glenn-kotche"],
+      "drums": {
+        "description": "A gentle, intricate groove under the guitar duel.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:glenn-kotche-wikipedia", "src:sky-blue-sky-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Epbu2z3o28w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=62996"
+        }
+      ]
+    }
+  ]
+}

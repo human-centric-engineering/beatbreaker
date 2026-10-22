@@ -546,10 +546,11 @@ export interface BreakConsole {
   setNextSong: (pin: SongPin | null) => void;
   /**
    * A whole new pattern in `style`, without making it your starting style —
-   * how a drummer's Play arrives (`/studio?style=`). False, and nothing done,
-   * when the catalogue does not have it.
+   * how a drummer's Play arrives (`/studio?style=`). With `song`, that song
+   * of the style, as a drummer's song table opens one (15-c). False, and
+   * nothing done, when the catalogue does not have the style.
    */
-  newBreakIn: (style: string) => boolean;
+  newBreakIn: (style: string, song?: string) => boolean;
   /** If playing: start again from the top, with a count-in, once the next break is on the stage. */
   restartFromTop: () => void;
   /**
@@ -1563,9 +1564,11 @@ export function useBreakConsole(
   );
 
   const newBreakIn = useCallback(
-    (key: string): boolean => {
+    (key: string, song?: string): boolean => {
       const params = catalogue.styles[key]?.params;
       if (!params) return false;
+      // a song the style does not hold is the style with a song at random
+      const named = song && params.songs?.some((s) => s.key === song) ? song : undefined;
       /* Picked for this New only, as a pick on a saved pattern is: nothing is
          written to your settings. New follows a song's kit itself; a style
          without songs asks for its kit here, as picking it would. */
@@ -1578,7 +1581,7 @@ export function useBreakConsole(
       // a song held in another drummer's style is not this drummer's: let it go
       if (nextSong && nextSong.style !== key) setNextSong(null);
       // a drummer's Play is the drummer as they played: no twist on the first look
-      return newBreak('both', { style: key, creativity: 0 });
+      return newBreak('both', { style: key, creativity: 0, ...(named ? { song: named } : {}) });
     },
     [catalogue.styles, followKit, newBreak, nextSong]
   );

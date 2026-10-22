@@ -20,6 +20,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Try a Little Tenderness",
+      "drummer_ids": ["drummer:al-jackson-jr"],
+      "drums": {
+        "description": "The build: the hi-hat foot on 3, then a cross-stick on every beat, then the snare on every beat as Otis lifts it.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dictionary-of-soul-wikipedia", "src:al-jackson-jr-wikipedia"]
+        }
+      },
+      "style_key": "aljackson",
+      "song_key": "try-a-little-tenderness",
+      "youtube": "https://www.youtube.com/watch?v=pli44utBOwo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17176"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:dictionary-of-soul-wikipedia"]

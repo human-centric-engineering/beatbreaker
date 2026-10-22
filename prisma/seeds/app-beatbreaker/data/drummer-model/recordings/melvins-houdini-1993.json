@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Hooch",
+      "drummer_ids": ["drummer:dale-crover"],
+      "drums": {
+        "description": "A heavy, lurching groove with thunderous toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:houdini-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=U9LzoUxz74I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=73507"
+        }
+      ]
+    },
+    {
+      "title": "Night Goat",
+      "drummer_ids": ["drummer:dale-crover"],
+      "drums": {
+        "description": "A slow, sludgy groove with crashing hits.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:houdini-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UduaIdeabvE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=472129"
+        }
+      ]
+    },
+    {
+      "title": "Honey Bucket",
+      "drummer_ids": ["drummer:dale-crover"],
+      "drums": {
+        "description": "Fast, pounding drumming with stop-start accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:houdini-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3RMmIJn_4FA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=43132"
+        }
+      ]
+    }
   ]
 }

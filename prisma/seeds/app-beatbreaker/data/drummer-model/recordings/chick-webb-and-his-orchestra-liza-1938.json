@@ -1,0 +1,27 @@
+{
+  "id": "rec:chick-webb-and-his-orchestra-liza-1938",
+  "title": "Liza",
+  "artist": "Chick Webb and His Orchestra",
+  "year": 1938,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chick-webb"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Liza (All the Clouds'll Roll Away)",
+      "drummer_ids": ["drummer:chick-webb"],
+      "drums": {
+        "description": "A rare Webb feature with breaks and solo passages showing his speed and snare control.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:liza-all-the-cloudsll-roll-away-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cPawqBlnv_c"
+    }
+  ]
+}

@@ -51,6 +51,88 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Jailbreak",
+      "drummer_ids": ["drummer:brian-downey"],
+      "drums": {
+        "description": "A pushed two-bar beat, the chorus crashing on the \"and\" of 4, the stops, and the sirens on crashes and toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jailbreak-wikipedia"]
+        }
+      },
+      "style_key": "downey",
+      "song_key": "jailbreak",
+      "youtube": "https://www.youtube.com/watch?v=yFMVvSAeVO4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=361"
+        }
+      ]
+    },
+    {
+      "title": "The Boys Are Back in Town",
+      "drummer_ids": ["drummer:brian-downey"],
+      "drums": {
+        "description": "An uptempo shuffle with a crash on the \"and\" of 4 pushing past the 1, and triplet fills round the toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jailbreak-wikipedia", "src:downey-onlinedrummer-boys"]
+        }
+      },
+      "style_key": "downey",
+      "song_key": "the-boys-are-back-in-town",
+      "youtube": "https://www.youtube.com/watch?v=5_xqb416S7o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19634"
+        }
+      ]
+    },
+    {
+      "title": "Cowboy Song",
+      "drummer_ids": ["drummer:brian-downey"],
+      "drums": {
+        "description": "A snare build-in, crashes on the \"and\"s in the verse, and the ride in quarters under the twin guitars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jailbreak-wikipedia"]
+        }
+      },
+      "style_key": "downey",
+      "song_key": "cowboy-song",
+      "youtube": "https://www.youtube.com/watch?v=Q61q458T92w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=20248"
+        }
+      ]
+    },
+    {
+      "title": "Emerald",
+      "drummer_ids": ["drummer:brian-downey"],
+      "drums": {
+        "description": "A jig in 12/8: the snare on the second pulse, gallops, mid tom and kick in eighths, and unison breaks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jailbreak-wikipedia"]
+        }
+      },
+      "style_key": "downey",
+      "song_key": "emerald",
+      "youtube": "https://www.youtube.com/watch?v=IB79pKUJN-o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=20278"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:jailbreak-wikipedia"]

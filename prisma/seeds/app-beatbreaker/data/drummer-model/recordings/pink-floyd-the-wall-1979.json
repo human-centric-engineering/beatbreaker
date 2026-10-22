@@ -65,6 +65,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Another Brick in the Wall, Part 2",
+      "drummer_ids": ["drummer:nick-mason"],
+      "drums": {
+        "description": "Four on the floor with hi-hat eighths opened on the \"and\" of 4: a disco beat at 104 under the children's choir.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:another-brick-in-the-wall-wikipedia"]
+        }
+      },
+      "style_key": "nickmason",
+      "song_key": "another-brick-in-the-wall-part-2",
+      "youtube": "https://www.youtube.com/watch?v=krYK1jWz0Lo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=303"
+        }
+      ]
+    },
+    {
+      "title": "Comfortably Numb",
+      "drummer_ids": ["drummer:nick-mason"],
+      "drums": {
+        "description": "Slow hi-hat eighths over 2 and 4, then the ride under the solos with the kick on the \"a\" of 2.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:comfortably-numb-wikipedia"]
+        }
+      },
+      "style_key": "nickmason",
+      "song_key": "comfortably-numb",
+      "youtube": "https://www.youtube.com/watch?v=7kWl-ZGMwkQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=271"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-wall-wikipedia"]

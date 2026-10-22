@@ -1,0 +1,51 @@
+{
+  "id": "rec:santana-amigos-1976",
+  "title": "Amigos",
+  "artist": "Santana",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:armando-peraza"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Dance Sister Dance (Baila Mi Hermana)",
+      "drummer_ids": ["drummer:armando-peraza"],
+      "drums": {
+        "description": "Congas and bongos in a fast salsa-rock groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-armando-peraza", "src:amigos-santana-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6J3xAZ2u8Y8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2177141"
+        }
+      ]
+    },
+    {
+      "title": "Europa (Earth's Cry Heaven's Smile)",
+      "drummer_ids": ["drummer:armando-peraza"],
+      "drums": {
+        "description": "Percussion under Santana's instrumental ballad.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-armando-peraza", "src:amigos-santana-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BlW8rblRbMw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=451"
+        }
+      ]
+    }
+  ]
+}

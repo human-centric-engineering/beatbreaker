@@ -1,0 +1,27 @@
+{
+  "id": "rec:henry-mancini-the-music-from-peter-gunn-1959",
+  "title": "The Music from Peter Gunn",
+  "artist": "Henry Mancini",
+  "year": 1959,
+  "type": "album",
+  "style_ids": ["style:cool-jazz", "style:bebop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:shelly-manne"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Peter Gunn",
+      "drummer_ids": ["drummer:shelly-manne"],
+      "drums": {
+        "description": "A tense, straight eighth-note pulse under the ostinato bass-and-guitar riff and the big-band stabs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-music-from-peter-gunn-wikipedia", "src:shelly-manne-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Emg_6ANjWzo"
+    }
+  ]
+}

@@ -16,5 +16,37 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Out of Step",
+      "drummer_ids": ["drummer:jeff-nelson"],
+      "drums": {
+        "description": "A fast hardcore beat with stops for the chant.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jeff-nelson-wikipedia", "src:out-of-step-ep-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Gx6_wrFZcu0"
+    },
+    {
+      "title": "Betray",
+      "drummer_ids": ["drummer:jeff-nelson"],
+      "drums": {
+        "description": "A mid-tempo build into fast hardcore with tight fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jeff-nelson-wikipedia", "src:out-of-step-ep-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-HpMPQiHCDI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=43531"
+        }
+      ]
+    }
   ]
 }

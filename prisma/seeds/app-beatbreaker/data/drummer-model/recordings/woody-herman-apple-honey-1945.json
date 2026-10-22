@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Apple Honey",
+      "drummer_ids": ["drummer:dave-tough"],
+      "drums": {
+        "description": "A ferocious uptempo swing with Tough's cymbals and snare urging on the First Herd's shout chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:woody-herman-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aXrGgeOr5j4"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:dave-tough-wikipedia"]

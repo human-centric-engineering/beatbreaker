@@ -1,0 +1,33 @@
+{
+  "id": "rec:gentle-giant-in-a-glass-house-1973",
+  "title": "In a Glass House",
+  "artist": "Gentle Giant",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-weathers"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Runaway",
+      "drummer_ids": ["drummer:john-weathers"],
+      "drums": {
+        "description": "Heavy, syncopated grooves with sharp accents in odd groupings.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:in-a-glass-house-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=D3t4fUHZJUA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=404545"
+        }
+      ]
+    }
+  ]
+}

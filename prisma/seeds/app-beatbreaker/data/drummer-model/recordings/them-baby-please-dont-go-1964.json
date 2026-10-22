@@ -1,0 +1,33 @@
+{
+  "id": "rec:them-baby-please-dont-go-1964",
+  "title": "Baby, Please Don't Go",
+  "artist": "Them",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:pop-rock-session", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bobby-graham"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Baby, Please Don't Go",
+      "drummer_ids": ["drummer:bobby-graham"],
+      "drums": {
+        "description": "A driving, urgent rhythm-and-blues beat at a fast tempo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:baby-please-dont-go-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9oPilXW_PeA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1382138"
+        }
+      ]
+    }
+  ]
+}

@@ -10,5 +10,43 @@
       "drummer_id": "drummer:igor-cavalera",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Roots Bloody Roots",
+      "drummer_ids": ["drummer:igor-cavalera"],
+      "drums": {
+        "description": "A heavy, tribal groove mixing Brazilian percussion patterns with metal, the toms carrying the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:roots-bloody-roots-wikipedia", "src:igor-cavalera-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nUCodt4zVw4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=501"
+        }
+      ]
+    },
+    {
+      "title": "Ratamahatta",
+      "drummer_ids": ["drummer:igor-cavalera"],
+      "drums": {
+        "description": "Batucada-style tribal drums with Carlinhos Brown, Brazilian rhythms in a metal song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ratamahatta-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZeWICOwGkkU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17795"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,44 @@
+{
+  "id": "rec:muddy-waters-i-m-ready-1978",
+  "title": "I'm Ready",
+  "artist": "Muddy Waters",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:blues", "style:blues-shuffle"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:willie-big-eyes-smith"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "I'm Ready",
+      "drummer_ids": ["drummer:willie-big-eyes-smith"],
+      "drums": {
+        "description": "Muddy's 1954 stop-time classic played by Smith with Jimmy Rogers, who was on the original, back in the band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:im-ready-muddy-waters-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wQlCLF6bzUQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4891593"
+        }
+      ]
+    },
+    {
+      "title": "I'm Your Hoochie Coochie Man",
+      "drummer_ids": ["drummer:willie-big-eyes-smith"],
+      "drums": {
+        "description": "The famous stop-time figure: band hits on the riff, then the drums kick into a full shuffle on the refrain.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:im-ready-muddy-waters-album-wikipedia"]
+        }
+      }
+    }
+  ]
+}

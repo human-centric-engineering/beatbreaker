@@ -169,5 +169,37 @@
     "reliability": 0.7,
     "accessed": "2026-10-18",
     "notes": "Frames read at 1 s and 5 s: Watts at the kit, long straight mid-brown hair to the shoulders falling over the ears, a fringe swept to the side, clean-shaven, a lime-green short-sleeved knitted shirt with a soft collar and a short buttoned placket; a dark kit with a white front head lettered Gretsch, chrome stands, his hats and a crash beside him."
+  },
+  {
+    "id": "src:let-it-bleed-wikipedia",
+    "type": "encyclopedia",
+    "title": "Let It Bleed - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Let_It_Bleed",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:sticky-fingers-wikipedia",
+    "type": "encyclopedia",
+    "title": "Sticky Fingers - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sticky_Fingers",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:some-girls-wikipedia",
+    "type": "encyclopedia",
+    "title": "Some Girls - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Some_Girls",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:tattoo-you-wikipedia",
+    "type": "encyclopedia",
+    "title": "Tattoo You - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Tattoo_You",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

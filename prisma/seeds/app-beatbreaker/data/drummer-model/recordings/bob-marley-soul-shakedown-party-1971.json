@@ -16,5 +16,20 @@
         "source_ids": ["src:wikipedia-paul-douglas-musician"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Soul Shakedown Party",
+      "year": 1970,
+      "drummer_ids": ["drummer:paul-douglas"],
+      "drums": {
+        "description": "An early, bouncing reggae groove with a busy snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bob-marley-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=p6SC9kagoN4"
+    }
   ]
 }

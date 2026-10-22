@@ -10,5 +10,55 @@
       "drummer_id": "drummer:sean-reinert",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Veil of Maya",
+      "drummer_ids": ["drummer:sean-reinert"],
+      "drums": {
+        "description": "Fusion-like grooves and fills inside a death metal song.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:focus-cynic-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hyvAhfwKHxw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3925298"
+        }
+      ]
+    },
+    {
+      "title": "Celestial Voyage",
+      "drummer_ids": ["drummer:sean-reinert"],
+      "drums": {
+        "description": "Jazz-fusion accents, blast beats and odd-time sections combined.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:focus-cynic-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Sfub4yNoKT4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3925864"
+        }
+      ]
+    },
+    {
+      "title": "How Could I",
+      "drummer_ids": ["drummer:sean-reinert"],
+      "drums": {
+        "description": "Long, progressive, groove-oriented drumming.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:focus-cynic-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vl3jtKy-PRQ"
+    }
   ]
 }

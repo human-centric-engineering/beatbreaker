@@ -1,0 +1,54 @@
+{
+  "id": "rec:journey-infinity-1978",
+  "title": "Infinity",
+  "artist": "Journey",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:aynsley-dunbar"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Wheel in the Sky",
+      "drummer_ids": ["drummer:aynsley-dunbar"],
+      "drums": {
+        "description": "Mid-tempo rock groove with a steady eighth-note hi-hat and solid backbeat, with tom fills setting up the choruses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:infinity-journey-album-wikipedia", "src:wheel-in-the-sky-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MxGEVIvSFeY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=28779"
+        }
+      ]
+    },
+    {
+      "title": "Lights",
+      "drummer_ids": ["drummer:aynsley-dunbar"],
+      "drums": {
+        "description": "Slow, soul-ballad backbeat played with space and a deep snare, building into fuller fills in the outro.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:infinity-journey-album-wikipedia",
+            "src:lights-journey-song-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tNG62fULYgI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10650"
+        }
+      ]
+    }
+  ]
+}

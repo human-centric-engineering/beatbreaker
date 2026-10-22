@@ -179,5 +179,53 @@
     "reliability": 0.8,
     "accessed": "2026-10-14",
     "notes": "John Paul Jones (from Classic Rock): \"I told Bonzo he had to keep playing four-to-the-bar all the way through Black Dog.\""
+  },
+  {
+    "id": "src:communication-breakdown-wikipedia",
+    "type": "encyclopedia",
+    "title": "Communication Breakdown - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Communication_Breakdown",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:whole-lotta-love-wikipedia",
+    "type": "encyclopedia",
+    "title": "Whole Lotta Love - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Whole_Lotta_Love",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:black-dog-led-zeppelin-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Black Dog (Led Zeppelin song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Black_Dog_(Led_Zeppelin_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:rock-and-roll-led-zeppelin-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Rock and Roll (Led Zeppelin song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Rock_and_Roll_(Led_Zeppelin_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:trampled-under-foot-wikipedia",
+    "type": "encyclopedia",
+    "title": "Trampled Under Foot - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Trampled_Under_Foot",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:achilles-last-stand-wikipedia",
+    "type": "encyclopedia",
+    "title": "Achilles Last Stand - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Achilles_Last_Stand",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

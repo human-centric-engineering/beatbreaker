@@ -1,0 +1,27 @@
+{
+  "id": "rec:peter-brotzmann-nipples-1969",
+  "title": "Nipples",
+  "artist": "Peter Brötzmann",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:han-bennink"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Nipples",
+      "drummer_ids": ["drummer:han-bennink"],
+      "drums": {
+        "description": "Raw, crashing free drumming in a sextet, the energy of Machine Gun pushed further.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:han-bennink-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=s7QSgwF08iA"
+    }
+  ]
+}

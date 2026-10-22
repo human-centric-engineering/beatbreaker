@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-o-jays-for-the-love-of-money-1973",
+  "title": "For the Love of Money",
+  "artist": "The O'Jays",
+  "year": 1973,
+  "type": "studio_track",
+  "style_ids": ["style:disco", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-young"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "For the Love of Money",
+      "drummer_ids": ["drummer:earl-young"],
+      "drums": {
+        "description": "A powerful, heavy funk groove under the phased bass line.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:for-the-love-of-money-wikipedia", "src:earl-young-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7KlxInHeH5Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=877049"
+        }
+      ]
+    }
+  ]
+}

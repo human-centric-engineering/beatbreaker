@@ -1,0 +1,33 @@
+{
+  "id": "rec:cactus-cactus-1970",
+  "title": "Cactus",
+  "artist": "Cactus",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carmine-appice"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Parchman Farm",
+      "drummer_ids": ["drummer:carmine-appice"],
+      "drums": {
+        "description": "A fast, frantic hard-rock blues with double-bass flurries.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:cactus-cactus-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Sf1GpMmR6rE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2238571"
+        }
+      ]
+    }
+  ]
+}

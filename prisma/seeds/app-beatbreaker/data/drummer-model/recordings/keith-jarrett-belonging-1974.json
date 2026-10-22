@@ -18,6 +18,56 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Spiral Dance",
+      "drummer_ids": ["drummer:jon-christensen"],
+      "drums": {
+        "description": "Light, springy time that floats around the beat, the ECM drumming Christensen helped define.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jon-christensen-musician-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Pz2GaiIVUw8"
+    },
+    {
+      "title": "The Windup",
+      "drummer_ids": ["drummer:jon-christensen"],
+      "drums": {
+        "description": "Fast, bouncing straight-eighth groove full of off-kilter accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jon-christensen-musician-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=baxJd5iywWw"
+    },
+    {
+      "title": "'Long as You Know You're Living Yours",
+      "drummer_ids": ["drummer:jon-christensen"],
+      "drums": {
+        "description": "Loping gospel-rock backbeat played with a jazz touch.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jon-christensen-musician-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=f59w35ZzZZo"
+    },
+    {
+      "title": "Blossom",
+      "drummer_ids": ["drummer:jon-christensen"],
+      "drums": {
+        "description": "Pulse-free cymbal colours and quiet tom swells.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jon-christensen-musician-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=whupNDaDiQA"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jon-christensen-musician-wikipedia"]

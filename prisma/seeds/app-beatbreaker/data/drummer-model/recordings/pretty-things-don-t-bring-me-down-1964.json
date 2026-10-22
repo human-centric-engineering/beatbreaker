@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Don't Bring Me Down",
+      "drummer_ids": ["drummer:viv-prince"],
+      "drums": {
+        "description": "Raw, loose R&B with crashing, trad-jazz-flavoured fills; the record that made the band's wild name.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dont-bring-me-down-pretty-things-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=s6In2Cp6Icg"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:viv-prince-wikipedia"]

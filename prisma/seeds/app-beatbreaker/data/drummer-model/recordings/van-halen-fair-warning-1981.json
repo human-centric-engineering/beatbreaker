@@ -1,0 +1,33 @@
+{
+  "id": "rec:van-halen-fair-warning-1981",
+  "title": "Fair Warning",
+  "artist": "Van Halen",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alex-van-halen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Unchained",
+      "drummer_ids": ["drummer:alex-van-halen"],
+      "drums": {
+        "description": "A heavy, swaggering groove with big tom fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fair-warning-van-halen-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ojNrj-sWfpk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=57561"
+        }
+      ]
+    }
+  ]
+}

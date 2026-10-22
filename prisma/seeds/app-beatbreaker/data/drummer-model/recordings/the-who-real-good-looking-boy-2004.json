@@ -1,0 +1,32 @@
+{
+  "id": "rec:the-who-real-good-looking-boy-2004",
+  "title": "Real Good Looking Boy",
+  "artist": "The Who",
+  "year": 2004,
+  "type": "studio_track",
+  "style_ids": ["style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zak-starkey"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Real Good Looking Boy",
+      "drummer_ids": ["drummer:zak-starkey"],
+      "drums": {
+        "description": "Starkey's Moon-inherited rolling tom fills and crash-heavy drive on one of the Who's two 2004 studio tracks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:real-good-looking-boy-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=255572"
+        }
+      ]
+    }
+  ]
+}

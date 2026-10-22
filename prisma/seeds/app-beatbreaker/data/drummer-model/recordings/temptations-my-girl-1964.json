@@ -20,6 +20,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "My Girl",
+      "drummer_ids": ["drummer:benny-benjamin"],
+      "drums": {
+        "description": "A gentle, swaying backbeat with tambourine, Benjamin's fills lifting into each chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:my-girl-wikipedia", "src:benjamin-drum-magazine-2018"]
+        }
+      },
+      "style_key": "bennybenjamin",
+      "song_key": "my-girl",
+      "youtube": "https://www.youtube.com/watch?v=y3KJ7d2qBoA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19952"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:my-girl-wikipedia"]

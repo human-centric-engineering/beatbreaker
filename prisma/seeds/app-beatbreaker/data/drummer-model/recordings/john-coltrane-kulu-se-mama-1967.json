@@ -1,0 +1,27 @@
+{
+  "id": "rec:john-coltrane-kulu-se-mama-1967",
+  "title": "Kulu Sé Mama",
+  "artist": "John Coltrane",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:frank-butler"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Kulu Sé Mama",
+      "drummer_ids": ["drummer:frank-butler"],
+      "drums": {
+        "description": "Drums alongside Juno Lewis’s percussion in an extended African-inspired chant.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:kulu-se-mama-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SlbjP5-KM_s"
+    }
+  ]
+}

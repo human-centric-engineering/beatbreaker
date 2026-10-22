@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Helicopter",
+      "drummer_ids": ["drummer:matt-tong"],
+      "drums": {
+        "description": "A frantic, fast, hi-hat-led dance-punk beat with constant fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:matt-tong-wikipedia", "src:silent-alarm-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2R6S5CJWlco",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3257"
+        }
+      ]
+    },
+    {
+      "title": "Banquet",
+      "drummer_ids": ["drummer:matt-tong"],
+      "drums": {
+        "description": "A driving, disco-punk beat with off-beat hats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:matt-tong-wikipedia", "src:silent-alarm-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vdkmhquF60o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3532"
+        }
+      ]
+    },
+    {
+      "title": "Like Eating Glass",
+      "drummer_ids": ["drummer:matt-tong"],
+      "drums": {
+        "description": "Fast, intricate tom patterns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:matt-tong-wikipedia", "src:silent-alarm-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CdBt3n1MtFM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22286"
+        }
+      ]
+    },
+    {
+      "title": "Positive Tension",
+      "drummer_ids": ["drummer:matt-tong"],
+      "drums": {
+        "description": "A building, tense beat that explodes into fast punk.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:matt-tong-wikipedia", "src:silent-alarm-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=El8uSrA98QY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=27135"
+        }
+      ]
+    }
   ]
 }

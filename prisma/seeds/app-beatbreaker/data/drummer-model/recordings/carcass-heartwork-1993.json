@@ -10,5 +10,61 @@
       "drummer_id": "drummer:ken-owen",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Heartwork",
+      "drummer_ids": ["drummer:ken-owen"],
+      "drums": {
+        "description": "A punchy mid-tempo groove and double kick, a melodic death-metal template.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ken-owen-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xKCg-hY3Zdo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=27928"
+        }
+      ]
+    },
+    {
+      "title": "Buried Dreams",
+      "drummer_ids": ["drummer:ken-owen"],
+      "drums": {
+        "description": "Galloping double kick and thrash beats.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ken-owen-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fcA4VO7EH3w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=32333"
+        }
+      ]
+    },
+    {
+      "title": "No Love Lost",
+      "drummer_ids": ["drummer:ken-owen"],
+      "drums": {
+        "description": "A steady, heavy half-time groove under melodic leads.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ken-owen-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=L7xi1LvuJAQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=27911"
+        }
+      ]
+    }
   ]
 }

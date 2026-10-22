@@ -15,5 +15,25 @@
       "name": "Jim Gordon",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Apache",
+      "drummer_ids": ["drummer:jim-gordon"],
+      "drums": {
+        "description": "A heavy, open drum break with bongos that became one of hip hop's core breakbeats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:apache-instrumental-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-Udnb6F1A0g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6908721"
+        }
+      ]
+    }
   ]
 }

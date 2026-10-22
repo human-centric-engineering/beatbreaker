@@ -72,6 +72,50 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Tears for Johannesburg",
+      "drummer_ids": ["drummer:babatunde-olatunji"],
+      "drums": {
+        "description": "Olatunji's African percussion layered with Roach's kit in a 5/4 protest suite.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-roach-we-insist-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=d3mjN_0L8g8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5495699"
+        }
+      ]
+    },
+    {
+      "title": "All Africa",
+      "drummer_ids": ["drummer:babatunde-olatunji"],
+      "drums": {
+        "description": "Abbey Lincoln names African peoples while Olatunji answers with rhythms and chants from each.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-roach-we-insist-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YBIfh1vGi8k"
+    },
+    {
+      "title": "Driva' Man",
+      "drummer_ids": ["drummer:max-roach"],
+      "drums": {
+        "description": "In 5/4, a stark, slow beat under Abbey Lincoln's vocal on the Freedom Now Suite.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-roach-we-insist-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mkRTolP3alg"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:max-roach-we-insist-wikipedia", "src:max-roach-wikipedia"]

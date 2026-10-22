@@ -18,6 +18,44 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "You'll Know When You Get There",
+      "drummer_ids": ["drummer:billy-hart"],
+      "drums": {
+        "description": "Floating, textural cymbal and mallet work with no fixed time.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mwandishi-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LrSK1J7lwl0"
+    },
+    {
+      "title": "Wandering Spirit Song",
+      "drummer_ids": ["drummer:billy-hart"],
+      "drums": {
+        "description": "Free, pulsing interplay that builds from rubato to dense polyrhythm.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mwandishi-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-zNzBQg1s_0"
+    },
+    {
+      "title": "Ostinato (Suite for Angela)",
+      "drummer_ids": ["drummer:billy-hart"],
+      "drums": {
+        "description": "Hart and Ndugu Chancler share a 15/8 ostinato groove, layering kit and percussion.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mwandishi-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZzQT3ORJUck"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:billy-hart-wikipedia"]

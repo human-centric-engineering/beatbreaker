@@ -18,6 +18,86 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Gloria's Step",
+      "drummer_ids": ["drummer:paul-motian"],
+      "drums": {
+        "description": "Motian's brushes turn time-keeping into conversation with LaFaro and Evans, implying the beat rather than stating it.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sunday-at-the-village-vanguard-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=X_c-0HUAjpU"
+    },
+    {
+      "title": "Solar",
+      "drummer_ids": ["drummer:paul-motian"],
+      "drums": {
+        "description": "Light, floating swing with fragments of ride rather than a steady pattern.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sunday-at-the-village-vanguard-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5cIcIbHb0Bc"
+    },
+    {
+      "title": "Alice in Wonderland",
+      "drummer_ids": ["drummer:paul-motian"],
+      "drums": {
+        "description": "Delicate waltz brushwork.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sunday-at-the-village-vanguard-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=E84PWwiznPQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2431799"
+        }
+      ]
+    },
+    {
+      "title": "All of You",
+      "drummer_ids": ["drummer:paul-motian"],
+      "drums": {
+        "description": "Medium swing that dissolves into three-way interplay.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sunday-at-the-village-vanguard-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0ac04Bow9cA"
+    },
+    {
+      "title": "Jade Visions",
+      "drummer_ids": ["drummer:paul-motian"],
+      "drums": {
+        "description": "Near-silent cymbal colours behind LaFaro's ballad.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sunday-at-the-village-vanguard-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kQTzMgw5ytw"
+    },
+    {
+      "title": "My Man's Gone Now",
+      "drummer_ids": ["drummer:paul-motian"],
+      "drums": {
+        "description": "Slow, sparse brushes under the Gershwin ballad.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sunday-at-the-village-vanguard-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Ohj08vtTOoY"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:paul-motian-wikipedia"]

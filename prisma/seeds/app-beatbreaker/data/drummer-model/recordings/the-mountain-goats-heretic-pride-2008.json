@@ -16,5 +16,19 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Sax Rohmer #1",
+      "drummer_ids": ["drummer:jon-wurster"],
+      "drums": {
+        "description": "A driving rock beat behind John Darnielle's guitar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jon-wurster-wikipedia", "src:heretic-pride-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qJPI8o4Mzw4"
+    }
   ]
 }

@@ -169,5 +169,37 @@
     "reliability": 0.35,
     "accessed": "2026-10-21",
     "notes": "The isolated drums Far Out (2022) points to; 92.4 bpm, straight sixteenths."
+  },
+  {
+    "id": "src:i-wanna-be-adored-wikipedia",
+    "type": "encyclopedia",
+    "title": "I Wanna Be Adored - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/I_Wanna_Be_Adored",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:she-bangs-the-drums-wikipedia",
+    "type": "encyclopedia",
+    "title": "She Bangs the Drums - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/She_Bangs_the_Drums",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:waterfall-the-stone-roses-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Waterfall (The Stone Roses song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Waterfall_(The_Stone_Roses_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:made-of-stone-wikipedia",
+    "type": "encyclopedia",
+    "title": "Made of Stone - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Made_of_Stone",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

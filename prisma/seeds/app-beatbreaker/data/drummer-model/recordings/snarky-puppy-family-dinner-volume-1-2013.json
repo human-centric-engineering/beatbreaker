@@ -1,0 +1,32 @@
+{
+  "id": "rec:snarky-puppy-family-dinner-volume-1-2013",
+  "title": "Family Dinner – Volume 1",
+  "artist": "Snarky Puppy",
+  "year": 2013,
+  "type": "album",
+  "style_ids": ["style:gospel"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:robert-searight"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Something",
+      "drummer_ids": ["drummer:robert-searight"],
+      "drums": {
+        "description": "A slow, deep R&B groove with gospel phrasing under Lalah Hathaway.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:family-dinner-volume-1-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=626694"
+        }
+      ]
+    }
+  ]
+}

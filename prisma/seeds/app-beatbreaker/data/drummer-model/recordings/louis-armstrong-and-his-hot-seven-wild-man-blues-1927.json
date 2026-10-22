@@ -1,0 +1,27 @@
+{
+  "id": "rec:louis-armstrong-and-his-hot-seven-wild-man-blues-1927",
+  "title": "Wild Man Blues",
+  "artist": "Louis Armstrong and His Hot Seven",
+  "year": 1927,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:baby-dodds"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Wild Man Blues",
+      "drummer_ids": ["drummer:baby-dodds"],
+      "drums": {
+        "description": "Spare, supportive beat under Armstrong's solos.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wild-man-blues-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NmFsqPhPzqI"
+    }
+  ]
+}

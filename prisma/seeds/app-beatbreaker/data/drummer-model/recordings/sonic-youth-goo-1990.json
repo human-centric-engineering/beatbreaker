@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Kool Thing",
+      "drummer_ids": ["drummer:steve-shelley"],
+      "drums": {
+        "description": "A slinky, mid-tempo groove with heavy accents for the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:goo-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SDTSUwIZdMk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54143"
+        }
+      ]
+    }
   ]
 }

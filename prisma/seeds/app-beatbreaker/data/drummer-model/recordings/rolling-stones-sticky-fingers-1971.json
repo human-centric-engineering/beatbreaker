@@ -48,6 +48,46 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Brown Sugar",
+      "drummer_ids": ["drummer:charlie-watts"],
+      "drums": {
+        "description": "The floor tom in eighths under an accented backbeat, the chorus answering the riff on the toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-16360", "src:sticky-fingers-wikipedia"]
+        }
+      },
+      "style_key": "watts",
+      "song_key": "brown-sugar",
+      "youtube": "https://www.youtube.com/watch?v=Fmfi3UbDPnQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16360"
+        }
+      ]
+    },
+    {
+      "title": "Can't You Hear Me Knocking",
+      "drummer_ids": ["drummer:charlie-watts"],
+      "drums": {
+        "description": "A loose rock groove under Keith Richards's riff, then a long swung Latin-flavoured jam behind the saxophone and congas, Watts's jazz side showing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sticky-fingers-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nkQ0LhcTNsY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16374"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:charlie-watts-wikipedia"],

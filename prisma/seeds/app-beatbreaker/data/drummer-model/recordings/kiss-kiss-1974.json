@@ -1,0 +1,69 @@
+{
+  "id": "rec:kiss-kiss-1974",
+  "title": "Kiss",
+  "artist": "Kiss",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:peter-criss"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Strutter",
+      "drummer_ids": ["drummer:peter-criss"],
+      "drums": {
+        "description": "A swinging, shuffle-tinged hard-rock backbeat; Criss brought a jazz and swing drummer's lilt to Kiss.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:peter-criss-wikipedia", "src:kiss-kiss-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1DDus_S-Tr4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7287"
+        }
+      ]
+    },
+    {
+      "title": "Black Diamond",
+      "drummer_ids": ["drummer:peter-criss"],
+      "drums": {
+        "description": "A driving rock groove that slows to a grinding, ever-slower ending.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:peter-criss-wikipedia", "src:kiss-kiss-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=msEgf9r8NIA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7335"
+        }
+      ]
+    },
+    {
+      "title": "100,000 Years",
+      "drummer_ids": ["drummer:peter-criss"],
+      "drums": {
+        "description": "A riff-locked groove that became the vehicle for his drum solo on Alive!.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:peter-criss-wikipedia", "src:kiss-kiss-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pyQF7lUaZfQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=40689"
+        }
+      ]
+    }
+  ]
+}

@@ -10,5 +10,43 @@
       "drummer_id": "drummer:frost",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "I Am Abomination",
+      "drummer_ids": ["drummer:frost"],
+      "drums": {
+        "description": "Ferocious, unrelenting blast beats and double-kick at extreme tempos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hellfire-1349-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3Yp5nYW33Xo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=413195"
+        }
+      ]
+    },
+    {
+      "title": "Hellfire",
+      "drummer_ids": ["drummer:frost"],
+      "drums": {
+        "description": "A nearly fourteen-minute closer moving between extreme blasting and slower, crushing sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hellfire-1349-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0I_HNg-rNC0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=623585"
+        }
+      ]
+    }
   ]
 }

@@ -10,5 +10,79 @@
       "drummer_id": "drummer:hellhammer",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Funeral Fog",
+      "drummer_ids": ["drummer:hellhammer"],
+      "drums": {
+        "description": "Precise, fast blast beats and double-kick that give the album its tight, heavy foundation.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:de-mysteriis-dom-sathanas-wikipedia", "src:hellhammer-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=q5TiZO6Na_M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=43010"
+        }
+      ]
+    },
+    {
+      "title": "Freezing Moon",
+      "drummer_ids": ["drummer:hellhammer"],
+      "drums": {
+        "description": "A slow, ominous opening beat that shifts into fast blasting and back, his best-known part.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:de-mysteriis-dom-sathanas-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9emO9qo4FwE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12333"
+        }
+      ]
+    },
+    {
+      "title": "Pagan Fears",
+      "drummer_ids": ["drummer:hellhammer"],
+      "drums": {
+        "description": "Fast, driving blasts with abrupt switches to heavy mid-tempo sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:de-mysteriis-dom-sathanas-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=f7cQNoMFv0g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13334"
+        }
+      ]
+    },
+    {
+      "title": "De Mysteriis Dom Sathanas",
+      "drummer_ids": ["drummer:hellhammer"],
+      "drums": {
+        "description": "A shifting title track mixing pounding mid-paced sections with fast blasts.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:de-mysteriis-dom-sathanas-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zNs4zSKK9S4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13383"
+        }
+      ]
+    }
   ]
 }

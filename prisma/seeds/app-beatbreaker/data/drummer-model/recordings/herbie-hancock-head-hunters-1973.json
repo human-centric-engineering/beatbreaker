@@ -15,5 +15,43 @@
       "name": "Harvey Mason",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Chameleon",
+      "drummer_ids": ["drummer:harvey-mason"],
+      "drums": {
+        "description": "A sparse, locked funk groove under the ARP bass line, ghost notes and hi-hat barks carrying a fifteen-minute jam.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:head-hunters-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=iqomTAiRnVM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9061"
+        }
+      ]
+    },
+    {
+      "title": "Watermelon Man",
+      "drummer_ids": ["drummer:harvey-mason"],
+      "drums": {
+        "description": "A dry, interlocking funk pattern answering Bill Summers’ hindewhu and percussion.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:head-hunters-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ppJQKfqhFfE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=37555"
+        }
+      ]
+    }
   ]
 }

@@ -45,5 +45,21 @@
         ]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Soft Winds",
+      "drummer_ids": ["drummer:philly-joe-jones"],
+      "drums": {
+        "description": "A medium blues where Philly Joe solos melodically with brushes and sticks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:philly-joe-jones-wikipedia"]
+        }
+      },
+      "style_key": "phillyjoe",
+      "song_key": "soft-winds",
+      "youtube": "https://www.youtube.com/watch?v=Lwnvzit0Up4"
+    }
   ]
 }

@@ -23,6 +23,22 @@
       "pattern_ids": ["pattern:purdie-shuffle-approx"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Home at Last",
+      "drummer_ids": ["drummer:bernard-purdie"],
+      "drums": {
+        "description": "The Purdie shuffle: hi-hat triplets with a ghost on the middle one and the backbeat on 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:aja-album-wikipedia", "src:historyofrecording-purdie"]
+        }
+      },
+      "style_key": "bernardpurdie",
+      "song_key": "home-at-last",
+      "youtube": "https://www.youtube.com/watch?v=Hx5ZlTyzU-k"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:dnn-purdie", "src:wiki-old-purdie"]

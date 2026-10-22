@@ -1,0 +1,61 @@
+{
+  "id": "rec:sonny-boy-williamson-king-biscuit-time-1989",
+  "title": "King Biscuit Time",
+  "artist": "Sonny Boy Williamson",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:blues"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:peck-curtis"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "King Biscuit Time Theme",
+      "drummer_ids": ["drummer:peck-curtis"],
+      "drums": {
+        "description": "Brisk show-theme groove from the 1965 KFFA studio session, a rare recording of the drummer of the original radio band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:king-biscuit-time-loc-essay"]
+        }
+      }
+    },
+    {
+      "title": "V-8 Ford Blues",
+      "drummer_ids": ["drummer:peck-curtis"],
+      "drums": {
+        "description": "Trio blues from the same broadcast, Curtis keeping simple, steady time for harmonica and one guitar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:king-biscuit-time-loc-essay"]
+        }
+      }
+    },
+    {
+      "title": "Stormy Monday",
+      "drummer_ids": ["drummer:peck-curtis"],
+      "drums": {
+        "description": "Slow blues played on air with a light, spare backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:king-biscuit-time-loc-essay"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RA9teIuKtUI"
+    },
+    {
+      "title": "Come Go With Me",
+      "drummer_ids": ["drummer:peck-curtis"],
+      "drums": {
+        "description": "Off-the-cuff twelve-bar blues where Williamson asks for the same beat but in an eight feel, and Curtis shifts the groove accordingly.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:king-biscuit-time-loc-essay"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RA9teIuKtUI"
+    }
+  ]
+}

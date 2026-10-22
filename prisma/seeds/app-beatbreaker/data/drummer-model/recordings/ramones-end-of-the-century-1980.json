@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Rock 'n' Roll High School",
+      "drummer_ids": ["drummer:marky-ramone"],
+      "drums": {
+        "description": "A bright, fast beat under Phil Spector's production.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:rock-n-roll-high-school-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oz7KYUkdlvE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1664365"
+        }
+      ]
+    },
+    {
+      "title": "Do You Remember Rock 'n' Roll Radio?",
+      "drummer_ids": ["drummer:marky-ramone"],
+      "drums": {
+        "description": "A Spector-style wall-of-sound beat with a heavy backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:do-you-remember-rock-n-roll-radio-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ogobwFg68M0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16404"
+        }
+      ]
+    }
   ]
 }

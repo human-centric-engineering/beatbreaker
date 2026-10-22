@@ -1,0 +1,29 @@
+{
+  "id": "rec:the-police-fall-out-1977",
+  "title": "Fall Out",
+  "artist": "The Police",
+  "year": 1977,
+  "type": "studio_track",
+  "style_ids": ["style:new-wave", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stewart-copeland"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Fall Out",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "The Police's first single, his own song: straight, fast punk eighths with the snare driving every bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-police-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "fall-out",
+      "youtube": "https://www.youtube.com/watch?v=ckL6XvwVfs8"
+    }
+  ]
+}

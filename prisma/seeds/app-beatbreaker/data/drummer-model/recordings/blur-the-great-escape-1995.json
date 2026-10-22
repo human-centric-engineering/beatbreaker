@@ -47,6 +47,48 @@
       "pattern_ids": ["pattern:rowntree-country-house", "pattern:rowntree-the-universal"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Country House",
+      "drummer_ids": ["drummer:dave-rowntree"],
+      "drums": {
+        "description": "The mid tom carries the verse and the hi-hats open up in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-great-escape-album-wikipedia"]
+        }
+      },
+      "style_key": "rowntree",
+      "song_key": "country-house",
+      "youtube": "https://www.youtube.com/watch?v=gpuh1WE-RVw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=27187"
+        }
+      ]
+    },
+    {
+      "title": "The Universal",
+      "drummer_ids": ["drummer:dave-rowntree"],
+      "drums": {
+        "description": "A slow verse with the snare on the \"and\" of 2 and on 4, under strings.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-great-escape-album-wikipedia"]
+        }
+      },
+      "style_key": "rowntree",
+      "song_key": "the-universal",
+      "youtube": "https://www.youtube.com/watch?v=BrbxWOMpwfs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=27189"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-great-escape-album-wikipedia"]

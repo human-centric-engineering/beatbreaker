@@ -30,6 +30,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "I Hung My Head",
+      "drummer_ids": ["drummer:vinnie-colaiuta"],
+      "drums": {
+        "description": "In 9/8, the hat accented every quarter across the bar line.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-hung-my-head-wikipedia", "src:bonedo-2026-i-hung-my-head"]
+        }
+      },
+      "style_key": "colaiuta",
+      "song_key": "i-hung-my-head",
+      "youtube": "https://www.youtube.com/watch?v=WnwmOfmZbb0"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:bonedo-2026-i-hung-my-head"]

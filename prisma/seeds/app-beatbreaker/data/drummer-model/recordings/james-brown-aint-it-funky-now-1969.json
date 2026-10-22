@@ -1,0 +1,27 @@
+{
+  "id": "rec:james-brown-aint-it-funky-now-1969",
+  "title": "Ain't It Funky Now",
+  "artist": "James Brown",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clyde-stubblefield"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Ain't It Funky Now",
+      "drummer_ids": ["drummer:clyde-stubblefield"],
+      "drums": {
+        "description": "A long instrumental jam held on one syncopated groove while the band trades solos over it.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:stubblefield-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hpNxRo6oboI"
+    }
+  ]
+}

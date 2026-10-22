@@ -32,6 +32,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "This Is a Call",
+      "drummer_ids": ["drummer:dave-grohl"],
+      "drums": {
+        "description": "Grohl played every instrument: open hats on the beat, crashes and a pushed snare in the chorus and a punk beat to end the bridge.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:foo-fighters-album-wikipedia",
+            "src:this-is-a-call-wikipedia",
+            "src:songsterr-35563"
+          ]
+        }
+      },
+      "style_key": "grohl",
+      "song_key": "this-is-a-call",
+      "youtube": "https://www.youtube.com/watch?v=h-Rnr3wTX9I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35563"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:foo-fighters-album-wikipedia"]

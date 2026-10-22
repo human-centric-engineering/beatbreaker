@@ -1,0 +1,248 @@
+{
+  "id": "rec:the-police-synchronicity-1983",
+  "title": "Synchronicity",
+  "artist": "The Police",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:new-wave", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stewart-copeland"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Synchronicity I",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Driving eighths locked to a sequencer, phrased in 6/4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:synchronicity-police-album-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "synchronicity-i",
+      "youtube": "https://www.youtube.com/watch?v=Si5CSpUCDGY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15655"
+        }
+      ]
+    },
+    {
+      "title": "Walking in Your Footsteps",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Tribal: open hi-hats on the \"and\"s over the toms, hardly a kick on the 1.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:synchronicity-police-album-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "walking-in-your-footsteps",
+      "youtube": "https://www.youtube.com/watch?v=trX9gQssm9c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=425012"
+        }
+      ]
+    },
+    {
+      "title": "O My God",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Plain rock eighths.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:synchronicity-police-album-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "o-my-god",
+      "youtube": "https://www.youtube.com/watch?v=SMBtkkFo67M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=621263"
+        }
+      ]
+    },
+    {
+      "title": "Mother",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "A lurching 7/4 with the snare on 4 alone.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:synchronicity-police-album-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "mother",
+      "youtube": "https://www.youtube.com/watch?v=d56MfuZAfwI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15850"
+        }
+      ]
+    },
+    {
+      "title": "Miss Gradenko",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "His own song: sixteenth hi-hats over a kick on 2 and 4, then plain rock.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:synchronicity-police-album-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "miss-gradenko",
+      "youtube": "https://www.youtube.com/watch?v=MRDm2tNyX50",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=618984"
+        }
+      ]
+    },
+    {
+      "title": "Synchronicity II",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Quarter hi-hats driving the verse, the bow and bell of the ride in the bridge.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:synchronicity-police-album-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "synchronicity-ii",
+      "youtube": "https://www.youtube.com/watch?v=o5FPPoLqkCk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15847"
+        }
+      ]
+    },
+    {
+      "title": "Every Breath You Take",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Deliberately plain: straight, steady time to a click, built up from overdubs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:synchronicity-police-album-wikipedia",
+            "src:musicradar-copeland-interview"
+          ]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "every-breath-you-take",
+      "youtube": "https://www.youtube.com/watch?v=OMOGaugKpzs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=438"
+        }
+      ]
+    },
+    {
+      "title": "King of Pain",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "The kick on every \"and\" under the verse with barks closed by the foot, and a floor-tom bridge.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:synchronicity-police-album-wikipedia",
+            "src:musicradar-copeland-howto"
+          ]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "king-of-pain",
+      "youtube": "https://www.youtube.com/watch?v=A70_sRBsQqE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=56142"
+        }
+      ]
+    },
+    {
+      "title": "Wrapped Around Your Finger",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "The backbeat on 4 alone, a rim click in the verse and the snare in the chorus, a fill up the toms to a splash.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:synchronicity-police-album-wikipedia",
+            "src:musicradar-copeland-howto"
+          ]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=56149"
+        },
+        {
+          "site": "hudson",
+          "note": "Joe Bergamini, Stewart Copeland: Drumming in the Police and Beyond (Hudson Music)"
+        }
+      ],
+      "style_key": "copeland",
+      "song_key": "wrapped-around-your-finger",
+      "youtube": "https://www.youtube.com/watch?v=svWINSRhQU0"
+    },
+    {
+      "title": "Tea in the Sahara",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Sparse and floating, the time barely stated.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:synchronicity-police-album-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "tea-in-the-sahara",
+      "youtube": "https://www.youtube.com/watch?v=GMq96oVySRI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=262667"
+        }
+      ]
+    },
+    {
+      "title": "Murder by Numbers",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "A jazz-blues 12/8 on the ride with the snare on the third pulse.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:synchronicity-police-album-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "hudson",
+          "note": "Joe Bergamini, Stewart Copeland: Drumming in the Police and Beyond (Hudson Music)"
+        }
+      ],
+      "style_key": "copeland",
+      "song_key": "murder-by-numbers",
+      "youtube": "https://www.youtube.com/watch?v=ug-qQ6fXevo"
+    }
+  ]
+}

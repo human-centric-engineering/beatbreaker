@@ -1,0 +1,27 @@
+{
+  "id": "rec:bo-diddley-hey-bo-diddley-1957",
+  "title": "Hey! Bo Diddley",
+  "artist": "Bo Diddley",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clifton-james"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hey! Bo Diddley",
+      "drummer_ids": ["drummer:clifton-james"],
+      "drums": {
+        "description": "The signature syncopated beat with call-and-response vocals.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hey-bo-diddley-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wk4IITE55hc"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "rec:wayne-shorter-footprints-live-2002",
+  "title": "Footprints Live!",
+  "artist": "Wayne Shorter",
+  "year": 2002,
+  "type": "live_track",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-blade"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Footprints",
+      "drummer_ids": ["drummer:brian-blade"],
+      "drums": {
+        "description": "Live with Wayne Shorter's quartet: the time dissolving and returning, dynamics from a whisper to a roar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:footprints-live-wikipedia", "src:bishop-blade-observations-2012"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LgaIUqH0w6c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2060414"
+        }
+      ]
+    }
+  ]
+}

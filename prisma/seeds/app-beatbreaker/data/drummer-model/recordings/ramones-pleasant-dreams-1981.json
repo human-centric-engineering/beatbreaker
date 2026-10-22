@@ -1,0 +1,32 @@
+{
+  "id": "rec:ramones-pleasant-dreams-1981",
+  "title": "Pleasant Dreams",
+  "artist": "Ramones",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:punk", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:marky-ramone"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The KKK Took My Baby Away",
+      "drummer_ids": ["drummer:marky-ramone"],
+      "drums": {
+        "description": "A fast, catchy pop-punk beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-kkk-took-my-baby-away-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=51482"
+        }
+      ]
+    }
+  ]
+}

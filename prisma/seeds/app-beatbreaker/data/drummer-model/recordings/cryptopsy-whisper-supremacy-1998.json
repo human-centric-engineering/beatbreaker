@@ -10,5 +10,37 @@
       "drummer_id": "drummer:flo-mounier",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Cold Hate, Warm Blood",
+      "drummer_ids": ["drummer:flo-mounier"],
+      "drums": {
+        "description": "Rapid-fire blasts and tempo shifts in technical death metal.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cryptopsy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Ly4OpyV-0r0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=32735"
+        }
+      ]
+    },
+    {
+      "title": "White Worms",
+      "drummer_ids": ["drummer:flo-mounier"],
+      "drums": {
+        "description": "Fast blasts and abrupt meter shifts.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cryptopsy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TUgC9tOjGfI"
+    }
   ]
 }

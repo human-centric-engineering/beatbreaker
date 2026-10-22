@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Inertiatic ESP",
+      "drummer_ids": ["drummer:jon-theodore"],
+      "drums": {
+        "description": "Explosive, ghost-note-heavy grooves with constant fills, a Latin and funk vocabulary played at punk volume.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:de-loused-in-the-comatorium-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=neSQgkEy_xQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=42746"
+        }
+      ]
+    },
+    {
+      "title": "Roulette Dares (The Haunt Of)",
+      "drummer_ids": ["drummer:jon-theodore"],
+      "drums": {
+        "description": "A loping, syncopated groove that erupts into fast fills and tom runs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:de-loused-in-the-comatorium-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=z26eM4Gr0cA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13639"
+        }
+      ]
+    },
+    {
+      "title": "Drunkship of Lanterns",
+      "drummer_ids": ["drummer:jon-theodore"],
+      "drums": {
+        "description": "Salsa-inflected cowbell and timbale-style patterns pushed into a frantic rock tempo.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:de-loused-in-the-comatorium-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=crknkUbmKac",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=425019"
+        }
+      ]
+    },
+    {
+      "title": "Cicatriz ESP",
+      "drummer_ids": ["drummer:jon-theodore"],
+      "drums": {
+        "description": "Long, jam-based sections where the drums drive the band from a groove into free improvisation.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:de-loused-in-the-comatorium-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZNRZ91t7B0I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13068"
+        }
+      ]
+    }
   ]
 }

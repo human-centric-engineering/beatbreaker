@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-first-edition-just-dropped-in-to-see-what-condition-my-condition-was-in-1968",
+  "title": "Just Dropped In (To See What Condition My Condition Was In)",
+  "artist": "The First Edition",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:folk-rock", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mickey-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Just Dropped In (To See What Condition My Condition Was In)",
+      "drummer_ids": ["drummer:mickey-jones"],
+      "drums": {
+        "description": "A psychedelic rock beat with tape-reversed effects.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:just-dropped-in-to-see-what-condition-my-condition-was-in-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-0-7fg8oAO4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=891457"
+        }
+      ]
+    }
+  ]
+}

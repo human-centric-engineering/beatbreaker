@@ -319,3 +319,108 @@ describe('checkGraph', () => {
     expect(checkGraph(g)).toEqual(['drummer:a: an edge (bandmate) to itself']);
   });
 });
+
+describe('checkCorpus: tracks on a recording', () => {
+  const YT = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+  const SP = 'https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC';
+  const src = { id: 'src:s', type: 'book', title: 'A history of the drums' };
+
+  function track(extra: Record<string, unknown> = {}): Record<string, unknown> {
+    return {
+      title: 'Song',
+      drummer_ids: ['drummer:a'],
+      drums: { description: 'Backbeat.', evidence: { source_ids: ['src:s'] } },
+      ...extra,
+    };
+  }
+  function corpusWith(tracks: Record<string, unknown>[], playing = ['a']) {
+    return corpusOf({
+      drummers: [drummer('a', { beatbreaker: { style_key: 'astyle' } })],
+      recordings: [{ ...recording('r', playing), tracks }],
+      sources: [src],
+    });
+  }
+
+  it('passes a sound track, with canonical links and a scored key', () => {
+    const c = corpusWith([
+      track({ youtube: YT, spotify: SP, style_key: 'astyle', song_key: 'song' }),
+    ]);
+    expect(checkCorpus(c)).toEqual([]);
+  });
+
+  it('names a drummer who has no drum_performance on the recording', () => {
+    const c = corpusWith([track({ drummer_ids: ['drummer:a', 'drummer:b'] })]);
+    expect(checkCorpus(c)).toEqual([
+      'recordings/0.json track "Song": drummer:b has no drum_performance on the recording',
+    ]);
+  });
+
+  it('names a line on the drums that cites no source', () => {
+    const c = corpusWith([track({ drums: { description: 'Backbeat.' } })]);
+    expect(checkCorpus(c)).toEqual([
+      'recordings/0.json track "Song": the line on the drums cites no source',
+    ]);
+  });
+
+  it('names a source that is not in the registry', () => {
+    const c = corpusWith([
+      track({ drums: { description: 'x', evidence: { source_ids: ['src:s', 'src:nope'] } } }),
+    ]);
+    // the generic unresolved-reference rule names it too; the track rule names the track
+    expect(checkCorpus(c)).toEqual([
+      'recordings/0.json: unresolved reference src:nope',
+      'recordings/0.json track "Song": src:nope is not in the source registry',
+    ]);
+  });
+
+  it.each([
+    ['a youtu.be short link', 'youtube', 'https://youtu.be/dQw4w9WgXcQ'],
+    ['a youtube link with a tracking parameter', 'youtube', `${YT}&list=PL1`],
+    ['a spotify link in the youtube field', 'youtube', SP],
+    ['a spotify link with a query', 'spotify', `${SP}?si=abc`],
+    [
+      'a spotify link with a locale segment',
+      'spotify',
+      'https://open.spotify.com/intl-fr/track/4uLU6hMCjMI75M1A2tKUQC',
+    ],
+    ['a youtube link in the spotify field', 'spotify', YT],
+  ])('refuses %s', (_name, provider, url) => {
+    const errors = checkCorpus(corpusWith([track({ [provider]: url })]));
+    expect(errors).toEqual([
+      `recordings/0.json track "Song": ${provider} link ${url} is not one parseReferenceLink rebuilds`,
+    ]);
+  });
+
+  it('names a song_key without the style_key of a drummer on the track', () => {
+    const wrongStyle = corpusWith([track({ style_key: 'other', song_key: 'song' })]);
+    const noStyle = corpusWith([track({ song_key: 'song' })]);
+    for (const c of [wrongStyle, noStyle]) {
+      expect(checkCorpus(c)).toEqual([
+        'recordings/0.json track "Song": song_key needs the style_key of a drummer on it',
+      ]);
+    }
+  });
+
+  it('names a style_key (or also_song_keys) without a song_key', () => {
+    for (const extra of [{ style_key: 'astyle' }, { also_song_keys: ['x'] }]) {
+      expect(checkCorpus(corpusWith([track(extra)]))).toEqual([
+        'recordings/0.json track "Song": style_key or also_song_keys without a song_key',
+      ]);
+    }
+  });
+
+  it('names a title listed twice on one recording, ignoring case, but not across recordings', () => {
+    expect(checkCorpus(corpusWith([track(), track({ title: 'SONG' })]))).toEqual([
+      'recordings/0.json track "SONG": listed twice',
+    ]);
+    const c = corpusOf({
+      drummers: [drummer('a')],
+      recordings: [
+        { ...recording('r1', ['a']), tracks: [track()] },
+        { ...recording('r2', ['a']), tracks: [track()] },
+      ],
+      sources: [src],
+    });
+    expect(checkCorpus(c)).toEqual([]);
+  });
+});

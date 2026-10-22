@@ -13,6 +13,19 @@
       "why_it_matters": "A bass-and-drums duet, Bauduc playing on the bass strings."
     }
   ],
+  "tracks": [
+    {
+      "title": "Big Noise from Winnetka",
+      "drummer_ids": ["drummer:ray-bauduc"],
+      "drums": {
+        "description": "The famous duet with bassist Bob Haggart: Bauduc plays sticks on Haggart's bass strings and his kit while Haggart whistles.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:big-noise-from-winnetka-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:ray-bauduc-wikipedia"]

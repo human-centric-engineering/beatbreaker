@@ -16,5 +16,67 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Mountain Song",
+      "drummer_ids": ["drummer:stephen-perkins"],
+      "drums": {
+        "description": "A heavy, tom-rich tribal groove under the bass riff, with busy fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:nothings-shocking-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=daqWqAM5EC4"
+    },
+    {
+      "title": "Jane Says",
+      "drummer_ids": ["drummer:stephen-perkins"],
+      "drums": {
+        "description": "Perkins plays steel drums over the acoustic guitar instead of a kit pattern.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:nothings-shocking-wikipedia", "src:stephen-perkins-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=i7Q_8q3XXrQ"
+    },
+    {
+      "title": "Ocean Size",
+      "drummer_ids": ["drummer:stephen-perkins"],
+      "drums": {
+        "description": "Slow, building drums under the guitar intro that break into a hard, fast rock drive.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:nothings-shocking-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jDIAJhharwQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10756"
+        }
+      ]
+    },
+    {
+      "title": "Had a Dad",
+      "drummer_ids": ["drummer:stephen-perkins"],
+      "drums": {
+        "description": "A punchy, funk-edged hard-rock groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:nothings-shocking-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Zz5lHkYNHKI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=38906"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "id": "rec:francisco-alves-aquarela-do-brasil-1939",
+  "title": "Aquarela do Brasil",
+  "artist": "Francisco Alves",
+  "year": 1939,
+  "type": "studio_track",
+  "style_ids": ["style:samba"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:luciano-perrone"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Aquarela do Brasil",
+      "drummer_ids": ["drummer:luciano-perrone"],
+      "drums": {
+        "description": "Perrone's drums with Radamés Gnattali's orchestra brought samba rhythm into an arranged studio orchestra.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:aquarela-do-brasil-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=58wm1Tm19bs"
+    }
+  ]
+}

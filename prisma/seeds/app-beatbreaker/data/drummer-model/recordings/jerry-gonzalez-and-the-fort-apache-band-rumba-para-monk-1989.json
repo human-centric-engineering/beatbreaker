@@ -1,0 +1,26 @@
+{
+  "id": "rec:jerry-gonzalez-and-the-fort-apache-band-rumba-para-monk-1989",
+  "title": "Rumba para Monk",
+  "artist": "Jerry González & the Fort Apache Band",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-berrios"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Bemsha Swing",
+      "drummer_ids": ["drummer:steve-berrios"],
+      "drums": {
+        "description": "Monk's tune in a rumba-guaguancó feel: Berrios splits clave between kit and hand drums.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-steve-berrios"]
+        }
+      }
+    }
+  ]
+}

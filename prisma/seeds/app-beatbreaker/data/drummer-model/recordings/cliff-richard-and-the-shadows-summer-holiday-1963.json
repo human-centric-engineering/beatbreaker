@@ -1,0 +1,27 @@
+{
+  "id": "rec:cliff-richard-and-the-shadows-summer-holiday-1963",
+  "title": "Summer Holiday",
+  "artist": "Cliff Richard and the Shadows",
+  "year": 1963,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-bennett"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Summer Holiday",
+      "drummer_ids": ["drummer:brian-bennett"],
+      "drums": {
+        "description": "A light, bouncing pop beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:summer-holiday-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mq1t661u4Xg"
+    }
+  ]
+}

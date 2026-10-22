@@ -10,5 +10,62 @@
       "drummer_id": "drummer:gar-samuelson",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Peace Sells",
+      "drummer_ids": ["drummer:gar-samuelson"],
+      "drums": {
+        "description": "A jazz-trained drummer playing thrash: a swinging, mid-tempo groove under the bass intro, then a fast thrash ending.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:peace-sells-wikipedia", "src:gar-samuelson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rdEupVsL07E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12554"
+        }
+      ]
+    },
+    {
+      "title": "Wake Up Dead",
+      "drummer_ids": ["drummer:gar-samuelson"],
+      "drums": {
+        "description": "Fast, loose thrash with jazzy fills and ride work, a looser feel than most metal drummers.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wake-up-dead-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4kSvN1dQjxc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23644"
+        }
+      ]
+    },
+    {
+      "title": "The Conjuring",
+      "drummer_ids": ["drummer:gar-samuelson"],
+      "drums": {
+        "description": "Shifting tempos with tom-heavy fills and jazz-influenced cymbal work.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:gar-samuelson-wikipedia"],
+          "note": "The song's own page did not check out; the source names the drummer, not this line."
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MF0CrgncaFM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13362"
+        }
+      ]
+    }
   ]
 }

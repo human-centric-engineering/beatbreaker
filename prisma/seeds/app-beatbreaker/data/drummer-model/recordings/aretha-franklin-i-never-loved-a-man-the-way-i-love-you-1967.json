@@ -10,5 +10,25 @@
       "drummer_id": "drummer:roger-hawkins",
       "name": "Roger Hawkins"
     }
+  ],
+  "tracks": [
+    {
+      "title": "I Never Loved a Man (The Way I Love You)",
+      "drummer_ids": ["drummer:roger-hawkins"],
+      "drums": {
+        "description": "A slow 6/8 blues groove, the drums heavy and spare, landing with the piano on the downbeats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-never-loved-a-man-the-way-i-love-you-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dzIUgS3Imu0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=503143"
+        }
+      ]
+    }
   ]
 }

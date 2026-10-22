@@ -1,0 +1,42 @@
+{
+  "id": "rec:jefferson-airplane-after-bathing-at-baxters-1967",
+  "title": "After Bathing at Baxter's",
+  "artist": "Jefferson Airplane",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:spencer-dryden"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Ballad of You and Me and Pooneil",
+      "drummer_ids": ["drummer:spencer-dryden"],
+      "drums": {
+        "description": "Heavy, loose psychedelic groove with long tom-and-cymbal passages through the feedback sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:after-bathing-at-baxters-wikipedia",
+            "src:the-ballad-of-you-and-me-and-pooneil-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MVcCgZ84TwU"
+    },
+    {
+      "title": "Watch Her Ride",
+      "drummer_ids": ["drummer:spencer-dryden"],
+      "drums": {
+        "description": "Upbeat, steady rock groove with tight snare fills under Kantner's vocal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:after-bathing-at-baxters-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aXxnJM2-VcA"
+    }
+  ]
+}

@@ -50,6 +50,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Soul Man",
+      "drummer_ids": ["drummer:al-jackson-jr"],
+      "drums": {
+        "description": "It struts: hi-hat eighths, the kick on the \"a\"s, and stabs with the band at the end of each chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:soul-man-wikipedia"]
+        }
+      },
+      "style_key": "aljackson",
+      "song_key": "soul-man",
+      "youtube": "https://www.youtube.com/watch?v=S_OX2HwWy-o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=388766"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:soul-man-wikipedia"]

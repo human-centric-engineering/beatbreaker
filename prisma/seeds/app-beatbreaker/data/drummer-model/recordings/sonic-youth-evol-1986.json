@@ -16,5 +16,31 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Expressway to Yr Skull",
+      "drummer_ids": ["drummer:steve-shelley"],
+      "drums": {
+        "description": "A driving, motorik-like beat that holds steady through the long feedback coda.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:evol-sonic-youth-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Y_-dYUobltk"
+    },
+    {
+      "title": "Star Power",
+      "drummer_ids": ["drummer:steve-shelley"],
+      "drums": {
+        "description": "A simple, hypnotic beat that anchors the dissonant guitars, from Shelley's first Sonic Youth album.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:evol-sonic-youth-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UYZ1lil80Rk"
+    }
   ]
 }

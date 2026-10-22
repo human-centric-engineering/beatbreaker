@@ -18,6 +18,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Complete",
+      "drummer_ids": ["drummer:frank-butler"],
+      "drums": {
+        "description": "Crisp West Coast hard-bop swing with snappy comping.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:you-get-more-bounce-with-curtis-counce-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hBKR8lvOc4A"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:frank-butler-musician-wikipedia"]

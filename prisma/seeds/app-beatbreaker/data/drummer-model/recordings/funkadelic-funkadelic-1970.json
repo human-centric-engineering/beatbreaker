@@ -10,5 +10,49 @@
       "drummer_id": "drummer:tiki-fulwood",
       "name": "Tiki Fulwood"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Mommy, What's a Funkadelic?",
+      "drummer_ids": ["drummer:tiki-fulwood"],
+      "drums": {
+        "description": "A slow, heavy, loose funk-rock groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tiki-fulwood-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=A2zWGLockDU"
+    },
+    {
+      "title": "I Got a Thing, You Got a Thing, Everybody's Got a Thing",
+      "drummer_ids": ["drummer:tiki-fulwood"],
+      "drums": {
+        "description": "A tight, driving funk beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tiki-fulwood-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=P_GqW5dSynw"
+    },
+    {
+      "title": "I'll Bet You",
+      "drummer_ids": ["drummer:tiki-fulwood"],
+      "drums": {
+        "description": "A fuzzed-out, heavy soul-rock groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tiki-fulwood-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BKCJcJRbgzE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2838891"
+        }
+      ]
+    }
   ]
 }

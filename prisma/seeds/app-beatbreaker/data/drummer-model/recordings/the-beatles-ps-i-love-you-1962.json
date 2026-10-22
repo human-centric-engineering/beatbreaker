@@ -15,5 +15,25 @@
       "name": "Andy White",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "P.S. I Love You",
+      "drummer_ids": ["drummer:andy-white"],
+      "drums": {
+        "description": "A light, Latin-tinged beat on the session drums, with Ringo on maracas.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:p-s-i-love-you-beatles-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MA5DkiVKSlM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=60310"
+        }
+      ]
+    }
   ]
 }

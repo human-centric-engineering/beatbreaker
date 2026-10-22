@@ -70,6 +70,31 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Channel 1 Suite",
+      "drummer_ids": ["drummer:buddy-rich"],
+      "drums": {
+        "description": "A multi-section feature recorded live at Caesars Palace, built round an extended drum solo.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:buddy-rich-mercy-mercy-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Mercy, Mercy, Mercy",
+      "drummer_ids": ["drummer:buddy-rich"],
+      "drums": {
+        "description": "A soul-jazz backbeat for the big band, the Zawinul tune played with a rock-era feel.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:buddy-rich-mercy-mercy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4FNm5B7kMc4"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:buddy-rich-mercy-mercy-wikipedia"]

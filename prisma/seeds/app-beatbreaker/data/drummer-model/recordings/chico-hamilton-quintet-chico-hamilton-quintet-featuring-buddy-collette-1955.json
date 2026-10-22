@@ -18,6 +18,44 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Blue Sands",
+      "drummer_ids": ["drummer:chico-hamilton"],
+      "drums": {
+        "description": "Hamilton's best-known feature: a hypnotic, rolling tom-tom pattern played with mallets under Buddy Collette's flute.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:chico-hamilton-quintet-featuring-buddy-collette-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=A43DakdPPQQ"
+    },
+    {
+      "title": "My Funny Valentine",
+      "drummer_ids": ["drummer:chico-hamilton"],
+      "drums": {
+        "description": "Chamber-jazz ballad treatment with cello, where Hamilton's role is colour and quiet support.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:chico-hamilton-quintet-featuring-buddy-collette-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fjg6UfcHXrI"
+    },
+    {
+      "title": "Buddy Boo",
+      "drummer_ids": ["drummer:chico-hamilton"],
+      "drums": {
+        "description": "Light swing from the cello quintet, with Hamilton playing at chamber-music volume.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:chico-hamilton-quintet-featuring-buddy-collette-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uFZDUs4jCuA"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:chico-hamilton-wikipedia"]

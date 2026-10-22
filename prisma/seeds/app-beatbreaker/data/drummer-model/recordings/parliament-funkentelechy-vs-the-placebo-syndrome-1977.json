@@ -1,0 +1,51 @@
+{
+  "id": "rec:parliament-funkentelechy-vs-the-placebo-syndrome-1977",
+  "title": "Funkentelechy Vs. the Placebo Syndrome",
+  "artist": "Parliament",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jerome-brailey"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Flash Light",
+      "drummer_ids": ["drummer:jerome-brailey"],
+      "drums": {
+        "description": "A tight, insistent funk groove under Worrell's synth bass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:funkentelechy-vs-the-placebo-syndrome-wikipedia",
+            "src:jerome-brailey-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0wBqWb43y6I"
+    },
+    {
+      "title": "Bop Gun (Endangered Species)",
+      "drummer_ids": ["drummer:jerome-brailey"],
+      "drums": {
+        "description": "A long, steady, insistent funk groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:funkentelechy-vs-the-placebo-syndrome-wikipedia",
+            "src:jerome-brailey-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vxcP6Qfqcrc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=698351"
+        }
+      ]
+    }
+  ]
+}

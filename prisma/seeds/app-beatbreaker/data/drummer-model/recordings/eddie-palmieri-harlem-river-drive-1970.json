@@ -16,5 +16,21 @@
         "source_ids": ["src:wikipedia-nicky-marrero"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Harlem River Drive",
+      "artist": "Harlem River Drive",
+      "year": 1971,
+      "drummer_ids": ["drummer:nicky-marrero"],
+      "drums": {
+        "description": "A Latin-funk groove with timbales and kit mixed.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-nicky-marrero"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=G08DpI77DQI"
+    }
   ]
 }

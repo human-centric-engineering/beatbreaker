@@ -1,0 +1,26 @@
+{
+  "id": "rec:yusef-lateef-live-at-pep-s-1964",
+  "title": "Live at Pep's",
+  "artist": "Yusef Lateef",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:new-orleans-funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:james-black"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Sister Mamie",
+      "drummer_ids": ["drummer:james-black"],
+      "drums": {
+        "description": "Soulful, swinging backbeat with New Orleans inflection.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:live-at-pep-s-wikipedia"]
+        }
+      }
+    }
+  ]
+}

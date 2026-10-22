@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Waitin' for Katie",
+      "drummer_ids": ["drummer:ben-pollack"],
+      "drums": {
+        "description": "Pollack's light, propulsive two-beat time on a 1920s white jazz band side.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ben-pollack-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9MrSK46DxIc"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:ben-pollack-wikipedia"]

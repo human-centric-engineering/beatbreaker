@@ -10,5 +10,43 @@
       "drummer_id": "drummer:hannes-grossmann",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Stabwound",
+      "drummer_ids": ["drummer:hannes-grossmann"],
+      "drums": {
+        "description": "Tight technical blasts and double kick locking to neoclassical riffs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hannes-grossmann-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=up8taupsRwY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=48300"
+        }
+      ]
+    },
+    {
+      "title": "Epitaph",
+      "drummer_ids": ["drummer:hannes-grossmann"],
+      "drums": {
+        "description": "Fast blasts and precise, metric-shifting fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hannes-grossmann-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Gq0C7jqsH-4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=48302"
+        }
+      ]
+    }
   ]
 }

@@ -36,6 +36,32 @@
       "kit_setup_id": "kit:neil-peart-tama-rosewood"
     }
   ],
+  "tracks": [
+    {
+      "title": "The Spirit of Radio",
+      "drummer_ids": ["drummer:neil-peart"],
+      "drums": {
+        "description": "The ride bell over ghost notes, a chorus on the kick alone and a bridge switching between 4/4 and 3/4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:songsterr-17179",
+            "src:the-spirit-of-radio-wikipedia",
+            "src:songsterr-17076"
+          ]
+        }
+      },
+      "style_key": "peart",
+      "song_key": "the-spirit-of-radio",
+      "youtube": "https://www.youtube.com/watch?v=g_QtO0Rhp0w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17179"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:peart-rush-wikipedia"]

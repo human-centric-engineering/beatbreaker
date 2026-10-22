@@ -39,6 +39,28 @@
       "pattern_ids": ["pattern:rogertaylor-htf-riff"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Hammer to Fall",
+      "drummer_ids": ["drummer:roger-taylor"],
+      "drums": {
+        "description": "Hats in eighths opened on 2 and 4, the kick on 1 and the \"and\" of 2; the solo over the floor tom.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-51096", "src:the-works-wikipedia"]
+        }
+      },
+      "style_key": "rogertaylor",
+      "song_key": "hammer-to-fall",
+      "youtube": "https://www.youtube.com/watch?v=JU5LMG3WFBw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=51096"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-works-wikipedia"]

@@ -10,5 +10,19 @@
       "drummer_id": "drummer:willie-hall",
       "name": "Willie Hall"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Everybody Needs Somebody to Love",
+      "drummer_ids": ["drummer:willie-hall"],
+      "drums": {
+        "description": "A driving, fast soul-revue beat with build-ups and stops that follow the band leader's cues.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:willie-hall-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xZnPZgYYp3Y"
+    }
   ]
 }

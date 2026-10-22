@@ -15,6 +15,108 @@
       "why_it_matters": "Breakthrough album; tracks include 'Fabienk', 'Mata Zyklek' and 'Sarniezz'."
     }
   ],
+  "tracks": [
+    {
+      "title": "Fabienk",
+      "drummer_ids": ["drummer:klek-de-poitrine"],
+      "drums": {
+        "description": "Hi-hat and snare in unison with the riff in 7/8, a busier 7/8, then four on the floor in 4/4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-angine", "src:klek-de-poitrine-musicradar-fabienk"]
+        }
+      },
+      "style_key": "klek",
+      "song_key": "fabienk",
+      "youtube": "https://www.youtube.com/watch?v=qsCdPxdvu98",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4005903"
+        }
+      ]
+    },
+    {
+      "title": "Mata Zyklek",
+      "drummer_ids": ["drummer:klek-de-poitrine"],
+      "drums": {
+        "description": "In 5/8: hi-hat eighths over a kick in pairs, the ride and hi-hat foot in the pre-chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      },
+      "style_key": "klek",
+      "song_key": "mata-zyklek",
+      "youtube": "https://www.youtube.com/watch?v=rQIwSRG1ERQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6180395"
+        }
+      ]
+    },
+    {
+      "title": "Sarniezz",
+      "drummer_ids": ["drummer:klek-de-poitrine"],
+      "drums": {
+        "description": "A 12/8 with the snare on pulses 2 and 4, then a metric modulation moving the pulse from three to two.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      },
+      "style_key": "klek",
+      "song_key": "sarniezz",
+      "youtube": "https://www.youtube.com/watch?v=dQkrXS4fqBU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4549576"
+        }
+      ]
+    },
+    {
+      "title": "Utzp",
+      "drummer_ids": ["drummer:klek-de-poitrine"],
+      "drums": {
+        "description": "Four on the floor with the snare on every \"and\", the kick in pairs as it builds.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      },
+      "style_key": "klek",
+      "song_key": "utzp",
+      "youtube": "https://www.youtube.com/watch?v=1GX17FPk68U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4664492"
+        }
+      ]
+    },
+    {
+      "title": "Yor Zarad",
+      "drummer_ids": ["drummer:klek-de-poitrine"],
+      "drums": {
+        "description": "In 7/8: sixteenths on the hi-hat with the eighths accented, the snare on four of them.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-angine"]
+        }
+      },
+      "style_key": "klek",
+      "song_key": "yor-zarad",
+      "youtube": "https://www.youtube.com/watch?v=R4yj-LMYnvs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4664503"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:wikipedia-angine"]

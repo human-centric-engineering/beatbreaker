@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Eye Flys",
+      "drummer_ids": ["drummer:dale-crover"],
+      "drums": {
+        "description": "An extremely slow, crushing sludge beat, a template for sludge metal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:gluey-porch-treatments-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hijOfL4JVDE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7361339"
+        }
+      ]
+    }
   ]
 }

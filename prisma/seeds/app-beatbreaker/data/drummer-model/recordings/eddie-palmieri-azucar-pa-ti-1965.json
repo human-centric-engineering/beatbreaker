@@ -1,0 +1,27 @@
+{
+  "id": "rec:eddie-palmieri-azucar-pa-ti-1965",
+  "title": "Azúcar Pa' Ti",
+  "artist": "Eddie Palmieri",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:mozambique", "style:salsa"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:manny-oquendo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Azúcar",
+      "drummer_ids": ["drummer:manny-oquendo"],
+      "drums": {
+        "description": "A long descarga driven by Oquendo's timbales and the band's trombone mambos.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:eddie-palmieri-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RBHWmo60t7g"
+    }
+  ]
+}

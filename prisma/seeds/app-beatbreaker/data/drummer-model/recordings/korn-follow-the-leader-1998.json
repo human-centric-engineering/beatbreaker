@@ -10,5 +10,43 @@
       "drummer_id": "drummer:david-silveria",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Freak on a Leash",
+      "drummer_ids": ["drummer:david-silveria"],
+      "drums": {
+        "description": "A heavy, syncopated groove with hip-hop ghosting and a breakdown.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:follow-the-leader-korn-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jRGrNDV2mKc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16220"
+        }
+      ]
+    },
+    {
+      "title": "Got the Life",
+      "drummer_ids": ["drummer:david-silveria"],
+      "drums": {
+        "description": "A disco-influenced four-on-the-floor kick under heavy guitars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:follow-the-leader-korn-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VAWjsVoDpm0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=347"
+        }
+      ]
+    }
   ]
 }

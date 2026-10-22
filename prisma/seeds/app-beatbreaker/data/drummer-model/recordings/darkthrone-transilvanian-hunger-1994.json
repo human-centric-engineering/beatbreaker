@@ -10,5 +10,25 @@
       "drummer_id": "drummer:fenriz",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Transilvanian Hunger",
+      "drummer_ids": ["drummer:fenriz"],
+      "drums": {
+        "description": "One repetitive, fast skank-style beat held almost unchanged for the whole song; Fenriz plays every instrument on the record.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:transilvanian-hunger-wikipedia", "src:fenriz-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KphlVeJX6fE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5682"
+        }
+      ]
+    }
   ]
 }

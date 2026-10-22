@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Slip of the Tongue",
+      "drummer_ids": ["drummer:tommy-aldridge"],
+      "drums": {
+        "description": "A fast, technical hard-rock beat with double-bass fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tommy-aldridge-wikipedia", "src:slip-of-the-tongue-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lrVmrILE4wI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22084"
+        }
+      ]
+    },
+    {
+      "title": "Fool for Your Loving",
+      "drummer_ids": ["drummer:tommy-aldridge"],
+      "drums": {
+        "description": "A heavier re-recording of the blues-rock song, driven by a big hard-rock backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tommy-aldridge-wikipedia", "src:slip-of-the-tongue-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WtznhhKOW5k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22075"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:tommy-aldridge-wikipedia"]

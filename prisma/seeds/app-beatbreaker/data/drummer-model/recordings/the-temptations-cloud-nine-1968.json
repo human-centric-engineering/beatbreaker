@@ -10,5 +10,28 @@
       "drummer_id": "drummer:uriel-jones",
       "name": "Uriel Jones"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Cloud Nine",
+      "drummer_ids": ["drummer:uriel-jones"],
+      "drums": {
+        "description": "A psychedelic-soul groove with busy, syncopated drumming and conga layered over it, a step away from the classic Motown backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:cloud-nine-the-temptations-song-wikipedia",
+            "src:uriel-jones-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cEOgTGlCw7Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1810368"
+        }
+      ]
+    }
   ]
 }

@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Now's the Time",
+      "drummer_ids": ["drummer:dottie-dodgion"],
+      "drums": {
+        "description": "Swinging, unfussy ride-cymbal time in McPartland's all-woman quartet, listening and supporting rather than leading.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dottie-dodgion-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Zu2bybMcPAU"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:dottie-dodgion-wikipedia"]

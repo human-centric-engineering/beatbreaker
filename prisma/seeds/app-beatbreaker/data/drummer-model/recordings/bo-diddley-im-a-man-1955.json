@@ -1,0 +1,33 @@
+{
+  "id": "rec:bo-diddley-im-a-man-1955",
+  "title": "I'm a Man",
+  "artist": "Bo Diddley",
+  "year": 1955,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clifton-james"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "I'm a Man",
+      "drummer_ids": ["drummer:clifton-james"],
+      "drums": {
+        "description": "A slow, stop-time blues riff with heavy accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:im-a-man-bo-diddley-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jTRx5diic0c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1770318"
+        }
+      ]
+    }
+  ]
+}

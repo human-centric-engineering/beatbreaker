@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Genius of Love",
+      "drummer_ids": ["drummer:chris-frantz"],
+      "drums": {
+        "description": "A loose, laid-back funk beat that became one of the most sampled grooves in hip hop.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tom-tom-club-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aCWCF19nUhA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=625764"
+        }
+      ]
+    },
+    {
+      "title": "Wordy Rappinghood",
+      "drummer_ids": ["drummer:chris-frantz"],
+      "drums": {
+        "description": "A skeletal, bouncing beat under the chanted vocal, early art-pop meeting electro and rap.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tom-tom-club-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_sLtZ1YhgdM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2489108"
+        }
+      ]
+    }
   ]
 }

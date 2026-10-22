@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Easy to Slip",
+      "drummer_ids": ["drummer:richie-hayward"],
+      "drums": {
+        "description": "A loose, rolling country-rock groove with a funky edge.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:richie-hayward-wikipedia", "src:sailin-shoes-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jHKFkLhr4_I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1059614"
+        }
+      ]
+    },
+    {
+      "title": "Tripe Face Boogie",
+      "drummer_ids": ["drummer:richie-hayward"],
+      "drums": {
+        "description": "A driving, behind-the-beat boogie with fills that push across the bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:richie-hayward-wikipedia", "src:sailin-shoes-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nVuAOS6mU6k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2564313"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:richie-hayward-wikipedia", "src:sailin-shoes-wikipedia"]

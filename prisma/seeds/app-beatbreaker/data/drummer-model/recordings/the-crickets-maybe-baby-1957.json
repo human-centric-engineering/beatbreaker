@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-crickets-maybe-baby-1957",
+  "title": "Maybe Baby",
+  "artist": "The Crickets",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jerry-allison"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Maybe Baby",
+      "drummer_ids": ["drummer:jerry-allison"],
+      "drums": {
+        "description": "A shuffling, mid-tempo beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:maybe-baby-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TLpH4spNo9U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=706750"
+        }
+      ]
+    }
+  ]
+}

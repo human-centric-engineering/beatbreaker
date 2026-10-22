@@ -1,0 +1,54 @@
+{
+  "id": "rec:the-doors-strange-days-1967",
+  "title": "Strange Days",
+  "artist": "The Doors",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-densmore"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "When the Music's Over",
+      "drummer_ids": ["drummer:john-densmore"],
+      "drums": {
+        "description": "Eleven-minute piece where Densmore moves from a sparse pulse to explosive tom and snare outbursts that follow the vocal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:when-the-musics-over-wikipedia",
+            "src:strange-days-the-doors-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ry9IeyzMgtE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=33417"
+        }
+      ]
+    },
+    {
+      "title": "People Are Strange",
+      "drummer_ids": ["drummer:john-densmore"],
+      "drums": {
+        "description": "Light, cabaret-like two-step groove played with restraint on snare and hi-hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:people-are-strange-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AgHaGrZkkv4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6261"
+        }
+      ]
+    }
+  ]
+}

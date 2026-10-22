@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Requiem",
+      "drummer_ids": ["drummer:paul-ferguson"],
+      "drums": {
+        "description": "A pounding, tribal beat with heavy toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:killing-joke-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FMdQDMIxThk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=575526"
+        }
+      ]
+    },
+    {
+      "title": "Wardance",
+      "drummer_ids": ["drummer:paul-ferguson"],
+      "drums": {
+        "description": "A relentless, driving tribal beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:killing-joke-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1Dxjh1Cq-cQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=413822"
+        }
+      ]
+    },
+    {
+      "title": "The Wait",
+      "drummer_ids": ["drummer:paul-ferguson"],
+      "drums": {
+        "description": "A heavy, driving beat later covered by Metallica.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:killing-joke-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zfO3waEOU2o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=573878"
+        }
+      ]
+    }
   ]
 }

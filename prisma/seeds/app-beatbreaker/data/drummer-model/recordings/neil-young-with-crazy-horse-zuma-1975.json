@@ -1,0 +1,26 @@
+{
+  "id": "rec:neil-young-with-crazy-horse-zuma-1975",
+  "title": "Zuma",
+  "artist": "Neil Young with Crazy Horse",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:heartland-rock", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ralph-molina"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Cortez the Killer",
+      "drummer_ids": ["drummer:ralph-molina"],
+      "drums": {
+        "description": "A slow, patient groove held for over seven minutes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ralph-molina-wikipedia"]
+        }
+      }
+    }
+  ]
+}

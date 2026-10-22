@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-hives-the-black-and-white-album-2007",
+  "title": "The Black and White Album",
+  "artist": "The Hives",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:garage-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-dangerous"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Tick Tick Boom",
+      "drummer_ids": ["drummer:chris-dangerous"],
+      "drums": {
+        "description": "Tight, explosive stop-start drumming with a big build to the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-black-and-white-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1M02bAWDFkI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=90421"
+        }
+      ]
+    }
+  ]
+}

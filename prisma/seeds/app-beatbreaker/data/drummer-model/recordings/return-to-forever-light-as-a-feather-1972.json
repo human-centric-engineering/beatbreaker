@@ -17,5 +17,49 @@
         "source_ids": ["src:wikipedia-airto-moreira"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Spain",
+      "drummer_ids": ["drummer:airto-moreira"],
+      "drums": {
+        "description": "A light, Latin-inflected groove with Brazilian percussion colours.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-airto-moreira"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hspvnz2SjCw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6802445"
+        }
+      ]
+    },
+    {
+      "title": "500 Miles High",
+      "drummer_ids": ["drummer:airto-moreira"],
+      "drums": {
+        "description": "A floating, samba-tinged groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-airto-moreira"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UD21FG2Nmcw"
+    },
+    {
+      "title": "Captain Marvel",
+      "drummer_ids": ["drummer:airto-moreira"],
+      "drums": {
+        "description": "A buoyant Latin-jazz groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-airto-moreira"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6LYPsQHMipo"
+    }
   ]
 }

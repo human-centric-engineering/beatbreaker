@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Sick, Sick, Sick",
+      "drummer_ids": ["drummer:joey-castillo"],
+      "drums": {
+        "description": "A pounding, fast beat with a heavy, trashy snare under the fuzz riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:era-vulgaris-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oHDaKtx6bGY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=51149"
+        }
+      ]
+    },
+    {
+      "title": "3's & 7's",
+      "drummer_ids": ["drummer:joey-castillo"],
+      "drums": {
+        "description": "A driving straight beat with crash accents that drives the hard-rock single.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:era-vulgaris-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BgVfjXA_QY0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23343"
+        }
+      ]
+    },
+    {
+      "title": "Make It wit Chu",
+      "drummer_ids": ["drummer:joey-castillo"],
+      "drums": {
+        "description": "A slow, laid-back groove with a soft backbeat that leaves room for the Rhodes and vocal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:era-vulgaris-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0wTxqHbJOzg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=441072"
+        }
+      ]
+    },
+    {
+      "title": "Turnin' on the Screw",
+      "drummer_ids": ["drummer:joey-castillo"],
+      "drums": {
+        "description": "An off-kilter, syncopated stomp, with Castillo's kit under layered percussion overdubs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:era-vulgaris-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vQN_DTqHNqo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=51151"
+        }
+      ]
+    }
   ]
 }

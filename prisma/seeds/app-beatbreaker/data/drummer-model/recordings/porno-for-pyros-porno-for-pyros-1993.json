@@ -16,5 +16,24 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Pets",
+      "drummer_ids": ["drummer:stephen-perkins"],
+      "drums": {
+        "description": "A light, loping mid-tempo groove on the band's best-known single.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:porno-for-pyros-album-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=735353"
+        }
+      ]
+    }
   ]
 }

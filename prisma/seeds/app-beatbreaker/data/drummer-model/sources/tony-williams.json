@@ -74,5 +74,157 @@
     "url": "https://www.bluenote.com/artist/anthony-williams-tony-williams/",
     "reliability": 0.7,
     "accessed": "2026-10-11"
+  },
+  {
+    "id": "src:four-and-more-wikipedia",
+    "type": "encyclopedia",
+    "title": "Four & More - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Four_%26_More",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:empyrean-isles-wikipedia",
+    "type": "encyclopedia",
+    "title": "Empyrean Isles - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Empyrean_Isles",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:out-to-lunch-wikipedia",
+    "type": "encyclopedia",
+    "title": "Out to Lunch! - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Out_to_Lunch!",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:esp-miles-davis-wikipedia",
+    "type": "encyclopedia",
+    "title": "E.S.P. (Miles Davis album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/E.S.P._(Miles_Davis_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:miles-in-berlin-wikipedia",
+    "type": "encyclopedia",
+    "title": "Miles in Berlin - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Miles_in_Berlin",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:nefertiti-miles-davis-wikipedia",
+    "type": "encyclopedia",
+    "title": "Nefertiti (Miles Davis album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Nefertiti_(Miles_Davis_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:sorcerer-miles-davis-wikipedia",
+    "type": "encyclopedia",
+    "title": "Sorcerer (Miles Davis album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sorcerer_(Miles_Davis_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:civilization-tony-williams-wikipedia",
+    "type": "encyclopedia",
+    "title": "Civilization (Tony Williams album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Civilization_(Tony_Williams_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:my-funny-valentine-miles-davis-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "My Funny Valentine (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/My_Funny_Valentine_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:miles-smiles-wikipedia",
+    "type": "encyclopedia",
+    "title": "Miles Smiles - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Miles_Smiles",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:one-step-beyond-jackie-mclean-wikipedia",
+    "type": "encyclopedia",
+    "title": "One Step Beyond (Jackie McLean album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/One_Step_Beyond_(Jackie_McLean_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:maiden-voyage-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Maiden Voyage (Herbie Hancock album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Maiden_Voyage_(Herbie_Hancock_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:miles-in-the-sky-wikipedia",
+    "type": "encyclopedia",
+    "title": "Miles in the Sky - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Miles_in_the_Sky",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:filles-de-kilimanjaro-wikipedia",
+    "type": "encyclopedia",
+    "title": "Filles de Kilimanjaro - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Filles_de_Kilimanjaro",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:in-a-silent-way-wikipedia",
+    "type": "encyclopedia",
+    "title": "In a Silent Way - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/In_a_Silent_Way",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wynton-marsalis-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Wynton Marsalis (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Wynton_Marsalis_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:emergency-lifetime-wikipedia",
+    "type": "encyclopedia",
+    "title": "Emergency! (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Emergency!_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:believe-it-tony-williams-wikipedia",
+    "type": "encyclopedia",
+    "title": "Believe It (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Believe_It_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:album-pil-wikipedia",
+    "type": "encyclopedia",
+    "title": "Album (Public Image Ltd album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Album_(Public_Image_Ltd_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

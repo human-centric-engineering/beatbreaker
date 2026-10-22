@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Jesus Christ Pose",
+      "drummer_ids": ["drummer:matt-cameron"],
+      "drums": {
+        "description": "Relentless tom-and-snare pounding with odd-time accents under a droning riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:badmotorfinger-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=14r7y6rM6zA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54189"
+        }
+      ]
+    },
+    {
+      "title": "Outshined",
+      "drummer_ids": ["drummer:matt-cameron"],
+      "drums": {
+        "description": "A heavy groove with lopsided accents that follow the riff’s odd meter.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:badmotorfinger-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sNh-iw7gsuI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23502"
+        }
+      ]
+    },
+    {
+      "title": "Rusty Cage",
+      "drummer_ids": ["drummer:matt-cameron"],
+      "drums": {
+        "description": "Fast driving eighths that drop into a lurching, odd-metered half-time section.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:badmotorfinger-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pBZs_Py-1_0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54221"
+        }
+      ]
+    }
   ]
 }
