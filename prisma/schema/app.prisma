@@ -915,6 +915,8 @@ model LineageNode {
   label      String   @db.VarChar(160)
   /// True when the model has a record for it; false for a stub.
   modelled   Boolean  @default(false)
+  /// True for a researched drummer who is not built yet (15-a, D74): a record, no playable style, drawn on the map like a stub.
+  candidate  Boolean  @default(false)
   activeFrom Int?
   activeTo   Int?
   /// The playable style's key in the catalogue, for a modelled drummer.

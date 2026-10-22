@@ -249,18 +249,39 @@ describe('a candidate drummer (D72, D74)', () => {
     );
   });
 
-  it('refuses a contribution whose source is not in the registry', () => {
+  it('names a contribution source that does not exist once, as unresolved', () => {
     expect(checkCorpus(corpusOf({ drummers: [candidate(['src:nowhere'])] }))).toEqual([
       'drummers/0.json: unresolved reference src:nowhere',
-      'drummers/0.json contribution: src:nowhere is not in the source registry',
     ]);
   });
 
-  it('is a drummer on the map but not a modelled one', () => {
+  it('refuses a contribution source that is not a source', () => {
+    const c = corpusOf({
+      drummers: [candidate(['rec:r'])],
+      recordings: [recording('r', ['c'])],
+      sources: [source],
+    });
+    expect(checkCorpus(c)).toEqual([
+      'drummers/0.json contribution: rec:r is not in the source registry',
+    ]);
+  });
+
+  it('refuses a candidate whose contribution cites nothing, or who has none', () => {
+    const { legacy: _, ...bare } = candidate([]);
+    expect(checkCorpus(corpusOf({ drummers: [candidate([])], sources: [source] }))).toEqual([
+      'drummers/0.json: a candidate needs a contribution that cites a source',
+    ]);
+    expect(checkCorpus(corpusOf({ drummers: [bare], sources: [source] }))).toEqual([
+      'drummers/0.json: a candidate needs a contribution that cites a source',
+    ]);
+  });
+
+  it('is a modelled drummer with a record, flagged as a candidate', () => {
     const graph = buildLineage(corpusOf({ drummers: [candidate(['src:s'])], sources: [source] }));
     expect(graph.nodes.find((n) => n.id === 'drummer:c')).toMatchObject({
       label: 'c',
-      modelled: false,
+      modelled: true,
+      candidate: true,
       activeFrom: 1960,
     });
   });

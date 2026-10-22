@@ -20,7 +20,11 @@
     "born": {
       "date": "1956-11-19",
       "place": "Chicago, Illinois"
-    }
+    },
+    "died": {
+      "date": "2025-11-21"
+    },
+    "home_scenes": ["Minneapolis"]
   },
   "style_profile": {
     "genres": [

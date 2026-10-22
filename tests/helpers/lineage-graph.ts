@@ -29,6 +29,7 @@ export function lineageNode(slug: string, extra: Partial<LineageNode> = {}): Lin
     kind: 'drummer',
     label: slug.charAt(0).toUpperCase() + slug.slice(1),
     modelled: true,
+    candidate: false,
     activeFrom: 1960,
     activeTo: null,
     styleKey: null,

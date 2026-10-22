@@ -84,6 +84,15 @@ describe('get_drummer', () => {
     expect(record?.persona).toMatch(/space-time voyagers/);
   });
 
+  it("reads a candidate's record and says it is researched, not built (15-a)", async () => {
+    const heath = dataOf(await get('Albert "Tootie" Heath'));
+    expect(heath).toMatchObject({ modelled: true, candidate: true, style: null });
+    expect(heath.record?.contribution).toMatch(/hard-bop drummer/);
+    expect(heath.cite).toBe(
+      'BeatBreaker\'s long-list research on Albert "Tootie" Heath: researched, not built yet (/drummers/albert-heath)'
+    );
+  });
+
   it('answers for someone the records only mention: no record, their relations, and says so', async () => {
     const name = mentionedDrummer();
     const stub = dataOf(await get(name));

@@ -92,6 +92,7 @@ describe('sitemap', () => {
       kind,
       label: id,
       modelled,
+      candidate: false,
       activeFrom: null,
       activeTo: null,
       styleKey: null,

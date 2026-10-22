@@ -75,10 +75,15 @@ becomes a stub on the map.
 researched for the long list but not built (D72, D74): identity, bands,
 genres, key recordings, `legacy.contribution` (a sourced line on what they
 brought), and `beatbreaker.group` and `build_priority`. No patterns, no
-`style_key`, no feel profile required. The builder marks a candidate
-`modelled: false`, so the map draws it like a stub, but with its own years
-and genres; it has a `/drummers/[slug]` page with its record and no Play.
-`checkCorpus` checks the contribution's sources are in the registry.
+`style_key`, no feel profile required. Its lineage node is `modelled: true`
+(it has a record) with `candidate: true` (the `lineage_node.candidate`
+column). Everything that reads a record reads a candidate's: its
+`/drummers/[slug]` page shows the record, a "What they brought" section and a
+"researched, not built yet" line, and no Play; BeatBuddy's `get_drummer` and
+`find_drummers` return it marked `candidate`. The map and the list treat it
+as a stub: drawn not-built, and placed only where it has an edge to a
+person. `checkCorpus` requires a candidate's contribution to cite a source,
+and checks the contribution's sources are in the registry.
 `schema_version` is `const: "1.6.0"`. The long list itself is
 `planning/drumming-research.md` §DA.
 

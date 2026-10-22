@@ -313,10 +313,11 @@ describe('the drummer model', () => {
 
     it('marks every modelled drummer as modelled, with the years they were active', () => {
       const modelled = graph.nodes.filter((n) => n.kind === 'drummer' && n.modelled);
-      const built = corpus.drummers.filter(
-        ({ record }) => record.meta.record_status !== 'candidate'
+      expect(modelled).toHaveLength(corpus.drummers.length);
+      const candidates = corpus.drummers.filter(
+        ({ record }) => record.meta.record_status === 'candidate'
       );
-      expect(modelled).toHaveLength(built.length);
+      expect(modelled.filter((n) => n.candidate)).toHaveLength(candidates.length);
       expect(modelled.filter((n) => n.activeFrom === null).map((n) => n.id)).toEqual([]);
     });
   });

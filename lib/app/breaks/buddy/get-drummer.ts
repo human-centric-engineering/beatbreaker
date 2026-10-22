@@ -37,6 +37,11 @@ export interface DrummerRecordData {
   page: string;
   /** False for someone the records only mention: no record, relations only. */
   modelled: boolean;
+  /**
+   * True for a drummer on the long list (15-a): researched, with a record and
+   * a sourced contribution, but not built, so there is no style to play.
+   */
+  candidate: boolean;
   /** What to cite: the record, how far it has been checked, and its page. */
   cite: string;
   /** The style key `generate_pattern` takes to play like them; null if none. */
@@ -119,9 +124,12 @@ export class GetDrummerCapability extends BaseCapability<Args, DrummerRecordData
       name: node.label,
       page,
       modelled: read !== null,
+      candidate: node.candidate,
       cite:
         read !== null
-          ? `BeatBreaker's record of ${node.label}${status} (${page})`
+          ? node.candidate
+            ? `BeatBreaker's long-list research on ${node.label}: researched, not built yet (${page})`
+            : `BeatBreaker's record of ${node.label}${status} (${page})`
           : `BeatBreaker has no record of ${node.label}: only other drummers' records name them (${page})`,
       style: node.styleKey,
       record,

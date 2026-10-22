@@ -18,7 +18,9 @@
     "born": {
       "date": "1980-09-02",
       "place": "Florham Park, New Jersey"
-    }
+    },
+    "home_scenes": ["New York"],
+    "primary_instruments": ["drum kit"]
   },
   "style_profile": {
     "genres": [

@@ -22,7 +22,8 @@
     "born": {
       "date": "1956-01-09",
       "place": "Minneapolis, Minnesota"
-    }
+    },
+    "home_scenes": ["Minneapolis"]
   },
   "style_profile": {
     "genres": [

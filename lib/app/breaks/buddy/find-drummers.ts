@@ -40,6 +40,8 @@ export interface DrummerSummary {
   page: string;
   /** False for someone the records only name: there is no record to read. */
   modelled: boolean;
+  /** On the long list (15-a): a record to read, but not built, so no style to play. */
+  candidate: boolean;
   /** `1958–`, `1966–2019`; null when the record has no year. */
   active: string | null;
   /** The style key `generate_pattern` takes to play like them; null if none. */
@@ -106,6 +108,7 @@ function summarise({ entry: { node }, record }: Read): DrummerSummary {
     name: node.label,
     page: `/drummers/${node.slug}`,
     modelled: node.modelled,
+    candidate: node.candidate,
     active: activeSpan(node.activeFrom, node.activeTo),
     style: node.styleKey,
     genres: node.genres.map((g) => g.replace(/^style:/, '')),
@@ -163,14 +166,14 @@ export class FindDrummersCapability extends BaseCapability<Args, FindDrummersDat
   readonly functionDefinition: CapabilityFunctionDefinition = {
     name: 'find_drummers',
     description:
-      "Find drummers in BeatBreaker's records. With no query, lists every drummer with a record: name, years, the style key to play like them, genres, a summary, the words their record describes them by, and the rhythmic devices they play (cross-rhythm, hemiola, grouping, polymeter, metric modulation, displacement, timeline, ostinato independence), each with its ratio and where it is played. Use that, with no query, to compare drummers (who plays like whom, who is busier, who came first) or to find who plays a device (who plays threes over the bar, who plays 3:2). A query (a name, or a word like 'shuffle') narrows the list to drummers matching every word, and also finds people the records only mention, marked modelled: false. Then call get_drummer for one drummer's record.",
+      "Find drummers in BeatBreaker's records. With no query, lists every built drummer (one with a style to play): name, years, the style key to play like them, genres, a summary, the words their record describes them by, and the rhythmic devices they play (cross-rhythm, hemiola, grouping, polymeter, metric modulation, displacement, timeline, ostinato independence), each with its ratio and where it is played. Use that, with no query, to compare drummers (who plays like whom, who is busier, who came first) or to find who plays a device (who plays threes over the bar, who plays 3:2). A query (a name, or a word like 'shuffle') narrows the list to drummers matching every word, and also finds drummers on the long list, marked candidate: true (researched, with a record and what they brought, but no style to play), and people the records only mention, marked modelled: false. Then call get_drummer for one drummer's record.",
     parameters: {
       type: 'object',
       properties: {
         query: {
           type: 'string',
           description:
-            'Optional. Words to match in the name, genres, style, summary, traits and devices; each matches the start of a word. Leave it out to list every drummer with a record.',
+            'Optional. Words to match in the name, genres, style, summary, traits and devices; each matches the start of a word. Leave it out to list every built drummer.',
         },
       },
     },
@@ -189,7 +192,10 @@ export class FindDrummersCapability extends BaseCapability<Args, FindDrummersDat
     const query = args.query ?? '';
     if (!query) {
       return this.success({
-        drummers: all.filter((d) => d.entry.node.modelled).map(summarise),
+        // the built drummers only: the long list's hundreds of candidates come back by query
+        drummers: all
+          .filter((d) => d.entry.node.modelled && !d.entry.node.candidate)
+          .map(summarise),
       });
     }
     /* Each term starts a word: "art" finds Art Blakey, not "heart". A query
@@ -202,7 +208,7 @@ export class FindDrummersCapability extends BaseCapability<Args, FindDrummersDat
     if (hits.length === 0) {
       return this.success({
         drummers: [],
-        note: `Nothing matched "${query}". Call find_drummers with no query to see every drummer with a record.`,
+        note: `Nothing matched "${query}". Call find_drummers with no query to see every built drummer.`,
       });
     }
     const modelled = hits.filter((d) => d.entry.node.modelled);

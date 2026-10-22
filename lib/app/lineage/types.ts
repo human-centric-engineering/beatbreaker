@@ -108,6 +108,11 @@ export interface LineageNode {
   label: string;
   /** True when the model has a record for it; false for a stub someone else named. */
   modelled: boolean;
+  /**
+   * A researched drummer who is not built yet (15-a, D74): a record to read,
+   * but no playable style, and drawn on the map like a stub. Always modelled.
+   */
+  candidate: boolean;
   activeFrom: number | null;
   activeTo: number | null;
   /** The playable BeatBreaker style, for a modelled drummer. */

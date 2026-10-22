@@ -22,7 +22,11 @@
     },
     "nationality": ["American"],
     "home_scenes": ["New York studios, 1950s"],
-    "summary": "Swing drummer who became one of New York's main R&B and rock and roll studio drummers of the 1950s."
+    "summary": "Swing drummer who became one of New York's main R&B and rock and roll studio drummers of the 1950s.",
+    "active": {
+      "from": 1934,
+      "to": 2000
+    }
   },
   "style_profile": {
     "genres": [

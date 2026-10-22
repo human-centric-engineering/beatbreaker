@@ -25,7 +25,8 @@
       "from": 1985,
       "ongoing": true
     },
-    "summary": "Drummer and leader of the DIVA Jazz Orchestra, the all-women big band."
+    "summary": "Drummer and leader of the DIVA Jazz Orchestra, the all-women big band.",
+    "primary_instruments": ["drum kit"]
   },
   "style_profile": {
     "genres": [

@@ -61,6 +61,7 @@ export async function seedLineage({ prisma, logger }: SeedContext, corpus: Corpu
             kind: n.kind,
             label: n.label,
             modelled: n.modelled,
+            candidate: n.candidate,
             activeFrom: n.activeFrom,
             activeTo: n.activeTo,
             styleKey: n.styleKey,
@@ -103,9 +104,12 @@ export async function seedLineage({ prisma, logger }: SeedContext, corpus: Corpu
     { timeout: 60_000 }
   );
 
-  const modelled = graph.nodes.filter((n) => n.kind === 'drummer' && n.modelled).length;
+  const modelled = graph.nodes.filter(
+    (n) => n.kind === 'drummer' && n.modelled && !n.candidate
+  ).length;
+  const candidates = graph.nodes.filter((n) => n.candidate).length;
   logger.info(
-    `✅ Lineage: ${modelled} drummers modelled, ${graph.nodes.length} nodes, ${graph.edges.length} edges, ${corpus.recordings.length} recordings`
+    `✅ Lineage: ${modelled} drummers modelled, ${candidates} candidates, ${graph.nodes.length} nodes, ${graph.edges.length} edges, ${corpus.recordings.length} recordings`
   );
 }
 

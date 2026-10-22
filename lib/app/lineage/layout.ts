@@ -439,7 +439,9 @@ export function layoutLineage(graph: LineageGraph): LineageLayout {
     .filter(isMapEdge)
     .filter((e) => notGenre.has(e.from) && notGenre.has(e.to));
   const linked = new Set(edges.flatMap((e) => [e.from, e.to]));
-  const people = graph.nodes.filter((n) => notGenre.has(n.id) && (n.modelled || linked.has(n.id)));
+  // a candidate is placed as a stub is: only where it has an edge to a person (D74)
+  const built = (n: LineageNode) => n.modelled && !n.candidate;
+  const people = graph.nodes.filter((n) => notGenre.has(n.id) && (built(n) || linked.has(n.id)));
 
   const years = inferYears(people, edges);
   const families = assignFamilies(people, edges);
@@ -481,7 +483,7 @@ export function layoutLineage(graph: LineageGraph): LineageLayout {
         slug: m.n.slug,
         label: m.n.label,
         kind: m.n.kind,
-        modelled: m.n.modelled,
+        modelled: built(m.n),
         styleKey: m.n.styleKey,
         devices: [...new Set(m.n.devices.map((d) => d.kind))],
         family,

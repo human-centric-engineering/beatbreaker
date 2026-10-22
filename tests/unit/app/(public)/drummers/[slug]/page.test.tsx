@@ -249,6 +249,51 @@ describe('a stub', () => {
   });
 });
 
+describe('a candidate on the long list (15-a)', () => {
+  const heath = lineageNode('albert-heath', {
+    label: 'Albert "Tootie" Heath',
+    modelled: true,
+    candidate: true,
+    activeFrom: 1957,
+    styleKey: null,
+  });
+  const record = {
+    meta: { id: 'drummer:albert-heath', record_status: 'candidate' },
+    identity: { name: 'Albert "Tootie" Heath', summary: 'A hard-bop drummer.' },
+    legacy: { contribution: { description: 'Brought hard-bop time to the Heath Brothers.' } },
+  };
+
+  it('shows the record, what they brought, and that they are researched but not built', async () => {
+    vi.mocked(getLineageProfile).mockResolvedValue(profile({ node: heath, record }));
+    await show('albert-heath');
+    expect(screen.getByText('A hard-bop drummer.')).toBeTruthy();
+    expect(screen.getByRole('heading', { name: 'What they brought' })).toBeTruthy();
+    expect(screen.getByText('Brought hard-bop time to the Heath Brothers.')).toBeTruthy();
+    expect(screen.getByText(/researched, but not built yet/)).toBeTruthy();
+    expect(screen.queryByText(/has no record of their own/)).toBeNull();
+    expect(screen.queryByText(/not in the Studio yet/)).toBeNull();
+    expect(screen.queryByRole('link', { name: 'Play in their style' })).toBeNull();
+  });
+
+  it('offers the map only when a link to a person puts them there, as for a stub', async () => {
+    vi.mocked(getLineageProfile).mockResolvedValue(profile({ node: heath, record }));
+    await show('albert-heath');
+    expect(screen.queryByRole('link', { name: 'See them on the map' })).toBeNull();
+
+    const blakey = lineageNode('art-blakey');
+    vi.mocked(getLineageProfile).mockResolvedValue(
+      profile({
+        node: heath,
+        record,
+        neighbours: [blakey],
+        edges: [lineageEdge('e1', 'art-blakey', 'albert-heath')],
+      })
+    );
+    await show('albert-heath');
+    expect(screen.getAllByRole('link', { name: 'See them on the map' }).length).toBeGreaterThan(0);
+  });
+});
+
 describe('a named drummer’s record', () => {
   beforeEach(() => {
     vi.mocked(getLineageProfile).mockResolvedValue(

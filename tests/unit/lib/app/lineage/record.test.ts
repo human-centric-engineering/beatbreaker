@@ -31,6 +31,13 @@ describe('readDrummerRecord', () => {
     }
   });
 
+  it("reads a candidate's contribution, and leaves it null for a record without one", () => {
+    const heath = readDrummerRecord(realRecord('albert-heath'))!;
+    expect(heath.status).toBe('candidate');
+    expect(heath.contribution).toMatch(/hard-bop drummer/);
+    expect(readDrummerRecord(realRecord('john-bonham'))!.contribution).toBeNull();
+  });
+
   it('reads Bonham as the page shows him', () => {
     const r = readDrummerRecord(realRecord('john-bonham'))!;
     expect(r.name).toBe('John Bonham');
