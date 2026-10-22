@@ -657,8 +657,14 @@ transaction):
    it sends to a person check at the moment they send (t-841):
 
    - **A `send_notification` email step** checks its resolved recipients
-     against the receipts, under the subjects' locks, in the transaction it
-     sends in, and holds the locks until the send settles. It takes them
+     against the receipts of erasures **since the run started** (§122 t-886:
+     someone erased before it started and since re-entered is emailed) — except
+     a recipient resolved from an earlier step's output (any placeholder but
+     `{{input…}}`), checked against every erasure ever, since a knowledge
+     document, conversation or outside system it came from is never scrubbed
+     (owner ruling, 2026-10-22) — under
+     the subjects' locks, in the transaction it sends in, and holds the locks
+     until the send settles. It takes them
      shared, so two sends to one address run side by side; only an erasure,
      which takes them exclusively, waits — and once queued it is not overtaken
      by a later send. Whichever of the
@@ -882,6 +888,74 @@ cannot put anyone back. Its header says plainly what it still cannot see.
 `scripts/smoke/` and `scripts/spikes/` are not scanned: their fixtures are written to be erased.
 An entry is a file and a model, not a write, so a new write added to a file
 already listed passes: review a change to a listed file against its entry.
+
+### Deliveries and emails sent from a copy (`taken-at`, t-886)
+
+A webhook dispatch reads the subscriptions and builds its payload from an
+event; an escalation reads the settings, then emails. An erasure committing in
+between would otherwise be overtaken: an email to the erased address, or a
+delivery row naming them that erasure's own pass ran too early to see.
+
+So every **attempt** — a first send or a retry, webhook (`dispatcher.ts`) or
+event hook (`hooks/registry.ts`, both through `decideDeliveryUnderLocks()`) —
+and the **escalation email** run through `sendHoldingSubjects()`
+(`lib/privacy/stale-sends.ts`): in one transaction it
+takes erasure's locks, shared, for the email address and everyone the payload
+names (`subjectsOfPayload`: `userId`, `actorUserId`, `approverUserIds`, and
+the owners of its `conversationId` and `executionId`), asks who among them was
+erased **since the copy was taken**, and writes what it decided under them.
+**An email is sent under the locks**, held until it settles: it reaches the
+person and cannot be recalled. **A webhook or hook post goes after the
+decision commits** (owner ruling, 2026-10-22): no pooled connection waits on a
+third party's response, and an erasure in the moment between still redacts the
+stored row. The copy's time is the **oldest** thing the attempt holds, less
+`COPY_CLOCK_SKEW_MS` (5 min: erasure stamps its receipt up to 60 s before it
+commits, on another host's clock):
+
+- the subscriptions, the hook's row or the settings, as this attempt read them;
+- the delivery row's `createdAt`, since its payload is the event's copy — so a
+  retry days later still counts an erasure that came after its event;
+- the start of the run its payload names (`executionId`): an event built from
+  a run's memory, its approvers or outputs, holds a copy from then.
+
+Those anchors are for the people the **payload** names. The subscription's
+**address** was read for this attempt, so only an erasure since that read
+counts against it: an address re-entered on a subscription after an older
+erasure is sent to, however old the event.
+
+| Found erased since the copy                                         | What happens                                                                                                  |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| The email address                                                   | Not sent. The row is settled `exhausted`, `stoppedByErasure`, `recipient erased`, its destination `[erased]`. |
+| A person whose activity the event is about                          | Not sent. The row is stopped the same way (`subject erased`), its payload redacted as erasure redacts one.    |
+| Only an admin acting on configuration (`actor`)                     | Sent without who acted; the row's payload is redacted to match.                                               |
+| A conversation or run that no longer exists, with any erasure since | Not sent: its owner can no longer be named. Kept to its record keys and stopped.                              |
+| A recipient of the escalation email                                 | Left out; the rest are emailed. The log counts them, never names them.                                        |
+| The person the escalation is about                                  | Neither the email nor the escalation webhook goes: both carry their reason.                                   |
+
+A stopped row is never retried or replayed (t-793). Someone erased **before**
+the copy was taken is not in it, so a copy naming them was written after the
+erasure, on purpose, and is sent. An auth or invitation email is never checked:
+it goes to a live account or to an address the admin just typed.
+
+The cost is a connection held for up to `SENDER_LOCK_WAIT_MS` (30 s) waiting
+for an erasure's or a backup import's locks, plus an email's send (15 s), and
+only when the copy names someone. A wait past 30 s — or any other failure of the check — sends nothing
+and is retried, **without counting against the subscription's attempts** for
+the row's first hour (`UNCOUNTED_CHECK_WINDOW_MS`): lock contention is not the
+receiver failing, and must not exhaust a live delivery. After that the failures
+count, so a check that never succeeds ends in `exhausted`, not a loop. The
+escalation email, which has no retry, waits as long as the notification step
+(`SUBJECT_LOCK_WAIT_MS`). The escalation webhook does not wait behind its email, and the
+escalation is kept alive past the response that set it off.
+
+Costs accepted with it:
+
+- **An email that went out, whose transaction then failed to commit**, is
+  retried; its Resend idempotency key keeps it from reaching the inbox twice.
+- **A payload naming a conversation or run that is gone** is stopped whenever
+  anyone was erased since, because receipts carry no org and the owner can no
+  longer be named. A delivery about a conversation deleted for another reason,
+  within minutes of an unrelated erasure, is stopped with it.
 
 **Never delete an entry to make the test pass**, the same rule as the export
 manifest. An unlisted writer is the defect the test exists to find.
