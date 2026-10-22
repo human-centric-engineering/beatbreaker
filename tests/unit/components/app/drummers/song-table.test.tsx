@@ -63,13 +63,13 @@ describe('SongTable', () => {
     expect(container.querySelector('iframe')).toBeNull();
 
     const play = screen.getByRole('button', { name: /Play video from YouTube: How Soon Is Now\?/ });
-    expect(play).toHaveAttribute('aria-pressed', 'false');
+    expect(play).toHaveAttribute('aria-expanded', 'false');
     await user.click(play);
     expect(container.querySelector('iframe')).toHaveAttribute(
       'src',
       'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ'
     );
-    expect(play).toHaveAttribute('aria-pressed', 'true');
+    expect(play).toHaveAttribute('aria-expanded', 'true');
 
     await user.click(play);
     expect(container.querySelector('iframe')).toBeNull();

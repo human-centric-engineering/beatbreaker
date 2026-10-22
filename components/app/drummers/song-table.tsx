@@ -144,7 +144,7 @@ function Row({
                 type="button"
                 variant="ghost"
                 size="sm"
-                aria-pressed={playing?.embedUrl === link.embedUrl}
+                aria-expanded={playing?.embedUrl === link.embedUrl}
                 aria-label={`${verb} ${provider}: ${song.title}`}
                 onClick={() => onPlay(link)}
               >
