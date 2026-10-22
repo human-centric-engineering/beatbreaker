@@ -34,11 +34,11 @@ import { DRUMMER_MODEL_DIR, readCorpus } from '@/scripts/lineage/read-corpus';
 import { testStyle } from '@/tests/helpers/catalogue';
 
 const FAMILIES: Record<string, string> = {
-  collins: 'Rock drummers',
+  collins: 'Progressive and math rock drummers',
   cobham: 'Fusion drummers',
   lennywhite: 'Fusion drummers',
-  shrieve: 'Rock drummers',
-  cindyblackman: 'Rock drummers',
+  shrieve: 'Latin rock drummers',
+  cindyblackman: 'Latin rock drummers',
 };
 
 /** The Studio's tempo control stops here. */

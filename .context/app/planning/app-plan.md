@@ -4883,6 +4883,58 @@ changed from the plan:
 - **Not looked at in a browser** (the owner is on Arc); the owner's
   checklist in `controls.md` has the two things a test cannot see.
 
+### Phase 15 — Every drummer, every band, every song · L
+
+**Goal:** a drummer can find any drummer, band or song they care about and see
+where it stands. BeatBreaker either plays it already or says it is not scored
+yet. To get there, the owner asked on 2026-10-22 for research into every
+drummer who could reasonably belong in the app, and every band and song each
+one is associated with, within reason.
+
+**What the tree had (2026-10-22, branch `british-drummers`):**
+
+- 97 drummers, each a style and a drummer-model record (D47). 549 recording
+  records, each an album or single with its personnel and the drummer's
+  performances, but **no track list**. A song exists only where a style
+  plays it (`Style.songs`), so a song that is not scored has no row
+  anywhere.
+- The Drummers tab is now **filed by genre** (D70): 32 groups, from "Rock and
+  roll and roots" to "Reggae". Jazz is split into swing and big band, bebop,
+  hard bop, cool, modal and post-bop, and modern.
+- Every drummer style now has **`bands`** (D71), printed under the name and on
+  the trigger and matched by search. Song titles were already searchable, but
+  only the scored ones.
+- Relations name drummers who have no record (`drummer:alan-white` of Yes,
+  `drummer:jon-brookes`, `drummer:robbie-maddix` and others). These are the
+  start of the long list.
+
+**Decided (2026-10-22):**
+
+| #   | Decision               | Outcome                                                                                                                                                                                                                                                                                                                                                                                   |
+| --- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D70 | How drummers are filed | **By the music they are known for, not their nationality.** "British rock and pop drummers" is gone. Twelve British drummers went into Mod and mod revival, Glam and art rock, Punk, Post-punk and gothic rock, New wave, Indie rock, Britpop and Alternative rock. The old Rock, Metal, Jazz and Latin groups were split the same way. A genre with one drummer still gets its own group |
+| D71 | Two drummers, one name | **The band under the name** (`Style.bands`) on the card and the trigger, not a suffix on the name. The records keep a suffix (`Roger Taylor (Duran Duran)`, `Alan White (Oasis)`): the lineage map has no subtitle line, and its names must be unique                                                                                                                                     |
+
+**Still open: the recommendation first, for the owner to confirm before 15-a:**
+
+| #   | Decision                                | Recommendation                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| --- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D72 | Who counts as "relevant"                | **A drummer is on the long list if any one of these holds:** in a major drummers' poll or hall of fame (Rolling Stone's 100, Modern Drummer's Hall of Fame and Readers' Polls, Rhythm's and Drumeo's polls); named as an influence by a drummer already in the app; the drummer of a band that has a genre group here; or a style in the Styles tab with no drummer behind it. Session players count. Living or dead, any country               |
+| D73 | Which songs, "within reason"            | **For each drummer: every single that charted, every track on their key recordings (`key_recording_ids`), and every song with a published human transcription (Songsterr, Drumeo, Hudson, Modern Drummer).** Not every album track of a forty-year career. A song carries its artist, record, year, the drummer(s) on it, and whether it has a transcription, because a transcription is what makes a song possible to score                    |
+| D74 | Where the index lives                   | **In the drummer model, not in `styles.ts`.** Recording records get a `tracks` list. Each track can carry `style_key` and `song_key` pointing at the style song that plays it, and that link is what "scored" means. A new `candidate` record status is for a drummer researched but not yet built (identity, bands, genres, key recordings, no patterns). The seed loads both. A test fails if a `song_key` points at a song that is not there |
+| D75 | What a drummer sees of an unscored song | **The song still shows, marked "not scored yet".** It is greyed in a drummer's song table, and a picker search that hits only unscored songs names the drummer anyway ("The Smiths: How Soon Is Now? is not scored yet"), rather than finding nothing. A request button can come later; this phase only marks the gap                                                                                                                           |
+
+| PR   | What                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Done when                                                                                                                                                                                                                                                                                    |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 15-a | **The long list of drummers.** Research by D72: sweep the polls and halls of fame, every `influenced_by` and `replaced_by` target with no record, and every Styles-tab genre with no drummer. Each one becomes a `candidate` record with identity, `affiliations`, `style_profile.genres`, `key_recording_ids` and sources. It is filed under a genre group (a new group where none fits) and given an order for when to build it. Run as one fork per genre, merged the way the drummer batches are | Every candidate passes the schema and `checkCorpus`; no relation in the model points at a drummer with no record; the long list, its genre groups and its build order are written up in `drumming-research.md`, with how many drummers are in each genre                                     |
+| 15-b | **Bands and songs.** For each drummer, built or candidate, the songs D73 selects go into their recordings' `tracks`, with whether a human transcription exists and where. Tracks already played by a style song are linked to it                                                                                                                                                                                                                                                                     | Every built drummer's scored songs are linked (a test: every `Style.songs` entry has a track that names it); every drummer has their charting singles listed; how many songs have transcriptions is counted for each drummer                                                                 |
+| 15-c | **The index in the app.** An API for drummers, bands and songs (`GET /api/v1/catalogue/index?q=`) that searches built drummers, candidates, bands and every track. Each drummer's sheet gets a **song table** (title, band, record, year, and scored or not, with a scored row opening the song in the Studio). The picker's search falls back to the index under D75                                                                                                                                | Searching "how soon is now" finds Mike Joyce and says the song is not scored yet; searching "Queen" finds Roger Taylor; the song table for Kenney Jones lists his seven scored songs as scored and his Small Faces singles as not; a candidate appears in search but not on the Drummers tab |
+| 15-d | **What to build next.** The candidates ranked by D72's evidence and their transcriptions, and the next drummer batches planned from that ranking                                                                                                                                                                                                                                                                                                                                                     | The next batch of drummers is chosen from the ranking, with its forks briefed                                                                                                                                                                                                                |
+
+**Not in Phase 15:** scoring the songs. Each one is still a drummer batch of
+its own (`drumming-research.md`). Also out: a request or vote for a song;
+licensing review of song titles beyond D10.
+
 ---
 
 ## 5. Ergonomic review — method and first findings
@@ -5290,6 +5342,14 @@ Phase 14, D64–D69: what a note edit does to written hands, where they are
 written, and what the critic and the grid say about them. The table is in
 [Phase 14](#phase-14--writing-sticking--m), where the reasons sit beside the
 tasks.
+
+### Decided — 2026-10-22
+
+Phase 15, D70–D71: drummers are filed by genre, and the band goes under the
+name. D72–D75 (who is relevant, which songs, where the index lives, what an
+unscored song shows) are recommended in
+[Phase 15](#phase-15--every-drummer-every-band-every-song--l) and wait on the
+owner.
 
 ### Still open
 

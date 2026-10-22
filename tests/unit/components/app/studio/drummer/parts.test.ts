@@ -513,6 +513,18 @@ describe('makeMaterials — the likenesses', () => {
     expect(satin.roughness).toBeLessThan(plain.roughness);
   });
 
+  it("makes Woodmansey's satin jumpsuit satin to the ankle, and leaves a satin shirt's trousers twill", () => {
+    const woody = makeMaterials(LIKENESSES.woodmansey);
+    const legs = woody.jeans as THREE.MeshPhysicalMaterial;
+    const top = woody.shirt as THREE.MeshPhysicalMaterial;
+    expect(legs.sheen).toBe(top.sheen);
+    expect(legs.roughness).toBe(top.roughness);
+    const mitch = makeMaterials(LIKENESSES.mitchell);
+    expect((mitch.jeans as THREE.MeshPhysicalMaterial).roughness).toBeGreaterThan(
+      (mitch.shirt as THREE.MeshPhysicalMaterial).roughness
+    );
+  });
+
   it("colours Mitchell's braces", () => {
     const m = makeMaterials(LIKENESSES.mitchell);
     expect(m.braces.color.getHexString()).toBe(LIKENESSES.mitchell.braces!.slice(1));

@@ -27,13 +27,13 @@ import { STYLES, STYLE_GROUPS } from '@/prisma/seeds/app-beatbreaker/data/styles
 import { testStyle } from '@/tests/helpers/catalogue';
 
 const FAMILIES: Record<string, string> = {
-  elvinjones: 'Jazz drummers',
-  puente: 'Latin drummers',
-  changuito: 'Latin drummers',
-  horaciohernandez: 'Latin drummers',
-  roach: 'Jazz drummers',
-  hoenig: 'Jazz drummers',
-  prieto: 'Latin drummers',
+  elvinjones: 'Modal and post-bop drummers',
+  puente: 'Afro-Cuban and Latin jazz drummers',
+  changuito: 'Afro-Cuban and Latin jazz drummers',
+  horaciohernandez: 'Afro-Cuban and Latin jazz drummers',
+  roach: 'Bebop drummers',
+  hoenig: 'Modern jazz drummers',
+  prieto: 'Afro-Cuban and Latin jazz drummers',
 };
 
 /* One 4/4 bar of sixteenths holds one whole clave, as in the Afro-Latin

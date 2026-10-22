@@ -125,9 +125,21 @@ Picking one is `setStyle`, like any style.
   them.
 - **Approximate grooves.** Every song groove is an approximation, not a
   transcription. The source is `planning/drumming-research.md`: §C, §E–AB, §AD–AH, §AJ, §AL–AO and §AQ–CE, one section for each drummer.
-- **Adding one** is a style in `data/styles.ts` with `drummer: true`, listed in
-  a `… drummers` group of `STYLE_GROUPS`, **and a record** in the drummer model
-  whose `beatbreaker.style_key` names it (Phase 11, D47). A test fails without
+- **Filed by the music, not the country.** A drummer's group is the genre
+  they are known for: "Britpop drummers", "Post-punk and gothic rock
+  drummers", "Hard bop drummers", "Swing and big band drummers". The
+  Drummers tab's groups are those headings, in roughly the order the music
+  came. A genre with one drummer still gets its own group; it will fill up.
+- **Bands under the name.** `bands` lists a drummer's main bands, the
+  best known first (`['Small Faces', 'Faces', 'The Who']`). The picker
+  prints them under the name and on the trigger, so two Roger Taylors read
+  apart, and a search matches them as it matches song titles.
+  `model.test.ts` fails a band that neither the drummer's record
+  (`affiliations`) nor the style's `hint` names.
+- **Adding one** is a style in `data/styles.ts` with `drummer: true` and
+  `bands`, listed in the `… drummers` group for their genre in
+  `STYLE_GROUPS`, **and a record** in the drummer model whose
+  `beatbreaker.style_key` names it (Phase 11, D47). A test fails without
   either half; see [`drummers.md`](./drummers.md).
 
 ### A style with songs
@@ -136,7 +148,7 @@ One meter, one tempo range and one feel cannot hold a drummer like Mitchell,
 who played a 9/8 jazz waltz, a 12/8 slow blues and a brushed swing in the
 same band. So a style may list `songs`. Each song has a `key`, a `title`, a
 few words of `feel`, a `weight`, and `params`: any style field except
-`label`, `hint`, `drummer` and `songs`. The helpers are in
+`label`, `hint`, `drummer`, `bands` and `songs`. The helpers are in
 `lib/app/breaks/songs.ts`.
 
 - **New picks a song** (`pickSong`). The song's meter, a tempo in its range

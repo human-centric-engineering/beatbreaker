@@ -2802,7 +2802,7 @@ const SANTA_DAVIS: Persona = {
  */
 const ALAN_WHITE_OASIS: Persona = {
   id: 'alanwhite',
-  name: 'Alan White',
+  name: 'Alan White (Oasis)',
   figure: 'male',
   build: 'average',
   skin: '#e6b896',
@@ -2841,7 +2841,7 @@ const WOODMANSEY: Persona = {
   // full on top, feathered over the ears and down to the collar (the model's shag spikes on top)
   hairStyle: 'shaggy',
   beard: 'none',
-  // the band's one-piece suit, in satin (buttoned on the night; the model's has a zip)
+  // the band's one-piece suit, in satin to the ankle (buttoned on the night; the model's has a zip and a spread collar)
   top: 'coveralls',
   satin: true,
   shirt: '#cf929e',

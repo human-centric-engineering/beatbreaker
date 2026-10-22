@@ -128,7 +128,8 @@ export function StylePicker({
               </span>
               <span className="pick-trigger-meta">
                 {current
-                  ? [current.group, ...current.meta.slice(0, 2)].join(' · ')
+                  ? // a drummer by their band, which tells two Roger Taylors apart; a style by its group
+                    [current.subtitle ?? current.group, ...current.meta.slice(0, 2)].join(' · ')
                   : 'Pick a style'}
               </span>
             </span>
@@ -423,6 +424,7 @@ function Card({
       }}
     >
       <span className="pick-card-label">{entry.label}</span>
+      {entry.subtitle ? <span className="pick-card-bands">{entry.subtitle}</span> : null}
       {playing ? <span className="pick-card-tag">On the stage</span> : null}
       <span className="pick-card-meta">
         {entry.meta.map((m) => (

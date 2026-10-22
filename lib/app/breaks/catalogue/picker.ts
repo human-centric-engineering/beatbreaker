@@ -18,6 +18,8 @@ export interface PickerEntry {
   key: string;
   label: string;
   group: string;
+  /** A drummer's main bands, under the name: "Small Faces · Faces · The Who". */
+  subtitle?: string;
   /** The first sentence of its description, for the card. */
   blurb: string;
   /** Short facts for the card, in order: meter, tempo, feel, kit. */
@@ -111,7 +113,7 @@ export function drummerSection(
         id: 'drummers',
         label: 'Drummers',
         noun: 'drummer',
-        searchHint: 'Bonham, Miles, funk',
+        searchHint: 'Bonham, the Smiths, bebop',
         groups,
       }
     : null;
@@ -165,13 +167,17 @@ function entryGroups(
         : [meterLabel(st), `${st.bpm[0]}–${st.bpm[1]} bpm`, feelLabel(st)];
       if (kit) meta.push(kit);
       const songs = (st.songs ?? []).map((sg) => sg.title);
+      const bands = st.bands ?? [];
       entries.push({
         key,
         label: st.label,
         group,
+        ...(bands.length ? { subtitle: bands.join(' · ') } : {}),
         blurb: firstSentence(st.hint),
         meta,
-        haystack: [st.label, key, group, st.hint, ...meta, ...songs].join(' ').toLowerCase(),
+        haystack: [st.label, key, group, ...bands, st.hint, ...meta, ...songs]
+          .join(' ')
+          .toLowerCase(),
       });
     }
     if (entries.length) groups.push([group, entries]);

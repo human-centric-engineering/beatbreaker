@@ -108,6 +108,27 @@ describe('the drummer model', () => {
     expect(named.sort()).toEqual(drummerStyles);
   });
 
+  it('gives every drummer style bands its record or its own description names', () => {
+    // the picker prints them under the name: each has to be one the drummer played in
+    const records = new Map<string, unknown>();
+    for (const { json } of readFolder(DRUMMER_MODEL_DIR, 'drummers')) {
+      const key = (json as { beatbreaker?: { style_key?: string } }).beatbreaker?.style_key;
+      if (key) records.set(key, json);
+    }
+    const unbacked: string[] = [];
+    for (const [key, style] of Object.entries(STYLES)) {
+      if (!style.drummer) continue;
+      expect(style.bands?.length, key).toBeGreaterThan(0);
+      const record = records.get(key) as { affiliations?: Array<{ name: string }> } | undefined;
+      const said = [...(record?.affiliations ?? []).map((a) => a.name), style.hint]
+        .join(' | ')
+        .toLowerCase();
+      for (const band of style.bands ?? [])
+        if (!said.includes(band.toLowerCase())) unbacked.push(`${key}: ${band}`);
+    }
+    expect(unbacked).toEqual([]);
+  });
+
   it('names the drummers the catalogue plays', () => {
     const playable = corpus.drummers
       .filter(({ record }) => record.beatbreaker?.style_key)

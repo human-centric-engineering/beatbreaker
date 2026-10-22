@@ -36,17 +36,17 @@ import { DRUMMER_MODEL_DIR, readCorpus } from '@/scripts/lineage/read-corpus';
 import { testStyle } from '@/tests/helpers/catalogue';
 
 const FAMILIES: Record<string, string> = {
-  baker: 'Rock drummers',
+  baker: 'Blues and psychedelic rock drummers',
   // by the music they play, not what they wear: Klek's math rock and the Ghoul's hard rock
-  klek: 'Rock drummers',
-  ghoul: 'Rock drummers',
-  lombardo: 'Metal drummers',
-  davies: 'Metal drummers',
-  jordison: 'Metal drummers',
-  skinny: 'Metal drummers',
-  jizmak: 'Metal drummers',
-  sleeptoken: 'Metal drummers',
-  locust: 'Metal drummers',
+  klek: 'Progressive and math rock drummers',
+  ghoul: 'Hard rock drummers',
+  lombardo: 'Thrash metal drummers',
+  davies: 'Modern and extreme metal drummers',
+  jordison: 'Modern and extreme metal drummers',
+  skinny: 'Modern and extreme metal drummers',
+  jizmak: 'Thrash metal drummers',
+  sleeptoken: 'Modern and extreme metal drummers',
+  locust: 'Modern and extreme metal drummers',
 };
 
 /** The Studio's tempo control stops here. */
