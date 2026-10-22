@@ -17343,7 +17343,7 @@ for the list. It is not part of 15-a.
 
 ## DB. Songs on the index (15-b, 2026-10-22)
 
-What D73 asks to count for each drummer: songs picked for the drumming, how many a catalogue style plays (scored), how many have a known human transcription (Songsterr found by its search; Drumeo, Hudson, Modern Drummer and books from the forks), and how many carry a YouTube or Spotify link that passed the oEmbed check. Spotify is not done: Spotify has no keyless search (see Phase 15 in `app-plan.md`). "(short)" marks a list under D73's range; its record says why in `beatbreaker.songs_short_because`.
+What D73 asks to count for each drummer: songs picked for the drumming, how many a catalogue style plays (scored), how many have a known human transcription (Songsterr found by its search; Drumeo, Hudson, Modern Drummer and books from the forks), and how many carry a YouTube or Spotify link that passed the oEmbed check. Spotify is not done: Spotify has no keyless search (see Phase 15 in `app-plan.md`). "(short)" marks a list under the range D73 set at the time (8 built, 5 candidate, since dropped); its record says why in `beatbreaker.songs_short_because`.
 
 Totals: 3508 songs on 549 of 594 drummers; 1021 scored, 2169 with a known transcription, 3319 with a YouTube link, 0 with a Spotify link. 196 lists are short, each with `songs_short_because`.
 
@@ -18364,14 +18364,17 @@ assignments for batch 1, are in [`drummer-batches.md`](./drummer-batches.md).
 
 ### How they are ranked
 
+The scripts and the poll data are in `scripts/lineage/batch/` (its
+`README.md` says how to run them); rerun them after each batch.
+
 Each candidate gets a score out of 100 from four parts. D72 asks for the
 evidence that a drummer mattered; 15-d adds whether we can score them well.
 
 - **Standing, 40.** The polls and halls of fame D72 names, read on
   2026-10-22:
   - Rolling Stone, "100 Greatest Drummers of All Time" (2016). Rock and pop
-    only, by its own rule: it leaves jazz out. Rank 1 is worth 1.0, rank 100
-    is worth 0.5.
+    only, by its own rule: it leaves jazz out. Rank _r_ is worth
+    0.5 + 0.5 × (101 − _r_) / 100: 1.0 for rank 1, 0.505 for rank 100.
   - Modern Drummer's Readers Poll archive, 1979–2017. A Hall of Fame
     inductee is worth 1.0. A category win is 0.5, plus 0.1 for each further
     win, up to 0.8.
@@ -18382,13 +18385,15 @@ evidence that a drummer mattered; 15-d adds whether we can score them well.
   A drummer on none of them can still score here from the model: the people
   who name them as an influence or teacher (`influenced_by`,
   `cites_as_influence`, `studied_with`, `mentored_by`, `admired`), and the
-  drummers they are said to have influenced or taught. Twelve people gives
-  the full 0.8. The higher of the two counts. 96 candidates are on at least
-  one list.
+  drummers they are said to have influenced or taught. For _n_ people it is
+  0.8 × log(1 + _n_) / log(13), capped at 0.8: twelve gives the full 0.8,
+  four gives 0.50, one gives 0.22. It climbs fast at first, since the first
+  few people who name a drummer say more than the next few. The higher of the
+  two counts. 96 candidates are on at least one list.
 
 - **Their contribution's evidence, 10.** The confidence on the sourced line
   that put them on the long list: `verified` 1.0, `widely_reported` 0.75,
-  `likely` 0.45.
+  `likely` 0.45, `needs_verification` 0.2.
 - **Can we score them, 35.** From their songs in 15-b: songs with a known
   human transcription (six gives the full 0.7) and songs with a working link
   to listen to (eight gives the full 0.3). A fork builds the songs from a tab
@@ -18410,8 +18415,9 @@ A batch is eight drummers, the size the last batches ran at (four forks at a
 time). It is picked down the ranking with three rules:
 
 - **Five songs to listen to.** A drummer needs at least five songs with a
-  working link. A fork builds five to eight songs and checks each against the
-  record.
+  working link, so the songs the fork scores can be checked against the
+  records. How many it scores is down to which ones show the playing best:
+  there is no minimum (D73).
 - **One drummer per Drummers-tab group** in a batch, so a batch adds to eight
   groups.
 - **Every family of the lineage map** (jazz, funk and soul, rock, Latin,

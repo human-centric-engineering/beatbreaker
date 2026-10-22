@@ -29,10 +29,15 @@ songs from 15-b. Keep the record id. Research letters follow DC in
 **The parent before the forks start:** add the three new groups to
 `STYLE_GROUPS` in `styles.ts` (Grunge after Alternative rock, Blues before
 Blues and psychedelic rock, Samba and Brazilian jazz after Afro-Cuban and
-Latin jazz), since the merge script files each style into its group. Copy
-`tools/` and `render/` from the newest scratchpad that has them: its
-`merge.py` replaces a candidate's record with the fork's upgraded one and
-applies the fork's `track-links.json`.
+Latin jazz), since the merge script files each style into its group. Merge
+with the repo's `scripts/lineage/batch/merge.py`, never a scratchpad copy: it
+replaces a candidate's record with the fork's upgraded one, applies the
+fork's `track-links.json`, and checks the whole hand-over before it writes
+anything. Copy the forks' working tools (`check.ts`, `record-check.ts`,
+`beats.py`, `tabrev.py` and the rest) and `render/` from scratchpad
+`07323667-d5f3-4e56-9c57-d4c292b51eeb`, the one 15-d ran from, into `$S`.
+After the merge, run `npx vitest run tests/unit/lib/app/lineage` and re-rank
+(`scripts/lineage/batch/README.md`) before planning the next batch.
 
 **What each fork should watch for:**
 
@@ -73,7 +78,7 @@ scratchpad the batch runs from.
 
 > You are one fork of eight. Build one drummer completely, in your own folder
 > `<OUT>` = `$S/drummers/<key>/`. The parent merges your files into the repo
-> with `$S/tools/merge.py`.
+> with the repo's `scripts/lineage/batch/merge.py`.
 >
 > **The repo is read-only to you.** Write only under `<OUT>`. Never run git,
 > never edit a repo file, never run the repo's test suite, lint or
@@ -97,7 +102,7 @@ scratchpad the batch runs from.
 > **What you hand back:**
 >
 > - `<OUT>/style.ts.txt`: the full `<key>: { ... },` entry for `STYLES` in
->   `styles.ts`, prettier-shaped.
+>   `prisma/seeds/app-beatbreaker/data/styles.ts`, prettier-shaped.
 > - `<OUT>/likeness.ts.txt`: `const <CONST>: Persona = { ... };` with the
 >   leading comment naming one moment and its sources, as in
 >   `lib/app/breaks/drummer/likenesses.ts`.
@@ -107,7 +112,7 @@ scratchpad the batch runs from.
 > - `<OUT>/model/drummers/<slug>.json`: **the upgraded record, same id.**
 >   `record_status: draft`; `beatbreaker.style_key` set; `group` and
 >   `build_priority` removed (a built drummer's group is its style's);
->   `songs_short_because` kept only if the list is still short. Then
+>   `songs_short_because` kept only if its reason still holds. Then
 >   everything a built drummer has, at schema 1.6.0: evidence on every claim,
 >   eras, playing (feel, technique, kit, sound), influences, `identity.active`,
 >   and sourced `devices` or a dated `coordination.devices_search`. Patterns
@@ -128,14 +133,18 @@ scratchpad the batch runs from.
 > **Read first:** `.context/app/catalogue.md` ("A drummer is a style", "A
 > style with songs"), `.context/app/drummers.md`, `.context/app/anatomy.md`
 > (Likenesses); the styles in your row's "Copy from" and the last batch's
-> (`kenneyjones`, `budgie`, `mikejoyce`); `lib/app/breaks/catalogue/schemas.ts`,
-> `sections.ts` (a song: at most 32 distinct bars, 26 sections, 32 arrangement
-> slots), `meter.ts`, `lanes.ts`, `generate.ts`, `critic.ts`; the model's
+> (`kenneyjones`, `budgie`, `mikejoyce`) in
+> `prisma/seeds/app-beatbreaker/data/styles.ts`;
+> `lib/app/breaks/catalogue/schemas.ts`; in `lib/app/breaks/`, `sections.ts`
+> (a song: at most 32 distinct bars, 26 sections, 32 arrangement slots),
+> `meter.ts`, `lanes.ts`, `generate.ts` and `critic.ts`; the model's
 > `README.md`, `schema/*.json`, `lib/app/lineage/check.ts`, `build.ts`,
 > `layout.ts` (`GENRE_FAMILY`: list any genre you add) and
 > `tests/unit/lib/app/lineage/model.test.ts`.
 >
-> **The songs.** Five to eight, each reproducing the flow of the record:
+> **The songs.** The ones that show the drummer's playing best, up to eight.
+> Quality, not a quota: there is no minimum, and a drummer who played on few
+> songs worth hearing gets few. Each reproduces the flow of the record:
 > intro, verse, chorus, bridge, solo, outro as sections in the record's
 > order. Accuracy over speed. For each: **confirm from a discography or the
 > sleeve that your drummer plays on it** (the 15-b lines are mostly
@@ -152,7 +161,13 @@ scratchpad the batch runs from.
 > 40 seeds: soft 0/40, served-not-hard 0/40, playable), run from the repo
 > with `npx tsx --tsconfig ./tsconfig.json <OUT>/work/check.ts`, and your
 > `work/record-check.ts` over a copy of the model with your files laid on it
-> (Ajv, `checkCorpus`, `buildLineage`, `checkGraph`): 0 bad.
+> (Ajv, `checkCorpus`, `buildLineage`, `checkGraph`): 0 bad. Last, run the
+> merge's own checks, which write nothing:
+> `python3 -I scripts/lineage/batch/merge.py --check . $S/drummers <key> <CONST> '<group>'`
+> from the repo. It fails unless every song in your style has exactly one
+> track naming it (in `track-links.json` or a new recording), every link
+> finds its track, and your song keys clash with no other style's: the rules
+> the lineage tests enforce after the merge.
 >
 > **The style.** `drummer: true`; a `hint` in the house voice (who, the feel,
 > each song by name and year, the source of the bars, "Approximations, not

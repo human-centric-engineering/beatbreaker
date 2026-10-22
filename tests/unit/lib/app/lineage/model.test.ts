@@ -26,18 +26,8 @@ import { describe, expect, it } from 'vitest';
 
 import { buildLineage } from '@/lib/app/lineage/build';
 import { checkCorpus, checkGraph } from '@/lib/app/lineage/check';
-import type { DrummerRecord } from '@/lib/app/lineage/corpus';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { DRUMMER_MODEL_DIR, readCorpus, readFolder } from '@/scripts/lineage/read-corpus';
-
-/**
- * The fewest songs a drummer's list may hold (D73): 8 for a built drummer, 5
- * for a candidate, unless the record says why its list is shorter.
- */
-function minSongs(record: DrummerRecord): number {
-  if (record.beatbreaker?.songs_short_because) return 0;
-  return record.meta.record_status === 'candidate' ? 5 : 8;
-}
 
 const SCHEMA_DIR = join(DRUMMER_MODEL_DIR, 'schema');
 
@@ -226,16 +216,6 @@ describe('the drummer model', () => {
         }
       }
       expect(dangling).toEqual([]);
-    });
-
-    it('gives every drummer a song list inside the range D73 sets', () => {
-      const counts = new Map<string, number>();
-      for (const t of tracks)
-        for (const d of t.drummer_ids) counts.set(d, (counts.get(d) ?? 0) + 1);
-      const short = corpus.drummers
-        .filter(({ record }) => (counts.get(record.meta.id) ?? 0) < minSongs(record))
-        .map(({ record }) => `${record.meta.id}: ${counts.get(record.meta.id) ?? 0}`);
-      expect(short).toEqual([]);
     });
   });
 
