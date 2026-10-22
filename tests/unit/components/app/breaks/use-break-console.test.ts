@@ -2615,6 +2615,29 @@ describe('creativity and the song a New writes', () => {
     expect(result.current.view.A?.style).not.toBe('ulrich');
   });
 
+  it('plays the song a drummer’s song table names, only when the style holds it', async () => {
+    const { result } = await mount();
+    const songs = catalogue.styles.ulrich.params.songs ?? [];
+    const pick = songs[songs.length - 1].key;
+
+    act(() => {
+      expect(result.current.newBreakIn('ulrich', pick)).toBe(true);
+    });
+    expect(result.current.view.A?.style).toBe('ulrich');
+    expect(result.current.view.A?.song?.split(':')[0]).toBe(pick);
+
+    // a key the style does not hold is the style, with a song as ever
+    act(() => {
+      expect(result.current.newBreakIn('ulrich', 'not-a-song-here')).toBe(true);
+    });
+    expect(result.current.view.A?.style).toBe('ulrich');
+    expect(result.current.view.A?.song?.split(':')[0]).not.toBe('not-a-song-here');
+    // an unknown style is still refused, song or no
+    act(() => {
+      expect(result.current.newBreakIn('nobody', pick)).toBe(false);
+    });
+  });
+
   it('lets a held song go when another drummer is picked, so the New is that drummer', async () => {
     const { result } = await mount();
     act(() => {

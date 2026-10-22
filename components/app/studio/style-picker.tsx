@@ -13,6 +13,7 @@ import {
   useState,
 } from 'react';
 
+import { IndexFallback } from '@/components/app/studio/index-fallback';
 import '@/components/app/studio/style-picker.css';
 import {
   type PickerEntry,
@@ -327,10 +328,13 @@ function Crate({
 
         <div id={`${uid}-list`} className="pick-list" role="listbox" aria-label={section.label}>
           {shown.groups.length === 0 ? (
-            <p className="pick-empty">
-              Nothing in the crate matches “{query.trim()}”. Try a feel, a meter or a drummer’s
-              name.
-            </p>
+            <div className="pick-empty">
+              <p>
+                Nothing in the crate matches “{query.trim()}”. Try a feel, a meter or a drummer’s
+                name.
+              </p>
+              <IndexFallback query={query} />
+            </div>
           ) : (
             shown.groups.map(([group, entries]) => (
               <section

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { type StoredLink, parseReferenceLink } from '@/lib/app/breaks/links';
 
-const PROVIDER_NAMES = { youtube: 'YouTube', vimeo: 'Vimeo', spotify: 'Spotify' } as const;
+export const PROVIDER_NAMES = { youtube: 'YouTube', vimeo: 'Vimeo', spotify: 'Spotify' } as const;
 
 /**
  * A pattern's reference links on its public page, as **click-to-load embeds**
@@ -54,20 +54,27 @@ export function ReferenceEmbeds({ links }: { links: StoredLink[] }) {
   );
 }
 
-function Embed({
+/**
+ * One click-to-load embed: a placeholder that becomes the provider's player
+ * when pressed. The drummer's song table (15-c) plays its songs through it.
+ */
+export function Embed({
   provider,
   kind,
   embedUrl,
   canonicalUrl,
   label,
+  autoLoad = false,
 }: {
   provider: string;
   kind: 'video' | 'song';
   embedUrl: string;
   canonicalUrl: string;
   label?: string;
+  /** Load the player at once: the press that showed it was the click. */
+  autoLoad?: boolean;
 }) {
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(autoLoad);
   const action = kind === 'video' ? `Play video from ${provider}` : `Listen on ${provider}`;
   const title = label ? `${action} — ${label}` : action;
 

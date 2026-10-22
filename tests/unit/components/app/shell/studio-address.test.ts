@@ -9,6 +9,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   readStudioDrawer,
+  readStudioSong,
   readStudioStyle,
   studioDrawerHref,
   studioStyleHref,
@@ -82,5 +83,37 @@ describe('studioStyleHref', () => {
     expect(href).toBe('/studio?style=bonham');
     const query = Object.fromEntries(new URL(href, 'http://x').searchParams);
     expect(readStudioStyle(query)).toBe('bonham');
+  });
+});
+
+describe('readStudioSong', () => {
+  it('reads a well-formed key given with a style', () => {
+    expect(readStudioSong({ style: 'joyce', song: 'how-soon-is-now' })).toBe('how-soon-is-now');
+  });
+
+  it('is nothing without a (valid) style — a song means something only in a style', () => {
+    expect(readStudioSong({ song: 'how-soon-is-now' })).toBeUndefined();
+    expect(readStudioSong({ style: 'Not A Style!', song: 'how-soon-is-now' })).toBeUndefined();
+  });
+
+  it.each(['How-Soon', '-lead', 'a b', '../x', '', 'a'.repeat(81), 42, ['a']])(
+    'drops a song that is not a key: %s',
+    (song) => {
+      expect(readStudioSong({ style: 'joyce', song })).toBeUndefined();
+    }
+  );
+});
+
+describe('studioStyleHref with a song', () => {
+  it('adds the song, and reads back as the same style and song', () => {
+    const href = studioStyleHref('joyce', 'how-soon-is-now');
+    expect(href).toBe('/studio?style=joyce&song=how-soon-is-now');
+    const query = Object.fromEntries(new URL(href, 'http://x').searchParams);
+    expect(readStudioStyle(query)).toBe('joyce');
+    expect(readStudioSong(query)).toBe('how-soon-is-now');
+  });
+
+  it('encodes what needs it', () => {
+    expect(studioStyleHref('a', 'b&c')).toBe('/studio?style=a&song=b%26c');
   });
 });

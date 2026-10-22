@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { readStudioDrawer, readStudioStyle } from '@/components/app/shell/studio-address';
+import {
+  readStudioDrawer,
+  readStudioSong,
+  readStudioStyle,
+} from '@/components/app/shell/studio-address';
 import { SignInToOpen } from '@/components/app/breaks/sign-in-to-open';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
 import { StudioTour } from '@/components/app/shell/studio-tour';
@@ -73,6 +77,7 @@ function loginHref(query: {
   session?: string | string[];
   entry?: string | string[];
   style?: string | string[];
+  song?: string | string[];
 }): string {
   const back = new URLSearchParams();
   const session = cuidSchema.safeParse(query.session);
@@ -81,6 +86,8 @@ function loginHref(query: {
   if (entry.success) back.set('entry', entry.data);
   const style = readStudioStyle(query);
   if (style) back.set('style', style);
+  const song = readStudioSong(query);
+  if (song) back.set('song', song);
   const qs = back.toString();
   return `/login?callbackUrl=${encodeURIComponent(qs ? `/studio?${qs}` : '/studio')}`;
 }
@@ -94,6 +101,7 @@ export default async function StudioPage({
     drawer?: string | string[];
     tab?: string | string[];
     style?: string | string[];
+    song?: string | string[];
   }>;
 }) {
   const session = await getServerSession();
@@ -126,6 +134,12 @@ export default async function StudioPage({
     style && Object.hasOwn(catalogue.styles, style) && !entry.success && !practice
       ? style
       : undefined;
+  // a song only of the style being opened, and only one it holds
+  const song = readStudioSong(query);
+  const openSong =
+    openStyle && song && catalogue.styles[openStyle]?.params.songs?.some((s) => s.key === song)
+      ? song
+      : undefined;
 
   return (
     <StudioProvider
@@ -138,6 +152,7 @@ export default async function StudioPage({
       openEntry={entry.success ? entry.data : undefined}
       openDrawer={readStudioDrawer(query)}
       openStyle={openStyle}
+      openSong={openSong}
       session={practice}
     >
       <StudioFrame />

@@ -101,10 +101,33 @@ export const drummerRecordSchema = z.looseObject({
     .looseObject({
       style_key: z.string().optional(),
       tags: z.array(z.string()).optional(),
+      songs_short_because: z.string().min(1).optional(),
     })
     .optional(),
 });
 export type DrummerRecord = z.infer<typeof drummerRecordSchema>;
+
+/**
+ * A song on a recording picked for its drumming (15-b, D73). Its evidence is
+ * optional here so that a line citing nothing reaches `checkCorpus`, which
+ * names it, rather than failing the parse.
+ */
+export const trackSchema = z.looseObject({
+  title: z.string().min(1),
+  artist: z.string().min(1).optional(),
+  year: z.number().int().optional(),
+  drummer_ids: z.array(drummerId).min(1),
+  drums: z.looseObject({
+    description: z.string().min(1),
+    evidence: z.looseObject({ source_ids: z.array(id).optional() }).optional(),
+  }),
+  spotify: z.string().optional(),
+  youtube: z.string().optional(),
+  style_key: z.string().optional(),
+  song_key: z.string().optional(),
+  also_song_keys: z.array(z.string()).optional(),
+});
+export type TrackRecord = z.infer<typeof trackSchema>;
 
 export const recordingRecordSchema = z.looseObject({
   id,
@@ -112,6 +135,7 @@ export const recordingRecordSchema = z.looseObject({
   artist: z.string().min(1),
   year: z.number().int(),
   drum_performances: z.array(z.looseObject({ drummer_id: drummerId, name: z.string().optional() })),
+  tracks: z.array(trackSchema).optional(),
 });
 export type RecordingRecord = z.infer<typeof recordingRecordSchema>;
 

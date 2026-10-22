@@ -617,6 +617,17 @@
   color: var(--muted);
 }
 
+/* -- what the index knows when the crate has nothing (D75) */
+.bb .pick-index {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  text-align: left;
+  font-size: 13px;
+}
+
 /* -- foot: the keys, for a keyboard; a touch screen has no use for them */
 
 .bb .pick-ft {

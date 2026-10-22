@@ -26,8 +26,18 @@ import { describe, expect, it } from 'vitest';
 
 import { buildLineage } from '@/lib/app/lineage/build';
 import { checkCorpus, checkGraph } from '@/lib/app/lineage/check';
+import type { DrummerRecord } from '@/lib/app/lineage/corpus';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { DRUMMER_MODEL_DIR, readCorpus, readFolder } from '@/scripts/lineage/read-corpus';
+
+/**
+ * The fewest songs a drummer's list may hold (D73): 8 for a built drummer, 5
+ * for a candidate, unless the record says why its list is shorter.
+ */
+function minSongs(record: DrummerRecord): number {
+  if (record.beatbreaker?.songs_short_because) return 0;
+  return record.meta.record_status === 'candidate' ? 5 : 8;
+}
 
 const SCHEMA_DIR = join(DRUMMER_MODEL_DIR, 'schema');
 
@@ -181,6 +191,52 @@ describe('the drummer model', () => {
         if (!said.includes(band.toLowerCase())) unbacked.push(`${key}: ${band}`);
     }
     expect(unbacked).toEqual([]);
+  });
+
+  describe('the songs on the index (15-b, D73, D74)', () => {
+    const tracks = corpus.recordings.flatMap(({ record }) =>
+      (record.tracks ?? []).map((t) => ({ recording: record.id, ...t }))
+    );
+
+    it('has a track for every song a drummer style plays', () => {
+      const linked = new Set(
+        tracks.flatMap((t) =>
+          [t.song_key, ...(t.also_song_keys ?? [])].map((k) => `${t.style_key}/${k}`)
+        )
+      );
+      const missing = Object.entries(STYLES)
+        .filter(([, s]) => s.drummer)
+        .flatMap(([key, s]) => (s.songs ?? []).map((song) => `${key}/${song.key}`))
+        .filter((k) => !linked.has(k));
+      expect(missing).toEqual([]);
+    });
+
+    it('links a track only to a song that is there, and each song once', () => {
+      const dangling: string[] = [];
+      const seen = new Map<string, string>();
+      for (const t of tracks) {
+        if (t.song_key === undefined || t.style_key === undefined) continue;
+        const songs = STYLES[t.style_key]?.songs ?? [];
+        for (const key of [t.song_key, ...(t.also_song_keys ?? [])]) {
+          const k = `${t.style_key}/${key}`;
+          if (!songs.some((s) => s.key === key)) dangling.push(`${t.recording}: ${k}`);
+          const before = seen.get(k);
+          if (before) dangling.push(`${k} on ${before} and ${t.recording}`);
+          seen.set(k, t.recording);
+        }
+      }
+      expect(dangling).toEqual([]);
+    });
+
+    it('gives every drummer a song list inside the range D73 sets', () => {
+      const counts = new Map<string, number>();
+      for (const t of tracks)
+        for (const d of t.drummer_ids) counts.set(d, (counts.get(d) ?? 0) + 1);
+      const short = corpus.drummers
+        .filter(({ record }) => (counts.get(record.meta.id) ?? 0) < minSongs(record))
+        .map(({ record }) => `${record.meta.id}: ${counts.get(record.meta.id) ?? 0}`);
+      expect(short).toEqual([]);
+    });
   });
 
   it('names the drummers the catalogue plays', () => {

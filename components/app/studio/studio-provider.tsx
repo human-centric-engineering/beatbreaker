@@ -197,6 +197,7 @@ export function StudioProvider({
   openEntry,
   openDrawer,
   openStyle,
+  openSong,
   session,
   children,
 }: {
@@ -240,6 +241,11 @@ export function StudioProvider({
    * which is how a drummer's page plays them (11-b). A key the catalogue has.
    */
   openStyle?: string;
+  /**
+   * One of {@link openStyle}'s songs to write — `/studio?style=mikejoyce&song=
+   * how-soon-is-now`, how a drummer's song table plays a scored song (15-c).
+   */
+  openSong?: string;
   /** A practice session to run — `/studio?session=<id>`, read server-side (7D). */
   session?: SessionView;
   children: React.ReactNode;
@@ -360,9 +366,9 @@ export function StudioProvider({
       },
       /* A style the address named: a whole new pattern, so the stage is let
          go first. Said when it cannot be written, rather than doing nothing. */
-      newBreakIn: (style: string): boolean => {
+      newBreakIn: (style: string, song?: string): boolean => {
         replace(() => {
-          if (!newBreakIn(style)) {
+          if (!newBreakIn(style, song)) {
             say('That style is not in the Studio', { error: true });
             return false;
           }
@@ -505,12 +511,13 @@ export function StudioProvider({
      yours. It goes through the replacing New, so an unsaved stage is asked
      about first. */
   const styleToOpen = useRef(openStyle);
+  const songToOpen = useRef(openSong);
   const { newBreakIn: openInStyle } = replacing;
   useEffect(() => {
     const key = styleToOpen.current;
     if (!ready || !key) return;
     styleToOpen.current = undefined;
-    openInStyle(key);
+    openInStyle(key, songToOpen.current);
   }, [ready, openInStyle]);
 
   const historyCurrent = useMemo<HistoryCurrent | null>(

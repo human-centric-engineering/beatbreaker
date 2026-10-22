@@ -73,7 +73,25 @@ export function readStudioStyle(query: { style?: unknown }): string | undefined 
   return style.success ? style.data : undefined;
 }
 
-/** The address that opens the Studio on a style. */
-export function studioStyleHref(style: string): string {
-  return `/studio?${new URLSearchParams({ style }).toString()}`;
+/** A song key's shape (`Style.songs[].key`): `how-soon-is-now`. */
+const songSchema = z.string().regex(/^[a-z0-9][a-z0-9-]{0,79}$/);
+
+/**
+ * Read `?song=` with its style — a well-formed key, or nothing. A song means
+ * something only in a style, so without `?style=` there is none.
+ */
+export function readStudioSong(query: { style?: unknown; song?: unknown }): string | undefined {
+  if (!readStudioStyle(query)) return undefined;
+  const song = songSchema.safeParse(query.song);
+  return song.success ? song.data : undefined;
+}
+
+/**
+ * The address that opens the Studio on a style, or on one of its songs — how
+ * a drummer's song table plays a scored song (15-c).
+ */
+export function studioStyleHref(style: string, song?: string): string {
+  const q = new URLSearchParams({ style });
+  if (song) q.set('song', song);
+  return `/studio?${q.toString()}`;
 }

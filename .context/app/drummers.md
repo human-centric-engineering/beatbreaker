@@ -197,16 +197,28 @@ Catalogue reads (no auth, `catalogue` rate-limit tier, ETag, `public` cache):
 | -------------------------------------- | -------------------------------------------------------------------------- |
 | `GET /api/v1/catalogue/lineage`        | `{ nodes, edges }` — every node without its record, every edge             |
 | `GET /api/v1/catalogue/lineage/[slug]` | `{ node, record, edges, neighbours, recordings }`; 404 for an unknown slug |
+| `GET /api/v1/catalogue/index?q=`       | `{ query, drummers, bands, songs }` (15-c); 400 without a `q` of 1–100     |
 
 `record` is the model's JSON as stored. A page that shows it parses the parts
 it needs.
 
+**The index (15-c).** `getCatalogueIndex()` (`data.ts`) reads every modelled
+drummer node (built and candidate) with the bands its record's `affiliations`
+name, and every track on every recording (`readSongs`, `lib/app/lineage/songs.ts`).
+It is kept in process for five minutes: the search runs as the picker is
+typed in, and the tables change only when the seed runs. `searchIndex`
+(`lib/app/lineage/search.ts`, pure) folds case, accents and punctuation, needs
+every word typed to start a word in the name, and answers up to 20 of each:
+drummers (built before candidates), bands with every drummer who played in
+them, and songs with who drums on them and `scored` (the catalogue song that
+plays it, or `null` for "not scored yet", D75).
+
 ## The map and the pages (11-b)
 
-| Route              | What                                                                                                                                                                                                                                                                                                           |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/drummers`        | The map (`components/app/drummers/lineage-map.tsx`) from `md` up; the list (`lineage-list.tsx`) below it. `?trace=<slug>` opens it with that person traced.                                                                                                                                                    |
-| `/drummers/[slug]` | Any person by slug (a genre 404s). A record: summary, traits with confidence, technique, rhythmic devices with their sources (12-b; only an `http(s)` address is a link), eras, recordings, learned from / passed on to / around them. A stub: the links that name it. **Play** → `/studio?style=<style_key>`. |
+| Route              | What                                                                                                                                                                                                                                                                                                                             |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/drummers`        | The map (`components/app/drummers/lineage-map.tsx`) from `md` up; the list (`lineage-list.tsx`) below it. `?trace=<slug>` opens it with that person traced.                                                                                                                                                                      |
+| `/drummers/[slug]` | Any person by slug (a genre 404s). A record: summary, traits with confidence, technique, rhythmic devices with their sources (12-b; only an `http(s)` address is a link), eras, **songs** (15-c), recordings, learned from / passed on to / around them. A stub: the links that name it. **Play** → `/studio?style=<style_key>`. |
 
 Both are public server components reading `lib/app/lineage/data.ts`; the
 public nav lists Drummers and the sitemap lists `/drummers` and every
@@ -252,6 +264,24 @@ through the replacing wrapper, so an unsaved stage is asked about first. It
 is **not a pick**: your starting style is untouched, and the next plain New is
 in yours. A key the console cannot write says so. The login link carries it. Since 11-e
 every record has a `style_key`; one added without it gets no Play.
+
+**The song table (15-c)** — `components/app/drummers/song-table.tsx`, from
+`songsFor(node.id, profile.recordings)`: title, band, record, year, what the
+drums do, any known transcription. A scored row links to
+`/studio?style=<style_key>&song=<song_key>`; an unscored one is greyed and
+says "Not scored yet" (D75). ▶ and ♫ open the click-to-load `Embed` from
+`reference-embeds.tsx` under the row, so nothing is fetched from YouTube or
+Spotify before the press, and the CSP's existing embed origins cover it.
+
+**The Studio's `?song=`** rides on `?style=`: `readStudioSong` checks the
+shape, the page passes it on only when the opened style holds that song, and
+`newBreakIn(key, song)` writes that song rather than one at random.
+
+**The picker's fallback (D75)** — when the crate has nothing for what was
+typed (three characters or more), `components/app/studio/index-fallback.tsx`
+asks the index a moment later and lists what it knows: "The Smiths: How Soon
+Is Now? is not scored yet — Mike Joyce", a band's drummers, and a candidate
+"on the long list, not built yet".
 
 ## Adding a drummer
 
