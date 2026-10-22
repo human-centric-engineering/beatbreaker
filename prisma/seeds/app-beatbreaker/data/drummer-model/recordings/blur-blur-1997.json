@@ -1,0 +1,55 @@
+{
+  "id": "rec:blur-blur-1997",
+  "title": "Blur",
+  "artist": "Blur",
+  "release": "Food",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:indie-rock", "style:alternative-rock"],
+  "personnel": [
+    {
+      "name": "Damon Albarn",
+      "role": "vocals, keyboards"
+    },
+    {
+      "name": "Graham Coxon",
+      "role": "guitars, backing vocals"
+    },
+    {
+      "name": "Alex James",
+      "role": "bass"
+    },
+    {
+      "name": "Dave Rowntree",
+      "role": "drums, percussion"
+    },
+    {
+      "name": "Stephen Street",
+      "role": "producer"
+    }
+  ],
+  "studio_context": "Mayfair, London, and Reykjavik, from June 1996: the band jamming, Stephen Street cutting loops from the jams; Song 2's drums two kits on the room mics, looped.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-rowntree",
+      "name": "Dave Rowntree",
+      "drummer_role": "co_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The turn to American lo-fi: Song 2's drums, his and Coxon's on two kits, cut into a loop; Beetlebum's plain eighths and ride.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:blur-album-wikipedia",
+          "src:stephen-street-song-2-sound-on-sound",
+          "src:song-2-wikipedia"
+        ],
+        "note": "Coxon plays additional drums on Song 2 and Strange News from Another Star; the rest is Rowntree."
+      },
+      "pattern_ids": ["pattern:rowntree-song-2", "pattern:rowntree-coffee-and-tv-beetlebum"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:blur-album-wikipedia"]
+  }
+}

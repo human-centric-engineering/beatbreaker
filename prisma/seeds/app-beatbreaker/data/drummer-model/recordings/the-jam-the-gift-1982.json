@@ -1,0 +1,51 @@
+{
+  "id": "rec:the-jam-the-gift-1982",
+  "title": "The Gift",
+  "artist": "The Jam",
+  "release": "Polydor",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:mod-revival", "style:motown", "style:new-wave"],
+  "personnel": [
+    {
+      "name": "Paul Weller",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Bruce Foxton",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Rick Buckler",
+      "role": "drums",
+      "drummer_id": "drummer:rick-buckler"
+    },
+    {
+      "name": "Russ Henderson",
+      "role": "steel drums"
+    }
+  ],
+  "studio_context": "The last album, a number one; soul and Motown in Weller's writing, which Buckler and Foxton were uneasy with.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:rick-buckler",
+      "name": "Rick Buckler",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Town Called Malice: a 'stomping, Motown-inspired beat', quarters on the hat and the snare on 2 and 4 at 202, triplet rolls building back in.",
+      "pattern_ids": ["pattern:buckler-town-called-malice"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-gift-jam-album-wikipedia",
+          "src:town-called-malice-wikipedia",
+          "src:songsterr-10495"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-gift-jam-album-wikipedia"]
+  }
+}

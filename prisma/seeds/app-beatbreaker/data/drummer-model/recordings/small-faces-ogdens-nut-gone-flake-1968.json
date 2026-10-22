@@ -1,0 +1,47 @@
+{
+  "id": "rec:small-faces-ogdens-nut-gone-flake-1968",
+  "title": "Ogdens' Nut Gone Flake",
+  "artist": "Small Faces",
+  "release": "Immediate",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:rock"],
+  "personnel": [
+    {
+      "name": "Steve Marriott",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Ronnie Lane",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Ian McLagan",
+      "role": "keyboards"
+    },
+    {
+      "name": "Kenney Jones",
+      "role": "drums",
+      "drummer_id": "drummer:kenney-jones"
+    }
+  ],
+  "studio_context": "The concept album, May 1968, a UK number one; Lazy Sunday its single (number 2).",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenney-jones",
+      "name": "Kenney Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Lazy Sunday: the chorus on the ride with the kick on every \"and\" but the first, stops for the words on the hat foot.",
+      "pattern_ids": ["pattern:kenney-jones-lazy-sunday-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:small-faces-wikipedia", "src:songsterr-2437122"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:small-faces-wikipedia"]
+  }
+}

@@ -52,10 +52,11 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 64 styles and 85 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 64 styles and 97 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(64);
     expect([...drummers].sort()).toEqual([
+      'alanwhite',
       'aljackson',
       'baker',
       'barker',
@@ -66,7 +67,9 @@ describe('the style table', () => {
       'bonham',
       'brianblade',
       'bruford',
+      'buckler',
       'buddyrich',
+      'budgie',
       'burr',
       'carey',
       'carltonbarrett',
@@ -79,6 +82,7 @@ describe('the style table', () => {
       'copeland',
       'davies',
       'dejohnette',
+      'dennisdavis',
       'downey',
       'earlpalmer',
       'elvinjones',
@@ -100,6 +104,7 @@ describe('the style table', () => {
       'jimmycobb',
       'jizmak',
       'jordison',
+      'kenneyjones',
       'klek',
       'krupa',
       'lennywhite',
@@ -108,11 +113,13 @@ describe('the style table', () => {
       'lombardo',
       'mcbrain',
       'mikeclark',
+      'mikejoyce',
       'mitchell',
       'moon',
       'morello',
       'nickmason',
       'paice',
+      'paulcook',
       'peart',
       'phillyjoe',
       'porcaro',
@@ -120,12 +127,16 @@ describe('the style table', () => {
       'prieto',
       'puente',
       'questlove',
+      'reni',
       'ringo',
       'roach',
       'rogertaylor',
+      'rogertaylorduran',
+      'rowntree',
       'rudd',
       'sanchez',
       'santadavis',
+      'selway',
       'sheilae',
       'shrieve',
       'skinny',
@@ -139,13 +150,14 @@ describe('the style table', () => {
       'tonywilliams',
       'ulrich',
       'watts',
+      'woodmansey',
       'yussefdayes',
       'zigaboo',
     ]);
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(2235);
+    expect(COMBOS).toHaveLength(2415);
   });
 });
 

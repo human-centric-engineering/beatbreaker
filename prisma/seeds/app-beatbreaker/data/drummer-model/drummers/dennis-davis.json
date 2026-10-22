@@ -1,0 +1,829 @@
+{
+  "meta": {
+    "id": "drummer:dennis-davis",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.3,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "The Roy Ayers Ubiquity years (1973-1979): no transcriptions read; how his jazz-funk playing there relates to the Bowie records.",
+      "Station to Station's march: Wikipedia hears 6/4 against 4/4, the only drum tab writes 4/4; transcribe from the record.",
+      "His kit and cymbals on the 1976 Isolar and 1978 Isolar II tours, and at the Low and \"Heroes\" sessions; the snare Visconti treated.",
+      "Stevie Wonder's Hotter than July (Master Blaster) and his Jermaine Jackson sessions.",
+      "Fashion has only machine-made drum tabs; transcribe it."
+    ]
+  },
+  "identity": {
+    "name": "Dennis Davis",
+    "full_name": "Dennis Davis",
+    "born": {
+      "date": "1951-08-28",
+      "place": "Manhattan, New York City",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dennis-davis-wikipedia"],
+        "note": "Wikipedia gives 1951; a 1978 concert compilation dedicated to him (YouTube yuqgcg1pGZM) gives 28 August 1949."
+      }
+    },
+    "died": {
+      "date": "2016-04-06",
+      "place": "New York City",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dennis-davis-wikipedia"],
+        "note": "Wikipedia gives the date and cause (cancer), not the place; New York, his home, is inferred."
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "New York jazz (Clark Terry, Roy Ayers, 1967-1979)",
+      "David Bowie's band (1974-1980)",
+      "Stevie Wonder sessions (1979-1987)"
+    ],
+    "handedness": "unknown",
+    "kit_orientation": "unknown",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "percussion"],
+    "active": {
+      "from": 1967,
+      "to": 2015
+    },
+    "roles": ["session", "band_member", "touring"],
+    "summary": "A New York drummer who studied with Max Roach and Elvin Jones, joined Clark Terry's big band at sixteen and played jazz funk with Roy Ayers for thirty years. Hired by David Bowie in 1974 for Fame, he was the D of the D.A.M. Trio with Carlos Alomar and George Murray on Station to Station, Low, \"Heroes\", Lodger and Scary Monsters: ghost notes and cross-sticks in the pocket on the soul records; on Low the snare Tony Visconti pitched down through a Harmonizer, 'one of rock's all-time most imitated drum sounds'; Ashes to Ashes' displaced snare. Later Stevie Wonder's Hotter than July and Bowie's percussionist in the 2000s."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Modern jazz drumming",
+        "impact": "Studied with Max Roach and Elvin Jones in New York.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dennis-davis-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Big band and military drumming",
+        "impact": "The Clark Terry Big Band from 1967; the US Navy's Drum and Bugle Corps, 1969-70.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dennis-davis-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1967,
+        "event": "Joined the Clark Terry Big Band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dennis-davis-wikipedia"]
+        }
+      },
+      {
+        "year": 1973,
+        "event": "Roy Ayers Ubiquity (Red, Black and Green, Coffy), where he met Carlos Alomar.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dennis-davis-wikipedia"]
+        }
+      },
+      {
+        "year": 1975,
+        "event": "Fame with Bowie and Lennon at Electric Lady; then Station to Station at Cherokee, with George Murray.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:dennis-davis-wikipedia",
+            "src:fame-bowie-song-wikipedia",
+            "src:station-to-station-album-wikipedia"
+          ]
+        }
+      },
+      {
+        "year": 1976,
+        "event": "Low at the Château d'Hérouville: Visconti's Harmonizer on his snare.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:low-bowie-album-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:dennis-davis-bowie-soul",
+      "label": "Fame and Station to Station",
+      "years": {
+        "from": 1974,
+        "to": 1976
+      },
+      "context": "Bowie's soul and funk records in New York and Los Angeles, and the Isolar tour.",
+      "defining_traits": [
+        "ghost notes round the backbeat",
+        "cross-sticks in the off-beats",
+        "opened hats"
+      ],
+      "key_recording_ids": ["rec:bowie-young-americans-1975", "rec:bowie-station-to-station-1976"]
+    },
+    {
+      "id": "era:dennis-davis-berlin",
+      "label": "Low to Scary Monsters",
+      "years": {
+        "from": 1976,
+        "to": 1980
+      },
+      "context": "The Berlin records with Eno and Visconti, then Lodger and Scary Monsters: the D.A.M. Trio cutting backing tracks fast, often before the songs had words.",
+      "defining_traits": ["the Harmonizer snare", "motorik pulses", "displaced backbeats"],
+      "key_recording_ids": [
+        "rec:bowie-low-1977",
+        "rec:bowie-heroes-1977",
+        "rec:bowie-lodger-1979",
+        "rec:bowie-scary-monsters-1980"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk",
+        "name": "Funk",
+        "weight": 0.9,
+        "authority": 0.6,
+        "notes": "Fame, Golden Years, Roy Ayers."
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "name": "R&B and soul",
+        "weight": 0.5,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "name": "Art rock",
+        "weight": 0.8,
+        "authority": 0.8,
+        "notes": "Low and \"Heroes\"."
+      },
+      {
+        "style_id": "style:new-wave",
+        "name": "New wave",
+        "weight": 0.6,
+        "authority": 0.5,
+        "notes": "Lodger and Scary Monsters."
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "name": "Jazz funk",
+        "weight": 0.5,
+        "authority": 0.4,
+        "notes": "Roy Ayers Ubiquity."
+      }
+    ],
+    "versatility": 0.85,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "driver",
+    "descriptors": ["inventive", "funky", "adaptable", "unbusy"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-407358"],
+        "note": "Not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight sixteenths on every record here."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "mf",
+      "ghost_note_level": 40,
+      "accent_level": 110,
+      "balance": "Ghosts low under the backbeat on the soul records; on Low the treated snare towers over everything."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 22],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.35
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [90, 135],
+    "timekeeping_context": ["free"],
+    "interaction": "Locked with George Murray's bass and Carlos Alomar's rhythm guitar; the three cut backing tracks fast, from Bowie's chord sequences.",
+    "descriptors": ["in the pocket", "propulsive", "unbusy"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Ghost notes round the backbeat",
+        "description": "Ghosts on the 'e' of 1 and the 'a' of the beats (Golden Years).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-407358"]
+        }
+      },
+      {
+        "name": "The cross-stick in the off-beats",
+        "description": "A cross-stick with the hat on 1, the 'and' of 2, 3 and the 'and' of 4 (Fame).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-29031"]
+        }
+      },
+      {
+        "name": "Ride bell ostinato",
+        "description": "The ride bell and the ride against a running kick and ghosts (Look Back in Anger).",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-468068"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "A moving kick",
+        "description": "The kick off the 1-and-3 rock places: the 'and' of 2 and of 4 (\"Heroes\"), the 'and' of 1 (Sound and Vision).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3291", "src:songsterr-32934"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.6,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.3,
+      "foot_ostinato_usage": 0.3,
+      "double_bass": 0.0,
+      "notes": "A hat foot in sixteenths under Station to Station's outro and on every 'a' in Breaking Glass's verse.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Songsterr human tabs: Fame (29031), Golden Years (407358), Station to Station (1543504), Sound and Vision (32934), Breaking Glass (731238), \"Heroes\" (3291), Look Back in Anger (468068), Ashes to Ashes (29035)",
+          "Wikipedia on the six Bowie albums and their songs"
+        ],
+        "note": "No device found: no groupings, cross-rhythms or hemiolas in the bars transcribed. Ashes to Ashes' snare on the 'and' of 3 is a displaced backbeat, not a polyrhythm; Station to Station's 6/4 march (Wikipedia) is a meter change the tab does not write."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths opened on the 'and's; sixteenths in intros; two closed and one open to the beat (Breaking Glass).",
+      "snare": "Dry with ghosts on the soul records; pitched down and huge on Low; a cross-stick in the off-beats on Fame.",
+      "kick": "Moving: the 'and' of 2 and 4 under \"Heroes\", the 'and' of 1 in Sound and Vision, none at all in Breaking Glass's verse.",
+      "toms": "Short fills down the toms at phrase ends; the floor tom thud that turns Station to Station.",
+      "cymbals": "A crash on the 1 of a section; the ride bell on Lodger."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks; he also played vibraslap (Fame), percussion and congas."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a dry, deadened mid-70s soul kit",
+      "the Harmonizer snare on Low: 'as big as a house'",
+      "the drums far back in the mix of \"Heroes\""
+    ],
+    "cymbal_character": "Not documented here.",
+    "sample_hints": {
+      "funk-soul": "A damped 1970s kit with a fat snare that lets ghost notes speak.",
+      "art-rock": "A huge, pitched-down snare in a big room, compressed."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:low-bowie-album-wikipedia", "src:heroes-bowie-song-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:davis-harmonizer-snare",
+      "label": "The Low snare",
+      "category": "sound",
+      "description": "Visconti's Eventide H910 on Davis's snare, the pitch falling as it fed back: Speed of Life, Breaking Glass, Sound and Vision. Visconti never explained it; it was on almost every chart record by the 1980s.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:davis-sound-and-vision"],
+      "heard_on": [
+        {
+          "recording_id": "rec:bowie-low-1977"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:low-bowie-album-wikipedia", "src:sound-and-vision-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:davis-ghosted-pocket",
+      "label": "Ghosts in the pocket",
+      "category": "groove",
+      "description": "Ghost notes on the 'e's and 'a's round a plain backbeat, the hat opened on the 'and's (Golden Years).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:davis-golden-years"],
+      "heard_on": [
+        {
+          "recording_id": "rec:bowie-station-to-station-1976"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-407358"]
+      }
+    },
+    {
+      "id": "trait:davis-displaced-snare",
+      "label": "The snare on the 'and' of 3",
+      "category": "groove",
+      "description": "Ashes to Ashes' ska-ish beat: the snare on 2 and the 'and' of 3 instead of 4, the beat Bowie showed him on a chair and a box.",
+      "audibility": "obvious",
+      "frequency": "rare",
+      "pattern_ids": ["pattern:davis-ashes-to-ashes"],
+      "heard_on": [
+        {
+          "recording_id": "rec:bowie-scary-monsters-1980"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ashes-to-ashes-bowie-song-wikipedia", "src:songsterr-29035"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:davis-golden-years",
+        "name": "Golden Years: the ghosted groove",
+        "type": "groove",
+        "function": "Eighths on the hat, opened on the 'and' of 1 and 3; ghosts on the 'e' of 1 and the 'a' of 2, 3 and 4 round a snare on 2 and 4; the kick on 1 and 3.",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-407358"],
+          "note": "A human Songsterr tab, checked for tempo against the record."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 108,
+          "playable_range_bpm": [104, 111]
+        },
+        "lanes": {
+          "hihat": "x.o.x.x.x.o.x.x.",
+          "snare": ".g..x..g.g..x..g",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:bowie-station-to-station-1976",
+          "transcription_source_id": "src:songsterr-407358"
+        },
+        "tags": ["1975", "ghost notes"]
+      },
+      {
+        "id": "pattern:davis-fame",
+        "name": "Fame: the cross-stick in the off-beats",
+        "type": "groove",
+        "function": "The hat and a cross-stick together on 1, the 'and' of 2, 3 and the 'and' of 4, the snare on 2 and 4, the kick on 1 and 3.",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-29031"],
+          "note": "The tab writes the kick on the floor toms and the side stick as a part over the kit."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 95,
+          "playable_range_bpm": [92, 98]
+        },
+        "lanes": {
+          "hihat": "x.....x.x.....x.",
+          "snare": "c...x.c.c...x.c.",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:bowie-young-americans-1975",
+          "transcription_source_id": "src:songsterr-29031"
+        },
+        "tags": ["1975", "cross-stick"]
+      },
+      {
+        "id": "pattern:davis-sound-and-vision",
+        "name": "Sound and Vision: the Low groove",
+        "type": "groove",
+        "function": "The hat opened on 1 and on 3 and its 'and' and two after it, the kick on 1, its 'and', the 'and' of 2 and 3, the Harmonizer snare on 2 and 4.",
+        "style_ids": ["style:experimental-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-32934"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 106,
+          "playable_range_bpm": [102, 109]
+        },
+        "lanes": {
+          "hihat": "o..xx.x.o.o.o.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x...x...x....."
+        },
+        "source": {
+          "recording_id": "rec:bowie-low-1977",
+          "transcription_source_id": "src:songsterr-32934"
+        },
+        "tags": ["1977", "harmonizer"]
+      },
+      {
+        "id": "pattern:davis-heroes",
+        "name": "\"Heroes\": the pre-chorus kick",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the kick on 1, the 'and' of 2, 3 and the 'and' of 4: the bar from the pre-chorus to the fade.",
+        "style_ids": ["style:experimental-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3291"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 112,
+          "playable_range_bpm": [109, 115]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.o.",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x.....x."
+        },
+        "source": {
+          "recording_id": "rec:bowie-heroes-1977",
+          "transcription_source_id": "src:songsterr-3291"
+        },
+        "tags": ["1977", "motorik"]
+      },
+      {
+        "id": "pattern:davis-look-back-in-anger",
+        "name": "Look Back in Anger: the ride bell over a running kick",
+        "type": "groove",
+        "function": "The ride bell on 1, the 'e' of 2, 3 and the 'e' of 4 and the ride between, the snare on 2 and 4 with ghosts on the 'e' of 1 and 3, the 'and' and 'a' of 2 and 4, the kick on 1, its 'a', the 'e' and 'a' of 2, 3, the 'a' of 3, the 'e' and 'a' of 4.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-468068"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [126, 133]
+        },
+        "lanes": {
+          "ride": "B.xx.B..B.xx.B..",
+          "snare": ".g..x.gg.g..x.gg",
+          "kick": "x..x.x.xx..x.x.x"
+        },
+        "source": {
+          "recording_id": "rec:bowie-lodger-1979",
+          "transcription_source_id": "src:songsterr-468068"
+        },
+        "tags": ["1979", "ride bell"]
+      },
+      {
+        "id": "pattern:davis-ashes-to-ashes",
+        "name": "Ashes to Ashes: the snare on 2 and the \"and\" of 3",
+        "type": "groove",
+        "function": "Eighths on the hat, opened on the 'and' of 4; the snare on 2 and the 'and' of 3; the kick on 1, its 'and' and 3. The beat Bowie played to him on a chair and a cardboard box.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-29035", "src:ashes-to-ashes-bowie-song-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 121,
+          "playable_range_bpm": [117, 124]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.o.",
+          "snare": "....x.....x.....",
+          "kick": "x.x.....x......."
+        },
+        "source": {
+          "recording_id": "rec:bowie-scary-monsters-1980",
+          "transcription_source_id": "src:songsterr-29035"
+        },
+        "tags": ["1980", "displaced backbeat"]
+      }
+    ]
+  },
+  "equipment": [],
+  "affiliations": [
+    {
+      "name": "Roy Ayers Ubiquity",
+      "type": "band_member",
+      "years": {
+        "from": 1973,
+        "to": 1979
+      },
+      "bandmates": [
+        {
+          "name": "Roy Ayers"
+        },
+        {
+          "name": "Carlos Alomar"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dennis-davis-wikipedia"]
+      }
+    },
+    {
+      "name": "David Bowie",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1974,
+        "to": 1980
+      },
+      "bandmates": [
+        {
+          "name": "David Bowie"
+        },
+        {
+          "name": "Carlos Alomar"
+        },
+        {
+          "name": "George Murray"
+        }
+      ],
+      "notes": "The D.A.M. Trio with Alomar and Murray, on seven studio albums and the 1976 and 1978 tours.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dennis-davis-wikipedia", "src:station-to-station-album-wikipedia"]
+      }
+    },
+    {
+      "name": "Stevie Wonder",
+      "type": "session_regular",
+      "years": {
+        "from": 1979,
+        "to": 1987
+      },
+      "bandmates": [
+        {
+          "name": "Stevie Wonder"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dennis-davis-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:bowie-young-americans-1975",
+    "rec:bowie-station-to-station-1976",
+    "rec:bowie-low-1977",
+    "rec:bowie-heroes-1977",
+    "rec:bowie-lodger-1979",
+    "rec:bowie-scary-monsters-1980"
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dennis-davis-wikipedia"]
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dennis-davis-wikipedia"]
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "name": "Sterling Campbell",
+        "kind": "drummer",
+        "id": "drummer:sterling-campbell"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dennis-davis-wikipedia"],
+        "note": "Campbell, \"previously a student of Davis\", was Bowie's drummer on A Reality Tour (2003) with Davis on percussion."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Stephen Morris",
+        "kind": "drummer",
+        "id": "drummer:stephen-morris"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:low-bowie-album-wikipedia"],
+        "note": "Morris asked Joy Division's engineer to make the drums on An Ideal for Living (1978) sound like Speed of Life: 'Strangely enough he couldn't.'"
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "George Murray",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1975,
+        "to": 1980
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dennis-davis-wikipedia", "src:station-to-station-album-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Carlos Alomar",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1973,
+        "to": 1980
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dennis-davis-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "David Bowie",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1974,
+        "to": 1980
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dennis-davis-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Roy Ayers",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "years": {
+        "from": 1973,
+        "to": 2004
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dennis-davis-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Play many things at once without sounding busy: Visconti's account of his Look Back in Anger tracks.",
+        "paraphrase_of_source_id": "src:dennis-davis-wikipedia"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.7,
+    "innovations": [
+      "The Low drum sound, with Tony Visconti's Harmonizer (1976): 'one of rock's all-time most imitated drum sounds'",
+      "Ashes to Ashes' displaced snare"
+    ],
+    "accolades": [],
+    "common_misconceptions": [
+      "That he plays the drums on Boys Keep Swinging: the band swapped instruments, and Carlos Alomar is the drummer there, Davis on bass.",
+      "That he played on all of Young Americans: only Fame and Across the Universe; the Philadelphia tracks are Andy Newmark's.",
+      "That the drummer in the Fashion video is him: it is the Rumour's Stephen Goulding."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "dennisdavis",
+    "headline_pattern_ids": ["pattern:davis-golden-years", "pattern:davis-sound-and-vision"],
+    "default_kit_sound": "A damped 1960s Ludwig with a fat snare for the soul records; a big room for Low and \"Heroes\"",
+    "generation_rules": [
+      "A plain 2 and 4 with ghosts round it on the soul songs, none on the Berlin ones.",
+      "The kick moved off rock's 1 and 3.",
+      "Open hats on the \"and\"s.",
+      "Short fills at phrase ends; no runs of four on the snare."
+    ],
+    "avoid": ["Swing", "Double bass", "Busy fills", "Ghosts on the Low songs"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:max-roach", "drummer:elvin-jones"],
+      "primary_descendants": ["drummer:sterling-campbell", "drummer:stephen-morris"],
+      "lineage_blurb": "Roach's and Elvin Jones's student, whose Low snare Stephen Morris tried to copy, and who taught Bowie's later drummer Sterling Campbell."
+    },
+    "tags": ["bowie", "funk", "art rock", "new wave", "session", "70s"]
+  }
+}

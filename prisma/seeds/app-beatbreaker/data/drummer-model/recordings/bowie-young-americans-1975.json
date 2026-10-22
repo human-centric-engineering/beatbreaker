@@ -1,0 +1,55 @@
+{
+  "id": "rec:bowie-young-americans-1975",
+  "title": "Young Americans",
+  "artist": "David Bowie",
+  "release": "RCA",
+  "year": 1975,
+  "type": "album",
+  "producer": "Tony Visconti, Harry Maslin, David Bowie",
+  "style_ids": ["style:rnb-soul", "style:funk"],
+  "personnel": [
+    {
+      "name": "David Bowie",
+      "role": "vocals, guitar, piano"
+    },
+    {
+      "name": "Carlos Alomar",
+      "role": "guitar"
+    },
+    {
+      "name": "Earl Slick",
+      "role": "guitar"
+    },
+    {
+      "name": "John Lennon",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Emir Ksasan",
+      "role": "bass"
+    },
+    {
+      "name": "Andy Newmark",
+      "role": "drums (Sigma Sound tracks)"
+    }
+  ],
+  "studio_context": "Sigma Sound, Philadelphia, with Andy Newmark on drums; Davis's two tracks, Fame and Across the Universe, at Electric Lady, New York, in January 1975.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dennis-davis",
+      "name": "Dennis Davis",
+      "drummer_role": "co_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Fame, Bowie's first US number one, on Davis's drums and vibraslap: the hat and a cross-stick in the off-beats over a plain 2 and 4.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:fame-bowie-song-wikipedia", "src:young-americans-album-wikipedia"]
+      },
+      "pattern_ids": ["pattern:davis-fame"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:young-americans-album-wikipedia"]
+  }
+}

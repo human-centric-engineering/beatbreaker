@@ -1,0 +1,48 @@
+{
+  "id": "rec:the-jam-sound-affects-1980",
+  "title": "Sound Affects",
+  "artist": "The Jam",
+  "release": "Polydor",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:mod-revival", "style:new-wave"],
+  "personnel": [
+    {
+      "name": "Paul Weller",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Bruce Foxton",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Rick Buckler",
+      "role": "drums",
+      "drummer_id": "drummer:rick-buckler"
+    }
+  ],
+  "producer": "Vic Coppersmith-Heaven and the Jam",
+  "studio_context": "Weller's cross between Off the Wall and Revolver; Off the Wall 'particularly evident in Rick Buckler's drumming'.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:rick-buckler",
+      "name": "Rick Buckler",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Start!: the Taxman riff on the kick and the snare, the hat skipping a beat for it.",
+      "pattern_ids": ["pattern:buckler-start-riff"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:sound-affects-wikipedia",
+          "src:start-jam-song-wikipedia",
+          "src:songsterr-10538"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:sound-affects-wikipedia"]
+  }
+}

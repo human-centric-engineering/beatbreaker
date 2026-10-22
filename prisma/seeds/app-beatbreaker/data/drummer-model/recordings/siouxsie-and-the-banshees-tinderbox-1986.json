@@ -1,0 +1,50 @@
+{
+  "id": "rec:siouxsie-and-the-banshees-tinderbox-1986",
+  "title": "Tinderbox",
+  "artist": "Siouxsie and the Banshees",
+  "release": "Polydor",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:new-wave"],
+  "personnel": [
+    {
+      "name": "Siouxsie Sioux",
+      "role": "vocals"
+    },
+    {
+      "name": "Steven Severin",
+      "role": "bass"
+    },
+    {
+      "name": "John Valentine Carruthers",
+      "role": "guitars"
+    },
+    {
+      "name": "Budgie",
+      "role": "drums, percussion"
+    }
+  ],
+  "studio_context": "Hansa, Berlin, from May 1985; Cities in Dust recorded whole at Matrix Studios, London, that September; produced by the band.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:budgie",
+      "name": "Budgie",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.7,
+      "why_it_matters": "Cities in Dust, their US dance-chart hit: the kick in a dotted figure under eighths on the hat, the ride's bell in the verse, the china on the 'and' of 4.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:tinderbox-siouxsie-album-wikipedia",
+          "src:cities-in-dust-wikipedia",
+          "src:songsterr-499165"
+        ]
+      },
+      "pattern_ids": ["pattern:budgie-cities-in-dust"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tinderbox-siouxsie-album-wikipedia"]
+  }
+}

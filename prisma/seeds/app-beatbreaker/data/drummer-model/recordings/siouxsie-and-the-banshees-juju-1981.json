@@ -1,0 +1,61 @@
+{
+  "id": "rec:siouxsie-and-the-banshees-juju-1981",
+  "title": "Juju",
+  "artist": "Siouxsie and the Banshees",
+  "release": "Polydor",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:new-wave"],
+  "personnel": [
+    {
+      "name": "Siouxsie Sioux",
+      "role": "vocals"
+    },
+    {
+      "name": "Steven Severin",
+      "role": "bass"
+    },
+    {
+      "name": "John McGeoch",
+      "role": "guitars"
+    },
+    {
+      "name": "Budgie",
+      "role": "drums, percussion"
+    },
+    {
+      "name": "Nigel Gray",
+      "role": "co-producer"
+    }
+  ],
+  "studio_context": "Surrey Sound, with Nigel Gray; an album written to be played live in full, 'the intricate percussion work' of Budgie to the fore.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:budgie",
+      "name": "Budgie",
+      "drummer_role": "drums_and_percussion",
+      "significance": 1.0,
+      "why_it_matters": "The album drummers name him for: Spellbound's floor tom in eighths and the snare on every beat, Arabian Knights' verses with no snare, Halloween's round of the toms, Into the Light.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:juju-siouxsie-album-wikipedia",
+          "src:spellbound-siouxsie-wikipedia",
+          "src:arabian-knights-siouxsie-wikipedia",
+          "src:songsterr-436043",
+          "src:songsterr-496603",
+          "src:songsterr-445125"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:budgie-spellbound",
+        "pattern:budgie-arabian-knights",
+        "pattern:budgie-halloween"
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:juju-siouxsie-album-wikipedia"]
+  }
+}

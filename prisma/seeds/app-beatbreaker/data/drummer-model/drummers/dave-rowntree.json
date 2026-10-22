@@ -1,0 +1,743 @@
+{
+  "meta": {
+    "id": "drummer:dave-rowntree",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.3,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Find a drum-magazine interview (Rhythm, Modern Drummer, MusicRadar) on his parts and kits in the 1990s; MusicRadar's 2023 piece was not readable here.",
+      "Which of the 1990s records use loops cut from his playing (Song 2, Blur's jams, 13) and which are played straight through.",
+      "Girls & Boys: what he programmed on the Akai S2800, and whose samples.",
+      "His kits by year: the black Pearl of the Song 2 video, the Yamaha he endorses now.",
+      "Who names him as an influence."
+    ]
+  },
+  "identity": {
+    "name": "Dave Rowntree",
+    "full_name": "David Alexander De Horne Rowntree",
+    "born": {
+      "date": "1964-05-08",
+      "place": "Colchester, Essex, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dave-rowntree-wikipedia"],
+        "note": "drummerszone gives 'Dorset, 1968'; Wikipedia's account is followed."
+      }
+    },
+    "nationality": ["English"],
+    "home_scenes": ["Colchester (1970s-1980s)", "Blur and Britpop, London (1989-2003, 2009-)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "percussion", "timpani"],
+    "active": {
+      "from": 1989
+    },
+    "roles": ["band_member", "touring", "composer"],
+    "summary": "Blur's drummer from 1989: a Colchester boy who played percussion in his father's brass band, worked through Ginger Baker's drum books and played in bands with Graham Coxon, then a computer programmer until Blur. His beats are plain and dance: eighths on the hat, the kick doubled on 1 and 3, a fill only where the song turns. On Parklife, he said, he came 'off the beats' and 'added in the funk'; on Girls & Boys he programmed the machine instead of playing it, and Song 2's drums are his and Coxon's, two kits cut into a loop. Every Blur album from Leisure to The Ballad of Darren; also a solicitor, a Labour councillor, an animator and a television composer."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Brass band",
+        "impact": "Percussion with his father in the Colchester Silver Band, and at the Landermere Music School at weekends.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dave-rowntree-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Rock drumming from the books",
+        "impact": "Ginger Baker's books for aspiring drummers, 'which I worked through religiously'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dave-rowntree-v13-2023"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1980,
+        "event": "Bands with Graham Coxon in Colchester; Saturday jazz classes run by Coxon's father.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dave-rowntree-wikipedia", "src:dave-rowntree-drummerszone"],
+          "note": "The year is approximate: Wikipedia says only that they grew up playing together."
+        }
+      },
+      {
+        "year": 1989,
+        "event": "Coxon introduced him to Damon Albarn; he left his job as a programmer for Colchester Borough Council to join the band that became Blur.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dave-rowntree-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:rowntree-britpop",
+      "label": "Leisure to The Great Escape",
+      "years": {
+        "from": 1989,
+        "to": 1995
+      },
+      "context": "Baggy, then Britpop: Stephen Street's records, the Battle of Britpop.",
+      "defining_traits": [
+        "the baggy snare (1991)",
+        "open hats on the beat and the snare on the \"and\" of 4 (Parklife)",
+        "the kick doubled on 1 and 3"
+      ],
+      "key_recording_ids": [
+        "rec:blur-leisure-1991",
+        "rec:blur-parklife-1994",
+        "rec:blur-the-great-escape-1995"
+      ]
+    },
+    {
+      "id": "era:rowntree-lo-fi",
+      "label": "Blur and 13",
+      "years": {
+        "from": 1996,
+        "to": 1999
+      },
+      "context": "American lo-fi and the jams: loops cut from the band playing, William Orbit for 13.",
+      "defining_traits": [
+        "loops of his playing",
+        "one bar held all song",
+        "rougher, smaller drum sounds"
+      ],
+      "key_recording_ids": ["rec:blur-blur-1997", "rec:blur-13-1999"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:britpop",
+        "name": "Britpop",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:alternative-rock",
+        "name": "Alternative rock",
+        "weight": 0.7,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:indie-rock",
+        "name": "Indie rock",
+        "weight": 0.6,
+        "authority": 0.4,
+        "notes": "Leisure (baggy) and Blur (lo-fi)."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.2,
+    "role_tendency": "accompanist",
+    "descriptors": ["steady", "plain", "danceable", "song-first"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-27192"],
+        "note": "Not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.05,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight: every tab writes even eighths and sixteenths."
+    },
+    "dynamics": {
+      "range": 0.4,
+      "default_level": "mf",
+      "ghost_note_level": 40,
+      "accent_level": 105,
+      "balance": "Kick and snare even, the hat steady; the cymbals for the chorus."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 16],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [75, 140],
+    "timekeeping_context": ["free", "click", "live_loops"],
+    "interaction": "Off the beats and into the funk on Parklife, by his account; on Blur the band jammed and Street looped the results.",
+    "descriptors": ["steady", "danceable", "plain"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Eighths on the hat",
+        "description": "Eighths or open quarters on the hat under a 2 and 4 snare, rarely a ghost note.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-27192", "src:songsterr-23264", "src:songsterr-32119"]
+        }
+      },
+      {
+        "name": "Snare runs into a section",
+        "description": "Sixteenths and triplets on the snare at a section change (Parklife, Coffee & TV).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-32119", "src:songsterr-27192"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick doubled",
+        "description": "The kick on 1 and its 'and', 3 and its 'and'.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-27192", "src:songsterr-23264", "src:songsterr-27187"]
+        }
+      },
+      {
+        "name": "The hat's foot alone",
+        "description": "Country House's interlude: the band out, the hat's foot on 1 and 3.",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-27187"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-27192"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.7,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.2,
+      "foot_ostinato_usage": 0.3,
+      "double_bass": 0.0,
+      "notes": "Straight 4/4 grooves; Coffee & TV's opening fill is a bar of 5/4.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Songsterr human tabs of There's No Other Way (2839614), Girls & Boys (3028), Parklife (32119), Country House (27187), The Universal (27189), Beetlebum (23264), Song 2 (3684), Coffee & TV (27192), Tender (3094), End of a Century (3120), Popscene (832514)",
+          "Music Week (2024)",
+          "V13 (2023)",
+          "Stephen Street in Sound On Sound"
+        ],
+        "note": "No device found: Parklife's triplet fills are a figure in a 4/4 bar, Tender's lilt a swung bar, and Coffee & TV's 5/4 bar a single changed bar; none is a cross-rhythm or hemiola."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths, or open on every beat (Parklife); thrown open for a chorus.",
+      "snare": "2 and 4, the 'and' of 4 every other bar (Parklife, Song 2); the baggy 'a' of 2 and 'and' of 3 (There's No Other Way).",
+      "kick": "1 and its 'and', 3 and its 'and'; four on the floor for the disco songs.",
+      "toms": "The mid tom on the 'a' of 2 and the 'e' of 3 (Country House); with the snare on 4 (The Universal).",
+      "cymbals": "A crash to start each eight; the crash in quarters or the ride for a chorus."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "Stephen Street's tight, close drums (1991-1995)",
+      "room-mic loops, lo-fi and small (1997)"
+    ],
+    "cymbal_character": "Plain crashes and a ride.",
+    "sample_hints": {
+      "britpop": "A dry, close studio rock kit; a trashy room for Song 2; a sampler for Girls & Boys."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:stephen-street-song-2-sound-on-sound", "src:parklife-album-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:rowntree-doubled-kick",
+      "label": "The kick doubled on 1 and 3",
+      "category": "groove",
+      "description": "Eighths on the hat, the snare on 2 and 4, the kick on 1, its 'and', 3 and its 'and': Beetlebum, Country House and all of Coffee & TV.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:rowntree-coffee-and-tv-beetlebum"],
+      "heard_on": [
+        {
+          "recording_id": "rec:blur-blur-1997"
+        },
+        {
+          "recording_id": "rec:blur-13-1999"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-27192", "src:songsterr-23264", "src:songsterr-27187"]
+      }
+    },
+    {
+      "id": "trait:rowntree-slanted",
+      "label": "Off the beats",
+      "category": "musical_approach",
+      "description": "'Adding in offbeats and slanting the rhythms' (Parklife): the snare on the 'and' of 4 every other bar, the kick onto the 'and' of 2 and of 3.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:rowntree-parklife", "pattern:rowntree-song-2"],
+      "heard_on": [
+        {
+          "recording_id": "rec:blur-parklife-1994"
+        },
+        {
+          "recording_id": "rec:blur-blur-1997"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dave-rowntree-music-week-2024", "src:songsterr-32119"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:rowntree-coffee-and-tv-beetlebum",
+        "name": "Coffee & TV and Beetlebum: the kick on 1 and its \"and\", 3 and its \"and\"",
+        "type": "groove",
+        "function": "His plainest bar and his commonest: eighths on the hat, the snare on 2 and 4, the kick doubled on 1 and on 3. Coffee & TV holds it the whole song.",
+        "style_ids": ["style:alternative-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-27192", "src:songsterr-23264", "src:songsterr-27187"],
+          "note": "Three human tabs by different authors write the same bar."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 122,
+          "playable_range_bpm": [118, 126]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:blur-13-1999",
+          "transcription_source_id": "src:songsterr-27192"
+        },
+        "tags": ["1997", "1999"]
+      },
+      {
+        "id": "pattern:rowntree-parklife",
+        "name": "Parklife: the open hat on every beat, the snare slanting",
+        "type": "groove",
+        "function": "Two bars: the hat open on each beat, the snare on 2 and 4; then the snare on the 'and' of 4 too and the kick on the 'and' of 2 and of 3.",
+        "style_ids": ["style:britpop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-32119", "src:dave-rowntree-music-week-2024"],
+          "note": "His 'offbeats' and 'slanting the rhythms' on Parklife."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 139,
+          "playable_range_bpm": [135, 143]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...|o...o...o...o...",
+          "snare": "....x.......x...|....x.......x.x.",
+          "kick": "x.......x.......|x.....x...x....."
+        },
+        "source": {
+          "recording_id": "rec:blur-parklife-1994",
+          "transcription_source_id": "src:songsterr-32119"
+        },
+        "tags": ["1994"]
+      },
+      {
+        "id": "pattern:rowntree-girls-and-boys",
+        "name": "Girls & Boys: the drum machine he programmed",
+        "type": "groove",
+        "function": "Four on the floor, the hat closed on the beat and open between, the snare on 2 and 4: disco, programmed rather than played.",
+        "style_ids": ["style:britpop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3028", "src:girls-and-boys-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [117, 123]
+        },
+        "lanes": {
+          "hihat": "x.o.x.o.x.o.x.o.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:blur-parklife-1994",
+          "transcription_source_id": "src:songsterr-3028"
+        },
+        "tags": ["1994", "drum machine"]
+      },
+      {
+        "id": "pattern:rowntree-theres-no-other-way",
+        "name": "There's No Other Way: the baggy snare",
+        "type": "groove",
+        "function": "The snare on 2, the 'a' of 2, the 'and' of 3 and 4; the kick on 1, 3, its 'and' and the 'and' of 4; the crash on 1 and the second crash on 2.",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2839614"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 112,
+          "playable_range_bpm": [108, 116]
+        },
+        "lanes": {
+          "hihat": "......x.x.x.x.x.",
+          "crash_1": "x...............",
+          "crash_2": "....x...........",
+          "snare": "....x..x.x..x...",
+          "kick": "x.......x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:blur-leisure-1991",
+          "transcription_source_id": "src:songsterr-2839614"
+        },
+        "tags": ["1991", "baggy"]
+      },
+      {
+        "id": "pattern:rowntree-country-house",
+        "name": "Country House: the mid tom in the verse",
+        "type": "groove",
+        "function": "Two bars of the verse: the mid tom on the 'a' of 2 and the 'e' of 3 in the first, a plain bar after; the chorus opens the hats.",
+        "style_ids": ["style:britpop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-27187"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 88,
+          "playable_range_bpm": [85, 91]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...|....x.......x...",
+          "tom_2": ".......x.x......|................",
+          "kick": "x.x.....x.x.....|x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:blur-the-great-escape-1995",
+          "transcription_source_id": "src:songsterr-27187"
+        },
+        "tags": ["1995"]
+      },
+      {
+        "id": "pattern:rowntree-the-universal",
+        "name": "The Universal: the verse",
+        "type": "groove",
+        "function": "The hats on 1, its 'and' and 2, the snare on the 'and' of 2 and on 4 with the mid tom, the kick on the 'and' of 3 and of 4.",
+        "style_ids": ["style:britpop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-27189"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 82,
+          "playable_range_bpm": [79, 85]
+        },
+        "lanes": {
+          "hihat": "x.x.x...........",
+          "snare": "......x.....x...",
+          "tom_2": "............x...",
+          "kick": "..........x...x."
+        },
+        "source": {
+          "recording_id": "rec:blur-the-great-escape-1995",
+          "transcription_source_id": "src:songsterr-27189"
+        },
+        "tags": ["1995"]
+      },
+      {
+        "id": "pattern:rowntree-song-2",
+        "name": "Song 2: the loop",
+        "type": "groove",
+        "function": "Two bars: the hats with gaps (1, its 'and', the 'and' of 2, 3, its 'and'); the second the snare on the 'and' of 4 and the kick on the 'and' of 1 and of 2. Two kits on the room mics, looped.",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3684", "src:stephen-street-song-2-sound-on-sound"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [126, 134]
+        },
+        "lanes": {
+          "hihat": "x.x...x.x.x.....|x.x...x.x.x.....",
+          "snare": "....x.......x...|....x.......x.x.",
+          "kick": "x.......x.x.....|x.x...x...x....."
+        },
+        "source": {
+          "recording_id": "rec:blur-blur-1997",
+          "transcription_source_id": "src:songsterr-3684"
+        },
+        "tags": ["1997", "loop"]
+      }
+    ]
+  },
+  "equipment": [],
+  "affiliations": [
+    {
+      "name": "Blur",
+      "type": "band_member",
+      "years": {
+        "from": 1989
+      },
+      "bandmates": [
+        {
+          "name": "Damon Albarn"
+        },
+        {
+          "name": "Graham Coxon"
+        },
+        {
+          "name": "Alex James"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dave-rowntree-wikipedia"]
+      }
+    },
+    {
+      "name": "Colchester Silver Band",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dave-rowntree-wikipedia"]
+      }
+    },
+    {
+      "name": "Fat Les",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dave-rowntree-drummerszone"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:blur-parklife-1994",
+    "rec:blur-the-great-escape-1995",
+    "rec:blur-blur-1997",
+    "rec:blur-leisure-1991",
+    "rec:blur-13-1999"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.6,
+      "aspects": ["his drum books"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dave-rowntree-v13-2023"],
+        "note": "'A drumming hero of mine growing up': he worked through Baker's books."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Graham Coxon",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dave-rowntree-wikipedia"],
+        "note": "Friends and bandmates from Colchester; the second drummer on Song 2."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Damon Albarn",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dave-rowntree-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Alex James",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dave-rowntree-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "From Baker's books: the audience have paid money, so tell them something through what you play.",
+        "paraphrase_of_source_id": "src:dave-rowntree-v13-2023"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.35,
+    "innovations": [
+      "Britpop's dance side: Parklife's slanted beat and Girls & Boys's programmed disco",
+      "Song 2's looped drums, one of the most played drum intros in sport"
+    ],
+    "accolades": [],
+    "common_misconceptions": [
+      "That he plays on Girls & Boys: it is a drum machine he programmed.",
+      "That Song 2's drums are one kit played through: two kits, his and Coxon's, cut into a loop."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "rowntree",
+    "headline_pattern_ids": [
+      "pattern:rowntree-coffee-and-tv-beetlebum",
+      "pattern:rowntree-parklife"
+    ],
+    "default_kit_sound": "A tight, dry studio rock kit; a trashy garage kit for Song 2, a sampler for Girls & Boys, a big room for The Universal",
+    "generation_rules": [
+      "The kick on 1, its 'and', 3 and its 'and' under eighths on the hat.",
+      "Every other bar the snare on the 'and' of 4, the kick on the 'and' of 2 and of 3.",
+      "Few ghost notes; a fill only at a section change.",
+      "Straight time, no swing."
+    ],
+    "avoid": ["Swing", "Double bass", "Busy ghost notes", "Long solos"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:ginger-baker"],
+      "primary_descendants": [],
+      "lineage_blurb": "A brass-band percussionist who learned rock from Ginger Baker's books: Blur's drummer, Britpop's dancing beat."
+    },
+    "tags": ["britpop", "indie", "90s", "blur"]
+  }
+}

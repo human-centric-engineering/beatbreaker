@@ -1,0 +1,48 @@
+{
+  "id": "rec:duran-duran-is-there-something-i-should-know-1983",
+  "title": "Is There Something I Should Know?",
+  "artist": "Duran Duran",
+  "release": "EMI",
+  "year": 1983,
+  "type": "studio_track",
+  "producer": "Ian Little",
+  "style_ids": ["style:new-wave"],
+  "personnel": [
+    {
+      "name": "Simon Le Bon",
+      "role": "vocals"
+    },
+    {
+      "name": "Nick Rhodes",
+      "role": "keyboards, synthesisers"
+    },
+    {
+      "name": "John Taylor",
+      "role": "bass"
+    },
+    {
+      "name": "Andy Taylor",
+      "role": "guitar"
+    }
+  ],
+  "tempo_bpm": 125,
+  "studio_context": "Good Earth, London, December 1982, produced by Ian Little; for the final mix at RAK his drums were replaced with samples triggered from his playing through AMS delay units.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-taylor-duran-duran",
+      "name": "Roger Taylor",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The band's first UK number one: the kick on the \"and\" of 2, a chorus bar without the hat, and the snare on every beat to the fade.",
+      "pattern_ids": ["pattern:rtaylor-istsisk-verse"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:is-there-something-i-should-know-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:is-there-something-i-should-know-wikipedia"]
+  }
+}

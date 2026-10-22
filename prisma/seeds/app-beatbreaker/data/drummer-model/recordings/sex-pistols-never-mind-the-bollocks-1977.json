@@ -1,0 +1,66 @@
+{
+  "id": "rec:sex-pistols-never-mind-the-bollocks-1977",
+  "title": "Never Mind the Bollocks, Here's the Sex Pistols",
+  "artist": "Sex Pistols",
+  "release": "Virgin",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:punk"],
+  "personnel": [
+    {
+      "name": "Johnny Rotten",
+      "role": "vocals"
+    },
+    {
+      "name": "Steve Jones",
+      "role": "guitar, bass"
+    },
+    {
+      "name": "Sid Vicious",
+      "role": "bass (Bodies)"
+    },
+    {
+      "name": "Glen Matlock",
+      "role": "bass (Anarchy in the U.K.)"
+    },
+    {
+      "name": "Paul Cook",
+      "role": "drums",
+      "drummer_id": "drummer:paul-cook"
+    }
+  ],
+  "producer": "Chris Thomas and Bill Price",
+  "studio_context": "Wessex Sound Studios, London, March to August 1977, cut as 'just guitar and drums' (Cook), Jones overdubbing the bass; released 28 October 1977.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-cook",
+      "name": "Paul Cook",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Every track: 'the perfectly-judged hats on God Save The Queen... the tribal toms of Pretty Vacant' (MusicRadar); the kick in eighths under E.M.I.'s verses, Holidays in the Sun's ride with the kick off the 1.",
+      "pattern_ids": [
+        "pattern:cook-god-save-the-queen-verse",
+        "pattern:cook-pretty-vacant-floor-tom",
+        "pattern:cook-emi-verse",
+        "pattern:cook-holidays-riff",
+        "pattern:cook-problems-verse"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:never-mind-the-bollocks-wikipedia",
+          "src:paul-cook-musicradar-2015",
+          "src:songsterr-345",
+          "src:songsterr-8706",
+          "src:songsterr-612",
+          "src:songsterr-79644",
+          "src:songsterr-53202"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:never-mind-the-bollocks-wikipedia"]
+  }
+}

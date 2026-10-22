@@ -1,0 +1,55 @@
+{
+  "id": "rec:duran-duran-duran-duran-1981",
+  "title": "Duran Duran",
+  "artist": "Duran Duran",
+  "release": "EMI",
+  "year": 1981,
+  "type": "album",
+  "producer": "Colin Thurston",
+  "style_ids": ["style:new-wave", "style:disco"],
+  "personnel": [
+    {
+      "name": "Simon Le Bon",
+      "role": "vocals"
+    },
+    {
+      "name": "Nick Rhodes",
+      "role": "keyboards, synthesisers"
+    },
+    {
+      "name": "John Taylor",
+      "role": "bass"
+    },
+    {
+      "name": "Andy Taylor",
+      "role": "guitar"
+    }
+  ],
+  "studio_context": "Red Bus, London, December 1980 to early 1981, produced by Colin Thurston; Planet Earth the first single, Girls on Film the third.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-taylor-duran-duran",
+      "name": "Roger Taylor",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The kick on every beat under a new-wave band (Planet Earth), and Girls on Film's syncopated kick with the hat opened on the \"and\" of 3: Chic's floor with a punk band's push.",
+      "pattern_ids": ["pattern:rtaylor-planet-earth", "pattern:rtaylor-girls-on-film-verse"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:planet-earth-duran-song-wikipedia",
+          "src:girls-on-film-wikipedia",
+          "src:roger-taylor-duran-duran-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:planet-earth-duran-song-wikipedia",
+      "src:girls-on-film-wikipedia",
+      "src:roger-taylor-duran-duran-wikipedia"
+    ]
+  }
+}

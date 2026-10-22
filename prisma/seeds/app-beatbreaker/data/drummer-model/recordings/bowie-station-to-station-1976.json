@@ -1,0 +1,58 @@
+{
+  "id": "rec:bowie-station-to-station-1976",
+  "title": "Station to Station",
+  "artist": "David Bowie",
+  "release": "RCA",
+  "year": 1976,
+  "type": "album",
+  "producer": "David Bowie, Harry Maslin",
+  "style_ids": ["style:funk", "style:experimental-rock"],
+  "personnel": [
+    {
+      "name": "David Bowie",
+      "role": "vocals"
+    },
+    {
+      "name": "Carlos Alomar",
+      "role": "guitar"
+    },
+    {
+      "name": "Earl Slick",
+      "role": "guitar"
+    },
+    {
+      "name": "George Murray",
+      "role": "bass"
+    },
+    {
+      "name": "Roy Bittan",
+      "role": "piano"
+    },
+    {
+      "name": "Warren Peace",
+      "role": "backing vocals, percussion"
+    }
+  ],
+  "studio_context": "Cherokee Studios, Los Angeles, late 1975: the first record of the Alomar, Murray and Davis rhythm section.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dennis-davis",
+      "name": "Dennis Davis",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Golden Years' ghosted groove and the title track's ten minutes, from the march to the 'celebratory groove'; the rhythm section Bowie kept for the rest of the decade.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:station-to-station-album-wikipedia",
+          "src:station-to-station-song-wikipedia"
+        ]
+      },
+      "pattern_ids": ["pattern:davis-golden-years"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:station-to-station-album-wikipedia"]
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "id": "rec:bowie-heroes-1977",
+  "title": "\"Heroes\"",
+  "artist": "David Bowie",
+  "release": "RCA",
+  "year": 1977,
+  "type": "album",
+  "producer": "David Bowie, Tony Visconti",
+  "style_ids": ["style:experimental-rock", "style:new-wave"],
+  "personnel": [
+    {
+      "name": "David Bowie",
+      "role": "vocals, keyboards"
+    },
+    {
+      "name": "Brian Eno",
+      "role": "synthesisers"
+    },
+    {
+      "name": "Robert Fripp",
+      "role": "guitar"
+    },
+    {
+      "name": "Carlos Alomar",
+      "role": "guitar"
+    },
+    {
+      "name": "George Murray",
+      "role": "bass"
+    },
+    {
+      "name": "Tony Visconti",
+      "role": "percussion, backing vocals"
+    }
+  ],
+  "studio_context": "Hansa Studio by the Wall, West Berlin, July-August 1977; the backing tracks for side one done in two days.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dennis-davis",
+      "name": "Dennis Davis",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "The title track's 'hypnotic pulse' with Murray, the kick moving under a six-minute crescendo; Visconti buried it in the mix.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:heroes-bowie-album-wikipedia", "src:heroes-bowie-song-wikipedia"]
+      },
+      "pattern_ids": ["pattern:davis-heroes"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:heroes-bowie-album-wikipedia"]
+  }
+}

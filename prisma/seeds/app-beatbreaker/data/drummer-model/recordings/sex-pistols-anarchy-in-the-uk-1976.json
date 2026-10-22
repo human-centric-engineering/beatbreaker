@@ -1,0 +1,52 @@
+{
+  "id": "rec:sex-pistols-anarchy-in-the-uk-1976",
+  "title": "Anarchy in the U.K.",
+  "artist": "Sex Pistols",
+  "release": "EMI",
+  "year": 1976,
+  "type": "studio_track",
+  "style_ids": ["style:punk"],
+  "personnel": [
+    {
+      "name": "Johnny Rotten",
+      "role": "vocals"
+    },
+    {
+      "name": "Steve Jones",
+      "role": "guitar"
+    },
+    {
+      "name": "Glen Matlock",
+      "role": "bass"
+    },
+    {
+      "name": "Paul Cook",
+      "role": "drums",
+      "drummer_id": "drummer:paul-cook"
+    }
+  ],
+  "producer": "Chris Thomas",
+  "studio_context": "Wessex Sound Studios, London, 17 October 1976; the debut single, released 26 November 1976, the only Sex Pistols record on EMI.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-cook",
+      "name": "Paul Cook",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "'The crash-laden Anarchy in the UK' (MusicRadar): the chorus on the ride with a crash on every 1, snare runs to the end of every other bar.",
+      "pattern_ids": ["pattern:cook-anarchy-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:anarchy-in-the-uk-wikipedia",
+          "src:paul-cook-musicradar-2015",
+          "src:songsterr-8702"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:anarchy-in-the-uk-wikipedia"]
+  }
+}

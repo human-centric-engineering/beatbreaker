@@ -1,0 +1,53 @@
+{
+  "id": "rec:bowie-ziggy-stardust-1972",
+  "title": "The Rise and Fall of Ziggy Stardust and the Spiders from Mars",
+  "artist": "David Bowie",
+  "release": "RCA",
+  "year": 1972,
+  "type": "album",
+  "producer": "Ken Scott",
+  "style_ids": ["style:glam-rock", "style:rock"],
+  "personnel": [
+    {
+      "name": "David Bowie",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Mick Ronson",
+      "role": "guitar, piano, arrangements"
+    },
+    {
+      "name": "Trevor Bolder",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Trident, London, November 1971 to February 1972, co-produced by Ken Scott and Bowie; Starman and Suffragette City cut on 4 February 1972.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:woody-woodmansey",
+      "name": "Woody Woodmansey",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The record he is known for: Five Years' opening beat, Ziggy Stardust's rolls in odd places after King Crimson, Moonage Daydream's threes across the bar line, Suffragette City's one beat that 'doesn't let up'.",
+      "pattern_ids": [
+        "pattern:woodmansey-eighths-and-the-ands",
+        "pattern:woodmansey-ziggy-chorus",
+        "pattern:woodmansey-moonage-threes"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:ziggy-stardust-song-wikipedia",
+          "src:suffragette-city-wikipedia",
+          "src:moonage-daydream-wikipedia",
+          "src:starman-bowie-song-wikipedia",
+          "src:woodmansey-quietus-bakers-dozen-2017"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ziggy-stardust-song-wikipedia", "src:starman-bowie-song-wikipedia"]
+  }
+}

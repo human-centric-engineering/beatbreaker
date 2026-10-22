@@ -2791,6 +2791,383 @@ const SANTA_DAVIS: Persona = {
   kit: { shell: '#b8331f', finish: 'gloss', hardware: 'chrome', rug: '#2a2420' },
 };
 
+/**
+ * Alan White with Oasis at Knebworth, 10 August 1996, the first of the two
+ * nights (the band's own film of Don't Look Back in Anger, at 1:02 and 2:09):
+ * twenty-four, his dark hair cropped close all over, clean-shaven; a navy
+ * short-sleeved polo shirt (drawn as a T-shirt: there is no polo collar here).
+ * The kit's shells white under the stage light, chrome hardware, the big
+ * cymbals he said he needed to cut through, no headphones. His legs and feet
+ * are never in shot: dark jeans and trainers are a guess.
+ */
+const ALAN_WHITE_OASIS: Persona = {
+  id: 'alanwhite',
+  name: 'Alan White',
+  figure: 'male',
+  build: 'average',
+  skin: '#e6b896',
+  hair: '#2a1f18',
+  // cropped close all over: 'crop' is a bowl with a fringe, which his was not
+  hairStyle: 'rounded',
+  beard: 'none',
+  top: 'tee',
+  shirt: '#1f2a52',
+  trousers: '#2a3140',
+  shoes: '#1a1a1a',
+  footwear: 'trainers',
+  accent: '#c8c8c8',
+  headphones: false,
+  kit: { shell: '#e8e6e0', finish: 'gloss', hardware: 'chrome', rug: '#2a2420' },
+};
+
+/**
+ * Woody Woodmansey with the Spiders from Mars on Top of the Pops, recorded 5
+ * July 1972 and broadcast on BBC One the next night, miming to Starman (the
+ * BBC's official upload, YouTube oOKWF3IHu0I, 0:34–0:50): twenty-two, solid
+ * through the shoulders, a fair, pink-cheeked face, clean-shaven; light brown
+ * hair in a feathered shag over the ears to the collar, long sideburns, not yet
+ * peroxided. A rose-pink satin jumpsuit, long in the sleeve, buttoned up the
+ * front. His legs and feet are never in shot: the jumpsuit is drawn to the
+ * ankle and the boots are a guess. The bass drum in a grey marbled pearl
+ * wrap, chrome, brass cymbals. No headphones.
+ */
+const WOODMANSEY: Persona = {
+  id: 'woodmansey',
+  name: 'Woody Woodmansey',
+  figure: 'male',
+  build: 'average',
+  skin: '#ecc3a4',
+  hair: '#8a6440',
+  // full on top, feathered over the ears and down to the collar (the model's shag spikes on top)
+  hairStyle: 'shaggy',
+  beard: 'none',
+  // the band's one-piece suit, in satin (buttoned on the night; the model's has a zip)
+  top: 'coveralls',
+  satin: true,
+  shirt: '#cf929e',
+  trousers: '#cf929e',
+  shoes: '#2a2224',
+  footwear: 'boots',
+  accent: '#cf929e',
+  headphones: false,
+  kit: { shell: '#b4b6bc', finish: 'oyster', hardware: 'chrome', rug: '#1c1a1e' },
+};
+
+/**
+ * Dennis Davis on Bowie's Isolar II tour, Earls Court, London, 1 July 1978,
+ * as David Hemmings's film of the shows has him (seen in a 1978 Blackout
+ * compilation dedicated to him, YouTube yuqgcg1pGZM, about 0:50 and 2:30):
+ * in his late twenties, short natural hair close to the head, a short full beard,
+ * metal-framed glasses with a light tint, a plain white T-shirt. The kit behind its
+ * cymbals reads as dark shells with chrome hardware and a white front head on
+ * the bass drum; the toms' colour is a guess under blue stage light, and so
+ * are the dark trousers and shoes, never in shot. No headphones.
+ */
+const DENNIS_DAVIS: Persona = {
+  id: 'dennisdavis',
+  name: 'Dennis Davis',
+  figure: 'male',
+  build: 'average',
+  skin: '#4e3021',
+  hair: '#141010',
+  // short and natural, close at the sides
+  hairStyle: 'rounded',
+  hairTexture: 'coily',
+  beard: 'short',
+  // thin metal frames, the lenses lightly tinted
+  glasses: { shape: 'aviator', frame: '#b8a888', tint: '#5a4a32' },
+  top: 'tee',
+  shirt: '#ece9e2',
+  trousers: '#24242a',
+  shoes: '#18161a',
+  footwear: 'shoes',
+  accent: '#ece9e2',
+  headphones: false,
+  kit: { shell: '#16161a', finish: 'gloss', hardware: 'chrome', rug: '#2a2624' },
+};
+
+/**
+ * Mike Joyce in the Smiths' publicity photographs for The Smiths (Sire, 1984;
+ * both in the public domain on Wikimedia Commons, "The Smiths (1984 Sire
+ * publicity photo)" 001 and 002): twenty, slim, clean-shaven, his dark-brown
+ * hair short at the back and sides and full on top, falling forward over the
+ * brow; a dark knitted jumper in one, a black roll-neck in the other, drawn as
+ * a dark knit top. The photographs stop at the chest: dark trousers and shoes
+ * are a guess. On stage at Rockpalast (Hamburg, 1984) the lights are too dark to
+ * read his kit. The red sparkle shells follow the Songsterr transcriber's note of
+ * a Red Sparkle Ludwig for This Charming Man (1983), and the red kit he says he
+ * wanted after seeing John Maher's (Far Out, 2022): a guess, not a photograph.
+ * No headphones.
+ */
+const MIKE_JOYCE: Persona = {
+  id: 'mikejoyce',
+  name: 'Mike Joyce',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e9c2a6',
+  hair: '#1e1612',
+  // short back and sides, full on top and falling over the brow
+  hairStyle: 'tousled',
+  beard: 'none',
+  // the dark jumper, a fitted knit with long sleeves
+  top: 'scoop',
+  shirt: '#26262a',
+  trousers: '#1c1c22',
+  shoes: '#141416',
+  footwear: 'shoes',
+  accent: '#26262a',
+  headphones: false,
+  kit: { shell: '#b3202a', finish: 'sparkle', hardware: 'chrome', rug: '#2a2624' },
+};
+
+/**
+ * Rick Buckler with the Jam on Top of the Pops, broadcast 27 March 1980, the
+ * week Going Underground went in at number one (the band's own upload,
+ * YouTube 45uSLVE837s, the kit at 2:00–2:20): twenty-four, slim, mid-brown
+ * hair in a mod's cut, its fringe over the brow and over the tops of the ears,
+ * clean-shaven; a dark navy shirt buttoned to the neck. A five-piece kit with
+ * chrome-wrapped shells and chrome stands, one tom on the bass drum and a floor
+ * tom, under the studio's pink and blue light; the white Premier of the Malice
+ * and Funeral Pyre videos (Christie's, lot 284) came later. His legs are behind
+ * the kit throughout: dark trousers and shoes are a guess. No headphones.
+ */
+const RICK_BUCKLER: Persona = {
+  id: 'buckler',
+  name: 'Rick Buckler',
+  figure: 'male',
+  build: 'slim',
+  skin: '#ecc4a8',
+  hair: '#6a4c32',
+  // a mod's cut: the fringe over the brow, over the tops of the ears
+  hairStyle: 'mop',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#1c2238',
+  // buttoned to the neck
+  neckwear: 'tee',
+  trousers: '#1e1e26',
+  shoes: '#1a1614',
+  footwear: 'shoes',
+  accent: '#c8ccd2',
+  headphones: false,
+  kit: { shell: '#c8ccd2', finish: 'metal', hardware: 'chrome', rug: '#1c1a20' },
+};
+
+/**
+ * Dave Rowntree in the video for Song 2, 1997 (the official video, YouTube SSbBvKaM6sk: its
+ * opening shots of him alone at the kit against the flock wallpaper): thirty-
+ * two, his fair hair clipped to a fuzz all over, clean-shaven, a black
+ * short-sleeved T-shirt with a small white print, dark trousers, black boots
+ * on the pedal. A black Pearl kit, chrome hardware, its bass drum's front
+ * head black with the Pearl script; the room's carpet green-grey. The film is
+ * graded green, so the hair and skin are a guess toward his colouring
+ * elsewhere. No headphones.
+ */
+const DAVE_ROWNTREE: Persona = {
+  id: 'rowntree',
+  name: 'Dave Rowntree',
+  figure: 'male',
+  build: 'average',
+  skin: '#e6bfa2',
+  hair: '#7d6247',
+  // clipped to a fuzz all over: 'crop' draws a bowl with a fringe, 'natural' the close cap
+  hairStyle: 'natural',
+  beard: 'none',
+  top: 'tee',
+  shirt: '#1b1b1d',
+  trousers: '#26262c',
+  shoes: '#141414',
+  footwear: 'boots',
+  accent: '#d8d8d8',
+  headphones: false,
+  kit: { shell: '#121214', finish: 'gloss', hardware: 'chrome', rug: '#3a4a44' },
+};
+
+/**
+ * Roger Taylor with Duran Duran at Live Aid, JFK Stadium, Philadelphia, 13 July
+ * 1985, his last show with the band for sixteen years (MTV's broadcast of A View
+ * to a Kill, watched as contact sheets): twenty-five, a black sleeveless vest, his
+ * dark brown hair short and wavy, full on top; clean-shaven; black gloves on both
+ * hands; headphones; blue trousers. A white Tama kit, the maker's name on the bass
+ * drum's front head, chrome hardware, a rack of black Octobans beside the hi-hat.
+ * His shoes are never in shot: dark is a guess.
+ */
+const ROGER_TAYLOR_DURAN: Persona = {
+  id: 'rogertaylorduran',
+  name: 'Roger Taylor (Duran Duran)',
+  figure: 'male',
+  build: 'average',
+  skin: '#e2b393',
+  hair: '#241812',
+  // short and wavy, full on top, off the ears
+  hairStyle: 'tousled',
+  beard: 'none',
+  top: 'vest',
+  shirt: '#141414',
+  trousers: '#2c3e7a',
+  shoes: '#1a1a1a',
+  footwear: 'shoes',
+  accent: '#c8c8c8',
+  gloves: '#151515',
+  headphones: true,
+  kit: { shell: '#ece6d6', finish: 'gloss', hardware: 'chrome', rug: '#2a2a2a' },
+};
+
+/**
+ * Reni at the Empress Ballroom, Blackpool, 12 August 1989 (the film of the gig,
+ * whose She Bangs the Drums became the single's second video): twenty-five,
+ * slim and clean-shaven, singing into a boom mic over the kit, in a mustard
+ * short-sleeved T-shirt with a dark ringed neck, and the white bucket hat he
+ * wore all night, pulled low, the short brown Madchester cut under it.
+ * His legs and the kit's colour are never clear in the footage: dark trousers
+ * are a guess, and the shells, which John Squire painted Pollock-fashion
+ * (Wikipedia), are drawn a plain off-white. His kit had one rack tom; the stage
+ * draws its own.
+ */
+const RENI: Persona = {
+  id: 'reni',
+  name: 'Reni',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e8bfa0',
+  hair: '#5a3e2a',
+  // short, brown, under the hat
+  hairStyle: 'crop',
+  beard: 'none',
+  hat: 'bucket',
+  // a mustard T-shirt
+  top: 'tee',
+  shirt: '#d4a62a',
+  trousers: '#2a2d3a',
+  shoes: '#1c1c1e',
+  // the hat
+  accent: '#e6e4dc',
+  headphones: false,
+  kit: { shell: '#d8d0bc', finish: 'gloss', hardware: 'chrome', rug: '#2a2622' },
+};
+
+/**
+ * Kenney Jones with the Small Faces on Beat-Club (Radio Bremen), miming Tin
+ * Soldier at the turn of 1968 (Beat-Club's own upload, YouTube _w4uxZj1Q50,
+ * the kit at 1:28–1:44): nineteen, slim, dark hair in a mop that covers the
+ * ears and falls in a fringe to the brows, clean-shaven; a pale shirt with
+ * long pointed collars, open at the neck. The film is black and white, so the
+ * colours are guesses: the hair dark brown, the shirt a pale blue. The shells
+ * catch the light like his silver glitter Ludwig, the kit of the Small Faces'
+ * first television (his own site's list of kits). His legs are behind the
+ * kit: dark trousers and shoes are a guess. No headphones.
+ */
+const KENNEY_JONES: Persona = {
+  id: 'kenneyjones',
+  name: 'Kenney Jones',
+  figure: 'male',
+  build: 'slim',
+  skin: '#ecc6aa',
+  hair: '#3a2a20',
+  // the mop over the ears, the fringe to the brows
+  hairStyle: 'mop',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#b9c6d6',
+  neckwear: 'open',
+  trousers: '#202024',
+  shoes: '#18140f',
+  footwear: 'shoes',
+  accent: '#c8ccd2',
+  headphones: false,
+  kit: { shell: '#c4c8d0', finish: 'sparkle', hardware: 'chrome', rug: '#262228' },
+};
+
+/**
+ * Paul Cook in the Sex Pistols' Pretty Vacant video, filmed at ITN's studio
+ * in Wells Street, London, on 12 July 1977 (the band's upload, YouTube
+ * R6GDdKrQ8EI: at the kit at 0:30–0:42 and 2:45–3:10): twenty-one, fair hair
+ * cut short and ragged, standing up on top and falling over the brow,
+ * clean-shaven; a black sleeveless vest. A black kit with chrome hardware, one
+ * tom on the bass drum and a floor tom, a leopard-print cloth over the snare.
+ * The stage light is red and pink, so the hair's shade is a guess from the
+ * fairest frames. His legs and feet are never in shot: dark trousers and boots
+ * are a guess. No headphones.
+ */
+const PAUL_COOK: Persona = {
+  id: 'paulcook',
+  name: 'Paul Cook',
+  figure: 'male',
+  build: 'average',
+  skin: '#ecc4a8',
+  hair: '#c9a768',
+  // short, ragged, up on top and over the brow
+  hairStyle: 'shaggy',
+  beard: 'none',
+  top: 'vest',
+  shirt: '#141416',
+  trousers: '#1e1e24',
+  shoes: '#1a1614',
+  footwear: 'boots',
+  accent: '#c8c8c8',
+  headphones: false,
+  kit: { shell: '#121214', finish: 'gloss', hardware: 'chrome', rug: '#1c1a20' },
+};
+
+/**
+ * Phil Selway playing Paranoid Android on Later... with Jools Holland, BBC Two,
+ * 1997 (the BBC's footage, YouTube NzPtr_n-m8A, 2:59-3:06, the one shot of him
+ * under white light): thirty, his head shaved, clean-shaven, a plain black
+ * short-sleeved T-shirt, a lean build. The drums are a deep wine red with a
+ * gloss and chrome hardware, the cymbals brass. His legs and feet are never in
+ * shot: dark trousers and shoes are a guess, and so is the eyebrows' mid-brown.
+ * No headphones.
+ */
+const PHIL_SELWAY: Persona = {
+  id: 'selway',
+  name: 'Phil Selway',
+  figure: 'male',
+  build: 'average',
+  skin: '#e6b896',
+  hair: '#7a5a44',
+  hairStyle: 'bald',
+  beard: 'none',
+  top: 'tee',
+  shirt: '#161616',
+  trousers: '#26262a',
+  shoes: '#18181a',
+  footwear: 'shoes',
+  accent: '#c8c8c8',
+  headphones: false,
+  kit: { shell: '#4a1621', finish: 'gloss', hardware: 'chrome', rug: '#3a3a3c' },
+};
+
+/**
+ * Budgie in the Spellbound video, May 1981 (the band's official upload,
+ * TjvvK-Rj0WI, watched as contact sheets at 0:20-0:32 and 1:39-1:53): twenty-three,
+ * slim and clean-shaven, his hair bleached platinum, full on top with a fringe
+ * and falling straight over the ears to the collar; a long-sleeved shirt in
+ * black and white vertical stripes, buttoned. The stripes cannot be drawn yet, so
+ * the shirt is its white. A pale silver kit with chrome hardware and a
+ * tambourine on a stand over the toms. His legs and feet are never in shot: dark
+ * trousers and boots are a guess.
+ */
+const BUDGIE: Persona = {
+  id: 'budgie',
+  name: 'Budgie',
+  figure: 'male',
+  build: 'slim',
+  skin: '#eccab0',
+  hair: '#efe4c4',
+  /* a fringe, straight to the collar: 'bob', of those rendered; 'mullet' runs past the
+     shoulders, 'shaggy' and 'shag' draw curls and spikes */
+  hairStyle: 'bob',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#ecebe6',
+  trousers: '#1c1c1e',
+  shoes: '#141414',
+  footwear: 'boots',
+  accent: '#c8c8c8',
+  headphones: false,
+  kit: { shell: '#cfc8b4', finish: 'metal', hardware: 'chrome', rug: '#26231f' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -2878,6 +3255,18 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   gadson: GADSON,
   mikeclark: MIKE_CLARK,
   santadavis: SANTA_DAVIS,
+  alanwhite: ALAN_WHITE_OASIS,
+  woodmansey: WOODMANSEY,
+  dennisdavis: DENNIS_DAVIS,
+  mikejoyce: MIKE_JOYCE,
+  buckler: RICK_BUCKLER,
+  rowntree: DAVE_ROWNTREE,
+  rogertaylorduran: ROGER_TAYLOR_DURAN,
+  reni: RENI,
+  kenneyjones: KENNEY_JONES,
+  paulcook: PAUL_COOK,
+  selway: PHIL_SELWAY,
+  budgie: BUDGIE,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

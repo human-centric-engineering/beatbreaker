@@ -1,0 +1,856 @@
+{
+  "meta": {
+    "id": "drummer:paul-cook",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.35,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His kit in 1976-77: the make and sizes were not found in any source read. The Pretty Vacant video shows a black kit, one tom, a floor tom and chrome hardware.",
+      "Bodies' intro: the floor tom and kick at 127 before the song's 158 - a tempo change on the record, or a separate edit?",
+      "Who cites him: no drummer naming Cook as an influence was found in what was read; look in Modern Drummer, Rhythm and punk histories (Jon Savage's England's Dreaming, Clinton Heylin's Never Mind the Bollocks).",
+      "Read Steve Jones's Lonely Boy (2016) and Lydon's books for accounts of the drum sessions."
+    ]
+  },
+  "identity": {
+    "name": "Paul Cook",
+    "full_name": "Paul Thomas Cook",
+    "born": {
+      "date": "1956-07-20",
+      "place": "London, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paul-cook-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": [
+      "Shepherd's Bush and Hammersmith, London (1972-1975)",
+      "London punk (1976-1978)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1972
+    },
+    "roles": ["band_member", "touring", "session", "producer"],
+    "summary": "The Sex Pistols' drummer, from the Strand he formed with his schoolfriend Steve Jones in 1972-73 to the band's end in January 1978, and in every reunion since 1996. 'Quite late starters', he learned as the band took off, on Faces, Roxy Music, Free and Motown records: Kenney Jones, Paul Thompson, Simon Kirke, Al Jackson Jr. and Mitch Mitchell. Never Mind the Bollocks was cut with 'just guitar and drums': plain, hard 4/4, 'accenting everything that Steve was playing', the hat in quarters or eighths, the kick pushing the 'and's or in eighths, crashes on the 1 and short snare runs into the chorus. Later the Professionals, Bananarama's first album as producer, Chiefs of Relief, Edwyn Collins's band, Man-Raze."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "British rock and glam",
+        "impact": "Kenney Jones of the Faces, Paul Thompson of Roxy Music, Simon Kirke of Free: 'I listened to all of those drummers.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:paul-cook-wikipedia",
+            "src:paul-cook-ink19-2011",
+            "src:paul-cook-musicradar-2015"
+          ]
+        }
+      },
+      {
+        "tradition": "Motown and soul",
+        "impact": "'Motown drummers... with all those little rolls'; Al Jackson Jr. 'a brilliant drummer'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:paul-cook-musicradar-2015", "src:paul-cook-ink19-2011"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1972,
+        "event": "The Strand formed with Steve Jones and Wally Nightingale, Christopher Wren School friends; it became the Sex Pistols.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:paul-cook-wikipedia"]
+        }
+      },
+      {
+        "year": 1976,
+        "event": "Chris Spedding, producing the first demos, told them to 'keep it simple and play 4/4 because that was the power of the band'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:paul-cook-musicradar-2015"]
+        }
+      },
+      {
+        "year": 1977,
+        "event": "Never Mind the Bollocks recorded at Wessex with 'just guitar and drums'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:paul-cook-musicradar-2015", "src:never-mind-the-bollocks-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:cook-pistols",
+      "label": "The Sex Pistols",
+      "years": {
+        "from": 1975,
+        "to": 1978
+      },
+      "context": "Four singles and one album: Anarchy in the U.K. on EMI, then God Save the Queen, Pretty Vacant and Holidays in the Sun on Virgin.",
+      "defining_traits": [
+        "the hat half open in quarters",
+        "the kick in eighths",
+        "crashes on the 1",
+        "short snare runs"
+      ],
+      "key_recording_ids": [
+        "rec:sex-pistols-anarchy-in-the-uk-1976",
+        "rec:sex-pistols-never-mind-the-bollocks-1977"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:punk",
+        "name": "Punk",
+        "weight": 1.0,
+        "authority": 0.9,
+        "notes": "The Sex Pistols' drummer."
+      },
+      {
+        "style_id": "style:rock",
+        "name": "Rock",
+        "weight": 0.5,
+        "authority": 0.5,
+        "notes": "Edwyn Collins, Man-Raze, the Professionals."
+      }
+    ],
+    "versatility": 0.4,
+    "groove_vs_chops": 0.2,
+    "role_tendency": "driver",
+    "descriptors": ["powerful", "simple", "driving", "tribal"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:paul-cook-ink19-2011"],
+        "note": "'Very tribal... that's where the power comes from'; not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight: every tab read is even eighths."
+    },
+    "dynamics": {
+      "range": 0.4,
+      "default_level": "ff",
+      "ghost_note_level": 1,
+      "accent_level": 120,
+      "balance": "Crashes and the snare on top; no ghost notes in any tab."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 16],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.25
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [130, 166],
+    "timekeeping_context": ["free"],
+    "interaction": "'I was just accenting everything that Steve was playing': the crashes and the kick on Jones's chords (the stabs of God Save the Queen and Problems).",
+    "descriptors": ["powerful", "driving", "tight with the guitar"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Snare runs into the chorus",
+        "description": "Sixteenths on the snare from the \"and\" of 2 or 3 into the next line, often ending on the toms (Anarchy in the U.K., God Save the Queen, Pretty Vacant).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8702", "src:songsterr-345", "src:songsterr-8706"]
+        }
+      },
+      {
+        "name": "Crashes with the guitar",
+        "description": "Crashes on every beat, or on the guitar's stabs, over the kick in eighths.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-345",
+            "src:songsterr-612",
+            "src:songsterr-79644",
+            "src:paul-cook-musicradar-2015"
+          ]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick in eighths",
+        "description": "The kick in straight eighths under the snare's backbeat, the hat foot keeping the beat (E.M.I.'s verses).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-79644"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single-stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8702", "src:songsterr-345"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.3,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.0,
+      "foot_ostinato_usage": 0.3,
+      "double_bass": 0.0,
+      "notes": "Hands and feet together on plain 4/4: 'keep it simple and play 4/4'.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Songsterr 8702 (Anarchy in the U.K.), 345 (God Save the Queen), 8706 (Pretty Vacant), 612 (Holidays in the Sun), 8703 and 1629558 (Bodies), 1706231 and 8705 (No Feelings), 79644 (E.M.I.), 53202 (Problems), every bar of each",
+          "Ink 19 (2011) and MusicRadar (2015) on his playing"
+        ],
+        "note": "No device found: every tab read is plain 4/4 in even eighths and sixteenths, with no cross-rhythm, hemiola, grouping or displacement. God Save the Queen's dotted stabs follow the guitar's riff; they are not a cross-rhythm."
+      }
+    },
+    "voice_language": {
+      "hihat": "Half open or open in quarters for a verse (God Save the Queen, Bodies), closed in eighths (Anarchy in the U.K., Problems), the foot alone under the kick (E.M.I.).",
+      "snare": "On 2 and 4, with runs of sixteenths into the next line.",
+      "kick": "Pushing the \"and\"s of 1, 2 and 3, on every beat, or in eighths.",
+      "toms": "The floor tom in eighths for an intro (Pretty Vacant, Bodies); the rack tom in Anarchy's intro; runs down the toms.",
+      "cymbals": "A crash on every 1 of a chorus, on every beat for a climax; the ride in quarters for the chorus."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a thick, loud late-1970s British studio kit",
+      "a big snare",
+      "a wash of crashes"
+    ],
+    "cymbal_character": "Not identified.",
+    "sample_hints": {
+      "punk": "A thick rock kit played hard: a fat snare, a full kick and a wash of crash."
+    },
+    "evidence": {
+      "confidence": "inferred",
+      "source_ids": ["src:never-mind-the-bollocks-wikipedia", "src:paul-cook-musicradar-2015"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:cook-crash-laden-chorus",
+      "label": "The crash-laden chorus",
+      "category": "groove",
+      "description": "A crash on every 1 of a chorus over the ride, the kick pushing the \"and\"s.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:cook-anarchy-chorus"],
+      "heard_on": [
+        {
+          "recording_id": "rec:sex-pistols-anarchy-in-the-uk-1976"
+        },
+        {
+          "recording_id": "rec:sex-pistols-never-mind-the-bollocks-1977"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paul-cook-musicradar-2015", "src:songsterr-8702"]
+      }
+    },
+    {
+      "id": "trait:cook-half-open-hat",
+      "label": "The hat on the beat",
+      "category": "groove",
+      "description": "The hat half open or open in quarters under a verse: 'the perfectly-judged hats on God Save The Queen'.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:cook-god-save-the-queen-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:sex-pistols-never-mind-the-bollocks-1977"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paul-cook-musicradar-2015", "src:songsterr-345"]
+      }
+    },
+    {
+      "id": "trait:cook-tribal-toms",
+      "label": "The tribal toms",
+      "category": "groove",
+      "description": "Eighths on the floor tom under the backbeat for an intro: 'the tribal toms of Pretty Vacant'.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "pattern_ids": ["pattern:cook-pretty-vacant-floor-tom"],
+      "heard_on": [
+        {
+          "recording_id": "rec:sex-pistols-never-mind-the-bollocks-1977"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paul-cook-musicradar-2015", "src:songsterr-8706"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:cook-anarchy-chorus",
+        "name": "Anarchy in the U.K.: the chorus",
+        "type": "groove",
+        "function": "A crash on 1, the ride on 2, 3 and 4, the kick on 1, its \"and\", the \"and\" of 2, 3, its \"and\" and the \"and\" of 4.",
+        "style_ids": ["style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8702"],
+          "note": "Songsterr 8702, bars 17, 19, 21, 23 and every chorus."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [128, 140]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "ride": "....x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:sex-pistols-anarchy-in-the-uk-1976",
+          "transcription_source_id": "src:songsterr-8702"
+        },
+        "tags": ["1976", "chorus"]
+      },
+      {
+        "id": "pattern:cook-god-save-the-queen-verse",
+        "name": "God Save the Queen: the verse",
+        "type": "groove",
+        "function": "The hat half open in quarters, the snare on 2 and 4, the kick on 1, its \"and\", the \"and\" of 2, 3 and the \"and\" of 4.",
+        "style_ids": ["style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-345"],
+          "note": "Songsterr 345, bars 10, 12, 35, 37."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 149,
+          "playable_range_bpm": [140, 152]
+        },
+        "lanes": {
+          "hihat": "h...h...h...h...",
+          "snare": "....x.......x...",
+          "kick": "x.x...x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:sex-pistols-never-mind-the-bollocks-1977",
+          "transcription_source_id": "src:songsterr-345"
+        },
+        "tags": ["1977", "verse"]
+      },
+      {
+        "id": "pattern:cook-pretty-vacant-floor-tom",
+        "name": "Pretty Vacant: the floor tom",
+        "type": "groove",
+        "function": "Eighths on the floor tom, the snare on 2 and 4, the kick on 1, its \"and\", the \"and\" of 2, 3, its \"and\" and the \"and\" of 4 (the intro).",
+        "style_ids": ["style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8706"],
+          "note": "Songsterr 8706, bars 9, 11, 13, 15."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 146,
+          "playable_range_bpm": [138, 150]
+        },
+        "lanes": {
+          "floor_tom_1": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:sex-pistols-never-mind-the-bollocks-1977",
+          "transcription_source_id": "src:songsterr-8706"
+        },
+        "tags": ["1977", "intro", "floor tom"]
+      },
+      {
+        "id": "pattern:cook-holidays-riff",
+        "name": "Holidays in the Sun: the riff",
+        "type": "groove",
+        "function": "The ride in quarters, a crash on the \"and\" of 4, the kick on the \"and\" of 1, 3, its \"and\" and the \"and\" of 4.",
+        "style_ids": ["style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-612"],
+          "note": "Songsterr 612, bars 9, 11, 13, 14 and every riff."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 150,
+          "playable_range_bpm": [140, 150]
+        },
+        "lanes": {
+          "crash_1": "..............x.",
+          "ride": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "..x.....x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:sex-pistols-never-mind-the-bollocks-1977",
+          "transcription_source_id": "src:songsterr-612"
+        },
+        "tags": ["1977", "riff"]
+      },
+      {
+        "id": "pattern:cook-emi-verse",
+        "name": "E.M.I.: the verse",
+        "type": "groove",
+        "function": "The kick in eighths, the hat foot on the beat, the snare on 2 and 4.",
+        "style_ids": ["style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-79644"],
+          "note": "Songsterr 79644, 28 of 113 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 148,
+          "playable_range_bpm": [138, 150]
+        },
+        "lanes": {
+          "hihat_pedal": "k...k...k...k...",
+          "snare": "....x.......x...",
+          "kick": "x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:sex-pistols-never-mind-the-bollocks-1977",
+          "transcription_source_id": "src:songsterr-79644"
+        },
+        "tags": ["1977", "verse"]
+      },
+      {
+        "id": "pattern:cook-problems-verse",
+        "name": "Problems: the verse",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the kick on every beat and the \"and\" of 3.",
+        "style_ids": ["style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-53202"],
+          "note": "Songsterr 53202, 66 of 162 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 154,
+          "playable_range_bpm": [145, 158]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x.x.x..."
+        },
+        "source": {
+          "recording_id": "rec:sex-pistols-never-mind-the-bollocks-1977",
+          "transcription_source_id": "src:songsterr-53202"
+        },
+        "tags": ["1977", "verse"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:cook-1977",
+      "label": "Black four-piece (1977)",
+      "years": {
+        "from": 1977,
+        "to": 1977
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "crash_1"
+        },
+        {
+          "instrument": "ride"
+        }
+      ],
+      "layout_notes": "In the Pretty Vacant video (ITN, July 1977): black shells, chrome hardware, one tom on the bass drum, a floor tom, a leopard-print cloth over the snare. Make not identified.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sex-pistols-pretty-vacant-video-1977"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Sex Pistols",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1978
+      },
+      "bandmates": [
+        {
+          "name": "John Lydon"
+        },
+        {
+          "name": "Steve Jones"
+        },
+        {
+          "name": "Glen Matlock"
+        },
+        {
+          "name": "Sid Vicious"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paul-cook-wikipedia", "src:sex-pistols-wikipedia"]
+      }
+    },
+    {
+      "name": "The Professionals",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1982
+      },
+      "bandmates": [
+        {
+          "name": "Steve Jones"
+        },
+        {
+          "name": "Paul Myers"
+        },
+        {
+          "name": "Ray McVeigh"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paul-cook-wikipedia"]
+      }
+    },
+    {
+      "name": "Man-Raze",
+      "type": "band_member",
+      "years": {
+        "from": 2004,
+        "to": 2011
+      },
+      "bandmates": [
+        {
+          "name": "Phil Collen"
+        },
+        {
+          "name": "Simon Laffy"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paul-cook-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:sex-pistols-anarchy-in-the-uk-1976",
+    "rec:sex-pistols-never-mind-the-bollocks-1977"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Kenney Jones",
+        "kind": "drummer",
+        "id": "drummer:kenney-jones"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paul-cook-wikipedia", "src:paul-cook-ink19-2011"],
+        "note": "He liked Kenney Jones of the Faces (Ink 19)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Paul Thompson",
+        "kind": "drummer",
+        "id": "drummer:paul-thompson"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:paul-cook-wikipedia",
+          "src:paul-cook-ink19-2011",
+          "src:paul-cook-musicradar-2015"
+        ],
+        "note": "'I listened to all of those drummers, Paul Thompson, Simon Kirke from Free.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Simon Kirke",
+        "kind": "drummer",
+        "id": "drummer:simon-kirke"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paul-cook-musicradar-2015"],
+        "note": "As for Paul Thompson."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Al Jackson Jr.",
+        "kind": "drummer",
+        "id": "drummer:al-jackson-jr"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:paul-cook-wikipedia",
+          "src:paul-cook-ink19-2011",
+          "src:paul-cook-musicradar-2015"
+        ],
+        "note": "'Al Jackson I really liked as well, I thought he was a brilliant drummer.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paul-cook-wikipedia", "src:paul-cook-ink19-2011"],
+        "note": "He 'loved Mitch Mitchell' (Ink 19)."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Steve Jones",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1972,
+        "to": 2008
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paul-cook-wikipedia", "src:paul-cook-musicradar-2015"],
+        "note": "'We were a two-piece band' in the studio."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Glen Matlock",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1975,
+        "to": 1977
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sex-pistols-wikipedia", "src:anarchy-in-the-uk-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "John Lydon",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1975,
+        "to": 2008
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sex-pistols-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Keep it simple and play 4/4: that is the power of the band (Chris Spedding's advice).",
+        "paraphrase_of_source_id": "src:paul-cook-musicradar-2015"
+      },
+      {
+        "idea": "Lock to the guitar: accent what the guitarist plays.",
+        "paraphrase_of_source_id": "src:paul-cook-musicradar-2015"
+      },
+      {
+        "idea": "Playing different styles improves you as a drummer.",
+        "paraphrase_of_source_id": "src:paul-cook-ink19-2011"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.55,
+    "innovations": [
+      "Punk's plain, hard 4/4 at the head of the British wave: the drums of Never Mind the Bollocks"
+    ],
+    "accolades": [],
+    "common_misconceptions": [
+      "That punk drumming was careless: Jones said he and Cook 'weren't just having a laugh' and were 'really dedicated in the studio' (Wikipedia)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "paulcook",
+    "headline_pattern_ids": [
+      "pattern:cook-god-save-the-queen-verse",
+      "pattern:cook-anarchy-chorus",
+      "pattern:cook-pretty-vacant-floor-tom"
+    ],
+    "default_kit_sound": "A thick rock kit played hard under a wash of crash (Big Rusty)",
+    "generation_rules": [
+      "Plain 4/4: the snare on 2 and 4, the kick pushing the \"and\"s or in eighths.",
+      "The hat in quarters, half open, for a verse; eighths for a pre-chorus; the ride for the chorus.",
+      "A crash on every 1 of a chorus; crashes on every beat to climb.",
+      "Short snare runs into the next line.",
+      "Straight, no ghost notes."
+    ],
+    "avoid": ["Ghost notes", "Swing", "Double bass", "Long tom solos"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:kenney-jones",
+        "drummer:paul-thompson",
+        "drummer:al-jackson-jr"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Learned on Faces, Roxy Music and Motown records - Kenney Jones, Paul Thompson, Al Jackson Jr. - and drove the Sex Pistols with plain, hard 4/4."
+    },
+    "tags": ["punk", "british", "70s"]
+  }
+}

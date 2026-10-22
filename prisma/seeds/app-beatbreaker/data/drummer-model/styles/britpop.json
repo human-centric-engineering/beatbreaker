@@ -1,0 +1,42 @@
+{
+  "id": "style:britpop",
+  "name": "Britpop",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:indie-rock",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:rock",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:merseybeat",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1993,
+    "to": 1998
+  },
+  "region": "Britain",
+  "drum_characteristics": {
+    "hallmarks": [
+      "sixties British rock's straight eighths and open hats",
+      "big crashes and a crash ridden in eighths for the chorus",
+      "tom runs in sixteenths into the chorus",
+      "a busy, off-beat snare under strummed guitars (Oasis)"
+    ]
+  },
+  "key_drummer_ids": ["drummer:alan-white-oasis", "drummer:dave-rowntree"]
+}

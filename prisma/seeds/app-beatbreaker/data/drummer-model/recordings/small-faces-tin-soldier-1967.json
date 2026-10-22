@@ -1,0 +1,54 @@
+{
+  "id": "rec:small-faces-tin-soldier-1967",
+  "title": "Tin Soldier",
+  "artist": "Small Faces",
+  "release": "Immediate",
+  "year": 1967,
+  "type": "studio_track",
+  "style_ids": ["style:rock", "style:psychedelic-rock"],
+  "personnel": [
+    {
+      "name": "Steve Marriott",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Ronnie Lane",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Ian McLagan",
+      "role": "keyboards"
+    },
+    {
+      "name": "Kenney Jones",
+      "role": "drums",
+      "drummer_id": "drummer:kenney-jones"
+    },
+    {
+      "name": "P. P. Arnold",
+      "role": "backing vocals"
+    }
+  ],
+  "studio_context": "Single, December 1967, number 9.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenney-jones",
+      "name": "Kenney Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The cross-stick intro, the verse in eighths, the chorus with the snare on every beat, crashes on every beat for the climax; Phil Rudd's first inspiration.",
+      "pattern_ids": [
+        "pattern:kenney-jones-tin-soldier-verse",
+        "pattern:kenney-jones-tin-soldier-chorus"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:small-faces-wikipedia", "src:songsterr-247832"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:small-faces-wikipedia"]
+  }
+}

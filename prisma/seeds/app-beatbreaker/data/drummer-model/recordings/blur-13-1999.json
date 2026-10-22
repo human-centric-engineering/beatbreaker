@@ -1,0 +1,51 @@
+{
+  "id": "rec:blur-13-1999",
+  "title": "13",
+  "artist": "Blur",
+  "release": "Food",
+  "year": 1999,
+  "type": "album",
+  "style_ids": ["style:alternative-rock"],
+  "personnel": [
+    {
+      "name": "Damon Albarn",
+      "role": "vocals, keyboards"
+    },
+    {
+      "name": "Graham Coxon",
+      "role": "guitars, backing vocals"
+    },
+    {
+      "name": "Alex James",
+      "role": "bass"
+    },
+    {
+      "name": "Dave Rowntree",
+      "role": "drums, percussion"
+    },
+    {
+      "name": "William Orbit",
+      "role": "producer"
+    }
+  ],
+  "studio_context": "London and Reykjavik, June-October 1998, with William Orbit producing; loops among the kit.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-rowntree",
+      "name": "Dave Rowntree",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Coffee & TV, one bar held all song under Coxon's voice, the kick on 1, its 'and', 3 and its 'and'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blur-13-album-wikipedia", "src:songsterr-27192"],
+        "note": "Jason Cox plays additional drums on Battle."
+      },
+      "pattern_ids": ["pattern:rowntree-coffee-and-tv-beetlebum"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:blur-13-album-wikipedia"]
+  }
+}

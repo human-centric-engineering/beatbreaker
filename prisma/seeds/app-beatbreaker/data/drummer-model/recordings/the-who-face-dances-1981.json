@@ -1,0 +1,56 @@
+{
+  "id": "rec:the-who-face-dances-1981",
+  "title": "Face Dances",
+  "artist": "The Who",
+  "release": "Polydor / Warner Bros.",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:rock", "style:new-wave"],
+  "producer": "Bill Szymczyk",
+  "personnel": [
+    {
+      "name": "Roger Daltrey",
+      "role": "vocals"
+    },
+    {
+      "name": "Pete Townshend",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "John Entwistle",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "John \"Rabbit\" Bundrick",
+      "role": "keyboards"
+    },
+    {
+      "name": "Kenney Jones",
+      "role": "drums",
+      "drummer_id": "drummer:kenney-jones"
+    }
+  ],
+  "studio_context": "The Who's first album after Keith Moon's death; You Better You Bet its single.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenney-jones",
+      "name": "Kenney Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "You Better You Bet: the snare on 2 and the floor tom on 4, the chorus in half time; 'Changing the backbeat between the snare and the tom was just my handle on it.'",
+      "pattern_ids": ["pattern:kenney-jones-you-better-you-bet-intro"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:kenney-jones-wikipedia",
+          "src:kenney-jones-modern-drummer-2011",
+          "src:songsterr-255588"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:kenney-jones-wikipedia"]
+  }
+}

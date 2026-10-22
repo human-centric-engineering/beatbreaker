@@ -1,0 +1,50 @@
+{
+  "id": "rec:siouxsie-and-the-banshees-israel-1980",
+  "title": "Israel",
+  "artist": "Siouxsie and the Banshees",
+  "release": "Polydor",
+  "year": 1980,
+  "type": "studio_track",
+  "style_ids": ["style:new-wave"],
+  "personnel": [
+    {
+      "name": "Siouxsie Sioux",
+      "role": "vocals"
+    },
+    {
+      "name": "Steven Severin",
+      "role": "bass"
+    },
+    {
+      "name": "John McGeoch",
+      "role": "guitars"
+    },
+    {
+      "name": "Budgie",
+      "role": "drums, percussion"
+    },
+    {
+      "name": "Nigel Gray",
+      "role": "co-producer"
+    }
+  ],
+  "studio_context": "A stand-alone Christmas single, written on the road; Nigel Gray co-producing, a Welsh choir.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:budgie",
+      "name": "Budgie",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.6,
+      "why_it_matters": "No bass drum at all: the mid tom on 1 and the snare on 2, 3 and 4.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:israel-siouxsie-wikipedia", "src:songsterr-17648"]
+      },
+      "pattern_ids": ["pattern:budgie-israel"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:israel-siouxsie-wikipedia"]
+  }
+}

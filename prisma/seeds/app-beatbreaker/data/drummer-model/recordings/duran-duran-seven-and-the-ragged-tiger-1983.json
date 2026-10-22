@@ -1,0 +1,47 @@
+{
+  "id": "rec:duran-duran-seven-and-the-ragged-tiger-1983",
+  "title": "Seven and the Ragged Tiger",
+  "artist": "Duran Duran",
+  "release": "EMI",
+  "year": 1983,
+  "type": "album",
+  "producer": "Alex Sadkin, Ian Little, Duran Duran",
+  "style_ids": ["style:new-wave", "style:disco"],
+  "personnel": [
+    {
+      "name": "Simon Le Bon",
+      "role": "vocals"
+    },
+    {
+      "name": "Nick Rhodes",
+      "role": "keyboards, synthesisers"
+    },
+    {
+      "name": "John Taylor",
+      "role": "bass"
+    },
+    {
+      "name": "Andy Taylor",
+      "role": "guitar"
+    }
+  ],
+  "studio_context": "Produced by the band with Alex Sadkin and Ian Little; The Reflex remixed for the single (1984) by Nile Rodgers and Jason Corsaro.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-taylor-duran-duran",
+      "name": "Roger Taylor",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The Reflex: the hat in a sixteenth-note gallop with one hand, the kick on the \"a\" of 1 and the \"and\" of 2 in the chorus.",
+      "pattern_ids": ["pattern:rtaylor-reflex-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-reflex-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-reflex-wikipedia"]
+  }
+}

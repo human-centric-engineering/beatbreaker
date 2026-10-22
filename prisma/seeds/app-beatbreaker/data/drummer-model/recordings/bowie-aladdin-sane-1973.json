@@ -1,0 +1,51 @@
+{
+  "id": "rec:bowie-aladdin-sane-1973",
+  "title": "Aladdin Sane",
+  "artist": "David Bowie",
+  "release": "RCA",
+  "year": 1973,
+  "type": "album",
+  "producer": "Ken Scott",
+  "style_ids": ["style:glam-rock", "style:rock"],
+  "personnel": [
+    {
+      "name": "David Bowie",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Mick Ronson",
+      "role": "guitar, piano, arrangements"
+    },
+    {
+      "name": "Trevor Bolder",
+      "role": "bass"
+    },
+    {
+      "name": "Mike Garson",
+      "role": "piano"
+    }
+  ],
+  "studio_context": "RCA Studios, New York (The Jean Genie, 6 October 1972) and Trident, London (December 1972 to January 1973), between legs of the Ziggy Stardust tour; the last album with the full Spiders.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:woody-woodmansey",
+      "name": "Woody Woodmansey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The Jean Genie, a first take: the hat on the beat under the riff, crashes on 1 and 4 in the chorus.",
+      "pattern_ids": ["pattern:woodmansey-jean-genie-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:aladdin-sane-wikipedia",
+          "src:the-jean-genie-wikipedia",
+          "src:woodmansey-quietus-bakers-dozen-2017"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:aladdin-sane-wikipedia"]
+  }
+}

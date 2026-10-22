@@ -1,0 +1,52 @@
+{
+  "id": "rec:faces-ooh-la-la-1973",
+  "title": "Ooh La La",
+  "artist": "Faces",
+  "release": "Warner Bros.",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:rock", "style:folk-rock"],
+  "producer": "Glyn Johns",
+  "personnel": [
+    {
+      "name": "Rod Stewart",
+      "role": "vocals"
+    },
+    {
+      "name": "Ronnie Wood",
+      "role": "guitar"
+    },
+    {
+      "name": "Ronnie Lane",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Ian McLagan",
+      "role": "keyboards"
+    },
+    {
+      "name": "Kenney Jones",
+      "role": "drums",
+      "drummer_id": "drummer:kenney-jones"
+    }
+  ],
+  "studio_context": "The last studio album, March 1973, a UK number one; the title track sung by Ronnie Wood.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenney-jones",
+      "name": "Kenney Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.5,
+      "why_it_matters": "The title track: the cross-stick on 2 and 4 and the kick on 1 under acoustic guitars, all the way through.",
+      "pattern_ids": ["pattern:kenney-jones-ooh-la-la"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:faces-band-wikipedia", "src:songsterr-34815"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:faces-band-wikipedia"]
+  }
+}

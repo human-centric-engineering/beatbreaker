@@ -1,0 +1,59 @@
+{
+  "id": "rec:oasis-whats-the-story-morning-glory-1995",
+  "title": "(What's the Story) Morning Glory?",
+  "artist": "Oasis",
+  "release": "Creation",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:britpop", "style:rock"],
+  "personnel": [
+    {
+      "name": "Liam Gallagher",
+      "role": "vocals"
+    },
+    {
+      "name": "Noel Gallagher",
+      "role": "guitars, vocals, producer"
+    },
+    {
+      "name": "Paul \"Bonehead\" Arthurs",
+      "role": "rhythm guitar, piano"
+    },
+    {
+      "name": "Paul \"Guigsy\" McGuigan",
+      "role": "bass"
+    },
+    {
+      "name": "Tony McCarroll",
+      "role": "drums (Some Might Say)"
+    },
+    {
+      "name": "Owen Morris",
+      "role": "producer"
+    }
+  ],
+  "studio_context": "Rockfield Studios, Wales, May-June 1995, a week after he joined; produced by Owen Morris and Noel Gallagher. Some Might Say, cut in February with McCarroll, is the one track he is not on.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alan-white-oasis",
+      "name": "Alan White",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "His first record with the band and its best known: Wonderwall's off-beat snare on hot rods, Don't Look Back in Anger's mid-tom gallop, Morning Glory's straight eighths, Champagne Supernova's crash ridden in eighths.",
+      "pattern_ids": [
+        "pattern:white-wonderwall",
+        "pattern:white-dont-look-back-verse",
+        "pattern:white-morning-glory"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:morning-glory-album-wikipedia", "src:wonderwall-wikipedia"],
+        "note": "White on all but Some Might Say, which is McCarroll's."
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:morning-glory-album-wikipedia"]
+  }
+}

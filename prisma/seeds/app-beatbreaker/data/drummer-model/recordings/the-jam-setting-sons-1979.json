@@ -1,0 +1,48 @@
+{
+  "id": "rec:the-jam-setting-sons-1979",
+  "title": "Setting Sons",
+  "artist": "The Jam",
+  "release": "Polydor",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:mod-revival", "style:new-wave"],
+  "personnel": [
+    {
+      "name": "Paul Weller",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Bruce Foxton",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Rick Buckler",
+      "role": "drums",
+      "drummer_id": "drummer:rick-buckler"
+    }
+  ],
+  "producer": "Vic Coppersmith-Heaven and the Jam",
+  "studio_context": "Townhouse Studios, London, 1979; The Eton Rifles at the third attempt, the studio lined with corrugated iron for the guitar.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:rick-buckler",
+      "name": "Rick Buckler",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "The Eton Rifles: the snare and floor tom in eighths, an eighth-note verse, the \"hello-hurray\" stabs, a ride outro.",
+      "pattern_ids": ["pattern:buckler-eton-rifles-verse"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:setting-sons-wikipedia",
+          "src:the-eton-rifles-wikipedia",
+          "src:songsterr-2599543"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:setting-sons-wikipedia"]
+  }
+}

@@ -523,6 +523,28 @@ describe('a mesh vest, gloves and a tam', () => {
     expect(Math.max(...points(peak).map((p) => p.z))).toBeLessThan(0);
   });
 
+  it('sets a bucket hat on the head, its brim sloping down all round, in the accent colour', () => {
+    const { root } = dressed({ hat: 'bucket', accent: '#e6e4dc', hairStyle: 'crop' });
+    const [crown] = named(root, 'bucket');
+    const [brim] = named(root, 'brim');
+    expect((crown.material as THREE.MeshStandardMaterial).color.getHexString()).toBe('e6e4dc');
+    expect((brim.material as THREE.MeshStandardMaterial).color.getHexString()).toBe('e6e4dc');
+    // the crown covers the top of the skull (0.212 up the head) without rising like a tam
+    const top = Math.max(...points(crown).map((p) => p.y));
+    expect(top).toBeGreaterThan(0.212 + 0.02);
+    expect(top).toBeLessThan(0.212 + 0.08);
+    // the brim slopes down: its outer edge, front and back, sits below where it meets the crown
+    const ps = points(brim);
+    const r = (p: THREE.Vector3) => Math.hypot(p.x, (p.z - brim.position.z) / 1.1);
+    const inner = ps.filter((p) => r(p) < 0.11);
+    const outer = ps.filter((p) => r(p) > 0.14);
+    for (const side of [-1, 1]) {
+      const at = (q: THREE.Vector3[]) => q.filter((p) => Math.sign(p.z - brim.position.z) === side);
+      const low = (q: THREE.Vector3[]) => Math.min(...at(q).map((p) => p.y));
+      expect(low(outer)).toBeLessThan(low(inner) - 0.02);
+    }
+  });
+
   it('sets a tall tam on the head, its band above the brows, in the accent colour', () => {
     const { root } = dressed({ hat: 'tam', accent: '#8e2a2a', hairStyle: 'bald' });
     const [tam] = named(root, 'tam');

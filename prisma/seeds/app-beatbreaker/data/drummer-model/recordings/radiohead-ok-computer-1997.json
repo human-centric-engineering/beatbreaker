@@ -1,0 +1,60 @@
+{
+  "id": "rec:radiohead-ok-computer-1997",
+  "title": "OK Computer",
+  "artist": "Radiohead",
+  "release": "Parlophone",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:alternative-rock", "style:experimental-rock"],
+  "personnel": [
+    {
+      "name": "Thom Yorke",
+      "role": "vocals, guitar, piano"
+    },
+    {
+      "name": "Jonny Greenwood",
+      "role": "guitar, keyboards"
+    },
+    {
+      "name": "Ed O'Brien",
+      "role": "guitar, backing vocals"
+    },
+    {
+      "name": "Colin Greenwood",
+      "role": "bass"
+    },
+    {
+      "name": "Philip Selway",
+      "role": "drums"
+    },
+    {
+      "name": "Nigel Godrich",
+      "role": "producer"
+    }
+  ],
+  "studio_context": "St Catherine's Court, Bath, and elsewhere, 1996-1997, produced by Nigel Godrich and the band; Airbag's beat cut from seconds of his playing.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-selway",
+      "name": "Philip Selway",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Paranoid Android's cross-stick, its 7/8 bars and its slow section; Karma Police; Airbag's drums chopped into a DJ Shadow-like loop.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:ok-computer-wikipedia",
+          "src:paranoid-android-wikipedia",
+          "src:phil-selway-rhythm-2001",
+          "src:songsterr-16501",
+          "src:songsterr-217"
+        ]
+      },
+      "pattern_ids": ["pattern:selway-paranoid-cross-stick"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ok-computer-wikipedia"]
+  }
+}

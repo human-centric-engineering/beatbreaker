@@ -1,0 +1,842 @@
+{
+  "meta": {
+    "id": "drummer:woody-woodmansey",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.3,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His kit in 1970-73: the Top of the Pops footage shows a grey marbled pearl wrap and chrome, but no maker; the Songsterr tabs name a Ludwig Super Classic in silver sparkle, a Hayman Showman and a Premier without a source.",
+      "Which King Crimson drummer he meant ('I loved the drummer'): Michael Giles played on the first album (1969), Andy McCulloch and Ian Wallace after him.",
+      "Five Years' opening beat, which he says he wrote: the only Songsterr tab (407348) is a one-bar 6/8 loop that the record does not bear out; transcribe it.",
+      "His memoir Spider from Mars (2016) for the playing on each record: not read here."
+    ]
+  },
+  "identity": {
+    "name": "Woody Woodmansey",
+    "full_name": "Michael Woodmansey",
+    "born": {
+      "date": "1950-02-04",
+      "place": "Driffield, East Riding of Yorkshire, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:woody-woodmansey-wikipedia"]
+      }
+    },
+    "nationality": ["English"],
+    "home_scenes": [
+      "Hull and East Yorkshire (the Rats, with Mick Ronson)",
+      "David Bowie's band at Haddon Hall, Beckenham (1970)",
+      "The Spiders from Mars (1971-1973)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drums", "percussion"],
+    "active": {
+      "from": 1965,
+      "to": 2025
+    },
+    "roles": ["band_member", "touring", "bandleader"],
+    "summary": "David Bowie's drummer from The Man Who Sold the World (1970) to Aladdin Sane (1973), with Mick Ronson and Trevor Bolder the Spiders from Mars: Hunky Dory, Ziggy Stardust and the tour. A rock drummer who loved Bonham and chose to play less ('less-is-more' on Changes), kept a solid beat under Ronson's strings and echoes, and took his rolls in odd places from King Crimson. Dismissed in 1973 (Aynsley Dunbar replaced him); later the Spiders from Mars album, U-Boat, and Holy Holy with Tony Visconti, playing the old records again."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "British blues and heavy rock",
+        "impact": "'anything from Cream to Zeppelin, Hendrix, Jeff Beck Group and the blues'; Bonham 'a big hero'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:woodmansey-strange-brew-interview"]
+        }
+      },
+      {
+        "tradition": "Progressive rock",
+        "impact": "King Crimson's drummer: 'strange drum rolls at strange places in the song'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:woodmansey-quietus-bakers-dozen-2017"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1970,
+        "event": "Joined Bowie's band at Mick Ronson's suggestion, replacing John Cambridge; recorded The Man Who Sold the World.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:woody-woodmansey-wikipedia",
+            "src:the-man-who-sold-the-world-song-wikipedia"
+          ]
+        }
+      },
+      {
+        "year": 1971,
+        "event": "Brought back with Ronson for Hunky Dory, with Trevor Bolder on bass.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hunky-dory-wikipedia"]
+        }
+      },
+      {
+        "year": 1972,
+        "event": "Ziggy Stardust, Starman on Top of the Pops, the Ziggy Stardust tour.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:starman-bowie-song-wikipedia", "src:ziggy-stardust-song-wikipedia"]
+        }
+      },
+      {
+        "year": 1973,
+        "event": "Dismissed after the tour; Aynsley Dunbar took his place.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:woody-woodmansey-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:woodmansey-bowie",
+      "label": "Bowie and the Spiders from Mars",
+      "years": {
+        "from": 1970,
+        "to": 1973
+      },
+      "context": "Four studio albums with Bowie and the Ziggy Stardust tour, produced by Visconti, then Ken Scott and Bowie at Trident.",
+      "defining_traits": [
+        "eighths with the kick on the \"and\"s",
+        "crashes on the riff",
+        "rolls into the choruses",
+        "less is more"
+      ],
+      "key_recording_ids": [
+        "rec:bowie-the-man-who-sold-the-world-1970",
+        "rec:bowie-hunky-dory-1971",
+        "rec:bowie-ziggy-stardust-1972",
+        "rec:bowie-aladdin-sane-1973"
+      ]
+    },
+    {
+      "id": "era:woodmansey-holy-holy",
+      "label": "Holy Holy",
+      "years": {
+        "from": 2014
+      },
+      "context": "With Tony Visconti, playing the Bowie records of the 1970s live.",
+      "defining_traits": ["the old parts again"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:glam-rock",
+        "name": "Glam rock",
+        "weight": 1.0,
+        "authority": 0.9,
+        "notes": "Ziggy Stardust and Aladdin Sane."
+      },
+      {
+        "style_id": "style:rock",
+        "name": "Rock",
+        "weight": 0.8,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:hard-rock",
+        "name": "Hard rock",
+        "weight": 0.4,
+        "authority": 0.5,
+        "notes": "The Man Who Sold the World."
+      },
+      {
+        "style_id": "style:blues-rock",
+        "name": "Blues rock",
+        "weight": 0.2,
+        "authority": 0.3,
+        "notes": "The Jean Genie."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "accompanist",
+    "descriptors": ["solid", "economical", "song-first", "driving"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:woodmansey-quietus-bakers-dozen-2017"],
+        "note": "Not measured; 'keep that solid beat going'."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight on every record here."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "mf",
+      "ghost_note_level": 40,
+      "accent_level": 110,
+      "balance": "The kick and the snare up, the hat even; crashes for the riff's hits."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 18],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [60, 146],
+    "timekeeping_context": ["free"],
+    "interaction": "Under Bowie's songs and Ronson's arrangements: 'I went through the string arrangement and knew what I could and couldn't do.'",
+    "descriptors": ["solid", "grounded", "unflashy"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Rolls into the chorus",
+        "description": "Sixteenth and thirty-second rolls on the snare into a crash, in odd places as well as at phrase ends.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:woodmansey-quietus-bakers-dozen-2017", "src:songsterr-366"]
+        }
+      },
+      {
+        "name": "The floor tom for the hat",
+        "description": "The groove on the floor tom with no hat (The Man Who Sold the World).",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-41"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick on the \"and\"s",
+        "description": "The kick on the \"and\"s of 1, 2, 3 and 4 around 1 and 3 under straight eighths (Suffragette City, Changes, Starman).",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-29032", "src:songsterr-32935", "src:songsterr-3112"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-366"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.3,
+      "foot_ostinato_usage": 0.3,
+      "double_bass": 0.0,
+      "notes": "Changes' bars of 2/4 and 3/4 inside 4/4; Moonage Daydream's threes across the bar line.",
+      "devices": [
+        {
+          "kind": "grouping",
+          "where": ["fills"],
+          "description": "The snare's accent every third sixteenth, two notes of the rack tom between, carried across the bar line for two bars at the end of each chorus.",
+          "examples": ["Moonage Daydream"],
+          "pattern_ids": ["pattern:woodmansey-moonage-threes"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-67279"],
+            "note": "A human tab, checked against the record by ear only."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Songsterr human tabs: Ziggy Stardust (366), Suffragette City (29032), Moonage Daydream (67279), Starman (3112), Life On Mars? (3115), Changes (32935), The Jean Genie (407347), The Man Who Sold The World (41)",
+          "The Quietus Baker's Dozen (2017) and the Strange Brew interview"
+        ],
+        "note": "One grouping (Moonage Daydream's threes). Changes' bars of 2/4 and 3/4 are the song's meter changes, not a device; the Jean Genie's triplet tom run is a tuplet fill of one bar, not a cross-rhythm."
+      }
+    },
+    "voice_language": {
+      "hihat": "Straight eighths, opened on the \"and\" of 3 or on 4 now and then; on the beat in The Jean Genie.",
+      "snare": "On 2 and 4, doubled with its \"e\" in the Ziggy Stardust chorus; rolls in threes and sixteenths into the chorus.",
+      "kick": "On the \"and\"s around 1 and 3.",
+      "toms": "The floor tom for the hat on The Man Who Sold the World; the rack tom between snare accents in Moonage Daydream.",
+      "cymbals": "Crashes on the riff's hits, on 1 and 3 in Ziggy Stardust, on every 1 in Suffragette City's outro."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.1,
+      "notes": "Sticks; timpani, wood blocks and maracas on The Man Who Sold the World."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a dry, close Trident drum sound (Ken Scott)",
+      "a big kick and snare",
+      "brass cymbals"
+    ],
+    "cymbal_character": "Not documented here.",
+    "sample_hints": {
+      "glam-rock": "A tight, dry, close rock kit; damped toms for Hunky Dory; a ringing 1960s kit for The Man Who Sold the World."
+    },
+    "evidence": {
+      "confidence": "inferred",
+      "source_ids": ["src:hunky-dory-wikipedia", "src:ziggy-stardust-song-wikipedia"],
+      "note": "From the records; no gear source found for the period."
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:woodmansey-less-is-more",
+      "label": "Less is more",
+      "category": "musical_approach",
+      "description": "One groove through a song, rolls left out where they would show off: 'It sounded like being flashy for the sake of it.'",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:woodmansey-eighths-and-the-ands"],
+      "heard_on": [
+        {
+          "recording_id": "rec:bowie-hunky-dory-1971"
+        },
+        {
+          "recording_id": "rec:bowie-ziggy-stardust-1972"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:woodmansey-quietus-bakers-dozen-2017",
+          "src:woodmansey-strange-brew-interview",
+          "src:bowie-bible-suffragette-city"
+        ]
+      }
+    },
+    {
+      "id": "trait:woodmansey-odd-rolls",
+      "label": "Rolls in odd places",
+      "category": "fill",
+      "description": "Snare rolls where a rock drummer would not put them, after King Crimson's drummer: Ziggy Stardust's riff and chorus.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:woodmansey-ziggy-chorus"],
+      "heard_on": [
+        {
+          "recording_id": "rec:bowie-ziggy-stardust-1972"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:woodmansey-quietus-bakers-dozen-2017", "src:songsterr-366"]
+      }
+    },
+    {
+      "id": "trait:woodmansey-threes",
+      "label": "Moonage Daydream's threes",
+      "category": "fill",
+      "description": "The snare and the rack tom in groups of three sixteenths across the bar line.",
+      "audibility": "obvious",
+      "frequency": "rare",
+      "pattern_ids": ["pattern:woodmansey-moonage-threes"],
+      "heard_on": [
+        {
+          "recording_id": "rec:bowie-ziggy-stardust-1972"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-67279"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:woodmansey-eighths-and-the-ands",
+        "name": "Suffragette City: eighths, the kick on the \"and\"s",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the kick on 1, its \"and\", the \"and\" of 2, 3, its \"and\" and the \"and\" of 4: nearly every bar of Suffragette City, and of Changes.",
+        "style_ids": ["style:glam-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-29032", "src:songsterr-32935"],
+          "note": "Songsterr 29032 (13 of the first verse's 16 bars) and 32935."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 142,
+          "playable_range_bpm": [139, 146]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:bowie-ziggy-stardust-1972",
+          "transcription_source_id": "src:songsterr-29032"
+        },
+        "tags": ["1972", "eighths"]
+      },
+      {
+        "id": "pattern:woodmansey-ziggy-chorus",
+        "name": "Ziggy Stardust: the chorus, the snare doubled",
+        "type": "groove",
+        "function": "Eighths on the hat under a crash, the snare on 2 and its \"e\" and on 4 and its \"e\", the kick on 1, its \"a\", the \"a\" of 2, 3, its \"a\" and the \"a\" of 4.",
+        "style_ids": ["style:glam-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-366"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 82,
+          "playable_range_bpm": [79, 85]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "hihat": "..x.x.x.x.x.x.x.",
+          "snare": "....xx......xx..",
+          "kick": "x..x...xx..x...x"
+        },
+        "source": {
+          "recording_id": "rec:bowie-ziggy-stardust-1972",
+          "transcription_source_id": "src:songsterr-366"
+        },
+        "tags": ["1972", "chorus"]
+      },
+      {
+        "id": "pattern:woodmansey-moonage-threes",
+        "name": "Moonage Daydream: the snare in threes over the rack tom",
+        "type": "fill",
+        "function": "Two bars at the end of each chorus: the snare's accent every third sixteenth, two notes on the rack tom between, across the bar line, the kick under the accents of the second bar.",
+        "style_ids": ["style:glam-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-67279"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 72,
+          "playable_range_bpm": [70, 75]
+        },
+        "lanes": {
+          "snare": "X..X..X..X..X.x.|X..X..X..X..xxx.",
+          "tom_1": ".xx.xx.xx.xx.x.x|.xx.xx.xx.xx..xx",
+          "kick": "................|x..x..x..x......"
+        },
+        "source": {
+          "recording_id": "rec:bowie-ziggy-stardust-1972",
+          "transcription_source_id": "src:songsterr-67279"
+        },
+        "tags": ["1972", "grouping", "fill"]
+      },
+      {
+        "id": "pattern:woodmansey-floor-tom-groove",
+        "name": "The Man Who Sold the World: the floor tom for the hat",
+        "type": "groove",
+        "function": "No hat: the floor tom on 1 and the \"and\" of 3, the snare on 2 and 4, the kick on 3 and the \"and\" of 4.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-41"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [117, 123]
+        },
+        "lanes": {
+          "floor_tom_1": "x.........x.....",
+          "snare": "....x.......x...",
+          "kick": "........x.....x."
+        },
+        "source": {
+          "recording_id": "rec:bowie-the-man-who-sold-the-world-1970",
+          "transcription_source_id": "src:songsterr-41"
+        },
+        "tags": ["1970", "floor tom"]
+      },
+      {
+        "id": "pattern:woodmansey-jean-genie-chorus",
+        "name": "The Jean Genie: the chorus",
+        "type": "groove",
+        "function": "A crash on 1 and the second crash on 4 with the snare, the hat opened on 2 and 3, the kick on 1, 3 and its \"and\".",
+        "style_ids": ["style:glam-rock", "style:blues-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-407347"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 129,
+          "playable_range_bpm": [126, 132]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "crash_2": "............x...",
+          "hihat": "....o...o.......",
+          "snare": "....x.......x...",
+          "kick": "x.......x.x....."
+        },
+        "source": {
+          "recording_id": "rec:bowie-aladdin-sane-1973",
+          "transcription_source_id": "src:songsterr-407347"
+        },
+        "tags": ["1972", "chorus"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:woodmansey-totp-1972",
+      "label": "Grey marbled pearl, chrome (Top of the Pops, July 1972)",
+      "years": {
+        "from": 1972,
+        "to": 1972
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "crash_1"
+        },
+        {
+          "instrument": "ride"
+        }
+      ],
+      "layout_notes": "Seen in the Starman performance: a grey marbled pearl wrap, chrome hardware, brass cymbals; the maker not seen.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bowie-starman-top-of-the-pops-1972"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "The Spiders from Mars",
+      "type": "band_member",
+      "years": {
+        "from": 1971,
+        "to": 1973
+      },
+      "bandmates": [
+        {
+          "name": "David Bowie"
+        },
+        {
+          "name": "Mick Ronson"
+        },
+        {
+          "name": "Trevor Bolder"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:woody-woodmansey-wikipedia", "src:hunky-dory-wikipedia"]
+      }
+    },
+    {
+      "name": "David Bowie (Hype)",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 1970
+      },
+      "bandmates": [
+        {
+          "name": "David Bowie"
+        },
+        {
+          "name": "Mick Ronson"
+        },
+        {
+          "name": "Tony Visconti"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:woody-woodmansey-wikipedia",
+          "src:the-man-who-sold-the-world-song-wikipedia"
+        ]
+      }
+    },
+    {
+      "name": "Holy Holy",
+      "type": "band_member",
+      "years": {
+        "from": 2014
+      },
+      "bandmates": [
+        {
+          "name": "Tony Visconti"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:woody-woodmansey-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:bowie-the-man-who-sold-the-world-1970",
+    "rec:bowie-hunky-dory-1971",
+    "rec:bowie-ziggy-stardust-1972",
+    "rec:bowie-aladdin-sane-1973"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:woodmansey-strange-brew-interview"],
+        "note": "'John Bonham from Zeppelin was a big hero of mine.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Michael Giles",
+        "kind": "drummer",
+        "id": "drummer:michael-giles"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:woodmansey-quietus-bakers-dozen-2017"],
+        "note": "'I was really into King Crimson at the time and I loved the drummer' (on Ziggy Stardust, 1971). He does not name him: Giles played on the first King Crimson album, the one with the rolls in odd places; Andy McCulloch and Ian Wallace followed."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "John Cambridge",
+        "kind": "drummer",
+        "id": "drummer:john-cambridge"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1970,
+        "to": 1970
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:woody-woodmansey-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Aynsley Dunbar",
+        "kind": "drummer",
+        "id": "drummer:aynsley-dunbar"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1973,
+        "to": 1973
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:woody-woodmansey-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "David Bowie",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1970,
+        "to": 1973
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:woody-woodmansey-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Mick Ronson",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1970,
+        "to": 1973
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:woody-woodmansey-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Trevor Bolder",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1971,
+        "to": 1976
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:woody-woodmansey-wikipedia", "src:hunky-dory-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Tony Visconti",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1970,
+        "to": 1970
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-man-who-sold-the-world-song-wikipedia",
+          "src:woody-woodmansey-wikipedia"
+        ]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Don't play if it isn't going to add: leave it, and make an entrance when the song needs it.",
+        "paraphrase_of_source_id": "src:woodmansey-strange-brew-interview"
+      },
+      {
+        "idea": "Play the song's meaning as well as its beat: 'you were not only being a musician, but a bit of an actor as well'.",
+        "paraphrase_of_source_id": "src:woodmansey-quietus-bakers-dozen-2017"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.6,
+    "innovations": [
+      "The Ziggy Stardust drum parts: Five Years' opening beat, Moonage Daydream's threes, Suffragette City's relentless eighths"
+    ],
+    "accolades": [],
+    "common_misconceptions": [
+      "That the Ziggy drumming is simple because it is plain: he says he tried rolls on Changes and took them out."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "woodmansey",
+    "headline_pattern_ids": [
+      "pattern:woodmansey-eighths-and-the-ands",
+      "pattern:woodmansey-moonage-threes"
+    ],
+    "default_kit_sound": "A tight, dry, close rock kit (Studio rock) for Ken Scott's Trident drums; damped for Hunky Dory, a 1960s Ludwig for The Man Who Sold the World",
+    "generation_rules": [
+      "Straight eighths on the hat, the kick on the \"and\"s around 1 and 3.",
+      "Crashes on the riff's hits; a crash on 1 at the top of the phrase.",
+      "Rolls on the snare into the chorus, three sixteenths at a time.",
+      "Few fills inside the phrase; no ghost notes; no swing."
+    ],
+    "avoid": ["Ghost notes", "Swing", "Busy fills inside the phrase", "Double bass"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:john-bonham", "drummer:michael-giles"],
+      "primary_descendants": [],
+      "lineage_blurb": "A Bonham fan who chose to play less, with a King Crimson roll or two: the drummer on Ziggy Stardust."
+    },
+    "tags": ["glam rock", "bowie", "spiders from mars", "70s", "british"]
+  }
+}

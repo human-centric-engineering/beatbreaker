@@ -1,0 +1,46 @@
+{
+  "id": "rec:the-smiths-meat-is-murder-1985",
+  "title": "Meat Is Murder",
+  "artist": "The Smiths",
+  "release": "Rough Trade",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:indie-rock", "style:funk"],
+  "personnel": [
+    {
+      "name": "Morrissey",
+      "role": "vocals"
+    },
+    {
+      "name": "Johnny Marr",
+      "role": "guitars"
+    },
+    {
+      "name": "Andy Rourke",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Produced by the band with Stephen Street engineering; Barbarism Begins at Home its seven-minute funk.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-joyce",
+      "name": "Mike Joyce",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Barbarism Begins at Home: seven minutes of funk in eighths under Rourke's bass line.",
+      "pattern_ids": ["pattern:joyce-barbarism"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:barbarism-begins-at-home-wikipedia",
+          "src:songsterr-18076",
+          "src:mike-joyce-radio-x-2025"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:barbarism-begins-at-home-wikipedia"]
+  }
+}

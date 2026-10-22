@@ -1,0 +1,51 @@
+{
+  "id": "rec:the-smiths-the-queen-is-dead-1986",
+  "title": "The Queen Is Dead",
+  "artist": "The Smiths",
+  "release": "Rough Trade",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:indie-rock"],
+  "personnel": [
+    {
+      "name": "Morrissey",
+      "role": "vocals"
+    },
+    {
+      "name": "Johnny Marr",
+      "role": "guitars"
+    },
+    {
+      "name": "Andy Rourke",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Produced by Morrissey and Marr with Stephen Street; the title track's intro a sampled loop of Joyce's toms.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-joyce",
+      "name": "Mike Joyce",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The title track's floor tom and rumbling bass drum, Bigmouth Strikes Again's sixteenths and snare runs, There Is a Light That Never Goes Out's restraint.",
+      "pattern_ids": [
+        "pattern:joyce-queen-is-dead",
+        "pattern:joyce-bigmouth",
+        "pattern:joyce-there-is-a-light"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-queen-is-dead-song-wikipedia",
+          "src:songsterr-635023",
+          "src:songsterr-18167",
+          "src:songsterr-18092"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-queen-is-dead-song-wikipedia"]
+  }
+}

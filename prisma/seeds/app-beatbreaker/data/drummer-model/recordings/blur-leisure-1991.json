@@ -1,0 +1,50 @@
+{
+  "id": "rec:blur-leisure-1991",
+  "title": "Leisure",
+  "artist": "Blur",
+  "release": "Food",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:indie-rock"],
+  "personnel": [
+    {
+      "name": "Damon Albarn",
+      "role": "vocals, keyboards"
+    },
+    {
+      "name": "Graham Coxon",
+      "role": "guitars, backing vocals"
+    },
+    {
+      "name": "Alex James",
+      "role": "bass"
+    },
+    {
+      "name": "Dave Rowntree",
+      "role": "drums, percussion"
+    },
+    {
+      "name": "Stephen Street",
+      "role": "producer"
+    }
+  ],
+  "studio_context": "Stephen Street and others producing; the year of Madchester, and There's No Other Way's baggy beat.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-rowntree",
+      "name": "Dave Rowntree",
+      "drummer_role": "sole_drummer",
+      "significance": 0.5,
+      "why_it_matters": "There's No Other Way, Blur's first hit: the baggy snare on the 'a' of 2 and the 'and' of 3 that the Madchester bands played.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:leisure-album-wikipedia", "src:songsterr-2839614"]
+      },
+      "pattern_ids": ["pattern:rowntree-theres-no-other-way"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:leisure-album-wikipedia"]
+  }
+}

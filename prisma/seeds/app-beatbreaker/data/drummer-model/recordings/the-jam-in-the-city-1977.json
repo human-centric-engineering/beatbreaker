@@ -1,0 +1,43 @@
+{
+  "id": "rec:the-jam-in-the-city-1977",
+  "title": "In the City",
+  "artist": "The Jam",
+  "release": "Polydor",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:punk", "style:mod-revival"],
+  "personnel": [
+    {
+      "name": "Paul Weller",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Bruce Foxton",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Rick Buckler",
+      "role": "drums",
+      "drummer_id": "drummer:rick-buckler"
+    }
+  ],
+  "studio_context": "The debut, recorded in eleven days in London in early 1977 and released in May; the title track the first single.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:rick-buckler",
+      "name": "Rick Buckler",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "In the City: eighths on the floor tom, the open hat in quarters, crashes on every \"in the city\" - punk with a mod's neatness.",
+      "pattern_ids": ["pattern:buckler-in-the-city-floor-tom"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:in-the-city-jam-album-wikipedia", "src:songsterr-38821"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:in-the-city-jam-album-wikipedia"]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "id": "rec:radiohead-the-bends-1995",
+  "title": "The Bends",
+  "artist": "Radiohead",
+  "release": "Parlophone",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:alternative-rock"],
+  "personnel": [
+    {
+      "name": "Thom Yorke",
+      "role": "vocals, guitar, piano"
+    },
+    {
+      "name": "Jonny Greenwood",
+      "role": "guitar, keyboards"
+    },
+    {
+      "name": "Ed O'Brien",
+      "role": "guitar, backing vocals"
+    },
+    {
+      "name": "Colin Greenwood",
+      "role": "bass"
+    },
+    {
+      "name": "Philip Selway",
+      "role": "drums"
+    },
+    {
+      "name": "John Leckie",
+      "role": "producer"
+    }
+  ],
+  "studio_context": "RAK, The Manor and Abbey Road, February-November 1994, with John Leckie; Planet Telex built on a drum loop from another song.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-selway",
+      "name": "Philip Selway",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Just: the riff on the ride, the snare pushed off the backbeat, the instrumental verse's open hat on the 'and' of 2.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-bends-wikipedia", "src:songsterr-51255"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-bends-wikipedia"]
+  }
+}

@@ -1,0 +1,776 @@
+{
+  "meta": {
+    "id": "drummer:alan-white-oasis",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.3,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Read the August 1996 Modern Drummer interview in the magazine itself rather than a fan copy; find later interviews (Rhythm, MusicRadar) on Be Here Now and the later albums.",
+      "Wonderwall's snare part: transcribe it from the record (or an isolated stem) to confirm the tabs' off-beat placement and the hot rods' drags.",
+      "Standing on the Shoulder of Giants: which parts are his kit and which the drum loops (Go Let It Out's sampled drums, Who Feels Love?).",
+      "His kits by year: the Rogers Holiday and Radio King of 1995, the Ludwig the tabs name, the Pearl endorsement.",
+      "Owen Morris's own text (owenmorris.net, archived) read directly."
+    ]
+  },
+  "identity": {
+    "name": "Alan White",
+    "full_name": "Alan Victor White",
+    "born": {
+      "date": "1972-05-26",
+      "place": "Lewisham, London, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-white-oasis-wikipedia"]
+      }
+    },
+    "nationality": ["English"],
+    "home_scenes": ["London sessions and Starclub (1987-1995)", "Oasis and Britpop (1995-2004)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "percussion"],
+    "active": {
+      "from": 1987,
+      "to": 2008
+    },
+    "roles": ["band_member", "touring", "session"],
+    "summary": "Oasis's drummer from 1995 to 2004, the band's longest-serving: a South Londoner, Steve White's younger brother, taught the Moeller method by Bob Armstrong and raised on soul, sent to Noel Gallagher by Paul Weller. He came in for Morning Glory, and his snare, answering off the beat rather than sitting on 2 and 4, is the rhythm of Wonderwall and Don't Look Back in Anger: 'shuffling away on his snare', said Owen Morris, who thought him a jazz drummer. The rock songs he played straight, as he said they needed. Four albums, most of the B-sides; replaced by Zak Starkey in 2004."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Soul and funk",
+        "impact": "'The first stuff I was really into was soul', Clyde Stubblefield 'and all those guys' for the grooves and the fills.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:alan-white-modern-drummer-1996"]
+        }
+      },
+      {
+        "tradition": "Sixties British rock",
+        "impact": "The Beatles, the Kinks and the Small Faces as he got older; Ringo, Mick Avory, Ginger Baker.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:alan-white-modern-drummer-1996", "src:alan-white-oasis-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1987,
+        "event": "Auditioned at fifteen for Gem Archer's band Whirlpool, who thought him too young for the road.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:alan-white-oasis-wikipedia", "src:alan-white-drummerszone"]
+        }
+      },
+      {
+        "year": 1991,
+        "event": "Starclub, to 1994; sessions for Idha and Dr Robert.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:alan-white-oasis-wikipedia"]
+        }
+      },
+      {
+        "year": 1995,
+        "event": "Joined Oasis in April, recommended by Paul Weller; a Top of the Pops playback of Some Might Say the next day; Morning Glory at Rockfield in May.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:alan-white-oasis-wikipedia", "src:morning-glory-album-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:alan-white-oasis-britpop",
+      "label": "Morning Glory and Be Here Now",
+      "years": {
+        "from": 1995,
+        "to": 1998
+      },
+      "context": "Oasis at their biggest: Knebworth, the Battle of Britpop, the loudest record of its year.",
+      "defining_traits": [
+        "the off-beat snare",
+        "open hats and a crash ridden in eighths",
+        "tom runs in sixteenths"
+      ],
+      "key_recording_ids": [
+        "rec:oasis-whats-the-story-morning-glory-1995",
+        "rec:oasis-be-here-now-1997"
+      ]
+    },
+    {
+      "id": "era:alan-white-oasis-later",
+      "label": "Giants and Heathen Chemistry",
+      "years": {
+        "from": 1999,
+        "to": 2004
+      },
+      "context": "A new line-up with Gem Archer and Andy Bell; drum loops alongside the kit.",
+      "defining_traits": ["sixteenths on the hat", "loops under the kit"],
+      "key_recording_ids": ["rec:oasis-heathen-chemistry-2002"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:britpop",
+        "name": "Britpop",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:rock",
+        "name": "Rock",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "name": "Psychedelic rock",
+        "weight": 0.3,
+        "authority": 0.3,
+        "notes": "Standing on the Shoulder of Giants."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "accompanist",
+    "descriptors": ["loose", "busy snare", "tasteful", "song-first"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-2"],
+        "note": "Not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.15,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight: the tabs write even sixteenths; Morris's 'shuffling' is the snare's placement, not a swing."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "mf",
+      "ghost_note_level": 45,
+      "accent_level": 110,
+      "balance": "The snare busy and off the beat under a wash of guitars; the cymbals big."
+    },
+    "density": {
+      "groove_notes_per_bar": [12, 24],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.3
+    },
+    "consistency": 0.8,
+    "tempo_comfort_bpm": [70, 145],
+    "timekeeping_context": ["free", "click"],
+    "interaction": "Noel left the parts to him: 'You're the drummer. You do what you think is right.' He would adapt a song's rhythm or suggest its tempo.",
+    "descriptors": ["loose", "syncopated", "steady"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Moeller strokes",
+        "description": "Two hits from one movement: up, drop the stick for a bounce, down for a power stroke (Bob Armstrong's teaching).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:alan-white-modern-drummer-1996"]
+        }
+      },
+      {
+        "name": "Grace notes",
+        "description": "Drags and ghost notes round the backbeat, 'bits and bobs' he put down to the Moeller teaching.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:alan-white-modern-drummer-1996", "src:songsterr-2"]
+        }
+      },
+      {
+        "name": "Hot rods",
+        "description": "Pro-Mark Hot Rods instead of sticks on Wonderwall.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wonderwall-wikipedia"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick on the \"and\"s",
+        "description": "The kick on 1, its 'and', 3 and its 'and' under the off-beat snare.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2", "src:songsterr-15472"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Drag",
+        "usage": ["groove", "fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2"]
+        }
+      },
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15472"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.5,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.6,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.2,
+      "foot_ostinato_usage": 0.3,
+      "double_bass": 0.0,
+      "notes": "The off-beat snare is a placement inside a straight 4/4 bar; Stand By Me's chorus drops a beat every fourth bar.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Songsterr human tabs of Wonderwall (2), Don't Look Back in Anger (15472), Champagne Supernova (49284), Morning Glory (15823), Roll With It (49269), D'You Know What I Mean? (49272), Stand By Me (49244, 433605), The Hindu Times (49294)",
+          "Modern Drummer, August 1996"
+        ],
+        "note": "No device found: the off-beat snare is a syncopation within the bar, not a grouping or displacement of the groove; Stand By Me's bar of 3/4 is a changed bar, not a polymeter."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths, opened wide for a chorus; sixteenths on the later records.",
+      "snare": "Off the beat: the 'e' of 1, the 'a' of 2, the 'and' of 3, with grace notes on the 'a' of 4; plain 2 and 4 on the rock songs; every beat to build.",
+      "kick": "1, its 'and', 3 and its 'and'; pushed onto the 'and' of 1 every other bar.",
+      "toms": "The mid tom's gallop (Don't Look Back in Anger), runs in sixteenths into a chorus.",
+      "cymbals": "Big cymbals; a crash ridden in eighths for the loud parts."
+    },
+    "implements": {
+      "sticks": 0.9,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks; Pro-Mark Hot Rods on Wonderwall."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["vintage drums with their original heads", "a Radio King snare", "big cymbals"],
+    "cymbal_character": "Large cymbals, 'otherwise it just doesn't cut through' (Sabian).",
+    "sample_hints": {
+      "britpop": "A 1960s kit with ringing toms and a bright snare, big washy crashes; bigger and louder for Be Here Now."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:alan-white-modern-drummer-1996"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:white-off-beat-snare",
+      "label": "The snare off the beat",
+      "category": "groove",
+      "description": "The snare on the 'e' of 1, 2, the 'a' of 2, the 'and' of 3, 4 and the 'a' of 4: Wonderwall's rhythm, under Don't Look Back in Anger and Champagne Supernova too.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:white-wonderwall", "pattern:white-dont-look-back-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:oasis-whats-the-story-morning-glory-1995"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-2", "src:songsterr-15472", "src:owen-morris-recording-oasis"]
+      }
+    },
+    {
+      "id": "trait:white-straight-when-needed",
+      "label": "Straight when the song needs it",
+      "category": "musical_approach",
+      "description": "Morning Glory, Roll With It and The Hindu Times played plain: eighths or sixteenths, 2 and 4, the kick with the riff.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:white-morning-glory"],
+      "heard_on": [
+        {
+          "recording_id": "rec:oasis-whats-the-story-morning-glory-1995"
+        },
+        {
+          "recording_id": "rec:oasis-heathen-chemistry-2002"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-white-modern-drummer-1996", "src:songsterr-15823"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:white-wonderwall",
+        "name": "Wonderwall: the snare off the beat, on hot rods",
+        "type": "groove",
+        "function": "The verse and chorus: the ride in eighths, the snare on the 'e' of 1, 2, the 'a' of 2, the 'and' of 3, 4 and the 'a' of 4, the kick on 1, its 'and', 3 and its 'and'. Played with Pro-Mark Hot Rods.",
+        "style_ids": ["style:britpop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-2",
+            "src:wonderwall-wikipedia",
+            "src:owen-morris-recording-oasis"
+          ],
+          "note": "A human tab; the placement agrees with the Don't Look Back in Anger and Champagne Supernova tabs by other authors, and with Morris's \"shuffling away on his snare\"."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 87,
+          "playable_range_bpm": [84, 90]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": ".g..x..x.x..x..x",
+          "kick": "x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:oasis-whats-the-story-morning-glory-1995",
+          "transcription_source_id": "src:songsterr-2"
+        },
+        "tags": ["1995", "hot rods", "off-beat snare"]
+      },
+      {
+        "id": "pattern:white-dont-look-back-verse",
+        "name": "Don't Look Back in Anger: the verse",
+        "type": "groove",
+        "function": "The same off-beat snare under the hats, a ghost on the 'a' of 4, the kick on 1, 3 and its 'and'.",
+        "style_ids": ["style:britpop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15472"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 81,
+          "playable_range_bpm": [78, 84]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": ".x..x..x.x..x..g",
+          "kick": "x.......x.x....."
+        },
+        "source": {
+          "recording_id": "rec:oasis-whats-the-story-morning-glory-1995",
+          "transcription_source_id": "src:songsterr-15472"
+        },
+        "tags": ["1995"]
+      },
+      {
+        "id": "pattern:white-morning-glory",
+        "name": "Morning Glory: straight eighths, the kick pushing",
+        "type": "groove",
+        "function": "Two bars: the kick on 1, the 'and' of 3 and the 'and' of 4, then on the 'and' of 1 instead; the snare on 2 and 4; the hats thrown open for the chorus.",
+        "style_ids": ["style:britpop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15823"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 137,
+          "playable_range_bpm": [132, 142]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.........x...x.|..x.......x...x."
+        },
+        "source": {
+          "recording_id": "rec:oasis-whats-the-story-morning-glory-1995",
+          "transcription_source_id": "src:songsterr-15823"
+        },
+        "tags": ["1995"]
+      },
+      {
+        "id": "pattern:white-dyou-know-what-i-mean",
+        "name": "D'You Know What I Mean?: one kick pattern for seven minutes",
+        "type": "groove",
+        "function": "The kick on 1, its 'and', the 'and' of 2, 3, its 'and' and the 'and' of 4; the snare on 2 and 4 with a ghost after each; the hats, then the ride.",
+        "style_ids": ["style:britpop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-49272", "src:be-here-now-album-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 80,
+          "playable_range_bpm": [77, 83]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x..g....x..g",
+          "kick": "x.x...x.x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:oasis-be-here-now-1997",
+          "transcription_source_id": "src:songsterr-49272"
+        },
+        "tags": ["1997"]
+      }
+    ]
+  },
+  "equipment": [],
+  "affiliations": [
+    {
+      "name": "Oasis",
+      "type": "band_member",
+      "years": {
+        "from": 1995,
+        "to": 2004
+      },
+      "bandmates": [
+        {
+          "name": "Liam Gallagher"
+        },
+        {
+          "name": "Noel Gallagher"
+        },
+        {
+          "name": "Paul \"Bonehead\" Arthurs"
+        },
+        {
+          "name": "Paul \"Guigsy\" McGuigan"
+        },
+        {
+          "name": "Gem Archer"
+        },
+        {
+          "name": "Andy Bell"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-white-oasis-wikipedia"]
+      }
+    },
+    {
+      "name": "Starclub",
+      "type": "band_member",
+      "years": {
+        "from": 1991,
+        "to": 1994
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-white-oasis-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:oasis-whats-the-story-morning-glory-1995",
+    "rec:oasis-be-here-now-1997",
+    "rec:oasis-heathen-chemistry-2002"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Steve White",
+        "kind": "drummer",
+        "id": "drummer:steve-white"
+      },
+      "strength": 0.8,
+      "aspects": ["his elder brother"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-white-oasis-wikipedia", "src:alan-white-modern-drummer-1996"],
+        "note": "His brother, Paul Weller's drummer, 'greatly impacted his development as a drummer'."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Bob Armstrong",
+        "kind": "teacher"
+      },
+      "strength": 0.7,
+      "aspects": ["the Moeller method"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-white-modern-drummer-1996"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Clyde Stubblefield",
+        "kind": "drummer",
+        "id": "drummer:clyde-stubblefield"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-white-modern-drummer-1996"],
+        "note": "'Clyde Stubblefield and all those guys' for the grooves and the fills."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-white-modern-drummer-1996", "src:alan-white-oasis-wikipedia"],
+        "note": "'It couldn't have been another drummer in the Beatles. It had to be Ringo.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-white-modern-drummer-1996"],
+        "note": "'He's a London boy. Fantastic.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:alan-white-oasis-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Chad Smith",
+        "kind": "drummer",
+        "id": "drummer:chad-smith"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:alan-white-oasis-wikipedia", "src:alan-white-drummerszone"],
+        "note": "Noel Gallagher named Chad Smith among the funk drummers in his playing."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Mick Avory",
+        "kind": "drummer",
+        "id": "drummer:mick-avory"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:alan-white-oasis-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:alan-white-oasis-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Tony McCarroll",
+        "kind": "drummer",
+        "id": "drummer:tony-mccarroll"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1995
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:alan-white-oasis-wikipedia",
+          "src:tony-mccarroll-wikipedia",
+          "src:morning-glory-album-wikipedia"
+        ]
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Zak Starkey",
+        "kind": "drummer",
+        "id": "drummer:zak-starkey"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 2004
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-white-oasis-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Noel Gallagher",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1995,
+        "to": 2004
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-white-oasis-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Liam Gallagher",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1995,
+        "to": 2004
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-white-oasis-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Play what the song needs, and what you like when you can get away with it: 'Just dig in and let the guitars do the work.'",
+        "paraphrase_of_source_id": "src:alan-white-modern-drummer-1996"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.5,
+    "innovations": [
+      "Wonderwall's off-beat snare on hot rods, one of the most played drum parts of the 1990s"
+    ],
+    "accolades": [
+      {
+        "award": "Rock and Roll Hall of Fame (with Oasis)",
+        "year": 2026,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:alan-white-oasis-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he played on all of Morning Glory: Some Might Say is Tony McCarroll's.",
+      "That he is the Alan White of Yes: a different drummer, born 1949."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "alanwhite",
+    "headline_pattern_ids": ["pattern:white-wonderwall", "pattern:white-morning-glory"],
+    "default_kit_sound": "A 1960s kit with ringing toms and washy crashes (Sixties Ludwig); a big room for Be Here Now",
+    "generation_rules": [
+      "The off-beat snare: the 'e' of 1, 2, the 'a' of 2, the 'and' of 3, 4, a grace note on the 'a' of 4.",
+      "Straight eighths and 2 and 4 for the rock songs, the hats thrown open or a crash ridden for the chorus.",
+      "Tom runs in sixteenths at phrase ends.",
+      "Straight time, no swing."
+    ],
+    "avoid": ["Swing", "Double bass", "Blast beats", "Busy cymbal work inside the verse"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:steve-white",
+        "drummer:ringo-starr",
+        "drummer:clyde-stubblefield"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Steve White's younger brother and Bob Armstrong's Moeller pupil, raised on Clyde Stubblefield and Ringo: Oasis's drummer between Tony McCarroll and Zak Starkey."
+    },
+    "tags": ["britpop", "rock", "90s", "oasis", "hot rods"]
+  }
+}

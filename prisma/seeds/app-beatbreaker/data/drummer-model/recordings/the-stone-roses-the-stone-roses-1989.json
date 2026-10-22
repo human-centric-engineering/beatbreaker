@@ -1,0 +1,56 @@
+{
+  "id": "rec:the-stone-roses-the-stone-roses-1989",
+  "title": "The Stone Roses",
+  "artist": "The Stone Roses",
+  "release": "Silvertone",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:indie-rock", "style:psychedelic-rock"],
+  "personnel": [
+    {
+      "name": "Ian Brown",
+      "role": "vocals"
+    },
+    {
+      "name": "John Squire",
+      "role": "guitars"
+    },
+    {
+      "name": "Mani",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Produced by John Leckie at Battery Studios, London, June 1988 to February 1989, with sessions at Konk, Coconut Grove and Rockfield; Leckie slowed the demos' tempos and steadied them.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:reni",
+      "name": "Reni",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Waterfall's four on the floor under two-handed sixteenths, Made of Stone's verse without a snare, I Am the Resurrection's snare on every beat and its funk coda: a jangling guitar record with a drummer pulling it towards the dance floor.",
+      "pattern_ids": [
+        "pattern:reni-adored",
+        "pattern:reni-she-bangs",
+        "pattern:reni-waterfall",
+        "pattern:reni-made-of-stone",
+        "pattern:reni-this-is-the-one",
+        "pattern:reni-resurrection-intro",
+        "pattern:reni-resurrection-coda"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-stone-roses-album-wikipedia",
+          "src:reni-wikipedia",
+          "src:songsterr-26803",
+          "src:songsterr-19501",
+          "src:songsterr-7241810"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-stone-roses-album-wikipedia"]
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "rec:oasis-be-here-now-1997",
+  "title": "Be Here Now",
+  "artist": "Oasis",
+  "release": "Creation",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:britpop", "style:rock"],
+  "personnel": [
+    {
+      "name": "Liam Gallagher",
+      "role": "vocals"
+    },
+    {
+      "name": "Noel Gallagher",
+      "role": "guitars, vocals, producer"
+    },
+    {
+      "name": "Paul \"Bonehead\" Arthurs",
+      "role": "rhythm guitar"
+    },
+    {
+      "name": "Paul \"Guigsy\" McGuigan",
+      "role": "bass"
+    },
+    {
+      "name": "Owen Morris",
+      "role": "producer"
+    }
+  ],
+  "studio_context": "Abbey Road and Ridge Farm, 1996-1997, overdubbed and loud; D'You Know What I Mean? runs a slowed Amen-break loop under his kit.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alan-white-oasis",
+      "name": "Alan White",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The first album all his: D'You Know What I Mean?'s one kick pattern held for seven minutes with a ghost after each backbeat; Stand By Me's chorus with a bar of 3/4 in every four.",
+      "pattern_ids": ["pattern:white-dyou-know-what-i-mean"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:be-here-now-album-wikipedia", "src:dyou-know-what-i-mean-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:be-here-now-album-wikipedia"]
+  }
+}

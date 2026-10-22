@@ -1,0 +1,972 @@
+{
+  "meta": {
+    "id": "drummer:reni",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.3,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Fools Gold: whether the record is a sampled break (Funky Drummer, as Squire says, or Bobby Byrd's Hot Pants) with him over it, or his playing alone; the multitracks would settle it.",
+      "His 1989 kit in detail: the Ludwig drums, the Sonor snare, the cymbals; and the reunion kit with two bass drums.",
+      "Interviews in his own words are rare; Simon Spence's War and Peace (2012) and John Robb's The Stone Roses and the Resurrection of British Pop (1997) are the books to read.",
+      "Elephant Stone (1988), Sally Cinnamon (1987), One Love (1990), Begging You, Daybreak and Breaking into Heaven: no songs from them yet; the human tabs are thin or missing."
+    ]
+  },
+  "identity": {
+    "name": "Reni",
+    "full_name": "Alan John Wren",
+    "born": {
+      "date": "1964-04-10",
+      "place": "Manchester, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:reni-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": [
+      "Manchester (Gorton)",
+      "The Stone Roses (1984-1995, 2011-2017)",
+      "Madchester and baggy (1988-1991)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "backing vocals"],
+    "active": {
+      "from": 1984,
+      "to": 2017
+    },
+    "roles": ["band_member", "touring"],
+    "summary": "The Stone Roses' drummer, 1984 to 1995 and again 2011 to 2017: self-taught in Gorton, playing pubs as a boy, a Keith Moon of a drummer at first and then, on a three-piece kit painted by John Squire, the one who turned a jangling guitar band towards the dance floor. Straight eighths and sixteenths, never swung, but loose and light ('he never pounded the drums, he used to caress them', said the Charlatans' Jon Brookes); the bass drum pushing the 'and's, the hat opened on the off-beats, the snare moved off 2 and 4 when the song lets it (Waterfall's 'a' of 3, Made of Stone's verse without one), a busy left hand. Fools Gold's breakbeat, learned from a record, made 'baggy'. He sang the harmonies too. 'The best drummer of his generation' (John Robb); he wore the bucket hat."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Self-taught, in pubs",
+        "impact": "Around instruments in a pub as a boy; jamming along to anything and anybody.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:reni-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Keith Moon and the Who",
+        "impact": "His early energy: 'like ten Keith Moons in one' (Andy Couzens); Townshend borrowed him for his set at their first gig.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:reni-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Funk breakbeats",
+        "impact": "Fools Gold, written over The Funky Drummer, 'which Reni had to learn the beat from'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:fools-gold-wikipedia", "src:reni-far-out-fools-gold-2023"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1984,
+        "event": "Joined the Stone Roses in May after tearing their advert off the wall of A1 Music; at their first gig, Pete Townshend asked to borrow him and he played Pictures of Lily.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:reni-wikipedia"]
+        }
+      },
+      {
+        "year": 1987,
+        "event": "Sally Cinnamon: down to a three-piece kit, a jazz-tinged way of playing and backing vocals.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:reni-wikipedia"]
+        }
+      },
+      {
+        "year": 1989,
+        "event": "The Stone Roses with John Leckie, and Fools Gold, the beat learned from a breakbeat.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-stone-roses-album-wikipedia", "src:fools-gold-wikipedia"]
+        }
+      },
+      {
+        "year": 1995,
+        "event": "Left the band in March, the first of the four to go.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:reni-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:reni-first-album",
+      "label": "The first album and Fools Gold",
+      "years": {
+        "from": 1987,
+        "to": 1990
+      },
+      "context": "The three-piece kit; Leckie's steady tempos; the turn to the dance floor.",
+      "defining_traits": [
+        "the bass drum on the \"and\"s",
+        "the snare off 2 and 4",
+        "the hat opened on the off-beats",
+        "a breakbeat played by hand"
+      ],
+      "key_recording_ids": [
+        "rec:the-stone-roses-the-stone-roses-1989",
+        "rec:the-stone-roses-fools-gold-1989"
+      ]
+    },
+    {
+      "id": "era:reni-second-coming",
+      "label": "Second Coming",
+      "years": {
+        "from": 1992,
+        "to": 1995
+      },
+      "context": "Squire's Led Zeppelin turn: more toms, the ride, longer songs and jams.",
+      "defining_traits": ["the ride", "fills down the toms", "the bass drum moving every bar"],
+      "key_recording_ids": ["rec:the-stone-roses-second-coming-1994"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:indie-rock",
+        "name": "Indie rock",
+        "weight": 1.0,
+        "authority": 0.8,
+        "notes": "The Stone Roses and Madchester."
+      },
+      {
+        "style_id": "style:funk-rock",
+        "name": "Funk rock",
+        "weight": 0.5,
+        "authority": 0.5,
+        "notes": "Fools Gold and the Resurrection coda: baggy."
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "name": "Psychedelic rock",
+        "weight": 0.4,
+        "authority": 0.4,
+        "notes": "The 1960s strain of the first album; Second Coming."
+      },
+      {
+        "style_id": "style:britpop",
+        "name": "Britpop",
+        "weight": 0.2,
+        "authority": 0.3,
+        "notes": "Before it: the record that, critics say, built its template."
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.4,
+    "role_tendency": "driver",
+    "descriptors": ["loose", "light", "funky", "inventive", "propulsive"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:reni-wikipedia"],
+        "note": "Wikipedia's 'laid-back style'; not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.05,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight: the records' hat bands autocorrelate at the eighth and the sixteenth, not the triplet. Robb's 'real swing' is feel, not a ratio."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "mf",
+      "ghost_note_level": 35,
+      "accent_level": 110,
+      "balance": "A light touch; the hat and bass drum busy, the snare often off the backbeat."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 24],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.8,
+    "tempo_comfort_bpm": [88, 150],
+    "timekeeping_context": ["free"],
+    "interaction": "With Mani's bass: the rhythm section that critics credit for the dance in the records; he sang harmonies over his own playing.",
+    "descriptors": ["loose", "straight", "laid-back"]
+  },
+  "technique_profile": {
+    "grip": ["mixed"],
+    "hand_techniques": [
+      {
+        "name": "Two hands on the hat",
+        "description": "Sixteenths on the hat with both hands, accented on the beat, broken for the snare on the \"a\" (Waterfall).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-26803"]
+        }
+      },
+      {
+        "name": "The open hat on the off-beats",
+        "description": "The hat opened on the \"and\"s, or on 2 and 4 in place of the snare (Made of Stone, This Is the One).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19501", "src:songsterr-19403"]
+        }
+      },
+      {
+        "name": "Ghosts round a breakbeat",
+        "description": "Fools Gold's quiet strokes on the 'a' of 2 and 'e' of 3.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23358", "src:stone-roses-bass-and-drums-betheriel"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The bass drum on the \"and\"s",
+        "description": "The bass drum pushing the off-beat eighths, or four on the floor under a snare that is elsewhere.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-24335", "src:songsterr-19352", "src:songsterr-26803"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-54720"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.6,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.6,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.0,
+      "foot_ostinato_usage": 0.6,
+      "double_bass": 0.0,
+      "notes": "A steady bass drum or hat ostinato with the snare moved off the backbeat.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Songsterr human tabs: I Wanna Be Adored (19352), She Bangs the Drums (24335), Waterfall (26803), Made of Stone (19501), This Is the One (19403), I Am the Resurrection (7241810, 24332), Fools Gold (23358), Love Spreads (54720)",
+          "Isolated drum uploads of Made of Stone, I Am the Resurrection, Waterfall, Fools Gold, She Bangs the Drums and Love Spreads",
+          "Wikipedia (Reni, the albums, the songs); Far Out (2022, 2023)"
+        ],
+        "note": "No polyrhythmic device found. Waterfall's snare on the 'a' of 3 is a displaced backbeat, not a cross-rhythm; Made of Stone's chorus stabs on every dotted quarter for two bars are a written figure of the song, not his device; Love Spreads' fills slip into triplets, which are not a device."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths, both hands in sixteenths, or opened on the off-beats; the hat foot alone for whole verses (This Is the One).",
+      "snare": "2 and 4, or the \"a\" of 3, or every beat; ghosts round a breakbeat.",
+      "kick": "Pushing the \"and\"s, or four on the floor.",
+      "toms": "One tom on the first album; more on Second Coming.",
+      "cymbals": "Crashes as stabs; the ride on Second Coming."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a vintage kit of odd parts",
+      "a big Sonor snare",
+      "a light touch",
+      "a bigger room on Second Coming"
+    ],
+    "cymbal_character": "Not documented here.",
+    "sample_hints": {
+      "indie-rock": "A 1960s Ludwig-style kit, round and a little loose (SM Drums); Fools Gold fatter, Love Spreads bigger."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:reni-wikipedia"],
+      "note": "Leckie: 'every tom, cymbal and drum is from a different kit'."
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:reni-off-the-backbeat",
+      "label": "The snare off 2 and 4",
+      "category": "groove",
+      "description": "Waterfall's snare on the 'a' of 3 over four on the bass drum; Made of Stone's verse with no snare at all; This Is the One's first minute on the hat foot.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:reni-waterfall", "pattern:reni-made-of-stone"],
+      "heard_on": [
+        {
+          "recording_id": "rec:the-stone-roses-the-stone-roses-1989"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-26803", "src:songsterr-19501", "src:songsterr-19403"]
+      }
+    },
+    {
+      "id": "trait:reni-breakbeat",
+      "label": "A breakbeat played by hand",
+      "category": "groove",
+      "description": "Fools Gold: the beat the song was written over, learned from a record.",
+      "audibility": "obvious",
+      "frequency": "rare",
+      "pattern_ids": ["pattern:reni-fools-gold"],
+      "heard_on": [
+        {
+          "recording_id": "rec:the-stone-roses-fools-gold-1989"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:fools-gold-wikipedia", "src:reni-far-out-fools-gold-2023"]
+      }
+    },
+    {
+      "id": "trait:reni-light-touch",
+      "label": "A light touch",
+      "category": "sound",
+      "description": "'He never pounded the drums, he used to caress them' (Jon Brookes); 'funkier and more subtle than any drummer in the genre' (Rhythm, 2004).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:the-stone-roses-the-stone-roses-1989"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:reni-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:reni-adored",
+        "name": "I Wanna Be Adored: the bass drum on the \"and\"s",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the bass drum on 1, its \"and\", 3, its \"and\" and the \"and\" of 4; the intro before it four on the bass drum under accented hats.",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19352"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 112,
+          "playable_range_bpm": [110, 116]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:the-stone-roses-the-stone-roses-1989",
+          "transcription_source_id": "src:songsterr-19352"
+        },
+        "tags": ["1989"]
+      },
+      {
+        "id": "pattern:reni-she-bangs",
+        "name": "She Bangs the Drums: the chorus",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the bass drum on every \"and\" but the first, and on 1 every other bar.",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-24335", "src:stone-roses-bass-and-drums-betheriel"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 145,
+          "playable_range_bpm": [142, 148]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:the-stone-roses-the-stone-roses-1989",
+          "transcription_source_id": "src:songsterr-24335"
+        },
+        "tags": ["1989"]
+      },
+      {
+        "id": "pattern:reni-waterfall",
+        "name": "Waterfall: four on the floor, the snare on the \"a\"",
+        "type": "groove",
+        "function": "The bass drum on every beat; both hands on the hat in sixteenths, accented on the beat; the snare on the \"a\" of 1 and of 3, never on 2 and 4.",
+        "style_ids": ["style:indie-rock", "style:funk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-26803",
+            "src:reni-isolated-drums-box-set-go",
+            "src:reni-far-out-love-spreads-2022"
+          ]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 104,
+          "playable_range_bpm": [101, 107]
+        },
+        "lanes": {
+          "hihat": "Xxx.XxxxXxx.Xxxx",
+          "snare": "...x.......x....",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:the-stone-roses-the-stone-roses-1989",
+          "transcription_source_id": "src:songsterr-26803"
+        },
+        "tags": ["1989", "displaced-backbeat", "sixteenths"]
+      },
+      {
+        "id": "pattern:reni-made-of-stone",
+        "name": "Made of Stone: the verse without a snare",
+        "type": "groove",
+        "function": "The hat opened on 2, its \"and\", 4 and its \"and\", the bass drum on 1, the \"and\" of 2, 3 and the \"and\" of 4, and no snare until the chorus.",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19501", "src:reni-isolated-drums-box-set-go"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [128, 136]
+        },
+        "lanes": {
+          "hihat": "....o.o.....o.o.",
+          "kick": "x.....x.x.....x."
+        },
+        "source": {
+          "recording_id": "rec:the-stone-roses-the-stone-roses-1989",
+          "transcription_source_id": "src:songsterr-19501"
+        },
+        "tags": ["1989", "open-hat"]
+      },
+      {
+        "id": "pattern:reni-this-is-the-one",
+        "name": "This Is the One: the open hat and the \"a\" of 2",
+        "type": "groove",
+        "function": "The hat opened on every eighth, the snare on 2 and 4, the bass drum on 1, the \"a\" of 2, 3 and its \"and\"; for the first minute only the hat foot on 2 and 4.",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19403"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 126,
+          "playable_range_bpm": [122, 134]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.",
+          "snare": "....x.......x...",
+          "kick": "x......xx.x....."
+        },
+        "source": {
+          "recording_id": "rec:the-stone-roses-the-stone-roses-1989",
+          "transcription_source_id": "src:songsterr-19403"
+        },
+        "tags": ["1989", "open-hat"]
+      },
+      {
+        "id": "pattern:reni-resurrection-intro",
+        "name": "I Am the Resurrection: the snare on every beat",
+        "type": "groove",
+        "function": "The snare on every beat, the bass drum on the \"and\" of 3 and of 4; in the verse eighths on the hat over it.",
+        "style_ids": ["style:indie-rock", "style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-7241810",
+            "src:reni-isolated-drums-box-set-go",
+            "src:i-am-the-resurrection-wikipedia"
+          ]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [124, 136]
+        },
+        "lanes": {
+          "snare": "x...x...x...x...",
+          "kick": "..........x...x."
+        },
+        "source": {
+          "recording_id": "rec:the-stone-roses-the-stone-roses-1989",
+          "transcription_source_id": "src:songsterr-7241810"
+        },
+        "tags": ["1989", "motown"]
+      },
+      {
+        "id": "pattern:reni-resurrection-coda",
+        "name": "I Am the Resurrection: the coda funk",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on the \"e\" of 1, 2, the \"e\" of 3 and 4, the bass drum on every \"and\": the funk of the coda.",
+        "style_ids": ["style:indie-rock", "style:funk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7241810", "src:reni-isolated-drums-box-set-go"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 122,
+          "playable_range_bpm": [118, 128]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": ".x..x....x..x...",
+          "kick": "..x...x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:the-stone-roses-the-stone-roses-1989",
+          "transcription_source_id": "src:songsterr-7241810"
+        },
+        "tags": ["1989", "funk"]
+      },
+      {
+        "id": "pattern:reni-fools-gold",
+        "name": "Fools Gold: the breakbeat",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2, the \"a\" of 2, the \"e\" of 3 and 4 (as ghosts in some bars), the bass drum on 1, the \"and\" of 3 and the \"and\" of 4: the beat the song was written over, learned and played.",
+        "style_ids": ["style:funk-rock", "style:hip-hop-breakbeat"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-23358",
+            "src:fools-gold-wikipedia",
+            "src:reni-far-out-fools-gold-2023",
+            "src:stone-roses-bass-and-drums-betheriel"
+          ],
+          "note": "How much of the record is a loop and how much his playing is not settled."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 113,
+          "playable_range_bpm": [109, 116]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x..x.x..x...",
+          "kick": "x.........x...x."
+        },
+        "source": {
+          "recording_id": "rec:the-stone-roses-fools-gold-1989",
+          "transcription_source_id": "src:songsterr-23358"
+        },
+        "tags": ["1989", "breakbeat", "baggy"]
+      },
+      {
+        "id": "pattern:reni-love-spreads",
+        "name": "Love Spreads: on the ride",
+        "type": "groove",
+        "function": "Eighths on the ride, the snare on 2, its \"a\" and 4, the bass drum on 1, the \"a\" of 1, the \"and\" of 2, the \"e\" of 3, the \"and\" of 3 and the \"and\" of 4, moving every bar.",
+        "style_ids": ["style:psychedelic-rock", "style:blues-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-54720", "src:reni-isolated-drums-love-spreads"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 92,
+          "playable_range_bpm": [89, 95]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "....x..x....x...",
+          "kick": "x..x..x..x.x..x."
+        },
+        "source": {
+          "recording_id": "rec:the-stone-roses-second-coming-1994",
+          "transcription_source_id": "src:songsterr-54720"
+        },
+        "tags": ["1994", "bonham"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:reni-1989",
+      "label": "The painted three-piece kit",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "other",
+          "model": "A mixture of Ludwig, vintage, and a big expensive Sonor snare drum"
+        }
+      ],
+      "layout_notes": "Three pieces (bass drum, one rack tom, snare) with hat and cymbals; painted by John Squire in a Jackson Pollock manner. Leckie: 'every tom, cymbal and drum is from a different kit'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:reni-wikipedia"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "The Stone Roses",
+      "type": "band_member",
+      "years": {
+        "from": 1984,
+        "to": 1995
+      },
+      "bandmates": [
+        {
+          "name": "Ian Brown"
+        },
+        {
+          "name": "John Squire"
+        },
+        {
+          "name": "Mani"
+        }
+      ],
+      "notes": "And again 2011-2017.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:reni-wikipedia"]
+      }
+    },
+    {
+      "name": "The Rub",
+      "type": "band_member",
+      "years": {
+        "from": 1998,
+        "to": 2001
+      },
+      "bandmates": [],
+      "notes": "Singer and guitarist, not the drummer; no records released.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:reni-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-stone-roses-the-stone-roses-1989",
+    "rec:the-stone-roses-fools-gold-1989",
+    "rec:the-stone-roses-second-coming-1994"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:reni-wikipedia"],
+        "note": "'The energy from influences such as Keith Moon'; Townshend: 'the most natural drummer I've seen since Keith Moon'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Clyde Stubblefield",
+        "kind": "drummer",
+        "id": "drummer:clyde-stubblefield"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:fools-gold-wikipedia", "src:reni-far-out-fools-gold-2023"],
+        "note": "Fools Gold was written over The Funky Drummer, 'which Reni had to learn the beat from'; whose break it really was is disputed."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:reni-wikipedia"],
+        "note": "Second Coming: 'extra tom-toms for a style analogous to John Bonham', after Squire's turn to Led Zeppelin."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Jon Brookes",
+        "kind": "drummer",
+        "id": "drummer:jon-brookes"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:reni-wikipedia"],
+        "note": "The Charlatans' drummer watched him closely on the 1989 tours: 'He never pounded the drums, he used to caress them'."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Matt Helders",
+        "kind": "drummer",
+        "id": "drummer:matt-helders"
+      },
+      "strength": 0.2,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:radiox-ringos-2020"],
+        "note": "Voted Radio X listeners' favourite drummer in 2020: 'Don't know how I got passed Reni to be honest.'"
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Robbie Maddix",
+        "kind": "drummer",
+        "id": "drummer:robbie-maddix"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 1995,
+        "to": 1996
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:reni-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Mani",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1987,
+        "to": 1995
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:reni-wikipedia", "src:the-stone-roses-album-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Ian Brown",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1984,
+        "to": 1995
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:reni-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "John Squire",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1984,
+        "to": 1995
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:reni-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Pete Townshend",
+        "kind": "musician"
+      },
+      "strength": 0.2,
+      "years": {
+        "from": 1984,
+        "to": 1984
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:reni-wikipedia"],
+        "note": "Played Pictures of Lily and other Who songs in his set at a London anti-heroin benefit, the Roses' first gig with Reni."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": []
+  },
+  "legacy": {
+    "influence_score": 0.5,
+    "innovations": [
+      "An indie guitar band's drummer playing for the dance floor: the Madchester blend",
+      "A breakbeat learned and played by hand (Fools Gold)"
+    ],
+    "accolades": [
+      {
+        "name": "Rhythm magazine drummer hero: 'funkier and more subtle than any drummer in the genre had ever been'",
+        "year": 2004,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:reni-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he played on Ian Brown's Can't See Me: Brown later said the drum loop was a sample Mani found."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "reni",
+    "headline_pattern_ids": ["pattern:reni-fools-gold", "pattern:reni-waterfall"],
+    "default_kit_sound": "A 1960s Ludwig, round and a little loose (SM Drums); Fools Gold on a fat funk snare, Love Spreads in a big room",
+    "generation_rules": [
+      "Straight eighths, never swung, loose in feel.",
+      "The bass drum on the \"and\"s, or four on the floor under a displaced snare.",
+      "The hat opened on the off-beats; both hands on it in sixteenths.",
+      "Ghosts only round the breakbeat songs."
+    ],
+    "avoid": ["Swing", "Double bass", "Heavy accents"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:keith-moon", "drummer:clyde-stubblefield"],
+      "primary_descendants": [],
+      "lineage_blurb": "Keith Moon's energy, then a Funky Drummer break learned by hand: the drummer who put the dance in Madchester."
+    },
+    "tags": ["indie", "madchester", "baggy", "manchester", "80s", "90s"]
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "id": "rec:radiohead-pablo-honey-1993",
+  "title": "Pablo Honey",
+  "artist": "Radiohead",
+  "release": "Parlophone",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:alternative-rock"],
+  "personnel": [
+    {
+      "name": "Thom Yorke",
+      "role": "vocals, guitar, piano"
+    },
+    {
+      "name": "Jonny Greenwood",
+      "role": "guitar, keyboards"
+    },
+    {
+      "name": "Ed O'Brien",
+      "role": "guitar, backing vocals"
+    },
+    {
+      "name": "Colin Greenwood",
+      "role": "bass"
+    },
+    {
+      "name": "Philip Selway",
+      "role": "drums"
+    },
+    {
+      "name": "Sean Slade and Paul Q. Kolderie",
+      "role": "producer"
+    }
+  ],
+  "studio_context": "Chipping Norton and Courtyard Studios, Oxfordshire, 1992, with Sean Slade and Paul Q. Kolderie; Creep a warm-up take the band did not know was being recorded.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-selway",
+      "name": "Philip Selway",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Creep: 'disciplined simplicity' (Rhythm), the kick on 1, the 'a' of 2 and the 'and' of 3 under the hats, the chorus on the ride.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:pablo-honey-wikipedia",
+          "src:creep-radiohead-wikipedia",
+          "src:songsterr-97"
+        ]
+      },
+      "pattern_ids": ["pattern:selway-creep"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:pablo-honey-wikipedia"]
+  }
+}

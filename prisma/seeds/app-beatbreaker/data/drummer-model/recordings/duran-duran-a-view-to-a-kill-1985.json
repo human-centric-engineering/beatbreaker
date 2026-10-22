@@ -1,0 +1,55 @@
+{
+  "id": "rec:duran-duran-a-view-to-a-kill-1985",
+  "title": "A View to a Kill",
+  "artist": "Duran Duran",
+  "release": "Parlophone / Capitol",
+  "year": 1985,
+  "type": "studio_track",
+  "producer": "Bernard Edwards, Jason Corsaro, Duran Duran",
+  "style_ids": ["style:new-wave", "style:rock"],
+  "personnel": [
+    {
+      "name": "Simon Le Bon",
+      "role": "vocals"
+    },
+    {
+      "name": "Nick Rhodes",
+      "role": "keyboards, synthesisers"
+    },
+    {
+      "name": "John Taylor",
+      "role": "bass"
+    },
+    {
+      "name": "Andy Taylor",
+      "role": "guitar"
+    },
+    {
+      "name": "John Barry",
+      "role": "orchestral arrangement, conductor"
+    }
+  ],
+  "tempo_bpm": 126,
+  "studio_context": "Maison Rouge and CTS, London, early 1985, with a sixty-piece orchestra under John Barry; produced with Bernard Edwards of Chic. His last single with the band before he left.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-taylor-duran-duran",
+      "name": "Roger Taylor",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The Bond theme: the kick on 1 and the \"and\" of 3 under the orchestra, the chorus's kick on 1, the \"and\" of 2 and 3.",
+      "pattern_ids": ["pattern:rtaylor-a-view-to-a-kill-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:a-view-to-a-kill-song-wikipedia",
+          "src:a-view-to-a-kill-drum-sheet-video"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:a-view-to-a-kill-song-wikipedia"]
+  }
+}
