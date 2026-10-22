@@ -4966,6 +4966,30 @@ lineage:check-links` then re-checked every stored link. **Spotify links are
   in process for five minutes. Not checked in a browser (no Chrome connection
   here); the component tests cover the table and the fallback.
 
+**15-d as built (2026-10-22, branch `phase-15d-next-batch`):**
+
+- **The ranking** is in `drumming-research.md`, section DC: a score out of
+  100 from standing (40: Rolling Stone's 100 of 2016, Modern Drummer's
+  Readers Poll and Hall of Fame 1979–2017, the DownBeat Jazz Hall of Fame,
+  and influence edges in the model for a drummer on none of them), the
+  contribution's evidence (10), how much of a build can be checked against a
+  transcription and a recording (35), and the 15-a queue place (15).
+- **A batch** is eight drummers with at least five linked songs, one per
+  Drummers-tab group, the best of each map family first and no more than
+  three from one family. Without the family rule the polls' lean makes the
+  first 32 drummers 20 rock and no Latin, African or Asian player.
+- **Batch 1:** Simon Phillips, D. J. Fontana, Matt Cameron, Josh Freese,
+  Kenny Clarke, Carl Palmer, Fred Below, Milton Banana. Their assignments and
+  the fork brief are in `planning/drummer-batches.md`. Batches 2 to 4 are
+  planned in DC and re-ranked after each merge. The merge tool now upgrades a
+  candidate's record in place and links its 15-b tracks to the new songs.
+- **Found:** 36 hand and percussion players are better built as pattern
+  styles, like agbekor, than as kit drummers. 186 kit candidates have fewer
+  than five linked songs, 87 of them jazz. Only two Latin, African and Asian
+  kit drummers can be built today: the family needs a songs pass first.
+- Not done: building batch 1. That is the next piece of work, one fork per
+  drummer as the earlier batches ran.
+
 **Not in Phase 15:** scoring the songs. Each one is still a drummer batch of
 its own (`drumming-research.md`). Also out: a request or vote for a song;
 licensing review of song titles beyond D10.
