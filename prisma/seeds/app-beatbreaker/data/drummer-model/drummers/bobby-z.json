@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "id": "drummer:bobby-z",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "Purple Rain (1984) and Parade (1986) years are general knowledge; the page lists them without years."
+    ]
+  },
+  "identity": {
+    "name": "Bobby Z.",
+    "summary": "Drummer of Prince and the Revolution, 1978 to 1986, who played the Linn drum machines live as well as acoustic drums.",
+    "active": {
+      "from": 1978,
+      "ongoing": true
+    },
+    "nationality": ["American"],
+    "full_name": "Robert B. Rivkin",
+    "born": {
+      "date": "1956-01-09",
+      "place": "Minneapolis, Minnesota"
+    },
+    "home_scenes": ["Minneapolis"]
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:minneapolis-sound",
+        "weight": 1
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Prince and the Revolution",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1986
+      }
+    },
+    {
+      "name": "The Revolution",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1986
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:prince-and-the-revolution-purple-rain-1984",
+    "rec:prince-and-the-revolution-parade-1986",
+    "rec:prince-1999-1982"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played the Minneapolis sound's drum machines as an instrument: as Prince turned to the Linn LM-1 and LinnDrum, he adapted to operate them in concert as well as in the studio.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bobby-z-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Minneapolis sound drummers",
+    "build_priority": 2
+  }
+}

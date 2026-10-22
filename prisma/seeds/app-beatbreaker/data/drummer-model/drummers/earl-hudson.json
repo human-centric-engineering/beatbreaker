@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "id": "drummer:earl-hudson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Earl Hudson",
+    "born": {
+      "date": "1957-12-17",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:earl-hudson-wikipedia"]
+      },
+      "place": "Alabama"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Washington, D.C. hardcore"],
+    "active": {
+      "from": 1977,
+      "ongoing": true
+    },
+    "summary": "Bad Brains' drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:reggae",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Bad Brains",
+      "type": "band_member",
+      "years": {
+        "from": 1977
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:earl-hudson-wikipedia", "src:bad-brains-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drove Bad Brains between breakneck hardcore and reggae: a band Rolling Stone called 'the mother of all black hard-rock bands', cited as seminal to hardcore and to thrash, alternative and funk metal.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:earl-hudson-wikipedia", "src:bad-brains-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hardcore punk drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:bad-brains-bad-brains-1982",
+    "rec:bad-brains-rock-for-light-1983",
+    "rec:bad-brains-i-against-i-1986"
+  ]
+}

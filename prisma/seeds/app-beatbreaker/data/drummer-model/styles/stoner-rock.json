@@ -1,0 +1,21 @@
+{
+  "id": "style:stoner-rock",
+  "name": "Stoner rock",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:hard-rock",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1990
+  },
+  "summary": "Slow-to-mid-tempo, heavily distorted rock rooted in Black Sabbath and 1970s heavy blues; the Palm Desert scene around Kyuss.",
+  "drum_characteristics": {
+    "hallmarks": ["loose, behind-the-beat grooves", "heavy tom and ride feels"]
+  }
+}

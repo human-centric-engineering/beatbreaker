@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "id": "drummer:milton-banana",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Milton Banana",
+    "full_name": "Antônio de Souza",
+    "born": {
+      "date": "1935-04-23"
+    },
+    "died": {
+      "date": "1999-05-22"
+    },
+    "nationality": ["Brazilian"],
+    "home_scenes": ["Rio de Janeiro"],
+    "active": {
+      "from": 1958,
+      "to": 1984
+    },
+    "summary": "Self-taught Brazilian drummer of João Gilberto's records and the Milton Banana Trio."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:bossa-nova",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:samba",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Milton Banana Trio",
+      "type": "bandleader",
+      "years": {
+        "from": 1966
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:joao-gilberto-chega-de-saudade-1958",
+    "rec:milton-banana-trio-balancando-1966"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of the first bossa nova records: best known for his work with João Gilberto, from Chega de Saudade (1958), and with Stan Getz.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-milton-banana"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Samba and Brazilian jazz drummers",
+    "build_priority": 2
+  }
+}

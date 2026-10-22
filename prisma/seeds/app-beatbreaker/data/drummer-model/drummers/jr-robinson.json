@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "drummer:jr-robinson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "John 'JR' Robinson",
+    "full_name": "John Frederick Robinson",
+    "aliases": ["JR"],
+    "nationality": ["American"],
+    "roles": ["session", "band_member"],
+    "born": {
+      "date": "1954-12-29",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jr-robinson-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1975,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Quincy Jones's drummer on Off the Wall and one of the most-recorded drummers in history."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:disco",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Rufus",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1983
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:michael-jackson-off-the-wall-1979",
+    "rec:rufus-and-chaka-khan-aint-nobody-1983",
+    "rec:daft-punk-ram-2013"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "His fill opens Michael Jackson's \"Rock with You\" and his groove carried Quincy Jones's productions from Off the Wall (1979) to \"We Are the World\"; called \"one of the most recorded drummers in history\" and ranked 81st in Rolling Stone's 100 Greatest Drummers (2016).",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jr-robinson-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 1
+  }
+}

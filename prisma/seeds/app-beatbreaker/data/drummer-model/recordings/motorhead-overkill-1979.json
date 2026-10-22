@@ -1,0 +1,14 @@
+{
+  "id": "rec:motorhead-overkill-1979",
+  "title": "Overkill",
+  "artist": "Motörhead",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-taylor",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

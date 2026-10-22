@@ -1,0 +1,20 @@
+{
+  "id": "rec:elvis-costello-and-the-attractions-this-years-model-1978",
+  "title": "This Year's Model",
+  "artist": "Elvis Costello and the Attractions",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:new-wave"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:pete-thomas-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pete-thomas",
+      "name": "Pete Thomas",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

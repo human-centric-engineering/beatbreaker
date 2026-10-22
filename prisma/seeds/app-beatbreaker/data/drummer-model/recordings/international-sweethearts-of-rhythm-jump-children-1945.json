@@ -1,0 +1,19 @@
+{
+  "id": "rec:international-sweethearts-of-rhythm-jump-children-1945",
+  "title": "Jump Children",
+  "artist": "International Sweethearts of Rhythm",
+  "year": 1945,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pauline-braddy",
+      "name": "Pauline Braddy",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:international-sweethearts-of-rhythm-wikipedia"]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "rec:john-lennon-imagine-1971",
+  "title": "Imagine",
+  "artist": "John Lennon",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:rock", "style:pop-rock-session"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jim-keltner-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jim-keltner",
+      "name": "Jim Keltner",
+      "drummer_role": "sole_drummer"
+    },
+    {
+      "drummer_id": "drummer:alan-white",
+      "name": "Alan White (Yes)",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

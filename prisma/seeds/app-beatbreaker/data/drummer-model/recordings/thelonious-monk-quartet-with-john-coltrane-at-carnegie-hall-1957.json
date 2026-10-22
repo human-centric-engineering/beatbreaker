@@ -1,0 +1,20 @@
+{
+  "id": "rec:thelonious-monk-quartet-with-john-coltrane-at-carnegie-hall-1957",
+  "title": "Thelonious Monk Quartet with John Coltrane at Carnegie Hall",
+  "artist": "Thelonious Monk Quartet",
+  "year": 1957,
+  "type": "album",
+  "style_ids": ["style:bebop"],
+  "release": "Blue Note (2005)",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:shadow-wilson",
+      "name": "Shadow Wilson",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:shadow-wilson-wikipedia"]
+  }
+}

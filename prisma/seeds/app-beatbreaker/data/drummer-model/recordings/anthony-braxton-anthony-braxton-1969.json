@@ -1,0 +1,25 @@
+{
+  "id": "rec:anthony-braxton-anthony-braxton-1969",
+  "title": "Anthony Braxton",
+  "artist": "Anthony Braxton",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-mccall",
+      "name": "Steve McCall",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "BYG Actuel, Paris.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steve-mccall-drummer-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:steve-mccall-drummer-wikipedia"]
+  }
+}

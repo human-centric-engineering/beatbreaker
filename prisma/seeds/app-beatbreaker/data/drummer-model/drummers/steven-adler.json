@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "id": "drummer:steven-adler",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Steven Adler",
+    "born": {
+      "date": "1965",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steven-adler-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1983,
+      "ongoing": true
+    },
+    "summary": "Guns N' Roses' drummer on Appetite for Destruction."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 1.0,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Guns N' Roses",
+      "type": "band_member",
+      "years": {
+        "from": 1985,
+        "to": 1990
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steven-adler-wikipedia"]
+      }
+    },
+    {
+      "name": "Adler's Appetite",
+      "type": "bandleader",
+      "years": {
+        "from": 2003,
+        "to": 2011
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steven-adler-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:guns-n-roses-appetite-for-destruction-1987"],
+  "legacy": {
+    "contribution": {
+      "description": "His tense yet swinging beats gave Appetite for Destruction (1987) much of its swagger: Slash credited the album's feel and energy largely to him, and said the songs were written around his sense of swing.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steven-adler-wikipedia", "src:rollingstone-100-drummers-2016"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard rock drummers",
+    "build_priority": 1
+  }
+}

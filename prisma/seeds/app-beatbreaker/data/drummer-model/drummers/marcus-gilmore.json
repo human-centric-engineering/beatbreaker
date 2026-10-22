@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "id": "drummer:marcus-gilmore",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Marcus Gilmore",
+    "born": {
+      "date": "1986-10-10",
+      "place": "New York City",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:marcus-gilmore-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 2002,
+      "ongoing": true
+    },
+    "summary": "Roy Haynes's grandson, Vijay Iyer's drummer, and one of the drummers finding new ways to look at the kit."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "weight": 1.0,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Vijay Iyer Trio",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:marcus-gilmore-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:vijay-iyer-trio-historicity-2009",
+    "rec:vijay-iyer-trio-accelerando-2012"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Named by the New York Times critic Ben Ratliff in 2009 among the drummers \"finding new ways to look at the drum set, and at jazz itself\", in Vijay Iyer's trio and beyond.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:marcus-gilmore-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modern jazz drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "family",
+      "target": {
+        "name": "Roy Haynes",
+        "kind": "drummer",
+        "id": "drummer:roy-haynes"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:marcus-gilmore-wikipedia"]
+      }
+    }
+  ]
+}

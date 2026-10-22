@@ -1,0 +1,20 @@
+{
+  "id": "rec:bob-crosby-bob-cats-big-noise-from-winnetka-1938",
+  "title": "Big Noise from Winnetka",
+  "artist": "Bob Crosby's Bob Cats",
+  "year": 1938,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz", "style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ray-bauduc",
+      "name": "Ray Bauduc",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "A bass-and-drums duet, Bauduc playing on the bass strings."
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:ray-bauduc-wikipedia"]
+  }
+}

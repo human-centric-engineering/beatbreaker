@@ -1,0 +1,20 @@
+{
+  "id": "rec:buzzcocks-spiral-scratch-1977",
+  "title": "Spiral Scratch",
+  "artist": "Buzzcocks",
+  "year": 1977,
+  "type": "studio_track",
+  "style_ids": ["style:punk"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:john-maher-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-maher",
+      "name": "John Maher",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

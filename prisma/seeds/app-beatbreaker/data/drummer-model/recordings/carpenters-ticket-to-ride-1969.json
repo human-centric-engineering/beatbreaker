@@ -1,0 +1,19 @@
+{
+  "id": "rec:carpenters-ticket-to-ride-1969",
+  "title": "Ticket to Ride",
+  "artist": "Carpenters",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:karen-carpenter-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:karen-carpenter",
+      "name": "Karen Carpenter",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

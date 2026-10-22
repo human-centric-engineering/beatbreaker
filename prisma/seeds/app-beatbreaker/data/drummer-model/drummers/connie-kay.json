@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "id": "drummer:connie-kay",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Connie Kay",
+    "full_name": "Conrad Henry Kirnon",
+    "born": {
+      "date": "1927-04-27",
+      "place": "Tuckahoe, New York",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:connie-kay-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1994-11-30"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1944,
+      "to": 1994
+    },
+    "summary": "The Modern Jazz Quartet's drummer for forty years, and the drummer on rhythm-and-blues hits and Astral Weeks."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:cool-jazz",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.4,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Modern Jazz Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1955,
+        "to": 1974
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:connie-kay-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:modern-jazz-quartet-fontessa-1956",
+    "rec:van-morrison-astral-weeks-1968"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Held the Modern Jazz Quartet's time from 1955, adding timpani, small cymbals, triangle, bell tree and darbukas to the kit, and drummed on R&B hits such as Big Joe Turner's Shake, Rattle and Roll and on Van Morrison's Astral Weeks.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:connie-kay-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Cool jazz drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Kenny Clarke",
+        "kind": "drummer",
+        "id": "drummer:kenny-clarke"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:connie-kay-wikipedia"]
+      }
+    }
+  ]
+}

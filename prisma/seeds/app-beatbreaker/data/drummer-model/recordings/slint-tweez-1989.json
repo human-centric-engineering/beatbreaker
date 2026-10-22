@@ -1,0 +1,20 @@
+{
+  "id": "rec:slint-tweez-1989",
+  "title": "Tweez",
+  "artist": "Slint",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:post-rock", "style:math-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:britt-walford-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:britt-walford",
+      "name": "Britt Walford",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "id": "drummer:karen-carpenter",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Karen Carpenter",
+    "full_name": "Karen Anne Carpenter",
+    "nationality": ["American"],
+    "roles": ["band_member"],
+    "born": {
+      "date": "1950-03-02",
+      "place": "New Haven, Connecticut",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:karen-carpenter-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1983-02-04",
+      "place": "Downey, California"
+    },
+    "active": {
+      "from": 1965,
+      "to": 1983
+    },
+    "primary_instruments": ["drum kit", "vocals"],
+    "summary": "Singer and drummer of the Carpenters, who called herself \"a drummer who sang\"."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Carpenters",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 1983
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:carpenters-ticket-to-ride-1969", "rec:carpenters-now-and-then-1973"],
+  "legacy": {
+    "contribution": {
+      "description": "A self-taught drummer playing 5/4 within a year, she was the only drummer on the Carpenters' first album (1969) and on Now & Then (1973), was praised by Buddy Rich and Hal Blaine, and appeared in Playboy's readers' drummer poll every year from 1974 to 1980.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:karen-carpenter-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "played_alongside",
+      "target": {
+        "id": "drummer:hal-blaine",
+        "name": "Hal Blaine",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:karen-carpenter-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "id": "drummer:larrie-londin",
+        "name": "Larrie Londin",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:karen-carpenter-wikipedia"]
+      }
+    }
+  ]
+}

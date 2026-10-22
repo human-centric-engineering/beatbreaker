@@ -1,0 +1,19 @@
+{
+  "id": "rec:carpenters-now-and-then-1973",
+  "title": "Now & Then",
+  "artist": "Carpenters",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:karen-carpenter-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:karen-carpenter",
+      "name": "Karen Carpenter",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

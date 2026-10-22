@@ -1,0 +1,19 @@
+{
+  "id": "rec:mountain-climbing-1970",
+  "title": "Climbing!",
+  "artist": "Mountain",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:corky-laing",
+      "name": "Corky Laing",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:corky-laing-wikipedia"]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:bauhaus-bela-lugosis-dead-1979",
+  "title": "Bela Lugosi's Dead",
+  "artist": "Bauhaus",
+  "year": 1979,
+  "type": "studio_track",
+  "style_ids": ["style:gothic-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:kevin-haskins-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kevin-haskins",
+      "name": "Kevin Haskins",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

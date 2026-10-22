@@ -1,0 +1,14 @@
+{
+  "id": "rec:x-japan-jealousy-1991",
+  "title": "Jealousy",
+  "artist": "X Japan",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yoshiki",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

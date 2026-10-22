@@ -1,0 +1,14 @@
+{
+  "id": "rec:kool-and-the-gang-celebration-1980",
+  "title": "Celebration",
+  "artist": "Kool & the Gang",
+  "year": 1980,
+  "type": "studio_track",
+  "style_ids": ["style:disco", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:george-brown",
+      "name": "George \"Funky\" Brown"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:alice-in-chains-dirt-1992",
+  "title": "Dirt",
+  "artist": "Alice in Chains",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:grunge", "style:metal"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:sean-kinney-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sean-kinney",
+      "name": "Sean Kinney",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

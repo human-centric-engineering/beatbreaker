@@ -1,0 +1,14 @@
+{
+  "id": "rec:stevie-ray-vaughan-and-double-trouble-texas-flood-1983",
+  "title": "Texas Flood",
+  "artist": "Stevie Ray Vaughan and Double Trouble",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:blues-rock", "style:blues-shuffle"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-layton",
+      "name": "Chris Layton"
+    }
+  ]
+}

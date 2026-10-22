@@ -1,0 +1,20 @@
+{
+  "id": "rec:blink-182-cheshire-cat-1995",
+  "title": "Cheshire Cat",
+  "artist": "Blink-182",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:pop-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:scott-raynor-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:scott-raynor",
+      "name": "Scott Raynor",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

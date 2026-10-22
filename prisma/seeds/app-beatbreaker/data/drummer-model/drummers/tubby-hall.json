@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "id": "drummer:tubby-hall",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Tubby Hall",
+    "full_name": "Alfred Hall",
+    "born": {
+      "date": "1895-10-12",
+      "place": "Sellers, Louisiana, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tubby-hall-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1945-05-13",
+      "place": "Chicago, Illinois, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "New Orleans marching bands (1910s)",
+      "Chicago with New Orleans bands (1917-1945)"
+    ],
+    "active": {
+      "from": 1912,
+      "to": 1945
+    },
+    "summary": "New Orleans drummer of 1920s Chicago, ranked with Dodds and Singleton."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-jazz",
+        "weight": 1,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Carroll Dickerson Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1927,
+        "to": 1927
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tubby-hall-wikipedia"]
+      }
+    },
+    {
+      "name": "Louis Armstrong Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1931,
+        "to": 1932
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tubby-hall-wikipedia"]
+      }
+    },
+    {
+      "name": "Jimmie Noone",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tubby-hall-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:louis-armstrong-a-rhapsody-in-black-and-blue-1932",
+    "rec:louis-armstrong-ill-be-glad-when-youre-dead-you-rascal-you-1932"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Ranked by Hugues Panassié with Dodds and Singleton as one of the three great jazz drummers of his generation. Gene Krupa learned from how he and Singleton phrased behind the horns and led a soloist in.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tubby-hall-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans and early jazz drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "family",
+      "target": {
+        "name": "Minor Hall",
+        "kind": "drummer",
+        "id": "drummer:minor-hall"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tubby-hall-wikipedia"]
+      }
+    }
+  ]
+}

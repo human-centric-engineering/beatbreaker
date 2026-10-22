@@ -1,0 +1,167 @@
+{
+  "meta": {
+    "id": "drummer:zakir-hussain",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["The article’s Grammy tally (four) and its own list (five) disagree."]
+  },
+  "identity": {
+    "name": "Zakir Hussain",
+    "aliases": ["Ustad Zakir Hussain"],
+    "born": {
+      "date": "1951-03-09",
+      "place": "Bombay, India",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zakir-hussain-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2024-12-15",
+      "place": "San Francisco, California"
+    },
+    "nationality": ["Indian"],
+    "home_scenes": ["Mumbai", "San Francisco Bay Area"],
+    "setup_type": "hand_percussion",
+    "primary_instruments": ["tabla"],
+    "active": {
+      "from": 1963,
+      "to": 2024
+    },
+    "roles": ["bandleader", "composer", "educator", "percussionist"],
+    "summary": "Tabla player, son of Alla Rakha, \"widely regarded as the greatest tabla player of his generation\": a founder of Shakti with John McLaughlin, of Planet Drum with Mickey Hart and of Tabla Beat Science; winner of Grammys from Planet Drum (1992) to three at one ceremony in 2024."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hindustani-classical",
+        "weight": 1,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.6,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Shakti",
+      "type": "band_member",
+      "years": {
+        "from": 1975
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zakir-hussain-wikipedia"]
+      }
+    },
+    {
+      "name": "Remember Shakti",
+      "type": "band_member",
+      "years": {
+        "from": 1999
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zakir-hussain-wikipedia"]
+      }
+    },
+    {
+      "name": "Planet Drum",
+      "type": "ensemble",
+      "years": {
+        "from": 1991
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zakir-hussain-wikipedia"]
+      }
+    },
+    {
+      "name": "Tabla Beat Science",
+      "type": "band_member",
+      "years": {
+        "from": 1999
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zakir-hussain-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:shakti-with-john-mclaughlin-1975",
+    "rec:mickey-hart-planet-drum-1991",
+    "rec:mickey-hart-zakir-hussain-global-drum-project-2007",
+    "rec:shakti-this-moment-2023"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Carried the tabla and Indian classical rhythm to a global audience and into jazz and rock, through Shakti’s fusion with John McLaughlin and the cross-tradition drum ensembles of Planet Drum and the Global Drum Project.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zakir-hussain-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Indian classical drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "family",
+      "target": {
+        "name": "Alla Rakha",
+        "kind": "drummer",
+        "id": "drummer:alla-rakha"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alla-rakha-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "T. H. \"Vikku\" Vinayakram",
+        "kind": "drummer",
+        "id": "drummer:vikku-vinayakram"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:th-vinayakram-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Mickey Hart",
+        "kind": "drummer",
+        "id": "drummer:mickey-hart"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zakir-hussain-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Trilok Gurtu",
+        "kind": "drummer",
+        "id": "drummer:trilok-gurtu"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:trilok-gurtu-wikipedia"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:soft-machine-volume-two-1969",
+  "title": "Volume Two",
+  "artist": "Soft Machine",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:robert-wyatt",
+      "name": "Robert Wyatt",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:robert-wyatt-wikipedia", "src:volume-two-soft-machine-album-wikipedia"]
+  }
+}

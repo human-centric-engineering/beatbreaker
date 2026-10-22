@@ -1,0 +1,19 @@
+{
+  "id": "rec:frankie-trumbauer-riverboat-shuffle-1927",
+  "title": "Riverboat Shuffle",
+  "artist": "Frankie Trumbauer and His Orchestra (with Bix Beiderbecke)",
+  "year": 1927,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chauncey-morehouse",
+      "name": "Chauncey Morehouse",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:chauncey-morehouse-wikipedia"]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "rec:the-allman-brothers-band-brothers-and-sisters-1973",
+  "title": "Brothers and Sisters",
+  "artist": "The Allman Brothers Band",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:southern-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:butch-trucks",
+      "name": "Butch Trucks",
+      "drummer_role": "co_drummer"
+    },
+    {
+      "drummer_id": "drummer:jaimoe",
+      "name": "Jaimoe",
+      "drummer_role": "co_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": [
+      "src:butch-trucks-wikipedia",
+      "src:brothers-and-sisters-album-wikipedia",
+      "src:jaimoe-wikipedia"
+    ]
+  }
+}

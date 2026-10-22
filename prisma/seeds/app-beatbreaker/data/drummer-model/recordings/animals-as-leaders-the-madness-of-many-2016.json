@@ -1,0 +1,14 @@
+{
+  "id": "rec:animals-as-leaders-the-madness-of-many-2016",
+  "title": "The Madness of Many",
+  "artist": "Animals as Leaders",
+  "year": 2016,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:matt-garstka",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

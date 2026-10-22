@@ -1,0 +1,20 @@
+{
+  "id": "rec:soundgarden-superunknown-1994",
+  "title": "Superunknown",
+  "artist": "Soundgarden",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:grunge"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:matt-cameron-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:matt-cameron",
+      "name": "Matt Cameron",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

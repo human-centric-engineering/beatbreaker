@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "id": "drummer:jc-heard",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "J. C. Heard",
+    "full_name": "James Charles Heard",
+    "born": {
+      "date": "1917-08-10",
+      "place": "Dayton, Ohio, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jc-heard-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1988-09-27",
+      "place": "Royal Oak, Michigan, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "New York swing bands (1939-1940s)",
+      "Jazz at the Philharmonic",
+      "Japan (1953-1957)",
+      "Detroit (1966-1988)"
+    ],
+    "active": {
+      "from": 1939,
+      "to": 1988
+    },
+    "summary": "Swing-to-bop drummer for Teddy Wilson and Cab Calloway, and a teacher in Japan and Detroit."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:bebop",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Cab Calloway Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1942,
+        "to": 1945
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jc-heard-wikipedia"]
+      }
+    },
+    {
+      "name": "Teddy Wilson",
+      "type": "band_member",
+      "years": {
+        "from": 1939,
+        "to": 1940
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jc-heard-wikipedia"]
+      }
+    },
+    {
+      "name": "Jazz at the Philharmonic",
+      "type": "ensemble",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jc-heard-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:mary-lou-williams-zodiac-suite-1945", "rec:jc-heard-this-is-me-1958"],
+  "legacy": {
+    "contribution": {
+      "description": "A hybrid of swing and bop, known for 'the hard swing he would bring to both large and small bands'. He took jazz drumming to Japan in the 1950s and mentored Detroit's young players, where a jazz week now bears his name.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jc-heard-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 3
+  }
+}

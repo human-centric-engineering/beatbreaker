@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "id": "drummer:wilson-das-neves",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Wilson das Neves",
+    "born": {
+      "date": "1936-06-14",
+      "place": "Rio de Janeiro, Brazil"
+    },
+    "died": {
+      "date": "2017-08-26",
+      "place": "Rio de Janeiro, Brazil"
+    },
+    "nationality": ["Brazilian"],
+    "home_scenes": ["Rio de Janeiro"],
+    "active": {
+      "from": 1950,
+      "to": 2017
+    },
+    "summary": "Rio drummer, percussionist and singer of Os Ipanemas and the Orquestra Imperial."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:samba",
+        "weight": 1,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Os Ipanemas",
+      "type": "band_member",
+      "years": {
+        "from": 1964
+      }
+    },
+    {
+      "name": "Orquestra Imperial",
+      "type": "ensemble"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:os-ipanemas-os-ipanemas-1964",
+    "rec:wilson-das-neves-o-som-quente-1969"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A key figure in Brazilian music, the samba drummer on more than 600 records by major Brazilian artists.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-wilson-das-neves"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Samba and Brazilian jazz drummers",
+    "build_priority": 3
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "id": "drummer:rat-scabies",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Rat Scabies",
+    "full_name": "Christopher John Millar",
+    "born": {
+      "date": "1955-07-30",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rat-scabies-wikipedia"]
+      },
+      "place": "Kingston upon Thames"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London punk, 1976"],
+    "active": {
+      "from": 1975,
+      "ongoing": true
+    },
+    "summary": "The Damned's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:punk",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:gothic-rock",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Damned",
+      "type": "band_member",
+      "years": {
+        "from": 1976,
+        "to": 1995
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rat-scabies-wikipedia", "src:chuck-biscuits-wikipedia"]
+      }
+    },
+    {
+      "name": "London SS",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1976
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rat-scabies-wikipedia", "src:chuck-biscuits-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummer of the Damned on 'New Rose', the first British punk single; named as an influence by Chuck Biscuits.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rat-scabies-wikipedia", "src:chuck-biscuits-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Punk drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:the-damned-new-rose-1976",
+    "rec:the-damned-damned-damned-damned-1977",
+    "rec:the-damned-machine-gun-etiquette-1979"
+  ]
+}

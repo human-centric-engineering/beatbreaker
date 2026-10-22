@@ -1,0 +1,19 @@
+{
+  "id": "rec:frank-zappa-the-grand-wazoo-1972",
+  "title": "The Grand Wazoo",
+  "artist": "Frank Zappa",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:experimental-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:aynsley-dunbar",
+      "name": "Aynsley Dunbar",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:aynsley-dunbar-wikipedia"]
+  }
+}

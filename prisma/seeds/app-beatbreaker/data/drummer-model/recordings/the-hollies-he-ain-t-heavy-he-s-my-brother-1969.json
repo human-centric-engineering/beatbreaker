@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-hollies-he-ain-t-heavy-he-s-my-brother-1969",
+  "title": "He Ain't Heavy, He's My Brother",
+  "artist": "The Hollies",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bobby-elliott",
+      "name": "Bobby Elliott",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:bobby-elliott-wikipedia"]
+  }
+}

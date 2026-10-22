@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "id": "drummer:karriem-riggins",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "The \"carried the sampled feel back to the kit\" half of the contribution is inferred from his dual career; find a source that says it."
+    ]
+  },
+  "identity": {
+    "name": "Karriem Riggins",
+    "summary": "Detroit jazz drummer and hip-hop producer: Betty Carter, Roy Hargrove and Ray Brown on one side, Common, J Dilla and Madlib on the other.",
+    "active": {
+      "from": 1992,
+      "ongoing": true
+    },
+    "nationality": ["American"],
+    "born": {
+      "date": "1975-08-25",
+      "place": "Detroit, Michigan"
+    },
+    "home_scenes": ["Detroit", "New York jazz"]
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 1
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:neo-soul",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Betty Carter's Jazz Ahead",
+      "type": "ensemble",
+      "years": {
+        "from": 1992
+      }
+    },
+    {
+      "name": "Roy Hargrove",
+      "type": "band_member",
+      "years": {
+        "from": 1995,
+        "to": 1998
+      }
+    },
+    {
+      "name": "Ray Brown Trio",
+      "type": "band_member",
+      "years": {
+        "from": 1998
+      }
+    },
+    {
+      "name": "August Greene",
+      "type": "band_member",
+      "years": {
+        "from": 2018
+      }
+    },
+    {
+      "name": "The Jahari Massamba Unit",
+      "type": "band_member",
+      "years": {
+        "from": 2020
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:karriem-riggins-alone-together-2012",
+    "rec:common-one-day-it-ll-all-make-sense-1997",
+    "rec:paul-mccartney-kisses-on-the-bottom-2012"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Lives in both worlds at once: a straight-ahead jazz drummer (Betty Carter at 17, Roy Hargrove, Ray Brown) who is also a hip-hop producer and beat-maker close to J Dilla and Common, and the one who carried that sampled feel back to the kit.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:karriem-riggins-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hip-hop and neo-soul drummers",
+    "build_priority": 1
+  }
+}

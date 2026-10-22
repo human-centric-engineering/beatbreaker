@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "drummer:willie-big-eyes-smith",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Willie \"Big Eyes\" Smith",
+    "full_name": "Willie Lee Smith",
+    "born": {
+      "date": "1936-01-19",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:willie-big-eyes-smith-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2011-09-16"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago"],
+    "active": {
+      "from": 1961,
+      "to": 2011
+    },
+    "summary": "Muddy Waters's drummer through most of 1961–80, later a singer and harmonica player."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues",
+        "weight": 1.0,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:blues-shuffle",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Muddy Waters's band",
+      "type": "band_member",
+      "years": {
+        "from": 1961,
+        "to": 1980
+      }
+    },
+    {
+      "name": "The Legendary Blues Band",
+      "type": "band_member",
+      "years": {
+        "from": 1980
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:muddy-waters-hard-again-1977"],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer behind Muddy Waters for nearly twenty years, including all six of his Grammy-winning albums of the 1970s, Hard Again among them.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:willie-big-eyes-smith-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blues drummers",
+    "build_priority": 3
+  }
+}

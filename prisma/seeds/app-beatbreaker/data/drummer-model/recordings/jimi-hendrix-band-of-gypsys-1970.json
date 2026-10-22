@@ -1,0 +1,14 @@
+{
+  "id": "rec:jimi-hendrix-band-of-gypsys-1970",
+  "title": "Band of Gypsys",
+  "artist": "Jimi Hendrix",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:funk-rock", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-miles",
+      "name": "Buddy Miles"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:gojira-magma-2016",
+  "title": "Magma",
+  "artist": "Gojira",
+  "year": 2016,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mario-duplantier",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

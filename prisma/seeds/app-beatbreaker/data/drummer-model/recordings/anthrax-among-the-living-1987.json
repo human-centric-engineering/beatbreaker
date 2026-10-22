@@ -1,0 +1,14 @@
+{
+  "id": "rec:anthrax-among-the-living-1987",
+  "title": "Among the Living",
+  "artist": "Anthrax",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charlie-benante",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

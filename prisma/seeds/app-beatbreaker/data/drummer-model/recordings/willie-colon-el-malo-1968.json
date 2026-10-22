@@ -1,0 +1,21 @@
+{
+  "id": "rec:willie-colon-el-malo-1968",
+  "title": "El Malo",
+  "artist": "Willie Colón",
+  "release": "Fania",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:salsa"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nicky-marrero",
+      "name": "Nicky Marrero",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-nicky-marrero"]
+      }
+    }
+  ]
+}

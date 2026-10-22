@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "id": "drummer:stanton-moore",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Stanton Moore",
+    "born": {
+      "date": "1972-07-09",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:stanton-moore-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans"],
+    "active": {
+      "from": 1994,
+      "ongoing": true
+    },
+    "summary": "Founding drummer of Galactic and a teacher of New Orleans drumming through books, videos and clinics."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-funk",
+        "weight": 1.0,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:new-orleans-second-line",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Galactic",
+      "type": "band_member",
+      "years": {
+        "from": 1994
+      }
+    },
+    {
+      "name": "Corrosion of Conformity",
+      "type": "session_regular",
+      "years": {
+        "from": 2022
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:stanton-moore-all-kooked-out-1998"],
+  "legacy": {
+    "contribution": {
+      "description": "Carried New Orleans second-line and funk drumming to a new generation, with Galactic and through his books, videos and international teaching; his book teaches Zigaboo Modeliste's grooves.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:stanton-moore-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans R&B and funk drummers",
+    "build_priority": 2
+  }
+}

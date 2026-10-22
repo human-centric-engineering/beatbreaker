@@ -1,0 +1,20 @@
+{
+  "id": "rec:gang-of-four-entertainment-1979",
+  "title": "Entertainment!",
+  "artist": "Gang of Four",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:post-punk", "style:funk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:hugo-burnham-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hugo-burnham",
+      "name": "Hugo Burnham",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

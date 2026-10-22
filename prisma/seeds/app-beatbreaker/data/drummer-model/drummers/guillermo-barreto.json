@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "id": "drummer:guillermo-barreto",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Guillermo Barreto",
+    "born": {
+      "date": "1929-08-11",
+      "place": "Havana, Cuba"
+    },
+    "died": {
+      "date": "1991-12-14",
+      "place": "Havana, Cuba"
+    },
+    "nationality": ["Cuban"],
+    "home_scenes": ["Havana, Tropicana"],
+    "active": {
+      "from": 1940,
+      "to": 1991
+    },
+    "summary": "Cuban drummer and timbalero of the Tropicana descargas and the Quinteto Instrumental de Música Moderna."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:afro-cuban",
+        "weight": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Quinteto Instrumental de Música Moderna",
+      "type": "bandleader",
+      "years": {
+        "from": 1958
+      }
+    },
+    {
+      "name": "Orquesta Cubana de Música Moderna",
+      "type": "big_band",
+      "years": {
+        "from": 1967
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:cachao-descargas-1957", "rec:jane-bunnett-spirits-of-havana-1991"],
+  "legacy": {
+    "contribution": {
+      "description": "One of the first drummers in Cuba to play Afro-Cuban jazz: he ran the Tropicana's Sunday descargas, played in Cachao's 1957 sessions, and his quintet became 'a benchmark in Cuban Latin jazz history'.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-guillermo-barreto"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Afro-Cuban and Latin jazz drummers",
+    "build_priority": 1
+  }
+}

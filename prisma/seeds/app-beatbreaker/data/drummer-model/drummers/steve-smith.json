@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "id": "drummer:steve-smith",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Steve Smith",
+    "full_name": "Steven Bruce Smith",
+    "nationality": ["American"],
+    "roles": ["band_member", "bandleader", "educator"],
+    "born": {
+      "date": "1954-08-21",
+      "place": "Whitman, Massachusetts",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steve-smith-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1974,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Journey's drummer on Escape and Frontiers, and leader of the fusion band Vital Information."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.8,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Journey",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1985
+      }
+    },
+    {
+      "name": "Vital Information",
+      "type": "bandleader",
+      "years": {
+        "from": 1977
+      }
+    },
+    {
+      "name": "Steps Ahead",
+      "type": "band_member"
+    },
+    {
+      "name": "Jean-Luc Ponty",
+      "type": "band_member",
+      "years": {
+        "from": 1977,
+        "to": 1978
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:journey-escape-1981", "rec:journey-frontiers-1983"],
+  "legacy": {
+    "contribution": {
+      "description": "Played arena rock with Journey and fusion with his own Vital Information at the same time, and was voted Modern Drummer's No. 1 All-Around Drummer five years running; Hall of Fame, 2002.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steve-smith-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 2
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "id": "rec:toots-and-the-maytals-reggae-got-soul-1976",
+  "title": "Reggae Got Soul",
+  "artist": "Toots & the Maytals",
+  "release": "Island",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-douglas",
+      "name": "Paul Douglas",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-paul-douglas-musician"]
+      }
+    }
+  ]
+}

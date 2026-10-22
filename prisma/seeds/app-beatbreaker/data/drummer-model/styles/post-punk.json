@@ -1,0 +1,18 @@
+{
+  "id": "style:post-punk",
+  "name": "Post-punk",
+  "kind": "genre",
+  "parents": [
+    {
+      "style_id": "style:punk",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1977
+  },
+  "summary": "The darker, more experimental music that followed punk: angular guitar, dub-heavy bass, and drums that often left the hi-hat for the toms."
+}

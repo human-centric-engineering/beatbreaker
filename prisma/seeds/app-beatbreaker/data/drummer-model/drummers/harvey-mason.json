@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "id": "drummer:harvey-mason",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Harvey Mason",
+    "nationality": ["American"],
+    "roles": ["session", "band_member", "producer"],
+    "born": {
+      "date": "1947-02-22",
+      "place": "Atlantic City, New Jersey",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:harvey-mason-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1970,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Original drummer of Herbie Hancock's Headhunters and a founder of Fourplay, with a long Los Angeles session career."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.9,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Headhunters",
+      "type": "band_member"
+    },
+    {
+      "name": "Fourplay",
+      "type": "band_member",
+      "years": {
+        "from": 1991,
+        "to": 2017
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:herbie-hancock-head-hunters-1973",
+    "rec:george-benson-breezin-1976",
+    "rec:fourplay-fourplay-1991"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Was the original drummer of Herbie Hancock's Headhunters, whose Head Hunters (1973) put a funk drummer's groove at the centre of jazz fusion; later co-founded Fourplay.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:harvey-mason-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 1
+  }
+}

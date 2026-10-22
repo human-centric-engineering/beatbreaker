@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "id": "drummer:kishan-maharaj",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "The article needs more citations; find a second source and an issued recording.",
+      "Active-from year is a placeholder."
+    ]
+  },
+  "identity": {
+    "name": "Kishan Maharaj",
+    "born": {
+      "date": "1923-09-03",
+      "place": "Kabir Chaura, Benares, British India",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kishan-maharaj-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2008-05-04",
+      "place": "Khajuri, near Varanasi"
+    },
+    "nationality": ["Indian"],
+    "home_scenes": ["Varanasi (Benares gharana)"],
+    "setup_type": "hand_percussion",
+    "primary_instruments": ["tabla"],
+    "active": {
+      "from": 1935,
+      "to": 2008
+    },
+    "roles": ["percussionist", "educator"],
+    "summary": "Tabla soloist and accompanist of the Benares gharana, with Ravi Shankar, Ali Akbar Khan, Bhimsen Joshi and the kathak dancers Birju Maharaj and Sitara Devi; known for cross-rhythms and tihai patterns. Padma Vibhushan, 2002."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hindustani-classical",
+        "weight": 1,
+        "authority": 0.7
+      }
+    ]
+  },
+  "affiliations": [],
+  "key_recording_ids": [],
+  "legacy": {
+    "contribution": {
+      "description": "A leading Benares-gharana tabla soloist, versatile enough to accompany any instrument or dance, and noted for cross-rhythms and complex tihai calculations.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kishan-maharaj-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Indian classical drummers",
+    "build_priority": 3
+  }
+}

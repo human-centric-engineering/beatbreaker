@@ -1,0 +1,19 @@
+{
+  "id": "rec:charlie-barnet-cherokee-1939",
+  "title": "Cherokee",
+  "artist": "Charlie Barnet and His Orchestra",
+  "year": 1939,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cliff-leeman",
+      "name": "Cliff Leeman",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:cliff-leeman-wikipedia"]
+  }
+}

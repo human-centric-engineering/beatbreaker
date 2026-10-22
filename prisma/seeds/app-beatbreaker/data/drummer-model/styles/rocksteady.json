@@ -1,0 +1,21 @@
+{
+  "id": "style:rocksteady",
+  "name": "Rocksteady",
+  "kind": "genre",
+  "region": "Jamaica",
+  "era": {
+    "from": 1966,
+    "to": 1968
+  },
+  "parents": [
+    {
+      "style_id": "style:ska",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "summary": "The slower Jamaican style between ska and reggae, with the bass to the front and the drums lighter and sparer.",
+  "key_drummer_ids": ["drummer:hugh-malcolm", "drummer:winston-grennan"]
+}

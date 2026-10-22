@@ -1,0 +1,121 @@
+{
+  "meta": {
+    "id": "drummer:dennis-thompson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Dennis Thompson",
+    "full_name": "Dennis Andrew Tomich",
+    "born": {
+      "date": "1948-09-07",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dennis-thompson-wikipedia"]
+      },
+      "place": "Detroit, Michigan"
+    },
+    "died": {
+      "date": "2024-05-09"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Detroit, late 1960s"],
+    "active": {
+      "from": 1965,
+      "to": 2024
+    },
+    "summary": "The MC5's 'Machine Gun' drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:garage-rock",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.7,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.6,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "MC5",
+      "type": "band_member",
+      "years": {
+        "from": 1965,
+        "to": 1972
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dennis-thompson-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "'Machine Gun' Thompson's fast, hard-hitting assault on the MC5's records prefigured and influenced punk, metal and hardcore drumming.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dennis-thompson-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Garage rock and proto-punk drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": ["rec:mc5-kick-out-the-jams-1969", "rec:mc5-back-in-the-usa-1970"],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dennis-thompson-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dennis-thompson-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dennis-thompson-wikipedia"]
+      }
+    }
+  ]
+}

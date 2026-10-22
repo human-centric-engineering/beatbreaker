@@ -1,0 +1,25 @@
+{
+  "id": "rec:miles-davis-bags-groove-1957",
+  "title": "Bags' Groove",
+  "artist": "Miles Davis",
+  "year": 1957,
+  "type": "album",
+  "style_ids": ["style:bebop", "style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenny-clarke",
+      "name": "Kenny Clarke",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Clarke under Miles and Monk on the 1954 sessions.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kenny-clarke-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:kenny-clarke-wikipedia"]
+  }
+}

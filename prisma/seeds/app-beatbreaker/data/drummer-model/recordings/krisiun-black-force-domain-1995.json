@@ -1,0 +1,14 @@
+{
+  "id": "rec:krisiun-black-force-domain-1995",
+  "title": "Black Force Domain",
+  "artist": "Krisiun",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:max-kolesne",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

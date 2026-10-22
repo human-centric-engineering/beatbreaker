@@ -1,0 +1,19 @@
+{
+  "id": "rec:weather-report-heavy-weather-1977",
+  "title": "Heavy Weather",
+  "artist": "Weather Report",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:alex-acuna-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alex-acuna",
+      "name": "Alex Acuña",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

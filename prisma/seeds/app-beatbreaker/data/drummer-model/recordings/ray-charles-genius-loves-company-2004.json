@@ -1,0 +1,19 @@
+{
+  "id": "rec:ray-charles-genius-loves-company-2004",
+  "title": "Genius Loves Company",
+  "artist": "Ray Charles",
+  "year": 2004,
+  "type": "album",
+  "style_ids": ["style:rnb-soul"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:shawn-pelton-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:shawn-pelton",
+      "name": "Shawn Pelton",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

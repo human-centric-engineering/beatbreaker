@@ -1,0 +1,14 @@
+{
+  "id": "rec:sly-and-the-family-stone-stand-1969",
+  "title": "Stand!",
+  "artist": "Sly and the Family Stone",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:funk", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:greg-errico",
+      "name": "Greg Errico"
+    }
+  ]
+}

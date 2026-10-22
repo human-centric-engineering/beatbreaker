@@ -1,0 +1,14 @@
+{
+  "id": "rec:deftones-around-the-fur-1997",
+  "title": "Around the Fur",
+  "artist": "Deftones",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:alternative-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:abe-cunningham",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

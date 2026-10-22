@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "id": "drummer:jon-theodore",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jon Theodore",
+    "full_name": "Jon Philip Theodore",
+    "born": {
+      "date": "1973-12-30",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jon-theodore-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Washington, D.C.; El Paso and Los Angeles"],
+    "active": {
+      "from": 1993,
+      "ongoing": true
+    },
+    "summary": "The Mars Volta's first drummer, then Queens of the Stone Age's."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Mars Volta",
+      "type": "band_member",
+      "years": {
+        "from": 2001,
+        "to": 2006
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jon-theodore-wikipedia"]
+      }
+    },
+    {
+      "name": "Queens of the Stone Age",
+      "type": "band_member",
+      "years": {
+        "from": 2013
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jon-theodore-wikipedia"]
+      }
+    },
+    {
+      "name": "Royal Trux",
+      "type": "band_member",
+      "years": {
+        "from": 2000,
+        "to": 2001
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jon-theodore-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "An explosive, multi-textural style, with patterns drawn from his Haitian heritage, on the Mars Volta's first three albums.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jon-theodore-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:the-mars-volta-de-loused-in-the-comatorium-2003",
+    "rec:the-mars-volta-frances-the-mute-2005",
+    "rec:queens-of-the-stone-age-villains-2017"
+  ],
+  "relationships": [
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Joey Castillo",
+        "kind": "drummer",
+        "id": "drummer:joey-castillo"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jon-theodore-wikipedia"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "id": "drummer:roy-brooks",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Roy Brooks",
+    "born": {
+      "date": "1938-03-09",
+      "place": "Detroit, Michigan",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roy-brooks-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2005-11-15"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Detroit", "New York (1959-1975)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1955,
+      "to": 2005
+    },
+    "summary": "Horace Silver's drummer, who played a musical saw and drums tuned with tubes, and founded Detroit's Aboriginal Percussion Choir."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-bop",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:free-jazz",
+        "weight": 0.3,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Horace Silver Quintet",
+      "type": "band_member",
+      "years": {
+        "from": 1959,
+        "to": 1964
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:roy-brooks-wikipedia"]
+      }
+    },
+    {
+      "name": "M'Boom",
+      "type": "ensemble",
+      "years": {
+        "from": 1970
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:roy-brooks-wikipedia"]
+      }
+    },
+    {
+      "name": "The Artistic Truth",
+      "type": "bandleader",
+      "years": {
+        "from": 1972
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:roy-brooks-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:horace-silver-song-for-my-father-1965",
+    "rec:roy-brooks-the-free-slave-1970"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Horace Silver's drummer from 1959 to 1964; his performances used unusual instruments such as the musical saw and drums whose pitch he changed with tubes, and he founded the Aboriginal Percussion Choir for non-Western percussion.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roy-brooks-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard bop drummers",
+    "build_priority": 3
+  }
+}

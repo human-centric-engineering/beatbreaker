@@ -1,0 +1,20 @@
+{
+  "id": "rec:oasis-some-might-say-1995",
+  "title": "Some Might Say",
+  "artist": "Oasis",
+  "year": 1995,
+  "type": "studio_track",
+  "style_ids": ["style:britpop"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tony-mccarroll-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-mccarroll",
+      "name": "Tony McCarroll",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

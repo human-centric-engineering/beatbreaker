@@ -1,0 +1,14 @@
+{
+  "id": "rec:muddy-waters-hard-again-1977",
+  "title": "Hard Again",
+  "artist": "Muddy Waters",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:blues"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:willie-big-eyes-smith",
+      "name": "Willie \"Big Eyes\" Smith"
+    }
+  ]
+}

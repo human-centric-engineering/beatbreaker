@@ -1,0 +1,20 @@
+{
+  "id": "rec:los-van-van-los-van-van-1969",
+  "title": "Los Van Van (Vol. I)",
+  "artist": "Los Van Van",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:songo", "style:cuban-son"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:blas-egues",
+      "name": "Blas Egües",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:timba-los-van-van-first-album"]
+      }
+    }
+  ]
+}

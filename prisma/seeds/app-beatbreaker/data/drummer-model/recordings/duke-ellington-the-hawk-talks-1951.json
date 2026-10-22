@@ -1,0 +1,19 @@
+{
+  "id": "rec:duke-ellington-the-hawk-talks-1951",
+  "title": "The Hawk Talks",
+  "artist": "Duke Ellington and His Orchestra",
+  "year": 1951,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:louie-bellson",
+      "name": "Louie Bellson",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:louie-bellson-wikipedia"]
+  }
+}

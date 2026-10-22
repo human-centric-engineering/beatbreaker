@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-hives-tyrannosaurus-hives-2004",
+  "title": "Tyrannosaurus Hives",
+  "artist": "The Hives",
+  "year": 2004,
+  "type": "album",
+  "style_ids": ["style:garage-rock", "style:new-wave"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:chris-dangerous-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-dangerous",
+      "name": "Chris Dangerous",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

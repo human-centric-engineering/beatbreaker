@@ -1,0 +1,20 @@
+{
+  "id": "rec:trio-da-paz-partido-out-1998",
+  "title": "Partido Out",
+  "artist": "Trio da Paz",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:samba", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:duduka-da-fonseca",
+      "name": "Duduka Da Fonseca",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-duduka-da-fonseca"]
+      }
+    }
+  ]
+}

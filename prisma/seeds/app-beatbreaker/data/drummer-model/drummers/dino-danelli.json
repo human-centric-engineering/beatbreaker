@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "drummer:dino-danelli",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Dino Danelli",
+    "nationality": ["American"],
+    "active": {
+      "from": 1964,
+      "to": 2013
+    },
+    "summary": "Jazz-trained drummer of the (Young) Rascals."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Young Rascals / The Rascals",
+      "type": "band_member",
+      "years": {
+        "from": 1965,
+        "to": 1972
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dino-danelli-wikipedia"]
+      }
+    },
+    {
+      "name": "Bulldog",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1975
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dino-danelli-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-young-rascals-good-lovin-1966",
+    "rec:the-rascals-people-got-to-be-free-1968"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A jazz-trained drummer in the Rascals' blue-eyed soul, called 'one of the great unappreciated rock drummers in history'.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dino-danelli-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blue-eyed soul drummers",
+    "build_priority": 3
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "id": "drummer:sonny-payne",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Sonny Payne",
+    "born": {
+      "date": "1926-05-04",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sonny-payne-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1979-01-29"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Count Basie's 'New Testament' band (1954-1964)",
+      "Harry James Orchestra (1966-1979)"
+    ],
+    "active": {
+      "from": 1944,
+      "to": 1979
+    },
+    "summary": "The showman who drove Count Basie's 1950s band and Sinatra's Basie concerts."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Count Basie Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1954,
+        "to": 1964
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sonny-payne-wikipedia"]
+      }
+    },
+    {
+      "name": "Harry James Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1966,
+        "to": 1979
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sonny-payne-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:count-basie-the-atomic-mr-basie-1957",
+    "rec:frank-sinatra-sinatra-at-the-sands-1966"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of Count Basie's 1950s band: in Basie's words he 'touched off a new spark in that band', a showman whose kicks and fills you can hear on the records, and he was Sinatra's drummer whenever Sinatra sang with Basie in the 1960s.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sonny-payne-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 2
+  }
+}

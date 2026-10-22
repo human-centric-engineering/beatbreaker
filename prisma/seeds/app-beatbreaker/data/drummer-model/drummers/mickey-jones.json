@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "id": "drummer:mickey-jones",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Mickey Jones",
+    "born": {
+      "date": "1941-06-10",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mickey-jones-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2018-02-07"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Los Angeles", "Bob Dylan's 1966 world tour"],
+    "active": {
+      "from": 1957,
+      "to": 1976
+    },
+    "summary": "Drummer for Trini Lopez, for Bob Dylan on his 1966 world tour, and for Kenny Rogers and the First Edition, later an actor."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:folk-rock",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:americana",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Trini Lopez's band",
+      "type": "band_member"
+    },
+    {
+      "name": "Bob Dylan's band",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1966,
+        "to": 1966
+      }
+    },
+    {
+      "name": "The First Edition",
+      "type": "band_member",
+      "years": {
+        "from": 1967,
+        "to": 1976
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:kenny-rogers-and-the-first-edition-ruby-dont-take-your-love-to-town-1969"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer on Bob Dylan's 1966 world tour, the first with an electric band, after Levon Helm left it, and then on every First Edition record with Kenny Rogers.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mickey-jones-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Rock and roll and roots drummers",
+    "build_priority": 3
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:the-paul-butterfield-blues-band-the-paul-butterfield-blues-band-1965",
+  "title": "The Paul Butterfield Blues Band",
+  "artist": "The Paul Butterfield Blues Band",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:blues", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sam-lay",
+      "name": "Sam Lay"
+    }
+  ]
+}

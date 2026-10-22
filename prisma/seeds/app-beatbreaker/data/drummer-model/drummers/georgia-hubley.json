@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:georgia-hubley",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Georgia Hubley",
+    "full_name": "Georgia Mira Hubley",
+    "born": {
+      "date": "1957-02-09",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:georgia-hubley-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Hoboken, New Jersey"],
+    "active": {
+      "from": 1984,
+      "ongoing": true
+    },
+    "summary": "Yo La Tengo's drummer and singer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:indie-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:noise-rock",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Yo La Tengo",
+      "type": "band_member",
+      "years": {
+        "from": 1984
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:georgia-hubley-wikipedia", "src:yo-la-tengo-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Co-founded Yo La Tengo in 1984 and has been its drummer and singer for four decades, a singing drummer at the centre of American indie rock.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:georgia-hubley-wikipedia", "src:yo-la-tengo-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Indie rock drummers",
+    "build_priority": 3
+  },
+  "key_recording_ids": [
+    "rec:yo-la-tengo-i-can-hear-the-heart-beating-as-one-1997",
+    "rec:yo-la-tengo-painful-1993"
+  ]
+}

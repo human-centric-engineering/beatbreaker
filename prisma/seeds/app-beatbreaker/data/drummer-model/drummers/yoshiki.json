@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "id": "drummer:yoshiki",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Yoshiki",
+    "full_name": "Yoshiki Hayashi",
+    "born": {
+      "date": "1965-11-20"
+    },
+    "nationality": ["Japanese"],
+    "home_scenes": ["Tokyo"],
+    "active": {
+      "from": 1982,
+      "ongoing": true
+    },
+    "summary": "X Japan's leader, drummer, pianist and main songwriter."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:metal",
+        "weight": 1,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "X Japan",
+      "type": "bandleader",
+      "years": {
+        "from": 1982,
+        "ongoing": true
+      }
+    },
+    {
+      "name": "The Last Rockstars",
+      "type": "band_member",
+      "years": {
+        "from": 2022,
+        "ongoing": true
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:x-japan-blue-blood-1989", "rec:x-japan-jealousy-1991"],
+  "legacy": {
+    "contribution": {
+      "description": "Led X Japan, the pioneers of visual kei, from the drum kit, and was voted Japan's best drummer by readers and professional musicians in 2018.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:yoshiki-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Heavy metal drummers",
+    "build_priority": 2
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "id": "drummer:aaron-spears",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "Death in October 2023 seen only in search results (Boston Globe, 31 October 2023); open the obituary.",
+      "Birth date and place."
+    ]
+  },
+  "identity": {
+    "name": "Aaron Spears",
+    "summary": "Church-raised drummer for Usher, Ariana Grande and Justin Bieber, one of the R&B drummers of the gospel-chops generation; died October 2023, aged 47.",
+    "active": {
+      "from": 2000,
+      "to": 2023
+    },
+    "nationality": ["American"]
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:gospel-chops",
+        "weight": 1
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Usher",
+      "type": "touring_drummer"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:usher-and-james-brown-47th-annual-grammy-awards-caught-up-and-sex-machine-2005"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "One of the drummers Modern Drummer put on its 2009 cover for taking church drumming onto R&B stages: he learned time from his church organist rather than a click, and played Usher and James Brown at the 2005 Grammys.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:modern-drummer-fantastic-four-2009"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Gospel and gospel chops drummers",
+    "build_priority": 2
+  }
+}

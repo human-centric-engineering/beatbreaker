@@ -1,0 +1,75 @@
+{
+  "id": "rec:mickey-hart-planet-drum-1991",
+  "title": "Planet Drum",
+  "artist": "Mickey Hart",
+  "year": 1991,
+  "type": "album",
+  "style_ids": [
+    "style:jam-band",
+    "style:afro-cuban",
+    "style:west-african",
+    "style:hindustani-classical",
+    "style:carnatic-classical"
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mickey-hart",
+      "name": "Mickey Hart",
+      "drummer_role": "sole_drummer"
+    },
+    {
+      "drummer_id": "drummer:giovanni-hidalgo",
+      "name": "Giovanni Hidalgo",
+      "drummer_role": "percussion_only",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-giovanni-hidalgo"]
+      }
+    },
+    {
+      "drummer_id": "drummer:babatunde-olatunji",
+      "name": "Babatunde Olatunji",
+      "drummer_role": "percussion_only",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:babatunde-olatunji-wikipedia",
+          "src:th-vinayakram-wikipedia",
+          "src:zakir-hussain-wikipedia"
+        ]
+      }
+    },
+    {
+      "drummer_id": "drummer:zakir-hussain",
+      "name": "Zakir Hussain",
+      "drummer_role": "percussion_only",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:babatunde-olatunji-wikipedia",
+          "src:th-vinayakram-wikipedia",
+          "src:zakir-hussain-wikipedia"
+        ]
+      }
+    },
+    {
+      "drummer_id": "drummer:vikku-vinayakram",
+      "name": "T. H. \"Vikku\" Vinayakram",
+      "drummer_role": "percussion_only",
+      "why_it_matters": "Won him the 1991 Grammy for Best World Music Album.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:babatunde-olatunji-wikipedia",
+          "src:th-vinayakram-wikipedia",
+          "src:zakir-hussain-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:mickey-hart-wikipedia"]
+  }
+}

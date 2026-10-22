@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "id": "drummer:yukihiro-takahashi",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "Make YMO recording records (Solid State Survivor and others) from a source that credits his drums."
+    ]
+  },
+  "identity": {
+    "name": "Yukihiro Takahashi",
+    "born": {
+      "date": "1952-06-06",
+      "place": "Tokyo, Japan",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:yukihiro-takahashi-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2023-01-11",
+      "place": "Karuizawa, Nagano"
+    },
+    "nationality": ["Japanese"],
+    "home_scenes": ["Tokyo"],
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "vocals"],
+    "active": {
+      "from": 1972,
+      "to": 2023
+    },
+    "roles": ["band_member", "composer", "producer"],
+    "summary": "Japanese drummer, singer and composer: Sadistic Mika Band from 1972, then Yellow Magic Orchestra with Ryuichi Sakamoto and Haruomi Hosono from 1978, and later Sketch Show and Metafive."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:synth-pop",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Sadistic Mika Band",
+      "type": "band_member",
+      "years": {
+        "from": 1972
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:yukihiro-takahashi-wikipedia"]
+      }
+    },
+    {
+      "name": "Yellow Magic Orchestra",
+      "type": "band_member",
+      "years": {
+        "from": 1978
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:yukihiro-takahashi-wikipedia"]
+      }
+    },
+    {
+      "name": "Metafive",
+      "type": "band_member",
+      "years": {
+        "from": 2014
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:yukihiro-takahashi-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:yukihiro-takahashi-saravah-1978",
+    "rec:yukihiro-takahashi-neuromantic-1981"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of Yellow Magic Orchestra, whose \"exceptionally tight, precise drumming with minimal notes\" was highly respected by his peers and \"heavily influenced a generation of musicians\".",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:yukihiro-takahashi-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Synth-pop drummers",
+    "build_priority": 1
+  }
+}

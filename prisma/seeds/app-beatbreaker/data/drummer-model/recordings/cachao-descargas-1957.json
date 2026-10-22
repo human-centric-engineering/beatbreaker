@@ -1,0 +1,21 @@
+{
+  "id": "rec:cachao-descargas-1957",
+  "title": "Cuban Jam Sessions in Miniature (Descargas)",
+  "artist": "Cachao y su Ritmo Caliente",
+  "release": "Panart",
+  "year": 1957,
+  "type": "album",
+  "style_ids": ["style:afro-cuban", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:guillermo-barreto",
+      "name": "Guillermo Barreto",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-guillermo-barreto"]
+      }
+    }
+  ]
+}

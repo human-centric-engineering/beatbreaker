@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "id": "drummer:jeff-nelson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jeff Nelson",
+    "born": {
+      "date": "1962",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jeff-nelson-wikipedia"]
+      },
+      "place": "South Africa"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Washington, D.C. hardcore"],
+    "active": {
+      "from": 1979,
+      "to": 1990
+    },
+    "summary": "Minor Threat's drummer and co-founder of Dischord Records."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Minor Threat",
+      "type": "band_member",
+      "years": {
+        "from": 1980,
+        "to": 1983
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jeff-nelson-wikipedia", "src:minor-threat-wikipedia"]
+      }
+    },
+    {
+      "name": "Teen Idles",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1980
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jeff-nelson-wikipedia", "src:minor-threat-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Co-founded Minor Threat and Dischord Records with Ian MacKaye in 1980 and drummed the Washington D.C. hardcore band on all its records.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jeff-nelson-wikipedia", "src:minor-threat-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hardcore punk drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": ["rec:minor-threat-minor-threat-1981", "rec:minor-threat-out-of-step-1983"]
+}

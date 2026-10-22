@@ -1,0 +1,14 @@
+{
+  "id": "rec:chuck-berry-roll-over-beethoven-1956",
+  "title": "Roll Over Beethoven",
+  "artist": "Chuck Berry",
+  "year": 1956,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fred-below",
+      "name": "Fred Below"
+    }
+  ]
+}

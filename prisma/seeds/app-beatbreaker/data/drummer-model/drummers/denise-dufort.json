@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "id": "drummer:denise-dufort",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Denise Dufort",
+    "nationality": ["English"],
+    "home_scenes": ["London", "NWOBHM"],
+    "active": {
+      "from": 1978,
+      "ongoing": true
+    },
+    "summary": "Girlschool's drummer since its founding in 1978."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-wave-of-british-heavy-metal",
+        "weight": 1,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Girlschool",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "ongoing": true
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:girlschool-demolition-1980", "rec:girlschool-hit-and-run-1981"],
+  "legacy": {
+    "contribution": {
+      "description": "The founding drummer of Girlschool, the New Wave of British Heavy Metal band that is the longest-running all-female rock band, and an inspiration for women who play heavy music.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:girlschool-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Heavy metal drummers",
+    "build_priority": 2
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:girlschool-demolition-1980",
+  "title": "Demolition",
+  "artist": "Girlschool",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:new-wave-of-british-heavy-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:denise-dufort",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

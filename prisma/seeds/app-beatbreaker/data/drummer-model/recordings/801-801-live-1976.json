@@ -1,0 +1,19 @@
+{
+  "id": "rec:801-801-live-1976",
+  "title": "801 Live",
+  "artist": "801",
+  "year": 1976,
+  "type": "live_track",
+  "style_ids": ["style:progressive-rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:simon-phillips-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:simon-phillips",
+      "name": "Simon Phillips",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

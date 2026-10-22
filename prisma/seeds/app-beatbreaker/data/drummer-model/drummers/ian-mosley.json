@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "id": "drummer:ian-mosley",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ian Mosley",
+    "born": {
+      "date": "1953-06-16",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ian-mosley-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1972,
+      "ongoing": true
+    },
+    "summary": "Marillion's drummer since Fugazi (1984), earlier a session drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Darryl Way's Wolf",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ian-mosley-wikipedia"]
+      }
+    },
+    {
+      "name": "Marillion",
+      "type": "band_member",
+      "years": {
+        "from": 1984
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ian-mosley-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:marillion-fugazi-1984", "rec:marillion-misplaced-childhood-1985"],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of neo-prog's leading band from Fugazi and Misplaced Childhood on, praised by Steve Hackett as 'phenomenally fast', called a 'drumming great' by Modern Drummer, and cited as an influence by Tomas Haake of Meshuggah.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ian-mosley-wikipedia", "src:tomas-haake-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 3
+  }
+}

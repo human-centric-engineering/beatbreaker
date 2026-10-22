@@ -1,0 +1,14 @@
+{
+  "id": "rec:sly-and-the-family-stone-hot-fun-in-the-summertime-1969",
+  "title": "Hot Fun in the Summertime",
+  "artist": "Sly and the Family Stone",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:greg-errico",
+      "name": "Greg Errico"
+    }
+  ]
+}

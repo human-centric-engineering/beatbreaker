@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-shadows-apache-1960",
+  "title": "Apache",
+  "artist": "The Shadows",
+  "year": 1960,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-meehan",
+      "name": "Tony Meehan",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:tony-meehan-wikipedia"]
+  }
+}

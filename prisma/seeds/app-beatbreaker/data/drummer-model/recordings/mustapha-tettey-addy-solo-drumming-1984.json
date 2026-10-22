@@ -1,0 +1,24 @@
+{
+  "id": "rec:mustapha-tettey-addy-solo-drumming-1984",
+  "title": "Solo Drumming",
+  "artist": "Mustapha Tettey Addy",
+  "release": "Insel Hombroich",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:west-african"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mustapha-tettey-addy",
+      "name": "Mustapha Tettey Addy",
+      "drummer_role": "leader",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mustapha-tettey-addy-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:mustapha-tettey-addy-wikipedia"]
+  }
+}

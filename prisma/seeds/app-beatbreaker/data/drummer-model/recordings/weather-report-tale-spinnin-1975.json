@@ -1,0 +1,19 @@
+{
+  "id": "rec:weather-report-tale-spinnin-1975",
+  "title": "Tale Spinnin'",
+  "artist": "Weather Report",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ndugu-chancler-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ndugu-chancler",
+      "name": "Leon \"Ndugu\" Chancler",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

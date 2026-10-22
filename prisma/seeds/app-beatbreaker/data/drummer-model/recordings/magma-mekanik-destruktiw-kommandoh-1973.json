@@ -1,0 +1,22 @@
+{
+  "id": "rec:magma-mekanik-destruktiw-kommandoh-1973",
+  "title": "Mëkanïk Dëstrüktïẁ Kömmandöh",
+  "artist": "Magma",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:christian-vander",
+      "name": "Christian Vander",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": [
+      "src:christian-vander-musician-wikipedia",
+      "src:mekanik-destruktiw-kommandoh-wikipedia"
+    ]
+  }
+}

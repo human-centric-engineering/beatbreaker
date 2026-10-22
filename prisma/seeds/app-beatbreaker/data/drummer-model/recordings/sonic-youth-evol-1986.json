@@ -1,0 +1,20 @@
+{
+  "id": "rec:sonic-youth-evol-1986",
+  "title": "EVOL",
+  "artist": "Sonic Youth",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:noise-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:steve-shelley-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-shelley",
+      "name": "Steve Shelley",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

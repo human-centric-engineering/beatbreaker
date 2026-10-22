@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "id": "drummer:frankie-dunlop",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Frankie Dunlop",
+    "full_name": "Francis Dunlop",
+    "born": {
+      "date": "1928-12-06",
+      "place": "Buffalo, New York",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:frankie-dunlop-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2014-07-07"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1944,
+      "to": 1984
+    },
+    "summary": "Thelonious Monk's drummer from 1960 to 1964."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-bop",
+        "weight": 0.8,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:bebop",
+        "weight": 0.8,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Thelonious Monk Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1960,
+        "to": 1964
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:frankie-dunlop-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:thelonious-monk-monks-dream-1963",
+    "rec:thelonious-monk-criss-cross-1963"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Principally remembered for his recordings with Thelonious Monk from 1960 to 1964, on over 100 albums in all.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:frankie-dunlop-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Bebop drummers",
+    "build_priority": 3
+  }
+}

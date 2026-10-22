@@ -1,0 +1,14 @@
+{
+  "id": "rec:parliament-mothership-connection-1975",
+  "title": "Mothership Connection",
+  "artist": "Parliament",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jerome-brailey",
+      "name": "Jerome Brailey"
+    }
+  ]
+}

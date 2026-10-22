@@ -1,0 +1,19 @@
+{
+  "id": "rec:focus-focus-3-1972",
+  "title": "Focus 3",
+  "artist": "Focus",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pierre-van-der-linden",
+      "name": "Pierre van der Linden",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:pierre-van-der-linden-wikipedia", "src:focus-3-wikipedia"]
+  }
+}

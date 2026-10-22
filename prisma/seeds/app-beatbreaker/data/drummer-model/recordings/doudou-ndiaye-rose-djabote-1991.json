@@ -1,0 +1,25 @@
+{
+  "id": "rec:doudou-ndiaye-rose-djabote-1991",
+  "title": "Djabote",
+  "artist": "Doudou N'Diaye Rose",
+  "release": "Real World (CDRW43)",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:west-african"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:doudou-ndiaye-rose",
+      "name": "Doudou N'Diaye Rose",
+      "drummer_role": "leader",
+      "why_it_matters": "His best-known album: twelve tracks recorded on Gorée in one week with fifty drummers and an eighty-voice choir.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:doudou-ndiaye-rose-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:doudou-ndiaye-rose-wikipedia"]
+  }
+}

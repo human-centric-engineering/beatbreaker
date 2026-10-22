@@ -1,0 +1,19 @@
+{
+  "id": "rec:van-halen-1984-1984",
+  "title": "1984",
+  "artist": "Van Halen",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alex-van-halen",
+      "name": "Alex Van Halen",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:alex-van-halen-wikipedia"]
+  }
+}

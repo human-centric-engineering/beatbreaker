@@ -1,0 +1,19 @@
+{
+  "id": "rec:frank-zappa-hot-rats-1969",
+  "title": "Hot Rats",
+  "artist": "Frank Zappa",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:john-guerin-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-guerin",
+      "name": "John Guerin",
+      "drummer_role": "co_drummer"
+    }
+  ]
+}

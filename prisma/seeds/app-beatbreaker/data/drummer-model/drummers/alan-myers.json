@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "id": "drummer:alan-myers",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Alan Myers",
+    "full_name": "Alan Charles Myers",
+    "born": {
+      "date": "1954-12-29",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-myers-wikipedia"]
+      },
+      "place": "Akron, Ohio"
+    },
+    "died": {
+      "date": "2013-06-24"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Akron, 1970s"],
+    "active": {
+      "from": 1976,
+      "to": 2013
+    },
+    "summary": "Devo's drummer 1976-1986."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-wave",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:post-punk",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Devo",
+      "type": "band_member",
+      "years": {
+        "from": 1976,
+        "to": 1986
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-myers-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Jazz-trained drummer who played Devo's machine-like new wave on an acoustic kit, the drummer most associated with the band, until drum machines took his place.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-myers-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New wave drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:devo-q-are-we-not-men-a-we-are-devo-1978",
+    "rec:devo-freedom-of-choice-1980"
+  ]
+}

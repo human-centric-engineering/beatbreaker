@@ -1,0 +1,12 @@
+{
+  "id": "style:nyabinghi",
+  "name": "Nyabinghi",
+  "kind": "tradition",
+  "region": "Jamaica",
+  "era": {
+    "from": 1950
+  },
+  "parents": [],
+  "summary": "Rastafarian ceremonial drumming on the bass, funde and akete (repeater) drums, carried into recordings by Count Ossie.",
+  "key_drummer_ids": ["drummer:count-ossie"]
+}

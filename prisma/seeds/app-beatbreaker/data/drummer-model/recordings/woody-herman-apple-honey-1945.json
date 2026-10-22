@@ -1,0 +1,19 @@
+{
+  "id": "rec:woody-herman-apple-honey-1945",
+  "title": "Apple Honey",
+  "artist": "Woody Herman and His Orchestra",
+  "year": 1945,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-tough",
+      "name": "Dave Tough",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:dave-tough-wikipedia"]
+  }
+}

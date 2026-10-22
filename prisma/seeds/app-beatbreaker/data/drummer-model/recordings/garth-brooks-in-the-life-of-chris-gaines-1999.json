@@ -1,0 +1,19 @@
+{
+  "id": "rec:garth-brooks-in-the-life-of-chris-gaines-1999",
+  "title": "In the Life of Chris Gaines",
+  "artist": "Garth Brooks",
+  "year": 1999,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:eddie-bayers-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:eddie-bayers",
+      "name": "Eddie Bayers",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

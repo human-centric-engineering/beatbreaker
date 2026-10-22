@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-cure-pornography-1982",
+  "title": "Pornography",
+  "artist": "The Cure",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:gothic-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:lol-tolhurst-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lol-tolhurst",
+      "name": "Lol Tolhurst",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

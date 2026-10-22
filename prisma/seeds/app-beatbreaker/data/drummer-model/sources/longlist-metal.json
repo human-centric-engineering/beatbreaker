@@ -1,0 +1,515 @@
+[
+  {
+    "id": "src:drumeo-best-50-metal-drummers",
+    "type": "magazine",
+    "title": "Ash Pearson, 'The Best 50 Metal Drummers Of All Time', Drumeo Beat (updated 3 May 2023)",
+    "url": "https://www.drumeo.com/beat/?p=35941",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Compiled by Revocation drummer Ash Pearson. Ranked list with a short case for each player; quoted claims are used per drummer."
+  },
+  {
+    "id": "src:blast-beat-wikipedia",
+    "type": "encyclopedia",
+    "title": "Blast beat - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Blast_beat",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Origins in hardcore and grindcore; Napalm Death and drummer Mick Harris coined the term; Pete Sandoval 'purportedly was the first to use blast beats in metronomic time'."
+  },
+  {
+    "id": "src:abe-cunningham-wikipedia",
+    "type": "encyclopedia",
+    "title": "Abe Cunningham - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Abe_Cunningham",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Deftones drummer; 'known for his frantic, pounding rhythms and clever usage of tempo'; BBC reviewer quote on his expressiveness."
+  },
+  {
+    "id": "src:brann-dailor-wikipedia",
+    "type": "encyclopedia",
+    "title": "Brann Dailor - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Brann_Dailor",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Mastodon drummer and vocalist; influences Phil Collins (1970s), Sean Reinert, Mikkey Dee, Dave Lombardo, Elvin Jones, Tony Williams, Billy Cobham, Bill Bruford, Dave Witte."
+  },
+  {
+    "id": "src:charlie-benante-wikipedia",
+    "type": "encyclopedia",
+    "title": "Charlie Benante - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Charlie_Benante",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Anthrax and S.O.D. drummer; 'one of the pioneers of double bass drumming and credited with popularizing the blast beat technique' with thrash metal."
+  },
+  {
+    "id": "src:david-silveria-wikipedia",
+    "type": "encyclopedia",
+    "title": "David Silveria - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/David_Silveria",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Original Korn drummer, 1993-2006; later Infinika."
+  },
+  {
+    "id": "src:korn-wikipedia",
+    "type": "encyclopedia",
+    "title": "Korn - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Korn",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Formed 1993 by Shaffer, Arvizu and David Silveria; 'notable for pioneering and popularizing the nu metal genre'. Debut Korn 1994; Follow the Leader 1998."
+  },
+  {
+    "id": "src:derek-roddy-wikipedia",
+    "type": "encyclopedia",
+    "title": "Derek Roddy - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Derek_Roddy",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Extreme metal drummer nicknamed 'One Take'; Hate Eternal, Nile, Malevolent Creation, Serpents Rise; auditioned for Dream Theater 2010."
+  },
+  {
+    "id": "src:hellhammer-wikipedia",
+    "type": "encyclopedia",
+    "title": "Hellhammer (musician) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Hellhammer_(musician)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Jan Axel Blomberg; Mayhem drummer since 1988, only member on all their studio albums; co-founded Arcturus 1987; three Spellemannprisen."
+  },
+  {
+    "id": "src:mayhem-wikipedia",
+    "type": "encyclopedia",
+    "title": "Mayhem (band) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mayhem_(band)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Pioneers of Norwegian black metal; their music has profoundly influenced the genre; Hellhammer took over the drums with Dead on vocals."
+  },
+  {
+    "id": "src:mike-mangini-wikipedia",
+    "type": "encyclopedia",
+    "title": "Mike Mangini - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mike_Mangini",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Dream Theater 2010-2023; Berklee faculty; five World's Fastest Drummer records 2002-2005; Annihilator, Extreme, Steve Vai; influences Ringo, Buddy Rich, Bozzio, Peart."
+  },
+  {
+    "id": "src:mikkey-dee-wikipedia",
+    "type": "encyclopedia",
+    "title": "Mikkey Dee - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mikkey_Dee",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Motörhead 1992-2015; Scorpions since 2016; King Diamond, Helloween; influences Peart, Brian Downey, Buddy Rich, Steve Smith, especially Ian Paice; long solos."
+  },
+  {
+    "id": "src:paul-bostaph-wikipedia",
+    "type": "encyclopedia",
+    "title": "Paul Bostaph - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Paul_Bostaph",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Slayer 1992-2001, 2013-2019, 2024; Forbidden, Exodus, Testament; replaced Lombardo; influences Peart, Phil Rudd, Clive Burr."
+  },
+  {
+    "id": "src:pete-sandoval-wikipedia",
+    "type": "encyclopedia",
+    "title": "Pete Sandoval - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Pete_Sandoval",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Terrorizer, Morbid Angel; learned double bass after joining Morbid Angel; AllMusic: 'challenges one's perception of how fast a drummer can possibly drum'; influences Clive Burr, Lombardo, Hoglan, Peart."
+  },
+  {
+    "id": "src:vinnie-paul-wikipedia",
+    "type": "encyclopedia",
+    "title": "Vinnie Paul - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Vinnie_Paul",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Pantera co-founder with Dimebag Darrell; Damageplan, Hellyeah; influences Peter Criss, Alex Van Halen, Tommy Aldridge; four Grammy nominations."
+  },
+  {
+    "id": "src:gene-hoglan-wikipedia",
+    "type": "encyclopedia",
+    "title": "Gene Hoglan - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Gene_Hoglan",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "'The Atomic Clock'; Dark Angel, Death, Strapping Young Lad, Fear Factory, Dethklok, Testament; lengthy double-kick rhythms; Modern Drummer cover 2010; Terrorizer poll 2010; influences Peart, Criss, Cozy Powell, Aldridge, Phil Taylor."
+  },
+  {
+    "id": "src:nick-menza-wikipedia",
+    "type": "encyclopedia",
+    "title": "Nick Menza - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Nick_Menza",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Megadeth 1989-1998 (Rust in Peace, Countdown to Extinction, Youthanasia, Cryptic Writings); son of Don Menza; influences Buddy Rich, Gadd, Porcaro, Bellson."
+  },
+  {
+    "id": "src:dirk-verbeuren-wikipedia",
+    "type": "encyclopedia",
+    "title": "Dirk Verbeuren - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Dirk_Verbeuren",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Belgian; Megadeth, Soilwork; influences Lombardo, Mick Harris, Reinert, Hoglan, Haake; four Toontrack MIDI libraries."
+  },
+  {
+    "id": "src:dave-witte-wikipedia",
+    "type": "encyclopedia",
+    "title": "Dave Witte - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Dave_Witte",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Municipal Waste, Discordance Axis, Melt-Banana, Burnt by the Sun, Human Remains; session drummer."
+  },
+  {
+    "id": "src:tom-hunting-wikipedia",
+    "type": "encyclopedia",
+    "title": "Tom Hunting - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Tom_Hunting",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Exodus drummer and only remaining original member; influences CCR, Bonham, Moon, Peart, Clive Burr."
+  },
+  {
+    "id": "src:exodus-wikipedia",
+    "type": "encyclopedia",
+    "title": "Exodus (band) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Exodus_(band)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Bay Area thrash pioneers alongside Metallica; Bonded by Blood (1985), Fabulous Disaster (1989)."
+  },
+  {
+    "id": "src:chris-pennie-wikipedia",
+    "type": "encyclopedia",
+    "title": "Chris Pennie - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Chris_Pennie",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Dillinger Escape Plan co-founder; Coheed and Cambria; influences Ulrich, Copeland, Reinert; cited as influence by Dailor, Christy, Witte, Tyshawn Sorey and many others; triggered electronics live."
+  },
+  {
+    "id": "src:matt-garstka-wikipedia",
+    "type": "encyclopedia",
+    "title": "Matt Garstka - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Matt_Garstka",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Animals as Leaders drummer."
+  },
+  {
+    "id": "src:animals-as-leaders-wikipedia",
+    "type": "encyclopedia",
+    "title": "Animals as Leaders - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Animals_as_Leaders",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Instrumental progressive metal, prominent in djent; Garstka (drums since 2012) calls the style 'metal fusion'."
+  },
+  {
+    "id": "src:nick-barker-wikipedia",
+    "type": "encyclopedia",
+    "title": "Nick Barker (drummer) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Nick_Barker_(drummer)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Cradle of Filth 1993-1999, Dimmu Borgir 1999-2004, Brujeria; influences Peart, Hoglan, Clive Burr, McBrain, Lombardo, Sandoval."
+  },
+  {
+    "id": "src:chris-adler-wikipedia",
+    "type": "encyclopedia",
+    "title": "Chris Adler - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Chris_Adler",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Lamb of God founding drummer 1994-2019; Megadeth Dystopia (Grammy 2017); Modern Drummer Readers Poll wins; influences Shannon Larkin, Copeland, Bonham, Lombardo, Gar Samuelson, Hoglan."
+  },
+  {
+    "id": "src:sean-reinert-wikipedia",
+    "type": "encyclopedia",
+    "title": "Sean Reinert - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sean_Reinert",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Cynic co-founder, Death (Human), Gordian Knot, Aghora; influences Bonham, Peart, Alex Van Halen, Bozzio, Weckl; cited by Dailor, Hoglan, Verbeuren, Pennie, Kollias, Duplantier and others."
+  },
+  {
+    "id": "src:george-kollias-wikipedia",
+    "type": "encyclopedia",
+    "title": "George Kollias (drummer) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/George_Kollias_(drummer)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Greek; Nile since Annihilation of the Wicked; distinctive foot technique between heel-up and heel-down; teaches at Modern Music School Athens; co-designed Pearl Demon pedals."
+  },
+  {
+    "id": "src:paul-mazurkiewicz-wikipedia",
+    "type": "encyclopedia",
+    "title": "Paul Mazurkiewicz - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Paul_Mazurkiewicz",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Cannibal Corpse drummer; Dave Lombardo his biggest influence."
+  },
+  {
+    "id": "src:cryptopsy-wikipedia",
+    "type": "encyclopedia",
+    "title": "Cryptopsy - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Cryptopsy",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Montreal death metal; Flo Mounier sat in temporarily in 1992 and stayed; None So Vile (1996) 'an influential cult classic'."
+  },
+  {
+    "id": "src:mario-duplantier-wikipedia",
+    "type": "encyclopedia",
+    "title": "Mario Duplantier - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mario_Duplantier",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Gojira drummer; 'polyrhythmic patterns and distinctive jazzy fills and drum breaks'; studied at Agostini's school; voted No. 1 metal drummer four times."
+  },
+  {
+    "id": "src:eloy-casagrande-wikipedia",
+    "type": "encyclopedia",
+    "title": "Eloy Casagrande - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Eloy_Casagrande",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Brazilian; Sepultura 2011-2024; Slipknot since 2024; Modern Drummer Readers Poll Best Metal Drummer 2024; won MD Undiscovered Drummer contest 2006 (Drumeo)."
+  },
+  {
+    "id": "src:igor-cavalera-wikipedia",
+    "type": "encyclopedia",
+    "title": "Igor Cavalera - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Igor_Cavalera",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Sepultura co-founder 1984-2006; Cavalera Conspiracy; 'innovative style in the album Chaos A.D. brought tribal elements into the songs', developed further on Roots; influences Roger Taylor, Bill Ward, Lombardo, Copeland."
+  },
+  {
+    "id": "src:bobby-jarzombek-wikipedia",
+    "type": "encyclopedia",
+    "title": "Bobby Jarzombek - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Bobby_Jarzombek",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Halford, Riot, Fates Warning, Sebastian Bach, Spastic Ink, George Strait; cymbals positioned behind his shoulders; MIDI groove library; instructional DVD."
+  },
+  {
+    "id": "src:raymond-herrera-wikipedia",
+    "type": "encyclopedia",
+    "title": "Raymond Herrera - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Raymond_Herrera",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Fear Factory founding drummer; 'high speed playing, particularly his \"stop go\" double bass technique'; Brujeria; games and film composer."
+  },
+  {
+    "id": "src:ken-owen-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ken Owen - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ken_Owen",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Carcass founding member and drummer; vocals; Blackstar after 1995; appears on Surgical Steel."
+  },
+  {
+    "id": "src:napalm-death-wikipedia",
+    "type": "encyclopedia",
+    "title": "Napalm Death - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Napalm_Death",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Grindcore pioneers; Mick Harris joined December 1985; Danny Herrera, a friend of Jesse Pintado, replaced him in 1991."
+  },
+  {
+    "id": "src:ben-koller-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ben Koller - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ben_Koller",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Converge, Mutoid Man, Killer Be Killed, All Pigs Must Die, High on Fire."
+  },
+  {
+    "id": "src:krisiun-wikipedia",
+    "type": "encyclopedia",
+    "title": "Krisiun - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Krisiun",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Brazilian death metal, founded 1990 by brothers Alex Camargo, Moyses Kolesne and Max Kolesne (drums); debut Black Force Domain 1995."
+  },
+  {
+    "id": "src:hannes-grossmann-wikipedia",
+    "type": "encyclopedia",
+    "title": "Hannes Grossmann - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Hannes_Grossmann",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Necrophagist Epitaph (2004): complex polyrhythmic drumming and blastbeats up to 240 bpm; Obscura; Alkaloid."
+  },
+  {
+    "id": "src:scott-travis-wikipedia",
+    "type": "encyclopedia",
+    "title": "Scott Travis - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Scott_Travis",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Judas Priest since 1989, Racer X, Thin Lizzy; ambidextrous open-handed; Rock and Roll Hall of Fame 2022 with Judas Priest."
+  },
+  {
+    "id": "src:painkiller-judas-priest-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Painkiller (Judas Priest album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Painkiller_(Judas_Priest_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "First Priest album with Scott Travis; 'with his heavy use of double kicks, Travis gave Judas Priest a new sound and heavier edge'; speed metal."
+  },
+  {
+    "id": "src:les-binks-wikipedia",
+    "type": "encyclopedia",
+    "title": "Les Binks - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Les_Binks",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Judas Priest 1977-1979 (Stained Class, Killing Machine, Unleashed in the East); 'Exciter' double bass drumming an important early influence on thrash; Loudwire: 'carving metal's future'; RRHOF 2022."
+  },
+  {
+    "id": "src:stained-class-wikipedia",
+    "type": "encyclopedia",
+    "title": "Stained Class - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Stained_Class",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Opener 'Exciter' regarded as an important early influence on thrash metal; Tom G. Warrior: 'a prototype of thrash metal'."
+  },
+  {
+    "id": "src:phil-taylor-musician-wikipedia",
+    "type": "encyclopedia",
+    "title": "Phil Taylor (musician) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Phil_Taylor_(musician)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "'Philthy Animal'; Motörhead 1975-1984 and 1987-1992, the classic Lemmy/Clarke/Taylor line-up."
+  },
+  {
+    "id": "src:fenriz-wikipedia",
+    "type": "encyclopedia",
+    "title": "Fenriz - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Fenriz",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Darkthrone drummer and songwriter with Nocturno Culto; DIY ethic; refuses to play live; focus of Until the Light Takes Us."
+  },
+  {
+    "id": "src:darkthrone-wikipedia",
+    "type": "encyclopedia",
+    "title": "Darkthrone - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Darkthrone",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Leading band in Norwegian black metal; A Blaze in the Northern Sky (1992), Under a Funeral Moon (1993), Transilvanian Hunger (1994), the 'Unholy Trinity', among the most influential black metal recordings."
+  },
+  {
+    "id": "src:frost-wikipedia",
+    "type": "encyclopedia",
+    "title": "Kjetil-Vidar Haraldstad - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Kjetil-Vidar_Haraldstad",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Frost; Satyricon and 1349; 'regarded as one of the fastest and most proficient drummers in the black metal and extreme metal genres'; credited as 'battery'."
+  },
+  {
+    "id": "src:mick-harris-wikipedia",
+    "type": "encyclopedia",
+    "title": "Mick Harris - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mick_Harris",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Napalm Death 1985-1991; coined 'grindcore'; 'widely regarded as one of the founders of the blast beat'; later Painkiller with Zorn and Laswell, Scorn, Lull."
+  },
+  {
+    "id": "src:gar-samuelson-wikipedia",
+    "type": "encyclopedia",
+    "title": "Gar Samuelson - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Gar_Samuelson",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Megadeth 1984-1987; 'one of the most influential drummers of thrash metal, having pioneered the incorporation of jazz fusion into the subgenre'."
+  },
+  {
+    "id": "src:jurgen-reil-wikipedia",
+    "type": "encyclopedia",
+    "title": "Jürgen Reil - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jürgen_Reil",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Ventor; Kreator founding drummer; double-bass style of thrash and death metal; sang on early songs ('Riot of Violence')."
+  },
+  {
+    "id": "src:kreator-wikipedia",
+    "type": "encyclopedia",
+    "title": "Kreator - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Kreator",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "German thrash from Essen; Petrozza and Reil the only original members; Pleasure to Kill (1986) widely considered a thrash classic and a big influence on death metal."
+  },
+  {
+    "id": "src:chris-reifert-wikipedia",
+    "type": "encyclopedia",
+    "title": "Chris Reifert - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Chris_Reifert",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Founder, vocalist and drummer of Autopsy; drummer on Death's Scream Bloody Gore; 'a pioneer of the death-doom fusion genre'."
+  },
+  {
+    "id": "src:yoshiki-wikipedia",
+    "type": "encyclopedia",
+    "title": "Yoshiki (musician) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Yoshiki_(musician)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Leader, drummer, pianist and main songwriter of X Japan; visual kei; Billboard 'musical innovator'; voted best drummer and best keyboardist by readers and professional musicians in 2018."
+  },
+  {
+    "id": "src:girlschool-wikipedia",
+    "type": "encyclopedia",
+    "title": "Girlschool - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Girlschool",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Formed in the NWOBHM in 1978; 'the longest-running all-female rock band'; three albums of 'punk-tinged metal' in the early 1980s; associated with Motörhead; an inspiration for many female rock musicians; Denise Dufort an original member."
+  },
+  {
+    "id": "src:brant-bjork-wikipedia",
+    "type": "encyclopedia",
+    "title": "Brant Bjork - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Brant_Bjork",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Drummer and founder of 'the influential Californian stoner rock band Kyuss'; Fu Manchu, Vista Chino; 'one of the more notable figures in the stoner rock and Palm Desert scene'."
+  },
+  {
+    "id": "src:anvil-wikipedia",
+    "type": "encyclopedia",
+    "title": "Anvil (band) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Anvil_(band)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Canadian heavy metal from 1978; founders Lips Kudlow and drummer Robb Reiner; cited as influencing Megadeth, Slayer, Anthrax and Metallica; subject of Anvil! The Story of Anvil (2008)."
+  }
+]

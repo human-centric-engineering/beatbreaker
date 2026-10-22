@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "id": "drummer:gunter-sommer",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Günter \"Baby\" Sommer",
+    "born": {
+      "date": "1943-08-25",
+      "place": "Dresden, Germany",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gunter-sommer-wikipedia"]
+      }
+    },
+    "nationality": ["German"],
+    "home_scenes": ["Dresden", "East German jazz"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1965,
+      "ongoing": true
+    },
+    "summary": "Dresden drummer of East German free jazz, named for Baby Dodds."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 1.0,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Gruppe Synopsis",
+      "type": "band_member",
+      "years": {
+        "from": 1974
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gunter-sommer-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:gunter-sommer-hormusik-1979",
+    "rec:wadada-leo-smith-peter-kowald-and-gunter-sommer-touch-the-earth-1980"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A free-jazz drummer from Dresden whose solo percussion album Hörmusik (1979) and work with Wadada Leo Smith, Peter Brötzmann and Cecil Taylor carried East German improvised music abroad; drum professor at the Dresden Hochschule from 1995.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:gunter-sommer-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 3
+  }
+}

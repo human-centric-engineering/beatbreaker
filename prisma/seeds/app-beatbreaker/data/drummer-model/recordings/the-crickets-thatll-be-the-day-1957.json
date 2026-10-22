@@ -1,0 +1,14 @@
+{
+  "id": "rec:the-crickets-thatll-be-the-day-1957",
+  "title": "That'll Be the Day",
+  "artist": "The Crickets",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jerry-allison",
+      "name": "Jerry Allison"
+    }
+  ]
+}

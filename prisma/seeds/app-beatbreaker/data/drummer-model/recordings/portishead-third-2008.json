@@ -1,0 +1,20 @@
+{
+  "id": "rec:portishead-third-2008",
+  "title": "Third",
+  "artist": "Portishead",
+  "year": 2008,
+  "type": "album",
+  "style_ids": ["style:trip-hop"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:clive-deamer-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clive-deamer",
+      "name": "Clive Deamer",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

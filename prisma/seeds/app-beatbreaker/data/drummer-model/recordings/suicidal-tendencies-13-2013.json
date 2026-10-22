@@ -1,0 +1,18 @@
+{
+  "id": "rec:suicidal-tendencies-13-2013",
+  "title": "13",
+  "artist": "Suicidal Tendencies",
+  "year": 2013,
+  "type": "album",
+  "style_ids": ["style:hardcore-punk", "style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:eric-moore",
+      "why_it_matters": "Credited drummer."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:suicidal-tendencies-members-wikipedia"]
+  }
+}

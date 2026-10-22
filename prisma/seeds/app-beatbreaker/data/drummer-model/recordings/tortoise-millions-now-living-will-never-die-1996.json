@@ -1,0 +1,20 @@
+{
+  "id": "rec:tortoise-millions-now-living-will-never-die-1996",
+  "title": "Millions Now Living Will Never Die",
+  "artist": "Tortoise",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:post-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:john-mcentire-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-mcentire",
+      "name": "John McEntire",
+      "drummer_role": "co_drummer",
+      "significance": 0.8
+    }
+  ]
+}

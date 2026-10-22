@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:jimmy-crawford",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jimmy Crawford",
+    "born": {
+      "date": "1910-01-14",
+      "place": "Memphis, Tennessee, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jimmy-crawford-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1980-01-28",
+      "place": "New York City, New York, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Jimmie Lunceford Orchestra (1928-1942)", "Broadway pits and New York studios"],
+    "active": {
+      "from": 1928,
+      "to": 1975
+    },
+    "summary": "The drummer behind the Jimmie Lunceford band's two-beat bounce."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Jimmie Lunceford Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1928,
+        "to": 1942
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jimmy-crawford-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:jimmie-lunceford-for-dancers-only-1937",
+    "rec:jimmie-lunceford-rhythm-is-our-business-1934"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "'A key factor in establishing the unique Lunceford beat' (Modern Drummer): his strong, solid pulse was behind the Jimmie Lunceford band's swing for fourteen years.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jimmy-crawford-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 2
+  }
+}

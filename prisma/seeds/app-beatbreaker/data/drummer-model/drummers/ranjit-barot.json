@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "id": "drummer:ranjit-barot",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "Source is weak (notability and promotional tags); find a drum-magazine profile.",
+      "Floating Point year (2008) is not in the source; no recording record made for it."
+    ]
+  },
+  "identity": {
+    "name": "Ranjit Barot",
+    "born": {
+      "date": "1959-01-01",
+      "place": "Mumbai, India",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ranjit-barot-wikipedia"]
+      }
+    },
+    "nationality": ["Indian"],
+    "home_scenes": ["Mumbai film studios"],
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1980,
+      "ongoing": true
+    },
+    "roles": ["session", "composer", "producer"],
+    "summary": "Mumbai drummer, composer and producer, son of the kathak dancer Sitara Devi; a longtime associate of A. R. Rahman, drummer on John McLaughlin’s Floating Point, and a film composer from Raakh (1989) to Shaitan (2011)."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:indian-film-music",
+        "weight": 1,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "A. R. Rahman",
+      "type": "session_regular",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ranjit-barot-wikipedia"]
+      }
+    },
+    {
+      "name": "John McLaughlin",
+      "type": "band_member",
+      "years": {
+        "from": 2008
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ranjit-barot-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:ranjit-barot-bada-boom-2010"],
+  "legacy": {
+    "contribution": {
+      "description": "A kit drummer who brought Indian classical percussion, mridangam, tavil and khanjira language, to fusion and Indian film music; John McLaughlin called him one of the \"leading edges\" in drumming.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ranjit-barot-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Indian film and fusion drummers",
+    "build_priority": 2
+  }
+}

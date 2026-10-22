@@ -1,0 +1,14 @@
+{
+  "id": "rec:isaac-hayes-theme-from-shaft-1971",
+  "title": "Theme from Shaft",
+  "artist": "Isaac Hayes",
+  "year": 1971,
+  "type": "studio_track",
+  "style_ids": ["style:southern-soul", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:willie-hall",
+      "name": "Willie Hall"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "rec:oscar-peterson-trio-night-train-1963",
+  "title": "Night Train",
+  "artist": "Oscar Peterson Trio",
+  "year": 1963,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ed-thigpen",
+      "name": "Ed Thigpen",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The trio's best-known record.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ed-thigpen-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ed-thigpen-wikipedia"]
+  }
+}

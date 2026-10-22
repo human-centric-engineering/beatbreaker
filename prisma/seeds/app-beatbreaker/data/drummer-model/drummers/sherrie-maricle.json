@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "id": "drummer:sherrie-maricle",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["No DIVA Jazz Orchestra record confirmed in a source yet."]
+  },
+  "identity": {
+    "name": "Sherrie Maricle",
+    "full_name": "Sharon Lee Maricle",
+    "born": {
+      "date": "1963-09-02",
+      "place": "Buffalo, New York, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sherrie-maricle-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York (1985-)", "DIVA Jazz Orchestra (1990s-)"],
+    "active": {
+      "from": 1985,
+      "ongoing": true
+    },
+    "summary": "Drummer and leader of the DIVA Jazz Orchestra, the all-women big band.",
+    "primary_instruments": ["drum kit"]
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "DIVA Jazz Orchestra",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sherrie-maricle-wikipedia"]
+      }
+    },
+    {
+      "name": "Five Play",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sherrie-maricle-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:diva-jazz-orchestra-i-believe-in-you-2000",
+    "rec:diva-jazz-orchestra-live-in-concert-2002"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Leads the DIVA Jazz Orchestra from the drums, the all-women big band that has kept big-band swing alive since the 1990s. She received the Mary Lou Williams Women in Jazz Lifetime Achievement Award in 2009.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sherrie-maricle-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 3
+  }
+}

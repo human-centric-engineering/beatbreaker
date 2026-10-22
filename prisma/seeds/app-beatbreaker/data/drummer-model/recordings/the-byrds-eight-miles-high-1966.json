@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-byrds-eight-miles-high-1966",
+  "title": "Eight Miles High",
+  "artist": "The Byrds",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:folk-rock", "style:psychedelic-rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:michael-clarke-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:michael-clarke",
+      "name": "Michael Clarke",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

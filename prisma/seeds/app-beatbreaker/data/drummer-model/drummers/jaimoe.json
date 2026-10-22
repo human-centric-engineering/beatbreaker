@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "id": "drummer:jaimoe",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jaimoe",
+    "full_name": "John Lee Johnson",
+    "aliases": ["Jai Johanny Johanson"],
+    "born": {
+      "date": "1944",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jaimoe-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1964,
+      "ongoing": true
+    },
+    "summary": "Founding drummer and percussionist of the Allman Brothers Band, earlier with Otis Redding."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:southern-rock",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.4
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Otis Redding",
+      "type": "touring_drummer",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jaimoe-wikipedia"]
+      }
+    },
+    {
+      "name": "The Allman Brothers Band",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 2014
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jaimoe-wikipedia"]
+      }
+    },
+    {
+      "name": "Jaimoe's Jasssz Band",
+      "type": "bandleader",
+      "years": {
+        "from": 2006
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jaimoe-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-allman-brothers-band-at-fillmore-east-1971",
+    "rec:the-allman-brothers-band-brothers-and-sisters-1973"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A soul and jazz drummer who added a second layer of percussion and cymbal flourishes over Butch Trucks's beat in one of the few two-drummer bands of its time, part of the Allman Brothers' blend of R&B, blues, jazz and rock.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jaimoe-wikipedia", "src:rollingstone-100-drummers-2016"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Southern rock drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Butch Trucks",
+        "kind": "drummer",
+        "id": "drummer:butch-trucks"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jaimoe-wikipedia"]
+      },
+      "scope": "individual"
+    }
+  ]
+}

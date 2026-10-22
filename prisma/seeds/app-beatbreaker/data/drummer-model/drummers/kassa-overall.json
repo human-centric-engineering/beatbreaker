@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "id": "drummer:kassa-overall",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Kassa Overall",
+    "full_name": "Kassa Purush Overall",
+    "born": {
+      "date": "1982-10-09",
+      "place": "Seattle, Washington",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kassa-overall-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 2005,
+      "ongoing": true
+    },
+    "summary": "Jazz drummer, rapper and producer who builds records from the kit and the sampler."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.6,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Geri Allen",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kassa-overall-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:kassa-overall-i-think-im-good-2020", "rec:kassa-overall-animals-2023"],
+  "legacy": {
+    "contribution": {
+      "description": "A jazz drummer who is also a rapper and producer, joining live drumming to hip-hop beat-making; the New York Times included him in its 2023 overview of 21st-century jazz.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kassa-overall-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modern jazz drummers",
+    "build_priority": 3
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "id": "drummer:mick-tucker",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Mick Tucker",
+    "full_name": "Michael Thomas Tucker",
+    "born": {
+      "date": "1947-04-30",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mick-tucker-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1965,
+      "to": 1981
+    },
+    "summary": "Drummer of Sweet."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:glam-rock",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Sweet",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mick-tucker-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:sweet-the-ballroom-blitz-1973", "rec:sweet-sweet-fanny-adams-1974"],
+  "legacy": {
+    "contribution": {
+      "description": "Powered Sweet's glam rock hits such as \"The Ballroom Blitz\" on an eight-piece double bass kit, one of the few double bass drummers who kept the second drum musical, and played long, crowd-minded solos.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mick-tucker-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Glam and art rock drummers",
+    "build_priority": 2
+  }
+}

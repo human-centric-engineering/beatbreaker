@@ -1,0 +1,20 @@
+{
+  "id": "rec:bob-marley-soul-shakedown-party-1971",
+  "title": "Soul Shakedown Party",
+  "artist": "Bob Marley & the Wailers",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:reggae", "style:rocksteady"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-douglas",
+      "name": "Paul Douglas",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-paul-douglas-musician"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "id": "drummer:max-weinberg",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Max Weinberg",
+    "born": {
+      "date": "1951",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1974,
+      "ongoing": true
+    },
+    "summary": "Bruce Springsteen's E Street Band drummer since 1974 and Conan O'Brien's bandleader."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:heartland-rock",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "E Street Band",
+      "type": "band_member",
+      "years": {
+        "from": 1974
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia"]
+      }
+    },
+    {
+      "name": "The Max Weinberg 7",
+      "type": "bandleader",
+      "years": {
+        "from": 1993,
+        "to": 2009
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:bruce-springsteen-born-to-run-1975",
+    "rec:meat-loaf-bat-out-of-hell-1977",
+    "rec:bruce-springsteen-born-in-the-u-s-a-1984"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The E Street Band's drummer for over four decades, whose steady, song-first drumming on Born to Run and Born in the U.S.A. Springsteen summed up as 'I ask and he delivers'; he also drummed on Meat Loaf's Bat Out of Hell.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia", "src:rollingstone-100-drummers-2016"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Heartland and roots rock drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "D.J. Fontana",
+        "kind": "drummer",
+        "id": "drummer:dj-fontana"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia"]
+      },
+      "scope": "individual"
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Joe Morello",
+        "kind": "drummer",
+        "id": "drummer:joe-morello"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:joe-morello-wikipedia"]
+      },
+      "scope": "individual"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:robert-glasper-experiment-black-radio-2012",
+  "title": "Black Radio",
+  "artist": "Robert Glasper Experiment",
+  "year": 2012,
+  "type": "album",
+  "style_ids": ["style:neo-soul", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-dave",
+      "why_it_matters": "The record that won the Best R&B Album Grammy with his drumming at its centre."
+    }
+  ],
+  "release": "Blue Note",
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:chris-dave-wikipedia"]
+  }
+}

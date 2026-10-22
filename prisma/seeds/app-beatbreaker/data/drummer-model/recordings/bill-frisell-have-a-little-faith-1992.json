@@ -1,0 +1,25 @@
+{
+  "id": "rec:bill-frisell-have-a-little-faith-1992",
+  "title": "Have a Little Faith",
+  "artist": "Bill Frisell",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:americana", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:joey-baron",
+      "name": "Joey Baron",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Americana through jazz.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:joey-baron-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:joey-baron-wikipedia"]
+  }
+}

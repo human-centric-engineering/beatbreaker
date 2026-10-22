@@ -1,0 +1,14 @@
+{
+  "id": "rec:marvin-gaye-and-tammi-terrell-aint-no-mountain-high-enough-1967",
+  "title": "Ain't No Mountain High Enough",
+  "artist": "Marvin Gaye and Tammi Terrell",
+  "year": 1967,
+  "type": "studio_track",
+  "style_ids": ["style:motown"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:uriel-jones",
+      "name": "Uriel Jones"
+    }
+  ]
+}

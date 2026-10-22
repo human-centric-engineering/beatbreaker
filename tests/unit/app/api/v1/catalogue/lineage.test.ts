@@ -23,6 +23,7 @@ const PURDIE: LineageNode = {
   kind: 'drummer',
   label: 'Bernard Purdie',
   modelled: true,
+  candidate: false,
   activeFrom: 1958,
   activeTo: null,
   styleKey: null,
@@ -37,6 +38,7 @@ const PORCARO: LineageNode = {
   slug: 'jeff-porcaro',
   label: 'Jeff Porcaro',
   modelled: false,
+  candidate: false,
 };
 const GRAPH_DATA: LineageGraph = {
   nodes: [PURDIE, PORCARO],

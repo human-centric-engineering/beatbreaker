@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "id": "drummer:jim-kilpatrick",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "Is a competition record a contribution to music history? Kept at priority 3 for the parent to judge."
+    ]
+  },
+  "identity": {
+    "name": "Jim Kilpatrick",
+    "born": {
+      "date": "1956-08-11",
+      "place": "Whitburn, West Lothian, Scotland",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jim-kilpatrick-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Scottish pipe band contests"],
+    "setup_type": "drum_kit",
+    "primary_instruments": ["pipe band snare drum"],
+    "active": {
+      "from": 1968,
+      "ongoing": true
+    },
+    "roles": ["band_member", "educator"],
+    "summary": "Scottish pipe band snare drummer, a pupil of Alex Duthart: leading drummer of Polkemmet (1980), Shotts and Dykehead Caledonia (1986-2015) and Spirit of Scotland; sixteen-time World Solo Drumming champion and teacher at the Royal Conservatoire of Scotland. MBE, 2003."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pipe-band",
+        "weight": 1,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:rudimental",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Shotts and Dykehead Caledonia Pipe Band",
+      "type": "band_member",
+      "years": {
+        "from": 1971,
+        "to": 2015
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jim-kilpatrick-wikipedia"]
+      }
+    },
+    {
+      "name": "Polkemmet Pipe Band",
+      "type": "band_member",
+      "years": {
+        "from": 1980
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jim-kilpatrick-wikipedia"]
+      }
+    },
+    {
+      "name": "Spirit of Scotland Pipe Band",
+      "type": "band_member",
+      "years": {
+        "from": 2016
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jim-kilpatrick-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [],
+  "legacy": {
+    "contribution": {
+      "description": "Set the standard for modern pipe band snare drumming: a record sixteen World Solo titles and nineteen World Pipe Band drumming titles, with Shotts’ 1991 clean sweep of all five majors, and a teacher of it worldwide.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jim-kilpatrick-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pipe band drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Alex Duthart",
+        "kind": "drummer",
+        "id": "drummer:alex-duthart"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alex-duthart-wikipedia"]
+      }
+    }
+  ]
+}

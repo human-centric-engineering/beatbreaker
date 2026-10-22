@@ -1,0 +1,18 @@
+{
+  "id": "rec:prince-and-the-new-power-generation-the-gold-experience-1995",
+  "title": "The Gold Experience",
+  "artist": "Prince and the New Power Generation",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:minneapolis-sound", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:michael-bland",
+      "why_it_matters": "Listed as a key recording."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:michael-bland-wikipedia"]
+  }
+}

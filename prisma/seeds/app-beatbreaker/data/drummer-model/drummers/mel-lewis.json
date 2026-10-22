@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "id": "drummer:mel-lewis",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Mel Lewis",
+    "full_name": "Melvin Sokoloff",
+    "born": {
+      "date": "1929-05-10",
+      "place": "Buffalo, New York, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mel-lewis-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1990-02-02",
+      "place": "New York City, New York, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Stan Kenton Orchestra (1954-1956)",
+      "Los Angeles studios (1957-1963)",
+      "Village Vanguard, Monday nights (1966-1990)"
+    ],
+    "active": {
+      "from": 1946,
+      "to": 1990
+    },
+    "summary": "Co-leader of the Thad Jones/Mel Lewis Orchestra, the big-band drummer of the 1960s-80s.",
+    "primary_instruments": ["drum kit"]
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.6,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Thad Jones/Mel Lewis Orchestra",
+      "type": "bandleader",
+      "years": {
+        "from": 1966,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mel-lewis-wikipedia"]
+      }
+    },
+    {
+      "name": "Mel Lewis and the Jazz Orchestra",
+      "type": "bandleader",
+      "years": {
+        "from": 1978,
+        "to": 1990
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mel-lewis-wikipedia"]
+      }
+    },
+    {
+      "name": "Stan Kenton Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1954,
+        "to": 1956
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mel-lewis-wikipedia"]
+      }
+    },
+    {
+      "name": "Mel Lewis Jazz Orchestra",
+      "type": "bandleader",
+      "years": {
+        "from": 1978,
+        "to": 1990
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mel-lewis-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:thad-jones-mel-lewis-presenting-thad-jones-mel-lewis-and-the-jazz-orchestra-1966",
+    "rec:thad-jones-mel-lewis-consummation-1970",
+    "rec:thad-jones-mel-lewis-live-in-munich-1976",
+    "rec:thad-jones-mel-lewis-orchestra-presenting-thad-jones-mel-lewis-and-the-jazz-orchestra-1966",
+    "rec:thad-jones-mel-lewis-orchestra-consummation-1970"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Redefined big-band drumming as support rather than force: a dark, unique cymbal sound and a small-group feel inside a big band. The Thad Jones/Mel Lewis Orchestra he co-founded still plays Monday nights at the Village Vanguard.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mel-lewis-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 1
+  }
+}

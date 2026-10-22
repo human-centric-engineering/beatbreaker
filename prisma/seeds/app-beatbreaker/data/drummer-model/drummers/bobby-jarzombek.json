@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "id": "drummer:bobby-jarzombek",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Bobby Jarzombek",
+    "nationality": ["American"],
+    "home_scenes": ["San Antonio"],
+    "active": {
+      "from": 1985,
+      "ongoing": true
+    },
+    "summary": "The drummer of Riot, Halford and Fates Warning, and since 2021 George Strait's."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:metal",
+        "weight": 1,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:progressive-metal",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Riot",
+      "type": "band_member"
+    },
+    {
+      "name": "Halford",
+      "type": "band_member",
+      "years": {
+        "from": 2000,
+        "ongoing": true
+      }
+    },
+    {
+      "name": "Fates Warning",
+      "type": "band_member",
+      "years": {
+        "from": 2007,
+        "ongoing": true
+      }
+    },
+    {
+      "name": "Spastic Ink",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": ["rec:riot-thundersteel-1988", "rec:halford-resurrection-2000"],
+  "legacy": {
+    "contribution": {
+      "description": "A speed and power metal drummer whose shoulder-mounted cymbals, struck over his head, made a signature of the backhand crash, with decades of double-kick power behind Riot, Halford and Fates Warning.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bobby-jarzombek-wikipedia", "src:drumeo-best-50-metal-drummers"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Heavy metal drummers",
+    "build_priority": 3
+  }
+}

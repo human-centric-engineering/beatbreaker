@@ -1,0 +1,19 @@
+{
+  "id": "rec:chicago-chicago-transit-authority-1969",
+  "title": "Chicago Transit Authority",
+  "artist": "Chicago",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:danny-seraphine",
+      "name": "Danny Seraphine",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:danny-seraphine-wikipedia"]
+  }
+}

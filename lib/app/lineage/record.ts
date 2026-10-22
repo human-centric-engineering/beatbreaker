@@ -76,6 +76,7 @@ const recordSchema = z.object({
       evidence: maybe(evidence),
     })
   ),
+  legacy: maybe(z.object({ contribution: maybe(z.object({ description: text })) })),
 });
 
 export interface DrummerTrait {
@@ -111,6 +112,8 @@ export interface DrummerRecord {
   ongoing: boolean;
   roles: string[];
   summary: string | null;
+  /** What they brought to music history, sourced: why a candidate is on the long list (D72). */
+  contribution: string | null;
   /** `draft`, `reviewed`… — how far the record itself has been checked. */
   status: string | null;
   descriptors: string[];
@@ -139,6 +142,7 @@ export function readDrummerRecord(record: unknown): DrummerRecord | null {
     ongoing: id.active?.ongoing === true,
     roles: id.roles.map((role) => role.replaceAll('_', ' ')),
     summary: id.summary ?? null,
+    contribution: r.legacy?.contribution?.description ?? null,
     status: r.meta?.record_status ?? null,
     descriptors: [
       ...new Set([...(r.style_profile?.descriptors ?? []), ...(r.feel_profile?.descriptors ?? [])]),

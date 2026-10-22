@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "id": "drummer:john-weathers",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "John Weathers",
+    "full_name": "John Patrick Weathers",
+    "born": {
+      "date": "1947-02-07",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:john-weathers-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1963,
+      "to": 2008
+    },
+    "summary": "Welsh drummer of Gentle Giant from 1972 to 1980."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Eyes of Blue",
+      "type": "band_member",
+      "years": {
+        "from": 1966,
+        "to": 1970
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:john-weathers-wikipedia"]
+      }
+    },
+    {
+      "name": "Gentle Giant",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1980
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:john-weathers-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:gentle-giant-octopus-1972", "rec:gentle-giant-free-hand-1975"],
+  "legacy": {
+    "contribution": {
+      "description": "Played Gentle Giant's intricate progressive rock with a distinctive hard-bashing style while also playing vibraphone and xylophone in the band's arrangements.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:john-weathers-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 3
+  }
+}

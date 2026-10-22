@@ -1,0 +1,25 @@
+{
+  "id": "rec:yukihiro-takahashi-saravah-1978",
+  "title": "Saravah!",
+  "artist": "Yukihiro Takahashi",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:synth-pop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yukihiro-takahashi",
+      "name": "Yukihiro Takahashi",
+      "drummer_role": "leader",
+      "why_it_matters": "His solo debut.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:yukihiro-takahashi-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:yukihiro-takahashi-wikipedia"],
+    "note": "The article lists the album but does not say he played the drums on it."
+  }
+}

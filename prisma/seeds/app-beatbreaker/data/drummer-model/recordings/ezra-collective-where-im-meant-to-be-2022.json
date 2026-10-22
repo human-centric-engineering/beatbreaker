@@ -1,0 +1,25 @@
+{
+  "id": "rec:ezra-collective-where-im-meant-to-be-2022",
+  "title": "Where I'm Meant to Be",
+  "artist": "Ezra Collective",
+  "year": 2022,
+  "type": "album",
+  "style_ids": ["style:uk-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:femi-koleoso",
+      "name": "Femi Koleoso",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Mercury Prize 2023.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ezra-collective-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ezra-collective-wikipedia"]
+  }
+}

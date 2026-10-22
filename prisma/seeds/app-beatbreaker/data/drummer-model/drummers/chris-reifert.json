@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:chris-reifert",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Chris Reifert",
+    "born": {
+      "date": "1968-02-23"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Bay Area death metal"],
+    "active": {
+      "from": 1986,
+      "ongoing": true
+    },
+    "summary": "Autopsy's founder, drummer and singer, and the drummer on Death's debut."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:death-metal",
+        "weight": 1,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:drone-doom",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Death",
+      "type": "band_member",
+      "years": {
+        "from": 1986,
+        "to": 1987
+      }
+    },
+    {
+      "name": "Autopsy",
+      "type": "bandleader",
+      "years": {
+        "from": 1987,
+        "ongoing": true
+      }
+    },
+    {
+      "name": "Abscess",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": ["rec:death-scream-bloody-gore-1987", "rec:autopsy-mental-funeral-1991"],
+  "legacy": {
+    "contribution": {
+      "description": "Drummed on Death's Scream Bloody Gore, a founding death metal record, then pioneered death-doom with Autopsy by slowing death metal to a crawl.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chris-reifert-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Death metal and grindcore drummers",
+    "build_priority": 2
+  }
+}

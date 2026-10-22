@@ -1,0 +1,14 @@
+{
+  "id": "rec:elvis-presley-hound-dog-1956",
+  "title": "Hound Dog",
+  "artist": "Elvis Presley",
+  "year": 1956,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dj-fontana",
+      "name": "D. J. Fontana"
+    }
+  ]
+}

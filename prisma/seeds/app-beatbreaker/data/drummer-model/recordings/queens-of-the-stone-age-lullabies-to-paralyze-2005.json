@@ -1,0 +1,20 @@
+{
+  "id": "rec:queens-of-the-stone-age-lullabies-to-paralyze-2005",
+  "title": "Lullabies to Paralyze",
+  "artist": "Queens of the Stone Age",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:alternative-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:joey-castillo-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:joey-castillo",
+      "name": "Joey Castillo",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

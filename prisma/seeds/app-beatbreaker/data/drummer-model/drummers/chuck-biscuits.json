@@ -1,0 +1,206 @@
+{
+  "meta": {
+    "id": "drummer:chuck-biscuits",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Chuck Biscuits",
+    "full_name": "Charles Montgomery",
+    "born": {
+      "date": "1965-04-17",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chuck-biscuits-wikipedia"]
+      }
+    },
+    "nationality": ["Canadian"],
+    "home_scenes": ["Vancouver punk, late 1970s"],
+    "active": {
+      "from": 1978,
+      "to": 1999
+    },
+    "summary": "Hardcore drummer of D.O.A., Black Flag, the Circle Jerks, then Danzig and Social Distortion."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "D.O.A.",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chuck-biscuits-wikipedia"]
+      }
+    },
+    {
+      "name": "Black Flag",
+      "type": "band_member",
+      "years": {
+        "from": 1982,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chuck-biscuits-wikipedia"]
+      }
+    },
+    {
+      "name": "Circle Jerks",
+      "type": "band_member",
+      "years": {
+        "from": 1983,
+        "to": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chuck-biscuits-wikipedia"]
+      }
+    },
+    {
+      "name": "Danzig",
+      "type": "band_member",
+      "years": {
+        "from": 1987,
+        "to": 1994
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chuck-biscuits-wikipedia"]
+      }
+    },
+    {
+      "name": "Social Distortion",
+      "type": "band_member",
+      "years": {
+        "from": 1996,
+        "to": 1999
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chuck-biscuits-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drove D.O.A.'s first two albums at the birth of Canadian hardcore, then was Glenn Danzig's first-choice drummer, on Danzig's first four albums.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chuck-biscuits-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hardcore punk drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:doa-hardcore-81-1981",
+    "rec:danzig-danzig-1988",
+    "rec:danzig-danzig-ii-lucifuge-1990"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:chuck-biscuits-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Rat Scabies",
+        "kind": "drummer",
+        "id": "drummer:rat-scabies"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:chuck-biscuits-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Topper Headon",
+        "kind": "drummer",
+        "id": "drummer:topper-headon"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:chuck-biscuits-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:chuck-biscuits-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Stewart Copeland",
+        "kind": "drummer",
+        "id": "drummer:stewart-copeland"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:chuck-biscuits-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Joey Castillo",
+        "kind": "drummer",
+        "id": "drummer:joey-castillo"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:chuck-biscuits-wikipedia"]
+      }
+    }
+  ]
+}

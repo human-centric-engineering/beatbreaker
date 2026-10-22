@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "id": "drummer:kenny-clarke",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Kenny Clarke",
+    "full_name": "Kenneth Clarke Spearman",
+    "born": {
+      "date": "1914-01-09",
+      "place": "Pittsburgh, Pennsylvania",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenny-clarke-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1985-01-26"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Minton's Playhouse, New York (early 1940s)", "Paris (from 1956)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1931,
+      "to": 1985
+    },
+    "summary": "The house drummer at Minton's whose ride-cymbal time and bass-drum \"bombs\" became bebop drumming."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:bebop",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:hard-bop",
+        "weight": 0.5,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.4,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Modern Jazz Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1952,
+        "to": 1955
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kenny-clarke-wikipedia"]
+      }
+    },
+    {
+      "name": "Kenny Clarke/Francy Boland Big Band",
+      "type": "bandleader",
+      "years": {
+        "from": 1961,
+        "to": 1972
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kenny-clarke-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:miles-davis-bags-groove-1957",
+    "rec:modern-jazz-quartet-django-1956",
+    "rec:kenny-clarke-francy-boland-big-band-jazz-is-universal-1962"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Moved the time from the hi-hat to the ride cymbal and used the bass drum for irregular accents (\"dropping bombs\"), the basis of bebop drumming, worked out as house drummer at Minton's Playhouse.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenny-clarke-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Bebop drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kenny-clarke-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kenny-clarke-wikipedia"]
+      }
+    }
+  ]
+}

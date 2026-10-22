@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "id": "drummer:specs-powell",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Specs Powell",
+    "full_name": "Gordon Powell",
+    "born": {
+      "date": "1922-06-05",
+      "place": "New York City, New York, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:specs-powell-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2007-09-15",
+      "place": "San Diego, California, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York swing bands (1939-1942)", "CBS staff orchestra (1943-1960s)"],
+    "active": {
+      "from": 1939,
+      "to": 1970
+    },
+    "summary": "Swing drummer who became CBS's first Black staff musician."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Benny Carter Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1941,
+        "to": 1942
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:specs-powell-wikipedia"]
+      }
+    },
+    {
+      "name": "CBS staff orchestra",
+      "type": "house_band",
+      "years": {
+        "from": 1943,
+        "to": 1965
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:specs-powell-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:specs-powell-movin-in-1957",
+    "rec:erroll-garner-the-most-happy-piano-1957"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The first Black staff musician hired by CBS (1943), opening network radio and television studios to Black players. He also commissioned what may have been the first bongo stand, the start of Latin Percussion's hardware.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:specs-powell-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 3
+  }
+}

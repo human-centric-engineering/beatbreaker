@@ -1,0 +1,12 @@
+{
+  "id": "style:irish-traditional",
+  "name": "Irish traditional music",
+  "kind": "tradition",
+  "region": "Ireland",
+  "summary": "Dance music of jigs, reels and hornpipes for fiddle, pipes, flute and accordion, with the bodhrán frame drum as its main percussion since the 1960s revival.",
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:sheehan-bodhran-creative-processes", "src:de-dannan-wikipedia"],
+    "note": "Summary written from the drummer articles listed; not from a genre history."
+  }
+}

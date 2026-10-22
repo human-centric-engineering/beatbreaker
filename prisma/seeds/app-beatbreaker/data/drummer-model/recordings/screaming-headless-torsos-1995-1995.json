@@ -1,0 +1,18 @@
+{
+  "id": "rec:screaming-headless-torsos-1995-1995",
+  "title": "1995",
+  "artist": "Screaming Headless Torsos",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:funk-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jojo-mayer",
+      "why_it_matters": "Avant jazz-rock."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jojo-mayer-wikipedia"]
+  }
+}

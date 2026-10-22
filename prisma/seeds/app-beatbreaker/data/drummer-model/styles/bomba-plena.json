@@ -1,0 +1,9 @@
+{
+  "id": "style:bomba-plena",
+  "name": "Bomba and plena",
+  "kind": "tradition",
+  "region": "Puerto Rico",
+  "parents": [],
+  "summary": "Puerto Rico's Afro-Caribbean drum traditions: bomba on barrel drums led by the primo answering a dancer, plena on panderos.",
+  "key_drummer_ids": ["drummer:rafael-cortijo"]
+}

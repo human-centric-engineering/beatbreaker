@@ -1,0 +1,19 @@
+{
+  "id": "rec:carole-king-tapestry-1971",
+  "title": "Tapestry",
+  "artist": "Carole King",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:russ-kunkel-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:russ-kunkel",
+      "name": "Russ Kunkel",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

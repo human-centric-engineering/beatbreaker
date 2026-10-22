@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "drummer:carlos-vega",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Carlos Vega",
+    "nationality": ["Cuban", "American"],
+    "roles": ["session", "touring"],
+    "born": {
+      "date": "1956-12-07",
+      "place": "Cuba",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carlos-vega-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1998-04-07"
+    },
+    "active": {
+      "from": 1975,
+      "to": 1998
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Cuban-born Los Angeles session drummer, James Taylor's drummer for thirteen years."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Karizma",
+      "type": "band_member",
+      "years": {
+        "from": 1975
+      }
+    },
+    {
+      "name": "James Taylor",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1985,
+        "to": 1998
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:olivia-newton-john-physical-1981",
+    "rec:james-taylor-never-die-young-1988",
+    "rec:george-benson-give-me-the-night-1980"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "\"Contributed to a wide variety of music during the rise and popularity of the California singer-songwriter movement\", as James Taylor's drummer for thirteen years and on Olivia Newton-John's Physical.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:carlos-vega-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 3
+  }
+}

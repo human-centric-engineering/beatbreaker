@@ -1,0 +1,19 @@
+{
+  "id": "rec:kiss-dynasty-1979",
+  "title": "Dynasty",
+  "artist": "Kiss",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:anton-fig-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:anton-fig",
+      "name": "Anton Fig",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

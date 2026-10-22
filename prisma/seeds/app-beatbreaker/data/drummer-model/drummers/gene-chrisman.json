@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "id": "drummer:gene-chrisman",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Gene Chrisman",
+    "nationality": ["American"],
+    "home_scenes": ["Memphis", "American Sound Studio"],
+    "active": {
+      "from": 1964,
+      "ongoing": true
+    },
+    "summary": "Drummer of the Memphis Boys, the American Sound Studio house band, on Elvis Presley's 1969 Memphis sessions."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:southern-soul",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:americana",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Memphis Boys (827 Thomas Street Band)",
+      "type": "house_band",
+      "years": {
+        "from": 1964
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:elvis-presley-from-elvis-in-memphis-1969"],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of American Sound Studio's Memphis Boys, the house band on Elvis Presley's 1969 Memphis comeback sessions and many soul and pop records cut there.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:tcb-band-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 3
+  }
+}

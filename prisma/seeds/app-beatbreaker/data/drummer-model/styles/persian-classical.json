@@ -1,0 +1,21 @@
+{
+  "id": "style:persian-classical",
+  "name": "Persian classical percussion",
+  "kind": "tradition",
+  "region": "Iran",
+  "parents": [
+    {
+      "style_id": "style:middle-eastern",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "summary": "The tombak (tonbak) and daf of Persian classical music, accompanying the radif and, since the mid twentieth century, played as solo and ensemble instruments.",
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:hossein-tehrani-wikipedia"],
+    "note": "Summary written from the drummer articles listed; not from a genre history."
+  }
+}

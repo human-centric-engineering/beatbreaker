@@ -1,0 +1,24 @@
+{
+  "id": "rec:oregon-ecotopia-1987",
+  "title": "Ecotopia",
+  "artist": "Oregon",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:trilok-gurtu",
+      "name": "Trilok Gurtu",
+      "drummer_role": "drums_and_percussion",
+      "why_it_matters": "His first album with Oregon, after Collin Walcott’s death.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:trilok-gurtu-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:trilok-gurtu-wikipedia"]
+  }
+}

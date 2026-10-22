@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "id": "drummer:ron-wilson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ron Wilson (The Surfaris)",
+    "full_name": "Ronald Lee Wilson",
+    "born": {
+      "date": "1944-06-26",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ron-wilson-drummer-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1989-05-12"
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1962,
+      "to": 1989
+    },
+    "summary": "Drummer of the Surfaris, whose solo makes Wipe Out."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:surf-rock",
+        "weight": 1.0,
+        "authority": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Surfaris",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ron-wilson-drummer-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:the-surfaris-wipe-out-1963"],
+  "legacy": {
+    "contribution": {
+      "description": "His drum solo on \"Wipe Out\" (1963) made it one of the best-known instrumentals of its time and 'the yardstick for every aspiring young drummer in the early 60s'.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ron-wilson-drummer-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Surf rock drummers",
+    "build_priority": 1
+  }
+}

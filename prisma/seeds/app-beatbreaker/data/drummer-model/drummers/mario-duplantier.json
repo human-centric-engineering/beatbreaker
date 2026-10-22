@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "id": "drummer:mario-duplantier",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Mario Duplantier",
+    "full_name": "Mario François Duplantier",
+    "born": {
+      "date": "1981-06-19"
+    },
+    "nationality": ["French"],
+    "home_scenes": ["Landes, south-west France"],
+    "active": {
+      "from": 1996,
+      "ongoing": true
+    },
+    "summary": "Gojira's drummer, co-founded with his brother Joe in 1996."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-metal",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:death-metal",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Gojira",
+      "type": "band_member",
+      "years": {
+        "from": 1996,
+        "ongoing": true
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:gojira-from-mars-to-sirius-2005", "rec:gojira-magma-2016"],
+  "legacy": {
+    "contribution": {
+      "description": "Brought polyrhythmic patterns and jazzy fills and breaks into heavy metal with Gojira, and has been voted the world's best metal drummer four times.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mario-duplantier-wikipedia", "src:drumeo-best-50-metal-drummers"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive metal drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Sean Reinert",
+        "kind": "drummer",
+        "id": "drummer:sean-reinert"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mario-duplantier-wikipedia"]
+      }
+    }
+  ]
+}

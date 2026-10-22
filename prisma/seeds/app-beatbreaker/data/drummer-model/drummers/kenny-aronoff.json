@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "id": "drummer:kenny-aronoff",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Kenny Aronoff",
+    "nationality": ["American"],
+    "roles": ["session", "band_member", "educator"],
+    "born": {
+      "date": "1953-03-07",
+      "place": "Albany, New York",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kenny-aronoff-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1979,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "John Mellencamp's drummer for seventeen years and then one of rock's most-booked session and touring drummers."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock",
+        "weight": 0.9,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "John Mellencamp",
+      "type": "band_member",
+      "years": {
+        "from": 1980,
+        "to": 1997
+      }
+    },
+    {
+      "name": "John Fogerty",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1996,
+        "to": 2018
+      }
+    },
+    {
+      "name": "Chickenfoot",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2011,
+        "to": 2012
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:john-mellencamp-scarecrow-1985"],
+  "legacy": {
+    "contribution": {
+      "description": "Made the big, simple heartland-rock backbeat of John Mellencamp's records over seventeen years, and was ranked 66th in Rolling Stone's 100 Greatest Drummers (2016) for \"a sixth sense for what makes music pop and the patience to take direction\".",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kenny-aronoff-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "id": "drummer:gary-chester",
+        "name": "Gary Chester",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kenny-aronoff-wikipedia"]
+      }
+    }
+  ]
+}

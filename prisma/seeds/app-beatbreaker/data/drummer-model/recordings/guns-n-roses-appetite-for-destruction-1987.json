@@ -1,0 +1,19 @@
+{
+  "id": "rec:guns-n-roses-appetite-for-destruction-1987",
+  "title": "Appetite for Destruction",
+  "artist": "Guns N' Roses",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steven-adler",
+      "name": "Steven Adler",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:steven-adler-wikipedia"]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:obscura-cosmogenesis-2009",
+  "title": "Cosmogenesis",
+  "artist": "Obscura",
+  "year": 2009,
+  "type": "album",
+  "style_ids": ["style:death-metal", "style:progressive-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hannes-grossmann",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

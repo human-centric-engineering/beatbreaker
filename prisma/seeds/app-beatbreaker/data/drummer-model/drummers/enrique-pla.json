@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "id": "drummer:enrique-pla",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Enrique Plá",
+    "nationality": ["Cuban"],
+    "home_scenes": ["Havana"],
+    "active": {
+      "from": 1967,
+      "ongoing": true
+    },
+    "summary": "Irakere's drummer, from Santa Clara."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:afro-cuban",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Irakere",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": ["rec:irakere-irakere-1979"],
+  "legacy": {
+    "contribution": {
+      "description": "Irakere's drummer, who blended Cuban percussion's polyrhythms with jazz and rock on the kit and with Irakere's percussionists gave the batá and arará drums a new role in Latin jazz.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:havanatimes-enrique-pla-2009"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Afro-Cuban and Latin jazz drummers",
+    "build_priority": 1
+  }
+}

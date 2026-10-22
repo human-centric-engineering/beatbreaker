@@ -1,0 +1,20 @@
+{
+  "id": "rec:new-york-dolls-too-much-too-soon-1974",
+  "title": "Too Much Too Soon",
+  "artist": "New York Dolls",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:glam-rock", "style:punk"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:jerry-nolan-wikipedia", "src:marky-ramone-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jerry-nolan",
+      "name": "Jerry Nolan",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:narada-michael-walden-garden-of-love-light-1977",
+  "title": "Garden of Love Light",
+  "artist": "Narada Michael Walden",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:rnb-soul"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:narada-michael-walden-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:narada-michael-walden",
+      "name": "Narada Michael Walden",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

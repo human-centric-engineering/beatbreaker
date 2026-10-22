@@ -1,0 +1,14 @@
+{
+  "id": "rec:cannibal-corpse-kill-2006",
+  "title": "Kill",
+  "artist": "Cannibal Corpse",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-mazurkiewicz",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "id": "drummer:louie-bellson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Louie Bellson",
+    "full_name": "Luigi Paolino Alfredo Francesco Antonio Balassoni",
+    "aliases": ["Louis Bellson"],
+    "born": {
+      "date": "1924-07-06",
+      "place": "Rock Falls, Illinois, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louie-bellson-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2009-02-14",
+      "place": "Los Angeles, California, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Big bands of the 1940s",
+      "Duke Ellington Orchestra (1951-1953)",
+      "Jazz at the Philharmonic"
+    ],
+    "active": {
+      "from": 1940,
+      "to": 2008
+    },
+    "summary": "Big-band drummer and composer who pioneered the double bass drum kit."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Duke Ellington Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1951,
+        "to": 1953
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louie-bellson-wikipedia"]
+      }
+    },
+    {
+      "name": "Tommy Dorsey Orchestra",
+      "type": "big_band",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louie-bellson-wikipedia"]
+      }
+    },
+    {
+      "name": "Harry James Orchestra",
+      "type": "big_band",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louie-bellson-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:duke-ellington-skin-deep-1953",
+    "rec:duke-ellington-the-hawk-talks-1951"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Pioneered the double bass drum kit, which he designed as a teenager, and made it a big-band instrument with Ellington. He was in the Modern Drummer Hall of Fame by 1985.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louie-bellson-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Papa Jo Jones",
+        "kind": "drummer",
+        "id": "drummer:papa-jo-jones"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:louie-bellson-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Big Sid Catlett",
+        "kind": "drummer",
+        "id": "drummer:sid-catlett"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:louie-bellson-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Chick Webb",
+        "kind": "drummer",
+        "id": "drummer:chick-webb"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:louie-bellson-wikipedia"]
+      }
+    }
+  ]
+}

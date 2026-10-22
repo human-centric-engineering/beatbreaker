@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "id": "drummer:ed-greene",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ed Greene",
+    "nationality": ["American"],
+    "roles": ["session"],
+    "active": {
+      "from": 1970,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Los Angeles session drummer on Barry White's hits, Donald Byrd and Steely Dan."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:disco",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Barry White",
+      "type": "session_regular"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:love-unlimited-orchestra-loves-theme-1973",
+    "rec:barry-white-im-gonna-love-you-just-a-little-more-baby-1973",
+    "rec:steely-dan-aja-1977"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Was Barry White's session drummer on almost all his biggest hits, including the Love Unlimited Orchestra's \"Love's Theme\" (1973), whose silky groove anticipated disco.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ed-greene-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 2
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "id": "drummer:maurice-white",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Maurice White",
+    "born": {
+      "date": "1941-12-19",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:maurice-white-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2016-02-04"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago", "Chess Records"],
+    "active": {
+      "from": 1960,
+      "to": 2016
+    },
+    "summary": "Chess Records session drummer and Ramsey Lewis Trio drummer who went on to found Earth, Wind & Fire."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.4
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Chess Records studio",
+      "type": "session_regular",
+      "years": {
+        "from": 1962,
+        "to": 1966
+      }
+    },
+    {
+      "name": "Ramsey Lewis Trio",
+      "type": "band_member",
+      "years": {
+        "from": 1966,
+        "to": 1969
+      }
+    },
+    {
+      "name": "Earth, Wind & Fire",
+      "type": "bandleader",
+      "years": {
+        "from": 1969
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:fontella-bass-rescue-me-1965",
+    "rec:billy-stewart-summertime-1966",
+    "rec:ramsey-lewis-wade-in-the-water-1966"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A Chess studio drummer behind Fontella Bass's \"Rescue Me\", Billy Stewart's \"Summertime\" and records by Etta James and Chuck Berry, then the Ramsey Lewis Trio's drummer, before he founded Earth, Wind & Fire.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:maurice-white-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Soul and Motown drummers",
+    "build_priority": 2
+  }
+}

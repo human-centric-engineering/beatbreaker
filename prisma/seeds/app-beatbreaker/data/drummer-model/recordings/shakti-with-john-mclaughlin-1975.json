@@ -1,0 +1,34 @@
+{
+  "id": "rec:shakti-with-john-mclaughlin-1975",
+  "title": "Shakti with John McLaughlin",
+  "artist": "Shakti",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:hindustani-classical", "style:carnatic-classical", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zakir-hussain",
+      "name": "Zakir Hussain",
+      "drummer_role": "percussion_only",
+      "why_it_matters": "The first Shakti album, Indian classical music joined to jazz.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:zakir-hussain-wikipedia", "src:th-vinayakram-wikipedia"]
+      }
+    },
+    {
+      "drummer_id": "drummer:vikku-vinayakram",
+      "name": "T. H. \"Vikku\" Vinayakram",
+      "drummer_role": "percussion_only",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:zakir-hussain-wikipedia", "src:th-vinayakram-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:zakir-hussain-wikipedia", "src:th-vinayakram-wikipedia"],
+    "note": "Zakir Hussain’s article lists \"Shakti\" (1975); Vinayakram’s says he joined Shakti with McLaughlin and Hussain."
+  }
+}

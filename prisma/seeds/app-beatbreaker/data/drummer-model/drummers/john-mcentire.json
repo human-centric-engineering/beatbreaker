@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "id": "drummer:john-mcentire",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "John McEntire",
+    "born": {
+      "date": "1970-04-09",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:john-mcentire-wikipedia"]
+      },
+      "place": "Portland, Oregon"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago, 1990s"],
+    "active": {
+      "from": 1988,
+      "ongoing": true
+    },
+    "summary": "Tortoise's drummer, multi-instrumentalist and engineer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-rock",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Tortoise",
+      "type": "band_member",
+      "years": {
+        "from": 1991
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:john-mcentire-wikipedia"]
+      }
+    },
+    {
+      "name": "The Sea and Cake",
+      "type": "band_member",
+      "years": {
+        "from": 1992
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:john-mcentire-wikipedia"]
+      }
+    },
+    {
+      "name": "Bastro",
+      "type": "band_member",
+      "years": {
+        "from": 1989,
+        "to": 1991
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:john-mcentire-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummer and engineer of the Chicago post-rock band Tortoise, and a pioneer of building records in Pro Tools.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:john-mcentire-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Post-rock drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:tortoise-millions-now-living-will-never-die-1996",
+    "rec:tortoise-tnt-1998"
+  ]
+}

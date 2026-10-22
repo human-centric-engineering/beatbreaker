@@ -1,0 +1,14 @@
+{
+  "id": "rec:lamb-of-god-ashes-of-the-wake-2004",
+  "title": "Ashes of the Wake",
+  "artist": "Lamb of God",
+  "year": 2004,
+  "type": "album",
+  "style_ids": ["style:groove-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-adler",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "id": "drummer:dickie-harrell",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Dickie Harrell",
+    "nationality": ["American"],
+    "home_scenes": ["Norfolk, Virginia", "Gene Vincent's Blue Caps"],
+    "active": {
+      "from": 1956,
+      "to": 1958
+    },
+    "summary": "Drummer of Gene Vincent and His Blue Caps, on \"Be-Bop-a-Lula\"."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 1.0,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Blue Caps",
+      "type": "band_member",
+      "years": {
+        "from": 1956,
+        "to": 1958
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:gene-vincent-and-his-blue-caps-be-bop-a-lula-1956"],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of Gene Vincent's Blue Caps, the pioneering rockabilly band of \"Be-Bop-a-Lula\", inducted with them into the Rock and Roll Hall of Fame in 2012.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:the-blue-caps-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Rock and roll and roots drummers",
+    "build_priority": 3
+  }
+}

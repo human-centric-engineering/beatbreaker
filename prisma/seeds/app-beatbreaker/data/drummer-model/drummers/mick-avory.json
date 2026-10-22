@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:mick-avory",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Mick Avory",
+    "full_name": "Michael Charles Avory",
+    "born": {
+      "date": "1944",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mick-avory-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1962,
+      "ongoing": true
+    },
+    "summary": "The Kinks' drummer from 1964 to 1984, on twenty studio albums."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:merseybeat",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Kinks",
+      "type": "band_member",
+      "years": {
+        "from": 1964,
+        "to": 1984
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mick-avory-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-kinks-face-to-face-1966",
+    "rec:the-kinks-something-else-by-the-kinks-1967",
+    "rec:the-kinks-the-kinks-are-the-village-green-preservation-society-1968"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Jazz-tutored and low-key, he grew into one of the 1960s' quietly innovative drummers, with witty cadences that fitted Ray Davies' maturing songs; he played on every Kinks record from Face to Face (1966) to 1984.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mick-avory-wikipedia", "src:rollingstone-100-drummers-2016"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "British Invasion drummers",
+    "build_priority": 2
+  }
+}

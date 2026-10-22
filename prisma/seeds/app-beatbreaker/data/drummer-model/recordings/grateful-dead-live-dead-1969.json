@@ -1,0 +1,28 @@
+{
+  "id": "rec:grateful-dead-live-dead-1969",
+  "title": "Live/Dead",
+  "artist": "Grateful Dead",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:jam-band", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mickey-hart",
+      "name": "Mickey Hart",
+      "drummer_role": "co_drummer"
+    },
+    {
+      "drummer_id": "drummer:bill-kreutzmann",
+      "name": "Bill Kreutzmann",
+      "drummer_role": "co_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": [
+      "src:mickey-hart-wikipedia",
+      "src:live-dead-wikipedia",
+      "src:bill-kreutzmann-wikipedia"
+    ]
+  }
+}

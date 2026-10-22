@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "id": "drummer:hugo-burnham",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Hugo Burnham",
+    "full_name": "Hugo Hamilton Mark Burnham",
+    "born": {
+      "date": "1956-03-25",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hugo-burnham-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Leeds, late 1970s"],
+    "active": {
+      "from": 1977,
+      "ongoing": true
+    },
+    "summary": "Gang of Four's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-punk",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Gang of Four",
+      "type": "band_member",
+      "years": {
+        "from": 1977,
+        "to": 1983
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hugo-burnham-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Gang of Four's drummer, in an 'economical and precise yet propulsive style, giving the rhythm a piston-like drive' (Greil Marcus), under Dave Allen's funk bass.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hugo-burnham-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Post-punk and gothic rock drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": ["rec:gang-of-four-entertainment-1979", "rec:gang-of-four-solid-gold-1981"]
+}

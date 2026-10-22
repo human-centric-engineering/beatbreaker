@@ -1,0 +1,14 @@
+{
+  "id": "rec:the-temptations-cloud-nine-1968",
+  "title": "Cloud Nine",
+  "artist": "The Temptations",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:motown", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:uriel-jones",
+      "name": "Uriel Jones"
+    }
+  ]
+}

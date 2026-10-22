@@ -36,6 +36,7 @@ function node(id: string, over: Partial<LineageNode> = {}): LineageNode {
     kind: id.startsWith('style:') ? 'style' : 'drummer',
     label: slug,
     modelled: false,
+    candidate: false,
     activeFrom: null,
     activeTo: null,
     styleKey: null,
@@ -198,6 +199,22 @@ describe('layoutLineage', () => {
     expect(l.unknownX).toBeNull();
   });
 
+  it('places a candidate as it places a stub: only with a link to a person, and not as built', () => {
+    const candidate = { modelled: true, candidate: true, activeFrom: 1960 };
+    const l = layoutLineage({
+      nodes: [
+        node('drummer:built', { modelled: true, activeFrom: 1950 }),
+        node('drummer:linked', candidate),
+        node('drummer:alone', candidate),
+      ],
+      edges: [edge('drummer:built', 'drummer:linked')],
+    });
+    expect(l.nodes.map((n) => n.id).sort()).toEqual(['drummer:built', 'drummer:linked']);
+    const linked = l.nodes.find((n) => n.id === 'drummer:linked');
+    // drawn as not built, at the year its own record gives
+    expect(linked).toMatchObject({ modelled: false, year: 1960, inferred: false });
+  });
+
   describe('a stub’s year', () => {
     const year = (graph: LineageGraph, id: string) => {
       const n = layoutLineage(graph).nodes.find((p) => p.id === id)!;
@@ -345,8 +362,8 @@ describe('the real records on the map', () => {
     expect(genres.filter((g) => !GENRE_FAMILY[g])).toEqual([]);
   });
 
-  it('places every drummer with a record, each with a year from their record', () => {
-    const modelled = graph.nodes.filter((n) => n.kind === 'drummer' && n.modelled);
+  it('places every built drummer, each with a year from their record', () => {
+    const modelled = graph.nodes.filter((n) => n.kind === 'drummer' && n.modelled && !n.candidate);
     for (const d of modelled) {
       const placed = layout.nodes.find((n) => n.id === d.id);
       expect(placed, d.id).toBeDefined();

@@ -1,0 +1,20 @@
+{
+  "id": "rec:bauhaus-in-the-flat-field-1980",
+  "title": "In the Flat Field",
+  "artist": "Bauhaus",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:gothic-rock", "style:post-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:kevin-haskins-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kevin-haskins",
+      "name": "Kevin Haskins",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:paul-weller-wild-wood-1993",
+  "title": "Wild Wood",
+  "artist": "Paul Weller",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:mod-revival"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:steve-white-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-white",
+      "name": "Steve White",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

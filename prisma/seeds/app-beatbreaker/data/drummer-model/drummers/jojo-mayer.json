@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:jojo-mayer",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jojo Mayer",
+    "summary": "Swiss drummer in New York who rebuilt programmed jungle and drum and bass on an acoustic kit, with his band Nerve and the Prohibited Beatz parties.",
+    "active": {
+      "from": 1981,
+      "ongoing": true
+    },
+    "nationality": ["Swiss"],
+    "full_name": "Sergé Mayer",
+    "born": {
+      "date": "1963-01-18",
+      "place": "Zürich, Switzerland"
+    },
+    "home_scenes": ["New York live electronica, late 1990s"]
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:drum-and-bass",
+        "weight": 1
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Screaming Headless Torsos",
+      "type": "band_member",
+      "years": {
+        "from": 1995
+      }
+    },
+    {
+      "name": "Nerve",
+      "type": "bandleader",
+      "years": {
+        "from": 1997,
+        "ongoing": true
+      }
+    },
+    {
+      "name": "Prohibited Beatz",
+      "type": "bandleader",
+      "years": {
+        "from": 1996,
+        "to": 2001
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:nerve-prohibited-beatz-2007",
+    "rec:screaming-headless-torsos-1995-1995"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "\"Famous for his ability to play the rhythms of programmed jungle drum 'n' bass music on acoustic drums\", an approach he calls \"reverse engineering\"; Nerve (1997) and the Prohibited Beatz nights in New York made live drum and bass a scene.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jojo-mayer-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Live electronic and drum and bass drummers",
+    "build_priority": 1
+  }
+}

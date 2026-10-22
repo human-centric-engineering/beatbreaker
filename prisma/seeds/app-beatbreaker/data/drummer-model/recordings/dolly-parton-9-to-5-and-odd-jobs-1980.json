@@ -1,0 +1,19 @@
+{
+  "id": "rec:dolly-parton-9-to-5-and-odd-jobs-1980",
+  "title": "9 to 5 and Odd Jobs",
+  "artist": "Dolly Parton",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:country"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:eddie-bayers-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:eddie-bayers",
+      "name": "Eddie Bayers",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

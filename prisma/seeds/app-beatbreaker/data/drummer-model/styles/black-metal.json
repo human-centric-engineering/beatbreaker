@@ -1,0 +1,25 @@
+{
+  "id": "style:black-metal",
+  "name": "Black metal",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:metal",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1984
+  },
+  "summary": "Extreme metal with tremolo-picked guitars, harsh vocals and long runs of blast beats; the second wave grew up in Norway in the early 1990s.",
+  "drum_characteristics": {
+    "hallmarks": [
+      "blast beats",
+      "fast tremolo-paced snare-and-kick",
+      "mid-tempo d-beat and skank sections"
+    ]
+  }
+}

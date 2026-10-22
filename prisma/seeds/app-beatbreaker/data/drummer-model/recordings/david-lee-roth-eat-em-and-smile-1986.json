@@ -1,0 +1,19 @@
+{
+  "id": "rec:david-lee-roth-eat-em-and-smile-1986",
+  "title": "Eat 'Em and Smile",
+  "artist": "David Lee Roth",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:gregg-bissonette-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gregg-bissonette",
+      "name": "Gregg Bissonette",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

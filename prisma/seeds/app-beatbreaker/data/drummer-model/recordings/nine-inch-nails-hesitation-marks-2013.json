@@ -1,0 +1,20 @@
+{
+  "id": "rec:nine-inch-nails-hesitation-marks-2013",
+  "title": "Hesitation Marks",
+  "artist": "Nine Inch Nails",
+  "year": 2013,
+  "type": "album",
+  "style_ids": ["style:industrial", "style:alternative-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ilan-rubin-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ilan-rubin",
+      "name": "Ilan Rubin",
+      "drummer_role": "co_drummer",
+      "significance": 0.8
+    }
+  ]
+}

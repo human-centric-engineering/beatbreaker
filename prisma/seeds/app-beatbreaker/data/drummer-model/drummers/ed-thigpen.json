@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "id": "drummer:ed-thigpen",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ed Thigpen",
+    "full_name": "Edmund Leonard Thigpen",
+    "born": {
+      "date": "1930-12-28",
+      "place": "Chicago, Illinois",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ed-thigpen-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2010-01-13"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Los Angeles", "New York", "Copenhagen (from 1972)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1951,
+      "to": 2010
+    },
+    "summary": "The brush master of the Oscar Peterson Trio, and author of The Sound of Brushes."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:hard-bop",
+        "weight": 0.5,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Billy Taylor Trio",
+      "type": "band_member",
+      "years": {
+        "from": 1956,
+        "to": 1959
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ed-thigpen-wikipedia"]
+      }
+    },
+    {
+      "name": "Oscar Peterson Trio",
+      "type": "band_member",
+      "years": {
+        "from": 1959,
+        "to": 1965
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ed-thigpen-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:oscar-peterson-trio-night-train-1963",
+    "rec:oscar-peterson-trio-we-get-requests-1965"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Joined the Oscar Peterson Trio in 1959, when drums replaced guitar, for the trio of Night Train, then toured with Ella Fitzgerald and settled in Copenhagen in 1972.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ed-thigpen-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard bop drummers",
+    "build_priority": 2
+  }
+}

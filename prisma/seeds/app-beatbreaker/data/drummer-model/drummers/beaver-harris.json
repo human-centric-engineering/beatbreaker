@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "id": "drummer:beaver-harris",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Beaver Harris",
+    "full_name": "William Godvin Harris",
+    "born": {
+      "date": "1936-04-20",
+      "place": "Pittsburgh, Pennsylvania",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:beaver-harris-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1991-12-22"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York (from 1963)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1963,
+      "to": 1991
+    },
+    "summary": "Archie Shepp's drummer and founder of the 360 Degree Music Experience."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Archie Shepp",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:beaver-harris-wikipedia"]
+      }
+    },
+    {
+      "name": "360 Degree Music Experience",
+      "type": "bandleader",
+      "years": {
+        "from": 1968,
+        "to": 1991
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:beaver-harris-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:360-degree-music-experience-from-rag-time-to-no-time-1975"],
+  "legacy": {
+    "contribution": {
+      "description": "Worked extensively with Archie Shepp and founded the 360 Degree Music Experience, a \"world music\" band whose members included Don Pullen, Hamiet Bluiett and Ron Carter.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:beaver-harris-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 3
+  }
+}

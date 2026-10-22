@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "id": "drummer:eric-moore",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "Birth date and place: profile sites give 13 February 1982, Stockton, but none is reliable."
+    ]
+  },
+  "identity": {
+    "name": "Eric Moore",
+    "summary": "Gospel-trained drummer whose 2004 tutorial video started Gospel Chops; later Sly and the Family Stone, Bobby Brown and Suicidal Tendencies.",
+    "active": {
+      "from": 2003,
+      "ongoing": true
+    },
+    "nationality": ["American"]
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:gospel-chops",
+        "weight": 1
+      },
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 0.4
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Sly and the Family Stone",
+      "type": "touring_drummer"
+    },
+    {
+      "name": "Bobby Brown",
+      "type": "touring_drummer"
+    },
+    {
+      "name": "Suicidal Tendencies",
+      "type": "band_member",
+      "years": {
+        "from": 2008,
+        "to": 2016
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:gospel-chops-shed-sessionz-vol-1-2005",
+    "rec:suicidal-tendencies-13-2013"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "His 2004 tutorial video of \"a simple lick\" spread so widely that Gerald Forrest turned Gospel Chops to church drummers: the start of gospel chops as an online movement.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:okayplayer-gospel-chops-2018"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Gospel and gospel chops drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Thomas Pridgen",
+        "kind": "drummer",
+        "id": "drummer:thomas-pridgen"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:suicidal-tendencies-members-wikipedia"],
+        "note": "Pridgen replaced him in 2013; he returned in 2014."
+      },
+      "years": {
+        "from": 2013
+      },
+      "scope": "band"
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Dave Lombardo",
+        "kind": "drummer",
+        "id": "drummer:dave-lombardo"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:suicidal-tendencies-members-wikipedia"],
+        "note": "Lombardo replaced him in 2016."
+      },
+      "years": {
+        "from": 2016
+      },
+      "scope": "band"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "style:taiko",
+  "name": "Taiko (kumi-daiko)",
+  "kind": "tradition",
+  "region": "Japan",
+  "era": {
+    "from": 1951
+  },
+  "summary": "Ensemble taiko: drums once played at festivals and shrines, arranged since 1951 for several players at once, each on a different drum, like the voices of a drum kit (the shime-daiko as snare, the nagado-daiko as bass drum). Taken to the concert stage by groups such as Osuwa Daiko, Ondekoza and Kodo.",
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:daihachi-oguchi-wikipedia", "src:eitetsu-hayashi-wikipedia"],
+    "note": "Summary written from the drummer articles listed; not from a genre history."
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:daihachi-oguchi",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["No birthplace or recordings in the source."]
+  },
+  "identity": {
+    "name": "Daihachi Oguchi",
+    "born": {
+      "date": "1924-02-27",
+      "place": "Japan",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:daihachi-oguchi-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2008-06-27"
+    },
+    "nationality": ["Japanese"],
+    "home_scenes": ["Okaya, Nagano (Osuwa Daiko)"],
+    "setup_type": "hand_percussion",
+    "primary_instruments": ["taiko"],
+    "active": {
+      "from": 1951,
+      "to": 2008
+    },
+    "roles": ["bandleader", "composer", "educator"],
+    "summary": "Former jazz drummer who founded Osuwa Daiko and in 1951 invented kumi-daiko, the taiko ensemble; helped found San Francisco Taiko Dojo and led the drumming at the closing ceremony of the 1998 Nagano Olympics."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:taiko",
+        "weight": 1,
+        "authority": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Osuwa Daiko",
+      "type": "bandleader",
+      "years": {
+        "from": 1951
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:daihachi-oguchi-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [],
+  "legacy": {
+    "contribution": {
+      "description": "Invented kumi-daiko, ensemble taiko, in 1951: as a jazz drummer he gave each player a different drum on the model of a drum kit, shime-daiko as snare and nagado-daiko as bass drum, and moved taiko from shrines and festivals to the concert hall.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:daihachi-oguchi-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Taiko and samul nori drummers",
+    "build_priority": 1
+  }
+}

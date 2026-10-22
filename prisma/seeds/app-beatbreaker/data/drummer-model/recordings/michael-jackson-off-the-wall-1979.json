@@ -1,0 +1,19 @@
+{
+  "id": "rec:michael-jackson-off-the-wall-1979",
+  "title": "Off the Wall",
+  "artist": "Michael Jackson",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:disco", "style:funk"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jr-robinson-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jr-robinson",
+      "name": "John 'JR' Robinson",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "rec:pierre-favre-singing-drums-1984",
+  "title": "Singing Drums",
+  "artist": "Pierre Favre",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pierre-favre",
+      "name": "Pierre Favre",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Percussion ensemble with Paul Motian and Naná Vasconcelos.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:pierre-favre-musician-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:pierre-favre-musician-wikipedia"]
+  }
+}

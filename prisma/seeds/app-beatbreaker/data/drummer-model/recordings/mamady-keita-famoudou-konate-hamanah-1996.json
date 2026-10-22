@@ -1,0 +1,32 @@
+{
+  "id": "rec:mamady-keita-famoudou-konate-hamanah-1996",
+  "title": "Hamanah",
+  "artist": "Mamady Keïta and Famoudou Konaté",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:west-african"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mamady-keita",
+      "name": "Mamady Keïta",
+      "drummer_role": "co_drummer",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mamady-keita-wikipedia"]
+      }
+    },
+    {
+      "drummer_id": "drummer:famoudou-konate",
+      "name": "Famoudou Konaté",
+      "drummer_role": "co_drummer",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mamady-keita-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:mamady-keita-wikipedia"]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:chick-webb-a-tisket-a-tasket-1938",
+  "title": "A-Tisket, A-Tasket",
+  "artist": "Chick Webb and His Orchestra with Ella Fitzgerald",
+  "year": 1938,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chick-webb",
+      "name": "Chick Webb",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:chick-webb-wikipedia"]
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "id": "drummer:alex-van-halen",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Alex Van Halen",
+    "full_name": "Alexander Arthur Van Halen",
+    "born": {
+      "date": "1953",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alex-van-halen-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1972,
+      "to": 2020
+    },
+    "summary": "Drummer and co-founder of Van Halen with his brother Eddie."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 1.0,
+        "authority": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Van Halen",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 2020
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alex-van-halen-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:van-halen-van-halen-1978", "rec:van-halen-1984-1984"],
+  "legacy": {
+    "contribution": {
+      "description": "Brought jazz-influenced nimbleness, galloping swing and skip-stone tom work (\"Hot for Teacher\") to arena hard rock; widely regarded as one of the greatest drummers and named as an influence by Mike Portnoy, Taylor Hawkins and Travis Barker.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:alex-van-halen-wikipedia",
+          "src:rollingstone-100-drummers-2016",
+          "src:taylor-hawkins-wikipedia",
+          "src:travis-barker-wikipedia"
+        ]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard rock drummers",
+    "build_priority": 1
+  }
+}

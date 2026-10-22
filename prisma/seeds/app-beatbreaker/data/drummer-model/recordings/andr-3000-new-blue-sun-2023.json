@@ -1,0 +1,18 @@
+{
+  "id": "rec:andr-3000-new-blue-sun-2023",
+  "title": "New Blue Sun",
+  "artist": "André 3000",
+  "year": 2023,
+  "type": "album",
+  "style_ids": ["style:experimental-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:deantoni-parks",
+      "why_it_matters": "Composer and performer."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:deantoni-parks-wikipedia"]
+  }
+}

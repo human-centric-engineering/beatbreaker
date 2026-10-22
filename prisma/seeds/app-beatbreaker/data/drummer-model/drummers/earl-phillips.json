@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "id": "drummer:earl-phillips",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Earl Phillips",
+    "nationality": ["American"],
+    "home_scenes": ["Chicago", "Vee-Jay Records"],
+    "active": {
+      "from": 1959,
+      "to": 1961
+    },
+    "summary": "Drummer on Jimmy Reed's hit Vee-Jay records, including \"Baby What You Want Me to Do\" and \"Bright Lights, Big City\"."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues",
+        "weight": 0.9
+      },
+      {
+        "style_id": "style:blues-shuffle",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Jimmy Reed's band",
+      "type": "session_regular",
+      "years": {
+        "from": 1959,
+        "to": 1961
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:jimmy-reed-baby-what-you-want-me-to-do-1960",
+    "rec:jimmy-reed-bright-lights-big-city-1961"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer behind Jimmy Reed's easy, loping hits \"Baby What You Want Me to Do\" and \"Bright Lights, Big City\", records the Rolling Stones and many others learned from; Charlie Watts said he \"kind of played like a jazz drummer\".",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wp-baby-what-you-want-me-to-do", "src:wp-bright-lights-big-city"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blues drummers",
+    "build_priority": 3
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:captain-beefheart-and-his-magic-band-trout-mask-replica-1969",
+  "title": "Trout Mask Replica",
+  "artist": "Captain Beefheart and His Magic Band",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:experimental-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-french",
+      "name": "John French",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:john-french-musician-wikipedia"]
+  }
+}

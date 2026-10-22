@@ -1,0 +1,25 @@
+{
+  "id": "rec:ronald-shannon-jackson-and-the-decoding-society-mandance-1982",
+  "title": "Mandance",
+  "artist": "Ronald Shannon Jackson and the Decoding Society",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:free-jazz", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ronald-shannon-jackson",
+      "name": "Ronald Shannon Jackson",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Free funk.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ronald-shannon-jackson-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ronald-shannon-jackson-wikipedia"]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "rec:dave-holland-conference-of-the-birds-1973",
+  "title": "Conference of the Birds",
+  "artist": "Dave Holland",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:free-jazz", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:barry-altschul",
+      "name": "Barry Altschul",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "ECM.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:barry-altschul-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:barry-altschul-wikipedia"]
+  }
+}

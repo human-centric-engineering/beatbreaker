@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:brian-chippendale",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Brian Chippendale",
+    "born": {
+      "date": "1973-07-22",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-chippendale-wikipedia"]
+      },
+      "place": "Newburgh, New York"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Providence, Fort Thunder"],
+    "active": {
+      "from": 1994,
+      "ongoing": true
+    },
+    "summary": "Lightning Bolt's drummer and singer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:noise-rock",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Lightning Bolt",
+      "type": "band_member",
+      "years": {
+        "from": 1994
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-chippendale-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drums and sings through a contact mic in noise rock duo Lightning Bolt, a relentless, maximal style; drums on Björk's Volta; Rolling Stone's 91st greatest drummer.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-chippendale-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Noise rock and no wave drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:lightning-bolt-wonderful-rainbow-2003",
+    "rec:lightning-bolt-hypermagic-mountain-2005"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:billy-joel-piano-man-1973",
+  "title": "Piano Man",
+  "artist": "Billy Joel",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ronnie-tutt-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ronnie-tutt",
+      "name": "Ron Tutt",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

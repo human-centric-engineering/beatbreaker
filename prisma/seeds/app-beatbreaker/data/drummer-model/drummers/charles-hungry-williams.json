@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "id": "drummer:charles-hungry-williams",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Charles \"Hungry\" Williams",
+    "born": {
+      "date": "1935-02-12",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charles-hungry-williams-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1986-05-10"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans", "Cosimo Matassa's studio"],
+    "active": {
+      "from": 1955,
+      "to": 1970
+    },
+    "summary": "New Orleans R&B drummer of Huey \"Piano\" Smith & the Clowns."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-funk",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.5,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Huey \"Piano\" Smith & the Clowns",
+      "type": "band_member",
+      "years": {
+        "from": 1957
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:huey-piano-smith-and-the-clowns-dont-you-just-know-it-1958"],
+  "legacy": {
+    "contribution": {
+      "description": "Known for an innovative, influential polyrhythmic drumming on New Orleans records of the 1950s and 1960s, such as \"Don't You Just Know It\"; Clayton Fillyau said the most important rhythmic lesson of his life came from him.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charles-hungry-williams-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans R&B and funk drummers",
+    "build_priority": 1
+  }
+}

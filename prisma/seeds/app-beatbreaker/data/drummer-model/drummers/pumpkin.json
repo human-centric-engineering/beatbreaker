@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "id": "drummer:pumpkin",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "His session credits are flagged unsourced on Wikipedia; find a label credit or interview."
+    ]
+  },
+  "identity": {
+    "name": "Pumpkin",
+    "summary": "Errol Bedward, the drummer and bandleader behind many of the first rap records on Enjoy, Profile and Tuff City; died 1990.",
+    "active": {
+      "from": 1979,
+      "to": 1990
+    },
+    "nationality": ["American"],
+    "full_name": "Errol Eduardo Bedward",
+    "born": {
+      "date": "1961-01-21"
+    },
+    "died": {
+      "date": "1990-08-24"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 1
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Enjoy Records house band",
+      "type": "house_band",
+      "years": {
+        "from": 1979,
+        "to": 1984
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:pumpkin-king-of-the-beat-1983",
+    "rec:pumpkin-and-the-profile-all-stars-here-comes-that-beat-1984"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "\"Renowned for being the one behind many old school hip hop tracks\": the live drummer and bandleader of Enjoy Records' early rap singles (Funky Four Plus One More, Treacherous Three), before drum machines took over.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:pumpkin-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hip-hop and neo-soul drummers",
+    "build_priority": 2
+  }
+}

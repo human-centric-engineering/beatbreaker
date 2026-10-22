@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "id": "drummer:seb-rochford",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Seb Rochford",
+    "full_name": "Sebastian Rochford",
+    "nationality": ["British"],
+    "home_scenes": ["London jazz (2000s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1998,
+      "ongoing": true
+    },
+    "summary": "Scottish drummer and composer, leader of Polar Bear."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:uk-jazz",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.5,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.3,
+        "authority": 0.2
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Polar Bear",
+      "type": "bandleader",
+      "years": {
+        "from": 2004,
+        "to": 2015
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:seb-rochford-wikipedia"]
+      }
+    },
+    {
+      "name": "Acoustic Ladyland",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:seb-rochford-wikipedia"]
+      }
+    },
+    {
+      "name": "Sons of Kemet",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:seb-rochford-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:polar-bear-held-on-the-tips-of-fingers-2005"],
+  "legacy": {
+    "contribution": {
+      "description": "Led and composed for Polar Bear, whose albums were nominated for the Mercury Prize in 2005 and 2014, and was a founding member of Sons of Kemet.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:seb-rochford-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modern jazz drummers",
+    "build_priority": 3
+  }
+}

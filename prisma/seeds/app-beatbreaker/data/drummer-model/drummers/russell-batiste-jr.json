@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "id": "drummer:russell-batiste-jr",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["No key recording could be confirmed from the sources read; find one."]
+  },
+  "identity": {
+    "name": "Russell Batiste Jr.",
+    "full_name": "David Russell Batiste Jr.",
+    "born": {
+      "date": "1965-12-12",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:russell-batiste-jr-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2023-09-30"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans"],
+    "active": {
+      "from": 1987,
+      "to": 2023
+    },
+    "summary": "New Orleans funk drummer of the Funky Meters, Papa Grows Funk and Vida Blue, from the Batiste musical family."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-funk",
+        "weight": 1.0,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Funky Meters",
+      "type": "band_member",
+      "years": {
+        "from": 1989
+      }
+    },
+    {
+      "name": "Papa Grows Funk",
+      "type": "band_member"
+    },
+    {
+      "name": "Vida Blue",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [],
+  "legacy": {
+    "contribution": {
+      "description": "Took Zigaboo Modeliste's chair when the Meters re-formed in 1989 and kept the New Orleans funk drumming of the Meters going with the Funky Meters for decades.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:russell-batiste-jr-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans R&B and funk drummers",
+    "build_priority": 3
+  }
+}

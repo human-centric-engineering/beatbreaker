@@ -1,0 +1,20 @@
+{
+  "id": "rec:os-ipanemas-os-ipanemas-1964",
+  "title": "Os Ipanemas",
+  "artist": "Os Ipanemas",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:samba", "style:bossa-nova"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:wilson-das-neves",
+      "name": "Wilson das Neves",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-wilson-das-neves"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "rec:masada-alef-1994",
+  "title": "Alef",
+  "artist": "Masada",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:joey-baron",
+      "name": "Joey Baron",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Zorn's Jewish-scale quartet.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:joey-baron-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:joey-baron-wikipedia"]
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "id": "drummer:jet-black",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jet Black",
+    "full_name": "Brian John Duffy",
+    "born": {
+      "date": "1938-08-26",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jet-black-wikipedia"]
+      },
+      "place": "Ilford, Essex"
+    },
+    "died": {
+      "date": "2022-12-06"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Guildford; London punk"],
+    "active": {
+      "from": 1974,
+      "to": 2015
+    },
+    "summary": "The Stranglers' founding drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:punk",
+        "weight": 1.0,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:new-wave",
+        "weight": 0.8,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.2
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Stranglers",
+      "type": "band_member",
+      "years": {
+        "from": 1974,
+        "to": 2015
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jet-black-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A jazz-influenced, older drummer in punk who moved to an electronic Simmons kit for the Stranglers' Feline and Aural Sculpture, and patented the Jet Black Power bass drum pedal.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jet-black-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Punk drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:the-stranglers-rattus-norvegicus-1977",
+    "rec:the-stranglers-no-more-heroes-1977",
+    "rec:the-stranglers-feline-1983"
+  ]
+}

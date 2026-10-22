@@ -1,0 +1,24 @@
+{
+  "id": "rec:okay-temiz-oriental-wind-1977",
+  "title": "Oriental Wind",
+  "artist": "Okay Temiz",
+  "release": "Sonet (SNTF 737)",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:middle-eastern"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:okay-temiz",
+      "name": "Okay Temiz",
+      "drummer_role": "leader",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:okay-temiz-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:okay-temiz-wikipedia"]
+  }
+}

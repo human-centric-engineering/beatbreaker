@@ -1,0 +1,19 @@
+{
+  "id": "rec:tom-petty-wildflowers-1994",
+  "title": "Wildflowers",
+  "artist": "Tom Petty",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:steve-ferrone-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-ferrone",
+      "name": "Steve Ferrone",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

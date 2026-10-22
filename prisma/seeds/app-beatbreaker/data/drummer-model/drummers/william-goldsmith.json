@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "id": "drummer:william-goldsmith",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "William Goldsmith",
+    "born": {
+      "date": "1972-07-04",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:william-goldsmith-wikipedia"]
+      },
+      "place": "Seattle, Washington"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Seattle, 1990s"],
+    "active": {
+      "from": 1992,
+      "ongoing": true
+    },
+    "summary": "Sunny Day Real Estate's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-hardcore",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:grunge",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Sunny Day Real Estate",
+      "type": "band_member",
+      "years": {
+        "from": 1992
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:william-goldsmith-wikipedia"]
+      }
+    },
+    {
+      "name": "Foo Fighters",
+      "type": "band_member",
+      "years": {
+        "from": 1995,
+        "to": 1997
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:william-goldsmith-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummer of Sunny Day Real Estate, whose two Sub Pop albums brought emo its first wide popularity; Keith Moon his model.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:william-goldsmith-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Post-hardcore and emo drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:sunny-day-real-estate-diary-1994",
+    "rec:sunny-day-real-estate-lp2-1995",
+    "rec:foo-fighters-the-colour-and-the-shape-1997"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:william-goldsmith-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Taylor Hawkins",
+        "kind": "drummer",
+        "id": "drummer:taylor-hawkins"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:william-goldsmith-wikipedia"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:thad-jones-mel-lewis-presenting-thad-jones-mel-lewis-and-the-jazz-orchestra-1966",
+  "title": "Presenting Thad Jones/Mel Lewis and the Jazz Orchestra",
+  "artist": "Thad Jones/Mel Lewis Orchestra",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mel-lewis",
+      "name": "Mel Lewis",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:mel-lewis-wikipedia"]
+  }
+}

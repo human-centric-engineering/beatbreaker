@@ -1,0 +1,19 @@
+{
+  "id": "rec:firefall-firefall-1976",
+  "title": "Firefall",
+  "artist": "Firefall",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:folk-rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:michael-clarke-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:michael-clarke",
+      "name": "Michael Clarke",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

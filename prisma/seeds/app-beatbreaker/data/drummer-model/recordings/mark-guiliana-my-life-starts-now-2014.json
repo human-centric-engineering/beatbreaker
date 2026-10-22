@@ -1,0 +1,25 @@
+{
+  "id": "rec:mark-guiliana-my-life-starts-now-2014",
+  "title": "My Life Starts Now",
+  "artist": "Mark Guiliana",
+  "year": 2014,
+  "type": "album",
+  "style_ids": ["style:drum-and-bass", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mark-guiliana",
+      "name": "Mark Guiliana",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Beat Music.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mark-guiliana-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:mark-guiliana-wikipedia"]
+  }
+}

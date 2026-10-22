@@ -1,0 +1,20 @@
+{
+  "id": "rec:green-day-kerplunk-1991",
+  "title": "Kerplunk",
+  "artist": "Green Day",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:pop-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tre-cool-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tre-cool",
+      "name": "Tré Cool",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

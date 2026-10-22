@@ -1,0 +1,19 @@
+{
+  "id": "rec:oasis-don-t-believe-the-truth-2005",
+  "title": "Don't Believe the Truth",
+  "artist": "Oasis",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:britpop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zak-starkey",
+      "name": "Zak Starkey",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:zak-starkey-wikipedia"]
+  }
+}

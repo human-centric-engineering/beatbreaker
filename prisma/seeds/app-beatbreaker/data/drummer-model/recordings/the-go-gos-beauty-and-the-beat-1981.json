@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-go-gos-beauty-and-the-beat-1981",
+  "title": "Beauty and the Beat",
+  "artist": "The Go-Go's",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:new-wave"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:gina-schock-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gina-schock",
+      "name": "Gina Schock",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

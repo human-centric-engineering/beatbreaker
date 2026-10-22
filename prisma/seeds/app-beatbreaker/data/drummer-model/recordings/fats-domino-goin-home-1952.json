@@ -1,0 +1,14 @@
+{
+  "id": "rec:fats-domino-goin-home-1952",
+  "title": "Goin' Home",
+  "artist": "Fats Domino",
+  "year": 1952,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cornelius-coleman",
+      "name": "Cornelius \"Tenoo\" Coleman"
+    }
+  ]
+}

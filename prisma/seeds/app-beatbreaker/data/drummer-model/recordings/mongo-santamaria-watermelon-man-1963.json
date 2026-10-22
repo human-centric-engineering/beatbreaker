@@ -1,0 +1,21 @@
+{
+  "id": "rec:mongo-santamaria-watermelon-man-1963",
+  "title": "Watermelon Man!",
+  "artist": "Mongo Santamaría",
+  "release": "Battle",
+  "year": 1963,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mongo-santamaria",
+      "name": "Mongo Santamaría",
+      "drummer_role": "leader",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-mongo-santamaria"]
+      }
+    }
+  ]
+}

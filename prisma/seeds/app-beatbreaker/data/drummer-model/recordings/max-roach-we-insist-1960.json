@@ -60,6 +60,16 @@
         "confidence": "verified",
         "source_ids": ["src:max-roach-we-insist-wikipedia", "src:max-roach-wikipedia"]
       }
+    },
+    {
+      "drummer_id": "drummer:babatunde-olatunji",
+      "name": "Michael (Babatunde) Olatunji",
+      "drummer_role": "percussion_only",
+      "why_it_matters": "On the \"pivotal\" Freedom Now Suite with Max Roach and Abbey Lincoln.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:babatunde-olatunji-wikipedia"]
+      }
     }
   ],
   "evidence": {

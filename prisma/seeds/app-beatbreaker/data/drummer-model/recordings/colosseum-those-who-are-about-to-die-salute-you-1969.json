@@ -1,0 +1,19 @@
+{
+  "id": "rec:colosseum-those-who-are-about-to-die-salute-you-1969",
+  "title": "Those Who Are About to Die Salute You",
+  "artist": "Colosseum",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jon-hiseman-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jon-hiseman",
+      "name": "Jon Hiseman",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

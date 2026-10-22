@@ -1,0 +1,27 @@
+{
+  "id": "rec:gospel-chops-shed-sessionz-vol-1-2005",
+  "title": "Shed Sessionz Vol. 1",
+  "artist": "Gospel Chops",
+  "year": 2005,
+  "type": "video",
+  "style_ids": ["style:gospel-chops"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-royster-jr",
+      "why_it_matters": "With Thomas Pridgen, the collection's standout video."
+    },
+    {
+      "drummer_id": "drummer:thomas-pridgen",
+      "why_it_matters": "With Tony Royster Jr., the collection's standout video."
+    },
+    {
+      "drummer_id": "drummer:eric-moore",
+      "why_it_matters": "The Gospel Chops series that his 2004 tutorial started."
+    }
+  ],
+  "release": "Gospel Chops",
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:okayplayer-gospel-chops-2018", "src:thomas-pridgen-wikipedia"]
+  }
+}

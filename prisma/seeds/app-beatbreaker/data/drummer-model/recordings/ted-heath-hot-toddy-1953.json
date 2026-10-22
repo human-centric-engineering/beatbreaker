@@ -1,0 +1,19 @@
+{
+  "id": "rec:ted-heath-hot-toddy-1953",
+  "title": "Hot Toddy",
+  "artist": "Ted Heath and His Music",
+  "year": 1953,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ronnie-verrell",
+      "name": "Ronnie Verrell",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:ronnie-verrell-wikipedia"]
+  }
+}

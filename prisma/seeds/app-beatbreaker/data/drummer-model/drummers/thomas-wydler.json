@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "id": "drummer:thomas-wydler",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Thomas Wydler",
+    "born": {
+      "date": "1959-10-09",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thomas-wydler-wikipedia"]
+      }
+    },
+    "nationality": ["Swiss"],
+    "home_scenes": ["West Berlin, 1980s"],
+    "active": {
+      "from": 1982,
+      "ongoing": true
+    },
+    "summary": "Nick Cave and the Bad Seeds' drummer since 1985."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-punk",
+        "weight": 1.0,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Die Haut",
+      "type": "band_member",
+      "years": {
+        "from": 1982,
+        "to": 1990
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thomas-wydler-wikipedia"]
+      }
+    },
+    {
+      "name": "Nick Cave and the Bad Seeds",
+      "type": "band_member",
+      "years": {
+        "from": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thomas-wydler-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A founder of Berlin's experimental Die Haut and the Bad Seeds' drummer on almost every album since 1986, playing the kit against Jim Sclavunos's percussion in the two-drummer band.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thomas-wydler-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Post-punk and gothic rock drummers",
+    "build_priority": 3
+  },
+  "key_recording_ids": [
+    "rec:nick-cave-and-the-bad-seeds-kicking-against-the-pricks-1986",
+    "rec:nick-cave-and-the-bad-seeds-tender-prey-1988",
+    "rec:nick-cave-and-the-bad-seeds-murder-ballads-1996"
+  ],
+  "relationships": [
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Jim Sclavunos",
+        "kind": "drummer",
+        "id": "drummer:jim-sclavunos"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:thomas-wydler-wikipedia"]
+      }
+    }
+  ]
+}

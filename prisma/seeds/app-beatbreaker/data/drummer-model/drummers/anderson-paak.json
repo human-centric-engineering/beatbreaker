@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "id": "drummer:anderson-paak",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "A source on his drumming itself (drumming while he sings) is still needed.",
+      "Silk Sonic album title from general knowledge."
+    ]
+  },
+  "identity": {
+    "name": "Anderson .Paak",
+    "summary": "Oxnard singer, rapper and drummer who started as a church drummer and leads from behind the kit: Malibu, NxWorries, Silk Sonic with Bruno Mars.",
+    "active": {
+      "from": 2009,
+      "ongoing": true
+    },
+    "nationality": ["American"],
+    "full_name": "Brandon Paak Anderson",
+    "born": {
+      "date": "1986-02-08",
+      "place": "Oxnard, California"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:neo-soul",
+        "weight": 1
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 0.9
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Free Nationals",
+      "type": "bandleader"
+    },
+    {
+      "name": "NxWorries",
+      "type": "band_member",
+      "years": {
+        "from": 2015
+      }
+    },
+    {
+      "name": "Silk Sonic",
+      "type": "band_member",
+      "years": {
+        "from": 2021
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:anderson-paak-malibu-2016",
+    "rec:silk-sonic-an-evening-with-silk-sonic-2021"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A star singer and rapper who is also the band's drummer, starting at his family's church and drumming on the Super Bowl LVI halftime stage (2022).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:anderson-paak-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hip-hop and neo-soul drummers",
+    "build_priority": 2
+  }
+}

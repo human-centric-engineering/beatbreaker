@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "id": "drummer:clem-cattini",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Clem Cattini",
+    "full_name": "Clemente Anselmo Agustino Cattini",
+    "nationality": ["English"],
+    "roles": ["session", "band_member"],
+    "born": {
+      "date": "1937-08-28",
+      "place": "Stoke Newington, London",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:clem-cattini-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1957,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Drummer of the Tornados and Johnny Kidd & the Pirates, then one of the busiest British session drummers of the 1960s and 1970s."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Johnny Kidd & the Pirates",
+      "type": "band_member"
+    },
+    {
+      "name": "The Tornados",
+      "type": "band_member",
+      "years": {
+        "from": 1961,
+        "to": 1965
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:johnny-kidd-and-the-pirates-shakin-all-over-1960",
+    "rec:the-tornados-telstar-1962"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played on \"Shakin' All Over\" and the Tornados' \"Telstar\", then became one of the most prolific drummers in UK recording history, appearing on 42 UK number one singles.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:clem-cattini-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 1
+  }
+}

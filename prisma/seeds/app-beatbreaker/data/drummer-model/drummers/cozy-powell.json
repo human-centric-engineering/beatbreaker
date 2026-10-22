@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "id": "drummer:cozy-powell",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Cozy Powell",
+    "nationality": ["British"],
+    "active": {
+      "from": 1965,
+      "to": 1998
+    },
+    "summary": "English hard rock drummer of the Jeff Beck Group, Rainbow, Whitesnake, Emerson, Lake & Powell and Black Sabbath."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Jeff Beck Group",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 1972
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cozy-powell-wikipedia"]
+      }
+    },
+    {
+      "name": "Rainbow",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1980
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cozy-powell-wikipedia"]
+      }
+    },
+    {
+      "name": "Michael Schenker Group",
+      "type": "band_member",
+      "years": {
+        "from": 1982,
+        "to": 1983
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cozy-powell-wikipedia"]
+      }
+    },
+    {
+      "name": "Whitesnake",
+      "type": "band_member",
+      "years": {
+        "from": 1984,
+        "to": 1985
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cozy-powell-wikipedia"]
+      }
+    },
+    {
+      "name": "Black Sabbath",
+      "type": "band_member",
+      "years": {
+        "from": 1988,
+        "to": 1991
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cozy-powell-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:cozy-powell-dance-with-the-devil-1973", "rec:rainbow-rising-1976"],
+  "legacy": {
+    "contribution": {
+      "description": "A hard-hitting power player 'vital to the development of English hard rock and heavy metal', on Rainbow's Rising and his own hit \"Dance with the Devil\"; many rock drummers cite him as a major influence.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cozy-powell-wikipedia", "src:rollingstone-100-drummers-2016"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard rock drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Bobby Elliott",
+        "kind": "drummer",
+        "id": "drummer:bobby-elliott"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:cozy-powell-wikipedia"]
+      },
+      "scope": "individual"
+    }
+  ]
+}

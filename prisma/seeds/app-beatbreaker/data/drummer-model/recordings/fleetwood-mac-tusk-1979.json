@@ -1,0 +1,19 @@
+{
+  "id": "rec:fleetwood-mac-tusk-1979",
+  "title": "Tusk",
+  "artist": "Fleetwood Mac",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-fleetwood",
+      "name": "Mick Fleetwood",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:mick-fleetwood-wikipedia"]
+  }
+}

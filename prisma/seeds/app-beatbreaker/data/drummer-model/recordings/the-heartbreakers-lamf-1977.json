@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-heartbreakers-lamf-1977",
+  "title": "L.A.M.F.",
+  "artist": "The Heartbreakers",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:punk"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:jerry-nolan-wikipedia", "src:marky-ramone-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jerry-nolan",
+      "name": "Jerry Nolan",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

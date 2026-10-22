@@ -1,0 +1,19 @@
+{
+  "id": "rec:louis-cole-quality-over-opinion-2022",
+  "title": "Quality Over Opinion",
+  "artist": "Louis Cole",
+  "year": 2022,
+  "type": "album",
+  "style_ids": ["style:funk", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:louis-cole",
+      "why_it_matters": "Grammy-nominated."
+    }
+  ],
+  "release": "Brainfeeder",
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:louis-cole-wikipedia"]
+  }
+}

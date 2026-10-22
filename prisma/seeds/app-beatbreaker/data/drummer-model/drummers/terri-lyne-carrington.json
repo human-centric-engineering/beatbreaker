@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "id": "drummer:terri-lyne-carrington",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Terri Lyne Carrington",
+    "born": {
+      "date": "1965-08-04",
+      "place": "Medford, Massachusetts",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:terri-lyne-carrington-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Boston", "Los Angeles", "New York"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1975,
+      "ongoing": true
+    },
+    "summary": "Drummer, composer and producer, four-time Grammy winner, and founder of the Berklee Institute of Jazz and Gender Justice."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.5,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.5,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Herbie Hancock",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1997,
+        "to": 2007
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terri-lyne-carrington-wikipedia"]
+      }
+    },
+    {
+      "name": "Wayne Shorter",
+      "type": "touring_drummer",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terri-lyne-carrington-wikipedia"]
+      }
+    },
+    {
+      "name": "The Arsenio Hall Show house band",
+      "type": "house_band",
+      "years": {
+        "from": 1989,
+        "to": 1991
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terri-lyne-carrington-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:terri-lyne-carrington-real-life-story-1989",
+    "rec:terri-lyne-carrington-the-mosaic-project-2011",
+    "rec:terri-lyne-carrington-money-jungle-provocative-in-blue-2013"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A Grammy-winning drummer-leader who toured with every Herbie Hancock line-up from 1997 to 2007 and founded the Berklee Institute of Jazz and Gender Justice, which works for gender equity in jazz.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:terri-lyne-carrington-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modern jazz drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Alan Dawson",
+        "kind": "drummer",
+        "id": "drummer:alan-dawson"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:terri-lyne-carrington-wikipedia"]
+      }
+    }
+  ]
+}

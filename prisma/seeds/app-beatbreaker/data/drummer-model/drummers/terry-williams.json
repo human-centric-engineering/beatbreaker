@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "id": "drummer:terry-williams",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Terry Williams",
+    "full_name": "Terrence Williams",
+    "nationality": ["Welsh"],
+    "roles": ["band_member"],
+    "born": {
+      "date": "1948-01-11",
+      "place": "Swansea, Wales",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-williams-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1964,
+      "to": 1988
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Welsh drummer of Man, Rockpile and Dire Straits (1982-1988)."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Man",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 1976
+      }
+    },
+    {
+      "name": "Rockpile",
+      "type": "band_member",
+      "years": {
+        "from": 1976,
+        "to": 1981
+      }
+    },
+    {
+      "name": "Dire Straits",
+      "type": "band_member",
+      "years": {
+        "from": 1982,
+        "to": 1988
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:rockpile-seconds-of-pleasure-1980",
+    "rec:dire-straits-money-for-nothing-1985"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drove Rockpile's back-to-basics rock and roll with Dave Edmunds and Nick Lowe, then was Dire Straits' drummer through their biggest years, from the Love Over Gold tour to Brothers in Arms.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:terry-williams-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Rock and roll and roots drummers",
+    "build_priority": 3
+  }
+}

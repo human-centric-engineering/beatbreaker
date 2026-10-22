@@ -1,0 +1,19 @@
+{
+  "id": "rec:bruce-springsteen-born-to-run-1975",
+  "title": "Born to Run",
+  "artist": "Bruce Springsteen",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:heartland-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:max-weinberg",
+      "name": "Max Weinberg",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:max-weinberg-wikipedia"]
+  }
+}

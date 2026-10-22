@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "id": "drummer:simon-kirke",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Simon Kirke",
+    "full_name": "Simon Frederick St George Kirke",
+    "born": {
+      "date": "1949",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:simon-kirke-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1967,
+      "ongoing": true
+    },
+    "summary": "Co-founder and drummer of Free and Bad Company."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.9,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Free",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:simon-kirke-wikipedia"]
+      }
+    },
+    {
+      "name": "Bad Company",
+      "type": "band_member",
+      "years": {
+        "from": 1973
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:simon-kirke-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:free-fire-and-water-1970", "rec:bad-company-bad-company-1974"],
+  "legacy": {
+    "contribution": {
+      "description": "Co-founder and drummer of Free (\"All Right Now\") and Bad Company, its only continuous member; Paul Cook of the Sex Pistols names him among the drummers he learned from.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:simon-kirke-wikipedia", "src:paul-cook-musicradar-2015"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard rock drummers",
+    "build_priority": 2
+  }
+}

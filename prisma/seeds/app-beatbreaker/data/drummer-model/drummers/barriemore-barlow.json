@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "id": "drummer:barriemore-barlow",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Barriemore Barlow",
+    "full_name": "Barrie Barlow",
+    "born": {
+      "date": "1949-09-10",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:barriemore-barlow-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1965,
+      "ongoing": true
+    },
+    "summary": "Jethro Tull's drummer and percussionist, 1971-1980."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:folk-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Jethro Tull",
+      "type": "band_member",
+      "years": {
+        "from": 1971,
+        "to": 1980
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:barriemore-barlow-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:jethro-tull-thick-as-a-brick-1972",
+    "rec:jethro-tull-songs-from-the-wood-1977"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A technical, inventive drummer who set out to be an 'inventor of rhythm' through Jethro Tull's long-form records from Thick as a Brick, citing Joe Morello, Buddy Rich, Ringo Starr and Michael Giles.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:barriemore-barlow-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Michael Giles",
+        "kind": "drummer",
+        "id": "drummer:michael-giles"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:barriemore-barlow-wikipedia"]
+      },
+      "scope": "individual"
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Clive Bunker",
+        "kind": "drummer",
+        "id": "drummer:clive-bunker"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:barriemore-barlow-wikipedia"]
+      },
+      "scope": "individual"
+    }
+  ]
+}

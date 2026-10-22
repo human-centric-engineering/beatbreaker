@@ -1,0 +1,32 @@
+{
+  "id": "rec:shakti-natural-elements-1977",
+  "title": "Natural Elements",
+  "artist": "Shakti",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:carnatic-classical", "style:hindustani-classical", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:vikku-vinayakram",
+      "name": "T. H. \"Vikku\" Vinayakram",
+      "drummer_role": "percussion_only",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:th-vinayakram-wikipedia"]
+      }
+    },
+    {
+      "drummer_id": "drummer:zakir-hussain",
+      "name": "Zakir Hussain",
+      "drummer_role": "percussion_only",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:th-vinayakram-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:th-vinayakram-wikipedia"]
+  }
+}

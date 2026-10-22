@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-hives-veni-vidi-vicious-2000",
+  "title": "Veni Vidi Vicious",
+  "artist": "The Hives",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:garage-rock", "style:punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:chris-dangerous-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-dangerous",
+      "name": "Chris Dangerous",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

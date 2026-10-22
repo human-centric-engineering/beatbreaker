@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "id": "drummer:tony-oxley",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Tony Oxley",
+    "born": {
+      "date": "1938-06-15",
+      "place": "Sheffield, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-oxley-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2023-12-26"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Ronnie Scott's, London (1966-1970s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1960,
+      "to": 2023
+    },
+    "summary": "English free-improvising drummer, house drummer at Ronnie Scott's and a co-founder of Incus Records."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.3,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Ronnie Scott's house band",
+      "type": "house_band",
+      "years": {
+        "from": 1966,
+        "to": 1972
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tony-oxley-wikipedia"]
+      }
+    },
+    {
+      "name": "Cecil Taylor",
+      "type": "band_member",
+      "years": {
+        "from": 1988,
+        "to": 2008
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tony-oxley-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:john-mclaughlin-extrapolation-1969",
+    "rec:tony-oxley-the-baptised-traveller-1969"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A free-improvising drummer and electronic musician who topped the Melody Maker readers' poll for drummers from 1969 to 1972 and co-founded Incus Records with Derek Bailey.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-oxley-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 2
+  }
+}

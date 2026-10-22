@@ -1,0 +1,19 @@
+{
+  "id": "rec:sandy-nelson-let-there-be-drums-1961",
+  "title": "Let There Be Drums",
+  "artist": "Sandy Nelson",
+  "year": 1961,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:sandy-nelson-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sandy-nelson",
+      "name": "Sandy Nelson",
+      "drummer_role": "leader"
+    }
+  ]
+}

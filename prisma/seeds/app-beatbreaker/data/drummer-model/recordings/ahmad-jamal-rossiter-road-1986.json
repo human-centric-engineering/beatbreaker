@@ -1,0 +1,25 @@
+{
+  "id": "rec:ahmad-jamal-rossiter-road-1986",
+  "title": "Rossiter Road",
+  "artist": "Ahmad Jamal",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:herlin-riley",
+      "name": "Herlin Riley",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Jamal's 1980s trio.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:herlin-riley-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:herlin-riley-wikipedia"]
+  }
+}

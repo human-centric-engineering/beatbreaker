@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "id": "drummer:al-foster",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Al Foster",
+    "full_name": "Aloysius Tyrone Foster",
+    "born": {
+      "date": "1943-01-18",
+      "place": "Richmond, Virginia",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:al-foster-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2025-05-28"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1964,
+      "to": 2025
+    },
+    "summary": "Miles Davis's drummer either side of his retirement, and a post-bop mainstay with Rollins, Henderson and Hancock."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.8,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 1.0,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Miles Davis",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1985
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:al-foster-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:miles-davis-agharta-1975",
+    "rec:miles-davis-the-man-with-the-horn-1981"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The only musician in Miles Davis's band both before and after his 1975 to 1980 retirement, playing fusion with Davis while recording acoustic jazz with Sonny Rollins, Dexter Gordon and McCoy Tyner.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:al-foster-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modal and post-bop drummers",
+    "build_priority": 2
+  }
+}

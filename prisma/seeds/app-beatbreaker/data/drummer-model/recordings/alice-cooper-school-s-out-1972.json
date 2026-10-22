@@ -1,0 +1,19 @@
+{
+  "id": "rec:alice-cooper-school-s-out-1972",
+  "title": "School's Out",
+  "artist": "Alice Cooper",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:glam-rock", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neal-smith",
+      "name": "Neal Smith (Alice Cooper)",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:neal-smith-drummer-wikipedia"]
+  }
+}

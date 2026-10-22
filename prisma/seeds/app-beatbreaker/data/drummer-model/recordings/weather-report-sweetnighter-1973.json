@@ -1,0 +1,21 @@
+{
+  "id": "rec:weather-report-sweetnighter-1973",
+  "title": "Sweetnighter",
+  "artist": "Weather Report",
+  "release": "Columbia",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dom-um-romao",
+      "name": "Dom Um Romão",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-dom-um-romao"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:paul-ferguson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Paul Ferguson",
+    "full_name": "Matthew Paul Ferguson",
+    "born": {
+      "date": "1958-03-31",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paul-ferguson-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London post-punk"],
+    "active": {
+      "from": 1978,
+      "ongoing": true
+    },
+    "summary": "Killing Joke's founding drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-punk",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:industrial",
+        "weight": 0.6,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Killing Joke",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1987
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:paul-ferguson-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Founding drummer of Killing Joke, known for the tribal drum style that drove their post-punk and fed industrial music and metal.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:paul-ferguson-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Post-punk and gothic rock drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:killing-joke-killing-joke-1980",
+    "rec:killing-joke-whats-this-for-1981",
+    "rec:killing-joke-night-time-1985"
+  ]
+}

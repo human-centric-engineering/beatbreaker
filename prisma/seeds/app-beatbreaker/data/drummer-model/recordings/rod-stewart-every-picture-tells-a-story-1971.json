@@ -1,0 +1,19 @@
+{
+  "id": "rec:rod-stewart-every-picture-tells-a-story-1971",
+  "title": "Every Picture Tells a Story",
+  "artist": "Rod Stewart",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:rock", "style:folk-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:micky-waller",
+      "name": "Micky Waller",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:micky-waller-wikipedia"]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:melvins-gluey-porch-treatments-1987",
+  "title": "Gluey Porch Treatments",
+  "artist": "Melvins",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:grunge", "style:drone-doom"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:dale-crover-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dale-crover",
+      "name": "Dale Crover",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

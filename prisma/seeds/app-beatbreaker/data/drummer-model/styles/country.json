@@ -1,0 +1,21 @@
+{
+  "id": "style:country",
+  "name": "Country",
+  "kind": "genre",
+  "parents": [
+    {
+      "style_id": "style:americana",
+      "relation": "influenced_by",
+      "evidence": { "confidence": "widely_reported" }
+    },
+    {
+      "style_id": "style:rock-and-roll",
+      "relation": "influenced_by",
+      "evidence": { "confidence": "likely" }
+    }
+  ],
+  "region": "Nashville, Tennessee, and the American South",
+  "era": { "from": 1950, "ongoing": true },
+  "summary": "Country music as recorded in Nashville, where the drum kit arrived on the Grand Ole Opry in the 1950s and session players such as Buddy Harman, Larrie Londin and Eddie Bayers set its sound.",
+  "key_drummer_ids": ["drummer:buddy-harman", "drummer:larrie-londin", "drummer:eddie-bayers"]
+}

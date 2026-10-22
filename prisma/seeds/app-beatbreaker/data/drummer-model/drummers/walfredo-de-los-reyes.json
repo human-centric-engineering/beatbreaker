@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "id": "drummer:walfredo-de-los-reyes",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Walfredo de los Reyes Sr.",
+    "full_name": "Walfredo de los Reyes III",
+    "born": {
+      "date": "1933-06-16",
+      "place": "Havana, Cuba"
+    },
+    "died": {
+      "date": "2025-08-28",
+      "place": "Concord, California"
+    },
+    "nationality": ["Cuban", "American"],
+    "home_scenes": ["Havana", "Las Vegas"],
+    "active": {
+      "from": 1945,
+      "to": 2025
+    },
+    "summary": "Cuban drummer, timbalero and educator, father of Walfredo Reyes Jr."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 1,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:afro-cuban",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Cachao",
+      "type": "session_regular"
+    },
+    {
+      "name": "Louie Bellson",
+      "type": "session_regular"
+    }
+  ],
+  "key_recording_ids": ["rec:walfredo-de-los-reyes-cuban-jazz-1960"],
+  "legacy": {
+    "contribution": {
+      "description": "Advanced the playing of congas, timbales and bongó all at once by one player, and is often named with Tito Puente and Willie Bobo among the most influential modern timbaleros.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-walfredo-de-los-reyes"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Afro-Cuban and Latin jazz drummers",
+    "build_priority": 2
+  }
+}

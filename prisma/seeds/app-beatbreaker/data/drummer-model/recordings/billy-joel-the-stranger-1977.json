@@ -1,0 +1,19 @@
+{
+  "id": "rec:billy-joel-the-stranger-1977",
+  "title": "The Stranger",
+  "artist": "Billy Joel",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:liberty-devitto-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:liberty-devitto",
+      "name": "Liberty DeVitto",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

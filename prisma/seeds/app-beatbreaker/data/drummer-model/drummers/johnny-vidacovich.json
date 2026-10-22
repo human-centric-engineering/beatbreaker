@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "id": "drummer:johnny-vidacovich",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["No key recording could be confirmed from the sources read; find one."]
+  },
+  "identity": {
+    "name": "Johnny Vidacovich",
+    "full_name": "John Joseph Vidacovich Jr.",
+    "born": {
+      "date": "1949-06-27",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:johnny-vidacovich-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans"],
+    "active": {
+      "from": 1970,
+      "ongoing": true
+    },
+    "summary": "New Orleans jazz drummer of Astral Project, who played with Professor Longhair, James Booker and Mose Allison."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:new-orleans-second-line",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:new-orleans-funk",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Astral Project",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [],
+  "legacy": {
+    "contribution": {
+      "description": "The New Orleans drummer who joined second-line feel to modern jazz in Astral Project and with Professor Longhair and James Booker, twelve times OffBeat's best drummer; Brian Blade played alongside him while at Loyola.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:johnny-vidacovich-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans R&B and funk drummers",
+    "build_priority": 3
+  }
+}

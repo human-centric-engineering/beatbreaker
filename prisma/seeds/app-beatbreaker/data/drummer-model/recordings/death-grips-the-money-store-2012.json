@@ -1,0 +1,20 @@
+{
+  "id": "rec:death-grips-the-money-store-2012",
+  "title": "The Money Store",
+  "artist": "Death Grips",
+  "year": 2012,
+  "type": "album",
+  "style_ids": ["style:experimental-rock", "style:hip-hop-breakbeat"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:zach-hill-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zach-hill",
+      "name": "Zach Hill",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

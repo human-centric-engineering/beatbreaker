@@ -1,0 +1,21 @@
+{
+  "id": "rec:ray-barretto-el-watusi-1962",
+  "title": "El Watusi",
+  "artist": "Ray Barretto and Charanga Moderna",
+  "release": "Tico",
+  "year": 1962,
+  "type": "studio_track",
+  "style_ids": ["style:latin-jazz", "style:cha-cha-cha"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ray-barretto",
+      "name": "Ray Barretto",
+      "drummer_role": "percussion_only",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-ray-barretto"]
+      }
+    }
+  ]
+}

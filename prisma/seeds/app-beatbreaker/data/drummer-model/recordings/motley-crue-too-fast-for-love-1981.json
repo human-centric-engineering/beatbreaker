@@ -1,0 +1,19 @@
+{
+  "id": "rec:motley-crue-too-fast-for-love-1981",
+  "title": "Too Fast for Love",
+  "artist": "Mötley Crüe",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tommy-lee",
+      "name": "Tommy Lee",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:tommy-lee-wikipedia"]
+  }
+}

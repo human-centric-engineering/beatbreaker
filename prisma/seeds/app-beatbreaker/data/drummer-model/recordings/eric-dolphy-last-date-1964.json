@@ -1,0 +1,25 @@
+{
+  "id": "rec:eric-dolphy-last-date-1964",
+  "title": "Last Date",
+  "artist": "Eric Dolphy",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:han-bennink",
+      "name": "Han Bennink",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Dolphy's last recording, with Bennink and Mengelberg.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:han-bennink-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:han-bennink-wikipedia"]
+  }
+}

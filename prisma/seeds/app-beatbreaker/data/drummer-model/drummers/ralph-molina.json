@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "id": "drummer:ralph-molina",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ralph Molina",
+    "born": {
+      "date": "1943",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ralph-molina-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1963,
+      "ongoing": true
+    },
+    "summary": "Puerto Rico-born drummer of Neil Young's Crazy Horse."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:heartland-rock",
+        "weight": 0.8,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.5
+      },
+      {
+        "style_id": "style:folk-rock",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Rockets",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ralph-molina-wikipedia"]
+      }
+    },
+    {
+      "name": "Crazy Horse",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ralph-molina-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:neil-young-with-crazy-horse-everybody-knows-this-is-nowhere-1969",
+    "rec:neil-young-and-crazy-horse-rust-never-sleeps-1979"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The simple, steady, earthy backbeat under Neil Young's guitar with Crazy Horse, the raw garage feel Young keeps coming back to; Adrienne Davies of Earth cites him.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:ralph-molina-wikipedia",
+          "src:rollingstone-100-drummers-2016",
+          "src:tomtom-davies"
+        ]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Heartland and roots rock drummers",
+    "build_priority": 2
+  }
+}

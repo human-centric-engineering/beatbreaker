@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-surfaris-wipe-out-1963",
+  "title": "Wipe Out",
+  "artist": "The Surfaris",
+  "year": 1963,
+  "type": "studio_track",
+  "style_ids": ["style:surf-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ron-wilson",
+      "name": "Ron Wilson (The Surfaris)",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ron-wilson-drummer-wikipedia", "src:wipe-out-instrumental-wikipedia"]
+  }
+}

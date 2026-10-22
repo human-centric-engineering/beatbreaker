@@ -1,0 +1,25 @@
+{
+  "id": "rec:chico-hamilton-quintet-chico-hamilton-quintet-featuring-buddy-collette-1955",
+  "title": "Chico Hamilton Quintet featuring Buddy Collette",
+  "artist": "Chico Hamilton Quintet",
+  "year": 1955,
+  "type": "album",
+  "style_ids": ["style:cool-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chico-hamilton",
+      "name": "Chico Hamilton",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The chamber quintet with cello.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chico-hamilton-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:chico-hamilton-wikipedia"]
+  }
+}

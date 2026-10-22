@@ -1,0 +1,20 @@
+{
+  "id": "rec:grinderman-grinderman-2007",
+  "title": "Grinderman",
+  "artist": "Grinderman",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:post-punk", "style:garage-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:jim-sclavunos-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jim-sclavunos",
+      "name": "Jim Sclavunos",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

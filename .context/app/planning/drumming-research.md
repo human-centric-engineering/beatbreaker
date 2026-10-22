@@ -17163,6 +17163,184 @@ Songsterr tabs 4453297, 79656, 17648, 436043, 496603, 445125, 542451, 499165.
 The Spellbound video (YouTube TjvvK-Rj0WI). The records, beat-tracked from the
 band's official uploads.
 
+## DA. The long list (2026-10-22)
+
+Phase 15-a. **497 candidate drummers**, each a `candidate` record in the
+drummer model (D74): identity, bands, genres, two to four key recordings, a
+Drummers-tab group, a build priority, and the sourced line on what they
+brought that puts them on the list (D72). They are not built: no patterns,
+no playable style, not on the Drummers tab. On the lineage map a candidate
+is drawn like a named stub, shown only where it has an edge to another
+person, but with its own years and genres (774 people on the map, from 690).
+
+**How it was made.** Ten forks, one per genre family, each given the drummers
+the model already named without a record (213 of them) and asked to sweep
+its family for 25 to 50 more. The sweep used drumming histories, obituaries
+and genre writing as well as the polls (Rolling Stone's 100, Modern
+Drummer's Hall of Fame, Drumeo's lists). Most sources are Wikipedia
+articles read on 2026-10-22, many through a summarising fetch because the
+API rate-limited ten forks on one address. Each source's notes say how it
+was read. A claim resting on one source is marked `likely`, and recording
+credits taken from general knowledge are marked so. Those are to be checked
+against a discography before 15-b links songs to them.
+
+Of the 213 named drummers, **165 are candidates**. The other 48 are below
+with the reason. A further 332 came from the sweep.
+
+**At the merge:** 14 drummers two forks had both found were combined into
+one record. Recordings two forks shared, and the ten repo recordings forks
+extended (four Santana albums, _Aja_, _Bitches Brew_, _We Insist!_, _Larks'
+Tongues in Aspic_, _Dance Mania_, _Right Time_), keep every drummer either
+named. Birth and death places the early-jazz fork took from memory were
+dropped, as was one source seen only in a search result. The R&B fork's
+"New Orleans" group was split by music (D70): traditional players joined
+New Orleans and early jazz, the rest are New Orleans R&B and funk. 43 new
+genres were added to the model, each placed in a family on the map. The
+map's "Latin and African" family is now "Latin, African and Asian", since
+it holds tabla, taiko and tombak players too.
+
+### The groups
+
+82 groups. Priority is the place in the genre's queue: 1 build next, 2
+soon, 3 later. 15-d ranks across genres.
+
+| Group                             | Drummers | Priority 1 / 2 / 3 | Priority 1                                                                                                                                                                          |
+| --------------------------------- | -------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| African jazz                      | 3        | 2 / 0 / 1          | Kofi Ghanaba, Louis Moholo                                                                                                                                                          |
+| Afro-Cuban and Latin jazz         | 12       | 5 / 4 / 3          | Enrique Plá, Guillermo Barreto, Ignacio Berroa, Steve Berrios, Willie Bobo                                                                                                          |
+| Afro-Peruvian                     | 1        | 0 / 0 / 1          | —                                                                                                                                                                                   |
+| Afro-rock                         | 1        | 0 / 1 / 0          | —                                                                                                                                                                                   |
+| Alternative rock                  | 7        | 4 / 2 / 1          | Bill Berry, Jimmy Chamberlin, Josh Freese, Stephen Perkins                                                                                                                          |
+| Bebop                             | 6        | 1 / 0 / 5          | Kenny Clarke                                                                                                                                                                        |
+| Black metal                       | 4        | 2 / 2 / 0          | Fenriz, Hellhammer                                                                                                                                                                  |
+| Blue-eyed soul                    | 1        | 0 / 0 / 1          | —                                                                                                                                                                                   |
+| Blues and psychedelic rock        | 7        | 3 / 4 / 0          | John Densmore, Mick Fleetwood, Micky Waller                                                                                                                                         |
+| Blues                             | 10       | 1 / 3 / 6          | Fred Below                                                                                                                                                                          |
+| Bomba and plena                   | 1        | 0 / 0 / 1          | —                                                                                                                                                                                   |
+| British Invasion                  | 5        | 0 / 4 / 1          | —                                                                                                                                                                                   |
+| Britpop                           | 1        | 0 / 0 / 1          | —                                                                                                                                                                                   |
+| Contemporary R&B                  | 2        | 0 / 1 / 1          | —                                                                                                                                                                                   |
+| Cool jazz                         | 3        | 1 / 2 / 0          | Shelly Manne                                                                                                                                                                        |
+| Country                           | 4        | 1 / 3 / 0          | Buddy Harman                                                                                                                                                                        |
+| Cuban son and timba               | 2        | 0 / 1 / 1          | —                                                                                                                                                                                   |
+| Dancehall                         | 2        | 0 / 2 / 0          | —                                                                                                                                                                                   |
+| Death metal and grindcore         | 12       | 2 / 3 / 7          | Mick Harris, Pete Sandoval                                                                                                                                                          |
+| Disco                             | 2        | 1 / 1 / 0          | Earl Young                                                                                                                                                                          |
+| Experimental rock                 | 1        | 1 / 0 / 0          | John French                                                                                                                                                                         |
+| Folk rock                         | 1        | 0 / 0 / 1          | —                                                                                                                                                                                   |
+| Free jazz                         | 20       | 5 / 10 / 5         | Ed Blackwell, Milford Graves, Rashied Ali, Ronald Shannon Jackson, Sunny Murray                                                                                                     |
+| Funk                              | 8        | 5 / 2 / 1          | Clayton Fillyau, Greg Errico, Idris Muhammad, Jerome Brailey, Melvin Parker                                                                                                         |
+| Fusion                            | 30       | 7 / 13 / 10        | Airto Moreira, Akira Jimbo, Dave Weckl, Dennis Chambers, Harvey Mason, Peter Erskine, Simon Phillips                                                                                |
+| Garage rock and proto-punk        | 5        | 4 / 0 / 1          | Dennis Thompson, Meg White, Moe Tucker, Scott Asheton                                                                                                                               |
+| Glam and art rock                 | 3        | 0 / 3 / 0          | —                                                                                                                                                                                   |
+| Gospel and gospel chops           | 9        | 2 / 4 / 3          | Eric Moore, Gerald Heyward                                                                                                                                                          |
+| Groove, nu and industrial metal   | 5        | 1 / 4 / 0          | Vinnie Paul                                                                                                                                                                         |
+| Grunge                            | 6        | 2 / 3 / 1          | Dale Crover, Matt Cameron                                                                                                                                                           |
+| Hard bop                          | 12       | 3 / 5 / 4          | Alan Dawson, Billy Higgins, Dannie Richmond                                                                                                                                         |
+| Hard rock                         | 12       | 5 / 5 / 2          | Alex Van Halen, Carmine Appice, Cozy Powell, Rick Allen, Steven Adler                                                                                                               |
+| Hardcore punk                     | 9        | 4 / 3 / 2          | Bill Stevenson, Earl Hudson, Jeff Nelson, Lucky Lehrer                                                                                                                              |
+| Heartland and roots rock          | 3        | 2 / 1 / 0          | Max Weinberg, Richie Hayward                                                                                                                                                        |
+| Heavy metal                       | 8        | 1 / 4 / 3          | Les Binks                                                                                                                                                                           |
+| Hip-hop and neo-soul              | 8        | 3 / 4 / 1          | Chris Dave, Karriem Riggins, Keith LeBlanc                                                                                                                                          |
+| Indian classical                  | 5        | 2 / 2 / 1          | Alla Rakha, Zakir Hussain                                                                                                                                                           |
+| Indian film and fusion            | 3        | 2 / 1 / 0          | Sivamani, Trilok Gurtu                                                                                                                                                              |
+| Indie rock                        | 8        | 2 / 4 / 2          | Glenn Kotche, Janet Weiss                                                                                                                                                           |
+| Industrial                        | 2        | 1 / 1 / 0          | F.M. Einheit                                                                                                                                                                        |
+| Irish traditional                 | 1        | 0 / 1 / 0          | —                                                                                                                                                                                   |
+| Jam band                          | 2        | 2 / 0 / 0          | Bill Kreutzmann, Mickey Hart                                                                                                                                                        |
+| Jazz rock                         | 1        | 0 / 1 / 0          | —                                                                                                                                                                                   |
+| Krautrock                         | 2        | 2 / 0 / 0          | Jaki Liebezeit, Klaus Dinger                                                                                                                                                        |
+| Latin rock                        | 2        | 0 / 2 / 0          | —                                                                                                                                                                                   |
+| Live electronic and drum and bass | 4        | 2 / 1 / 1          | Jojo Mayer, Mark Guiliana                                                                                                                                                           |
+| Metalcore and mathcore            | 2        | 0 / 2 / 0          | —                                                                                                                                                                                   |
+| Middle Eastern and Persian        | 4        | 0 / 4 / 0          | —                                                                                                                                                                                   |
+| Minneapolis sound                 | 3        | 0 / 2 / 1          | —                                                                                                                                                                                   |
+| Mod and mod revival               | 2        | 0 / 1 / 1          | —                                                                                                                                                                                   |
+| Modal and post-bop                | 8        | 2 / 4 / 2          | Jeff "Tain" Watts, Paul Motian                                                                                                                                                      |
+| Modern jazz                       | 13       | 4 / 6 / 3          | Bill Stewart, Femi Koleoso, Moses Boyd, Terri Lyne Carrington                                                                                                                       |
+| New Orleans R&B and funk          | 11       | 2 / 3 / 6          | Charles "Hungry" Williams, Smokey Johnson                                                                                                                                           |
+| New Orleans and early jazz        | 16       | 1 / 5 / 10         | Baby Dodds                                                                                                                                                                          |
+| New wave                          | 5        | 2 / 3 / 0          | Chris Frantz, Clem Burke                                                                                                                                                            |
+| Noise rock and no wave            | 3        | 2 / 0 / 1          | Brian Chippendale, Steve Shelley                                                                                                                                                    |
+| Nyabinghi                         | 1        | 0 / 0 / 1          | —                                                                                                                                                                                   |
+| Pipe band                         | 2        | 0 / 1 / 1          | —                                                                                                                                                                                   |
+| Pop and session                   | 33       | 12 / 9 / 12        | Andy Newmark, Bobby Graham, Clem Cattini, Gary Chester, Jim Gordon, Jim Keltner, John 'JR' Robinson, Karen Carpenter, Leon "Ndugu" Chancler, Manu Katché, Russ Kunkel, Steve Jordan |
+| Post-hardcore and emo             | 3        | 1 / 2 / 0          | Brendan Canty                                                                                                                                                                       |
+| Post-punk and gothic rock         | 10       | 4 / 5 / 1          | Boris Williams, Hugo Burnham, Kenny Morris, Kevin Haskins                                                                                                                           |
+| Post-rock                         | 2        | 0 / 2 / 0          | —                                                                                                                                                                                   |
+| Progressive and math rock         | 17       | 8 / 4 / 5          | Alan White (Yes), Carl Palmer, Christian Vander, Damon Che, Michael Giles, Robert Wyatt, Terry Bozzio, Zach Hill                                                                    |
+| Progressive metal                 | 5        | 2 / 2 / 1          | Mario Duplantier, Sean Reinert                                                                                                                                                      |
+| Punk                              | 9        | 4 / 5 / 0          | George Hurley, Rat Scabies, Tommy Ramone, Tré Cool                                                                                                                                  |
+| Reggae                            | 5        | 2 / 2 / 1          | Leroy "Horsemouth" Wallace, Winston Grennan                                                                                                                                         |
+| Rock and roll and roots           | 14       | 4 / 5 / 5          | Charles Connor, Clifton James, D. J. Fontana, Jerry Allison                                                                                                                         |
+| Rock en español                   | 1        | 0 / 1 / 0          | —                                                                                                                                                                                   |
+| Salsa                             | 4        | 2 / 2 / 0          | Manny Oquendo, Orestes Vilató                                                                                                                                                       |
+| Samba and Brazilian jazz          | 7        | 3 / 2 / 2          | Duduka Da Fonseca, Edison Machado, Luciano Perrone                                                                                                                                  |
+| Shoegaze                          | 2        | 1 / 1 / 0          | Colm Ó Cíosóig                                                                                                                                                                      |
+| Ska and rocksteady                | 3        | 1 / 1 / 1          | Lloyd Knibb                                                                                                                                                                         |
+| Soul and Motown                   | 6        | 1 / 5 / 0          | Roger Hawkins                                                                                                                                                                       |
+| Southern rock                     | 2        | 2 / 0 / 0          | Butch Trucks, Jaimoe                                                                                                                                                                |
+| Stoner rock and doom              | 1        | 0 / 1 / 0          | —                                                                                                                                                                                   |
+| Surf rock                         | 1        | 1 / 0 / 0          | Ron Wilson (The Surfaris)                                                                                                                                                           |
+| Swing and big band                | 26       | 5 / 9 / 12         | Big Sid Catlett, Chick Webb, Louie Bellson, Mel Lewis, Papa Jo Jones                                                                                                                |
+| Synth-pop                         | 1        | 1 / 0 / 0          | Yukihiro Takahashi                                                                                                                                                                  |
+| Taiko and samul nori              | 3        | 1 / 2 / 0          | Daihachi Oguchi                                                                                                                                                                     |
+| Thrash metal                      | 10       | 4 / 4 / 2          | Charlie Benante, Gar Samuelson, Gene Hoglan, Igor Cavalera                                                                                                                          |
+| Trip hop                          | 1        | 0 / 1 / 0          | —                                                                                                                                                                                   |
+| West African traditional          | 5        | 3 / 1 / 1          | Babatunde Olatunji, Doudou N'Diaye Rose, Mamady Keïta                                                                                                                               |
+
+**Hand and frame drummers.** About thirty candidates play hand or frame
+drums rather than the kit: tabla, mridangam, djembe, sabar, conga, cajón,
+taiko, tombak, bodhrán. They pass D72, and the kit drumming that came from
+them is why they are on the list. 15-d weighs how well their playing carries
+to a kit when it picks what to build. The app already plays agbekor as a
+pattern style.
+
+### Named but not on the list
+
+Each was researched. None has a sourced contribution as a drummer in what was
+read, so each stays a name on the map (a node with no record).
+
+| Who                                                                                               | Why not                                                                                                                                                                                                                                                                                                                 |
+| ------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Alex Cline, Scott Amendola, Ches Smith                                                            | Creative and avant-garde jazz players: their pages describe careers, and no source names what they brought. Ches Smith is the likeliest to pass on a magazine source                                                                                                                                                    |
+| Mark Nauseef                                                                                      | A varied career (Ian Gillan Band, Thin Lizzy stand-in, gamelan and Ghanaian projects), with no sourced contribution                                                                                                                                                                                                     |
+| Nic Collins                                                                                       | Phil Collins's son. Wikipedia has a disambiguation line only                                                                                                                                                                                                                                                            |
+| Frank King                                                                                        | Phil Collins's second teacher. One line in Collins's own article                                                                                                                                                                                                                                                        |
+| Roger Powell                                                                                      | The Action's drummer. Nothing on his playing, and one source confuses him with Utopia's keyboard player                                                                                                                                                                                                                 |
+| Steve Schaeffer                                                                                   | Film session drummer. A stub resting on one Yamaha page                                                                                                                                                                                                                                                                 |
+| Tommy 'Porkchop' Markham, Bubba Stewart                                                           | Levon Helm's early mentors, known from Helm's memoir only                                                                                                                                                                                                                                                               |
+| Jack Nance                                                                                        | Conway Twitty's drummer. His one claim is co-writing "It's Only Make Believe"                                                                                                                                                                                                                                           |
+| Randy Ciarlante                                                                                   | The re-formed Band's second drummer in the 1990s. A sideman role                                                                                                                                                                                                                                                        |
+| Doug Sandom, Tony Chapman, Bob Livingston, Steve Brotherdale, Peter Clack                         | A band's first drummer, gone before the records that made the band (The Who, the Rolling Stones, Santana, Joy Division, AC/DC)                                                                                                                                                                                          |
+| John Cambridge, John Mayhew, John Rutsey                                                          | One record or a brief tenure (Bowie, Genesis's _Trespass_, Rush's debut), and nothing on their playing                                                                                                                                                                                                                  |
+| Tony Currenti                                                                                     | Played most of AC/DC's _High Voltage_, but no source says what he brought. Stays a name on `rec:ac-dc-tnt-1975`                                                                                                                                                                                                         |
+| Simon Wright, Vinny Appice, Bev Bevan, Tico Torres                                                | Long careers in big bands (AC/DC, Dio and Black Sabbath, ELO, Bon Jovi). Their pages list bands, not a contribution. **Second look** with a print source: Appice and Torres first                                                                                                                                       |
+| Jason Bonham                                                                                      | Sources describe him playing his father's parts, not a contribution of his own                                                                                                                                                                                                                                          |
+| Jon Fishman                                                                                       | Only the vacuum-cleaner solos and songwriting credits in what was read. **Second look**                                                                                                                                                                                                                                 |
+| Robbie Maddix, Gene Trautmann, Jamie Miller                                                       | Replacements and sidemen (Stone Roses 1995–96, Queens of the Stone Age, Bad Religion). Sources say where they played, not what it brought                                                                                                                                                                               |
+| Shane Hawkins                                                                                     | Taylor Hawkins's son, with one notable performance (2022). Revisit later                                                                                                                                                                                                                                                |
+| Danny Heifetz                                                                                     | Mr. Bungle's drummer. The article is a band list. Revisit with a magazine source                                                                                                                                                                                                                                        |
+| Billy Ficca, Jay Dee Daugherty, Mark Brzezicki, Ilan Rubin, Scott Raynor, Terry Chimes, Sara Lund | Researched and drafted, then dropped at the merge. Each line said which important records they played on (Television, Patti Smith, Big Country, Nine Inch Nails, Blink-182, the Clash's debut, Unwound), not what their drumming did. Billy Ficca's playing on _Marquee Moon_ is the strongest case for a second source |
+| Dave Astor, Kevin Fitzgerald, Jim Thomson, Rob Mosby, Pete Luchter                                | Early or short-tenure members of The Locust, 400 Blows and GWAR. Member lists only                                                                                                                                                                                                                                      |
+| Simon Dawson, Jay Weinberg                                                                        | British Lion and an Iron Maiden stand-in; Slipknot after Joey Jordison. Nothing beyond the role                                                                                                                                                                                                                         |
+| Dave McClain, Matthew McDonough                                                                   | Machine Head and Mudvayne. Pages too vague ("a signature style"). **Second look**: McDonough's odd-meter work with Mudvayne is likely to pass on a print source                                                                                                                                                         |
+| Aydin Kerr, Daniel "Lil' Dan" Fox                                                                 | Mushroomhead's live and water drummers. Nothing beyond the band                                                                                                                                                                                                                                                         |
+
+### Not swept yet
+
+Where a fork looked and found no one, or ran out of reach. A second pass,
+with books and non-English sources rather than Wikipedia, is the next step
+for the list. It is not part of 15-a.
+
+- **Africa:** highlife, juju, soukous, Ethiopian jazz and mbalax kit drummers. The biggest gap. John Collins on highlife and Graeme Ewens on Congolese music are the books to read.
+- **North Africa:** raï, gnawa and chaabi. Only Karim Ziad was found, and his page was too thin.
+- **Asia and the Pacific:** China, Southeast Asia, Pakistan and K-pop session players were not searched. Japan and Korea were.
+- **Europe outside rock:** Balkan, klezmer, chanson, txalaparta and Greece were not searched. Polish, Australian, Israeli and Scandinavian modern jazz need non-English sources.
+- **The Americas:** Dominican merengue and bachata, Colombian cumbia, Trinidad calypso and soca, Haitian kompa, Uruguayan candombe, Argentina and Mexico were not reached because of rate limits. Leads: Samuel Formell and Calixto Oviedo (timba kit).
+- **Rock and after:** emo after the 1990s, 2010s indie, and punk from Japan, Australia and Latin America are thin. Traditional gospel, go-go (no source for Ricky "Sugarfoot" Wellman) and Philly soul beyond Earl Young found no one.
+- **Named but not reached:** El Estepario Siberiano, Lewis Nash, Gregory Hutchinson, Dee Dee Chandler, Walter Johnson and Cie Frazier.
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

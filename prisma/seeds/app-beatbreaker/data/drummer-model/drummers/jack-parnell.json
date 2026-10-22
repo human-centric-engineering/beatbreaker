@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "id": "drummer:jack-parnell",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jack Parnell",
+    "full_name": "John Russell Parnell",
+    "born": {
+      "date": "1923-08-06",
+      "place": "London, England",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jack-parnell-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2010-08-08",
+      "place": "Southwold, Suffolk, England"
+    },
+    "nationality": ["British"],
+    "home_scenes": [
+      "British wartime jazz (1940s)",
+      "British big bands (1950s)",
+      "ATV television (1956-1981)"
+    ],
+    "active": {
+      "from": 1940,
+      "to": 2010
+    },
+    "summary": "Britain's leading jazz drummer of the 1940s and 50s, later the musical director of ATV and The Muppet Show."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Lewis-Parnell Jazzmen",
+      "type": "bandleader",
+      "years": {
+        "from": 1944,
+        "to": 1946
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jack-parnell-wikipedia"]
+      }
+    },
+    {
+      "name": "Jack Parnell Orchestra",
+      "type": "bandleader",
+      "years": {
+        "from": 1951,
+        "to": 1958
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jack-parnell-wikipedia"]
+      }
+    },
+    {
+      "name": "ATV orchestra",
+      "type": "house_band",
+      "years": {
+        "from": 1956,
+        "to": 1981
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jack-parnell-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:lewis-parnell-jazzmen-ugly-child-1944"],
+  "legacy": {
+    "contribution": {
+      "description": "Voted best drummer in the Melody Maker poll seven years running: the leading British jazz drummer of the 1940s and 50s. He went on to direct the music of British television, The Muppet Show among it.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jack-parnell-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 3
+  }
+}

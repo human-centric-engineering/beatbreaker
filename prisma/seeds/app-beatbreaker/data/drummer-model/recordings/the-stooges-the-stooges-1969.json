@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-stooges-the-stooges-1969",
+  "title": "The Stooges",
+  "artist": "The Stooges",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:garage-rock", "style:punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:scott-asheton-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:scott-asheton",
+      "name": "Scott Asheton",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

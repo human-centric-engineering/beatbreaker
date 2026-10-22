@@ -1,0 +1,14 @@
+{
+  "id": "rec:stevie-ray-vaughan-and-double-trouble-in-step-1989",
+  "title": "In Step",
+  "artist": "Stevie Ray Vaughan and Double Trouble",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-layton",
+      "name": "Chris Layton"
+    }
+  ]
+}

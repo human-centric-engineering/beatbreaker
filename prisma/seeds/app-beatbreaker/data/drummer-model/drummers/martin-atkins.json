@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "id": "drummer:martin-atkins",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Martin Atkins",
+    "full_name": "Martin Clive Atkins",
+    "born": {
+      "date": "1959-08-03",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:martin-atkins-wikipedia"]
+      },
+      "place": "Coventry"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London post-punk; Chicago industrial"],
+    "active": {
+      "from": 1979,
+      "ongoing": true
+    },
+    "summary": "Drummer of Public Image Ltd, Ministry, Killing Joke and Pigface."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:industrial",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:post-punk",
+        "weight": 0.8,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Public Image Ltd",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:martin-atkins-wikipedia"]
+      }
+    },
+    {
+      "name": "Ministry",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1989,
+        "to": 1990
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:martin-atkins-wikipedia"]
+      }
+    },
+    {
+      "name": "Killing Joke",
+      "type": "band_member",
+      "years": {
+        "from": 1988,
+        "to": 1991
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:martin-atkins-wikipedia"]
+      }
+    },
+    {
+      "name": "Pigface",
+      "type": "bandleader",
+      "years": {
+        "from": 1990
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:martin-atkins-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Linked post-punk to industrial: Public Image Ltd's drummer on Metal Box and The Flowers of Romance, a double drummer with Ministry and Nine Inch Nails, and founder of the drummer-led collective Pigface.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:martin-atkins-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Industrial drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:public-image-ltd-metal-box-1979",
+    "rec:public-image-ltd-the-flowers-of-romance-1981",
+    "rec:pigface-gub-1990"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:bob-dylan-empire-burlesque-1985",
+  "title": "Empire Burlesque",
+  "artist": "Bob Dylan",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:anton-fig-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:anton-fig",
+      "name": "Anton Fig",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

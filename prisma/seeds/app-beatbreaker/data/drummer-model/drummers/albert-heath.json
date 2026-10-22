@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "id": "drummer:albert-heath",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Albert \"Tootie\" Heath",
+    "born": {
+      "date": "1935-05-31",
+      "place": "Philadelphia, Pennsylvania",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:albert-heath-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2024-04-03"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Philadelphia", "New York", "Copenhagen (1960s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1957,
+      "to": 2024
+    },
+    "summary": "Hard-bop drummer and the youngest of the Heath Brothers."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-bop",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Heath Brothers",
+      "type": "band_member",
+      "years": {
+        "from": 1975
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:albert-heath-wikipedia"]
+      }
+    },
+    {
+      "name": "The Whole Drum Truth",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:albert-heath-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:albert-heath-kawaida-1970", "rec:the-heath-brothers-marchin-on-1976"],
+  "legacy": {
+    "contribution": {
+      "description": "A hard-bop drummer who, with his brothers Jimmy and Percy and the pianist Stanley Cowell, formed the Heath Brothers in 1975.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:albert-heath-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard bop drummers",
+    "build_priority": 3
+  }
+}

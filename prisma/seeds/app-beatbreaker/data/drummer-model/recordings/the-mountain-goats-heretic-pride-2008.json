@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-mountain-goats-heretic-pride-2008",
+  "title": "Heretic Pride",
+  "artist": "The Mountain Goats",
+  "year": 2008,
+  "type": "album",
+  "style_ids": ["style:indie-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:jon-wurster-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jon-wurster",
+      "name": "Jon Wurster",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

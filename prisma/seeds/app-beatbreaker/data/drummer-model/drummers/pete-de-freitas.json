@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "id": "drummer:pete-de-freitas",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Pete de Freitas",
+    "full_name": "Peter Louis Vincent de Freitas",
+    "born": {
+      "date": "1961-08-02",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pete-de-freitas-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1989-06-14"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Liverpool post-punk"],
+    "active": {
+      "from": 1979,
+      "to": 1989
+    },
+    "summary": "Echo & the Bunnymen's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-punk",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:new-wave",
+        "weight": 0.5
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Echo & the Bunnymen",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pete-de-freitas-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Replaced Echo & the Bunnymen's drum machine in 1979 and was told to 'get stuck into the toms', the tom-led post-punk drumming he and Budgie were alone in at the time.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pete-de-freitas-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Post-punk and gothic rock drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:echo-and-the-bunnymen-crocodiles-1980",
+    "rec:echo-and-the-bunnymen-heaven-up-here-1981",
+    "rec:echo-and-the-bunnymen-ocean-rain-1984"
+  ],
+  "relationships": [
+    {
+      "type": "admired",
+      "target": {
+        "name": "Budgie",
+        "kind": "drummer",
+        "id": "drummer:budgie"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:pete-de-freitas-wikipedia"]
+      }
+    }
+  ]
+}

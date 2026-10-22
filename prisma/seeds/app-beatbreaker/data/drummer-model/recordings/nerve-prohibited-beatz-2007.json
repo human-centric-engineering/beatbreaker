@@ -1,0 +1,18 @@
+{
+  "id": "rec:nerve-prohibited-beatz-2007",
+  "title": "Prohibited Beatz",
+  "artist": "Nerve",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:drum-and-bass"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jojo-mayer",
+      "why_it_matters": "His live electronica band."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jojo-mayer-wikipedia"]
+  }
+}

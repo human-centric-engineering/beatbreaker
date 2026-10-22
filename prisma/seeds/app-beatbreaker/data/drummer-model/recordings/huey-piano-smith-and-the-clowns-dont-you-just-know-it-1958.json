@@ -1,0 +1,14 @@
+{
+  "id": "rec:huey-piano-smith-and-the-clowns-dont-you-just-know-it-1958",
+  "title": "Don't You Just Know It",
+  "artist": "Huey \"Piano\" Smith & the Clowns",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charles-hungry-williams",
+      "name": "Charles \"Hungry\" Williams"
+    }
+  ]
+}

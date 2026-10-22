@@ -1,0 +1,19 @@
+{
+  "id": "rec:louis-armstrong-tight-like-this-1928",
+  "title": "Tight Like This",
+  "artist": "Louis Armstrong and His Savoy Ballroom Five",
+  "year": 1928,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zutty-singleton",
+      "name": "Zutty Singleton",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:zutty-singleton-wikipedia"]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "rec:silk-sonic-an-evening-with-silk-sonic-2021",
+  "title": "An Evening with Silk Sonic",
+  "artist": "Silk Sonic",
+  "year": 2021,
+  "type": "album",
+  "style_ids": ["style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:anderson-paak",
+      "why_it_matters": "The duo with Bruno Mars."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:anderson-paak-wikipedia"]
+  }
+}

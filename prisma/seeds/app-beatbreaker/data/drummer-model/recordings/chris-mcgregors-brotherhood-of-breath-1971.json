@@ -1,0 +1,25 @@
+{
+  "id": "rec:chris-mcgregors-brotherhood-of-breath-1971",
+  "title": "Chris McGregor's Brotherhood of Breath",
+  "artist": "Chris McGregor's Brotherhood of Breath",
+  "release": "RCA/Neon",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:south-african-jazz", "style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:louis-moholo",
+      "name": "Louis Moholo",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "The big band of South African exiles and British free-jazz players.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:louis-moholo-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:louis-moholo-wikipedia"]
+  }
+}

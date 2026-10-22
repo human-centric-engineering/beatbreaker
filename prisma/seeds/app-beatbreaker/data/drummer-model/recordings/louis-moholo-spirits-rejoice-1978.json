@@ -1,0 +1,25 @@
+{
+  "id": "rec:louis-moholo-spirits-rejoice-1978",
+  "title": "Spirits Rejoice!",
+  "artist": "Louis Moholo",
+  "release": "Ogun (OG520)",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:south-african-jazz", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:louis-moholo",
+      "name": "Louis Moholo",
+      "drummer_role": "leader",
+      "why_it_matters": "His first album as leader, \"a classic example of the combination of British and South African players\".",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:louis-moholo-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:louis-moholo-wikipedia"]
+  }
+}

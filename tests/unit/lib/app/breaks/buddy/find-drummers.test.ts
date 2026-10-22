@@ -27,12 +27,23 @@ beforeEach(() => {
 });
 
 describe('find_drummers', () => {
-  it('lists every drummer with a record, and only them, when there is no query', async () => {
+  it('lists every built drummer, and only them, when there is no query', async () => {
     const drummers = await find({});
-    const modelled = (await listDrummersFromModel()).filter((d) => d.node.modelled);
+    const modelled = (await listDrummersFromModel()).filter(
+      (d) => d.node.modelled && !d.node.candidate
+    );
     // the set, not the order: the database sorts names by its own collation
     expect(drummers.map((d) => d.slug).sort()).toEqual(modelled.map((d) => d.node.slug).sort());
     expect(drummers.every((d) => d.modelled)).toBe(true);
+  });
+
+  it('finds a candidate by query, marked as one, with every candidate the query matches', async () => {
+    const hits = await find({ query: 'tootie' });
+    expect(hits.map((d) => d.slug)).toEqual(['albert-heath']);
+    expect(hits[0]).toMatchObject({ modelled: true, candidate: true, style: null });
+    // a genre's candidates are not cut to the stub limit
+    const free = await find({ query: 'free jazz' });
+    expect(free.filter((d) => d.candidate).length).toBeGreaterThan(10);
   });
 
   it("gives each one's page, years, playable style, genres, summary and a few describing words", async () => {

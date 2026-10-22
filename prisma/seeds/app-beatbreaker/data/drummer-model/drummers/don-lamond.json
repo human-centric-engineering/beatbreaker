@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "id": "drummer:don-lamond",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Don Lamond",
+    "full_name": "Donald Douglas Lamond Jr.",
+    "born": {
+      "date": "1920-08-18",
+      "place": "Oklahoma City, Oklahoma, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:don-lamond-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2003-12-23",
+      "place": "Orlando, Florida, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Woody Herman's First and Second Herds (1945-1949)",
+      "New York studios (1950s-1960s)"
+    ],
+    "active": {
+      "from": 1943,
+      "to": 1995
+    },
+    "summary": "Woody Herman's Herd drummer after Dave Tough, then a first-call New York session player."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1
+      },
+      {
+        "style_id": "style:bebop",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Woody Herman's First Herd",
+      "type": "big_band",
+      "years": {
+        "from": 1945,
+        "to": 1946
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:don-lamond-wikipedia"]
+      }
+    },
+    {
+      "name": "Woody Herman's Second Herd",
+      "type": "big_band",
+      "years": {
+        "from": 1947,
+        "to": 1949
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:don-lamond-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:woody-herman-four-brothers-1947",
+    "rec:charlie-parker-relaxin-at-camarillo-1947"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Took bebop's lighter, more broken-up time into the big band as the drummer of Woody Herman's Herds after Dave Tough. He then became the 'first call' New York session drummer on more than 500 dates.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:don-lamond-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Dave Tough",
+        "kind": "drummer",
+        "id": "drummer:dave-tough"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:don-lamond-wikipedia"]
+      }
+    }
+  ]
+}

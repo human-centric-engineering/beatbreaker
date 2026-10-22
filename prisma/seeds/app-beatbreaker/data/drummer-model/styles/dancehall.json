@@ -1,0 +1,20 @@
+{
+  "id": "style:dancehall",
+  "name": "Dancehall",
+  "kind": "genre",
+  "region": "Jamaica",
+  "era": {
+    "from": 1979
+  },
+  "parents": [
+    {
+      "style_id": "style:reggae",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "summary": "Jamaican music from the end of the 1970s on, first on slowed-down live rhythms and from the mid-1980s on drum machines and digital riddims.",
+  "key_drummer_ids": ["drummer:style-scott", "drummer:clevie-browne"]
+}

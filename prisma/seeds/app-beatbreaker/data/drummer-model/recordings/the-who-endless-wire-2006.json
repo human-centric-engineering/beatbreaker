@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-who-endless-wire-2006",
+  "title": "Endless Wire",
+  "artist": "The Who",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zak-starkey",
+      "name": "Zak Starkey",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:zak-starkey-wikipedia"]
+  }
+}

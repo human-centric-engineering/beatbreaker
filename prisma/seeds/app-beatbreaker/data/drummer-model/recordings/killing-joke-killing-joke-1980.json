@@ -1,0 +1,20 @@
+{
+  "id": "rec:killing-joke-killing-joke-1980",
+  "title": "Killing Joke",
+  "artist": "Killing Joke",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:post-punk", "style:industrial"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:paul-ferguson-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-ferguson",
+      "name": "Paul Ferguson",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:circle-jerks-group-sex-1980",
+  "title": "Group Sex",
+  "artist": "Circle Jerks",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:hardcore-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:lucky-lehrer-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lucky-lehrer",
+      "name": "Lucky Lehrer",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

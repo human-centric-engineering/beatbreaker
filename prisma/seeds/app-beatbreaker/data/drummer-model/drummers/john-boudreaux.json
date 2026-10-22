@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:john-boudreaux",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "John Boudreaux",
+    "full_name": "John Mortimer Boudreaux Jr.",
+    "born": {
+      "date": "1936-12-10",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:john-boudreaux-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2017-01-14"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans", "Los Angeles"],
+    "active": {
+      "from": 1958,
+      "to": 2017
+    },
+    "summary": "New Orleans R&B session drummer on Ernie K-Doe's and Lee Dorsey's hits, later in Los Angeles."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-funk",
+        "weight": 0.8,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "AFO Records studio band",
+      "type": "session_regular",
+      "years": {
+        "from": 1960,
+        "to": 1963
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:ernie-k-doe-mother-in-law-1961", "rec:lee-dorsey-ya-ya-1961"],
+  "legacy": {
+    "contribution": {
+      "description": "Studied with Ed Blackwell and played on Ernie K-Doe's \"Mother-in-Law\" and Lee Dorsey's \"Ya Ya\" (1961), mixing a rumba rhythm with the New Orleans drum sound.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:john-boudreaux-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans R&B and funk drummers",
+    "build_priority": 3
+  }
+}

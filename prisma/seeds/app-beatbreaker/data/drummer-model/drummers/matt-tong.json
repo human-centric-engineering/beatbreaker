@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "id": "drummer:matt-tong",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Matt Tong",
+    "full_name": "Matthew Chee Hung Tong",
+    "born": {
+      "date": "1979-04-29",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-tong-wikipedia"]
+      },
+      "place": "Bournemouth"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London, 2000s indie"],
+    "active": {
+      "from": 2002,
+      "ongoing": true
+    },
+    "summary": "Bloc Party's drummer 2002-2013."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:indie-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:post-punk",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:drum-and-bass",
+        "weight": 0.2
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Bloc Party",
+      "type": "band_member",
+      "years": {
+        "from": 2002,
+        "to": 2013
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:matt-tong-wikipedia"]
+      }
+    },
+    {
+      "name": "Algiers",
+      "type": "band_member",
+      "years": {
+        "from": 2015
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:matt-tong-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Wrote Bloc Party's Silent Alarm drum parts, alternating high and low intensity, on the band's debut.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:matt-tong-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Indie rock drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:bloc-party-silent-alarm-2005",
+    "rec:bloc-party-a-weekend-in-the-city-2007"
+  ]
+}

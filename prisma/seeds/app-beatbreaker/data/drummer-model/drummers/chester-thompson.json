@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "id": "drummer:chester-thompson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Chester Thompson",
+    "nationality": ["American"],
+    "roles": ["touring", "band_member", "educator"],
+    "born": {
+      "date": "1948-12-11",
+      "place": "Baltimore, Maryland",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chester-thompson-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1970,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Drummer for Frank Zappa and Weather Report who was Genesis's touring drummer, alongside Phil Collins, from 1977 to 1992."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Frank Zappa and the Mothers of Invention",
+      "type": "band_member",
+      "years": {
+        "from": 1973,
+        "to": 1975
+      }
+    },
+    {
+      "name": "Weather Report",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1976
+      }
+    },
+    {
+      "name": "Genesis",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1977,
+        "to": 1992
+      }
+    },
+    {
+      "name": "Chester Thompson Trio",
+      "type": "bandleader",
+      "years": {
+        "from": 2011
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:frank-zappa-and-the-mothers-roxy-and-elsewhere-1974",
+    "rec:weather-report-black-market-1976",
+    "rec:genesis-seconds-out-1977"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Double-drummed with Ralph Humphrey on Zappa's Roxy & Elsewhere (1974), the record that led Phil Collins to hire him, and then made the two-drummer Genesis show work night after night for fifteen years.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chester-thompson-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "id": "drummer:ralph-humphrey",
+        "name": "Ralph Humphrey",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chester-thompson-wikipedia"]
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "id": "drummer:phil-collins",
+        "name": "Phil Collins",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chester-thompson-wikipedia"]
+      }
+    }
+  ]
+}

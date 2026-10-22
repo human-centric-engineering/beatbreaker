@@ -1,0 +1,19 @@
+{
+  "id": "rec:luis-russell-feelin-the-spirit-1929",
+  "title": "Feelin' the Spirit",
+  "artist": "Luis Russell and His Orchestra",
+  "year": 1929,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz", "style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-barbarin",
+      "name": "Paul Barbarin",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:paul-barbarin-wikipedia"]
+  }
+}

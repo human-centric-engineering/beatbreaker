@@ -1,0 +1,14 @@
+{
+  "id": "rec:gene-vincent-and-his-blue-caps-be-bop-a-lula-1956",
+  "title": "Be-Bop-a-Lula",
+  "artist": "Gene Vincent and His Blue Caps",
+  "year": 1956,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dickie-harrell",
+      "name": "Dickie Harrell"
+    }
+  ]
+}

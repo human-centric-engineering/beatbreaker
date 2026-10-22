@@ -1,0 +1,458 @@
+[
+  {
+    "id": "src:abe-laboriel-jr-wikipedia",
+    "type": "encyclopedia",
+    "title": "Abe Laboriel Jr. - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Abe_Laboriel_Jr.",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:akira-jimbo-wikipedia",
+    "type": "encyclopedia",
+    "title": "Akira Jimbo - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Akira_Jimbo",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:alex-acuna-wikipedia",
+    "type": "encyclopedia",
+    "title": "Alex Acuña - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Alex_Acu%C3%B1a",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:alphonse-mouzon-wikipedia",
+    "type": "encyclopedia",
+    "title": "Alphonse Mouzon - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Alphonse_Mouzon",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:andy-newmark-wikipedia",
+    "type": "encyclopedia",
+    "title": "Andy Newmark - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Andy_Newmark",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:andy-white-wikipedia",
+    "type": "encyclopedia",
+    "title": "Andy White (drummer) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Andy_White_(drummer)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:anton-fig-wikipedia",
+    "type": "encyclopedia",
+    "title": "Anton Fig - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Anton_Fig",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:bobby-graham-wikipedia",
+    "type": "encyclopedia",
+    "title": "Bobby Graham (musician) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Bobby_Graham_(musician)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:buddy-harman-wikipedia",
+    "type": "encyclopedia",
+    "title": "Buddy Harman - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Buddy_Harman",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:carlos-vega-wikipedia",
+    "type": "encyclopedia",
+    "title": "Carlos Vega - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Carlos_Vega",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:chad-wackerman-wikipedia",
+    "type": "encyclopedia",
+    "title": "Chad Wackerman - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Chad_Wackerman",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:chester-thompson-wikipedia",
+    "type": "encyclopedia",
+    "title": "Chester Thompson - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Chester_Thompson",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:clem-cattini-wikipedia",
+    "type": "encyclopedia",
+    "title": "Clem Cattini - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Clem_Cattini",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:danny-gottlieb-wikipedia",
+    "type": "encyclopedia",
+    "title": "Danny Gottlieb - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Danny_Gottlieb",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:dave-weckl-wikipedia",
+    "type": "encyclopedia",
+    "title": "Dave Weckl - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Dave_Weckl",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:dennis-chambers-wikipedia",
+    "type": "encyclopedia",
+    "title": "Dennis Chambers - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Dennis_Chambers",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:dennis-wilson-wikipedia",
+    "type": "encyclopedia",
+    "title": "Dennis Wilson - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Dennis_Wilson",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:don-alias-wikipedia",
+    "type": "encyclopedia",
+    "title": "Don Alias - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Don_Alias",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:ed-greene-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ed Greene - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ed_Greene",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:eddie-bayers-wikipedia",
+    "type": "encyclopedia",
+    "title": "Eddie Bayers - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Eddie_Bayers",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:gary-chester-wikipedia",
+    "type": "encyclopedia",
+    "title": "Gary Chester - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Gary_Chester",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:gary-husband-wikipedia",
+    "type": "encyclopedia",
+    "title": "Gary Husband - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Gary_Husband",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:gerry-brown-wikipedia",
+    "type": "encyclopedia",
+    "title": "Gerry Brown (drummer) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Gerry_Brown_(drummer)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:gregg-bissonette-wikipedia",
+    "type": "encyclopedia",
+    "title": "Gregg Bissonette - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Gregg_Bissonette",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:harvey-mason-wikipedia",
+    "type": "encyclopedia",
+    "title": "Harvey Mason - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Harvey_Mason",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:jim-keltner-wikipedia",
+    "type": "encyclopedia",
+    "title": "Jim Keltner - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jim_Keltner",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:john-guerin-wikipedia",
+    "type": "encyclopedia",
+    "title": "John Guerin - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/John_Guerin",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:jon-hiseman-wikipedia",
+    "type": "encyclopedia",
+    "title": "Jon Hiseman - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jon_Hiseman",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:jr-robinson-wikipedia",
+    "type": "encyclopedia",
+    "title": "John Robinson (drummer) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/John_Robinson_(drummer)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:keith-carlock-wikipedia",
+    "type": "encyclopedia",
+    "title": "Keith Carlock - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Keith_Carlock",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:kenny-aronoff-wikipedia",
+    "type": "encyclopedia",
+    "title": "Kenny Aronoff - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Kenny_Aronoff",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:kenny-malone-wikipedia",
+    "type": "encyclopedia",
+    "title": "Kenny Malone - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Kenny_Malone",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:larrie-londin-wikipedia",
+    "type": "encyclopedia",
+    "title": "Larrie Londin - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Larrie_Londin",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:liberty-devitto-wikipedia",
+    "type": "encyclopedia",
+    "title": "Liberty DeVitto - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Liberty_DeVitto",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:lloyd-ryan-wikipedia",
+    "type": "encyclopedia",
+    "title": "Lloyd Ryan - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Lloyd_Ryan",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:manu-katche-wikipedia",
+    "type": "encyclopedia",
+    "title": "Manu Katché - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Manu_Katch%C3%A9",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:marco-minnemann-wikipedia",
+    "type": "encyclopedia",
+    "title": "Marco Minnemann - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Marco_Minnemann",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:matt-chamberlain-wikipedia",
+    "type": "encyclopedia",
+    "title": "Matt Chamberlain - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Matt_Chamberlain",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:michael-clarke-wikipedia",
+    "type": "encyclopedia",
+    "title": "Michael Clarke (musician) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Michael_Clarke_(musician)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:narada-michael-walden-wikipedia",
+    "type": "encyclopedia",
+    "title": "Narada Michael Walden - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Narada_Michael_Walden",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:ndugu-chancler-wikipedia",
+    "type": "encyclopedia",
+    "title": "Leon \"Ndugu\" Chancler - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Leon_%22Ndugu%22_Chancler",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:paul-wertico-wikipedia",
+    "type": "encyclopedia",
+    "title": "Paul Wertico - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Paul_Wertico",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:ralph-humphrey-pas-obituary",
+    "type": "obituary",
+    "title": "In Memoriam: Ralph Humphrey - Percussive Arts Society",
+    "url": "https://pas.org/?p=5392",
+    "reliability": 0.8,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:rick-marotta-wikipedia",
+    "type": "encyclopedia",
+    "title": "Rick Marotta - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Rick_Marotta",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:ricky-lawson-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ricky Lawson - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ricky_Lawson",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:ronnie-tutt-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ron Tutt - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ron_Tutt",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:russ-kunkel-wikipedia",
+    "type": "encyclopedia",
+    "title": "Russ Kunkel - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Russ_Kunkel",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:sandy-nelson-wikipedia",
+    "type": "encyclopedia",
+    "title": "Sandy Nelson - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sandy_Nelson",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:shawn-pelton-wikipedia",
+    "type": "encyclopedia",
+    "title": "Shawn Pelton - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Shawn_Pelton",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:simon-phillips-wikipedia",
+    "type": "encyclopedia",
+    "title": "Simon Phillips (drummer) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Simon_Phillips_(drummer)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:sonny-emory-wikipedia",
+    "type": "encyclopedia",
+    "title": "Sonny Emory - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sonny_Emory",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:sterling-campbell-wikipedia",
+    "type": "encyclopedia",
+    "title": "Sterling Campbell - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sterling_Campbell",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:steve-ferrone-wikipedia",
+    "type": "encyclopedia",
+    "title": "Steve Ferrone - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Steve_Ferrone",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:steve-jordan-wikipedia",
+    "type": "encyclopedia",
+    "title": "Steve Jordan (drummer) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Steve_Jordan_(drummer)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:steve-smith-wikipedia",
+    "type": "encyclopedia",
+    "title": "Steve Smith (drummer) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Steve_Smith_(drummer)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:terry-williams-wikipedia",
+    "type": "encyclopedia",
+    "title": "Terry Williams (drummer) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Terry_Williams_(drummer)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:virgil-donati-wikipedia",
+    "type": "encyclopedia",
+    "title": "Virgil Donati - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Virgil_Donati",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  }
+]

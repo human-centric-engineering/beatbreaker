@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "id": "drummer:tom-hunting",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Tom Hunting",
+    "full_name": "Thomas Hunting",
+    "born": {
+      "date": "1965-04-10"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Bay Area thrash"],
+    "active": {
+      "from": 1979,
+      "ongoing": true
+    },
+    "summary": "Exodus's founding drummer and its only original member."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:thrash-metal",
+        "weight": 1,
+        "authority": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Exodus",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "ongoing": true
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:exodus-bonded-by-blood-1985", "rec:exodus-fabulous-disaster-1989"],
+  "legacy": {
+    "contribution": {
+      "description": "One of the innovators of thrash metal drumming (Drumeo), founding Exodus, the Bay Area thrash pioneers, and playing on Bonded by Blood.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:drumeo-best-50-metal-drummers",
+          "src:exodus-wikipedia",
+          "src:tom-hunting-wikipedia"
+        ]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Thrash metal drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Clive Burr",
+        "kind": "drummer",
+        "id": "drummer:clive-burr"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tom-hunting-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tom-hunting-wikipedia"]
+      }
+    }
+  ]
+}

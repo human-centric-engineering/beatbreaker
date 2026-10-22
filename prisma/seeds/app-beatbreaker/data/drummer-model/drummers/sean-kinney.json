@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "id": "drummer:sean-kinney",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Sean Kinney",
+    "full_name": "Sean Howard Kinney",
+    "born": {
+      "date": "1966-05-27",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sean-kinney-wikipedia"]
+      },
+      "place": "Renton, Washington"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Seattle, late 1980s"],
+    "active": {
+      "from": 1987,
+      "ongoing": true
+    },
+    "summary": "Alice in Chains' drummer and co-founder."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:grunge",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Alice in Chains",
+      "type": "band_member",
+      "years": {
+        "from": 1987
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sean-kinney-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Co-founder and the only drummer of Alice in Chains, from Facelift (recorded with his cast cut off) through Dirt.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sean-kinney-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Grunge drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": ["rec:alice-in-chains-facelift-1990", "rec:alice-in-chains-dirt-1992"]
+}

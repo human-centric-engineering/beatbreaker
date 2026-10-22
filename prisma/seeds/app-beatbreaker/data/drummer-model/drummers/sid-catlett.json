@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "id": "drummer:sid-catlett",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Big Sid Catlett",
+    "full_name": "Sidney Catlett",
+    "aliases": ["Sid Catlett"],
+    "born": {
+      "date": "1910-01-17",
+      "place": "Evansville, Indiana, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sid-catlett-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1951-03-25",
+      "place": "Chicago, Illinois, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Chicago (1920s)",
+      "New York swing bands (1930s)",
+      "Louis Armstrong (1938-1949)",
+      "52nd Street bebop (1945)"
+    ],
+    "active": {
+      "from": 1928,
+      "to": 1951
+    },
+    "summary": "Swing's most adaptable drummer, who played with Armstrong and on Dizzy Gillespie's first bebop records."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:bebop",
+        "weight": 0.5,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Louis Armstrong Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1938,
+        "to": 1942
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sid-catlett-wikipedia"]
+      }
+    },
+    {
+      "name": "Louis Armstrong and His All Stars",
+      "type": "band_member",
+      "years": {
+        "from": 1947,
+        "to": 1949
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sid-catlett-wikipedia"]
+      }
+    },
+    {
+      "name": "Fletcher Henderson Orchestra",
+      "type": "big_band",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sid-catlett-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:dizzy-gillespie-shaw-nuff-1945",
+    "rec:louis-armstrong-satchmo-at-symphony-hall-1947"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The swing drummer who bridged to bebop: one of the few who moved successfully from Armstrong's and Henderson's bands to Dizzy Gillespie's 1945 records and the Parker-Gillespie Town Hall concert.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sid-catlett-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Zutty Singleton",
+        "kind": "drummer",
+        "id": "drummer:zutty-singleton"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sid-catlett-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Baby Dodds",
+        "kind": "drummer",
+        "id": "drummer:baby-dodds"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sid-catlett-wikipedia"]
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Jimmy Bertrand",
+        "kind": "drummer",
+        "id": "drummer:jimmy-bertrand"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sid-catlett-wikipedia"]
+      }
+    }
+  ]
+}

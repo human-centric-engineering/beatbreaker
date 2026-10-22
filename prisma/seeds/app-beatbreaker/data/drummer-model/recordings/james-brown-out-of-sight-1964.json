@@ -1,0 +1,14 @@
+{
+  "id": "rec:james-brown-out-of-sight-1964",
+  "title": "Out of Sight",
+  "artist": "James Brown",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:melvin-parker",
+      "name": "Melvin Parker"
+    }
+  ]
+}

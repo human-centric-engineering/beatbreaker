@@ -1,0 +1,20 @@
+{
+  "id": "rec:einsturzende-neubauten-zeichnungen-des-patienten-o-t-1983",
+  "title": "Zeichnungen des Patienten O. T.",
+  "artist": "Einstürzende Neubauten",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:industrial"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:fm-einheit-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fm-einheit",
+      "name": "F.M. Einheit",
+      "drummer_role": "co_drummer",
+      "significance": 0.8
+    }
+  ]
+}

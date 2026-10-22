@@ -1,0 +1,24 @@
+{
+  "id": "rec:paco-sery-voyages-2000",
+  "title": "Voyages",
+  "artist": "Paco Sery",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paco-sery",
+      "name": "Paco Sery",
+      "drummer_role": "leader",
+      "why_it_matters": "His first solo album.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paco-sery-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:paco-sery-wikipedia"]
+  }
+}

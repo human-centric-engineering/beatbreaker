@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "id": "drummer:earl-young",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Earl Young",
+    "full_name": "Earl Donald Young",
+    "born": {
+      "date": "1940-06-02",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:earl-young-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Philadelphia", "Sigma Sound Studios"],
+    "active": {
+      "from": 1965,
+      "ongoing": true
+    },
+    "summary": "Philadelphia soul session drummer with MFSB and Baker-Harris-Young, and founder of the Trammps."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:disco",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.7,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "MFSB",
+      "type": "house_band",
+      "years": {
+        "from": 1970
+      }
+    },
+    {
+      "name": "The Trammps",
+      "type": "bandleader",
+      "years": {
+        "from": 1965
+      }
+    },
+    {
+      "name": "Baker-Harris-Young",
+      "type": "session_regular",
+      "years": {
+        "from": 1970
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:harold-melvin-and-the-blue-notes-the-love-i-lost-1973",
+    "rec:the-trammps-disco-inferno-1976"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Seen as the inventor of disco drumming, on Harold Melvin & the Blue Notes' \"The Love I Lost\" (1973): four-on-the-floor bass drum under open and closed hi-hats played right through the song, which DJs could hear in their headphones to cue records.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:earl-young-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Disco drummers",
+    "build_priority": 1
+  }
+}

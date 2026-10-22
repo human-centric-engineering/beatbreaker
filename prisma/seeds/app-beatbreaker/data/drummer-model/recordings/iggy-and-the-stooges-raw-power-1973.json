@@ -1,0 +1,20 @@
+{
+  "id": "rec:iggy-and-the-stooges-raw-power-1973",
+  "title": "Raw Power",
+  "artist": "Iggy and the Stooges",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:garage-rock", "style:hard-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:scott-asheton-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:scott-asheton",
+      "name": "Scott Asheton",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

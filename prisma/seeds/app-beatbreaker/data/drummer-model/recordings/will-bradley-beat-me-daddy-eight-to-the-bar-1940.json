@@ -1,0 +1,19 @@
+{
+  "id": "rec:will-bradley-beat-me-daddy-eight-to-the-bar-1940",
+  "title": "Beat Me Daddy, Eight to the Bar",
+  "artist": "Will Bradley and His Orchestra",
+  "year": 1940,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ray-mckinley",
+      "name": "Ray McKinley",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ray-mckinley-wikipedia"]
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "id": "drummer:alan-white",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Alan White (Yes)",
+    "full_name": "Alan White",
+    "born": {
+      "date": "1949",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alan-white-yes-drummer-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2022"
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1964,
+      "to": 2022
+    },
+    "summary": "Yes's drummer for almost fifty years, from 1972; earlier on John Lennon's Instant Karma! and Imagine."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Plastic Ono Band",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 1971
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alan-white-yes-drummer-wikipedia"]
+      }
+    },
+    {
+      "name": "Yes",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 2022
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alan-white-yes-drummer-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:john-lennon-imagine-1971",
+    "rec:yes-tales-from-topographic-oceans-1973",
+    "rec:yes-relayer-1974"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played on Lennon's \"Instant Karma!\" and \"Imagine\" before replacing Bill Bruford in Yes, where he was the longest-serving member; his thunderous drums were sampled as the basis of Art of Noise's \"Beat Box\".",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alan-white-yes-drummer-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Bill Bruford",
+        "kind": "drummer",
+        "id": "drummer:bill-bruford"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:close-to-the-edge-wikipedia"],
+        "note": "In Yes, July 1972."
+      },
+      "scope": "individual"
+    }
+  ]
+}

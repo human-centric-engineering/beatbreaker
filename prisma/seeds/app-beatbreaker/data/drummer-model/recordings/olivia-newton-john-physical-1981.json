@@ -1,0 +1,19 @@
+{
+  "id": "rec:olivia-newton-john-physical-1981",
+  "title": "Physical",
+  "artist": "Olivia Newton-John",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:carlos-vega-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carlos-vega",
+      "name": "Carlos Vega",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

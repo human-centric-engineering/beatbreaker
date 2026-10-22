@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "id": "drummer:peter-erskine",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Peter Erskine",
+    "full_name": "Peter Clark Erskine",
+    "born": {
+      "date": "1954-06-05",
+      "place": "Somers Point, New Jersey",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peter-erskine-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Los Angeles"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1972,
+      "ongoing": true
+    },
+    "summary": "Weather Report's drummer beside Jaco Pastorius, then Steps Ahead, the ECM trios and the studios."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.6,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Stan Kenton Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1972,
+        "to": 1976
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:peter-erskine-wikipedia"]
+      }
+    },
+    {
+      "name": "Maynard Ferguson",
+      "type": "big_band",
+      "years": {
+        "from": 1976,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:peter-erskine-wikipedia"]
+      }
+    },
+    {
+      "name": "Weather Report",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:peter-erskine-wikipedia"]
+      }
+    },
+    {
+      "name": "Steps Ahead",
+      "type": "band_member",
+      "years": {
+        "from": 1983,
+        "to": 1986
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:peter-erskine-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:weather-report-8-30-1979", "rec:weather-report-night-passage-1980"],
+  "legacy": {
+    "contribution": {
+      "description": "Joined Weather Report in 1978, in the rhythm section with Jaco Pastorius, for four years and five albums, then Steps Ahead; since then a teacher at USC and a principal drummer on film scores such as La La Land.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peter-erskine-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 1
+  }
+}

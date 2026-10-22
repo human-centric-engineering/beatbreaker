@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "id": "drummer:manny-oquendo",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Manny Oquendo",
+    "born": {
+      "date": "1931-01-01"
+    },
+    "died": {
+      "date": "2009-03-25"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York salsa"],
+    "active": {
+      "from": 1945,
+      "to": 2009
+    },
+    "summary": "New York timbalero and bongocero of Eddie Palmieri's La Perfecta and leader of Libre."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:mozambique",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:salsa",
+        "weight": 1,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Tito Puente",
+      "type": "band_member",
+      "years": {
+        "from": 1950
+      }
+    },
+    {
+      "name": "Eddie Palmieri, La Perfecta",
+      "type": "band_member",
+      "years": {
+        "from": 1962
+      }
+    },
+    {
+      "name": "Libre",
+      "type": "bandleader",
+      "years": {
+        "from": 1974
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:eddie-palmieri-mozambique-1965",
+    "rec:eddie-palmieri-cal-tjader-el-sonido-nuevo-1966",
+    "rec:libre-ritmo-sonido-y-estilo-1983"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Helped build the New York style of the mozambique rhythm with Eddie Palmieri, and his timbales solos are famous for their sparse, straightforward típico phrasing.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-manny-oquendo"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Salsa drummers",
+    "build_priority": 1
+  }
+}

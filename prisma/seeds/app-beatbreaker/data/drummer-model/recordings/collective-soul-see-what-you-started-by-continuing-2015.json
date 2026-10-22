@@ -1,0 +1,18 @@
+{
+  "id": "rec:collective-soul-see-what-you-started-by-continuing-2015",
+  "title": "See What You Started by Continuing",
+  "artist": "Collective Soul",
+  "year": 2015,
+  "type": "album",
+  "style_ids": ["style:alternative-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:johnny-rabb",
+      "why_it_matters": "His first studio album with the band."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:johnny-rabb-wikipedia"]
+  }
+}

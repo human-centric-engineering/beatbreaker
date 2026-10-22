@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "id": "drummer:giovanni-hidalgo",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Giovanni Hidalgo",
+    "born": {
+      "date": "1963-11-22",
+      "place": "San Juan, Puerto Rico"
+    },
+    "nationality": ["Puerto Rican"],
+    "home_scenes": ["San Juan", "New York"],
+    "active": {
+      "from": 1980,
+      "ongoing": true
+    },
+    "summary": "Puerto Rican conga player of Batacumbele, Eddie Palmieri and Dizzy Gillespie's United Nation Orchestra."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:afro-cuban",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Batacumbele",
+      "type": "band_member",
+      "years": {
+        "from": 1980
+      }
+    },
+    {
+      "name": "Dizzy Gillespie United Nation Orchestra",
+      "type": "big_band"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:mickey-hart-planet-drum-1991",
+    "rec:michel-camilo-giovanni-hidalgo-hands-of-rhythm-1997",
+    "rec:conga-kings-the-conga-kings-2000"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Widely regarded as one of the greatest conga players, who changed hand drumming with his speed and by blending Afro-Caribbean rhythms with jazz and funk, and won a Grammy on Mickey Hart's Planet Drum.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-giovanni-hidalgo"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Afro-Cuban and Latin jazz drummers",
+    "build_priority": 3
+  }
+}

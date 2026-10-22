@@ -1,0 +1,31 @@
+{
+  "id": "style:afro-rock",
+  "name": "Afro-rock",
+  "kind": "genre",
+  "region": "London and West Africa",
+  "era": {
+    "from": 1969
+  },
+  "parents": [
+    {
+      "style_id": "style:west-african",
+      "relation": "fusion_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:rock",
+      "relation": "fusion_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "summary": "Rock, funk and jazz played with West African rhythms and percussion, made in London from 1969 by bands of African and Caribbean musicians such as Osibisa.",
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:sol-amarfio-wikipedia"],
+    "note": "Summary written from the drummer articles listed; not from a genre history."
+  }
+}

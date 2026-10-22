@@ -1,0 +1,25 @@
+{
+  "id": "rec:wadada-leo-smith-peter-kowald-and-gunter-sommer-touch-the-earth-1980",
+  "title": "Touch the Earth",
+  "artist": "Wadada Leo Smith, Peter Kowald and Günter Sommer",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gunter-sommer",
+      "name": "Günter \"Baby\" Sommer",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "FMP.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gunter-sommer-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:gunter-sommer-wikipedia"]
+  }
+}

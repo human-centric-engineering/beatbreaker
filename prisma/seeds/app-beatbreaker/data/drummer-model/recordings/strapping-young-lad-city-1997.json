@@ -1,0 +1,14 @@
+{
+  "id": "rec:strapping-young-lad-city-1997",
+  "title": "City",
+  "artist": "Strapping Young Lad",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:industrial-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gene-hoglan",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

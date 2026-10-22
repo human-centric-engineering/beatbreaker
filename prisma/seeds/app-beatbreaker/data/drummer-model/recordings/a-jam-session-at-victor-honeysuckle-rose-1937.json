@@ -1,0 +1,19 @@
+{
+  "id": "rec:a-jam-session-at-victor-honeysuckle-rose-1937",
+  "title": "Honeysuckle Rose",
+  "artist": "A Jam Session at Victor",
+  "year": 1937,
+  "type": "studio_track",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:george-wettling",
+      "name": "George Wettling",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:george-wettling-wikipedia"]
+  }
+}

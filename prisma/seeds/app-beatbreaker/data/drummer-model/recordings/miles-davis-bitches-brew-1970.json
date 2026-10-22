@@ -48,6 +48,11 @@
         "confidence": "verified",
         "source_ids": ["src:pas-hof-dejohnette"]
       }
+    },
+    {
+      "drummer_id": "drummer:don-alias",
+      "name": "Don Alias",
+      "drummer_role": "co_drummer"
     }
   ],
   "evidence": {

@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-cure-three-imaginary-boys-1979",
+  "title": "Three Imaginary Boys",
+  "artist": "The Cure",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:post-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:lol-tolhurst-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lol-tolhurst",
+      "name": "Lol Tolhurst",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

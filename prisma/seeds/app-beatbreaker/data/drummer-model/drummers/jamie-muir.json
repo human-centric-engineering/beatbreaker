@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "id": "drummer:jamie-muir",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jamie Muir",
+    "full_name": "William James Graham Muir",
+    "born": {
+      "date": "1945-07-04",
+      "place": "Edinburgh, Scotland",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jamie-muir-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2025-02-17"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London free improvisation", "King Crimson (1972-1973)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1968,
+      "to": 1990
+    },
+    "summary": "King Crimson's percussionist on Larks' Tongues in Aspic, who brought free improvisation into progressive rock."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.6,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:free-jazz",
+        "weight": 0.3,
+        "authority": 0.2
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "King Crimson",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1973
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jamie-muir-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:king-crimson-larks-tongues-in-aspic-1973"],
+  "legacy": {
+    "contribution": {
+      "description": "King Crimson's percussionist in 1972 and 1973, appearing prominently on Larks' Tongues in Aspic beside Bill Bruford; he later played with the free improvisers Derek Bailey and Evan Parker.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jamie-muir-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Bill Bruford",
+        "kind": "drummer",
+        "id": "drummer:bill-bruford"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jamie-muir-wikipedia"]
+      }
+    }
+  ]
+}

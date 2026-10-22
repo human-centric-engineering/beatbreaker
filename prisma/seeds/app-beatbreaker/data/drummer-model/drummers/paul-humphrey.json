@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "id": "drummer:paul-humphrey",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Paul Humphrey",
+    "full_name": "Paul Nelson Humphrey",
+    "born": {
+      "date": "1935-10-12",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:paul-humphrey-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2014-01-31"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Detroit", "New York sessions", "Los Angeles sessions"],
+    "active": {
+      "from": 1958,
+      "to": 2014
+    },
+    "summary": "Jazz and R&B session drummer for Wes Montgomery, Charles Mingus and Marvin Gaye, and leader of the Cool-Aid Chemists."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Paul Humphrey and the Cool-Aid Chemists",
+      "type": "bandleader",
+      "years": {
+        "from": 1971
+      }
+    },
+    {
+      "name": "Lawrence Welk orchestra",
+      "type": "house_band",
+      "years": {
+        "from": 1976,
+        "to": 1982
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:paul-humphrey-paul-humphrey-and-the-cool-aid-chemists-1971",
+    "rec:marvin-gaye-lets-get-it-on-1973"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A session drummer across jazz and soul, from Wes Montgomery and Mingus in New York to Los Angeles, where he was one of the drummers on Marvin Gaye's Let's Get It On and led his own funk records.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:paul-humphrey-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 3
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "id": "drummer:willie-hall",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Willie Hall",
+    "full_name": "Willie Clarence Hall",
+    "born": {
+      "date": "1950-08-08",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:willie-hall-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Memphis", "Stax Records"],
+    "active": {
+      "from": 1965,
+      "ongoing": true
+    },
+    "summary": "Stax drummer with Isaac Hayes and the Bar-Kays, later of the Blues Brothers band."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:southern-soul",
+        "weight": 0.9
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Isaac Hayes's band",
+      "type": "band_member",
+      "years": {
+        "from": 1969
+      }
+    },
+    {
+      "name": "The Blues Brothers band",
+      "type": "band_member",
+      "years": {
+        "from": 1978
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:isaac-hayes-theme-from-shaft-1971",
+    "rec:the-blues-brothers-the-blues-brothers-original-soundtrack-recording-1980"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Isaac Hayes's drummer and percussionist on Hot Buttered Soul and \"Theme from Shaft\", invited in 1977 to take Al Jackson Jr.'s place, and later the Blues Brothers band's drummer.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:willie-hall-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Soul and Motown drummers",
+    "build_priority": 2
+  }
+}

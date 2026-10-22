@@ -1,0 +1,19 @@
+{
+  "id": "rec:original-dixieland-jass-band-livery-stable-blues-1917",
+  "title": "Livery Stable Blues",
+  "artist": "Original Dixieland Jass Band",
+  "year": 1917,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-sbarbaro",
+      "name": "Tony Sbarbaro",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:tony-sbarbaro-wikipedia"]
+  }
+}

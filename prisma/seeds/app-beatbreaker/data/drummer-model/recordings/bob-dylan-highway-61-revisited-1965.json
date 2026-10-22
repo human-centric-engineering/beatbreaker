@@ -1,0 +1,14 @@
+{
+  "id": "rec:bob-dylan-highway-61-revisited-1965",
+  "title": "Highway 61 Revisited",
+  "artist": "Bob Dylan",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:folk-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sam-lay",
+      "name": "Sam Lay"
+    }
+  ]
+}

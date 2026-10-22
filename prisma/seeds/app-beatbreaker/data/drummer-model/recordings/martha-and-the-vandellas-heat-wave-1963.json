@@ -1,0 +1,14 @@
+{
+  "id": "rec:martha-and-the-vandellas-heat-wave-1963",
+  "title": "Heat Wave",
+  "artist": "Martha and the Vandellas",
+  "year": 1963,
+  "type": "studio_track",
+  "style_ids": ["style:motown"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:richard-pistol-allen",
+      "name": "Richard 'Pistol' Allen"
+    }
+  ]
+}

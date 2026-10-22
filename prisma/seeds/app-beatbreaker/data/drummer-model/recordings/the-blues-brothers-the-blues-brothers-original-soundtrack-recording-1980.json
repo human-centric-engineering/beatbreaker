@@ -1,0 +1,14 @@
+{
+  "id": "rec:the-blues-brothers-the-blues-brothers-original-soundtrack-recording-1980",
+  "title": "The Blues Brothers: Original Soundtrack Recording",
+  "artist": "The Blues Brothers",
+  "year": 1980,
+  "type": "film_soundtrack",
+  "style_ids": ["style:rnb-soul", "style:blues"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:willie-hall",
+      "name": "Willie Hall"
+    }
+  ]
+}

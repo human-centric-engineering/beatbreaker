@@ -1,0 +1,25 @@
+{
+  "id": "rec:eric-dolphy-at-the-five-spot-1961",
+  "title": "At the Five Spot",
+  "artist": "Eric Dolphy",
+  "year": 1961,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ed-blackwell",
+      "name": "Ed Blackwell",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "With Dolphy and Booker Little.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ed-blackwell-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ed-blackwell-wikipedia"]
+  }
+}

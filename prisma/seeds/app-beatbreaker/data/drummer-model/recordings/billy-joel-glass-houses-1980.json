@@ -1,0 +1,19 @@
+{
+  "id": "rec:billy-joel-glass-houses-1980",
+  "title": "Glass Houses",
+  "artist": "Billy Joel",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:liberty-devitto-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:liberty-devitto",
+      "name": "Liberty DeVitto",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

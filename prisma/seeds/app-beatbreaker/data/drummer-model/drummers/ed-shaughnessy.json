@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "id": "drummer:ed-shaughnessy",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ed Shaughnessy",
+    "full_name": "Edwin Thomas Shaughnessy",
+    "born": {
+      "date": "1929-01-29",
+      "place": "Jersey City, New Jersey, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ed-shaughnessy-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2013-05-24",
+      "place": "Calabasas, California, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "New York big bands and clubs (1940s-1960s)",
+      "The Tonight Show Band (1963-1992)"
+    ],
+    "active": {
+      "from": 1945,
+      "to": 2012
+    },
+    "summary": "Big-band drummer of The Tonight Show Band under Doc Severinsen."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Tonight Show Band",
+      "type": "house_band",
+      "years": {
+        "from": 1963,
+        "to": 1992
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ed-shaughnessy-wikipedia"]
+      }
+    },
+    {
+      "name": "Count Basie Orchestra",
+      "type": "big_band",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ed-shaughnessy-wikipedia"]
+      }
+    },
+    {
+      "name": "Charlie Ventura",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ed-shaughnessy-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:jimmy-smith-bashin-1962",
+    "rec:doc-severinsen-the-tonight-show-band-1986"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Kept big-band drumming in front of a national audience every night for three decades as The Tonight Show Band's drummer. He played on the 1962 hit 'Walk on the Wild Side' and in famous drum battles with Buddy Rich.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ed-shaughnessy-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 3
+  }
+}

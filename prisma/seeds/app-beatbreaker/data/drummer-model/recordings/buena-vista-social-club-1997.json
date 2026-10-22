@@ -1,0 +1,21 @@
+{
+  "id": "rec:buena-vista-social-club-1997",
+  "title": "Buena Vista Social Club",
+  "artist": "Buena Vista Social Club",
+  "release": "World Circuit",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:cuban-son"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:amadito-valdes",
+      "name": "Amadito Valdés",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-amadito-valdes"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:mudhoney-every-good-boy-deserves-fudge-1991",
+  "title": "Every Good Boy Deserves Fudge",
+  "artist": "Mudhoney",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:grunge", "style:garage-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:dan-peters-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dan-peters",
+      "name": "Dan Peters",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

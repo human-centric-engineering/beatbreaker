@@ -1,0 +1,20 @@
+{
+  "id": "rec:refused-the-shape-of-punk-to-come-1998",
+  "title": "The Shape of Punk to Come",
+  "artist": "Refused",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:post-hardcore", "style:hardcore-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:david-sandstrom-wikipedia", "src:shape-of-punk-to-come-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:david-sandstrom",
+      "name": "David Sandström",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

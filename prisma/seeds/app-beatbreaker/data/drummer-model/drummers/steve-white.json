@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "id": "drummer:steve-white",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Steve White",
+    "full_name": "Steven Douglas White",
+    "born": {
+      "date": "1965-05-31",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-white-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London mod revival"],
+    "active": {
+      "from": 1983,
+      "ongoing": true
+    },
+    "summary": "Paul Weller's drummer, from the Style Council on."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:mod-revival",
+        "weight": 1.0,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.5
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Style Council",
+      "type": "band_member",
+      "years": {
+        "from": 1983,
+        "to": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-white-wikipedia"]
+      }
+    },
+    {
+      "name": "Paul Weller",
+      "type": "session_regular",
+      "years": {
+        "from": 1990,
+        "to": 2008
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-white-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Brought a jazz drummer's touch, learned from Buddy Rich and Louie Bellson records, to Paul Weller's soul-mod Style Council at seventeen, and stayed Weller's drummer for years; the youngest drummer at Live Aid.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-white-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Mod and mod revival drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:the-style-council-cafe-bleu-1984",
+    "rec:the-style-council-our-favourite-shop-1985",
+    "rec:paul-weller-wild-wood-1993"
+  ],
+  "relationships": [
+    {
+      "type": "family",
+      "target": {
+        "name": "Alan White (Oasis)",
+        "kind": "drummer",
+        "id": "drummer:alan-white-oasis"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:steve-white-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:steve-white-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Louie Bellson",
+        "kind": "drummer",
+        "id": "drummer:louie-bellson"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:steve-white-wikipedia"]
+      }
+    }
+  ]
+}

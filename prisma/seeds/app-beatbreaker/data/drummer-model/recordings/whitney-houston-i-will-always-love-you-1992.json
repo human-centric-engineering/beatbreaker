@@ -1,0 +1,19 @@
+{
+  "id": "rec:whitney-houston-i-will-always-love-you-1992",
+  "title": "I Will Always Love You",
+  "artist": "Whitney Houston",
+  "year": 1992,
+  "type": "studio_track",
+  "style_ids": ["style:pop-rock-session", "style:rnb-soul"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ricky-lawson-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ricky-lawson",
+      "name": "Ricky Lawson",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "drummer:colm-o-ciosoig",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Colm Ó Cíosóig",
+    "born": {
+      "date": "1964-10-31",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colm-o-ciosoig-wikipedia"]
+      }
+    },
+    "nationality": ["Irish"],
+    "home_scenes": ["Dublin and London, 1980s"],
+    "active": {
+      "from": 1983,
+      "ongoing": true
+    },
+    "summary": "My Bloody Valentine's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:shoegaze",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:noise-rock",
+        "weight": 0.4
+      },
+      {
+        "style_id": "style:indie-rock",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "My Bloody Valentine",
+      "type": "band_member",
+      "years": {
+        "from": 1983
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colm-o-ciosoig-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A pioneering figure of shoegaze: his energetic, snare-heavy drumming is a key element of My Bloody Valentine's Isn't Anything, and on Loveless his patterns were sampled and re-arranged.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colm-o-ciosoig-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Shoegaze drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:my-bloody-valentine-isnt-anything-1988",
+    "rec:my-bloody-valentine-loveless-1991"
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "id": "drummer:palmolive",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Palmolive",
+    "full_name": "Paloma McLardy (née Romero)",
+    "born": {
+      "date": "1954-12-26",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:palmolive-wikipedia"]
+      },
+      "place": "Melilla, Spain"
+    },
+    "nationality": ["Spanish"],
+    "home_scenes": ["London punk, 1976"],
+    "active": {
+      "from": 1976,
+      "to": 1980
+    },
+    "summary": "Founder and drummer of the Slits, then the Raincoats."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-punk",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:reggae",
+        "weight": 0.2
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Slits",
+      "type": "band_member",
+      "years": {
+        "from": 1976,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:palmolive-wikipedia"]
+      }
+    },
+    {
+      "name": "The Raincoats",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1979
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:palmolive-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Founded the Slits in 1976 having never played; her passionate drumming was key to their brashness; she then drove the Raincoats' first album.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:palmolive-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Post-punk and gothic rock drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": ["rec:the-slits-peel-session-1977", "rec:the-raincoats-the-raincoats-1979"]
+}

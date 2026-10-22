@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "id": "drummer:shelly-manne",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Shelly Manne",
+    "full_name": "Sheldon Manne",
+    "born": {
+      "date": "1920-06-11",
+      "place": "New York City",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:shelly-manne-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1984-09-26"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["West Coast jazz, Los Angeles (1950s)", "Hollywood studios"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1939,
+      "to": 1984
+    },
+    "summary": "The West Coast's leading drummer, and a drummer on hundreds of Hollywood scores."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:cool-jazz",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:bebop",
+        "weight": 0.5,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Stan Kenton Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1946,
+        "to": 1952
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:shelly-manne-wikipedia"]
+      }
+    },
+    {
+      "name": "Shelly Manne & His Men",
+      "type": "bandleader",
+      "years": {
+        "from": 1953,
+        "to": 1984
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:shelly-manne-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:sonny-rollins-way-out-west-1957",
+    "rec:shelly-manne-and-his-friends-my-fair-lady-1956",
+    "rec:shelly-manne-and-his-men-at-the-black-hawk-1959"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer most associated with West Coast jazz, known for his versatility from Dixieland to the avant-garde, and a contributor to the music of hundreds of Hollywood films and television programmes.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:shelly-manne-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Cool jazz drummers",
+    "build_priority": 1
+  }
+}

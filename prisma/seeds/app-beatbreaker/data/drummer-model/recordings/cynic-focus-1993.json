@@ -1,0 +1,14 @@
+{
+  "id": "rec:cynic-focus-1993",
+  "title": "Focus",
+  "artist": "Cynic",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sean-reinert",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

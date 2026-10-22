@@ -1,0 +1,25 @@
+{
+  "id": "rec:tyshawn-sorey-pillars-2018",
+  "title": "Pillars",
+  "artist": "Tyshawn Sorey",
+  "year": 2018,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tyshawn-sorey",
+      "name": "Tyshawn Sorey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "A four-hour composed improvisation.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tyshawn-sorey-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:tyshawn-sorey-wikipedia"]
+  }
+}

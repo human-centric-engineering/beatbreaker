@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-coasters-charlie-brown-1958",
+  "title": "Charlie Brown",
+  "artist": "The Coasters",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:gary-chester-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gary-chester",
+      "name": "Gary Chester",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

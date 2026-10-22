@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "id": "drummer:dave-tough",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Dave Tough",
+    "full_name": "David Jarvis Tough",
+    "born": {
+      "date": "1907-04-26",
+      "place": "Oak Park, Illinois, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dave-tough-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1948-12-09",
+      "place": "Newark, New Jersey, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Chicago, the Austin High School Gang (1920s)",
+      "Swing bands (1935-1945)",
+      "Woody Herman's First Herd (1945)"
+    ],
+    "active": {
+      "from": 1925,
+      "to": 1948
+    },
+    "summary": "The Chicago drummer who drove Woody Herman's First Herd."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1
+      },
+      {
+        "style_id": "style:new-orleans-jazz",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Tommy Dorsey Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1936,
+        "to": 1937
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dave-tough-wikipedia"]
+      }
+    },
+    {
+      "name": "Benny Goodman Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1938,
+        "to": 1938
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dave-tough-wikipedia"]
+      }
+    },
+    {
+      "name": "Woody Herman's First Herd",
+      "type": "big_band",
+      "years": {
+        "from": 1944,
+        "to": 1945
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dave-tough-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:woody-herman-apple-honey-1945", "rec:woody-herman-caldonia-1945"],
+  "legacy": {
+    "contribution": {
+      "description": "Described as 'the most important of the drummers of the Chicago circle': he took the Chicago Dixieland feel into the swing bands of Dorsey, Goodman and Shaw, and drove Woody Herman's 1945 First Herd.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dave-tough-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 2
+  }
+}

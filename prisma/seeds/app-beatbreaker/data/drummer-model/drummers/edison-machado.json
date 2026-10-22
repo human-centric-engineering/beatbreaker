@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "id": "drummer:edison-machado",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Edison Machado",
+    "full_name": "Edison dos Santos Machado",
+    "born": {
+      "date": "1934-01-31",
+      "place": "Rio de Janeiro, Brazil"
+    },
+    "died": {
+      "date": "1990-09-15",
+      "place": "Rio de Janeiro, Brazil"
+    },
+    "nationality": ["Brazilian"],
+    "home_scenes": ["Rio de Janeiro"],
+    "active": {
+      "from": 1949,
+      "to": 1990
+    },
+    "summary": "Brazilian drummer of Bossa Três and Rio 65 Trio."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:samba",
+        "weight": 1,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:bossa-nova",
+        "weight": 1,
+        "authority": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Turma da Gafieira",
+      "type": "band_member",
+      "years": {
+        "from": 1957
+      }
+    },
+    {
+      "name": "Bossa Três",
+      "type": "band_member",
+      "years": {
+        "from": 1961
+      }
+    },
+    {
+      "name": "Rio 65 Trio",
+      "type": "band_member",
+      "years": {
+        "from": 1965,
+        "to": 1966
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:turma-da-gafieira-samba-em-hi-fi-1957",
+    "rec:edison-machado-e-samba-novo-1964",
+    "rec:jobim-the-composer-of-desafinado-plays-1963"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Created samba no prato, samba on the cymbals: when his snare broke on a gig he moved the lead to the ride cymbal, and the sound shaped samba jazz and bossa nova drumming.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-edison-machado"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Samba and Brazilian jazz drummers",
+    "build_priority": 1
+  }
+}

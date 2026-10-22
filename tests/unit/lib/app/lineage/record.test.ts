@@ -21,11 +21,21 @@ describe('readDrummerRecord', () => {
     const files = readFolder(DRUMMER_MODEL_DIR, 'drummers');
     expect(files.length).toBeGreaterThanOrEqual(20);
     for (const { file, json } of files) {
+      // a candidate is researched, not built (D74): it has no traits to show yet
+      if ((json as { meta: { record_status?: string } }).meta.record_status === 'candidate')
+        continue;
       const r = readDrummerRecord(json);
       expect(r, file).not.toBeNull();
       expect(r!.name.length, file).toBeGreaterThan(0);
       expect(r!.traits.length, file).toBeGreaterThan(0);
     }
+  });
+
+  it("reads a candidate's contribution, and leaves it null for a record without one", () => {
+    const heath = readDrummerRecord(realRecord('albert-heath'))!;
+    expect(heath.status).toBe('candidate');
+    expect(heath.contribution).toMatch(/hard-bop drummer/);
+    expect(readDrummerRecord(realRecord('john-bonham'))!.contribution).toBeNull();
   });
 
   it('reads Bonham as the page shows him', () => {

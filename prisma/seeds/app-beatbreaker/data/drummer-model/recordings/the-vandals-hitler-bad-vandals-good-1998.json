@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-vandals-hitler-bad-vandals-good-1998",
+  "title": "Hitler Bad, Vandals Good",
+  "artist": "The Vandals",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:josh-freese-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:josh-freese",
+      "name": "Josh Freese",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

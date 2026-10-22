@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "id": "drummer:tom-skinner",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Tom Skinner",
+    "born": {
+      "date": "1980-01-26",
+      "place": "London, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tom-skinner-drummer-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London jazz (2000s-2020s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 2000,
+      "ongoing": true
+    },
+    "summary": "Co-founder of Sons of Kemet and of the Smile."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:uk-jazz",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Sons of Kemet",
+      "type": "band_member",
+      "years": {
+        "from": 2011,
+        "to": 2022
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tom-skinner-drummer-wikipedia"]
+      }
+    },
+    {
+      "name": "The Smile",
+      "type": "band_member",
+      "years": {
+        "from": 2021
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tom-skinner-drummer-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:sons-of-kemet-your-queen-is-a-reptile-2018",
+    "rec:the-smile-a-light-for-attracting-attention-2022"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Co-founded Sons of Kemet, whose two-drummer line-up with tuba and saxophone helped define London jazz of the 2010s, and the rock band the Smile.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tom-skinner-drummer-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modern jazz drummers",
+    "build_priority": 2
+  }
+}

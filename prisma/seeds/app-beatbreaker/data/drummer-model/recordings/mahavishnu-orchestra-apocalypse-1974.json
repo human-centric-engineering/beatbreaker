@@ -1,0 +1,19 @@
+{
+  "id": "rec:mahavishnu-orchestra-apocalypse-1974",
+  "title": "Apocalypse",
+  "artist": "Mahavishnu Orchestra",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:narada-michael-walden-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:narada-michael-walden",
+      "name": "Narada Michael Walden",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

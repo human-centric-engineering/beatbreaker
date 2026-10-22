@@ -1,0 +1,25 @@
+{
+  "id": "rec:joe-harriott-free-form-1961",
+  "title": "Free Form",
+  "artist": "Joe Harriott",
+  "year": 1961,
+  "type": "album",
+  "style_ids": ["style:free-jazz", "style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-seamen",
+      "name": "Phil Seamen",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "British free form, made apart from Ornette Coleman.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-seamen-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:phil-seamen-wikipedia"]
+  }
+}

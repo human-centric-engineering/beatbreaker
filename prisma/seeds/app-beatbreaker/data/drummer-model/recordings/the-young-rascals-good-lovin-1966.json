@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-young-rascals-good-lovin-1966",
+  "title": "Good Lovin'",
+  "artist": "The Young Rascals",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dino-danelli",
+      "name": "Dino Danelli",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:dino-danelli-wikipedia"]
+  }
+}

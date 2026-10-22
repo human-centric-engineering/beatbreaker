@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "id": "drummer:damon-che",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Damon Che",
+    "full_name": "Damon Che Fitzgerald",
+    "born": {
+      "date": "1968-02-15",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:damon-che-wikipedia"]
+      },
+      "place": "Pittsburgh, Pennsylvania"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Pittsburgh"],
+    "active": {
+      "from": 1985,
+      "ongoing": true
+    },
+    "summary": "Don Caballero's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:math-rock",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:post-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Don Caballero",
+      "type": "bandleader",
+      "years": {
+        "from": 1991
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:damon-che-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Made the drums the lead instrument in Don Caballero, the math rock pioneers, soloing freely while the guitars held the rhythm, across four highly influential albums.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:damon-che-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:don-caballero-for-respect-1993",
+    "rec:don-caballero-don-caballero-2-1995",
+    "rec:don-caballero-what-burns-never-returns-1998"
+  ]
+}

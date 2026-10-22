@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "id": "drummer:paul-wertico",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Paul Wertico",
+    "nationality": ["American"],
+    "roles": ["band_member", "educator"],
+    "born": {
+      "date": "1953-01-05",
+      "place": "Chicago, Illinois",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:paul-wertico-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1975,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Pat Metheny Group drummer from 1983 to 2001."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Pat Metheny Group",
+      "type": "band_member",
+      "years": {
+        "from": 1983,
+        "to": 2001
+      }
+    },
+    {
+      "name": "SBB",
+      "type": "band_member",
+      "years": {
+        "from": 2000,
+        "to": 2007
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:pat-metheny-group-first-circle-1984"],
+  "legacy": {
+    "contribution": {
+      "description": "Was the Pat Metheny Group's drummer for eighteen years, on records that won seven Grammys.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:paul-wertico-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 3
+  }
+}

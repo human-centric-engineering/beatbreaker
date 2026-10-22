@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-everly-brothers-bye-bye-love-1957",
+  "title": "Bye Bye Love",
+  "artist": "The Everly Brothers",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:country"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:buddy-harman-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-harman",
+      "name": "Buddy Harman",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:siouxsie-and-the-banshees-the-scream-1978",
+  "title": "The Scream",
+  "artist": "Siouxsie and the Banshees",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:post-punk", "style:punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:kenny-morris-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenny-morris",
+      "name": "Kenny Morris",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

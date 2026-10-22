@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "id": "drummer:morris-jennings",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Morris Jennings",
+    "died": {
+      "date": "2016-06-03"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago", "Chess Records"],
+    "active": {
+      "from": 1960,
+      "to": 2016
+    },
+    "summary": "Chicago session drummer on Muddy Waters's Electric Mud and Howlin' Wolf's Howlin' Wolf Album."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Chess Records studio",
+      "type": "session_regular"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:muddy-waters-electric-mud-1968",
+    "rec:howlin-wolf-the-howlin-wolf-album-1969"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The Chess drummer who put a funk-rock beat under Muddy Waters and Howlin' Wolf on Electric Mud (1968) and The Howlin' Wolf Album (1969).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:morris-jennings-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blues drummers",
+    "build_priority": 3
+  }
+}

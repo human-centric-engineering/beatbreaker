@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "id": "drummer:michael-bland",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Michael Bland",
+    "summary": "Minneapolis drummer of Prince's New Power Generation from 1989 to 1996, then Maxwell, Chaka Khan and Soul Asylum.",
+    "active": {
+      "from": 1989,
+      "ongoing": true
+    },
+    "nationality": ["American"],
+    "born": {
+      "date": "1969-03-14",
+      "place": "Minneapolis, Minnesota"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:minneapolis-sound",
+        "weight": 1
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The New Power Generation",
+      "type": "band_member",
+      "years": {
+        "from": 1989,
+        "to": 1996
+      }
+    },
+    {
+      "name": "Maxwell",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1998,
+        "to": 2000
+      }
+    },
+    {
+      "name": "Soul Asylum",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:prince-and-the-new-power-generation-diamonds-and-pearls-1991",
+    "rec:prince-and-the-new-power-generation-the-gold-experience-1995"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Prince's drummer through the New Power Generation years, known for tuning his snare to the tonic of each song (Cory Wong).",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:michael-bland-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Minneapolis sound drummers",
+    "build_priority": 2
+  }
+}

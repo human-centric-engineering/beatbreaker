@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "id": "drummer:corky-laing",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Corky Laing",
+    "full_name": "Laurence Gordon Laing",
+    "born": {
+      "date": "1948",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:corky-laing-wikipedia"]
+      }
+    },
+    "nationality": ["Canadian"],
+    "active": {
+      "from": 1967,
+      "ongoing": true
+    },
+    "summary": "Canadian drummer of Mountain and West, Bruce and Laing."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Mountain",
+      "type": "band_member",
+      "years": {
+        "from": 1969
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:corky-laing-wikipedia"]
+      }
+    },
+    {
+      "name": "West, Bruce and Laing",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1974
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:corky-laing-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:mountain-climbing-1970"],
+  "legacy": {
+    "contribution": {
+      "description": "Drummed in Mountain, a heavy metal forerunner, and his cowbell count-in and shouted line open \"Mississippi Queen\" (1970).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:corky-laing-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard rock drummers",
+    "build_priority": 3
+  }
+}

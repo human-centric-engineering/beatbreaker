@@ -1,0 +1,20 @@
+{
+  "id": "rec:roni-size-and-reprazent-new-forms-1997",
+  "title": "New Forms",
+  "artist": "Roni Size & Reprazent",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:drum-and-bass"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:clive-deamer-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clive-deamer",
+      "name": "Clive Deamer",
+      "drummer_role": "co_drummer",
+      "significance": 0.8
+    }
+  ]
+}

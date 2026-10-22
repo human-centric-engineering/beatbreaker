@@ -1,0 +1,19 @@
+{
+  "id": "rec:louis-cole-time-2018",
+  "title": "Time",
+  "artist": "Louis Cole",
+  "year": 2018,
+  "type": "album",
+  "style_ids": ["style:funk", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:louis-cole",
+      "why_it_matters": "Brainfeeder album."
+    }
+  ],
+  "release": "Brainfeeder",
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:louis-cole-wikipedia"]
+  }
+}

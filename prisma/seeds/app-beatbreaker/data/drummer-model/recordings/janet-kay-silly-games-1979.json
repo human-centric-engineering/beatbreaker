@@ -1,0 +1,20 @@
+{
+  "id": "rec:janet-kay-silly-games-1979",
+  "title": "Silly Games",
+  "artist": "Janet Kay",
+  "year": 1979,
+  "type": "studio_track",
+  "style_ids": ["style:reggae"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:drummie-zeb",
+      "name": "Drummie Zeb",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-drummie-zeb"]
+      }
+    }
+  ]
+}

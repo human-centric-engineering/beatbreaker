@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "id": "drummer:billy-hart",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Billy Hart",
+    "born": {
+      "date": "1940-11-29",
+      "place": "Washington, D.C.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-hart-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Washington, D.C.", "New York"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1960,
+      "ongoing": true
+    },
+    "summary": "Drummer of Herbie Hancock's Mwandishi band and of Quest, and a teacher of generations."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.5,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:free-jazz",
+        "weight": 0.3,
+        "authority": 0.2
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Herbie Hancock Mwandishi band",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 1973
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:billy-hart-wikipedia"]
+      }
+    },
+    {
+      "name": "Quest",
+      "type": "band_member",
+      "years": {
+        "from": 1981
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:billy-hart-wikipedia"]
+      }
+    },
+    {
+      "name": "Shirley Horn",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:billy-hart-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:herbie-hancock-mwandishi-1971",
+    "rec:herbie-hancock-crossings-1972",
+    "rec:billy-hart-enchance-1977"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Known internationally for Herbie Hancock's Mwandishi band of the early 1970s, open-form electric jazz, and for his work with Shirley Horn, Stan Getz and the group Quest.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-hart-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modal and post-bop drummers",
+    "build_priority": 2
+  }
+}

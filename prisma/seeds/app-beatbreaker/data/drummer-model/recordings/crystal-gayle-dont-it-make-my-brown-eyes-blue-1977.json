@@ -1,0 +1,19 @@
+{
+  "id": "rec:crystal-gayle-dont-it-make-my-brown-eyes-blue-1977",
+  "title": "Don't It Make My Brown Eyes Blue",
+  "artist": "Crystal Gayle",
+  "year": 1977,
+  "type": "studio_track",
+  "style_ids": ["style:country"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:kenny-malone-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenny-malone",
+      "name": "Kenny Malone",
+      "drummer_role": "percussion_only"
+    }
+  ]
+}

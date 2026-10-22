@@ -1,0 +1,20 @@
+{
+  "id": "rec:queens-of-the-stone-age-villains-2017",
+  "title": "Villains",
+  "artist": "Queens of the Stone Age",
+  "year": 2017,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:alternative-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:jon-theodore-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jon-theodore",
+      "name": "Jon Theodore",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:peter-gabriel-so-1986",
+  "title": "So",
+  "artist": "Peter Gabriel",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:manu-katche-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:manu-katche",
+      "name": "Manu Katché",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

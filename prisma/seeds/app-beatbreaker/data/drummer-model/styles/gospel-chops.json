@@ -1,0 +1,25 @@
+{
+  "id": "style:gospel-chops",
+  "name": "Gospel chops",
+  "aliases": ["gospel drumming", "shed drumming"],
+  "kind": "idiom",
+  "region": "United States (Black churches)",
+  "era": {
+    "from": 2004
+  },
+  "summary": "The fast, fill-heavy drumming of Black church musicians that spread online from 2004, through Gerald Forrest's Gospel Chops site and the Shed Sessionz videos, and onto R&B, pop and rock stages.",
+  "parents": [
+    {
+      "style_id": "style:gospel",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:okayplayer-gospel-chops-2018"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:okayplayer-gospel-chops-2018", "src:modern-drummer-fantastic-four-2009"]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:minutemen-double-nickels-on-the-dime-1984",
+  "title": "Double Nickels on the Dime",
+  "artist": "Minutemen",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:punk", "style:hardcore-punk"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:george-hurley-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:george-hurley",
+      "name": "George Hurley",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

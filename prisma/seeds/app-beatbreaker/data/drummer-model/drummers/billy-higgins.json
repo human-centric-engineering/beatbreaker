@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "id": "drummer:billy-higgins",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Billy Higgins",
+    "born": {
+      "date": "1936-10-11",
+      "place": "Los Angeles, California",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-higgins-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2001-05-03"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Los Angeles", "New York, Blue Note (1960s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1958,
+      "to": 2001
+    },
+    "summary": "Ornette Coleman's first drummer and a Blue Note house drummer on more than 700 recordings, famous for smiling as he played."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-bop",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:free-jazz",
+        "weight": 0.7,
+        "authority": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Ornette Coleman Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1958,
+        "to": 1960
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:billy-higgins-wikipedia"]
+      }
+    },
+    {
+      "name": "Cedar Walton",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:billy-higgins-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:ornette-coleman-the-shape-of-jazz-to-come-1959",
+    "rec:ornette-coleman-free-jazz-a-collective-improvisation-1961",
+    "rec:lee-morgan-the-sidewinder-1964",
+    "rec:dexter-gordon-go-1962"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played on Ornette Coleman's first records from 1958, then served as one of Blue Note's house drummers through the 1960s, on more than 700 recordings in all; in 1989 he co-founded The World Stage in Los Angeles for young musicians.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-higgins-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard bop drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Ed Blackwell",
+        "kind": "drummer",
+        "id": "drummer:ed-blackwell"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:billy-higgins-wikipedia"]
+      }
+    }
+  ]
+}

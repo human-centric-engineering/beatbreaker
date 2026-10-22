@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "id": "drummer:han-bennink",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Han Bennink",
+    "born": {
+      "date": "1942-04-17",
+      "place": "Zaandam, Netherlands",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:han-bennink-wikipedia"]
+      }
+    },
+    "nationality": ["Dutch"],
+    "home_scenes": ["Amsterdam (Instant Composers Pool)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1960,
+      "ongoing": true
+    },
+    "summary": "A pivotal figure of early European free jazz, with Misha Mengelberg and Peter Brötzmann."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 1.0,
+        "authority": 0.9
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Instant Composers Pool",
+      "type": "band_member",
+      "years": {
+        "from": 1967
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:han-bennink-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:eric-dolphy-last-date-1964",
+    "rec:peter-brotzmann-octet-machine-gun-1968"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "One of the pivotal figures in early European free jazz and free improvisation, known for slapstick and absurdist humour on the kit and for long partnerships with Misha Mengelberg and Peter Brötzmann.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:han-bennink-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 2
+  }
+}

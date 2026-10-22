@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "id": "drummer:cozy-cole",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Cozy Cole",
+    "full_name": "William Randolph Cole",
+    "born": {
+      "date": "1909-10-17",
+      "place": "East Orange, New Jersey, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cozy-cole-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1981-01-29",
+      "place": "Columbus, Ohio, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "New York swing bands (1930s)",
+      "Cab Calloway Orchestra (1938-1942)",
+      "Louis Armstrong All Stars"
+    ],
+    "active": {
+      "from": 1928,
+      "to": 1980
+    },
+    "summary": "Swing drummer for Cab Calloway and Louis Armstrong who took a drum solo into the pop charts."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Cab Calloway Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1938,
+        "to": 1942
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cozy-cole-wikipedia"]
+      }
+    },
+    {
+      "name": "Louis Armstrong and His All Stars",
+      "type": "band_member",
+      "years": {
+        "from": 1949,
+        "to": 1953
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cozy-cole-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:jelly-roll-morton-load-of-cole-1930",
+    "rec:cozy-cole-topsy-part-2-1958"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Took the drum solo to the charts: 'Topsy II' (1958), a long solo, reached No. 3 on the Billboard Hot 100 and sold a million. He also cut one of the earliest recorded drum solos ('Load of Cole', 1930) and taught Philly Joe Jones.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cozy-cole-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "taught",
+      "target": {
+        "name": "Philly Joe Jones",
+        "kind": "drummer",
+        "id": "drummer:philly-joe-jones"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cozy-cole-wikipedia"]
+      }
+    }
+  ]
+}

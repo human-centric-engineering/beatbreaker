@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "id": "drummer:kaiser-marshall",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Kaiser Marshall",
+    "full_name": "Joseph Marshall",
+    "born": {
+      "date": "1902-06-11",
+      "place": "Savannah, Georgia, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kaiser-marshall-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1948-01-02",
+      "place": "New York City, New York, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Fletcher Henderson's orchestra, New York (1922-1929)"],
+    "active": {
+      "from": 1920,
+      "to": 1947
+    },
+    "summary": "Fletcher Henderson's drummer through the 1920s, when that band was inventing the big band."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:new-orleans-jazz",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Fletcher Henderson Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1922,
+        "to": 1929
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kaiser-marshall-wikipedia"]
+      }
+    },
+    {
+      "name": "McKinney's Cotton Pickers",
+      "type": "big_band",
+      "years": {
+        "from": 1928,
+        "to": 1930
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kaiser-marshall-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:fletcher-henderson-sugar-foot-stomp-1925",
+    "rec:louis-armstrong-knockin-a-jug-1929"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A pupil of George L. Stone, the rudimental teacher, who was the drummer of Fletcher Henderson's orchestra for its whole formative run (1922-29), the band in which the big-band style was worked out.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kaiser-marshall-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans and early jazz drummers",
+    "build_priority": 3
+  }
+}

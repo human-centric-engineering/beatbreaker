@@ -1,0 +1,19 @@
+{
+  "id": "rec:frank-sinatra-sinatra-at-the-sands-1966",
+  "title": "Sinatra at the Sands",
+  "artist": "Frank Sinatra with Count Basie and His Orchestra",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sonny-payne",
+      "name": "Sonny Payne",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:sonny-payne-wikipedia"]
+  }
+}

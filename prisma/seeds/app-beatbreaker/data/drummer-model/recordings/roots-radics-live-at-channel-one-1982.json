@@ -1,0 +1,20 @@
+{
+  "id": "rec:roots-radics-live-at-channel-one-1982",
+  "title": "Live at Channel One Kingston Jamaica",
+  "artist": "Roots Radics",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:dancehall", "style:dub"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:style-scott",
+      "name": "Style Scott",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-style-scott"]
+      }
+    }
+  ]
+}

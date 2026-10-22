@@ -1,0 +1,19 @@
+{
+  "id": "rec:mahavishnu-orchestra-adventures-in-radioland-1986",
+  "title": "Adventures in Radioland",
+  "artist": "Mahavishnu Orchestra",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:danny-gottlieb-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:danny-gottlieb",
+      "name": "Danny Gottlieb",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

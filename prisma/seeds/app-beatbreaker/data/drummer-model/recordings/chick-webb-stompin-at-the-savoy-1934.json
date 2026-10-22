@@ -1,0 +1,19 @@
+{
+  "id": "rec:chick-webb-stompin-at-the-savoy-1934",
+  "title": "Stompin' at the Savoy",
+  "artist": "Chick Webb and His Orchestra",
+  "year": 1934,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chick-webb",
+      "name": "Chick Webb",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:chick-webb-wikipedia"]
+  }
+}

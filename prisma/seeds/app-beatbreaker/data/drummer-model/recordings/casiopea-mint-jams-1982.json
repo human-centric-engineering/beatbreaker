@@ -1,0 +1,19 @@
+{
+  "id": "rec:casiopea-mint-jams-1982",
+  "title": "Mint Jams",
+  "artist": "Casiopea",
+  "year": 1982,
+  "type": "live_track",
+  "style_ids": ["style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:akira-jimbo-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:akira-jimbo",
+      "name": "Akira Jimbo",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

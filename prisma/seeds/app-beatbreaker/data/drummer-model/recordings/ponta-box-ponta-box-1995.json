@@ -1,0 +1,25 @@
+{
+  "id": "rec:ponta-box-ponta-box-1995",
+  "title": "Ponta Box",
+  "artist": "Ponta Box",
+  "release": "JVC",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ponta-murakami",
+      "name": "Shuichi \"Ponta\" Murakami",
+      "drummer_role": "leader",
+      "why_it_matters": "His trio with Masahiro Sayama and Masatoshi Mizuno, at Montreux in 1995.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:shuichi-murakami-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:shuichi-murakami-wikipedia"]
+  }
+}

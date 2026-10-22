@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "id": "drummer:stephen-perkins",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Stephen Perkins",
+    "full_name": "Stephen Andrew Perkins",
+    "born": {
+      "date": "1967-09-13",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stephen-perkins-wikipedia"]
+      },
+      "place": "Los Angeles"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Los Angeles, mid-1980s"],
+    "active": {
+      "from": 1985,
+      "ongoing": true
+    },
+    "summary": "Jane's Addiction's drummer and percussionist."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:funk-rock",
+        "weight": 0.4
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Jane's Addiction",
+      "type": "band_member",
+      "years": {
+        "from": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stephen-perkins-wikipedia"]
+      }
+    },
+    {
+      "name": "Porno for Pyros",
+      "type": "band_member",
+      "years": {
+        "from": 1992,
+        "to": 1998
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stephen-perkins-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Blended rock with jazz, swing and African, Indian and Latin drumming, adding hand percussion to his kit, in Jane's Addiction, a band at the start of 1990s alternative rock.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stephen-perkins-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Alternative rock drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:janes-addiction-nothings-shocking-1988",
+    "rec:janes-addiction-ritual-de-lo-habitual-1990",
+    "rec:porno-for-pyros-porno-for-pyros-1993"
+  ]
+}

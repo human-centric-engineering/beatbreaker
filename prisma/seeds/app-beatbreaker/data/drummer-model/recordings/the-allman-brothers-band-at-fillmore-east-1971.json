@@ -1,0 +1,24 @@
+{
+  "id": "rec:the-allman-brothers-band-at-fillmore-east-1971",
+  "title": "At Fillmore East",
+  "artist": "The Allman Brothers Band",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:southern-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:butch-trucks",
+      "name": "Butch Trucks",
+      "drummer_role": "co_drummer"
+    },
+    {
+      "drummer_id": "drummer:jaimoe",
+      "name": "Jaimoe",
+      "drummer_role": "co_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:butch-trucks-wikipedia", "src:jaimoe-wikipedia"]
+  }
+}

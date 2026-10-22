@@ -1,0 +1,140 @@
+{
+  "meta": {
+    "id": "drummer:igor-cavalera",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Igor Cavalera",
+    "full_name": "Igor Graziano Cavalera",
+    "born": {
+      "date": "1970-09-04"
+    },
+    "nationality": ["Brazilian"],
+    "home_scenes": ["Belo Horizonte"],
+    "active": {
+      "from": 1984,
+      "ongoing": true
+    },
+    "summary": "Sepultura's co-founder and drummer until 2006, later in Cavalera Conspiracy and Soulwax."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:thrash-metal",
+        "weight": 0.9,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:groove-metal",
+        "weight": 0.7,
+        "authority": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Sepultura",
+      "type": "band_member",
+      "years": {
+        "from": 1984,
+        "to": 2006
+      }
+    },
+    {
+      "name": "Cavalera Conspiracy",
+      "type": "band_member",
+      "years": {
+        "from": 2007,
+        "ongoing": true
+      }
+    },
+    {
+      "name": "Nailbomb",
+      "type": "session_regular"
+    },
+    {
+      "name": "Soulwax",
+      "type": "band_member",
+      "years": {
+        "from": 2016,
+        "ongoing": true
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:sepultura-beneath-the-remains-1989",
+    "rec:sepultura-chaos-a-d-1993",
+    "rec:sepultura-roots-1996"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Brought Brazilian tribal drumming into metal on Sepultura's Chaos A.D. (the intro to 'Territory') and Roots, after mastering fast thrash on Beneath the Remains and Arise.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:igor-cavalera-wikipedia", "src:drumeo-best-50-metal-drummers"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Thrash metal drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Bill Ward",
+        "kind": "drummer",
+        "id": "drummer:bill-ward"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:igor-cavalera-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Dave Lombardo",
+        "kind": "drummer",
+        "id": "drummer:dave-lombardo"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:igor-cavalera-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Stewart Copeland",
+        "kind": "drummer",
+        "id": "drummer:stewart-copeland"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:igor-cavalera-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Roger Taylor",
+        "kind": "drummer",
+        "id": "drummer:roger-taylor"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:igor-cavalera-wikipedia"]
+      }
+    }
+  ]
+}

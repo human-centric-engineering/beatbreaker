@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "id": "drummer:keith-carlock",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Keith Carlock",
+    "full_name": "Bryan Keith Carlock",
+    "nationality": ["American"],
+    "roles": ["session", "touring", "band_member"],
+    "born": {
+      "date": "1971-11-29",
+      "place": "Clinton, Mississippi",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:keith-carlock-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1995,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Steely Dan's and Toto's drummer, and Wayne Krantz's trio drummer, known for playing between groove and improvisation."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Steely Dan",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2003
+      }
+    },
+    {
+      "name": "Toto",
+      "type": "band_member",
+      "years": {
+        "from": 2014
+      }
+    },
+    {
+      "name": "Wayne Krantz",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": ["rec:steely-dan-two-against-nature-2000", "rec:toto-toto-xiv-2015"],
+  "legacy": {
+    "contribution": {
+      "description": "Became the drummer of choice for Steely Dan, Toto and Wayne Krantz's improvising trio, and was voted best Pop, Fusion and All-Around drummer in Modern Drummer's 2009 Readers Poll.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:keith-carlock-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 2
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "id": "drummer:joey-baron",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Joey Baron",
+    "full_name": "Bernard Joseph Baron",
+    "born": {
+      "date": "1955-06-26",
+      "place": "Richmond, Virginia",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-baron-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York downtown (1980s-1990s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1974,
+      "ongoing": true
+    },
+    "summary": "John Zorn's and Bill Frisell's drummer, a downtown player who can switch genre mid-bar."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 0.7,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.6,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Naked City",
+      "type": "band_member",
+      "years": {
+        "from": 1988,
+        "to": 1993
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:joey-baron-wikipedia"]
+      }
+    },
+    {
+      "name": "Masada",
+      "type": "band_member",
+      "years": {
+        "from": 1993
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:joey-baron-wikipedia"]
+      }
+    },
+    {
+      "name": "Bill Frisell Band",
+      "type": "band_member",
+      "years": {
+        "from": 1986,
+        "to": 1994
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:joey-baron-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:naked-city-naked-city-1990",
+    "rec:bill-frisell-have-a-little-faith-1992",
+    "rec:masada-alef-1994"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of New York's downtown scene, best known for avant-garde jazz with Bill Frisell and John Zorn, in Naked City and Masada among other bands.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:joey-baron-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 2
+  }
+}

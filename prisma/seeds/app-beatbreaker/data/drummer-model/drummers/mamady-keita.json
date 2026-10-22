@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "id": "drummer:mamady-keita",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Mamady Keïta",
+    "born": {
+      "date": "1950-08",
+      "place": "Balandougou, Guinea",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mamady-keita-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2021-06-21",
+      "place": "Brussels, Belgium"
+    },
+    "nationality": ["Guinean"],
+    "home_scenes": ["Conakry (Djoliba National Ballet)", "Brussels"],
+    "setup_type": "hand_percussion",
+    "primary_instruments": ["djembe"],
+    "active": {
+      "from": 1964,
+      "to": 2021
+    },
+    "roles": ["bandleader", "educator", "percussionist"],
+    "summary": "Guinean djembe master: lead soloist of the Djoliba National Ballet from 1965 and its artistic director from 1979, then founder of the Tam Tam Mandingue school in Brussels (1991) and its branches across Europe, North America and Asia."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:west-african",
+        "weight": 1,
+        "authority": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Djoliba National Ballet",
+      "type": "ensemble",
+      "years": {
+        "from": 1964,
+        "to": 1986
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mamady-keita-wikipedia"]
+      }
+    },
+    {
+      "name": "Ballet Koteba",
+      "type": "ensemble",
+      "years": {
+        "from": 1986
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mamady-keita-wikipedia"]
+      }
+    },
+    {
+      "name": "Sewa Kan",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mamady-keita-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:mamady-keita-wassolon-1989",
+    "rec:mamady-keita-nankama-1992",
+    "rec:mamady-keita-famoudou-konate-hamanah-1996"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Took the Malinke djembe from Guinea’s national ballet to the world through his Tam Tam Mandingue schools, each run by a director he certified, and a large body of teaching CDs, DVDs and a book.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mamady-keita-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "West African traditional drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Famoudou Konaté",
+        "kind": "drummer",
+        "id": "drummer:famoudou-konate"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mamady-keita-wikipedia"]
+      }
+    }
+  ]
+}

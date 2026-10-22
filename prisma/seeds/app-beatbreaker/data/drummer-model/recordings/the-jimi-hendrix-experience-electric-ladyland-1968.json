@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-jimi-hendrix-experience-electric-ladyland-1968",
+  "title": "Electric Ladyland",
+  "artist": "The Jimi Hendrix Experience",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-miles",
+      "name": "Buddy Miles",
+      "drummer_role": "co_drummer"
+    },
+    {
+      "drummer_id": "drummer:mitch-mitchell",
+      "name": "Mitch Mitchell",
+      "drummer_role": "co_drummer"
+    }
+  ]
+}

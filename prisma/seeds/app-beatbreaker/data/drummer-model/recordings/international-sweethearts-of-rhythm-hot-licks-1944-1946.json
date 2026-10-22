@@ -1,0 +1,20 @@
+{
+  "id": "rec:international-sweethearts-of-rhythm-hot-licks-1944-1946",
+  "title": "Hot Licks 1944-1946",
+  "artist": "International Sweethearts of Rhythm",
+  "year": 1944,
+  "type": "album",
+  "style_ids": ["style:big-band-swing"],
+  "release": "Rosetta Records compilation",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pauline-braddy",
+      "name": "Pauline Braddy",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:international-sweethearts-of-rhythm-wikipedia"]
+  }
+}

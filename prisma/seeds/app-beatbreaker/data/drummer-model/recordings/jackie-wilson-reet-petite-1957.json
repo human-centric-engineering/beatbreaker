@@ -1,0 +1,14 @@
+{
+  "id": "rec:jackie-wilson-reet-petite-1957",
+  "title": "Reet Petite",
+  "artist": "Jackie Wilson",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:panama-francis",
+      "name": "Panama Francis"
+    }
+  ]
+}

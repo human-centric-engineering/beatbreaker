@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-drifters-save-the-last-dance-for-me-1960",
+  "title": "Save the Last Dance for Me",
+  "artist": "The Drifters",
+  "year": 1960,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:gary-chester-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gary-chester",
+      "name": "Gary Chester",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

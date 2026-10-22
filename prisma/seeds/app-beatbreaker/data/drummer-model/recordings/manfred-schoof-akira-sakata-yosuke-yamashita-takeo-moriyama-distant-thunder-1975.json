@@ -1,0 +1,25 @@
+{
+  "id": "rec:manfred-schoof-akira-sakata-yosuke-yamashita-takeo-moriyama-distant-thunder-1975",
+  "title": "Distant Thunder",
+  "artist": "Manfred Schoof, Akira Sakata, Yosuke Yamashita, Takeo Moriyama",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:takeo-moriyama",
+      "name": "Takeo Moriyama",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Enja, with Manfred Schoof.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:takeo-moriyama-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:takeo-moriyama-wikipedia"]
+  }
+}

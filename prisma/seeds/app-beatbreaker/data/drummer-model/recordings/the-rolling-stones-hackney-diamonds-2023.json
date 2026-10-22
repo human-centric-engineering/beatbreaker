@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-rolling-stones-hackney-diamonds-2023",
+  "title": "Hackney Diamonds",
+  "artist": "The Rolling Stones",
+  "year": 2023,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:steve-jordan-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-jordan",
+      "name": "Steve Jordan",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

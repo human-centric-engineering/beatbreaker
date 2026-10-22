@@ -1,0 +1,19 @@
+{
+  "id": "rec:frances-carroll-and-her-coquettes-1939",
+  "title": "Frances Carroll & Her Coquettes featuring Drummer Viola Smith",
+  "artist": "Frances Carroll and Her Coquettes",
+  "year": 1939,
+  "type": "video",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:viola-smith",
+      "name": "Viola Smith",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:viola-smith-wikipedia"]
+  }
+}

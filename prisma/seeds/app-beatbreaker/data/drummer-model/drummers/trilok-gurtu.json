@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "id": "drummer:trilok-gurtu",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Trilok Gurtu",
+    "born": {
+      "date": "1951-10-30",
+      "place": "Mumbai, India",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:trilok-gurtu-wikipedia"]
+      }
+    },
+    "nationality": ["Indian"],
+    "home_scenes": ["European jazz (from 1970s)"],
+    "setup_type": "multi_percussion",
+    "primary_instruments": ["drum kit", "tabla", "percussion"],
+    "active": {
+      "from": 1975,
+      "ongoing": true
+    },
+    "roles": ["band_member", "bandleader", "percussionist"],
+    "summary": "Indian drummer and percussionist who mixes tabla with a Western kit, often half-kneeling on the floor with a kick pedal on a large drumhead and cymbals dipped in water; in Oregon after Collin Walcott, in John McLaughlin’s trio, and a founder of Tabla Beat Science. Down Beat Critics Poll best percussionist seven times (1994-2002)."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:hindustani-classical",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Oregon",
+      "type": "band_member",
+      "years": {
+        "from": 1987,
+        "to": 1991
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:trilok-gurtu-wikipedia"]
+      }
+    },
+    {
+      "name": "John McLaughlin Trio",
+      "type": "band_member",
+      "years": {
+        "from": 1988
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:trilok-gurtu-wikipedia"]
+      }
+    },
+    {
+      "name": "Tabla Beat Science",
+      "type": "band_member",
+      "years": {
+        "from": 1999,
+        "to": 2003
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:trilok-gurtu-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:trilok-gurtu-usfret-1988",
+    "rec:oregon-ecotopia-1987",
+    "rec:john-mclaughlin-trio-live-at-the-royal-festival-hall-1990"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Built a hybrid of kit and Indian percussion played from the floor, with water-dipped cymbals and shells, that joined Indian rhythm to jazz fusion; seven times Down Beat’s critics’ best percussionist.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:trilok-gurtu-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Indian film and fusion drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Zakir Hussain",
+        "kind": "drummer",
+        "id": "drummer:zakir-hussain"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:trilok-gurtu-wikipedia"]
+      }
+    }
+  ]
+}

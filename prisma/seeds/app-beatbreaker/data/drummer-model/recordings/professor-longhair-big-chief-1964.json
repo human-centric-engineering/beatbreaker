@@ -1,0 +1,14 @@
+{
+  "id": "rec:professor-longhair-big-chief-1964",
+  "title": "Big Chief",
+  "artist": "Professor Longhair",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-funk", "style:new-orleans-second-line"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:smokey-johnson",
+      "name": "Smokey Johnson"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:porno-for-pyros-porno-for-pyros-1993",
+  "title": "Porno for Pyros",
+  "artist": "Porno for Pyros",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:alternative-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:stephen-perkins-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stephen-perkins",
+      "name": "Stephen Perkins",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

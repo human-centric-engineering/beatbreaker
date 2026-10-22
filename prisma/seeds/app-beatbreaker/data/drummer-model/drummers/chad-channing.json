@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "id": "drummer:chad-channing",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Chad Channing",
+    "born": {
+      "date": "1967-01-31",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-channing-wikipedia"]
+      },
+      "place": "Santa Rosa, California"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Seattle and Olympia, late 1980s"],
+    "active": {
+      "from": 1987,
+      "ongoing": true
+    },
+    "summary": "Nirvana's drummer on Bleach."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:grunge",
+        "weight": 1.0,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Nirvana",
+      "type": "band_member",
+      "years": {
+        "from": 1988,
+        "to": 1990
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-channing-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummed on Nirvana's debut Bleach (1989) and on 'Polly'; Dave Grohl kept and adapted Channing's parts for many of the songs he inherited.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-channing-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Grunge drummers",
+    "build_priority": 3
+  },
+  "key_recording_ids": ["rec:nirvana-bleach-1989", "rec:nirvana-incesticide-1992"],
+  "relationships": [
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Dave Grohl",
+        "kind": "drummer",
+        "id": "drummer:dave-grohl"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:chad-channing-wikipedia"]
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Dale Crover",
+        "kind": "drummer",
+        "id": "drummer:dale-crover"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:chad-channing-wikipedia"]
+      }
+    }
+  ]
+}

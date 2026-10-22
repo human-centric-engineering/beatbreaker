@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "id": "drummer:jerry-nolan",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jerry Nolan",
+    "full_name": "Gerard Nolan",
+    "born": {
+      "date": "1946-05-07",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jerry-nolan-wikipedia"]
+      },
+      "place": "Brooklyn, New York"
+    },
+    "died": {
+      "date": "1992-01-14"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York, early 1970s"],
+    "active": {
+      "from": 1968,
+      "to": 1991
+    },
+    "summary": "Drummer of the New York Dolls and Johnny Thunders' Heartbreakers."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:punk",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:glam-rock",
+        "weight": 0.6,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "New York Dolls",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1975
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jerry-nolan-wikipedia", "src:marky-ramone-wikipedia"]
+      }
+    },
+    {
+      "name": "The Heartbreakers",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1977
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jerry-nolan-wikipedia", "src:marky-ramone-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Kept the New York Dolls' beat straight where rivals overplayed (Marky Ramone, who lost the audition to him), the plain hard drive under the Dolls and the Heartbreakers.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jerry-nolan-wikipedia", "src:marky-ramone-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Punk drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:new-york-dolls-new-york-dolls-1973",
+    "rec:new-york-dolls-too-much-too-soon-1974",
+    "rec:the-heartbreakers-lamf-1977"
+  ]
+}

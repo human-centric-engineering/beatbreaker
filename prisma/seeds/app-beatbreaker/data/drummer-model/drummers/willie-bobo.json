@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "id": "drummer:willie-bobo",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Willie Bobo",
+    "full_name": "William Correa",
+    "born": {
+      "date": "1934-02-28",
+      "place": "East Harlem, New York"
+    },
+    "died": {
+      "date": "1983-09-15"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York", "Los Angeles"],
+    "active": {
+      "from": 1948,
+      "to": 1983
+    },
+    "summary": "Timbales player and drummer from Machito's, Tito Puente's and Cal Tjader's bands who led his own Latin soul group."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:salsa",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Tito Puente",
+      "type": "band_member",
+      "years": {
+        "from": 1954,
+        "to": 1957
+      }
+    },
+    {
+      "name": "Cal Tjader Modern Mambo Quintet",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:willie-bobo-spanish-grease-1965",
+    "rec:cal-tjader-soul-sauce-1965",
+    "rec:miles-davis-sorcerer-1967"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Noted for his versatility 'as an authentic Latin percussionist as well as a jazz drummer', and he rejected the stereotypes of Latin music, mixing it with soul and jazz.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-willie-bobo"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Afro-Cuban and Latin jazz drummers",
+    "build_priority": 1
+  }
+}

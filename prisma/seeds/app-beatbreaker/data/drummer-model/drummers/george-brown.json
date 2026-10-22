@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "drummer:george-brown",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "George \"Funky\" Brown",
+    "full_name": "George Brown",
+    "born": {
+      "date": "1949-01-15",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:george-brown-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2023-11-17"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Jersey City"],
+    "active": {
+      "from": 1964,
+      "to": 2023
+    },
+    "summary": "Founding drummer of Kool & the Gang."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:disco",
+        "weight": 0.5
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Kool & the Gang",
+      "type": "band_member",
+      "years": {
+        "from": 1964,
+        "to": 2023
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:kool-and-the-gang-jungle-boogie-1973",
+    "rec:kool-and-the-gang-celebration-1980"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Co-founded Kool & the Gang and played the beat on \"Jungle Boogie\", \"Hollywood Swinging\", \"Ladies' Night\" and \"Celebration\".",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:george-brown-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Funk drummers",
+    "build_priority": 2
+  }
+}

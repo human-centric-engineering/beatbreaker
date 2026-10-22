@@ -1,0 +1,25 @@
+{
+  "id": "rec:peter-brotzmann-octet-machine-gun-1968",
+  "title": "Machine Gun",
+  "artist": "Peter Brötzmann Octet",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:han-bennink",
+      "name": "Han Bennink",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "European free jazz at full force.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:han-bennink-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:han-bennink-wikipedia"]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:elvis-costello-spike-1989",
+  "title": "Spike",
+  "artist": "Elvis Costello",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:new-orleans-second-line"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lionel-batiste",
+      "name": "\"Uncle\" Lionel Batiste"
+    }
+  ]
+}

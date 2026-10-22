@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "id": "drummer:christian-vander",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Christian Vander",
+    "born": {
+      "date": "1948",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:christian-vander-musician-wikipedia"]
+      }
+    },
+    "nationality": ["French"],
+    "active": {
+      "from": 1969,
+      "ongoing": true
+    },
+    "summary": "French drummer, composer and singer who founded Magma."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Magma",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:christian-vander-musician-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:magma-mekanik-destruktiw-kommandoh-1973"],
+  "legacy": {
+    "contribution": {
+      "description": "Created the 'zeuhl' style with Magma, driving it with a fierce, rolling, loose-but-clear time drawn from Elvin Jones and John Coltrane's music.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:christian-vander-musician-wikipedia",
+          "src:rollingstone-100-drummers-2016"
+        ]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:rollingstone-100-drummers-2016"]
+      },
+      "scope": "individual"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:art-taylor",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Art Taylor",
+    "full_name": "Arthur S. Taylor Jr.",
+    "born": {
+      "date": "1929-04-06",
+      "place": "New York City",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:art-taylor-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1995-02-06"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York hard bop (1950s)", "Paris (1963-1984)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1948,
+      "to": 1995
+    },
+    "summary": "A drummer who helped define hard bop, on Prestige and Blue Note and on Coltrane's Giant Steps."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-bop",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:bebop",
+        "weight": 0.5,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Art Taylor's Wailers",
+      "type": "bandleader",
+      "years": {
+        "from": 1957,
+        "to": 1995
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:art-taylor-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:john-coltrane-soultrane-1958",
+    "rec:john-coltrane-giant-steps-1960",
+    "rec:art-taylor-taylors-wailers-1957"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A drummer who \"helped define the sound of hard bop\", on Prestige and Blue Note sessions of the 1950s and on John Coltrane's Giant Steps.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:art-taylor-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard bop drummers",
+    "build_priority": 2
+  }
+}

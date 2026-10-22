@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "id": "drummer:sterling-campbell",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Sterling Campbell",
+    "nationality": ["American"],
+    "roles": ["session", "touring", "band_member"],
+    "born": {
+      "date": "1964-05-03",
+      "place": "New York City",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sterling-campbell-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1986,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "New York drummer for David Bowie (1992-2004), Duran Duran, Soul Asylum and the B-52s."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.9
+      },
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "David Bowie",
+      "type": "band_member",
+      "years": {
+        "from": 1992,
+        "to": 2004
+      }
+    },
+    {
+      "name": "Duran Duran",
+      "type": "band_member",
+      "years": {
+        "from": 1989,
+        "to": 1991
+      }
+    },
+    {
+      "name": "Soul Asylum",
+      "type": "band_member",
+      "years": {
+        "from": 1995,
+        "to": 1998
+      }
+    },
+    {
+      "name": "The B-52s",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2007,
+        "to": 2012
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:soul-asylum-grave-dancers-union-1992"],
+  "legacy": {
+    "contribution": {
+      "description": "Was David Bowie's drummer for twelve years (1992-2004) and held the drum chair in Duran Duran, Soul Asylum and the B-52s, the go-to New York rock drummer for bands that needed one.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sterling-campbell-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 3
+  }
+}

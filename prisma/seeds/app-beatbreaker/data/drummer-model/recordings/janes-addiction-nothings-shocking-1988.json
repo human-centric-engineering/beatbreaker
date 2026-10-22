@@ -1,0 +1,20 @@
+{
+  "id": "rec:janes-addiction-nothings-shocking-1988",
+  "title": "Nothing's Shocking",
+  "artist": "Jane's Addiction",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:alternative-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:stephen-perkins-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stephen-perkins",
+      "name": "Stephen Perkins",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

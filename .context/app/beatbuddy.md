@@ -174,9 +174,11 @@ disagree.
   Studio's picker does. A tempo under the floor (100 with a section at ×½) is
   `tempo_out_of_range`.
 - **The drummer records (11-f) are read, not searched.** `find_drummers` lists
-  every drummer with a record (first sentence of the summary, eight
+  every built drummer (first sentence of the summary, eight
   descriptors, the style key), or those where every word of a query starts a
-  word of theirs, plus the people the records only name (`modelled: false`);
+  word of theirs: built drummers, candidates from the long list (15-a,
+  `candidate: true`, every one that matches), and up to ten of the people
+  the records only name (`modelled: false`);
   a query that matches nothing, or has no word in it, says to call it with
   none. `get_drummer` finds a person by exact name before slug, and never a
   genre, which has no page. It returns what `/drummers/[slug]` shows, through the same `readDrummerRecord`, so a masked

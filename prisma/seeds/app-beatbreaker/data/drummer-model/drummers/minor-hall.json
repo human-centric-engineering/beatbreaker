@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "id": "drummer:minor-hall",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Minor Hall",
+    "aliases": ["Ram Hall"],
+    "born": {
+      "date": "1897-03-02",
+      "place": "Sellers, Louisiana, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:minor-hall-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1959-10-16",
+      "place": "Sawtelle, California, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "New Orleans (1910s)",
+      "Chicago with King Oliver (1920s)",
+      "Kid Ory's Creole Jazz Band, Los Angeles (1945-1956)"
+    ],
+    "active": {
+      "from": 1915,
+      "to": 1956
+    },
+    "summary": "New Orleans drummer of King Oliver's Chicago band and Kid Ory's revival band."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-jazz",
+        "weight": 1,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Kid Ory's Creole Jazz Band",
+      "type": "band_member",
+      "years": {
+        "from": 1945,
+        "to": 1956
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:minor-hall-wikipedia"]
+      }
+    },
+    {
+      "name": "King Oliver's Creole Jazz Band",
+      "type": "band_member",
+      "years": {
+        "from": 1921,
+        "to": 1922
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:minor-hall-wikipedia"]
+      }
+    },
+    {
+      "name": "Mutt Carey's Jeffersonians",
+      "type": "band_member",
+      "years": {
+        "from": 1927,
+        "to": 1932
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:minor-hall-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:kid-ory-kid-orys-creole-jazz-band-1954"],
+  "legacy": {
+    "contribution": {
+      "description": "Carried New Orleans drumming from King Oliver's 1921 band to the 1940s revival. He was the long-serving drummer of Kid Ory's Creole Jazz Band (1945-56), whose records brought the original style back.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:minor-hall-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans and early jazz drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "family",
+      "target": {
+        "name": "Tubby Hall",
+        "kind": "drummer",
+        "id": "drummer:tubby-hall"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:minor-hall-wikipedia"]
+      }
+    }
+  ]
+}

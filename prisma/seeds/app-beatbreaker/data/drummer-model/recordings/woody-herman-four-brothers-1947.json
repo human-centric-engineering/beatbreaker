@@ -1,0 +1,19 @@
+{
+  "id": "rec:woody-herman-four-brothers-1947",
+  "title": "Four Brothers",
+  "artist": "Woody Herman and His Orchestra",
+  "year": 1947,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:bebop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:don-lamond",
+      "name": "Don Lamond",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:don-lamond-wikipedia"]
+  }
+}

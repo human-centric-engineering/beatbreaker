@@ -1,0 +1,19 @@
+{
+  "id": "rec:mills-blue-rhythm-band-ride-red-ride-1935",
+  "title": "Ride, Red, Ride",
+  "artist": "Mills Blue Rhythm Band",
+  "year": 1935,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:oneil-spencer",
+      "name": "O'Neil Spencer",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:oneil-spencer-wikipedia"]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:grp-all-star-big-band-grp-all-star-big-band-1992",
+  "title": "GRP All-Star Big Band",
+  "artist": "GRP All-Star Big Band",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:big-band-swing", "style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:dave-weckl-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-weckl",
+      "name": "Dave Weckl",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

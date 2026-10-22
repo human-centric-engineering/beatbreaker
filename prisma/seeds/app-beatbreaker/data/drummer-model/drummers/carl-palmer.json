@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "id": "drummer:carl-palmer",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Carl Palmer",
+    "full_name": "Carl Frederick Kendall Palmer",
+    "born": {
+      "date": "1950",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1966,
+      "ongoing": true
+    },
+    "summary": "English drummer of Emerson, Lake & Palmer, Atomic Rooster and Asia; Modern Drummer Hall of Fame, 1989."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Crazy World of Arthur Brown",
+      "type": "touring_drummer",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"]
+      }
+    },
+    {
+      "name": "Atomic Rooster",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 1970
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"]
+      }
+    },
+    {
+      "name": "Emerson, Lake & Palmer",
+      "type": "band_member",
+      "years": {
+        "from": 1970
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"]
+      }
+    },
+    {
+      "name": "Asia",
+      "type": "band_member",
+      "years": {
+        "from": 1981
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:emerson-lake-and-palmer-tarkus-1971",
+    "rec:emerson-lake-and-palmer-brain-salad-surgery-1973",
+    "rec:asia-asia-1982"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Brought big-band and jazz technique (Krupa, Rich, Morello, Blakey) to progressive rock, playing complex double bass drum patterns and gongs in ELP; Modern Drummer Hall of Fame 1989, cited as an influence by Neil Peart.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia", "src:peart-rhythm-1987"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 1
+  }
+}

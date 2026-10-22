@@ -1,0 +1,25 @@
+{
+  "id": "rec:modern-jazz-quartet-django-1956",
+  "title": "Django",
+  "artist": "Modern Jazz Quartet",
+  "year": 1956,
+  "type": "album",
+  "style_ids": ["style:bebop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenny-clarke",
+      "name": "Kenny Clarke",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The first MJQ, before Connie Kay.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kenny-clarke-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:kenny-clarke-wikipedia"]
+  }
+}

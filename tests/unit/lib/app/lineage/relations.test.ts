@@ -15,6 +15,7 @@ function node(id: string, label: string): LineageNode {
     kind: 'drummer',
     label,
     modelled: false,
+    candidate: false,
     activeFrom: null,
     activeTo: null,
     styleKey: null,

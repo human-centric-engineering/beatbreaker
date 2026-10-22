@@ -1,0 +1,19 @@
+{
+  "id": "rec:robert-glasper-experiment-black-radio-2-2013",
+  "title": "Black Radio 2",
+  "artist": "Robert Glasper Experiment",
+  "year": 2013,
+  "type": "album",
+  "style_ids": ["style:neo-soul", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mark-colenburg",
+      "why_it_matters": "Grammy-nominated for Best R&B Album."
+    }
+  ],
+  "release": "Blue Note",
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:mark-colenburg-wikipedia"]
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:bobby-elliott",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Bobby Elliott",
+    "full_name": "Robert Hartley Elliott",
+    "born": {
+      "date": "1941",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bobby-elliott-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1960,
+      "ongoing": true
+    },
+    "summary": "The Hollies' drummer since 1963, jazz-trained, called one of the finest drummers in pop and rock."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:merseybeat",
+        "weight": 0.9,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Hollies",
+      "type": "band_member",
+      "years": {
+        "from": 1963
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bobby-elliott-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-hollies-bus-stop-1966",
+    "rec:the-hollies-carrie-anne-1967",
+    "rec:the-hollies-he-ain-t-heavy-he-s-my-brother-1969"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A jazz drummer turned rock and roll player, described as \"one of the very finest drummers in all of pop/rock\"; Ian Paice, Cozy Powell, Gilson Lavis and Ric Lee name him as an influence.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bobby-elliott-wikipedia", "src:ian-paice-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "British Invasion drummers",
+    "build_priority": 2
+  }
+}

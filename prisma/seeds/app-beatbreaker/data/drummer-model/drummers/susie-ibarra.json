@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "id": "drummer:susie-ibarra",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Susie Ibarra",
+    "born": {
+      "date": "1970-11-15",
+      "place": "Anaheim, California",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:susie-ibarra-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York avant-garde (1990s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1990,
+      "ongoing": true
+    },
+    "summary": "Composer and percussionist who brings Philippine kulintang into avant-garde jazz; 2025 Pulitzer Prize winner."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 1.0,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "David S. Ware Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1996,
+        "to": 2000
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:susie-ibarra-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:david-s-ware-quartet-go-see-the-world-1998",
+    "rec:susie-ibarra-flower-after-flower-2000"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A percussionist and composer who brings Philippine kulintang into avant-garde jazz and new music, one of SPIN's \"100 Greatest Drummers of Alternative Music\", and winner of the 2025 Pulitzer Prize for Music.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:susie-ibarra-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 2
+  }
+}

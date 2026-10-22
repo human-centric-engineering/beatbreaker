@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:alex-acuna",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Alex Acuña",
+    "full_name": "Alejandro Neciosup Acuña",
+    "nationality": ["Peruvian", "American"],
+    "roles": ["band_member", "session", "percussionist", "educator"],
+    "born": {
+      "date": "1944-12-12",
+      "place": "Pativilca, Peru",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alex-acuna-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1962,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit", "percussion"],
+    "summary": "Peruvian drummer and percussionist of Weather Report's Heavy Weather line-up, later a Los Angeles session player and teacher.",
+    "home_scenes": ["Los Angeles sessions"]
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.9,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Pérez Prado",
+      "type": "band_member"
+    },
+    {
+      "name": "Weather Report",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1978
+      }
+    },
+    {
+      "name": "Koinonia",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:weather-report-black-market-1976",
+    "rec:weather-report-heavy-weather-1977"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Brought Peruvian and Latin percussion into Weather Report's Black Market and Heavy Weather (1976-1977), and then taught it at UCLA and Berklee.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:alex-acuna-wikipedia", "src:wikipedia-alex-acuna"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 2
+  }
+}

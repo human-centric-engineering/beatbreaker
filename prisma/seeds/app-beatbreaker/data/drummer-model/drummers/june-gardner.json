@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "id": "drummer:june-gardner",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "June Gardner",
+    "full_name": "Albert Gardner",
+    "born": {
+      "date": "1930-12-31",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:june-gardner-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2010-11-19"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans", "Cosimo Matassa's studio"],
+    "active": {
+      "from": 1945,
+      "to": 2010
+    },
+    "summary": "New Orleans R&B and jazz drummer and bandleader for six decades, and Sam Cooke's road drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-second-line",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Sam Cooke's band",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1960,
+        "to": 1964
+      }
+    },
+    {
+      "name": "June Gardner and the Fellas",
+      "type": "bandleader",
+      "years": {
+        "to": 2010
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:june-gardner-and-the-fellas-tin-roof-blues-live-at-jazz-fest-2001"],
+  "legacy": {
+    "contribution": {
+      "description": "Came up through the New Orleans parade and apprentice tradition, competed for the first-call chair at Cosimo Matassa's studio after Earl Palmer left, and toured as Sam Cooke's drummer.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:june-gardner-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans R&B and funk drummers",
+    "build_priority": 3
+  }
+}

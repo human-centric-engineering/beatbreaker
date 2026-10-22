@@ -1,0 +1,31 @@
+{
+  "id": "style:new-orleans-jazz",
+  "name": "New Orleans jazz",
+  "aliases": ["Traditional jazz", "Dixieland", "Hot jazz"],
+  "kind": "genre",
+  "parents": [
+    {
+      "style_id": "style:new-orleans-second-line",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:baby-dodds-wikipedia", "src:bourbon-street-parade-wikipedia"]
+      }
+    }
+  ],
+  "region": "New Orleans, then Chicago and New York",
+  "era": {
+    "from": 1900,
+    "to": 1930
+  },
+  "summary": "The first jazz: collective improvisation over a two-beat or four-beat march-derived pulse, the drummer holding time on bass drum and snare press rolls, with woodblocks, cowbells and cymbal chokes for colour. Revived from the 1940s.",
+  "drum_characteristics": {
+    "feel": "Two-beat and four-beat swing",
+    "hallmarks": [
+      "press rolls",
+      "bass drum on the beat",
+      "woodblock and cowbell colour",
+      "parade-drumming roots"
+    ]
+  }
+}

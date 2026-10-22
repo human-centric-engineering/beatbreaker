@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "id": "drummer:aynsley-dunbar",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Aynsley Dunbar",
+    "full_name": "Aynsley Thomas Dunbar",
+    "born": {
+      "date": "1946",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:aynsley-dunbar-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1963,
+      "ongoing": true
+    },
+    "summary": "English journeyman drummer for John Mayall, Frank Zappa, David Bowie, Journey and Whitesnake."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.5
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "John Mayall & the Bluesbreakers",
+      "type": "band_member",
+      "years": {
+        "from": 1966,
+        "to": 1967
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:aynsley-dunbar-wikipedia"]
+      }
+    },
+    {
+      "name": "The Aynsley Dunbar Retaliation",
+      "type": "bandleader",
+      "years": {
+        "from": 1967,
+        "to": 1970
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:aynsley-dunbar-wikipedia"]
+      }
+    },
+    {
+      "name": "Frank Zappa / The Mothers",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 1972
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:aynsley-dunbar-wikipedia"]
+      }
+    },
+    {
+      "name": "Journey",
+      "type": "band_member",
+      "years": {
+        "from": 1974,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:aynsley-dunbar-wikipedia"]
+      }
+    },
+    {
+      "name": "Whitesnake",
+      "type": "band_member",
+      "years": {
+        "from": 1985,
+        "to": 1987
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:aynsley-dunbar-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:john-mayall-and-the-bluesbreakers-a-hard-road-1967",
+    "rec:frank-zappa-waka-jawaka-1972",
+    "rec:frank-zappa-the-grand-wazoo-1972"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A versatile drummer who carried the British blues boom into Zappa's jazz-rock (Waka/Jawaka, The Grand Wazoo, 200 Motels) and then Journey's arena rock; ranked by Rolling Stone as the 27th greatest drummer of all time.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:aynsley-dunbar-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blues and psychedelic rock drummers",
+    "build_priority": 2
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "id": "drummer:alex-duthart",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "setup_type has no value for a single marching snare; drum_kit is the nearest. No recordings in the source."
+    ]
+  },
+  "identity": {
+    "name": "Alex Duthart",
+    "born": {
+      "date": "1925-10-07",
+      "place": "Cambusnethan, near Wishaw, Scotland",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alex-duthart-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1986-11-27",
+      "place": "New York City"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Scottish pipe band contests"],
+    "setup_type": "drum_kit",
+    "primary_instruments": ["pipe band snare drum"],
+    "active": {
+      "from": 1937,
+      "to": 1986
+    },
+    "roles": ["band_member", "educator"],
+    "summary": "Scottish pipe band snare drummer and leading drummer of Dalzell, Shotts and Dykehead Caledonia, Invergordon Distillery and Edinburgh City Police pipe bands, winning world drumming titles with each; teacher of Jim Kilpatrick."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pipe-band",
+        "weight": 1,
+        "authority": 1
+      },
+      {
+        "style_id": "style:rudimental",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Shotts and Dykehead Caledonia Pipe Band",
+      "type": "band_member",
+      "years": {
+        "from": 1957,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alex-duthart-wikipedia"]
+      }
+    },
+    {
+      "name": "Dalzell Highland Pipe Band",
+      "type": "band_member",
+      "years": {
+        "from": 1942,
+        "to": 1957
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alex-duthart-wikipedia"]
+      }
+    },
+    {
+      "name": "Invergordon Distillery Pipe Band",
+      "type": "band_member",
+      "years": {
+        "from": 1964,
+        "to": 1967
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alex-duthart-wikipedia"]
+      }
+    },
+    {
+      "name": "Edinburgh City Police Pipe Band",
+      "type": "band_member",
+      "years": {
+        "from": 1968,
+        "to": 1969
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alex-duthart-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [],
+  "legacy": {
+    "contribution": {
+      "description": "Is \"widely regarded as having revolutionised pipe band snare drum playing\": he brought back-sticking and stick clicks into drum salutes and took up Basel-style drumming and Swiss notation.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alex-duthart-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pipe band drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "taught",
+      "target": {
+        "name": "Jim Kilpatrick",
+        "kind": "drummer",
+        "id": "drummer:jim-kilpatrick"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alex-duthart-wikipedia"]
+      }
+    }
+  ]
+}

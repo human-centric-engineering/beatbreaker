@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "id": "drummer:herman-ernest",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Herman Ernest III",
+    "born": {
+      "date": "1951-08-12",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:herman-ernest-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2011-03-06"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans"],
+    "active": {
+      "from": 1971,
+      "to": 2011
+    },
+    "summary": "Dr. John's drummer for thirty years and a New Orleans session drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-funk",
+        "weight": 1.0,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Dr. John's band",
+      "type": "band_member",
+      "years": {
+        "from": 1980,
+        "to": 2011
+      }
+    },
+    {
+      "name": "King Floyd's Rhythm Masters",
+      "type": "band_member",
+      "years": {
+        "from": 1971
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:labelle-nightbirds-1974", "rec:dr-john-tango-palace-1979"],
+  "legacy": {
+    "contribution": {
+      "description": "Dr. John's drummer for thirty years and a leading New Orleans funk session player, who called his own heavy style \"diesel funk\".",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:herman-ernest-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans R&B and funk drummers",
+    "build_priority": 3
+  }
+}

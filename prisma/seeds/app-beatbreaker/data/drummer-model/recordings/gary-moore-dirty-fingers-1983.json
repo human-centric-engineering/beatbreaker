@@ -1,0 +1,19 @@
+{
+  "id": "rec:gary-moore-dirty-fingers-1983",
+  "title": "Dirty Fingers",
+  "artist": "Gary Moore",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tommy-aldridge",
+      "name": "Tommy Aldridge",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:tommy-aldridge-wikipedia"]
+  }
+}

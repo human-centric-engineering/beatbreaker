@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "id": "drummer:john-french",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "John French",
+    "full_name": "John Stephen French",
+    "aliases": ["Drumbo"],
+    "born": {
+      "date": "1948-09-29",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:john-french-musician-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1966,
+      "ongoing": true
+    },
+    "summary": "Drumbo of Captain Beefheart's Magic Band, musical director of Trout Mask Replica."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Captain Beefheart and His Magic Band",
+      "type": "band_member",
+      "years": {
+        "from": 1966,
+        "to": 1980
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:john-french-musician-wikipedia"]
+      }
+    },
+    {
+      "name": "French Frith Kaiser Thompson",
+      "type": "band_member",
+      "years": {
+        "from": 1987,
+        "to": 1990
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:john-french-musician-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:captain-beefheart-and-his-magic-band-safe-as-milk-1967",
+    "rec:captain-beefheart-and-his-magic-band-trout-mask-replica-1969"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Brought a toms-heavy, polyrhythmic style and rhythmic superimposition to Captain Beefheart's music, and was arranger and music director of Trout Mask Replica (1969).",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:john-french-musician-wikipedia", "src:rollingstone-100-drummers-2016"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Experimental rock drummers",
+    "build_priority": 1
+  }
+}

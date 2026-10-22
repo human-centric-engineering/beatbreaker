@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "id": "drummer:louis-hayes",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Louis Hayes",
+    "born": {
+      "date": "1937-05-31",
+      "place": "Detroit, Michigan",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:louis-hayes-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Detroit", "New York hard bop (from 1956)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1955,
+      "ongoing": true
+    },
+    "summary": "Hard-bop drummer of Horace Silver's and Cannonball Adderley's quintets; an NEA Jazz Master."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-bop",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Horace Silver Quintet",
+      "type": "band_member",
+      "years": {
+        "from": 1956,
+        "to": 1959
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louis-hayes-wikipedia"]
+      }
+    },
+    {
+      "name": "Cannonball Adderley Quintet",
+      "type": "band_member",
+      "years": {
+        "from": 1959,
+        "to": 1965
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louis-hayes-wikipedia"]
+      }
+    },
+    {
+      "name": "McCoy Tyner Trio",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louis-hayes-wikipedia"]
+      }
+    },
+    {
+      "name": "Cannonball Legacy Band",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louis-hayes-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:horace-silver-blowin-the-blues-away-1959",
+    "rec:cannonball-adderley-the-cannonball-adderley-quintet-in-san-francisco-1959"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A hard-bop drummer of the Horace Silver and Cannonball Adderley quintets and McCoy Tyner's trio, who has led his own bands since 1989, including the Cannonball Legacy Band; named an NEA Jazz Master in 2023.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:louis-hayes-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard bop drummers",
+    "build_priority": 2
+  }
+}

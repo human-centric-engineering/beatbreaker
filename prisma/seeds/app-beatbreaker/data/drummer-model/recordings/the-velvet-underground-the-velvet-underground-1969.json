@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-velvet-underground-the-velvet-underground-1969",
+  "title": "The Velvet Underground",
+  "artist": "The Velvet Underground",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:garage-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:moe-tucker-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:moe-tucker",
+      "name": "Moe Tucker",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "id": "drummer:barry-altschul",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Barry Altschul",
+    "born": {
+      "date": "1943-01-06",
+      "place": "New York City",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:barry-altschul-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1964,
+      "ongoing": true
+    },
+    "summary": "Free and hard-bop drummer of Circle and of Dave Holland's Conference of the Birds."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:hard-bop",
+        "weight": 0.3,
+        "authority": 0.2
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Circle",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 1971
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:barry-altschul-wikipedia"]
+      }
+    },
+    {
+      "name": "Paul Bley",
+      "type": "band_member",
+      "years": {
+        "from": 1964,
+        "to": 1970
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:barry-altschul-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:circle-paris-concert-1972",
+    "rec:dave-holland-conference-of-the-birds-1973"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A free-jazz and hard-bop drummer who came to notice in the late 1960s with the pianists Paul Bley and Chick Corea, and drummed in Circle and Dave Holland's Conference of the Birds band.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:barry-altschul-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 2
+  }
+}

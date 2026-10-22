@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "id": "drummer:cliff-leeman",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Cliff Leeman",
+    "born": {
+      "date": "1913-09-10",
+      "place": "Portland, Maine, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cliff-leeman-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1986-04-26",
+      "place": "New York City, New York, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Swing bands (1938-1944)", "New York studios and Eddie Condon (1950s)"],
+    "active": {
+      "from": 1928,
+      "to": 1985
+    },
+    "summary": "'Mr. Time', drummer for Artie Shaw and Charlie Barnet, and on Bill Haley's early hits."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1
+      },
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Artie Shaw Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1938,
+        "to": 1939
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cliff-leeman-wikipedia"]
+      }
+    },
+    {
+      "name": "Charlie Barnet Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1940,
+        "to": 1943
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cliff-leeman-wikipedia"]
+      }
+    },
+    {
+      "name": "Woody Herman Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1943,
+        "to": 1944
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cliff-leeman-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:artie-shaw-begin-the-beguine-1938",
+    "rec:charlie-barnet-cherokee-1939"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "'Mr. Time': the steady swing-band drummer of Artie Shaw's and Charlie Barnet's bands, who took that time into rock and roll on some of Bill Haley & His Comets' early hits.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:cliff-leeman-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 3
+  }
+}

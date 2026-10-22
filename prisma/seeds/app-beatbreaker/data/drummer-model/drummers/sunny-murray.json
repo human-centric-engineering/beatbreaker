@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "id": "drummer:sunny-murray",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Sunny Murray",
+    "full_name": "James Marcellus Arthur Murray",
+    "born": {
+      "date": "1936-09-21",
+      "place": "Idabel, Oklahoma",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sunny-murray-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2017-12-07"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York free jazz (1960s)", "Paris"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1959,
+      "to": 2017
+    },
+    "summary": "A pioneer of free-jazz drumming, with Cecil Taylor and Albert Ayler."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 1.0,
+        "authority": 1.0
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Cecil Taylor Unit",
+      "type": "band_member",
+      "years": {
+        "from": 1959,
+        "to": 1964
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sunny-murray-wikipedia"]
+      }
+    },
+    {
+      "name": "Albert Ayler Trio",
+      "type": "band_member",
+      "years": {
+        "from": 1964,
+        "to": 1965
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sunny-murray-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:albert-ayler-spiritual-unity-1965",
+    "rec:cecil-taylor-nefertiti-the-beautiful-one-has-come-1965",
+    "rec:sunny-murray-sunnys-time-now-1966"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "One of the pioneers of free-jazz drumming, with Cecil Taylor and on Albert Ayler's Spiritual Unity.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sunny-murray-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 1
+  }
+}

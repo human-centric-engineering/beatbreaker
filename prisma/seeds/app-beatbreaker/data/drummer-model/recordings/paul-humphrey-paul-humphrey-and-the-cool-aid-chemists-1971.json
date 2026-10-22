@@ -1,0 +1,14 @@
+{
+  "id": "rec:paul-humphrey-paul-humphrey-and-the-cool-aid-chemists-1971",
+  "title": "Paul Humphrey & the Cool Aid Chemists",
+  "artist": "Paul Humphrey",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-humphrey",
+      "name": "Paul Humphrey"
+    }
+  ]
+}

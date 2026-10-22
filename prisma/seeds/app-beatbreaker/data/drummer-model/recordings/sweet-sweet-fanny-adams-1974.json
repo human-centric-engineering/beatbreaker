@@ -1,0 +1,19 @@
+{
+  "id": "rec:sweet-sweet-fanny-adams-1974",
+  "title": "Sweet Fanny Adams",
+  "artist": "Sweet",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:glam-rock", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-tucker",
+      "name": "Mick Tucker",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:mick-tucker-wikipedia"]
+  }
+}

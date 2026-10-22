@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "id": "drummer:honey-lantree",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Honey Lantree",
+    "full_name": "Anne Margot Lantree",
+    "born": {
+      "date": "1943",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:honey-lantree-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2018"
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1963,
+      "to": 2004
+    },
+    "summary": "Drummer and singer of the Honeycombs, one of the few women to drum in the British Invasion."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:merseybeat",
+        "weight": 1.0,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Honeycombs",
+      "type": "band_member",
+      "years": {
+        "from": 1963,
+        "to": 1967
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:honey-lantree-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:the-honeycombs-have-i-the-right-1964"],
+  "legacy": {
+    "contribution": {
+      "description": "Drummed on the Honeycombs' 1964 hit \"Have I the Right?\", and her pioneering role as one of the few prominent female drummers of the British Invasion inspired later musicians, Karen Carpenter among them.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:honey-lantree-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "British Invasion drummers",
+    "build_priority": 2
+  }
+}

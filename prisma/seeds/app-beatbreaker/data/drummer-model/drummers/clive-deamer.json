@@ -1,0 +1,134 @@
+{
+  "meta": {
+    "id": "drummer:clive-deamer",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Clive Deamer",
+    "nationality": ["British"],
+    "home_scenes": ["Bristol"],
+    "active": {
+      "from": 1983,
+      "ongoing": true
+    },
+    "summary": "Portishead's and Reprazent's drummer, and Radiohead's second drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:trip-hop",
+        "weight": 1.0,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:drum-and-bass",
+        "weight": 0.6,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.4
+      },
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Portishead",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1994
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-deamer-wikipedia"]
+      }
+    },
+    {
+      "name": "Roni Size & Reprazent",
+      "type": "band_member",
+      "years": {
+        "from": 1997
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-deamer-wikipedia"]
+      }
+    },
+    {
+      "name": "Get the Blessing",
+      "type": "band_member",
+      "years": {
+        "from": 2000
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-deamer-wikipedia"]
+      }
+    },
+    {
+      "name": "Radiohead",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2011
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-deamer-wikipedia"]
+      }
+    },
+    {
+      "name": "Hawkwind",
+      "type": "band_member",
+      "years": {
+        "from": 1983,
+        "to": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-deamer-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played by hand the breakbeat-driven drums of Portishead and of Reprazent's Mercury-winning New Forms; beside Phil Selway in Radiohead he 'almost mimicked a drum machine'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-deamer-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Trip hop drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:portishead-third-2008",
+    "rec:roni-size-and-reprazent-new-forms-1997",
+    "rec:portishead-roseland-nyc-live-1998"
+  ],
+  "relationships": [
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Phil Selway",
+        "kind": "drummer",
+        "id": "drummer:phil-selway"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:clive-deamer-wikipedia"]
+      }
+    }
+  ]
+}

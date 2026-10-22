@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "id": "drummer:airto-moreira",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Airto Moreira",
+    "full_name": "Airto Guimorvan Moreira",
+    "born": {
+      "date": "1941-08-05",
+      "place": "Itaiópolis, Brazil"
+    },
+    "nationality": ["Brazilian"],
+    "home_scenes": ["São Paulo", "New York"],
+    "active": {
+      "from": 1954,
+      "ongoing": true
+    },
+    "summary": "Brazilian drummer and percussionist of Quarteto Novo who took Brazilian percussion into early jazz fusion with Miles Davis, Weather Report and Return to Forever."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 1,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:samba",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Quarteto Novo",
+      "type": "band_member",
+      "years": {
+        "from": 1967,
+        "to": 1968
+      }
+    },
+    {
+      "name": "Miles Davis",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 1971
+      }
+    },
+    {
+      "name": "Weather Report",
+      "type": "band_member",
+      "years": {
+        "from": 1971,
+        "to": 1971
+      }
+    },
+    {
+      "name": "Return to Forever",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1972
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:quarteto-novo-quarteto-novo-1967",
+    "rec:return-to-forever-return-to-forever-1972",
+    "rec:return-to-forever-light-as-a-feather-1972"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Brought Brazilian percussion into the first jazz-fusion bands: he played in 'several of the most important projects' of the new form with Miles Davis, on Weather Report's first album, and drums on Return to Forever's first two records.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-airto-moreira"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 1
+  }
+}

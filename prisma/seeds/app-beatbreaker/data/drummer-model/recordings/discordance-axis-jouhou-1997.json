@@ -1,0 +1,14 @@
+{
+  "id": "rec:discordance-axis-jouhou-1997",
+  "title": "Jouhou",
+  "artist": "Discordance Axis",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:grindcore"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-witte",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

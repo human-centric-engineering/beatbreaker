@@ -1,0 +1,19 @@
+{
+  "id": "rec:ben-e-king-stand-by-me-1960",
+  "title": "Stand By Me",
+  "artist": "Ben E. King",
+  "year": 1960,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:gary-chester-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gary-chester",
+      "name": "Gary Chester",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

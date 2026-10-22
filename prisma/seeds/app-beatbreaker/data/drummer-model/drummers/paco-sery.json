@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "id": "drummer:paco-sery",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "The source says almost nothing about how he plays; find an interview or a drum-magazine profile before building.",
+      "Sixun start year (1985) is from memory, not the source."
+    ]
+  },
+  "identity": {
+    "name": "Paco Sery",
+    "born": {
+      "date": "1956-05-01",
+      "place": "Divo, Côte d’Ivoire",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:paco-sery-wikipedia"]
+      }
+    },
+    "nationality": ["Ivorian"],
+    "home_scenes": ["Paris"],
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "kalimba"],
+    "active": {
+      "from": 1976,
+      "ongoing": true
+    },
+    "roles": ["band_member", "bandleader", "composer", "percussionist"],
+    "summary": "Ivorian drummer, percussionist and bandleader in jazz fusion and world music: Joe Zawinul’s Syndicate (My People, Faces and Places), Sixun, Eddy Louiss, and records with Manu Dibango, Papa Wemba, Salif Keita and Ray Lema."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 1
+      },
+      {
+        "style_id": "style:west-african",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Zawinul Syndicate",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:paco-sery-wikipedia"]
+      }
+    },
+    {
+      "name": "Sixun",
+      "type": "band_member",
+      "years": {
+        "from": 1985
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:paco-sery-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:joe-zawinul-my-people-1996",
+    "rec:sixun-pygmees-1987",
+    "rec:paco-sery-voyages-2000"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "An African drummer at the centre of world-music jazz fusion: the drummer of Joe Zawinul’s Syndicate and of the French band Sixun, and of records by Manu Dibango, Salif Keita and Papa Wemba.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:paco-sery-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 3
+  }
+}

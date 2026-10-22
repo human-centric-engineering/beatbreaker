@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-beatles-ps-i-love-you-1962",
+  "title": "P.S. I Love You",
+  "artist": "The Beatles",
+  "year": 1962,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:andy-white-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:andy-white",
+      "name": "Andy White",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

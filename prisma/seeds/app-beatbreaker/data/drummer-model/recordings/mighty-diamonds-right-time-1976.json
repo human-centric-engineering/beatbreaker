@@ -50,6 +50,16 @@
         ],
         "note": "The album credits three drummers; the title track is his by his own account."
       }
+    },
+    {
+      "drummer_id": "drummer:leroy-wallace",
+      "name": "Leroy \"Horsemouth\" Wallace",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-leroy-wallace"]
+      }
     }
   ],
   "evidence": {

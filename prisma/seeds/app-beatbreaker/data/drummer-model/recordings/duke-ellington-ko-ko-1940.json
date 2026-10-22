@@ -1,0 +1,19 @@
+{
+  "id": "rec:duke-ellington-ko-ko-1940",
+  "title": "Ko-Ko",
+  "artist": "Duke Ellington and His Orchestra",
+  "year": 1940,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sonny-greer",
+      "name": "Sonny Greer",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:sonny-greer-wikipedia"]
+  }
+}

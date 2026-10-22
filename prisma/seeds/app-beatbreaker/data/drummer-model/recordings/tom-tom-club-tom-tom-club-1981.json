@@ -1,0 +1,20 @@
+{
+  "id": "rec:tom-tom-club-tom-tom-club-1981",
+  "title": "Tom Tom Club",
+  "artist": "Tom Tom Club",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:new-wave", "style:funk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:chris-frantz-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-frantz",
+      "name": "Chris Frantz",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

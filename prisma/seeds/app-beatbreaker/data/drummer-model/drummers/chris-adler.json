@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "id": "drummer:chris-adler",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Chris Adler",
+    "full_name": "Christopher James Adler",
+    "born": {
+      "date": "1972-11-23"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Richmond"],
+    "active": {
+      "from": 1994,
+      "ongoing": true
+    },
+    "summary": "Lamb of God's founding drummer, and Megadeth's on the Grammy-winning Dystopia."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:groove-metal",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:thrash-metal",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Lamb of God",
+      "type": "band_member",
+      "years": {
+        "from": 1994,
+        "to": 2019
+      }
+    },
+    {
+      "name": "Megadeth",
+      "type": "session_regular",
+      "years": {
+        "from": 2015,
+        "to": 2016
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:lamb-of-god-ashes-of-the-wake-2004",
+    "rec:lamb-of-god-sacrament-2006",
+    "rec:megadeth-dystopia-2016"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Made double-bass patterns that shadow the guitar riffs the core of modern American groove metal in Lamb of God, winning Modern Drummer Readers' Polls along the way.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:drumeo-best-50-metal-drummers", "src:chris-adler-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Groove, nu and industrial metal drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Gar Samuelson",
+        "kind": "drummer",
+        "id": "drummer:gar-samuelson"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chris-adler-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Stewart Copeland",
+        "kind": "drummer",
+        "id": "drummer:stewart-copeland"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chris-adler-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Gene Hoglan",
+        "kind": "drummer",
+        "id": "drummer:gene-hoglan"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chris-adler-wikipedia"]
+      }
+    }
+  ]
+}

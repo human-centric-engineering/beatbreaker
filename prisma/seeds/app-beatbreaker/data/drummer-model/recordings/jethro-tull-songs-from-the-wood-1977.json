@@ -1,0 +1,19 @@
+{
+  "id": "rec:jethro-tull-songs-from-the-wood-1977",
+  "title": "Songs from the Wood",
+  "artist": "Jethro Tull",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:folk-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:barriemore-barlow",
+      "name": "Barriemore Barlow",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:barriemore-barlow-wikipedia"]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:necrophagist-epitaph-2004",
+  "title": "Epitaph",
+  "artist": "Necrophagist",
+  "year": 2004,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hannes-grossmann",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

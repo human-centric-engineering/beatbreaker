@@ -1,0 +1,14 @@
+{
+  "id": "rec:korn-korn-1994",
+  "title": "Korn",
+  "artist": "Korn",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:nu-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:david-silveria",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

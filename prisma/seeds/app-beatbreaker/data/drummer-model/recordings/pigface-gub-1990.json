@@ -1,0 +1,20 @@
+{
+  "id": "rec:pigface-gub-1990",
+  "title": "Gub",
+  "artist": "Pigface",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:industrial"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:martin-atkins-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:martin-atkins",
+      "name": "Martin Atkins",
+      "drummer_role": "co_drummer",
+      "significance": 0.8
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "rec:pat-metheny-offramp-1982",
+  "title": "Offramp",
+  "artist": "Pat Metheny Group",
+  "release": "ECM",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nana-vasconcelos",
+      "name": "Naná Vasconcelos",
+      "drummer_role": "percussion_only",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-nana-vasconcelos"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "id": "drummer:shadow-wilson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Shadow Wilson",
+    "full_name": "Rossiere Wilson",
+    "born": {
+      "date": "1919-09-25",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:shadow-wilson-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1959-07-11",
+      "place": "New York City, New York, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Swing orchestras (1936-1940s)",
+      "Minton's Playhouse",
+      "Thelonious Monk's Five Spot quartet (1957)"
+    ],
+    "active": {
+      "from": 1936,
+      "to": 1959
+    },
+    "summary": "Basie and Herman drummer with a light brush touch, later in Monk's 1957 quartet with Coltrane."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:bebop",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Count Basie Orchestra",
+      "type": "big_band",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:shadow-wilson-wikipedia"]
+      }
+    },
+    {
+      "name": "Thelonious Monk Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1957,
+        "to": 1957
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:shadow-wilson-wikipedia"]
+      }
+    },
+    {
+      "name": "Woody Herman Orchestra",
+      "type": "big_band",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:shadow-wilson-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:thelonious-monk-with-john-coltrane-1957",
+    "rec:thelonious-monk-quartet-with-john-coltrane-at-carnegie-hall-1957"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A swing-band drummer, named 'Shadow' for his light touch with brushes, who carried that touch into bebop: he sat in at Minton's and drummed for Thelonious Monk's 1957 quartet with John Coltrane.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:shadow-wilson-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 3
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:joe-satriani-the-extremist-1992",
+  "title": "The Extremist",
+  "artist": "Joe Satriani",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:gregg-bissonette-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gregg-bissonette",
+      "name": "Gregg Bissonette",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

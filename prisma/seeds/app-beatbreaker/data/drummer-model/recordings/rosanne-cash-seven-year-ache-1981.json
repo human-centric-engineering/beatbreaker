@@ -1,0 +1,19 @@
+{
+  "id": "rec:rosanne-cash-seven-year-ache-1981",
+  "title": "Seven Year Ache",
+  "artist": "Rosanne Cash",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:country"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:larrie-londin-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:larrie-londin",
+      "name": "Larrie Londin",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

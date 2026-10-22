@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "id": "drummer:chris-frantz",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Chris Frantz",
+    "full_name": "Charton Christopher Frantz",
+    "born": {
+      "date": "1951-05-08",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chris-frantz-wikipedia"]
+      },
+      "place": "Fort Campbell, Kentucky"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York, CBGB"],
+    "active": {
+      "from": 1973,
+      "ongoing": true
+    },
+    "summary": "Talking Heads' and Tom Tom Club's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-wave",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.5,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:post-punk",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Talking Heads",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1991
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chris-frantz-wikipedia"]
+      }
+    },
+    {
+      "name": "Tom Tom Club",
+      "type": "band_member",
+      "years": {
+        "from": 1980
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chris-frantz-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Co-founder and drummer of Talking Heads and Tom Tom Club: Stylus's 12th greatest rock drummer, and an influence on the jam-band scene.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chris-frantz-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New wave drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:talking-heads-talking-heads-77-1977",
+    "rec:talking-heads-remain-in-light-1980",
+    "rec:tom-tom-club-tom-tom-club-1981"
+  ]
+}

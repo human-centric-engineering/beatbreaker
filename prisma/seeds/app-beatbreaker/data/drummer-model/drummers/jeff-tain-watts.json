@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "id": "drummer:jeff-tain-watts",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jeff \"Tain\" Watts",
+    "born": {
+      "date": "1960-01-20",
+      "place": "Pittsburgh, Pennsylvania",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jeff-tain-watts-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York, the Young Lions (1980s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1981,
+      "ongoing": true
+    },
+    "summary": "The Marsalis brothers' drummer, whose dense, polyrhythmic swing defined 1980s neo-bop."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:hard-bop",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Wynton Marsalis Quintet",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 1988
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jeff-tain-watts-wikipedia"]
+      }
+    },
+    {
+      "name": "Branford Marsalis Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1988,
+        "to": 2009
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jeff-tain-watts-wikipedia"]
+      }
+    },
+    {
+      "name": "The Tonight Show Band",
+      "type": "house_band",
+      "years": {
+        "from": 1992,
+        "to": 1995
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jeff-tain-watts-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:wynton-marsalis-black-codes-from-the-underground-1985",
+    "rec:branford-marsalis-crazy-people-music-1990",
+    "rec:branford-marsalis-quartet-footsteps-of-our-fathers-2002"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of the Wynton and Branford Marsalis bands from the 1980s, with Grammy wins alongside both, who has worked across genres up to the Metropolitan Opera.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jeff-tain-watts-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modal and post-bop drummers",
+    "build_priority": 1
+  }
+}

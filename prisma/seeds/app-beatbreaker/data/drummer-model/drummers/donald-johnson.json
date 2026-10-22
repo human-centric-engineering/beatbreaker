@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "id": "drummer:donald-johnson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Donald Johnson",
+    "nationality": ["British"],
+    "home_scenes": ["Manchester, Factory Records"],
+    "active": {
+      "from": 1979,
+      "ongoing": true
+    },
+    "summary": "A Certain Ratio's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-punk",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:disco",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "A Certain Ratio",
+      "type": "band_member",
+      "years": {
+        "from": 1979
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:a-certain-ratio-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Brought funk, disco and Latin and Cuban percussion into A Certain Ratio, one of the first indie groups to draw on them, at Factory Records from 1979.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:a-certain-ratio-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Post-punk and gothic rock drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": ["rec:a-certain-ratio-to-each-1981", "rec:a-certain-ratio-sextet-1982"]
+}

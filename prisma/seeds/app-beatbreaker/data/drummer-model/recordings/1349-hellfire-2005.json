@@ -1,0 +1,14 @@
+{
+  "id": "rec:1349-hellfire-2005",
+  "title": "Hellfire",
+  "artist": "1349",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:frost",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -62,9 +62,62 @@ describe('the drummer model', () => {
     expect(failures).toEqual([]);
   });
 
-  it('holds every record at schema 1.5.0', () => {
+  describe('the candidate status (D74)', () => {
+    const validate = () => ajv().getSchema(SCHEMA_FOR.drummers)!;
+    const candidate = (extra: Record<string, unknown> = {}) => ({
+      meta: { id: 'drummer:c', schema_version: '1.6.0', record_status: 'candidate' },
+      identity: { name: 'C' },
+      style_profile: { genres: [{ style_id: 'style:funk', weight: 1 }] },
+      affiliations: [],
+      key_recording_ids: [],
+      legacy: {
+        contribution: {
+          description: 'Took the shuffle onto the hi-hat.',
+          evidence: { confidence: 'likely', source_ids: ['src:s'] },
+        },
+      },
+      beatbreaker: { group: 'Funk drummers', build_priority: 1 },
+      ...extra,
+    });
+
+    it('takes a candidate with no feel profile and no patterns', () => {
+      expect(validate()(candidate()), JSON.stringify(validate().errors)).toBe(true);
+    });
+
+    it('refuses a candidate with no sourced contribution, no group, or a playable style', () => {
+      const { legacy: _, ...unsourced } = candidate();
+      expect(validate()(unsourced)).toBe(false);
+      expect(
+        validate()(
+          candidate({
+            legacy: {
+              contribution: {
+                description: 'x',
+                evidence: { confidence: 'likely', source_ids: [] },
+              },
+            },
+          })
+        )
+      ).toBe(false);
+      expect(validate()(candidate({ beatbreaker: { build_priority: 1 } }))).toBe(false);
+      expect(
+        validate()(
+          candidate({
+            beatbreaker: { group: 'Funk drummers', build_priority: 1, style_key: 'funk' },
+          })
+        )
+      ).toBe(false);
+    });
+
+    it('still holds a built drummer to its feel profile and vocabulary', () => {
+      const built = { ...candidate(), meta: { ...candidate().meta, record_status: 'draft' } };
+      expect(validate()(built)).toBe(false);
+    });
+  });
+
+  it('holds every record at schema 1.6.0', () => {
     const behind = corpus.drummers
-      .filter(({ record }) => record.meta.schema_version !== '1.5.0')
+      .filter(({ record }) => record.meta.schema_version !== '1.6.0')
       .map(({ file }) => file);
     expect(behind).toEqual([]);
   });
@@ -73,6 +126,7 @@ describe('the drummer model', () => {
      search. A record names its devices, or the search that found none. */
   it('gives every drummer a sourced device or a recorded search for one', () => {
     const unsearched = corpus.drummers
+      .filter(({ record }) => record.meta.record_status !== 'candidate')
       .filter(({ record }) => {
         const c = record.technique_profile?.coordination;
         return (c?.devices ?? []).length === 0 && c?.devices_search === undefined;
@@ -260,6 +314,10 @@ describe('the drummer model', () => {
     it('marks every modelled drummer as modelled, with the years they were active', () => {
       const modelled = graph.nodes.filter((n) => n.kind === 'drummer' && n.modelled);
       expect(modelled).toHaveLength(corpus.drummers.length);
+      const candidates = corpus.drummers.filter(
+        ({ record }) => record.meta.record_status === 'candidate'
+      );
+      expect(modelled.filter((n) => n.candidate)).toHaveLength(candidates.length);
       expect(modelled.filter((n) => n.activeFrom === null).map((n) => n.id)).toEqual([]);
     });
   });

@@ -1,0 +1,19 @@
+{
+  "id": "rec:jc-heard-this-is-me-1958",
+  "title": "This Is Me, J. C. Heard",
+  "artist": "J. C. Heard",
+  "year": 1958,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jc-heard",
+      "name": "J. C. Heard",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jc-heard-wikipedia"]
+  }
+}

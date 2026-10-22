@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "id": "drummer:phil-seamen",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Phil Seamen",
+    "full_name": "Philip William Seamen",
+    "born": {
+      "date": "1926-08-28",
+      "place": "Burton upon Trent, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-seamen-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1972-10-13"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London modern jazz (1950s-1960s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1944,
+      "to": 1972
+    },
+    "summary": "The great drummer of 1950s and '60s British jazz, and Ginger Baker's teacher."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-bop",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:bebop",
+        "weight": 0.6,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:free-jazz",
+        "weight": 0.3,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Joe Harriott Quintet",
+      "type": "band_member",
+      "years": {
+        "from": 1959,
+        "to": 1962
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-seamen-wikipedia"]
+      }
+    },
+    {
+      "name": "Ginger Baker's Air Force",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 1970
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-seamen-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:joe-harriott-free-form-1961",
+    "rec:joe-harriott-southern-horizons-1961"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played and recorded with virtually every key figure of 1950s and 1960s British jazz, and was the teacher of Ginger Baker, his foremost disciple.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-seamen-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard bop drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "taught",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:phil-seamen-wikipedia"]
+      }
+    }
+  ]
+}

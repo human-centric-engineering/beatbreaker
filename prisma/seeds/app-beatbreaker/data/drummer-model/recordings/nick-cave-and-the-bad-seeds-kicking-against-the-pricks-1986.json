@@ -1,0 +1,20 @@
+{
+  "id": "rec:nick-cave-and-the-bad-seeds-kicking-against-the-pricks-1986",
+  "title": "Kicking Against the Pricks",
+  "artist": "Nick Cave and the Bad Seeds",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:post-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:thomas-wydler-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:thomas-wydler",
+      "name": "Thomas Wydler",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

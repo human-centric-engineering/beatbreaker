@@ -1,0 +1,19 @@
+{
+  "id": "rec:iron-butterfly-in-a-gadda-da-vida-1968",
+  "title": "In-A-Gadda-Da-Vida",
+  "artist": "Iron Butterfly",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ron-bushy",
+      "name": "Ron Bushy",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ron-bushy-wikipedia"]
+  }
+}

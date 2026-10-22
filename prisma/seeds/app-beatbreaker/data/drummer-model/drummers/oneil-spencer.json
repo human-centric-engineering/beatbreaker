@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "id": "drummer:oneil-spencer",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "O'Neil Spencer",
+    "full_name": "William Spencer",
+    "born": {
+      "date": "1909-11-25",
+      "place": "Cedarville, Ohio, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:oneil-spencer-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1944-07-24",
+      "place": "New York City, New York, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Mills Blue Rhythm Band (1931-1936)", "John Kirby Sextet (1937-1943)"],
+    "active": {
+      "from": 1931,
+      "to": 1943
+    },
+    "summary": "Drummer and singer of the John Kirby Sextet, the 'biggest little band' of the late 1930s."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "John Kirby Sextet",
+      "type": "band_member",
+      "years": {
+        "from": 1937,
+        "to": 1943
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:oneil-spencer-wikipedia"]
+      }
+    },
+    {
+      "name": "Mills Blue Rhythm Band",
+      "type": "big_band",
+      "years": {
+        "from": 1931,
+        "to": 1936
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:oneil-spencer-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:john-kirby-undecided-1938",
+    "rec:mills-blue-rhythm-band-ride-red-ride-1935"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The John Kirby Sextet's drummer, credited by Philly Joe Jones and others with raising the low-hat into the hi-hat, now on every kit.",
+      "evidence": {
+        "confidence": "needs_verification",
+        "source_ids": ["src:oneil-spencer-wikipedia"],
+        "note": "The hi-hat claim rests on one interview and a blog post, and other drummers are also credited with it."
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 3
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-clash-the-clash-1977",
+  "title": "The Clash",
+  "artist": "The Clash",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:terry-chimes-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:terry-chimes",
+      "name": "Terry Chimes",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

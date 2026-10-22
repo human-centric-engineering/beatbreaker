@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "id": "drummer:joey-castillo",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Joey Castillo",
+    "full_name": "Joseph William Castillo",
+    "born": {
+      "date": "1966-03-30",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-castillo-wikipedia"]
+      },
+      "place": "Gardena, California"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Los Angeles punk"],
+    "active": {
+      "from": 1984,
+      "ongoing": true
+    },
+    "summary": "Danzig's and then Queens of the Stone Age's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 1.0,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 0.4
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Danzig",
+      "type": "band_member",
+      "years": {
+        "from": 1994,
+        "to": 2002
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:joey-castillo-wikipedia"]
+      }
+    },
+    {
+      "name": "Queens of the Stone Age",
+      "type": "band_member",
+      "years": {
+        "from": 2002,
+        "to": 2012
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:joey-castillo-wikipedia"]
+      }
+    },
+    {
+      "name": "Circle Jerks",
+      "type": "band_member",
+      "years": {
+        "from": 2019
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:joey-castillo-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummer of Queens of the Stone Age through Lullabies to Paralyze and Era Vulgaris, after eight years in Danzig, playing a heavy desert-rock groove learned from War, Al Green and Black Flag alike.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:joey-castillo-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Alternative rock drummers",
+    "build_priority": 3
+  },
+  "key_recording_ids": [
+    "rec:queens-of-the-stone-age-lullabies-to-paralyze-2005",
+    "rec:queens-of-the-stone-age-era-vulgaris-2007"
+  ],
+  "relationships": [
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Chuck Biscuits",
+        "kind": "drummer",
+        "id": "drummer:chuck-biscuits"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:joey-castillo-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Jon Theodore",
+        "kind": "drummer",
+        "id": "drummer:jon-theodore"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:joey-castillo-wikipedia"]
+      }
+    }
+  ]
+}

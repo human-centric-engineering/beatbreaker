@@ -230,6 +230,63 @@ describe('checkCorpus', () => {
   });
 });
 
+describe('a candidate drummer (D72, D74)', () => {
+  const source = { id: 'src:s', type: 'book', title: 'A history of the drums' };
+  const candidate = (source_ids: string[]) =>
+    drummer('c', {
+      meta: { id: 'drummer:c', schema_version: '1.6.0', record_status: 'candidate' },
+      legacy: {
+        contribution: {
+          description: 'Took the shuffle onto the hi-hat.',
+          evidence: { confidence: 'likely', source_ids },
+        },
+      },
+    });
+
+  it('passes with a contribution the registry can cite', () => {
+    expect(checkCorpus(corpusOf({ drummers: [candidate(['src:s'])], sources: [source] }))).toEqual(
+      []
+    );
+  });
+
+  it('names a contribution source that does not exist once, as unresolved', () => {
+    expect(checkCorpus(corpusOf({ drummers: [candidate(['src:nowhere'])] }))).toEqual([
+      'drummers/0.json: unresolved reference src:nowhere',
+    ]);
+  });
+
+  it('refuses a contribution source that is not a source', () => {
+    const c = corpusOf({
+      drummers: [candidate(['rec:r'])],
+      recordings: [recording('r', ['c'])],
+      sources: [source],
+    });
+    expect(checkCorpus(c)).toEqual([
+      'drummers/0.json contribution: rec:r is not in the source registry',
+    ]);
+  });
+
+  it('refuses a candidate whose contribution cites nothing, or who has none', () => {
+    const { legacy: _, ...bare } = candidate([]);
+    expect(checkCorpus(corpusOf({ drummers: [candidate([])], sources: [source] }))).toEqual([
+      'drummers/0.json: a candidate needs a contribution that cites a source',
+    ]);
+    expect(checkCorpus(corpusOf({ drummers: [bare], sources: [source] }))).toEqual([
+      'drummers/0.json: a candidate needs a contribution that cites a source',
+    ]);
+  });
+
+  it('is a modelled drummer with a record, flagged as a candidate', () => {
+    const graph = buildLineage(corpusOf({ drummers: [candidate(['src:s'])], sources: [source] }));
+    expect(graph.nodes.find((n) => n.id === 'drummer:c')).toMatchObject({
+      label: 'c',
+      modelled: true,
+      candidate: true,
+      activeFrom: 1960,
+    });
+  });
+});
+
 describe('checkGraph', () => {
   it('passes a sound graph', () => {
     expect(checkGraph(buildLineage(corpusOf({ drummers: [drummer('a')] })))).toEqual([]);

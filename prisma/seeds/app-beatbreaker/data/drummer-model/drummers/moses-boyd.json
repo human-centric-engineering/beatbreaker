@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "id": "drummer:moses-boyd",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Moses Boyd",
+    "born": {
+      "date": "1991-04-30",
+      "place": "London, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:moses-boyd-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": ["South London jazz (2010s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 2014,
+      "ongoing": true
+    },
+    "summary": "Drummer, producer and leader at the centre of the new London jazz, of Binker and Moses and the Exodus."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:uk-jazz",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:broken-beat",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Binker and Moses",
+      "type": "band_member",
+      "years": {
+        "from": 2014
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:moses-boyd-wikipedia"]
+      }
+    },
+    {
+      "name": "Moses Boyd Exodus",
+      "type": "bandleader",
+      "years": {
+        "from": 2015
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:moses-boyd-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:binker-and-moses-dem-ones-2015", "rec:moses-boyd-dark-matter-2020"],
+  "legacy": {
+    "contribution": {
+      "description": "A central drummer and producer of the new London jazz: the duo Binker and Moses won a MOBO and two Jazz FM awards, and his solo debut Dark Matter was nominated for the 2020 Mercury Prize.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:moses-boyd-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modern jazz drummers",
+    "build_priority": 1
+  }
+}

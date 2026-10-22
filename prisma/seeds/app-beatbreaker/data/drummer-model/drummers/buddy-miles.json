@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "id": "drummer:buddy-miles",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Buddy Miles",
+    "full_name": "George Allen Miles Jr.",
+    "born": {
+      "date": "1947-09-05",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:buddy-miles-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2008-02-26"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Omaha", "San Francisco"],
+    "active": {
+      "from": 1960,
+      "to": 2008
+    },
+    "summary": "Drummer and singer of the Electric Flag and the Buddy Miles Express, and of Jimi Hendrix's Band of Gypsys."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:funk-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.5
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Electric Flag",
+      "type": "band_member",
+      "years": {
+        "from": 1967,
+        "to": 1968
+      }
+    },
+    {
+      "name": "Band of Gypsys",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 1970
+      }
+    },
+    {
+      "name": "Buddy Miles Express",
+      "type": "bandleader",
+      "years": {
+        "from": 1968
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-jimi-hendrix-experience-electric-ladyland-1968",
+    "rec:jimi-hendrix-band-of-gypsys-1970"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Brought a heavy soul-and-funk backbeat to Jimi Hendrix in the Band of Gypsys (1969–70), and sang lead from the kit there and in the Electric Flag and the Buddy Miles Express.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:buddy-miles-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blues and psychedelic rock drummers",
+    "build_priority": 2
+  }
+}

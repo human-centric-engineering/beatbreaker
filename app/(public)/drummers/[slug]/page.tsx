@@ -100,9 +100,9 @@ export default async function DrummerPage({ params }: { params: Params }) {
     profile.neighbours.filter((n) => n.kind !== 'style').map((n) => [n.id, n])
   );
   const rel = relationsOf(node.id, profile.edges, people);
-  /* On the map as `layoutLineage` places people: a record, or a link to a person. */
+  /* On the map as `layoutLineage` places people: a built record, or a link to a person. */
   const onMap =
-    node.modelled ||
+    (node.modelled && !node.candidate) ||
     profile.edges.some((e) => isMapEdge(e) && people.has(e.from === node.id ? e.to : e.from));
   const active = record
     ? years(record.activeFrom, record.activeTo, record.ongoing)
@@ -142,7 +142,7 @@ export default async function DrummerPage({ params }: { params: Params }) {
             <Button asChild>
               <Link href={studioStyleHref(node.styleKey)}>Play in their style</Link>
             </Button>
-          ) : node.modelled ? (
+          ) : node.modelled && !node.candidate ? (
             <p className="text-muted-foreground text-sm">Their style is not in the Studio yet.</p>
           ) : null}
           {onMap && (
@@ -156,6 +156,18 @@ export default async function DrummerPage({ params }: { params: Params }) {
       </header>
 
       {record?.summary && <p className="text-lg leading-relaxed">{record.summary}</p>}
+      {record?.contribution && (
+        <section className="space-y-1">
+          <h2 className="text-lg font-semibold">What they brought</h2>
+          <p>{record.contribution}</p>
+        </section>
+      )}
+      {node.candidate && (
+        <p className="text-muted-foreground text-sm">
+          On BeatBreaker&apos;s long list of drummers: researched, but not built yet, so there are
+          no patterns to play in their style.
+        </p>
+      )}
       {record?.persona && (
         <p className="text-muted-foreground text-sm">
           Performs as a masked character: {record.persona} Their real identity is not part of the

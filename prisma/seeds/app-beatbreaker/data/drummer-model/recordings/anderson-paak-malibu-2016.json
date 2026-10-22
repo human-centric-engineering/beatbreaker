@@ -1,0 +1,18 @@
+{
+  "id": "rec:anderson-paak-malibu-2016",
+  "title": "Malibu",
+  "artist": "Anderson .Paak",
+  "year": 2016,
+  "type": "album",
+  "style_ids": ["style:neo-soul", "style:hip-hop-breakbeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:anderson-paak",
+      "why_it_matters": "He drums and sings."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:anderson-paak-wikipedia"]
+  }
+}

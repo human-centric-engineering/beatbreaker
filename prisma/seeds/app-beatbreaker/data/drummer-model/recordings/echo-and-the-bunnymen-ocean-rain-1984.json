@@ -1,0 +1,20 @@
+{
+  "id": "rec:echo-and-the-bunnymen-ocean-rain-1984",
+  "title": "Ocean Rain",
+  "artist": "Echo & the Bunnymen",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:post-punk", "style:psychedelic-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:pete-de-freitas-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pete-de-freitas",
+      "name": "Pete de Freitas",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

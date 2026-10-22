@@ -1,0 +1,21 @@
+{
+  "id": "style:pipe-band",
+  "name": "Pipe band drumming",
+  "kind": "tradition",
+  "region": "Scotland",
+  "parents": [
+    {
+      "style_id": "style:rudimental",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "summary": "The snare, tenor and bass drum corps of the Scottish pipe band, played in competition with the pipes; its snare idiom drew on Swiss Basel drumming and notation from the 1950s.",
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:alex-duthart-wikipedia", "src:jim-kilpatrick-wikipedia"],
+    "note": "Summary written from the drummer articles listed; not from a genre history."
+  }
+}

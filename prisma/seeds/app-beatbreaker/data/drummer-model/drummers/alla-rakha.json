@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "id": "drummer:alla-rakha",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "The Shankar partnership years are \"early 1950s, nearly three decades\"; 1950 to 1980 is approximate."
+    ]
+  },
+  "identity": {
+    "name": "Alla Rakha",
+    "aliases": ["Ustad Alla Rakha", "Allah Rakha"],
+    "born": {
+      "date": "1919-04-29",
+      "place": "Ghagwal, Jammu, British India",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alla-rakha-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2000-02-03",
+      "place": "Mumbai, India"
+    },
+    "nationality": ["Indian"],
+    "home_scenes": ["Mumbai"],
+    "setup_type": "hand_percussion",
+    "primary_instruments": ["tabla"],
+    "active": {
+      "from": 1936,
+      "to": 2000
+    },
+    "roles": ["composer", "educator", "percussionist"],
+    "summary": "Tabla player of the Punjab gharana, staff artist at All India Radio from 1936 and a film composer to 1964, then Ravi Shankar’s accompanist for nearly three decades, at Monterey (1967), Woodstock (1969) and the Concert for Bangladesh (1971). Recorded Rich à la Rakha with Buddy Rich (1968)."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hindustani-classical",
+        "weight": 1,
+        "authority": 0.9
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Ravi Shankar",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1950,
+        "to": 1980
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alla-rakha-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:buddy-rich-alla-rakha-rich-a-la-rakha-1968",
+    "rec:the-concert-for-bangladesh-1971"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Largely introduced the tabla to Western audiences, at Ravi Shankar’s side from Monterey and Woodstock to the Concert for Bangladesh; Mickey Hart called him \"the Einstein, the Picasso\" of rhythm, and the New York Times \"the most important tabla drummer of his generation\".",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alla-rakha-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Indian classical drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "family",
+      "target": {
+        "name": "Zakir Hussain",
+        "kind": "drummer",
+        "id": "drummer:zakir-hussain"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alla-rakha-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alla-rakha-wikipedia"]
+      }
+    }
+  ]
+}

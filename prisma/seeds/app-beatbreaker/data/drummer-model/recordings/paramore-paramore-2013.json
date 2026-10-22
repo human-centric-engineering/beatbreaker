@@ -1,0 +1,20 @@
+{
+  "id": "rec:paramore-paramore-2013",
+  "title": "Paramore",
+  "artist": "Paramore",
+  "year": 2013,
+  "type": "album",
+  "style_ids": ["style:pop-punk", "style:alternative-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ilan-rubin-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ilan-rubin",
+      "name": "Ilan Rubin",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

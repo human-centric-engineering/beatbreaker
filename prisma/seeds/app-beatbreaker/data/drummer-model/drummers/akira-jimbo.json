@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "id": "drummer:akira-jimbo",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Akira Jimbo",
+    "aliases": ["Akira Jinbo"],
+    "born": {
+      "date": "1959-02-27",
+      "place": "Tokyo, Japan",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:akira-jimbo-wikipedia"]
+      }
+    },
+    "nationality": ["Japanese"],
+    "home_scenes": ["Tokyo fusion"],
+    "setup_type": "electronic",
+    "primary_instruments": ["drum kit", "electronic triggers"],
+    "active": {
+      "from": 1979,
+      "ongoing": true
+    },
+    "roles": ["band_member", "clinician", "bandleader"],
+    "summary": "Japanese fusion drummer, in Casiopea in three stints (1980-1989, 1997-2006, 2012-2022), in Jimsaku with Tetsuo Sakurai and the drum duo Synchronized DNA; known for playing fully orchestrated songs alone with Yamaha triggers; the first Asian drummer on the cover of Modern Drummer (2000)."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 1,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Casiopea",
+      "type": "band_member",
+      "years": {
+        "from": 1980,
+        "to": 2022
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:akira-jimbo-wikipedia"]
+      }
+    },
+    {
+      "name": "Jimsaku",
+      "type": "band_member",
+      "years": {
+        "from": 1989
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:akira-jimbo-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:casiopea-eyes-of-the-mind-1981",
+    "rec:casiopea-mint-jams-1982",
+    "rec:akira-jimbo-cotton-1986",
+    "rec:casiopea-halle-1985"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A pioneer of hybrid acoustic-and-electronic drumming who plays whole orchestrated songs alone through triggers, without a backing track; the first Asian drummer on Modern Drummer’s cover.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:akira-jimbo-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "id": "drummer:steve-gadd",
+        "name": "Steve Gadd",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:akira-jimbo-wikipedia"]
+      }
+    }
+  ]
+}

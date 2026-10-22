@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:brant-bjork",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Brant Bjork",
+    "born": {
+      "date": "1973-03-19"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Palm Desert"],
+    "active": {
+      "from": 1987,
+      "ongoing": true
+    },
+    "summary": "Kyuss's founding drummer, later Fu Manchu's, and a solo artist."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:stoner-rock",
+        "weight": 1,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Kyuss",
+      "type": "band_member",
+      "years": {
+        "from": 1987,
+        "to": 1993
+      }
+    },
+    {
+      "name": "Fu Manchu",
+      "type": "band_member",
+      "years": {
+        "from": 1996,
+        "to": 2001
+      }
+    },
+    {
+      "name": "Vista Chino",
+      "type": "band_member",
+      "years": {
+        "from": 2012,
+        "to": 2014
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:kyuss-blues-for-the-red-sun-1992",
+    "rec:kyuss-welcome-to-sky-valley-1994"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Founded and drummed in Kyuss, the band that defined desert stoner rock, giving its heavy riffs a loose, swinging groove.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:brant-bjork-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Stoner rock and doom drummers",
+    "build_priority": 2
+  }
+}

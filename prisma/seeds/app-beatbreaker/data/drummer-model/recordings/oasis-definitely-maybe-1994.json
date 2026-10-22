@@ -1,0 +1,20 @@
+{
+  "id": "rec:oasis-definitely-maybe-1994",
+  "title": "Definitely Maybe",
+  "artist": "Oasis",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:britpop"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tony-mccarroll-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-mccarroll",
+      "name": "Tony McCarroll",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

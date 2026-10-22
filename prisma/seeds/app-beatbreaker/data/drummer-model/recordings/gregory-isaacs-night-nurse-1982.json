@@ -1,0 +1,21 @@
+{
+  "id": "rec:gregory-isaacs-night-nurse-1982",
+  "title": "Night Nurse",
+  "artist": "Gregory Isaacs",
+  "release": "Island",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:reggae", "style:dancehall"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:style-scott",
+      "name": "Style Scott",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-style-scott"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "rec:grateful-dead-workingman-s-dead-1970",
+  "title": "Workingman's Dead",
+  "artist": "Grateful Dead",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:jam-band", "style:americana"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mickey-hart",
+      "name": "Mickey Hart",
+      "drummer_role": "co_drummer"
+    },
+    {
+      "drummer_id": "drummer:bill-kreutzmann",
+      "name": "Bill Kreutzmann",
+      "drummer_role": "co_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": [
+      "src:mickey-hart-wikipedia",
+      "src:workingman-s-dead-wikipedia",
+      "src:bill-kreutzmann-wikipedia"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "rec:sphere-four-in-one-1982",
+  "title": "Four in One",
+  "artist": "Sphere",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ben-riley",
+      "name": "Ben Riley",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Sphere plays Monk.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ben-riley-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ben-riley-wikipedia"]
+  }
+}

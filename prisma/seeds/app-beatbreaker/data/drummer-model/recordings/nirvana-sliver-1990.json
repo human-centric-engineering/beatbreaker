@@ -1,0 +1,20 @@
+{
+  "id": "rec:nirvana-sliver-1990",
+  "title": "Sliver",
+  "artist": "Nirvana",
+  "year": 1990,
+  "type": "studio_track",
+  "style_ids": ["style:grunge"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:dan-peters-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dan-peters",
+      "name": "Dan Peters",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

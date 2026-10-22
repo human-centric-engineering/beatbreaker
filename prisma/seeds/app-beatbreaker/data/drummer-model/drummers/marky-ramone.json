@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "id": "drummer:marky-ramone",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Marky Ramone",
+    "full_name": "Marc Steven Bell",
+    "born": {
+      "date": "1952-07-15",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:marky-ramone-wikipedia"]
+      },
+      "place": "Brooklyn, New York"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York, CBGB"],
+    "active": {
+      "from": 1971,
+      "ongoing": true
+    },
+    "summary": "The Ramones' longest-serving drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:punk",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Richard Hell and the Voidoids",
+      "type": "band_member",
+      "years": {
+        "from": 1976,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:marky-ramone-wikipedia"]
+      }
+    },
+    {
+      "name": "Ramones",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1996
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:marky-ramone-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummed Richard Hell and the Voidoids' Blank Generation, then the Ramones for fifteen years as their longest-serving drummer, carrying the band's sound through the 1980s and 1990s.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:marky-ramone-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Punk drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:richard-hell-and-the-voidoids-blank-generation-1977",
+    "rec:ramones-road-to-ruin-1978",
+    "rec:ramones-end-of-the-century-1980"
+  ],
+  "relationships": [
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Tommy Ramone",
+        "kind": "drummer",
+        "id": "drummer:tommy-ramone"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:marky-ramone-wikipedia"]
+      }
+    }
+  ]
+}

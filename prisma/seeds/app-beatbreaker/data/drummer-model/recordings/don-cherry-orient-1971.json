@@ -1,0 +1,24 @@
+{
+  "id": "rec:don-cherry-orient-1971",
+  "title": "Orient",
+  "artist": "Don Cherry",
+  "release": "BYG",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:jazz", "style:middle-eastern"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:okay-temiz",
+      "name": "Okay Temiz",
+      "drummer_role": "drums_and_percussion",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:okay-temiz-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:okay-temiz-wikipedia"]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:elvis-presley-from-elvis-in-memphis-1969",
+  "title": "From Elvis in Memphis",
+  "artist": "Elvis Presley",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:southern-soul", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gene-chrisman",
+      "name": "Gene Chrisman"
+    }
+  ]
+}

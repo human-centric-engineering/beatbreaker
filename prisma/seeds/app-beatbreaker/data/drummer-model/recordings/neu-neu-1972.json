@@ -1,0 +1,19 @@
+{
+  "id": "rec:neu-neu-1972",
+  "title": "Neu!",
+  "artist": "Neu!",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:krautrock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:klaus-dinger",
+      "name": "Klaus Dinger",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:klaus-dinger-wikipedia"]
+  }
+}

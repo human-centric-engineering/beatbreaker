@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "id": "drummer:brendan-canty",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Brendan Canty",
+    "full_name": "Brendan John Canty",
+    "born": {
+      "date": "1966-03-09",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brendan-canty-wikipedia"]
+      },
+      "place": "Teaneck, New Jersey"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Washington, D.C. hardcore"],
+    "active": {
+      "from": 1981,
+      "ongoing": true
+    },
+    "summary": "Fugazi's drummer, and Rites of Spring's."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-hardcore",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Rites of Spring",
+      "type": "band_member",
+      "years": {
+        "from": 1984,
+        "to": 1986
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brendan-canty-wikipedia"]
+      }
+    },
+    {
+      "name": "Fugazi",
+      "type": "band_member",
+      "years": {
+        "from": 1987
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brendan-canty-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummer of Rites of Spring and of Fugazi, the core band of post-hardcore; Stylus's 29th greatest rock drummer, with a farmer's bell in his kit.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brendan-canty-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Post-hardcore and emo drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:fugazi-repeater-1990",
+    "rec:fugazi-red-medicine-1995",
+    "rec:rites-of-spring-rites-of-spring-1985"
+  ]
+}

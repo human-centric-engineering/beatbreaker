@@ -1,0 +1,22 @@
+{
+  "id": "style:cool-jazz",
+  "name": "Cool jazz",
+  "aliases": ["West Coast jazz"],
+  "kind": "genre",
+  "region": "United States (Los Angeles, New York)",
+  "era": {
+    "from": 1949,
+    "to": 1960
+  },
+  "summary": "The lighter, arranged jazz after bebop: soft dynamics, brushes and a relaxed ride, chamber groups and counterpoint.",
+  "parents": [
+    {
+      "style_id": "style:bebop",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cool-jazz-wikipedia"]
+      }
+    }
+  ]
+}

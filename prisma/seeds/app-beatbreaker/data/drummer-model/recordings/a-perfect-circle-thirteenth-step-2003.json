@@ -1,0 +1,20 @@
+{
+  "id": "rec:a-perfect-circle-thirteenth-step-2003",
+  "title": "Thirteenth Step",
+  "artist": "A Perfect Circle",
+  "year": 2003,
+  "type": "album",
+  "style_ids": ["style:alternative-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:josh-freese-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:josh-freese",
+      "name": "Josh Freese",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

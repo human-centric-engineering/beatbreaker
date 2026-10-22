@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "id": "drummer:fred-below",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Fred Below",
+    "full_name": "Frederick Below Jr.",
+    "born": {
+      "date": "1926-09-06",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:fred-below-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1988-08-13"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago", "Chess Records"],
+    "active": {
+      "from": 1952,
+      "to": 1988
+    },
+    "summary": "Chess Records drummer of the 1950s, with Little Walter and on Chuck Berry's \"Johnny B. Goode\"."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:blues-shuffle",
+        "weight": 0.8,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.6,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Little Walter and the Jukes",
+      "type": "band_member",
+      "years": {
+        "from": 1952,
+        "to": 1955
+      }
+    },
+    {
+      "name": "Chess Records studio",
+      "type": "session_regular",
+      "years": {
+        "from": 1953
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:chuck-berry-johnny-b-goode-1958",
+    "rec:chuck-berry-roll-over-beethoven-1956"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "According to Tony Russell, the creator of much of the rhythmic structure of Chicago blues, its backbeat especially, and the drummer on Chuck Berry's \"Johnny B. Goode\".",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:fred-below-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blues drummers",
+    "build_priority": 1
+  }
+}

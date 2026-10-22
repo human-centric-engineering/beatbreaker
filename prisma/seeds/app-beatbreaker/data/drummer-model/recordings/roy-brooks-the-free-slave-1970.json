@@ -1,0 +1,25 @@
+{
+  "id": "rec:roy-brooks-the-free-slave-1970",
+  "title": "The Free Slave",
+  "artist": "Roy Brooks",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:hard-bop", "style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roy-brooks",
+      "name": "Roy Brooks",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "With Woody Shaw and Cecil McBee.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:roy-brooks-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:roy-brooks-wikipedia"]
+  }
+}

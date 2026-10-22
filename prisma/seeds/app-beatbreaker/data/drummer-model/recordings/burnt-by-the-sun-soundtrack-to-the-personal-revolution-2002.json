@@ -1,0 +1,14 @@
+{
+  "id": "rec:burnt-by-the-sun-soundtrack-to-the-personal-revolution-2002",
+  "title": "Soundtrack to the Personal Revolution",
+  "artist": "Burnt by the Sun",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:metalcore"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-witte",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "rec:ralph-peterson-triangular-1989",
+  "title": "Triangular",
+  "artist": "Ralph Peterson",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ralph-peterson-jr",
+      "name": "Ralph Peterson Jr.",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The trio with Geri Allen.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ralph-peterson-jr-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ralph-peterson-jr-wikipedia"]
+  }
+}

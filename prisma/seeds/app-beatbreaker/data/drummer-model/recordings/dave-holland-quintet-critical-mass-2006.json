@@ -1,0 +1,25 @@
+{
+  "id": "rec:dave-holland-quintet-critical-mass-2006",
+  "title": "Critical Mass",
+  "artist": "Dave Holland Quintet",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nate-smith",
+      "name": "Nate Smith",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Holland's quintet.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:nate-smith-drummer-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:nate-smith-drummer-wikipedia"]
+  }
+}

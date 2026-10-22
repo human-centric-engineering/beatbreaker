@@ -1,0 +1,20 @@
+{
+  "id": "rec:einsturzende-neubauten-halber-mensch-1985",
+  "title": "Halber Mensch",
+  "artist": "Einstürzende Neubauten",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:industrial"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:fm-einheit-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fm-einheit",
+      "name": "F.M. Einheit",
+      "drummer_role": "co_drummer",
+      "significance": 0.8
+    }
+  ]
+}

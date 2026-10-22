@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "id": "drummer:famoudou-konate",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Famoudou Konaté",
+    "born": {
+      "date": "1940",
+      "place": "near Sangbaralla, Hamana, Upper Guinea",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:famoudou-konate-wikipedia"]
+      }
+    },
+    "nationality": ["Guinean"],
+    "home_scenes": ["Les Ballets Africains (1959-1985)"],
+    "setup_type": "hand_percussion",
+    "primary_instruments": ["djembe", "dunun"],
+    "active": {
+      "from": 1959,
+      "ongoing": true
+    },
+    "roles": ["educator", "percussionist"],
+    "summary": "Guinean djembe master and one of a handful of initiated masters of the Malinke drumming tradition; lead djembe soloist of Les Ballets Africains de la République de Guinée from 1959 to 1985, then a teacher and recording artist."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:west-african",
+        "weight": 1,
+        "authority": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Les Ballets Africains",
+      "type": "ensemble",
+      "years": {
+        "from": 1959,
+        "to": 1985
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:famoudou-konate-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:famoudou-konate-rhythmen-der-malinke-1991",
+    "rec:famoudou-konate-hamana-foli-kan-2001",
+    "rec:mamady-keita-famoudou-konate-hamanah-1996"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Helped move the djembe orchestra \"from its traditional roots to worldwide popularity\", and created many of the arrangements now common in West African performance groups worldwide.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:famoudou-konate-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "West African traditional drummers",
+    "build_priority": 2
+  }
+}

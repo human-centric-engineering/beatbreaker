@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:meg-white",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Meg White",
+    "full_name": "Megan Martha White",
+    "born": {
+      "date": "1974-12-10",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meg-white-wikipedia"]
+      },
+      "place": "Grosse Pointe Farms, Michigan"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Detroit garage rock"],
+    "active": {
+      "from": 1997,
+      "to": 2011
+    },
+    "summary": "The White Stripes' drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:garage-rock",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The White Stripes",
+      "type": "band_member",
+      "years": {
+        "from": 1997,
+        "to": 2011
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meg-white-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A key figure of the 2000s garage rock revival, whose minimalist drumming in the White Stripes first polarised critics and is now ranked among the greatest by NME and Rolling Stone.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meg-white-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Garage rock and proto-punk drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:the-white-stripes-de-stijl-2000",
+    "rec:the-white-stripes-white-blood-cells-2001",
+    "rec:the-white-stripes-elephant-2003"
+  ]
+}

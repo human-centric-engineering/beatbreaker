@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "id": "drummer:viola-smith",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Viola Smith",
+    "full_name": "Viola Clara Schmitz",
+    "born": {
+      "date": "1912-11-29",
+      "place": "Mount Calvary, Wisconsin, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:viola-smith-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2020-10-21"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Vaudeville family orchestra (1920s-1930s)",
+      "All-women swing orchestras (1938-1954)",
+      "Broadway's Cabaret (1966-1970)"
+    ],
+    "active": {
+      "from": 1925,
+      "to": 1975
+    },
+    "summary": "One of the first professional women drummers, star of the all-women swing orchestras."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Coquettes",
+      "type": "band_member",
+      "years": {
+        "from": 1938,
+        "to": 1942
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:viola-smith-wikipedia"]
+      }
+    },
+    {
+      "name": "Phil Spitalny's Hour of Charm Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1942,
+        "to": 1954
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:viola-smith-wikipedia"]
+      }
+    },
+    {
+      "name": "Kit Kat Band, Cabaret (Broadway)",
+      "type": "house_band",
+      "years": {
+        "from": 1966,
+        "to": 1970
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:viola-smith-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:frances-carroll-and-her-coquettes-1939",
+    "rec:when-johnny-comes-marching-home-1942"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "One of the first professional women drummers. A star of the all-women swing orchestras, billed the 'fastest girl drummer', she argued in Down Beat in 1942 that bands should 'Give Girl Musicians a Break!'.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:viola-smith-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 2
+  }
+}

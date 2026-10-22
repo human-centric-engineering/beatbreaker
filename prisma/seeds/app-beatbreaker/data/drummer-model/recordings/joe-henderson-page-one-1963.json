@@ -1,0 +1,25 @@
+{
+  "id": "rec:joe-henderson-page-one-1963",
+  "title": "Page One",
+  "artist": "Joe Henderson",
+  "year": 1963,
+  "type": "album",
+  "style_ids": ["style:hard-bop", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pete-la-roca",
+      "name": "Pete La Roca",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Blue Note.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:pete-la-roca-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:pete-la-roca-wikipedia"]
+  }
+}

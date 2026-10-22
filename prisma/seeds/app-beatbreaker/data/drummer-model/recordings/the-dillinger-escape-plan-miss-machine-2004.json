@@ -1,0 +1,14 @@
+{
+  "id": "rec:the-dillinger-escape-plan-miss-machine-2004",
+  "title": "Miss Machine",
+  "artist": "The Dillinger Escape Plan",
+  "year": 2004,
+  "type": "album",
+  "style_ids": ["style:metalcore"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-pennie",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

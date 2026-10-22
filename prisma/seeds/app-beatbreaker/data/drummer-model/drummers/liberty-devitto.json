@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "id": "drummer:liberty-devitto",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Liberty DeVitto",
+    "full_name": "Liberatori DeVitto",
+    "nationality": ["American"],
+    "roles": ["band_member", "session"],
+    "born": {
+      "date": "1950-08-08",
+      "place": "Brooklyn, New York",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:liberty-devitto-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1970,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Billy Joel's drummer from 1976 to 2006."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Billy Joel's band",
+      "type": "band_member",
+      "years": {
+        "from": 1976,
+        "to": 2006
+      }
+    },
+    {
+      "name": "The Slim Kings",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": ["rec:billy-joel-the-stranger-1977", "rec:billy-joel-glass-houses-1980"],
+  "legacy": {
+    "contribution": {
+      "description": "Gave Billy Joel's records \"a New York-type drummer, aggressive and hard hitting\" for thirty years, the longest tenure in Joel's band, on records that sold some 150 million copies.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:liberty-devitto-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 2
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "id": "drummer:dennis-chambers",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Dennis Chambers",
+    "full_name": "Dennis Milton Chambers",
+    "nationality": ["American"],
+    "roles": ["band_member", "session", "touring"],
+    "born": {
+      "date": "1959-05-09",
+      "place": "Baltimore, Maryland",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dennis-chambers-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1978,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Funk and fusion drummer from Parliament-Funkadelic to John Scofield, the Brecker Brothers and Santana."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.9,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Parliament-Funkadelic",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1985
+      }
+    },
+    {
+      "name": "John Scofield",
+      "type": "band_member",
+      "years": {
+        "from": 1986
+      }
+    },
+    {
+      "name": "Santana",
+      "type": "band_member"
+    },
+    {
+      "name": "Brecker Brothers",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:john-scofield-blue-matter-1986",
+    "rec:brecker-brothers-return-of-the-brecker-brothers-1992"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Carried P-Funk's groove into jazz fusion when he joined John Scofield in 1986, and became the funk-and-chops drummer most of fusion's leading figures called; Modern Drummer Hall of Fame, 2001.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dennis-chambers-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 1
+  }
+}

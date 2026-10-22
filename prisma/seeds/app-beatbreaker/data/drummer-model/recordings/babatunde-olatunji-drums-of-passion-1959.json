@@ -1,0 +1,25 @@
+{
+  "id": "rec:babatunde-olatunji-drums-of-passion-1959",
+  "title": "Drums of Passion",
+  "artist": "Babatunde Olatunji",
+  "release": "Columbia",
+  "year": 1959,
+  "type": "album",
+  "style_ids": ["style:west-african"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:babatunde-olatunji",
+      "name": "Babatunde Olatunji",
+      "drummer_role": "leader",
+      "why_it_matters": "A major hit that introduced many Americans to world music; its \"Jin-go-lo-ba\" became Santana’s \"Jingo\".",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:babatunde-olatunji-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:babatunde-olatunji-wikipedia"]
+  }
+}

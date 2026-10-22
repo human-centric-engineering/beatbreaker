@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "id": "drummer:klaus-dinger",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Klaus Dinger",
+    "born": {
+      "date": "1946-03-24",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:klaus-dinger-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2008-03-21"
+    },
+    "nationality": ["German"],
+    "active": {
+      "from": 1966,
+      "to": 2008
+    },
+    "summary": "Drummer of Neu!, briefly Kraftwerk, and leader of La Düsseldorf."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:krautrock",
+        "weight": 1.0,
+        "authority": 0.9
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Kraftwerk",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 1971
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:klaus-dinger-wikipedia"]
+      }
+    },
+    {
+      "name": "Neu!",
+      "type": "band_member",
+      "years": {
+        "from": 1971,
+        "to": 1975
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:klaus-dinger-wikipedia"]
+      }
+    },
+    {
+      "name": "La Düsseldorf",
+      "type": "bandleader",
+      "years": {
+        "from": 1975,
+        "to": 1983
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:klaus-dinger-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:neu-neu-1972", "rec:neu-neu-75-1975"],
+  "legacy": {
+    "contribution": {
+      "description": "Played the 'motorik' beat on Neu!'s \"Hallogallo\" (1972): a steady four-to-the-bar with few interruptions that he called the 'endless straight'. Stephen Morris of Joy Division credits him for his machine-like playing.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:klaus-dinger-wikipedia", "src:stephen-morris-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Krautrock drummers",
+    "build_priority": 1
+  }
+}

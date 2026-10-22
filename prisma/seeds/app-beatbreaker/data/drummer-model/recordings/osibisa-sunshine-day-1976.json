@@ -1,0 +1,24 @@
+{
+  "id": "rec:osibisa-sunshine-day-1976",
+  "title": "Sunshine Day",
+  "artist": "Osibisa",
+  "year": 1976,
+  "type": "studio_track",
+  "style_ids": ["style:afro-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sol-amarfio",
+      "name": "Sol Amarfio",
+      "drummer_role": "sole_drummer",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sol-amarfio-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:sol-amarfio-wikipedia"],
+    "note": "Named in the article as one of Osibisa’s hits; the article does not credit the drummer track by track."
+  }
+}

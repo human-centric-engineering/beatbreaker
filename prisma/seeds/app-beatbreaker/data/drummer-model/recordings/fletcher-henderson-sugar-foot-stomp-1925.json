@@ -1,0 +1,19 @@
+{
+  "id": "rec:fletcher-henderson-sugar-foot-stomp-1925",
+  "title": "Sugar Foot Stomp",
+  "artist": "Fletcher Henderson and His Orchestra",
+  "year": 1925,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kaiser-marshall",
+      "name": "Kaiser Marshall",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:kaiser-marshall-wikipedia"]
+  }
+}

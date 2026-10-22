@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-honeycombs-have-i-the-right-1964",
+  "title": "Have I the Right?",
+  "artist": "The Honeycombs",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:honey-lantree",
+      "name": "Honey Lantree",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:honey-lantree-wikipedia", "src:have-i-the-right-wikipedia"]
+  }
+}

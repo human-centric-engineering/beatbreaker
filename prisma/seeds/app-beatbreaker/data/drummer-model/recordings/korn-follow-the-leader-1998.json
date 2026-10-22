@@ -1,0 +1,14 @@
+{
+  "id": "rec:korn-follow-the-leader-1998",
+  "title": "Follow the Leader",
+  "artist": "Korn",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:nu-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:david-silveria",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

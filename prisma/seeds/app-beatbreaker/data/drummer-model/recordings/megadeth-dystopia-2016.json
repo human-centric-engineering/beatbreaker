@@ -1,0 +1,14 @@
+{
+  "id": "rec:megadeth-dystopia-2016",
+  "title": "Dystopia",
+  "artist": "Megadeth",
+  "year": 2016,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-adler",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

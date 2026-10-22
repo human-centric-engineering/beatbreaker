@@ -1,0 +1,19 @@
+{
+  "id": "rec:john-scofield-blue-matter-1986",
+  "title": "Blue Matter",
+  "artist": "John Scofield",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:funk"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:dennis-chambers-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dennis-chambers",
+      "name": "Dennis Chambers",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

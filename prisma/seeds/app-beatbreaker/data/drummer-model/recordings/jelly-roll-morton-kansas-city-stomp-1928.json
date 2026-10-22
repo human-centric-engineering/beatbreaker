@@ -1,0 +1,19 @@
+{
+  "id": "rec:jelly-roll-morton-kansas-city-stomp-1928",
+  "title": "Kansas City Stomp",
+  "artist": "Jelly Roll Morton's Red Hot Peppers",
+  "year": 1928,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tommy-benford",
+      "name": "Tommy Benford",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:tommy-benford-wikipedia"]
+  }
+}

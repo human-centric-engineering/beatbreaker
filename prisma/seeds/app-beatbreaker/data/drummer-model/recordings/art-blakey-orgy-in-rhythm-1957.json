@@ -1,0 +1,31 @@
+{
+  "id": "rec:art-blakey-orgy-in-rhythm-1957",
+  "title": "Orgy in Rhythm",
+  "artist": "Art Blakey",
+  "release": "Blue Note",
+  "year": 1957,
+  "type": "album",
+  "style_ids": ["style:afro-cuban", "style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:art-blakey",
+      "name": "Art Blakey",
+      "drummer_role": "leader",
+      "significance": 0.4,
+      "why_it_matters": "Blakey's drum-choir record with Afro-Cuban percussionists.",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "drummer_id": "drummer:patato-valdes",
+      "name": "Carlos \"Patato\" Valdés",
+      "drummer_role": "percussion_only",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-patato-valdes"]
+      }
+    }
+  ]
+}

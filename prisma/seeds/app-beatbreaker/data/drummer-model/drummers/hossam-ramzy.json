@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "id": "drummer:hossam-ramzy",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Hossam Ramzy",
+    "born": {
+      "date": "1953-12-15",
+      "place": "Cairo, Egypt",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:hossam-ramzy-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2019-09-10"
+    },
+    "nationality": ["Egyptian"],
+    "home_scenes": ["London (from 1970s)"],
+    "setup_type": "hand_percussion",
+    "primary_instruments": ["darbuka (Egyptian tabla)"],
+    "active": {
+      "from": 1970,
+      "to": 2019
+    },
+    "roles": ["bandleader", "composer", "percussionist", "session"],
+    "summary": "Egyptian percussionist and composer on the tabla (darbuka), in London from the 1970s; with Peter Gabriel on The Last Temptation of Christ, Jimmy Page and Robert Plant on No Quarter with his Egyptian ensemble, Rachid Taha and Khaled; his \"Khosara\" was sampled for Jay-Z’s \"Big Pimpin’\"."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:middle-eastern",
+        "weight": 1,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [],
+  "key_recording_ids": [
+    "rec:jimmy-page-robert-plant-no-quarter-1994",
+    "rec:hossam-ramzy-phil-thornton-eternal-egypt-1996"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Brought Egyptian percussion and ensembles into Western rock, pop and film music, from Peter Gabriel’s Last Temptation score to Page and Plant’s No Quarter.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:hossam-ramzy-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Middle Eastern and Persian drummers",
+    "build_priority": 2
+  }
+}

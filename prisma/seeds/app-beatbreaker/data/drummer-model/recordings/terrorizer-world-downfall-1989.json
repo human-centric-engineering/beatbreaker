@@ -1,0 +1,14 @@
+{
+  "id": "rec:terrorizer-world-downfall-1989",
+  "title": "World Downfall",
+  "artist": "Terrorizer",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:grindcore"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pete-sandoval",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:keith-leblanc-no-sell-out-1983",
+  "title": "No Sell Out",
+  "artist": "Keith LeBlanc",
+  "year": 1983,
+  "type": "studio_track",
+  "style_ids": ["style:hip-hop-breakbeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:keith-leblanc",
+      "why_it_matters": "One of the first sample-based releases."
+    }
+  ],
+  "release": "Tommy Boy",
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:keith-leblanc-wikipedia"]
+  }
+}

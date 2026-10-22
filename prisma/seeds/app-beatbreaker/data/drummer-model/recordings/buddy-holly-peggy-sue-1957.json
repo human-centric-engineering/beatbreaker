@@ -1,0 +1,14 @@
+{
+  "id": "rec:buddy-holly-peggy-sue-1957",
+  "title": "Peggy Sue",
+  "artist": "Buddy Holly",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jerry-allison",
+      "name": "Jerry Allison"
+    }
+  ]
+}

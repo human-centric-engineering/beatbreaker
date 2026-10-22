@@ -1,0 +1,19 @@
+{
+  "id": "rec:john-mellencamp-scarecrow-1985",
+  "title": "Scarecrow",
+  "artist": "John Mellencamp",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:kenny-aronoff-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenny-aronoff",
+      "name": "Kenny Aronoff",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

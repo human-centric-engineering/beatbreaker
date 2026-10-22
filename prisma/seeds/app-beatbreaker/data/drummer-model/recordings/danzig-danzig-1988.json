@@ -1,0 +1,20 @@
+{
+  "id": "rec:danzig-danzig-1988",
+  "title": "Danzig",
+  "artist": "Danzig",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:chuck-biscuits-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chuck-biscuits",
+      "name": "Chuck Biscuits",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

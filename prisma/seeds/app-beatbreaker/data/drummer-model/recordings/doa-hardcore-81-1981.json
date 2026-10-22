@@ -1,0 +1,20 @@
+{
+  "id": "rec:doa-hardcore-81-1981",
+  "title": "Hardcore 81",
+  "artist": "D.O.A.",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:hardcore-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:chuck-biscuits-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chuck-biscuits",
+      "name": "Chuck Biscuits",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

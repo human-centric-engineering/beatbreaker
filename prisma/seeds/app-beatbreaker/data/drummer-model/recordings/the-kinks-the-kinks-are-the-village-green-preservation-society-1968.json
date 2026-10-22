@@ -1,0 +1,22 @@
+{
+  "id": "rec:the-kinks-the-kinks-are-the-village-green-preservation-society-1968",
+  "title": "The Kinks Are the Village Green Preservation Society",
+  "artist": "The Kinks",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-avory",
+      "name": "Mick Avory",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": [
+      "src:mick-avory-wikipedia",
+      "src:the-kinks-are-the-village-green-preservation-society-wikipedia"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "rec:albert-ayler-love-cry-1968",
+  "title": "Love Cry",
+  "artist": "Albert Ayler",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:milford-graves",
+      "name": "Milford Graves",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Graves with Ayler.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:milford-graves-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:milford-graves-wikipedia"]
+  }
+}

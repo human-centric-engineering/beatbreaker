@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "id": "drummer:pete-la-roca",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Pete La Roca",
+    "full_name": "Peter Sims",
+    "born": {
+      "date": "1938-04-07",
+      "place": "New York City",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pete-la-roca-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2012-11-20"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Harlem", "New York (1957-1968)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1957,
+      "to": 2012
+    },
+    "summary": "A modal-era drummer, with Sonny Rollins and Joe Henderson, and leader of Basra."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:hard-bop",
+        "weight": 0.6,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 0.3,
+        "authority": 0.2
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Sonny Rollins Trio",
+      "type": "band_member",
+      "years": {
+        "from": 1957,
+        "to": 1957
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:pete-la-roca-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:sonny-rollins-a-night-at-the-village-vanguard-1958",
+    "rec:joe-henderson-page-one-1963",
+    "rec:pete-la-roca-basra-1965"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Brought six years of playing timbales in Latin bands to jazz drumming in late-1950s and 1960s New York, then left music in the 1970s to become an attorney.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pete-la-roca-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modal and post-bop drummers",
+    "build_priority": 3
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:senri-kawaguchi",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Senri Kawaguchi",
+    "summary": "Japanese fusion drummer, \"Tekazuhime\", whose YouTube videos made her known worldwide in her early teens.",
+    "active": {
+      "from": 2009,
+      "ongoing": true
+    },
+    "nationality": ["Japanese"],
+    "aliases": ["Tekazuhime"],
+    "born": {
+      "date": "1997-01-08",
+      "place": "Nagoya, Aichi"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Senri's Super Session",
+      "type": "bandleader",
+      "years": {
+        "from": 2009
+      }
+    },
+    {
+      "name": "Kiyo*Sen",
+      "type": "band_member",
+      "years": {
+        "from": 2013
+      }
+    },
+    {
+      "name": "Nankai TRIO",
+      "type": "band_member",
+      "years": {
+        "from": 2022
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:senri-kawaguchi-a-la-mode-2013",
+    "rec:senri-kawaguchi-cider-hard-sweet-2016"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "One of the first drummers made by YouTube: videos of her performances took her to a world audience and onto Drummerworld's top 500 at 13 (2010).",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:senri-kawaguchi-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 3
+  }
+}

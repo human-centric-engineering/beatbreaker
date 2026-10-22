@@ -1,0 +1,25 @@
+{
+  "id": "rec:the-jazz-epistles-jazz-epistle-verse-1-1960",
+  "title": "Jazz Epistle, Verse 1",
+  "artist": "The Jazz Epistles",
+  "year": 1960,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:makaya-ntshoko",
+      "name": "Makaya Ntshoko",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "South Africa's first modern-jazz album, with Abdullah Ibrahim and Hugh Masekela.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:makaya-ntshoko-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:makaya-ntshoko-wikipedia"]
+  }
+}

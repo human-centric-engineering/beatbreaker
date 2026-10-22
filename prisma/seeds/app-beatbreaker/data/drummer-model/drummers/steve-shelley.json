@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "id": "drummer:steve-shelley",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Steve Shelley",
+    "full_name": "Steven Jay Shelley",
+    "born": {
+      "date": "1962-06-23",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-shelley-wikipedia"]
+      },
+      "place": "Midland, Michigan"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York noise rock"],
+    "active": {
+      "from": 1982,
+      "ongoing": true
+    },
+    "summary": "Sonic Youth's drummer 1985-2011."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:noise-rock",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:indie-rock",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Sonic Youth",
+      "type": "band_member",
+      "years": {
+        "from": 1985,
+        "to": 2011
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:steve-shelley-wikipedia"]
+      }
+    },
+    {
+      "name": "The Crucifucks",
+      "type": "band_member",
+      "years": {
+        "from": 1982,
+        "to": 1984
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:steve-shelley-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Held Sonic Youth's noise rock together for 26 years, from EVOL and Daydream Nation on, and drummed Cat Power's first three albums.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:steve-shelley-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Noise rock and no wave drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:sonic-youth-evol-1986",
+    "rec:sonic-youth-daydream-nation-1988",
+    "rec:sonic-youth-goo-1990"
+  ]
+}

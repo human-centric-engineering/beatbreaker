@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:john-guerin",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "John Guerin",
+    "full_name": "John Payne Guerin",
+    "nationality": ["American"],
+    "roles": ["session", "band_member"],
+    "born": {
+      "date": "1939-10-31",
+      "place": "Hawaii",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:john-guerin-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2004-01-05",
+      "place": "West Hills, California"
+    },
+    "active": {
+      "from": 1960,
+      "to": 2004
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Los Angeles jazz-rock drummer of the L.A. Express and Joni Mitchell's mid-1970s records."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.8,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "L.A. Express",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1976
+      }
+    },
+    {
+      "name": "The Byrds",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1973
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:frank-zappa-hot-rats-1969", "rec:joni-mitchell-court-and-spark-1974"],
+  "legacy": {
+    "contribution": {
+      "description": "A proponent of jazz-rock who brought it into singer-songwriter music as the drummer of the L.A. Express and Joni Mitchell's Court and Spark (1974), after playing on Zappa's Hot Rats (1969).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:john-guerin-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 2
+  }
+}

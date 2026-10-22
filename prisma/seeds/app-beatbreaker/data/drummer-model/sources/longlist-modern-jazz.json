@@ -1,0 +1,562 @@
+[
+  {
+    "id": "src:kenny-clarke-wikipedia",
+    "type": "encyclopedia",
+    "title": "Kenny Clarke — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Kenny_Clarke"
+  },
+  {
+    "id": "src:chico-hamilton-wikipedia",
+    "type": "encyclopedia",
+    "title": "Chico Hamilton — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Chico_Hamilton"
+  },
+  {
+    "id": "src:ed-blackwell-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ed Blackwell — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Ed_Blackwell"
+  },
+  {
+    "id": "src:louis-hayes-wikipedia",
+    "type": "encyclopedia",
+    "title": "Louis Hayes — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Louis_Hayes"
+  },
+  {
+    "id": "src:milford-graves-wikipedia",
+    "type": "encyclopedia",
+    "title": "Milford Graves — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Milford_Graves"
+  },
+  {
+    "id": "src:paul-motian-wikipedia",
+    "type": "encyclopedia",
+    "title": "Paul Motian — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Paul_Motian"
+  },
+  {
+    "id": "src:rashied-ali-wikipedia",
+    "type": "encyclopedia",
+    "title": "Rashied Ali — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Rashied_Ali"
+  },
+  {
+    "id": "src:terri-lyne-carrington-wikipedia",
+    "type": "encyclopedia",
+    "title": "Terri Lyne Carrington — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Terri_Lyne_Carrington"
+  },
+  {
+    "id": "src:vernel-fournier-wikipedia",
+    "type": "encyclopedia",
+    "title": "Vernel Fournier — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Vernel_Fournier"
+  },
+  {
+    "id": "src:phil-seamen-wikipedia",
+    "type": "encyclopedia",
+    "title": "Phil Seamen — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Phil_Seamen"
+  },
+  {
+    "id": "src:ezra-collective-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ezra Collective — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Ezra_Collective"
+  },
+  {
+    "id": "src:moses-boyd-wikipedia",
+    "type": "encyclopedia",
+    "title": "Moses Boyd — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Moses_Boyd"
+  },
+  {
+    "id": "src:jamie-muir-wikipedia",
+    "type": "encyclopedia",
+    "title": "Jamie Muir — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Jamie_Muir"
+  },
+  {
+    "id": "src:shelly-manne-wikipedia",
+    "type": "encyclopedia",
+    "title": "Shelly Manne — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Shelly_Manne"
+  },
+  {
+    "id": "src:stan-levey-wikipedia",
+    "type": "encyclopedia",
+    "title": "Stan Levey — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Stan_Levey"
+  },
+  {
+    "id": "src:denzil-best-wikipedia",
+    "type": "encyclopedia",
+    "title": "Denzil Best — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Denzil_Best"
+  },
+  {
+    "id": "src:art-taylor-wikipedia",
+    "type": "encyclopedia",
+    "title": "Art Taylor — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Art_Taylor"
+  },
+  {
+    "id": "src:frankie-dunlop-wikipedia",
+    "type": "encyclopedia",
+    "title": "Frankie Dunlop — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Frankie_Dunlop"
+  },
+  {
+    "id": "src:albert-heath-wikipedia",
+    "type": "encyclopedia",
+    "title": "Albert Heath — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Albert_Heath"
+  },
+  {
+    "id": "src:ben-riley-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ben Riley — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Ben_Riley"
+  },
+  {
+    "id": "src:billy-hart-wikipedia",
+    "type": "encyclopedia",
+    "title": "Billy Hart — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Billy_Hart"
+  },
+  {
+    "id": "src:ed-thigpen-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ed Thigpen — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Ed_Thigpen"
+  },
+  {
+    "id": "src:connie-kay-wikipedia",
+    "type": "encyclopedia",
+    "title": "Connie Kay — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Connie_Kay"
+  },
+  {
+    "id": "src:pete-la-roca-wikipedia",
+    "type": "encyclopedia",
+    "title": "Pete La Roca — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Pete_La_Roca"
+  },
+  {
+    "id": "src:joe-chambers-wikipedia",
+    "type": "encyclopedia",
+    "title": "Joe Chambers — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Joe_Chambers"
+  },
+  {
+    "id": "src:al-foster-wikipedia",
+    "type": "encyclopedia",
+    "title": "Al Foster — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Al_Foster"
+  },
+  {
+    "id": "src:dannie-richmond-wikipedia",
+    "type": "encyclopedia",
+    "title": "Dannie Richmond — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Dannie_Richmond"
+  },
+  {
+    "id": "src:sunny-murray-wikipedia",
+    "type": "encyclopedia",
+    "title": "Sunny Murray — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Sunny_Murray"
+  },
+  {
+    "id": "src:andrew-cyrille-wikipedia",
+    "type": "encyclopedia",
+    "title": "Andrew Cyrille — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Andrew_Cyrille"
+  },
+  {
+    "id": "src:barry-altschul-wikipedia",
+    "type": "encyclopedia",
+    "title": "Barry Altschul — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Barry_Altschul"
+  },
+  {
+    "id": "src:han-bennink-wikipedia",
+    "type": "encyclopedia",
+    "title": "Han Bennink — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Han_Bennink"
+  },
+  {
+    "id": "src:tony-oxley-wikipedia",
+    "type": "encyclopedia",
+    "title": "Tony Oxley — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Tony_Oxley"
+  },
+  {
+    "id": "src:louis-moholo-wikipedia",
+    "type": "encyclopedia",
+    "title": "Louis Moholo — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Louis_Moholo"
+  },
+  {
+    "id": "src:hamid-drake-wikipedia",
+    "type": "encyclopedia",
+    "title": "Hamid Drake — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Hamid_Drake"
+  },
+  {
+    "id": "src:don-moye-wikipedia",
+    "type": "encyclopedia",
+    "title": "Don Moye — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Don_Moye"
+  },
+  {
+    "id": "src:joey-baron-wikipedia",
+    "type": "encyclopedia",
+    "title": "Joey Baron — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Joey_Baron"
+  },
+  {
+    "id": "src:tyshawn-sorey-wikipedia",
+    "type": "encyclopedia",
+    "title": "Tyshawn Sorey — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Tyshawn_Sorey"
+  },
+  {
+    "id": "src:susie-ibarra-wikipedia",
+    "type": "encyclopedia",
+    "title": "Susie Ibarra — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Susie_Ibarra"
+  },
+  {
+    "id": "src:daniel-humair-wikipedia",
+    "type": "encyclopedia",
+    "title": "Daniel Humair — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Daniel_Humair"
+  },
+  {
+    "id": "src:jeff-tain-watts-wikipedia",
+    "type": "encyclopedia",
+    "title": "Jeff \"Tain\" Watts — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Jeff_%22Tain%22_Watts"
+  },
+  {
+    "id": "src:marcus-gilmore-wikipedia",
+    "type": "encyclopedia",
+    "title": "Marcus Gilmore — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Marcus_Gilmore"
+  },
+  {
+    "id": "src:mark-guiliana-wikipedia",
+    "type": "encyclopedia",
+    "title": "Mark Guiliana — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Mark_Guiliana"
+  },
+  {
+    "id": "src:makaya-mccraven-wikipedia",
+    "type": "encyclopedia",
+    "title": "Makaya McCraven — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Makaya_McCraven"
+  },
+  {
+    "id": "src:kassa-overall-wikipedia",
+    "type": "encyclopedia",
+    "title": "Kassa Overall — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Kassa_Overall"
+  },
+  {
+    "id": "src:seb-rochford-wikipedia",
+    "type": "encyclopedia",
+    "title": "Seb Rochford — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Seb_Rochford"
+  },
+  {
+    "id": "src:tom-skinner-drummer-wikipedia",
+    "type": "encyclopedia",
+    "title": "Tom Skinner (drummer) — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Tom_Skinner_(drummer)"
+  },
+  {
+    "id": "src:nate-smith-drummer-wikipedia",
+    "type": "encyclopedia",
+    "title": "Nate Smith (drummer) — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Nate_Smith_(drummer)"
+  },
+  {
+    "id": "src:alan-dawson-wikipedia",
+    "type": "encyclopedia",
+    "title": "Alan Dawson — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Alan_Dawson"
+  },
+  {
+    "id": "src:bill-stewart-musician-wikipedia",
+    "type": "encyclopedia",
+    "title": "Bill Stewart (musician) — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Bill_Stewart_(musician)"
+  },
+  {
+    "id": "src:goncalves-bill-stewart-dissertation-2013",
+    "type": "analysis",
+    "title": "Raphael Marcondes da Silva Gonçalves, Bill Stewart's influences on drum set (UNICAMP master's dissertation, 2013)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://bv.fapesp.br/en/dissertacoes-teses/85866/bill-stewarts-influences-on-drum-set"
+  },
+  {
+    "id": "src:billy-higgins-wikipedia",
+    "type": "encyclopedia",
+    "title": "Billy Higgins — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Billy_Higgins"
+  },
+  {
+    "id": "src:jim-black-wikipedia",
+    "type": "encyclopedia",
+    "title": "Jim Black — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Jim_Black"
+  },
+  {
+    "id": "src:john-stevens-drummer-wikipedia",
+    "type": "encyclopedia",
+    "title": "John Stevens (drummer) — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/John_Stevens_(drummer)"
+  },
+  {
+    "id": "src:peter-erskine-wikipedia",
+    "type": "encyclopedia",
+    "title": "Peter Erskine — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Peter_Erskine"
+  },
+  {
+    "id": "src:ralph-peterson-jr-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ralph Peterson Jr. — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Ralph_Peterson_Jr."
+  },
+  {
+    "id": "src:roy-brooks-wikipedia",
+    "type": "encyclopedia",
+    "title": "Roy Brooks — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Roy_Brooks"
+  },
+  {
+    "id": "src:steve-mccall-drummer-wikipedia",
+    "type": "encyclopedia",
+    "title": "Steve McCall (drummer) — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Steve_McCall_(drummer)"
+  },
+  {
+    "id": "src:herlin-riley-wikipedia",
+    "type": "encyclopedia",
+    "title": "Herlin Riley — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Herlin_Riley"
+  },
+  {
+    "id": "src:ronald-shannon-jackson-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ronald Shannon Jackson — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Ronald_Shannon_Jackson"
+  },
+  {
+    "id": "src:masahiko-togashi-wikipedia",
+    "type": "encyclopedia",
+    "title": "Masahiko Togashi — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Masahiko_Togashi"
+  },
+  {
+    "id": "src:takeo-moriyama-wikipedia",
+    "type": "encyclopedia",
+    "title": "Takeo Moriyama — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Takeo_Moriyama"
+  },
+  {
+    "id": "src:jon-christensen-musician-wikipedia",
+    "type": "encyclopedia",
+    "title": "Jon Christensen (musician) — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Jon_Christensen_(musician)"
+  },
+  {
+    "id": "src:pierre-favre-musician-wikipedia",
+    "type": "encyclopedia",
+    "title": "Pierre Favre (musician) — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Pierre_Favre_(musician)"
+  },
+  {
+    "id": "src:gunter-sommer-wikipedia",
+    "type": "encyclopedia",
+    "title": "Günter Sommer — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/G%C3%BCnter_Sommer"
+  },
+  {
+    "id": "src:charlie-persip-wikipedia",
+    "type": "encyclopedia",
+    "title": "Charlie Persip — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Charlie_Persip"
+  },
+  {
+    "id": "src:frank-butler-musician-wikipedia",
+    "type": "encyclopedia",
+    "title": "Frank Butler (musician) — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Frank_Butler_(musician)"
+  },
+  {
+    "id": "src:makaya-ntshoko-wikipedia",
+    "type": "encyclopedia",
+    "title": "Makaya Ntshoko — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Makaya_Ntshoko"
+  },
+  {
+    "id": "src:beaver-harris-wikipedia",
+    "type": "encyclopedia",
+    "title": "Beaver Harris — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Beaver_Harris"
+  },
+  {
+    "id": "src:cool-jazz-wikipedia",
+    "type": "encyclopedia",
+    "title": "Cool jazz — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Cool_jazz"
+  },
+  {
+    "id": "src:free-jazz-wikipedia",
+    "type": "encyclopedia",
+    "title": "Free jazz — Wikipedia",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "url": "https://en.wikipedia.org/wiki/Free_jazz"
+  }
+]

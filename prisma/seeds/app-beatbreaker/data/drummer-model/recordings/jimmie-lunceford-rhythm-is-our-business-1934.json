@@ -1,0 +1,19 @@
+{
+  "id": "rec:jimmie-lunceford-rhythm-is-our-business-1934",
+  "title": "Rhythm Is Our Business",
+  "artist": "Jimmie Lunceford and His Orchestra",
+  "year": 1934,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jimmy-crawford",
+      "name": "Jimmy Crawford",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:jimmy-crawford-wikipedia"]
+  }
+}

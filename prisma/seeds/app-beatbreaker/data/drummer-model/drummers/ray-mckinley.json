@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "id": "drummer:ray-mckinley",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ray McKinley",
+    "born": {
+      "date": "1910-06-18",
+      "place": "Fort Worth, Texas, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ray-mckinley-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1995-05-07",
+      "place": "Largo, Florida, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Dorsey Brothers (1934-1935)",
+      "Will Bradley Orchestra (1939-1942)",
+      "Glenn Miller Army Air Forces Orchestra (1943-1945)"
+    ],
+    "active": {
+      "from": 1925,
+      "to": 1978
+    },
+    "summary": "Drummer, singer and leader who put boogie-woogie into a big band and kept the Glenn Miller band going."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Will Bradley Orchestra",
+      "type": "bandleader",
+      "years": {
+        "from": 1939,
+        "to": 1942
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ray-mckinley-wikipedia"]
+      }
+    },
+    {
+      "name": "Major Glenn Miller Army Air Forces Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1943,
+        "to": 1945
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ray-mckinley-wikipedia"]
+      }
+    },
+    {
+      "name": "Glenn Miller Orchestra",
+      "type": "bandleader",
+      "years": {
+        "from": 1956,
+        "to": 1966
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ray-mckinley-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:will-bradley-beat-me-daddy-eight-to-the-bar-1940",
+    "rec:will-bradley-down-the-road-a-piece-1940"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "'Eight Beat Mack': with Will Bradley he took the boogie-woogie eight-to-the-bar into big-band drumming ('Beat Me Daddy, Eight to the Bar', 1940), and after Glenn Miller's disappearance he co-led the Army Air Forces Orchestra.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ray-mckinley-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 3
+  }
+}

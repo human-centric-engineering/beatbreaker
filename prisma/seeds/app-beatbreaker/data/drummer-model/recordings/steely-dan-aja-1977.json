@@ -50,6 +50,21 @@
           }
         }
       ]
+    },
+    {
+      "drummer_id": "drummer:jim-keltner",
+      "name": "Jim Keltner",
+      "drummer_role": "co_drummer"
+    },
+    {
+      "drummer_id": "drummer:rick-marotta",
+      "name": "Rick Marotta",
+      "drummer_role": "co_drummer"
+    },
+    {
+      "drummer_id": "drummer:ed-greene",
+      "name": "Ed Greene",
+      "drummer_role": "co_drummer"
     }
   ]
 }

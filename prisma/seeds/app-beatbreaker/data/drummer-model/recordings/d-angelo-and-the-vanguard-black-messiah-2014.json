@@ -1,0 +1,18 @@
+{
+  "id": "rec:d-angelo-and-the-vanguard-black-messiah-2014",
+  "title": "Black Messiah",
+  "artist": "D'Angelo and the Vanguard",
+  "year": 2014,
+  "type": "album",
+  "style_ids": ["style:neo-soul", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-dave",
+      "why_it_matters": "He recorded on it and toured it with the band."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:chris-dave-wikipedia"]
+  }
+}

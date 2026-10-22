@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "id": "drummer:dh-peligro",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "D. H. Peligro",
+    "full_name": "Darren Eric Henley",
+    "born": {
+      "date": "1959-07-09",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dh-peligro-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2022-10-28"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["San Francisco hardcore"],
+    "active": {
+      "from": 1981,
+      "to": 2022
+    },
+    "summary": "Dead Kennedys' drummer from 1981."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 1.0,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Dead Kennedys",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 1986
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dh-peligro-wikipedia"]
+      }
+    },
+    {
+      "name": "Red Hot Chili Peppers",
+      "type": "band_member",
+      "years": {
+        "from": 1988,
+        "to": 1988
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dh-peligro-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of Dead Kennedys' In God We Trust, Inc., Plastic Surgery Disasters, Frankenchrist and Bedtime for Democracy.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dh-peligro-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hardcore punk drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:dead-kennedys-in-god-we-trust-inc-1981",
+    "rec:dead-kennedys-plastic-surgery-disasters-1982",
+    "rec:dead-kennedys-frankenchrist-1985"
+  ],
+  "relationships": [
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Chad Smith",
+        "kind": "drummer",
+        "id": "drummer:chad-smith"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dh-peligro-wikipedia"]
+      }
+    }
+  ]
+}

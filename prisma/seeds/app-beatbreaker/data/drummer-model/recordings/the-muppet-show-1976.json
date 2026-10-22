@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-muppet-show-1976",
+  "title": "The Muppet Show",
+  "artist": "The Muppet Show orchestra",
+  "year": 1976,
+  "type": "broadcast",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ronnie-verrell",
+      "name": "Ronnie Verrell",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "Verrell played Animal's drums."
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:ronnie-verrell-wikipedia"]
+  }
+}

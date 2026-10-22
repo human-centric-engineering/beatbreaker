@@ -1,0 +1,25 @@
+{
+  "id": "rec:ornette-coleman-the-shape-of-jazz-to-come-1959",
+  "title": "The Shape of Jazz to Come",
+  "artist": "Ornette Coleman",
+  "year": 1959,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:billy-higgins",
+      "name": "Billy Higgins",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Swing under free melody.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:billy-higgins-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:billy-higgins-wikipedia"]
+  }
+}

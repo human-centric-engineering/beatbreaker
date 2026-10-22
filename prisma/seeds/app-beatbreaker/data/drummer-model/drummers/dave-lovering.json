@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "id": "drummer:dave-lovering",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Dave Lovering",
+    "full_name": "David Sullivan Lovering",
+    "born": {
+      "date": "1961-12-06",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dave-lovering-wikipedia"]
+      },
+      "place": "Winchester, Massachusetts"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Boston, 1980s"],
+    "active": {
+      "from": 1986,
+      "ongoing": true
+    },
+    "summary": "The Pixies' drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:indie-rock",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Pixies",
+      "type": "band_member",
+      "years": {
+        "from": 1986
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dave-lovering-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Steady, accurate drumming behind the Pixies' loud-quiet songs, from the opening solo of 'Bone Machine' through Doolittle, drawn from Rush, Steely Dan and Devo.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dave-lovering-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Alternative rock drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": ["rec:pixies-surfer-rosa-1988", "rec:pixies-doolittle-1989"]
+}

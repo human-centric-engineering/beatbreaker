@@ -1,0 +1,24 @@
+{
+  "id": "rec:steely-dan-two-against-nature-2000",
+  "title": "Two Against Nature",
+  "artist": "Steely Dan",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:keith-carlock-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:keith-carlock",
+      "name": "Keith Carlock",
+      "drummer_role": "sole_drummer"
+    },
+    {
+      "drummer_id": "drummer:ricky-lawson",
+      "name": "Ricky Lawson",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

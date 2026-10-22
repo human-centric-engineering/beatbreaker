@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:greg-errico",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Greg Errico",
+    "born": {
+      "date": "1948-09-01",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:greg-errico-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["San Francisco Bay Area"],
+    "active": {
+      "from": 1966,
+      "ongoing": true
+    },
+    "summary": "Founding drummer of Sly and the Family Stone (1966–71), later with Weather Report on tour, David Bowie and the Jerry Garcia Band."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk",
+        "weight": 0.9,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 0.5
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Sly and the Family Stone",
+      "type": "band_member",
+      "years": {
+        "from": 1966,
+        "to": 1971
+      }
+    },
+    {
+      "name": "Jerry Garcia Band",
+      "type": "band_member",
+      "years": {
+        "from": 1974,
+        "to": 1984
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:sly-and-the-family-stone-stand-1969",
+    "rec:sly-and-the-family-stone-hot-fun-in-the-summertime-1969"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The original drummer of Sly and the Family Stone, whose intricate grooves on their late-1960s records have been sampled by hip-hop producers over and over; Jeff Porcaro, David Garibaldi and Chad Smith all name him.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:greg-errico-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Funk drummers",
+    "build_priority": 1
+  }
+}

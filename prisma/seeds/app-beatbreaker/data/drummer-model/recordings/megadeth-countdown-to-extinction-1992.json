@@ -1,0 +1,14 @@
+{
+  "id": "rec:megadeth-countdown-to-extinction-1992",
+  "title": "Countdown to Extinction",
+  "artist": "Megadeth",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nick-menza",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "id": "drummer:jon-hiseman",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jon Hiseman",
+    "full_name": "Philip John Albert Hiseman",
+    "nationality": ["English"],
+    "roles": ["band_member", "bandleader", "producer"],
+    "born": {
+      "date": "1944-06-21",
+      "place": "Woolwich, London",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jon-hiseman-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2018-06-12",
+      "place": "Sutton, London"
+    },
+    "active": {
+      "from": 1964,
+      "to": 2018
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "English drummer who led Colosseum, a founding British jazz-rock band, after the Graham Bond Organisation and John Mayall."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.8,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Graham Bond Organisation",
+      "type": "band_member",
+      "years": {
+        "from": 1966,
+        "to": 1967
+      }
+    },
+    {
+      "name": "John Mayall & the Bluesbreakers",
+      "type": "band_member",
+      "years": {
+        "from": 1968,
+        "to": 1968
+      }
+    },
+    {
+      "name": "Colosseum",
+      "type": "bandleader",
+      "years": {
+        "from": 1968,
+        "to": 2015
+      }
+    },
+    {
+      "name": "Colosseum II",
+      "type": "bandleader",
+      "years": {
+        "from": 1975,
+        "to": 1978
+      }
+    },
+    {
+      "name": "United Jazz + Rock Ensemble",
+      "type": "ensemble"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:john-mayall-and-the-bluesbreakers-bare-wires-1968",
+    "rec:colosseum-those-who-are-about-to-die-salute-you-1969"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Formed Colosseum in 1968, described as a \"seminal\" jazz-rock/progressive-rock band, bringing jazz drumming into British rock just as fusion began.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jon-hiseman-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "replaced",
+      "target": {
+        "id": "drummer:ginger-baker",
+        "name": "Ginger Baker",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jon-hiseman-wikipedia"]
+      }
+    }
+  ]
+}

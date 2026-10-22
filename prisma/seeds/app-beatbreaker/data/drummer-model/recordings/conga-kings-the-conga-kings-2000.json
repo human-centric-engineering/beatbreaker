@@ -1,0 +1,31 @@
+{
+  "id": "rec:conga-kings-the-conga-kings-2000",
+  "title": "The Conga Kings",
+  "artist": "Cándido, Patato and Giovanni Hidalgo",
+  "release": "Chesky",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:afro-cuban", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:candido-camero",
+      "name": "Cándido Camero",
+      "drummer_role": "percussion_only",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-candido-camero"]
+      }
+    },
+    {
+      "drummer_id": "drummer:giovanni-hidalgo",
+      "name": "Giovanni Hidalgo",
+      "drummer_role": "percussion_only",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-giovanni-hidalgo"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:sonic-youth-goo-1990",
+  "title": "Goo",
+  "artist": "Sonic Youth",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:noise-rock", "style:alternative-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:steve-shelley-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-shelley",
+      "name": "Steve Shelley",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

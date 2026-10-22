@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "id": "drummer:sandy-west",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Sandy West",
+    "full_name": "Sandra Sue Pesavento",
+    "born": {
+      "date": "1959",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sandy-west-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2006"
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1975,
+      "to": 2006
+    },
+    "summary": "Co-founder and drummer of the Runaways."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Runaways",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1979
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sandy-west-wikipedia"]
+      }
+    },
+    {
+      "name": "The Sandy West Band",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sandy-west-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:the-runaways-the-runaways-1976"],
+  "legacy": {
+    "contribution": {
+      "description": "Co-founded and drummed for the Runaways, the 1970s teenage all-girl rock band; Time called her 'a pioneering rock drummer'.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sandy-west-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard rock drummers",
+    "build_priority": 2
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "rec:mary-mary-incredible-2002",
+  "title": "Incredible",
+  "artist": "Mary Mary",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:gospel", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:teddy-campbell",
+      "why_it_matters": "Listed among his album credits."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:teddy-campbell-wikipedia"]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "rec:yogi-horton-the-history-of-r-b-funk-drumming-1983",
+  "title": "The History of R&B/Funk Drumming",
+  "artist": "Yogi Horton",
+  "year": 1983,
+  "type": "video",
+  "style_ids": ["style:rnb-soul", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yogi-horton",
+      "why_it_matters": "\"One of the first instructional type videos of its kind.\""
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:yogi-horton-wikipedia"]
+  }
+}

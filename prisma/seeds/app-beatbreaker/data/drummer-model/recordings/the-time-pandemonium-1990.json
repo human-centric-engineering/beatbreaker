@@ -1,0 +1,18 @@
+{
+  "id": "rec:the-time-pandemonium-1990",
+  "title": "Pandemonium",
+  "artist": "The Time",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:minneapolis-sound", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jellybean-johnson",
+      "why_it_matters": "He rejoined for it."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jellybean-johnson-wikipedia"]
+  }
+}

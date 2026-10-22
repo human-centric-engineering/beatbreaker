@@ -42,6 +42,17 @@
       },
       "pattern_ids": ["pattern:bruford-larks-tongues-riff"],
       "kit_setup_id": "kit:bill-bruford-ludwig-hayman-1972"
+    },
+    {
+      "drummer_id": "drummer:jamie-muir",
+      "name": "Jamie Muir",
+      "drummer_role": "percussion_only",
+      "significance": 0.7,
+      "why_it_matters": "A key recording.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jamie-muir-wikipedia"]
+      }
     }
   ],
   "evidence": {

@@ -1,0 +1,19 @@
+{
+  "id": "rec:yellowjackets-shades-1986",
+  "title": "Shades",
+  "artist": "Yellowjackets",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ricky-lawson-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ricky-lawson",
+      "name": "Ricky Lawson",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

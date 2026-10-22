@@ -1,0 +1,14 @@
+{
+  "id": "rec:halford-resurrection-2000",
+  "title": "Resurrection",
+  "artist": "Halford",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bobby-jarzombek",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

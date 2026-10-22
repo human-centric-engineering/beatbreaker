@@ -1,0 +1,14 @@
+{
+  "id": "rec:nile-ithyphallic-2007",
+  "title": "Ithyphallic",
+  "artist": "Nile",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:george-kollias",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

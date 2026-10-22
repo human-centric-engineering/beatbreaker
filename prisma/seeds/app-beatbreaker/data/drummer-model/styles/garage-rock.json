@@ -1,0 +1,18 @@
+{
+  "id": "style:garage-rock",
+  "name": "Garage rock",
+  "kind": "genre",
+  "parents": [
+    {
+      "style_id": "style:rock-and-roll",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1963
+  },
+  "summary": "Raw, simple rock played by small bands, from the 1960s and proto-punk to the 2000s revival."
+}

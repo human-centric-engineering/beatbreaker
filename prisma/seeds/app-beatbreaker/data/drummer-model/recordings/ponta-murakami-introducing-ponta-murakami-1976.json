@@ -1,0 +1,24 @@
+{
+  "id": "rec:ponta-murakami-introducing-ponta-murakami-1976",
+  "title": "Introducing Ponta Murakami",
+  "artist": "Shuichi \"Ponta\" Murakami",
+  "release": "Toshiba",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ponta-murakami",
+      "name": "Shuichi \"Ponta\" Murakami",
+      "drummer_role": "leader",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:shuichi-murakami-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:shuichi-murakami-wikipedia"]
+  }
+}

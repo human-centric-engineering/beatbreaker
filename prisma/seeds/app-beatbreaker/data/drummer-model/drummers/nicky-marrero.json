@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "id": "drummer:nicky-marrero",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Nicky Marrero",
+    "full_name": "Nicholas Marrero Jr.",
+    "born": {
+      "date": "1950-06-17",
+      "place": "The Bronx, New York"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York salsa"],
+    "active": {
+      "from": 1965,
+      "ongoing": true
+    },
+    "summary": "Timbalero of the Fania All-Stars and Eddie Palmieri's band in the salsa boom."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:salsa",
+        "weight": 1,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Eddie Palmieri",
+      "type": "band_member",
+      "years": {
+        "from": 1965,
+        "to": 1971
+      }
+    },
+    {
+      "name": "Larry Harlow",
+      "type": "band_member",
+      "years": {
+        "from": 1971,
+        "to": 1973
+      }
+    },
+    {
+      "name": "Fania All-Stars",
+      "type": "band_member",
+      "years": {
+        "from": 1974
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:eddie-palmieri-champagne-1968",
+    "rec:willie-colon-el-malo-1968",
+    "rec:eddie-palmieri-harlem-river-drive-1970"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The timbalero of the Fania All-Stars and a recording player of the 1970s New York salsa boom.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-nicky-marrero"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Salsa drummers",
+    "build_priority": 2
+  }
+}

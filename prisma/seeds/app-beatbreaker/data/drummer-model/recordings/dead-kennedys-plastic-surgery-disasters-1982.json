@@ -1,0 +1,20 @@
+{
+  "id": "rec:dead-kennedys-plastic-surgery-disasters-1982",
+  "title": "Plastic Surgery Disasters",
+  "artist": "Dead Kennedys",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:hardcore-punk"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:dh-peligro-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dh-peligro",
+      "name": "D. H. Peligro",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

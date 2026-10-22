@@ -1,0 +1,19 @@
+{
+  "id": "rec:steven-wilson-hand-cannot-erase-2015",
+  "title": "Hand. Cannot. Erase.",
+  "artist": "Steven Wilson",
+  "year": 2015,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:chad-wackerman-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chad-wackerman",
+      "name": "Chad Wackerman",
+      "drummer_role": "co_drummer"
+    }
+  ]
+}

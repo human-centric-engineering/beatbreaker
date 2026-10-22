@@ -1,0 +1,14 @@
+{
+  "id": "rec:eddie-bo-hook-and-sling-1969",
+  "title": "Hook and Sling",
+  "artist": "Eddie Bo",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-funk", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:james-black",
+      "name": "James Black"
+    }
+  ]
+}

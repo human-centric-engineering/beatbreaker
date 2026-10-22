@@ -1,0 +1,25 @@
+{
+  "id": "rec:keith-jarrett-belonging-1974",
+  "title": "Belonging",
+  "artist": "Keith Jarrett",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jon-christensen",
+      "name": "Jon Christensen",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The European Quartet's first record.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jon-christensen-musician-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jon-christensen-musician-wikipedia"]
+  }
+}

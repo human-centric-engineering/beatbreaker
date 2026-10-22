@@ -153,6 +153,7 @@ function stub(id: string, label: string, kind: NodeKind): LineageNode {
     kind,
     label,
     modelled: false,
+    candidate: false,
     activeFrom: null,
     activeTo: null,
     styleKey: null,
@@ -189,6 +190,8 @@ function drummerNode(d: DrummerRecord, sources: ReadonlyMap<string, SourceRecord
     kind: 'drummer',
     label: d.identity.name,
     modelled: true,
+    // researched, not built (D74): the map draws it like a stub, where it has an edge to a person
+    candidate: d.meta.record_status === 'candidate',
     activeFrom: d.identity.active?.from ?? null,
     activeTo: d.identity.active?.ongoing ? null : (d.identity.active?.to ?? null),
     styleKey: d.beatbreaker?.style_key ?? null,

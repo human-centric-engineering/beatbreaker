@@ -1,0 +1,16 @@
+{
+  "id": "style:hindustani-classical",
+  "name": "Hindustani classical percussion",
+  "kind": "tradition",
+  "region": "North India",
+  "summary": "The tabla and pakhawaj of North Indian classical music: accompaniment to voice, sitar, sarod and kathak dance, and solo playing built on the theka of a tala, composed pieces and tihai cadences. Taught in gharanas (Punjab, Benares and others).",
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": [
+      "src:alla-rakha-wikipedia",
+      "src:kishan-maharaj-wikipedia",
+      "src:zakir-hussain-wikipedia"
+    ],
+    "note": "Summary written from the drummer articles listed; not from a genre history."
+  }
+}

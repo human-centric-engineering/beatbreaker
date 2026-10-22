@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "id": "drummer:charles-connor",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Charles Connor",
+    "born": {
+      "date": "1935-01-14",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charles-connor-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2021-07-31"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans", "Little Richard's Upsetters on the road"],
+    "active": {
+      "from": 1950,
+      "to": 2021
+    },
+    "summary": "Drummer of Little Richard's road band the Upsetters from 1953, whose drum rhythms Richard said his \"a-wop bop-a-loo-mop\" referred to."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.9,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.5
+      },
+      {
+        "style_id": "style:new-orleans-funk",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Upsetters (Little Richard's band)",
+      "type": "band_member",
+      "years": {
+        "from": 1953
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:little-richard-keep-a-knockin-1957"],
+  "legacy": {
+    "contribution": {
+      "description": "Little Richard's drummer: playing without a bass player, he thumped the bass drum hard for a \"bass fiddle effect\", and his four-bar double-shuffle intro to \"Keep A-Knockin'\" (1957) is the one John Bonham imitated to open \"Rock and Roll\". James Brown called that band \"the first to put funk into the rhythm\".",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charles-connor-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Rock and roll and roots drummers",
+    "build_priority": 1
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "id": "drummer:ray-barretto",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ray Barretto",
+    "full_name": "Raymundo Barretto Pagán",
+    "born": {
+      "date": "1929-04-29",
+      "place": "Brooklyn, New York"
+    },
+    "died": {
+      "date": "2006-02-17",
+      "place": "Hackensack, New Jersey"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York"],
+    "active": {
+      "from": 1949,
+      "to": 2006
+    },
+    "summary": "New York conga player and bandleader, musical director of the Fania All-Stars."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:salsa",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 0.8,
+        "authority": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Charanga Moderna",
+      "type": "bandleader",
+      "years": {
+        "from": 1962
+      }
+    },
+    {
+      "name": "Fania All-Stars",
+      "type": "band_member"
+    },
+    {
+      "name": "New World Spirit",
+      "type": "bandleader",
+      "years": {
+        "from": 1990
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:ray-barretto-el-watusi-1962",
+    "rec:kenny-burrell-midnight-blue-1963",
+    "rec:ray-barretto-acid-1968",
+    "rec:puente-dance-mania-1958"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Credited as the first US-born percussionist to bring the conga into jazz, and a central bandleader of the Fania salsa era.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-ray-barretto"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Salsa drummers",
+    "build_priority": 2
+  }
+}

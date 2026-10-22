@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "drummer:hannes-grossmann",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Hannes Grossmann",
+    "born": {
+      "date": "1982-09-08"
+    },
+    "nationality": ["German"],
+    "active": {
+      "from": 2003,
+      "ongoing": true
+    },
+    "summary": "The drummer of Necrophagist's Epitaph and of Obscura."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:death-metal",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:progressive-metal",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Necrophagist",
+      "type": "band_member",
+      "years": {
+        "from": 2003,
+        "to": 2007
+      }
+    },
+    {
+      "name": "Obscura",
+      "type": "band_member",
+      "years": {
+        "from": 2008,
+        "to": 2014
+      }
+    },
+    {
+      "name": "Alkaloid",
+      "type": "band_member",
+      "years": {
+        "from": 2014,
+        "ongoing": true
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:necrophagist-epitaph-2004", "rec:obscura-cosmogenesis-2009"],
+  "legacy": {
+    "contribution": {
+      "description": "Set the bar for technical death metal on Necrophagist's Epitaph: complex polyrhythmic parts and blast beats up to 240 bpm, later taught on his progressive metal drumming DVD.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:hannes-grossmann-wikipedia", "src:drumeo-best-50-metal-drummers"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Death metal and grindcore drummers",
+    "build_priority": 3
+  }
+}

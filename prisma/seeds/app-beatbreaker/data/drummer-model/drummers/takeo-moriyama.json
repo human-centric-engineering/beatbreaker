@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "id": "drummer:takeo-moriyama",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Takeo Moriyama",
+    "born": {
+      "date": "1945-01-27",
+      "place": "Katsunuma, Yamanashi, Japan",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:takeo-moriyama-wikipedia"]
+      }
+    },
+    "nationality": ["Japanese"],
+    "home_scenes": ["Tokyo", "Nagoya (from 1977)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1967,
+      "ongoing": true
+    },
+    "summary": "The drummer of the Yosuke Yamashita Trio, Japanese free jazz at full speed."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 1.0,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Yosuke Yamashita Trio",
+      "type": "band_member",
+      "years": {
+        "from": 1967,
+        "to": 1975
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:takeo-moriyama-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:manfred-schoof-akira-sakata-yosuke-yamashita-takeo-moriyama-distant-thunder-1975"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of Yosuke Yamashita's group from 1967 to 1975, on the international tours that took Japanese free jazz abroad, and later a leader in Nagoya.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:takeo-moriyama-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 3
+  }
+}
