@@ -49,6 +49,66 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Blackened",
+      "drummer_ids": ["drummer:lars-ulrich"],
+      "drums": {
+        "description": "A fast, stop-start thrash groove in shifting meters with double-bass runs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:and-justice-for-all-wikipedia"]
+        }
+      },
+      "style_key": "ulrich",
+      "song_key": "blackened",
+      "youtube": "https://www.youtube.com/watch?v=nUZVXtDVrc0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=516"
+        }
+      ]
+    },
+    {
+      "title": "One",
+      "drummer_ids": ["drummer:lars-ulrich"],
+      "drums": {
+        "description": "Builds from a quiet ballad to the machine-gun double-bass section after 'darkness imprisoning me'.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:one-song-wikipedia", "src:and-justice-for-all-wikipedia"]
+        }
+      },
+      "style_key": "ulrich",
+      "song_key": "one",
+      "youtube": "https://www.youtube.com/watch?v=WM8bTdBs-cw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=444"
+        }
+      ]
+    },
+    {
+      "title": "Dyers Eve",
+      "drummer_ids": ["drummer:lars-ulrich"],
+      "drums": {
+        "description": "The fastest song on Justice: continuous double bass and abrupt breaks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:and-justice-for-all-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qbwFMZTFrmU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12176"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:and-justice-for-all-wikipedia"]

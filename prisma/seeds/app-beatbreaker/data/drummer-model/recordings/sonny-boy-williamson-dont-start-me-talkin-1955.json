@@ -1,0 +1,27 @@
+{
+  "id": "rec:sonny-boy-williamson-dont-start-me-talkin-1955",
+  "title": "Don't Start Me Talkin'",
+  "artist": "Sonny Boy Williamson",
+  "year": 1955,
+  "type": "studio_track",
+  "style_ids": ["style:blues", "style:blues-shuffle"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fred-below"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Don't Start Me Talkin'",
+      "drummer_ids": ["drummer:fred-below"],
+      "drums": {
+        "description": "Medium Chicago shuffle with a firm backbeat behind the harmonica.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dont-start-me-talkin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fWCsW-7vR4Y"
+    }
+  ]
+}

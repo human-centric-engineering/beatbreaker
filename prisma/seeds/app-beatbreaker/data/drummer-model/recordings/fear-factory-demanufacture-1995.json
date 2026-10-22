@@ -10,5 +10,79 @@
       "drummer_id": "drummer:raymond-herrera",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Demanufacture",
+      "drummer_ids": ["drummer:raymond-herrera"],
+      "drums": {
+        "description": "Machine-precise double-bass locked to the guitar in rhythmic unison, an industrial metal signature.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:demanufacture-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=H0Q7yaDqLqs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7447"
+        }
+      ]
+    },
+    {
+      "title": "Replica",
+      "drummer_ids": ["drummer:raymond-herrera"],
+      "drums": {
+        "description": "Fast, mechanical double-bass under alternating clean and harsh vocals.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:demanufacture-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7RJsRQOneMY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7642"
+        }
+      ]
+    },
+    {
+      "title": "Self Bias Resistor",
+      "drummer_ids": ["drummer:raymond-herrera"],
+      "drums": {
+        "description": "Locked guitar-and-kick unison patterns with sudden stops.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:demanufacture-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=JU5nKOh01qc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7575"
+        }
+      ]
+    },
+    {
+      "title": "Zero Signal",
+      "drummer_ids": ["drummer:raymond-herrera"],
+      "drums": {
+        "description": "Relentless, precise double-bass at high tempo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:demanufacture-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HNvqcwIV8B0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7384"
+        }
+      ]
+    }
   ]
 }

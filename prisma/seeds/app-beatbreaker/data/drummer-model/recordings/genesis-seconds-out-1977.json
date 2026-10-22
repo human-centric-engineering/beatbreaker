@@ -15,5 +15,43 @@
       "name": "Chester Thompson",
       "drummer_role": "co_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Squonk",
+      "drummer_ids": ["drummer:chester-thompson"],
+      "drums": {
+        "description": "A heavy, half-time groove with big toms, Thompson's live Genesis debut.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chester-thompson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xmUSL1njm84",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=36370"
+        }
+      ]
+    },
+    {
+      "title": "Dance on a Volcano",
+      "drummer_ids": ["drummer:chester-thompson"],
+      "drums": {
+        "description": "Odd-metre prog grooves, played with Phil Collins.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chester-thompson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sjRQgTbbfwA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=36377"
+        }
+      ]
+    }
   ]
 }

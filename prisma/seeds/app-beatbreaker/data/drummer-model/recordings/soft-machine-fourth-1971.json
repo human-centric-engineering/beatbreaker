@@ -1,0 +1,27 @@
+{
+  "id": "rec:soft-machine-fourth-1971",
+  "title": "Fourth",
+  "artist": "Soft Machine",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:robert-wyatt"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Virtually",
+      "drummer_ids": ["drummer:robert-wyatt"],
+      "drums": {
+        "description": "Free-flowing jazz-rock drumming, his last full album with the band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fourth-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=B2kROVcfX3A"
+    }
+  ]
+}

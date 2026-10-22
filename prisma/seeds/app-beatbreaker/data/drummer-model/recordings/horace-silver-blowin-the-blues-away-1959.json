@@ -18,6 +18,50 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Sister Sadie",
+      "drummer_ids": ["drummer:louis-hayes"],
+      "drums": {
+        "description": "A hard, swinging groove with crisp shout-chorus accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blowin-the-blues-away-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MkLhMPQtQ-o"
+    },
+    {
+      "title": "Blowin' the Blues Away",
+      "drummer_ids": ["drummer:louis-hayes"],
+      "drums": {
+        "description": "Very fast, driving hard-bop swing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blowin-the-blues-away-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FTdf-KYdL6E"
+    },
+    {
+      "title": "Peace",
+      "drummer_ids": ["drummer:louis-hayes"],
+      "drums": {
+        "description": "A soft ballad with gentle brushes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blowin-the-blues-away-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ieaAHwvqljg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=713302"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:louis-hayes-wikipedia"]

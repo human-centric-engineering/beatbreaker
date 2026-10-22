@@ -12,6 +12,62 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Thunderstruck",
+      "drummer_ids": ["drummer:chris-slade"],
+      "drums": {
+        "description": "A building snare-and-tom crescendo into a heavy, steady rock groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-razors-edge-ac-dc-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=v2AC41dglnM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1352"
+        }
+      ]
+    },
+    {
+      "title": "Moneytalks",
+      "drummer_ids": ["drummer:chris-slade"],
+      "drums": {
+        "description": "A steady, mid-tempo rock beat locked to the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-razors-edge-ac-dc-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2lqdErI9uss",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22277"
+        }
+      ]
+    },
+    {
+      "title": "Are You Ready",
+      "drummer_ids": ["drummer:chris-slade"],
+      "drums": {
+        "description": "A simple, heavy hard-rock groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-razors-edge-ac-dc-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CIhylLW4Fcs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23564"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:chris-slade-wikipedia"]

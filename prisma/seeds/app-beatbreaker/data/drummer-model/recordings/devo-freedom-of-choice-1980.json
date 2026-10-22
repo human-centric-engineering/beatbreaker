@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Whip It",
+      "drummer_ids": ["drummer:alan-myers"],
+      "drums": {
+        "description": "A tight, mechanical dance-rock beat, hi-hat sixteenths over a snare crack on 2 and 4, the template for Devo's 1980 sound.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:freedom-of-choice-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=j_QLzthSkfM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5423"
+        }
+      ]
+    },
+    {
+      "title": "Girl U Want",
+      "drummer_ids": ["drummer:alan-myers"],
+      "drums": {
+        "description": "A driving eighth-note beat with the snare locked on 2 and 4, punctuating the guitar stabs with exact accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:freedom-of-choice-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=g4-2onb62y8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29822"
+        }
+      ]
+    }
   ]
 }

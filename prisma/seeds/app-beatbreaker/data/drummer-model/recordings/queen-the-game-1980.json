@@ -44,6 +44,48 @@
       "pattern_ids": ["pattern:rogertaylor-cltcl-verse", "pattern:rogertaylor-aobtd-loop"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Crazy Little Thing Called Love",
+      "drummer_ids": ["drummer:roger-taylor"],
+      "drums": {
+        "description": "Rockabilly: hats on the beat, 2 and 4, the kick swinging into 4 off the last triplet of 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-23541", "src:the-game-wikipedia"]
+        }
+      },
+      "style_key": "rogertaylor",
+      "song_key": "crazy-little-thing-called-love",
+      "youtube": "https://www.youtube.com/watch?v=zO6D_BAuYCI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23541"
+        }
+      ]
+    },
+    {
+      "title": "Another One Bites the Dust",
+      "drummer_ids": ["drummer:roger-taylor"],
+      "drums": {
+        "description": "A loop-like disco groove: the kick on every beat, hats in eighths, 2 and 4, a fill every eighth bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-371", "src:another-one-bites-the-dust-wikipedia"]
+        }
+      },
+      "style_key": "rogertaylor",
+      "song_key": "another-one-bites-the-dust",
+      "youtube": "https://www.youtube.com/watch?v=rY0WxgSXdEE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=371"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-game-wikipedia"]

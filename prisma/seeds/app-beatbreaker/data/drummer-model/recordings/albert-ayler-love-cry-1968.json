@@ -18,6 +18,44 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Love Cry",
+      "drummer_ids": ["drummer:milford-graves"],
+      "drums": {
+        "description": "Free, rolling percussion surging behind Ayler's anthem.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:milford-graves-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TvyBNTWzbLg"
+    },
+    {
+      "title": "Ghosts",
+      "drummer_ids": ["drummer:milford-graves"],
+      "drums": {
+        "description": "Loose, shimmering cymbal and tom figures around the folk-like theme.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:milford-graves-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KnZDHaVDMRM"
+    },
+    {
+      "title": "Universal Indians",
+      "drummer_ids": ["drummer:milford-graves"],
+      "drums": {
+        "description": "Free, high-energy drumming with Alan Silva's bass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:milford-graves-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lA87T58h7kM"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:milford-graves-wikipedia"]

@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-shadows-dance-on-1962",
+  "title": "Dance On!",
+  "artist": "The Shadows",
+  "year": 1962,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-bennett"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Dance On!",
+      "drummer_ids": ["drummer:brian-bennett"],
+      "drums": {
+        "description": "A bright, driving beat with crisp snare fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dance-on-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OvNp_Vg56p0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17852"
+        }
+      ]
+    }
+  ]
+}

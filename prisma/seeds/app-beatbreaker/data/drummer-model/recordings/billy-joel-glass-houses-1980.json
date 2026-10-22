@@ -15,5 +15,43 @@
       "name": "Liberty DeVitto",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "You May Be Right",
+      "drummer_ids": ["drummer:liberty-devitto"],
+      "drums": {
+        "description": "An energetic, straight-ahead rock beat that opens with breaking glass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:glass-houses-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Jo9t5XK0FhA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=414530"
+        }
+      ]
+    },
+    {
+      "title": "It's Still Rock and Roll to Me",
+      "drummer_ids": ["drummer:liberty-devitto"],
+      "drums": {
+        "description": "A tight, shuffling new-wave beat with handclaps.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:glass-houses-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5eAQa4MOGkE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=286248"
+        }
+      ]
+    }
   ]
 }

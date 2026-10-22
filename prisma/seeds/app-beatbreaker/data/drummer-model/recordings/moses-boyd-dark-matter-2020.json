@@ -18,6 +18,56 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Stranger Than Fiction",
+      "drummer_ids": ["drummer:moses-boyd"],
+      "drums": {
+        "description": "Broken-beat and Afrobeat-inflected kit groove mixed with electronics, London jazz's club sound.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dark-matter-moses-boyd-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=va31cQzbV18"
+    },
+    {
+      "title": "BTB",
+      "drummer_ids": ["drummer:moses-boyd"],
+      "drums": {
+        "description": "Grime- and UK-garage-influenced syncopation on live drums.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dark-matter-moses-boyd-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4bx1vWJghXA"
+    },
+    {
+      "title": "Shades of You",
+      "drummer_ids": ["drummer:moses-boyd"],
+      "drums": {
+        "description": "Laid-back, swinging groove under Poppy Ajudha's vocal.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dark-matter-moses-boyd-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PM9lh9ne8pU"
+    },
+    {
+      "title": "Only You",
+      "drummer_ids": ["drummer:moses-boyd"],
+      "drums": {
+        "description": "Driving, dance-floor kit groove with electronic layers.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dark-matter-moses-boyd-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GE5SmJ69OAA"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:moses-boyd-wikipedia"]

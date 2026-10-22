@@ -16,5 +16,72 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Corona",
+      "drummer_ids": ["drummer:george-hurley"],
+      "drums": {
+        "description": "A loose, jazzy punk shuffle full of quick fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:corona-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=P_0CAPKdSPE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4543805"
+        }
+      ]
+    },
+    {
+      "title": "History Lesson – Part II",
+      "drummer_ids": ["drummer:george-hurley"],
+      "drums": {
+        "description": "A gentle, restrained groove under the spoken lyric.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:double-nickels-on-the-dime-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "This Ain't No Picnic",
+      "drummer_ids": ["drummer:george-hurley"],
+      "drums": {
+        "description": "A funky, stop-start punk groove with busy snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:double-nickels-on-the-dime-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QrKndAdPHto",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3193324"
+        }
+      ]
+    },
+    {
+      "title": "Jesus and Tequila",
+      "drummer_ids": ["drummer:george-hurley"],
+      "drums": {
+        "description": "Fast, jazz-inflected punk with constant movement around the kit.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:double-nickels-on-the-dime-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=za2aPSgsAQ0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2557345"
+        }
+      ]
+    }
   ]
 }

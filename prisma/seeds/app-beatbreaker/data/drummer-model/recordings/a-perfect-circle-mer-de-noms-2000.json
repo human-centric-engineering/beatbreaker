@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Judith",
+      "drummer_ids": ["drummer:josh-freese"],
+      "drums": {
+        "description": "A heavy, tom-led groove under the verses that turns into a pounding straight drive in the loud sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mer-de-noms-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xTgKRCXybSM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=920"
+        }
+      ]
+    },
+    {
+      "title": "3 Libras",
+      "drummer_ids": ["drummer:josh-freese"],
+      "drums": {
+        "description": "Soft, restrained playing that swells under the strings and guitar without crowding them.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mer-de-noms-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=u9MAg9E5K3w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24544"
+        }
+      ]
+    },
+    {
+      "title": "Orestes",
+      "drummer_ids": ["drummer:josh-freese"],
+      "drums": {
+        "description": "A measured, building pattern that grows from quiet toms to a full heavy backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mer-de-noms-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TVF7Z3Pj_-I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24542"
+        }
+      ]
+    }
   ]
 }

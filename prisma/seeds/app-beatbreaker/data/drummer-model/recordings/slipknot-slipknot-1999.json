@@ -74,6 +74,88 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "(Sic)",
+      "drummer_ids": ["drummer:joey-jordison"],
+      "drums": {
+        "description": "Rimshot hits, double bass under open hats, the snare on every beat in the chorus, a half-time breakdown.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:slipknot-album-wikipedia", "src:drumeo-jordison"]
+        }
+      },
+      "style_key": "jordison",
+      "song_key": "sic",
+      "youtube": "https://www.youtube.com/watch?v=m3I3-KTJbtY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17303"
+        }
+      ]
+    },
+    {
+      "title": "Wait and Bleed",
+      "drummer_ids": ["drummer:joey-jordison"],
+      "drums": {
+        "description": "The kick doubling the riff, crash quarters over both feet, toms between the backbeats in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-17296", "src:slipknot-album-wikipedia"]
+        }
+      },
+      "style_key": "jordison",
+      "song_key": "wait-and-bleed",
+      "youtube": "https://www.youtube.com/watch?v=B1zCN0YhW1s",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17296"
+        }
+      ]
+    },
+    {
+      "title": "Surfacing",
+      "drummer_ids": ["drummer:joey-jordison"],
+      "drums": {
+        "description": "Hats with both hands round the backbeat, the crash on every beat, a half-time bridge over double bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:slipknot-album-wikipedia", "src:bonedo-jordison-workshop"]
+        }
+      },
+      "style_key": "jordison",
+      "song_key": "surfacing",
+      "youtube": "https://www.youtube.com/watch?v=vq-zaD1poAE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=586"
+        }
+      ]
+    },
+    {
+      "title": "Eyeless",
+      "drummer_ids": ["drummer:joey-jordison"],
+      "drums": {
+        "description": "Snare hits and tom answers, the crash on every beat over both feet, half time, a linear verse.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-17306"]
+        }
+      },
+      "style_key": "jordison",
+      "song_key": "eyeless",
+      "youtube": "https://www.youtube.com/watch?v=WLubS6QOMsQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17306"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:slipknot-album-wikipedia"]

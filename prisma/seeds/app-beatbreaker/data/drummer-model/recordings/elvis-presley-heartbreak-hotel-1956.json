@@ -1,0 +1,33 @@
+{
+  "id": "rec:elvis-presley-heartbreak-hotel-1956",
+  "title": "Heartbreak Hotel",
+  "artist": "Elvis Presley",
+  "year": 1956,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:americana"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dj-fontana"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Heartbreak Hotel",
+      "drummer_ids": ["drummer:dj-fontana"],
+      "drums": {
+        "description": "Spare, stark accents and a slow walking beat under the echo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:heartbreak-hotel-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=e9BLw4W5KU8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=403863"
+        }
+      ]
+    }
+  ]
+}

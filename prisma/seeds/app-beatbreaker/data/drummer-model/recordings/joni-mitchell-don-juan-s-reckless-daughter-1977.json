@@ -1,0 +1,27 @@
+{
+  "id": "rec:joni-mitchell-don-juan-s-reckless-daughter-1977",
+  "title": "Don Juan's Reckless Daughter",
+  "artist": "Joni Mitchell",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:don-alias"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Dreamland",
+      "drummer_ids": ["drummer:don-alias"],
+      "drums": {
+        "description": "A track of hand drums and percussion only, Afro-Latin rhythms layered under the voices.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:don-juan-s-reckless-daughter-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=D2t2ndYEeXY"
+    }
+  ]
+}

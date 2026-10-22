@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Fire Back About Your New Baby's Sex",
+      "drummer_ids": ["drummer:damon-che"],
+      "drums": {
+        "description": "Che drives the instrumental with loud, hard-hit tom patterns and stop-start accents that make the drums the lead voice.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:for-respect-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sl0uk12hmmg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=33391"
+        }
+      ]
+    }
   ]
 }

@@ -10,5 +10,25 @@
       "drummer_id": "drummer:maurice-white",
       "name": "Maurice White"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Wade in the Water",
+      "drummer_ids": ["drummer:maurice-white"],
+      "drums": {
+        "description": "A gospel-soul groove from the Ramsey Lewis Trio, the drums keeping a churchy backbeat with tambourine-like hat work.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wade-in-the-water-album-wikipedia", "src:maurice-white-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TOG0a8iorkI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1855093"
+        }
+      ]
+    }
   ]
 }

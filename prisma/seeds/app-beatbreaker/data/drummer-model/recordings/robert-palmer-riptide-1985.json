@@ -47,6 +47,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Addicted to Love",
+      "drummer_ids": ["drummer:tony-thompson"],
+      "drums": {
+        "description": "The hat opened on 1 and accented on the beats, the kick on 1 and 3, the band stopping dead around it.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:addicted-to-love-song-wikipedia",
+            "src:songsterr-5824939",
+            "src:thompson-moderndrummer-2002"
+          ]
+        }
+      },
+      "style_key": "tonythompson",
+      "song_key": "addicted-to-love",
+      "youtube": "https://www.youtube.com/watch?v=XcATvu5f9vE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15867"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:riptide-wikipedia", "src:thompson-moderndrummer-2002"]

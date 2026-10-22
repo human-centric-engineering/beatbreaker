@@ -1,0 +1,33 @@
+{
+  "id": "rec:miles-davis-ascenseur-pour-lechafaud-1958",
+  "title": "Ascenseur pour l'échafaud",
+  "artist": "Miles Davis",
+  "year": 1958,
+  "type": "album",
+  "style_ids": ["style:bebop", "style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenny-clarke"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Générique",
+      "drummer_ids": ["drummer:kenny-clarke"],
+      "drums": {
+        "description": "Soft brushes under Miles's muted trumpet on the improvised film score recorded in Paris.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ascenseur-soundtrack-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ieQWjSXdv-Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2403429"
+        }
+      ]
+    }
+  ]
+}

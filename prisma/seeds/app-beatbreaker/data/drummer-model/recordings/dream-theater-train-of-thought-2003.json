@@ -43,6 +43,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "As I Am",
+      "drummer_ids": ["drummer:mike-portnoy"],
+      "drums": {
+        "description": "A Metallica-weight half-time groove with double-bass punctuation.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:train-of-thought-dream-theater-wikipedia"]
+        }
+      },
+      "style_key": "portnoy",
+      "song_key": "as-i-am",
+      "youtube": "https://www.youtube.com/watch?v=_Q9Ss5zZU4k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5904"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:train-of-thought-dream-theater-wikipedia"]

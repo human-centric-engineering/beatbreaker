@@ -38,6 +38,68 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Rational Gaze",
+      "drummer_ids": ["drummer:tomas-haake"],
+      "drums": {
+        "description": "Simple 4/4 on top, the snare on each third beat, the kick tracing the riff's polymeter.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-13236", "src:nothing-wikipedia"]
+        }
+      },
+      "style_key": "haake",
+      "song_key": "rational-gaze",
+      "youtube": "https://www.youtube.com/watch?v=9IiP-Vdx_F8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13236"
+        }
+      ]
+    },
+    {
+      "title": "Stengah",
+      "drummer_ids": ["drummer:tomas-haake"],
+      "drums": {
+        "description": "The hat open on the beat, ghosted snare, the kick every three sixteenths across the bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-12661", "src:nothing-wikipedia"]
+        }
+      },
+      "style_key": "haake",
+      "song_key": "stengah",
+      "youtube": "https://www.youtube.com/watch?v=ntISKKjf0gk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12661"
+        }
+      ]
+    },
+    {
+      "title": "Straws Pulled at Random",
+      "drummer_ids": ["drummer:tomas-haake"],
+      "drums": {
+        "description": "Both toms on the beat over the hat foot, then the china on the beat over a spare kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-43182", "src:nothing-wikipedia"]
+        }
+      },
+      "style_key": "haake",
+      "song_key": "straws-pulled-at-random",
+      "youtube": "https://www.youtube.com/watch?v=xA-qx8ht2j0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=43182"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:meshuggah-wikipedia", "src:nothing-wikipedia", "src:songsterr-13236"]

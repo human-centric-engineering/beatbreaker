@@ -1,0 +1,33 @@
+{
+  "id": "rec:four-tops-reach-out-ill-be-there-1966",
+  "title": "Reach Out I'll Be There",
+  "artist": "Four Tops",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:richard-pistol-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Reach Out I'll Be There",
+      "drummer_ids": ["drummer:richard-pistol-allen"],
+      "drums": {
+        "description": "A galloping beat with the snare on every quarter and dramatic build-ups into the chorus, under Levi Stubbs' shout.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:richard-pistol-allen-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AUZ3INx3-KA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=186702"
+        }
+      ]
+    }
+  ]
+}

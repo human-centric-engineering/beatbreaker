@@ -18,6 +18,43 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Night Train",
+      "drummer_ids": ["drummer:ed-thigpen"],
+      "drums": {
+        "description": "A slow, bluesy shuffle with soft brushes and swinging hi-hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:night-train-oscar-peterson-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=s97EdCZLvmI"
+    },
+    {
+      "title": "C Jam Blues",
+      "drummer_ids": ["drummer:ed-thigpen"],
+      "drums": {
+        "description": "Crisp, swinging time with clean brushes and sticks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:night-train-oscar-peterson-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=IA0Cq5aVKlc"
+    },
+    {
+      "title": "Hymn to Freedom",
+      "drummer_ids": ["drummer:ed-thigpen"],
+      "drums": {
+        "description": "A gospel-inflected groove building from soft to full.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:night-train-oscar-peterson-album-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ed-thigpen-wikipedia"]

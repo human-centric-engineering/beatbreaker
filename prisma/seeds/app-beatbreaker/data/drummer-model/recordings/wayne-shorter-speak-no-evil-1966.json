@@ -1,0 +1,55 @@
+{
+  "id": "rec:wayne-shorter-speak-no-evil-1966",
+  "title": "Speak No Evil",
+  "artist": "Wayne Shorter",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:elvin-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Speak No Evil",
+      "drummer_ids": ["drummer:elvin-jones"],
+      "drums": {
+        "description": "A broad, floating ride with a few hard comps between the horn lines.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:speak-no-evil-wikipedia"]
+        }
+      },
+      "style_key": "elvinjones",
+      "song_key": "speak-no-evil",
+      "youtube": "https://www.youtube.com/watch?v=Vdc3KJVopU4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4968265"
+        }
+      ]
+    },
+    {
+      "title": "Witch Hunt",
+      "drummer_ids": ["drummer:elvin-jones"],
+      "drums": {
+        "description": "The horn calls answered on snare and kick, then a deep medium swing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:speak-no-evil-wikipedia"]
+        }
+      },
+      "style_key": "elvinjones",
+      "song_key": "witch-hunt",
+      "youtube": "https://www.youtube.com/watch?v=oJoSrQ6iP0c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7291443"
+        }
+      ]
+    }
+  ]
+}

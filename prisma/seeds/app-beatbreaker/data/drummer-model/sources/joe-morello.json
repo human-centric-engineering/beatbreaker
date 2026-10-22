@@ -124,5 +124,21 @@
     "reliability": 0.4,
     "accessed": "2026-10-20",
     "notes": "A cover on one snare: one stick laid across the rim and struck by the other, then strokes on the rim; 'a 1st class display of rudiments'. Its onsets run to under a tenth of a second apart at 211 to 236, faster than eighths."
+  },
+  {
+    "id": "src:time-out-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Time Out (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Time_Out_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:time-further-out-wikipedia",
+    "type": "encyclopedia",
+    "title": "Time Further Out - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Time_Further_Out",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

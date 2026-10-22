@@ -10,5 +10,43 @@
       "drummer_id": "drummer:hannes-grossmann",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Anticosmic Overload",
+      "drummer_ids": ["drummer:hannes-grossmann"],
+      "drums": {
+        "description": "Technical death-metal blasts and complex double-kick patterns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hannes-grossmann-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CJrNQiMbSFA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49335"
+        }
+      ]
+    },
+    {
+      "title": "Incarnated",
+      "drummer_ids": ["drummer:hannes-grossmann"],
+      "drums": {
+        "description": "Fast blasts and progressive tempo changes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hannes-grossmann-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AVU1yHfbYP4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=68448"
+        }
+      ]
+    }
   ]
 }

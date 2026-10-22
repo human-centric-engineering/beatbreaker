@@ -10,5 +10,25 @@
       "drummer_id": "drummer:earl-young",
       "name": "Earl Young"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Disco Inferno",
+      "drummer_ids": ["drummer:earl-young"],
+      "drums": {
+        "description": "A driving four-on-the-floor with sizzling open hi-hat on the offbeats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:earl-young-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pG8TyIEAqps",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=20443"
+        }
+      ]
+    }
   ]
 }

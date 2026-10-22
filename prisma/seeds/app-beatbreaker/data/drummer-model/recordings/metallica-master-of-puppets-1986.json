@@ -48,6 +48,66 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Battery",
+      "drummer_ids": ["drummer:lars-ulrich"],
+      "drums": {
+        "description": "A classical-guitar intro, then all-out thrash: kick on every eighth under a snare on every beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:master-of-puppets-wikipedia"]
+        }
+      },
+      "style_key": "ulrich",
+      "song_key": "battery",
+      "youtube": "https://www.youtube.com/watch?v=a_ITtP033RI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13313"
+        }
+      ]
+    },
+    {
+      "title": "Master of Puppets",
+      "drummer_ids": ["drummer:lars-ulrich"],
+      "drums": {
+        "description": "Fast downpicked thrash with odd-bar turnarounds (a 5/8 bar in the riff) and a slow clean middle section.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:master-of-puppets-wikipedia", "src:lars-ulrich-wikipedia"]
+        }
+      },
+      "style_key": "ulrich",
+      "song_key": "master-of-puppets",
+      "youtube": "https://www.youtube.com/watch?v=E0ozmU9cJDg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=455118"
+        }
+      ]
+    },
+    {
+      "title": "Damage, Inc.",
+      "drummer_ids": ["drummer:lars-ulrich"],
+      "drums": {
+        "description": "Fast thrash with double-kick bursts, the album's closer.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:master-of-puppets-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=R2qrnRw5ZW8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13561"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:master-of-puppets-wikipedia"]

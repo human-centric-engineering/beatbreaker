@@ -27,5 +27,19 @@
         "source_ids": ["src:wikipedia-patato-valdes"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Buhaina Chant",
+      "drummer_ids": ["drummer:patato-valdes"],
+      "drums": {
+        "description": "Patato's congas among Blakey's drum choir: Afro-Cuban patterns layered with timbales, toms and chant.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:orgy-in-rhythm-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=O1R7MVBtV4Q"
+    }
   ]
 }

@@ -1,0 +1,43 @@
+{
+  "id": "rec:eric-dolphy-out-to-lunch-1964",
+  "title": "Out to Lunch!",
+  "artist": "Eric Dolphy",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Gazzelloni",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Out to Lunch bop: the ride in quarters, kick and snare chattering in pairs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:out-to-lunch-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "gazzelloni",
+      "youtube": "https://www.youtube.com/watch?v=l61FRMjGSPA"
+    },
+    {
+      "title": "Out to Lunch",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Time suspended: the ride drops out, press-roll swells, cymbals off the beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:out-to-lunch-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "out-to-lunch",
+      "youtube": "https://www.youtube.com/watch?v=gzBpK1GcwdQ"
+    }
+  ]
+}

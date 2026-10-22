@@ -12,6 +12,32 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Karn Evil 9",
+      "drummer_ids": ["drummer:carl-palmer"],
+      "drums": {
+        "description": "A long suite of changing tempos and meters, with a percussion solo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:brain-salad-surgery-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cc6ymS4NGxg"
+    },
+    {
+      "title": "Toccata",
+      "drummer_ids": ["drummer:carl-palmer"],
+      "drums": {
+        "description": "An adaptation of Ginastera with Palmer's synthesised percussion movement.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:brain-salad-surgery-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZdSeNMlKTcA"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:carl-palmer-wikipedia"]

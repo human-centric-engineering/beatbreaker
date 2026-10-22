@@ -1,0 +1,27 @@
+{
+  "id": "rec:cozy-cole-turvy-1958",
+  "title": "Turvy",
+  "artist": "Cozy Cole",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cozy-cole"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Turvy (Part 2)",
+      "drummer_ids": ["drummer:cozy-cole"],
+      "drums": {
+        "description": "The follow-up to Topsy: another tom-tom-led solo over a rock-and-roll riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:topsy-instrumental-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fn3lnbzNp4o"
+    }
+  ]
+}

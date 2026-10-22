@@ -10,5 +10,19 @@
       "drummer_id": "drummer:richard-pistol-allen",
       "name": "Richard 'Pistol' Allen"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Where Did Our Love Go",
+      "drummer_ids": ["drummer:richard-pistol-allen"],
+      "drums": {
+        "description": "A soft, steady quarter-note pulse doubled by handclaps and foot stomps, the drums reduced to a heartbeat under the song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:richard-pistol-allen-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Jt_31gR18NA"
+    }
   ]
 }

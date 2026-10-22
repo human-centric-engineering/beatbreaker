@@ -15,5 +15,43 @@
       "name": "Steve Smith",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Separate Ways (Worlds Apart)",
+      "drummer_ids": ["drummer:steve-smith"],
+      "drums": {
+        "description": "Driving rock with a pulsing hi-hat and big fills into the choruses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:frontiers-journey-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LatorN4P9aA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=39975"
+        }
+      ]
+    },
+    {
+      "title": "Faithfully",
+      "drummer_ids": ["drummer:steve-smith"],
+      "drums": {
+        "description": "A ballad groove that builds into a full rock pattern.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:frontiers-journey-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OMD8hBsA-RI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22948"
+        }
+      ]
+    }
   ]
 }

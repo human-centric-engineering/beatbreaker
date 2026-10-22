@@ -1,0 +1,27 @@
+{
+  "id": "rec:chuck-berry-sweet-little-sixteen-1958",
+  "title": "Sweet Little Sixteen",
+  "artist": "Chuck Berry",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fred-below"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Sweet Little Sixteen",
+      "drummer_ids": ["drummer:fred-below"],
+      "drums": {
+        "description": "Medium-tempo rock and roll shuffle with a heavy backbeat.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sweet-little-sixteen-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zwgM-3mr3DI"
+    }
+  ]
+}

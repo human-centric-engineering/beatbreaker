@@ -42,6 +42,78 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "El Cayuco",
+      "drummer_ids": ["drummer:ray-barretto", "drummer:tito-puente"],
+      "drums": {
+        "description": "Driving conga tumbaos in Puente's mambo band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dance-mania-wikipedia"]
+        }
+      },
+      "style_key": "puente",
+      "song_key": "el-cayuco",
+      "youtube": "https://www.youtube.com/watch?v=-FQrcOPr-BI"
+    },
+    {
+      "title": "Complicación",
+      "drummer_ids": ["drummer:tito-puente"],
+      "drums": {
+        "description": "The shell under the voice and the bombo on the kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dance-mania-album-wikipedia"]
+        }
+      },
+      "style_key": "puente",
+      "song_key": "complicacion",
+      "youtube": "https://www.youtube.com/watch?v=Rmw0r3Zmkqg"
+    },
+    {
+      "title": "3-D Mambo",
+      "drummer_ids": ["drummer:tito-puente"],
+      "drums": {
+        "description": "The mambo bell with the low drum on 2 and 4, the big-band mambo at its peak.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dance-mania-album-wikipedia"]
+        }
+      },
+      "style_key": "puente",
+      "song_key": "3-d-mambo",
+      "youtube": "https://www.youtube.com/watch?v=J3OySAvhCXo"
+    },
+    {
+      "title": "Hong Kong Mambo",
+      "drummer_ids": ["drummer:tito-puente"],
+      "drums": {
+        "description": "A slower mambo on the bell, the low drum on 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dance-mania-album-wikipedia"]
+        }
+      },
+      "style_key": "puente",
+      "song_key": "hong-kong-mambo",
+      "youtube": "https://www.youtube.com/watch?v=biovgzLkaDk"
+    },
+    {
+      "title": "Mambo Gozón",
+      "drummer_ids": ["drummer:tito-puente"],
+      "drums": {
+        "description": "The mambo bell with the macho pushing into the 1.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dance-mania-album-wikipedia"]
+        }
+      },
+      "style_key": "puente",
+      "song_key": "mambo-gozon",
+      "youtube": "https://www.youtube.com/watch?v=5jRARlQMIrw"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:wikipedia-puente", "src:pas-puente"],

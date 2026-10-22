@@ -11,6 +11,26 @@
       "why_it_matters": "Grammy-nominated."
     }
   ],
+  "tracks": [
+    {
+      "title": "I'm Tight",
+      "drummer_ids": ["drummer:louis-cole"],
+      "drums": {
+        "description": "Fast, hyper-precise funk drumming with explosive fills at very high tempo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:quality-over-opinion-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=u9XrWB-u1vc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4852600"
+        }
+      ]
+    }
+  ],
   "release": "Brainfeeder",
   "evidence": {
     "confidence": "widely_reported",

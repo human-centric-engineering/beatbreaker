@@ -10,5 +10,43 @@
       "drummer_id": "drummer:igor-cavalera",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Refuse/Resist",
+      "drummer_ids": ["drummer:igor-cavalera"],
+      "drums": {
+        "description": "Opens with a tribal tom pattern that turns into a heavy groove-metal beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:refuse-resist-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xX7V3ReOI8c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18074"
+        }
+      ]
+    },
+    {
+      "title": "Territory",
+      "drummer_ids": ["drummer:igor-cavalera"],
+      "drums": {
+        "description": "A tom-tom intro and hard groove-metal beat, one of the most-imitated metal drum intros.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:territory-song-wikipedia", "src:igor-cavalera-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BWrnaI7nBUw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17900"
+        }
+      ]
+    }
   ]
 }

@@ -10,5 +10,49 @@
       "drummer_id": "drummer:herman-ernest",
       "name": "Herman Ernest III"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Lady Marmalade",
+      "drummer_ids": ["drummer:herman-ernest"],
+      "drums": {
+        "description": "Tight New Orleans funk groove with syncopated kick under the hit, cut at Sea-Saint.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lady-marmalade-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ku7W0BZcxdw"
+    },
+    {
+      "title": "What Can I Do for You?",
+      "drummer_ids": ["drummer:herman-ernest"],
+      "drums": {
+        "description": "Driving disco-funk backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:herman-ernest-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nCUP-xi-QfU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5100181"
+        }
+      ]
+    },
+    {
+      "title": "Nightbird",
+      "drummer_ids": ["drummer:herman-ernest"],
+      "drums": {
+        "description": "Slow, soulful groove with restrained fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:herman-ernest-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TjR2aSQk36g"
+    }
   ]
 }

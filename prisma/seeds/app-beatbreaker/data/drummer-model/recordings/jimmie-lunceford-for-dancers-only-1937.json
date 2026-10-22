@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "For Dancers Only",
+      "drummer_ids": ["drummer:jimmy-crawford"],
+      "drums": {
+        "description": "The Lunceford two-beat: a relaxed, bouncing pulse with the bass drum on 1 and 3, made for the dance floor.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jimmy-crawford-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=73kHt69Z_mw"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:jimmy-crawford-wikipedia"]

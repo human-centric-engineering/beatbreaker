@@ -62,6 +62,7 @@
   },
   "beatbreaker": {
     "group": "Samba and Brazilian jazz drummers",
-    "build_priority": 3
+    "build_priority": 3,
+    "songs_short_because": "15-b sweep (2026-10-22): Das Neves played on hundreds of Brazilian sessions (Chico Buarque's band for decades) without track-level credits in the sources found."
   }
 }

@@ -1,0 +1,35 @@
+{
+  "id": "rec:cream-goodbye-1969",
+  "title": "Goodbye",
+  "artist": "Cream",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:blues-rock", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ginger-baker"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Badge",
+      "drummer_ids": ["drummer:ginger-baker"],
+      "drums": {
+        "description": "A steady, medium backbeat with crisp tom fills into Harrison and Clapton's arpeggiated bridge.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:badge-song-wikipedia", "src:goodbye-cream-album-wikipedia"]
+        }
+      },
+      "style_key": "baker",
+      "song_key": "badge",
+      "youtube": "https://www.youtube.com/watch?v=5TH32ercNP0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4135"
+        }
+      ]
+    }
+  ]
+}

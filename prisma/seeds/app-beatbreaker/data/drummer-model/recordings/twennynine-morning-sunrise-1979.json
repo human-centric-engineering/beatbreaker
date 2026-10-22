@@ -26,6 +26,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Morning Sunrise",
+      "drummer_ids": ["drummer:lenny-white"],
+      "drums": {
+        "description": "A cross-stick 7/4 opening that settles into a slow 4/4 soul groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lenny-white-wikipedia"]
+        }
+      },
+      "style_key": "lennywhite",
+      "song_key": "morning-sunrise",
+      "youtube": "https://www.youtube.com/watch?v=ArhPmXp7630"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:lenny-white-wikipedia", "src:songsterr-3084901"]

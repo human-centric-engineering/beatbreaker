@@ -40,6 +40,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Lazy Sunday",
+      "drummer_ids": ["drummer:kenney-jones"],
+      "drums": {
+        "description": "The chorus on the ride, the kick on every \"and\" but the first, stops for the words.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-2437122", "src:ogdens-nut-gone-flake-wikipedia"]
+        }
+      },
+      "style_key": "kenneyjones",
+      "song_key": "lazy-sunday",
+      "youtube": "https://www.youtube.com/watch?v=nEOP8pfNEPc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2437122"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:small-faces-wikipedia"]

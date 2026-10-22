@@ -1,0 +1,33 @@
+{
+  "id": "rec:dave-edmunds-repeat-when-necessary-1979",
+  "title": "Repeat When Necessary",
+  "artist": "Dave Edmunds",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:rock", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:terry-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Girls Talk",
+      "drummer_ids": ["drummer:terry-williams"],
+      "drums": {
+        "description": "A crisp, punchy pub-rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:girls-talk-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sa3l3Ei0tdg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=178105"
+        }
+      ]
+    }
+  ]
+}

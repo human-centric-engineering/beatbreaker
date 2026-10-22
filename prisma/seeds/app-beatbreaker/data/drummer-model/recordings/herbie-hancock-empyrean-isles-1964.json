@@ -45,6 +45,42 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "One Finger Snap",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Quarters on the ride, the hat foot on all four, rimshots kicking the breaks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:empyrean-isles-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "one-finger-snap",
+      "youtube": "https://www.youtube.com/watch?v=yQgv5bRqmnk"
+    },
+    {
+      "title": "Cantaloupe Island",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "A straight groove with the foot on every beat, the kick answering the piano riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-bishop-cantaloupe", "src:empyrean-isles-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "cantaloupe-island",
+      "youtube": "https://www.youtube.com/watch?v=otFVFLtRF_s",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9091"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:tony-williams-wikipedia"]

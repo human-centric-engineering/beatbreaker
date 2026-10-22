@@ -17,6 +17,38 @@
       "drummer_role": "co_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Dark Star",
+      "drummer_ids": ["drummer:bill-kreutzmann", "drummer:mickey-hart"],
+      "drums": {
+        "description": "A long, open, interlocking two-drummer improvisation with Mickey Hart.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bill-kreutzmann-wikipedia", "src:live-dead-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AlWqitKLnfs"
+    },
+    {
+      "title": "St. Stephen",
+      "drummer_ids": ["drummer:bill-kreutzmann", "drummer:mickey-hart"],
+      "drums": {
+        "description": "A driving rock beat that breaks into odd-meter sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bill-kreutzmann-wikipedia", "src:live-dead-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=W-s0lFpflQw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=641874"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": [

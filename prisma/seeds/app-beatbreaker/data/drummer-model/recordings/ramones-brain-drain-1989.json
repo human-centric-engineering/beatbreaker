@@ -1,0 +1,33 @@
+{
+  "id": "rec:ramones-brain-drain-1989",
+  "title": "Brain Drain",
+  "artist": "Ramones",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:punk", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:marky-ramone"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Pet Sematary",
+      "drummer_ids": ["drummer:marky-ramone"],
+      "drums": {
+        "description": "A mid-tempo, steady rock groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:pet-sematary-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HJWFsZ_YUc4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16429"
+        }
+      ]
+    }
+  ]
+}

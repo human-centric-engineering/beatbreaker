@@ -1,0 +1,27 @@
+{
+  "id": "rec:big-joe-turner-shake-rattle-and-roll-1954",
+  "title": "Shake, Rattle and Roll",
+  "artist": "Big Joe Turner",
+  "year": 1954,
+  "type": "studio_track",
+  "style_ids": ["style:cool-jazz", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:connie-kay"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Shake, Rattle and Roll",
+      "drummer_ids": ["drummer:connie-kay"],
+      "drums": {
+        "description": "Swinging jump-blues shuffle with a firm two and four, on one of the records that led into rock and roll.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:connie-kay-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YhELpSeeipg"
+    }
+  ]
+}

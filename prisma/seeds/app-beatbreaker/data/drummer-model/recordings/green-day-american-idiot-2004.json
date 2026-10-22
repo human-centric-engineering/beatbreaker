@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "American Idiot",
+      "drummer_ids": ["drummer:tre-cool"],
+      "drums": {
+        "description": "A fast, punchy punk beat with big crashes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:american-idiot-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Ee_uujKuJMI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=214"
+        }
+      ]
+    },
+    {
+      "title": "Jesus of Suburbia",
+      "drummer_ids": ["drummer:tre-cool"],
+      "drums": {
+        "description": "A nine-minute song in five parts, the drums moving through punk, mid-tempo and half-time sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jesus-of-suburbia-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fZFmaMbkUD4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8659"
+        }
+      ]
+    },
+    {
+      "title": "Boulevard of Broken Dreams",
+      "drummer_ids": ["drummer:tre-cool"],
+      "drums": {
+        "description": "A steady, mid-tempo shuffle-tinged rock groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:boulevard-of-broken-dreams-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Soa3gO7tL-c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=92866"
+        }
+      ]
+    }
   ]
 }

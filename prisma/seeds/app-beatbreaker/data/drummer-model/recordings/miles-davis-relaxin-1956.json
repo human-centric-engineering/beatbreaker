@@ -42,5 +42,33 @@
         "source_ids": ["src:bishop-philly-joe-oleo-2014", "src:bishop-miles-prestige-tempos-2023"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Oleo",
+      "drummer_ids": ["drummer:philly-joe-jones"],
+      "drums": {
+        "description": "Bright swing with Philly Joe's crackling snare punctuations and four-bar trades.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:relaxin-miles-davis-wikipedia", "src:philly-joe-jones-wikipedia"]
+        }
+      },
+      "style_key": "phillyjoe",
+      "song_key": "oleo",
+      "youtube": "https://www.youtube.com/watch?v=x_cQHeWwSBQ"
+    },
+    {
+      "title": "If I Were a Bell",
+      "drummer_ids": ["drummer:philly-joe-jones"],
+      "drums": {
+        "description": "A relaxed medium swing with the famous rim-click and brushes-to-sticks build.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:relaxin-miles-davis-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GSRy1HlEpf4"
+    }
   ]
 }

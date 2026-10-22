@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Damaged Goods",
+      "drummer_ids": ["drummer:hugo-burnham"],
+      "drums": {
+        "description": "A tight, choppy funk-punk beat locked to the bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:entertainment-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=F_7BVaDIAbA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=36234"
+        }
+      ]
+    },
+    {
+      "title": "At Home He's a Tourist",
+      "drummer_ids": ["drummer:hugo-burnham"],
+      "drums": {
+        "description": "A taut, danceable post-punk groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:entertainment-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RZIBlLO1V7o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4524645"
+        }
+      ]
+    },
+    {
+      "title": "Natural's Not in It",
+      "drummer_ids": ["drummer:hugo-burnham"],
+      "drums": {
+        "description": "A punchy, angular beat with sharp snare accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:entertainment-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OpTnE8DT9wU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4968905"
+        }
+      ]
+    },
+    {
+      "title": "Ether",
+      "drummer_ids": ["drummer:hugo-burnham"],
+      "drums": {
+        "description": "A steady, insistent groove with dub-style space.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:entertainment-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ee_HrbO9xfI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=571187"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,33 @@
+{
+  "id": "rec:cynic-traced-in-air-2008",
+  "title": "Traced in Air",
+  "artist": "Cynic",
+  "year": 2008,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sean-reinert"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Evolutionary Sleeper",
+      "drummer_ids": ["drummer:sean-reinert"],
+      "drums": {
+        "description": "Melodic, groove-based prog drumming.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:traced-in-air-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-43rjwEVWZw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6586155"
+        }
+      ]
+    }
+  ]
+}

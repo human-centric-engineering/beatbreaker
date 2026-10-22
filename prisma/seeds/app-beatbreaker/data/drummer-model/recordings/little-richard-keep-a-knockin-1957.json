@@ -10,5 +10,19 @@
       "drummer_id": "drummer:charles-connor",
       "name": "Charles Connor"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Keep A-Knockin'",
+      "drummer_ids": ["drummer:charles-connor"],
+      "drums": {
+        "description": "Opens on a famous solo drum intro, then a hard-driving rock and roll beat: the intro Bonham borrowed for Rock and Roll.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:keep-a-knockin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=IIsUHV0mB9o"
+    }
   ]
 }

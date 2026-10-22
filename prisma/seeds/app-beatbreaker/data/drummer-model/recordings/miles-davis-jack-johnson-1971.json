@@ -38,6 +38,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Right Off",
+      "drummer_ids": ["drummer:billy-cobham"],
+      "drums": {
+        "description": "Nearly twenty minutes of driving straight-eighth rock groove behind Miles Davis and John McLaughlin, an early jazz-rock template.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jack-johnson-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3U_jem9q_mg"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:billy-cobham-wikipedia"]

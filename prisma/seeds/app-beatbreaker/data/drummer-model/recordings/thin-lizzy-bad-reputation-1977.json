@@ -47,6 +47,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Dancing in the Moonlight (It's Caught Me in Its Spotlight)",
+      "drummer_ids": ["drummer:brian-downey"],
+      "drums": {
+        "description": "Laid back and swung: cross-stick and hi-hat foot, then the ride, the kick on the \"and\"s.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bad-reputation-wikipedia"]
+        }
+      },
+      "style_key": "downey",
+      "song_key": "dancing-in-the-moonlight",
+      "youtube": "https://www.youtube.com/watch?v=6PxibUaQiLM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=56442"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:bad-reputation-wikipedia"]

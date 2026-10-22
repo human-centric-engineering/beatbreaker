@@ -39,6 +39,34 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Sister Fate",
+      "drummer_ids": ["drummer:sheila-e"],
+      "drums": {
+        "description": "A fast funk-pop groove on drums and Simmons pads with timbale fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:romance-1600-wikipedia"]
+        }
+      },
+      "style_key": "sheilae",
+      "song_key": "sister-fate",
+      "youtube": "https://www.youtube.com/watch?v=r8Rj5xH_5Rw"
+    },
+    {
+      "title": "A Love Bizarre",
+      "drummer_ids": ["drummer:sheila-e"],
+      "drums": {
+        "description": "A long, driving dance-funk groove with Prince, timbale breaks on top.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:romance-1600-wikipedia", "src:sheila-e-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jMJjfkwB_Io"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:romance-1600-wikipedia"]

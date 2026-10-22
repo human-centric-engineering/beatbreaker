@@ -23,6 +23,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Uptight (Everything's Alright)",
+      "drummer_ids": ["drummer:benny-benjamin"],
+      "drums": {
+        "description": "A fast, syncopated stomp with the snare on every beat and busy fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:uptight-wikipedia", "src:benny-benjamin-wikipedia"]
+        }
+      },
+      "style_key": "bennybenjamin",
+      "song_key": "uptight",
+      "youtube": "https://www.youtube.com/watch?v=qOTFWFDrrAM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=80054"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:uptight-wikipedia"]

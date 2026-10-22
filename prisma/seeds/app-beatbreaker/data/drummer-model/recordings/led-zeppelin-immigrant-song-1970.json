@@ -27,6 +27,28 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Immigrant Song",
+      "drummer_ids": ["drummer:john-bonham"],
+      "drums": {
+        "description": "A paradiddle split between kick and snare under the galloping riff, the right hand doubling the kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bonham-wikipedia-immigrant", "src:bonham-drummercafe-immigrant"]
+        }
+      },
+      "style_key": "bonham",
+      "song_key": "immigrant-song",
+      "youtube": "https://www.youtube.com/watch?v=P3Y8OWkiUts",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=568"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:bonham-wikipedia-immigrant"]

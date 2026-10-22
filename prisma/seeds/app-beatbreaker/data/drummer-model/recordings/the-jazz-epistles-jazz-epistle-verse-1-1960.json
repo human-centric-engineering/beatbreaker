@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Scullery Department",
+      "drummer_ids": ["drummer:makaya-ntshoko"],
+      "drums": {
+        "description": "Hard-bop swing in Cape Town: Ntshoko's ride and crisp snare comping behind Kippie Moeketsi and Dollar Brand on South Africa's first black jazz LP.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:makaya-ntshoko-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fuqJHfaqY7k"
+    },
+    {
+      "title": "Blues for Hughie",
+      "drummer_ids": ["drummer:makaya-ntshoko"],
+      "drums": {
+        "description": "A medium blues where Ntshoko keeps a relaxed Blakey-style shuffle-swing with press-roll set-ups.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:makaya-ntshoko-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=j-N2pDMKiDw"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:makaya-ntshoko-wikipedia"]

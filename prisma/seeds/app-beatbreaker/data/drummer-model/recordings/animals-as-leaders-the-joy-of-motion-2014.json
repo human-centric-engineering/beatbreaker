@@ -10,5 +10,61 @@
       "drummer_id": "drummer:matt-garstka",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Physical Education",
+      "drummer_ids": ["drummer:matt-garstka"],
+      "drums": {
+        "description": "Garstka's fluid, gospel- and jazz-inflected chops over polymetric guitar figures.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-joy-of-motion-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PJZs-P5C_Mk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=495109"
+        }
+      ]
+    },
+    {
+      "title": "Kascade",
+      "drummer_ids": ["drummer:matt-garstka"],
+      "drums": {
+        "description": "Fast, intricate linear patterns and ghost notes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-joy-of-motion-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GCandpypyD4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=481759"
+        }
+      ]
+    },
+    {
+      "title": "The Woven Web",
+      "drummer_ids": ["drummer:matt-garstka"],
+      "drums": {
+        "description": "Odd-time grooves with displaced accents and dense fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-joy-of-motion-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OJ3f_eiztR0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=481760"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "id": "rec:egberto-gismonti-danca-das-cabecas-1977",
+  "title": "Dança das Cabeças",
+  "artist": "Egberto Gismonti",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:jazz", "style:samba"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nana-vasconcelos"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Dança das Cabeças",
+      "drummer_ids": ["drummer:nana-vasconcelos"],
+      "drums": {
+        "description": "Berimbau, percussion and voice in a long duo with Gismonti.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:danca-das-cabecas-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tQzFLu8lyBA"
+    }
+  ]
+}

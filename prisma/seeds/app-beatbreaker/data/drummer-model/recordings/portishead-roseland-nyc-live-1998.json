@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Roads",
+      "drummer_ids": ["drummer:clive-deamer"],
+      "drums": {
+        "description": "Live with an orchestra: slow, subtle, breakbeat-style kit playing behind Beth Gibbons.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:roseland-nyc-live-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qj3QPx089g4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22615"
+        }
+      ]
+    }
   ]
 }

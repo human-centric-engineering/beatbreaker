@@ -47,6 +47,31 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "God Make Me Funky",
+      "drummer_ids": ["drummer:mike-clark"],
+      "drums": {
+        "description": "The kick on the sixteenth before 3, a light sixteenth swing, hardly a fill: one of hip-hop's most sampled breaks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:god-make-me-funky-ethan-hein-2023",
+            "src:survival-of-the-fittest-headhunters-wikipedia"
+          ]
+        }
+      },
+      "style_key": "mikeclark",
+      "song_key": "god-make-me-funky",
+      "youtube": "https://www.youtube.com/watch?v=C8hi3ZnhFac",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2600429"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:survival-of-the-fittest-headhunters-wikipedia"]

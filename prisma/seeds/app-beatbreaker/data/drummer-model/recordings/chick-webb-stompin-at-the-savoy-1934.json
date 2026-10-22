@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Stompin' at the Savoy",
+      "drummer_ids": ["drummer:chick-webb"],
+      "drums": {
+        "description": "A driving four-to-the-bar swing from the Savoy Ballroom's house band, the drums pushing the riff with snare and cymbal accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stompin-at-the-savoy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zRocZJDoxmI"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:chick-webb-wikipedia"]

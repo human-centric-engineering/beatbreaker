@@ -58,6 +58,67 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Pull Me Under",
+      "drummer_ids": ["drummer:mike-portnoy"],
+      "drums": {
+        "description": "A heavy mid-tempo groove with tom-heavy fills and a crash-ride pattern, Dream Theater's radio breakthrough.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:pull-me-under-wikipedia", "src:images-and-words-wikipedia"]
+        }
+      },
+      "style_key": "portnoy",
+      "song_key": "pull-me-under",
+      "youtube": "https://www.youtube.com/watch?v=mipc-JxrhRk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6248"
+        }
+      ]
+    },
+    {
+      "title": "Metropolis—Part I: \"The Miracle and the Sleeper\"",
+      "drummer_ids": ["drummer:mike-portnoy"],
+      "drums": {
+        "description": "Odd-meter unison runs with the band, a long instrumental of shifting meters and a half-time breakdown.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:images-and-words-wikipedia", "src:mike-portnoy-wikipedia"]
+        }
+      },
+      "style_key": "portnoy",
+      "song_key": "metropolis",
+      "also_song_keys": ["metropolis-instrumental", "metropolis-breakdown"],
+      "youtube": "https://www.youtube.com/watch?v=IqqRx77T4Vo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=67675"
+        }
+      ]
+    },
+    {
+      "title": "Take the Time",
+      "drummer_ids": ["drummer:mike-portnoy"],
+      "drums": {
+        "description": "A funk-metal groove with ghosted snare, sudden meter shifts and a famous fill-heavy middle.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:images-and-words-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=C5sg8heGdyk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=320"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:images-and-words-wikipedia"]

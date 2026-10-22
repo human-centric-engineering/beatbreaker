@@ -10,5 +10,25 @@
       "drummer_id": "drummer:george-brown",
       "name": "George \"Funky\" Brown"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Celebration",
+      "drummer_ids": ["drummer:george-brown"],
+      "drums": {
+        "description": "A steady, bright disco-funk backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:george-brown-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3GwjfUFyY6M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35905"
+        }
+      ]
+    }
   ]
 }

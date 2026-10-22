@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "The Ballroom Blitz",
+      "drummer_ids": ["drummer:mick-tucker"],
+      "drums": {
+        "description": "Tom-tom intro and a pounding glam stomp with big fills between the verses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-ballroom-blitz-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=r8pYpii2Atg"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:mick-tucker-wikipedia", "src:the-ballroom-blitz-wikipedia"]

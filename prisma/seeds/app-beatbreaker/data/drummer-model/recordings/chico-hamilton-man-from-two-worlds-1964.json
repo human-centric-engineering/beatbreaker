@@ -1,0 +1,39 @@
+{
+  "id": "rec:chico-hamilton-man-from-two-worlds-1964",
+  "title": "Man from Two Worlds",
+  "artist": "Chico Hamilton",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:cool-jazz", "style:post-bop", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chico-hamilton"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Forest Flower: Sunrise/Sunset",
+      "drummer_ids": ["drummer:chico-hamilton"],
+      "drums": {
+        "description": "An early recording of Charles Lloyd's Forest Flower, with Hamilton's flowing time under Lloyd and Gábor Szabó.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:man-from-two-worlds-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2hivG5Cc4z4"
+    },
+    {
+      "title": "Man from Two Worlds",
+      "drummer_ids": ["drummer:chico-hamilton"],
+      "drums": {
+        "description": "Title track of the 1963 quintet session, melodic and soft-edged but rhythmically restless.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:man-from-two-worlds-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=03o3Nk5WRLg"
+    }
+  ]
+}

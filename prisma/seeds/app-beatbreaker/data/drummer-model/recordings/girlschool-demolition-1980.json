@@ -10,5 +10,43 @@
       "drummer_id": "drummer:denise-dufort",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Emergency",
+      "drummer_ids": ["drummer:denise-dufort"],
+      "drums": {
+        "description": "A fast, driving NWOBHM beat with crash on every downbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:girlschool-wikipedia", "src:demolition-girlschool-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=F_TeXq26FB8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=450722"
+        }
+      ]
+    },
+    {
+      "title": "Demolition Boys",
+      "drummer_ids": ["drummer:denise-dufort"],
+      "drums": {
+        "description": "A punk-speed metal beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:girlschool-wikipedia", "src:demolition-girlschool-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=JOL4JJNleIw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=486253"
+        }
+      ]
+    }
   ]
 }

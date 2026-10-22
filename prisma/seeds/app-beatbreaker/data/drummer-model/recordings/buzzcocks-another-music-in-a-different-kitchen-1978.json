@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Fast Cars",
+      "drummer_ids": ["drummer:john-maher"],
+      "drums": {
+        "description": "A driving beat with rapid fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:another-music-in-a-different-kitchen-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cpareF9xy-U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1624352"
+        }
+      ]
+    },
+    {
+      "title": "I Don't Mind",
+      "drummer_ids": ["drummer:john-maher"],
+      "drums": {
+        "description": "A tight, bouncy groove with precise snare work.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:another-music-in-a-different-kitchen-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uHGP91UFk54",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=867045"
+        }
+      ]
+    },
+    {
+      "title": "Autonomy",
+      "drummer_ids": ["drummer:john-maher"],
+      "drums": {
+        "description": "Rolling, insistent toms under the vocal.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:another-music-in-a-different-kitchen-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Q73IG-Ln0y0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=710135"
+        }
+      ]
+    }
   ]
 }

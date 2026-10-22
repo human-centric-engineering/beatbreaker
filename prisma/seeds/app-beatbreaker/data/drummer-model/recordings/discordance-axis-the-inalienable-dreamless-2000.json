@@ -1,0 +1,26 @@
+{
+  "id": "rec:discordance-axis-the-inalienable-dreamless-2000",
+  "title": "The Inalienable Dreamless",
+  "artist": "Discordance Axis",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:grindcore", "style:hardcore-punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-witte"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Pikadon",
+      "drummer_ids": ["drummer:dave-witte"],
+      "drums": {
+        "description": "Hyper-fast grindcore blasts with abrupt, jazz-informed shifts.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-inalienable-dreamless-wikipedia", "src:dave-witte-wikipedia"]
+        }
+      }
+    }
+  ]
+}

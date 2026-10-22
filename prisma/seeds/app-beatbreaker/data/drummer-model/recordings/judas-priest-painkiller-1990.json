@@ -11,5 +11,70 @@
       "drummer_role": "sole_drummer",
       "why_it_matters": "The double-kick drum intro to the title track."
     }
+  ],
+  "tracks": [
+    {
+      "title": "Painkiller",
+      "drummer_ids": ["drummer:scott-travis"],
+      "drums": {
+        "description": "The double-bass-and-tom drum intro and relentless speed-metal drive, his first record with Priest.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:scott-travis-wikipedia",
+            "src:painkiller-judas-priest-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nM__lPTWThU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10742"
+        }
+      ]
+    },
+    {
+      "title": "Leather Rebel",
+      "drummer_ids": ["drummer:scott-travis"],
+      "drums": {
+        "description": "A fast, galloping double-kick metal beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:scott-travis-wikipedia",
+            "src:painkiller-judas-priest-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zsJ_pADlGrk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10417"
+        }
+      ]
+    },
+    {
+      "title": "A Touch of Evil",
+      "drummer_ids": ["drummer:scott-travis"],
+      "drums": {
+        "description": "A slow, heavy, grinding metal groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:scott-travis-wikipedia",
+            "src:painkiller-judas-priest-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PW-6FKFnHx8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=40022"
+        }
+      ]
+    }
   ]
 }

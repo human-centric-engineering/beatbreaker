@@ -1,0 +1,30 @@
+{
+  "id": "rec:roy-orbison-running-scared-1961",
+  "title": "Running Scared",
+  "artist": "Roy Orbison",
+  "year": 1961,
+  "type": "studio_track",
+  "style_ids": ["style:country", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-harman"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Running Scared",
+      "drummer_ids": ["drummer:buddy-harman"],
+      "drums": {
+        "description": "A bolero snare rhythm that builds with the arrangement to the final climax.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:running-scared-roy-orbison-song-wikipedia",
+            "src:buddy-harman-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jX9nvmeZl9g"
+    }
+  ]
+}

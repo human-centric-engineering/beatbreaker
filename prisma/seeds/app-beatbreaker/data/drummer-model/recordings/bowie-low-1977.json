@@ -48,6 +48,66 @@
       "pattern_ids": ["pattern:davis-sound-and-vision"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Sound and Vision",
+      "drummer_ids": ["drummer:dennis-davis"],
+      "drums": {
+        "description": "The Low drum sound: a huge, compressed snare treated with the Eventide Harmonizer, under a relaxed funk groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:low-bowie-album-wikipedia", "src:dennis-davis-wikipedia"]
+        }
+      },
+      "style_key": "dennisdavis",
+      "song_key": "sound-and-vision",
+      "youtube": "https://www.youtube.com/watch?v=ZV_UsQPTBy4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=32934"
+        }
+      ]
+    },
+    {
+      "title": "Breaking Glass",
+      "drummer_ids": ["drummer:dennis-davis"],
+      "drums": {
+        "description": "A stop-start, fragmentary beat with a pitch-shifted snare and abrupt fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:low-bowie-album-wikipedia"]
+        }
+      },
+      "style_key": "dennisdavis",
+      "song_key": "breaking-glass",
+      "youtube": "https://www.youtube.com/watch?v=RI0o7y1wbzE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=731238"
+        }
+      ]
+    },
+    {
+      "title": "Speed of Life",
+      "drummer_ids": ["drummer:dennis-davis"],
+      "drums": {
+        "description": "The opening instrumental: the treated Low snare on a tight funk beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:low-bowie-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2oRgZjcfE4g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=731240"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:low-bowie-album-wikipedia"]

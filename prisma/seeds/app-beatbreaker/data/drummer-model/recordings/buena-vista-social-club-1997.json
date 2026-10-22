@@ -17,5 +17,55 @@
         "source_ids": ["src:wikipedia-amadito-valdes"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Chan Chan",
+      "drummer_ids": ["drummer:amadito-valdes"],
+      "drums": {
+        "description": "Light timbales and cáscara on the shells keep the son's clave-led lilt under the guitar figure.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-amadito-valdes"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fE4Sf7vXgbo"
+    },
+    {
+      "title": "El Cuarto de Tula",
+      "drummer_ids": ["drummer:amadito-valdes"],
+      "drums": {
+        "description": "Timbales drive the descarga, cáscara under the verses and fills into the montuno.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-amadito-valdes"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CYxv6N_gUhE"
+    },
+    {
+      "title": "Candela",
+      "drummer_ids": ["drummer:amadito-valdes"],
+      "drums": {
+        "description": "Bright timbale cáscara and bell work pushing the up-tempo son montuno.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-amadito-valdes"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=m47hCW5ueqA"
+    },
+    {
+      "title": "De Camino a la Vereda",
+      "drummer_ids": ["drummer:amadito-valdes"],
+      "drums": {
+        "description": "A brisk son groove with timbale cáscara and fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-amadito-valdes"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZCA7mTzTOiU"
+    }
   ]
 }

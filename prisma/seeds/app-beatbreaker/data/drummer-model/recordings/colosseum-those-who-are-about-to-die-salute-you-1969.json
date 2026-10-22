@@ -15,5 +15,19 @@
       "name": "Jon Hiseman",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Walking in the Park",
+      "drummer_ids": ["drummer:jon-hiseman"],
+      "drums": {
+        "description": "A driving jazz-rock shuffle with big tom fills, the band’s brass-and-blues sound.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:those-who-are-about-to-die-salute-you-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dfuKHT-TIdE"
+    }
   ]
 }

@@ -1,0 +1,33 @@
+{
+  "id": "rec:napalm-death-harmony-corruption-1990",
+  "title": "Harmony Corruption",
+  "artist": "Napalm Death",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:grindcore", "style:hardcore-punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-harris"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Suffer the Children",
+      "drummer_ids": ["drummer:mick-harris"],
+      "drums": {
+        "description": "Blasts and a groove-heavy mid-tempo stomp, the turn to death metal.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:harmony-corruption-wikipedia", "src:mick-harris-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_5JNeIyzgKw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=48197"
+        }
+      ]
+    }
+  ]
+}

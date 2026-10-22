@@ -1,0 +1,35 @@
+{
+  "id": "rec:the-beatles-please-please-me-1963",
+  "title": "Please Please Me",
+  "artist": "The Beatles",
+  "year": 1963,
+  "type": "album",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Please Please Me",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Eighths on the ride, the snare picking up the 'and' of 2, and stop-time breaks where only the cymbal carries on.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:please-please-me-song-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "please-please-me",
+      "youtube": "https://www.youtube.com/watch?v=czw8eqepir8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23712"
+        }
+      ]
+    }
+  ]
+}

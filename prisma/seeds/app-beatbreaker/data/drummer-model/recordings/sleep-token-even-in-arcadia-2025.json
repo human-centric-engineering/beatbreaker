@@ -56,6 +56,68 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Emergence",
+      "drummer_ids": ["drummer:ii-sleep-token"],
+      "drums": {
+        "description": "Slow R&B with the hi-hat in threes of thirty-seconds, then crashes on the eighths over the double pedal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:even-in-arcadia-wikipedia"]
+        }
+      },
+      "style_key": "sleeptoken",
+      "song_key": "emergence",
+      "youtube": "https://www.youtube.com/watch?v=JJpFTUP6fIo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1139195"
+        }
+      ]
+    },
+    {
+      "title": "Caramel",
+      "drummer_ids": ["drummer:ii-sleep-token"],
+      "drums": {
+        "description": "R&B cross-sticks and drum-and-bass hi-hats, crashes on the eighths, then chinas and double bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:even-in-arcadia-wikipedia"]
+        }
+      },
+      "style_key": "sleeptoken",
+      "song_key": "caramel",
+      "youtube": "https://www.youtube.com/watch?v=4iSvoQNfrrk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1245108"
+        }
+      ]
+    },
+    {
+      "title": "Damocles",
+      "drummer_ids": ["drummer:ii-sleep-token"],
+      "drums": {
+        "description": "Half time moving from hi-hats to ride to crashes in quarters, the snare on the \"and\" of 1 and on 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:even-in-arcadia-wikipedia"]
+        }
+      },
+      "style_key": "sleeptoken",
+      "song_key": "damocles",
+      "youtube": "https://www.youtube.com/watch?v=0NDqYZVbpho",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1379128"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:even-in-arcadia-wikipedia"]

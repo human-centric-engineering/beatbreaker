@@ -1,0 +1,35 @@
+{
+  "id": "rec:weather-report-sportin-life-1985",
+  "title": "Sportin' Life",
+  "artist": "Weather Report",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:omar-hakim"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Corner Pocket",
+      "drummer_ids": ["drummer:omar-hakim"],
+      "drums": {
+        "description": "A swinging, shuffle-funk groove from Weather Report's late line-up.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sportin-life-wikipedia"]
+        }
+      },
+      "style_key": "hakim",
+      "song_key": "corner-pocket",
+      "youtube": "https://www.youtube.com/watch?v=uDBeNVid1UA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2565903"
+        }
+      ]
+    }
+  ]
+}

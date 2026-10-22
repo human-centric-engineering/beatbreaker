@@ -1,0 +1,27 @@
+{
+  "id": "rec:jr-walker-and-the-all-stars-shotgun-1965",
+  "title": "Shotgun",
+  "artist": "Jr. Walker & the All Stars",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:country", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:larrie-londin"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Shotgun",
+      "drummer_ids": ["drummer:larrie-londin"],
+      "drums": {
+        "description": "A heavy, stomping dance backbeat under Walker's sax; credited to Benny Benjamin but asserted to be Londin.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:larrie-londin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lc7I9NLPt9A"
+    }
+  ]
+}

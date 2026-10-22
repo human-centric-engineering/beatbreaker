@@ -1,0 +1,184 @@
+{
+  "id": "rec:the-police-ghost-in-the-machine-1981",
+  "title": "Ghost in the Machine",
+  "artist": "The Police",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:new-wave", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stewart-copeland"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Spirits in the Material World",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "A two-bar verse of hi-hats around the foot on the \"and\"s, kick on 2 and 4 and no snare, then a barking chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:ghost-in-the-machine-police-wikipedia",
+            "src:musicradar-copeland-howto"
+          ]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "spirits-in-the-material-world",
+      "youtube": "https://www.youtube.com/watch?v=BHOevX4DlGk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15480"
+        }
+      ]
+    },
+    {
+      "title": "Every Little Thing She Does Is Magic",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Sixteenth hi-hats and cross-sticks in threes through the echo, then a busy kick in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:ghost-in-the-machine-police-wikipedia",
+            "src:musicradar-copeland-howto"
+          ]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "every-little-thing",
+      "youtube": "https://www.youtube.com/watch?v=aENX1Sf3fgQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=56141"
+        }
+      ]
+    },
+    {
+      "title": "Invisible Sun",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "No cymbals and no snare in the verse: the kick doubled on two toms on 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ghost-in-the-machine-police-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "invisible-sun",
+      "youtube": "https://www.youtube.com/watch?v=1VuDjJ9KIxM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14837"
+        }
+      ]
+    },
+    {
+      "title": "Demolition Man",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Straight-ahead rock eighths.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ghost-in-the-machine-police-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "demolition-man",
+      "youtube": "https://www.youtube.com/watch?v=vf7To6vdg7A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=680965"
+        }
+      ]
+    },
+    {
+      "title": "Omegaman",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Fast rock on the ride.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ghost-in-the-machine-police-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "omegaman",
+      "youtube": "https://www.youtube.com/watch?v=9mKLxttBgnc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=80660"
+        }
+      ]
+    },
+    {
+      "title": "Rehumanize Yourself",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Ska-punk, the hi-hat opening on 2 and 4 with the snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ghost-in-the-machine-police-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "rehumanize-yourself",
+      "youtube": "https://www.youtube.com/watch?v=ynmriYnNA3w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14972"
+        }
+      ]
+    },
+    {
+      "title": "Darkness",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Quarter-note hi-hats with no backbeat, then the snare on 1 and 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:ghost-in-the-machine-police-wikipedia",
+            "src:musicradar-copeland-howto"
+          ]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "darkness",
+      "youtube": "https://www.youtube.com/watch?v=uYpF3DhT8y4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=616473"
+        }
+      ]
+    },
+    {
+      "title": "One World (Not Three)",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "A reggae one drop under the horns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ghost-in-the-machine-police-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "one-world",
+      "youtube": "https://www.youtube.com/watch?v=tlNELuINW2o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7413072"
+        }
+      ]
+    }
+  ]
+}

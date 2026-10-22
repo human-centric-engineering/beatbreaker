@@ -1,0 +1,43 @@
+{
+  "id": "rec:los-van-van-los-van-van-vol-iii-1974",
+  "title": "Los Van Van Vol. III",
+  "artist": "Los Van Van",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:songo", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:changuito"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Llegué llegué (Guararey)",
+      "drummer_ids": ["drummer:changuito"],
+      "drums": {
+        "description": "The Guararey section at double the opening tempo, eighths on the hat and a kick that never repeats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:changuito-timba-moore"]
+        }
+      },
+      "style_key": "changuito",
+      "song_key": "llegue-llegue",
+      "youtube": "https://www.youtube.com/watch?v=BQGBGNbGF1A"
+    },
+    {
+      "title": "Mi ritmo caliente",
+      "drummer_ids": ["drummer:changuito"],
+      "drums": {
+        "description": "A slower songo with the kick on 1, both bombos and the offbeat after the first.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:changuito-timba-moore"]
+        }
+      },
+      "style_key": "changuito",
+      "song_key": "mi-ritmo-caliente",
+      "youtube": "https://www.youtube.com/watch?v=vq66THchsQo"
+    }
+  ]
+}

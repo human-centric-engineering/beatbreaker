@@ -45,6 +45,74 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Summoning",
+      "drummer_ids": ["drummer:ii-sleep-token"],
+      "drums": {
+        "description": "Odd-meter riffs in 3/4, 6/4 and 4/4 at half time, crashes in quarters, and a slow groove to close.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:take-me-back-to-eden-wikipedia",
+            "src:ii-sleep-token-drumeo-summoning"
+          ]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=530080"
+        },
+        {
+          "site": "drumeo",
+          "url": "https://www.youtube.com/watch?v=dh6IgOxDhcE"
+        }
+      ],
+      "style_key": "sleeptoken",
+      "song_key": "the-summoning",
+      "youtube": "https://www.youtube.com/watch?v=wJNbtYdr-Hg"
+    },
+    {
+      "title": "Granite",
+      "drummer_ids": ["drummer:ii-sleep-token"],
+      "drums": {
+        "description": "Half time on crashes and chinas, a tom bar every eighth bar, the kick pushing the fourth beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:take-me-back-to-eden-wikipedia"]
+        }
+      },
+      "style_key": "sleeptoken",
+      "song_key": "granite",
+      "youtube": "https://www.youtube.com/watch?v=om4dEGKnEmw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=580324"
+        }
+      ]
+    },
+    {
+      "title": "Vore",
+      "drummer_ids": ["drummer:ii-sleep-token"],
+      "drums": {
+        "description": "Crashes in quarters over bursts of sixteenths on the double pedal, the snare on 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:take-me-back-to-eden-wikipedia"]
+        }
+      },
+      "style_key": "sleeptoken",
+      "song_key": "vore",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=549853"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:take-me-back-to-eden-wikipedia"]

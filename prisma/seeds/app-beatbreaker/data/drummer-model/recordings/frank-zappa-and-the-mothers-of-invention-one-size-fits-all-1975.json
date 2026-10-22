@@ -1,0 +1,30 @@
+{
+  "id": "rec:frank-zappa-and-the-mothers-of-invention-one-size-fits-all-1975",
+  "title": "One Size Fits All",
+  "artist": "Frank Zappa and the Mothers of Invention",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chester-thompson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Inca Roads",
+      "drummer_ids": ["drummer:chester-thompson"],
+      "drums": {
+        "description": "Odd-metre grooves and intricate fills under the marimba.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:one-size-fits-all-disambiguation-wikipedia",
+            "src:chester-thompson-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=buaF5dN44Oo"
+    }
+  ]
+}

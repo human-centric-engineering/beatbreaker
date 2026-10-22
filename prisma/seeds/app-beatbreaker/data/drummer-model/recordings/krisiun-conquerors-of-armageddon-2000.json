@@ -10,5 +10,37 @@
       "drummer_id": "drummer:max-kolesne",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Conquerors of Armageddon",
+      "drummer_ids": ["drummer:max-kolesne"],
+      "drums": {
+        "description": "Extreme-tempo blasts and double kick with rapid fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:krisiun-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wAsZzMZCq0U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2948760"
+        }
+      ]
+    },
+    {
+      "title": "Ravager",
+      "drummer_ids": ["drummer:max-kolesne"],
+      "drums": {
+        "description": "Machine-gun blasts and tight tom runs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:krisiun-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fjJfWcyarYI"
+    }
   ]
 }

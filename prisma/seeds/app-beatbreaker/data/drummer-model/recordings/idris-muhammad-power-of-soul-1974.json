@@ -10,5 +10,37 @@
       "drummer_id": "drummer:idris-muhammad",
       "name": "Idris Muhammad"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Power of Soul",
+      "drummer_ids": ["drummer:idris-muhammad"],
+      "drums": {
+        "description": "A loose, rolling New Orleans-funk groove with syncopated kick.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:idris-muhammad-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3GB2w1J8FyY"
+    },
+    {
+      "title": "Loran's Dance",
+      "drummer_ids": ["drummer:idris-muhammad"],
+      "drums": {
+        "description": "A smooth, swinging jazz-funk groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:idris-muhammad-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=a9gdvyEF6M4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1861206"
+        }
+      ]
+    }
   ]
 }

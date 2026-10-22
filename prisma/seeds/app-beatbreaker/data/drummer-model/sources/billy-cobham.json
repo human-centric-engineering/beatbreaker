@@ -123,5 +123,45 @@
     "reliability": 0.6,
     "accessed": "2026-10-14",
     "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:the-inner-mounting-flame-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Inner Mounting Flame - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Inner_Mounting_Flame",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:jack-johnson-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Jack Johnson (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jack_Johnson_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:white-rabbit-disambiguation-wikipedia",
+    "type": "encyclopedia",
+    "title": "White Rabbit (disambiguation) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/White_Rabbit_(disambiguation)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:birds-of-fire-wikipedia",
+    "type": "encyclopedia",
+    "title": "Birds of Fire - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Birds_of_Fire",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:stratus-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Stratus (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Stratus_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

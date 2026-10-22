@@ -1,0 +1,61 @@
+{
+  "id": "rec:cream-wheels-of-fire-1968",
+  "title": "Wheels of Fire",
+  "artist": "Cream",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:blues-rock", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ginger-baker"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Crossroads",
+      "drummer_ids": ["drummer:ginger-baker"],
+      "drums": {
+        "description": "Live at Winterland: a fast, shuffling eighth-note drive with fills that push the jam forward.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:crossroads-cream-wikipedia", "src:wheels-of-fire-wikipedia"]
+        }
+      },
+      "style_key": "baker",
+      "song_key": "crossroads",
+      "youtube": "https://www.youtube.com/watch?v=HuN0_MYhUT0"
+    },
+    {
+      "title": "Born Under a Bad Sign",
+      "drummer_ids": ["drummer:ginger-baker"],
+      "drums": {
+        "description": "A slow, heavy blues groove with a swinging hi-hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wheels-of-fire-wikipedia"]
+        }
+      },
+      "style_key": "baker",
+      "song_key": "born-under-a-bad-sign",
+      "youtube": "https://www.youtube.com/watch?v=DvikHQboERs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=62912"
+        }
+      ]
+    },
+    {
+      "title": "Toad",
+      "drummer_ids": ["drummer:ginger-baker"],
+      "drums": {
+        "description": "The live Toad at the Fillmore, sixteen minutes of solo drums.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wheels-of-fire-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Ky-RD2_b4xs"
+    }
+  ]
+}

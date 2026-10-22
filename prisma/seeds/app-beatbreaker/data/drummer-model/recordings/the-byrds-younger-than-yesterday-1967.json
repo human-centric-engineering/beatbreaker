@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-byrds-younger-than-yesterday-1967",
+  "title": "Younger Than Yesterday",
+  "artist": "The Byrds",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:folk-rock", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:michael-clarke"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "So You Want to Be a Rock 'n' Roll Star",
+      "drummer_ids": ["drummer:michael-clarke"],
+      "drums": {
+        "description": "A punchy backbeat with tom accents under the brass and screaming crowd.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:younger-than-yesterday-wikipedia", "src:michael-clarke-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bJlvtfLfdu0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=86964"
+        }
+      ]
+    }
+  ]
+}

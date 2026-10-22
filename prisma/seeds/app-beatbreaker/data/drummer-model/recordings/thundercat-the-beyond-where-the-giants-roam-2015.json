@@ -1,0 +1,36 @@
+{
+  "id": "rec:thundercat-the-beyond-where-the-giants-roam-2015",
+  "title": "The Beyond / Where the Giants Roam",
+  "artist": "Thundercat",
+  "year": 2015,
+  "type": "album",
+  "style_ids": ["style:jazz", "style:hip-hop-breakbeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ronald-bruner-jr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Them Changes",
+      "drummer_ids": ["drummer:ronald-bruner-jr"],
+      "drums": {
+        "description": "A loose, funky groove played around the Isley Brothers drum sample.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:ronald-bruner-jr-wikipedia",
+            "src:the-beyond-where-the-giants-roam-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BuzJ5NArvgw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=433629"
+        }
+      ]
+    }
+  ]
+}

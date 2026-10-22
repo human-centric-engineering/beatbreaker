@@ -44,6 +44,46 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Let There Be Rock",
+      "drummer_ids": ["drummer:phil-rudd"],
+      "drums": {
+        "description": "The kick on every beat at about 180, eighths on the hats, open to a wash for the solos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-10100", "src:let-there-be-rock-wikipedia"]
+        }
+      },
+      "style_key": "rudd",
+      "song_key": "let-there-be-rock",
+      "youtube": "https://www.youtube.com/watch?v=3f2g4RMfhS0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10100"
+        }
+      ]
+    },
+    {
+      "title": "Whole Lotta Rosie",
+      "drummer_ids": ["drummer:phil-rudd"],
+      "drums": {
+        "description": "A fast straight-eighth hard-rock drive with hardly a fill, the beat Rudd is known for at full tilt.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:let-there-be-rock-wikipedia", "src:phil-rudd-modern-drummer-2011"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QMvE0yFnR0I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22275"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:let-there-be-rock-wikipedia"]

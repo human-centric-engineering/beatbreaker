@@ -43,6 +43,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Immortal Corrupter",
+      "drummer_ids": ["drummer:jizmak-da-gusha"],
+      "drums": {
+        "description": "A 7/8 riff on the ride, kick bursts under open hi-hats, double bass under crashes, and 12/8 bars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:violence-has-arrived-wikipedia"]
+        }
+      },
+      "style_key": "jizmak",
+      "song_key": "immortal-corrupter",
+      "youtube": "https://www.youtube.com/watch?v=T6HIifwp4MM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=635505"
+        }
+      ]
+    },
+    {
+      "title": "Biledriver",
+      "drummer_ids": ["drummer:jizmak-da-gusha"],
+      "drums": {
+        "description": "Both bass drums in sixteenths under the bell and the snare on every \"and\", with a splash on every beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:violence-has-arrived-wikipedia", "src:gwar-bandcamp-biledriver"]
+        }
+      },
+      "style_key": "jizmak",
+      "song_key": "biledriver",
+      "youtube": "https://www.youtube.com/watch?v=9qL94D6rcKY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=37068"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:violence-has-arrived-wikipedia", "src:gwar-bandcamp-biledriver"]

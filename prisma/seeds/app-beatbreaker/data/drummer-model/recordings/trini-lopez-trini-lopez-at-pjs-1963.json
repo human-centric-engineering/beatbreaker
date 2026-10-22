@@ -1,0 +1,33 @@
+{
+  "id": "rec:trini-lopez-trini-lopez-at-pjs-1963",
+  "title": "Trini Lopez at PJ's",
+  "artist": "Trini Lopez",
+  "year": 1963,
+  "type": "live_track",
+  "style_ids": ["style:folk-rock", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mickey-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "If I Had a Hammer",
+      "drummer_ids": ["drummer:mickey-jones"],
+      "drums": {
+        "description": "A clapping, driving live folk-rock beat in a nightclub.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:trini-lopez-at-pjs-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-yKJ5XEMidQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2471767"
+        }
+      ]
+    }
+  ]
+}

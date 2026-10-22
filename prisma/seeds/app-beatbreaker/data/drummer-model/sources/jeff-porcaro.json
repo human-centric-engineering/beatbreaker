@@ -205,5 +205,53 @@
     "reliability": 0.6,
     "accessed": "2026-10-19",
     "notes": "Human tab (aiGenerated false). rev 6850478, by Ne0, 2026-05-16; 'Jeff Porcaro | Drums' and 'Jeff Porcaro | Percussions'. 4/4 at 98."
+  },
+  {
+    "id": "src:lido-shuffle-wikipedia",
+    "type": "encyclopedia",
+    "title": "Lido Shuffle - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Lido_Shuffle",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:hold-the-line-wikipedia",
+    "type": "encyclopedia",
+    "title": "Hold the Line - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Hold_the_Line",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:georgy-porgy-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Georgy Porgy (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Georgy_Porgy_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:i-ll-supply-the-love-wikipedia",
+    "type": "encyclopedia",
+    "title": "I'll Supply the Love - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/I'll_Supply_the_Love",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:africa-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Africa (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Africa_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:pamela-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Pamela (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Pamela_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

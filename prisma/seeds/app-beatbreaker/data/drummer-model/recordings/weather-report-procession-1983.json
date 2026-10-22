@@ -28,6 +28,20 @@
       "why_it_matters": "First of three Weather Report albums; Hakim's fusion credentials established here."
     }
   ],
+  "tracks": [
+    {
+      "title": "Procession",
+      "drummer_ids": ["drummer:omar-hakim"],
+      "drums": {
+        "description": "Hakim's first Weather Report record: a slow march snare that swells into a full fusion groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:procession-weather-report-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TwMa5HMVW2Q"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:roland-hakim"]

@@ -44,6 +44,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Jean Genie",
+      "drummer_ids": ["drummer:woody-woodmansey"],
+      "drums": {
+        "description": "The hi-hat on the beat under the riff, crashes on 1 and 4 in the chorus, the gallop in the middle.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-jean-genie-wikipedia"]
+        }
+      },
+      "style_key": "woodmansey",
+      "song_key": "the-jean-genie",
+      "youtube": "https://www.youtube.com/watch?v=kMYg_Ra4cr8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=407347"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:aladdin-sane-wikipedia"]

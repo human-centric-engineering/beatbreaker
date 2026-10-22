@@ -16,5 +16,25 @@
         "source_ids": ["src:wikipedia-drummie-zeb"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Silly Games",
+      "drummer_ids": ["drummer:drummie-zeb"],
+      "drums": {
+        "description": "A light, sweet lovers-rock one-drop that leaves room for the high vocal.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:silly-games-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qCVR5XR04Mo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=200967"
+        }
+      ]
+    }
   ]
 }

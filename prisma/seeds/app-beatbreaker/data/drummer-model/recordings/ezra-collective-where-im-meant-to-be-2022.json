@@ -18,6 +18,62 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Victory Dance",
+      "drummer_ids": ["drummer:femi-koleoso"],
+      "drums": {
+        "description": "Koleoso's Afrobeat-meets-jazz drive: busy syncopated hats and hard snare for dancing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:where-i-m-meant-to-be-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NiZPsN2pbTM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3748190"
+        }
+      ]
+    },
+    {
+      "title": "Ego Killah",
+      "drummer_ids": ["drummer:femi-koleoso"],
+      "drums": {
+        "description": "Fast, swinging Afro-Latin groove with explosive fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:where-i-m-meant-to-be-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=A7EKV8h6Ek8"
+    },
+    {
+      "title": "Life Goes On",
+      "drummer_ids": ["drummer:femi-koleoso"],
+      "drums": {
+        "description": "Mid-tempo hip-hop-leaning groove under Sampa the Great's rap.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:where-i-m-meant-to-be-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9sS-QEyLycs"
+    },
+    {
+      "title": "No Confusion",
+      "drummer_ids": ["drummer:femi-koleoso"],
+      "drums": {
+        "description": "Heavy, grime-influenced beat under Kojey Radical.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:where-i-m-meant-to-be-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LB4ea30sg-8"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ezra-collective-wikipedia"]

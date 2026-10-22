@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Lady Be Good",
+      "drummer_ids": ["drummer:papa-jo-jones"],
+      "drums": {
+        "description": "A small-group swing with Lester Young's first recorded solo, Jones's hi-hat floating under it.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jo-jones-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PbjuX-EBW-M"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jo-jones-wikipedia"]

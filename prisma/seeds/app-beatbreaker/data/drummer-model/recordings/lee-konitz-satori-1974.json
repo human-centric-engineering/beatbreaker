@@ -30,6 +30,21 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "On Green Dolphin St.",
+      "drummer_ids": ["drummer:jack-dejohnette"],
+      "drums": {
+        "description": "A duo: the snare on the \"and\"s, the foot moving, threes laid over the four.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bishop-dejohnette-green-dolphin"]
+        }
+      },
+      "style_key": "dejohnette",
+      "song_key": "on-green-dolphin-st"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:bishop-dejohnette-green-dolphin"]

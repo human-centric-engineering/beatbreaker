@@ -15,5 +15,19 @@
       "name": "Leon \"Ndugu\" Chancler",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Man in the Green Shirt",
+      "drummer_ids": ["drummer:ndugu-chancler"],
+      "drums": {
+        "description": "A lively, Latin-tinged fusion groove with busy percussion.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tale-spinnin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DKHQ5dL3z2A"
+    }
   ]
 }

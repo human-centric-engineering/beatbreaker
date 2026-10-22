@@ -35,5 +35,27 @@
       ],
       "pattern_ids": ["pattern:gadd-mozambique-archetype"]
     }
+  ],
+  "tracks": [
+    {
+      "title": "Late in the Evening",
+      "drummer_ids": ["drummer:steve-gadd"],
+      "drums": {
+        "description": "His mozambique: the bell pattern in the right hand, the left on the low tom, the foot on every beat, played with two sticks in each hand.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:steve-gadd-late-in-the-evening-wikipedia"]
+        }
+      },
+      "style_key": "gadd",
+      "song_key": "late-in-the-evening",
+      "youtube": "https://www.youtube.com/watch?v=ilzvuie7Bks",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=424011"
+        }
+      ]
+    }
   ]
 }

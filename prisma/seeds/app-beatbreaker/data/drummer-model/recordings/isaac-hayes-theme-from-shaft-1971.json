@@ -10,5 +10,25 @@
       "drummer_id": "drummer:willie-hall",
       "name": "Willie Hall"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Theme from Shaft",
+      "drummer_ids": ["drummer:willie-hall"],
+      "drums": {
+        "description": "The sixteenth-note hi-hat that opens the song, ticking alone before the wah-wah guitar, then a long, patient groove that builds over minutes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:theme-from-shaft-wikipedia", "src:willie-hall-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fTU_9T5ufzY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9257"
+        }
+      ]
+    }
   ]
 }

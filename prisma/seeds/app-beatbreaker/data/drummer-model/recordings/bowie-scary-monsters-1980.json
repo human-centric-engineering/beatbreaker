@@ -56,6 +56,28 @@
       "pattern_ids": ["pattern:davis-ashes-to-ashes"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Ashes to Ashes",
+      "drummer_ids": ["drummer:dennis-davis"],
+      "drums": {
+        "description": "A loping, syncopated funk groove with a dry snare and hand percussion.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:scary-monsters-album-wikipedia"]
+        }
+      },
+      "style_key": "dennisdavis",
+      "song_key": "ashes-to-ashes",
+      "youtube": "https://www.youtube.com/watch?v=HyMm4rJemtI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29035"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:scary-monsters-album-wikipedia"]

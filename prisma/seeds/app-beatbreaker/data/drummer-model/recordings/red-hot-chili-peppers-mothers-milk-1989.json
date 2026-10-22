@@ -46,6 +46,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Higher Ground",
+      "drummer_ids": ["drummer:chad-smith"],
+      "drums": {
+        "description": "His first record with the band: the kick doubling the bass in eighths under hi-hat eighths and a plain backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mothers-milk-wikipedia", "src:chad-smith-wikipedia"]
+        }
+      },
+      "style_key": "chadsmith",
+      "song_key": "higher-ground",
+      "youtube": "https://www.youtube.com/watch?v=X3mRasO5bvo"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:mothers-milk-wikipedia"]

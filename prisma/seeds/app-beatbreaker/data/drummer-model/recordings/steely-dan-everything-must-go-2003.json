@@ -1,0 +1,69 @@
+{
+  "id": "rec:steely-dan-everything-must-go-2003",
+  "title": "Everything Must Go",
+  "artist": "Steely Dan",
+  "year": 2003,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:keith-carlock"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Godwhacker",
+      "drummer_ids": ["drummer:keith-carlock"],
+      "drums": {
+        "description": "A deep, ghost-note-rich groove: the feel that made him Steely Dan’s drummer.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:everything-must-go-steely-dan-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jdj7Tt1eMRM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=736341"
+        }
+      ]
+    },
+    {
+      "title": "Blues Beach",
+      "drummer_ids": ["drummer:keith-carlock"],
+      "drums": {
+        "description": "A laid-back shuffle-funk feel with a light touch on the hi-hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:everything-must-go-steely-dan-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5COKx5os4EY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3797913"
+        }
+      ]
+    },
+    {
+      "title": "Everything Must Go",
+      "drummer_ids": ["drummer:keith-carlock"],
+      "drums": {
+        "description": "A slow, swinging groove with jazz phrasing on the snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:everything-must-go-steely-dan-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FiK2qICPP4o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3798048"
+        }
+      ]
+    }
+  ]
+}

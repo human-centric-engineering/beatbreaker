@@ -46,5 +46,33 @@
         "source_ids": ["src:free-for-all-wikipedia", "src:bishop-the-core-2022"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "The Core",
+      "drummer_ids": ["drummer:art-blakey"],
+      "drums": {
+        "description": "A rubadub off the piano figure, snare and hat foot every three eighths, then hard swing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bishop-the-core-2022", "src:free-for-all-wikipedia"]
+        }
+      },
+      "style_key": "blakey",
+      "song_key": "the-core",
+      "youtube": "https://www.youtube.com/watch?v=58RJSmpmQdc"
+    },
+    {
+      "title": "Free for All",
+      "drummer_ids": ["drummer:art-blakey"],
+      "drums": {
+        "description": "Ferocious up-tempo swing: thunderous press rolls and crashes driving each soloist higher.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:free-for-all-wikipedia", "src:art-blakey-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GJBLA39spc4"
+    }
   ]
 }

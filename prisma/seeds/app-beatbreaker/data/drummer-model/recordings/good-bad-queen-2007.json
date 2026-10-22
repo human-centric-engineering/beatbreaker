@@ -31,6 +31,22 @@
       "why_it_matters": "Allen's Afrobeat independence, restrained and floating, under English rock songs; it brought him to a new audience."
     }
   ],
+  "tracks": [
+    {
+      "title": "Kingdom of Doom",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "Restrained and floating, the snare on the rim under Damon Albarn's voice.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "kingdom-of-doom",
+      "youtube": "https://www.youtube.com/watch?v=yjieSjiiCoA"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:tony-allen-wikipedia"]

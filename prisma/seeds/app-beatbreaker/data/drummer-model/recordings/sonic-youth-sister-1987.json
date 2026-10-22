@@ -1,0 +1,33 @@
+{
+  "id": "rec:sonic-youth-sister-1987",
+  "title": "Sister",
+  "artist": "Sonic Youth",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:noise-rock", "style:alternative-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-shelley"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Schizophrenia",
+      "drummer_ids": ["drummer:steve-shelley"],
+      "drums": {
+        "description": "A loping, floor-tom-led groove that gives the alternate-tuned guitars a steady floor.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sister-sonic-youth-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fWzFkVy3s14",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=632328"
+        }
+      ]
+    }
+  ]
+}

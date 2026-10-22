@@ -12,6 +12,92 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Turn Up the Sun",
+      "drummer_ids": ["drummer:zak-starkey"],
+      "drums": {
+        "description": "A slow-burning tom-led build into a heavy, Moon-tinged rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:don-t-believe-the-truth-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8MTgXPG3n3M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49249"
+        }
+      ]
+    },
+    {
+      "title": "Lyla",
+      "drummer_ids": ["drummer:zak-starkey"],
+      "drums": {
+        "description": "Driving eighth-note rock with crashing fills, Starkey's pounding, Who-like style.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lyla-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oHQL7BoeDbA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15648"
+        }
+      ]
+    },
+    {
+      "title": "Love Like a Bomb",
+      "drummer_ids": ["drummer:zak-starkey"],
+      "drums": {
+        "description": "Light, loping folk-rock groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:don-t-believe-the-truth-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ENuR3Qmu8oM"
+    },
+    {
+      "title": "The Importance of Being Idle",
+      "drummer_ids": ["drummer:zak-starkey"],
+      "drums": {
+        "description": "Shuffling, music-hall-flavoured groove with a laid-back snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-importance-of-being-idle-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jySfU10IQu4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49232"
+        }
+      ]
+    },
+    {
+      "title": "Let There Be Love",
+      "drummer_ids": ["drummer:zak-starkey"],
+      "drums": {
+        "description": "Slow ballad backbeat building to big crashes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:let-there-be-love-oasis-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZOty2yd7l3Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15016"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:zak-starkey-wikipedia"]

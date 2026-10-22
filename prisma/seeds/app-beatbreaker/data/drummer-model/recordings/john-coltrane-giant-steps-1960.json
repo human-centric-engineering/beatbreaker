@@ -16,6 +16,71 @@
         "confidence": "widely_reported",
         "source_ids": ["src:art-taylor-wikipedia"]
       }
+    },
+    {
+      "drummer_id": "drummer:jimmy-cobb"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Giant Steps",
+      "drummer_ids": ["drummer:art-taylor"],
+      "drums": {
+        "description": "A steady, unflustered ride pattern at high tempo under Coltrane’s fast chord changes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:giant-steps-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KwIC6B_dvW4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=414057"
+        }
+      ]
+    },
+    {
+      "title": "Mr. P.C.",
+      "drummer_ids": ["drummer:art-taylor"],
+      "drums": {
+        "description": "Fast, driving swing with snare accents and a drum exchange.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:giant-steps-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oHDsywpCHj4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3749"
+        }
+      ]
+    },
+    {
+      "title": "Cousin Mary",
+      "drummer_ids": ["drummer:art-taylor"],
+      "drums": {
+        "description": "A medium, swinging groove with crisp hi-hat on 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:giant-steps-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aAf8YyFtVDA"
+    },
+    {
+      "title": "Naima",
+      "drummer_ids": ["drummer:jimmy-cobb"],
+      "drums": {
+        "description": "The only Giant Steps track he plays: a slow, spacious ballad with soft mallet and cymbal swells.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:naima-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bPAC6zt_1ZM"
     }
   ],
   "evidence": {

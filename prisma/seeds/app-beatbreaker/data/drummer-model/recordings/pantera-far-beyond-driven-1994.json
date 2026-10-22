@@ -1,0 +1,51 @@
+{
+  "id": "rec:pantera-far-beyond-driven-1994",
+  "title": "Far Beyond Driven",
+  "artist": "Pantera",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:groove-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:vinnie-paul"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "5 Minutes Alone",
+      "drummer_ids": ["drummer:vinnie-paul"],
+      "drums": {
+        "description": "A slow, heavy groove with precise double-bass triplets.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:far-beyond-driven-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7m7njvwB-Ks",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35396"
+        }
+      ]
+    },
+    {
+      "title": "Becoming",
+      "drummer_ids": ["drummer:vinnie-paul"],
+      "drums": {
+        "description": "Double-bass triplets locked with a stuttering guitar riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:far-beyond-driven-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NLP0xP2M4S8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16018"
+        }
+      ]
+    }
+  ]
+}

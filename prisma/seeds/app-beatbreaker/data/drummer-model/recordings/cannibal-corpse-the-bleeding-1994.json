@@ -1,0 +1,32 @@
+{
+  "id": "rec:cannibal-corpse-the-bleeding-1994",
+  "title": "The Bleeding",
+  "artist": "Cannibal Corpse",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-mazurkiewicz"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Stripped, Raped and Strangled",
+      "drummer_ids": ["drummer:paul-mazurkiewicz"],
+      "drums": {
+        "description": "A stomping, catchy mid-tempo death-metal groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-bleeding-album-wikipedia", "src:paul-mazurkiewicz-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=434452"
+        }
+      ]
+    }
+  ]
+}

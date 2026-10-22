@@ -1,0 +1,33 @@
+{
+  "id": "rec:anthrax-spreading-the-disease-1985",
+  "title": "Spreading the Disease",
+  "artist": "Anthrax",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:hardcore-punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charlie-benante"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Madhouse",
+      "drummer_ids": ["drummer:charlie-benante"],
+      "drums": {
+        "description": "A driving thrash beat with Benante's fast double bass and crisp snare under the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:spreading-the-disease-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uGHsxMqpL0c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1726"
+        }
+      ]
+    }
+  ]
+}

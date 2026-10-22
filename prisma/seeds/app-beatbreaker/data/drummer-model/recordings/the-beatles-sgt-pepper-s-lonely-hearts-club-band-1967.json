@@ -1,0 +1,115 @@
+{
+  "id": "rec:the-beatles-sgt-pepper-s-lonely-hearts-club-band-1967",
+  "title": "Sgt. Pepper's Lonely Hearts Club Band",
+  "artist": "The Beatles",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Sgt. Pepper's Lonely Hearts Club Band",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "The kick in eighths under washy hats and rimshots on 2 and 4, a heavy rock opening to the album.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sgt-pepper-s-lonely-hearts-club-band-song-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "sgt-pepper",
+      "youtube": "https://www.youtube.com/watch?v=xwwABrNLvFs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2659"
+        }
+      ]
+    },
+    {
+      "title": "With a Little Help from My Friends",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Ringo sings and plays a light swing with tambourine and cowbell overdubbed, the fills placed between his own vocal lines.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:with-a-little-help-from-my-friends-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "with-a-little-help",
+      "youtube": "https://www.youtube.com/watch?v=0C58ttB2-Qg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2508"
+        }
+      ]
+    },
+    {
+      "title": "Lucy in the Sky with Diamonds",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "The verses in 3/4 with the ride on the beat, the chorus in 4/4 with the ride in eighths: a drummer switching meter with the song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lucy-in-the-sky-with-diamonds-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "lucy-in-the-sky",
+      "youtube": "https://www.youtube.com/watch?v=aGPTfxdw_lw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2464"
+        }
+      ]
+    },
+    {
+      "title": "Getting Better",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Four on the floor, the snare only on 2 and an open hat on the 'and' of 3, a bouncing pattern under the guitar stabs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:getting-better-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "getting-better",
+      "youtube": "https://www.youtube.com/watch?v=EGlo9LzmOME",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22772"
+        }
+      ]
+    },
+    {
+      "title": "Good Morning Good Morning",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "The verse bars in 5/4 with kick and snare on every beat, the drums holding the odd meter together.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:good-morning-good-morning-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "good-morning",
+      "youtube": "https://www.youtube.com/watch?v=sjb9AxDkwAQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22774"
+        }
+      ]
+    }
+  ]
+}

@@ -48,6 +48,48 @@
       "pattern_ids": ["pattern:rowntree-song-2", "pattern:rowntree-coffee-and-tv-beetlebum"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Beetlebum",
+      "drummer_ids": ["drummer:dave-rowntree"],
+      "drums": {
+        "description": "The kick on 1 and its \"and\", 3 and its \"and\", and the chorus on the ride.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blur-album-wikipedia"]
+        }
+      },
+      "style_key": "rowntree",
+      "song_key": "beetlebum",
+      "youtube": "https://www.youtube.com/watch?v=WAXnqjUfal4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23264"
+        }
+      ]
+    },
+    {
+      "title": "Song 2",
+      "drummer_ids": ["drummer:dave-rowntree"],
+      "drums": {
+        "description": "Hi-hats with gaps in, then the open hi-hat in quarters for the \"woo-hoo\": two minutes recorded as a demo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:song-2-wikipedia", "src:stephen-street-song-2-sound-on-sound"]
+        }
+      },
+      "style_key": "rowntree",
+      "song_key": "song-2",
+      "youtube": "https://www.youtube.com/watch?v=SSbBvKaM6sk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3684"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:blur-album-wikipedia"]

@@ -1,0 +1,27 @@
+{
+  "id": "rec:little-richard-ooh-my-soul-1958",
+  "title": "Ooh! My Soul",
+  "artist": "Little Richard",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charles-connor"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Ooh! My Soul",
+      "drummer_ids": ["drummer:charles-connor"],
+      "drums": {
+        "description": "A breakneck rock and roll groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ooh-my-soul-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=H3-17EIX4Zg"
+    }
+  ]
+}

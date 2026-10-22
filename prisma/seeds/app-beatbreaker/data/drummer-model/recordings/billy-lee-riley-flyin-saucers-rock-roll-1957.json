@@ -1,0 +1,33 @@
+{
+  "id": "rec:billy-lee-riley-flyin-saucers-rock-roll-1957",
+  "title": "Flyin' Saucers Rock & Roll",
+  "artist": "Billy Lee Riley",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jimmy-van-eaton"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Flyin' Saucers Rock & Roll",
+      "drummer_ids": ["drummer:jimmy-van-eaton"],
+      "drums": {
+        "description": "A frantic rockabilly beat, cut with Jerry Lee on piano.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:billy-lee-riley-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Px-G1BVWEUY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5455168"
+        }
+      ]
+    }
+  ]
+}

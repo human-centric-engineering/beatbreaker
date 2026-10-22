@@ -27,5 +27,63 @@
         "source_ids": ["src:wikipedia-willie-bobo"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Limbo",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "A fast three over four: the cymbal in dotted quarters against the foot.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:sorcerer-miles-davis-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "limbo",
+      "youtube": "https://www.youtube.com/watch?v=GHS7_bf9tCE"
+    },
+    {
+      "title": "Pee Wee",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "His own waltz: brushes first, broad swells, the drums carrying the mood.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:sorcerer-miles-davis-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "pee-wee",
+      "youtube": "https://www.youtube.com/watch?v=U1fpWrhMBI0"
+    },
+    {
+      "title": "Masqualero",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Straight eighths, Spanish and modal, the toms in fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:sorcerer-miles-davis-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "masqualero",
+      "youtube": "https://www.youtube.com/watch?v=Uz3bZJYmUnQ"
+    },
+    {
+      "title": "Prince of Darkness",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "A samba played straight and open, accents on the band hits.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:sorcerer-miles-davis-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "prince-of-darkness",
+      "youtube": "https://www.youtube.com/watch?v=KUGqD0VmTIQ"
+    }
   ]
 }

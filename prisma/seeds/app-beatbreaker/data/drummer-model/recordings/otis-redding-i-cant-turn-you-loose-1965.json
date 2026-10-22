@@ -1,0 +1,35 @@
+{
+  "id": "rec:otis-redding-i-cant-turn-you-loose-1965",
+  "title": "I Can't Turn You Loose",
+  "artist": "Otis Redding",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:al-jackson-jr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "I Can't Turn You Loose",
+      "drummer_ids": ["drummer:al-jackson-jr"],
+      "drums": {
+        "description": "Ride eighths over the kick on 1 and 3, a snare roll in, and the stop on every \"and\".",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-cant-turn-you-loose-wikipedia"]
+        }
+      },
+      "style_key": "aljackson",
+      "song_key": "i-cant-turn-you-loose",
+      "youtube": "https://www.youtube.com/watch?v=BSal6T5CM8o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49631"
+        }
+      ]
+    }
+  ]
+}

@@ -44,6 +44,68 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Bigmouth Strikes Again",
+      "drummer_ids": ["drummer:mike-joyce"],
+      "drums": {
+        "description": "Two hands on the hat, a splash every four bars, the snare running into each verse.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-18167", "src:mike-joyce-wikipedia"]
+        }
+      },
+      "style_key": "mikejoyce",
+      "song_key": "bigmouth-strikes-again",
+      "youtube": "https://www.youtube.com/watch?v=8njhrLq8-8k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18167"
+        }
+      ]
+    },
+    {
+      "title": "The Queen Is Dead",
+      "drummer_ids": ["drummer:mike-joyce"],
+      "drums": {
+        "description": "Eighths on the floor tom, the snare on 2 and 4, a rumbling bass drum: a tom groove that drives the whole track.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-635023", "src:the-queen-is-dead-song-wikipedia"]
+        }
+      },
+      "style_key": "mikejoyce",
+      "song_key": "the-queen-is-dead",
+      "youtube": "https://www.youtube.com/watch?v=Fs5j3NgEDxs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=635023"
+        }
+      ]
+    },
+    {
+      "title": "There Is a Light That Never Goes Out",
+      "drummer_ids": ["drummer:mike-joyce"],
+      "drums": {
+        "description": "Eighths on the hat, the bass drum moving under them, a two-bar turn on the snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-18092", "src:mike-joyce-wikipedia"]
+        }
+      },
+      "style_key": "mikejoyce",
+      "song_key": "there-is-a-light",
+      "youtube": "https://www.youtube.com/watch?v=esrQJadQ9ZA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18092"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-queen-is-dead-song-wikipedia"]

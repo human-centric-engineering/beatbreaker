@@ -15,5 +15,25 @@
       "name": "Michael Clarke",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Eight Miles High",
+      "drummer_ids": ["drummer:michael-clarke"],
+      "drums": {
+        "description": "Jazz-oriented snare and cymbal playing under McGuinn's Coltrane-inspired twelve-string; Hillman called it brilliant.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:michael-clarke-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VUMTCn_ne0g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3197"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,29 @@
+{
+  "id": "rec:esther-phillips-alone-again-naturally-1972",
+  "title": "Alone Again, Naturally",
+  "artist": "Esther Phillips",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bernard-purdie"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Use Me",
+      "drummer_ids": ["drummer:bernard-purdie"],
+      "drums": {
+        "description": "A busy snare of even hits with the hi-hats opening on the \"and\"s of 1 and 3.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:esther-phillips-wikipedia"]
+        }
+      },
+      "style_key": "bernardpurdie",
+      "song_key": "use-me",
+      "youtube": "https://www.youtube.com/watch?v=kNhHIjr6Idg"
+    }
+  ]
+}

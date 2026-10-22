@@ -1,0 +1,55 @@
+{
+  "id": "rec:the-beatles-a-hard-day-s-night-1964",
+  "title": "A Hard Day's Night",
+  "artist": "The Beatles",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Can't Buy Me Love",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "A fast shuffle, the floor tom carrying the intro and the hats sizzling half open through the verse.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:can-t-buy-me-love-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "cant-buy-me-love",
+      "youtube": "https://www.youtube.com/watch?v=srwxJUXPHvE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=69531"
+        }
+      ]
+    },
+    {
+      "title": "A Hard Day's Night",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Washy eighths on the hats with the kick pushing the 'and' of 3 and of 4, so the groove leans forward.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:a-hard-day-s-night-song-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "a-hard-days-night",
+      "youtube": "https://www.youtube.com/watch?v=AMSiHdrHl0g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=77"
+        }
+      ]
+    }
+  ]
+}

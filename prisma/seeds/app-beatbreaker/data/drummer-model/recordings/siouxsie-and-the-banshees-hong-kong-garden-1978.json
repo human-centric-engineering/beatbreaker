@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Hong Kong Garden",
+      "drummer_ids": ["drummer:kenny-morris"],
+      "drums": {
+        "description": "A driving, tom-led beat with few cymbals, Morris's tribal sound.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hong-kong-garden-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Y-l9GQJRl9Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=499166"
+        }
+      ]
+    }
   ]
 }

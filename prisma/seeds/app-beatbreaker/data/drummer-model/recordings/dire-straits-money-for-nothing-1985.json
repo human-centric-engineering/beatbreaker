@@ -39,6 +39,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Money for Nothing",
+      "drummer_ids": ["drummer:omar-hakim", "drummer:terry-williams"],
+      "drums": {
+        "description": "The long tom-tom intro under Sting's 'I want my MTV', then a heavy, simple half-time rock groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:money-for-nothing-wikipedia", "src:wikipedia-hakim"]
+        }
+      },
+      "style_key": "hakim",
+      "song_key": "money-for-nothing",
+      "youtube": "https://www.youtube.com/watch?v=wTP2RUD_cL0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=480492"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:wikipedia-hakim"]

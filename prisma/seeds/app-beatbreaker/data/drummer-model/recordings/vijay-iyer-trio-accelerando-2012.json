@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Accelerando",
+      "drummer_ids": ["drummer:marcus-gilmore"],
+      "drums": {
+        "description": "Gilmore's precise, gradually accelerating pulse layers that shift the trio's sense of time.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:accelerando-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=IfQO4WhPFAA"
+    },
+    {
+      "title": "Human Nature (Trio Extension)",
+      "drummer_ids": ["drummer:marcus-gilmore"],
+      "drums": {
+        "description": "The Michael Jackson tune over a supple, hip-hop-informed groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:accelerando-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kdZwPF88SM4"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:marcus-gilmore-wikipedia"]

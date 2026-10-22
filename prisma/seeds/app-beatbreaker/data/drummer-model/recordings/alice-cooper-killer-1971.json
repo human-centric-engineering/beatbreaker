@@ -1,0 +1,45 @@
+{
+  "id": "rec:alice-cooper-killer-1971",
+  "title": "Killer",
+  "artist": "Alice Cooper",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:glam-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neal-smith"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Under My Wheels",
+      "drummer_ids": ["drummer:neal-smith"],
+      "drums": {
+        "description": "A fast, driving rock-and-roll beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:killer-alice-cooper-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_chvDLF26X4"
+    },
+    {
+      "title": "Halo of Flies",
+      "drummer_ids": ["drummer:neal-smith"],
+      "drums": {
+        "description": "An eight-minute suite of changing tempos and meters with prog-like drum passages.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:killer-alice-cooper-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fGOD1-NtxH8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22843"
+        }
+      ]
+    }
+  ]
+}

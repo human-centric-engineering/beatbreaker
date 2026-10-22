@@ -17,5 +17,31 @@
         "source_ids": ["src:wikipedia-airto-moreira"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Return to Forever",
+      "drummer_ids": ["drummer:airto-moreira"],
+      "drums": {
+        "description": "Brazilian percussion and drums in a long, flowing groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-airto-moreira"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5Y4dNtZ-hbA"
+    },
+    {
+      "title": "La Fiesta",
+      "drummer_ids": ["drummer:airto-moreira"],
+      "drums": {
+        "description": "A Spanish-influenced groove building into a fiery montuno-like feel.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-airto-moreira"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NFNROPwCALg"
+    }
   ]
 }

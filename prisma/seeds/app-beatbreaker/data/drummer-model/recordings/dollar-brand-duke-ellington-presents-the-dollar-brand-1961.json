@@ -17,6 +17,21 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Kippy",
+      "year": 1963,
+      "drummer_ids": ["drummer:makaya-ntshoko"],
+      "drums": {
+        "description": "Brushes and a light ride under Dollar Brand's piano in the Paris trio session Ellington produced.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:makaya-ntshoko-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LkkNT26Ucb0"
+    }
+  ],
   "evidence": {
     "confidence": "needs_verification",
     "source_ids": ["src:makaya-ntshoko-wikipedia"],

@@ -1,0 +1,32 @@
+{
+  "id": "rec:small-faces-itchycoo-park-1967",
+  "title": "Itchycoo Park",
+  "artist": "Small Faces",
+  "year": 1967,
+  "type": "studio_track",
+  "style_ids": ["style:rock", "style:rnb-soul", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenney-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Itchycoo Park",
+      "drummer_ids": ["drummer:kenney-jones"],
+      "drums": {
+        "description": "The drums run through phasing in the bridge, one of the first hit records to flange a whole kit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:itchycoo-park-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2218570"
+        }
+      ]
+    }
+  ]
+}

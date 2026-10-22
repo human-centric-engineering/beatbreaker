@@ -22,6 +22,25 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "I Got the Feelin'",
+      "drummer_ids": ["drummer:clyde-stubblefield"],
+      "drums": {
+        "description": "The backbeat moved to the \"and\"s of 2 and 4, then the left hand in threes on the snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:stubblefield-wiki-i-got-the-feelin",
+            "src:stubblefield-funklet-i-got-the-feelin"
+          ]
+        }
+      },
+      "style_key": "stubblefield",
+      "song_key": "i-got-the-feelin",
+      "youtube": "https://www.youtube.com/watch?v=1PCUqyH2nJ4"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": [

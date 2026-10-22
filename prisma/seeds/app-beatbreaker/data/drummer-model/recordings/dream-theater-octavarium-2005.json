@@ -43,6 +43,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Panic Attack",
+      "drummer_ids": ["drummer:mike-portnoy"],
+      "drums": {
+        "description": "Fast double bass and blast-like sections under a frantic riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:octavarium-album-wikipedia"]
+        }
+      },
+      "style_key": "portnoy",
+      "song_key": "panic-attack",
+      "youtube": "https://www.youtube.com/watch?v=cs8rkoouPSU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5463"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:octavarium-album-wikipedia"]

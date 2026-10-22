@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "L.A. Woman",
+      "drummer_ids": ["drummer:john-densmore"],
+      "drums": {
+        "description": "Fast, driving rock shuffle that slows to a half-time section in the middle and accelerates back to full tempo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:l-a-woman-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=91vU3kHtnoU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5593"
+        }
+      ]
+    },
+    {
+      "title": "Riders on the Storm",
+      "drummer_ids": ["drummer:john-densmore"],
+      "drums": {
+        "description": "Soft jazz groove on ride cymbal with light snare touches that keeps a steady, rain-like pulse under the electric piano.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:riders-on-the-storm-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7G2-FPlvY58",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23399"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:john-densmore-wikipedia"]

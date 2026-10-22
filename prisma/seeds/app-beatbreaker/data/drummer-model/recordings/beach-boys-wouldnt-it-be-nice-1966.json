@@ -51,6 +51,28 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Wouldn't It Be Nice",
+      "drummer_ids": ["drummer:hal-blaine"],
+      "drums": {
+        "description": "The kick on every beat under the snare doubled on the floor tom, no cymbal keeping time.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wouldnt-it-be-nice-wikipedia"]
+        }
+      },
+      "style_key": "halblaine",
+      "song_key": "wouldnt-it-be-nice",
+      "youtube": "https://www.youtube.com/watch?v=5lP8BZcyoEQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2576"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:wouldnt-it-be-nice-wikipedia"]

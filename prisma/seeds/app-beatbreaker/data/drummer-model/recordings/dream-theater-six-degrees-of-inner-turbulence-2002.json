@@ -1,0 +1,36 @@
+{
+  "id": "rec:dream-theater-six-degrees-of-inner-turbulence-2002",
+  "title": "Six Degrees of Inner Turbulence",
+  "artist": "Dream Theater",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-portnoy"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Glass Prison",
+      "drummer_ids": ["drummer:mike-portnoy"],
+      "drums": {
+        "description": "Opens Portnoy's Twelve-step Suite with thrash double bass and odd-meter riffs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:six-degrees-of-inner-turbulence-wikipedia",
+            "src:mike-portnoy-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oGAHh0GPKRA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5555"
+        }
+      ]
+    }
+  ]
+}

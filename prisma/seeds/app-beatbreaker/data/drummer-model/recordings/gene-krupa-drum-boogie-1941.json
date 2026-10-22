@@ -1,0 +1,27 @@
+{
+  "id": "rec:gene-krupa-drum-boogie-1941",
+  "title": "Drum Boogie",
+  "artist": "Gene Krupa and His Orchestra",
+  "year": 1941,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gene-krupa"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Drum Boogie",
+      "drummer_ids": ["drummer:gene-krupa"],
+      "drums": {
+        "description": "His own boogie: solos that start on a looped right-hand rim shot answered by two notes in the left.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:gene-krupa-wikipedia", "src:gene-krupa-dorn-rim-shot-pattern"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nk9IJLzCbj4"
+    }
+  ]
+}

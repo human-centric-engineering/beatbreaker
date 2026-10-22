@@ -38,6 +38,49 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Proceed",
+      "year": 1994,
+      "drummer_ids": ["drummer:questlove"],
+      "drums": {
+        "description": "Boom bap played live: eighth hats, a two-bar kick off the 1, a bar of snare on every beat to turn.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:do-you-want-more-wikipedia", "src:questlove-rbma-jzone-2019"]
+        }
+      },
+      "style_key": "questlove",
+      "song_key": "proceed",
+      "youtube": "https://www.youtube.com/watch?v=O5TUqdxqHS0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6329751"
+        }
+      ]
+    },
+    {
+      "title": "Mellow My Man",
+      "drummer_ids": ["drummer:questlove"],
+      "drums": {
+        "description": "Live boom bap in swung sixteenths: three kicks after 3 on one foot, the hat foot on 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:do-you-want-more-wikipedia", "src:questlove-rbma-jzone-2019"]
+        }
+      },
+      "style_key": "questlove",
+      "song_key": "mellow-my-man",
+      "youtube": "https://www.youtube.com/watch?v=zkvyjPjxRxg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7080018"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-roots-wikipedia"]

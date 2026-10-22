@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Just the Same",
+      "drummer_ids": ["drummer:john-weathers"],
+      "drums": {
+        "description": "A finger-clicking, syncopated intro and a groove that swings between half-time and straight rock.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:free-hand-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cr70zm9mI98",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=86599"
+        }
+      ]
+    },
+    {
+      "title": "Free Hand",
+      "drummer_ids": ["drummer:john-weathers"],
+      "drums": {
+        "description": "A tight, driving rock groove punctuated by intricate ensemble breaks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:free-hand-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uk_xE116U0Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=655556"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:john-weathers-wikipedia"]

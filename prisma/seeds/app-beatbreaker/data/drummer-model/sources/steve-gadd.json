@@ -16,5 +16,101 @@
     "reliability": 0.85,
     "accessed": "2026-10-14",
     "notes": "His own lesson: a three-note grouping in 2-, 4- and 8-bar phrases, and how he used it in the Love for Sale break on Burning for Buddy."
+  },
+  {
+    "id": "src:50-ways-to-leave-your-lover-wikipedia",
+    "type": "encyclopedia",
+    "title": "50 Ways to Leave Your Lover - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/50_Ways_to_Leave_Your_Lover",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:aja-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Aja (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Aja_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:the-leprechaun-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Leprechaun (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Leprechaun_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:friends-chick-corea-wikipedia",
+    "type": "encyclopedia",
+    "title": "Friends (Chick Corea album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Friends_(Chick_Corea_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:chuck-es-in-love-wikipedia",
+    "type": "encyclopedia",
+    "title": "Chuck E.'s in Love - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Chuck_E.%27s_in_Love",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:the-hustle-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Hustle (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Hustle_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:gaucho-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Gaucho (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Gaucho_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:slip-slidin-away-wikipedia",
+    "type": "encyclopedia",
+    "title": "Slip Slidin' Away - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Slip_Slidin%27_Away",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:just-the-two-of-us-wikipedia",
+    "type": "encyclopedia",
+    "title": "Just the Two of Us - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Just_the_Two_of_Us",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:were-in-this-love-together-wikipedia",
+    "type": "encyclopedia",
+    "title": "We're in This Love Together - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/We%27re_in_This_Love_Together",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:me-and-mr-johnson-wikipedia",
+    "type": "encyclopedia",
+    "title": "Me and Mr. Johnson - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Me_and_Mr._Johnson",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:before-this-world-wikipedia",
+    "type": "encyclopedia",
+    "title": "Before This World - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Before_This_World",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

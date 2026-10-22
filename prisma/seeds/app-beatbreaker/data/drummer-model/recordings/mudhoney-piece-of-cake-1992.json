@@ -1,0 +1,33 @@
+{
+  "id": "rec:mudhoney-piece-of-cake-1992",
+  "title": "Piece of Cake",
+  "artist": "Mudhoney",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:grunge"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dan-peters"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Suck You Dry",
+      "drummer_ids": ["drummer:dan-peters"],
+      "drums": {
+        "description": "Fast, pounding garage-punk with crashing fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:piece-of-cake-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=S5gsq4SOuK8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=59145"
+        }
+      ]
+    }
+  ]
+}

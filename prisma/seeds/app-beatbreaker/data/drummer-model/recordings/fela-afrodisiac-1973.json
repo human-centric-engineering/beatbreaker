@@ -1,0 +1,43 @@
+{
+  "id": "rec:fela-afrodisiac-1973",
+  "title": "Afrodisiac",
+  "artist": "Fela Ransome-Kuti and the Africa '70",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:afrobeat", "style:west-african", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Jeun Ko Ku (Chop and Quench)",
+      "year": 1971,
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "Early Afrobeat with a James Brown edge: his first pattern, the hat foot on every \"and\", with a firmer 2 and 4 than he later kept.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:fela-kuti-discography-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "jeun-ko-ku"
+    },
+    {
+      "title": "Alu Jon Jonki Jon",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "His first pattern with the toms talking like congas between the snare clusters.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:fela-kuti-discography-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "alu-jon-jonki-jon",
+      "youtube": "https://www.youtube.com/watch?v=nL2OVvnE1OU"
+    }
+  ]
+}

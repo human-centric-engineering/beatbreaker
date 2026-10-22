@@ -18,6 +18,68 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Ragtime Dance",
+      "drummer_ids": ["drummer:steve-mccall"],
+      "drums": {
+        "description": "Light, swinging time playing Joplin through the trio's free-jazz approach.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:steve-mccall-drummer-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jVGvEBvI-ec"
+    },
+    {
+      "title": "King Porter Stomp",
+      "drummer_ids": ["drummer:steve-mccall"],
+      "drums": {
+        "description": "Crisp, bouncing early-jazz feel reinterpreted by the drums.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:steve-mccall-drummer-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QhiqFsWcMrI"
+    },
+    {
+      "title": "Buddy Bolden's Blues",
+      "drummer_ids": ["drummer:steve-mccall"],
+      "drums": {
+        "description": "A slow, loose blues groove with colouristic cymbals.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:steve-mccall-drummer-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tdleiIS6o9Y"
+    },
+    {
+      "title": "Paille Street",
+      "drummer_ids": ["drummer:steve-mccall"],
+      "drums": {
+        "description": "Loose, swinging time with a New Orleans feel.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:steve-mccall-drummer-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=u1mO21toGgs"
+    },
+    {
+      "title": "Weeping Willow Rag",
+      "drummer_ids": ["drummer:steve-mccall"],
+      "drums": {
+        "description": "Light, buoyant rag rhythm played with brushes and cymbals.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:steve-mccall-drummer-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Wq6ACfCUcOQ"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:steve-mccall-drummer-wikipedia"]

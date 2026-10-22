@@ -10,5 +10,24 @@
       "drummer_id": "drummer:jerry-allison",
       "name": "Jerry Allison"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Peggy Sue",
+      "drummer_ids": ["drummer:jerry-allison"],
+      "drums": {
+        "description": "Relentless paradiddle rolls on the toms through the whole song, the part that defined it.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:peggy-sue-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=290079"
+        }
+      ]
+    }
   ]
 }

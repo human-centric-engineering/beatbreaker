@@ -1,0 +1,66 @@
+{
+  "id": "rec:james-brown-live-at-the-apollo-1963",
+  "title": "Live at the Apollo",
+  "artist": "James Brown",
+  "year": 1963,
+  "type": "live_track",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clayton-fillyau"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Night Train",
+      "drummer_ids": ["drummer:clayton-fillyau"],
+      "drums": {
+        "description": "A hard-driving, shuffling dance beat on the live record.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:live-at-the-apollo-1963-album-wikipedia",
+            "src:charles-hungry-williams-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZF_rZrH4yBY"
+    },
+    {
+      "title": "Think",
+      "drummer_ids": ["drummer:clayton-fillyau"],
+      "drums": {
+        "description": "A fast, driving rhythm-and-blues beat pushing the live band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:live-at-the-apollo-1963-album-wikipedia",
+            "src:charles-hungry-williams-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-Iu6kTi7tbA"
+    },
+    {
+      "title": "I'll Go Crazy",
+      "drummer_ids": ["drummer:clayton-fillyau"],
+      "drums": {
+        "description": "A hard-swinging shuffle that opens the show.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:live-at-the-apollo-1963-album-wikipedia",
+            "src:charles-hungry-williams-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PvCmu186Zws",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1667149"
+        }
+      ]
+    }
+  ]
+}

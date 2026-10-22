@@ -1,0 +1,45 @@
+{
+  "id": "rec:grinderman-grinderman-2-2010",
+  "title": "Grinderman 2",
+  "artist": "Grinderman",
+  "year": 2010,
+  "type": "album",
+  "style_ids": ["style:no-wave", "style:noise-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jim-sclavunos"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Heathen Child",
+      "drummer_ids": ["drummer:jim-sclavunos"],
+      "drums": {
+        "description": "A heavy, swaggering tom-led groove that builds into noise.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:grinderman-2-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=292vJsU_acg"
+    },
+    {
+      "title": "Mickey Mouse and the Goodbye Man",
+      "drummer_ids": ["drummer:jim-sclavunos"],
+      "drums": {
+        "description": "A pounding, insistent beat under the howling guitars, opening the album at full force.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:grinderman-2-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UkZSPdN9aTk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2125332"
+        }
+      ]
+    }
+  ]
+}

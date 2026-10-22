@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-skatalites-ball-of-fire-1965",
+  "title": "Ball of Fire",
+  "artist": "The Skatalites",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:ska", "style:rocksteady"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lloyd-knibb"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Ball of Fire",
+      "drummer_ids": ["drummer:lloyd-knibb"],
+      "drums": {
+        "description": "A fast ska groove with snare accents on the off-beats.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-skatalites"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8bHnUSlQ9aA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4277160"
+        }
+      ]
+    }
+  ]
+}

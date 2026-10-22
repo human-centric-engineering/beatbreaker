@@ -14,6 +14,36 @@
       "why_it_matters": "Landmark early songo record."
     }
   ],
+  "tracks": [
+    {
+      "title": "Chirrín chirrán",
+      "drummer_ids": ["drummer:changuito"],
+      "drums": {
+        "description": "Songo as he first altered it: the kick on both bombos and the rim between the beats, a drum-kit part that remade Cuban dance music.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:changuito-timba-moore", "src:wikipedia-changuito"]
+        }
+      },
+      "style_key": "changuito",
+      "song_key": "chirrin-chirran",
+      "youtube": "https://www.youtube.com/watch?v=bN-PLeOGpYk"
+    },
+    {
+      "title": "La Habana joven",
+      "drummer_ids": ["drummer:changuito"],
+      "drums": {
+        "description": "A slow songo spiced with double-time hats, the snare on the backbeat of the 2-side and the kick in pairs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:changuito-timba-moore"]
+        }
+      },
+      "style_key": "changuito",
+      "song_key": "la-habana-joven",
+      "youtube": "https://www.youtube.com/watch?v=8aIW36vSunE"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:wikipedia-losvanvan"]

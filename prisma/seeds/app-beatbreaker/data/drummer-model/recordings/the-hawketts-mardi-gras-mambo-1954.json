@@ -10,5 +10,19 @@
       "drummer_id": "drummer:idris-muhammad",
       "name": "Idris Muhammad"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Mardi Gras Mambo",
+      "drummer_ids": ["drummer:idris-muhammad"],
+      "drums": {
+        "description": "A New Orleans parade-mambo beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:idris-muhammad-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BuJfGsRKTHo"
+    }
   ]
 }

@@ -10,5 +10,19 @@
       "drummer_id": "drummer:richard-pistol-allen",
       "name": "Richard 'Pistol' Allen"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Heat Wave",
+      "drummer_ids": ["drummer:richard-pistol-allen"],
+      "drums": {
+        "description": "A fast gospel-derived beat with the snare on every quarter note, the Motown 'four on the snare' pulse driving the song at a sprint.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:heat-wave-1963-song-wikipedia", "src:richard-pistol-allen-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bjPKcbKBT2s"
+    }
   ]
 }

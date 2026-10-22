@@ -10,5 +10,25 @@
       "drummer_id": "drummer:cornelius-coleman",
       "name": "Cornelius \"Tenoo\" Coleman"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Be My Guest",
+      "drummer_ids": ["drummer:cornelius-coleman"],
+      "drums": {
+        "description": "A ska-like offbeat shuffle, a rhythm Jamaican musicians took up.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cornelius-coleman-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xtlIiME7FG4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5505210"
+        }
+      ]
+    }
   ]
 }

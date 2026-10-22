@@ -36,6 +36,32 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Manic Depression",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A fast jazz waltz in 3/4 played at rock volume, Elvin Jones-style triplet rolls round the kit the whole way.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:wikipedia-mitchell",
+            "src:are-you-experienced-wikipedia",
+            "src:md-mitchell"
+          ]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "manic-depression",
+      "youtube": "https://www.youtube.com/watch?v=9nnGtB-PSw4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22570"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:npr-mitchell"]

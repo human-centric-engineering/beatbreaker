@@ -53,6 +53,68 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "From the Pinnacle to the Pit",
+      "drummer_ids": ["drummer:nameless-ghoul"],
+      "drums": {
+        "description": "The snare on every beat under the ride, hats opened on the \"and\"s, a unison snare-and-floor-tom stomp.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-400636", "src:ghost-meliora-wikipedia"]
+        }
+      },
+      "style_key": "ghoul",
+      "song_key": "from-the-pinnacle-to-the-pit",
+      "youtube": "https://www.youtube.com/watch?v=6A-IoOEPbUs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=400636"
+        }
+      ]
+    },
+    {
+      "title": "Cirice",
+      "drummer_ids": ["drummer:nameless-ghoul"],
+      "drums": {
+        "description": "Open hats over four on the floor, the crash on the \"and\" of 4; a ride chorus with a bar of 2/4 in it.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-400667", "src:ghost-meliora-wikipedia"]
+        }
+      },
+      "style_key": "ghoul",
+      "song_key": "cirice",
+      "youtube": "https://www.youtube.com/watch?v=-0Ao4t_fe0I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=400667"
+        }
+      ]
+    },
+    {
+      "title": "Majesty",
+      "drummer_ids": ["drummer:nameless-ghoul"],
+      "drums": {
+        "description": "Hats on the riff over four on the floor; a chorus moving through 4/4, 9/8 and 15/8, a bridge with a bar of 3/4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-401140", "src:ghost-meliora-wikipedia"]
+        }
+      },
+      "style_key": "ghoul",
+      "song_key": "majesty",
+      "youtube": "https://www.youtube.com/watch?v=qS5-QmkKzJQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=401140"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:ghost-meliora-wikipedia"]

@@ -1,0 +1,33 @@
+{
+  "id": "rec:pixies-bossanova-1990",
+  "title": "Bossanova",
+  "artist": "Pixies",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:alternative-rock", "style:indie-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-lovering"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Velouria",
+      "drummer_ids": ["drummer:dave-lovering"],
+      "drums": {
+        "description": "A pounding, even beat that drives the surf-tinged single from Bossanova.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bossanova-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nc0Mv4Iyxvc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=50569"
+        }
+      ]
+    }
+  ]
+}

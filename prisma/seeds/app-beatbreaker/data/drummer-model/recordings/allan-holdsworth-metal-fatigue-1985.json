@@ -1,0 +1,27 @@
+{
+  "id": "rec:allan-holdsworth-metal-fatigue-1985",
+  "title": "Metal Fatigue",
+  "artist": "Allan Holdsworth",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gary-husband"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Metal Fatigue",
+      "drummer_ids": ["drummer:gary-husband"],
+      "drums": {
+        "description": "Hard-driving fusion rock with dense fills, kept light on the cymbals.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:metal-fatigue-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8FM2sCA1Gxc"
+    }
+  ]
+}

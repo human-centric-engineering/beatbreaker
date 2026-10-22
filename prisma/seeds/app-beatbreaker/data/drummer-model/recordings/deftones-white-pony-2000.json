@@ -11,5 +11,61 @@
       "drummer_role": "sole_drummer",
       "why_it_matters": "Cited by Drumeo as his standout record."
     }
+  ],
+  "tracks": [
+    {
+      "title": "Change (In the House of Flies)",
+      "drummer_ids": ["drummer:abe-cunningham"],
+      "drums": {
+        "description": "A slow, hypnotic groove with deep hi-hat feel and a big chorus lift.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:white-pony-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WPpDyIJdasg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23195"
+        }
+      ]
+    },
+    {
+      "title": "Digital Bath",
+      "drummer_ids": ["drummer:abe-cunningham"],
+      "drums": {
+        "description": "A swung, intricate groove with hip-hop ghost notes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:white-pony-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=O_IIAYZL1R4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22734"
+        }
+      ]
+    },
+    {
+      "title": "Knife Party",
+      "drummer_ids": ["drummer:abe-cunningham"],
+      "drums": {
+        "description": "Heavy, swung groove with explosive fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:white-pony-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dVMfISO9T1Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5199798"
+        }
+      ]
+    }
   ]
 }

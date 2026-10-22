@@ -19,5 +19,43 @@
       "drummer_id": "drummer:ralph-humphrey",
       "name": "Ralph Humphrey"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Echidna's Arf (Of You)",
+      "drummer_ids": ["drummer:chester-thompson", "drummer:ralph-humphrey"],
+      "drums": {
+        "description": "Two-drummer unison runs with Ralph Humphrey through odd meters.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chester-thompson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Bb5AKjDlDxo"
+    },
+    {
+      "title": "Don't You Ever Wash That Thing?",
+      "drummer_ids": ["drummer:chester-thompson", "drummer:ralph-humphrey"],
+      "drums": {
+        "description": "Fast, complex unison figures and solos.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chester-thompson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KRmk6XfocGs"
+    },
+    {
+      "title": "Cheepnis",
+      "drummer_ids": ["drummer:chester-thompson"],
+      "drums": {
+        "description": "A rock groove with abrupt tempo shifts.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chester-thompson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ckEP8KN2710"
+    }
   ]
 }

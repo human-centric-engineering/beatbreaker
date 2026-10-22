@@ -11,6 +11,26 @@
       "why_it_matters": "Contributed with the Revolution."
     }
   ],
+  "tracks": [
+    {
+      "title": "Mountains",
+      "drummer_ids": ["drummer:bobby-z"],
+      "drums": {
+        "description": "Crisp sixteenth-note funk hat and dry snare under the band's horns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mountains-prince-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_WmPeLOLDnA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7276092"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:bobby-z-wikipedia"]

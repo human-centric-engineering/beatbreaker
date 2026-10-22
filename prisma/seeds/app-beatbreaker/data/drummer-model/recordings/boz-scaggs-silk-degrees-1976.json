@@ -43,6 +43,32 @@
       "pattern_ids": ["pattern:porcaro-lido-shuffle", "pattern:porcaro-lido-verse"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Lido Shuffle",
+      "drummer_ids": ["drummer:jeff-porcaro"],
+      "drums": {
+        "description": "A driving shuffle with the hats on the beat and the kick on the triplets, the forerunner of his Rosanna feel.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:lido-shuffle-wikipedia",
+            "src:songsterr-718831",
+            "src:porcaro-starlicks-1988"
+          ]
+        }
+      },
+      "style_key": "porcaro",
+      "song_key": "lido-shuffle",
+      "youtube": "https://www.youtube.com/watch?v=HQZBaJAngH8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=718831"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:silk-degrees-wikipedia"]

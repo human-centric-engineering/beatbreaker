@@ -1,0 +1,33 @@
+{
+  "id": "rec:magma-udu-wudu-1976",
+  "title": "Üdü Wüdü",
+  "artist": "Magma",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:christian-vander"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "De Futura",
+      "drummer_ids": ["drummer:christian-vander"],
+      "drums": {
+        "description": "A relentless, driving pulse under the bass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:udu-wudu-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HAkSVTDfBVE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=497360"
+        }
+      ]
+    }
+  ]
+}

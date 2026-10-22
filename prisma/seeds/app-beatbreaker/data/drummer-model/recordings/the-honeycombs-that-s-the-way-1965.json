@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-honeycombs-that-s-the-way-1965",
+  "title": "That's the Way",
+  "artist": "The Honeycombs",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:honey-lantree"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "That's the Way",
+      "drummer_ids": ["drummer:honey-lantree"],
+      "drums": {
+        "description": "Lantree shares lead vocals with Denis D'Ell as well as drumming; the band's fourth British hit.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:honey-lantree-wikipedia", "src:the-honeycombs-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0QM0hMIERao",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=261346"
+        }
+      ]
+    }
+  ]
+}

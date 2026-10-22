@@ -35,6 +35,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Slow Down",
+      "drummer_ids": ["drummer:earl-palmer"],
+      "drums": {
+        "description": "Straight eighths on the hat at a gallop, a stop and a snare run at the end of every chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-787039", "src:slow-down-wikipedia"]
+        }
+      },
+      "style_key": "earlpalmer",
+      "song_key": "slow-down",
+      "youtube": "https://www.youtube.com/watch?v=TJNYUnjFVxc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=787039"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:slow-down-wikipedia"]

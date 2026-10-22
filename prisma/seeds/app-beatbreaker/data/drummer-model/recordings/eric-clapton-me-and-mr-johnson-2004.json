@@ -1,0 +1,35 @@
+{
+  "id": "rec:eric-clapton-me-and-mr-johnson-2004",
+  "title": "Me and Mr. Johnson",
+  "artist": "Eric Clapton",
+  "year": 2004,
+  "type": "album",
+  "style_ids": ["style:blues", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-gadd"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "When You Got a Good Friend",
+      "drummer_ids": ["drummer:steve-gadd"],
+      "drums": {
+        "description": "A light shuffle with the kick on every beat and a ghost on the \"and\" of 4, on a warm, open kit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:me-and-mr-johnson-wikipedia"]
+        }
+      },
+      "style_key": "gadd",
+      "song_key": "good-friend",
+      "youtube": "https://www.youtube.com/watch?v=ZMWgqr3-Sb4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4514081"
+        }
+      ]
+    }
+  ]
+}

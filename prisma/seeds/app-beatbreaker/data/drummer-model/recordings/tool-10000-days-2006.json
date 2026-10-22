@@ -38,6 +38,68 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Vicarious",
+      "drummer_ids": ["drummer:danny-carey"],
+      "drums": {
+        "description": "Groupings of five and seven over a 5/4 riff, Carey's kick and toms tracing the guitar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:carey-drumeo-genius", "src:carey-louder-2022"]
+        }
+      },
+      "style_key": "carey",
+      "song_key": "vicarious",
+      "youtube": "https://www.youtube.com/watch?v=h_TUP2vuaDs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=56870"
+        }
+      ]
+    },
+    {
+      "title": "Rosetta Stoned",
+      "drummer_ids": ["drummer:danny-carey"],
+      "drums": {
+        "description": "Eleven minutes of fast, shifting meters and double-bass runs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:carey-louder-2022"]
+        }
+      },
+      "style_key": "carey",
+      "song_key": "rosetta-stoned",
+      "youtube": "https://www.youtube.com/watch?v=qnlhVVwBfew",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=56856"
+        }
+      ]
+    },
+    {
+      "title": "The Pot",
+      "drummer_ids": ["drummer:danny-carey"],
+      "drums": {
+        "description": "A heavy, bouncing groove with polyrhythmic tom fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:carey-louder-2022"]
+        }
+      },
+      "style_key": "carey",
+      "song_key": "the-pot",
+      "youtube": "https://www.youtube.com/watch?v=civuoU_NE38",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29442"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:tool-wikipedia", "src:carey-drumeo-genius", "src:songsterr-56856"]

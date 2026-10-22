@@ -1,0 +1,35 @@
+{
+  "id": "rec:led-zeppelin-physical-graffiti-1975",
+  "title": "Physical Graffiti",
+  "artist": "Led Zeppelin",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-bonham"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Trampled Under Foot",
+      "drummer_ids": ["drummer:john-bonham"],
+      "drums": {
+        "description": "Funk-rock after Stevie Wonder's Superstition, loose hats and the kick doubling.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:trampled-under-foot-wikipedia"]
+        }
+      },
+      "style_key": "bonham",
+      "song_key": "trampled-under-foot",
+      "youtube": "https://www.youtube.com/watch?v=6qhS_sMZExU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=11859"
+        }
+      ]
+    }
+  ]
+}

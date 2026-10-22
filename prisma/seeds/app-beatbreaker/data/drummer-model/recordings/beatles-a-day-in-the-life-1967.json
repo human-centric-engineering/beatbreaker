@@ -26,6 +26,28 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "A Day in the Life",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Slack, towel-damped toms, long silences and triplet fills rolling from the floor tom: drumming used as orchestration.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:a-day-in-the-life-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "a-day-in-the-life",
+      "youtube": "https://www.youtube.com/watch?v=usNsCeOV4GM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22718"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:melodics-ringo"]

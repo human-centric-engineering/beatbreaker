@@ -44,6 +44,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Bush Doctor",
+      "drummer_ids": ["drummer:santa-davis"],
+      "drums": {
+        "description": "Rockers live with Tosh: kick eighths, sixteenth hi-hats and the snare on 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:petertosh-complete-captured-live"]
+        }
+      },
+      "style_key": "santadavis",
+      "song_key": "bush-doctor-live",
+      "youtube": "https://www.youtube.com/watch?v=yzTz0sCtkCQ"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:petertosh-complete-captured-live", "src:word-sound-and-power-wikipedia"]

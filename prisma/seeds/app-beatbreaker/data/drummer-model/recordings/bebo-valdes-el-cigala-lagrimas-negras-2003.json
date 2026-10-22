@@ -16,5 +16,19 @@
         "source_ids": ["src:wikipedia-tata-guines"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Lágrimas Negras",
+      "drummer_ids": ["drummer:tata-guines"],
+      "drums": {
+        "description": "Tata's conga in the bolero-son behind Bebo Valdés's piano and El Cigala's flamenco voice.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lagrimas-negras-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Bnc7Bz57CME"
+    }
   ]
 }

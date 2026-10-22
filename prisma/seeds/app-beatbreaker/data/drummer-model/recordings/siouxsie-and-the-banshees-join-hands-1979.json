@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Playground Twist",
+      "drummer_ids": ["drummer:kenny-morris"],
+      "drums": {
+        "description": "A rolling, tribal tom beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:join-hands-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kyZ0-FtNvf4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=773900"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,33 @@
+{
+  "id": "rec:korn-issues-1999",
+  "title": "Issues",
+  "artist": "Korn",
+  "year": 1999,
+  "type": "album",
+  "style_ids": ["style:nu-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:david-silveria"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Falling Away from Me",
+      "drummer_ids": ["drummer:david-silveria"],
+      "drums": {
+        "description": "A slow, heavy groove building into crashing choruses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:issues-korn-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2s3iGpDqQpQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23341"
+        }
+      ]
+    }
+  ]
+}

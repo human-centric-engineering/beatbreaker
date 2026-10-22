@@ -29,6 +29,28 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Fool in the Rain",
+      "drummer_ids": ["drummer:john-bonham"],
+      "drums": {
+        "description": "The half-time shuffle: the backbeat on 3, ghosted triplets, the hats barking on the shuffled 'and' of 1 and a samba interlude.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bonham-wikipedia-fool", "src:bonham-wikipedia-rosanna"]
+        }
+      },
+      "style_key": "bonham",
+      "song_key": "fool-in-the-rain",
+      "youtube": "https://www.youtube.com/watch?v=I57nIP0vc44",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22692"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:bonham-wikipedia-fool"]

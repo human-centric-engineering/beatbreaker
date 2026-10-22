@@ -18,6 +18,44 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Versailles",
+      "drummer_ids": ["drummer:connie-kay"],
+      "drums": {
+        "description": "Delicate chamber time on cymbals and brushes under John Lewis's fugue writing.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:fontessa-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yl8G9f-7OFo"
+    },
+    {
+      "title": "Fontessa",
+      "drummer_ids": ["drummer:connie-kay"],
+      "drums": {
+        "description": "Lewis's commedia dell'arte suite, where Kay colours the sections with small percussion as much as he keeps time.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:fontessa-wikipedia", "src:connie-kay-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=O5o1dclXXSE"
+    },
+    {
+      "title": "Bluesology",
+      "drummer_ids": ["drummer:connie-kay"],
+      "drums": {
+        "description": "Milt Jackson's blues, on which Kay plays a light, crisp swing on ride cymbal.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:fontessa-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=S2sfC-QQc5k"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:connie-kay-wikipedia"]

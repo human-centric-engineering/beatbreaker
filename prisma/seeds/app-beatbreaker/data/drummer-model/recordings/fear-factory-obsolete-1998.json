@@ -10,5 +10,43 @@
       "drummer_id": "drummer:raymond-herrera",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Shock",
+      "drummer_ids": ["drummer:raymond-herrera"],
+      "drums": {
+        "description": "Staccato, machine-like kick and guitar unison.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:obsolete-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Ryw-lEyeQmY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7632"
+        }
+      ]
+    },
+    {
+      "title": "Edgecrusher",
+      "drummer_ids": ["drummer:raymond-herrera"],
+      "drums": {
+        "description": "A bouncing, nu-metal-tinged groove with tight double-bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:obsolete-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KpR6S38djFM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7545"
+        }
+      ]
+    }
   ]
 }

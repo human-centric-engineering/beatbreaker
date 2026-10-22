@@ -64,6 +64,80 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Hold the Line",
+      "drummer_ids": ["drummer:jeff-porcaro"],
+      "drums": {
+        "description": "Triplets on the hats over 2 and 4, the kick on every pulse, the hat opened on the last triplet of 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:hold-the-line-wikipedia",
+            "src:songsterr-20390",
+            "src:porcaro-starlicks-1988"
+          ]
+        }
+      },
+      "style_key": "porcaro",
+      "song_key": "hold-the-line",
+      "youtube": "https://www.youtube.com/watch?v=htgr3pvBr-I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=20390"
+        }
+      ]
+    },
+    {
+      "title": "Georgy Porgy",
+      "drummer_ids": ["drummer:jeff-porcaro"],
+      "drums": {
+        "description": "Sixteenths on the hats in one hand, the kick on 1, the 'a' of 2 and 3, and a tambourine in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:georgy-porgy-song-wikipedia",
+            "src:songsterr-56944",
+            "src:toto-1978-wikipedia"
+          ]
+        }
+      },
+      "style_key": "porcaro",
+      "song_key": "georgy-porgy",
+      "youtube": "https://www.youtube.com/watch?v=EWIgEtkE3GA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=56944"
+        }
+      ]
+    },
+    {
+      "title": "I'll Supply the Love",
+      "drummer_ids": ["drummer:jeff-porcaro"],
+      "drums": {
+        "description": "The chorus with the snare on every beat and the kick on the 'and's of 2 and 4, the verse hats opened.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:i-ll-supply-the-love-wikipedia",
+            "src:songsterr-20335",
+            "src:toto-1978-wikipedia"
+          ]
+        }
+      },
+      "style_key": "porcaro",
+      "song_key": "ill-supply-the-love",
+      "youtube": "https://www.youtube.com/watch?v=3CA6X0Zx3lg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=20335"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:toto-1978-wikipedia"]

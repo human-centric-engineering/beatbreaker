@@ -10,5 +10,37 @@
       "drummer_id": "drummer:eloy-casagrande",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Isolation",
+      "drummer_ids": ["drummer:eloy-casagrande"],
+      "drums": {
+        "description": "Fast thrash with blast beats and a huge, technical drum performance.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:quadra-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=x2nZ3n8_e3k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=461476"
+        }
+      ]
+    },
+    {
+      "title": "Means to an End",
+      "drummer_ids": ["drummer:eloy-casagrande"],
+      "drums": {
+        "description": "Relentless double bass and precise fills in a heavy, aggressive thrash song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:quadra-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TMLed7lL5CU"
+    }
   ]
 }

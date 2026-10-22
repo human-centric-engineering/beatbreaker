@@ -10,5 +10,43 @@
       "drummer_id": "drummer:tom-hunting",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "The Toxic Waltz",
+      "drummer_ids": ["drummer:tom-hunting"],
+      "drums": {
+        "description": "A swinging, mosh-friendly groove with a half-time stomp — the 'waltz' of the title.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fabulous-disaster-wikipedia", "src:exodus-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=n3xC1I2rXHE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2541673"
+        }
+      ]
+    },
+    {
+      "title": "Fabulous Disaster",
+      "drummer_ids": ["drummer:tom-hunting"],
+      "drums": {
+        "description": "A fast thrash beat with tight snare work and Bay Area swagger.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fabulous-disaster-wikipedia", "src:exodus-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6OWlCPh3Nso",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=34637"
+        }
+      ]
+    }
   ]
 }

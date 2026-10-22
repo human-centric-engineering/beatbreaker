@@ -1,0 +1,26 @@
+{
+  "id": "rec:william-parker-quartet-o-neal-s-porch-2001",
+  "title": "O'Neal's Porch",
+  "artist": "William Parker Quartet",
+  "year": 2001,
+  "type": "album",
+  "style_ids": ["style:free-jazz", "style:reggae"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hamid-drake"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "O'Neal's Porch",
+      "drummer_ids": ["drummer:hamid-drake"],
+      "drums": {
+        "description": "A loose, rolling groove that sways between swing and a near-reggae lilt under Parker's bass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hamid-drake-wikipedia"]
+        }
+      }
+    }
+  ]
+}

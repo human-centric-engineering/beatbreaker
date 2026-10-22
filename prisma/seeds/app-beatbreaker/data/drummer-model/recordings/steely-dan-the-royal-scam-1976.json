@@ -1,0 +1,49 @@
+{
+  "id": "rec:steely-dan-the-royal-scam-1976",
+  "title": "The Royal Scam",
+  "artist": "Steely Dan",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bernard-purdie"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Fez",
+      "drummer_ids": ["drummer:bernard-purdie"],
+      "drums": {
+        "description": "Linear: the hi-hats on the \"and\"s, the snare in every gap, the kick on 1 and 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-royal-scam-wikipedia"]
+        }
+      },
+      "style_key": "bernardpurdie",
+      "song_key": "the-fez",
+      "youtube": "https://www.youtube.com/watch?v=HXVc1f7IOgs"
+    },
+    {
+      "title": "Haitian Divorce",
+      "drummer_ids": ["drummer:bernard-purdie"],
+      "drums": {
+        "description": "Slow and light, the kick on the \"and\"s of 1 and 3 and on 2 and 4, ghosts round the backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-royal-scam-wikipedia"]
+        }
+      },
+      "style_key": "bernardpurdie",
+      "song_key": "haitian-divorce",
+      "youtube": "https://www.youtube.com/watch?v=iWYchJI0Cv8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=250217"
+        }
+      ]
+    }
+  ]
+}

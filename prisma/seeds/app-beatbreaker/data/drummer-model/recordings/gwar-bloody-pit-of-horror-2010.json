@@ -1,0 +1,35 @@
+{
+  "id": "rec:gwar-bloody-pit-of-horror-2010",
+  "title": "Bloody Pit of Horror",
+  "artist": "Gwar",
+  "year": 2010,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jizmak-da-gusha"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Zombies, March!",
+      "drummer_ids": ["drummer:jizmak-da-gusha"],
+      "drums": {
+        "description": "The skank and the thrash beat, triplets on both feet, and a shuffle march at three-quarter speed.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bloody-pit-of-horror-wikipedia"]
+        }
+      },
+      "style_key": "jizmak",
+      "song_key": "zombies-march",
+      "youtube": "https://www.youtube.com/watch?v=7Uid93jUrf0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2804722"
+        }
+      ]
+    }
+  ]
+}

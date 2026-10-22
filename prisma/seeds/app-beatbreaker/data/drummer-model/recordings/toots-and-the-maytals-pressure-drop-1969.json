@@ -1,0 +1,33 @@
+{
+  "id": "rec:toots-and-the-maytals-pressure-drop-1969",
+  "title": "Pressure Drop",
+  "artist": "Toots and the Maytals",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:reggae", "style:rocksteady"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:winston-grennan"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Pressure Drop",
+      "drummer_ids": ["drummer:winston-grennan"],
+      "drums": {
+        "description": "A loping one-drop with sharp rim shots.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:pressure-drop-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DKVB_CtU8XQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=585494"
+        }
+      ]
+    }
+  ]
+}

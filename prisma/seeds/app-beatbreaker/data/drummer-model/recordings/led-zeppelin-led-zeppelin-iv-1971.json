@@ -1,0 +1,55 @@
+{
+  "id": "rec:led-zeppelin-led-zeppelin-iv-1971",
+  "title": "Led Zeppelin IV",
+  "artist": "Led Zeppelin",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-bonham"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Black Dog",
+      "drummer_ids": ["drummer:john-bonham"],
+      "drums": {
+        "description": "Straight 4/4 under a riff that turns the beat over, then the ride bell and a fill falling down the toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:black-dog-led-zeppelin-song-wikipedia", "src:bonham-louder-black-dog"]
+        }
+      },
+      "style_key": "bonham",
+      "song_key": "black-dog",
+      "youtube": "https://www.youtube.com/watch?v=6tlSx0jkuLM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=363"
+        }
+      ]
+    },
+    {
+      "title": "Rock and Roll",
+      "drummer_ids": ["drummer:john-bonham"],
+      "drums": {
+        "description": "Opens with his drum intro borrowed from Little Richard's Keep A-Knockin', then fast straight eighths with the kick doubled and triplet fills round the kit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rock-and-roll-led-zeppelin-song-wikipedia", "src:bonham-rockhall"]
+        }
+      },
+      "style_key": "bonham",
+      "song_key": "rock-and-roll",
+      "youtube": "https://www.youtube.com/watch?v=D2lSwosw9xY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=11537"
+        }
+      ]
+    }
+  ]
+}

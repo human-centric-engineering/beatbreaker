@@ -26,6 +26,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Rangeela",
+      "drummer_ids": ["drummer:alla-rakha"],
+      "drums": {
+        "description": "Tabla in dialogue with Buddy Rich's drum kit.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:alla-rakha-wikipedia", "src:rich-a-la-rakha-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=haWGKJUrei0"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:alla-rakha-wikipedia", "src:buddy-rich-rich-a-la-rakha-wikipedia"]

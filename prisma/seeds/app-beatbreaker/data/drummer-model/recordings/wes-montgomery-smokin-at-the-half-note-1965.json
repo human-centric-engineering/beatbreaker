@@ -1,0 +1,33 @@
+{
+  "id": "rec:wes-montgomery-smokin-at-the-half-note-1965",
+  "title": "Smokin' at the Half Note",
+  "artist": "Wes Montgomery",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:jazz", "style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jimmy-cobb"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "No Blues",
+      "drummer_ids": ["drummer:jimmy-cobb"],
+      "drums": {
+        "description": "Burning medium-up swing with Wynton Kelly's trio behind Wes Montgomery, the ride pulse never letting go.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:smokin-at-the-half-note-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BCKjFxn0xKY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7280390"
+        }
+      ]
+    }
+  ]
+}

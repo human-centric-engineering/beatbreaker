@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Ron",
+      "drummer_ids": ["drummer:britt-walford"],
+      "drums": {
+        "description": "Angular, stop-start math-rock patterns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tweez-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ToOHwcW4wS0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=549912"
+        }
+      ]
+    }
   ]
 }

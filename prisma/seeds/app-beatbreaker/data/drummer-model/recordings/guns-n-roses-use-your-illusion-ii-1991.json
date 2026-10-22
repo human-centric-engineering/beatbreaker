@@ -1,0 +1,33 @@
+{
+  "id": "rec:guns-n-roses-use-your-illusion-ii-1991",
+  "title": "Use Your Illusion II",
+  "artist": "Guns N' Roses",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steven-adler"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Civil War",
+      "drummer_ids": ["drummer:steven-adler"],
+      "drums": {
+        "description": "His last recording with the band: a slow ballad build to a heavy rock section.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:steven-adler-wikipedia", "src:use-your-illusion-ii-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-ucDiz3GYrg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8153"
+        }
+      ]
+    }
+  ]
+}

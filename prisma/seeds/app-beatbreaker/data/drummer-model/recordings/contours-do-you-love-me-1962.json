@@ -20,6 +20,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Do You Love Me",
+      "drummer_ids": ["drummer:benny-benjamin"],
+      "drums": {
+        "description": "A frantic dance beat with snare fills and the famous false ending.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:do-you-love-me-wikipedia-benjamin", "src:benny-benjamin-wikipedia"]
+        }
+      },
+      "style_key": "bennybenjamin",
+      "song_key": "do-you-love-me",
+      "youtube": "https://www.youtube.com/watch?v=cYfP6_nqeFQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=55877"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:do-you-love-me-wikipedia"]

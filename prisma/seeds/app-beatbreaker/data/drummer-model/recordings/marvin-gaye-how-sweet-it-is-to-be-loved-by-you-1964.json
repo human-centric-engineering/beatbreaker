@@ -1,0 +1,36 @@
+{
+  "id": "rec:marvin-gaye-how-sweet-it-is-to-be-loved-by-you-1964",
+  "title": "How Sweet It Is (to Be Loved by You)",
+  "artist": "Marvin Gaye",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:richard-pistol-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "How Sweet It Is (to Be Loved by You)",
+      "drummer_ids": ["drummer:richard-pistol-allen"],
+      "drums": {
+        "description": "A loping, swinging backbeat with Motown's stacked tambourine and handclaps, Allen's light shuffle feel under Marvin Gaye.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:how-sweet-it-is-to-be-loved-by-you-wikipedia",
+            "src:richard-pistol-allen-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OhbQVA7hPuQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=461160"
+        }
+      ]
+    }
+  ]
+}

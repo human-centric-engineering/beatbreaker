@@ -1,0 +1,33 @@
+{
+  "id": "rec:paul-simon-paul-simon-1972",
+  "title": "Paul Simon",
+  "artist": "Paul Simon",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:reggae", "style:rocksteady"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:winston-grennan"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Mother and Child Reunion",
+      "drummer_ids": ["drummer:winston-grennan"],
+      "drums": {
+        "description": "A reggae groove cut in Kingston with Jimmy Cliff's band, one of the first reggae-based songs by a US star.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mother-and-child-reunion-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=L0BUsDf0dxY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1524744"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "rec:sonic-youth-dirty-1992",
+  "title": "Dirty",
+  "artist": "Sonic Youth",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:noise-rock", "style:alternative-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-shelley"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "100%",
+      "drummer_ids": ["drummer:steve-shelley"],
+      "drums": {
+        "description": "A tight, punchy beat with tom breaks, the band's most direct grunge-era single.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dirty-sonic-youth-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=N3gN9Up6hmc"
+    }
+  ]
+}

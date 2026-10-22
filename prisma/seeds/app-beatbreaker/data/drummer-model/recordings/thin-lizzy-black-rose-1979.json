@@ -38,6 +38,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Do Anything You Want To",
+      "drummer_ids": ["drummer:brian-downey"],
+      "drums": {
+        "description": "Toms and timpani under the intro, then a hard shuffle with the kick off the 1.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:black-rose-wikipedia"]
+        }
+      },
+      "style_key": "downey",
+      "song_key": "do-anything-you-want-to",
+      "youtube": "https://www.youtube.com/watch?v=kNmxbbjbKkA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=410605"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:black-rose-wikipedia"]

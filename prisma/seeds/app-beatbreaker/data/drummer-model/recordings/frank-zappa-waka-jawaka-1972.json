@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Big Swifty",
+      "drummer_ids": ["drummer:aynsley-dunbar"],
+      "drums": {
+        "description": "Seventeen-minute jazz-rock piece opening in shifting odd meters that Dunbar plays with loose, busy fusion fills before settling into a long solo vamp.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:waka-jawaka-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mKG2kvoyeg8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=642629"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:aynsley-dunbar-wikipedia"]

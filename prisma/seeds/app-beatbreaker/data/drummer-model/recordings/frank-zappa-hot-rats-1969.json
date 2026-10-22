@@ -15,5 +15,25 @@
       "name": "John Guerin",
       "drummer_role": "co_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Willie the Pimp",
+      "drummer_ids": ["drummer:john-guerin"],
+      "drums": {
+        "description": "A heavy, steady blues-rock groove under Beefheart’s vocal and Zappa’s long solo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hot-rats-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KHiclrHm-ig",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35896"
+        }
+      ]
+    }
   ]
 }

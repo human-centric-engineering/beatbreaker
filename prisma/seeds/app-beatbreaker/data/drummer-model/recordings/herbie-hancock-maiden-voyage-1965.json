@@ -47,6 +47,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Maiden Voyage",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Modal and straight: the kick with the piano, a cross-stick on 4, cymbal swells.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:maiden-voyage-album-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "maiden-voyage",
+      "youtube": "https://www.youtube.com/watch?v=EWC5x9G45yo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4259481"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:tony-williams-wikipedia"]

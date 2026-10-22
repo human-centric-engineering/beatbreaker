@@ -29,6 +29,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Free Jazz",
+      "drummer_ids": ["drummer:ed-blackwell"],
+      "drums": {
+        "description": "One of two drummers in a double quartet, Blackwell in one channel, Higgins in the other, both keeping fast swing under collective improvisation.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ed-blackwell-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=iPDzlSda8P8"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ed-blackwell-wikipedia"]

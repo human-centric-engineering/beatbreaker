@@ -10,5 +10,19 @@
       "drummer_id": "drummer:james-black",
       "name": "James Black"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Hook and Sling",
+      "drummer_ids": ["drummer:james-black"],
+      "drums": {
+        "description": "Black's heavily syncopated, broken funk groove, one of New Orleans funk's most sampled drum parts.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:james-black-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6EaV9Y_uhQs"
+    }
   ]
 }

@@ -53,6 +53,52 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Le Freak",
+      "drummer_ids": ["drummer:tony-thompson"],
+      "drums": {
+        "description": "The hat opened on the 'and's and shut on 2 and 4, four on the floor, then the kick on 1 alone in the breakdown.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:le-freak-wikipedia",
+            "src:chic-le-freak-sos-2005",
+            "src:songsterr-32470"
+          ]
+        }
+      },
+      "style_key": "tonythompson",
+      "song_key": "le-freak",
+      "youtube": "https://www.youtube.com/watch?v=7KP7bdFv_qg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=32470"
+        }
+      ]
+    },
+    {
+      "title": "I Want Your Love",
+      "drummer_ids": ["drummer:tony-thompson"],
+      "drums": {
+        "description": "Sixteenths on the hat accented on 1 and the 'a's, the kick on 1 and 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-want-your-love-chic-song-wikipedia", "src:songsterr-66958"]
+        }
+      },
+      "style_key": "tonythompson",
+      "song_key": "i-want-your-love",
+      "youtube": "https://www.youtube.com/watch?v=NBMYzO0Fv4M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=66958"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:le-freak-wikipedia", "src:chic-le-freak-sos-2005"]

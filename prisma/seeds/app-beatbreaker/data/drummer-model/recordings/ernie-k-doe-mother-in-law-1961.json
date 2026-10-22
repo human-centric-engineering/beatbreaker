@@ -10,5 +10,19 @@
       "drummer_id": "drummer:john-boudreaux",
       "name": "John Boudreaux"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Mother-in-Law",
+      "drummer_ids": ["drummer:john-boudreaux"],
+      "drums": {
+        "description": "Light, bouncing New Orleans shuffle under Allen Toussaint's piano.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mother-in-law-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Vc06OtE4Phk"
+    }
   ]
 }

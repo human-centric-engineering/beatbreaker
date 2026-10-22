@@ -35,6 +35,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Good Times",
+      "drummer_ids": ["drummer:tony-thompson"],
+      "drums": {
+        "description": "Sixteenths on the hat accented on the beats and 'and's over four on the floor, no fill at all: a groove sampled into hip-hop's first hit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:good-times-wikipedia", "src:songsterr-4942"]
+        }
+      },
+      "style_key": "tonythompson",
+      "song_key": "good-times",
+      "youtube": "https://www.youtube.com/watch?v=iGKQapswGaY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4942"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:good-times-wikipedia"]

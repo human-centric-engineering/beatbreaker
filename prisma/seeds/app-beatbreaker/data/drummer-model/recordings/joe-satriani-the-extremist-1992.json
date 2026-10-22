@@ -15,5 +15,43 @@
       "name": "Gregg Bissonette",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Summer Song",
+      "drummer_ids": ["drummer:gregg-bissonette"],
+      "drums": {
+        "description": "A driving, straight eighths rock beat with big crashes under the lead guitar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-extremist-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7NJ_nzOckOQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18313"
+        }
+      ]
+    },
+    {
+      "title": "Friends",
+      "drummer_ids": ["drummer:gregg-bissonette"],
+      "drums": {
+        "description": "An uplifting mid-tempo rock beat with a solid backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-extremist-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=C_n9xwKivG4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17804"
+        }
+      ]
+    }
   ]
 }

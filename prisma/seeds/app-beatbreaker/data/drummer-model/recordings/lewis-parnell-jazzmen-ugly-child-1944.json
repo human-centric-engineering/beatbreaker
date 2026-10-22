@@ -12,6 +12,19 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Ugly Child",
+      "drummer_ids": ["drummer:jack-parnell"],
+      "drums": {
+        "description": "Wartime British Dixieland-swing with Parnell's driving snare and cymbal, played with American servicemen.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jack-parnell-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:jack-parnell-wikipedia"]

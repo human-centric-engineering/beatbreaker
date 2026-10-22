@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Fell in Love with a Girl",
+      "drummer_ids": ["drummer:meg-white"],
+      "drums": {
+        "description": "Fast, crashing garage-punk drumming in under two minutes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:white-blood-cells-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fTH71AAxXmM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10130"
+        }
+      ]
+    },
+    {
+      "title": "Hotel Yorba",
+      "drummer_ids": ["drummer:meg-white"],
+      "drums": {
+        "description": "A loose, bouncy country-rock beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:white-blood-cells-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DZPEUyiNcjA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=21429"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,27 @@
+{
+  "id": "rec:marillion-marbles-2004",
+  "title": "Marbles",
+  "artist": "Marillion",
+  "year": 2004,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ian-mosley"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Neverland",
+      "drummer_ids": ["drummer:ian-mosley"],
+      "drums": {
+        "description": "A long, patient build from soft cymbal work to a full climax.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:marbles-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=l3NhNz9-EOA"
+    }
+  ]
+}

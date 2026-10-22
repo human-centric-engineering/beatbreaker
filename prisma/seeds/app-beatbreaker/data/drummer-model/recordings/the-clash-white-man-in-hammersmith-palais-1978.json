@@ -52,6 +52,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "(White Man) In Hammersmith Palais",
+      "drummer_ids": ["drummer:topper-headon"],
+      "drums": {
+        "description": "A punk intro, then a ska verse with the hi-hat on the \"and\"s, opened on the \"and\"s of 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hammersmith-palais-wikipedia"]
+        }
+      },
+      "style_key": "headon",
+      "song_key": "hammersmith-palais",
+      "youtube": "https://www.youtube.com/watch?v=96UtZPLiT90",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4750"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:hammersmith-palais-wikipedia"],

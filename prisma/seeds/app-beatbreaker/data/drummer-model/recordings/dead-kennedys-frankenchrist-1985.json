@@ -16,5 +16,37 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Soup Is Good Food",
+      "drummer_ids": ["drummer:dh-peligro"],
+      "drums": {
+        "description": "A mid-tempo, stop-start punk groove with tight snare work.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dh-peligro-wikipedia", "src:frankenchrist-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sfYNyZha0vw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6655"
+        }
+      ]
+    },
+    {
+      "title": "MTV – Get Off the Air",
+      "drummer_ids": ["drummer:dh-peligro"],
+      "drums": {
+        "description": "A fast, jagged hardcore beat with abrupt changes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dh-peligro-wikipedia", "src:frankenchrist-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=a3_iLqC1ufI"
+    }
   ]
 }

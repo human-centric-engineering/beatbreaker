@@ -16,5 +16,42 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Good Enough",
+      "drummer_ids": ["drummer:dan-peters"],
+      "drums": {
+        "description": "A loose, bouncy garage-pop beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:every-good-boy-deserves-fudge-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VVPBNjVFeBA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=228426"
+        }
+      ]
+    },
+    {
+      "title": "Let It Slide",
+      "drummer_ids": ["drummer:dan-peters"],
+      "drums": {
+        "description": "Fast, raucous garage-punk drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:every-good-boy-deserves-fudge-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1278022"
+        }
+      ]
+    }
   ]
 }

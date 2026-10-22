@@ -1,0 +1,33 @@
+{
+  "id": "rec:jerry-lee-lewis-breathless-1958",
+  "title": "Breathless",
+  "artist": "Jerry Lee Lewis",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jimmy-van-eaton"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Breathless",
+      "drummer_ids": ["drummer:jimmy-van-eaton"],
+      "drums": {
+        "description": "Stop-time hits and a hard swing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:breathless-jerry-lee-lewis-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8dQ4M8RYqCE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2099952"
+        }
+      ]
+    }
+  ]
+}

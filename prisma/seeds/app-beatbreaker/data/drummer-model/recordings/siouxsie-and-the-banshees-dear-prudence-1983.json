@@ -39,6 +39,22 @@
       "pattern_ids": ["pattern:budgie-dear-prudence"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Dear Prudence",
+      "drummer_ids": ["drummer:budgie"],
+      "drums": {
+        "description": "The kick on 1 and its 'and', 3 and its 'and', and four on the floor in the middle eight of the Beatles cover.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dear-prudence-wikipedia", "src:songsterr-542451"]
+        }
+      },
+      "style_key": "budgie",
+      "song_key": "dear-prudence",
+      "youtube": "https://www.youtube.com/watch?v=M6rrTROoZIw"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:dear-prudence-wikipedia"]

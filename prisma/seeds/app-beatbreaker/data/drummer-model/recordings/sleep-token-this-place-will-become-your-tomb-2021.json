@@ -46,6 +46,78 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Hypnosis",
+      "drummer_ids": ["drummer:ii-sleep-token"],
+      "drums": {
+        "description": "Half time with crashes in quarters, a sixteenth hi-hat over ghosted verses, and a dotted lead hand in the breakdown.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:this-place-will-become-your-tomb-wikipedia",
+            "src:ii-sleep-token-drumeo-hypnosis"
+          ]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=514988"
+        },
+        {
+          "site": "drumeo",
+          "url": "https://www.youtube.com/watch?v=kj434KMS2eI"
+        }
+      ],
+      "style_key": "sleeptoken",
+      "song_key": "hypnosis",
+      "youtube": "https://www.youtube.com/watch?v=2chcvo_70N0"
+    },
+    {
+      "title": "Alkaline",
+      "drummer_ids": ["drummer:ii-sleep-token"],
+      "drums": {
+        "description": "Half time, crashes in quarters over eighths on the double pedal, the floor tom against the feet.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:this-place-will-become-your-tomb-wikipedia",
+            "src:ii-sleep-token-alkaline-offering-2022"
+          ]
+        }
+      },
+      "style_key": "sleeptoken",
+      "song_key": "alkaline",
+      "youtube": "https://www.youtube.com/watch?v=uU5vVT_Cp7c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=501521"
+        }
+      ]
+    },
+    {
+      "title": "Like That",
+      "drummer_ids": ["drummer:ii-sleep-token"],
+      "drums": {
+        "description": "A cross-stick R&B verse, floor tom and kick on the pushes, sixteenth hi-hats in the breakdown.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:this-place-will-become-your-tomb-wikipedia"]
+        }
+      },
+      "style_key": "sleeptoken",
+      "song_key": "like-that",
+      "youtube": "https://www.youtube.com/watch?v=kIG3krYYIoI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=577223"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:this-place-will-become-your-tomb-wikipedia"]

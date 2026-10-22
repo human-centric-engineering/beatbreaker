@@ -1,0 +1,33 @@
+{
+  "id": "rec:motorhead-bomber-1979",
+  "title": "Bomber",
+  "artist": "Motörhead",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:metal", "style:new-wave-of-british-heavy-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-taylor"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Bomber",
+      "drummer_ids": ["drummer:phil-taylor"],
+      "drums": {
+        "description": "A fast, rolling hard-rock beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:phil-taylor-musician-wikipedia", "src:bomber-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eVxt7zM1BrU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35608"
+        }
+      ]
+    }
+  ]
+}

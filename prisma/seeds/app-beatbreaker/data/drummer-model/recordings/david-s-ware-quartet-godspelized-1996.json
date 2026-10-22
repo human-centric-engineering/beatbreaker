@@ -1,0 +1,27 @@
+{
+  "id": "rec:david-s-ware-quartet-godspelized-1996",
+  "title": "Godspelized",
+  "artist": "David S. Ware Quartet",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:susie-ibarra"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Godspelized",
+      "drummer_ids": ["drummer:susie-ibarra"],
+      "drums": {
+        "description": "Free, surging cymbal and tom energy-playing that carries the quartet without a fixed pulse.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:susie-ibarra-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kYDjuFgAojc"
+    }
+  ]
+}

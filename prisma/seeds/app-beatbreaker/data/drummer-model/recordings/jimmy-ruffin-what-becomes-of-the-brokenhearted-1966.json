@@ -1,0 +1,33 @@
+{
+  "id": "rec:jimmy-ruffin-what-becomes-of-the-brokenhearted-1966",
+  "title": "What Becomes of the Brokenhearted",
+  "artist": "Jimmy Ruffin",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:uriel-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "What Becomes of the Brokenhearted",
+      "drummer_ids": ["drummer:uriel-jones"],
+      "drums": {
+        "description": "A slow, dramatic build with a steady backbeat that swells under the strings toward the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:uriel-jones-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SZfnKqAGlfY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1811846"
+        }
+      ]
+    }
+  ]
+}

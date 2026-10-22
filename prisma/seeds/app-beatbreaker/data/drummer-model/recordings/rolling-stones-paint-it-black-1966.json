@@ -47,6 +47,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Paint It Black",
+      "drummer_ids": ["drummer:charlie-watts"],
+      "drums": {
+        "description": "Eighths on the floor tom under the snare on every beat, open hats in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-5"]
+        }
+      },
+      "style_key": "watts",
+      "song_key": "paint-it-black",
+      "youtube": "https://www.youtube.com/watch?v=EBUFtoC2oj4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:charlie-watts-wikipedia"],

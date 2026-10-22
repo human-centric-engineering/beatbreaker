@@ -1,0 +1,27 @@
+{
+  "id": "rec:joe-henderson-mode-for-joe-1966",
+  "title": "Mode for Joe",
+  "artist": "Joe Henderson",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:joe-chambers"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Mode for Joe",
+      "drummer_ids": ["drummer:joe-chambers"],
+      "drums": {
+        "description": "Modal swing with heavy cymbal wash and pushed tom accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mode-for-joe-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sk1rT9Xsuc0"
+    }
+  ]
+}

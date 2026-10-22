@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "I Believe in You",
+      "drummer_ids": ["drummer:sherrie-maricle"],
+      "drums": {
+        "description": "Maricle leads the all-woman big band from the kit, with crisp setups and a driving swing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sherrie-maricle-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5Eo_uPhXQhU"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:sherrie-maricle-wikipedia"]

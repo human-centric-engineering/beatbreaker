@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "The Black Page Drum Solo/Black Page #1",
+      "drummer_ids": ["drummer:terry-bozzio"],
+      "drums": {
+        "description": "Zappa wrote the notoriously dense composition for Bozzio, who plays its tuplets on the kit as a solo before the band joins.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-black-page-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=EpfHmZ0ml9o"
+    },
+    {
+      "title": "Punky's Whips",
+      "drummer_ids": ["drummer:terry-bozzio"],
+      "drums": {
+        "description": "Odd-meter unisons and theatrical accents through a long, through-composed piece.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:zappa-in-new-york-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UWNCSNFoUSY"
+    },
+    {
+      "title": "Titties & Beer",
+      "drummer_ids": ["drummer:terry-bozzio"],
+      "drums": {
+        "description": "Bozzio drums and plays the devil in a comedy dialogue over a heavy groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:zappa-in-new-york-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GPO1QGhYDjM"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:terry-bozzio-wikipedia"]

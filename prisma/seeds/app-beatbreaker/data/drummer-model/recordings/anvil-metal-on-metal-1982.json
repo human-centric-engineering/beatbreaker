@@ -10,5 +10,73 @@
       "drummer_id": "drummer:robb-reiner",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Metal on Metal",
+      "drummer_ids": ["drummer:robb-reiner"],
+      "drums": {
+        "description": "A mid-tempo, heavy metal stomp with crisp double-bass fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:anvil-wikipedia", "src:metal-on-metal-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1qSEwYaSlWk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=33555"
+        }
+      ]
+    },
+    {
+      "title": "Mothra",
+      "drummer_ids": ["drummer:robb-reiner"],
+      "drums": {
+        "description": "A fast, galloping metal beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:anvil-wikipedia", "src:metal-on-metal-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mz1xkv2aY2I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=66080"
+        }
+      ]
+    },
+    {
+      "title": "March of the Crabs",
+      "drummer_ids": ["drummer:robb-reiner"],
+      "drums": {
+        "description": "An instrumental drum showcase of fast double-bass work.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:anvil-wikipedia", "src:metal-on-metal-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=587Aa9VTa5Y"
+    },
+    {
+      "title": "Jackhammer",
+      "drummer_ids": ["drummer:robb-reiner"],
+      "drums": {
+        "description": "A fast, hammering double-bass beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:anvil-wikipedia", "src:metal-on-metal-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AdtY4CclMT8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2313159"
+        }
+      ]
+    }
   ]
 }

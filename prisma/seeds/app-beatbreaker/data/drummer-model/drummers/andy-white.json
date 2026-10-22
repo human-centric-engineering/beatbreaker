@@ -50,7 +50,8 @@
   },
   "beatbreaker": {
     "group": "Pop and session drummers",
-    "build_priority": 2
+    "build_priority": 2,
+    "songs_short_because": "15-b sweep (2026-10-22): Session player; most of his credits are unrecorded, so few songs can be pinned to him."
   },
   "relationships": [
     {

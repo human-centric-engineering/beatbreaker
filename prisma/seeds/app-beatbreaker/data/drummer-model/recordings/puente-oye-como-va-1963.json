@@ -20,6 +20,27 @@
       "why_it_matters": "His best-known composition; a cha-cha-chá that became a crossover standard."
     }
   ],
+  "tracks": [
+    {
+      "title": "Oye Como Va",
+      "drummer_ids": ["drummer:tito-puente"],
+      "drums": {
+        "description": "A cha-cha-chá: the small bell on every beat and the low drum on 4, later made a rock hit by Santana.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:oye-como-va-tito-wikipedia"]
+        }
+      },
+      "style_key": "puente",
+      "song_key": "oye-como-va",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6811158"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jazzcom-puente"],

@@ -1,0 +1,29 @@
+{
+  "id": "rec:tito-puente-babarabatiri-1951",
+  "title": "Babarabatiri",
+  "artist": "Tito Puente",
+  "year": 1951,
+  "type": "studio_track",
+  "style_ids": ["style:mambo", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tito-puente"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Babarabatiri",
+      "drummer_ids": ["drummer:tito-puente"],
+      "drums": {
+        "description": "The shell (cáscara) under the voice and the low drum open on each 4.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-puente"]
+        }
+      },
+      "style_key": "puente",
+      "song_key": "babarabatiri",
+      "youtube": "https://www.youtube.com/watch?v=yEGxU2tvjOw"
+    }
+  ]
+}

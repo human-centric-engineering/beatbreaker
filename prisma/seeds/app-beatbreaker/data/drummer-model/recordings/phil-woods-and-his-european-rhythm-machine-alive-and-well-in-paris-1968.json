@@ -18,6 +18,67 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "And When We Are Young",
+      "drummer_ids": ["drummer:daniel-humair"],
+      "drums": {
+        "description": "Humair's dynamic, melodic drumming builds Woods' Robert Kennedy elegy from rubato to fiery swing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:daniel-humair-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tT1EF__AKM8"
+    },
+    {
+      "title": "Alive and Well",
+      "drummer_ids": ["drummer:daniel-humair"],
+      "drums": {
+        "description": "Fast, crackling European swing with constant interplay.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:daniel-humair-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PrdPE_1pSi0"
+    },
+    {
+      "title": "Freedom Jazz Dance",
+      "drummer_ids": ["drummer:daniel-humair"],
+      "drums": {
+        "description": "Loose, open funk-swing on Eddie Harris's tune, full of cross-accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:daniel-humair-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fsD6Goj6Hfk"
+    },
+    {
+      "title": "Stolen Moments",
+      "drummer_ids": ["drummer:daniel-humair"],
+      "drums": {
+        "description": "Spacious medium swing, brushes and light ride.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:daniel-humair-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RXGuDp6v4ZQ"
+    },
+    {
+      "title": "Doxy",
+      "drummer_ids": ["drummer:daniel-humair"],
+      "drums": {
+        "description": "Bouncing medium swing with crisp snare comping.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:daniel-humair-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:daniel-humair-wikipedia"]

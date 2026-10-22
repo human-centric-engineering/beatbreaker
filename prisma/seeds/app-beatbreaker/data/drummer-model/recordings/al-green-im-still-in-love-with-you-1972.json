@@ -1,0 +1,33 @@
+{
+  "id": "rec:al-green-im-still-in-love-with-you-1972",
+  "title": "I'm Still in Love with You",
+  "artist": "Al Green",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:howard-grimes"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Love and Happiness",
+      "drummer_ids": ["drummer:howard-grimes"],
+      "drums": {
+        "description": "A slow, lazy backbeat that lays far behind the beat, the hi-hat barely moving, so Al Green's vamp can build over a groove that never hurries.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:im-still-in-love-with-you-al-green-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cPkXeWww0U8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=707102"
+        }
+      ]
+    }
+  ]
+}

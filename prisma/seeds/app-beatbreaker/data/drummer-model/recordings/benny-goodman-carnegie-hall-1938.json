@@ -20,6 +20,26 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Sing, Sing, Sing (live at Carnegie Hall, 1938)",
+      "drummer_ids": ["drummer:gene-krupa"],
+      "drums": {
+        "description": "The 1938 concert version, twelve minutes, the tom-tom figure stretched under every soloist.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sing-sing-sing-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=D0My_-raJTk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=394227"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:sing-sing-sing-wikipedia", "src:gene-krupa-dorn-sing-sing-sing"]

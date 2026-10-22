@@ -1,0 +1,33 @@
+{
+  "id": "rec:deftones-deftones-2003",
+  "title": "Deftones",
+  "artist": "Deftones",
+  "year": 2003,
+  "type": "album",
+  "style_ids": ["style:alternative-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:abe-cunningham"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hexagram",
+      "drummer_ids": ["drummer:abe-cunningham"],
+      "drums": {
+        "description": "Fast, punishing blast-like drumming with tom-heavy fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:deftones-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yP4dFHSd-iw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5501"
+        }
+      ]
+    }
+  ]
+}

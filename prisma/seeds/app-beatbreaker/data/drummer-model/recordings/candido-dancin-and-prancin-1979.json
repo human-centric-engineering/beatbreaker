@@ -1,0 +1,27 @@
+{
+  "id": "rec:candido-dancin-and-prancin-1979",
+  "title": "Dancin' & Prancin'",
+  "artist": "Candido",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:candido-camero"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Jingo",
+      "drummer_ids": ["drummer:candido-camero"],
+      "drums": {
+        "description": "Cándido's congas lead a Salsoul disco remake of Olatunji's Jingo, the record later sampled and remixed in club music.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-candido-camero"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FTA2TgplqbI"
+    }
+  ]
+}

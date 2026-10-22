@@ -44,6 +44,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Highway to Hell",
+      "drummer_ids": ["drummer:phil-rudd"],
+      "drums": {
+        "description": "Half-open hats leaned on the beat, the kick on the \"and\" of 4, open hats in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-289", "src:highway-to-hell-wikipedia"]
+        }
+      },
+      "style_key": "rudd",
+      "song_key": "highway-to-hell",
+      "youtube": "https://www.youtube.com/watch?v=l482T0yNkeo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=289"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:highway-to-hell-wikipedia"]

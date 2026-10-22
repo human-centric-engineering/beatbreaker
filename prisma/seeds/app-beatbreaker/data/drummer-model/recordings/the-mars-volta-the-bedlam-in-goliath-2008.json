@@ -11,6 +11,80 @@
       "why_it_matters": "\"Blistering 32nd-note full-set combinations, stunning single-stroke rolls\" (Wikipedia)."
     }
   ],
+  "tracks": [
+    {
+      "title": "Aberinkula",
+      "drummer_ids": ["drummer:thomas-pridgen"],
+      "drums": {
+        "description": "Opens the album with a barrage of fast gospel-chops fills over a punishing groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-bedlam-in-goliath-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UyrXy1TUDlw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=42747"
+        }
+      ]
+    },
+    {
+      "title": "Wax Simulacra",
+      "drummer_ids": ["drummer:thomas-pridgen"],
+      "drums": {
+        "description": "A short, ferocious song with relentless fills, which won the band a Grammy.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wax-simulacra-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=C5jcgJ3RNpo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=42265"
+        }
+      ]
+    },
+    {
+      "title": "Goliath",
+      "drummer_ids": ["drummer:thomas-pridgen"],
+      "drums": {
+        "description": "A heavy funk-rock groove broken by rapid linear fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-bedlam-in-goliath-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lrwMMF2QS14",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=42738"
+        }
+      ]
+    },
+    {
+      "title": "Ilyena",
+      "drummer_ids": ["drummer:thomas-pridgen"],
+      "drums": {
+        "description": "Intricate, shifting grooves with fast hand-foot combinations.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-bedlam-in-goliath-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hQdH1IGhW6c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=42262"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:thomas-pridgen-wikipedia"]

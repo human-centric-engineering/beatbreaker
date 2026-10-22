@@ -1,0 +1,51 @@
+{
+  "id": "rec:bruce-springsteen-darkness-on-the-edge-of-town-1978",
+  "title": "Darkness on the Edge of Town",
+  "artist": "Bruce Springsteen",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:heartland-rock", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:max-weinberg"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Badlands",
+      "drummer_ids": ["drummer:max-weinberg"],
+      "drums": {
+        "description": "A driving eighth-note rock beat with a big snare crack on every backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-weinberg-wikipedia", "src:darkness-on-the-edge-of-town-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=o5IZuuzUa04",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=27473"
+        }
+      ]
+    },
+    {
+      "title": "Prove It All Night",
+      "drummer_ids": ["drummer:max-weinberg"],
+      "drums": {
+        "description": "A mid-tempo heartland rock beat with big fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:max-weinberg-wikipedia", "src:darkness-on-the-edge-of-town-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=okrvOAUg-yY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=27486"
+        }
+      ]
+    }
+  ]
+}

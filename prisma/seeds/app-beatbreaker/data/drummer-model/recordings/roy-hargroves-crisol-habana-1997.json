@@ -1,0 +1,42 @@
+{
+  "id": "rec:roy-hargroves-crisol-habana-1997",
+  "title": "Habana",
+  "artist": "Roy Hargrove's Crisol",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:horacio-hernandez"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Mambo for Roy",
+      "drummer_ids": ["drummer:horacio-hernandez"],
+      "drums": {
+        "description": "The son clave on the hi-hat foot, a mambo bell in the right hand and a tumbao kick: a full conga section played on one kit.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:habana-roy-hargrove-wikipedia", "src:horacio-hernandez-wikipedia"]
+        }
+      },
+      "style_key": "horaciohernandez",
+      "song_key": "mambo-for-roy"
+    },
+    {
+      "title": "Afrodisia",
+      "drummer_ids": ["drummer:horacio-hernandez"],
+      "drums": {
+        "description": "Cáscara on the shell over rumba clave in the foot, Afro-Cuban jazz independence.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:habana-roy-hargrove-wikipedia", "src:horacio-hernandez-wikipedia"]
+        }
+      },
+      "style_key": "horaciohernandez",
+      "song_key": "afrodisia",
+      "youtube": "https://www.youtube.com/watch?v=H317DI_rC6A"
+    }
+  ]
+}

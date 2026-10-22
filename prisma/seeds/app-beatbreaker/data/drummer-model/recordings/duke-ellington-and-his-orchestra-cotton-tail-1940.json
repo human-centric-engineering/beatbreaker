@@ -1,0 +1,26 @@
+{
+  "id": "rec:duke-ellington-and-his-orchestra-cotton-tail-1940",
+  "title": "Cotton Tail",
+  "artist": "Duke Ellington and His Orchestra",
+  "year": 1940,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sonny-greer"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Cotton Tail",
+      "drummer_ids": ["drummer:sonny-greer"],
+      "drums": {
+        "description": "An uptempo swing on Rhythm changes, Greer driving the Blanton–Webster band behind Ben Webster.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:never-no-lament-the-blantonwebster-band-wikipedia"]
+        }
+      }
+    }
+  ]
+}

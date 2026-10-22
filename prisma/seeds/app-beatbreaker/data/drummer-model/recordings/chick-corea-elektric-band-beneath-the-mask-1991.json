@@ -1,0 +1,27 @@
+{
+  "id": "rec:chick-corea-elektric-band-beneath-the-mask-1991",
+  "title": "Beneath the Mask",
+  "artist": "Chick Corea Elektric Band",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-weckl"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Beneath the Mask",
+      "drummer_ids": ["drummer:dave-weckl"],
+      "drums": {
+        "description": "A tight, syncopated fusion groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:beneath-the-mask-wikipedia", "src:dave-weckl-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uXyOtcyPfwI"
+    }
+  ]
+}

@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Hysteria",
+      "drummer_ids": ["drummer:dominic-howard"],
+      "drums": {
+        "description": "A fast sixteenth-note hi-hat groove locked tight to the relentless distorted bass riff; a staple for drummers learning stamina.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:absolution-muse-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3dm_5qWWDV8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=11430"
+        }
+      ]
+    },
+    {
+      "title": "Time Is Running Out",
+      "drummer_ids": ["drummer:dominic-howard"],
+      "drums": {
+        "description": "A tight, syncopated groove in the verse that opens onto a full backbeat and crashes in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:absolution-muse-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=O2IuJPh6h_A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=87577"
+        }
+      ]
+    },
+    {
+      "title": "Stockholm Syndrome",
+      "drummer_ids": ["drummer:dominic-howard"],
+      "drums": {
+        "description": "Heavy, fast straight-eighth drive with crashes hammering the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:absolution-muse-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gXN9acC9edU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=530"
+        }
+      ]
+    },
+    {
+      "title": "Apocalypse Please",
+      "drummer_ids": ["drummer:dominic-howard"],
+      "drums": {
+        "description": "A slow, pounding march on the toms and kick under massive piano chords.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:absolution-muse-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cNhLIuOJ6mo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6742"
+        }
+      ]
+    }
   ]
 }

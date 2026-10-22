@@ -48,6 +48,26 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Get Up, Stand Up",
+      "drummer_ids": ["drummer:carlton-barrett"],
+      "drums": {
+        "description": "The one drop with the hat on the beat, its accented 'and' and the 'a', the rim walking later in the song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:get-up-stand-up-wikipedia",
+            "src:songsterr-415804",
+            "src:burnin-wikipedia"
+          ]
+        }
+      },
+      "style_key": "carltonbarrett",
+      "song_key": "get-up-stand-up",
+      "youtube": "https://www.youtube.com/watch?v=JLYOOezs3DA"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:burnin-wikipedia"]

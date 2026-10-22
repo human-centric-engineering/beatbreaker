@@ -41,6 +41,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Eton Rifles",
+      "drummer_ids": ["drummer:rick-buckler"],
+      "drums": {
+        "description": "Snare and floor tom in eighths, an eighth-note verse and a stabbed \"hello-hurray\" chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-eton-rifles-wikipedia"]
+        }
+      },
+      "style_key": "buckler",
+      "song_key": "eton-rifles",
+      "youtube": "https://www.youtube.com/watch?v=C7kUDkK70qQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2599543"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:setting-sons-wikipedia"]

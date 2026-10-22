@@ -1,0 +1,27 @@
+{
+  "id": "rec:little-richard-jenny-jenny-1957",
+  "title": "Jenny, Jenny",
+  "artist": "Little Richard",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charles-connor"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Jenny, Jenny",
+      "drummer_ids": ["drummer:charles-connor"],
+      "drums": {
+        "description": "A frantic, straight-eighth rock and roll beat with a heavy backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jenny-jenny-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sldilKL0h50"
+    }
+  ]
+}

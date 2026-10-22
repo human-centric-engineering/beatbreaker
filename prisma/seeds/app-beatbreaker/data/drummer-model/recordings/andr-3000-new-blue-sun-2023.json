@@ -11,6 +11,19 @@
       "why_it_matters": "Composer and performer."
     }
   ],
+  "tracks": [
+    {
+      "title": "That Night in Hawaii When I Turned into a Panther and Started Making These Low Register Purring Tones That I Couldn't Control ... Sh¥t Was Wild",
+      "drummer_ids": ["drummer:deantoni-parks"],
+      "drums": {
+        "description": "Parks' only drum part on the record: a loose, slowly evolving live groove that gives André 3000's ambient flute piece a pulse.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:new-blue-sun-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:deantoni-parks-wikipedia"]

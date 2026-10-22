@@ -15,5 +15,43 @@
       "name": "Steve Jordan",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Take It So Hard",
+      "drummer_ids": ["drummer:steve-jordan"],
+      "drums": {
+        "description": "A loose, swaggering rock groove with a laid-back feel.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:talk-is-cheap-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vbaiQ00gywI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=746214"
+        }
+      ]
+    },
+    {
+      "title": "Struggle",
+      "drummer_ids": ["drummer:steve-jordan"],
+      "drums": {
+        "description": "A heavy, slinky groove with deep backbeats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:talk-is-cheap-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KuGy-6aS59E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=208393"
+        }
+      ]
+    }
   ]
 }

@@ -15,5 +15,43 @@
       "name": "Anton Fig",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "I Was Made for Lovin' You",
+      "drummer_ids": ["drummer:anton-fig"],
+      "drums": {
+        "description": "An uncredited four-on-the-floor disco-rock beat with a steady open hat, standing in for Peter Criss.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dynasty-kiss-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZhIsAZO5gl0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24363"
+        }
+      ]
+    },
+    {
+      "title": "Sure Know Something",
+      "drummer_ids": ["drummer:anton-fig"],
+      "drums": {
+        "description": "A smooth, mid-tempo groove with a light disco lift.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dynasty-kiss-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4m_cSmEWvUY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=40696"
+        }
+      ]
+    }
   ]
 }

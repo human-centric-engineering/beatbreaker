@@ -10,5 +10,19 @@
       "drummer_id": "drummer:cornelius-coleman",
       "name": "Cornelius \"Tenoo\" Coleman"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Goin' Home",
+      "drummer_ids": ["drummer:cornelius-coleman"],
+      "drums": {
+        "description": "Steady, shuffling New Orleans R&B backbeat behind Domino's piano triplets.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cornelius-coleman-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZzB0Thy1hzc"
+    }
   ]
 }

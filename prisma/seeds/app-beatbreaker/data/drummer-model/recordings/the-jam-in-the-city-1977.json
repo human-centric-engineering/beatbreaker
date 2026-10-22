@@ -36,6 +36,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "In the City",
+      "drummer_ids": ["drummer:rick-buckler"],
+      "drums": {
+        "description": "Eighths on the floor tom, then the open hi-hat in quarters and a crash on every \"in the city\".",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:in-the-city-jam-album-wikipedia", "src:rick-buckler-wikipedia"]
+        }
+      },
+      "style_key": "buckler",
+      "song_key": "in-the-city",
+      "youtube": "https://www.youtube.com/watch?v=gHE8Z3SeLOg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=38821"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:in-the-city-jam-album-wikipedia"]

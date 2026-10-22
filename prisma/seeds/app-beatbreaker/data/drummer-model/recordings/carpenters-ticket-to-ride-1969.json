@@ -15,5 +15,31 @@
       "name": "Karen Carpenter",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Ticket to Ride",
+      "drummer_ids": ["drummer:karen-carpenter"],
+      "drums": {
+        "description": "A slowed, steady ballad beat played by Karen Carpenter herself on the debut album.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ticket-to-ride-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QdBKAnAhzXo"
+    },
+    {
+      "title": "Your Wonderful Parade",
+      "drummer_ids": ["drummer:karen-carpenter"],
+      "drums": {
+        "description": "Karen Carpenter's drumming on a marching, up-tempo opener.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ticket-to-ride-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jnJpDqPzyms"
+    }
   ]
 }

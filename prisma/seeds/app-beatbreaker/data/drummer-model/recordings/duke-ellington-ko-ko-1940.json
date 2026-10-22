@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Ko-Ko",
+      "drummer_ids": ["drummer:sonny-greer"],
+      "drums": {
+        "description": "A dark, rumbling tom-tom groove under Ellington's minor blues, Greer's percussion colours over the band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sonny-greer-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kNspoOQdnEI"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:sonny-greer-wikipedia"]

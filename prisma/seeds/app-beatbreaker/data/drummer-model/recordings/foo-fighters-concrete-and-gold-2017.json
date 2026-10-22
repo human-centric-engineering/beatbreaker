@@ -60,6 +60,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Run",
+      "drummer_ids": ["drummer:taylor-hawkins"],
+      "drums": {
+        "description": "A soft intro, then a thrash-tempo beat with a heavy half-time chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:concrete-and-gold-wikipedia"]
+        }
+      },
+      "style_key": "taylorhawkins",
+      "song_key": "run",
+      "youtube": "https://www.youtube.com/watch?v=ifwc5xgI3QM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=435412"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:concrete-and-gold-wikipedia"]

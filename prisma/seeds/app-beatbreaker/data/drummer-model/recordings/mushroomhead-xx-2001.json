@@ -7,15 +7,42 @@
   "type": "album",
   "style_ids": ["style:alternative-metal", "style:industrial-metal"],
   "personnel": [
-    { "name": "Jeffrey Nothing", "role": "vocals" },
-    { "name": "J Mann", "role": "vocals" },
-    { "name": "Skinny (Steve Felton)", "role": "drums; producer" },
-    { "name": "Shmotz", "role": "keyboards" },
-    { "name": "JJ Righteous", "role": "guitars" },
-    { "name": "Dinner", "role": "guitars" },
-    { "name": "Pig Benis", "role": "bass" },
-    { "name": "Bronson", "role": "samples" },
-    { "name": "DJ Virus", "role": "turntables" }
+    {
+      "name": "Jeffrey Nothing",
+      "role": "vocals"
+    },
+    {
+      "name": "J Mann",
+      "role": "vocals"
+    },
+    {
+      "name": "Skinny (Steve Felton)",
+      "role": "drums; producer"
+    },
+    {
+      "name": "Shmotz",
+      "role": "keyboards"
+    },
+    {
+      "name": "JJ Righteous",
+      "role": "guitars"
+    },
+    {
+      "name": "Dinner",
+      "role": "guitars"
+    },
+    {
+      "name": "Pig Benis",
+      "role": "bass"
+    },
+    {
+      "name": "Bronson",
+      "role": "samples"
+    },
+    {
+      "name": "DJ Virus",
+      "role": "turntables"
+    }
   ],
   "producer": "Mushroomhead and Steve Felton; Universal version mixed by Toby Wright",
   "drum_performances": [
@@ -34,7 +61,10 @@
         {
           "category": "studio_story",
           "description": "Everything to the Universal reissue was recorded and mixed on two-inch tape; Toby Wright's remix ran it through Pro Tools, the band's first time.",
-          "evidence": { "confidence": "likely", "source_ids": ["src:skinny-jmann-interview-2002"] }
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:skinny-jmann-interview-2002"]
+          }
         }
       ],
       "evidence": {
@@ -48,5 +78,90 @@
       }
     }
   ],
-  "evidence": { "confidence": "verified", "source_ids": ["src:mushroomhead-xx-wikipedia"] }
+  "tracks": [
+    {
+      "title": "43",
+      "drummer_ids": ["drummer:steve-felton"],
+      "drums": {
+        "description": "Floor tom and kick in threes under paired crashes in half time, then a fast break in dotted eighths before the feet take over.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mushroomhead-xx-wikipedia"]
+        }
+      },
+      "style_key": "skinny",
+      "song_key": "43",
+      "youtube": "https://www.youtube.com/watch?v=RbpDFkyIzcY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=420311"
+        }
+      ]
+    },
+    {
+      "title": "Bwomp",
+      "drummer_ids": ["drummer:steve-felton"],
+      "drums": {
+        "description": "Sixteenths on the hat over the kick on every beat for the techno sections, opened on the riff, four kicks under 2 and 4 in the breaks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mushroomhead-xx-wikipedia"]
+        }
+      },
+      "style_key": "skinny",
+      "song_key": "bwomp",
+      "youtube": "https://www.youtube.com/watch?v=_mPYsxo_GW8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=420309"
+        }
+      ]
+    },
+    {
+      "title": "Solitaire/Unraveling",
+      "drummer_ids": ["drummer:steve-felton"],
+      "drums": {
+        "description": "Half time on open hats with a crash every other bar, quarter-note-triplet hits and a 6/4 turn.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mushroomhead-xx-wikipedia"]
+        }
+      },
+      "style_key": "skinny",
+      "song_key": "solitaire-unraveling",
+      "youtube": "https://www.youtube.com/watch?v=YKnKlChMTjU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=47989"
+        }
+      ]
+    },
+    {
+      "title": "Before I Die",
+      "drummer_ids": ["drummer:steve-felton"],
+      "drums": {
+        "description": "A sixteenth run on the double bass every other bar, then under 2 and 4, then on every beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mushroomhead-xx-wikipedia"]
+        }
+      },
+      "style_key": "skinny",
+      "song_key": "before-i-die",
+      "youtube": "https://www.youtube.com/watch?v=GipRuYQ-Aco",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13545"
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:mushroomhead-xx-wikipedia"]
+  }
 }

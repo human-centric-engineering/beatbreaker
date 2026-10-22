@@ -15,5 +15,25 @@
       "name": "Jim Keltner",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Knockin' on Heaven's Door",
+      "drummer_ids": ["drummer:jim-keltner"],
+      "drums": {
+        "description": "A simple, slow beat that sets the song's weary pace; Keltner said he wept while playing it.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:pat-garrett-and-billy-the-kid-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rm9coqlk8fY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=69238"
+        }
+      ]
+    }
   ]
 }

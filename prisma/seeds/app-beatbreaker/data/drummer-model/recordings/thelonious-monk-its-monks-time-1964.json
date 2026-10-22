@@ -1,0 +1,39 @@
+{
+  "id": "rec:thelonious-monk-its-monks-time-1964",
+  "title": "It's Monk's Time",
+  "artist": "Thelonious Monk",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:hard-bop", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ben-riley"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Lulu's Back in Town",
+      "drummer_ids": ["drummer:ben-riley"],
+      "drums": {
+        "description": "An easy medium swing on the ride, with snare and bass-drum accents set into the gaps of Monk's phrases.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:its-monks-time-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=N-8G70306-0"
+    },
+    {
+      "title": "Stuffy Turkey",
+      "drummer_ids": ["drummer:ben-riley"],
+      "drums": {
+        "description": "Brisk, even ride-cymbal time and short, tidy breaks that suit the tune's angular head.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:its-monks-time-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4_cpiKxOXi0"
+    }
+  ]
+}

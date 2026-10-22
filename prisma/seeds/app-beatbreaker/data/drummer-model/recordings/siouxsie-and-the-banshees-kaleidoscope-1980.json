@@ -49,6 +49,46 @@
       "pattern_ids": ["pattern:budgie-happy-house", "pattern:budgie-christine"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Happy House",
+      "drummer_ids": ["drummer:budgie"],
+      "drums": {
+        "description": "His first single with the Banshees: the floor tom in sixteenths over four on the floor, the snare placed among the toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:happy-house-siouxsie-wikipedia", "src:songsterr-4453297"]
+        }
+      },
+      "style_key": "budgie",
+      "song_key": "happy-house",
+      "youtube": "https://www.youtube.com/watch?v=amR6-neQBPE"
+    },
+    {
+      "title": "Christine",
+      "drummer_ids": ["drummer:budgie"],
+      "drums": {
+        "description": "The snare on 2 and 4, the kick on the 'and's and the hi-hat foot on 1 and 3, a propulsive, cymbal-light pattern.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:christine-siouxsie-wikipedia",
+            "src:songsterr-79656",
+            "src:kaleidoscope-siouxsie-album-wikipedia"
+          ]
+        }
+      },
+      "style_key": "budgie",
+      "song_key": "christine",
+      "youtube": "https://www.youtube.com/watch?v=Rtt_0OKzRek",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=79656"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:kaleidoscope-siouxsie-album-wikipedia"]

@@ -47,6 +47,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Get Off of My Cloud",
+      "drummer_ids": ["drummer:charlie-watts"],
+      "drums": {
+        "description": "A two-bar call with a run of sixteenths on the snare every other bar, the chorus on every beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-1186118"]
+        }
+      },
+      "style_key": "watts",
+      "song_key": "get-off-of-my-cloud",
+      "youtube": "https://www.youtube.com/watch?v=1sWqmMAvmdU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17081"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:charlie-watts-wikipedia"],

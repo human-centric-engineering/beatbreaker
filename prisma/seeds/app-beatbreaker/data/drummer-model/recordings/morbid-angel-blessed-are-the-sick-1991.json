@@ -1,0 +1,33 @@
+{
+  "id": "rec:morbid-angel-blessed-are-the-sick-1991",
+  "title": "Blessed Are the Sick",
+  "artist": "Morbid Angel",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:death-metal", "style:grindcore"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pete-sandoval"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Fall from Grace",
+      "drummer_ids": ["drummer:pete-sandoval"],
+      "drums": {
+        "description": "Blasts and slow, heavy passages with double kick.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:blessed-are-the-sick-wikipedia", "src:blast-beat-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=iKxC3jXnPqI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=47674"
+        }
+      ]
+    }
+  ]
+}

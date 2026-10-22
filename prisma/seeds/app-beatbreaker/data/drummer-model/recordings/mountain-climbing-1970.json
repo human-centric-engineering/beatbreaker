@@ -12,6 +12,56 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Mississippi Queen",
+      "drummer_ids": ["drummer:corky-laing"],
+      "drums": {
+        "description": "The cowbell count-in and a heavy, behind-the-beat shuffle-rock groove that became one of hard rock's best-known drum intros.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:corky-laing-wikipedia", "src:climbing-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qEnF6EB-yMs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=460"
+        }
+      ]
+    },
+    {
+      "title": "Never in My Life",
+      "drummer_ids": ["drummer:corky-laing"],
+      "drums": {
+        "description": "Straight, driving eighths with big tom fills under Leslie West's riff, the band's hard-rock template.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:corky-laing-wikipedia", "src:climbing-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CZCE23V_zFo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=501879"
+        }
+      ]
+    },
+    {
+      "title": "Theme for an Imaginary Western",
+      "drummer_ids": ["drummer:corky-laing"],
+      "drums": {
+        "description": "A slow, swelling ballad feel with crash-led builds rather than a backbeat groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:corky-laing-wikipedia", "src:climbing-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6Dcz-WxOeFk"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:corky-laing-wikipedia"]

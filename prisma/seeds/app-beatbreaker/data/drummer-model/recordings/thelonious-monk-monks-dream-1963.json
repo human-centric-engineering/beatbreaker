@@ -18,6 +18,56 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Monk's Dream",
+      "drummer_ids": ["drummer:frankie-dunlop"],
+      "drums": {
+        "description": "Crisp medium-tempo swing with playful, displaced snare and bass-drum accents that echo Monk's rhythms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:monks-dream-monk-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mgqYJa5hMQY"
+    },
+    {
+      "title": "Bright Mississippi",
+      "drummer_ids": ["drummer:frankie-dunlop"],
+      "drums": {
+        "description": "A light, buoyant swing feel with tidy, humorous fills answering the theme.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:monks-dream-monk-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ViysgEr3rZQ"
+    },
+    {
+      "title": "Bye-Ya",
+      "drummer_ids": ["drummer:frankie-dunlop"],
+      "drums": {
+        "description": "Plays the Latin-tinged theme with a rocking groove before settling into swing for the solos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:monks-dream-monk-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pVkPWUsFIe0"
+    },
+    {
+      "title": "Five Spot Blues",
+      "drummer_ids": ["drummer:frankie-dunlop"],
+      "drums": {
+        "description": "An easy, swinging blues with spare, well-placed snare comping.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:monks-dream-monk-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=J-3ZtYPGzMI"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:frankie-dunlop-wikipedia"]

@@ -1,0 +1,33 @@
+{
+  "id": "rec:billy-joel-52nd-street-1978",
+  "title": "52nd Street",
+  "artist": "Billy Joel",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:liberty-devitto"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Big Shot",
+      "drummer_ids": ["drummer:liberty-devitto"],
+      "drums": {
+        "description": "A hard-hitting, driving rock beat with crashing accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:52nd-street-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bEea624OBzM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=414533"
+        }
+      ]
+    }
+  ]
+}

@@ -10,5 +10,43 @@
       "drummer_id": "drummer:gene-hoglan",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "All Hail the New Flesh",
+      "drummer_ids": ["drummer:gene-hoglan"],
+      "drums": {
+        "description": "Wall-of-sound industrial metal with blast beats and relentless double bass at extreme tempo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:city-strapping-young-lad-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jlSS4exYcQc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19226"
+        }
+      ]
+    },
+    {
+      "title": "Detox",
+      "drummer_ids": ["drummer:gene-hoglan"],
+      "drums": {
+        "description": "A fast, chaotic groove with machine-like double bass and blasts.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:city-strapping-young-lad-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eDXrtNbrZY0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54826"
+        }
+      ]
+    }
   ]
 }

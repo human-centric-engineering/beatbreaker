@@ -15,5 +15,43 @@
       "name": "Simon Phillips",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Dissident Aggressor",
+      "drummer_ids": ["drummer:simon-phillips"],
+      "drums": {
+        "description": "Heavy metal drumming with early double-bass passages and pounding toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sin-after-sin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ntvF-VZ-ppQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=71888"
+        }
+      ]
+    },
+    {
+      "title": "Sinner",
+      "drummer_ids": ["drummer:simon-phillips"],
+      "drums": {
+        "description": "Driving metal groove with powerful fills at section changes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sin-after-sin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=W5Opvi_UHLY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10517"
+        }
+      ]
+    }
   ]
 }

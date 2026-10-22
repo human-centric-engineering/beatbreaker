@@ -1,0 +1,75 @@
+{
+  "id": "rec:toots-and-the-maytals-funky-kingston-1973",
+  "title": "Funky Kingston",
+  "artist": "Toots and the Maytals",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:reggae", "style:rocksteady"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-douglas"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Funky Kingston",
+      "drummer_ids": ["drummer:paul-douglas"],
+      "drums": {
+        "description": "A driving reggae-funk groove with a heavy, crisp backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:funky-kingston-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Or2_x8hsGTs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3784486"
+        }
+      ]
+    },
+    {
+      "title": "Pomps & Pride",
+      "drummer_ids": ["drummer:paul-douglas"],
+      "drums": {
+        "description": "A tight, uptempo reggae rhythm.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:funky-kingston-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kbO0gRq9T8Y"
+    },
+    {
+      "title": "Louie Louie",
+      "drummer_ids": ["drummer:paul-douglas"],
+      "drums": {
+        "description": "A reggae reading of the rock standard with a skipping one-drop.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:funky-kingston-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BlFGvTtGMBI"
+    },
+    {
+      "title": "Time Tough",
+      "drummer_ids": ["drummer:paul-douglas"],
+      "drums": {
+        "description": "A steady roots groove with a soulful push.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:funky-kingston-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=g7MiWIUjY_U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=266789"
+        }
+      ]
+    }
+  ]
+}

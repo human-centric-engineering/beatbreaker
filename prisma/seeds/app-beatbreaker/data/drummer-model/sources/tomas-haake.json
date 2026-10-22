@@ -178,5 +178,29 @@
     "reliability": 0.6,
     "accessed": "2026-10-15",
     "notes": "aiGenerated false, checked through the meta API. 115; the feet in 32nds, a cell of six 32nds (a dotted eighth) that comes round every three bars, under china quarters and the snare on 3. Read, not written: no meter holds 32nds."
+  },
+  {
+    "id": "src:destroy-erase-improve-wikipedia",
+    "type": "encyclopedia",
+    "title": "Destroy Erase Improve - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Destroy_Erase_Improve",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:chaosphere-wikipedia",
+    "type": "encyclopedia",
+    "title": "Chaosphere - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Chaosphere",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:koloss-wikipedia",
+    "type": "encyclopedia",
+    "title": "Koloss - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Koloss",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

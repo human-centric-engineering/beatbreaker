@@ -1,0 +1,51 @@
+{
+  "id": "rec:soda-stereo-nada-personal-1985",
+  "title": "Nada personal",
+  "artist": "Soda Stereo",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:new-wave", "style:alternative-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charly-alberti"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Cuando pase el temblor",
+      "drummer_ids": ["drummer:charly-alberti"],
+      "drums": {
+        "description": "A tight, new wave groove mixed with Andean carnavalito accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:nada-personal-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZNzYr4U7Zs8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54016"
+        }
+      ]
+    },
+    {
+      "title": "Nada personal",
+      "drummer_ids": ["drummer:charly-alberti"],
+      "drums": {
+        "description": "A crisp, danceable new wave beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:nada-personal-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ko24BZXdK8c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24108"
+        }
+      ]
+    }
+  ]
+}

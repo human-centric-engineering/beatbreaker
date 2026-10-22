@@ -57,6 +57,20 @@
       "kit_setup_id": "kit:earl-palmer-new-orleans"
     }
   ],
+  "tracks": [
+    {
+      "title": "Lawdy Miss Clawdy",
+      "drummer_ids": ["drummer:earl-palmer"],
+      "drums": {
+        "description": "A rolling New Orleans shuffle-backbeat under the piano triplets.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lawdy-miss-clawdy-wikipedia", "src:earl-palmer-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=apyP260BYBg"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:lawdy-miss-clawdy-wikipedia"]

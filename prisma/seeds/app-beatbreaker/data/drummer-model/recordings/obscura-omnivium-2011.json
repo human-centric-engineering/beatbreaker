@@ -1,0 +1,27 @@
+{
+  "id": "rec:obscura-omnivium-2011",
+  "title": "Omnivium",
+  "artist": "Obscura",
+  "year": 2011,
+  "type": "album",
+  "style_ids": ["style:death-metal", "style:progressive-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hannes-grossmann"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Septuagint",
+      "drummer_ids": ["drummer:hannes-grossmann"],
+      "drums": {
+        "description": "Blasts and progressive grooves with intricate fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:omnivium-wikipedia", "src:hannes-grossmann-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Cl_L8lZVo0o"
+    }
+  ]
+}

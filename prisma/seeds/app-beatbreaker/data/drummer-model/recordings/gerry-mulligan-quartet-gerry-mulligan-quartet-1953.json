@@ -18,6 +18,31 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Bernie's Tune",
+      "drummer_ids": ["drummer:chico-hamilton"],
+      "drums": {
+        "description": "Crisp, light brushwork in the pianoless quartet with Chet Baker, keeping the time quiet so the two horns' counterpoint carries the tune.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gerry-mulligan-quartet-volume-1-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=W985hWD5KYg"
+    },
+    {
+      "title": "Walkin' Shoes",
+      "drummer_ids": ["drummer:chico-hamilton"],
+      "drums": {
+        "description": "Relaxed medium swing on brushes, a model of West Coast cool drumming that supports without pushing.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gerry-mulligan-quartet-volume-1-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:chico-hamilton-wikipedia"]

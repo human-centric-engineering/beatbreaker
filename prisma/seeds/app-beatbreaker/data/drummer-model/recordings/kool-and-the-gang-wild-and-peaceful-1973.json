@@ -1,0 +1,33 @@
+{
+  "id": "rec:kool-and-the-gang-wild-and-peaceful-1973",
+  "title": "Wild and Peaceful",
+  "artist": "Kool & the Gang",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:funk", "style:disco"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:george-brown"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hollywood Swinging",
+      "drummer_ids": ["drummer:george-brown"],
+      "drums": {
+        "description": "A loose, swinging funk groove with crisp hi-hat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wild-and-peaceful-wikipedia", "src:george-brown-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YK-cvcw3ngM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2001135"
+        }
+      ]
+    }
+  ]
+}

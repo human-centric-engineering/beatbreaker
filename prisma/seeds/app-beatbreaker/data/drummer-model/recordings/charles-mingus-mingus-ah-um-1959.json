@@ -18,6 +18,62 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Better Git It in Your Soul",
+      "drummer_ids": ["drummer:dannie-richmond"],
+      "drums": {
+        "description": "A churning 6/8 gospel feel with shouts and handclaps, shifting into fast swing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mingus-ah-um-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5UcNcpSUtKs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=718958"
+        }
+      ]
+    },
+    {
+      "title": "Boogie Stop Shuffle",
+      "drummer_ids": ["drummer:dannie-richmond"],
+      "drums": {
+        "description": "A driving boogie shuffle at medium-fast tempo under the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mingus-ah-um-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UGIK_NEJdVA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=720329"
+        }
+      ]
+    },
+    {
+      "title": "Fables of Faubus",
+      "drummer_ids": ["drummer:dannie-richmond"],
+      "drums": {
+        "description": "Frequent tempo and feel changes, from a slow march to swing, following Mingus’s lead.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mingus-ah-um-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=edY7Lt8E9l0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=720398"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:dannie-richmond-wikipedia"]

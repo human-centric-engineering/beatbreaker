@@ -1,0 +1,33 @@
+{
+  "id": "rec:milton-nascimento-and-lo-borges-clube-da-esquina-1972",
+  "title": "Clube da Esquina",
+  "artist": "Milton Nascimento and Lô Borges",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:samba"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:robertinho-silva"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Tudo o que você podia ser",
+      "drummer_ids": ["drummer:robertinho-silva"],
+      "drums": {
+        "description": "A driving, Minas-style groove mixing samba and rock on the album that defined the Clube da Esquina sound.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:clube-da-esquina-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=v43du81eZHw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2173609"
+        }
+      ]
+    }
+  ]
+}

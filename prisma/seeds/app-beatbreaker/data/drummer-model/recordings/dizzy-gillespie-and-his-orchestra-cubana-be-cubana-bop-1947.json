@@ -1,0 +1,26 @@
+{
+  "id": "rec:dizzy-gillespie-and-his-orchestra-cubana-be-cubana-bop-1947",
+  "title": "Cubana Be, Cubana Bop",
+  "artist": "Dizzy Gillespie and His Orchestra",
+  "year": 1947,
+  "type": "studio_track",
+  "style_ids": ["style:afro-cuban", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chano-pozo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Cubana Be, Cubana Bop",
+      "drummer_ids": ["drummer:chano-pozo"],
+      "drums": {
+        "description": "Pozo's conga and chanted Lucumí invocation set inside George Russell's modal big-band writing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-chano-pozo"]
+        }
+      }
+    }
+  ]
+}

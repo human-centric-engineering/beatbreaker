@@ -1,0 +1,33 @@
+{
+  "id": "rec:mike-oldfield-crises-1983",
+  "title": "Crises",
+  "artist": "Mike Oldfield",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:simon-phillips"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Moonlight Shadow",
+      "drummer_ids": ["drummer:simon-phillips"],
+      "drums": {
+        "description": "A tight, steady pop groove with crisp tom fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:crises-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=e80qhyovOnA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23361"
+        }
+      ]
+    }
+  ]
+}

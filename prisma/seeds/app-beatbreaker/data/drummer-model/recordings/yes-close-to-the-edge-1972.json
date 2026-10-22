@@ -48,6 +48,28 @@
       "kit_setup_id": "kit:bill-bruford-hayman-1971"
     }
   ],
+  "tracks": [
+    {
+      "title": "Siberian Khatru",
+      "drummer_ids": ["drummer:bill-bruford"],
+      "drums": {
+        "description": "The backbeat kept on 2 and 4 while the riff turns in fifteen quarters, 4/4 and 3/4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-21345", "src:close-to-the-edge-wikipedia"]
+        }
+      },
+      "style_key": "bruford",
+      "song_key": "siberian-khatru",
+      "youtube": "https://www.youtube.com/watch?v=J2Kcs4Xmb8k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=21345"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:close-to-the-edge-wikipedia"]

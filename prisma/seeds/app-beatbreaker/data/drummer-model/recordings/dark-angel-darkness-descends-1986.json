@@ -10,5 +10,43 @@
       "drummer_id": "drummer:gene-hoglan",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Darkness Descends",
+      "drummer_ids": ["drummer:gene-hoglan"],
+      "drums": {
+        "description": "Relentless, ultra-fast thrash beats from a 19-year-old 'Atomic Clock', precise at extreme speed.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:darkness-descends-wikipedia", "src:gene-hoglan-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hDDTmpw3fYg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=67179"
+        }
+      ]
+    },
+    {
+      "title": "Merciless Death",
+      "drummer_ids": ["drummer:gene-hoglan"],
+      "drums": {
+        "description": "Hammering fast thrash with machine-gun double bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:darkness-descends-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jO9EbI9W2Fs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6356"
+        }
+      ]
+    }
   ]
 }

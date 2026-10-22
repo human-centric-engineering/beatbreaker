@@ -1,0 +1,33 @@
+{
+  "id": "rec:west-bruce-and-laing-why-dontcha-1972",
+  "title": "Why Dontcha",
+  "artist": "West, Bruce and Laing",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:corky-laing"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Why Dontcha",
+      "drummer_ids": ["drummer:corky-laing"],
+      "drums": {
+        "description": "A loose, heavy power-trio groove beside Jack Bruce's bass, with fills thrown across the bar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:corky-laing-wikipedia", "src:why-dontcha-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jh11umXbhJ8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1247198"
+        }
+      ]
+    }
+  ]
+}

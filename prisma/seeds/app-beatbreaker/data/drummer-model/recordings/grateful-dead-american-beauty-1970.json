@@ -1,0 +1,30 @@
+{
+  "id": "rec:grateful-dead-american-beauty-1970",
+  "title": "American Beauty",
+  "artist": "Grateful Dead",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:jam-band", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-kreutzmann"
+    },
+    {
+      "drummer_id": "drummer:mickey-hart"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Truckin'",
+      "drummer_ids": ["drummer:bill-kreutzmann", "drummer:mickey-hart"],
+      "drums": {
+        "description": "A shuffling, boogie-rock groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bill-kreutzmann-wikipedia", "src:american-beauty-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=h_bwoXuUGho"
+    }
+  ]
+}

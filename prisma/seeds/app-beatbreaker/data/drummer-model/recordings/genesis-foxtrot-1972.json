@@ -42,6 +42,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Supper's Ready (Apocalypse in 9/8)",
+      "drummer_ids": ["drummer:phil-collins"],
+      "drums": {
+        "description": "9/8 counted in twos and a one: the hat in eighths, a flam, the kick running into the bar line.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-61645", "src:phil-collins-drumeo-12"]
+        }
+      },
+      "style_key": "collins",
+      "song_key": "apocalypse-in-9-8",
+      "youtube": "https://www.youtube.com/watch?v=8BO2_8Y9Rzk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=61645"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:phil-collins-wikipedia", "src:phil-collins-drumeo-12"]

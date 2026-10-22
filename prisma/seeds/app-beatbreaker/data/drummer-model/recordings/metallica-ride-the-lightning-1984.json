@@ -48,6 +48,66 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "For Whom the Bell Tolls",
+      "drummer_ids": ["drummer:lars-ulrich"],
+      "drums": {
+        "description": "A slow, marching half-time groove with tom hits that toll with the bell.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ride-the-lightning-wikipedia"]
+        }
+      },
+      "style_key": "ulrich",
+      "song_key": "for-whom-the-bell-tolls",
+      "youtube": "https://www.youtube.com/watch?v=B_HSa1dEL9s",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=572"
+        }
+      ]
+    },
+    {
+      "title": "Creeping Death",
+      "drummer_ids": ["drummer:lars-ulrich"],
+      "drums": {
+        "description": "A fast thrash beat with the 'die by my hand' breakdown on stop-start snare and kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ride-the-lightning-wikipedia"]
+        }
+      },
+      "style_key": "ulrich",
+      "song_key": "creeping-death",
+      "youtube": "https://www.youtube.com/watch?v=X8OeBZQn3_w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5194"
+        }
+      ]
+    },
+    {
+      "title": "Fight Fire with Fire",
+      "drummer_ids": ["drummer:lars-ulrich"],
+      "drums": {
+        "description": "An acoustic intro, then one of the fastest thrash beats Metallica recorded.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ride-the-lightning-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8zSODUOoE8w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=65545"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:ride-the-lightning-wikipedia"]

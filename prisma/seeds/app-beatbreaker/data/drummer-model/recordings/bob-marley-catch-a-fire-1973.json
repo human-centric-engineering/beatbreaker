@@ -60,6 +60,52 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Concrete Jungle",
+      "drummer_ids": ["drummer:carlton-barrett"],
+      "drums": {
+        "description": "The one drop with kick and rim together on 2 and 4 and a triplet pickup on the hats, after a four-on-the-floor intro.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:catch-a-fire-wikipedia", "src:songsterr-12459"]
+        }
+      },
+      "style_key": "carltonbarrett",
+      "song_key": "concrete-jungle",
+      "youtube": "https://www.youtube.com/watch?v=5R94DgGRg7w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1506979"
+        }
+      ]
+    },
+    {
+      "title": "Stir It Up",
+      "drummer_ids": ["drummer:carlton-barrett"],
+      "drums": {
+        "description": "The kick alone on 3 for the verses, then the rim joins it and a crash marks the drop.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:stir-it-up-wikipedia",
+            "src:songsterr-1390846",
+            "src:catch-a-fire-wikipedia"
+          ]
+        }
+      },
+      "style_key": "carltonbarrett",
+      "song_key": "stir-it-up",
+      "youtube": "https://www.youtube.com/watch?v=rf8GjhXvOjU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1415513"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:catch-a-fire-wikipedia"]

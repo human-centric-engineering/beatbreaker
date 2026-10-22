@@ -1,0 +1,27 @@
+{
+  "id": "rec:jimmie-lunceford-and-his-orchestra-margie-1938",
+  "title": "Margie",
+  "artist": "Jimmie Lunceford and His Orchestra",
+  "year": 1938,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jimmy-crawford"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Margie",
+      "drummer_ids": ["drummer:jimmy-crawford"],
+      "drums": {
+        "description": "A slow, lazy two-beat with Crawford's light bass drum and brushed snare behind Trummy Young's vocal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jimmy-crawford-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=okLOEGrdkJ8"
+    }
+  ]
+}

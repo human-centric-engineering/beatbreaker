@@ -31,6 +31,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Directions",
+      "drummer_ids": ["drummer:jack-dejohnette"],
+      "drums": {
+        "description": "Electric Miles at full pressure: a churning rock-jazz pulse broken up by constant snare and cymbal commentary.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-dejohnette-directions"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YHx1-BPgkkM"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:bishop-dejohnette-directions"],

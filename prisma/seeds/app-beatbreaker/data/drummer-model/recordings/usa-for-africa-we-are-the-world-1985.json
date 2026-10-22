@@ -1,0 +1,27 @@
+{
+  "id": "rec:usa-for-africa-we-are-the-world-1985",
+  "title": "We Are the World",
+  "artist": "USA for Africa",
+  "year": 1985,
+  "type": "studio_track",
+  "style_ids": ["style:pop-rock-session", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jr-robinson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "We Are the World",
+      "drummer_ids": ["drummer:jr-robinson"],
+      "drums": {
+        "description": "A slow, steady ballad beat building to a heavier backbeat for the final choruses.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:we-are-the-world-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9AjkUyX0rVw"
+    }
+  ]
+}

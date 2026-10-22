@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Tin Roof Blues",
+      "drummer_ids": ["drummer:ben-pollack"],
+      "drums": {
+        "description": "Simple, steady beat from the acoustic era, the NORK's foundational blues.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tin-roof-blues-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=f6gIOKNBybk"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:ben-pollack-wikipedia"]

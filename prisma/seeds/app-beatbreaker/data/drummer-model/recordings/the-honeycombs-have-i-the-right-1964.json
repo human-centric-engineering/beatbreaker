@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Have I the Right?",
+      "drummer_ids": ["drummer:honey-lantree"],
+      "drums": {
+        "description": "Pounding drums carry the song, thickened by the band stamping on Joe Meek's wooden stairs, recorded with several microphones and sped up.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:have-i-the-right-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2ZUWHfI6EuE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=926057"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:honey-lantree-wikipedia", "src:have-i-the-right-wikipedia"]

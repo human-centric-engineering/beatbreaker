@@ -1,0 +1,135 @@
+{
+  "id": "rec:the-police-outlandos-damour-1978",
+  "title": "Outlandos d'Amour",
+  "artist": "The Police",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:new-wave", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stewart-copeland"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Can't Stand Losing You",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "A reggae verse with the backbeat on 4 alone, a rock chorus on the ride bell, and a cross-stick hemiola in the bridge.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:outlandos-damour-wikipedia", "src:musicradar-copeland-howto"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "cant-stand-losing-you",
+      "youtube": "https://www.youtube.com/watch?v=nH0vjLwMyc4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15357"
+        }
+      ]
+    },
+    {
+      "title": "Next to You",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Flat-out punk: the snare on every beat to start, with a tom run every few bars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:outlandos-damour-wikipedia", "src:musicradar-copeland-howto"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "next-to-you",
+      "youtube": "https://www.youtube.com/watch?v=QucmeFo-G_E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15052"
+        }
+      ]
+    },
+    {
+      "title": "So Lonely",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "A half-time reggae verse with the snare on 3, then a double-time rock chorus on the ride.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:outlandos-damour-wikipedia", "src:musicradar-copeland-howto"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "so-lonely",
+      "youtube": "https://www.youtube.com/watch?v=MX6MvV8cbh8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15468"
+        }
+      ]
+    },
+    {
+      "title": "Peanuts",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Fast punk eighths, the band at its rawest.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:outlandos-damour-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "peanuts",
+      "youtube": "https://www.youtube.com/watch?v=IhS8FAj2s9c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=682220"
+        }
+      ]
+    },
+    {
+      "title": "Born in the 50's",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Gappy hi-hats with sixteenth bursts in the verse and the bell in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:outlandos-damour-wikipedia", "src:musicradar-copeland-howto"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "born-in-the-50s",
+      "youtube": "https://www.youtube.com/watch?v=u_OQrzXpALE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16126"
+        }
+      ]
+    },
+    {
+      "title": "Masoko Tanga",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Four on the floor under busy sixteenth hi-hats, with no backbeat at all.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:outlandos-damour-wikipedia", "src:musicradar-copeland-howto"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "masoko-tanga",
+      "youtube": "https://www.youtube.com/watch?v=W0k6nXLwZrY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=425013"
+        }
+      ]
+    }
+  ]
+}

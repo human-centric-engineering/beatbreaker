@@ -1,0 +1,35 @@
+{
+  "id": "rec:gwar-the-blood-of-gods-2017",
+  "title": "The Blood of Gods",
+  "artist": "Gwar",
+  "year": 2017,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jizmak-da-gusha"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "El Presidente",
+      "drummer_ids": ["drummer:jizmak-da-gusha"],
+      "drums": {
+        "description": "Open hi-hats on the beats with the kick on 1 and 3, half time on the ride, a skank in threes and a gallop on the kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-blood-of-gods-wikipedia"]
+        }
+      },
+      "style_key": "jizmak",
+      "song_key": "el-presidente",
+      "youtube": "https://www.youtube.com/watch?v=GDcWhhC7Jaw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=742105"
+        }
+      ]
+    }
+  ]
+}

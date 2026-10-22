@@ -1,0 +1,33 @@
+{
+  "id": "rec:gojira-the-way-of-all-flesh-2008",
+  "title": "The Way of All Flesh",
+  "artist": "Gojira",
+  "year": 2008,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mario-duplantier"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Oroborus",
+      "drummer_ids": ["drummer:mario-duplantier"],
+      "drums": {
+        "description": "A fast, intricate pattern interlocking with the tapped guitar riff.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-way-of-all-flesh-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BfDaJREgrw0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=36658"
+        }
+      ]
+    }
+  ]
+}

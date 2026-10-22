@@ -10,5 +10,37 @@
       "drummer_id": "drummer:greg-errico",
       "name": "Greg Errico"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Sing a Simple Song",
+      "drummer_ids": ["drummer:greg-errico"],
+      "drums": {
+        "description": "A hard, syncopated funk groove that drives the call-and-response.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:greg-errico-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=42YGprrAOj0"
+    },
+    {
+      "title": "I Want to Take You Higher",
+      "drummer_ids": ["drummer:greg-errico"],
+      "drums": {
+        "description": "A pounding, gospel-funk beat with big snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:greg-errico-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BqWQzOzK3kw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3077253"
+        }
+      ]
+    }
   ]
 }

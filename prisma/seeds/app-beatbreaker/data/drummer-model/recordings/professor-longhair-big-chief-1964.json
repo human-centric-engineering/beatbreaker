@@ -10,5 +10,19 @@
       "drummer_id": "drummer:smokey-johnson",
       "name": "Smokey Johnson"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Big Chief",
+      "drummer_ids": ["drummer:smokey-johnson"],
+      "drums": {
+        "description": "Johnson's Mardi Gras Indian-inspired tom groove under Fess's whistling.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:smokey-johnson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=voB6WiP83NU"
+    }
   ]
 }

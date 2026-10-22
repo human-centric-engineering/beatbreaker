@@ -1,0 +1,36 @@
+{
+  "id": "rec:girlschool-screaming-blue-murder-1982",
+  "title": "Screaming Blue Murder",
+  "artist": "Girlschool",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:denise-dufort"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Screaming Blue Murder",
+      "drummer_ids": ["drummer:denise-dufort"],
+      "drums": {
+        "description": "A fast, heavy metal beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:girlschool-wikipedia",
+            "src:screaming-blue-murder-girlschool-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KH92e8mUTVU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=962638"
+        }
+      ]
+    }
+  ]
+}

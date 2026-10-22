@@ -68,6 +68,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Island Groove",
+      "drummer_ids": ["drummer:giovanni-hidalgo"],
+      "drums": {
+        "description": "Hidalgo's congas in Mickey Hart's world-percussion ensemble, interlocking with Airto, Zakir Hussain and Babatunde Olatunji.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-giovanni-hidalgo"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=b3bUIQRIGqo"
+    },
+    {
+      "title": "Udu Chant",
+      "drummer_ids": ["drummer:mickey-hart"],
+      "drums": {
+        "description": "Clay-pot drum patterns in a world-percussion ensemble.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mickey-hart-wikipedia", "src:planet-drum-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AM8I9mu8fm0"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:mickey-hart-wikipedia"]

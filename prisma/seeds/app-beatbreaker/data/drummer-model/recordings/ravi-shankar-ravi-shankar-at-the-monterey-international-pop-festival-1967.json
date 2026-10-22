@@ -1,0 +1,30 @@
+{
+  "id": "rec:ravi-shankar-ravi-shankar-at-the-monterey-international-pop-festival-1967",
+  "title": "Ravi Shankar at the Monterey International Pop Festival",
+  "artist": "Ravi Shankar",
+  "year": 1967,
+  "type": "live_track",
+  "style_ids": ["style:hindustani-classical"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alla-rakha"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Tabla Solo in Ektal",
+      "drummer_ids": ["drummer:alla-rakha"],
+      "drums": {
+        "description": "A tabla solo in the twelve-beat ektal, brought to a rock audience.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:alla-rakha-wikipedia",
+            "src:live-ravi-shankar-at-the-monterey-international-pop-festival-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cp82_PUMt7Y"
+    }
+  ]
+}

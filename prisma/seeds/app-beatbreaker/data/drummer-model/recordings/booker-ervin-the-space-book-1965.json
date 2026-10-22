@@ -1,0 +1,27 @@
+{
+  "id": "rec:booker-ervin-the-space-book-1965",
+  "title": "The Space Book",
+  "artist": "Booker Ervin",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alan-dawson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Number Two",
+      "drummer_ids": ["drummer:alan-dawson"],
+      "drums": {
+        "description": "Fast, intense swing with dense, precise comping.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-space-book-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=w-6qoVZsKX8"
+    }
+  ]
+}

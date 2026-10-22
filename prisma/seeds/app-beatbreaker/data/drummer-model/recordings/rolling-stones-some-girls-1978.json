@@ -45,6 +45,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Miss You",
+      "drummer_ids": ["drummer:charlie-watts"],
+      "drums": {
+        "description": "Disco-era: the kick on every beat, the hat opened on the \"and\"s in the chorus, the snare out for the \"ooh-ooh\"s.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-16458", "src:some-girls-wikipedia"]
+        }
+      },
+      "style_key": "watts",
+      "song_key": "miss-you",
+      "youtube": "https://www.youtube.com/watch?v=hic-dnps6MU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16458"
+        }
+      ]
+    },
+    {
+      "title": "Beast of Burden",
+      "drummer_ids": ["drummer:charlie-watts"],
+      "drums": {
+        "description": "The kick on the \"and\"s of 2 and 4, the hat opened and closed, the chorus in eighths on the kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-52288", "src:some-girls-wikipedia"]
+        }
+      },
+      "style_key": "watts",
+      "song_key": "beast-of-burden",
+      "youtube": "https://www.youtube.com/watch?v=761yzGz4HzQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=52288"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:charlie-watts-wikipedia"],

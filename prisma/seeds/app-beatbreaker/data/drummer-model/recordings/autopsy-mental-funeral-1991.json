@@ -10,5 +10,37 @@
       "drummer_id": "drummer:chris-reifert",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "In the Grip of Winter",
+      "drummer_ids": ["drummer:chris-reifert"],
+      "drums": {
+        "description": "Crawling doom tempos that lurch into short bursts of speed.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chris-reifert-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yYgmykBQwwY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=87310"
+        }
+      ]
+    },
+    {
+      "title": "Slaughterday",
+      "drummer_ids": ["drummer:chris-reifert"],
+      "drums": {
+        "description": "Lurching mid-tempo beats and sudden blasts, Reifert's sloppy-heavy feel.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chris-reifert-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kvg413Z6Xa4"
+    }
   ]
 }

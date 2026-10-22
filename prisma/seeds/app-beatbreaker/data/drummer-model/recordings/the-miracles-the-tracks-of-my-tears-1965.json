@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-miracles-the-tracks-of-my-tears-1965",
+  "title": "The Tracks of My Tears",
+  "artist": "The Miracles",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:uriel-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Tracks of My Tears",
+      "drummer_ids": ["drummer:uriel-jones"],
+      "drums": {
+        "description": "A gentle, swaying backbeat with soft fills that leave room for Smokey Robinson's falsetto.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:uriel-jones-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rNS6D4hSQdA"
+    }
+  ]
+}

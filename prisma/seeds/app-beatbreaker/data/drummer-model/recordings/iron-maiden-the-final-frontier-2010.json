@@ -53,6 +53,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "El Dorado",
+      "drummer_ids": ["drummer:nicko-mcbrain"],
+      "drums": {
+        "description": "Ride on the beats or hi-hats in eighths, the kick on 3 and its \"and\".",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:el-dorado-iron-maiden-song-wikipedia"]
+        }
+      },
+      "style_key": "mcbrain",
+      "song_key": "el-dorado",
+      "youtube": "https://www.youtube.com/watch?v=POr7f5OGD0Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=61074"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-final-frontier-wikipedia"]

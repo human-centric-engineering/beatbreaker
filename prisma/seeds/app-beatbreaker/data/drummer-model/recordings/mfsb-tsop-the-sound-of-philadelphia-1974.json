@@ -1,0 +1,27 @@
+{
+  "id": "rec:mfsb-tsop-the-sound-of-philadelphia-1974",
+  "title": "TSOP (The Sound of Philadelphia)",
+  "artist": "MFSB",
+  "year": 1974,
+  "type": "studio_track",
+  "style_ids": ["style:disco", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-young"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "TSOP (The Sound of Philadelphia)",
+      "drummer_ids": ["drummer:earl-young"],
+      "drums": {
+        "description": "Four-on-the-floor with sixteenth-note hi-hats, the Philly groove of the Soul Train theme.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tsop-the-sound-of-philadelphia-wikipedia", "src:earl-young-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TYhgMI9Zx-g"
+    }
+  ]
+}

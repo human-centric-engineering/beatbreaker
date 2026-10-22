@@ -1,0 +1,27 @@
+{
+  "id": "rec:count-basie-and-his-orchestra-queer-street-1945",
+  "title": "Queer Street",
+  "artist": "Count Basie and His Orchestra",
+  "year": 1945,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:bebop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:shadow-wilson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Queer Street",
+      "drummer_ids": ["drummer:shadow-wilson"],
+      "drums": {
+        "description": "A swinging Basie band riff, Wilson's light, propulsive cymbal time in the Jo Jones chair.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:shadow-wilson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KzjOpJt15Ik"
+    }
+  ]
+}

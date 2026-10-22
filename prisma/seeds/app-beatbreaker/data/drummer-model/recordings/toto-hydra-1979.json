@@ -47,6 +47,28 @@
       "pattern_ids": ["pattern:porcaro-sgd-verse"]
     }
   ],
+  "tracks": [
+    {
+      "title": "St. George and the Dragon",
+      "drummer_ids": ["drummer:jeff-porcaro"],
+      "drums": {
+        "description": "A cowbell on the beat and no hats, the kick on the 'and's of 3 and 4, with crash-and-kick interludes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hydra-wikipedia", "src:songsterr-423153"]
+        }
+      },
+      "style_key": "porcaro",
+      "song_key": "st-george-and-the-dragon",
+      "youtube": "https://www.youtube.com/watch?v=VGQ-XIg4c-4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=423153"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:hydra-wikipedia"]

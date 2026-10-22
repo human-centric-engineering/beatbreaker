@@ -22,5 +22,127 @@
       "drummer_role": "co_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "About a Girl",
+      "drummer_ids": ["drummer:chad-channing"],
+      "drums": {
+        "description": "A simple, steady pop groove, light and unfussy for the band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bleach-nirvana-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AhcttcXcRYY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29"
+        }
+      ]
+    },
+    {
+      "title": "School",
+      "drummer_ids": ["drummer:chad-channing"],
+      "drums": {
+        "description": "A heavy, pounding beat under the riff, with crashing fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bleach-nirvana-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sp86SkWKRQE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13994"
+        }
+      ]
+    },
+    {
+      "title": "Blew",
+      "drummer_ids": ["drummer:chad-channing"],
+      "drums": {
+        "description": "A slow, sludgy groove with heavy tom accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bleach-nirvana-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QVlo81A5mHc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10772"
+        }
+      ]
+    },
+    {
+      "title": "Negative Creep",
+      "drummer_ids": ["drummer:chad-channing"],
+      "drums": {
+        "description": "Fast, hard-hitting punk drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bleach-nirvana-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xUgI2h35Pcc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14004"
+        }
+      ]
+    },
+    {
+      "title": "Love Buzz",
+      "drummer_ids": ["drummer:chad-channing"],
+      "drums": {
+        "description": "A driving tom groove under the bass hook.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bleach-nirvana-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZEh3mO9MPV0"
+    },
+    {
+      "title": "Floyd the Barber",
+      "drummer_ids": ["drummer:dale-crover"],
+      "drums": {
+        "description": "A slow, heavy, pounding groove from the January 1988 demo session.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bleach-nirvana-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qofd8l27ieY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=11404"
+        }
+      ]
+    },
+    {
+      "title": "Paper Cuts",
+      "drummer_ids": ["drummer:dale-crover"],
+      "drums": {
+        "description": "A sludgy, crushing beat with big crashes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bleach-nirvana-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Md4icxT6K60",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14263"
+        }
+      ]
+    }
   ]
 }

@@ -47,5 +47,47 @@
         ]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Moanin'",
+      "drummer_ids": ["drummer:art-blakey"],
+      "drums": {
+        "description": "The piano's call and the band's Amen, then the ride, the snare and the hat foot on 2 and 4, press rolls into the solos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-909920", "src:drumeo-blakey-grooves-2022"]
+        }
+      },
+      "style_key": "blakey",
+      "song_key": "moanin",
+      "youtube": "https://www.youtube.com/watch?v=fsJ3JjpZyoA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=909920"
+        }
+      ]
+    },
+    {
+      "title": "Blues March",
+      "drummer_ids": ["drummer:art-blakey"],
+      "drums": {
+        "description": "A drum cadence of flams and rolls in swung eighths, the roll-off straight: a march on the blues.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bishop-blues-march-intros-2017", "src:moanin-album-wikipedia"]
+        }
+      },
+      "style_key": "blakey",
+      "song_key": "blues-march",
+      "youtube": "https://www.youtube.com/watch?v=L9Rq-fkj2rs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5198347"
+        }
+      ]
+    }
   ]
 }

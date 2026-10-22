@@ -1,0 +1,28 @@
+{
+  "id": "rec:santana-shaman-2002",
+  "title": "Shaman",
+  "artist": "Santana",
+  "year": 2002,
+  "type": "album",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:horacio-hernandez"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "You Are My Kind",
+      "drummer_ids": ["drummer:horacio-hernandez"],
+      "drums": {
+        "description": "An eighth-note pop-Latin groove with the kick on 1, the a of 1 and the ands of 2 and 3.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:horacio-hernandez-wikipedia"]
+        }
+      },
+      "style_key": "horaciohernandez",
+      "song_key": "you-are-my-kind",
+      "youtube": "https://www.youtube.com/watch?v=IVP70E6VQ4Q"
+    }
+  ]
+}

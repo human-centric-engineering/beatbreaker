@@ -31,6 +31,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Let's Start",
+      "drummer_ids": ["drummer:ginger-baker"],
+      "drums": {
+        "description": "Baker sitting in beside Tony Allen on Afrobeat's interlocking patterns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fela-live-ginger-baker-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Black Man's Cry",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "Live in 1971: his first pattern, the floor tom answering like a conga under the horns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:fela-kuti-discography-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "black-mans-cry"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:wiki-mirror-baker"]

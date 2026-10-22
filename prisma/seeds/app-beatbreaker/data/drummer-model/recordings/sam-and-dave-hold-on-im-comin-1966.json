@@ -1,0 +1,35 @@
+{
+  "id": "rec:sam-and-dave-hold-on-im-comin-1966",
+  "title": "Hold On, I'm Comin'",
+  "artist": "Sam & Dave",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:al-jackson-jr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hold On, I'm Comin'",
+      "drummer_ids": ["drummer:al-jackson-jr"],
+      "drums": {
+        "description": "Hi-hat eighths with the kick on the \"a\"s of 2 and 4 under the bass, nothing added.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hold-on-im-comin-song-wikipedia"]
+        }
+      },
+      "style_key": "aljackson",
+      "song_key": "hold-on-im-comin",
+      "youtube": "https://www.youtube.com/watch?v=bbOVhBWrHdQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=52670"
+        }
+      ]
+    }
+  ]
+}

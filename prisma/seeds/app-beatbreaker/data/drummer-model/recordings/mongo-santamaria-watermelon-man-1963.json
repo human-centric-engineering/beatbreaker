@@ -17,5 +17,25 @@
         "source_ids": ["src:wikipedia-mongo-santamaria"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Watermelon Man",
+      "drummer_ids": ["drummer:mongo-santamaria"],
+      "drums": {
+        "description": "Mongo's conga turns Herbie Hancock's tune into a cha-cha-boogaloo groove, a pop hit that put Latin soul on the charts.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-watermelon-man-composition"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9-g3Ha3_q54",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2102120"
+        }
+      ]
+    }
   ]
 }

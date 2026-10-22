@@ -1,0 +1,33 @@
+{
+  "id": "rec:don-caballero-american-don-2000",
+  "title": "American Don",
+  "artist": "Don Caballero",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:math-rock", "style:post-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:damon-che"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Peter Criss Jazz",
+      "drummer_ids": ["drummer:damon-che"],
+      "drums": {
+        "description": "Cleaner, looping grooves that lock to the guitar loops of the later band while Che keeps displacing the accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:american-don-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=c0INgVOVqOc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=449588"
+        }
+      ]
+    }
+  ]
+}

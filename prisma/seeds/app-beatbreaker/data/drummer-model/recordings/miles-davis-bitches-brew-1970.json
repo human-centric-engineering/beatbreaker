@@ -55,6 +55,56 @@
       "drummer_role": "co_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Miles Runs the Voodoo Down",
+      "drummer_ids": ["drummer:don-alias"],
+      "drums": {
+        "description": "The loping, New Orleans-tinged kit groove the track rests on, which Alias showed the drummers and ended up playing himself.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bitches-brew-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=53g1RxfbrcA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7231787"
+        }
+      ]
+    },
+    {
+      "title": "Bitches Brew",
+      "drummer_ids": ["drummer:jack-dejohnette"],
+      "drums": {
+        "description": "One of several drummers on the session (with Lenny White and Don Alias): a loose, simmering pulse under the long electric jam.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jack-dejohnette-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cwcmT_85Gbs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5652645"
+        }
+      ]
+    },
+    {
+      "title": "Pharaoh's Dance",
+      "drummer_ids": ["drummer:lenny-white"],
+      "drums": {
+        "description": "Lenny White's ride and snare among the two kits and percussion of Miles's electric band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bitches-brew-wikipedia", "src:lenny-white-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WtORTuLJw7o"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:lenny-white-wikipedia"]

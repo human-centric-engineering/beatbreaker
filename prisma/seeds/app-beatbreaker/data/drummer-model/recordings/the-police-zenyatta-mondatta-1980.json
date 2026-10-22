@@ -1,0 +1,135 @@
+{
+  "id": "rec:the-police-zenyatta-mondatta-1980",
+  "title": "Zenyatta Mondatta",
+  "artist": "The Police",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:new-wave", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stewart-copeland"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Don't Stand So Close to Me",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "A one drop in the verse with the kick on 3 alone, then a chorus on the ride.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:zenyatta-mondatta-wikipedia", "src:musicradar-copeland-howto"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "dont-stand-so-close",
+      "youtube": "https://www.youtube.com/watch?v=KNIZofPB8ZM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15665"
+        }
+      ]
+    },
+    {
+      "title": "De Do Do Do, De Da Da Da",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Four on the floor and a cross-stick on 3 under the verse, then a 2-and-4 chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:zenyatta-mondatta-wikipedia", "src:musicradar-copeland-howto"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "de-do-do-do",
+      "youtube": "https://www.youtube.com/watch?v=7v2GDbEmjGE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16045"
+        }
+      ]
+    },
+    {
+      "title": "Man in a Suitcase",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "The kick on every \"and\" and never on the 1, with gaps in the hi-hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:zenyatta-mondatta-wikipedia", "src:musicradar-copeland-howto"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "man-in-a-suitcase",
+      "youtube": "https://www.youtube.com/watch?v=cnDBowy9gNU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15404"
+        }
+      ]
+    },
+    {
+      "title": "Voices Inside My Head",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Funk-reggae over a syncopated kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:zenyatta-mondatta-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "voices-inside-my-head",
+      "youtube": "https://www.youtube.com/watch?v=io3CNOeDfO4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2088417"
+        }
+      ]
+    },
+    {
+      "title": "Bombs Away",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Sixteenth hi-hats with the kick on the \"and\"s.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:zenyatta-mondatta-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "bombs-away",
+      "youtube": "https://www.youtube.com/watch?v=DhkcFullCBQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=56148"
+        }
+      ]
+    },
+    {
+      "title": "Behind My Camel",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Slow half time with the snare on 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:zenyatta-mondatta-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "behind-my-camel",
+      "youtube": "https://www.youtube.com/watch?v=XaP2h7ZP5D0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=56146"
+        }
+      ]
+    }
+  ]
+}

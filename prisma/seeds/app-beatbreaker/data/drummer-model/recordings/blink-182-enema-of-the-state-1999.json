@@ -48,6 +48,88 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "What's My Age Again?",
+      "drummer_ids": ["drummer:travis-barker"],
+      "drums": {
+        "description": "The kick on 1, its \"and\" and 3 under the hi-hat, two crashes in quarters in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:whats-my-age-again-wikipedia"]
+        }
+      },
+      "style_key": "barker",
+      "song_key": "whats-my-age-again",
+      "youtube": "https://www.youtube.com/watch?v=K7l5ZeVVoCA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=741"
+        }
+      ]
+    },
+    {
+      "title": "All the Small Things",
+      "drummer_ids": ["drummer:travis-barker"],
+      "drums": {
+        "description": "The kick on 1, its \"and\" and 3, the crash in quarters, and the marching snare in the breakdown.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:all-the-small-things-wikipedia"]
+        }
+      },
+      "style_key": "barker",
+      "song_key": "all-the-small-things",
+      "youtube": "https://www.youtube.com/watch?v=9Ht5RZpzPqw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=258"
+        }
+      ]
+    },
+    {
+      "title": "Adam's Song",
+      "drummer_ids": ["drummer:travis-barker"],
+      "drums": {
+        "description": "The floor tom round the backbeat with a china, the bell and a splash, then the crash in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:adams-song-wikipedia"]
+        }
+      },
+      "style_key": "barker",
+      "song_key": "adams-song",
+      "youtube": "https://www.youtube.com/watch?v=2MRdtXWcgIw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=257"
+        }
+      ]
+    },
+    {
+      "title": "Dumpweed",
+      "drummer_ids": ["drummer:travis-barker"],
+      "drums": {
+        "description": "Half time and punk time in turn at 202, open hi-hat eighths in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:enema-of-the-state-wikipedia"]
+        }
+      },
+      "style_key": "barker",
+      "song_key": "dumpweed",
+      "youtube": "https://www.youtube.com/watch?v=PDwB1nHh9Ow",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17305"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:enema-of-the-state-wikipedia"]

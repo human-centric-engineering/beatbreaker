@@ -1,0 +1,33 @@
+{
+  "id": "rec:elvis-presley-all-shook-up-1957",
+  "title": "All Shook Up",
+  "artist": "Elvis Presley",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:americana"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dj-fontana"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "All Shook Up",
+      "drummer_ids": ["drummer:dj-fontana"],
+      "drums": {
+        "description": "A light, bouncy beat with the drums tucked under handclaps and the vocal.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:all-shook-up-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=23zLefwiii4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=33963"
+        }
+      ]
+    }
+  ]
+}

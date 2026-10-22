@@ -62,6 +62,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Rock the Casbah",
+      "drummer_ids": ["drummer:topper-headon"],
+      "drums": {
+        "description": "His own tune, on which he also played piano and bass: four on the floor in the verse, the chorus kick in threes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rock-the-casbah-wikipedia"]
+        }
+      },
+      "style_key": "headon",
+      "song_key": "rock-the-casbah",
+      "youtube": "https://www.youtube.com/watch?v=bJ9r8LMU9bQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22065"
+        }
+      ]
+    },
+    {
+      "title": "Should I Stay or Should I Go",
+      "drummer_ids": ["drummer:topper-headon"],
+      "drums": {
+        "description": "Eighths with the kick on 1, the \"and\" of 2 and 3, and a double-time chorus with the snare on the \"and\"s.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:should-i-stay-wikipedia"]
+        }
+      },
+      "style_key": "headon",
+      "song_key": "should-i-stay-or-should-i-go",
+      "youtube": "https://www.youtube.com/watch?v=xMaE6toi4mk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22070"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:combat-rock-wikipedia"],

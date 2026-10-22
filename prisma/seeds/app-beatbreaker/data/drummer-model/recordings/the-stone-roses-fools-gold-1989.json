@@ -39,6 +39,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Fools Gold",
+      "drummer_ids": ["drummer:reni"],
+      "drums": {
+        "description": "The breakbeat he learned off a record, the snare on the 'a' of 2 and the 'e' of 3 with ghosts round it: the Madchester groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fools-gold-wikipedia", "src:songsterr-23358"]
+        }
+      },
+      "style_key": "reni",
+      "song_key": "fools-gold",
+      "youtube": "https://www.youtube.com/watch?v=NSD11dnphg0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23358"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:fools-gold-wikipedia"]

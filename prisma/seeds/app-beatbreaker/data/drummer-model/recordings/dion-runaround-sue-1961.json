@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Runaround Sue",
+      "drummer_ids": ["drummer:panama-francis"],
+      "drums": {
+        "description": "A driving doo-wop rock beat with handclap-style snare on 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:runaround-sue-wikipedia", "src:panama-francis-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ik57HLn0Nm0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2383473"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:panama-francis-wikipedia"]

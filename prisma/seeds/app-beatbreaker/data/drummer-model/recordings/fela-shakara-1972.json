@@ -1,0 +1,32 @@
+{
+  "id": "rec:fela-shakara-1972",
+  "title": "Shakara",
+  "artist": "Fela Ransome-Kuti and the Africa '70",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:afrobeat", "style:west-african", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Shakara",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "Snare on one with the hat foot on every \"and\": the pattern leaves the 1 to the snare, not a kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:tony-allen-research",
+            "src:tony-allen-poitevin",
+            "src:fela-kuti-discography-wikipedia"
+          ]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "shakara"
+    }
+  ]
+}

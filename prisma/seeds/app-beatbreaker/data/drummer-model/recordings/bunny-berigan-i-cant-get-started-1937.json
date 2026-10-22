@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "I Can't Get Started",
+      "drummer_ids": ["drummer:george-wettling"],
+      "drums": {
+        "description": "Discreet, brushed time under Berigan's trumpet ballad.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:i-can-t-get-started-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eVj0cV1omVo"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:george-wettling-wikipedia"]

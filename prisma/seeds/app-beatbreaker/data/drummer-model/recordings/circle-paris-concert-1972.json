@@ -18,6 +18,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Nefertiti",
+      "drummer_ids": ["drummer:barry-altschul"],
+      "drums": {
+        "description": "Loose, interactive free-time drumming over Shorter's theme.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:barry-altschul-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_g3HSmShPZs"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:barry-altschul-wikipedia"]

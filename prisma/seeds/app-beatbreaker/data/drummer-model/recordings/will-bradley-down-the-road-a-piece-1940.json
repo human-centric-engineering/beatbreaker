@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Down the Road a Piece",
+      "drummer_ids": ["drummer:ray-mckinley"],
+      "drums": {
+        "description": "A small-group boogie with a shuffling snare and bass-drum pulse under McKinley's vocal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:down-the-road-a-piece-wikipedia", "src:ray-mckinley-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1UAraR0bpZU"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ray-mckinley-wikipedia"]

@@ -14,6 +14,22 @@
       "why_it_matters": "Vibraphone tribute record carrying his percussion stamp."
     }
   ],
+  "tracks": [
+    {
+      "title": "Afro Blue",
+      "drummer_ids": ["drummer:horacio-hernandez"],
+      "drums": {
+        "description": "A 6/8 bell over 6/8 clave on the foot, the waltz as an Afro-Cuban groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:horacio-hernandez-wikipedia"]
+        }
+      },
+      "style_key": "horaciohernandez",
+      "song_key": "afro-blue",
+      "youtube": "https://www.youtube.com/watch?v=MAu1_1DmMt4"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:drummercafe-hernandez"]

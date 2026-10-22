@@ -12,6 +12,19 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "East St. Louis Toodle-Oo",
+      "drummer_ids": ["drummer:sonny-greer"],
+      "drums": {
+        "description": "A slow, plodding two-beat with woodblock and cymbal colours, the 'jungle' sound of the Cotton Club band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sonny-greer-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:sonny-greer-wikipedia"]

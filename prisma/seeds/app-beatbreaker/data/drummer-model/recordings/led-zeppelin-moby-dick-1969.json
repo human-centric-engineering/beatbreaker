@@ -30,6 +30,26 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Moby Dick",
+      "drummer_ids": ["drummer:john-bonham"],
+      "drums": {
+        "description": "His showcase solo: the riff framing an extended solo that includes passages played with his bare hands.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bonham-wikipedia-moby"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=IOb8otk7Y0U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=11830"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:bonham-wikipedia-moby"]

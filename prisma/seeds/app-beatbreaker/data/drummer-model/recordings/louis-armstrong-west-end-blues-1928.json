@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "West End Blues",
+      "drummer_ids": ["drummer:zutty-singleton"],
+      "drums": {
+        "description": "Singleton's soft clip-clop woodblock under the clarinet-and-scat chorus, then a gentle steady beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:west-end-blues-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BTxhgmk_ofk"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:zutty-singleton-wikipedia"]

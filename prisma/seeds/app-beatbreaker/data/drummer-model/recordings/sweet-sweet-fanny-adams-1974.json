@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Set Me Free",
+      "drummer_ids": ["drummer:mick-tucker"],
+      "drums": {
+        "description": "Hard-rock drumming with fast double-stroke fills, heavier than the singles.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sweet-fanny-adams-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4_cuthAsuJs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=651963"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:mick-tucker-wikipedia"]

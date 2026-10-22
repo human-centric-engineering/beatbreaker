@@ -1,0 +1,32 @@
+{
+  "id": "rec:cradle-of-filth-the-principle-of-evil-made-flesh-1994",
+  "title": "The Principle of Evil Made Flesh",
+  "artist": "Cradle of Filth",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nick-barker"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Forest Whispers My Name",
+      "drummer_ids": ["drummer:nick-barker"],
+      "drums": {
+        "description": "Early Barker on record: tremolo-speed blast sections give way to gallops and half-time passages under the keyboards, the template for the band's shifting tempos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-principle-of-evil-made-flesh-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=28617"
+        }
+      ]
+    }
+  ]
+}

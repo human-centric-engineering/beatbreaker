@@ -1,0 +1,27 @@
+{
+  "id": "rec:jaco-pastorius-jaco-pastorius-1976",
+  "title": "Jaco Pastorius",
+  "artist": "Jaco Pastorius",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:don-alias"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Donna Lee",
+      "drummer_ids": ["drummer:don-alias"],
+      "drums": {
+        "description": "Congas alone under Pastorius’s bebop bass line: hand drums standing in for the whole rhythm section.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jaco-pastorius-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cX8FaFs3DZ0"
+    }
+  ]
+}

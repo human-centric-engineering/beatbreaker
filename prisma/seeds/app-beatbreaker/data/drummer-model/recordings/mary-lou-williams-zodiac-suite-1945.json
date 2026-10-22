@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Zodiac Suite",
+      "drummer_ids": ["drummer:jc-heard"],
+      "drums": {
+        "description": "Delicate, sympathetic time behind Williams' piano suite, shifting feel with each movement.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jc-heard-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mBPepNvOzQw"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jc-heard-wikipedia"]

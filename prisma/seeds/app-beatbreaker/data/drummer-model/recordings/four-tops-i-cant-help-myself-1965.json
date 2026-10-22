@@ -20,6 +20,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "I Can't Help Myself (Sugar Pie Honey Bunch)",
+      "drummer_ids": ["drummer:benny-benjamin"],
+      "drums": {
+        "description": "The Motown four-on-the-snare: a snare on every beat with tambourine, driving and relentless.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-cant-help-myself-wikipedia", "src:benjamin-loudlands"]
+        }
+      },
+      "style_key": "bennybenjamin",
+      "song_key": "i-cant-help-myself",
+      "youtube": "https://www.youtube.com/watch?v=EBA6z9sEzAo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=62100"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:i-cant-help-myself-wikipedia"]

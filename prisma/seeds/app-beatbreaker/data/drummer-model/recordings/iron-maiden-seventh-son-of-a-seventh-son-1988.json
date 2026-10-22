@@ -55,6 +55,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Can I Play with Madness",
+      "drummer_ids": ["drummer:nicko-mcbrain"],
+      "drums": {
+        "description": "A cowbell on every beat in the verses and the ride off the beat in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:seventh-son-of-a-seventh-son-wikipedia"]
+        }
+      },
+      "style_key": "mcbrain",
+      "song_key": "can-i-play-with-madness",
+      "youtube": "https://www.youtube.com/watch?v=Kvqr366Op3k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10052"
+        }
+      ]
+    },
+    {
+      "title": "Moonchild",
+      "drummer_ids": ["drummer:nicko-mcbrain"],
+      "drums": {
+        "description": "The snare on every \"and\" with the kick in pairs under it on one pedal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:seventh-son-of-a-seventh-son-wikipedia"]
+        }
+      },
+      "style_key": "mcbrain",
+      "song_key": "moonchild",
+      "youtube": "https://www.youtube.com/watch?v=kvh-aU7KCFY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=38655"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:seventh-son-of-a-seventh-son-wikipedia", "src:songsterr-38655"]

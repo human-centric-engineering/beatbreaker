@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-rascals-a-beautiful-morning-1968",
+  "title": "A Beautiful Morning",
+  "artist": "The Rascals",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:rock", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dino-danelli"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "A Beautiful Morning",
+      "drummer_ids": ["drummer:dino-danelli"],
+      "drums": {
+        "description": "Bright, bouncing pop groove with ride-cymbal lift and short fills between phrases.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:a-beautiful-morning-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ykLVZR7RG_w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4236454"
+        }
+      ]
+    }
+  ]
+}

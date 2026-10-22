@@ -58,6 +58,80 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Seven Steps to Heaven",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Up-tempo live: the ride on the beat, the foot on all four, the band breaks filled in threes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:tony-williams-bishop-seven-steps",
+            "src:tony-williams-goodman-2011",
+            "src:four-and-more-wikipedia"
+          ]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "seven-steps",
+      "youtube": "https://www.youtube.com/watch?v=pQMJv3HuZdU"
+    },
+    {
+      "title": "So What",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Live at twice the speed of the 1959 record: chatter between kick and snare under a driving ride.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:four-and-more-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "so-what",
+      "youtube": "https://www.youtube.com/watch?v=zqNTltOGh5c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=400187"
+        }
+      ]
+    },
+    {
+      "title": "Walkin'",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "The fastest of them, speeding up all the way, the swing almost even at the top tempo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:four-and-more-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "walkin",
+      "youtube": "https://www.youtube.com/watch?v=-CEnBVQoMsA"
+    },
+    {
+      "title": "Joshua",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Phrases in threes running across the bar line under the solos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:four-and-more-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "joshua",
+      "youtube": "https://www.youtube.com/watch?v=SbXy_S20pNw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4562699"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:tony-williams-wikipedia"]

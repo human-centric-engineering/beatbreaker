@@ -1,0 +1,35 @@
+{
+  "id": "rec:john-coltrane-live-at-the-village-vanguard-1962",
+  "title": "Live at the Village Vanguard",
+  "artist": "John Coltrane",
+  "year": 1962,
+  "type": "live_track",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:elvin-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Chasin' the Trane",
+      "drummer_ids": ["drummer:elvin-jones"],
+      "drums": {
+        "description": "Sixteen minutes of fast blues with no piano: snare on the ands, hi-hat foot on 2 and 4, endless conversation with Coltrane.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:elvin-jones-bishop-key-players"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "other",
+          "note": "Todd Bishop, Cruise Ship Drummer (shipdrummer.blogspot.com)"
+        }
+      ],
+      "style_key": "elvinjones",
+      "song_key": "chasin-the-trane",
+      "youtube": "https://www.youtube.com/watch?v=yjUbguqf-W8"
+    }
+  ]
+}

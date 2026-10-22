@@ -1,0 +1,26 @@
+{
+  "id": "rec:fu-manchu-king-of-the-road-1999",
+  "title": "King of the Road",
+  "artist": "Fu Manchu",
+  "year": 1999,
+  "type": "album",
+  "style_ids": ["style:stoner-rock", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brant-bjork"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Odyssey",
+      "drummer_ids": ["drummer:brant-bjork"],
+      "drums": {
+        "description": "A straight, swinging fuzz-rock backbeat, Bjork's loose punk-derived drive under the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:king-of-the-road-album-wikipedia"]
+        }
+      }
+    }
+  ]
+}

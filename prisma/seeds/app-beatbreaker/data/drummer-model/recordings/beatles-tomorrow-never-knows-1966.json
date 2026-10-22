@@ -15,6 +15,28 @@
       "why_it_matters": "Hypnotic, repeating drum figure under a drone."
     }
   ],
+  "tracks": [
+    {
+      "title": "Tomorrow Never Knows",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "A one-bar loop, heavily compressed and damped, with no snare on 4 and the high tom where it would be: a hypnotic, loop-like pattern.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tomorrow-never-knows-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "tomorrow-never-knows",
+      "youtube": "https://www.youtube.com/watch?v=m4BuziKGMy4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2649"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:melodics-ringo"]

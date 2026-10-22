@@ -1,0 +1,35 @@
+{
+  "id": "rec:miles-davis-miles-in-berlin-1965",
+  "title": "Miles in Berlin",
+  "artist": "Miles Davis",
+  "year": 1965,
+  "type": "live_track",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Autumn Leaves",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Live in Berlin: in and out of two, then implied double time on the cymbal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-goodman-2011", "src:miles-in-berlin-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "autumn-leaves",
+      "youtube": "https://www.youtube.com/watch?v=Z1_rFvM1G0Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4785959"
+        }
+      ]
+    }
+  ]
+}

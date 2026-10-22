@@ -35,6 +35,28 @@
       "kit_setup_id": "kit:neil-peart-slingerland-black-chrome"
     }
   ],
+  "tracks": [
+    {
+      "title": "La Villa Strangiato",
+      "drummer_ids": ["drummer:neil-peart"],
+      "drums": {
+        "description": "A nine-part instrumental: the hat in threes over a 3+3+2 kick, a solo section in 7/8 and a waltz in 9/8.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hemispheres-rush-album-wikipedia"]
+        }
+      },
+      "style_key": "peart",
+      "song_key": "la-villa-strangiato",
+      "youtube": "https://www.youtube.com/watch?v=hf1vcikHMWo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16588"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:peart-rush-wikipedia"]

@@ -10,5 +10,43 @@
       "drummer_id": "drummer:abe-cunningham",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "My Own Summer (Shove It)",
+      "drummer_ids": ["drummer:abe-cunningham"],
+      "drums": {
+        "description": "A heavy, syncopated groove with ghosted snare under the chug.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:around-the-fur-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=XOzs1FehYOA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=595"
+        }
+      ]
+    },
+    {
+      "title": "Be Quiet and Drive (Far Away)",
+      "drummer_ids": ["drummer:abe-cunningham"],
+      "drums": {
+        "description": "A driving, steady groove that pushes the tempo under washed guitars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:around-the-fur-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KvknOXGPzCQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13996"
+        }
+      ]
+    }
   ]
 }

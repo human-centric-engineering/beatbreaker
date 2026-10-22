@@ -38,6 +38,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Fiesta",
+      "drummer_ids": ["drummer:jack-dejohnette"],
+      "drums": {
+        "description": "A bright samba, the bass drum on 1 and the \"a\", a bell figure on top.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bishop-dejohnette-fiesta"]
+        }
+      },
+      "style_key": "dejohnette",
+      "song_key": "fiesta",
+      "youtube": "https://www.youtube.com/watch?v=rB3VO9jdKL4"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:bishop-dejohnette-fiesta"]

@@ -1,0 +1,29 @@
+{
+  "id": "rec:michel-camilo-tri-ngulo-2002",
+  "title": "Triángulo",
+  "artist": "Michel Camilo",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:horacio-hernandez"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "La Comparsa",
+      "drummer_ids": ["drummer:horacio-hernandez"],
+      "drums": {
+        "description": "Son clave on the foot under galloping hands, Lecuona's comparsa as a piano-trio burner.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:triangulo-camilo-wikipedia", "src:horacio-hernandez-wikipedia"]
+        }
+      },
+      "style_key": "horaciohernandez",
+      "song_key": "la-comparsa",
+      "youtube": "https://www.youtube.com/watch?v=dOLXfzejzLo"
+    }
+  ]
+}

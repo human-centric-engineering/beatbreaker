@@ -41,6 +41,27 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "She Got Game",
+      "drummer_ids": ["drummer:cindy-blackman-santana"],
+      "drums": {
+        "description": "The kick on the \"a\" of 2 and the 3, the hi-hats filling in sixteenths, a roll opening the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:she-got-game-2026"]
+        }
+      },
+      "style_key": "cindyblackman",
+      "song_key": "she-got-game",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3917543"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:she-got-game-2026", "src:songsterr-3917543"]

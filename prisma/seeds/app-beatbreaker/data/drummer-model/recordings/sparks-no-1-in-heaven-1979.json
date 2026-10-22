@@ -1,0 +1,33 @@
+{
+  "id": "rec:sparks-no-1-in-heaven-1979",
+  "title": "No. 1 in Heaven",
+  "artist": "Sparks",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:disco"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:keith-forsey"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Number One Song in Heaven",
+      "drummer_ids": ["drummer:keith-forsey"],
+      "drums": {
+        "description": "Live drums laid over Moroder's sequencers, a relentless disco pulse.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:no-1-in-heaven-wikipedia", "src:keith-forsey-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=P6I6yr7WDeg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2013965"
+        }
+      ]
+    }
+  ]
+}

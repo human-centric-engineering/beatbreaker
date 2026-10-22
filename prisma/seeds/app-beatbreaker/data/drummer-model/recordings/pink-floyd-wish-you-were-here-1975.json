@@ -49,6 +49,42 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Shine On You Crazy Diamond",
+      "drummer_ids": ["drummer:nick-mason"],
+      "drums": {
+        "description": "A slow 6/4 with one backbeat, on 4, and its end in 12/8.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:shine-on-you-crazy-diamond-wikipedia"]
+        }
+      },
+      "style_key": "nickmason",
+      "song_key": "shine-on-you-crazy-diamond",
+      "youtube": "https://www.youtube.com/watch?v=Tu7oq3VNgpY"
+    },
+    {
+      "title": "Have a Cigar",
+      "drummer_ids": ["drummer:nick-mason"],
+      "drums": {
+        "description": "Half time with the snare on 3, and a chorus that runs through 5/4, 2/4 and 3/4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:have-a-cigar-wikipedia"]
+        }
+      },
+      "style_key": "nickmason",
+      "song_key": "have-a-cigar",
+      "youtube": "https://www.youtube.com/watch?v=Eq8ZiZ9xiLw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=350"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:wish-you-were-here-pink-floyd-wikipedia"]

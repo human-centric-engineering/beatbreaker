@@ -1,0 +1,35 @@
+{
+  "id": "rec:slayer-christ-illusion-2006",
+  "title": "Christ Illusion",
+  "artist": "Slayer",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-lombardo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Cult",
+      "drummer_ids": ["drummer:dave-lombardo"],
+      "drums": {
+        "description": "His return to Slayer: the skank beat, the ride over eighths on the feet and a tom groove under the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:christ-illusion-wikipedia"]
+        }
+      },
+      "style_key": "lombardo",
+      "song_key": "cult",
+      "youtube": "https://www.youtube.com/watch?v=71MfQC4cOHw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=37608"
+        }
+      ]
+    }
+  ]
+}

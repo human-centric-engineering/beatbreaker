@@ -15,5 +15,25 @@
       "name": "Gary Chester",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Save the Last Dance for Me",
+      "drummer_ids": ["drummer:gary-chester"],
+      "drums": {
+        "description": "A gentle, Latin-tinged baion rhythm that gives the song its sway.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:save-the-last-dance-for-me-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BmTmF6neTTg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4518285"
+        }
+      ]
+    }
   ]
 }

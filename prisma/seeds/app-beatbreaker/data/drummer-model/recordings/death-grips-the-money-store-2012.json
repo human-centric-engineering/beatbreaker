@@ -16,5 +16,73 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Get Got",
+      "drummer_ids": ["drummer:zach-hill"],
+      "drums": {
+        "description": "A skittering, sample-based beat built from Hill's chopped acoustic and electronic drums.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-money-store-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HIrKSqb4H4A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=457883"
+        }
+      ]
+    },
+    {
+      "title": "The Fever (Aye Aye)",
+      "drummer_ids": ["drummer:zach-hill"],
+      "drums": {
+        "description": "A pounding, distorted drum loop with live fills cutting through.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-money-store-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=W43aQxzjyeM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1661909"
+        }
+      ]
+    },
+    {
+      "title": "I've Seen Footage",
+      "drummer_ids": ["drummer:zach-hill"],
+      "drums": {
+        "description": "A bright, punchy electro beat in which Hill's programming meets live drumming.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-money-store-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sticXkHxZC4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=447025"
+        }
+      ]
+    },
+    {
+      "title": "Hacker",
+      "drummer_ids": ["drummer:zach-hill"],
+      "drums": {
+        "description": "A four-on-the-floor dance beat bent by stuttering edits.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-money-store-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uoZgZT4DGSY"
+    }
   ]
 }

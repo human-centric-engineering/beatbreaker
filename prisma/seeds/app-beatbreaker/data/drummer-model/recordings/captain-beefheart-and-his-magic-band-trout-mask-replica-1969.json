@@ -12,6 +12,50 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Moonlight on Vermont",
+      "drummer_ids": ["drummer:john-french"],
+      "drums": {
+        "description": "Disjointed, tom-heavy patterns that follow the guitars' interlocking parts rather than a backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:john-french-musician-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nmOrvCno56g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6480090"
+        }
+      ]
+    },
+    {
+      "title": "Ella Guru",
+      "drummer_ids": ["drummer:john-french"],
+      "drums": {
+        "description": "Lurching, displaced beats French built from Beefheart's piano and whistled ideas.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:john-french-musician-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DsiDDtX6cdU"
+    },
+    {
+      "title": "Pachuco Cadaver",
+      "drummer_ids": ["drummer:john-french"],
+      "drums": {
+        "description": "Off-kilter tom and snare figures in shifting meters.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:john-french-musician-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OYSJ2PYrpzA"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:john-french-musician-wikipedia"]

@@ -12,6 +12,32 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Superstition",
+      "drummer_ids": ["drummer:carmine-appice"],
+      "drums": {
+        "description": "A heavy, rock interpretation of the funk groove with big fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:beck-bogert-and-appice-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=k2U7V_Mjil8"
+    },
+    {
+      "title": "Lady",
+      "drummer_ids": ["drummer:carmine-appice"],
+      "drums": {
+        "description": "Hard-driving rock with fast tom work and double-bass accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:beck-bogert-and-appice-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_4WMxtbXyj4"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:carmine-appice-wikipedia"]

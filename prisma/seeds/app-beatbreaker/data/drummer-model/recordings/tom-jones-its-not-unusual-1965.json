@@ -1,0 +1,33 @@
+{
+  "id": "rec:tom-jones-its-not-unusual-1965",
+  "title": "It's Not Unusual",
+  "artist": "Tom Jones",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:andy-white"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "It's Not Unusual",
+      "drummer_ids": ["drummer:andy-white"],
+      "drums": {
+        "description": "A punchy, swinging pop beat with a cracking snare under the brass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:its-not-unusual-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=k-HdGnzYdFQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=406601"
+        }
+      ]
+    }
+  ]
+}

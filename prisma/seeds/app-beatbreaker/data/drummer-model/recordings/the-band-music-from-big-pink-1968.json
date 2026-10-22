@@ -59,6 +59,68 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Weight",
+      "drummer_ids": ["drummer:levon-helm"],
+      "drums": {
+        "description": "Slow eighths with the kick on 1 and 3, the snare on every beat for the chorus, and a bar of silence after the stop.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:big-pink-wikipedia", "src:weight-robertson-wsj-2016"]
+        }
+      },
+      "style_key": "levonhelm",
+      "song_key": "the-weight",
+      "youtube": "https://www.youtube.com/watch?v=xLFAQuWFcTo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1115507"
+        }
+      ]
+    },
+    {
+      "title": "Chest Fever",
+      "drummer_ids": ["drummer:levon-helm"],
+      "drums": {
+        "description": "Eighths under the organ, the snare on every beat in the chorus, the riff on the toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:big-pink-wikipedia"]
+        }
+      },
+      "style_key": "levonhelm",
+      "song_key": "chest-fever",
+      "youtube": "https://www.youtube.com/watch?v=S7qqnK0Q5hk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=259774"
+        }
+      ]
+    },
+    {
+      "title": "We Can Talk",
+      "drummer_ids": ["drummer:levon-helm"],
+      "drums": {
+        "description": "Eighths with the kick on 1, 3 and the \"and\"s after, the snare on every beat in the chorus, hits with the band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:big-pink-wikipedia"]
+        }
+      },
+      "style_key": "levonhelm",
+      "song_key": "we-can-talk",
+      "youtube": "https://www.youtube.com/watch?v=PO9QDwIxyK4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5926066"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:big-pink-wikipedia"]

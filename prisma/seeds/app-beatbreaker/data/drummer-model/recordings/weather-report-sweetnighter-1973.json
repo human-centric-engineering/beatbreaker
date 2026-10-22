@@ -17,5 +17,19 @@
         "source_ids": ["src:wikipedia-dom-um-romao"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Boogie Woogie Waltz",
+      "drummer_ids": ["drummer:dom-um-romao"],
+      "drums": {
+        "description": "Hand percussion layered over a long 3/4 groove, the shakers and cuíca turning the jam into a dance.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sweetnighter-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BLCG7p_3QYM"
+    }
   ]
 }

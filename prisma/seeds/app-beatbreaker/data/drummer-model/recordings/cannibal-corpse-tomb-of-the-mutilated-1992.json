@@ -10,5 +10,43 @@
       "drummer_id": "drummer:paul-mazurkiewicz",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Hammer Smashed Face",
+      "drummer_ids": ["drummer:paul-mazurkiewicz"],
+      "drums": {
+        "description": "Thrash beats, skank beats and a slow, crushing breakdown.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:paul-mazurkiewicz-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vlgiWBCbCJk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24286"
+        }
+      ]
+    },
+    {
+      "title": "Split Wide Open",
+      "drummer_ids": ["drummer:paul-mazurkiewicz"],
+      "drums": {
+        "description": "Fast thrash beats and blasts.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:paul-mazurkiewicz-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lFEI_FYkO1U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=601986"
+        }
+      ]
+    }
   ]
 }

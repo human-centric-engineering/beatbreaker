@@ -12,6 +12,62 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Halleluhwah",
+      "drummer_ids": ["drummer:jaki-liebezeit"],
+      "drums": {
+        "description": "An 18-minute, machine-steady funk groove that defined Liebezeit's loop-like playing.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jaki-liebezeit-wikipedia", "src:tago-mago-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-ukhZgsC4vc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6477778"
+        }
+      ]
+    },
+    {
+      "title": "Mushroom",
+      "drummer_ids": ["drummer:jaki-liebezeit"],
+      "drums": {
+        "description": "A tight, minimal, tom-heavy groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jaki-liebezeit-wikipedia", "src:tago-mago-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-V0gcjFbm74",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4377546"
+        }
+      ]
+    },
+    {
+      "title": "Oh Yeah",
+      "drummer_ids": ["drummer:jaki-liebezeit"],
+      "drums": {
+        "description": "A driving, repetitive krautrock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jaki-liebezeit-wikipedia", "src:tago-mago-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6vlbJQ5ei0w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=599307"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jaki-liebezeit-wikipedia"]

@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Dig Me Out",
+      "drummer_ids": ["drummer:janet-weiss"],
+      "drums": {
+        "description": "A powerful, driving rock beat with big tom fills that anchored the band's two guitars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:janet-weiss-wikipedia", "src:dig-me-out-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pVp6A0Ufots",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=639034"
+        }
+      ]
+    },
+    {
+      "title": "Words and Guitar",
+      "drummer_ids": ["drummer:janet-weiss"],
+      "drums": {
+        "description": "A fast, pounding punk beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:janet-weiss-wikipedia", "src:dig-me-out-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0sRthyf7FX4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=53769"
+        }
+      ]
+    },
+    {
+      "title": "One More Hour",
+      "drummer_ids": ["drummer:janet-weiss"],
+      "drums": {
+        "description": "A mid-tempo beat with heavy accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:janet-weiss-wikipedia", "src:dig-me-out-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Ti1liRM6cao",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=53776"
+        }
+      ]
+    }
   ]
 }

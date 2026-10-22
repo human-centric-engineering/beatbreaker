@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Rise Above",
+      "drummer_ids": ["drummer:robo"],
+      "drums": {
+        "description": "A relentless, fast hardcore beat under the anthem.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:robo-wikipedia", "src:damaged-black-flag-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wDUYCyajDcs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2708"
+        }
+      ]
+    },
+    {
+      "title": "TV Party",
+      "drummer_ids": ["drummer:robo"],
+      "drums": {
+        "description": "A rocking, almost cartoonish mid-tempo punk beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:robo-wikipedia", "src:damaged-black-flag-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=psUOyXGacL0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22526"
+        }
+      ]
+    },
+    {
+      "title": "Six Pack",
+      "drummer_ids": ["drummer:robo"],
+      "drums": {
+        "description": "A driving, stop-start punk beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:robo-wikipedia", "src:damaged-black-flag-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hcGtNqId7eo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23396"
+        }
+      ]
+    },
+    {
+      "title": "Thirsty and Miserable",
+      "drummer_ids": ["drummer:robo"],
+      "drums": {
+        "description": "A heavy mid-tempo groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:robo-wikipedia", "src:damaged-black-flag-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=21_be6S8w6k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=792899"
+        }
+      ]
+    }
   ]
 }

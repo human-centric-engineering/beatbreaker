@@ -10,5 +10,43 @@
       "drummer_id": "drummer:brant-bjork",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Green Machine",
+      "drummer_ids": ["drummer:brant-bjork"],
+      "drums": {
+        "description": "A loose, pounding groove with swinging ride and heavy tom fills, the drums driving the downtuned riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:green-machine-song-wikipedia", "src:brant-bjork-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RhaiAEvEiFI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=40804"
+        }
+      ]
+    },
+    {
+      "title": "Thumb",
+      "drummer_ids": ["drummer:brant-bjork"],
+      "drums": {
+        "description": "A fuzzed-out shuffle with a big, open, roomy kit sound that set the stoner rock template.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blues-for-the-red-sun-wikipedia", "src:brant-bjork-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_TR2m4IfqPI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=40810"
+        }
+      ]
+    }
   ]
 }

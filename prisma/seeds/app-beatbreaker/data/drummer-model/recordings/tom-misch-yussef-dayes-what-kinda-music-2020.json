@@ -27,6 +27,88 @@
       "pattern_ids": ["pattern:yussef-dayes-what-kinda-music"]
     }
   ],
+  "tracks": [
+    {
+      "title": "What Kinda Music",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "A slow, linear groove with Tom Misch, the kick pairs landing late in the bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-drumhub-wkm"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "what-kinda-music",
+      "youtube": "https://www.youtube.com/watch?v=4az3mKDOrEo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5067845"
+        }
+      ]
+    },
+    {
+      "title": "Nightrider",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Laid back with a rim click on 2 and 4 under Tom Misch's guitar and Freddie Gibbs's verse.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:what-kinda-music-wikipedia"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "nightrider",
+      "youtube": "https://www.youtube.com/watch?v=ImllpvDwbQ8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1362779"
+        }
+      ]
+    },
+    {
+      "title": "Lift Off",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Half-time with the snare on 3 and a sixteenth ruff into the next bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yussef-dayes-songsterr-lift-off"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "lift-off",
+      "youtube": "https://www.youtube.com/watch?v=O7GaK516Wkk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6965167"
+        }
+      ]
+    },
+    {
+      "title": "Last 100",
+      "drummer_ids": ["drummer:yussef-dayes"],
+      "drums": {
+        "description": "Sixteenths on the hats over scattered rim clicks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:what-kinda-music-wikipedia"]
+        }
+      },
+      "style_key": "yussefdayes",
+      "song_key": "last-100",
+      "youtube": "https://www.youtube.com/watch?v=EO5dUydK2vU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5502539"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:yussef-dayes-wikipedia", "src:yussef-dayes-drumhub-wkm"],

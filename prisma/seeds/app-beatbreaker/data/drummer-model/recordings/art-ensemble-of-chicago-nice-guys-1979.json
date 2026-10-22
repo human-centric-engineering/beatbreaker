@@ -1,0 +1,45 @@
+{
+  "id": "rec:art-ensemble-of-chicago-nice-guys-1979",
+  "title": "Nice Guys",
+  "artist": "Art Ensemble of Chicago",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:free-jazz", "style:west-african"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:famoudou-don-moye"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Ja",
+      "drummer_ids": ["drummer:famoudou-don-moye"],
+      "drums": {
+        "description": "A light reggae-influenced groove that opens into free sections.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:nice-guys-wikipedia", "src:don-moye-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HbcsjKaNS2A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7085320"
+        }
+      ]
+    },
+    {
+      "title": "Dreaming of the Master",
+      "drummer_ids": ["drummer:famoudou-don-moye"],
+      "drums": {
+        "description": "A fast, swinging tribute groove to Miles Davis.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:nice-guys-wikipedia", "src:don-moye-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BoP0-UImSH0"
+    }
+  ]
+}

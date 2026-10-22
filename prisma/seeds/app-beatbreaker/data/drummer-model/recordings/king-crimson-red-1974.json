@@ -40,6 +40,28 @@
       "kit_setup_id": "kit:bill-bruford-hayman-ludwig-1974"
     }
   ],
+  "tracks": [
+    {
+      "title": "Red",
+      "drummer_ids": ["drummer:bill-bruford"],
+      "drums": {
+        "description": "The intro in 5/8, 6/8 and 4/4, the ride in eighths, the crash over 7/8, the bell in sixteenths.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-40562", "src:red-king-crimson-wikipedia"]
+        }
+      },
+      "style_key": "bruford",
+      "song_key": "red",
+      "youtube": "https://www.youtube.com/watch?v=7Hcxp1U2pIE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=40562"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:red-king-crimson-wikipedia"]

@@ -35,6 +35,28 @@
       "kit_setup_id": "kit:neil-peart-slingerland-chrome"
     }
   ],
+  "tracks": [
+    {
+      "title": "Fly by Night",
+      "drummer_ids": ["drummer:neil-peart"],
+      "drums": {
+        "description": "His first album with Rush: straight eighths, the hat open on the 'and's and the chorus snare and crash pushed to the 'and' of 1.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fly-by-night-wikipedia"]
+        }
+      },
+      "style_key": "peart",
+      "song_key": "fly-by-night",
+      "youtube": "https://www.youtube.com/watch?v=nEVDZl5UvN4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22536"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:peart-rush-wikipedia"]

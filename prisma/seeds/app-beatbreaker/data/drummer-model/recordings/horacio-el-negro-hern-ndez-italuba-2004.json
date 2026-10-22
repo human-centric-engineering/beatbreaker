@@ -1,0 +1,42 @@
+{
+  "id": "rec:horacio-el-negro-hern-ndez-italuba-2004",
+  "title": "Italuba",
+  "artist": "Horacio \"El Negro\" Hernández",
+  "year": 2004,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:horacio-hernandez"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "A Night in Torino (Tunisia)",
+      "drummer_ids": ["drummer:horacio-hernandez"],
+      "drums": {
+        "description": "Gillespie's tune with its Latin A section on rumba clave in the foot, the ride bell and toms.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:horacio-hernandez-wikipedia", "src:horacio-hernandez-tigerbill-cic"]
+        }
+      },
+      "style_key": "horaciohernandez",
+      "song_key": "night-in-torino",
+      "youtube": "https://www.youtube.com/watch?v=ujqclstf3Es"
+    },
+    {
+      "title": "Que Negro Está",
+      "drummer_ids": ["drummer:horacio-hernandez"],
+      "drums": {
+        "description": "A songo groove spread across kit, bell and foot clave.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:horacio-hernandez-wikipedia", "src:horacio-hernandez-tigerbill-cic"]
+        }
+      },
+      "style_key": "horaciohernandez",
+      "song_key": "que-negro-esta"
+    }
+  ]
+}

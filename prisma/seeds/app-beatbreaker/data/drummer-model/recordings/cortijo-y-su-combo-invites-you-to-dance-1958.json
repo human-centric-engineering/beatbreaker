@@ -1,0 +1,60 @@
+{
+  "id": "rec:cortijo-y-su-combo-invites-you-to-dance-1958",
+  "title": "Invites You to Dance",
+  "artist": "Cortijo y su Combo",
+  "year": 1958,
+  "type": "album",
+  "style_ids": ["style:bomba-plena", "style:salsa"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:rafael-cortijo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "El Bombón de Elena",
+      "drummer_ids": ["drummer:rafael-cortijo"],
+      "drums": {
+        "description": "Bomba rhythm scaled down for a dance combo, with Cortijo on timbal over conga and bongó behind Ismael Rivera.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:wikipedia-rafael-cortijo",
+            "src:musicbrainz-cortijo-invites-you-to-dance"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sHFFQsAXjmw"
+    },
+    {
+      "title": "Maquinolandera",
+      "drummer_ids": ["drummer:rafael-cortijo"],
+      "drums": {
+        "description": "One of the Combo's Rivera hits: Afro-Puerto Rican hand-drum patterns carried by timbal, conga and bongó instead of barrel drums.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:wikipedia-rafael-cortijo",
+            "src:musicbrainz-cortijo-invites-you-to-dance"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cT1MeThgYqE"
+    },
+    {
+      "title": "Besitos de Coco",
+      "drummer_ids": ["drummer:rafael-cortijo"],
+      "drums": {
+        "description": "A dance-floor bomba from the Combo's peak, with the percussion section at the front of the arrangement.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:wikipedia-rafael-cortijo",
+            "src:musicbrainz-cortijo-invites-you-to-dance"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SmzPYE8At-g"
+    }
+  ]
+}

@@ -34,6 +34,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Land of the Midnight Sun",
+      "drummer_ids": ["drummer:lenny-white"],
+      "drums": {
+        "description": "Sixteenths on the hat in one hand with the snare in pairs, a fast fusion groove under Di Meola's runs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:land-of-the-midnight-sun-wikipedia"]
+        }
+      },
+      "style_key": "lennywhite",
+      "song_key": "land-of-the-midnight-sun",
+      "youtube": "https://www.youtube.com/watch?v=INbJNbLD4Rw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=414449"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:land-of-the-midnight-sun-wikipedia"]

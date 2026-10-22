@@ -30,6 +30,50 @@
       "pattern_ids": ["pattern:elvin-triplet-cross-rhythm-archetype"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Resolution",
+      "drummer_ids": ["drummer:elvin-jones"],
+      "drums": {
+        "description": "Every triplet filled, accents grouped in fours across the bar, the swing as a wall of sound.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:a-love-supreme-wikipedia", "src:allsolos-elvin"]
+        }
+      },
+      "style_key": "elvinjones",
+      "song_key": "resolution",
+      "youtube": "https://www.youtube.com/watch?v=hIZFqMR1cuM"
+    },
+    {
+      "title": "Acknowledgement",
+      "drummer_ids": ["drummer:elvin-jones"],
+      "drums": {
+        "description": "Triplets round the toms over Garrison's four-note bass figure, a Latin-tinged rolling pulse.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:a-love-supreme-wikipedia", "src:wikipedia-elvin"]
+        }
+      },
+      "style_key": "elvinjones",
+      "song_key": "acknowledgement",
+      "youtube": "https://www.youtube.com/watch?v=Dmx2WuUPVcs"
+    },
+    {
+      "title": "Pursuance",
+      "drummer_ids": ["drummer:elvin-jones"],
+      "drums": {
+        "description": "The fastest swing on A Love Supreme, opening with an Elvin solo of rolling toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:a-love-supreme-wikipedia", "src:allsolos-elvin"]
+        }
+      },
+      "style_key": "elvinjones",
+      "song_key": "pursuance",
+      "youtube": "https://www.youtube.com/watch?v=aGT7AFCTpzU"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:britannica-elvin", "src:aaj-elvin"]

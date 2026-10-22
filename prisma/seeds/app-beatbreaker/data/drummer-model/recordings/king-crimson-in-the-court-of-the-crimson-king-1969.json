@@ -12,6 +12,98 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "21st Century Schizoid Man",
+      "drummer_ids": ["drummer:michael-giles"],
+      "drums": {
+        "description": "Jazz-trained fills and the fast unison breaks of the middle section, played with the precision that set the template for prog drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:21st-century-schizoid-man-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7OvW8Z7kiws",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=11391"
+        }
+      ]
+    },
+    {
+      "title": "I Talk to the Wind",
+      "drummer_ids": ["drummer:michael-giles"],
+      "drums": {
+        "description": "A soft, jazz-inflected brush and cymbal touch under the flute.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:in-the-court-of-the-crimson-king-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UlKrH07au6E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=40555"
+        }
+      ]
+    },
+    {
+      "title": "Epitaph",
+      "drummer_ids": ["drummer:michael-giles"],
+      "drums": {
+        "description": "Slow, majestic timpani-like tom rolls and cymbal swells beneath the mellotron.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:in-the-court-of-the-crimson-king-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vXrpFxHfppI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=40557"
+        }
+      ]
+    },
+    {
+      "title": "Moonchild",
+      "drummer_ids": ["drummer:michael-giles"],
+      "drums": {
+        "description": "A sparse free improvisation of cymbal and percussion colour.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:in-the-court-of-the-crimson-king-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DnYDqv8-lJE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=40552"
+        }
+      ]
+    },
+    {
+      "title": "The Court of the Crimson King",
+      "drummer_ids": ["drummer:michael-giles"],
+      "drums": {
+        "description": "A stately groove marked by snare rolls and big fills between the verses.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-court-of-the-crimson-king-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ukgraQ-xkp4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=11010"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:michael-giles-wikipedia"]

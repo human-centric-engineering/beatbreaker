@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Young Genius",
+      "drummer_ids": ["drummer:makaya-mccraven"],
+      "drums": {
+        "description": "Live improvised drumming looped and re-edited into a hip-hop-flavoured groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:universal-beings-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=g7_H2HWvACQ"
+    },
+    {
+      "title": "Atlantic Black",
+      "drummer_ids": ["drummer:makaya-mccraven"],
+      "drums": {
+        "description": "Rolling, broken-beat swing from a London session, cut into loops.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:universal-beings-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ADpwjAzNK1g"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:makaya-mccraven-wikipedia"]

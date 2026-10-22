@@ -15,5 +15,19 @@
       "name": "Terry Williams",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Teacher Teacher",
+      "drummer_ids": ["drummer:terry-williams"],
+      "drums": {
+        "description": "A driving, uptempo rock and roll beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:seconds-of-pleasure-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=65Ia4Qti6_s"
+    }
   ]
 }

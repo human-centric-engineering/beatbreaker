@@ -16,6 +16,21 @@
       "why_it_matters": "A slow, soft Africa 70 groove: his double-kick pattern played quietly under Fela's satire."
     }
   ],
+  "tracks": [
+    {
+      "title": "Lady",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "Double kicks played softly, 1 and its \"e\", 3 and its \"e\", under a half-open hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:tony-allen-poitevin"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "lady"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:tony-allen-wikipedia"]

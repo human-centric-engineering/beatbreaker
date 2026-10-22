@@ -10,5 +10,43 @@
       "drummer_id": "drummer:mikkey-dee",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Arrival",
+      "drummer_ids": ["drummer:mikkey-dee"],
+      "drums": {
+        "description": "Fast, technical heavy-metal drumming with double-bass runs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mikkey-dee-wikipedia", "src:abigail-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Ms_JY-DuItY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=40567"
+        }
+      ]
+    },
+    {
+      "title": "The Family Ghost",
+      "drummer_ids": ["drummer:mikkey-dee"],
+      "drums": {
+        "description": "A long, sectioned piece of shifting tempos and double-kick passages.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mikkey-dee-wikipedia", "src:abigail-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_wexpKeSFOQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10853"
+        }
+      ]
+    }
   ]
 }

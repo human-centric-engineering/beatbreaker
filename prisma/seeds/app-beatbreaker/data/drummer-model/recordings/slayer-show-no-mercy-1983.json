@@ -1,0 +1,35 @@
+{
+  "id": "rec:slayer-show-no-mercy-1983",
+  "title": "Show No Mercy",
+  "artist": "Slayer",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-lombardo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Black Magic",
+      "drummer_ids": ["drummer:dave-lombardo"],
+      "drums": {
+        "description": "The skank beat on open hats at 177-190 bpm with bars of plain 2 and 4, the young Lombardo already pushing thrash's speed.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-lombardo", "src:show-no-mercy-wikipedia"]
+        }
+      },
+      "style_key": "lombardo",
+      "song_key": "black-magic",
+      "youtube": "https://www.youtube.com/watch?v=9v0i9Uwij2c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17871"
+        }
+      ]
+    }
+  ]
+}

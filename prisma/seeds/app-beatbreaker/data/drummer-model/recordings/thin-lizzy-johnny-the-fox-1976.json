@@ -53,6 +53,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Don't Believe a Word",
+      "drummer_ids": ["drummer:brian-downey"],
+      "drums": {
+        "description": "A fast boogie shuffle with the kick on the bass line and stops in the verse.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:johnny-the-fox-wikipedia"]
+        }
+      },
+      "style_key": "downey",
+      "song_key": "dont-believe-a-word",
+      "youtube": "https://www.youtube.com/watch?v=XsGl-0pzEEc"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:johnny-the-fox-wikipedia"]

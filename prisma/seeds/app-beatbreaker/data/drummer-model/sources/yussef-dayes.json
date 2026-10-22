@@ -158,5 +158,21 @@
     "reliability": 0.6,
     "accessed": "2026-10-11",
     "notes": "Internal synthesis of the transcriptions above; readings off notation, not a primary source."
+  },
+  {
+    "id": "src:black-focus-wikipedia",
+    "type": "encyclopedia",
+    "title": "Black Focus - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Black_Focus",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:what-kinda-music-wikipedia",
+    "type": "encyclopedia",
+    "title": "What Kinda Music - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/What_Kinda_Music",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

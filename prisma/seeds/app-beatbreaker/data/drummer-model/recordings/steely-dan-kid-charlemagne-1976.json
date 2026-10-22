@@ -19,6 +19,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Kid Charlemagne",
+      "drummer_ids": ["drummer:bernard-purdie"],
+      "drums": {
+        "description": "Four on the floor under ghosted sixteenths, the hi-hats opening on the \"and\"s of 1 and 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-royal-scam-wikipedia"]
+        }
+      },
+      "style_key": "bernardpurdie",
+      "song_key": "kid-charlemagne",
+      "youtube": "https://www.youtube.com/watch?v=jJ9Xk-VoGqo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54434"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "likely"
   }

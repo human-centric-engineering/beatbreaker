@@ -10,5 +10,43 @@
       "drummer_id": "drummer:ken-owen",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Corporal Jigsore Quandary",
+      "drummer_ids": ["drummer:ken-owen"],
+      "drums": {
+        "description": "Blasts and thrash grooves with technical breaks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ken-owen-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=c_sQUWV4OyU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=27908"
+        }
+      ]
+    },
+    {
+      "title": "Incarnated Solvent Abuse",
+      "drummer_ids": ["drummer:ken-owen"],
+      "drums": {
+        "description": "Fast grind blasts switching to a pounding groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ken-owen-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qK6xxE39OK4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=27930"
+        }
+      ]
+    }
   ]
 }

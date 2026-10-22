@@ -41,6 +41,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Children of the Grave",
+      "drummer_ids": ["drummer:bill-ward"],
+      "drums": {
+        "description": "The gallop on the mid tom, then the crash in quarters over the riff; a bridge of triplets.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-2849", "src:master-of-reality-wikipedia"]
+        }
+      },
+      "style_key": "billward",
+      "song_key": "children-of-the-grave",
+      "youtube": "https://www.youtube.com/watch?v=zUT730G-xvA"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:master-of-reality-wikipedia"]

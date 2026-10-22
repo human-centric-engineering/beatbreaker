@@ -39,6 +39,48 @@
       "pattern_ids": ["pattern:rogertaylor-fbg-verse", "pattern:rogertaylor-dsmn-verse"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Fat Bottomed Girls",
+      "drummer_ids": ["drummer:roger-taylor"],
+      "drums": {
+        "description": "Eighths ridden on the crash, a syncopated kick under 2 and 4; toms on the beat to begin.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-17124", "src:jazz-album-wikipedia"]
+        }
+      },
+      "style_key": "rogertaylor",
+      "song_key": "fat-bottomed-girls",
+      "youtube": "https://www.youtube.com/watch?v=VMnjF1O4eH0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17124"
+        }
+      ]
+    },
+    {
+      "title": "Don't Stop Me Now",
+      "drummer_ids": ["drummer:roger-taylor"],
+      "drums": {
+        "description": "Hats in eighths over 2 and 4, a kick that pushes on the \"and\"s; the guitar solo on the ride.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-41082", "src:jazz-album-wikipedia"]
+        }
+      },
+      "style_key": "rogertaylor",
+      "song_key": "dont-stop-me-now",
+      "youtube": "https://www.youtube.com/watch?v=HgzGwKwLmgM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=41082"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:jazz-album-wikipedia"]

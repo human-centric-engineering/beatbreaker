@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Walls Come Tumbling Down!",
+      "drummer_ids": ["drummer:steve-white"],
+      "drums": {
+        "description": "Up-tempo Motown-style four-on-the-snare drive with tambourine-like hat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:walls-come-tumbling-down-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=k5HfOipwvts"
+    },
+    {
+      "title": "Internationalists",
+      "drummer_ids": ["drummer:steve-white"],
+      "drums": {
+        "description": "Busy funk groove with syncopated kick and ghost notes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:our-favourite-shop-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lNFFr8H_qKo"
+    },
+    {
+      "title": "The Lodgers",
+      "drummer_ids": ["drummer:steve-white"],
+      "drums": {
+        "description": "Smooth, light soul-funk groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:steve-white-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SN6G-vss8AQ"
+    }
   ]
 }

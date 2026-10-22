@@ -10,5 +10,67 @@
       "drummer_id": "drummer:morris-jennings",
       "name": "Morris Jennings"
     }
+  ],
+  "tracks": [
+    {
+      "title": "I Just Want to Make Love to You",
+      "drummer_ids": ["drummer:morris-jennings"],
+      "drums": {
+        "description": "Slow, heavy psychedelic-funk groove that replaces the original's blues feel with a rock backbeat under fuzz guitar.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:electric-mud-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OuWNbEtVYIc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1098787"
+        }
+      ]
+    },
+    {
+      "title": "I'm a Man (Mannish Boy)",
+      "drummer_ids": ["drummer:morris-jennings"],
+      "drums": {
+        "description": "Stop-time riff recast with a funky, rock-weight backbeat.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:electric-mud-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=E9PZ1aFiFDY"
+    },
+    {
+      "title": "Herbert Harper's Free Press News",
+      "drummer_ids": ["drummer:morris-jennings"],
+      "drums": {
+        "description": "Mid-tempo funk-rock groove with syncopated kick under wah-wah guitar.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:electric-mud-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=s-4MtSa8aoc"
+    },
+    {
+      "title": "Tom Cat",
+      "drummer_ids": ["drummer:morris-jennings"],
+      "drums": {
+        "description": "Loose funk groove with a busy hi-hat and snare ghosting.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:electric-mud-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RnK4mvFNj64",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4176626"
+        }
+      ]
+    }
   ]
 }

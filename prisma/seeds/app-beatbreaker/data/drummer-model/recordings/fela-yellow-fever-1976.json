@@ -1,0 +1,28 @@
+{
+  "id": "rec:fela-yellow-fever-1976",
+  "title": "Yellow Fever",
+  "artist": "Fela Ransome-Kuti and the Africa '70",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:afrobeat", "style:west-african", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Yellow Fever",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "A buzz roll on 4 marks each bar, over the hat and paired kicks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:fela-kuti-discography-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "yellow-fever"
+    }
+  ]
+}

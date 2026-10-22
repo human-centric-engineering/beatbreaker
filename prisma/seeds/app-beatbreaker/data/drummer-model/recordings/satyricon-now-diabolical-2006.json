@@ -1,0 +1,33 @@
+{
+  "id": "rec:satyricon-now-diabolical-2006",
+  "title": "Now, Diabolical",
+  "artist": "Satyricon",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:frost"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "K.I.N.G.",
+      "drummer_ids": ["drummer:frost"],
+      "drums": {
+        "description": "A sparse, pounding mid-tempo beat built on space and weight rather than speed.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:now-diabolical-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0AbBxqufR5M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29430"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "rec:galactic-crazyhorse-mongoose-1998",
+  "title": "Crazyhorse Mongoose",
+  "artist": "Galactic",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:new-orleans-funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stanton-moore"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hamp's Hump",
+      "drummer_ids": ["drummer:stanton-moore"],
+      "drums": {
+        "description": "Moore's greasy second-line funk with ghost-note snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:crazyhorse-mongoose-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=y9s2vH1JG3o"
+    }
+  ]
+}

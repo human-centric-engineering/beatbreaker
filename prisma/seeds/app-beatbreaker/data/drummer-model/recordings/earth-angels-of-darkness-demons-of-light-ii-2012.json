@@ -1,0 +1,29 @@
+{
+  "id": "rec:earth-angels-of-darkness-demons-of-light-ii-2012",
+  "title": "Angels of Darkness, Demons of Light II",
+  "artist": "Earth",
+  "year": 2012,
+  "type": "album",
+  "style_ids": ["style:drone-doom"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:adrienne-davies"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "His Teeth Did Brightly Shine",
+      "drummer_ids": ["drummer:adrienne-davies"],
+      "drums": {
+        "description": "Barely-there drums, soft mallet and cymbal colour within an improvised quartet.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:angels-of-darkness-ii-wikipedia"]
+        }
+      },
+      "style_key": "davies",
+      "song_key": "his-teeth-did-brightly-shine",
+      "youtube": "https://www.youtube.com/watch?v=uaq2h47fuAk"
+    }
+  ]
+}

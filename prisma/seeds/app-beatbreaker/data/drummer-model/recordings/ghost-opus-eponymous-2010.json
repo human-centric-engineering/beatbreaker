@@ -47,6 +47,48 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Ritual",
+      "drummer_ids": ["drummer:nameless-ghoul"],
+      "drums": {
+        "description": "Straight eighths on closed then open hats; the chorus on the ride, the kick on 1, the \"and\" of 2 and 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-83366", "src:ghost-opus-eponymous-wikipedia"]
+        }
+      },
+      "style_key": "ghoul",
+      "song_key": "ritual",
+      "youtube": "https://www.youtube.com/watch?v=0PakoE1eBps",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=83366"
+        }
+      ]
+    },
+    {
+      "title": "Con Clavi Con Dio",
+      "drummer_ids": ["drummer:nameless-ghoul"],
+      "drums": {
+        "description": "A fast waltz in 12/8: the snare on every pulse, the kick on the eighths between, a backbeat pre-chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-84010", "src:ghost-opus-eponymous-wikipedia"]
+        }
+      },
+      "style_key": "ghoul",
+      "song_key": "con-clavi-con-dio",
+      "youtube": "https://www.youtube.com/watch?v=RtVVyFOJd54",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=84010"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:ghost-opus-eponymous-wikipedia"]

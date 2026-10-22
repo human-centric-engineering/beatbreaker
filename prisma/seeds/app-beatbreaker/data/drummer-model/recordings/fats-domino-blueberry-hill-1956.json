@@ -9,6 +9,23 @@
     {
       "drummer_id": "drummer:idris-muhammad",
       "name": "Idris Muhammad"
+    },
+    {
+      "drummer_id": "drummer:cornelius-coleman"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Blueberry Hill",
+      "drummer_ids": ["drummer:cornelius-coleman", "drummer:idris-muhammad"],
+      "drums": {
+        "description": "Slow, rolling triplet shuffle with a heavy backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:blueberry-hill-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uZXiNgwcqaY"
     }
   ]
 }

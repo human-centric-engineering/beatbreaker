@@ -250,5 +250,29 @@
     "reliability": 0.2,
     "accessed": "2026-10-18",
     "notes": "Both aiGenerated true. Read for the devices search only, not used for patterns. King Queen: 138 rising to 190; hat eighths, kick with the riff. Maggots (https://www.songsterr.com/a/wa/song?id=652960): 165; the kick in eighths under the ride or open hat every dotted quarter, snare on the 'and' of 2."
+  },
+  {
+    "id": "src:beyond-hell-wikipedia",
+    "type": "encyclopedia",
+    "title": "Beyond Hell - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Beyond_Hell",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:bloody-pit-of-horror-wikipedia",
+    "type": "encyclopedia",
+    "title": "Bloody Pit of Horror - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Bloody_Pit_of_Horror",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:the-blood-of-gods-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Blood of Gods - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Blood_of_Gods",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

@@ -16,6 +16,28 @@
       "pattern_ids": ["pattern:mitchell-fire-archetype"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Fire",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Snare rolls and press rolls that answer every vocal line, over a fast two-beat that Mitchell keeps tipping into his jazz-trained fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-mitchell", "src:are-you-experienced-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "fire",
+      "youtube": "https://www.youtube.com/watch?v=49r6aiQpabE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=322"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:pollstar-mitchell"]

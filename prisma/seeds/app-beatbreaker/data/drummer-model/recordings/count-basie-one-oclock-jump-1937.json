@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "One O'Clock Jump",
+      "drummer_ids": ["drummer:papa-jo-jones"],
+      "drums": {
+        "description": "The Basie rhythm section's light four: Jones moved the time from the bass drum to the hi-hat, a floating pulse that swung the whole band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jo-jones-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bVZLx-Y4OV8"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jo-jones-wikipedia"]

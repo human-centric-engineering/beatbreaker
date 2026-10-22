@@ -1,0 +1,27 @@
+{
+  "id": "rec:pierre-moerlens-gong-expresso-ii-1978",
+  "title": "Expresso II",
+  "artist": "Pierre Moerlen's Gong",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pierre-moerlen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Heavy Tune",
+      "drummer_ids": ["drummer:pierre-moerlen"],
+      "drums": {
+        "description": "A heavy, funky fusion groove under Allan Holdsworth's guitar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:expresso-ii-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yzxTMn7t948"
+    }
+  ]
+}

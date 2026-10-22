@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-honeycombs-something-better-beginning-1965",
+  "title": "Something Better Beginning",
+  "artist": "The Honeycombs",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:honey-lantree"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Something Better Beginning",
+      "drummer_ids": ["drummer:honey-lantree"],
+      "drums": {
+        "description": "A Ray Davies song given to the band as their fourth single.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:honey-lantree-wikipedia", "src:the-honeycombs-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0SwB3XebAJI"
+    }
+  ]
+}

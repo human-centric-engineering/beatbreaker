@@ -38,6 +38,68 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Forty Six & 2",
+      "drummer_ids": ["drummer:danny-carey"],
+      "drums": {
+        "description": "Polyrhythmic tom patterns and a famous closing section of linear fills that cross the bar in sevens.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:carey-musicradar-2020", "src:carey-louder-2022"]
+        }
+      },
+      "style_key": "carey",
+      "song_key": "forty-six-and-2",
+      "youtube": "https://www.youtube.com/watch?v=GIuZUCpm9hc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=460731"
+        }
+      ]
+    },
+    {
+      "title": "Eulogy",
+      "drummer_ids": ["drummer:danny-carey"],
+      "drums": {
+        "description": "Odd-meter tribal tom patterns and a long build in a shifting groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:carey-louder-2022"]
+        }
+      },
+      "style_key": "carey",
+      "song_key": "eulogy",
+      "youtube": "https://www.youtube.com/watch?v=6vc9Mz2tfHM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19725"
+        }
+      ]
+    },
+    {
+      "title": "Stinkfist",
+      "drummer_ids": ["drummer:danny-carey"],
+      "drums": {
+        "description": "A tight, syncopated groove with tom fills locked to the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:carey-louder-2022", "src:danny-carey-wikipedia"]
+        }
+      },
+      "style_key": "carey",
+      "song_key": "stinkfist",
+      "youtube": "https://www.youtube.com/watch?v=6zpvlMp04D0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19811"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:tool-wikipedia", "src:carey-musicradar-2020", "src:songsterr-19725"]

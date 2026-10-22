@@ -1,0 +1,27 @@
+{
+  "id": "rec:dizzy-gillespie-and-his-orchestra-guarachi-guaro-1948",
+  "title": "Guarachi Guaro",
+  "artist": "Dizzy Gillespie and His Orchestra",
+  "year": 1948,
+  "type": "studio_track",
+  "style_ids": ["style:afro-cuban", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chano-pozo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Guarachi Guaro",
+      "drummer_ids": ["drummer:chano-pozo"],
+      "drums": {
+        "description": "Pozo's guaracha conga pattern and vocals with the Gillespie big band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-chano-pozo"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=B2Vev8qePRc"
+    }
+  ]
+}

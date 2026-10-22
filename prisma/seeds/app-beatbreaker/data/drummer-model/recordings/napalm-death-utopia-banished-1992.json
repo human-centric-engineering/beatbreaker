@@ -10,5 +10,43 @@
       "drummer_id": "drummer:danny-herrera",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "The World Keeps Turning",
+      "drummer_ids": ["drummer:danny-herrera"],
+      "drums": {
+        "description": "Grindcore blast beats alternating with a stomping mid-tempo groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:napalm-death-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vAOHQNEeDhA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=584089"
+        }
+      ]
+    },
+    {
+      "title": "Dementia Access",
+      "drummer_ids": ["drummer:danny-herrera"],
+      "drums": {
+        "description": "Relentless blasts and thrash beats, Herrera's debut with the band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:napalm-death-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AZC-jFermyE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=583940"
+        }
+      ]
+    }
   ]
 }

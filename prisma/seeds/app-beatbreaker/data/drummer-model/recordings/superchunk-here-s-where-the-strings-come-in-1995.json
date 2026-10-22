@@ -1,0 +1,36 @@
+{
+  "id": "rec:superchunk-here-s-where-the-strings-come-in-1995",
+  "title": "Here's Where the Strings Come In",
+  "artist": "Superchunk",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:indie-rock", "style:punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jon-wurster"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hyper Enough",
+      "drummer_ids": ["drummer:jon-wurster"],
+      "drums": {
+        "description": "A fast, punchy indie-rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:jon-wurster-wikipedia",
+            "src:here-s-where-the-strings-come-in-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wFdNGNYQdEk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=251988"
+        }
+      ]
+    }
+  ]
+}

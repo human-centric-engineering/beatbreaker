@@ -1,0 +1,51 @@
+{
+  "id": "rec:gentle-giant-the-power-and-the-glory-1974",
+  "title": "The Power and the Glory",
+  "artist": "Gentle Giant",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-weathers"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Proclamation",
+      "drummer_ids": ["drummer:john-weathers"],
+      "drums": {
+        "description": "A strutting, funky groove that turns into angular odd-time unisons.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-power-and-the-glory-gentle-giant-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CKPmXcWXHTU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=417036"
+        }
+      ]
+    },
+    {
+      "title": "Cogs in Cogs",
+      "drummer_ids": ["drummer:john-weathers"],
+      "drums": {
+        "description": "A fast, interlocking odd-meter part played with a hard rock attack.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-power-and-the-glory-gentle-giant-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WF-bLBMqIHY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=70977"
+        }
+      ]
+    }
+  ]
+}

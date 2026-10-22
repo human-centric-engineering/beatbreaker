@@ -17,5 +17,20 @@
         "source_ids": ["src:wikipedia-ray-barretto"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "El Watusi",
+      "artist": "Ray Barretto",
+      "drummer_ids": ["drummer:ray-barretto"],
+      "drums": {
+        "description": "A charanga groove with Barretto's conga up front, a top-twenty US hit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-ray-barretto"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=g1BhETJnEf4"
+    }
   ]
 }

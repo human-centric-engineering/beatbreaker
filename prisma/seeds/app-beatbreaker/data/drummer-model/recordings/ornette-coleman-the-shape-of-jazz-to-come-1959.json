@@ -18,6 +18,44 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Lonely Woman",
+      "drummer_ids": ["drummer:billy-higgins"],
+      "drums": {
+        "description": "Fast, light ride figures under a slow, mournful melody: two tempos at once.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-shape-of-jazz-to-come-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fkoupqNE4RA"
+    },
+    {
+      "title": "Peace",
+      "drummer_ids": ["drummer:billy-higgins"],
+      "drums": {
+        "description": "Open, gentle time that bends with the free melody.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-shape-of-jazz-to-come-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=XU-bPdz-c9I"
+    },
+    {
+      "title": "Congeniality",
+      "drummer_ids": ["drummer:billy-higgins"],
+      "drums": {
+        "description": "Fast, flowing swing that follows the free improvisation without chord changes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-shape-of-jazz-to-come-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oKIglvzNyP8"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:billy-higgins-wikipedia"]

@@ -16,6 +16,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Coffee Song",
+      "drummer_ids": ["drummer:sol-amarfio"],
+      "drums": {
+        "description": "An Afro-pop groove where kit and percussion lock into a skipping highlife pattern.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sol-amarfio-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DktHoG1CfBo"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:sol-amarfio-wikipedia"],

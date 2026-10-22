@@ -41,6 +41,42 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Si o Si",
+      "drummer_ids": ["drummer:dafnis-prieto"],
+      "drums": {
+        "description": "Opens on a layered, precise drum introduction of rims, heads and muted cymbals, a repeating drum line under the bass that mimics the melody.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:prieto-phoenix-2009", "src:prieto-jazz-com-si-o-si-review"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aOLU3wKO2hw"
+    },
+    {
+      "title": "Claveteo",
+      "drummer_ids": ["drummer:dafnis-prieto"],
+      "drums": {
+        "description": "Dedicated to the clave: the band plays the clave seen from different beats and meters, the drums superimposing it on every part.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:prieto-boston-globe-2012", "src:prieto-npr-wbgo-2009"]
+        }
+      }
+    },
+    {
+      "title": "Ilu-Uli",
+      "drummer_ids": ["drummer:dafnis-prieto"],
+      "drums": {
+        "description": "A prog-rock big beat under a stomping theme.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:prieto-phoenix-2009"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:prieto-dafnisonmusic-live-at-jazz-standard", "src:prieto-npr-wbgo-2009"]

@@ -10,5 +10,43 @@
       "drummer_id": "drummer:david-silveria",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Blind",
+      "drummer_ids": ["drummer:david-silveria"],
+      "drums": {
+        "description": "A cymbal-bell intro and a heavy, bouncing hip-hop-influenced groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:korn-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SGK00Q7xx-s",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=11194"
+        }
+      ]
+    },
+    {
+      "title": "Clown",
+      "drummer_ids": ["drummer:david-silveria"],
+      "drums": {
+        "description": "A heavy, syncopated groove with sparse cymbals.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:korn-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Fs_E9TP6cvE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10916"
+        }
+      ]
+    }
   ]
 }

@@ -16,5 +16,133 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Rock 'n' Roll Star",
+      "drummer_ids": ["drummer:tony-mccarroll"],
+      "drums": {
+        "description": "Straight, driving eighth-note rock beat with a wash of crash cymbal under the wall of guitars; the album opener.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:definitely-maybe-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3aatEBIZHNU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15701"
+        }
+      ]
+    },
+    {
+      "title": "Shakermaker",
+      "drummer_ids": ["drummer:tony-mccarroll"],
+      "drums": {
+        "description": "A plodding, deliberately simple mid-tempo beat that leaves the groove to the guitars.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:definitely-maybe-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3FpNw3286y8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49289"
+        }
+      ]
+    },
+    {
+      "title": "Live Forever",
+      "drummer_ids": ["drummer:tony-mccarroll"],
+      "drums": {
+        "description": "Opens on McCarroll's drum beat, which producer Owen Morris edited in to replace the original intro; a steady, mid-tempo backbeat throughout.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:live-forever-oasis-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TDe1DqxwJoc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49260"
+        }
+      ]
+    },
+    {
+      "title": "Columbia",
+      "drummer_ids": ["drummer:tony-mccarroll"],
+      "drums": {
+        "description": "A hypnotic, unchanging beat under droning guitars, the basic playing Morris described as almost perfectly in time.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:definitely-maybe-wikipedia", "src:tony-mccarroll-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7QyF5UdhBJI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49234"
+        }
+      ]
+    },
+    {
+      "title": "Supersonic",
+      "drummer_ids": ["drummer:tony-mccarroll"],
+      "drums": {
+        "description": "Grew out of a jam that began with McCarroll playing a lazy drumbeat; heavy, laid-back mid-tempo groove.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:supersonic-oasis-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BJKpUH2kJQg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49258"
+        }
+      ]
+    },
+    {
+      "title": "Cigarettes & Alcohol",
+      "drummer_ids": ["drummer:tony-mccarroll"],
+      "drums": {
+        "description": "A T. Rex-style boogie stomp kept plain and heavy on kick and snare.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:cigarettes-and-alcohol-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UJDK8X5K9mw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15190"
+        }
+      ]
+    },
+    {
+      "title": "Slide Away",
+      "drummer_ids": ["drummer:tony-mccarroll"],
+      "drums": {
+        "description": "A long, pounding mid-tempo track that builds to a loud final section, with plain, steady time throughout.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:definitely-maybe-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3GCSUSwcDwg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49265"
+        }
+      ]
+    }
   ]
 }

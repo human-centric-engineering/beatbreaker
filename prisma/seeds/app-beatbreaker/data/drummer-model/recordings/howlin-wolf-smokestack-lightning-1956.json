@@ -1,0 +1,33 @@
+{
+  "id": "rec:howlin-wolf-smokestack-lightning-1956",
+  "title": "Smokestack Lightning",
+  "artist": "Howlin' Wolf",
+  "year": 1956,
+  "type": "studio_track",
+  "style_ids": ["style:blues"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-phillips"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Smokestack Lightning",
+      "drummer_ids": ["drummer:earl-phillips"],
+      "drums": {
+        "description": "Propulsive, hypnotic beat under a one-chord vamp, keeping a steady train-like drive for the whole record.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:smokestack-lightning-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VMUt8KdDtTY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=198050"
+        }
+      ]
+    }
+  ]
+}

@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Maggie May",
+      "drummer_ids": ["drummer:micky-waller"],
+      "drums": {
+        "description": "Simple, swinging backbeat played without cymbals, which could not be found at the session; the cymbals were overdubbed afterwards.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:maggie-may-wikipedia", "src:micky-waller-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=m2CQ0FvAZuw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23220"
+        }
+      ]
+    },
+    {
+      "title": "Every Picture Tells a Story",
+      "drummer_ids": ["drummer:micky-waller"],
+      "drums": {
+        "description": "Starts with acoustic guitar, then Waller enters with a loose, rolling rock groove and busy fills that grow with the song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:every-picture-tells-a-story-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=X0LD8kXKuT4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=241548"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:micky-waller-wikipedia"]

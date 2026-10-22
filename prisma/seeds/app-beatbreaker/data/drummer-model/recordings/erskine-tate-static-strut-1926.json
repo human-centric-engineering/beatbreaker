@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Static Strut",
+      "drummer_ids": ["drummer:jimmy-bertrand"],
+      "drums": {
+        "description": "Bertrand's woodblock and cymbal accents, the drummer who taught Lionel Hampton.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jimmy-bertrand-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LJOl016gbVY"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:jimmy-bertrand-wikipedia"]

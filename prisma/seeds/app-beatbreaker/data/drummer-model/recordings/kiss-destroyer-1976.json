@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Detroit Rock City",
+      "drummer_ids": ["drummer:peter-criss"],
+      "drums": {
+        "description": "A galloping shuffle-rock groove with a swung feel under the twin-guitar harmony.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:peter-criss-wikipedia", "src:destroyer-kiss-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Dz4EFziVkNE"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:peter-criss-wikipedia", "src:destroyer-kiss-album-wikipedia"]

@@ -1,0 +1,33 @@
+{
+  "id": "rec:darkthrone-panzerfaust-1995",
+  "title": "Panzerfaust",
+  "artist": "Darkthrone",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fenriz"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "En vind av sorg",
+      "drummer_ids": ["drummer:fenriz"],
+      "drums": {
+        "description": "A slow-to-mid-tempo, punk-tinged pounding beat with few fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:panzerfaust-darkthrone-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=G--1pEF3SKo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5310"
+        }
+      ]
+    }
+  ]
+}

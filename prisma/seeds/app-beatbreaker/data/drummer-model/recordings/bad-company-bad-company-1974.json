@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Can't Get Enough",
+      "drummer_ids": ["drummer:simon-kirke"],
+      "drums": {
+        "description": "A straight, laid-back rock backbeat with a big quarter-note crash; feel over flash.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:simon-kirke-wikipedia", "src:bad-company-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Iq1l8jy4hIU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=26189"
+        }
+      ]
+    },
+    {
+      "title": "Bad Company",
+      "drummer_ids": ["drummer:simon-kirke"],
+      "drums": {
+        "description": "A slow, brooding half-time groove with dramatic tom fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:simon-kirke-wikipedia", "src:bad-company-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7-VXzyzaGVc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2229"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:simon-kirke-wikipedia"]

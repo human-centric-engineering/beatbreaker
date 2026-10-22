@@ -1,0 +1,33 @@
+{
+  "id": "rec:echo-and-the-bunnymen-porcupine-1983",
+  "title": "Porcupine",
+  "artist": "Echo & the Bunnymen",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:post-punk", "style:new-wave"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pete-de-freitas"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Cutter",
+      "drummer_ids": ["drummer:pete-de-freitas"],
+      "drums": {
+        "description": "A punchy, driving beat with tom fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:porcupine-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3fKwo8qlkJE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=572352"
+        }
+      ]
+    }
+  ]
+}

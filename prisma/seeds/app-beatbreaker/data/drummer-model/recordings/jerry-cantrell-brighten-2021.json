@@ -15,5 +15,43 @@
       "name": "Abe Laboriel Jr.",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Atone",
+      "drummer_ids": ["drummer:abe-laboriel-jr"],
+      "drums": {
+        "description": "A heavy, spacious rock groove under the western-tinged riff.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:brighten-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MiwFuOBKkfQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2152898"
+        }
+      ]
+    },
+    {
+      "title": "Brighten",
+      "drummer_ids": ["drummer:abe-laboriel-jr"],
+      "drums": {
+        "description": "A steady, mid-tempo rock groove with crashing accents on the chorus.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:brighten-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jH8Z9j0ajek",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3381112"
+        }
+      ]
+    }
   ]
 }

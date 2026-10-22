@@ -15,5 +15,61 @@
       "name": "John Guerin",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Help Me",
+      "drummer_ids": ["drummer:john-guerin"],
+      "drums": {
+        "description": "Light, jazzy time with brushes and soft fills, following Mitchell’s phrasing rather than a set groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:court-and-spark-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=otPQDEbVsc4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=413715"
+        }
+      ]
+    },
+    {
+      "title": "Free Man in Paris",
+      "drummer_ids": ["drummer:john-guerin"],
+      "drums": {
+        "description": "A relaxed pop-rock groove with jazz touches on hi-hat and snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:court-and-spark-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Krn56Ye5_pw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2500775"
+        }
+      ]
+    },
+    {
+      "title": "Raised on Robbery",
+      "drummer_ids": ["drummer:john-guerin"],
+      "drums": {
+        "description": "A brisk rock-and-roll shuffle, the drums pushing the band harder than the rest of the album.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:court-and-spark-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UQGU7JHb688",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3790495"
+        }
+      ]
+    }
   ]
 }

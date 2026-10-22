@@ -35,6 +35,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Summertime Blues",
+      "drummer_ids": ["drummer:earl-palmer"],
+      "drums": {
+        "description": "Straight eighths on the hat, the band stopping on 1 and on the \"and\" of 4 for the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-490820", "src:summertime-blues-wikipedia"]
+        }
+      },
+      "style_key": "earlpalmer",
+      "song_key": "summertime-blues",
+      "youtube": "https://www.youtube.com/watch?v=1C38Zevwyx4"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:summertime-blues-wikipedia"]

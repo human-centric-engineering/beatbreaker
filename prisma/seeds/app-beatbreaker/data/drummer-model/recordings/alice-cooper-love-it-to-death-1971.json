@@ -1,0 +1,33 @@
+{
+  "id": "rec:alice-cooper-love-it-to-death-1971",
+  "title": "Love It to Death",
+  "artist": "Alice Cooper",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:glam-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neal-smith"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "I'm Eighteen",
+      "drummer_ids": ["drummer:neal-smith"],
+      "drums": {
+        "description": "A slow, heavy groove that builds into a crashing chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:love-it-to-death-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OSxuXsyanCI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=25002"
+        }
+      ]
+    }
+  ]
+}

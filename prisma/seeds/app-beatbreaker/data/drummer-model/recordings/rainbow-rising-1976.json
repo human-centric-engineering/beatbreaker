@@ -12,6 +12,62 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Stargazer",
+      "drummer_ids": ["drummer:cozy-powell"],
+      "drums": {
+        "description": "Opens with Powell's solo tom-and-kick intro, then a slow, massive march under the orchestra that defined his heavy, open-handed sound.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:cozy-powell-wikipedia", "src:rising-rainbow-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rVXy1OhaERY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23663"
+        }
+      ]
+    },
+    {
+      "title": "A Light in the Black",
+      "drummer_ids": ["drummer:cozy-powell"],
+      "drums": {
+        "description": "A fast double-kick gallop held for over eight minutes, a showcase of Powell's stamina and power.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:cozy-powell-wikipedia", "src:rising-rainbow-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KikLLLeyVOk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=78711"
+        }
+      ]
+    },
+    {
+      "title": "Tarot Woman",
+      "drummer_ids": ["drummer:cozy-powell"],
+      "drums": {
+        "description": "A tight, punchy mid-tempo groove with big tom fills after the synth intro.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cozy-powell-wikipedia", "src:rising-rainbow-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dDO-Kk9956g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=78710"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:cozy-powell-wikipedia", "src:rising-rainbow-album-wikipedia"]

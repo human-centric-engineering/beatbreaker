@@ -1,0 +1,33 @@
+{
+  "id": "rec:aswad-rise-and-shine-1994",
+  "title": "Rise and Shine",
+  "artist": "Aswad",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:drummie-zeb"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Shine",
+      "drummer_ids": ["drummer:drummie-zeb"],
+      "drums": {
+        "description": "A bright, radio-friendly reggae-pop beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:rise-and-shine-aswad-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UEgoi3VQFDI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=438527"
+        }
+      ]
+    }
+  ]
+}

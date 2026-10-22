@@ -12,6 +12,19 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Movin' In",
+      "drummer_ids": ["drummer:specs-powell"],
+      "drums": {
+        "description": "Powell's own date: crisp, swinging studio time from a session regular.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:specs-powell-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:specs-powell-wikipedia"]

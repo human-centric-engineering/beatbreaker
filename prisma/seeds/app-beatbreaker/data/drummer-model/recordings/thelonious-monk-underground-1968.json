@@ -18,6 +18,50 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Ugly Beauty",
+      "drummer_ids": ["drummer:ben-riley"],
+      "drums": {
+        "description": "Quiet, unhurried support in Monk's only waltz, a ballad that asks the drummer to hold back.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:underground-monk-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GuoIJA7_Tm0"
+    },
+    {
+      "title": "Raise Four",
+      "drummer_ids": ["drummer:ben-riley"],
+      "drums": {
+        "description": "Swings a blues hard with steady ride and sparse bass-drum drops.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:underground-monk-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0KArkmkGwpw"
+    },
+    {
+      "title": "Green Chimneys",
+      "drummer_ids": ["drummer:ben-riley"],
+      "drums": {
+        "description": "A nine-minute medium swing held even and unfussy beneath Monk and Charlie Rouse.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:underground-monk-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=10cYHU9j31Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6653283"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ben-riley-wikipedia"]

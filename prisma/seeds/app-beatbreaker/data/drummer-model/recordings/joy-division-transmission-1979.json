@@ -39,6 +39,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Transmission",
+      "drummer_ids": ["drummer:stephen-morris"],
+      "drums": {
+        "description": "Sixteenths on the hat with the snare in its gaps, a relentless two-bar pair all song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:transmission-song-wikipedia",
+            "src:songsterr-39985",
+            "src:joy-division-wikipedia"
+          ]
+        }
+      },
+      "style_key": "stephenmorris",
+      "song_key": "transmission",
+      "youtube": "https://www.youtube.com/watch?v=6dBt3mJtgJc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=39985"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:joy-division-wikipedia"]

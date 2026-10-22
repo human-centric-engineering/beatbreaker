@@ -59,6 +59,42 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Soul Sacrifice",
+      "drummer_ids": ["drummer:michael-shrieve"],
+      "drums": {
+        "description": "At Woodstock, aged 20: riding the crash on the beat with the congas, then a solo built on snare triplets and toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:soul-sacrifice-wikipedia", "src:michael-shrieve-wikipedia"]
+        }
+      },
+      "style_key": "shrieve",
+      "song_key": "soul-sacrifice",
+      "youtube": "https://www.youtube.com/watch?v=iFvLDAU6EhA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17533"
+        }
+      ]
+    },
+    {
+      "title": "Fried Neckbones and Some Home Fries",
+      "drummer_ids": ["drummer:michael-shrieve"],
+      "drums": {
+        "description": "The ride in eighths with crashes on 1 and the and of 2, the Woodstock set's jam.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:michael-shrieve-wikipedia", "src:michael-shrieve-ultimatesantana"]
+        }
+      },
+      "style_key": "shrieve",
+      "song_key": "fried-neck-bones",
+      "youtube": "https://www.youtube.com/watch?v=dke84YMCFs0"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:michael-shrieve-wikipedia", "src:songsterr-1621352"]

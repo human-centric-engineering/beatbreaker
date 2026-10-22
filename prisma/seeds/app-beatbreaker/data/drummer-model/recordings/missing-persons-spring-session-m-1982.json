@@ -12,6 +12,38 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Words",
+      "drummer_ids": ["drummer:terry-bozzio"],
+      "drums": {
+        "description": "A tight new wave groove with machine-like precision and electronic tom colours.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:spring-session-m-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=21MTd8GHHLs"
+    },
+    {
+      "title": "Destination Unknown",
+      "drummer_ids": ["drummer:terry-bozzio"],
+      "drums": {
+        "description": "A driving, synth-pop rock beat with precise fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:spring-session-m-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Zt5WpNZj9QI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=681360"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:terry-bozzio-wikipedia"]

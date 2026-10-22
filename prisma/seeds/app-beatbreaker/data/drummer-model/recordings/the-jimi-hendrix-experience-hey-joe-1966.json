@@ -1,0 +1,55 @@
+{
+  "id": "rec:the-jimi-hendrix-experience-hey-joe-1966",
+  "title": "Hey Joe",
+  "artist": "The Jimi Hendrix Experience",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:psychedelic-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mitch-mitchell"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hey Joe",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Starts sparse and builds: ride and snare drags under the verses, rolling tom fills climbing with the descending chords.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-mitchell"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "hey-joe",
+      "youtube": "https://www.youtube.com/watch?v=rXwMrBb2x1Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22556"
+        }
+      ]
+    },
+    {
+      "title": "Stone Free",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Fast, busy beat with cowbell and a stream of snare fills, the B-side of Hey Joe.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stone-free-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "stone-free",
+      "youtube": "https://www.youtube.com/watch?v=66COu2TpcyQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9281"
+        }
+      ]
+    }
+  ]
+}

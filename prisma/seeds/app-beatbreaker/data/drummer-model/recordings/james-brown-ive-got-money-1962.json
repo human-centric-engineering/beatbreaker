@@ -10,5 +10,19 @@
       "drummer_id": "drummer:clayton-fillyau",
       "name": "Clayton Fillyau"
     }
+  ],
+  "tracks": [
+    {
+      "title": "I've Got Money",
+      "drummer_ids": ["drummer:clayton-fillyau"],
+      "drums": {
+        "description": "Busy, syncopated sixteenth-note snare and kick figures, cited as one of the first funk drum patterns.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:charles-hungry-williams-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7svRcrmykcY"
+    }
   ]
 }

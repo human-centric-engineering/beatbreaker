@@ -1,0 +1,27 @@
+{
+  "id": "rec:count-basie-and-his-orchestra-swingin-the-blues-1938",
+  "title": "Swingin' the Blues",
+  "artist": "Count Basie and His Orchestra",
+  "year": 1938,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:papa-jo-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Swingin' the Blues",
+      "drummer_ids": ["drummer:papa-jo-jones"],
+      "drums": {
+        "description": "An uptempo blues where the hi-hat carries the beat and the bass drum only accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:count-basie-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Gh8q19pjKL0"
+    }
+  ]
+}

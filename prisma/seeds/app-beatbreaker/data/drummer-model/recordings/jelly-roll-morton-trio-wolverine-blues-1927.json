@@ -1,0 +1,27 @@
+{
+  "id": "rec:jelly-roll-morton-trio-wolverine-blues-1927",
+  "title": "Wolverine Blues",
+  "artist": "Jelly Roll Morton Trio",
+  "year": 1927,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:baby-dodds"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Wolverine Blues",
+      "drummer_ids": ["drummer:baby-dodds"],
+      "drums": {
+        "description": "Trio with Johnny Dodds: Baby Dodds alone carrying the rhythm with press rolls and cymbal.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wolverine-blues-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8HoIJOHbXSs"
+    }
+  ]
+}

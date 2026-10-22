@@ -48,6 +48,28 @@
       "pattern_ids": ["pattern:selway-there-there"]
     }
   ],
+  "tracks": [
+    {
+      "title": "There There",
+      "drummer_ids": ["drummer:phil-selway"],
+      "drums": {
+        "description": "The floor tom in eighths with a cross-stick on 2 and 4, the toms answering, with extra drummers on the record.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hail-to-the-thief-wikipedia"]
+        }
+      },
+      "style_key": "selway",
+      "song_key": "there-there",
+      "youtube": "https://www.youtube.com/watch?v=7AQSLozK7aA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17056"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:hail-to-the-thief-wikipedia"]

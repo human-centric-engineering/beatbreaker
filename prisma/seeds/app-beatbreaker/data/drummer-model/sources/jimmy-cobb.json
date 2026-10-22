@@ -97,5 +97,45 @@
     "reliability": 0.3,
     "accessed": "2026-10-20",
     "notes": "Posters (c. 2010) on which cymbal is heard on which track: 'On So What we mostly hear cymbal 1'; cymbal 2 'can also be heard on So What during the 1st theme, played with brushes'; his main ride described as an 18in old K. Zildjian with a 20in A. Zildjian for accents. Anecdotal."
+  },
+  {
+    "id": "src:at-newport-1958-wikipedia",
+    "type": "encyclopedia",
+    "title": "At Newport 1958 - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/At_Newport_1958",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:so-what-miles-davis-composition-wikipedia",
+    "type": "encyclopedia",
+    "title": "So What (Miles Davis composition) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/So_What_(Miles_Davis_composition)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:freddie-freeloader-wikipedia",
+    "type": "encyclopedia",
+    "title": "Freddie Freeloader - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Freddie_Freeloader",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:naima-wikipedia",
+    "type": "encyclopedia",
+    "title": "Naima - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Naima",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:smokin-at-the-half-note-wikipedia",
+    "type": "encyclopedia",
+    "title": "Smokin' at the Half Note - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Smokin'_at_the_Half_Note",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

@@ -51,6 +51,28 @@
       "pattern_ids": ["pattern:selway-creep"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Creep",
+      "drummer_ids": ["drummer:phil-selway"],
+      "drums": {
+        "description": "The kick on 1, the \"a\" of 2 and the \"and\" of 3, and the chorus on the ride.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:creep-radiohead-wikipedia"]
+        }
+      },
+      "style_key": "selway",
+      "song_key": "creep",
+      "youtube": "https://www.youtube.com/watch?v=XFkzRNyygfk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=97"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:pablo-honey-wikipedia"]

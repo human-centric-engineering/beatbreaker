@@ -10,5 +10,43 @@
       "drummer_id": "drummer:chris-reifert",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Zombie Ritual",
+      "drummer_ids": ["drummer:chris-reifert"],
+      "drums": {
+        "description": "Fast thrash beats switching to pounding mid-tempo sections, the raw template of early death metal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:chris-reifert-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Igumc9Qf2Yc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6317"
+        }
+      ]
+    },
+    {
+      "title": "Scream Bloody Gore",
+      "drummer_ids": ["drummer:chris-reifert"],
+      "drums": {
+        "description": "Hammering skank beats and double-time thrash under Schuldiner's riffs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chris-reifert-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GvGnCyXf47I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5987"
+        }
+      ]
+    }
   ]
 }

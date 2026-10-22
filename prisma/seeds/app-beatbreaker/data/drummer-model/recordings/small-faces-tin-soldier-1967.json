@@ -47,6 +47,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Tin Soldier",
+      "drummer_ids": ["drummer:kenney-jones"],
+      "drums": {
+        "description": "The verse in eighths, the snare on every beat for the chorus, crashes on every beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-247832", "src:small-faces-wikipedia"]
+        }
+      },
+      "style_key": "kenneyjones",
+      "song_key": "tin-soldier",
+      "youtube": "https://www.youtube.com/watch?v=2aH4ODP8oHQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=247832"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:small-faces-wikipedia"]

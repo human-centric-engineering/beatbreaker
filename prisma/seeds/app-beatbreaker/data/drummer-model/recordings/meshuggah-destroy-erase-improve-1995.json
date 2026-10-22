@@ -37,6 +37,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Future Breed Machine",
+      "drummer_ids": ["drummer:tomas-haake"],
+      "drums": {
+        "description": "The china on the beat in 4/4 over the riff's odd cycle on the feet, then double bass under it.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-13389", "src:destroy-erase-improve-wikipedia"]
+        }
+      },
+      "style_key": "haake",
+      "song_key": "future-breed-machine",
+      "youtube": "https://www.youtube.com/watch?v=AP9412LFP0o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13389"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:meshuggah-wikipedia", "src:songsterr-13389"]

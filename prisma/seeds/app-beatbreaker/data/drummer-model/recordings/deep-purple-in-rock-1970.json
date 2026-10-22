@@ -43,6 +43,46 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Speed King",
+      "drummer_ids": ["drummer:ian-paice"],
+      "drums": {
+        "description": "The crash in quarters at full tilt, then the ride and a wandering cross-stick under the duel.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-5568", "src:poole-setting-the-paice-2025"]
+        }
+      },
+      "style_key": "paice",
+      "song_key": "speed-king",
+      "youtube": "https://www.youtube.com/watch?v=nDyO7jTIKDc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5568"
+        }
+      ]
+    },
+    {
+      "title": "Child in Time",
+      "drummer_ids": ["drummer:ian-paice"],
+      "drums": {
+        "description": "A slow build from quiet ride cymbal to a hard-rock climax, then a fast instrumental section driven from the kit.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:in-rock-wikipedia", "src:paice-moderndrummer-2020"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OorZcOzNcgE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22833"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:in-rock-wikipedia"]

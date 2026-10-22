@@ -39,6 +39,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Feeling This",
+      "drummer_ids": ["drummer:travis-barker"],
+      "drums": {
+        "description": "Open hi-hats on the beats, the kick a dotted quarter apart, a cowbell in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:feeling-this-wikipedia"]
+        }
+      },
+      "style_key": "barker",
+      "song_key": "feeling-this",
+      "youtube": "https://www.youtube.com/watch?v=4kMZ23T9VHE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3281"
+        }
+      ]
+    },
+    {
+      "title": "I Miss You",
+      "drummer_ids": ["drummer:travis-barker"],
+      "drums": {
+        "description": "One brushed drum-and-bass bar looped through the song, ghosts in pairs round the snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-miss-you-wikipedia"]
+        }
+      },
+      "style_key": "barker",
+      "song_key": "i-miss-you",
+      "youtube": "https://www.youtube.com/watch?v=s1tAYmMjLdY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1386"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:blink-182-album-wikipedia"]

@@ -1,0 +1,27 @@
+{
+  "id": "rec:covenant-nexus-polaris-1998",
+  "title": "Nexus Polaris",
+  "artist": "Covenant",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hellhammer"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Bizarre Cosmic Industries",
+      "drummer_ids": ["drummer:hellhammer"],
+      "drums": {
+        "description": "Fast blasts and double-kick under symphonic keyboards.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:nexus-polaris-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FdTZawYDwNk"
+    }
+  ]
+}

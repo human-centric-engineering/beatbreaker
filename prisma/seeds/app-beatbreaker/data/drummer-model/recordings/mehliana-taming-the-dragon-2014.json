@@ -11,6 +11,32 @@
       "why_it_matters": "Duo with Brad Mehldau."
     }
   ],
+  "tracks": [
+    {
+      "title": "Taming the Dragon",
+      "drummer_ids": ["drummer:mark-guiliana"],
+      "drums": {
+        "description": "Guiliana's live electronic-music vocabulary: looping, glitch-like kit patterns under Brad Mehldau's synths.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mehliana-taming-the-dragon-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HHNnKyLYM84"
+    },
+    {
+      "title": "Hungry Ghost",
+      "drummer_ids": ["drummer:mark-guiliana"],
+      "drums": {
+        "description": "Tight, repetitive drum-and-bass figures with sudden stutters, played acoustically against synth bass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mehliana-taming-the-dragon-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tn6gjoMUEY4"
+    }
+  ],
   "release": "Nonesuch",
   "evidence": {
     "confidence": "widely_reported",

@@ -1,0 +1,27 @@
+{
+  "id": "rec:spoonie-gee-love-rap-1980",
+  "title": "Love Rap",
+  "artist": "Spoonie Gee",
+  "year": 1980,
+  "type": "studio_track",
+  "style_ids": ["style:hip-hop-breakbeat", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pumpkin"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Love Rap",
+      "drummer_ids": ["drummer:pumpkin"],
+      "drums": {
+        "description": "A raw, live funky drum break that carries the whole track.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:pumpkin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cv2ReNgW8I0"
+    }
+  ]
+}

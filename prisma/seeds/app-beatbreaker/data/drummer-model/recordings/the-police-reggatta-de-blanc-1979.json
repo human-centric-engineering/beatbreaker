@@ -1,0 +1,75 @@
+{
+  "id": "rec:the-police-reggatta-de-blanc-1979",
+  "title": "Reggatta de Blanc",
+  "artist": "The Police",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:new-wave", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stewart-copeland"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Reggatta de Blanc",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "A rim-click figure through his tape echo over the hi-hat foot, then rock on the ride and open hats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:reggatta-de-blanc-wikipedia", "src:musicradar-copeland-howto"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "reggatta-de-blanc",
+      "youtube": "https://www.youtube.com/watch?v=GN-nXWHkVpA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=60328"
+        }
+      ]
+    },
+    {
+      "title": "Bring On the Night",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Sixteenth hi-hats opening on the \"and\"s of 2 and 4 over a kick on 2 and 4, and no snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:reggatta-de-blanc-wikipedia", "src:musicradar-copeland-howto"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "bring-on-the-night",
+      "youtube": "https://www.youtube.com/watch?v=YVgWQyGOTvk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15968"
+        }
+      ]
+    },
+    {
+      "title": "The Bed's Too Big Without You",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "A shaker keeps time while the snare skanks on the \"and\"s.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:reggatta-de-blanc-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "the-beds-too-big",
+      "youtube": "https://www.youtube.com/watch?v=hOhf0ouriGM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14882"
+        }
+      ]
+    }
+  ]
+}

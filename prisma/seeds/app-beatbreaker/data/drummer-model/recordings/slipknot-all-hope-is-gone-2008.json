@@ -64,6 +64,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Psychosocial",
+      "drummer_ids": ["drummer:joey-jordison"],
+      "drums": {
+        "description": "A tom bar every fourth, crash quarters in the chorus, a half-time breakdown with fours on the kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-19615", "src:all-hope-is-gone-wikipedia"]
+        }
+      },
+      "style_key": "jordison",
+      "song_key": "psychosocial",
+      "youtube": "https://www.youtube.com/watch?v=5abamRO41fE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19615"
+        }
+      ]
+    },
+    {
+      "title": "Gematria (The Killing Name)",
+      "drummer_ids": ["drummer:joey-jordison"],
+      "drums": {
+        "description": "Double bass under hats and china, a skank on the bell, the snare on 1 and 3 in the solos, a slower breakdown.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:all-hope-is-gone-wikipedia", "src:bonedo-jordison-workshop"]
+        }
+      },
+      "style_key": "jordison",
+      "song_key": "gematria",
+      "youtube": "https://www.youtube.com/watch?v=mSDwgb8ZIyk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=79755"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:all-hope-is-gone-wikipedia"]

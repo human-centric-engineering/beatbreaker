@@ -1,0 +1,27 @@
+{
+  "id": "rec:anthrax-and-public-enemy-attack-of-the-killer-bs-1991",
+  "title": "Attack of the Killer B's",
+  "artist": "Anthrax and Public Enemy",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:hardcore-punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charlie-benante"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Bring the Noise",
+      "drummer_ids": ["drummer:charlie-benante"],
+      "drums": {
+        "description": "A rap-metal crossover groove, Benante's heavy funk-metal backbeat under Chuck D's verses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bring-the-noise-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YhpAcD8HI2g"
+    }
+  ]
+}

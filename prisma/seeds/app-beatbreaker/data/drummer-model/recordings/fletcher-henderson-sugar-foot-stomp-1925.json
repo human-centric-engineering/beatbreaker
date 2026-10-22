@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Sugar Foot Stomp",
+      "drummer_ids": ["drummer:kaiser-marshall"],
+      "drums": {
+        "description": "Marshall's crisp, swinging two-beat time, among the first big-band drumming.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:kaiser-marshall-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tUXlnU_z-xU"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:kaiser-marshall-wikipedia"]

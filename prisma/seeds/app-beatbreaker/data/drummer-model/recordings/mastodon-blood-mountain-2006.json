@@ -1,0 +1,51 @@
+{
+  "id": "rec:mastodon-blood-mountain-2006",
+  "title": "Blood Mountain",
+  "artist": "Mastodon",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brann-dailor"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Colony of Birchmen",
+      "drummer_ids": ["drummer:brann-dailor"],
+      "drums": {
+        "description": "A stomping, swung groove with tumbling fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:colony-of-birchmen-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VQo9bwQ2rQc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23957"
+        }
+      ]
+    },
+    {
+      "title": "The Wolf Is Loose",
+      "drummer_ids": ["drummer:brann-dailor"],
+      "drums": {
+        "description": "Blazing double-bass and snare runs at breakneck tempo.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:blood-mountain-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5lvWMimAiko",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22812"
+        }
+      ]
+    }
+  ]
+}

@@ -10,5 +10,24 @@
       "drummer_id": "drummer:brann-dailor",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Oblivion",
+      "drummer_ids": ["drummer:brann-dailor"],
+      "drums": {
+        "description": "Dailor sings lead over his own shifting, fill-heavy groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:oblivion-mastodon-song-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24130"
+        }
+      ]
+    }
   ]
 }

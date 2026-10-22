@@ -1,0 +1,27 @@
+{
+  "id": "rec:bo-diddley-pretty-thing-1955",
+  "title": "Pretty Thing",
+  "artist": "Bo Diddley",
+  "year": 1955,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clifton-james"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Pretty Thing",
+      "drummer_ids": ["drummer:clifton-james"],
+      "drums": {
+        "description": "The Bo Diddley beat again, loose and rolling.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bo-diddley-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CACm90mk1GE"
+    }
+  ]
+}

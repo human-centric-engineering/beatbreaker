@@ -1,0 +1,46 @@
+{
+  "id": "rec:the-staple-singers-be-altitude-respect-yourself-1972",
+  "title": "Be Altitude: Respect Yourself",
+  "artist": "The Staple Singers",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-hawkins"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "I'll Take You There",
+      "drummer_ids": ["drummer:roger-hawkins"],
+      "drums": {
+        "description": "A reggae-tinged, loping groove borrowed from 'The Liquidator', the drums laid back with a light hat and a deep pocket.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ill-take-you-there-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=IhHBr7nMMio"
+    },
+    {
+      "title": "Respect Yourself",
+      "year": 1971,
+      "drummer_ids": ["drummer:roger-hawkins"],
+      "drums": {
+        "description": "A funky, mid-tempo groove with syncopated kick and crisp snare, the Muscle Shoals Rhythm Section at its tightest.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:respect-yourself-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=10Rw7tf3QzM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=847496"
+        }
+      ]
+    }
+  ]
+}

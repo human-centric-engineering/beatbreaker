@@ -10,5 +10,43 @@
       "drummer_id": "drummer:pete-sandoval",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Fear of Napalm",
+      "drummer_ids": ["drummer:pete-sandoval"],
+      "drums": {
+        "description": "Grindcore blasts and hardcore beats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blast-beat-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yJbXfG9wGOo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=357506"
+        }
+      ]
+    },
+    {
+      "title": "Dead Shall Rise",
+      "drummer_ids": ["drummer:pete-sandoval"],
+      "drums": {
+        "description": "Blast beats between heavy mid-tempo parts.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:blast-beat-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4W2ZjDfLiW4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=419709"
+        }
+      ]
+    }
   ]
 }

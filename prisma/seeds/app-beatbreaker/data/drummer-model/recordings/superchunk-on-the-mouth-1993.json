@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Precision Auto",
+      "drummer_ids": ["drummer:jon-wurster"],
+      "drums": {
+        "description": "A blazing, fast indie-punk beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jon-wurster-wikipedia", "src:on-the-mouth-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FgaZGl_G8Nw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1229464"
+        }
+      ]
+    },
+    {
+      "title": "Package Thief",
+      "drummer_ids": ["drummer:jon-wurster"],
+      "drums": {
+        "description": "A fast, driving beat with tight fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jon-wurster-wikipedia", "src:on-the-mouth-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SCRCTqGDo_U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7005426"
+        }
+      ]
+    }
   ]
 }

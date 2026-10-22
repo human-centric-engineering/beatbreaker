@@ -53,6 +53,21 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Blah Blah Blah",
+      "drummer_ids": ["drummer:dafnis-prieto"],
+      "drums": {
+        "description": "A second line in bars alternating 4/4 and 5/4, the kick every third sixteenth, slightly swung (published transcription in DRUM!).",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:prieto-drum-2015-blah-transcription", "src:prieto-drum-magazine-2015"]
+        }
+      },
+      "style_key": "prieto",
+      "song_key": "blah-blah-blah"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

@@ -10,5 +10,19 @@
       "drummer_id": "drummer:roger-hawkins",
       "name": "Roger Hawkins"
     }
+  ],
+  "tracks": [
+    {
+      "title": "When a Man Loves a Woman",
+      "drummer_ids": ["drummer:roger-hawkins"],
+      "drums": {
+        "description": "A slow 6/8 church-ballad feel, the snare dragging behind the beat and the cymbal swells following the organ.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:when-a-man-loves-a-woman-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KwPxhWU1koE"
+    }
   ]
 }

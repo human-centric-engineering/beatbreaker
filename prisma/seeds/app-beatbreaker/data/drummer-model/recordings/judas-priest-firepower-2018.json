@@ -1,0 +1,33 @@
+{
+  "id": "rec:judas-priest-firepower-2018",
+  "title": "Firepower",
+  "artist": "Judas Priest",
+  "year": 2018,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:scott-travis"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Firepower",
+      "drummer_ids": ["drummer:scott-travis"],
+      "drums": {
+        "description": "A fast, crushing double-bass metal beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:scott-travis-wikipedia", "src:firepower-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6QtjdDiMLVg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=441404"
+        }
+      ]
+    }
+  ]
+}

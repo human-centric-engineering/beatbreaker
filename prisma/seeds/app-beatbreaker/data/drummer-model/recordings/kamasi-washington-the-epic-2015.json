@@ -11,6 +11,38 @@
       "why_it_matters": "Drums on Washington's breakthrough triple album."
     }
   ],
+  "tracks": [
+    {
+      "title": "Change of the Guard",
+      "drummer_ids": ["drummer:ronald-bruner-jr"],
+      "drums": {
+        "description": "Fast, explosive jazz drumming in a two-drummer band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ronald-bruner-jr-wikipedia", "src:the-epic-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DEkg0Sf836k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3321898"
+        }
+      ]
+    },
+    {
+      "title": "Re Run Home",
+      "drummer_ids": ["drummer:ronald-bruner-jr"],
+      "drums": {
+        "description": "A funky, driving jazz groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ronald-bruner-jr-wikipedia", "src:the-epic-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=E7bqnGkyxM8"
+    }
+  ],
   "release": "Brainfeeder",
   "evidence": {
     "confidence": "widely_reported",

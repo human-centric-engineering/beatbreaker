@@ -1,0 +1,33 @@
+{
+  "id": "rec:muse-the-resistance-2009",
+  "title": "The Resistance",
+  "artist": "Muse",
+  "year": 2009,
+  "type": "album",
+  "style_ids": ["style:alternative-rock", "style:progressive-rock", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dominic-howard"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Uprising",
+      "drummer_ids": ["drummer:dominic-howard"],
+      "drums": {
+        "description": "A stomping glam-rock shuffle with a heavy, plodding backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-resistance-muse-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=w8KQmps-Sog",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29482"
+        }
+      ]
+    }
+  ]
+}

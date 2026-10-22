@@ -1,0 +1,29 @@
+{
+  "id": "rec:tony-williams-civilization-1987",
+  "title": "Civilization",
+  "artist": "Tony Williams",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Citadel",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "The 1980s quintet: hard bop, big rimshots, the hat foot back on 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-williams-bluenote", "src:civilization-tony-williams-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "citadel",
+      "youtube": "https://www.youtube.com/watch?v=207zlKwypdI"
+    }
+  ]
+}

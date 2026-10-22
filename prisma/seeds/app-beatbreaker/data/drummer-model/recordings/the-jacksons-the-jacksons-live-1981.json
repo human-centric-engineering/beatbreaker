@@ -1,0 +1,57 @@
+{
+  "id": "rec:the-jacksons-the-jacksons-live-1981",
+  "title": "The Jacksons Live!",
+  "artist": "The Jacksons",
+  "year": 1981,
+  "type": "live_track",
+  "style_ids": ["style:rnb-soul", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jonathan-moffett"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Can You Feel It",
+      "drummer_ids": ["drummer:jonathan-moffett"],
+      "drums": {
+        "description": "The stadium version of the Triumph opener, with the accents and one-handed cymbal catches he used to mark Michael's moves.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-jacksons-live-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lrKZNqIR2U0"
+    },
+    {
+      "title": "Don't Stop 'Til You Get Enough",
+      "drummer_ids": ["drummer:jonathan-moffett"],
+      "drums": {
+        "description": "Disco-funk taken live at a driving tempo, with quick, articulate kick-drum figures under the four-on-the-floor.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-jacksons-live-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=w1zVtPwU7Wg"
+    },
+    {
+      "title": "Shake Your Body (Down to the Ground)",
+      "drummer_ids": ["drummer:jonathan-moffett"],
+      "drums": {
+        "description": "The show-closer: a relentless dance groove stretched out live, the precision-and-stamina kick work he was nicknamed for.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-jacksons-live-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-qBqHnevIn4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6598110"
+        }
+      ]
+    }
+  ]
+}

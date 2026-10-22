@@ -34,6 +34,88 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Gathering Sky",
+      "drummer_ids": ["drummer:antonio-sanchez"],
+      "drums": {
+        "description": "\"3-4 samba, sort of\": ride eighths, the hat foot on the \"and\"s.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sanchez-gathering-sky-lesson", "src:speaking-of-now-wikipedia"]
+        }
+      },
+      "style_key": "sanchez",
+      "song_key": "the-gathering-sky",
+      "youtube": "https://www.youtube.com/watch?v=aKTErkLjlbs"
+    },
+    {
+      "title": "The Gathering Sky (drum solo)",
+      "drummer_ids": ["drummer:antonio-sanchez"],
+      "drums": {
+        "description": "A 3-2 rumba clave on the hi-hat foot, the hands soloing over it.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sanchez-gathering-sky-lesson"]
+        }
+      },
+      "style_key": "sanchez",
+      "song_key": "the-gathering-sky-solo",
+      "youtube": "https://www.youtube.com/watch?v=5Zylg_TN24I"
+    },
+    {
+      "title": "You",
+      "drummer_ids": ["drummer:antonio-sanchez"],
+      "drums": {
+        "description": "Ride eighths and paired sixteenths, the snare on the \"and\" of 2 and on 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-you-3523898", "src:speaking-of-now-wikipedia"]
+        }
+      },
+      "style_key": "sanchez",
+      "song_key": "you",
+      "youtube": "https://www.youtube.com/watch?v=qo6qOSQ2TLk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3523898"
+        }
+      ]
+    },
+    {
+      "title": "Afternoon",
+      "drummer_ids": ["drummer:antonio-sanchez"],
+      "drums": {
+        "description": "A two-bar kick and snare figure under the hat in eighths, later the ride.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-afternoon-4251855", "src:speaking-of-now-wikipedia"]
+        }
+      },
+      "style_key": "sanchez",
+      "song_key": "afternoon",
+      "youtube": "https://www.youtube.com/watch?v=NjAik5peESI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4251855"
+        }
+      ]
+    },
+    {
+      "title": "As It Is",
+      "drummer_ids": ["drummer:antonio-sanchez"],
+      "drums": {
+        "description": "A building straight-eighth ballad groove that swells with the band, transcribed by hand from the live version.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-as-it-is-3929744", "src:speaking-of-now-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Iz-0dvg7lX8"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

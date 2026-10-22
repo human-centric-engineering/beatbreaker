@@ -1,0 +1,33 @@
+{
+  "id": "rec:kool-and-the-gang-light-of-worlds-1974",
+  "title": "Light of Worlds",
+  "artist": "Kool & the Gang",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:funk", "style:disco"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:george-brown"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Summer Madness",
+      "drummer_ids": ["drummer:george-brown"],
+      "drums": {
+        "description": "A soft, slow, hazy groove under the synth melody.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:light-of-worlds-wikipedia", "src:george-brown-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2SFt7JHwJeg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=632568"
+        }
+      ]
+    }
+  ]
+}

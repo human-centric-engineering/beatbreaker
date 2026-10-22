@@ -39,6 +39,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Rockin' Robin",
+      "drummer_ids": ["drummer:earl-palmer"],
+      "drums": {
+        "description": "The kick and the hat foot alone in the verse, then a shuffle on the ride in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-1632363", "src:rockin-robin-wikipedia"]
+        }
+      },
+      "style_key": "earlpalmer",
+      "song_key": "rockin-robin",
+      "youtube": "https://www.youtube.com/watch?v=E6yGhe2gQxw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1632363"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:rockin-robin-wikipedia"]

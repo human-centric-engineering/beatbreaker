@@ -15,5 +15,25 @@
       "name": "Larrie Londin",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Seven Year Ache",
+      "drummer_ids": ["drummer:larrie-londin"],
+      "drums": {
+        "description": "A relaxed, clean backbeat with a light hi-hat, rock-inflected country of the early '80s.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:larrie-londin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=miIqI9Gql9M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=242382"
+        }
+      ]
+    }
   ]
 }

@@ -16,5 +16,19 @@
       "drummer_role": "co_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Abfackeln!",
+      "drummer_ids": ["drummer:fm-einheit"],
+      "drums": {
+        "description": "Metal and power-tool percussion.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fm-einheit-wikipedia", "src:zeichnungen-des-patienten-o-t-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-29bMKeu-mk"
+    }
   ]
 }

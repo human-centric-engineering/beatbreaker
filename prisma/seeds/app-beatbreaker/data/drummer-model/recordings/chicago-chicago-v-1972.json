@@ -1,0 +1,33 @@
+{
+  "id": "rec:chicago-chicago-v-1972",
+  "title": "Chicago V",
+  "artist": "Chicago",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:danny-seraphine"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Saturday in the Park",
+      "drummer_ids": ["drummer:danny-seraphine"],
+      "drums": {
+        "description": "A bright, bouncing pop-rock beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:danny-seraphine-wikipedia", "src:chicago-v-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GOJHauJ1wzQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=416170"
+        }
+      ]
+    }
+  ]
+}

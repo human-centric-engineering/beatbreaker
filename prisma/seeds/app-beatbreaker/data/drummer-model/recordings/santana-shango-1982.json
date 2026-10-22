@@ -1,0 +1,33 @@
+{
+  "id": "rec:santana-shango-1982",
+  "title": "Shangó",
+  "artist": "Santana",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:salsa", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:orestes-vilato"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hold On",
+      "drummer_ids": ["drummer:orestes-vilato"],
+      "drums": {
+        "description": "Timbale and percussion colour on a pop-rock single.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:shango-santana-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=e3PZ-Mju5Hk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17489"
+        }
+      ]
+    }
+  ]
+}

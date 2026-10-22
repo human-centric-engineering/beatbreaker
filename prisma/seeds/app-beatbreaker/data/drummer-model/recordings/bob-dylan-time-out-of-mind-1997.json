@@ -1,0 +1,45 @@
+{
+  "id": "rec:bob-dylan-time-out-of-mind-1997",
+  "title": "Time Out of Mind",
+  "artist": "Bob Dylan",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-blade"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Love Sick",
+      "drummer_ids": ["drummer:brian-blade"],
+      "drums": {
+        "description": "Paired with Jim Keltner under Daniel Lanois's production, a hushed, hypnotic pulse.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:time-out-of-mind-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5y_VTtGujPI"
+    },
+    {
+      "title": "Not Dark Yet",
+      "drummer_ids": ["drummer:brian-blade"],
+      "drums": {
+        "description": "A slow, steady beat with Jim Keltner, the drums in the haze of the mix.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:time-out-of-mind-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FJ1bzKISLBw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=371254"
+        }
+      ]
+    }
+  ]
+}

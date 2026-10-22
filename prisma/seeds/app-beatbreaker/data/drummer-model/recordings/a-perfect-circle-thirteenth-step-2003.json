@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Weak and Powerless",
+      "drummer_ids": ["drummer:josh-freese"],
+      "drums": {
+        "description": "A tight, mid-tempo syncopated groove with precise hi-hat work under the clean guitar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:thirteenth-step-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=s-GsLh6dazI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=912"
+        }
+      ]
+    },
+    {
+      "title": "The Outsider",
+      "drummer_ids": ["drummer:josh-freese"],
+      "drums": {
+        "description": "A driving, punchy hard-rock beat with tight fills into the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:thirteenth-step-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nzyNWyZhUS0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24543"
+        }
+      ]
+    },
+    {
+      "title": "The Noose",
+      "drummer_ids": ["drummer:josh-freese"],
+      "drums": {
+        "description": "Quiet, patient playing that builds slowly to a heavy climax.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:thirteenth-step-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ngZvHBUdYYY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1208"
+        }
+      ]
+    }
   ]
 }

@@ -295,5 +295,53 @@
     "reliability": 0.7,
     "accessed": "2026-10-18",
     "notes": "Lively Up Yourself, Is This Love and Get Up, Stand Up watched as frames: Carly at the kit at about 4:52 of Lively Up Yourself in a white printed T-shirt, short natural hair, a moustache and beard; a row of toms over the bass drum, chrome stands, cymbals on booms."
+  },
+  {
+    "id": "src:stir-it-up-wikipedia",
+    "type": "encyclopedia",
+    "title": "Stir It Up - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Stir_It_Up",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:get-up-stand-up-wikipedia",
+    "type": "encyclopedia",
+    "title": "Get Up, Stand Up - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Get_Up,_Stand_Up",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:no-woman-no-cry-wikipedia",
+    "type": "encyclopedia",
+    "title": "No Woman, No Cry - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/No_Woman,_No_Cry",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:waiting-in-vain-wikipedia",
+    "type": "encyclopedia",
+    "title": "Waiting in Vain - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Waiting_in_Vain",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:three-little-birds-wikipedia",
+    "type": "encyclopedia",
+    "title": "Three Little Birds - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Three_Little_Birds",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:is-this-love-bob-marley-and-the-wailers-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Is This Love (Bob Marley and the Wailers song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Is_This_Love_(Bob_Marley_and_the_Wailers_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

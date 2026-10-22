@@ -1,0 +1,33 @@
+{
+  "id": "rec:einsturzende-neubauten-haus-der-luge-1989",
+  "title": "Haus der Lüge",
+  "artist": "Einstürzende Neubauten",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:industrial", "style:experimental-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fm-einheit"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Feurio!",
+      "drummer_ids": ["drummer:fm-einheit"],
+      "drums": {
+        "description": "A driving industrial pattern on metal percussion.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fm-einheit-wikipedia", "src:haus-der-luge-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qd8O8wG5cJI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5656476"
+        }
+      ]
+    }
+  ]
+}

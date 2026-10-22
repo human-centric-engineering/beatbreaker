@@ -84,6 +84,7 @@
   },
   "beatbreaker": {
     "group": "Hip-hop and neo-soul drummers",
-    "build_priority": 3
+    "build_priority": 3,
+    "songs_short_because": "15-b sweep (2026-10-22): Thin: fewer than 5 songs where the drummer is confirmed on a named track; others left out under \"if unsure, leave it out\"."
   }
 }

@@ -51,6 +51,56 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Aux armes et cætera",
+      "drummer_ids": ["drummer:sly-dunbar"],
+      "drums": {
+        "description": "A reggae Marseillaise: one-drop and rockers grooves under Gainsbourg, with Sly's tom-and-snare intros.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:aux-armes-et-caetera-wikipedia", "src:sly-dunbar-bishop-intros"]
+        }
+      },
+      "style_key": "slydunbar",
+      "song_key": "aux-armes",
+      "youtube": "https://www.youtube.com/watch?v=8ty_J2xKf34"
+    },
+    {
+      "title": "Lola Rastaquouère",
+      "drummer_ids": ["drummer:sly-dunbar"],
+      "drums": {
+        "description": "A rockers groove with steady four-on-the-floor kick and open-hat accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:aux-armes-et-caetera-wikipedia"]
+        }
+      },
+      "style_key": "slydunbar",
+      "song_key": "lola-rastaquouere",
+      "youtube": "https://www.youtube.com/watch?v=1DILYgZdZhE"
+    },
+    {
+      "title": "Les Locataires",
+      "drummer_ids": ["drummer:sly-dunbar"],
+      "drums": {
+        "description": "A rolling one-drop with rim clicks and syndrum-tinged fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:aux-armes-et-caetera-wikipedia", "src:sly-dunbar-bishop-intros"]
+        }
+      },
+      "style_key": "slydunbar",
+      "song_key": "les-locataires",
+      "youtube": "https://www.youtube.com/watch?v=xyuN_gc-vp8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4177378"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:aux-armes-et-caetera-wikipedia"]

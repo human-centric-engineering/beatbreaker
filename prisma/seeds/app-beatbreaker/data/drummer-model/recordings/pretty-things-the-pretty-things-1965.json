@@ -12,6 +12,56 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Road Runner",
+      "drummer_ids": ["drummer:viv-prince"],
+      "drums": {
+        "description": "The Bo Diddley beat, hammered on toms with a loose, driving feel that opens the debut album.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-pretty-things-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WPthGzDVo3E"
+    },
+    {
+      "title": "Big City",
+      "drummer_ids": ["drummer:viv-prince"],
+      "drums": {
+        "description": "Up-tempo British R&B from the debut, played with the raw, loud attack the album is known for.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-pretty-things-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LMEO7wsE6gA"
+    },
+    {
+      "title": "Mama, Keep Your Big Mouth Shut",
+      "drummer_ids": ["drummer:viv-prince"],
+      "drums": {
+        "description": "A Bo Diddley song, taken in the album's loud, raw R&B style.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-pretty-things-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dMAR-NGBI6c"
+    },
+    {
+      "title": "13 Chester Street",
+      "drummer_ids": ["drummer:viv-prince"],
+      "drums": {
+        "description": "Band original from the debut, in the same raw, loud R&B style.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-pretty-things-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3DQt7RRGbdM"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:viv-prince-wikipedia"]

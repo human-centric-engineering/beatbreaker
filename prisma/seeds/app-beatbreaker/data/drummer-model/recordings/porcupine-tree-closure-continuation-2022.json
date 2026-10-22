@@ -34,6 +34,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Harridan",
+      "drummer_ids": ["drummer:gavin-harrison"],
+      "drums": {
+        "description": "In 5/4, hat quarters over a busy kick, then the chorus crash in threes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:closure-continuation-wikipedia"]
+        }
+      },
+      "style_key": "harrison",
+      "song_key": "harridan",
+      "youtube": "https://www.youtube.com/watch?v=8pavnAi7lNk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=581744"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:gavin-harrison-wikipedia", "src:songsterr-581744"]

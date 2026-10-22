@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Stop!",
+      "drummer_ids": ["drummer:stephen-perkins"],
+      "drums": {
+        "description": "A fast, driving rock beat with a sudden stop and accelerations around the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ritual-de-lo-habitual-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wVnRfJzHkYo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=38897"
+        }
+      ]
+    },
+    {
+      "title": "Been Caught Stealing",
+      "drummer_ids": ["drummer:stephen-perkins"],
+      "drums": {
+        "description": "A bouncy, funky mid-tempo groove that sits behind the walking bass line.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ritual-de-lo-habitual-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NQodZqKnxrg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=38898"
+        }
+      ]
+    },
+    {
+      "title": "Ain't No Right",
+      "drummer_ids": ["drummer:stephen-perkins"],
+      "drums": {
+        "description": "A fast, aggressive punk-funk drive.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ritual-de-lo-habitual-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sRXYQtws9mY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10638"
+        }
+      ]
+    },
+    {
+      "title": "Three Days",
+      "drummer_ids": ["drummer:stephen-perkins"],
+      "drums": {
+        "description": "A long epic: a tom-heavy tribal pattern that builds through tempo changes to a climax.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ritual-de-lo-habitual-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QimlMkyR4fI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=38908"
+        }
+      ]
+    }
   ]
 }

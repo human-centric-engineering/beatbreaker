@@ -15,5 +15,25 @@
       "name": "Dennis Wilson",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Surfin' Safari",
+      "drummer_ids": ["drummer:dennis-wilson"],
+      "drums": {
+        "description": "A simple, energetic surf beat, Wilson on the band's early records before the session players.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:surfin-safari-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tMnqV26Njxo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=26374"
+        }
+      ]
+    }
   ]
 }

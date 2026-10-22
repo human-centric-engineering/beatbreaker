@@ -16,5 +16,37 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Radio Free Europe",
+      "drummer_ids": ["drummer:bill-berry"],
+      "drums": {
+        "description": "Straight eighths on the hi-hat and a firm snare backbeat that push the murky debut single along at a brisk, unfussy clip.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:murmur-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Ac0oaXhz1u8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=408760"
+        }
+      ]
+    },
+    {
+      "title": "Talk About the Passion",
+      "drummer_ids": ["drummer:bill-berry"],
+      "drums": {
+        "description": "A restrained mid-tempo backbeat that stays out of the way of the ringing guitar arpeggios and cello.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:murmur-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zCMy6kq5ZA0"
+    }
   ]
 }

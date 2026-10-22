@@ -17,5 +17,19 @@
         "source_ids": ["src:wikipedia-manny-oquendo"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Mozambique",
+      "drummer_ids": ["drummer:manny-oquendo"],
+      "drums": {
+        "description": "The new mozambique rhythm on timbales and bell, adapted from Pello el Afrokán.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-manny-oquendo"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sx5IdXaf7D0"
+    }
   ]
 }

@@ -26,6 +26,102 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Get Lucky",
+      "drummer_ids": ["drummer:omar-hakim"],
+      "drums": {
+        "description": "A live disco groove with a tight four-on-the-floor kick and an open, syncopated hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:get-lucky-wikipedia", "src:random-access-memories-wikipedia"]
+        }
+      },
+      "style_key": "hakim",
+      "song_key": "get-lucky",
+      "youtube": "https://www.youtube.com/watch?v=5NV6Rdv1a3I"
+    },
+    {
+      "title": "Giorgio by Moroder",
+      "drummer_ids": ["drummer:omar-hakim"],
+      "drums": {
+        "description": "Starts on a sequencer pulse and opens into an acoustic drum build and free jazz-fusion soloing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:random-access-memories-wikipedia", "src:wikipedia-hakim"]
+        }
+      },
+      "style_key": "hakim",
+      "song_key": "giorgio-by-moroder",
+      "youtube": "https://www.youtube.com/watch?v=zhl-Cs1-sG4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=405392"
+        }
+      ]
+    },
+    {
+      "title": "Contact",
+      "drummer_ids": ["drummer:omar-hakim"],
+      "drums": {
+        "description": "A crescendo of crashing, ever-busier drums that ends the album, Hakim playing over a looping sample.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:random-access-memories-wikipedia"]
+        }
+      },
+      "style_key": "hakim",
+      "song_key": "contact",
+      "youtube": "https://www.youtube.com/watch?v=ZbbTmR6Xaag",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=390281"
+        }
+      ]
+    },
+    {
+      "title": "Fragments of Time",
+      "drummer_ids": ["drummer:omar-hakim"],
+      "drums": {
+        "description": "A soft-rock, West Coast groove with a gentle half-open hat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:random-access-memories-wikipedia"]
+        }
+      },
+      "style_key": "hakim",
+      "song_key": "fragments-of-time",
+      "youtube": "https://www.youtube.com/watch?v=_ScM9pKlCfo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=415921"
+        }
+      ]
+    },
+    {
+      "title": "Beyond",
+      "drummer_ids": ["drummer:omar-hakim"],
+      "drums": {
+        "description": "A slow, laid-back groove with sparse tom colour after the orchestral intro.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:random-access-memories-wikipedia"]
+        }
+      },
+      "style_key": "hakim",
+      "song_key": "beyond",
+      "youtube": "https://www.youtube.com/watch?v=3T0NqvdUiWI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=415923"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:roland-hakim"],

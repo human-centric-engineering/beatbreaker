@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-beach-boys-do-it-again-1968",
+  "title": "Do It Again",
+  "artist": "The Beach Boys",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dennis-wilson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Do It Again",
+      "drummer_ids": ["drummer:dennis-wilson"],
+      "drums": {
+        "description": "A heavily compressed, echoed beat whose processed drum sound opens the song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:do-it-again-the-beach-boys-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=N3pt519I1pw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=169758"
+        }
+      ]
+    }
+  ]
+}

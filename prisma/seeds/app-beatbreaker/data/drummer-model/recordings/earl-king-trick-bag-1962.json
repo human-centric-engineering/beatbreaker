@@ -10,5 +10,19 @@
       "drummer_id": "drummer:smokey-johnson",
       "name": "Smokey Johnson"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Trick Bag",
+      "drummer_ids": ["drummer:smokey-johnson"],
+      "drums": {
+        "description": "Rolling New Orleans shuffle with syncopated bass drum.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:smokey-johnson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=W0LK5OHlV2M"
+    }
   ]
 }

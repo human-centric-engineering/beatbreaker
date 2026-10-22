@@ -1,0 +1,33 @@
+{
+  "id": "rec:frank-zappa-the-man-from-utopia-1983",
+  "title": "The Man from Utopia",
+  "artist": "Frank Zappa",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chad-wackerman"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Cocaine Decisions",
+      "drummer_ids": ["drummer:chad-wackerman"],
+      "drums": {
+        "description": "A tight rock groove with sudden accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-man-from-utopia-wikipedia", "src:chad-wackerman-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6eyeP-TJlGs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2932063"
+        }
+      ]
+    }
+  ]
+}

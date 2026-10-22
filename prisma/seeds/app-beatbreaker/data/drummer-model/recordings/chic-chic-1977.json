@@ -38,6 +38,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Everybody Dance",
+      "drummer_ids": ["drummer:tony-thompson"],
+      "drums": {
+        "description": "Sixteenths on the hat round the snare over four on the floor, the chorus opened on the 'and's.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:everybody-dance-chic-song-wikipedia", "src:songsterr-3850"]
+        }
+      },
+      "style_key": "tonythompson",
+      "song_key": "everybody-dance",
+      "youtube": "https://www.youtube.com/watch?v=ZUgDqdrujRs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3850"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:tony-thompson-wikipedia", "src:chic-wikipedia"]

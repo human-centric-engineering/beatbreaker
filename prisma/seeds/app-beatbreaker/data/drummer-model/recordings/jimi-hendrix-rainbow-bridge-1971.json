@@ -1,0 +1,55 @@
+{
+  "id": "rec:jimi-hendrix-rainbow-bridge-1971",
+  "title": "Rainbow Bridge",
+  "artist": "Jimi Hendrix",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mitch-mitchell"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Dolly Dagger",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A funky, shuffling groove with snare ghost notes and quick fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rainbow-bridge-album-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "dolly-dagger",
+      "youtube": "https://www.youtube.com/watch?v=-E2A60WslXg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22549"
+        }
+      ]
+    },
+    {
+      "title": "Hear My Train A Comin'",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A slow live blues at Berkeley, swinging triplets building to crashing climaxes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rainbow-bridge-album-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "hear-my-train",
+      "youtube": "https://www.youtube.com/watch?v=EX5phFmbrU8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2439642"
+        }
+      ]
+    }
+  ]
+}

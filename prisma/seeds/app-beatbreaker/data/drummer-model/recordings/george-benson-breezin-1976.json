@@ -15,5 +15,37 @@
       "name": "Harvey Mason",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Breezin'",
+      "drummer_ids": ["drummer:harvey-mason"],
+      "drums": {
+        "description": "A smooth, light sixteenth-note groove: the studio funk feel that defined smooth jazz.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:breezin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RcDD57K-k5I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2749"
+        }
+      ]
+    },
+    {
+      "title": "This Masquerade",
+      "drummer_ids": ["drummer:harvey-mason"],
+      "drums": {
+        "description": "A gentle backbeat with soft ghosting under Benson’s voice and guitar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:breezin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=j9W0g3NGSj4"
+    }
   ]
 }

@@ -15,5 +15,43 @@
       "name": "Manu Katché",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Englishman in New York",
+      "drummer_ids": ["drummer:manu-katche"],
+      "drums": {
+        "description": "A light, jazz-tinged reggae-pop groove with crisp rimshots, breaking into a hip-hop beat in the bridge.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:nothing-like-the-sun-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=d27gTrPPAyk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18977"
+        }
+      ]
+    },
+    {
+      "title": "Fragile",
+      "drummer_ids": ["drummer:manu-katche"],
+      "drums": {
+        "description": "A delicate, sparse part with gentle rim and cymbal colours.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:nothing-like-the-sun-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lB6a-iD6ZOY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23952"
+        }
+      ]
+    }
   ]
 }

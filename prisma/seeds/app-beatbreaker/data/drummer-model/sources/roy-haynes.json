@@ -205,5 +205,13 @@
     "reliability": 0.5,
     "accessed": "2026-10-15",
     "notes": "His signature snare. Search summary."
+  },
+  {
+    "id": "src:the-blues-and-the-abstract-truth-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Blues and the Abstract Truth - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Blues_and_the_Abstract_Truth",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

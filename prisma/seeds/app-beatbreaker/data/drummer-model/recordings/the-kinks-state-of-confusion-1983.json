@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-kinks-state-of-confusion-1983",
+  "title": "State of Confusion",
+  "artist": "The Kinks",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-avory"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Come Dancing",
+      "drummer_ids": ["drummer:mick-avory"],
+      "drums": {
+        "description": "A nervy, music-hall-flavoured pop groove; Ray Davies singled out Avory's drum performance on it.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:come-dancing-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xRUE0aAI5o8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=426868"
+        }
+      ]
+    }
+  ]
+}

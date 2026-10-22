@@ -1,0 +1,27 @@
+{
+  "id": "rec:donald-byrd-places-and-spaces-1975",
+  "title": "Places and Spaces",
+  "artist": "Donald Byrd",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:harvey-mason"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Change (Makes You Want to Hustle)",
+      "drummer_ids": ["drummer:harvey-mason"],
+      "drums": {
+        "description": "A disco-funk groove with open hi-hat lifts, from his Mizell-produced session work.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:places-and-spaces-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ESIEvtPseRY"
+    }
+  ]
+}

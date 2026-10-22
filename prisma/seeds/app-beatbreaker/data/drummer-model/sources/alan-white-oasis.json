@@ -124,5 +124,29 @@
     "reliability": 0.5,
     "accessed": "2026-10-21",
     "notes": "Human, revision 343968, 2018; 143 bars at 80. The kick on 1, its 'and', the 'and' of 2, 3, its 'and' and the 'and' of 4 all song, a ghost on the snare after each backbeat; hats in the verse, the ride in the chorus."
+  },
+  {
+    "id": "src:standing-on-the-shoulder-of-giants-wikipedia",
+    "type": "encyclopedia",
+    "title": "Standing on the Shoulder of Giants - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Standing_on_the_Shoulder_of_Giants",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wonderwall-wikipedia-oasis",
+    "type": "encyclopedia",
+    "title": "Wonderwall (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Wonderwall_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:dont-look-back-in-anger-wikipedia",
+    "type": "encyclopedia",
+    "title": "Don't Look Back in Anger - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Don%27t_Look_Back_in_Anger",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

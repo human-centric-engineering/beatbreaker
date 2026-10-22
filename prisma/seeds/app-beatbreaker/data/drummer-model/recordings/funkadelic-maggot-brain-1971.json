@@ -1,0 +1,51 @@
+{
+  "id": "rec:funkadelic-maggot-brain-1971",
+  "title": "Maggot Brain",
+  "artist": "Funkadelic",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:funk", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tiki-fulwood"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hit It and Quit It",
+      "drummer_ids": ["drummer:tiki-fulwood"],
+      "drums": {
+        "description": "A heavy, hard funk-rock groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tiki-fulwood-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8wQBffjTt8c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1528438"
+        }
+      ]
+    },
+    {
+      "title": "Super Stupid",
+      "drummer_ids": ["drummer:tiki-fulwood"],
+      "drums": {
+        "description": "A pounding hard-rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tiki-fulwood-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=12D0tMzxH4A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=36140"
+        }
+      ]
+    }
+  ]
+}

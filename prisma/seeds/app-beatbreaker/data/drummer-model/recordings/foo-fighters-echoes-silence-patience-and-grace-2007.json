@@ -49,6 +49,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Pretender",
+      "drummer_ids": ["drummer:taylor-hawkins"],
+      "drums": {
+        "description": "A fast, galloping eighth-note groove with machine-gun snare fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:echoes-silence-patience-grace-wikipedia"]
+        }
+      },
+      "style_key": "taylorhawkins",
+      "song_key": "the-pretender",
+      "youtube": "https://www.youtube.com/watch?v=SBjQ9tuuTJQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=291"
+        }
+      ]
+    },
+    {
+      "title": "Long Road to Ruin",
+      "drummer_ids": ["drummer:taylor-hawkins"],
+      "drums": {
+        "description": "A bright, swinging pop-rock beat with sixteenth hat accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:echoes-silence-patience-grace-wikipedia"]
+        }
+      },
+      "style_key": "taylorhawkins",
+      "song_key": "long-road-to-ruin",
+      "youtube": "https://www.youtube.com/watch?v=308KpFZ4cT8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=397"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:echoes-silence-patience-grace-wikipedia"]

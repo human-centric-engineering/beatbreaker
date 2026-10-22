@@ -1,0 +1,35 @@
+{
+  "id": "rec:the-beatles-help-1965",
+  "title": "Help!",
+  "artist": "The Beatles",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Help!",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "The crash-ride ridden in eighths with the kick on the beat, a driving beat under the call-and-response vocals.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:help-song-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "help",
+      "youtube": "https://www.youtube.com/watch?v=2Q_ZzBGPdqE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2625"
+        }
+      ]
+    }
+  ]
+}

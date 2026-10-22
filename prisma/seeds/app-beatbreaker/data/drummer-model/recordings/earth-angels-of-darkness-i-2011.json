@@ -21,6 +21,56 @@
       "pattern_ids": ["pattern:davies-slow-swamp-shuffle-archetype"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Old Black",
+      "drummer_ids": ["drummer:adrienne-davies"],
+      "drums": {
+        "description": "Brushed-feeling, minimal time under cello and guitar, a few hits per bar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:angels-of-darkness-i-wikipedia", "src:tomtom-davies"]
+        }
+      },
+      "style_key": "davies",
+      "song_key": "old-black",
+      "youtube": "https://www.youtube.com/watch?v=cHKpeUL6Iss",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1042140"
+        }
+      ]
+    },
+    {
+      "title": "Father Midnight",
+      "drummer_ids": ["drummer:adrienne-davies"],
+      "drums": {
+        "description": "A slow, swaying beat with sparse ride and a quiet, dragging snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:angels-of-darkness-i-wikipedia"]
+        }
+      },
+      "style_key": "davies",
+      "song_key": "father-midnight",
+      "youtube": "https://www.youtube.com/watch?v=GTqmDYGMnE4"
+    },
+    {
+      "title": "Hell's Winter",
+      "drummer_ids": ["drummer:adrienne-davies"],
+      "drums": {
+        "description": "A plodding, heavy doom groove with a deep kick and long cymbal decays.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:angels-of-darkness-i-wikipedia"]
+        }
+      },
+      "style_key": "davies",
+      "song_key": "hells-winter",
+      "youtube": "https://www.youtube.com/watch?v=L1yYxLtam64"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:phoenix-new-times-davies", "src:tomtom-davies"]

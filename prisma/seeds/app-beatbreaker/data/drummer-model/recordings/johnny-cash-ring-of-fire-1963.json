@@ -1,0 +1,27 @@
+{
+  "id": "rec:johnny-cash-ring-of-fire-1963",
+  "title": "Ring of Fire",
+  "artist": "Johnny Cash",
+  "year": 1963,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:americana"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ws-holland"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Ring of Fire",
+      "drummer_ids": ["drummer:ws-holland"],
+      "drums": {
+        "description": "A simple, steady boom-chicka beat under the mariachi horns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ring-of-fire-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1WaV2x8GXj0"
+    }
+  ]
+}

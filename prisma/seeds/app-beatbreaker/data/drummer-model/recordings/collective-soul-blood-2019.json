@@ -1,0 +1,51 @@
+{
+  "id": "rec:collective-soul-blood-2019",
+  "title": "Blood",
+  "artist": "Collective Soul",
+  "year": 2019,
+  "type": "album",
+  "style_ids": ["style:drum-and-bass"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:johnny-rabb"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Right as Rain",
+      "drummer_ids": ["drummer:johnny-rabb"],
+      "drums": {
+        "description": "Steady, laid-back pop-rock beat with a tight hat and a fat snare on 2 and 4.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:blood-collective-soul-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=iwVnlMVXKZU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4528406"
+        }
+      ]
+    },
+    {
+      "title": "Over Me",
+      "drummer_ids": ["drummer:johnny-rabb"],
+      "drums": {
+        "description": "Up-tempo straight rock groove with floor-tom drive in the choruses.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:blood-collective-soul-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jKREiAZwd38",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2710330"
+        }
+      ]
+    }
+  ]
+}

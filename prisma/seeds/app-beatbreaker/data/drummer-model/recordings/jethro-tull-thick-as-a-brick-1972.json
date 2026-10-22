@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Thick as a Brick",
+      "drummer_ids": ["drummer:barriemore-barlow"],
+      "drums": {
+        "description": "A single 43-minute piece full of changing meters, tempos and fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:thick-as-a-brick-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ldXdnZtTWp8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=39224"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:barriemore-barlow-wikipedia"]

@@ -1,0 +1,33 @@
+{
+  "id": "rec:mc5-high-time-1971",
+  "title": "High Time",
+  "artist": "MC5",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:garage-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dennis-thompson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Sister Anne",
+      "drummer_ids": ["drummer:dennis-thompson"],
+      "drums": {
+        "description": "A raucous, swaggering rock groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:high-time-mc5-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tnmqu__cnJA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1811987"
+        }
+      ]
+    }
+  ]
+}

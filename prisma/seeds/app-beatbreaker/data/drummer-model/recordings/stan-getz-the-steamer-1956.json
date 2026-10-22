@@ -1,0 +1,51 @@
+{
+  "id": "rec:stan-getz-the-steamer-1956",
+  "title": "The Steamer",
+  "artist": "Stan Getz",
+  "year": 1956,
+  "type": "album",
+  "style_ids": ["style:bebop", "style:cool-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stan-levey"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Blues for Mary Jane",
+      "drummer_ids": ["drummer:stan-levey"],
+      "drums": {
+        "description": "A relaxed, swinging blues on the ride, light and even under Getz.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-steamer-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=JBHdntLb40w"
+    },
+    {
+      "title": "There Will Never Be Another You",
+      "drummer_ids": ["drummer:stan-levey"],
+      "drums": {
+        "description": "Easy medium swing held steady through a long blowing track.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-steamer-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bjE2IRz3kd8"
+    },
+    {
+      "title": "How About You?",
+      "drummer_ids": ["drummer:stan-levey"],
+      "drums": {
+        "description": "Light, buoyant swing in the West Coast manner.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-steamer-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3QQ4QvYL_Cs"
+    }
+  ]
+}

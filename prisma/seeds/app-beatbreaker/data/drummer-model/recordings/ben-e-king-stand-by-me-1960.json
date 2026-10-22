@@ -15,5 +15,19 @@
       "name": "Gary Chester",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Stand By Me",
+      "drummer_ids": ["drummer:gary-chester"],
+      "drums": {
+        "description": "A light, steady beat with the bass, leaving the bass line and strings in front.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stand-by-me-ben-e-king-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dTd2ylacYNU"
+    }
   ]
 }

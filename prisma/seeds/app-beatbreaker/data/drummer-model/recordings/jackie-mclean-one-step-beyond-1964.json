@@ -1,0 +1,32 @@
+{
+  "id": "rec:jackie-mclean-one-step-beyond-1964",
+  "title": "One Step Beyond",
+  "artist": "Jackie McLean",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Frankenstein",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "A jazz waltz: hemiolas, the ride running across the bar line.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:tony-williams-goodman-2011",
+            "src:one-step-beyond-jackie-mclean-wikipedia"
+          ]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "frankenstein",
+      "youtube": "https://www.youtube.com/watch?v=Q3k1wF_koHA"
+    }
+  ]
+}

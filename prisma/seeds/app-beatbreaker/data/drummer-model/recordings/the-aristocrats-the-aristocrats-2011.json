@@ -15,5 +15,37 @@
       "name": "Marco Minnemann",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Boing!... I'm in the Back",
+      "drummer_ids": ["drummer:marco-minnemann"],
+      "drums": {
+        "description": "Odd-meter fusion grooves with sudden displaced accents and humour in the fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-aristocrats-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LTFseT64mkw"
+    },
+    {
+      "title": "Furtive Jack",
+      "drummer_ids": ["drummer:marco-minnemann"],
+      "drums": {
+        "description": "A shifting, odd-time groove that the trio pass around, with dense linear fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-aristocrats-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YTcBKru5Hqs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2563213"
+        }
+      ]
+    }
   ]
 }

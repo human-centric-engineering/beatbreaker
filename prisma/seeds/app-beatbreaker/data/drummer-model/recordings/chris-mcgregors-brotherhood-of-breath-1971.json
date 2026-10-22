@@ -18,6 +18,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "MRA",
+      "drummer_ids": ["drummer:louis-moholo"],
+      "drums": {
+        "description": "Moholo drives Dudu Pukwana's kwela-township theme with a loose, churning swing that keeps breaking into free cymbal-and-tom surges under the big band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:louis-moholo-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KNMvy9oOXGQ"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:louis-moholo-wikipedia"]

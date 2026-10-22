@@ -1,0 +1,33 @@
+{
+  "id": "rec:roxy-music-virginia-plain-1972",
+  "title": "Virginia Plain",
+  "artist": "Roxy Music",
+  "year": 1972,
+  "type": "studio_track",
+  "style_ids": ["style:glam-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-thompson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Virginia Plain",
+      "drummer_ids": ["drummer:paul-thompson"],
+      "drums": {
+        "description": "A pounding, driving glam beat with a stop-start ending.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:virginia-plain-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jg9b2PnmgxY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17031"
+        }
+      ]
+    }
+  ]
+}

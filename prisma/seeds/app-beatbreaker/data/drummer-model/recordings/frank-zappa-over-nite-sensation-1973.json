@@ -1,0 +1,69 @@
+{
+  "id": "rec:frank-zappa-over-nite-sensation-1973",
+  "title": "Over-Nite Sensation",
+  "artist": "Frank Zappa",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ralph-humphrey"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Montana",
+      "drummer_ids": ["drummer:ralph-humphrey"],
+      "drums": {
+        "description": "Tight, busy rock drumming through Zappa’s fast unison lines.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:over-nite-sensation-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Qs0CGOwWmCI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35870"
+        }
+      ]
+    },
+    {
+      "title": "I'm the Slime",
+      "drummer_ids": ["drummer:ralph-humphrey"],
+      "drums": {
+        "description": "A heavy, slow grinding groove with crisp snare accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:over-nite-sensation-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=JPFIkty4Zvk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=642618"
+        }
+      ]
+    },
+    {
+      "title": "Dinah-Moe Humm",
+      "drummer_ids": ["drummer:ralph-humphrey"],
+      "drums": {
+        "description": "A loose rock shuffle under the spoken narrative.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:over-nite-sensation-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QDYExmWHlgw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6820405"
+        }
+      ]
+    }
+  ]
+}

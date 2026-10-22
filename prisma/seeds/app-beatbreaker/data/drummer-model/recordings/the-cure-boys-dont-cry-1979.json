@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-cure-boys-dont-cry-1979",
+  "title": "Boys Don't Cry",
+  "artist": "The Cure",
+  "year": 1979,
+  "type": "studio_track",
+  "style_ids": ["style:post-punk", "style:gothic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lol-tolhurst"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Boys Don't Cry",
+      "drummer_ids": ["drummer:lol-tolhurst"],
+      "drums": {
+        "description": "A bright, simple pop beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:boys-dont-cry-the-cure-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9GkVhgIeGJQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=92"
+        }
+      ]
+    }
+  ]
+}

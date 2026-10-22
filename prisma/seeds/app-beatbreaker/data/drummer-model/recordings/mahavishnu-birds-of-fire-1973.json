@@ -42,6 +42,40 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Birds of Fire",
+      "drummer_ids": ["drummer:billy-cobham"],
+      "drums": {
+        "description": "In 9/8: the ride and hi-hat foot in eighths, the snare in pairs and the kick on the offbeats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:birds-of-fire-wikipedia", "src:songsterr-42451"]
+        }
+      },
+      "style_key": "cobham",
+      "song_key": "birds-of-fire",
+      "youtube": "https://www.youtube.com/watch?v=AulNvAR0u5c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=42451"
+        }
+      ]
+    },
+    {
+      "title": "One Word",
+      "drummer_ids": ["drummer:billy-cobham"],
+      "drums": {
+        "description": "A long workout ending in an extended drum solo, his double bass and open-handed kit on full display.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:birds-of-fire-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GWT6xt6QMpQ"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:billy-cobham-wikipedia"]

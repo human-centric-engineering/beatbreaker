@@ -12,6 +12,32 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Danger Money",
+      "drummer_ids": ["drummer:terry-bozzio"],
+      "drums": {
+        "description": "Big, heavy prog grooves with double-bass accents and odd-time sections.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:danger-money-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6E1-TsfaeMA"
+    },
+    {
+      "title": "Carrying No Cross",
+      "drummer_ids": ["drummer:terry-bozzio"],
+      "drums": {
+        "description": "A long piece full of odd-meter grooves and a virtuosic drum feature.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:danger-money-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ngqSL4tZGos"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:terry-bozzio-wikipedia"]

@@ -38,6 +38,34 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Snap Crackle",
+      "drummer_ids": ["drummer:roy-haynes"],
+      "drums": {
+        "description": "His own feature: an orchestrated drum intro, then sixteenth calls and answers on small, high-pitched toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:roy-haynes-kurtz-snap-crackle", "src:out-of-the-afternoon-wikipedia"]
+        }
+      },
+      "style_key": "haynes",
+      "song_key": "snap-crackle",
+      "youtube": "https://www.youtube.com/watch?v=t1exWkaGX-Q"
+    },
+    {
+      "title": "Raoul",
+      "drummer_ids": ["drummer:roy-haynes"],
+      "drums": {
+        "description": "Crisp, fast swing with the snare chattering against the ride and Roland Kirk's horns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:out-of-the-afternoon-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=X6_V3laEv6M"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:out-of-the-afternoon-wikipedia", "src:roy-haynes-kurtz-snap-crackle"]

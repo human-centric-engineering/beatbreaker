@@ -55,6 +55,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "None Shall Escape the Judgement",
+      "drummer_ids": ["drummer:santa-davis"],
+      "drums": {
+        "description": "The \"flying cymbal\": the hi-hat opened on every \"and\" over the kick on every beat, a sound that took over Jamaican records.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:flying-cymbal-rbma-2013", "src:santa-davis-wikipedia"]
+        }
+      },
+      "style_key": "santadavis",
+      "song_key": "none-shall-escape-the-judgement",
+      "youtube": "https://www.youtube.com/watch?v=vGSqOZjCsgk"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:santa-davis-wikipedia", "src:flying-cymbal-rbma-2013"]

@@ -15,5 +15,25 @@
       "name": "Buddy Harman",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Crazy",
+      "drummer_ids": ["drummer:buddy-harman"],
+      "drums": {
+        "description": "Soft brushes on a slow, swaying ballad, staying under Cline's phrasing in the Nashville Sound arrangement.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:buddy-harman-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=J5uvusfLLp8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=50076"
+        }
+      ]
+    }
   ]
 }

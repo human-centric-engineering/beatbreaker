@@ -12,6 +12,21 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "I'll Be Glad When You're Dead You Rascal You",
+      "artist": "Louis Armstrong and His Orchestra",
+      "drummer_ids": ["drummer:tubby-hall"],
+      "drums": {
+        "description": "Lively swing beat on the Betty Boop cartoon soundtrack.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tubby-hall-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UkkcdFlRsh4"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:tubby-hall-wikipedia"]

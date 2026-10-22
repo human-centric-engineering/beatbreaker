@@ -18,6 +18,55 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "I'll Take Les",
+      "drummer_ids": ["drummer:bill-stewart"],
+      "drums": {
+        "description": "Stewart's crisp, New Orleans-tinged funk groove with ghost notes and melodic fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hand-jive-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SBOFSZAjML0"
+    },
+    {
+      "title": "Dark Blue",
+      "drummer_ids": ["drummer:bill-stewart"],
+      "drums": {
+        "description": "Slow, greasy soul-jazz backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hand-jive-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dTMMCD_5bls"
+    },
+    {
+      "title": "Do Not Disturb",
+      "drummer_ids": ["drummer:bill-stewart"],
+      "drums": {
+        "description": "Laid-back funk with pushed kick figures.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hand-jive-album-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Whip the Mule",
+      "drummer_ids": ["drummer:bill-stewart"],
+      "drums": {
+        "description": "Bouncing second-line feel.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hand-jive-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Jdo8mlwDwr8"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:bill-stewart-musician-wikipedia"]

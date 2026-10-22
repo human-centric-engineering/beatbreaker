@@ -16,5 +16,46 @@
         "source_ids": ["src:wikipedia-winston-grennan"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "The Harder They Come",
+      "artist": "Jimmy Cliff",
+      "drummer_ids": ["drummer:winston-grennan"],
+      "drums": {
+        "description": "A bright, bouncing reggae beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-harder-they-come-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pmc5H6zAi6M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=725276"
+        }
+      ]
+    },
+    {
+      "title": "You Can Get It If You Really Want",
+      "artist": "Jimmy Cliff",
+      "year": 1970,
+      "drummer_ids": ["drummer:winston-grennan"],
+      "drums": {
+        "description": "An upbeat, driving early reggae groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:you-can-get-it-if-you-really-want-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0hKc-mxGp-g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3392691"
+        }
+      ]
+    }
   ]
 }

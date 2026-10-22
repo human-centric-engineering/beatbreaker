@@ -43,6 +43,28 @@
       "pattern_ids": ["pattern:budgie-cities-in-dust"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Cities in Dust",
+      "drummer_ids": ["drummer:budgie"],
+      "drums": {
+        "description": "The kick in threes under eighths on the hat, the china on the 'and's of 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:cities-in-dust-wikipedia", "src:songsterr-499165"]
+        }
+      },
+      "style_key": "budgie",
+      "song_key": "cities-in-dust",
+      "youtube": "https://www.youtube.com/watch?v=wsOHvP1XnRg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=499165"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:tinderbox-siouxsie-album-wikipedia"]

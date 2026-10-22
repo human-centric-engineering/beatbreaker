@@ -1,0 +1,27 @@
+{
+  "id": "rec:a-certain-ratio-shack-up-1980",
+  "title": "Shack Up",
+  "artist": "A Certain Ratio",
+  "year": 1980,
+  "type": "studio_track",
+  "style_ids": ["style:post-punk", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:donald-johnson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Shack Up",
+      "drummer_ids": ["drummer:donald-johnson"],
+      "drums": {
+        "description": "A crisp, syncopated funk groove in a post-punk band, their cover of the Banbarra song.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:a-certain-ratio-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=JARiW_qvRqo"
+    }
+  ]
+}

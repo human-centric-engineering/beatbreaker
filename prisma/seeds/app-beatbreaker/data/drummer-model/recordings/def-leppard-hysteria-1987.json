@@ -12,6 +12,71 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Pour Some Sugar on Me",
+      "drummer_ids": ["drummer:rick-allen"],
+      "drums": {
+        "description": "A sparse, heavy hip-hop-inflected beat played on his custom electronic kit after he lost his left arm, with the left foot taking the snare.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:rick-allen-drummer-wikipedia",
+            "src:hysteria-def-leppard-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0UIB9Y4OFPs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5973"
+        }
+      ]
+    },
+    {
+      "title": "Animal",
+      "drummer_ids": ["drummer:rick-allen"],
+      "drums": {
+        "description": "A steady, chiming pop-metal backbeat played one-armed on his Simmons-based kit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:rick-allen-drummer-wikipedia",
+            "src:hysteria-def-leppard-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NSH1mOtc9-8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5546"
+        }
+      ]
+    },
+    {
+      "title": "Armageddon It",
+      "drummer_ids": ["drummer:rick-allen"],
+      "drums": {
+        "description": "A shuffling, boogie-tinged rock beat with big electronic tom fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:rick-allen-drummer-wikipedia",
+            "src:hysteria-def-leppard-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hHL2Fc0XD50",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6126"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:rick-allen-drummer-wikipedia", "src:hysteria-def-leppard-album-wikipedia"]

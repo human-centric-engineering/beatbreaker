@@ -10,5 +10,19 @@
       "drummer_id": "drummer:mickey-jones",
       "name": "Mickey Jones"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Ruby, Don't Take Your Love to Town",
+      "drummer_ids": ["drummer:mickey-jones"],
+      "drums": {
+        "description": "A marching snare pattern under the story of a wounded veteran.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ruby-dont-take-your-love-to-town-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=C1e9p6J89rQ"
+    }
   ]
 }

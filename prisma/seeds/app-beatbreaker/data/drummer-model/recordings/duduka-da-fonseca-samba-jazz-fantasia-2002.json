@@ -16,5 +16,18 @@
         "source_ids": ["src:wikipedia-duduka-da-fonseca"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Samba Jazz Fantasia",
+      "drummer_ids": ["drummer:duduka-da-fonseca"],
+      "drums": {
+        "description": "Samba played on the kit with jazz phrasing, the samba-jazz style he carried to New York.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-duduka-da-fonseca"]
+        }
+      }
+    }
   ]
 }

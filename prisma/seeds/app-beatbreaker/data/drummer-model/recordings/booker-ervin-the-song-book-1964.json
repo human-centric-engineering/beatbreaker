@@ -18,6 +18,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Lamp Is Low",
+      "drummer_ids": ["drummer:alan-dawson"],
+      "drums": {
+        "description": "Light, crisp swing with clean ride and snare comping.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-song-book-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mV0I1e62EIQ"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:alan-dawson-wikipedia"]

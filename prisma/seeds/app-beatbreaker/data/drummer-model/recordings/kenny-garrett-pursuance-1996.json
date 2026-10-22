@@ -44,6 +44,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Alabama",
+      "drummer_ids": ["drummer:brian-blade"],
+      "drums": {
+        "description": "The ride with the foot on 2 and 4, a dotted-eighth lean on the cymbal and triplets on snare and bass drum.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bishop-blade-alabama-2019", "src:pursuance-garrett-wikipedia"]
+        }
+      },
+      "style_key": "brianblade",
+      "song_key": "alabama",
+      "youtube": "https://www.youtube.com/watch?v=EYtwiTEHoHg"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:pursuance-garrett-wikipedia"]

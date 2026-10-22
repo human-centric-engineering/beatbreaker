@@ -1,0 +1,27 @@
+{
+  "id": "rec:woody-herman-and-his-orchestra-lemon-drop-1948",
+  "title": "Lemon Drop",
+  "artist": "Woody Herman and His Orchestra",
+  "year": 1948,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:bebop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:don-lamond"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Lemon Drop",
+      "drummer_ids": ["drummer:don-lamond"],
+      "drums": {
+        "description": "A bebop scat tune with a fast, crisp ride beat and snare kicks for the band's figures.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:don-lamond-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lh73GlyBU74"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "rec:pat-metheny-group-still-life-talking-1987",
+  "title": "Still Life (Talking)",
+  "artist": "Pat Metheny Group",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-wertico"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Minuano (Six Eight)",
+      "drummer_ids": ["drummer:paul-wertico"],
+      "drums": {
+        "description": "A Brazilian-flavoured 6/8 feel that builds from soft cymbal colour into a driving climax.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:still-life-talking-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6_Qw__Rrbok",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3507894"
+        }
+      ]
+    },
+    {
+      "title": "Last Train Home",
+      "drummer_ids": ["drummer:paul-wertico"],
+      "drums": {
+        "description": "Brushes on the snare imitating a train’s rhythm, a steady, hypnotic pulse for the whole track.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:still-life-talking-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Tb6h7rjRAYs"
+    }
+  ]
+}

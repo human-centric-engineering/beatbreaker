@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Steps",
+      "drummer_ids": ["drummer:andrew-cyrille"],
+      "drums": {
+        "description": "Pulseless, cascading energy-playing on snare, toms and cymbals answering Taylor's piano clusters instead of keeping time.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:andrew-cyrille-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=m3_E0f3rkT8"
+    },
+    {
+      "title": "Enter, Evening (Soft Line Structure)",
+      "drummer_ids": ["drummer:andrew-cyrille"],
+      "drums": {
+        "description": "Quiet, textural cymbal and mallet work in an open structure.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:andrew-cyrille-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=61eUkraBUCE"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:andrew-cyrille-wikipedia"]

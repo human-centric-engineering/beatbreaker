@@ -43,6 +43,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Womb with a View",
+      "drummer_ids": ["drummer:jizmak-da-gusha"],
+      "drums": {
+        "description": "The crossover beat at 202, a skank with the snare on every beat, half time, and the snare in threes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:war-party-wikipedia"]
+        }
+      },
+      "style_key": "jizmak",
+      "song_key": "womb-with-a-view",
+      "youtube": "https://www.youtube.com/watch?v=0bTLkuBqsGk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=37064"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:war-party-wikipedia"]

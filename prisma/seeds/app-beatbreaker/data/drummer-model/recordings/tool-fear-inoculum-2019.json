@@ -1,0 +1,45 @@
+{
+  "id": "rec:tool-fear-inoculum-2019",
+  "title": "Fear Inoculum",
+  "artist": "Tool",
+  "year": 2019,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:danny-carey"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Pneuma",
+      "drummer_ids": ["drummer:danny-carey"],
+      "drums": {
+        "description": "Tabla-like tom patterns that grow into a heavy, polyrhythmic groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fear-inoculum-wikipedia", "src:carey-louder-2022"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5ClCaPmAA7s",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=455388"
+        }
+      ]
+    },
+    {
+      "title": "Chocolate Chip Trip",
+      "drummer_ids": ["drummer:danny-carey"],
+      "drums": {
+        "description": "A solo drum piece over modular synth sequences.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fear-inoculum-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=POdNTtDi-eA"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-kinks-arthur-or-the-decline-and-fall-of-the-british-empire-1969",
+  "title": "Arthur (Or the Decline and Fall of the British Empire)",
+  "artist": "The Kinks",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-avory"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Victoria",
+      "drummer_ids": ["drummer:mick-avory"],
+      "drums": {
+        "description": "Hard-driving rock beat with brass, with Avory adding tambourine as well as drums.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:victoria-the-kinks-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qG3JyuAUE2E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=89749"
+        }
+      ]
+    }
+  ]
+}

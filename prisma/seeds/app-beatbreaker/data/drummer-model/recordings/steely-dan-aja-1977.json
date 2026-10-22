@@ -65,6 +65,126 @@
       "drummer_id": "drummer:ed-greene",
       "name": "Ed Greene",
       "drummer_role": "co_drummer"
+    },
+    {
+      "drummer_id": "drummer:bernard-purdie"
+    },
+    {
+      "drummer_id": "drummer:paul-humphrey"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Deacon Blues",
+      "drummer_ids": ["drummer:bernard-purdie"],
+      "drums": {
+        "description": "Plain eighths and a backbeat, the kick on 1, the \"and\" of 2, 3 and the \"and\" of 4, and the ride in the choruses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:aja-album-wikipedia"]
+        }
+      },
+      "style_key": "bernardpurdie",
+      "song_key": "deacon-blues",
+      "youtube": "https://www.youtube.com/watch?v=ICK6e9WK2A8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54440"
+        }
+      ]
+    },
+    {
+      "title": "I Got the News",
+      "drummer_ids": ["drummer:ed-greene"],
+      "drums": {
+        "description": "A tight, syncopated jazz-funk groove on one of the album's rotating-drummer tracks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:aja-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=T6DSoyAjkus",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1850201"
+        }
+      ]
+    },
+    {
+      "title": "Josie",
+      "drummer_ids": ["drummer:jim-keltner"],
+      "drums": {
+        "description": "A tight, syncopated funk-rock groove on a track where the band rotated drummers.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:aja-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qwZ_u_UKb0Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18859"
+        }
+      ]
+    },
+    {
+      "title": "Black Cow",
+      "drummer_ids": ["drummer:paul-humphrey"],
+      "drums": {
+        "description": "A relaxed, slinky groove with light ghost notes that opens the album.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:aja-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=XRj0Ohg-y1A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=418987"
+        }
+      ]
+    },
+    {
+      "title": "Peg",
+      "drummer_ids": ["drummer:rick-marotta"],
+      "drums": {
+        "description": "A tight, bouncing funk-pop groove with a crisp backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:aja-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=u_pt3khMRFs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19143"
+        }
+      ]
+    },
+    {
+      "title": "Aja",
+      "drummer_ids": ["drummer:steve-gadd"],
+      "drums": {
+        "description": "Hats opening on the \"and\"s of 1 and 3 with a cross-stick in the verse, then the famous long fills and solo over the vamp.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:aja-song-wikipedia", "src:modern-drummer"]
+        }
+      },
+      "style_key": "gadd",
+      "song_key": "aja",
+      "youtube": "https://www.youtube.com/watch?v=fG2seugAgnU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54438"
+        }
+      ]
     }
   ]
 }

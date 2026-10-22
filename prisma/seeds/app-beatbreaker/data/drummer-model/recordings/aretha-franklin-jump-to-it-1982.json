@@ -1,0 +1,33 @@
+{
+  "id": "rec:aretha-franklin-jump-to-it-1982",
+  "title": "Jump to It",
+  "artist": "Aretha Franklin",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yogi-horton"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Jump to It",
+      "drummer_ids": ["drummer:yogi-horton"],
+      "drums": {
+        "description": "Crisp, mid-tempo early-1980s R&B groove for Luther Vandross's production of Aretha's comeback hit, tight on hi-hat and snare.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jump-to-it-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_-DmMLKbT8g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4405035"
+        }
+      ]
+    }
+  ]
+}

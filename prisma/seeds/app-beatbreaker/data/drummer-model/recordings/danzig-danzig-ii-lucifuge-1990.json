@@ -16,5 +16,37 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Her Black Wings",
+      "drummer_ids": ["drummer:chuck-biscuits"],
+      "drums": {
+        "description": "A heavy, bluesy metal groove with big tom fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chuck-biscuits-wikipedia", "src:danzig-ii-lucifuge-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vk-4LmK6_S4"
+    },
+    {
+      "title": "Long Way Back from Hell",
+      "drummer_ids": ["drummer:chuck-biscuits"],
+      "drums": {
+        "description": "A driving, swaggering rock beat with a fat snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chuck-biscuits-wikipedia", "src:danzig-ii-lucifuge-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PkoFImDpx_M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=517359"
+        }
+      ]
+    }
   ]
 }

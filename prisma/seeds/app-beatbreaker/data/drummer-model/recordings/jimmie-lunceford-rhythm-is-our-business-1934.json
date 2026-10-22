@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Rhythm Is Our Business",
+      "drummer_ids": ["drummer:jimmy-crawford"],
+      "drums": {
+        "description": "A buoyant swing number with a light, springy two-beat feel and crisp snare backbeats.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jimmy-crawford-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=y98nMVqhuN4"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:jimmy-crawford-wikipedia"]

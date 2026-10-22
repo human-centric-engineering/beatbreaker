@@ -37,6 +37,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Kaisarion",
+      "drummer_ids": ["drummer:nameless-ghoul"],
+      "drums": {
+        "description": "A fast gallop: crash and snare on 1 and 3, the kick on every off-beat eighth; stabs in 3+3+2.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-505592", "src:ghost-impera-wikipedia"]
+        }
+      },
+      "style_key": "ghoul",
+      "song_key": "kaisarion",
+      "youtube": "https://www.youtube.com/watch?v=9Y3mvMb7gpE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=505592"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:ghost-impera-wikipedia"]

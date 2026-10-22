@@ -1,0 +1,35 @@
+{
+  "id": "rec:the-smiths-this-charming-man-1983",
+  "title": "This Charming Man",
+  "artist": "The Smiths",
+  "year": 1983,
+  "type": "studio_track",
+  "style_ids": ["style:indie-rock", "style:post-punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-joyce"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "This Charming Man",
+      "drummer_ids": ["drummer:mike-joyce"],
+      "drums": {
+        "description": "A Motown beat: the snare on every \"and\", four on the floor in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-17973", "src:this-charming-man-wikipedia"]
+        }
+      },
+      "style_key": "mikejoyce",
+      "song_key": "this-charming-man",
+      "youtube": "https://www.youtube.com/watch?v=UpjaTtNVwEs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17973"
+        }
+      ]
+    }
+  ]
+}

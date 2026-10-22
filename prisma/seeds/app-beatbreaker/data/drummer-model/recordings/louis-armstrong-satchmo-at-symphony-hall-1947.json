@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Steak Face",
+      "drummer_ids": ["drummer:sid-catlett"],
+      "drums": {
+        "description": "Catlett's extended drum solo at Symphony Hall, a model of musical, melodic soloing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sid-catlett-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=XQKzrvKkAug"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:sid-catlett-wikipedia"]

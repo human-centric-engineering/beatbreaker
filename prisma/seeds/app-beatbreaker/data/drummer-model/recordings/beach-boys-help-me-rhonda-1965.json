@@ -37,6 +37,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Help Me, Rhonda",
+      "drummer_ids": ["drummer:hal-blaine"],
+      "drums": {
+        "description": "A shuffle on the ride in quarters, the hi-hat foot on the beats into the chorus, toms standing in for timbales.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:help-me-rhonda-wikipedia"]
+        }
+      },
+      "style_key": "halblaine",
+      "song_key": "help-me-rhonda",
+      "youtube": "https://www.youtube.com/watch?v=j1THDLgL_bs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=26375"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:help-me-rhonda-wikipedia"]

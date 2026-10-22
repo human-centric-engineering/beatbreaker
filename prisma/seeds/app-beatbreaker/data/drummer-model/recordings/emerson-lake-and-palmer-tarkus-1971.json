@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Tarkus",
+      "drummer_ids": ["drummer:carl-palmer"],
+      "drums": {
+        "description": "A side-long suite opening in 5/4 with fast, precise unison figures.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tarkus-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AGGpBXd7ToA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=60303"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:carl-palmer-wikipedia", "src:tarkus-wikipedia"]

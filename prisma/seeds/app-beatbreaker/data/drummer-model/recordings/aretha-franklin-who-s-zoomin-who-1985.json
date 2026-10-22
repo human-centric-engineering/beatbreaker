@@ -11,6 +11,20 @@
       "why_it_matters": "Listed as a key recording."
     }
   ],
+  "tracks": [
+    {
+      "title": "Sweet Bitter Love",
+      "drummer_ids": ["drummer:yogi-horton"],
+      "drums": {
+        "description": "Slow soul-ballad drumming, one of only two tracks on the album where Horton, not Narada Michael Walden's team, drums.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:whos-zoomin-who-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MyN51_lXyws"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:yogi-horton-wikipedia"]

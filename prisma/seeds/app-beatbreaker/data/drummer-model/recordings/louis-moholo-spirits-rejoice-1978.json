@@ -18,6 +18,42 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "You Ain't Gonna Know Me 'Cos You Think You Know Me",
+      "drummer_ids": ["drummer:louis-moholo"],
+      "drums": {
+        "description": "A township-jazz tune over which Moholo plays a rolling, almost free pulse, tom-heavy and polyrhythmic, pushing the horns rather than keeping strict time.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:louis-moholo-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CJlP7nX_qtY"
+    },
+    {
+      "title": "Khanyiso",
+      "drummer_ids": ["drummer:louis-moholo"],
+      "drums": {
+        "description": "Moholo's open, surging pulse: a fast swing that dissolves into free-time crashes and tom rolls under the London free-jazz horns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:louis-moholo-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Amaxesha",
+      "drummer_ids": ["drummer:louis-moholo"],
+      "drums": {
+        "description": "Melodic, tom-led drumming in a South African groove that drifts in and out of free time.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:louis-moholo-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:louis-moholo-wikipedia"]

@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Country Line Special",
+      "drummer_ids": ["drummer:carlo-little"],
+      "drums": {
+        "description": "A loud, driving train-rhythm shuffle under the harmonica.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:carlo-little-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lscwcKgz6J8"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:carlo-little-wikipedia"]

@@ -10,5 +10,31 @@
       "drummer_id": "drummer:derek-roddy",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Black Seeds of Vengeance",
+      "drummer_ids": ["drummer:derek-roddy"],
+      "drums": {
+        "description": "Very fast blast beats and double kick under Nile's Egyptian-scaled riffs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:derek-roddy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0aZugBpRV-I"
+    },
+    {
+      "title": "Defiling the Gates of Ishtar",
+      "drummer_ids": ["drummer:derek-roddy"],
+      "drums": {
+        "description": "Blast beats switching to a pounding tom groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:derek-roddy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FUl8MREQHfs"
+    }
   ]
 }

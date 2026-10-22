@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Do the Strand",
+      "drummer_ids": ["drummer:paul-thompson"],
+      "drums": {
+        "description": "A stomping, driving beat with heavy accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:for-your-pleasure-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CHZfkTkpwzU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=489046"
+        }
+      ]
+    },
+    {
+      "title": "Editions of You",
+      "drummer_ids": ["drummer:paul-thompson"],
+      "drums": {
+        "description": "Fast, relentless eighths with crashing fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:for-your-pleasure-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0kxfGPWGaJ0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=490363"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:paul-thompson-musician-wikipedia", "src:for-your-pleasure-wikipedia"]

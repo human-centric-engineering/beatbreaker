@@ -10,5 +10,43 @@
       "drummer_id": "drummer:denise-dufort",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Hit and Run",
+      "drummer_ids": ["drummer:denise-dufort"],
+      "drums": {
+        "description": "A galloping, Motörhead-adjacent metal beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:girlschool-wikipedia", "src:hit-and-run-girlschool-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pscwedcJttw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1486641"
+        }
+      ]
+    },
+    {
+      "title": "C'mon Let's Go",
+      "drummer_ids": ["drummer:denise-dufort"],
+      "drums": {
+        "description": "A fast, rocking beat with a heavy backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:girlschool-wikipedia", "src:hit-and-run-girlschool-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GFlojeOlGlo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=486252"
+        }
+      ]
+    }
   ]
 }

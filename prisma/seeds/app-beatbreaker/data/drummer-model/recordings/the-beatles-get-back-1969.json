@@ -1,0 +1,55 @@
+{
+  "id": "rec:the-beatles-get-back-1969",
+  "title": "Get Back",
+  "artist": "The Beatles",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Get Back",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "A train beat with the snare in sixteenths and ghost notes between the backbeats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:get-back-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "get-back",
+      "youtube": "https://www.youtube.com/watch?v=IKJqecxswCA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22771"
+        }
+      ]
+    },
+    {
+      "title": "Don't Let Me Down",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "The snare picking up the 'and' of 2, the chorus marked by a crash swell.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:don-t-let-me-down-beatles-song-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "dont-let-me-down",
+      "youtube": "https://www.youtube.com/watch?v=NCtzkaL2t_Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2677"
+        }
+      ]
+    }
+  ]
+}

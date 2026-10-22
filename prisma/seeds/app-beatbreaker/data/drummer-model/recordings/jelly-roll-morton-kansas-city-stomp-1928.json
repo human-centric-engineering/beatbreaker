@@ -12,6 +12,19 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Kansas City Stomp",
+      "drummer_ids": ["drummer:tommy-benford"],
+      "drums": {
+        "description": "Crisp, driving New Orleans time with breaks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:kansas-city-stomp-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:tommy-benford-wikipedia"]

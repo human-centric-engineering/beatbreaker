@@ -34,6 +34,36 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Soft Blue",
+      "drummer_ids": ["drummer:jack-dejohnette"],
+      "drums": {
+        "description": "An Elvin-like two-bar groove he virtually never leaves.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bishop-dejohnette-soft-blue", "src:jacknife-wikipedia"]
+        }
+      },
+      "style_key": "dejohnette",
+      "song_key": "soft-blue",
+      "youtube": "https://www.youtube.com/watch?v=bO6qQqb2iXc"
+    },
+    {
+      "title": "On the Nile",
+      "drummer_ids": ["drummer:jack-dejohnette"],
+      "drums": {
+        "description": "Dotted quarters in three, triplet pickups on the toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bishop-dejohnette-on-the-nile", "src:jacknife-wikipedia"]
+        }
+      },
+      "style_key": "dejohnette",
+      "song_key": "on-the-nile",
+      "youtube": "https://www.youtube.com/watch?v=Pi_q5nrvi7s"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

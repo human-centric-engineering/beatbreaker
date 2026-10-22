@@ -11,6 +11,20 @@
       "why_it_matters": "His own single."
     }
   ],
+  "tracks": [
+    {
+      "title": "King of the Beat",
+      "drummer_ids": ["drummer:pumpkin"],
+      "drums": {
+        "description": "A drum showcase of live funk breaks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:pumpkin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kTgaY3Tc0ek"
+    }
+  ],
   "release": "Profile",
   "evidence": {
     "confidence": "widely_reported",

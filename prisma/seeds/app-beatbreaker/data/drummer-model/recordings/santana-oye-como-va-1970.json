@@ -20,6 +20,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Oye Como Va",
+      "drummer_ids": ["drummer:michael-shrieve"],
+      "drums": {
+        "description": "A cha-cha-chá groove with a cross-stick and bell under Puente's tune.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:oye-como-va-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=J7ATTjg7tpE"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:jazzcom-puente"]

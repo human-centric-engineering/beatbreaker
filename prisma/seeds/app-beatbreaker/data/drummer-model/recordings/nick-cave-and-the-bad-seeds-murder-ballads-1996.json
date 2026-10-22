@@ -22,5 +22,25 @@
       "drummer_role": "co_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Stagger Lee",
+      "drummer_ids": ["drummer:thomas-wydler"],
+      "drums": {
+        "description": "A slinky, menacing groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:murder-ballads-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Nbe5RERDh4k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=746664"
+        }
+      ]
+    }
   ]
 }

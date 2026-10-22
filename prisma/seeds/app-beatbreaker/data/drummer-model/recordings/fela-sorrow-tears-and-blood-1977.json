@@ -1,0 +1,39 @@
+{
+  "id": "rec:fela-sorrow-tears-and-blood-1977",
+  "title": "Sorrow Tears and Blood",
+  "artist": "Fela Kuti and Africa 70",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:afrobeat", "style:west-african", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Sorrow Tears and Blood",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "His first pattern, hand on the hat's \"1 & a\", foot on every \"and\", kicks in pairs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:tony-allen-research",
+            "src:tony-allen-poitevin",
+            "src:fela-kuti-discography-wikipedia"
+          ]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "sorrow-tears-and-blood",
+      "youtube": "https://www.youtube.com/watch?v=tj1wpNuQRaM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2959420"
+        }
+      ]
+    }
+  ]
+}

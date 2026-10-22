@@ -1,0 +1,33 @@
+{
+  "id": "rec:pat-travers-band-live-go-for-what-you-know-1979",
+  "title": "Live! Go for What You Know",
+  "artist": "Pat Travers Band",
+  "year": 1979,
+  "type": "live_track",
+  "style_ids": ["style:hard-rock", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tommy-aldridge"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Boom Boom (Out Go the Lights)",
+      "drummer_ids": ["drummer:tommy-aldridge"],
+      "drums": {
+        "description": "A stomping live hard-rock beat with crowd-answered stops.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tommy-aldridge-wikipedia", "src:live-go-for-what-you-know-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cQXhAW4QiPU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1570304"
+        }
+      ]
+    }
+  ]
+}

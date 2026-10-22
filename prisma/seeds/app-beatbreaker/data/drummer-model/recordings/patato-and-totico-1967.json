@@ -17,5 +17,18 @@
         "source_ids": ["src:wikipedia-patato-valdes"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Ya Yo Me Curé",
+      "drummer_ids": ["drummer:patato-valdes"],
+      "drums": {
+        "description": "Patato's melodic, tuned-conga playing in a rumba with Totico's vocals and Arsenio Rodríguez on tres.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-patato-valdes"]
+        }
+      }
+    }
   ]
 }

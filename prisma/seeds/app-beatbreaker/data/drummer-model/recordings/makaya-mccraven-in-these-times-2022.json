@@ -1,0 +1,27 @@
+{
+  "id": "rec:makaya-mccraven-in-these-times-2022",
+  "title": "In These Times",
+  "artist": "Makaya McCraven",
+  "year": 2022,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:makaya-mccraven"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "In These Times",
+      "drummer_ids": ["drummer:makaya-mccraven"],
+      "drums": {
+        "description": "Odd-metre groove orchestrated around his drum loops.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:makaya-mccraven-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bM3bLcNi3vM"
+    }
+  ]
+}

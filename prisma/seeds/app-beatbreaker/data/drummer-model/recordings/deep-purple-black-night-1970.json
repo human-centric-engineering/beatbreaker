@@ -43,6 +43,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Black Night",
+      "drummer_ids": ["drummer:ian-paice"],
+      "drums": {
+        "description": "The kick with the riff in eighths, then quarter-note triplets on kick and hat at its turn.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-23516", "src:ian-paice-wikipedia"]
+        }
+      },
+      "style_key": "paice",
+      "song_key": "black-night",
+      "youtube": "https://www.youtube.com/watch?v=pLLuifWR4Mg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23516"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:in-rock-wikipedia"]

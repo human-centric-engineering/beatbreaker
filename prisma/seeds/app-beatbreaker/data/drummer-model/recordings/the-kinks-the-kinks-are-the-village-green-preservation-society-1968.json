@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "The Village Green Preservation Society",
+      "drummer_ids": ["drummer:mick-avory"],
+      "drums": {
+        "description": "A bouncing, jazz-inflected pop beat behind the album's title song, typical of the witty touch credited to him.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mick-avory-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lc7dmu4G8oc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=209831"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": [

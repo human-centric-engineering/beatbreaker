@@ -10,5 +10,64 @@
       "drummer_id": "drummer:gar-samuelson",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Mechanix",
+      "drummer_ids": ["drummer:gar-samuelson"],
+      "drums": {
+        "description": "A breakneck thrash beat, Samuelson's fast snare and loose fills behind Mustaine's riffs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:killing-is-my-business-and-business-is-good-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kfTcE89sBXU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13694"
+        }
+      ]
+    },
+    {
+      "title": "Rattlehead",
+      "drummer_ids": ["drummer:gar-samuelson"],
+      "drums": {
+        "description": "A fast, chaotic thrash beat with busy jazz-trained fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:killing-is-my-business-and-business-is-good-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ECGp4ibz7A8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12170"
+        }
+      ]
+    },
+    {
+      "title": "Killing Is My Business... and Business Is Good!",
+      "drummer_ids": ["drummer:gar-samuelson"],
+      "drums": {
+        "description": "A hammering thrash beat with abrupt tempo shifts and loose, jazzy rolls.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:killing-is-my-business-and-business-is-good-wikipedia",
+            "src:gar-samuelson-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Y-4WeOqSXSc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13746"
+        }
+      ]
+    }
   ]
 }

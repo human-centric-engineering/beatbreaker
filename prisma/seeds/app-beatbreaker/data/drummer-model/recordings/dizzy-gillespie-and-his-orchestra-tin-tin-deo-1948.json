@@ -1,0 +1,26 @@
+{
+  "id": "rec:dizzy-gillespie-and-his-orchestra-tin-tin-deo-1948",
+  "title": "Tin Tin Deo",
+  "artist": "Dizzy Gillespie and His Orchestra",
+  "year": 1948,
+  "type": "studio_track",
+  "style_ids": ["style:afro-cuban", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chano-pozo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Tin Tin Deo",
+      "drummer_ids": ["drummer:chano-pozo"],
+      "drums": {
+        "description": "Pozo's Afro-Cuban conga groove under the tune he co-wrote with Gillespie and Gil Fuller.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tin-tin-deo-wikipedia"]
+        }
+      }
+    }
+  ]
+}

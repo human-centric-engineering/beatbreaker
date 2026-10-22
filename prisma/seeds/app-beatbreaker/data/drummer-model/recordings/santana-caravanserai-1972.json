@@ -64,6 +64,52 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "La Fuente del Ritmo",
+      "drummer_ids": ["drummer:armando-peraza"],
+      "drums": {
+        "description": "Congas and percussion in a fast Latin-rock groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-armando-peraza", "src:caravanserai-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cPKIle7gSVk"
+    },
+    {
+      "title": "Every Step of the Way",
+      "drummer_ids": ["drummer:armando-peraza"],
+      "drums": {
+        "description": "Percussion in a long, building jazz-rock piece.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-armando-peraza", "src:caravanserai-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aMcrK-o7q18"
+    },
+    {
+      "title": "Song of the Wind",
+      "drummer_ids": ["drummer:michael-shrieve"],
+      "drums": {
+        "description": "A cross-stick tresillo with maracas and cabasa under Santana's long guitar melody.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:caravanserai-album-wikipedia", "src:michael-shrieve-wikipedia"]
+        }
+      },
+      "style_key": "shrieve",
+      "song_key": "song-of-the-wind",
+      "youtube": "https://www.youtube.com/watch?v=F7AbmXe9thg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17440"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

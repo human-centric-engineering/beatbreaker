@@ -1,0 +1,38 @@
+{
+  "id": "rec:stan-kenton-new-concepts-of-artistry-in-rhythm-1953",
+  "title": "New Concepts of Artistry in Rhythm",
+  "artist": "Stan Kenton",
+  "year": 1953,
+  "type": "album",
+  "style_ids": ["style:bebop", "style:cool-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stan-levey"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "23°N — 82°W",
+      "drummer_ids": ["drummer:stan-levey"],
+      "drums": {
+        "description": "Drives the large Kenton orchestra through Bill Russo's Latin-influenced chart, with heavy section kicks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:new-concepts-of-artistry-in-rhythm-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Prologue (This Is an Orchestra!)",
+      "drummer_ids": ["drummer:stan-levey"],
+      "drums": {
+        "description": "Supports the spoken introduction of each section of the band, then pushes the full orchestra.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:new-concepts-of-artistry-in-rhythm-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ubyTA-qzrTE"
+    }
+  ]
+}

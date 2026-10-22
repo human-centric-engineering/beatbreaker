@@ -56,6 +56,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Phantom of the Opera",
+      "drummer_ids": ["drummer:nicko-mcbrain"],
+      "drums": {
+        "description": "His live take on Clive Burr's part: 12/8 on the ride, a 4/4 bridge, the snare on every eighth in the instrumental, and a march at half speed.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:live-after-death-wikipedia",
+            "src:iron-maiden-phantom-live-hammersmith-youtube"
+          ]
+        }
+      },
+      "style_key": "mcbrain",
+      "song_key": "phantom-of-the-opera",
+      "also_song_keys": ["phantom-of-the-opera-instrumental"],
+      "youtube": "https://www.youtube.com/watch?v=p_qzjfkHI4g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10046"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:live-after-death-wikipedia"]

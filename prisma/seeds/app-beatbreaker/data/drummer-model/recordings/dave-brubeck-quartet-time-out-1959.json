@@ -38,6 +38,62 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Three to Get Ready",
+      "drummer_ids": ["drummer:joe-morello"],
+      "drums": {
+        "description": "Alternates two bars of 3/4 waltz with two of 4/4, brushes keeping the switch smooth.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:time-out-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cUobuEuRe6Q"
+    },
+    {
+      "title": "Kathy's Waltz",
+      "drummer_ids": ["drummer:joe-morello"],
+      "drums": {
+        "description": "A 4/4 opening that turns into a waltz, with 3-against-4 between piano and drums.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:time-out-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=z8GLQycLjDg"
+    },
+    {
+      "title": "Everybody's Jumpin'",
+      "drummer_ids": ["drummer:joe-morello"],
+      "drums": {
+        "description": "A 6/4 swing with Morello's crisp cross-rhythms.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:time-out-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zxGNx2hBqlc"
+    },
+    {
+      "title": "Pick Up Sticks",
+      "drummer_ids": ["drummer:joe-morello"],
+      "drums": {
+        "description": "A 6/4 feature over an ostinato bass with Morello's snare and tom work.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:time-out-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jDPu3PQtzUk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5005166"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:time-out-wikipedia", "src:joe-morello-wikipedia"]

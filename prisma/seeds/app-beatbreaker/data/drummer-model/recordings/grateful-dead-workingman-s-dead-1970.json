@@ -17,6 +17,32 @@
       "drummer_role": "co_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Casey Jones",
+      "drummer_ids": ["drummer:bill-kreutzmann"],
+      "drums": {
+        "description": "A steady, chugging train beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bill-kreutzmann-wikipedia", "src:workingman-s-dead-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CxCfnq7A56M"
+    },
+    {
+      "title": "Uncle John's Band",
+      "drummer_ids": ["drummer:bill-kreutzmann", "drummer:mickey-hart"],
+      "drums": {
+        "description": "A light, folk-rock groove with shifting meters.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bill-kreutzmann-wikipedia", "src:workingman-s-dead-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Qj8Q3o2J4A4"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": [

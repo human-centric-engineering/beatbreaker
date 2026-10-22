@@ -12,6 +12,62 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "All Right Now",
+      "drummer_ids": ["drummer:simon-kirke"],
+      "drums": {
+        "description": "Sparse, spacious hard rock: Kirke leaves gaps around the guitar riff and lands a heavy backbeat, a lesson in restraint.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:simon-kirke-wikipedia", "src:fire-and-water-free-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5wiF6b4rxno",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7743"
+        }
+      ]
+    },
+    {
+      "title": "Fire and Water",
+      "drummer_ids": ["drummer:simon-kirke"],
+      "drums": {
+        "description": "A slow, heavy groove with space between every hit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:simon-kirke-wikipedia", "src:fire-and-water-free-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=q13EUUsIsFE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22517"
+        }
+      ]
+    },
+    {
+      "title": "Mr. Big",
+      "drummer_ids": ["drummer:simon-kirke"],
+      "drums": {
+        "description": "A deliberate mid-tempo groove that drops away for the bass solo and returns hard.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:simon-kirke-wikipedia", "src:fire-and-water-free-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5pTrSh36xCw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7888"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:simon-kirke-wikipedia"]

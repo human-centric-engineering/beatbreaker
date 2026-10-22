@@ -1,0 +1,33 @@
+{
+  "id": "rec:steely-dan-pretzel-logic-1974",
+  "title": "Pretzel Logic",
+  "artist": "Steely Dan",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jim-gordon"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Rikki Don't Lose That Number",
+      "drummer_ids": ["drummer:jim-gordon"],
+      "drums": {
+        "description": "A light, Latin-tinged groove with a smooth, steady beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:pretzel-logic-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BsImSBO-ya4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19389"
+        }
+      ]
+    }
+  ]
+}

@@ -14,6 +14,28 @@
       "why_it_matters": "Its break became one of the most widely used in hip-hop and dance music."
     }
   ],
+  "tracks": [
+    {
+      "title": "Think (About It)",
+      "drummer_ids": ["drummer:jabo-starks"],
+      "drums": {
+        "description": "The \"yeah! woo!\" break, loose and raw, plenty of shuffle in the hats: one of the most sampled breaks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:pas-starks", "src:wapo-starks"]
+        }
+      },
+      "style_key": "jabostarks",
+      "song_key": "think-about-it",
+      "youtube": "https://www.youtube.com/watch?v=vCByeJsq65M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=610633"
+        }
+      ]
+    }
+  ],
   "sampled_by": [
     {
       "artist": "Rob Base and DJ E-Z Rock",

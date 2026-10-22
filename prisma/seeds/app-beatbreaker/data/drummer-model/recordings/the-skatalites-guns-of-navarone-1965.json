@@ -1,0 +1,32 @@
+{
+  "id": "rec:the-skatalites-guns-of-navarone-1965",
+  "title": "Guns of Navarone",
+  "artist": "The Skatalites",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:ska", "style:rocksteady"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lloyd-knibb"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Guns of Navarone",
+      "drummer_ids": ["drummer:lloyd-knibb"],
+      "drums": {
+        "description": "Knibb's ska beat accents beats two and four on the snare and the bass drum, under the film theme.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-skatalites"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2442949"
+        }
+      ]
+    }
+  ]
+}

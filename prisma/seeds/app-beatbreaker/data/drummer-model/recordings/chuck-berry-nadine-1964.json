@@ -1,0 +1,27 @@
+{
+  "id": "rec:chuck-berry-nadine-1964",
+  "title": "Nadine",
+  "artist": "Chuck Berry",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:odie-payne"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Nadine",
+      "drummer_ids": ["drummer:odie-payne"],
+      "drums": {
+        "description": "Driving, uptempo rock and roll beat with a bright backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:odie-payne-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PXo6U1F6F4M"
+    }
+  ]
+}

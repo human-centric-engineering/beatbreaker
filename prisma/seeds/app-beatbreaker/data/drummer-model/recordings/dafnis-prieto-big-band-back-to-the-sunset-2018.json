@@ -57,6 +57,93 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Una Vez Más",
+      "drummer_ids": ["drummer:dafnis-prieto"],
+      "drums": {
+        "description": "A clave-fuelled descarga in rumba clave 3-2, the cowbell in the right hand and kick and snare on the upbeats, ending in a percussion feast.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:prieto-jazztrail-btts",
+            "src:prieto-absolute-sound-btts",
+            "src:prieto-dafnisonmusic-back-to-the-sunset"
+          ]
+        }
+      },
+      "style_key": "prieto",
+      "song_key": "una-vez-mas",
+      "youtube": "https://www.youtube.com/watch?v=Ft8YdAO0Dwg"
+    },
+    {
+      "title": "Song for Chico",
+      "drummer_ids": ["drummer:dafnis-prieto"],
+      "drums": {
+        "description": "For Chico O'Farrill: the cáscara over rumba clave 2-3 with strong cross-rhythms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:prieto-melminter-btts",
+            "src:prieto-dafnisonmusic-back-to-the-sunset",
+            "src:prieto-jazz-com-encyclopedia"
+          ]
+        }
+      },
+      "style_key": "prieto",
+      "song_key": "song-for-chico",
+      "youtube": "https://www.youtube.com/watch?v=Tw6OmMXY3t8"
+    },
+    {
+      "title": "The Triumphant Journey",
+      "drummer_ids": ["drummer:dafnis-prieto"],
+      "drums": {
+        "description": "For Dizzy Gillespie and Chano Pozo, in 6/8, the standard bell over kick and snare in turn.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:prieto-jazztrail-btts", "src:prieto-dafnisonmusic-back-to-the-sunset"]
+        }
+      },
+      "style_key": "prieto",
+      "song_key": "the-triumphant-journey",
+      "youtube": "https://www.youtube.com/watch?v=lAQKDaxCqjY"
+    },
+    {
+      "title": "Danzonish Potpourri",
+      "drummer_ids": ["drummer:dafnis-prieto"],
+      "drums": {
+        "description": "A rampant, feverish pulse that turns into 3/4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:prieto-jazztrail-btts"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kx0q5J1AuvA"
+    },
+    {
+      "title": "Out of the Bone",
+      "drummer_ids": ["drummer:dafnis-prieto"],
+      "drums": {
+        "description": "Starts on a steady beat and switches to a faster samba-like groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:prieto-michaelsjazzblog-btts"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rWm1s3ze8d4"
+    },
+    {
+      "title": "Two for One",
+      "drummer_ids": ["drummer:dafnis-prieto"],
+      "drums": {
+        "description": "A long intro on a drum vamp and an extended drum-and-percussion solo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:prieto-michaelsjazzblog-btts"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:prieto-dafnisonmusic-back-to-the-sunset", "src:dafnis-prieto-wikipedia"],

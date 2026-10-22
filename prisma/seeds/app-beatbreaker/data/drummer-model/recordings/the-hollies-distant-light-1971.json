@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-hollies-distant-light-1971",
+  "title": "Distant Light",
+  "artist": "The Hollies",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:merseybeat", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bobby-elliott"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Long Cool Woman in a Black Dress",
+      "drummer_ids": ["drummer:bobby-elliott"],
+      "drums": {
+        "description": "A swampy, Creedence-style boogie with a heavy, echoing snare backbeat; one of the most copied British rock grooves of the early 1970s.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:long-cool-woman-in-a-black-dress-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Zhrts6iwVEs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=37860"
+        }
+      ]
+    }
+  ]
+}

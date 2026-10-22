@@ -16,5 +16,28 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "I'm the One",
+      "drummer_ids": ["drummer:bill-stevenson"],
+      "drums": {
+        "description": "A fast, compressed pop-punk beat with crash accents on the hooks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:bill-stevenson-wikipedia",
+            "src:everything-sucks-descendents-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=b03eqfMwoBw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=399763"
+        }
+      ]
+    }
   ]
 }

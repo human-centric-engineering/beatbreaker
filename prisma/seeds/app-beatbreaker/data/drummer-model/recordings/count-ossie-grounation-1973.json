@@ -16,5 +16,19 @@
         "source_ids": ["src:wikipedia-count-ossie"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Grounation",
+      "drummer_ids": ["drummer:count-ossie"],
+      "drums": {
+        "description": "A long nyabinghi drum chant, the bass drum's heartbeat under improvised repeater lines, with horns and chant over it.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-count-ossie"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-0PIT4NsuOA"
+    }
   ]
 }

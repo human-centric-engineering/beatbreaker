@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "One Hundred Years",
+      "drummer_ids": ["drummer:lol-tolhurst"],
+      "drums": {
+        "description": "Heavy, pounding toms and drum machine for the album's dense, dark sound.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:pornography-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=V7kIB8HTE3k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=425096"
+        }
+      ]
+    },
+    {
+      "title": "The Hanging Garden",
+      "drummer_ids": ["drummer:lol-tolhurst"],
+      "drums": {
+        "description": "Pounding, tribal tom patterns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:pornography-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yEH5jReEkSk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=795866"
+        }
+      ]
+    }
   ]
 }

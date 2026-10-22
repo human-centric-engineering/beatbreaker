@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Tight Like This",
+      "drummer_ids": ["drummer:zutty-singleton"],
+      "drums": {
+        "description": "Slow, building beat beneath Armstrong's climactic choruses.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:zutty-singleton-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uANq7w-EmEI"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:zutty-singleton-wikipedia"]

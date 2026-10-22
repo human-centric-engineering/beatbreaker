@@ -1,0 +1,27 @@
+{
+  "id": "rec:chico-hamilton-the-dealer-1966",
+  "title": "The Dealer",
+  "artist": "Chico Hamilton",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:cool-jazz", "style:post-bop", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chico-hamilton"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Dealer",
+      "drummer_ids": ["drummer:chico-hamilton"],
+      "drums": {
+        "description": "A heavy soul-jazz groove behind a young Larry Coryell's blues guitar, pointing toward fusion.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-dealer-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kM9oCELqaSY"
+    }
+  ]
+}

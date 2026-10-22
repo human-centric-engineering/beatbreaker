@@ -1,0 +1,35 @@
+{
+  "id": "rec:jimi-hendrix-war-heroes-1972",
+  "title": "War Heroes",
+  "artist": "Jimi Hendrix",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mitch-mitchell"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Midnight",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "An instrumental with a lurching, syncopated groove and busy jazz fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:war-heroes-album-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "midnight",
+      "youtube": "https://www.youtube.com/watch?v=4g-EtZfgrio",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=72224"
+        }
+      ]
+    }
+  ]
+}

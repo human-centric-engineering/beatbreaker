@@ -1,0 +1,33 @@
+{
+  "id": "rec:public-image-ltd-this-is-not-a-love-song-1983",
+  "title": "This Is Not a Love Song",
+  "artist": "Public Image Ltd",
+  "year": 1983,
+  "type": "studio_track",
+  "style_ids": ["style:industrial", "style:post-punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:martin-atkins"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "This Is Not a Love Song",
+      "drummer_ids": ["drummer:martin-atkins"],
+      "drums": {
+        "description": "A tight, funky dance-rock beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:martin-atkins-wikipedia", "src:this-is-not-a-love-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Az_GCJnXAI0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=802381"
+        }
+      ]
+    }
+  ]
+}

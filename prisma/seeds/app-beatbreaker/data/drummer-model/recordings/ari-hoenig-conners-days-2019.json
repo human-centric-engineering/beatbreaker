@@ -37,6 +37,56 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "All the Things You Are",
+      "drummer_ids": ["drummer:ari-hoenig"],
+      "drums": {
+        "description": "The standard recast in 5/4, with a suggested backbeat and clipped drum answers.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:hoenig-freshsound-conners-days",
+            "src:hoenig-jazzjournal-conners-days-2019"
+          ]
+        }
+      },
+      "style_key": "hoenig",
+      "song_key": "all-the-things-you-are",
+      "youtube": "https://www.youtube.com/watch?v=YK3FpTr--CY"
+    },
+    {
+      "title": "All of You",
+      "drummer_ids": ["drummer:ari-hoenig"],
+      "drums": {
+        "description": "A five-beat cycle of crash and kick laid across the 4/4 swing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:hoenig-freshsound-conners-days",
+            "src:hoenig-jazzjournal-conners-days-2019"
+          ]
+        }
+      },
+      "style_key": "hoenig",
+      "song_key": "all-of-you",
+      "youtube": "https://www.youtube.com/watch?v=wWtm4oSPJmI"
+    },
+    {
+      "title": "Guernsey St. Gooseneck",
+      "drummer_ids": ["drummer:ari-hoenig"],
+      "drums": {
+        "description": "A hip-hop groove: cross-stick and a stuttering hat with a displaced kick.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hoenig-freshsound-conners-days"]
+        }
+      },
+      "style_key": "hoenig",
+      "song_key": "guernsey-st-gooseneck",
+      "youtube": "https://www.youtube.com/watch?v=phxbc5_MX-I"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:hoenig-freshsound-conners-days", "src:ari-hoenig-wikipedia"]

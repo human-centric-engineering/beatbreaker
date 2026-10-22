@@ -1,0 +1,33 @@
+{
+  "id": "rec:herbie-hancock-takin-off-1962",
+  "title": "Takin' Off",
+  "artist": "Herbie Hancock",
+  "year": 1962,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:billy-higgins"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Watermelon Man",
+      "drummer_ids": ["drummer:billy-higgins"],
+      "drums": {
+        "description": "A gospel-inflected straight-eighth groove with a backbeat, light and swinging.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:takin-off-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ppJQKfqhFfE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=37555"
+        }
+      ]
+    }
+  ]
+}

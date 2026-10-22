@@ -84,6 +84,74 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "What Is Hip?",
+      "drummer_ids": ["drummer:david-garibaldi"],
+      "drums": {
+        "description": "The Oakland-funk hi-hat: sixteenths split between hands with displaced snares and open-hat accents, Garibaldi's signature groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:tower-of-power-album-wikipedia",
+            "src:david-garibaldi-meronuck-2015",
+            "src:david-garibaldi-musicradar"
+          ]
+        }
+      },
+      "style_key": "garibaldi",
+      "song_key": "what-is-hip",
+      "youtube": "https://www.youtube.com/watch?v=oAatPPEaZDA"
+    },
+    {
+      "title": "Clever Girl",
+      "drummer_ids": ["drummer:david-garibaldi"],
+      "drums": {
+        "description": "A tight, syncopated groove with a dancing kick and ghost notes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tower-of-power-album-wikipedia"]
+        }
+      },
+      "style_key": "garibaldi",
+      "song_key": "clever-girl",
+      "youtube": "https://www.youtube.com/watch?v=s-tpQvknkL8"
+    },
+    {
+      "title": "Soul Vaccination",
+      "drummer_ids": ["drummer:david-garibaldi"],
+      "drums": {
+        "description": "A slinky, mid-tempo groove with a displaced backbeat and open-hat lifts.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tower-of-power-album-wikipedia", "src:david-garibaldi-musicradar"]
+        }
+      },
+      "style_key": "garibaldi",
+      "song_key": "soul-vaccination",
+      "youtube": "https://www.youtube.com/watch?v=AJuIL0w6-gc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2244235"
+        }
+      ]
+    },
+    {
+      "title": "Clean Slate",
+      "drummer_ids": ["drummer:david-garibaldi"],
+      "drums": {
+        "description": "A medium funk groove near 98 with ghost notes filling every gap round the backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tower-of-power-album-wikipedia"]
+        }
+      },
+      "style_key": "garibaldi",
+      "song_key": "clean-slate",
+      "youtube": "https://www.youtube.com/watch?v=YmAS8gax-nA"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:tower-of-power-album-wikipedia"]

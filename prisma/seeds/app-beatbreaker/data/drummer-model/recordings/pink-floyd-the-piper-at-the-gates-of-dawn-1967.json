@@ -39,6 +39,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Astronomy Domine",
+      "drummer_ids": ["drummer:nick-mason"],
+      "drums": {
+        "description": "In 12/8: the floor tom in eighths under a crash on the 1, the rack tom answering at the end of the bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:astronomy-domine-wikipedia"]
+        }
+      },
+      "style_key": "nickmason",
+      "song_key": "astronomy-domine",
+      "youtube": "https://www.youtube.com/watch?v=8UbNbor3OqQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15293"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-piper-at-the-gates-of-dawn-wikipedia"]

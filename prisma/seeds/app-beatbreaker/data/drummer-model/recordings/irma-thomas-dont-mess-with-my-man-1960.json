@@ -10,5 +10,19 @@
       "drummer_id": "drummer:walter-lastie",
       "name": "Walter \"Popee\" Lastie"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Don't Mess with My Man",
+      "drummer_ids": ["drummer:walter-lastie"],
+      "drums": {
+        "description": "Lilting New Orleans R&B backbeat with gospel feel.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:walter-lastie-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=XYN3fWQVCb0"
+    }
   ]
 }

@@ -41,6 +41,52 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Heart-Shaped Box",
+      "drummer_ids": ["drummer:dave-grohl"],
+      "drums": {
+        "description": "Hats in eighths and cross-sticks on 2, 3 and 4, then crashes and toms in the loud chorus and rimshots in eighths.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:in-utero-wikipedia",
+            "src:heart-shaped-box-wikipedia",
+            "src:songsterr-31"
+          ]
+        }
+      },
+      "style_key": "grohl",
+      "song_key": "heart-shaped-box",
+      "youtube": "https://www.youtube.com/watch?v=n6P0SitRwy8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=31"
+        }
+      ]
+    },
+    {
+      "title": "Scentless Apprentice",
+      "drummer_ids": ["drummer:dave-grohl"],
+      "drums": {
+        "description": "Grohl's own opening beat: an open-and-closed hat intro, kicks in fours, the ride bell and mid tom and crashes in eighths.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:in-utero-wikipedia", "src:grohl-wikipedia", "src:songsterr-14636"]
+        }
+      },
+      "style_key": "grohl",
+      "song_key": "scentless-apprentice",
+      "youtube": "https://www.youtube.com/watch?v=upr0CVDw8Co",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14636"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:in-utero-wikipedia"]

@@ -18,6 +18,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Russian Lullaby",
+      "drummer_ids": ["drummer:art-taylor"],
+      "drums": {
+        "description": "Very fast swing with a precise ride, keeping up with Coltrane’s sheets of sound.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:soultrane-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WTVnKHE-yAU"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:art-taylor-wikipedia"]

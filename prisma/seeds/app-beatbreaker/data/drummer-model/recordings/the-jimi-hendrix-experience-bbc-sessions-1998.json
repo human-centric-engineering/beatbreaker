@@ -1,0 +1,29 @@
+{
+  "id": "rec:the-jimi-hendrix-experience-bbc-sessions-1998",
+  "title": "BBC Sessions",
+  "artist": "The Jimi Hendrix Experience",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mitch-mitchell"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Catfish Blues",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A slow, heavy blues with an extended drum solo in the middle, recorded for the BBC in 1967.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hendrix-bbc-sessions-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "catfish-blues",
+      "youtube": "https://www.youtube.com/watch?v=Ho0bfLnAXPs"
+    }
+  ]
+}

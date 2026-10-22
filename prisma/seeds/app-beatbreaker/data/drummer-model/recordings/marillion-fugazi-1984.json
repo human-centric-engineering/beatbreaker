@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Assassing",
+      "drummer_ids": ["drummer:ian-mosley"],
+      "drums": {
+        "description": "Mosley's first album with the band opens on this track's heavy tom-led groove and sharp unison stops.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fugazi-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=28gZsL2xM1g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2189927"
+        }
+      ]
+    },
+    {
+      "title": "Punch and Judy",
+      "drummer_ids": ["drummer:ian-mosley"],
+      "drums": {
+        "description": "A punchy, compact rock groove with snappy fills, the album's lead single.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:punch-and-judy-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OlEvEvR9GQQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1446209"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ian-mosley-wikipedia"]

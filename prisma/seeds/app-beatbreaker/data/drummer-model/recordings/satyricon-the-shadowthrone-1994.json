@@ -1,0 +1,33 @@
+{
+  "id": "rec:satyricon-the-shadowthrone-1994",
+  "title": "The Shadowthrone",
+  "artist": "Satyricon",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:frost"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hvite Krists død",
+      "drummer_ids": ["drummer:frost"],
+      "drums": {
+        "description": "Fast, tight blast beats and galloping mid-tempo sections on his first album with Satyricon.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-shadowthrone-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dViFjJz4pGQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=52767"
+        }
+      ]
+    }
+  ]
+}

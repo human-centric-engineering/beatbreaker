@@ -1,0 +1,33 @@
+{
+  "id": "rec:little-walter-blues-with-a-feeling-1953",
+  "title": "Blues with a Feeling",
+  "artist": "Little Walter",
+  "year": 1953,
+  "type": "studio_track",
+  "style_ids": ["style:blues", "style:blues-shuffle"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fred-below"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Blues with a Feeling",
+      "drummer_ids": ["drummer:fred-below"],
+      "drums": {
+        "description": "Slow blues with a deep, swinging backbeat and the shuffle feel Below brought from jazz.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:blues-with-a-feeling-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=IsLnXRXbJaE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=275053"
+        }
+      ]
+    }
+  ]
+}

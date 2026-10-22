@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Charlie M",
+      "drummer_ids": ["drummer:famoudou-don-moye"],
+      "drums": {
+        "description": "A gentle ballad brushed and coloured with small percussion.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:don-moye-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eFx7Ulh2OkQ"
+    },
+    {
+      "title": "Full Force",
+      "drummer_ids": ["drummer:famoudou-don-moye"],
+      "drums": {
+        "description": "Wide-ranging percussion, from free pulse to driving drums, through a long collective piece.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:don-moye-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6Aw2VLrHigo"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:don-moye-wikipedia"]

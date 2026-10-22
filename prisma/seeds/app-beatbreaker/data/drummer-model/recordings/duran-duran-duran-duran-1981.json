@@ -44,6 +44,42 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Planet Earth",
+      "drummer_ids": ["drummer:roger-taylor-duran-duran"],
+      "drums": {
+        "description": "The kick on every beat, sixteenths on the hi-hat, a crash on every 1 of the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:planet-earth-duran-song-wikipedia"]
+        }
+      },
+      "style_key": "rogertaylorduran",
+      "song_key": "planet-earth",
+      "youtube": "https://www.youtube.com/watch?v=8NF6Qa84mno"
+    },
+    {
+      "title": "Girls on Film",
+      "drummer_ids": ["drummer:roger-taylor-duran-duran"],
+      "drums": {
+        "description": "The kick on the \"a\" of 1 and the \"and\" of 2, the hi-hat opened on the \"and\" of 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:girls-on-film-wikipedia"]
+        }
+      },
+      "style_key": "rogertaylorduran",
+      "song_key": "girls-on-film",
+      "youtube": "https://www.youtube.com/watch?v=KCjMZMxNr-0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5934"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

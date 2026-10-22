@@ -1,0 +1,27 @@
+{
+  "id": "rec:bo-diddley-mona-1957",
+  "title": "Mona",
+  "artist": "Bo Diddley",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clifton-james"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Mona",
+      "drummer_ids": ["drummer:clifton-james"],
+      "drums": {
+        "description": "A relentless tom-tom pulse.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mona-i-need-you-baby-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DIQey99uW5E"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "rec:x-japan-art-of-life-1993",
+  "title": "Art of Life",
+  "artist": "X Japan",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yoshiki"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Art of Life",
+      "drummer_ids": ["drummer:yoshiki"],
+      "drums": {
+        "description": "A 29-minute symphonic metal piece with long passages of fast double bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:yoshiki-wikipedia", "src:art-of-life-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hF5niOhDr2I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=60255"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "rec:weather-report-mysterious-traveller-1974",
+  "title": "Mysterious Traveller",
+  "artist": "Weather Report",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dom-um-romao"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Nubian Sundance",
+      "drummer_ids": ["drummer:dom-um-romao"],
+      "drums": {
+        "description": "Percussion woven through a crowd-noise funk groove, part of the band’s turn from free jazz to grooves.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mysterious-traveller-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bchTF-WWG14"
+    }
+  ]
+}

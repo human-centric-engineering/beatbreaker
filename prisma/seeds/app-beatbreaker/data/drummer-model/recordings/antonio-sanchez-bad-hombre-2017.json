@@ -26,6 +26,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Bad Hombre",
+      "drummer_ids": ["drummer:antonio-sanchez"],
+      "drums": {
+        "description": "Solo drums over his own electronics and loops, grooves layered against processed sound.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:drum-2017-sanchez-bad-hombre"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=335IRNMqsAw"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:drum-2017-sanchez-bad-hombre"]

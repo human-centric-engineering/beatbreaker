@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Mëkanïk Dëstrüktïẁ Kömmandöh",
+      "drummer_ids": ["drummer:christian-vander"],
+      "drums": {
+        "description": "Repetitive, driving ostinatos building over long sections, Vander's Elvin Jones-derived zeuhl drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:magma-band-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yB8bktgxcQA"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": [

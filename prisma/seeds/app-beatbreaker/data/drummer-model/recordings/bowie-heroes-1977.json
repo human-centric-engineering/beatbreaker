@@ -48,6 +48,28 @@
       "pattern_ids": ["pattern:davis-heroes"]
     }
   ],
+  "tracks": [
+    {
+      "title": "\"Heroes\"",
+      "drummer_ids": ["drummer:dennis-davis"],
+      "drums": {
+        "description": "A steady, motorik-like eighth-note groove that grows in intensity under Fripp's guitar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:heroes-bowie-album-wikipedia-davis"]
+        }
+      },
+      "style_key": "dennisdavis",
+      "song_key": "heroes",
+      "youtube": "https://www.youtube.com/watch?v=lXgkuM2NhYI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3291"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:heroes-bowie-album-wikipedia"]

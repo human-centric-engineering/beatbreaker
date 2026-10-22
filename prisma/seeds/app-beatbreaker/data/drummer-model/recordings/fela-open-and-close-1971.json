@@ -1,0 +1,33 @@
+{
+  "id": "rec:fela-open-and-close-1971",
+  "title": "Open & Close",
+  "artist": "Fela Ransome-Kuti and the Africa '70",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:afrobeat", "style:west-african", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Open & Close",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "His first pattern under the dance the song is named for: hand on the hat's \"1 & a\", the foot chicking every \"and\".",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:tony-allen-research",
+            "src:tony-allen-poitevin",
+            "src:fela-kuti-discography-wikipedia"
+          ]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "open-and-close",
+      "youtube": "https://www.youtube.com/watch?v=c5T9WXk5Ob8"
+    }
+  ]
+}

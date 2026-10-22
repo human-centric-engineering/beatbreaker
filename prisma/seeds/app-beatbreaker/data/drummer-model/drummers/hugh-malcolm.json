@@ -48,6 +48,7 @@
   },
   "beatbreaker": {
     "group": "Ska and rocksteady drummers",
-    "build_priority": 3
+    "build_priority": 3,
+    "songs_short_because": "15-b sweep (2026-10-22): Hugh Malcolm is known through session credits that are rarely documented track by track."
   }
 }

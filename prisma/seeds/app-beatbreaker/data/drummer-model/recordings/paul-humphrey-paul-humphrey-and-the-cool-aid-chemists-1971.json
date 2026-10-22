@@ -10,5 +10,19 @@
       "drummer_id": "drummer:paul-humphrey",
       "name": "Paul Humphrey"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Cool Aid",
+      "drummer_ids": ["drummer:paul-humphrey"],
+      "drums": {
+        "description": "A funky, laid-back groove driving the instrumental hit.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:paul-humphrey-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=emAWsui6oV4"
+    }
   ]
 }

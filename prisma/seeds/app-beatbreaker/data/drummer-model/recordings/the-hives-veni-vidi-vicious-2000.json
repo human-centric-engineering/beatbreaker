@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Hate to Say I Told You So",
+      "drummer_ids": ["drummer:chris-dangerous"],
+      "drums": {
+        "description": "A stomping garage-punk beat on floor tom and snare, the riff carried by the drums.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:veni-vidi-vicious-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Uz1Jwyxd4tE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8968"
+        }
+      ]
+    },
+    {
+      "title": "Main Offender",
+      "drummer_ids": ["drummer:chris-dangerous"],
+      "drums": {
+        "description": "Fast, tight garage-rock drumming with a driving snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:veni-vidi-vicious-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=C_Ue3PVB4tw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=37836"
+        }
+      ]
+    }
   ]
 }

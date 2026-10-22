@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "I'm an Old Cowhand (From the Rio Grande)",
+      "drummer_ids": ["drummer:shelly-manne"],
+      "drums": {
+        "description": "Temple blocks and rims clip-clop like hooves under Rollins's theme, then Manne trades melodic breaks with the pianoless trio.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:shelly-manne-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8jSPPz22Gko"
+    },
+    {
+      "title": "Way Out West",
+      "drummer_ids": ["drummer:shelly-manne"],
+      "drums": {
+        "description": "A loping medium swing on brushes and ride in a pianoless trio, Manne answering Rollins's phrases rather than just keeping time.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:shelly-manne-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YLWojxCTi2Q"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:shelly-manne-wikipedia"]

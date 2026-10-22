@@ -1,0 +1,51 @@
+{
+  "id": "rec:darkthrone-under-a-funeral-moon-1993",
+  "title": "Under a Funeral Moon",
+  "artist": "Darkthrone",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fenriz"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Natassja in Eternal Sleep",
+      "drummer_ids": ["drummer:fenriz"],
+      "drums": {
+        "description": "Fast, monotonous blasting kept deliberately simple under the tremolo riffs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:under-a-funeral-moon-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=22iEdJJWbFs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5395"
+        }
+      ]
+    },
+    {
+      "title": "Under a Funeral Moon",
+      "drummer_ids": ["drummer:fenriz"],
+      "drums": {
+        "description": "Alternates a slow, heavy beat with flat-out fast sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:under-a-funeral-moon-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OvaZWnJL7xI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5792"
+        }
+      ]
+    }
+  ]
+}

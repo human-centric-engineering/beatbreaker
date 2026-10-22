@@ -1,0 +1,27 @@
+{
+  "id": "rec:bunny-wailer-rock-n-groove-1981",
+  "title": "Rock 'n' Groove",
+  "artist": "Bunny Wailer",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:dancehall", "style:dub"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:style-scott"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Rock 'n' Groove",
+      "drummer_ids": ["drummer:style-scott"],
+      "drums": {
+        "description": "A bouncing early-dancehall groove from the Roots Radics, kick and snare locked with Flabba Holt's bass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-style-scott"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=53oUY16Rg0s"
+    }
+  ]
+}

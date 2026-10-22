@@ -59,6 +59,81 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Prowler",
+      "drummer_ids": ["drummer:clive-burr"],
+      "drums": {
+        "description": "Punk-fast straight eighths with a swinging hi-hat and short snare fills, Burr's loose bounce under the twin guitars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:iron-maiden-album-wikipedia", "src:clive-burr-wikipedia"]
+        }
+      },
+      "style_key": "burr",
+      "song_key": "prowler",
+      "youtube": "https://www.youtube.com/watch?v=7DcVwd31uC0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=38600"
+        }
+      ]
+    },
+    {
+      "title": "Running Free",
+      "drummer_ids": ["drummer:clive-burr"],
+      "drums": {
+        "description": "Opens on a solo tom-and-floor-tom beat that runs the whole song, a glam stomp played at punk speed.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:running-free-wikipedia", "src:clive-burr-wikipedia"]
+        }
+      },
+      "style_key": "burr",
+      "song_key": "running-free",
+      "youtube": "https://www.youtube.com/watch?v=kbK9vqF8EOc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=38608"
+        }
+      ]
+    },
+    {
+      "title": "Phantom of the Opera",
+      "drummer_ids": ["drummer:clive-burr"],
+      "drums": {
+        "description": "Seven minutes of changing sections: gallops, a half-time bridge and a fast instrumental, Burr's fills linking each one.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:iron-maiden-album-wikipedia", "src:clive-burr-wikipedia"]
+        }
+      },
+      "style_key": "burr",
+      "song_key": "phantom-of-the-opera",
+      "also_song_keys": ["phantom-of-the-opera-bridge", "phantom-of-the-opera-instrumental"],
+      "youtube": "https://www.youtube.com/watch?v=p_qzjfkHI4g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10046"
+        }
+      ]
+    },
+    {
+      "title": "Iron Maiden",
+      "drummer_ids": ["drummer:clive-burr"],
+      "drums": {
+        "description": "A fast, punkish straight-eight with snare fills around the chant.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:iron-maiden-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=L3OHi_vw4jY"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:iron-maiden-album-wikipedia"]

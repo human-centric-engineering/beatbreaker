@@ -1,0 +1,33 @@
+{
+  "id": "rec:idris-muhammad-turn-this-mutha-out-1977",
+  "title": "Turn This Mutha Out",
+  "artist": "Idris Muhammad",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:funk", "style:new-orleans-funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:idris-muhammad"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Could Heaven Ever Be Like This",
+      "drummer_ids": ["drummer:idris-muhammad"],
+      "drums": {
+        "description": "A smooth, disco-funk groove with crisp hi-hat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:turn-this-mutha-out-wikipedia", "src:idris-muhammad-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0skigTyA4NE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2378081"
+        }
+      ]
+    }
+  ]
+}

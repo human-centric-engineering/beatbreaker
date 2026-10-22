@@ -19,6 +19,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "White Room",
+      "drummer_ids": ["drummer:ginger-baker"],
+      "drums": {
+        "description": "The 5/4 intro played as a slow tom-and-cymbal fanfare, then a driving 4/4 with Baker's rolling tom fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:white-room-wikipedia"]
+        }
+      },
+      "style_key": "baker",
+      "song_key": "white-room",
+      "youtube": "https://www.youtube.com/watch?v=njV0yqFR36E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4455"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "likely"
   }

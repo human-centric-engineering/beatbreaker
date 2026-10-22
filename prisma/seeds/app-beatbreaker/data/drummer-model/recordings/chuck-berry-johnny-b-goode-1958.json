@@ -10,5 +10,25 @@
       "drummer_id": "drummer:fred-below",
       "name": "Fred Below"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Johnny B. Goode",
+      "drummer_ids": ["drummer:fred-below"],
+      "drums": {
+        "description": "Swung drums and piano against Berry's straight-eighth guitar, a rhythmic friction often pointed out in this record.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:johnny-b-goode-wikipedia", "src:fred-below-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6swgiM9vSEE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10"
+        }
+      ]
+    }
   ]
 }

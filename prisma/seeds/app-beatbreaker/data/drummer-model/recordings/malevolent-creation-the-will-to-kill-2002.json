@@ -1,0 +1,33 @@
+{
+  "id": "rec:malevolent-creation-the-will-to-kill-2002",
+  "title": "The Will to Kill",
+  "artist": "Malevolent Creation",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:derek-roddy"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Will to Kill",
+      "drummer_ids": ["drummer:derek-roddy"],
+      "drums": {
+        "description": "Fast death-metal blasts and thrash beats.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-will-to-kill-wikipedia", "src:derek-roddy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qTfydCvJa9Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=607547"
+        }
+      ]
+    }
+  ]
+}

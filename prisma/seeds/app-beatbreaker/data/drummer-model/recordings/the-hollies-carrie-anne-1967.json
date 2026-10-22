@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Carrie Anne",
+      "drummer_ids": ["drummer:bobby-elliott"],
+      "drums": {
+        "description": "A bouncy, swinging pop beat under the steel-drum-flavoured arrangement.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bobby-elliott-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Zwnr58FT7K8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2533081"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:bobby-elliott-wikipedia"]

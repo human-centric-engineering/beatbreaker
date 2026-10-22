@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Psycho Killer",
+      "drummer_ids": ["drummer:chris-frantz"],
+      "drums": {
+        "description": "A spare, dry mid-tempo beat that leaves room for the bass riff, the snare kept small and on the backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:talking-heads-77-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CJ54eImz88w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=55473"
+        }
+      ]
+    },
+    {
+      "title": "Uh-Oh, Love Comes to Town",
+      "drummer_ids": ["drummer:chris-frantz"],
+      "drums": {
+        "description": "A light, bouncing beat with a skipping hi-hat, nearer soul and calypso than punk.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:talking-heads-77-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HOIQzgntbAg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1020278"
+        }
+      ]
+    }
   ]
 }

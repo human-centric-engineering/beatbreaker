@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Conquistador",
+      "drummer_ids": ["drummer:andrew-cyrille"],
+      "drums": {
+        "description": "Free, surging energy drumming without a steady pulse.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:andrew-cyrille-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-lq7liyDznk"
+    },
+    {
+      "title": "With (Exit)",
+      "drummer_ids": ["drummer:andrew-cyrille"],
+      "drums": {
+        "description": "Rolling, polyrhythmic waves of sound with Taylor's piano.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:andrew-cyrille-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6JGONHT3jVk"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:andrew-cyrille-wikipedia"]

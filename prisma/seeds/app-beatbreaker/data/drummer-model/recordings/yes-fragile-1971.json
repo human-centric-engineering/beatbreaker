@@ -53,6 +53,66 @@
       "kit_setup_id": "kit:bill-bruford-hayman-1971"
     }
   ],
+  "tracks": [
+    {
+      "title": "Roundabout",
+      "drummer_ids": ["drummer:bill-bruford"],
+      "drums": {
+        "description": "The hat in eighths, a ghost on the \"a\" of 2 and 4, the chorus in quarters, crisp and jazz-inflected.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-20807", "src:fragile-wikipedia"]
+        }
+      },
+      "style_key": "bruford",
+      "song_key": "roundabout",
+      "youtube": "https://www.youtube.com/watch?v=QOrrNM4md8c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=20807"
+        }
+      ]
+    },
+    {
+      "title": "Long Distance Runaround",
+      "drummer_ids": ["drummer:bill-bruford"],
+      "drums": {
+        "description": "The hat in eighths and the snare on every fifth of them, five bars round, against the 4/4 song; the ride parts at double time.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-21367", "src:smt-forum-long-distance-runaround"]
+        }
+      },
+      "style_key": "bruford",
+      "song_key": "long-distance-runaround",
+      "youtube": "https://www.youtube.com/watch?v=LLDd2kcx3u0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=21367"
+        }
+      ]
+    },
+    {
+      "title": "Heart of the Sunrise",
+      "drummer_ids": ["drummer:bill-bruford"],
+      "drums": {
+        "description": "Fast unison riffs with the bass, then a hushed verse, the drums switching between attack and space.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fragile-wikipedia", "src:bruford-drum-2012"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fg3rP67faOk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=21366"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:fragile-wikipedia"]

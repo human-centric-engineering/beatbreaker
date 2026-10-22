@@ -1,0 +1,27 @@
+{
+  "id": "rec:count-basie-and-his-orchestra-jumpin-at-the-woodside-1938",
+  "title": "Jumpin' at the Woodside",
+  "artist": "Count Basie and His Orchestra",
+  "year": 1938,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:papa-jo-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Jumpin' at the Woodside",
+      "drummer_ids": ["drummer:papa-jo-jones"],
+      "drums": {
+        "description": "A fast riff tune driven by Jones' hi-hat and light bass drum, the All-American Rhythm Section at full tilt.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jumpin-at-the-woodside-wikipedia", "src:jo-jones-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eowst8rvPEQ"
+    }
+  ]
+}

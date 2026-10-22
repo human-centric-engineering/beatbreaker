@@ -17,5 +17,49 @@
         "source_ids": ["src:wikipedia-edison-machado"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "The Girl from Ipanema",
+      "drummer_ids": ["drummer:edison-machado"],
+      "drums": {
+        "description": "A light bossa nova pattern on the snare, Machado moving the samba onto the ride cymbal.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-composer-of-desafinado-plays-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NldPFVKYmiw"
+    },
+    {
+      "title": "Desafinado",
+      "drummer_ids": ["drummer:edison-machado"],
+      "drums": {
+        "description": "Brushed bossa nova accompaniment under the orchestra.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-composer-of-desafinado-plays-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3BFK1_sW01w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2858980"
+        }
+      ]
+    },
+    {
+      "title": "One Note Samba",
+      "drummer_ids": ["drummer:edison-machado"],
+      "drums": {
+        "description": "A gently pushing samba groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-composer-of-desafinado-plays-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0rzNLXxo01Q"
+    }
   ]
 }

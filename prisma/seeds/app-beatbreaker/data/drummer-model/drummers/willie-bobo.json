@@ -68,6 +68,7 @@
   },
   "beatbreaker": {
     "group": "Afro-Cuban and Latin jazz drummers",
-    "build_priority": 1
+    "build_priority": 1,
+    "songs_short_because": "15-b sweep (2026-10-22): Four tracks."
   }
 }

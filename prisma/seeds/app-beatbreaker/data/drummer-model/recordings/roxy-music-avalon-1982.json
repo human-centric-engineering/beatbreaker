@@ -15,5 +15,43 @@
       "name": "Andy Newmark",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "More Than This",
+      "drummer_ids": ["drummer:andy-newmark"],
+      "drums": {
+        "description": "A soft, steady pulse with a light hat that floats under the layered keyboards.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:avalon-roxy-music-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kOnde5c7OG8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=486431"
+        }
+      ]
+    },
+    {
+      "title": "Avalon",
+      "drummer_ids": ["drummer:andy-newmark"],
+      "drums": {
+        "description": "A smooth, understated groove with gentle syncopation, the polished sound of the album.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:avalon-roxy-music-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bpA_5a0miWk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=486996"
+        }
+      ]
+    }
   ]
 }

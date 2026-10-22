@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Plug In Baby",
+      "drummer_ids": ["drummer:dominic-howard"],
+      "drums": {
+        "description": "Straight, driving eighths and big crash accents under the arpeggiated guitar riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:origin-of-symmetry-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dbB-mICjkQM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1368"
+        }
+      ]
+    },
+    {
+      "title": "New Born",
+      "drummer_ids": ["drummer:dominic-howard"],
+      "drums": {
+        "description": "Waits out the piano introduction, then crashes in with a fast, pounding rock beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:origin-of-symmetry-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qhduQhDqtb4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10105"
+        }
+      ]
+    },
+    {
+      "title": "Bliss",
+      "drummer_ids": ["drummer:dominic-howard"],
+      "drums": {
+        "description": "A fast, driving beat with a busy kick drum under the cascading synth arpeggio.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:origin-of-symmetry-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eMqsWc8muj8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14021"
+        }
+      ]
+    }
   ]
 }

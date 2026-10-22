@@ -39,6 +39,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Gor-Gor",
+      "drummer_ids": ["drummer:jizmak-da-gusha"],
+      "drums": {
+        "description": "Mid and floor toms interlocked with the kick at 230, the hi-hat foot on the beats, and triplets on both bass drums.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:gwar-wikipedia"]
+        }
+      },
+      "style_key": "jizmak",
+      "song_key": "gor-gor",
+      "youtube": "https://www.youtube.com/watch?v=30TQ-zSfwgs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=417139"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:amdb-wikipedia"]

@@ -10,5 +10,61 @@
       "drummer_id": "drummer:nick-menza",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Symphony of Destruction",
+      "drummer_ids": ["drummer:nick-menza"],
+      "drums": {
+        "description": "A slow, marching, heavy backbeat that made the song a stadium staple.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:symphony-of-destruction-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vfpgpf6QVnI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=487"
+        }
+      ]
+    },
+    {
+      "title": "Sweating Bullets",
+      "drummer_ids": ["drummer:nick-menza"],
+      "drums": {
+        "description": "A heavy, swinging mid-tempo groove with tom accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:countdown-to-extinction-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aOnKCcjP8Qs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12156"
+        }
+      ]
+    },
+    {
+      "title": "Foreclosure of a Dream",
+      "drummer_ids": ["drummer:nick-menza"],
+      "drums": {
+        "description": "A heavy, mid-tempo groove with crisp snare and dynamic tom fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:countdown-to-extinction-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RgikGBh6pbI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=43109"
+        }
+      ]
+    }
   ]
 }

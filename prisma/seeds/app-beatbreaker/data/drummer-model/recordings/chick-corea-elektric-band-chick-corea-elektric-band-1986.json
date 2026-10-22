@@ -1,0 +1,45 @@
+{
+  "id": "rec:chick-corea-elektric-band-chick-corea-elektric-band-1986",
+  "title": "Chick Corea Elektric Band",
+  "artist": "Chick Corea Elektric Band",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-weckl"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Rumble",
+      "drummer_ids": ["drummer:dave-weckl"],
+      "drums": {
+        "description": "Hyper-precise fusion grooves with electronic pads.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dave-weckl-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=n_2zEckwB1Y"
+    },
+    {
+      "title": "Got a Match?",
+      "drummer_ids": ["drummer:dave-weckl"],
+      "drums": {
+        "description": "A fast, intricate fusion line, drums in unison with keyboards and bass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dave-weckl-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8XD4m_l8bgY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3265718"
+        }
+      ]
+    }
+  ]
+}

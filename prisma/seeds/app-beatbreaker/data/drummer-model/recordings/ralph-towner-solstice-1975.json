@@ -18,6 +18,44 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Oceanus",
+      "drummer_ids": ["drummer:jon-christensen"],
+      "drums": {
+        "description": "Washes of cymbal and mallet rolls with no fixed beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:solstice-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bP-w5hR4hdA"
+    },
+    {
+      "title": "Nimbus",
+      "drummer_ids": ["drummer:jon-christensen"],
+      "drums": {
+        "description": "Driving, textural time with shimmering cymbals.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:solstice-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PoABNZ8TMJU"
+    },
+    {
+      "title": "Piscean Dance",
+      "drummer_ids": ["drummer:jon-christensen"],
+      "drums": {
+        "description": "Light, dancing groove with sparse accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:solstice-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8oZ2RDBJxso"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jon-christensen-musician-wikipedia"]

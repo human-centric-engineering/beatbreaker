@@ -1,0 +1,35 @@
+{
+  "id": "rec:james-brown-hot-pants-1971",
+  "title": "Hot Pants",
+  "artist": "James Brown",
+  "year": 1971,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jabo-starks"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hot Pants (She Got to Use What She Got to Get What She Wants)",
+      "drummer_ids": ["drummer:jabo-starks"],
+      "drums": {
+        "description": "Eighths on the hats with sixteenths before 3 and the 1, the kick on 1 and 3, and long stops where the band drops out.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-1889573", "src:hot-pants-song-wikipedia"]
+        }
+      },
+      "style_key": "jabostarks",
+      "song_key": "hot-pants",
+      "youtube": "https://www.youtube.com/watch?v=paG_q01Vr8A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1041067"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-aristocrats-culture-clash-2013",
+  "title": "Culture Clash",
+  "artist": "The Aristocrats",
+  "year": 2013,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:marco-minnemann"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Culture Clash",
+      "drummer_ids": ["drummer:marco-minnemann"],
+      "drums": {
+        "description": "Heavy fusion with fast double-bass passages and polyrhythmic fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:culture-clash-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dR23up191JA"
+    }
+  ]
+}

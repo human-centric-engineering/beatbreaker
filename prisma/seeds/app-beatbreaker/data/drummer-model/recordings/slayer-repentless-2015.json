@@ -1,0 +1,33 @@
+{
+  "id": "rec:slayer-repentless-2015",
+  "title": "Repentless",
+  "artist": "Slayer",
+  "year": 2015,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-bostaph"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Repentless",
+      "drummer_ids": ["drummer:paul-bostaph"],
+      "drums": {
+        "description": "A relentless, fast thrash beat with double bass, Bostaph back in the Slayer chair.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:repentless-wikipedia", "src:paul-bostaph-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tqvvaY2LvuI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=400989"
+        }
+      ]
+    }
+  ]
+}

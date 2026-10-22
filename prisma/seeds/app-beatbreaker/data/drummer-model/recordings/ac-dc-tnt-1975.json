@@ -75,6 +75,68 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "It's a Long Way to the Top (If You Wanna Rock 'n' Roll)",
+      "drummer_ids": ["drummer:phil-rudd"],
+      "drums": {
+        "description": "Eighths on the hats, the kick on 1 and 3, the hats opening on every beat under the bagpipe sections.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-8699", "src:tnt-album-wikipedia"]
+        }
+      },
+      "style_key": "rudd",
+      "song_key": "its-a-long-way-to-the-top",
+      "youtube": "https://www.youtube.com/watch?v=GChhRrU6BJU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8699"
+        }
+      ]
+    },
+    {
+      "title": "T.N.T.",
+      "drummer_ids": ["drummer:phil-rudd"],
+      "drums": {
+        "description": "The kick alone on every beat, then 2 and 4 over it, crashes on 1, 2 and 3 in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-83553", "src:tnt-album-wikipedia"]
+        }
+      },
+      "style_key": "rudd",
+      "song_key": "tnt",
+      "youtube": "https://www.youtube.com/watch?v=44XYEeD1A1U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=83553"
+        }
+      ]
+    },
+    {
+      "title": "The Jack",
+      "drummer_ids": ["drummer:phil-rudd"],
+      "drums": {
+        "description": "A slow 12/8 blues: triplets on the hats, the kick round them, the ride for the solos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-23452", "src:tnt-album-wikipedia"]
+        }
+      },
+      "style_key": "rudd",
+      "song_key": "the-jack",
+      "youtube": "https://www.youtube.com/watch?v=fhGHZZmNkp4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23452"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:tnt-album-wikipedia"]

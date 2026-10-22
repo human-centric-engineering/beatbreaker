@@ -10,5 +10,54 @@
       "drummer_id": "drummer:george-kollias",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Sacrifice Unto Sebek",
+      "drummer_ids": ["drummer:george-kollias"],
+      "drums": {
+        "description": "Extreme-speed blasts and double kick, the playing that made his name.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:george-kollias-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FRM1zw_v-NM"
+    },
+    {
+      "title": "Lashed to the Slave Stick",
+      "drummer_ids": ["drummer:george-kollias"],
+      "drums": {
+        "description": "Blast beats and machine-precise double bass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:george-kollias-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14391"
+        }
+      ]
+    },
+    {
+      "title": "Annihilation of the Wicked",
+      "drummer_ids": ["drummer:george-kollias"],
+      "drums": {
+        "description": "Blasts and pounding tom sections in a long, slow-building epic.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:george-kollias-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RVji2A3wW9w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=85680"
+        }
+      ]
+    }
   ]
 }

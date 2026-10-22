@@ -123,5 +123,45 @@
     "reliability": 0.6,
     "accessed": "2026-10-14",
     "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:santana-1969-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Santana (1969 album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Santana_(1969_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:santana-iii-wikipedia",
+    "type": "encyclopedia",
+    "title": "Santana III - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Santana_III",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:soul-sacrifice-wikipedia",
+    "type": "encyclopedia",
+    "title": "Soul Sacrifice - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Soul_Sacrifice",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:black-magic-woman-wikipedia",
+    "type": "encyclopedia",
+    "title": "Black Magic Woman - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Black_Magic_Woman",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:oye-como-va-wikipedia",
+    "type": "encyclopedia",
+    "title": "Oye Como Va - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Oye_Como_Va",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

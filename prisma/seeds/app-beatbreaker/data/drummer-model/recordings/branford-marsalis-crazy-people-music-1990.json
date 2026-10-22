@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Spartacus",
+      "drummer_ids": ["drummer:jeff-tain-watts"],
+      "drums": {
+        "description": "Swirling, powerful triplet-based swing with relentless intensity.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:crazy-people-music-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YYC5enmW69o"
+    },
+    {
+      "title": "Dance of the Evil Toys",
+      "drummer_ids": ["drummer:jeff-tain-watts"],
+      "drums": {
+        "description": "Odd, lurching groove with metric shifts.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:crazy-people-music-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gN0Hyy-FUBE"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jeff-tain-watts-wikipedia"]

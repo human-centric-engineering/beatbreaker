@@ -16,5 +16,96 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Pay to Cum",
+      "drummer_ids": ["drummer:earl-hudson"],
+      "drums": {
+        "description": "One of the fastest punk beats of its time: Hudson's blur of snare and hats at hardcore speed.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:earl-hudson-wikipedia", "src:bad-brains-album-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=31701"
+        }
+      ]
+    },
+    {
+      "title": "Sailin' On",
+      "drummer_ids": ["drummer:earl-hudson"],
+      "drums": {
+        "description": "Lightning-fast hardcore with sudden halftime stops.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:earl-hudson-wikipedia", "src:bad-brains-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=z1HHXoeWi7I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=924143"
+        }
+      ]
+    },
+    {
+      "title": "Banned in D.C.",
+      "drummer_ids": ["drummer:earl-hudson"],
+      "drums": {
+        "description": "A breakneck beat that drops into a halftime chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:earl-hudson-wikipedia", "src:bad-brains-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hAin8VxqN7g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=31699"
+        }
+      ]
+    },
+    {
+      "title": "Big Takeover",
+      "drummer_ids": ["drummer:earl-hudson"],
+      "drums": {
+        "description": "A fast, precise hardcore beat with tight tom fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:earl-hudson-wikipedia", "src:bad-brains-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KPuJhCbvUsw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5471033"
+        }
+      ]
+    },
+    {
+      "title": "I Luv I Jah",
+      "drummer_ids": ["drummer:earl-hudson"],
+      "drums": {
+        "description": "A roots-reggae one drop, showing Hudson's switch between hardcore and reggae.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:earl-hudson-wikipedia", "src:bad-brains-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2O9GIFXXGko",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2656007"
+        }
+      ]
+    }
   ]
 }

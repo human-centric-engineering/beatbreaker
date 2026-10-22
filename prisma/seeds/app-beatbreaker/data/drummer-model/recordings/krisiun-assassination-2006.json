@@ -1,0 +1,33 @@
+{
+  "id": "rec:krisiun-assassination-2006",
+  "title": "AssassiNation",
+  "artist": "Krisiun",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:max-kolesne"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Bloodcraft",
+      "drummer_ids": ["drummer:max-kolesne"],
+      "drums": {
+        "description": "Fast blasts and mid-tempo double-kick grooves.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:assassination-wikipedia", "src:krisiun-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xTO5qtbXiug",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2797012"
+        }
+      ]
+    }
+  ]
+}

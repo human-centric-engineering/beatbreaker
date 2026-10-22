@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "The Hawk Talks",
+      "drummer_ids": ["drummer:louie-bellson"],
+      "drums": {
+        "description": "An uptempo Bellson composition with explosive double-bass-drum breaks under the brass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:louie-bellson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=EZXorj3HEHk"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:louie-bellson-wikipedia"]

@@ -18,6 +18,68 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Blue Bossa",
+      "drummer_ids": ["drummer:pete-la-roca"],
+      "drums": {
+        "description": "The first recording of Blue Bossa: a light, crisp bossa nova groove on rim and cymbal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blue-bossa-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=EUxv3AAaK_Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=72220"
+        }
+      ]
+    },
+    {
+      "title": "Recorda Me",
+      "drummer_ids": ["drummer:pete-la-roca"],
+      "drums": {
+        "description": "Latin groove alternating with swing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:pete-la-roca-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3c9zSAVWKEs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3565888"
+        }
+      ]
+    },
+    {
+      "title": "La Mesha",
+      "drummer_ids": ["drummer:pete-la-roca"],
+      "drums": {
+        "description": "Slow, spacious ballad brushes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:pete-la-roca-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Ns4p9lVGYjc"
+    },
+    {
+      "title": "Homestretch",
+      "drummer_ids": ["drummer:pete-la-roca"],
+      "drums": {
+        "description": "Fast, driving swing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:pete-la-roca-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_Gkj1mQIONI"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:pete-la-roca-wikipedia"]

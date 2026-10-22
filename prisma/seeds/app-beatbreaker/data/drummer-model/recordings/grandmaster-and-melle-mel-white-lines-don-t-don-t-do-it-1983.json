@@ -1,0 +1,26 @@
+{
+  "id": "rec:grandmaster-and-melle-mel-white-lines-don-t-don-t-do-it-1983",
+  "title": "White Lines (Don't Don't Do It)",
+  "artist": "Grandmaster and Melle Mel",
+  "year": 1983,
+  "type": "studio_track",
+  "style_ids": ["style:hip-hop-breakbeat", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:keith-leblanc"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "White Lines (Don't Don't Do It)",
+      "drummer_ids": ["drummer:keith-leblanc"],
+      "drums": {
+        "description": "A funky, driving hip-hop groove played by the Sugar Hill house band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:keith-leblanc-wikipedia"]
+        }
+      }
+    }
+  ]
+}

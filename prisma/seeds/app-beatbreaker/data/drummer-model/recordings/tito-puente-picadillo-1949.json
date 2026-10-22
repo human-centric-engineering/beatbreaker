@@ -1,0 +1,29 @@
+{
+  "id": "rec:tito-puente-picadillo-1949",
+  "title": "Picadillo",
+  "artist": "Tito Puente",
+  "year": 1949,
+  "type": "studio_track",
+  "style_ids": ["style:mambo", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tito-puente"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Picadillo",
+      "drummer_ids": ["drummer:tito-puente"],
+      "drums": {
+        "description": "An early instrumental mambo: the mambo bell on the timbales and the low drum on 2 and 4.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-puente"]
+        }
+      },
+      "style_key": "puente",
+      "song_key": "picadillo",
+      "youtube": "https://www.youtube.com/watch?v=JJV86wg3bKQ"
+    }
+  ]
+}

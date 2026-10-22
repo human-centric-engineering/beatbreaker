@@ -40,6 +40,23 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Say It Loud – I'm Black and I'm Proud",
+      "year": 1968,
+      "drummer_ids": ["drummer:clyde-stubblefield"],
+      "drums": {
+        "description": "A medium groove under the call and response, the ghost notes kept light.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:stubblefield-wikipedia"]
+        }
+      },
+      "style_key": "stubblefield",
+      "song_key": "say-it-loud",
+      "youtube": "https://www.youtube.com/watch?v=pxsIEyxg-Ok"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:pas-starks", "src:wiki-mirror-purdie"],

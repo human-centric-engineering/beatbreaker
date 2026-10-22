@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-kinks-lola-versus-powerman-and-the-moneygoround-part-one-1970",
+  "title": "Lola Versus Powerman and the Moneygoround, Part One",
+  "artist": "The Kinks",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-avory"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Lola",
+      "drummer_ids": ["drummer:mick-avory"],
+      "drums": {
+        "description": "A steady, building beat under the strummed acoustic guitars, kept simple so the story carries the song.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:lola-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6CzrYXcXweI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=11190"
+        }
+      ]
+    }
+  ]
+}

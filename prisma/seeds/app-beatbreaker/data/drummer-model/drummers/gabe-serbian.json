@@ -66,7 +66,10 @@
     "kit_orientation": "right_handed",
     "setup_type": "drum_kit",
     "primary_instruments": ["drum kit", "guitar", "vocals"],
-    "active": { "from": 1996, "to": 2022 },
+    "active": {
+      "from": 1996,
+      "to": 2022
+    },
     "roles": ["band_member", "touring", "composer"],
     "summary": "The Locust's drummer from 2001 to his death in 2022, after three years as its second guitarist; before that Cattle Decapitation's first drummer and then its guitarist. Self-made at speed ('I never had a plan on how to play like I play'), he drove the San Diego band's sub-minute songs of grindcore, hardcore and synthesiser noise on a plain four-piece Ludwig: blasts, crash-and-snare runs over a running kick, tom pickups into the backbeat and stop-start stabs choked by the hand that struck them, in mixed meters, masked and in the band's insect uniform. Slayer and Dave Lombardo made him a drummer; Lombardo later named him. Also Head Wound City, Retox, Holy Molar, Le Butcherettes and Zu."
   },
@@ -86,12 +89,18 @@
       {
         "tradition": "Hardcore punk and the Melvins",
         "impact": "'Stuff like Dale Crover. Growing up those were my main influences, and various punk bands.'",
-        "evidence": { "confidence": "verified", "source_ids": ["src:serbian-bigwheel-2011"] }
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:serbian-bigwheel-2011"]
+        }
       },
       {
         "tradition": "School band and a jazz-drumming stepfather",
         "impact": "Drums in sixth-grade band after clarinet; his stepfather, a jazz drummer, had a kit and taught him a rock beat. Otherwise self-taught: practises only on the kit, never on pads or rudiments.",
-        "evidence": { "confidence": "verified", "source_ids": ["src:serbian-bigwheel-2011"] }
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:serbian-bigwheel-2011"]
+        }
       }
     ],
     "formative_events": [
@@ -138,13 +147,19 @@
     {
       "id": "era:serbian-guitar",
       "label": "Guitarist (Cattle Decapitation and the Locust)",
-      "years": { "from": 1996, "to": 2001 },
+      "years": {
+        "from": 1996,
+        "to": 2001
+      },
       "context": "Cattle Decapitation's first drummer, then its guitarist on Human Jerky and Homovore; the Locust's second guitarist on the 1998 album and Flight of the Wounded Locust, with Dave Astor drumming."
     },
     {
       "id": "era:serbian-locust",
       "label": "The Locust's drummer",
-      "years": { "from": 2001, "to": 2008 },
+      "years": {
+        "from": 2001,
+        "to": 2008
+      },
       "context": "The Peel Session (2001), Plague Soundscapes (2003), Safety Second, Body Last (2005) and New Erections (2007), all but the first with Alex Newport; touring in the uniforms with Fantomas, the Yeah Yeah Yeahs and on their own, then a hiatus.",
       "defining_traits": [
         "blasts of 16ths on kick and snare",
@@ -163,7 +178,10 @@
     {
       "id": "era:serbian-la",
       "label": "Los Angeles bands, and the Locust again",
-      "years": { "from": 2010, "to": 2022 },
+      "years": {
+        "from": 2010,
+        "to": 2022
+      },
       "context": "Retox, Le Butcherettes, Head Wound City, Skinwalker, Cheap Curls; the Locust back from 2013 (Desert Daze 2019, a 2021 House of Blues set) until his death.",
       "kit_setup_id": "kit:serbian-2012"
     }
@@ -219,7 +237,10 @@
         "note": "'Muscling through each 16th note like he was laying down a punch'; no measurement."
       }
     },
-    "swing": { "straight_16_lilt": 0.0, "typical_swing_ratio": 0.5 },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5
+    },
     "dynamics": {
       "range": 0.4,
       "default_level": "ff",
@@ -283,7 +304,10 @@
         "name": "Snare ruffs",
         "description": "Three fast strokes into the next beat in the 3/4 bars of The Half-Eaten Sausage.",
         "weight": 0.4,
-        "evidence": { "confidence": "likely", "source_ids": ["src:songsterr-5426372"] }
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5426372"]
+        }
       }
     ],
     "foot_techniques": [
@@ -373,7 +397,10 @@
         "pattern:serbian-teenage-mustache-unison",
         "pattern:serbian-teenage-mustache-verse"
       ],
-      "evidence": { "confidence": "likely", "source_ids": ["src:songsterr-1761834"] }
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-1761834"]
+      }
     },
     {
       "id": "trait:serbian-blast",
@@ -383,7 +410,10 @@
       "audibility": "obvious",
       "frequency": "frequent",
       "pattern_ids": ["pattern:serbian-blast"],
-      "evidence": { "confidence": "verified", "source_ids": ["src:locust-laweekly-2003"] }
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:locust-laweekly-2003"]
+      }
     },
     {
       "id": "trait:serbian-stabs",
@@ -456,17 +486,26 @@
         "function": "The main riff: a crash on 1 and 3, two snare 16ths after each, five 16ths on the kick from beat 2",
         "style_ids": ["style:grindcore", "style:punk"],
         "fidelity": "approximation",
-        "transcription": { "status": "draft", "method": "published_transcription" },
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
         "evidence": {
           "confidence": "likely",
           "source_ids": ["src:songsterr-1761834"],
           "note": "Songsterr bar 1 (6 of 40 bars)."
         },
-        "time_signature": { "numerator": 4, "denominator": 4 },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
         "steps_per_beat": 4,
         "bars": 1,
         "feel": "straight",
-        "tempo": { "original_bpm": 165, "playable_range_bpm": [150, 180] },
+        "tempo": {
+          "original_bpm": 165,
+          "playable_range_bpm": [150, 180]
+        },
         "lanes": {
           "crash_1": "x.......x.......",
           "snare": "..xx......xx....",
@@ -485,17 +524,26 @@
         "function": "Crash on the beats, snare on 2 and 4, two tom 16ths before each backbeat, the kick on 1 and its and",
         "style_ids": ["style:punk", "style:grindcore"],
         "fidelity": "approximation",
-        "transcription": { "status": "draft", "method": "published_transcription" },
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
         "evidence": {
           "confidence": "likely",
           "source_ids": ["src:songsterr-1761834"],
           "note": "Songsterr bar 9 (5 of 40 bars); bar 17 (6 bars) puts three tom 16ths after the backbeat instead. The tab's mid tom is his one rack tom here."
         },
-        "time_signature": { "numerator": 4, "denominator": 4 },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
         "steps_per_beat": 4,
         "bars": 1,
         "feel": "straight",
-        "tempo": { "original_bpm": 180, "playable_range_bpm": [165, 190] },
+        "tempo": {
+          "original_bpm": 180,
+          "playable_range_bpm": [165, 190]
+        },
         "lanes": {
           "crash_1": "x...x...x...x...",
           "snare": "....x.......x...",
@@ -515,17 +563,26 @@
         "function": "The fastest section: crash and snare together on the beats and some off-beats over continuous 16ths on the kick",
         "style_ids": ["style:grindcore"],
         "fidelity": "approximation",
-        "transcription": { "status": "draft", "method": "published_transcription" },
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
         "evidence": {
           "confidence": "likely",
           "source_ids": ["src:songsterr-1761834"],
           "note": "Songsterr bar 25 (2 of 40 bars), at 200; bar 8 at 180 is the plain version (crash on the beats, snare on 2 and 4 over 16th kick). The tab writes the kick on one drum."
         },
-        "time_signature": { "numerator": 4, "denominator": 4 },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
         "steps_per_beat": 4,
         "bars": 1,
         "feel": "straight",
-        "tempo": { "original_bpm": 200, "playable_range_bpm": [180, 200] },
+        "tempo": {
+          "original_bpm": 200,
+          "playable_range_bpm": [180, 200]
+        },
         "lanes": {
           "crash_1": "x...x.x.x...x...",
           "snare": "x...x.x.x...x...",
@@ -544,17 +601,25 @@
         "function": "'16ths on the kick drum and on the snare drum', the right hand on a cymbal varying over them",
         "style_ids": ["style:grindcore"],
         "fidelity": "stylistic_archetype",
-        "transcription": { "status": "archetype" },
+        "transcription": {
+          "status": "archetype"
+        },
         "evidence": {
           "confidence": "likely",
           "source_ids": ["src:locust-laweekly-2003"],
           "note": "Built from his own words, not a transcription; the cymbal here is a crash on the beats, one of the right-hand choices he implies."
         },
-        "time_signature": { "numerator": 4, "denominator": 4 },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
         "steps_per_beat": 4,
         "bars": 1,
         "feel": "straight",
-        "tempo": { "original_bpm": 180, "playable_range_bpm": [150, 200] },
+        "tempo": {
+          "original_bpm": 180,
+          "playable_range_bpm": [150, 200]
+        },
         "lanes": {
           "crash_1": "x...x...x...x...",
           "snare": "xxxxxxxxxxxxxxxx",
@@ -569,17 +634,26 @@
         "function": "Crash and kick on 1, snare and open hat on 2, a three-stroke ruff into 3, kick and open hat on 3, the snare on its off-beat",
         "style_ids": ["style:grindcore", "style:math-rock"],
         "fidelity": "approximation",
-        "transcription": { "status": "draft", "method": "published_transcription" },
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
         "evidence": {
           "confidence": "likely",
           "source_ids": ["src:songsterr-5426372"],
           "note": "Songsterr bars 5-6 (and 7-12 with small changes), after four bars of 4/4; read on a sextuplet grid, where the ruff falls."
         },
-        "time_signature": { "numerator": 3, "denominator": 4 },
+        "time_signature": {
+          "numerator": 3,
+          "denominator": 4
+        },
         "steps_per_beat": 6,
         "bars": 1,
         "feel": "straight",
-        "tempo": { "original_bpm": 140, "playable_range_bpm": [120, 145] },
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [120, 145]
+        },
         "lanes": {
           "crash_1": "x.................",
           "hihat": "......o.....o.....",
@@ -599,7 +673,9 @@
         "function": "Crash and kick together on the 1, the crash choked, then a bar of silence before the band comes back in",
         "style_ids": ["style:experimental-rock", "style:grindcore"],
         "fidelity": "stylistic_archetype",
-        "transcription": { "status": "archetype" },
+        "transcription": {
+          "status": "archetype"
+        },
         "evidence": {
           "confidence": "likely",
           "source_ids": [
@@ -609,16 +685,24 @@
           ],
           "note": "The machine tab's two commonest bars (a lone crash and kick, x22; silence, x20) as a shape, not as notes; the choke is from Richardson's account of his playing."
         },
-        "time_signature": { "numerator": 4, "denominator": 4 },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
         "steps_per_beat": 4,
         "bars": 2,
         "feel": "straight",
-        "tempo": { "original_bpm": 160, "playable_range_bpm": [140, 180] },
+        "tempo": {
+          "original_bpm": 160,
+          "playable_range_bpm": [140, 180]
+        },
         "lanes": {
           "crash_1": "x...............|................",
           "kick": "x...............|................"
         },
-        "source": { "recording_id": "rec:the-locust-new-erections-2007" },
+        "source": {
+          "recording_id": "rec:the-locust-new-erections-2007"
+        },
         "tags": ["stop", "choke", "2007"]
       }
     ],
@@ -641,13 +725,24 @@
     {
       "id": "kit:serbian-2003",
       "label": "Green Ludwig four-piece (Hellfest 2003)",
-      "years": { "from": 2003, "to": 2003 },
+      "years": {
+        "from": 2003,
+        "to": 2003
+      },
       "context": "live",
       "drums": [
-        { "instrument": "kick" },
-        { "instrument": "snare" },
-        { "instrument": "tom_1" },
-        { "instrument": "floor_tom_1" }
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
       ],
       "cymbals": [
         {
@@ -669,7 +764,10 @@
     {
       "id": "kit:serbian-2012",
       "label": "Early-1990s Ludwig with a 28-inch concert bass drum",
-      "years": { "from": 2012, "to": 2012 },
+      "years": {
+        "from": 2012,
+        "to": 2012
+      },
       "context": "both",
       "drums": [
         {
@@ -678,9 +776,15 @@
           "size": "28",
           "notes": "A concert bass drum 'that they use for orchestras'."
         },
-        { "instrument": "snare" },
-        { "instrument": "tom_1" },
-        { "instrument": "floor_tom_1" }
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
       ],
       "layout_notes": "'A Ludwig kit from the early 90's ... when Ludwig was first starting to replicate the drums they made in the 70's. Like the really big John Bonham style drums. So my drums are really big.' Paiste cymbals per Wikipedia (undated).",
       "evidence": {
@@ -693,12 +797,23 @@
     {
       "name": "The Locust",
       "type": "band_member",
-      "years": { "from": 1998, "to": 2022 },
+      "years": {
+        "from": 1998,
+        "to": 2022
+      },
       "bandmates": [
-        { "name": "Justin Pearson" },
-        { "name": "Bobby Bray" },
-        { "name": "Joey Karam" },
-        { "name": "Dave Astor" }
+        {
+          "name": "Justin Pearson"
+        },
+        {
+          "name": "Bobby Bray"
+        },
+        {
+          "name": "Joey Karam"
+        },
+        {
+          "name": "Dave Astor"
+        }
       ],
       "notes": "Guitar and vocals 1998-2001; drums 2001-2022.",
       "evidence": {
@@ -709,8 +824,18 @@
     {
       "name": "Cattle Decapitation",
       "type": "band_member",
-      "years": { "from": 1996, "to": 2001 },
-      "bandmates": [{ "name": "Travis Ryan" }, { "name": "Dave Astor" }],
+      "years": {
+        "from": 1996,
+        "to": 2001
+      },
+      "bandmates": [
+        {
+          "name": "Travis Ryan"
+        },
+        {
+          "name": "Dave Astor"
+        }
+      ],
       "notes": "Drums at the start (1996-97), then guitar until he left to give himself to the Locust.",
       "evidence": {
         "confidence": "likely",
@@ -720,10 +845,19 @@
     {
       "name": "Retox",
       "type": "band_member",
-      "years": { "from": 2010 },
-      "bandmates": [{ "name": "Justin Pearson" }],
+      "years": {
+        "from": 2010
+      },
+      "bandmates": [
+        {
+          "name": "Justin Pearson"
+        }
+      ],
       "notes": "A hardcore band he started and drummed in, with Pearson singing.",
-      "evidence": { "confidence": "verified", "source_ids": ["src:serbian-bigwheel-2011"] }
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:serbian-bigwheel-2011"]
+      }
     },
     {
       "name": "Head Wound City",
@@ -737,7 +871,9 @@
     {
       "name": "Le Butcherettes",
       "type": "band_member",
-      "years": { "from": 2011 },
+      "years": {
+        "from": 2011
+      },
       "evidence": {
         "confidence": "verified",
         "source_ids": ["src:serbian-bigwheel-2011", "src:serbian-nme-2022"]
@@ -751,7 +887,11 @@
   "relationships": [
     {
       "type": "cites_as_influence",
-      "target": { "name": "Dave Lombardo", "kind": "drummer", "id": "drummer:dave-lombardo" },
+      "target": {
+        "name": "Dave Lombardo",
+        "kind": "drummer",
+        "id": "drummer:dave-lombardo"
+      },
       "scope": "individual",
       "strength": 0.9,
       "aspects": ["why he started", "speed", "thrash and hardcore drumming"],
@@ -763,7 +903,11 @@
     },
     {
       "type": "played_alongside",
-      "target": { "name": "Dave Lombardo", "kind": "drummer", "id": "drummer:dave-lombardo" },
+      "target": {
+        "name": "Dave Lombardo",
+        "kind": "drummer",
+        "id": "drummer:dave-lombardo"
+      },
       "strength": 0.4,
       "evidence": {
         "confidence": "likely",
@@ -773,23 +917,43 @@
     },
     {
       "type": "cites_as_influence",
-      "target": { "name": "Dale Crover", "kind": "drummer", "id": "drummer:dale-crover" },
+      "target": {
+        "name": "Dale Crover",
+        "kind": "drummer",
+        "id": "drummer:dale-crover"
+      },
       "scope": "individual",
       "strength": 0.6,
-      "evidence": { "confidence": "verified", "source_ids": ["src:serbian-bigwheel-2011"] }
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:serbian-bigwheel-2011"]
+      }
     },
     {
       "type": "style_lineage",
-      "target": { "name": "Hardcore punk", "kind": "style", "id": "style:punk" },
+      "target": {
+        "name": "Hardcore punk",
+        "kind": "style",
+        "id": "style:punk"
+      },
       "strength": 0.5,
       "aspects": ["'various punk bands'"],
-      "evidence": { "confidence": "verified", "source_ids": ["src:serbian-bigwheel-2011"] }
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:serbian-bigwheel-2011"]
+      }
     },
     {
       "type": "replaced",
-      "target": { "name": "Dave Astor", "kind": "drummer", "id": "drummer:dave-astor" },
+      "target": {
+        "name": "Dave Astor",
+        "kind": "drummer",
+        "id": "drummer:dave-astor"
+      },
       "scope": "band",
-      "years": { "from": 2001 },
+      "years": {
+        "from": 2001
+      },
       "strength": 0.6,
       "evidence": {
         "confidence": "verified",
@@ -803,8 +967,15 @@
     },
     {
       "type": "bandmate",
-      "target": { "name": "Dave Astor", "kind": "drummer", "id": "drummer:dave-astor" },
-      "years": { "from": 1996, "to": 2001 },
+      "target": {
+        "name": "Dave Astor",
+        "kind": "drummer",
+        "id": "drummer:dave-astor"
+      },
+      "years": {
+        "from": 1996,
+        "to": 2001
+      },
       "strength": 0.5,
       "evidence": {
         "confidence": "verified",
@@ -814,7 +985,11 @@
     },
     {
       "type": "played_alongside",
-      "target": { "name": "Ches Smith", "kind": "drummer", "id": "drummer:ches-smith" },
+      "target": {
+        "name": "Ches Smith",
+        "kind": "drummer",
+        "id": "drummer:ches-smith"
+      },
       "strength": 0.3,
       "evidence": {
         "confidence": "verified",
@@ -824,7 +999,11 @@
     },
     {
       "type": "admired",
-      "target": { "name": "Kevin Fitzgerald", "kind": "drummer", "id": "drummer:kevin-fitzgerald" },
+      "target": {
+        "name": "Kevin Fitzgerald",
+        "kind": "drummer",
+        "id": "drummer:kevin-fitzgerald"
+      },
       "strength": 0.3,
       "evidence": {
         "confidence": "verified",
@@ -834,7 +1013,10 @@
     },
     {
       "type": "bandmate",
-      "target": { "name": "Justin Pearson", "kind": "musician" },
+      "target": {
+        "name": "Justin Pearson",
+        "kind": "musician"
+      },
       "strength": 0.8,
       "evidence": {
         "confidence": "verified",
@@ -848,13 +1030,22 @@
     },
     {
       "type": "bandmate",
-      "target": { "name": "Bobby Bray", "kind": "musician" },
+      "target": {
+        "name": "Bobby Bray",
+        "kind": "musician"
+      },
       "strength": 0.7,
-      "evidence": { "confidence": "verified", "source_ids": ["src:the-locust-wikipedia"] }
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-locust-wikipedia"]
+      }
     },
     {
       "type": "bandmate",
-      "target": { "name": "Joey Karam", "kind": "musician" },
+      "target": {
+        "name": "Joey Karam",
+        "kind": "musician"
+      },
       "strength": 0.7,
       "evidence": {
         "confidence": "verified",
@@ -888,11 +1079,17 @@
     "cultural_references": [
       {
         "description": "Dave Lombardo, his first idol, compared the Locust's effect on him to D.R.I.'s in the early 1980s and named its drummer.",
-        "evidence": { "confidence": "verified", "source_ids": ["src:the-locust-wikipedia"] }
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-locust-wikipedia"]
+        }
       },
       {
         "description": "After his death in 2022 the Locust said it could no longer be active; its last recording is a remix of Danny Elfman's 'Cruel Compensation'.",
-        "evidence": { "confidence": "verified", "source_ids": ["src:the-locust-wikipedia"] }
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-locust-wikipedia"]
+        }
       }
     ],
     "common_misconceptions": [
@@ -928,6 +1125,7 @@
       "primary_descendants": [],
       "lineage_blurb": "Slayer made him a drummer; he played the Locust's grind as written movements, masked, from 2001 to 2022, taking the chair from Dave Astor."
     },
-    "tags": ["grindcore", "hardcore", "noise rock", "masked", "blast beats", "2000s", "san diego"]
+    "tags": ["grindcore", "hardcore", "noise rock", "masked", "blast beats", "2000s", "san diego"],
+    "songs_short_because": "15-b sweep (2026-10-22): Only six songs: the Locust catalogue is very short songs and these six are the ones with drum sources found; the other titles were not confirmed."
   }
 }

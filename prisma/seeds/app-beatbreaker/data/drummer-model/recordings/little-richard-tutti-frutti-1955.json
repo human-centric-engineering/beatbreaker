@@ -67,6 +67,28 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Tutti Frutti",
+      "drummer_ids": ["drummer:earl-palmer"],
+      "drums": {
+        "description": "A shuffle on the hat under Little Richard's pounding eighths, the band stopping for \"a-wop-bop-a-loo-bop\".",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-41778", "src:tutti-frutti-wikipedia"]
+        }
+      },
+      "style_key": "earlpalmer",
+      "song_key": "tutti-frutti",
+      "youtube": "https://www.youtube.com/watch?v=8SlOj_-_rTI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=41778"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:tutti-frutti-wikipedia"]

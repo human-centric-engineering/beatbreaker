@@ -14,6 +14,62 @@
       "why_it_matters": "Heavier record with more vocals than usual for Earth."
     }
   ],
+  "tracks": [
+    {
+      "title": "There Is a Serpent Coming",
+      "drummer_ids": ["drummer:adrienne-davies"],
+      "drums": {
+        "description": "A heavier, rock-weight backbeat than before, still slow, with Mark Lanegan singing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:primitive-and-deadly-wikipedia", "src:metal-insider-davies"]
+        }
+      },
+      "style_key": "davies",
+      "song_key": "there-is-a-serpent-coming",
+      "youtube": "https://www.youtube.com/watch?v=4oSAFWrYa-M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6201098"
+        }
+      ]
+    },
+    {
+      "title": "Torn by the Fox of the Crescent Moon",
+      "drummer_ids": ["drummer:adrienne-davies"],
+      "drums": {
+        "description": "A pounding slow groove with crashing accents under the album's heaviest riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:primitive-and-deadly-wikipedia", "src:metal-insider-davies"]
+        }
+      },
+      "style_key": "davies",
+      "song_key": "torn-by-the-fox",
+      "youtube": "https://www.youtube.com/watch?v=qvDpH-HgukM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4019772"
+        }
+      ]
+    },
+    {
+      "title": "Rooks Across the Gate",
+      "drummer_ids": ["drummer:adrienne-davies"],
+      "drums": {
+        "description": "A long, slow march with dynamic swells and a heavy floor tom.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:primitive-and-deadly-wikipedia"]
+        }
+      },
+      "style_key": "davies",
+      "song_key": "rooks-across-the-gate",
+      "youtube": "https://www.youtube.com/watch?v=DEd04Q4B5jA"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:metal-insider-davies"]

@@ -1,0 +1,33 @@
+{
+  "id": "rec:fiona-apple-when-the-pawn-1999",
+  "title": "When the Pawn...",
+  "artist": "Fiona Apple",
+  "year": 1999,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:alternative-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:matt-chamberlain"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Fast as You Can",
+      "drummer_ids": ["drummer:matt-chamberlain"],
+      "drums": {
+        "description": "A groove that switches tempo and feel between the verses and bridge.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:when-the-pawn-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NbxqtbqyoRk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=716511"
+        }
+      ]
+    }
+  ]
+}

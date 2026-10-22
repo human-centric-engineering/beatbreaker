@@ -1,0 +1,33 @@
+{
+  "id": "rec:marillion-clutching-at-straws-1987",
+  "title": "Clutching at Straws",
+  "artist": "Marillion",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ian-mosley"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Incommunicado",
+      "drummer_ids": ["drummer:ian-mosley"],
+      "drums": {
+        "description": "An up-tempo, bouncing rock groove with busy fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:incommunicado-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-OkmfIFxCus",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3247016"
+        }
+      ]
+    }
+  ]
+}

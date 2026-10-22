@@ -23,6 +23,56 @@
       "why_it_matters": "Extends the sunbaked Hex sound with more warmth."
     }
   ],
+  "tracks": [
+    {
+      "title": "The Bees Made Honey in the Lion's Skull",
+      "drummer_ids": ["drummer:adrienne-davies"],
+      "drums": {
+        "description": "The title track: a slow, majestic groove with crashes held to the end of each phrase.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bees-made-honey-wikipedia"]
+        }
+      },
+      "style_key": "davies",
+      "song_key": "bees-made-honey",
+      "youtube": "https://www.youtube.com/watch?v=wEiRKpflgQA"
+    },
+    {
+      "title": "Rise to Glory",
+      "drummer_ids": ["drummer:adrienne-davies"],
+      "drums": {
+        "description": "A rolling, gospel-tinged slow groove with a soft snare and cymbal swells.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bees-made-honey-wikipedia"]
+        }
+      },
+      "style_key": "davies",
+      "song_key": "rise-to-glory",
+      "youtube": "https://www.youtube.com/watch?v=BG1iOpM34GY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1227621"
+        }
+      ]
+    },
+    {
+      "title": "Engine of Ruin",
+      "drummer_ids": ["drummer:adrienne-davies"],
+      "drums": {
+        "description": "A grinding slow backbeat that barely moves, crash and floor tom marking the riff's long cycle.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bees-made-honey-wikipedia"]
+        }
+      },
+      "style_key": "davies",
+      "song_key": "engine-of-ruin",
+      "youtube": "https://www.youtube.com/watch?v=TFYbk-WzGwg"
+    }
+  ],
   "evidence": {
     "confidence": "likely"
   }

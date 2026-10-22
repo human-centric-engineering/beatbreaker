@@ -27,6 +27,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Shout It Out",
+      "drummer_ids": ["drummer:james-gadson"],
+      "drums": {
+        "description": "The backbeat on the 'e' of 2, the hat opened on 4 and fills on the sixteenths.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:shout-it-out-wikipedia",
+            "src:gadson-bishop-shout-it-out",
+            "src:shout-it-out-rushen-wikipedia"
+          ]
+        }
+      },
+      "style_key": "gadson",
+      "song_key": "shout-it-out",
+      "youtube": "https://www.youtube.com/watch?v=ID3600nGEOA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=658201"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:shout-it-out-rushen-wikipedia"]

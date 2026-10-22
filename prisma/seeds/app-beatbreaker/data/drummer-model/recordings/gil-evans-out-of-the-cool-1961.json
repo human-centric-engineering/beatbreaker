@@ -1,0 +1,27 @@
+{
+  "id": "rec:gil-evans-out-of-the-cool-1961",
+  "title": "Out of the Cool",
+  "artist": "Gil Evans",
+  "year": 1961,
+  "type": "album",
+  "style_ids": ["style:bebop", "style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charli-persip"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "La Nevada",
+      "drummer_ids": ["drummer:charli-persip"],
+      "drums": {
+        "description": "A long, slowly building medium groove on the kit, with Elvin Jones adding percussion alongside.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:out-of-the-cool-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8SMwJjV6OuI"
+    }
+  ]
+}

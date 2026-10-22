@@ -1,0 +1,27 @@
+{
+  "id": "rec:john-kirby-and-his-orchestra-front-and-center-1938",
+  "title": "Front and Center",
+  "artist": "John Kirby and His Orchestra",
+  "year": 1938,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:oneil-spencer"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Front and Center",
+      "drummer_ids": ["drummer:oneil-spencer"],
+      "drums": {
+        "description": "Brushes and hat at high speed, the precise, understated drive of 'the biggest little band'.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:john-kirby-musician-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hVJHlvfsUtE"
+    }
+  ]
+}

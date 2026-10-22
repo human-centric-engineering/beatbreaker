@@ -1,0 +1,35 @@
+{
+  "id": "rec:the-beatles-i-feel-fine-1964",
+  "title": "I Feel Fine",
+  "artist": "The Beatles",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "I Feel Fine",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "A two-bar figure: a Latin-tinged pattern on the ride and high tom answered by a cross-stick, borrowed from Ray Charles's What'd I Say.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-feel-fine-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "i-feel-fine",
+      "youtube": "https://www.youtube.com/watch?v=WrAV5EVI4tU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2822"
+        }
+      ]
+    }
+  ]
+}

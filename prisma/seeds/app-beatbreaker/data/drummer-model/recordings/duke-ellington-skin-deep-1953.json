@@ -13,6 +13,20 @@
       "why_it_matters": "Bellson's own composition and drum feature, on two bass drums."
     }
   ],
+  "tracks": [
+    {
+      "title": "Skin Deep",
+      "drummer_ids": ["drummer:louie-bellson"],
+      "drums": {
+        "description": "Bellson's own composition and drum feature, a long solo showing off his two bass drums.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:louie-bellson-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_X3KxP4T0Ks"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:louie-bellson-wikipedia"]

@@ -26,6 +26,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Joy",
+      "drummer_ids": ["drummer:vikku-vinayakram", "drummer:zakir-hussain"],
+      "drums": {
+        "description": "Ghatam in fast rhythmic dialogue with tabla and guitar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:th-vinayakram-wikipedia", "src:shakti-shakti-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=38RqK5GRhTI"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:zakir-hussain-wikipedia", "src:th-vinayakram-wikipedia"],

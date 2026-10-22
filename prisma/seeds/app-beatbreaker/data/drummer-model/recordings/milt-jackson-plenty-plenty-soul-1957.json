@@ -50,5 +50,21 @@
         "source_ids": ["src:plenty-plenty-soul-wikipedia", "src:bishop-plenty-plenty-soul-2020"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Plenty, Plenty Soul",
+      "drummer_ids": ["drummer:art-blakey"],
+      "drums": {
+        "description": "A shuffle backbeat on the snare under a dotted ride, the snare laid behind the beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bishop-plenty-plenty-soul-2020", "src:plenty-plenty-soul-wikipedia"]
+        }
+      },
+      "style_key": "blakey",
+      "song_key": "plenty-plenty-soul",
+      "youtube": "https://www.youtube.com/watch?v=FcWMWa9RMYY"
+    }
   ]
 }

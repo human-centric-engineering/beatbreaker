@@ -16,5 +16,37 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Loss for Words",
+      "drummer_ids": ["drummer:reed-mullin"],
+      "drums": {
+        "description": "Fast crossover drumming that mixes hardcore beats and metal double bass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:reed-mullin-wikipedia",
+            "src:animosity-corrosion-of-conformity-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jaB_mqtb_tU"
+    },
+    {
+      "title": "Holier",
+      "drummer_ids": ["drummer:reed-mullin"],
+      "drums": {
+        "description": "A heavy, mid-tempo crossover groove with fast bursts.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:reed-mullin-wikipedia",
+            "src:animosity-corrosion-of-conformity-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_cQQPdkA1ZQ"
+    }
   ]
 }

@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Cherokee",
+      "drummer_ids": ["drummer:cliff-leeman"],
+      "drums": {
+        "description": "A fast tom-tom-driven swing intro and a relentless four-beat drive under Barnet's sax.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cliff-leeman-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YnNUd7NzTMo"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:cliff-leeman-wikipedia"]

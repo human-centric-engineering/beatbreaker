@@ -16,5 +16,61 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Suburban Home",
+      "drummer_ids": ["drummer:bill-stevenson"],
+      "drums": {
+        "description": "Hardcore speed with pop-punk melody: Stevenson's fast, clean beat with crisp snare fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bill-stevenson-wikipedia", "src:milo-goes-to-college-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=x9PPlQp5DT4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=410985"
+        }
+      ]
+    },
+    {
+      "title": "Hope",
+      "drummer_ids": ["drummer:bill-stevenson"],
+      "drums": {
+        "description": "A fast, tuneful punk beat with accented stops that became a pop-punk template.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bill-stevenson-wikipedia", "src:milo-goes-to-college-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qOHEfVQFs2Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=58941"
+        }
+      ]
+    },
+    {
+      "title": "Myage",
+      "drummer_ids": ["drummer:bill-stevenson"],
+      "drums": {
+        "description": "A short, breakneck hardcore beat with sudden stops.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bill-stevenson-wikipedia", "src:milo-goes-to-college-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aVqo5Ibxk2M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=464919"
+        }
+      ]
+    }
   ]
 }

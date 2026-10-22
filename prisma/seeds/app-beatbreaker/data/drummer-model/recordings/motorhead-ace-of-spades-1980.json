@@ -10,5 +10,49 @@
       "drummer_id": "drummer:phil-taylor",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Ace of Spades",
+      "drummer_ids": ["drummer:phil-taylor"],
+      "drums": {
+        "description": "A fast, relentless shuffle-rock gallop with a crash on every bar.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:phil-taylor-musician-wikipedia",
+            "src:ace-of-spades-motorhead-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3mbvWn1EY6g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=335"
+        }
+      ]
+    },
+    {
+      "title": "(We Are) The Road Crew",
+      "drummer_ids": ["drummer:phil-taylor"],
+      "drums": {
+        "description": "A fast, driving rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:phil-taylor-musician-wikipedia",
+            "src:ace-of-spades-motorhead-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QTHpt-3xSU0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=47808"
+        }
+      ]
+    }
   ]
 }

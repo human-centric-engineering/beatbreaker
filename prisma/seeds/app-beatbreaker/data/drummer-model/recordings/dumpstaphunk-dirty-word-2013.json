@@ -11,6 +11,20 @@
       "why_it_matters": "Drums on the band's album."
     }
   ],
+  "tracks": [
+    {
+      "title": "Dirty Word",
+      "drummer_ids": ["drummer:nikki-glaspie"],
+      "drums": {
+        "description": "A heavy New Orleans funk groove with deep pocket and syncopated kick.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dumpstaphunk-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0avHwoxacHw"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:dumpstaphunk-wikipedia"]

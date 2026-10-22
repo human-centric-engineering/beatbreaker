@@ -10,5 +10,61 @@
       "drummer_id": "drummer:nick-menza",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Holy Wars... The Punishment Due",
+      "drummer_ids": ["drummer:nick-menza"],
+      "drums": {
+        "description": "Fast, precise thrash shifting tempo and feel, with Menza's technical fills and double bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:holy-wars-the-punishment-due-wikipedia", "src:nick-menza-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9d4ui9q7eDM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24033"
+        }
+      ]
+    },
+    {
+      "title": "Hangar 18",
+      "drummer_ids": ["drummer:nick-menza"],
+      "drums": {
+        "description": "A mid-tempo groove that turns into fast, intricate thrash under the trading solos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hangar-18-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rUGIocJK9Tc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12836"
+        }
+      ]
+    },
+    {
+      "title": "Tornado of Souls",
+      "drummer_ids": ["drummer:nick-menza"],
+      "drums": {
+        "description": "A driving thrash groove with tight snare and double bass under the famous guitar solo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tornado-of-souls-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=L8HhOMNrulE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12824"
+        }
+      ]
+    }
   ]
 }

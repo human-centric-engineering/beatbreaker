@@ -1,0 +1,30 @@
+{
+  "id": "rec:funkadelic-free-your-mind-and-your-ass-will-follow-1970",
+  "title": "Free Your Mind... and Your Ass Will Follow",
+  "artist": "Funkadelic",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:funk", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tiki-fulwood"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Free Your Mind and Your Ass Will Follow",
+      "drummer_ids": ["drummer:tiki-fulwood"],
+      "drums": {
+        "description": "A loose, psychedelic funk groove under the chant.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:free-your-mind-and-your-ass-will-follow-wikipedia",
+            "src:tiki-fulwood-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9zZfbkUkodY"
+    }
+  ]
+}

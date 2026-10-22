@@ -1,0 +1,27 @@
+{
+  "id": "rec:modern-jazz-quartet-pyramid-1960",
+  "title": "Pyramid",
+  "artist": "Modern Jazz Quartet",
+  "year": 1960,
+  "type": "album",
+  "style_ids": ["style:cool-jazz", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:connie-kay"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Vendome",
+      "drummer_ids": ["drummer:connie-kay"],
+      "drums": {
+        "description": "A baroque-style fugue that Kay accompanies with restrained cymbal time and accents that follow the counterpoint.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pyramid-modern-jazz-quartet-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rrv5uWkawec"
+    }
+  ]
+}

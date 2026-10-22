@@ -1,0 +1,29 @@
+{
+  "id": "rec:john-coltrane-crescent-1964",
+  "title": "Crescent",
+  "artist": "John Coltrane",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:elvin-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Bessie's Blues",
+      "drummer_ids": ["drummer:elvin-jones"],
+      "drums": {
+        "description": "A short, fast blues: tight ride and comping on the ands, then a crisp drum break.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:crescent-coltrane-wikipedia"]
+        }
+      },
+      "style_key": "elvinjones",
+      "song_key": "bessies-blues",
+      "youtube": "https://www.youtube.com/watch?v=16AqebffhWM"
+    }
+  ]
+}

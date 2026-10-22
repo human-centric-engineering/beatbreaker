@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "No More Heroes",
+      "drummer_ids": ["drummer:jet-black"],
+      "drums": {
+        "description": "A propulsive beat with rolling tom fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:no-more-heroes-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2B4bsqYxwo0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=424812"
+        }
+      ]
+    },
+    {
+      "title": "Something Better Change",
+      "drummer_ids": ["drummer:jet-black"],
+      "drums": {
+        "description": "A punchy, aggressive rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:something-better-change-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QTIhiyurWEc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=920734"
+        }
+      ]
+    }
   ]
 }

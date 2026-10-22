@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Ogunde",
+      "drummer_ids": ["drummer:rashied-ali"],
+      "drums": {
+        "description": "Free, surging cymbal washes under a spiritual theme.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:rashied-ali-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=B_YmecJEhIE"
+    },
+    {
+      "title": "Offering",
+      "drummer_ids": ["drummer:rashied-ali"],
+      "drums": {
+        "description": "Free drumming in a tense, slowly building piece.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:rashied-ali-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jUIb-oPM2e4"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:rashied-ali-wikipedia"]

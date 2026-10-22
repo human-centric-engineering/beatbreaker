@@ -1,0 +1,33 @@
+{
+  "id": "rec:nick-cave-and-the-bad-seeds-push-the-sky-away-2013",
+  "title": "Push the Sky Away",
+  "artist": "Nick Cave and the Bad Seeds",
+  "year": 2013,
+  "type": "album",
+  "style_ids": ["style:post-punk", "style:experimental-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:thomas-wydler"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Jubilee Street",
+      "drummer_ids": ["drummer:thomas-wydler"],
+      "drums": {
+        "description": "A steady, slow build to a climax.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:push-the-sky-away-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Dq7KtFsIUqw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=664793"
+        }
+      ]
+    }
+  ]
+}

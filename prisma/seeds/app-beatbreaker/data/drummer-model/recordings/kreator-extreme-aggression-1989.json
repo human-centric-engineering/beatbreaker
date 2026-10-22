@@ -10,5 +10,43 @@
       "drummer_id": "drummer:ventor",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Extreme Aggression",
+      "drummer_ids": ["drummer:ventor"],
+      "drums": {
+        "description": "A tighter, more controlled thrash beat with fast double bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:extreme-aggression-wikipedia", "src:jurgen-reil-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=M8nQBEdkoYE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=41045"
+        }
+      ]
+    },
+    {
+      "title": "Betrayer",
+      "drummer_ids": ["drummer:ventor"],
+      "drums": {
+        "description": "A fast thrash groove with a punchy, mid-tempo breakdown.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:extreme-aggression-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mQVo5T0L5yg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=11157"
+        }
+      ]
+    }
   ]
 }

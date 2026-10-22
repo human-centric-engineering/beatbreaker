@@ -15,5 +15,37 @@
       "name": "Ron Tutt",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "See See Rider",
+      "drummer_ids": ["drummer:ronnie-tutt"],
+      "drums": {
+        "description": "A dramatic, punchy live beat with big accents behind Elvis's moves.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:aloha-from-hawaii-via-satellite-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Jzc0MhZXXzg"
+    },
+    {
+      "title": "An American Trilogy",
+      "drummer_ids": ["drummer:ronnie-tutt"],
+      "drums": {
+        "description": "Military snare rolls and a building climax under the medley.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:aloha-from-hawaii-via-satellite-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0FT3SmZ_zx0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7276621"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,33 @@
+{
+  "id": "rec:eddie-palmieri-vamonos-pal-monte-1971",
+  "title": "Vámonos Pa'l Monte",
+  "artist": "Eddie Palmieri",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:salsa"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nicky-marrero"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Vámonos Pa'l Monte",
+      "drummer_ids": ["drummer:nicky-marrero"],
+      "drums": {
+        "description": "A long, driving salsa with timbale solos.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-nicky-marrero"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Rn85kvb4bTk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7229701"
+        }
+      ]
+    }
+  ]
+}

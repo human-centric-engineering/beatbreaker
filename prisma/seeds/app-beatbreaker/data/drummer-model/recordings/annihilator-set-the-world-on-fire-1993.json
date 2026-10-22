@@ -10,5 +10,43 @@
       "drummer_id": "drummer:mike-mangini",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Set the World on Fire",
+      "drummer_ids": ["drummer:mike-mangini"],
+      "drums": {
+        "description": "Tight, fast thrash drumming with precise double bass.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:set-the-world-on-fire-annihilator-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-AnmP4PHrE8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=25452"
+        }
+      ]
+    },
+    {
+      "title": "No Zone",
+      "drummer_ids": ["drummer:mike-mangini"],
+      "drums": {
+        "description": "A fast thrash groove with clean, technical fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:set-the-world-on-fire-annihilator-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=g9qWEBivORk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=390662"
+        }
+      ]
+    }
   ]
 }

@@ -340,5 +340,37 @@
     "reliability": 0.3,
     "accessed": "2026-10-18",
     "notes": "Read through the meta API: aiGenerated true, revision 773069 by Александр Пенкин; marked tempo 116. Read for the device search only: a sixteenth-note funk bar, snare 2, the 'a' of 2, the 'e' of 3, 4 and the 'a' of 4 (x67); no cross pulse."
+  },
+  {
+    "id": "src:i-cant-turn-you-loose-wikipedia",
+    "type": "encyclopedia",
+    "title": "I Can't Turn You Loose - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/I_Can%27t_Turn_You_Loose",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:hold-on-im-comin-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Hold On, I'm Comin' (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Hold_On,_I%27m_Comin%27_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:sittin-on-the-dock-of-the-bay-wikipedia",
+    "type": "encyclopedia",
+    "title": "(Sittin' On) The Dock of the Bay - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/(Sittin%27_On)_The_Dock_of_the_Bay",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:hard-to-handle-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Hard to Handle (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Hard_to_Handle_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

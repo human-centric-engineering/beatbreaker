@@ -16,5 +16,79 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Hanging on the Telephone",
+      "drummer_ids": ["drummer:clem-burke"],
+      "drums": {
+        "description": "A hurtling power-pop beat with Moon-style tom fills crashing into each section.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:parallel-lines-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uWhkbDMISl8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=60306"
+        }
+      ]
+    },
+    {
+      "title": "One Way or Another",
+      "drummer_ids": ["drummer:clem-burke"],
+      "drums": {
+        "description": "A driving, insistent beat with a pounding floor tom and fills that push every turnaround.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:parallel-lines-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FIXIsYWS8CA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22628"
+        }
+      ]
+    },
+    {
+      "title": "Heart of Glass",
+      "drummer_ids": ["drummer:clem-burke"],
+      "drums": {
+        "description": "Acoustic kit played over a drum-machine pattern, the four-on-the-floor kick and busy hat giving the disco crossover a live pulse.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:parallel-lines-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WGU_4-5RaxU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=32090"
+        }
+      ]
+    },
+    {
+      "title": "Picture This",
+      "drummer_ids": ["drummer:clem-burke"],
+      "drums": {
+        "description": "A mid-tempo pop beat with melodic tom fills between the vocal lines.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:parallel-lines-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QbdCpi4qTNY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3020"
+        }
+      ]
+    }
   ]
 }

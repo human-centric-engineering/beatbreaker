@@ -18,6 +18,38 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Prelude",
+      "drummer_ids": ["drummer:al-foster"],
+      "drums": {
+        "description": "A relentless, funk-rock ride and hi-hat groove held for long stretches under Miles' electric band's improvisation.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:agharta-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DUR6zK9XcaM"
+    },
+    {
+      "title": "Maiysha",
+      "drummer_ids": ["drummer:al-foster"],
+      "drums": {
+        "description": "Light, Latin-tinged groove that moves into heavy funk.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:agharta-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7aQN6ozACk8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6524034"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:al-foster-wikipedia"]

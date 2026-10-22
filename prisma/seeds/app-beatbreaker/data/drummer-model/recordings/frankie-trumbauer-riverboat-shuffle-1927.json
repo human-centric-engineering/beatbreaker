@@ -12,6 +12,19 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Riverboat Shuffle",
+      "drummer_ids": ["drummer:chauncey-morehouse"],
+      "drums": {
+        "description": "Crisp, cymbal-choked accents and rhythmic punctuation behind Bix.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:riverboat-shuffle-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:chauncey-morehouse-wikipedia"]

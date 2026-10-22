@@ -16,5 +16,31 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Teen Age Riot",
+      "drummer_ids": ["drummer:steve-shelley"],
+      "drums": {
+        "description": "A propulsive, straight-ahead rock beat that lifts the song out of its slow intro and keeps it surging.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:daydream-nation-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=10rLJjBLQZ8"
+    },
+    {
+      "title": "Silver Rocket",
+      "drummer_ids": ["drummer:steve-shelley"],
+      "drums": {
+        "description": "A fast, punk-driven beat that drops into a free noise section and then snaps back.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:daydream-nation-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=viF12Mu3-5w"
+    }
   ]
 }

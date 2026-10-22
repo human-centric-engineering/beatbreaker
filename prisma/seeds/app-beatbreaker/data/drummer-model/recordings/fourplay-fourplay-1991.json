@@ -15,5 +15,19 @@
       "name": "Harvey Mason",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Bali Run",
+      "drummer_ids": ["drummer:harvey-mason"],
+      "drums": {
+        "description": "Clean, precise smooth-jazz groove with tasteful cymbal accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fourplay-fourplay-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=KJXMMM5wpuo"
+    }
   ]
 }

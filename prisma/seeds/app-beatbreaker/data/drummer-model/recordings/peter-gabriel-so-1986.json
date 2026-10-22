@@ -15,5 +15,61 @@
       "name": "Manu Katché",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Red Rain",
+      "drummer_ids": ["drummer:manu-katche"],
+      "drums": {
+        "description": "A deep, rolling tom and snare part under Stewart Copeland's hi-hat overdub.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:so-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FkLTwX0duY4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=235502"
+        }
+      ]
+    },
+    {
+      "title": "Sledgehammer",
+      "drummer_ids": ["drummer:manu-katche"],
+      "drums": {
+        "description": "A tight, punchy soul-funk groove with Stax-style accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:so-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OJWJE0x7T4Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=78127"
+        }
+      ]
+    },
+    {
+      "title": "In Your Eyes",
+      "drummer_ids": ["drummer:manu-katche"],
+      "drums": {
+        "description": "A flowing, Afro-pop-influenced groove with syncopated hi-hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:so-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kU8OJAOMbPg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=50365"
+        }
+      ]
+    }
   ]
 }

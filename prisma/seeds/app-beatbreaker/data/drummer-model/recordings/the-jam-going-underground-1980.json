@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-jam-going-underground-1980",
+  "title": "Going Underground",
+  "artist": "The Jam",
+  "year": 1980,
+  "type": "studio_track",
+  "style_ids": ["style:mod-revival", "style:punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:rick-buckler"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Going Underground",
+      "drummer_ids": ["drummer:rick-buckler"],
+      "drums": {
+        "description": "A driving mod stomp, the snare hard on 2 and 4 under the chorus chant, rolls into each section.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:going-underground-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=AE1ct5yEuVY"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "id": "rec:talking-heads-fear-of-music-1979",
+  "title": "Fear of Music",
+  "artist": "Talking Heads",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:new-wave", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-frantz"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Life During Wartime",
+      "drummer_ids": ["drummer:chris-frantz"],
+      "drums": {
+        "description": "A relentless disco-funk beat with straight hi-hat eighths that keeps the dancefloor pulse under the paranoid lyric.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fear-of-music-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jLwZvg46jms",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=432265"
+        }
+      ]
+    },
+    {
+      "title": "I Zimbra",
+      "drummer_ids": ["drummer:chris-frantz"],
+      "drums": {
+        "description": "A polyrhythmic, Afrobeat-leaning groove built with extra percussion, the band's first step towards Remain in Light.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fear-of-music-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qKFn66dzdz0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=658809"
+        }
+      ]
+    }
+  ]
+}

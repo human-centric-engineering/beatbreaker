@@ -51,6 +51,71 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Give It Away",
+      "drummer_ids": ["drummer:chad-smith"],
+      "drums": {
+        "description": "Half-open hi-hat eighths, a rimshot on 2 and 4, the kick answering Flea in sixteenths.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:blood-sugar-sex-magik-wikipedia",
+            "src:chad-smith-drumeo-give-it-away-2023"
+          ]
+        }
+      },
+      "style_key": "chadsmith",
+      "song_key": "give-it-away",
+      "youtube": "https://www.youtube.com/watch?v=Mr_uHJPUlO8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14050"
+        }
+      ]
+    },
+    {
+      "title": "Suck My Kiss",
+      "drummer_ids": ["drummer:chad-smith"],
+      "drums": {
+        "description": "Open hi-hats and rimshots, then a pushed kick under the hi-hat foot in the verse.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blood-sugar-sex-magik-wikipedia"]
+        }
+      },
+      "style_key": "chadsmith",
+      "song_key": "suck-my-kiss",
+      "youtube": "https://www.youtube.com/watch?v=C6jElKMMOWM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16401"
+        }
+      ]
+    },
+    {
+      "title": "Under the Bridge",
+      "drummer_ids": ["drummer:chad-smith"],
+      "drums": {
+        "description": "Cross-stick under hi-hat eighths with no kick, then the heavy bridge on the ride.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blood-sugar-sex-magik-wikipedia"]
+        }
+      },
+      "style_key": "chadsmith",
+      "song_key": "under-the-bridge",
+      "youtube": "https://www.youtube.com/watch?v=GLvohMXgcBo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=99"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:blood-sugar-sex-magik-wikipedia"]

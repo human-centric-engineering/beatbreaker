@@ -60,6 +60,26 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "A Little Sweet",
+      "drummer_ids": ["drummer:max-roach"],
+      "drums": {
+        "description": "The bass drum on every beat leaning on 4, the snare off the beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:max-roach-bishop-a-little-sweet-comping",
+            "src:max-roach-many-sides-wikipedia",
+            "src:max-roach-bishop-a-little-sweet-solo"
+          ]
+        }
+      },
+      "style_key": "roach",
+      "song_key": "a-little-sweet",
+      "youtube": "https://www.youtube.com/watch?v=fmfc1yjMls0"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

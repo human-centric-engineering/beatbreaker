@@ -10,5 +10,61 @@
       "drummer_id": "drummer:mario-duplantier",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Ocean Planet",
+      "drummer_ids": ["drummer:mario-duplantier"],
+      "drums": {
+        "description": "Precise double-bass patterns and heavy, syncopated grooves locked to the riffs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:from-mars-to-sirius-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Ztfkvy9vtaw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=36670"
+        }
+      ]
+    },
+    {
+      "title": "Backbone",
+      "drummer_ids": ["drummer:mario-duplantier"],
+      "drums": {
+        "description": "Relentless double-bass with tight snare accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:from-mars-to-sirius-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kYSQz82q8Ng",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=36666"
+        }
+      ]
+    },
+    {
+      "title": "Flying Whales",
+      "drummer_ids": ["drummer:mario-duplantier"],
+      "drums": {
+        "description": "A slow, atmospheric build into a crushing, groove-heavy riff.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:from-mars-to-sirius-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Qqg8bsDayak",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=36660"
+        }
+      ]
+    }
   ]
 }

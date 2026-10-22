@@ -66,6 +66,29 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "West Side Story Medley",
+      "drummer_ids": ["drummer:buddy-rich"],
+      "drums": {
+        "description": "His signature showcase: big-band kicks and set-ups through Bernstein's themes, then a solo of blinding single strokes and rolls.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:buddy-rich-swingin-new-big-band-wikipedia",
+            "src:buddy-rich-drumeo-licks-2022"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4PASeqo0oAE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3013468"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:buddy-rich-swingin-new-big-band-wikipedia"]

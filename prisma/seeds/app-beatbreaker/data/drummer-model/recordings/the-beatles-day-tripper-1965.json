@@ -1,0 +1,35 @@
+{
+  "id": "rec:the-beatles-day-tripper-1965",
+  "title": "Day Tripper",
+  "artist": "The Beatles",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Day Tripper",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "A driving rock beat under the riff, the bridge building tension on quarter notes before the riff returns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:day-tripper-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "day-tripper",
+      "youtube": "https://www.youtube.com/watch?v=2IbPn5j2YKk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=354"
+        }
+      ]
+    }
+  ]
+}

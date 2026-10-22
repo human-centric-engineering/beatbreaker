@@ -43,6 +43,40 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Glamorous Life",
+      "drummer_ids": ["drummer:sheila-e"],
+      "drums": {
+        "description": "Timbales, cowbells and cymbals played over an LM-1 drum machine, ending in a long timbale solo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:glamorous-life-song-wikipedia", "src:sheila-e-wikipedia"]
+        }
+      },
+      "style_key": "sheilae",
+      "song_key": "the-glamorous-life",
+      "youtube": "https://www.youtube.com/watch?v=HpO07s-Aw4I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5489882"
+        }
+      ]
+    },
+    {
+      "title": "The Belle of St. Mark",
+      "drummer_ids": ["drummer:sheila-e"],
+      "drums": {
+        "description": "A bright pop-funk beat with her percussion layered over the kit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sheila-e-in-the-glamorous-life-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tsUPQUh88os"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:glamorous-life-album-wikipedia"]

@@ -59,6 +59,7 @@
   },
   "beatbreaker": {
     "group": "Country drummers",
-    "build_priority": 2
+    "build_priority": 2,
+    "songs_short_because": "15-b sweep (2026-10-22): Three songs: a percussionist on thousands of sessions, but per-song drum credits beyond Wikipedia's two are rarely documented."
   }
 }

@@ -18,6 +18,74 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "You Will Never Work in Television Again",
+      "drummer_ids": ["drummer:tom-skinner"],
+      "drums": {
+        "description": "Driving punk-rock straight-eighths with crashing accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:a-light-for-attracting-attention-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-EB5NhI2RQQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=717599"
+        }
+      ]
+    },
+    {
+      "title": "The Smoke",
+      "drummer_ids": ["drummer:tom-skinner"],
+      "drums": {
+        "description": "Loose, jazzy groove with ghost notes under a bass riff.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:a-light-for-attracting-attention-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tEPEqZnTwdo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=524707"
+        }
+      ]
+    },
+    {
+      "title": "Thin Thing",
+      "drummer_ids": ["drummer:tom-skinner"],
+      "drums": {
+        "description": "Fast, intricate odd-feel patterns locking with the guitar ostinato.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:a-light-for-attracting-attention-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=J1_Cf55cS8I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=677597"
+        }
+      ]
+    },
+    {
+      "title": "Free in the Knowledge",
+      "drummer_ids": ["drummer:tom-skinner"],
+      "drums": {
+        "description": "Gentle, restrained ballad time with brushes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:a-light-for-attracting-attention-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CXbncoiKLn8"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:tom-skinner-drummer-wikipedia"]

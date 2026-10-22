@@ -187,5 +187,13 @@
     "reliability": 0.5,
     "accessed": "2026-10-21",
     "notes": "aiGenerated false; the drum track 'Rick Buckler'; eight human revisions since 2009, the latest by MetalEd95 (2026). 204 bpm (the record 202), 143 bars: the snare alone on 2 and 4, the hat in quarters, the kick on 1 (later 1 and 3), the riff with the hat and snare on the 'and' of 4, eighth-note triplet rolls on the snare."
+  },
+  {
+    "id": "src:going-underground-wikipedia",
+    "type": "encyclopedia",
+    "title": "Going Underground - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Going_Underground",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

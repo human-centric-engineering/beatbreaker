@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Get Me to the Church on Time",
+      "drummer_ids": ["drummer:shelly-manne"],
+      "drums": {
+        "description": "A crisp, bright up-tempo swing on the ride with tight snare punctuation behind André Previn's piano.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:shelly-manne-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RCSQlmUnMFs"
+    },
+    {
+      "title": "I Could Have Danced All Night",
+      "drummer_ids": ["drummer:shelly-manne"],
+      "drums": {
+        "description": "Light, buoyant brushwork carrying a show tune as a medium-up trio swing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:shelly-manne-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=i6t_g03LLig"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:shelly-manne-wikipedia"]

@@ -1,0 +1,35 @@
+{
+  "id": "rec:the-beatles-with-the-beatles-1963",
+  "title": "With the Beatles",
+  "artist": "The Beatles",
+  "year": 1963,
+  "type": "album",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "All My Loving",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "A fast shuffle on washy hats with rimshot accents pushing the backbeat under McCartney's walking bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:all-my-loving-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "all-my-loving",
+      "youtube": "https://www.youtube.com/watch?v=LdajVoRgx3w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2820"
+        }
+      ]
+    }
+  ]
+}

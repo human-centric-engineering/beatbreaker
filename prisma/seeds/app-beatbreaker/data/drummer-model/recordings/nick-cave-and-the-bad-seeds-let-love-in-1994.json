@@ -1,0 +1,33 @@
+{
+  "id": "rec:nick-cave-and-the-bad-seeds-let-love-in-1994",
+  "title": "Let Love In",
+  "artist": "Nick Cave and the Bad Seeds",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:post-punk", "style:experimental-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:thomas-wydler"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Red Right Hand",
+      "drummer_ids": ["drummer:thomas-wydler"],
+      "drums": {
+        "description": "A slow, ominous, stomping beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:let-love-in-nick-cave-and-the-bad-seeds-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RrxePKps87k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14184"
+        }
+      ]
+    }
+  ]
+}

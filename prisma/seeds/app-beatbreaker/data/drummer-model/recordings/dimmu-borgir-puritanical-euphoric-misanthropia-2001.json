@@ -10,5 +10,43 @@
       "drummer_id": "drummer:nick-barker",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Puritania",
+      "drummer_ids": ["drummer:nick-barker"],
+      "drums": {
+        "description": "Industrial-tinged track built on rigid, programmed-sounding double-kick and blast patterns that Barker plays live-tight against the electronics.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:puritanical-euphoric-misanthropia-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kJ7lNunAPAM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6178"
+        }
+      ]
+    },
+    {
+      "title": "Kings of the Carnival Creation",
+      "drummer_ids": ["drummer:nick-barker"],
+      "drums": {
+        "description": "Long symphonic piece where blasts, mid-tempo double-kick grooves and orchestral breaks follow each other, with Barker holding the transitions together.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:puritanical-euphoric-misanthropia-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CavqMo6I9iM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5482"
+        }
+      ]
+    }
   ]
 }

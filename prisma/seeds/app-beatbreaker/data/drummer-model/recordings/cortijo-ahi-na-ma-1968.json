@@ -16,5 +16,31 @@
         "source_ids": ["src:wikipedia-rafael-cortijo"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Vasos en Colores",
+      "drummer_ids": ["drummer:rafael-cortijo"],
+      "drums": {
+        "description": "From the later Bonche band, with Marvin Santiago singing lead over Cortijo's percussion.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-rafael-cortijo"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tWZXG1E5lIE"
+    },
+    {
+      "title": "La Campana del Lechón",
+      "drummer_ids": ["drummer:rafael-cortijo"],
+      "drums": {
+        "description": "Bonche-era plena carrying Marvin Santiago's first recorded lead vocal over Cortijo's percussion section.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:wikipedia-rafael-cortijo"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hCEFQ_G7U_o"
+    }
   ]
 }

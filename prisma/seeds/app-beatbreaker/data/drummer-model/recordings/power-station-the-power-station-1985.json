@@ -43,6 +43,26 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Get It On (Bang a Gong)",
+      "drummer_ids": ["drummer:tony-thompson"],
+      "drums": {
+        "description": "Open hats on every beat, the foot on the 'and's and a snare the size of the room.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:get-it-on-t-rex-song-wikipedia",
+            "src:songsterr-454271",
+            "src:power-station-album-wikipedia"
+          ]
+        }
+      },
+      "style_key": "tonythompson",
+      "song_key": "get-it-on",
+      "youtube": "https://www.youtube.com/watch?v=lp0RYMN3yow"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:power-station-album-wikipedia", "src:thompson-moderndrummer-2002"]

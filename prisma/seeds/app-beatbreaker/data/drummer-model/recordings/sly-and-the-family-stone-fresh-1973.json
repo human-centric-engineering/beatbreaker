@@ -15,5 +15,49 @@
       "name": "Andy Newmark",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "In Time",
+      "drummer_ids": ["drummer:andy-newmark"],
+      "drums": {
+        "description": "A sparse, syncopated funk groove with ghosted snare and an open hat, widely copied by later funk and hip-hop drummers.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fresh-sly-and-the-family-stone-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=g6xhSqz_4m8"
+    },
+    {
+      "title": "If You Want Me to Stay",
+      "drummer_ids": ["drummer:andy-newmark"],
+      "drums": {
+        "description": "A laid-back, minimal groove that leaves the space to Rusty Allen's bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fresh-sly-and-the-family-stone-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gZFabOuF4Ps",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=69663"
+        }
+      ]
+    },
+    {
+      "title": "Frisky",
+      "drummer_ids": ["drummer:andy-newmark"],
+      "drums": {
+        "description": "A light, skipping funk beat with tight hi-hat work.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fresh-sly-and-the-family-stone-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Nnr3SMeckGg"
+    }
   ]
 }

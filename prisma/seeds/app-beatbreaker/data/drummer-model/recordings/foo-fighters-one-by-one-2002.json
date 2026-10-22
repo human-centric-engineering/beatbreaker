@@ -51,6 +51,66 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "All My Life",
+      "drummer_ids": ["drummer:taylor-hawkins"],
+      "drums": {
+        "description": "Quiet, palm-muted verses then a full-force eighth-note crash-ride chorus with snare rolls.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:one-by-one-foo-fighters-wikipedia"]
+        }
+      },
+      "style_key": "taylorhawkins",
+      "song_key": "all-my-life",
+      "youtube": "https://www.youtube.com/watch?v=xQ04WbgI9rg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7723"
+        }
+      ]
+    },
+    {
+      "title": "Times Like These",
+      "drummer_ids": ["drummer:taylor-hawkins"],
+      "drums": {
+        "description": "Shifts between 7/4 and 4/4 in the intro, then a driving straight-eight anthem beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:one-by-one-foo-fighters-wikipedia"]
+        }
+      },
+      "style_key": "taylorhawkins",
+      "song_key": "times-like-these",
+      "youtube": "https://www.youtube.com/watch?v=rhzmNRtIp8k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=180"
+        }
+      ]
+    },
+    {
+      "title": "Low",
+      "drummer_ids": ["drummer:taylor-hawkins"],
+      "drums": {
+        "description": "A slow, distorted, tom-heavy groove under the grungy riff.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:one-by-one-foo-fighters-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ySlZdASmGCM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7767"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:one-by-one-foo-fighters-wikipedia"]

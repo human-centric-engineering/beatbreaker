@@ -66,6 +66,7 @@
   },
   "beatbreaker": {
     "group": "Samba and Brazilian jazz drummers",
-    "build_priority": 1
+    "build_priority": 1,
+    "songs_short_because": "15-b sweep (2026-10-22): Track titles for his albums are not given in the sources found; the two listed are the albums' title tracks."
   }
 }

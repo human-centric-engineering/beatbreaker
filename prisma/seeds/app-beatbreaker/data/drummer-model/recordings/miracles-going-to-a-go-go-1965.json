@@ -19,6 +19,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Going to a Go-Go",
+      "drummer_ids": ["drummer:benny-benjamin"],
+      "drums": {
+        "description": "A pounding dance beat with stomping snare and a heavy kick.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:going-to-a-go-go-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sWt4Hz1KGcQ"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:going-to-a-go-go-wikipedia"]

@@ -1,0 +1,27 @@
+{
+  "id": "rec:woody-herman-and-his-orchestra-early-autumn-1948",
+  "title": "Early Autumn",
+  "artist": "Woody Herman and His Orchestra",
+  "year": 1948,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:bebop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:don-lamond"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Early Autumn",
+      "drummer_ids": ["drummer:don-lamond"],
+      "drums": {
+        "description": "A ballad played with brushes, soft and steady under Stan Getz's famous solo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:early-autumn-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vlIqVLqbBWU"
+    }
+  ]
+}

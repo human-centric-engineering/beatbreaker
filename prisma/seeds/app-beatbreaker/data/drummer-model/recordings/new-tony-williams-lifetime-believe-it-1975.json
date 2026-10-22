@@ -1,0 +1,57 @@
+{
+  "id": "rec:new-tony-williams-lifetime-believe-it-1975",
+  "title": "Believe It",
+  "artist": "The New Tony Williams Lifetime",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Red Alert",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "A pounding kick like a heartbeat under the unison riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:believe-it-tony-williams-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "red-alert",
+      "youtube": "https://www.youtube.com/watch?v=N5aPhWPgzrs"
+    },
+    {
+      "title": "Fred",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Open hats in eighths, then the ride and a busier kick under Holdsworth's guitar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:believe-it-tony-williams-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "fred",
+      "youtube": "https://www.youtube.com/watch?v=2Iuh6xPc5K0"
+    },
+    {
+      "title": "Snake Oil",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "Fusion funk with odd bars dropped in.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:believe-it-tony-williams-wikipedia"]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "snake-oil",
+      "youtube": "https://www.youtube.com/watch?v=UHWN2Q90bA8"
+    }
+  ]
+}

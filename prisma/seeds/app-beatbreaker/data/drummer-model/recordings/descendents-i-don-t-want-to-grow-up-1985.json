@@ -1,0 +1,33 @@
+{
+  "id": "rec:descendents-i-don-t-want-to-grow-up-1985",
+  "title": "I Don't Want to Grow Up",
+  "artist": "Descendents",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:hardcore-punk", "style:pop-punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-stevenson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Silly Girl",
+      "drummer_ids": ["drummer:bill-stevenson"],
+      "drums": {
+        "description": "A bright, driving pop-punk beat with tight tom fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bill-stevenson-wikipedia", "src:i-don-t-want-to-grow-up-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LX8AhV_gCrA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29755"
+        }
+      ]
+    }
+  ]
+}

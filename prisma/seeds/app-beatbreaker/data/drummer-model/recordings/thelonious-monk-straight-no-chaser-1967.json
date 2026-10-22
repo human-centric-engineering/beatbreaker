@@ -18,6 +18,38 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Locomotive",
+      "drummer_ids": ["drummer:ben-riley"],
+      "drums": {
+        "description": "A slow, chugging medium groove that gives the tune its train-like gait.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:straight-no-chaser-monk-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NCmP2tmcSMg"
+    },
+    {
+      "title": "Straight, No Chaser",
+      "drummer_ids": ["drummer:ben-riley"],
+      "drums": {
+        "description": "A relaxed, swinging ride pattern under a long blues, with snare comping answering Monk's angular phrases.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:straight-no-chaser-monk-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=uJs2eCqhTN0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=74794"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ben-riley-wikipedia"]

@@ -64,6 +64,26 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Sneakin' Sally Through the Alley",
+      "drummer_ids": ["drummer:zigaboo-modeliste"],
+      "drums": {
+        "description": "The Meters' rhythm section behind Palmer, Zigaboo's ghosted New Orleans funk.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sneakin-sally-wikipedia", "src:zigaboo-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=W4q9_XlsU3Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=241216"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:sneakin-sally-wikipedia"]

@@ -1,0 +1,35 @@
+{
+  "id": "rec:grover-washington-jr-winelight-1980",
+  "title": "Winelight",
+  "artist": "Grover Washington Jr.",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-gadd"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Just the Two of Us",
+      "artist": "Grover Washington Jr. featuring Bill Withers",
+      "drummer_ids": ["drummer:steve-gadd"],
+      "drums": {
+        "description": "Eighths on the hats, the kick on 1, the \"a\" of 2 and 3, a plain backbeat that sits deep in the pocket.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:just-the-two-of-us-wikipedia"]
+        }
+      },
+      "style_key": "gadd",
+      "song_key": "just-the-two-of-us",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=597061"
+        }
+      ]
+    }
+  ]
+}

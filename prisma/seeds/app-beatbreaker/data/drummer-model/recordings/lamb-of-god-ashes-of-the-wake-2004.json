@@ -10,5 +10,43 @@
       "drummer_id": "drummer:chris-adler",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Laid to Rest",
+      "drummer_ids": ["drummer:chris-adler"],
+      "drums": {
+        "description": "Tight, syncopated groove-metal drumming with double-bass bursts locked to the riffs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ashes-of-the-wake-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HL9kaJZw8iw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12062"
+        }
+      ]
+    },
+    {
+      "title": "Now You've Got Something to Die For",
+      "drummer_ids": ["drummer:chris-adler"],
+      "drums": {
+        "description": "Fast double-bass and sharp syncopations.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ashes-of-the-wake-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oZzXzXx-xng",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=11670"
+        }
+      ]
+    }
   ]
 }

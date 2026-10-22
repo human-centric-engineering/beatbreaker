@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Stomp Off, Let's Go",
+      "drummer_ids": ["drummer:jimmy-bertrand"],
+      "drums": {
+        "description": "Driving stomp beat with Armstrong on cornet.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jimmy-bertrand-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9yMNCF1FG1M"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:jimmy-bertrand-wikipedia"]

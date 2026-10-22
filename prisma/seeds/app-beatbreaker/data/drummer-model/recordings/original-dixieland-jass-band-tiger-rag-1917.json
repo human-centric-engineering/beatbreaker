@@ -1,0 +1,26 @@
+{
+  "id": "rec:original-dixieland-jass-band-tiger-rag-1917",
+  "title": "Tiger Rag",
+  "artist": "Original Dixieland Jass Band",
+  "year": 1917,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-sbarbaro"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Tiger Rag",
+      "drummer_ids": ["drummer:tony-sbarbaro"],
+      "drums": {
+        "description": "Fast two-beat with the famous 'hold that tiger' breaks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tiger-rag-wikipedia"]
+        }
+      }
+    }
+  ]
+}

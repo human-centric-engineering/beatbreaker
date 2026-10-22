@@ -60,6 +60,42 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Black Sabbath",
+      "drummer_ids": ["drummer:bill-ward"],
+      "drums": {
+        "description": "The tritone riff in slow triplets, verses on the toms; the end at double time, triplets on the ride.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-2752", "src:black-sabbath-album-wikipedia"]
+        }
+      },
+      "style_key": "billward",
+      "song_key": "black-sabbath",
+      "youtube": "https://www.youtube.com/watch?v=0lVdMbUx1_k"
+    },
+    {
+      "title": "N.I.B.",
+      "drummer_ids": ["drummer:bill-ward"],
+      "drums": {
+        "description": "The snare on 2, 3 and 4 every other bar, hats opened on the \"and\" of 4; the kick alone in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-2661", "src:black-sabbath-album-wikipedia"]
+        }
+      },
+      "style_key": "billward",
+      "song_key": "nib",
+      "youtube": "https://www.youtube.com/watch?v=9kgQQuPZ8K0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2661"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:black-sabbath-album-wikipedia"]

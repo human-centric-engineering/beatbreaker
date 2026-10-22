@@ -12,6 +12,38 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Sylvia",
+      "drummer_ids": ["drummer:pierre-van-der-linden"],
+      "drums": {
+        "description": "A bright, driving rock groove with crisp fills under the guitar melody.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sylvia-focus-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=JJHelki3M74",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7920"
+        }
+      ]
+    },
+    {
+      "title": "Anonymus II",
+      "drummer_ids": ["drummer:pierre-van-der-linden"],
+      "drums": {
+        "description": "A long jam with an extended drum solo in the middle.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:focus-3-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0WEwCMamq8k"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:pierre-van-der-linden-wikipedia", "src:focus-3-wikipedia"]

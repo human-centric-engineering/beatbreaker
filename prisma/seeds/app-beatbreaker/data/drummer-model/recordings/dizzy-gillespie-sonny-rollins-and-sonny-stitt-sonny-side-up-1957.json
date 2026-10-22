@@ -18,6 +18,41 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "The Eternal Triangle",
+      "drummer_ids": ["drummer:charli-persip"],
+      "drums": {
+        "description": "A fast, unflagging ride pattern under the long tenor battle between Rollins and Stitt.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sonny-side-up-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "After Hours",
+      "drummer_ids": ["drummer:charli-persip"],
+      "drums": {
+        "description": "A slow blues shuffle, laid back and patient for twelve minutes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sonny-side-up-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "I Know That You Know",
+      "drummer_ids": ["drummer:charli-persip"],
+      "drums": {
+        "description": "A fast, crisp up-tempo swing to close the album.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sonny-side-up-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:charlie-persip-wikipedia"]

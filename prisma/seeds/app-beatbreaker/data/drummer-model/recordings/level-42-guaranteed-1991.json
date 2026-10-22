@@ -1,0 +1,33 @@
+{
+  "id": "rec:level-42-guaranteed-1991",
+  "title": "Guaranteed",
+  "artist": "Level 42",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gary-husband"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Guaranteed",
+      "drummer_ids": ["drummer:gary-husband"],
+      "drums": {
+        "description": "Tight pop-funk groove with sixteenth hi-hats replacing Phil Gould’s style in the band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:guaranteed-level-42-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Vn6K7Um-noo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5883626"
+        }
+      ]
+    }
+  ]
+}

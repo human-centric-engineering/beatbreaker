@@ -1,0 +1,35 @@
+{
+  "id": "rec:jimi-hendrix-live-at-berkeley-2003",
+  "title": "Live at Berkeley",
+  "artist": "Jimi Hendrix",
+  "year": 2003,
+  "type": "live_track",
+  "style_ids": ["style:psychedelic-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mitch-mitchell"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Lover Man",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A fast, driving rock-and-roll beat with a snare that never lets up, live at Berkeley 1970.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-mitchell"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "lover-man",
+      "youtube": "https://www.youtube.com/watch?v=IB6B58z6MUo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22569"
+        }
+      ]
+    }
+  ]
+}

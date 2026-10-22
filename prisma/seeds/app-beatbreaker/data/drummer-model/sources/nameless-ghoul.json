@@ -286,5 +286,13 @@
     "reliability": 0.5,
     "accessed": "2026-10-18",
     "notes": "Human tab (aiGenerated false, read through the meta API, bar by bar); Skeletá. Tempo 111; drum track labelled 'Earth'. Open hat quarters, snare 2 and 4, kick 1 and 3 (x14); two bars with four sixteenths on the kick. The track labels are the tabbers', not the band's."
+  },
+  {
+    "id": "src:mary-on-a-cross-wikipedia",
+    "type": "encyclopedia",
+    "title": "Mary on a Cross - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mary_on_a_Cross",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

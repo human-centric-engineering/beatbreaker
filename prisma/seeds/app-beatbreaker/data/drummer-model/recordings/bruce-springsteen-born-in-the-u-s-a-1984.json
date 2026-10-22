@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Born in the U.S.A.",
+      "drummer_ids": ["drummer:max-weinberg"],
+      "drums": {
+        "description": "The huge, reverberant snare on 2 and 4 and the cracking fills that defined the record.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-weinberg-wikipedia", "src:born-in-the-u-s-a-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=EPhWR4d3FJQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19238"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:max-weinberg-wikipedia"]

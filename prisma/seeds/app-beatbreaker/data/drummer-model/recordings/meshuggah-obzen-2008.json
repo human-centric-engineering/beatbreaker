@@ -38,6 +38,46 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Electric Red",
+      "drummer_ids": ["drummer:tomas-haake"],
+      "drums": {
+        "description": "Toms and kick in threes over the hat foot, the floor tom in eighths over the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-43186", "src:obzen-wikipedia"]
+        }
+      },
+      "style_key": "haake",
+      "song_key": "electric-red",
+      "youtube": "https://www.youtube.com/watch?v=JvAZ7ewSsLg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=43186"
+        }
+      ]
+    },
+    {
+      "title": "Bleed",
+      "drummer_ids": ["drummer:tomas-haake"],
+      "drums": {
+        "description": "Relentless double-bass triplet patterns on the feet under a steady 4/4 snare and cymbal, an endurance benchmark for metal drummers.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-23825", "src:haake-drumeo-genius"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qc98u-eGzlc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23825"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:obzen-wikipedia", "src:haake-drum-2010"]

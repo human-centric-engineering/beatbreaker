@@ -34,6 +34,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Turn It On Again",
+      "drummer_ids": ["drummer:phil-collins"],
+      "drums": {
+        "description": "Thirteen beats a bar, a bar of 6/4 and one of 7/4, the backbeat running straight across them.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:turn-it-on-again-wikipedia", "src:songsterr-36367"]
+        }
+      },
+      "style_key": "collins",
+      "song_key": "turn-it-on-again",
+      "youtube": "https://www.youtube.com/watch?v=8OIkw9kJ0u4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=36367"
+        }
+      ]
+    },
+    {
+      "title": "Behind the Lines",
+      "drummer_ids": ["drummer:phil-collins"],
+      "drums": {
+        "description": "Fast, the ride's bell on the beats and the hat between, a crash on the \"and\" of 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:phil-collins-songbpm", "src:phil-collins-drumeo-12"]
+        }
+      },
+      "style_key": "collins",
+      "song_key": "behind-the-lines",
+      "youtube": "https://www.youtube.com/watch?v=AqAxM-SKuHM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=36372"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:turn-it-on-again-wikipedia", "src:phil-collins-drumeo-12"]

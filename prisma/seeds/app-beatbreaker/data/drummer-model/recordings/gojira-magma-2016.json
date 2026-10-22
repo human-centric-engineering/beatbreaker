@@ -10,5 +10,43 @@
       "drummer_id": "drummer:mario-duplantier",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Stranded",
+      "drummer_ids": ["drummer:mario-duplantier"],
+      "drums": {
+        "description": "A huge, sparse half-time groove leaving space around the squealing riff.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:magma-gojira-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FNdC_3LR2AI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=405567"
+        }
+      ]
+    },
+    {
+      "title": "Silvera",
+      "drummer_ids": ["drummer:mario-duplantier"],
+      "drums": {
+        "description": "Driving double-bass and tight, displaced snare hits.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:magma-gojira-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=iVvXB-Vwnco",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=406784"
+        }
+      ]
+    }
   ]
 }

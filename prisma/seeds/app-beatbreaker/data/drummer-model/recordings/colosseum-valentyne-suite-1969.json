@@ -1,0 +1,45 @@
+{
+  "id": "rec:colosseum-valentyne-suite-1969",
+  "title": "Valentyne Suite",
+  "artist": "Colosseum",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jon-hiseman"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Valentyne Suite",
+      "drummer_ids": ["drummer:jon-hiseman"],
+      "drums": {
+        "description": "A long suite where the drumming moves from jazz swing to rock and odd-time passages, with Hiseman driving the changes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:valentyne-suite-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=EZfww6vPNwI"
+    },
+    {
+      "title": "The Kettle",
+      "drummer_ids": ["drummer:jon-hiseman"],
+      "drums": {
+        "description": "A fast, heavy blues-rock groove with jazz-trained fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:valentyne-suite-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TNZRXrgkHF0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=654824"
+        }
+      ]
+    }
+  ]
+}

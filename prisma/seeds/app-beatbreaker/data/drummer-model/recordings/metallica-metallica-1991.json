@@ -48,6 +48,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Enter Sandman",
+      "drummer_ids": ["drummer:lars-ulrich"],
+      "drums": {
+        "description": "A mid-tempo, half-time-feel groove with the iconic tom-and-snare build in the intro.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:enter-sandman-wikipedia", "src:metallica-album-wikipedia"]
+        }
+      },
+      "style_key": "ulrich",
+      "song_key": "enter-sandman",
+      "youtube": "https://www.youtube.com/watch?v=CD-E-LDc384",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19"
+        }
+      ]
+    },
+    {
+      "title": "Sad but True",
+      "drummer_ids": ["drummer:lars-ulrich"],
+      "drums": {
+        "description": "A slow, crushing groove with huge snare and kick under a dropped-D riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:metallica-album-wikipedia"]
+        }
+      },
+      "style_key": "ulrich",
+      "song_key": "sad-but-true",
+      "youtube": "https://www.youtube.com/watch?v=A8MO7fkZc5o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=317"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:metallica-album-wikipedia"]

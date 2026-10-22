@@ -47,6 +47,90 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Eye No",
+      "drummer_ids": ["drummer:sheila-e"],
+      "drums": {
+        "description": "A busy, live-band funk groove with Sheila on kit, the opener of Lovesexy.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lovesexy-wikipedia", "src:sheila-e-wikipedia"]
+        }
+      },
+      "style_key": "sheilae",
+      "song_key": "eye-no",
+      "youtube": "https://www.youtube.com/watch?v=gpeFiNqbVa0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7558516"
+        }
+      ]
+    },
+    {
+      "title": "Alphabet St.",
+      "drummer_ids": ["drummer:sheila-e"],
+      "drums": {
+        "description": "A light, bouncy funk beat with a skipping hat and handclaps.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lovesexy-wikipedia"]
+        }
+      },
+      "style_key": "sheilae",
+      "song_key": "alphabet-st",
+      "youtube": "https://www.youtube.com/watch?v=vP1kZLGG5gw"
+    },
+    {
+      "title": "Anna Stesia",
+      "drummer_ids": ["drummer:sheila-e"],
+      "drums": {
+        "description": "A slow build from a soft groove to a gospel-funk climax.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lovesexy-wikipedia"]
+        }
+      },
+      "style_key": "sheilae",
+      "song_key": "anna-stesia",
+      "youtube": "https://www.youtube.com/watch?v=5X-Gzp0KXq4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=762052"
+        }
+      ]
+    },
+    {
+      "title": "Dance On",
+      "drummer_ids": ["drummer:sheila-e"],
+      "drums": {
+        "description": "Hard, syncopated funk drumming with heavy fills, one of her most kit-forward Prince tracks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lovesexy-wikipedia"]
+        }
+      },
+      "style_key": "sheilae",
+      "song_key": "dance-on",
+      "youtube": "https://www.youtube.com/watch?v=hXsTcbcNwS4"
+    },
+    {
+      "title": "Positivity",
+      "drummer_ids": ["drummer:sheila-e"],
+      "drums": {
+        "description": "A slow, hypnotic funk groove that rides on the kick and a dry snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lovesexy-wikipedia"]
+        }
+      },
+      "style_key": "sheilae",
+      "song_key": "positivity",
+      "youtube": "https://www.youtube.com/watch?v=HiKDH7TRYZ0"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:lovesexy-wikipedia"]

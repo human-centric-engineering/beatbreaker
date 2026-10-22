@@ -10,5 +10,43 @@
       "drummer_id": "drummer:danny-herrera",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Next of Kin to Chaos",
+      "drummer_ids": ["drummer:danny-herrera"],
+      "drums": {
+        "description": "Fast, tight blast beats in a return to grindcore speed.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:napalm-death-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=u7PAbati7cQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14195"
+        }
+      ]
+    },
+    {
+      "title": "Taste the Poison",
+      "drummer_ids": ["drummer:danny-herrera"],
+      "drums": {
+        "description": "Furious blasts and d-beat sections with abrupt stops.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:napalm-death-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=r74HD0lLtJo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=76894"
+        }
+      ]
+    }
   ]
 }

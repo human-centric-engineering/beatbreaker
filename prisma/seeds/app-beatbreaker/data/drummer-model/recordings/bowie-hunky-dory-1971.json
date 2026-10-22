@@ -45,6 +45,51 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Changes",
+      "drummer_ids": ["drummer:woody-woodmansey"],
+      "drums": {
+        "description": "Less is more: one groove, the kick on the \"and\"s, bars of 2/4 and 3/4 in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:changes-bowie-song-wikipedia",
+            "src:woodmansey-quietus-bakers-dozen-2017"
+          ]
+        }
+      },
+      "style_key": "woodmansey",
+      "song_key": "changes",
+      "youtube": "https://www.youtube.com/watch?v=4BgF7Y3q-as",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=32935"
+        }
+      ]
+    },
+    {
+      "title": "Life on Mars?",
+      "drummer_ids": ["drummer:woody-woodmansey"],
+      "drums": {
+        "description": "A ballad at 60: the hi-hat opened with the snare, the kick on the \"a\"s, an open hi-hat under the strings.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:life-on-mars-wikipedia"]
+        }
+      },
+      "style_key": "woodmansey",
+      "song_key": "life-on-mars",
+      "youtube": "https://www.youtube.com/watch?v=AZKcl4-tcuo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3115"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:hunky-dory-wikipedia"]

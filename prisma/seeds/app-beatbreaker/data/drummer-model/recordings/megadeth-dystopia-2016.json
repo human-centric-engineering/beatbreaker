@@ -10,5 +10,25 @@
       "drummer_id": "drummer:chris-adler",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Dystopia",
+      "drummer_ids": ["drummer:chris-adler"],
+      "drums": {
+        "description": "Thrash drumming with precise double-bass under Mustaine’s riffs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dystopia-megadeth-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=bK95lWHl7js",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=404048"
+        }
+      ]
+    }
   ]
 }

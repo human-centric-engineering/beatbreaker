@@ -18,6 +18,44 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Jin-Go-Lo-Ba (Drums of Passion)",
+      "drummer_ids": ["drummer:babatunde-olatunji"],
+      "drums": {
+        "description": "Interlocking Yoruba drum patterns and chant, the record that introduced West African drumming to a mass American audience.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:drums-of-passion-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZYhFyF8dvU4"
+    },
+    {
+      "title": "Akiwowo (Chant to a Train Coming)",
+      "drummer_ids": ["drummer:babatunde-olatunji"],
+      "drums": {
+        "description": "A rolling, train-like percussion ensemble pattern under call-and-response chant.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:drums-of-passion-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BYzWQ8rEJbo"
+    },
+    {
+      "title": "Kiyakiya (Why Do You Run Away?)",
+      "drummer_ids": ["drummer:babatunde-olatunji"],
+      "drums": {
+        "description": "A fast, polyrhythmic ensemble with talking drum and bells.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:drums-of-passion-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0Ht9QVUQ5Xo"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:babatunde-olatunji-wikipedia"]

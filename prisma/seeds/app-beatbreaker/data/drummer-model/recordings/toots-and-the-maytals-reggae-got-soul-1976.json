@@ -17,5 +17,26 @@
         "source_ids": ["src:wikipedia-paul-douglas-musician"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Reggae Got Soul",
+      "artist": "Toots and the Maytals",
+      "drummer_ids": ["drummer:paul-douglas"],
+      "drums": {
+        "description": "A smooth, soul-inflected reggae beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:reggae-got-soul-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aqRHrzP-Y9c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3904300"
+        }
+      ]
+    }
   ]
 }

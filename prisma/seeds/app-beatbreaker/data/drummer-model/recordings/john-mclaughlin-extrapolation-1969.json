@@ -18,6 +18,74 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Extrapolation",
+      "drummer_ids": ["drummer:tony-oxley"],
+      "drums": {
+        "description": "Taut, fast swing with free accents, early British jazz-rock.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tony-oxley-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=n6LkGwuimsU"
+    },
+    {
+      "title": "Binky's Beam",
+      "drummer_ids": ["drummer:tony-oxley"],
+      "drums": {
+        "description": "A driving, odd-metre groove under McLaughlin's guitar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tony-oxley-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tFK_m7IAKcE"
+    },
+    {
+      "title": "Arjen's Bag",
+      "drummer_ids": ["drummer:tony-oxley"],
+      "drums": {
+        "description": "Loose, angular drumming between swing and free time.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tony-oxley-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=A_nbAw_p9UE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5789859"
+        }
+      ]
+    },
+    {
+      "title": "Spectrum",
+      "drummer_ids": ["drummer:tony-oxley"],
+      "drums": {
+        "description": "A fast, driving swing with free-jazz accents behind the guitar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tony-oxley-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=quhIqwG-sLU"
+    },
+    {
+      "title": "It's Funny",
+      "drummer_ids": ["drummer:tony-oxley"],
+      "drums": {
+        "description": "A light, loose groove with brushed colours.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tony-oxley-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CZmTcbXo1js"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:tony-oxley-wikipedia"]

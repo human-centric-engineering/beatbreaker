@@ -1,0 +1,27 @@
+{
+  "id": "rec:colosseum-colosseum-live-1971",
+  "title": "Colosseum Live",
+  "artist": "Colosseum",
+  "year": 1971,
+  "type": "live_track",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jon-hiseman"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Lost Angeles",
+      "drummer_ids": ["drummer:jon-hiseman"],
+      "drums": {
+        "description": "A live extended piece that includes one of Hiseman’s showcase drum solos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:colosseum-live-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=x4uqRVMR6_M"
+    }
+  ]
+}

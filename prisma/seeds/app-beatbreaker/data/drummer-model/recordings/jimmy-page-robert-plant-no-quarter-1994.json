@@ -17,6 +17,62 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Kashmir",
+      "drummer_ids": ["drummer:hossam-ramzy"],
+      "drums": {
+        "description": "Ramzy's Egyptian ensemble of strings and percussion doubles the riff, his darbuka and frame drums adding Arabic rhythmic colour to the rock groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:kashmir-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oHCR24jggIE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3364704"
+        }
+      ]
+    },
+    {
+      "title": "Friends",
+      "drummer_ids": ["drummer:hossam-ramzy"],
+      "drums": {
+        "description": "Egyptian percussion section lays a driving maqsum-flavoured pulse under the acoustic riff.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:no-quarter-jimmy-page-and-robert-plant-unledded-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gDfp7OiNd8Q"
+    },
+    {
+      "title": "Four Sticks",
+      "drummer_ids": ["drummer:hossam-ramzy"],
+      "drums": {
+        "description": "Ramzy's percussion locks with the song's 5/4–6/4 riff, darbuka filling between the kit accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:no-quarter-jimmy-page-and-robert-plant-unledded-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=MBcievaxpZk"
+    },
+    {
+      "title": "Wonderful One",
+      "drummer_ids": ["drummer:hossam-ramzy"],
+      "drums": {
+        "description": "Soft frame-drum and darbuka textures under the ballad.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:no-quarter-jimmy-page-and-robert-plant-unledded-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_FnuzE2Pmvk"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:hossam-ramzy-wikipedia"],

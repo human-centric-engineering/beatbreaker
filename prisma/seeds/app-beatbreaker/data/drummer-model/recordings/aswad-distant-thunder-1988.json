@@ -1,0 +1,45 @@
+{
+  "id": "rec:aswad-distant-thunder-1988",
+  "title": "Distant Thunder",
+  "artist": "Aswad",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:drummie-zeb"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Don't Turn Around",
+      "drummer_ids": ["drummer:drummie-zeb"],
+      "drums": {
+        "description": "A polished pop-reggae groove, the band's UK number one.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:distant-thunder-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=E8s1CfaWGM4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7121034"
+        }
+      ]
+    },
+    {
+      "title": "Give a Little Love",
+      "drummer_ids": ["drummer:drummie-zeb"],
+      "drums": {
+        "description": "A bouncing lovers-rock groove with crisp rim shots.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:distant-thunder-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-aRv5rUxjFw"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "rec:marillion-seasons-end-1989",
+  "title": "Seasons End",
+  "artist": "Marillion",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ian-mosley"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Easter",
+      "drummer_ids": ["drummer:ian-mosley"],
+      "drums": {
+        "description": "A slow, spacious ballad groove that builds dynamically under the guitar solo.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:seasons-end-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZW81C6dC28o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12874"
+        }
+      ]
+    }
+  ]
+}

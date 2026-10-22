@@ -40,6 +40,28 @@
       "kit_setup_id": "kit:bill-bruford-rototoms-1978"
     }
   ],
+  "tracks": [
+    {
+      "title": "In the Dead of Night",
+      "drummer_ids": ["drummer:bill-bruford"],
+      "drums": {
+        "description": "The riff in 7/4, the hat on the \"and\"s and the snare moved round it; the chorus in 4/4 and 5/8.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-453581", "src:uk-album-wikipedia"]
+        }
+      },
+      "style_key": "bruford",
+      "song_key": "in-the-dead-of-night",
+      "youtube": "https://www.youtube.com/watch?v=MAzm-nQTw9g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=453581"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:uk-album-wikipedia"]

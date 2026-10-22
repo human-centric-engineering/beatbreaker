@@ -46,6 +46,56 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Blackest Eyes",
+      "drummer_ids": ["drummer:gavin-harrison"],
+      "drums": {
+        "description": "Hat eighths with a snare on the 'e' of 3 between the backbeats, his first Porcupine Tree album opener.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:in-absentia-wikipedia",
+            "src:songsterr-16042",
+            "src:hudson-rhythmic-composition"
+          ]
+        }
+      },
+      "style_key": "harrison",
+      "song_key": "blackest-eyes",
+      "youtube": "https://www.youtube.com/watch?v=UCqi63mY1j4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16042"
+        }
+      ]
+    },
+    {
+      "title": "The Sound of Muzak",
+      "drummer_ids": ["drummer:gavin-harrison"],
+      "drums": {
+        "description": "In 7/4, kick and snare grouped in sevens of sixteenths (3+2+2) with the hat on every quarter, an odd-meter groove that sounds like 4/4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:in-absentia-wikipedia",
+            "src:drumeo-sound-of-muzak",
+            "src:songsterr-15884"
+          ]
+        }
+      },
+      "style_key": "harrison",
+      "song_key": "the-sound-of-muzak",
+      "youtube": "https://www.youtube.com/watch?v=4ulgVOBpNWA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15884"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

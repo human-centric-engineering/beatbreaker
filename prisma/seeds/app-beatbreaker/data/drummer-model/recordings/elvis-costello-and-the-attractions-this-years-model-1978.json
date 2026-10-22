@@ -16,5 +16,49 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Pump It Up",
+      "drummer_ids": ["drummer:pete-thomas"],
+      "drums": {
+        "description": "A thumping, insistent beat on the floor tom and snare that drives the one-chord riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:this-years-model-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3Y71iDvCYXA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7061909"
+        }
+      ]
+    },
+    {
+      "title": "(I Don't Want to Go to) Chelsea",
+      "drummer_ids": ["drummer:pete-thomas"],
+      "drums": {
+        "description": "A tight, staccato beat with off-beat snare accents locked to the stabbing guitar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:this-years-model-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=XvRQDsH0Yho"
+    },
+    {
+      "title": "Lipstick Vogue",
+      "drummer_ids": ["drummer:pete-thomas"],
+      "drums": {
+        "description": "A frantic, tom-heavy part with rolling fills and a drum break, one of the Attractions' most driving tracks.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:this-years-model-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=J3sqZUMgcX4"
+    }
   ]
 }

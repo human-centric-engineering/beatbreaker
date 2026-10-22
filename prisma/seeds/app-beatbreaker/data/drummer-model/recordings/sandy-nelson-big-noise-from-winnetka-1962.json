@@ -1,0 +1,27 @@
+{
+  "id": "rec:sandy-nelson-big-noise-from-winnetka-1962",
+  "title": "Big Noise from Winnetka",
+  "artist": "Sandy Nelson",
+  "year": 1962,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sandy-nelson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Big Noise from Winnetka",
+      "drummer_ids": ["drummer:sandy-nelson"],
+      "drums": {
+        "description": "A drum-and-bass feature on the swing-era number.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:big-noise-from-winnetka-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hdt999cAKnU"
+    }
+  ]
+}

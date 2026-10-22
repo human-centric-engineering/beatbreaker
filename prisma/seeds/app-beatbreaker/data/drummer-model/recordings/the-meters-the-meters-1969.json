@@ -67,6 +67,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Cissy Strut",
+      "drummer_ids": ["drummer:zigaboo-modeliste"],
+      "drums": {
+        "description": "The syncopated kick-snare figure that opens the record, sixteenths broken up between hands and feet with space left open, a groove sampled and learned for decades.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:zigaboo-md-cissy-strut", "src:the-meters-album-wikipedia"]
+        }
+      },
+      "style_key": "zigaboo",
+      "song_key": "cissy-strut",
+      "youtube": "https://www.youtube.com/watch?v=MXI5Nuz6OHg"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-meters-album-wikipedia"]

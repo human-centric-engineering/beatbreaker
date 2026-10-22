@@ -1,0 +1,33 @@
+{
+  "id": "rec:sly-and-the-family-stone-everyday-people-1968",
+  "title": "Everyday People",
+  "artist": "Sly and the Family Stone",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:greg-errico"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Everyday People",
+      "drummer_ids": ["drummer:greg-errico"],
+      "drums": {
+        "description": "A simple, steady, swaying backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:everyday-people-wikipedia", "src:greg-errico-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YUUhDoCx8zc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=247823"
+        }
+      ]
+    }
+  ]
+}

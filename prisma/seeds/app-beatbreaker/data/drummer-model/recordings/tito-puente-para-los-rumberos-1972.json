@@ -1,0 +1,29 @@
+{
+  "id": "rec:tito-puente-para-los-rumberos-1972",
+  "title": "Para Los Rumberos",
+  "artist": "Tito Puente",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:mambo", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tito-puente"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Para Los Rumberos",
+      "drummer_ids": ["drummer:tito-puente"],
+      "drums": {
+        "description": "The 1972 remake at mambo tempo: the bell throughout and a short timbale solo to end it.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-puente"]
+        }
+      },
+      "style_key": "puente",
+      "song_key": "para-los-rumberos",
+      "youtube": "https://www.youtube.com/watch?v=OWbw0botV34"
+    }
+  ]
+}

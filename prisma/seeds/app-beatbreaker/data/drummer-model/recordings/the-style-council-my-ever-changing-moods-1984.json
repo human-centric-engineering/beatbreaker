@@ -1,0 +1,32 @@
+{
+  "id": "rec:the-style-council-my-ever-changing-moods-1984",
+  "title": "My Ever Changing Moods",
+  "artist": "The Style Council",
+  "year": 1984,
+  "type": "studio_track",
+  "style_ids": ["style:mod-revival"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-white"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "My Ever Changing Moods",
+      "drummer_ids": ["drummer:steve-white"],
+      "drums": {
+        "description": "Brisk, swinging soul groove with snappy fills (the band version, not the album's piano take).",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:my-ever-changing-moods-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4079209"
+        }
+      ]
+    }
+  ]
+}

@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Topsy (Part 2)",
+      "drummer_ids": ["drummer:cozy-cole"],
+      "drums": {
+        "description": "A drum feature over a guitar riff, tom-tom rolls and rimshots, one of the few drum solos ever to reach the pop top ten.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:topsy-instrumental-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dBotlTI4BUk"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:cozy-cole-wikipedia"]

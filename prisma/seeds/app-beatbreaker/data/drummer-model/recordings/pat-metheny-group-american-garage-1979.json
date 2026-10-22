@@ -1,0 +1,27 @@
+{
+  "id": "rec:pat-metheny-group-american-garage-1979",
+  "title": "American Garage",
+  "artist": "Pat Metheny Group",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:danny-gottlieb"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "(Cross the) Heartland",
+      "drummer_ids": ["drummer:danny-gottlieb"],
+      "drums": {
+        "description": "A buoyant, bright groove with crisp cymbals.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:american-garage-wikipedia", "src:danny-gottlieb-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jwseH9qtL4U"
+    }
+  ]
+}

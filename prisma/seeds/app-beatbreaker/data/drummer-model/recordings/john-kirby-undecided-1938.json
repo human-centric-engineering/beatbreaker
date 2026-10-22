@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Undecided",
+      "drummer_ids": ["drummer:oneil-spencer"],
+      "drums": {
+        "description": "The Kirby sextet's light, chamber-swing touch, Spencer's brushes and hi-hat precise and quiet.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:john-kirby-musician-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hEFcurBp1D8"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:oneil-spencer-wikipedia"]

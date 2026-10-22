@@ -57,6 +57,108 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Run to the Hills",
+      "drummer_ids": ["drummer:clive-burr"],
+      "drums": {
+        "description": "The tom-tom intro, then a galloping kick-and-snare figure that became NWOBHM's signature beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:run-to-the-hills-wikipedia",
+            "src:the-number-of-the-beast-album-wikipedia"
+          ]
+        }
+      },
+      "style_key": "burr",
+      "song_key": "run-to-the-hills",
+      "youtube": "https://www.youtube.com/watch?v=86URGgqONvA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=453"
+        }
+      ]
+    },
+    {
+      "title": "The Number of the Beast",
+      "drummer_ids": ["drummer:clive-burr"],
+      "drums": {
+        "description": "A spoken intro then a hard-swinging, fast gallop with crash-heavy accents on the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-number-of-the-beast-album-wikipedia"]
+        }
+      },
+      "style_key": "burr",
+      "song_key": "the-number-of-the-beast",
+      "youtube": "https://www.youtube.com/watch?v=WxnN05vOuSM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10084"
+        }
+      ]
+    },
+    {
+      "title": "Hallowed Be Thy Name",
+      "drummer_ids": ["drummer:clive-burr"],
+      "drums": {
+        "description": "A slow, tolling intro that kicks into a fast gallop and double-time solo sections, Burr's best-known performance.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-number-of-the-beast-album-wikipedia", "src:clive-burr-wikipedia"]
+        }
+      },
+      "style_key": "burr",
+      "song_key": "hallowed-be-thy-name",
+      "also_song_keys": ["hallowed-be-thy-name-solos"],
+      "youtube": "https://www.youtube.com/watch?v=8hu3Utk4ndo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=482"
+        }
+      ]
+    },
+    {
+      "title": "Gangland",
+      "drummer_ids": ["drummer:clive-burr"],
+      "drums": {
+        "description": "Opens on a busy snare-and-tom drum figure, Burr's own showcase on the album.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-number-of-the-beast-album-wikipedia", "src:clive-burr-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YMIKgVnB0ig",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=38625"
+        }
+      ]
+    },
+    {
+      "title": "22 Acacia Avenue",
+      "drummer_ids": ["drummer:clive-burr"],
+      "drums": {
+        "description": "Mid-tempo driving beat with a shifting, stop-start middle section.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-number-of-the-beast-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=T5WpPLRrhac",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=38621"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-number-of-the-beast-album-wikipedia"]

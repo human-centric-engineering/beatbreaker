@@ -40,6 +40,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Who Are You",
+      "drummer_ids": ["drummer:keith-moon"],
+      "drums": {
+        "description": "His last album: half time with the snare on 3, a china now and then and tom fills, the chorus on 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:who-are-you-song-wikipedia", "src:songsterr-58198"]
+        }
+      },
+      "style_key": "moon",
+      "song_key": "who-are-you",
+      "youtube": "https://www.youtube.com/watch?v=PNbBDrceCy8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=58198"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:who-are-you-album-wikipedia"]

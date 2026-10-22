@@ -160,5 +160,29 @@
     "reliability": 0.5,
     "accessed": "2026-10-21",
     "notes": "aiGenerated false; achspman (2026). 155 (the record 154), 162 bars, no markers: the riff's stabs, eighths on the hat over the kick on every beat and the 'and' of 3."
+  },
+  {
+    "id": "src:holiday-in-the-sun-wikipedia",
+    "type": "encyclopedia",
+    "title": "Holiday in the Sun - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Holiday_in_the_Sun",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:never-mind-the-bollocks-here-s-the-sex-pistols-wikipedia",
+    "type": "encyclopedia",
+    "title": "Never Mind the Bollocks, Here's the Sex Pistols - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Never_Mind_the_Bollocks,_Here's_the_Sex_Pistols",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:e-m-i-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "E.M.I. (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/E.M.I._(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

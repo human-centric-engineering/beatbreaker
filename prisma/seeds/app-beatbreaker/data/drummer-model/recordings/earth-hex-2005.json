@@ -15,6 +15,64 @@
       "pattern_ids": ["pattern:davies-glacial-backbeat-archetype"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Land of Some Other Order",
+      "drummer_ids": ["drummer:adrienne-davies"],
+      "drums": {
+        "description": "A funeral-slow beat, each cymbal and snare hit left to ring out fully before the next, the kit as a pendulum under the twang.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hex-earth-album-wikipedia", "src:invisible-oranges-davies"]
+        }
+      },
+      "style_key": "davies",
+      "song_key": "land-of-some-other-order",
+      "youtube": "https://www.youtube.com/watch?v=4uqeTHAjMJI"
+    },
+    {
+      "title": "Lens of Unrectified Night",
+      "drummer_ids": ["drummer:adrienne-davies"],
+      "drums": {
+        "description": "Sparse, deliberate strokes at a crawl, with long gaps that make the time felt rather than played.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hex-earth-album-wikipedia"]
+        }
+      },
+      "style_key": "davies",
+      "song_key": "lens-of-unrectified-night",
+      "youtube": "https://www.youtube.com/watch?v=n-WDACxbIJM"
+    },
+    {
+      "title": "An Inquest Concerning Teeth",
+      "drummer_ids": ["drummer:adrienne-davies"],
+      "drums": {
+        "description": "A dragging half-time backbeat with heavy floor-tom swells, timed to the guitar's sustain.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hex-earth-album-wikipedia"]
+        }
+      },
+      "style_key": "davies",
+      "song_key": "an-inquest-concerning-teeth",
+      "youtube": "https://www.youtube.com/watch?v=6hBuU5goumg"
+    },
+    {
+      "title": "Raiford (The Felon Wind)",
+      "drummer_ids": ["drummer:adrienne-davies"],
+      "drums": {
+        "description": "Slow, swinging ride-and-snare time with a Western lope.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hex-earth-album-wikipedia"]
+        }
+      },
+      "style_key": "davies",
+      "song_key": "raiford",
+      "youtube": "https://www.youtube.com/watch?v=P_JoGWPn7UQ"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:bandcamp-davies"]

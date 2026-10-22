@@ -1,0 +1,33 @@
+{
+  "id": "rec:kreator-flag-of-hate-1986",
+  "title": "Flag of Hate",
+  "artist": "Kreator",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ventor"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Flag of Hate",
+      "drummer_ids": ["drummer:ventor"],
+      "drums": {
+        "description": "Hammering fast thrash with simple, ferocious skank beats.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:flag-of-hate-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GQsy0bJhZ0M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10931"
+        }
+      ]
+    }
+  ]
+}

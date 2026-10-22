@@ -18,6 +18,46 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Landlord",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "The B-side: a slow section on open hats, then a fast one at double time with the snare on every \"and\".",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:reggatta-de-blanc-wikipedia"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "landlord",
+      "youtube": "https://www.youtube.com/watch?v=dADFOUyHwt0"
+    },
+    {
+      "title": "Message in a Bottle",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Accented quarters on the hi-hat with the mid and high toms answering over two bars, and the bell into the outro: one of rock drumming's most-learned parts.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:reggatta-de-blanc-wikipedia",
+            "src:musicradar-copeland-howto",
+            "src:faroutmag-copeland"
+          ]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "message-in-a-bottle",
+      "youtube": "https://www.youtube.com/watch?v=MbXWrmQW-OE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3706"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "likely"
   }

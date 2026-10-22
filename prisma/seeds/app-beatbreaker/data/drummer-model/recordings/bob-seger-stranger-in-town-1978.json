@@ -1,0 +1,33 @@
+{
+  "id": "rec:bob-seger-stranger-in-town-1978",
+  "title": "Stranger in Town",
+  "artist": "Bob Seger",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-hawkins"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Old Time Rock and Roll",
+      "drummer_ids": ["drummer:roger-hawkins"],
+      "drums": {
+        "description": "A straight, solid rock-and-roll backbeat with a big snare, recorded by the Muscle Shoals rhythm section.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:old-time-rock-and-roll-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=N9G-lvqaBfM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=553002"
+        }
+      ]
+    }
+  ]
+}

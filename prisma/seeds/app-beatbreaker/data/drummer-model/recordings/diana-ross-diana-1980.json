@@ -39,6 +39,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Upside Down",
+      "drummer_ids": ["drummer:tony-thompson"],
+      "drums": {
+        "description": "The hat in eighths and the kick locked to Bernard Edwards's bass on the 'and' of 2 and the 'a' of 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:upside-down-diana-ross-song-wikipedia",
+            "src:songsterr-29836",
+            "src:tony-thompson-wikipedia"
+          ]
+        }
+      },
+      "style_key": "tonythompson",
+      "song_key": "upside-down",
+      "youtube": "https://www.youtube.com/watch?v=lZ9OP5dzkQg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29836"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:diana-album-wikipedia"]

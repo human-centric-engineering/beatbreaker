@@ -46,6 +46,88 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Ziggy Stardust",
+      "drummer_ids": ["drummer:woody-woodmansey"],
+      "drums": {
+        "description": "Crashes on 1 and 3 with the riff, eighths in the verse, the snare doubled in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ziggy-stardust-song-wikipedia"]
+        }
+      },
+      "style_key": "woodmansey",
+      "song_key": "ziggy-stardust",
+      "youtube": "https://www.youtube.com/watch?v=na8xgu-KLAk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=366"
+        }
+      ]
+    },
+    {
+      "title": "Moonage Daydream",
+      "drummer_ids": ["drummer:woody-woodmansey"],
+      "drums": {
+        "description": "The hi-hat opened on 4, the kick on the \"a\"s of 1 and 3, snare triplets over the toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:moonage-daydream-wikipedia"]
+        }
+      },
+      "style_key": "woodmansey",
+      "song_key": "moonage-daydream",
+      "youtube": "https://www.youtube.com/watch?v=6pXoQ6iYO1w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=67279"
+        }
+      ]
+    },
+    {
+      "title": "Starman",
+      "drummer_ids": ["drummer:woody-woodmansey"],
+      "drums": {
+        "description": "Eighths with the kick on the \"and\"s of 3 and 4, and the crash alone for the octave call.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:starman-bowie-song-wikipedia"]
+        }
+      },
+      "style_key": "woodmansey",
+      "song_key": "starman",
+      "youtube": "https://www.youtube.com/watch?v=t365MuktYQs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3112"
+        }
+      ]
+    },
+    {
+      "title": "Suffragette City",
+      "drummer_ids": ["drummer:woody-woodmansey"],
+      "drums": {
+        "description": "Driving eighths with the kick on the \"and\"s, a stop and a build after each chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:suffragette-city-wikipedia", "src:bowie-bible-suffragette-city"]
+        }
+      },
+      "style_key": "woodmansey",
+      "song_key": "suffragette-city",
+      "youtube": "https://www.youtube.com/watch?v=EaVm93q95fc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29032"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:ziggy-stardust-song-wikipedia", "src:starman-bowie-song-wikipedia"]

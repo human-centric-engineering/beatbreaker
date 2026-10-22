@@ -1,0 +1,33 @@
+{
+  "id": "rec:gojira-lenfant-sauvage-2012",
+  "title": "L'Enfant Sauvage",
+  "artist": "Gojira",
+  "year": 2012,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mario-duplantier"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "L'Enfant Sauvage",
+      "drummer_ids": ["drummer:mario-duplantier"],
+      "drums": {
+        "description": "Stop-start syncopation and big tom accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lenfant-sauvage-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BGHlZwMYO9g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=381936"
+        }
+      ]
+    }
+  ]
+}

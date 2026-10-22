@@ -10,5 +10,61 @@
       "drummer_id": "drummer:eloy-casagrande",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "I Am the Enemy",
+      "drummer_ids": ["drummer:eloy-casagrande"],
+      "drums": {
+        "description": "A blistering, fast thrash beat with Casagrande's furious double bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:machine-messiah-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pCEe44CgyAM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=889550"
+        }
+      ]
+    },
+    {
+      "title": "Phantom Self",
+      "drummer_ids": ["drummer:eloy-casagrande"],
+      "drums": {
+        "description": "Tribal tom grooves and orchestral hits mixed with thrash, Casagrande's showcase of speed and groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:machine-messiah-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ANjtEPcAY_s",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2162858"
+        }
+      ]
+    },
+    {
+      "title": "Machine Messiah",
+      "drummer_ids": ["drummer:eloy-casagrande"],
+      "drums": {
+        "description": "A slow, doomy opening that builds into a heavy groove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:machine-messiah-album-wikipedia", "src:eloy-casagrande-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=vbd1tbg2wsE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=534681"
+        }
+      ]
+    }
   ]
 }

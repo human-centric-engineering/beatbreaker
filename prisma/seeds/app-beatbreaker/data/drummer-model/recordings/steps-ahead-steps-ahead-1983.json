@@ -1,0 +1,27 @@
+{
+  "id": "rec:steps-ahead-steps-ahead-1983",
+  "title": "Steps Ahead",
+  "artist": "Steps Ahead",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:peter-erskine"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Pools",
+      "drummer_ids": ["drummer:peter-erskine"],
+      "drums": {
+        "description": "A light, flowing straight-eighth groove with colour on cymbals, the ballad that made the band’s name.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:steps-ahead-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dLE_IBg9abk"
+    }
+  ]
+}

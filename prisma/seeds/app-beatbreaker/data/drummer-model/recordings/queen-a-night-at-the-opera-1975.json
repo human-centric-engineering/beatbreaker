@@ -39,6 +39,42 @@
       "pattern_ids": ["pattern:rogertaylor-bohrap-ballad", "pattern:rogertaylor-bohrap-rock"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Bohemian Rhapsody",
+      "drummer_ids": ["drummer:roger-taylor"],
+      "drums": {
+        "description": "The ballad: the ride in eighths, 2 and 4, a run down the mid tom into the guitar solo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-270", "src:a-night-at-the-opera-wikipedia"]
+        }
+      },
+      "style_key": "rogertaylor",
+      "song_key": "bohemian-rhapsody",
+      "youtube": "https://www.youtube.com/watch?v=fJ9rUzIMcZQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=270"
+        }
+      ]
+    },
+    {
+      "title": "Bohemian Rhapsody (the rock section)",
+      "drummer_ids": ["drummer:roger-taylor"],
+      "drums": {
+        "description": "12/8: hats on the pulse, 2 and 4, the kick in quarters across it, three against two.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-270"]
+        }
+      },
+      "style_key": "rogertaylor",
+      "song_key": "bohemian-rhapsody-rock",
+      "youtube": "https://www.youtube.com/watch?v=fJ9rUzIMcZQ"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:a-night-at-the-opera-wikipedia"]

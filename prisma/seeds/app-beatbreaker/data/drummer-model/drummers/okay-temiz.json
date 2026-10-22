@@ -94,6 +94,7 @@
   },
   "beatbreaker": {
     "group": "Middle Eastern and Persian drummers",
-    "build_priority": 2
+    "build_priority": 2,
+    "songs_short_because": "15-b sweep (2026-10-22): Track listings for Orient, Music for Xaba and Oriental Wind could not be sourced (no Wikipedia pages). Needs Discogs or label notes."
   }
 }

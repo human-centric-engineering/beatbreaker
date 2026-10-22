@@ -1,0 +1,27 @@
+{
+  "id": "rec:willie-bobo-uno-dos-tres-123-1966",
+  "title": "Uno Dos Tres 1•2•3",
+  "artist": "Willie Bobo",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:salsa"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:willie-bobo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Fried Neckbones and Some Home Fries",
+      "drummer_ids": ["drummer:willie-bobo"],
+      "drums": {
+        "description": "A boogaloo groove on timbales and bongos, Latin percussion over a soul backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-willie-bobo"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mXbpEzVHuzM"
+    }
+  ]
+}

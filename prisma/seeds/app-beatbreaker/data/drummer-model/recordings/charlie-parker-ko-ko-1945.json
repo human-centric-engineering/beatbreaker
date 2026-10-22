@@ -49,6 +49,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Ko-Ko",
+      "drummer_ids": ["drummer:max-roach"],
+      "drums": {
+        "description": "With Charlie Parker at about 300 bpm: the time on the cymbal, the bass drum kept for 'bombs', the drums tuned high, a founding bebop record.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-roach-jazzomat", "src:max-roach-ko-ko-wikipedia"]
+        }
+      },
+      "style_key": "roach",
+      "song_key": "ko-ko",
+      "youtube": "https://www.youtube.com/watch?v=0ajJBNodEYs"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:max-roach-ko-ko-wikipedia", "src:max-roach-jazzomat"]

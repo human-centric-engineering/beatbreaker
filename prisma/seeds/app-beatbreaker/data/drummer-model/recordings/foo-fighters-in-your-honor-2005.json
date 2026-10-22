@@ -59,6 +59,46 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Best of You",
+      "drummer_ids": ["drummer:taylor-hawkins"],
+      "drums": {
+        "description": "A steady build from hat to a pummelling floor-tom and crash chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:in-your-honor-wikipedia"]
+        }
+      },
+      "style_key": "taylorhawkins",
+      "song_key": "best-of-you",
+      "youtube": "https://www.youtube.com/watch?v=h_L4Rixya64",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=314"
+        }
+      ]
+    },
+    {
+      "title": "No Way Back",
+      "drummer_ids": ["drummer:taylor-hawkins"],
+      "drums": {
+        "description": "A fast punk beat with relentless crash accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:in-your-honor-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fTaOlBWcl48",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35549"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:in-your-honor-wikipedia"]

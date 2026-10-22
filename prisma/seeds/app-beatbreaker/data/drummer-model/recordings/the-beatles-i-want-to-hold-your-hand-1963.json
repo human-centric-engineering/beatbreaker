@@ -1,0 +1,35 @@
+{
+  "id": "rec:the-beatles-i-want-to-hold-your-hand-1963",
+  "title": "I Want to Hold Your Hand",
+  "artist": "The Beatles",
+  "year": 1963,
+  "type": "studio_track",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "I Want to Hold Your Hand",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Washy eighths on loose hats, the crash landing on the 'and' of 4 in the stop-time hook.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:i-want-to-hold-your-hand-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "i-want-to-hold-your-hand",
+      "youtube": "https://www.youtube.com/watch?v=jenWdylTtzs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22793"
+        }
+      ]
+    }
+  ]
+}

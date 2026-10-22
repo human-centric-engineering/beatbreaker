@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Do You Like Me",
+      "drummer_ids": ["drummer:brendan-canty"],
+      "drums": {
+        "description": "A punchy, angular groove under jagged guitars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:red-medicine-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1J94qkE85uo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=438150"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,29 @@
+{
+  "id": "rec:fela-gentleman-1973",
+  "title": "Gentleman",
+  "artist": "Fela Ransome-Kuti and the Africa '70",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:afrobeat", "style:west-african", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Gentleman",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "Slow and floating, the drums entering sparse under the long saxophone introduction before the pattern settles.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-allen-research", "src:fela-kuti-discography-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "gentleman",
+      "youtube": "https://www.youtube.com/watch?v=D8uVfInkZVE"
+    }
+  ]
+}

@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "White Light/White Heat",
+      "drummer_ids": ["drummer:moe-tucker"],
+      "drums": {
+        "description": "A simple, driving rock pulse under the distortion.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:white-light-white-heat-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qNqrBFTZkiE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=470502"
+        }
+      ]
+    },
+    {
+      "title": "Sister Ray",
+      "drummer_ids": ["drummer:moe-tucker"],
+      "drums": {
+        "description": "Seventeen minutes of steady, unbending pulse holding the improvisation together.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:white-light-white-heat-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Y9LGF4DWgHo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=653325"
+        }
+      ]
+    }
   ]
 }

@@ -1,0 +1,32 @@
+{
+  "id": "rec:fela-why-black-man-dey-suffer-1971",
+  "title": "Why Black Man Dey Suffer",
+  "artist": "Fela Ransome-Kuti and the Africa '70",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:afrobeat", "style:west-african", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Why Black Man Dey Suffer",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "The snare takes beat one and the kick never does: one of his five patterns where the 1 belongs to the snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:tony-allen-research",
+            "src:tony-allen-poitevin",
+            "src:fela-kuti-discography-wikipedia"
+          ]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "why-black-man-dey-suffer"
+    }
+  ]
+}

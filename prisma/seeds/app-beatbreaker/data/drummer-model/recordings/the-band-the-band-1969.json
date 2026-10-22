@@ -59,6 +59,56 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Across the Great Divide",
+      "drummer_ids": ["drummer:levon-helm"],
+      "drums": {
+        "description": "Swung eighths with a crash and snare triplets every fourth bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-band-album-wikipedia"]
+        }
+      },
+      "style_key": "levonhelm",
+      "song_key": "across-the-great-divide",
+      "youtube": "https://www.youtube.com/watch?v=1RmUMB-dsvo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=259751"
+        }
+      ]
+    },
+    {
+      "title": "Up on Cripple Creek",
+      "drummer_ids": ["drummer:levon-helm"],
+      "drums": {
+        "description": "A lopsided funk: the kick on 1, the \"a\" of 1, 3 and its \"a\", the snare on 2 and 4 and their \"a\"s, and a break with the band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-band-album-wikipedia"]
+        }
+      },
+      "style_key": "levonhelm",
+      "song_key": "up-on-cripple-creek",
+      "youtube": "https://www.youtube.com/watch?v=kBGSf9kViEY"
+    },
+    {
+      "title": "The Night They Drove Old Dixie Down",
+      "drummer_ids": ["drummer:levon-helm"],
+      "drums": {
+        "description": "A march in two while he sings it: quarters on the hi-hat, the snare on 3, the chorus in snare triplets and rolls.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-band-album-wikipedia"]
+        }
+      },
+      "style_key": "levonhelm",
+      "song_key": "night-they-drove-old-dixie-down",
+      "youtube": "https://www.youtube.com/watch?v=QC-eDtV5O0Q"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:the-band-album-wikipedia"]

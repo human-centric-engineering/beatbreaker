@@ -1,0 +1,29 @@
+{
+  "id": "rec:charlie-parker-dizzy-gillespie-bird-and-diz-1952",
+  "title": "Bird and Diz",
+  "artist": "Charlie Parker and Dizzy Gillespie",
+  "year": 1952,
+  "type": "album",
+  "style_ids": ["style:bebop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-rich"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Leap Frog",
+      "drummer_ids": ["drummer:buddy-rich"],
+      "drums": {
+        "description": "Swing-era time at a bebop tempo of about 330, open-and-closed hi-hat intros, the drums trading fours with the horns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bird-and-diz-wikipedia", "src:buddy-rich-wikipedia"]
+        }
+      },
+      "style_key": "buddyrich",
+      "song_key": "leap-frog",
+      "youtube": "https://www.youtube.com/watch?v=nHUMXOg0nuw"
+    }
+  ]
+}

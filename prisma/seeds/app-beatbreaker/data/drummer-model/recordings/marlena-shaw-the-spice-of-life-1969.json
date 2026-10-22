@@ -1,0 +1,27 @@
+{
+  "id": "rec:marlena-shaw-the-spice-of-life-1969",
+  "title": "The Spice of Life",
+  "artist": "Marlena Shaw",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:morris-jennings"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "California Soul",
+      "drummer_ids": ["drummer:morris-jennings"],
+      "drums": {
+        "description": "Orchestral soul groove noted for an unusual two-bar drum break early in the song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:morris-jennings-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CUosSQZSw5c"
+    }
+  ]
+}

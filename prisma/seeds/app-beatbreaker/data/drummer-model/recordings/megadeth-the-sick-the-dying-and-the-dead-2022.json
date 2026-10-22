@@ -10,5 +10,57 @@
       "drummer_id": "drummer:dirk-verbeuren",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "The Sick, the Dying... and the Dead!",
+      "drummer_ids": ["drummer:dirk-verbeuren"],
+      "drums": {
+        "description": "A mid-tempo thrash groove opening into fast double bass, Verbeuren's precise, modern metal drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:the-sick-the-dying-and-the-dead-wikipedia",
+            "src:dirk-verbeuren-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xc_mfqPS2LY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=517626"
+        }
+      ]
+    },
+    {
+      "title": "Night Stalkers",
+      "drummer_ids": ["drummer:dirk-verbeuren"],
+      "drums": {
+        "description": "A relentless fast thrash beat with blast-like double bass under Ice-T's guest vocal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-sick-the-dying-and-the-dead-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wAqc_zfmML0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=514016"
+        }
+      ]
+    },
+    {
+      "title": "We Will Be Back",
+      "drummer_ids": ["drummer:dirk-verbeuren"],
+      "drums": {
+        "description": "A fast, aggressive thrash beat with relentless double bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-sick-the-dying-and-the-dead-wikipedia"]
+        }
+      }
+    }
   ]
 }

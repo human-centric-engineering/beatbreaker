@@ -43,6 +43,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Perfect Strangers",
+      "drummer_ids": ["drummer:ian-paice"],
+      "drums": {
+        "description": "Open hats in eighths, slow and heavy; a 5/4 bar after each 4/4 bar in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-22502", "src:perfect-strangers-wikipedia"]
+        }
+      },
+      "style_key": "paice",
+      "song_key": "perfect-strangers",
+      "youtube": "https://www.youtube.com/watch?v=gZ_kez7WVUU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22502"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:perfect-strangers-wikipedia"]

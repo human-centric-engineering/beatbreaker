@@ -133,5 +133,53 @@
     "reliability": 0.6,
     "accessed": "2026-10-20",
     "notes": "Black and white, a trio with piano and bass: a short rounded natural, a moustache, a dark jacket over an open white shirt, a patterned scarf; a pale kit with chrome hardware. The likeness."
+  },
+  {
+    "id": "src:miles-new-miles-davis-quintet-wikipedia",
+    "type": "encyclopedia",
+    "title": "Miles: The New Miles Davis Quintet - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Miles:_The_New_Miles_Davis_Quintet",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:relaxin-miles-davis-wikipedia",
+    "type": "encyclopedia",
+    "title": "Relaxin' with the Miles Davis Quintet - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Relaxin%27_with_the_Miles_Davis_Quintet",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:blue-train-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Blue Train (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Blue_Train_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:porgy-and-bess-miles-davis-wikipedia",
+    "type": "encyclopedia",
+    "title": "Porgy and Bess (Miles Davis album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Porgy_and_Bess_(Miles_Davis_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:everybody-digs-bill-evans-wikipedia",
+    "type": "encyclopedia",
+    "title": "Everybody Digs Bill Evans - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Everybody_Digs_Bill_Evans",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:newks-time-wikipedia",
+    "type": "encyclopedia",
+    "title": "Newk's Time - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Newk%27s_Time",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

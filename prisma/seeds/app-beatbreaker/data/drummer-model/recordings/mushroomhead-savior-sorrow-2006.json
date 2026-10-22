@@ -1,0 +1,75 @@
+{
+  "id": "rec:mushroomhead-savior-sorrow-2006",
+  "title": "Savior Sorrow",
+  "artist": "Mushroomhead",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:alternative-metal", "style:industrial-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-felton"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Save Us",
+      "drummer_ids": ["drummer:steve-felton"],
+      "drums": {
+        "description": "Half time with the kick on the riff, floor tom and kick in eighths, and a verse that stops dead.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:savior-sorrow-wikipedia"]
+        }
+      },
+      "style_key": "skinny",
+      "song_key": "save-us",
+      "youtube": "https://www.youtube.com/watch?v=1oi_dwoBXgk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=420301"
+        }
+      ]
+    },
+    {
+      "title": "12 Hundred",
+      "drummer_ids": ["drummer:steve-felton"],
+      "drums": {
+        "description": "Crash and snare on every beat over fast double bass, ghosted rolls and a half-time drop.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:savior-sorrow-wikipedia"]
+        }
+      },
+      "style_key": "skinny",
+      "song_key": "12-hundred",
+      "youtube": "https://www.youtube.com/watch?v=4RJniI3kg6c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=420304"
+        }
+      ]
+    },
+    {
+      "title": "Burn",
+      "drummer_ids": ["drummer:steve-felton"],
+      "drums": {
+        "description": "Fast double bass under the backbeat, a bar of 5/4 and sections played in eighths at 156.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:savior-sorrow-wikipedia"]
+        }
+      },
+      "style_key": "skinny",
+      "song_key": "burn",
+      "youtube": "https://www.youtube.com/watch?v=mRb96KnjT5U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=477545"
+        }
+      ]
+    }
+  ]
+}

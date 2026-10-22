@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Pinhead",
+      "drummer_ids": ["drummer:tommy-ramone"],
+      "drums": {
+        "description": "A steady, fast punk beat behind the \"gabba gabba hey\" chant.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:leave-home-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=whIMah7Yi_4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16284"
+        }
+      ]
+    },
+    {
+      "title": "Gimme Gimme Shock Treatment",
+      "drummer_ids": ["drummer:tommy-ramone"],
+      "drums": {
+        "description": "Rapid, relentless eighths.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:leave-home-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8PCfwjEx7mM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=70617"
+        }
+      ]
+    }
   ]
 }

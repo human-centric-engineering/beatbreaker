@@ -16,5 +16,97 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Medication",
+      "drummer_ids": ["drummer:joey-castillo"],
+      "drums": {
+        "description": "A short, fast, punchy straight-eighth drive on his first album with the band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lullabies-to-paralyze-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8KEOSmNUZxk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16754"
+        }
+      ]
+    },
+    {
+      "title": "Tangled Up in Plaid",
+      "drummer_ids": ["drummer:joey-castillo"],
+      "drums": {
+        "description": "A swaggering, heavy mid-tempo groove with a fat snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lullabies-to-paralyze-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1ys_No8JHEs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22960"
+        }
+      ]
+    },
+    {
+      "title": "Burn the Witch",
+      "drummer_ids": ["drummer:joey-castillo"],
+      "drums": {
+        "description": "A swampy, stomping beat on kick and snare with a blues-rock swing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lullabies-to-paralyze-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=v7c187E5BxY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=51153"
+        }
+      ]
+    },
+    {
+      "title": "In My Head",
+      "drummer_ids": ["drummer:joey-castillo"],
+      "drums": {
+        "description": "A bouncy, steady mid-tempo groove that keeps the single light on its feet.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lullabies-to-paralyze-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=69e8oa85F3g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16352"
+        }
+      ]
+    },
+    {
+      "title": "Little Sister",
+      "drummer_ids": ["drummer:joey-castillo"],
+      "drums": {
+        "description": "A tight, driving straight-eighth beat that pushes the short single from start to finish.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:lullabies-to-paralyze-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hGRqnNEOpe0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16818"
+        }
+      ]
+    }
   ]
 }

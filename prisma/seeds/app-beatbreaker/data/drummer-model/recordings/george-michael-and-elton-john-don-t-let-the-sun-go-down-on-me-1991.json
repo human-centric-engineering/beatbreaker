@@ -1,0 +1,27 @@
+{
+  "id": "rec:george-michael-and-elton-john-don-t-let-the-sun-go-down-on-me-1991",
+  "title": "Don't Let the Sun Go Down on Me",
+  "artist": "George Michael and Elton John",
+  "year": 1991,
+  "type": "live_track",
+  "style_ids": ["style:rnb-soul", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jonathan-moffett"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Don't Let the Sun Go Down on Me",
+      "drummer_ids": ["drummer:jonathan-moffett"],
+      "drums": {
+        "description": "Live at Wembley Arena: patient ballad drumming that builds to the big final choruses.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jonathan-moffett-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RsKqMNDoR4o"
+    }
+  ]
+}

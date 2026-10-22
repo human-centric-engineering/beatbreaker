@@ -15,6 +15,28 @@
       "why_it_matters": "Tension built from rapid hi-hat and ride patterns and aggressive snare."
     }
   ],
+  "tracks": [
+    {
+      "title": "Driven to Tears",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Four on the floor with a cross-stick on 3 and the hi-hat foot running eighths in the verse.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:zenyatta-mondatta-wikipedia", "src:musicradar-copeland-howto"]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "driven-to-tears",
+      "youtube": "https://www.youtube.com/watch?v=cPkChi1ckq0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=56144"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:musicradar-copeland-howto"]

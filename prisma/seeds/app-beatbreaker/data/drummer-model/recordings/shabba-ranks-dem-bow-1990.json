@@ -1,0 +1,27 @@
+{
+  "id": "rec:shabba-ranks-dem-bow-1990",
+  "title": "Dem Bow",
+  "artist": "Shabba Ranks",
+  "year": 1990,
+  "type": "studio_track",
+  "style_ids": ["style:dancehall", "style:reggae"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clevie-browne"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Dem Bow",
+      "drummer_ids": ["drummer:clevie-browne"],
+      "drums": {
+        "description": "The bouncing kick–snare riddim from Steely & Clevie that became reggaeton's dembow pattern.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-steely-and-clevie"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HkzEZ_pFORs"
+    }
+  ]
+}

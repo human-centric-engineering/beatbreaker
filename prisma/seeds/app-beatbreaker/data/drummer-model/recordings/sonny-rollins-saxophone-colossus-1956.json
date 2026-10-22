@@ -54,6 +54,42 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "St. Thomas",
+      "drummer_ids": ["drummer:max-roach"],
+      "drums": {
+        "description": "A calypso groove, then a solo built from the tune's motif, a model of melodic drum soloing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:st-thomas-song-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Blue 7",
+      "drummer_ids": ["drummer:max-roach"],
+      "drums": {
+        "description": "His solo over light quarters on the bass drum with the hi-hat on 2 and 4, developing ideas like a horn player.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:max-roach-bishop-blue-seven",
+            "src:max-roach-saxophone-colossus-wikipedia"
+          ]
+        }
+      },
+      "style_key": "roach",
+      "song_key": "blue-seven",
+      "youtube": "https://www.youtube.com/watch?v=-QtwXvu1uGA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3774001"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": [

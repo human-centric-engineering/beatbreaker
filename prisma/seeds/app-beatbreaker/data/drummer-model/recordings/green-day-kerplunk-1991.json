@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "2000 Light Years Away",
+      "drummer_ids": ["drummer:tre-cool"],
+      "drums": {
+        "description": "A fast, fill-heavy pop-punk beat, Tré Cool's busy style already in place on his first album with the band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:kerplunk-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Yhea380bYp0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10126"
+        }
+      ]
+    },
+    {
+      "title": "Christie Road",
+      "drummer_ids": ["drummer:tre-cool"],
+      "drums": {
+        "description": "A steady mid-tempo pop-punk groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:kerplunk-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GIciWwIU6TY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8635"
+        }
+      ]
+    }
   ]
 }

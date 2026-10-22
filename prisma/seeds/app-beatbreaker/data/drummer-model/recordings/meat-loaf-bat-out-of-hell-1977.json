@@ -12,6 +12,44 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Bat Out of Hell",
+      "drummer_ids": ["drummer:max-weinberg"],
+      "drums": {
+        "description": "A long, fast, operatic rock piece with heavy fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-weinberg-wikipedia", "src:bat-out-of-hell-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3QGMCSCFoKA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=13498"
+        }
+      ]
+    },
+    {
+      "title": "Paradise by the Dashboard Light",
+      "drummer_ids": ["drummer:max-weinberg"],
+      "drums": {
+        "description": "A multi-section piece with a driving rock beat and stop-time breaks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:max-weinberg-wikipedia", "src:bat-out-of-hell-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=C11MzbEcHlw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=88166"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:max-weinberg-wikipedia"]

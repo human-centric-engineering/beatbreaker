@@ -18,6 +18,62 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Bags' Groove",
+      "drummer_ids": ["drummer:kenny-clarke"],
+      "drums": {
+        "description": "Light ride-cymbal time with the bass drum kept soft, the bebop approach he pioneered, under Miles, Milt Jackson and Monk.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bags-groove-album-wikipedia", "src:kenny-clarke-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zEwq9KG-Ay0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=462220"
+        }
+      ]
+    },
+    {
+      "title": "Airegin",
+      "drummer_ids": ["drummer:kenny-clarke"],
+      "drums": {
+        "description": "Brisk ride-cymbal swing with snare and bass-drum accents dropped in behind Rollins and Miles.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bags-groove-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=i1-LsBszK2E"
+    },
+    {
+      "title": "Oleo",
+      "drummer_ids": ["drummer:kenny-clarke"],
+      "drums": {
+        "description": "Fast rhythm-changes swing on the ride behind Rollins and Miles's muted trumpet.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bags-groove-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=x_cQHeWwSBQ"
+    },
+    {
+      "title": "Doxy",
+      "drummer_ids": ["drummer:kenny-clarke"],
+      "drums": {
+        "description": "An easy, medium swing feel that sits back under the relaxed theme.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bags-groove-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CiqYftIpaKI"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:kenny-clarke-wikipedia"]

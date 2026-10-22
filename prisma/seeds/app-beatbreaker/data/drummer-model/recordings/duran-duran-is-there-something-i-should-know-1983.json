@@ -41,6 +41,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Is There Something I Should Know?",
+      "drummer_ids": ["drummer:roger-taylor-duran-duran"],
+      "drums": {
+        "description": "The kick on the \"and\" of 2, a chorus bar with no hi-hat, the snare on every beat at the end.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:is-there-something-i-should-know-wikipedia"]
+        }
+      },
+      "style_key": "rogertaylorduran",
+      "song_key": "is-there-something-i-should-know",
+      "youtube": "https://www.youtube.com/watch?v=3M0hogZyRyU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=415596"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:is-there-something-i-should-know-wikipedia"]

@@ -16,6 +16,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Drip Dry Eyes",
+      "drummer_ids": ["drummer:yukihiro-takahashi"],
+      "drums": {
+        "description": "A new-wave groove from his solo record, a tight, dry kit sound with gated electronic textures.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:neuromantic-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=n1ZZ5dNBOJ0"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:yukihiro-takahashi-wikipedia"],

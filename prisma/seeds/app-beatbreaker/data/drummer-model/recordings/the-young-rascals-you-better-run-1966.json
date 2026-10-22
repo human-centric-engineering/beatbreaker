@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-young-rascals-you-better-run-1966",
+  "title": "You Better Run",
+  "artist": "The Young Rascals",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:rock", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dino-danelli"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "You Better Run",
+      "drummer_ids": ["drummer:dino-danelli"],
+      "drums": {
+        "description": "Aggressive garage-rock drumming: pounding tom and snare figures and crashing accents that drive the song harder than the band's soul covers.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:you-better-run-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4Tr3ogvhW0g"
+    }
+  ]
+}

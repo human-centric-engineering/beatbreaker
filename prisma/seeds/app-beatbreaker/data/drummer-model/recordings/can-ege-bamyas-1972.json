@@ -12,6 +12,56 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Vitamin C",
+      "drummer_ids": ["drummer:jaki-liebezeit"],
+      "drums": {
+        "description": "A funky, syncopated groove much sampled in hip-hop.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jaki-liebezeit-wikipedia", "src:ege-bamyasi-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YmN9oHa3ZIQ"
+    },
+    {
+      "title": "Spoon",
+      "drummer_ids": ["drummer:jaki-liebezeit"],
+      "drums": {
+        "description": "A tight groove played over a drum machine.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jaki-liebezeit-wikipedia", "src:ege-bamyasi-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=giHf9lkCMQ4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1184863"
+        }
+      ]
+    },
+    {
+      "title": "One More Night",
+      "drummer_ids": ["drummer:jaki-liebezeit"],
+      "drums": {
+        "description": "A hypnotic, repetitive groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jaki-liebezeit-wikipedia", "src:ege-bamyasi-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=t-AHIoiXUdg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4711929"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jaki-liebezeit-wikipedia"]

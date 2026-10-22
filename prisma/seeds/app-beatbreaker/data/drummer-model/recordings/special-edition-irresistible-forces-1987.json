@@ -26,6 +26,21 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "47th Groove",
+      "drummer_ids": ["drummer:jack-dejohnette"],
+      "drums": {
+        "description": "The hat over kick pairs, then the bell on the \"and\"s, the snare on 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bishop-dejohnette-47th-groove"]
+        }
+      },
+      "style_key": "dejohnette",
+      "song_key": "47th-groove"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:bishop-dejohnette-47th-groove"]

@@ -24,6 +24,22 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "El baile del buey cansao",
+      "drummer_ids": ["drummer:changuito"],
+      "drums": {
+        "description": "The timbales arrive in his kit: the bell on the beats, the timbales between and the kick on one bombo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:changuito-timba-moore", "src:wikipedia-losvanvan"]
+        }
+      },
+      "style_key": "changuito",
+      "song_key": "buey-cansao",
+      "youtube": "https://www.youtube.com/watch?v=wQOrvrcCwlc"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:wikipedia-losvanvan"]

@@ -43,6 +43,32 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Walking on the Moon",
+      "drummer_ids": ["drummer:stewart-copeland"],
+      "drums": {
+        "description": "Felt in half time: kick on 2 and 4, a cross-stick on 3, hi-hats dropping out, all through his tape echo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:reggatta-de-blanc-wikipedia",
+            "src:musicradar-copeland-howto",
+            "src:faroutmag-copeland"
+          ]
+        }
+      },
+      "style_key": "copeland",
+      "song_key": "walking-on-the-moon",
+      "youtube": "https://www.youtube.com/watch?v=zPwMdZOlPo8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15669"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:musicradar-copeland-interview"]

@@ -1,0 +1,27 @@
+{
+  "id": "rec:pretty-things-honey-i-need-1965",
+  "title": "Honey I Need",
+  "artist": "Pretty Things",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:blues-rock", "style:merseybeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:viv-prince"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Honey I Need",
+      "drummer_ids": ["drummer:viv-prince"],
+      "drums": {
+        "description": "A fast, rough R&B beat played with more abandon than precision, typical of his unorthodox style.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:honey-i-need-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=R1zg_qzjB4o"
+    }
+  ]
+}

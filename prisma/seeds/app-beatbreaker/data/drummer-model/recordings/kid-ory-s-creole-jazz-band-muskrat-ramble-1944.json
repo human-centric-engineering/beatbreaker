@@ -1,0 +1,26 @@
+{
+  "id": "rec:kid-ory-s-creole-jazz-band-muskrat-ramble-1944",
+  "title": "Muskrat Ramble",
+  "artist": "Kid Ory's Creole Jazz Band",
+  "year": 1944,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:minor-hall"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Muskrat Ramble",
+      "drummer_ids": ["drummer:minor-hall"],
+      "drums": {
+        "description": "Hall's buoyant New Orleans revival beat with press rolls and parade snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:muskrat-ramble-wikipedia"]
+        }
+      }
+    }
+  ]
+}

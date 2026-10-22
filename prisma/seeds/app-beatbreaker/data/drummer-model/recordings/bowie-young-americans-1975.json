@@ -46,6 +46,49 @@
         "source_ids": ["src:fame-bowie-song-wikipedia", "src:young-americans-album-wikipedia"]
       },
       "pattern_ids": ["pattern:davis-fame"]
+    },
+    {
+      "drummer_id": "drummer:andy-newmark"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Young Americans",
+      "drummer_ids": ["drummer:andy-newmark"],
+      "drums": {
+        "description": "A loose, swinging Philly-soul groove under Bowie's \"plastic soul\".",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:young-americans-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=iO6OvHxD_m8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=67275"
+        }
+      ]
+    },
+    {
+      "title": "Fame",
+      "drummer_ids": ["drummer:dennis-davis"],
+      "drums": {
+        "description": "A dry, insistent funk groove with the hat chopping sixteenths and the snare on 2 and 4 behind Alomar's riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fame-bowie-song-wikipedia", "src:dennis-davis-wikipedia"]
+        }
+      },
+      "style_key": "dennisdavis",
+      "song_key": "fame",
+      "youtube": "https://www.youtube.com/watch?v=Ypgq0qdgVZA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=29031"
+        }
+      ]
     }
   ],
   "evidence": {

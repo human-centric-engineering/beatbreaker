@@ -1,0 +1,33 @@
+{
+  "id": "rec:jethro-tull-heavy-horses-1978",
+  "title": "Heavy Horses",
+  "artist": "Jethro Tull",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:folk-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:barriemore-barlow"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Heavy Horses",
+      "drummer_ids": ["drummer:barriemore-barlow"],
+      "drums": {
+        "description": "A powerful, driving part with dynamic shifts.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:heavy-horses-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yC0sYZLqu_o",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=362049"
+        }
+      ]
+    }
+  ]
+}

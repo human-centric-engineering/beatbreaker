@@ -11,6 +11,26 @@
       "why_it_matters": "The Virgin Tour drummer."
     }
   ],
+  "tracks": [
+    {
+      "title": "Dress You Up",
+      "drummer_ids": ["drummer:jonathan-moffett"],
+      "drums": {
+        "description": "Live pop-dance drumming on Madonna's first tour, the footage used for the song's music video.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jonathan-moffett-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mWtpd8mS5jw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=215507"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jonathan-moffett-wikipedia"]

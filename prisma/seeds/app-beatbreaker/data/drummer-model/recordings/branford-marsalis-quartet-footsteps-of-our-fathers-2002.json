@@ -18,6 +18,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "A Love Supreme Part I: Acknowledgement",
+      "drummer_ids": ["drummer:jeff-tain-watts"],
+      "drums": {
+        "description": "Watts reworks Elvin Jones's opening polyrhythm with his own heavier, more fragmented intensity.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:footsteps-of-our-fathers-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=blGz_arnp7Y"
+    },
+    {
+      "title": "Giggin'",
+      "drummer_ids": ["drummer:jeff-tain-watts"],
+      "drums": {
+        "description": "Fast, freewheeling swing on the Ornette Coleman tune.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:footsteps-of-our-fathers-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ck-kxnGLh8s"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jeff-tain-watts-wikipedia"]

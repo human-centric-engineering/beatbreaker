@@ -34,6 +34,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Headlong Flight",
+      "drummer_ids": ["drummer:neil-peart"],
+      "drums": {
+        "description": "Late Peart at 180 bpm: the hat open on every beat, the chorus snare on 2 alone with toms on 4, and a half-time section.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:clockwork-angels-wikipedia"]
+        }
+      },
+      "style_key": "peart",
+      "song_key": "headlong-flight",
+      "youtube": "https://www.youtube.com/watch?v=qSWn9qbaFu8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=382071"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:peart-rush-wikipedia"]

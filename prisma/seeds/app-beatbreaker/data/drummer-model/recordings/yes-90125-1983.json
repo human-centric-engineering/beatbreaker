@@ -1,0 +1,33 @@
+{
+  "id": "rec:yes-90125-1983",
+  "title": "90125",
+  "artist": "Yes",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alan-white"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Owner of a Lonely Heart",
+      "drummer_ids": ["drummer:alan-white"],
+      "drums": {
+        "description": "A punchy, processed beat with sampled drum breaks, Yes's biggest hit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:90125-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SVOuYquXuuc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=28375"
+        }
+      ]
+    }
+  ]
+}

@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Waterloo Sunset",
+      "drummer_ids": ["drummer:mick-avory"],
+      "drums": {
+        "description": "Gentle, understated time with soft cymbal work that leaves the song's space open.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:waterloo-sunset-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=N_MqfF0WBsU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=60835"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:mick-avory-wikipedia", "src:something-else-by-the-kinks-wikipedia"]

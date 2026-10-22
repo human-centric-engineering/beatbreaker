@@ -1,0 +1,27 @@
+{
+  "id": "rec:professor-longhair-crawfish-fiesta-1980",
+  "title": "Crawfish Fiesta",
+  "artist": "Professor Longhair",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:johnny-vidacovich"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Big Chief",
+      "drummer_ids": ["drummer:johnny-vidacovich"],
+      "drums": {
+        "description": "Vidacovich's loose, swinging second-line groove under Fess's piano.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:crawfish-fiesta-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=voB6WiP83NU"
+    }
+  ]
+}

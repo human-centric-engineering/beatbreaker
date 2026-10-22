@@ -11,6 +11,26 @@
       "why_it_matters": "He rejoined for it."
     }
   ],
+  "tracks": [
+    {
+      "title": "Jerk Out",
+      "drummer_ids": ["drummer:jellybean-johnson"],
+      "drums": {
+        "description": "Snappy, syncopated Minneapolis funk beat with crisp snare and a bouncing kick.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jerk-out-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wgivTqOZntc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=654332"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:jellybean-johnson-wikipedia"]

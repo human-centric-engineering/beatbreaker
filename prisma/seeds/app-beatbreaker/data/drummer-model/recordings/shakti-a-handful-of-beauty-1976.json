@@ -25,6 +25,32 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "La Danse du Bonheur",
+      "drummer_ids": ["drummer:vikku-vinayakram", "drummer:zakir-hussain"],
+      "drums": {
+        "description": "Fast, intricate ghatam patterns in Carnatic rhythmic cycles.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:th-vinayakram-wikipedia", "src:a-handful-of-beauty-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RZ3l_ml07Go"
+    },
+    {
+      "title": "Isis",
+      "drummer_ids": ["drummer:vikku-vinayakram", "drummer:zakir-hussain"],
+      "drums": {
+        "description": "Ghatam patterns locking with tabla in a long, building piece.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:th-vinayakram-wikipedia", "src:a-handful-of-beauty-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PmfBHea03Vo"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:th-vinayakram-wikipedia"]

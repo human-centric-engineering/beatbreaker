@@ -18,6 +18,47 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Batman",
+      "drummer_ids": ["drummer:joey-baron"],
+      "drums": {
+        "description": "Hardcore blasts and lightning genre jumps, cutting from grind to swing in seconds.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:joey-baron-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1748232"
+        }
+      ]
+    },
+    {
+      "title": "The Sicilian Clan",
+      "drummer_ids": ["drummer:joey-baron"],
+      "drums": {
+        "description": "A clean, cinematic groove under Zorn's cover of Morricone.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:joey-baron-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Snagglepuss",
+      "drummer_ids": ["drummer:joey-baron"],
+      "drums": {
+        "description": "Abrupt cuts between hardcore, jazz and lounge, Baron switching feels in an instant.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:joey-baron-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:joey-baron-wikipedia"]

@@ -38,6 +38,27 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Wild One",
+      "drummer_ids": ["drummer:brian-downey"],
+      "drums": {
+        "description": "A tom figure every third bar, open hi-hats in quarters over the verse, and sextuplets into the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fighting-wikipedia"]
+        }
+      },
+      "style_key": "downey",
+      "song_key": "wild-one",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=410614"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:fighting-wikipedia"]

@@ -1,0 +1,30 @@
+{
+  "id": "rec:cortijo-y-su-combo-quitate-de-la-via-perico-1959",
+  "title": "Quítate de la Vía, Perico",
+  "artist": "Cortijo y su Combo",
+  "year": 1959,
+  "type": "album",
+  "style_ids": ["style:bomba-plena", "style:salsa"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:rafael-cortijo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Quítate de la Vía, Perico",
+      "drummer_ids": ["drummer:rafael-cortijo"],
+      "drums": {
+        "description": "Fast, percussion-led dance number that gave the album its title; Cortijo's timbal sets the tempo for the band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:wikipedia-rafael-cortijo",
+            "src:musicbrainz-cortijo-quitate-de-la-via-perico"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Y0Omt6wn0XU"
+    }
+  ]
+}

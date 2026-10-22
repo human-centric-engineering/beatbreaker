@@ -57,6 +57,68 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Hells Bells",
+      "drummer_ids": ["drummer:phil-rudd"],
+      "drums": {
+        "description": "The crash on every backbeat with the snare, the kick off the beat for the solo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-205", "src:back-in-black-wikipedia"]
+        }
+      },
+      "style_key": "rudd",
+      "song_key": "hells-bells",
+      "youtube": "https://www.youtube.com/watch?v=etAIpkdhU9Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=205"
+        }
+      ]
+    },
+    {
+      "title": "Back in Black",
+      "drummer_ids": ["drummer:phil-rudd"],
+      "drums": {
+        "description": "The beat and nothing else: threes on the snare every fourth bar, open hats in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-1024", "src:back-in-black-bonedo-2015"]
+        }
+      },
+      "style_key": "rudd",
+      "song_key": "back-in-black",
+      "youtube": "https://www.youtube.com/watch?v=pAgnJDJN4VA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1024"
+        }
+      ]
+    },
+    {
+      "title": "You Shook Me All Night Long",
+      "drummer_ids": ["drummer:phil-rudd"],
+      "drums": {
+        "description": "The kick on 1 and the \"and\" of 3, crashes on 1 and 2 in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-63275", "src:back-in-black-wikipedia"]
+        }
+      },
+      "style_key": "rudd",
+      "song_key": "you-shook-me-all-night-long",
+      "youtube": "https://www.youtube.com/watch?v=Lo2qQmj0_h4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=63275"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:back-in-black-wikipedia"]

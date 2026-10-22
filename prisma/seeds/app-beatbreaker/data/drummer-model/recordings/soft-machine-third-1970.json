@@ -12,6 +12,38 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Moon in June",
+      "drummer_ids": ["drummer:robert-wyatt"],
+      "drums": {
+        "description": "Wyatt plays almost everything; his drumming moves from loose song accompaniment to fierce jazz-rock improvisation.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:third-soft-machine-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Lntleb5zsFw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1420661"
+        }
+      ]
+    },
+    {
+      "title": "Slightly All the Time",
+      "drummer_ids": ["drummer:robert-wyatt"],
+      "drums": {
+        "description": "A long, swinging jazz-rock groove in shifting meters.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:third-soft-machine-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-MQMEV01VrI"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:robert-wyatt-wikipedia", "src:third-soft-machine-album-wikipedia"]

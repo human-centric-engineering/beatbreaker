@@ -1,0 +1,189 @@
+{
+  "id": "rec:the-jimi-hendrix-experience-axis-bold-as-love-1967",
+  "title": "Axis: Bold as Love",
+  "artist": "The Jimi Hendrix Experience",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mitch-mitchell"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Little Wing",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Ballad time played with jazz restraint: light ride, soft fills, glockenspiel-like cymbal colour around Hendrix's chord melody.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:little-wing-wikipedia", "src:axis-bold-as-love-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "little-wing",
+      "youtube": "https://www.youtube.com/watch?v=35luFxHO5E0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=321"
+        }
+      ]
+    },
+    {
+      "title": "Up from the Skies",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Brushed jazz swing, the first sound on Axis: brushes on snare and quiet ride, almost a cocktail-jazz trio feel.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:axis-bold-as-love-wikipedia", "src:wikipedia-mitchell"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "up-from-the-skies",
+      "youtube": "https://www.youtube.com/watch?v=wagVqW_cD5c"
+    },
+    {
+      "title": "If 6 Was 9",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A loose, stop-start groove that dissolves into a free, rubato drum passage under the spoken section.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:axis-bold-as-love-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "if-6-was-9",
+      "youtube": "https://www.youtube.com/watch?v=pt0AqikB98A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22559"
+        }
+      ]
+    },
+    {
+      "title": "Castles Made of Sand",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Light, lilting time with snare figures that weave around the guitar's hammer-on lines.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:axis-bold-as-love-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "castles-made-of-sand",
+      "youtube": "https://www.youtube.com/watch?v=ksZTYRqr444",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=218"
+        }
+      ]
+    },
+    {
+      "title": "Spanish Castle Magic",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Driving heavy groove with busy tom accents locked to the riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:axis-bold-as-love-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "spanish-castle-magic",
+      "youtube": "https://www.youtube.com/watch?v=jyrt5hgrshQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10148"
+        }
+      ]
+    },
+    {
+      "title": "Little Miss Lover",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "Opens with a funky, syncopated drum figure that runs the whole song, one of the first funk-rock drum grooves.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:axis-bold-as-love-wikipedia", "src:wikipedia-mitchell"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "little-miss-lover",
+      "youtube": "https://www.youtube.com/watch?v=faty99ema9w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9369"
+        }
+      ]
+    },
+    {
+      "title": "Ain't No Telling",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A short, fast stomp with tom rolls across each turnaround.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:axis-bold-as-love-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "aint-no-telling",
+      "youtube": "https://www.youtube.com/watch?v=JBRO7W50PUo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8755"
+        }
+      ]
+    },
+    {
+      "title": "Wait Until Tomorrow",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A light, syncopated soul-style beat with snare ghosting and quick hat figures.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:axis-bold-as-love-wikipedia"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "wait-until-tomorrow",
+      "youtube": "https://www.youtube.com/watch?v=D73GE04-l5s",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9123"
+        }
+      ]
+    },
+    {
+      "title": "Bold as Love",
+      "drummer_ids": ["drummer:mitch-mitchell"],
+      "drums": {
+        "description": "A slow build to a phased drum break at the end, the drums swept through the stereo field.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:axis-bold-as-love-wikipedia", "src:wikipedia-mitchell"]
+        }
+      },
+      "style_key": "mitchell",
+      "song_key": "bold-as-love",
+      "youtube": "https://www.youtube.com/watch?v=ZYxfOxjswxc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22542"
+        }
+      ]
+    }
+  ]
+}

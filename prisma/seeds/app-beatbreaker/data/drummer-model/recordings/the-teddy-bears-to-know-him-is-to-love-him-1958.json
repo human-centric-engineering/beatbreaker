@@ -15,5 +15,19 @@
       "name": "Sandy Nelson",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "To Know Him Is to Love Him",
+      "drummer_ids": ["drummer:sandy-nelson"],
+      "drums": {
+        "description": "Soft, sparse drumming under Phil Spector's first hit.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:to-know-him-is-to-love-him-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pMmYjKgK09A"
+    }
   ]
 }

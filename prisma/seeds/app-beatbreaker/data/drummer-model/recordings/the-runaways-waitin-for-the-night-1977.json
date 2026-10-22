@@ -1,0 +1,26 @@
+{
+  "id": "rec:the-runaways-waitin-for-the-night-1977",
+  "title": "Waitin' for the Night",
+  "artist": "The Runaways",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sandy-west"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "School Days",
+      "drummer_ids": ["drummer:sandy-west"],
+      "drums": {
+        "description": "A swaggering mid-tempo glam groove with snare fills into the chorus.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sandy-west-wikipedia", "src:waitin-for-the-night-wikipedia"]
+        }
+      }
+    }
+  ]
+}

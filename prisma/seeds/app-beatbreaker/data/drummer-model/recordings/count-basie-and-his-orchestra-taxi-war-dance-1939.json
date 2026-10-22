@@ -1,0 +1,27 @@
+{
+  "id": "rec:count-basie-and-his-orchestra-taxi-war-dance-1939",
+  "title": "Taxi War Dance",
+  "artist": "Count Basie and His Orchestra",
+  "year": 1939,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:papa-jo-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Taxi War Dance",
+      "drummer_ids": ["drummer:papa-jo-jones"],
+      "drums": {
+        "description": "Trading breaks with the soloists, Jones's crisp snare answers between the riffs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jo-jones-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UCGdUEX1QSo"
+    }
+  ]
+}

@@ -18,6 +18,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Rosmosis",
+      "drummer_ids": ["drummer:milford-graves"],
+      "drums": {
+        "description": "Pulseless, polyrhythmic waves on toms and cymbals instead of time-keeping.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:milford-graves-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=JGgxkBNEF8k"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:milford-graves-wikipedia"]

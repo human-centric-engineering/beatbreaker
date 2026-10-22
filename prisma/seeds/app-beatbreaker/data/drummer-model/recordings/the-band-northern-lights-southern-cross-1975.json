@@ -49,6 +49,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Ophelia",
+      "drummer_ids": ["drummer:levon-helm"],
+      "drums": {
+        "description": "Eighths with the kick on 1, 3, its \"a\" and the \"and\" of 4, and a hit with the band on the \"and\" of 2.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:northern-lights-wikipedia"]
+        }
+      },
+      "style_key": "levonhelm",
+      "song_key": "ophelia",
+      "youtube": "https://www.youtube.com/watch?v=ZJp0CzMYY_w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=751889"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:northern-lights-wikipedia"]

@@ -1,0 +1,27 @@
+{
+  "id": "rec:pat-metheny-group-letter-from-home-album-1989",
+  "title": "Letter from Home (album)",
+  "artist": "Pat Metheny Group",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-wertico"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Have You Heard",
+      "drummer_ids": ["drummer:paul-wertico"],
+      "drums": {
+        "description": "Fast, crisp straight-eighth fusion time with Latin accents.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:letter-from-home-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=o76Uk8l37kE"
+    }
+  ]
+}

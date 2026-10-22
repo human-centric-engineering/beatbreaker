@@ -63,6 +63,56 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Baba O'Riley",
+      "drummer_ids": ["drummer:keith-moon"],
+      "drums": {
+        "description": "Enters over the organ loop riding a crash in eighths, fills joining the sections and a violin-led gallop to the end.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:baba-o-riley-wikipedia",
+            "src:songsterr-5197",
+            "src:whos-next-wikipedia"
+          ]
+        }
+      },
+      "style_key": "moon",
+      "song_key": "baba-oriley",
+      "youtube": "https://www.youtube.com/watch?v=Gu9HhYv0C7E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5197"
+        }
+      ]
+    },
+    {
+      "title": "Won't Get Fooled Again",
+      "drummer_ids": ["drummer:keith-moon"],
+      "drums": {
+        "description": "Open hats in eighths, a crash on the 'and's, tom fills everywhere and the explosive re-entry after the synth break.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:won-t-get-fooled-again-wikipedia",
+            "src:shepperton-1978-film",
+            "src:songsterr-507"
+          ]
+        }
+      },
+      "style_key": "moon",
+      "song_key": "wont-get-fooled-again",
+      "youtube": "https://www.youtube.com/watch?v=UDfAdHBtK_Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=507"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:whos-next-wikipedia"]

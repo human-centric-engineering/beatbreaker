@@ -62,6 +62,26 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Is This Love",
+      "drummer_ids": ["drummer:carlton-barrett"],
+      "drums": {
+        "description": "A relaxed one drop, the rim click and kick landing together on 3 under the organ bubble.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:is-this-love-bob-marley-and-the-wailers-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=69RdQFDuYPI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12614"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:kaya-wikipedia"]

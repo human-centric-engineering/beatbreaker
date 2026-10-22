@@ -53,6 +53,48 @@
       "pattern_ids": ["pattern:selway-paranoid-cross-stick"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Paranoid Android",
+      "drummer_ids": ["drummer:phil-selway"],
+      "drums": {
+        "description": "Double cross-sticks on 2 and 4, a 7/8 riff, and a slow section at three-quarter speed.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:paranoid-android-wikipedia"]
+        }
+      },
+      "style_key": "selway",
+      "song_key": "paranoid-android",
+      "youtube": "https://www.youtube.com/watch?v=fHiGbolFFGw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16501"
+        }
+      ]
+    },
+    {
+      "title": "Karma Police",
+      "drummer_ids": ["drummer:phil-selway"],
+      "drums": {
+        "description": "The kick on 1, 3 and its \"and\", then on the \"and\" of 2; restrained, piano-led.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:karma-police-wikipedia"]
+        }
+      },
+      "style_key": "selway",
+      "song_key": "karma-police",
+      "youtube": "https://www.youtube.com/watch?v=1uYWYWPc9HU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=217"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:ok-computer-wikipedia"]

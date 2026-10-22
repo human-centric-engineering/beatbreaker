@@ -12,6 +12,62 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Hot for Teacher",
+      "drummer_ids": ["drummer:alex-van-halen"],
+      "drums": {
+        "description": "A double-bass shuffle intro, a signature of rock drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:1984-van-halen-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6M4_Ommfvv0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19632"
+        }
+      ]
+    },
+    {
+      "title": "Panama",
+      "drummer_ids": ["drummer:alex-van-halen"],
+      "drums": {
+        "description": "A driving, swaggering rock groove with big crashes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:1984-van-halen-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fuKDBPw8wQA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18645"
+        }
+      ]
+    },
+    {
+      "title": "Jump",
+      "drummer_ids": ["drummer:alex-van-halen"],
+      "drums": {
+        "description": "A steady pop-rock groove under the synth.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:1984-van-halen-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SwYN7mTi6HM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=21889"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:alex-van-halen-wikipedia"]

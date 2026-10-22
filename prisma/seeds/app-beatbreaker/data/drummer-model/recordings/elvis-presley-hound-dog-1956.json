@@ -10,5 +10,25 @@
       "drummer_id": "drummer:dj-fontana",
       "name": "D. J. Fontana"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Hound Dog",
+      "drummer_ids": ["drummer:dj-fontana"],
+      "drums": {
+        "description": "Rapid-fire \"machine-gun\" snare fills between every line, a burlesque-club style Fontana brought to rock and roll.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hound-dog-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-eHJ12Vhpyc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=14793"
+        }
+      ]
+    }
   ]
 }

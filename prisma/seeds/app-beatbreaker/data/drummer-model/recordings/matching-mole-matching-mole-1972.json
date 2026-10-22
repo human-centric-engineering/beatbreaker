@@ -1,0 +1,33 @@
+{
+  "id": "rec:matching-mole-matching-mole-1972",
+  "title": "Matching Mole",
+  "artist": "Matching Mole",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:robert-wyatt"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "O Caroline",
+      "drummer_ids": ["drummer:robert-wyatt"],
+      "drums": {
+        "description": "Gentle, sparse ballad drumming under his own vocal.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:matching-mole-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tdVkqLrsr4M",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3132304"
+        }
+      ]
+    }
+  ]
+}

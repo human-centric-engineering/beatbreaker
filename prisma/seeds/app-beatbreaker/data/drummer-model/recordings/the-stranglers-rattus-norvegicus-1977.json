@@ -16,5 +16,55 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Peaches",
+      "drummer_ids": ["drummer:jet-black"],
+      "drums": {
+        "description": "A slow, swaggering groove with a light touch that lets the bass carry the song.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:peaches-the-stranglers-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1_YmixqepdI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=19204"
+        }
+      ]
+    },
+    {
+      "title": "Rattus Norvegicus",
+      "drummer_ids": ["drummer:jet-black"],
+      "drums": {
+        "description": "A fast, insistent beat with jazzy hi-hat work.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:brown-rat-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=B7t1EE8M2PI"
+    },
+    {
+      "title": "Hanging Around",
+      "drummer_ids": ["drummer:jet-black"],
+      "drums": {
+        "description": "A driving, mid-tempo rock groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:brown-rat-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CJMZP7jpd60",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=920728"
+        }
+      ]
+    }
   ]
 }

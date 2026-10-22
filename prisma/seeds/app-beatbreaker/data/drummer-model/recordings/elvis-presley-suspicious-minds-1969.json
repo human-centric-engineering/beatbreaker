@@ -1,0 +1,33 @@
+{
+  "id": "rec:elvis-presley-suspicious-minds-1969",
+  "title": "Suspicious Minds",
+  "artist": "Elvis Presley",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:southern-soul", "style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gene-chrisman"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Suspicious Minds",
+      "drummer_ids": ["drummer:gene-chrisman"],
+      "drums": {
+        "description": "A steady groove that switches to a slower 6/8 in the bridge before the fade.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:suspicious-minds-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=WrMGGouem3c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=664858"
+        }
+      ]
+    }
+  ]
+}

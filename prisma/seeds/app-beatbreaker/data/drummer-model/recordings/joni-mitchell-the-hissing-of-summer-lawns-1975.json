@@ -1,0 +1,33 @@
+{
+  "id": "rec:joni-mitchell-the-hissing-of-summer-lawns-1975",
+  "title": "The Hissing of Summer Lawns",
+  "artist": "Joni Mitchell",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-guerin"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "In France They Kiss on Main Street",
+      "drummer_ids": ["drummer:john-guerin"],
+      "drums": {
+        "description": "An airy, swinging rock feel that keeps out of the vocal’s way.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-hissing-of-summer-lawns-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=89Z_hZarKP0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=645421"
+        }
+      ]
+    }
+  ]
+}

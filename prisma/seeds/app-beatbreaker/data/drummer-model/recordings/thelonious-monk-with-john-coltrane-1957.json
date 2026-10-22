@@ -12,6 +12,50 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Trinkle, Tinkle",
+      "drummer_ids": ["drummer:shadow-wilson"],
+      "drums": {
+        "description": "Crisp, light swing on the ride behind Monk's angular head and Coltrane's sheets of sound.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:thelonious-monk-with-john-coltrane-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ByBzm4H7uaw"
+    },
+    {
+      "title": "Ruby, My Dear",
+      "drummer_ids": ["drummer:shadow-wilson"],
+      "drums": {
+        "description": "A ballad with soft, patient brushes under Coltrane.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:thelonious-monk-with-john-coltrane-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=u1O9YuXNbLs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=462167"
+        }
+      ]
+    },
+    {
+      "title": "Nutty",
+      "drummer_ids": ["drummer:shadow-wilson"],
+      "drums": {
+        "description": "A medium swing with Wilson's light touch and precise bass-drum accents on Monk's figures.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:thelonious-monk-with-john-coltrane-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LLCwjQz3Cpc"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:shadow-wilson-wikipedia"]

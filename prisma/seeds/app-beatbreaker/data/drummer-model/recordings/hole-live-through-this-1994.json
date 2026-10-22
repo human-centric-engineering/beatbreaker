@@ -16,5 +16,96 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Violet",
+      "drummer_ids": ["drummer:patty-schemel"],
+      "drums": {
+        "description": "A heavy, dynamic groove switching between quiet verses and crashing choruses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:live-through-this-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=cH_rfGBwamc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=541251"
+        }
+      ]
+    },
+    {
+      "title": "Miss World",
+      "drummer_ids": ["drummer:patty-schemel"],
+      "drums": {
+        "description": "A slow, steady groove building into heavy choruses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:live-through-this-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mS1Ckczz0LQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9402"
+        }
+      ]
+    },
+    {
+      "title": "Doll Parts",
+      "drummer_ids": ["drummer:patty-schemel"],
+      "drums": {
+        "description": "A spare, building beat that enters late and swells.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:live-through-this-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RD9xK9smth4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9290"
+        }
+      ]
+    },
+    {
+      "title": "Plump",
+      "drummer_ids": ["drummer:patty-schemel"],
+      "drums": {
+        "description": "Fast, hard-hitting punk drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:live-through-this-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9386"
+        }
+      ]
+    },
+    {
+      "title": "Asking for It",
+      "drummer_ids": ["drummer:patty-schemel"],
+      "drums": {
+        "description": "A loping, heavy groove with dynamic swells.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:live-through-this-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4Q1Kh9JkACc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9036"
+        }
+      ]
+    }
   ]
 }

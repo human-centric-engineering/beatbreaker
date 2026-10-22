@@ -47,5 +47,27 @@
       ],
       "pattern_ids": ["pattern:gadd-50-ways-verse-approx"]
     }
+  ],
+  "tracks": [
+    {
+      "title": "50 Ways to Leave Your Lover",
+      "drummer_ids": ["drummer:steve-gadd"],
+      "drums": {
+        "description": "A military-style march across hat, snare and hat foot, the kick on the \"a\" of 2 and on 3, a roll into 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:50-ways-to-leave-your-lover-wikipedia", "src:modern-drummer"]
+        }
+      },
+      "style_key": "gadd",
+      "song_key": "fifty-ways",
+      "youtube": "https://www.youtube.com/watch?v=ABXtWqmArUU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=234652"
+        }
+      ]
+    }
   ]
 }

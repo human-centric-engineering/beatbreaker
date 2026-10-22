@@ -17,6 +17,73 @@
       "drummer_role": "co_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Whipping Post",
+      "drummer_ids": ["drummer:butch-trucks", "drummer:jaimoe"],
+      "drums": {
+        "description": "Twenty-three minutes in 11/8 and 12/8 with two drummers, Trucks holding the heavy downbeat while Jaimoe colours around him.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:at-fillmore-east-wikipedia", "src:butch-trucks-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23748"
+        }
+      ]
+    },
+    {
+      "title": "In Memory of Elizabeth Reed",
+      "drummer_ids": ["drummer:butch-trucks", "drummer:jaimoe"],
+      "drums": {
+        "description": "A jazzy Latin-tinged instrumental where the two drummers trade timbale-like accents and drive the long solos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:in-memory-of-elizabeth-reed-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8SZlz9WKccE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=24243"
+        }
+      ]
+    },
+    {
+      "title": "Statesboro Blues",
+      "drummer_ids": ["drummer:butch-trucks"],
+      "drums": {
+        "description": "A strutting blues shuffle, the twin drums locking into one swaggering groove under the slide guitar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:statesboro-blues-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dWy3Q30Cn2A"
+    },
+    {
+      "title": "Hot 'Lanta",
+      "drummer_ids": ["drummer:jaimoe"],
+      "drums": {
+        "description": "A riff-driven instrumental ending in a drum duet, the two drummers trading against each other.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:at-fillmore-east-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UrMBNZ0RiJY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2534750"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:butch-trucks-wikipedia", "src:jaimoe-wikipedia"]

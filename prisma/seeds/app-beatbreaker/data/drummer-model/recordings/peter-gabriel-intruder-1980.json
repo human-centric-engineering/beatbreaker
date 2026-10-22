@@ -41,6 +41,28 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Intruder",
+      "drummer_ids": ["drummer:phil-collins"],
+      "drums": {
+        "description": "No cymbals at all, a kick and a gated snare: where the gated-reverb drum sound began.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gated-reverb-wikipedia", "src:songsterr-1070567"]
+        }
+      },
+      "style_key": "collins",
+      "song_key": "intruder",
+      "youtube": "https://www.youtube.com/watch?v=xvAmj3k3Imc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1070567"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:gated-reverb-wikipedia", "src:songsterr-1070567"]

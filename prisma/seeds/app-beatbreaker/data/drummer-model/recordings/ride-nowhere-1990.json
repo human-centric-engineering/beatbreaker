@@ -16,5 +16,60 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Seagull",
+      "drummer_ids": ["drummer:loz-colbert"],
+      "drums": {
+        "description": "Frantic, rolling tom-heavy drums under the guitars.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:nowhere-album-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=240560"
+        }
+      ]
+    },
+    {
+      "title": "Dreams Burn Down",
+      "drummer_ids": ["drummer:loz-colbert"],
+      "drums": {
+        "description": "A slow build into crashing climaxes.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:nowhere-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=jO5T4-cphpw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1143759"
+        }
+      ]
+    },
+    {
+      "title": "Vapour Trail",
+      "drummer_ids": ["drummer:loz-colbert"],
+      "drums": {
+        "description": "A busy, driving beat with constant movement around the kit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:vapour-trail-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pVhNi5cU8mo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=52063"
+        }
+      ]
+    }
   ]
 }

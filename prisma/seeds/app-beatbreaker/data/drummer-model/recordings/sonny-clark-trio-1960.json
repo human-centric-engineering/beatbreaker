@@ -45,6 +45,26 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Minor Meeting",
+      "drummer_ids": ["drummer:max-roach"],
+      "drums": {
+        "description": "Trading fours on snare, bass drum and cymbal, most of them opening in three over the 4/4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:sonny-clark-trio-wikipedia",
+            "src:max-roach-bishop-minor-meeting",
+            "src:max-roach-sonny-clark-trio-1960"
+          ]
+        }
+      },
+      "style_key": "roach",
+      "song_key": "minor-meeting",
+      "youtube": "https://www.youtube.com/watch?v=XqWjgUNkS6w"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:max-roach-sonny-clark-trio-1960", "src:max-roach-bishop-minor-meeting"]

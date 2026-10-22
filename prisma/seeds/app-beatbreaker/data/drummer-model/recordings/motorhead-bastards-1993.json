@@ -10,5 +10,43 @@
       "drummer_id": "drummer:mikkey-dee",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Burner",
+      "drummer_ids": ["drummer:mikkey-dee"],
+      "drums": {
+        "description": "Relentless, fast double-kick Motörhead drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mikkey-dee-wikipedia", "src:bastards-motorhead-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4yVdyJ3qYmw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=693515"
+        }
+      ]
+    },
+    {
+      "title": "Born to Raise Hell",
+      "drummer_ids": ["drummer:mikkey-dee"],
+      "drums": {
+        "description": "A swaggering mid-tempo rock-and-roll groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:mikkey-dee-wikipedia", "src:bastards-motorhead-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lFbnQQ6t98Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35500"
+        }
+      ]
+    }
   ]
 }

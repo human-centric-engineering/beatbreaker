@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-temptations-aint-too-proud-to-beg-1966",
+  "title": "Ain't Too Proud to Beg",
+  "artist": "The Temptations",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:uriel-jones"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Ain't Too Proud to Beg",
+      "drummer_ids": ["drummer:uriel-jones"],
+      "drums": {
+        "description": "A hard-hitting snare on every beat with a strutting tempo, the Funk Brothers' driving pulse under David Ruffin.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:uriel-jones-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_ObVQPBD0Uw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=608234"
+        }
+      ]
+    }
+  ]
+}

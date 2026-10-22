@@ -12,6 +12,23 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Beat Me Daddy, Eight to the Bar",
+      "drummer_ids": ["drummer:ray-mckinley"],
+      "drums": {
+        "description": "Boogie-woogie for big band: McKinley sang it and drove the band with an eight-to-the-bar shuffle on the snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:beat-me-daddy-eight-to-the-bar-wikipedia",
+            "src:ray-mckinley-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=w07BNPv-EMU"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ray-mckinley-wikipedia"]

@@ -17,5 +17,55 @@
         "source_ids": ["src:havanatimes-enrique-pla-2009"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Juana 1600",
+      "drummer_ids": ["drummer:enrique-pla"],
+      "drums": {
+        "description": "Plá's kit locks Cuban songo and funk under the horns, the drumming Irakere took to Newport and Montreux.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:havanatimes-enrique-pla-2009"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3rp5UeeJFLs"
+    },
+    {
+      "title": "Misa Negra",
+      "drummer_ids": ["drummer:enrique-pla"],
+      "drums": {
+        "description": "Chucho Valdés's long suite: Plá shifts between batá-derived grooves, jazz swing and rock backbeats.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:havanatimes-enrique-pla-2009"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7tbPy4BFUj0"
+    },
+    {
+      "title": "Ilya",
+      "drummer_ids": ["drummer:enrique-pla"],
+      "drums": {
+        "description": "A ballad that opens into a Latin-jazz groove, Plá on kit with the band's batá and conga players.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:havanatimes-enrique-pla-2009"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=d1z9YS2S5kE"
+    },
+    {
+      "title": "Aguanile",
+      "drummer_ids": ["drummer:enrique-pla"],
+      "drums": {
+        "description": "Plá drives a fast Afro-Cuban jam with timbales-like kit accents under the soloists.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:havanatimes-enrique-pla-2009"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=odkt1WYxI6g"
+    }
   ]
 }

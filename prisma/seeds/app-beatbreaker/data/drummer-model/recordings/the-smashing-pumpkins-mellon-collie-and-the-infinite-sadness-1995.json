@@ -16,5 +16,43 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Tonight, Tonight",
+      "drummer_ids": ["drummer:jimmy-chamberlin"],
+      "drums": {
+        "description": "Rolling snare patterns with a martial edge drive the song under the string orchestra.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mellon-collie-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=NOG3eus4ZSo"
+    },
+    {
+      "title": "Bullet with Butterfly Wings",
+      "drummer_ids": ["drummer:jimmy-chamberlin"],
+      "drums": {
+        "description": "Quiet, restrained verses that explode into heavy, crashing choruses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mellon-collie-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8-r-V0uK4u0"
+    },
+    {
+      "title": "Zero",
+      "drummer_ids": ["drummer:jimmy-chamberlin"],
+      "drums": {
+        "description": "A pounding, unvaried eighth-note beat under the chugging riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mellon-collie-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3wk7C64kaP4"
+    }
   ]
 }

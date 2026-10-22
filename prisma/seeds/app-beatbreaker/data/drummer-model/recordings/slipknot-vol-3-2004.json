@@ -60,6 +60,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Duality",
+      "drummer_ids": ["drummer:joey-jordison"],
+      "drums": {
+        "description": "Toms over the kick in eighths, the verse kick in threes, a crash on the \"and\" of 4, a roll in threes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-18211", "src:vol3-wikipedia"]
+        }
+      },
+      "style_key": "jordison",
+      "song_key": "duality",
+      "youtube": "https://www.youtube.com/watch?v=6fVE8kSM43I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18211"
+        }
+      ]
+    },
+    {
+      "title": "Before I Forget",
+      "drummer_ids": ["drummer:joey-jordison"],
+      "drums": {
+        "description": "A kick in threes, the toms on 1 in the chorus, the floor tom in eighths in the bridge.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:vol3-wikipedia", "src:bonedo-jordison-workshop"]
+        }
+      },
+      "style_key": "jordison",
+      "song_key": "before-i-forget",
+      "youtube": "https://www.youtube.com/watch?v=qw2LU1yS7aw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1379"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:vol3-wikipedia"]

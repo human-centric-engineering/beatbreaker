@@ -41,6 +41,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Symptom of the Universe",
+      "drummer_ids": ["drummer:bill-ward"],
+      "drums": {
+        "description": "The crash in quarters over the riff at full tilt, the hat foot galloping in the bridge.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-2854", "src:sabotage-wikipedia"]
+        }
+      },
+      "style_key": "billward",
+      "song_key": "symptom-of-the-universe",
+      "youtube": "https://www.youtube.com/watch?v=4qDYa2aIBxw"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:sabotage-wikipedia"]

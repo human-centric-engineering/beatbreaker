@@ -42,5 +42,21 @@
         "source_ids": ["src:bishop-philly-joe-gaza-strip-2025"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Gaza Strip",
+      "drummer_ids": ["drummer:philly-joe-jones"],
+      "drums": {
+        "description": "A fast hard-bop burner near 220 with snare and bass-drum bombs under the horns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:philly-joe-jones-wikipedia"]
+        }
+      },
+      "style_key": "phillyjoe",
+      "song_key": "gaza-strip",
+      "youtube": "https://www.youtube.com/watch?v=DqDjydpogDo"
+    }
   ]
 }

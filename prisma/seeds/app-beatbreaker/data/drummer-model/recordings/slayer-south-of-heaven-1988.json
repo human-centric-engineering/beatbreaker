@@ -1,0 +1,55 @@
+{
+  "id": "rec:slayer-south-of-heaven-1988",
+  "title": "South of Heaven",
+  "artist": "Slayer",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-lombardo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "South of Heaven",
+      "drummer_ids": ["drummer:dave-lombardo"],
+      "drums": {
+        "description": "Slow for Slayer: open hats over 2 and 4, then the snare on every beat over double bass and a dotted-eighth china.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:south-of-heaven-wikipedia"]
+        }
+      },
+      "style_key": "lombardo",
+      "song_key": "south-of-heaven",
+      "youtube": "https://www.youtube.com/watch?v=74nTzbgDGWM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17962"
+        }
+      ]
+    },
+    {
+      "title": "Mandatory Suicide",
+      "drummer_ids": ["drummer:dave-lombardo"],
+      "drums": {
+        "description": "Open hats on the beat, the snare on 2 and 4, the feet in sixteenths or on 1 and 3, with half-time bars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:south-of-heaven-wikipedia"]
+        }
+      },
+      "style_key": "lombardo",
+      "song_key": "mandatory-suicide",
+      "youtube": "https://www.youtube.com/watch?v=X51t0UDxjgY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17669"
+        }
+      ]
+    }
+  ]
+}

@@ -48,6 +48,48 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "By the Way",
+      "drummer_ids": ["drummer:chad-smith"],
+      "drums": {
+        "description": "The floor tom in eighths over the hi-hat foot, with rimshots and ghosts between.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:by-the-way-album-wikipedia"]
+        }
+      },
+      "style_key": "chadsmith",
+      "song_key": "by-the-way",
+      "youtube": "https://www.youtube.com/watch?v=JnfyjwChuNU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=8707"
+        }
+      ]
+    },
+    {
+      "title": "Can't Stop",
+      "drummer_ids": ["drummer:chad-smith"],
+      "drums": {
+        "description": "Whispered ghosts on the \"a\" of 2 and the \"e\" of 3 under an accented backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:by-the-way-album-wikipedia", "src:cant-stop-moderndrummer-2026"]
+        }
+      },
+      "style_key": "chadsmith",
+      "song_key": "cant-stop",
+      "youtube": "https://www.youtube.com/watch?v=8DyziWtkfBw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=12"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:by-the-way-album-wikipedia"]

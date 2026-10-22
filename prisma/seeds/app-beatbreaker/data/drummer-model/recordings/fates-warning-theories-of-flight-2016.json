@@ -1,0 +1,27 @@
+{
+  "id": "rec:fates-warning-theories-of-flight-2016",
+  "title": "Theories of Flight",
+  "artist": "Fates Warning",
+  "year": 2016,
+  "type": "album",
+  "style_ids": ["style:metal", "style:progressive-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bobby-jarzombek"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Seven Stars",
+      "drummer_ids": ["drummer:bobby-jarzombek"],
+      "drums": {
+        "description": "A progressive-metal part with odd-meter accents and tight fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bobby-jarzombek-wikipedia", "src:theories-of-flight-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Q87WWwDuB6I"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "rec:alice-in-chains-jar-of-flies-1994",
+  "title": "Jar of Flies",
+  "artist": "Alice in Chains",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:grunge"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sean-kinney"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "No Excuses",
+      "drummer_ids": ["drummer:sean-kinney"],
+      "drums": {
+        "description": "A light, rolling groove with a constant snare pattern, unusual for the band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jar-of-flies-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=r80HF68KM8g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=25046"
+        }
+      ]
+    }
+  ]
+}

@@ -18,6 +18,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Folk Forms, No. 1",
+      "drummer_ids": ["drummer:dannie-richmond"],
+      "drums": {
+        "description": "Open, conversational drumming in a quartet with no fixed form, trading with bass and horns.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:charles-mingus-presents-charles-mingus-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=1IPJ0yEdQUw"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:dannie-richmond-wikipedia"]

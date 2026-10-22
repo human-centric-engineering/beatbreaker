@@ -10,5 +10,25 @@
       "drummer_id": "drummer:sam-lay",
       "name": "Sam Lay"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Highway 61 Revisited",
+      "drummer_ids": ["drummer:sam-lay"],
+      "drums": {
+        "description": "A pounding, fast blues-rock beat under Dylan's siren whistle; Lay may have brought the whistle to the session.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sam-lay-wikipedia", "src:highway-61-revisited-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8hr3Stnk8_k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=32126"
+        }
+      ]
+    }
   ]
 }

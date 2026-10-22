@@ -12,6 +12,26 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Tusk",
+      "drummer_ids": ["drummer:mick-fleetwood"],
+      "drums": {
+        "description": "A looping tom-tom pattern that builds with the USC Trojan Marching Band into a dense, tribal climax.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tusk-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ATMR5ettHz8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35328"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:mick-fleetwood-wikipedia"]

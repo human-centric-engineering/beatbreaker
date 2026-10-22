@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Some Might Say",
+      "drummer_ids": ["drummer:tony-mccarroll"],
+      "drums": {
+        "description": "Oasis's first number one and McCarroll's last record with them: a hard, straight rock beat pushed along by the guitars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tony-mccarroll-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oxOjIj18I9E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=49243"
+        }
+      ]
+    }
   ]
 }

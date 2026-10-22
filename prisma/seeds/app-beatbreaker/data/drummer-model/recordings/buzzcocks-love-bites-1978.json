@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Ever Fallen in Love (With Someone You Shouldn't've)",
+      "drummer_ids": ["drummer:john-maher"],
+      "drums": {
+        "description": "A driving, tom-heavy rhythm that gives the song its urgency.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ever-fallen-in-love-with-someone-you-shouldntve-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=aUVVRyjiVzo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3431"
+        }
+      ]
+    }
   ]
 }

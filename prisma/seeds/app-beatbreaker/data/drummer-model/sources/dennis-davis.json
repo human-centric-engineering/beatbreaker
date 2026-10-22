@@ -196,5 +196,13 @@
     "reliability": 0.45,
     "accessed": "2026-10-21",
     "notes": "Human, revision 2436691 by Jonn Goon; 136 bars at 120, no markers: the snare on 2 and the 'and' of 3 in the verses, on 2 and 4 in the choruses, two bars of four on the floor."
+  },
+  {
+    "id": "src:heroes-bowie-album-wikipedia-davis",
+    "type": "encyclopedia",
+    "title": "\"Heroes\" (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/%22Heroes%22_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

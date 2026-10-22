@@ -1,0 +1,26 @@
+{
+  "id": "rec:headgirl-st-valentine-s-day-massacre-1981",
+  "title": "St. Valentine's Day Massacre",
+  "artist": "Headgirl",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:denise-dufort"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Please Don't Touch",
+      "drummer_ids": ["drummer:denise-dufort"],
+      "drums": {
+        "description": "A stomping, rock-and-roll backbeat on the Motörhead and Girlschool collaboration.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:girlschool-wikipedia"]
+        }
+      }
+    }
+  ]
+}

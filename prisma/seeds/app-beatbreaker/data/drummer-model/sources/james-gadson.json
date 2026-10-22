@@ -115,5 +115,37 @@
     "reliability": 0.35,
     "accessed": "2026-10-21",
     "notes": "Read only through a search engine's excerpt (the page body did not load): 'Gadson's kick drum is unwavering while his hi-hats and rimclicks are often fractionally behind or ahead of the beat.' A Melodics lesson author who turned his loops to MIDI found his hi-hat swing consistent and the kick 'solid and on beat'."
+  },
+  {
+    "id": "src:express-yourself-charles-wright-and-the-watts-103rd-street-rhythm-band-wikipedia",
+    "type": "encyclopedia",
+    "title": "Express Yourself (Charles Wright & the Watts 103rd Street Rhythm Band song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Express_Yourself_(Charles_Wright_%26_the_Watts_103rd_Street_Rhythm_Band_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:lean-on-me-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Lean on Me (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Lean_on_Me_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:who-is-he-and-what-is-he-to-you-wikipedia",
+    "type": "encyclopedia",
+    "title": "Who Is He (And What Is He to You)? - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Who_Is_He_(And_What_Is_He_to_You)%3F",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:shout-it-out-wikipedia",
+    "type": "encyclopedia",
+    "title": "Shout It Out - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Shout_It_Out",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

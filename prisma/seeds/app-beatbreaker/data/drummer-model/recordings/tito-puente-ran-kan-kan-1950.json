@@ -1,0 +1,29 @@
+{
+  "id": "rec:tito-puente-ran-kan-kan-1950",
+  "title": "Ran Kan Kan",
+  "artist": "Tito Puente",
+  "year": 1950,
+  "type": "studio_track",
+  "style_ids": ["style:mambo", "style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tito-puente"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Ran Kan Kan",
+      "drummer_ids": ["drummer:tito-puente"],
+      "drums": {
+        "description": "A mambo on the timbale bell, the low drum on 2 and 4 and the bombo on the kick, later his signature showpiece.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:wikipedia-puente"]
+        }
+      },
+      "style_key": "puente",
+      "song_key": "ran-kan-kan",
+      "youtube": "https://www.youtube.com/watch?v=T8pst8sRgPw"
+    }
+  ]
+}

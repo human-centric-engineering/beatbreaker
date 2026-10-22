@@ -18,6 +18,118 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Blackstar",
+      "year": 2015,
+      "drummer_ids": ["drummer:mark-guiliana"],
+      "drums": {
+        "description": "Opens on a skittering drum-and-bass-derived groove played live, then settles into a heavy half-time for the hymn-like middle.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blackstar-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=kszLwBaC4Sw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1958189"
+        }
+      ]
+    },
+    {
+      "title": "Lazarus",
+      "year": 2015,
+      "drummer_ids": ["drummer:mark-guiliana"],
+      "drums": {
+        "description": "Slow, heavy half-time with deep tom fills and a crashing, spacious backbeat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lazarus-david-bowie-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=y-JqH1M4Ya8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=930431"
+        }
+      ]
+    },
+    {
+      "title": "Sue (Or in a Season of Crime)",
+      "drummer_ids": ["drummer:mark-guiliana"],
+      "drums": {
+        "description": "Frantic jungle-style sixteenths on snare and hat at high tempo, an acoustic imitation of breakbeat programming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:blackstar-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nFX1y62l9C4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1062535"
+        }
+      ]
+    },
+    {
+      "title": "'Tis a Pity She Was a Whore",
+      "drummer_ids": ["drummer:mark-guiliana"],
+      "drums": {
+        "description": "A hard, swinging up-tempo groove pounded out under the saxophone, with relentless crash accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:blackstar-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-zF2tsBJnpk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1160284"
+        }
+      ]
+    },
+    {
+      "title": "Girl Loves Me",
+      "drummer_ids": ["drummer:mark-guiliana"],
+      "drums": {
+        "description": "Sparse, booming half-time beat with hip-hop-style kick placement.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:blackstar-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wDCk1X2S00A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1062542"
+        }
+      ]
+    },
+    {
+      "title": "I Can't Give Everything Away",
+      "drummer_ids": ["drummer:mark-guiliana"],
+      "drums": {
+        "description": "Steady, understated programmed-feel groove on a live kit under the closing ballad.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:blackstar-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OZscv36UUHo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=988080"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:mark-guiliana-wikipedia"]

@@ -18,6 +18,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "What About?",
+      "drummer_ids": ["drummer:andrew-cyrille"],
+      "drums": {
+        "description": "Solo drum improvisation built from melodic tom and cymbal colours.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:andrew-cyrille-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=GPRgNqU_AME"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:andrew-cyrille-wikipedia"]

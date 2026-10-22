@@ -35,6 +35,22 @@
       "kit_setup_id": "kit:neil-peart-slingerland-black-chrome"
     }
   ],
+  "tracks": [
+    {
+      "title": "2112: Overture",
+      "drummer_ids": ["drummer:neil-peart"],
+      "drums": {
+        "description": "Ensemble hits in 9/8 and 7/8, the kick in eighths under the toms and a ride-bell riff, the template for his orchestrated rock drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:2112-song-wikipedia"]
+        }
+      },
+      "style_key": "peart",
+      "song_key": "2112-overture",
+      "youtube": "https://www.youtube.com/watch?v=4wqnRYYrx1I"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:peart-rush-wikipedia"]

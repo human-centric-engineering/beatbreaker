@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Livery Stable Blues",
+      "drummer_ids": ["drummer:tony-sbarbaro"],
+      "drums": {
+        "description": "Sbarbaro's woodblock, cowbell and snare on the first jazz record ever released.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:livery-stable-blues-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5WojNaU4-kI"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:tony-sbarbaro-wikipedia"]

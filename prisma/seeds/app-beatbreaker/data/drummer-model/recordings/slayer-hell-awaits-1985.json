@@ -1,0 +1,35 @@
+{
+  "id": "rec:slayer-hell-awaits-1985",
+  "title": "Hell Awaits",
+  "artist": "Slayer",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-lombardo"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hell Awaits",
+      "drummer_ids": ["drummer:dave-lombardo"],
+      "drums": {
+        "description": "An intro of toms and kick on 2 and 4, then double bass under the snare with the toms on 1 and 3.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hell-awaits-wikipedia"]
+        }
+      },
+      "style_key": "lombardo",
+      "song_key": "hell-awaits",
+      "youtube": "https://www.youtube.com/watch?v=XP3pSLi2z14",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18291"
+        }
+      ]
+    }
+  ]
+}

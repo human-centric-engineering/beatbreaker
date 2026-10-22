@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Feelin' the Spirit",
+      "drummer_ids": ["drummer:paul-barbarin"],
+      "drums": {
+        "description": "Barbarin's driving, swinging beat that made Russell's band one of the hottest of its day.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:paul-barbarin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=poV0GEHLtmk"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:paul-barbarin-wikipedia"]

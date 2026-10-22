@@ -16,5 +16,25 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Box Elder",
+      "drummer_ids": ["drummer:gary-young"],
+      "drums": {
+        "description": "A loose, ramshackle indie-rock beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:gary-young-wikipedia", "src:slay-tracks-19331969-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=m9bXYa-4QGY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=234848"
+        }
+      ]
+    }
   ]
 }

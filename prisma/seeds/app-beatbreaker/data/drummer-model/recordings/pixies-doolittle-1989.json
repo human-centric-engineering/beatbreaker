@@ -16,5 +16,115 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Debaser",
+      "drummer_ids": ["drummer:dave-lovering"],
+      "drums": {
+        "description": "A driving straight-eighth beat with a hard snare on two and four that launches Doolittle.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:doolittle-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PVyS9JwtFoQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=489706"
+        }
+      ]
+    },
+    {
+      "title": "Wave of Mutilation",
+      "drummer_ids": ["drummer:dave-lovering"],
+      "drums": {
+        "description": "Fast, tight eighths and short tom fills that keep the two-minute song tumbling forward.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:doolittle-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZElRPku0i64",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16093"
+        }
+      ]
+    },
+    {
+      "title": "Hey",
+      "drummer_ids": ["drummer:dave-lovering"],
+      "drums": {
+        "description": "A sparse, slow groove that leaves wide gaps around the bass and guitar, built more on space than on fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:doolittle-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OdZGvMEeNLw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15042"
+        }
+      ]
+    },
+    {
+      "title": "Monkey Gone to Heaven",
+      "drummer_ids": ["drummer:dave-lovering"],
+      "drums": {
+        "description": "A steady mid-tempo backbeat under the strings, with the drums dropping out and returning around the counted bridge.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:doolittle-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=EHC9HE7vazI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=15408"
+        }
+      ]
+    },
+    {
+      "title": "Here Comes Your Man",
+      "drummer_ids": ["drummer:dave-lovering"],
+      "drums": {
+        "description": "Bright, bouncing eighths on the hi-hat and a light backbeat, the band at its most pop.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:doolittle-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tPgf_btTFlc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6736"
+        }
+      ]
+    },
+    {
+      "title": "Tame",
+      "drummer_ids": ["drummer:dave-lovering"],
+      "drums": {
+        "description": "Near-silent verses on a sparse kick and snare that detonate into crashing, full-volume choruses.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:doolittle-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=4i6jtsCpImo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16164"
+        }
+      ]
+    }
   ]
 }

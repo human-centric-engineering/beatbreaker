@@ -96,5 +96,21 @@
     "reliability": 0.6,
     "accessed": "2026-10-14",
     "notes": "aiGenerated false, checked through the meta API."
+  },
+  {
+    "id": "src:red-clay-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Red Clay (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Red_Clay_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:where-have-i-known-you-before-wikipedia",
+    "type": "encyclopedia",
+    "title": "Where Have I Known You Before - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Where_Have_I_Known_You_Before",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

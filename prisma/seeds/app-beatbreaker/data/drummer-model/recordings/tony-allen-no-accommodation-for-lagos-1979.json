@@ -1,0 +1,28 @@
+{
+  "id": "rec:tony-allen-no-accommodation-for-lagos-1979",
+  "title": "No Accommodation for Lagos",
+  "artist": "Tony Allen with Africa 70",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:afrobeat", "style:west-african", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-allen"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "African Message",
+      "drummer_ids": ["drummer:tony-allen"],
+      "drums": {
+        "description": "His own band, 1979: floating kicks under his first pattern's snare clusters.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:tony-allen-research", "src:tony-allen-wikipedia"]
+        }
+      },
+      "style_key": "tonyallen",
+      "song_key": "african-message"
+    }
+  ]
+}

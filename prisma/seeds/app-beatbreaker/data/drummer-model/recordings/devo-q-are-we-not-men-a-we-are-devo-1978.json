@@ -16,5 +16,55 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Jocko Homo",
+      "drummer_ids": ["drummer:alan-myers"],
+      "drums": {
+        "description": "Verses in 7/4 against a 4/4 chorus, played dead straight, the human kit standing in for a sequencer.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jocko-homo-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5JdS-sSKsBc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=33166"
+        }
+      ]
+    },
+    {
+      "title": "Mongoloid",
+      "drummer_ids": ["drummer:alan-myers"],
+      "drums": {
+        "description": "A metronomic kick and floor-tom pulse locked to the bass line, with no fills to break the loop.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mongoloid-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ITmROKQr8NI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5467"
+        }
+      ]
+    },
+    {
+      "title": "Uncontrollable Urge",
+      "drummer_ids": ["drummer:alan-myers"],
+      "drums": {
+        "description": "A fast, clipped punk beat held with machine-like evenness under the stuttering vocal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:q-are-we-not-men-a-we-are-devo-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=O_gxbtxVrzw"
+    }
   ]
 }

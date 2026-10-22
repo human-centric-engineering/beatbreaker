@@ -12,6 +12,56 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Isi",
+      "drummer_ids": ["drummer:klaus-dinger"],
+      "drums": {
+        "description": "A light, steady motorik groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:klaus-dinger-wikipedia", "src:neu-75-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=oO7w90YG3Rg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1227721"
+        }
+      ]
+    },
+    {
+      "title": "Hero",
+      "drummer_ids": ["drummer:klaus-dinger"],
+      "drums": {
+        "description": "A fast, aggressive motorik beat with a proto-punk edge.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:klaus-dinger-wikipedia", "src:neu-75-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=H0HsOKN3ly4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=664677"
+        }
+      ]
+    },
+    {
+      "title": "E-Musik",
+      "drummer_ids": ["drummer:klaus-dinger"],
+      "drums": {
+        "description": "A long, steady motorik pulse.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:klaus-dinger-wikipedia", "src:neu-75-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tpcOA8TT6xM"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:klaus-dinger-wikipedia"]

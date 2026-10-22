@@ -1,0 +1,27 @@
+{
+  "id": "rec:don-cherry-complete-communion-1966",
+  "title": "Complete Communion",
+  "artist": "Don Cherry",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:free-jazz", "style:new-orleans-second-line"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ed-blackwell"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Complete Communion",
+      "drummer_ids": ["drummer:ed-blackwell"],
+      "drums": {
+        "description": "Melodic, tuned-tom drumming moving between swing and free time through the suite.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:complete-communion-wikipedia", "src:ed-blackwell-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=B-BJs5AzVoI"
+    }
+  ]
+}

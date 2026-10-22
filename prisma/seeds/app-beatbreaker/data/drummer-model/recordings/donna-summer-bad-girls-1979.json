@@ -10,5 +10,43 @@
       "drummer_id": "drummer:keith-forsey",
       "name": "Keith Forsey"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Hot Stuff",
+      "drummer_ids": ["drummer:keith-forsey"],
+      "drums": {
+        "description": "A disco four-on-the-floor with a rock edge and offbeat hi-hats.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:keith-forsey-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tJxOXzE5A8w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6059"
+        }
+      ]
+    },
+    {
+      "title": "Bad Girls",
+      "drummer_ids": ["drummer:keith-forsey"],
+      "drums": {
+        "description": "A steady, funky disco beat with tight hi-hat work.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:keith-forsey-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=nhyUICuE65Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=646425"
+        }
+      ]
+    }
   ]
 }

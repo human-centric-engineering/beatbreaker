@@ -31,6 +31,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Easy Lover",
+      "drummer_ids": ["drummer:phil-collins"],
+      "drums": {
+        "description": "Straight eighths, the kick on the \"and\"s of 2 and 4, driving the duet.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-33578", "src:phil-collins-drumeo-12"]
+        }
+      },
+      "style_key": "collins",
+      "song_key": "easy-lover",
+      "youtube": "https://www.youtube.com/watch?v=JkRKT6T0QLg"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:phil-collins-wikipedia", "src:phil-collins-drumeo-12"]

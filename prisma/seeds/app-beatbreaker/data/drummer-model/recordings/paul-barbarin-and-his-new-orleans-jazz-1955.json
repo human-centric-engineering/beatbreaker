@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Bourbon Street Parade",
+      "drummer_ids": ["drummer:paul-barbarin"],
+      "drums": {
+        "description": "His own parade tune: a march-into-swing second-line beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bourbon-street-parade-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RgjUNgknEKA"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:paul-barbarin-wikipedia", "src:bourbon-street-parade-wikipedia"]

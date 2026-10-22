@@ -15,5 +15,25 @@
       "name": "Ron Tutt",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Piano Man",
+      "drummer_ids": ["drummer:ronnie-tutt"],
+      "drums": {
+        "description": "A light, waltzing 3/4 groove under the piano.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:piano-man-billy-joel-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gxEPV4kolz0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10619"
+        }
+      ]
+    }
   ]
 }

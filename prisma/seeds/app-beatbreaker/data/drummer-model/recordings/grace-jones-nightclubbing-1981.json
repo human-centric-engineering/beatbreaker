@@ -47,6 +47,52 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Pull Up to the Bumper",
+      "drummer_ids": ["drummer:sly-dunbar"],
+      "drums": {
+        "description": "A tight, metronomic disco-reggae groove with a crisp snare and syncopated kick, Compass Point at its peak.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:pull-up-to-the-bumper-wikipedia", "src:sly-dunbar-wikipedia"]
+        }
+      },
+      "style_key": "slydunbar",
+      "song_key": "pull-up-to-the-bumper",
+      "youtube": "https://www.youtube.com/watch?v=LCHRaAIGYyM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=553021"
+        }
+      ]
+    },
+    {
+      "title": "Nightclubbing",
+      "drummer_ids": ["drummer:sly-dunbar"],
+      "drums": {
+        "description": "A slow, heavy reggae-tinged reading of Iggy Pop's song with a stark, dry snare.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:nightclubbing-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=iylCE1vFsXM"
+    },
+    {
+      "title": "Walking in the Rain",
+      "drummer_ids": ["drummer:sly-dunbar"],
+      "drums": {
+        "description": "A taut, mechanical new-wave groove with syndrum accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:nightclubbing-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=en02WmlSPLY"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:nightclubbing-wikipedia"]

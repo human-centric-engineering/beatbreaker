@@ -75,6 +75,108 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "London Calling",
+      "drummer_ids": ["drummer:topper-headon"],
+      "drums": {
+        "description": "Four on the floor, hi-hat triplets in the verse, the snare on 2 and its \"and\" in the chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:london-calling-wikipedia", "src:headon-mixdown-london-calling"]
+        }
+      },
+      "style_key": "headon",
+      "song_key": "london-calling",
+      "youtube": "https://www.youtube.com/watch?v=EfK-WX2pa8c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4031"
+        }
+      ]
+    },
+    {
+      "title": "Clampdown",
+      "drummer_ids": ["drummer:topper-headon"],
+      "drums": {
+        "description": "Sixteenths, then quarters on the hi-hat over four on the floor, and a chorus on every beat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:london-calling-wikipedia"]
+        }
+      },
+      "style_key": "headon",
+      "song_key": "clampdown",
+      "youtube": "https://www.youtube.com/watch?v=_lt4O-EHNnw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=440549"
+        }
+      ]
+    },
+    {
+      "title": "Train in Vain (Stand by Me)",
+      "drummer_ids": ["drummer:topper-headon"],
+      "drums": {
+        "description": "Hi-hat eighths opened on the \"and\" of 4, the kick on 1, 3 and its \"and\", a Motown-ish stomp.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:train-in-vain-wikipedia"]
+        }
+      },
+      "style_key": "headon",
+      "song_key": "train-in-vain",
+      "youtube": "https://www.youtube.com/watch?v=aUzBgeI5dpc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3584794"
+        }
+      ]
+    },
+    {
+      "title": "The Guns of Brixton",
+      "drummer_ids": ["drummer:topper-headon"],
+      "drums": {
+        "description": "Rockers reggae: sixteenths on the hi-hat opened on the \"and\"s of 2 and 4, the kick on 1, 3 and their \"and\"s.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:london-calling-wikipedia"]
+        }
+      },
+      "style_key": "headon",
+      "song_key": "guns-of-brixton",
+      "youtube": "https://www.youtube.com/watch?v=JcW8VNwYvL0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22067"
+        }
+      ]
+    },
+    {
+      "title": "Jimmy Jazz",
+      "drummer_ids": ["drummer:topper-headon"],
+      "drums": {
+        "description": "Swung hi-hat eighths and a jazz walk, the snare on 2 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:london-calling-wikipedia"]
+        }
+      },
+      "style_key": "headon",
+      "song_key": "jimmy-jazz",
+      "youtube": "https://www.youtube.com/watch?v=_X2SjNpwZaY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=66952"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:london-calling-wikipedia"],

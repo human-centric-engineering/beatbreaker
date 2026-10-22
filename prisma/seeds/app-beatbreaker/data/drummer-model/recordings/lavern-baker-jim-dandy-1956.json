@@ -1,0 +1,27 @@
+{
+  "id": "rec:lavern-baker-jim-dandy-1956",
+  "title": "Jim Dandy",
+  "artist": "LaVern Baker",
+  "year": 1956,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:panama-francis"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Jim Dandy",
+      "drummer_ids": ["drummer:panama-francis"],
+      "drums": {
+        "description": "An uptempo rhythm-and-blues shuffle with a pounding backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:jim-dandy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=_EoebOJqjGM"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "rec:duke-ellington-and-his-orchestra-harlem-air-shaft-1940",
+  "title": "Harlem Air Shaft",
+  "artist": "Duke Ellington and His Orchestra",
+  "year": 1940,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sonny-greer"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Harlem Air Shaft",
+      "drummer_ids": ["drummer:sonny-greer"],
+      "drums": {
+        "description": "A busy, shifting swing with cymbal crashes and snare accents that paint the noises of a Harlem tenement.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:never-no-lament-the-blantonwebster-band-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dJyOuLxJiy0"
+    }
+  ]
+}

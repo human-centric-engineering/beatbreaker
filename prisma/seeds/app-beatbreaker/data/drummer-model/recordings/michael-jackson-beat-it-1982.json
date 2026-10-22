@@ -39,6 +39,28 @@
       "pattern_ids": ["pattern:porcaro-beatit"]
     }
   ],
+  "tracks": [
+    {
+      "title": "Beat It",
+      "drummer_ids": ["drummer:jeff-porcaro"],
+      "drums": {
+        "description": "Eighths on the hats accented on the beat, the kick on 1 and 3, then on 1, 2, the 'and' of 3 and 4.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:beat-it-wikipedia", "src:songsterr-10259"]
+        }
+      },
+      "style_key": "porcaro",
+      "song_key": "beat-it",
+      "youtube": "https://www.youtube.com/watch?v=oRdxUFDoQe0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10259"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:beat-it-wikipedia"]

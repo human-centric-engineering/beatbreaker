@@ -51,6 +51,28 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Supernaut",
+      "drummer_ids": ["drummer:bill-ward"],
+      "drums": {
+        "description": "Hats in sixteenths, then the crash ridden in eighths over the riff, and a Latin-tinged drum break.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-2939", "src:vol-4-wikipedia"]
+        }
+      },
+      "style_key": "billward",
+      "song_key": "supernaut",
+      "youtube": "https://www.youtube.com/watch?v=qEjmvrBebdc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2939"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:vol-4-wikipedia"]

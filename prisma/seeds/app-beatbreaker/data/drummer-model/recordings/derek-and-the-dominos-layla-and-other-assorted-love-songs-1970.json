@@ -15,5 +15,55 @@
       "name": "Jim Gordon",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Layla",
+      "drummer_ids": ["drummer:jim-gordon"],
+      "drums": {
+        "description": "A driving, heavy rock part in the first half, then the slow piano coda Gordon is credited with writing.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:layla-and-other-assorted-love-songs-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TngViNw2pOo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=103"
+        }
+      ]
+    },
+    {
+      "title": "Bell Bottom Blues",
+      "drummer_ids": ["drummer:jim-gordon"],
+      "drums": {
+        "description": "A slow, steady groove with a deep snare under the ballad.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:layla-and-other-assorted-love-songs-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=tQjxIvcGGdE"
+    },
+    {
+      "title": "Keep On Growing",
+      "drummer_ids": ["drummer:jim-gordon"],
+      "drums": {
+        "description": "A loose, funky rock groove with busy hi-hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:layla-and-other-assorted-love-songs-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qHDhZxA1m7s",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=179669"
+        }
+      ]
+    }
   ]
 }

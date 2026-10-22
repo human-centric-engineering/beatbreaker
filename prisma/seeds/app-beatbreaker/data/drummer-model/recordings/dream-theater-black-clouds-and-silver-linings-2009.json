@@ -43,6 +43,31 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "A Nightmare to Remember",
+      "drummer_ids": ["drummer:mike-portnoy"],
+      "drums": {
+        "description": "Sixteen minutes from a ballad section to blast beats, Portnoy's first blast beats on a Dream Theater record.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:black-clouds-and-silver-linings-wikipedia",
+            "src:mike-portnoy-wikipedia"
+          ]
+        }
+      },
+      "style_key": "portnoy",
+      "song_key": "a-nightmare-to-remember",
+      "youtube": "https://www.youtube.com/watch?v=ZDSi02J2CXM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=34029"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:black-clouds-and-silver-linings-wikipedia"]

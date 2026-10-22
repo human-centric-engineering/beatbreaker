@@ -18,6 +18,43 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Money Jungle",
+      "drummer_ids": ["drummer:terri-lyne-carrington"],
+      "drums": {
+        "description": "Carrington reimagines Max Roach's role on the Ellington tune with modern funk and swing grooves.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:money-jungle-provocative-in-blue-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YyI_vRtT7Qk"
+    },
+    {
+      "title": "Fleurette Africaine",
+      "drummer_ids": ["drummer:terri-lyne-carrington"],
+      "drums": {
+        "description": "Soft, mallet-and-brush African-tinged groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:money-jungle-provocative-in-blue-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Backward Country Boy Blues",
+      "drummer_ids": ["drummer:terri-lyne-carrington"],
+      "drums": {
+        "description": "Loose, swinging blues shuffle.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:money-jungle-provocative-in-blue-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eJhFj1RoNF8"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:terri-lyne-carrington-wikipedia"]

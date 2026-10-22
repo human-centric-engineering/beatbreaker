@@ -1,0 +1,33 @@
+{
+  "id": "rec:steve-winwood-back-in-the-high-life-1986",
+  "title": "Back in the High Life",
+  "artist": "Steve Winwood",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jr-robinson"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Higher Love",
+      "drummer_ids": ["drummer:jr-robinson"],
+      "drums": {
+        "description": "A punchy, crisp groove with a big backbeat under the horns and percussion.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:back-in-the-high-life-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=k9olaIio3l8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=250764"
+        }
+      ]
+    }
+  ]
+}

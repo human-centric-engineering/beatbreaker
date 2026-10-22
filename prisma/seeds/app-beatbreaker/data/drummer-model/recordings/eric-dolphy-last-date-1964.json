@@ -18,6 +18,62 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Epistrophy",
+      "drummer_ids": ["drummer:han-bennink"],
+      "drums": {
+        "description": "Straight-ahead swing behind Dolphy's bass clarinet, Bennink's early hard-bop playing.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:han-bennink-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0e3AWAQrxVA"
+    },
+    {
+      "title": "Hat and Beard",
+      "drummer_ids": ["drummer:han-bennink"],
+      "drums": {
+        "description": "Taut, swinging time with sharp snare accents.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:han-bennink-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=u1lWpLFGhjE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4293487"
+        }
+      ]
+    },
+    {
+      "title": "Miss Ann",
+      "drummer_ids": ["drummer:han-bennink"],
+      "drums": {
+        "description": "A brisk, light swing with sharp snare punctuation behind Dolphy's alto.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:han-bennink-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7adgnSKgZ7Q"
+    },
+    {
+      "title": "The Madrig Speaks, The Panther Walks",
+      "drummer_ids": ["drummer:han-bennink"],
+      "drums": {
+        "description": "Crisp straight-ahead time with short, punchy breaks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:han-bennink-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ssXrNx9dYOA"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:han-bennink-wikipedia"]

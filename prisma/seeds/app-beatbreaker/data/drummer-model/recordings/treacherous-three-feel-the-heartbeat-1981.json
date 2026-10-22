@@ -1,0 +1,27 @@
+{
+  "id": "rec:treacherous-three-feel-the-heartbeat-1981",
+  "title": "Feel the Heartbeat",
+  "artist": "Treacherous Three",
+  "year": 1981,
+  "type": "studio_track",
+  "style_ids": ["style:hip-hop-breakbeat", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pumpkin"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Feel the Heartbeat",
+      "drummer_ids": ["drummer:pumpkin"],
+      "drums": {
+        "description": "A funky live drum groove under the rap.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:pumpkin-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=hUjmayTb3YQ"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "rec:billy-lee-riley-red-hot-1957",
+  "title": "Red Hot",
+  "artist": "Billy Lee Riley",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jimmy-van-eaton"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Red Hot",
+      "drummer_ids": ["drummer:jimmy-van-eaton"],
+      "drums": {
+        "description": "A wild, driving rockabilly beat with heavy snare.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:red-hot-song-wikipedia"]
+        }
+      }
+    }
+  ]
+}

@@ -12,6 +12,42 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Expresso",
+      "drummer_ids": ["drummer:pierre-moerlen"],
+      "drums": {
+        "description": "Tight jazz-fusion kit work in odd meters with his tuned percussion over it.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:gazeuse-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Percolations",
+      "drummer_ids": ["drummer:pierre-moerlen"],
+      "drums": {
+        "description": "A showcase of Moerlen's vibraphone and drum interplay, building into a drum solo.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:gazeuse-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Esnuria",
+      "drummer_ids": ["drummer:pierre-moerlen"],
+      "drums": {
+        "description": "Fast fusion grooves and unison runs shared between drums and mallets.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:gazeuse-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=0fbIK4_uWek"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:pierre-moerlen-wikipedia"]

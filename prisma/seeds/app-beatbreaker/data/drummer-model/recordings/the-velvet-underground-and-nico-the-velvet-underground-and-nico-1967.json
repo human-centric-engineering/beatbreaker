@@ -16,5 +16,54 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Heroin",
+      "drummer_ids": ["drummer:moe-tucker"],
+      "drums": {
+        "description": "Standing, with mallets on toms and no cymbals, accelerating and slowing with the song: a primal, cymbal-less drumming.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-velvet-underground-and-nico-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=foptT2bsKww"
+    },
+    {
+      "title": "Venus in Furs",
+      "drummer_ids": ["drummer:moe-tucker"],
+      "drums": {
+        "description": "A slow, hypnotic pulse on toms, no cymbals.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-velvet-underground-and-nico-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "I'm Waiting for the Man",
+      "drummer_ids": ["drummer:moe-tucker"],
+      "drums": {
+        "description": "A steady, driving quarter-note pulse on the bass drum and toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-velvet-underground-and-nico-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=99og_g7rXnA"
+    },
+    {
+      "title": "European Son",
+      "drummer_ids": ["drummer:moe-tucker"],
+      "drums": {
+        "description": "Pounding, relentless drumming through the noise jam.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-velvet-underground-and-nico-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=JNZeMMDEZfo"
+    }
   ]
 }

@@ -10,5 +10,25 @@
       "drummer_id": "drummer:melvin-parker",
       "name": "Melvin Parker"
     }
+  ],
+  "tracks": [
+    {
+      "title": "I Got You (I Feel Good)",
+      "drummer_ids": ["drummer:melvin-parker"],
+      "drums": {
+        "description": "A tight, punchy rhythm-and-blues backbeat that stops dead for the vocal hits.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:melvin-parker-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pTdihu-mp90",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=38841"
+        }
+      ]
+    }
   ]
 }

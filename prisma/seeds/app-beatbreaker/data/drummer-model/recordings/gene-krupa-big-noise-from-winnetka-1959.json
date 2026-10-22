@@ -21,6 +21,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Big Noise from Winnetka",
+      "drummer_ids": ["drummer:gene-krupa"],
+      "drums": {
+        "description": "Two snare figures juggled across the bar line in metric shifts over four on the bass drum.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:gene-krupa-kettle-md-1979"]
+        }
+      },
+      "style_key": "krupa",
+      "song_key": "big-noise-from-winnetka",
+      "youtube": "https://www.youtube.com/watch?v=Lnle5TP6Bmk"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:gene-krupa-kettle-md-1979", "src:gene-krupa-big-noise-1959-upload"]

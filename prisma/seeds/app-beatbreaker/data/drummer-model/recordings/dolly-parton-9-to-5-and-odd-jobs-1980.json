@@ -15,5 +15,25 @@
       "name": "Eddie Bayers",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "9 to 5",
+      "drummer_ids": ["drummer:eddie-bayers"],
+      "drums": {
+        "description": "A tight, bouncy pop-country backbeat locked to the typewriter percussion and horn stabs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:eddie-bayers-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=UbxUSsFXYo4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=181025"
+        }
+      ]
+    }
   ]
 }

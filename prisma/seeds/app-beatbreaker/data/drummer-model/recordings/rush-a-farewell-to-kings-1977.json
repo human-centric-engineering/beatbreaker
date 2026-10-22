@@ -35,6 +35,28 @@
       "kit_setup_id": "kit:neil-peart-slingerland-black-chrome"
     }
   ],
+  "tracks": [
+    {
+      "title": "Closer to the Heart",
+      "drummer_ids": ["drummer:neil-peart"],
+      "drums": {
+        "description": "Sixteenths on the hat at the slow tempo, then quarters at double time with the kick off the 1, and tuned percussion colouring the intro.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:closer-to-the-heart-wikipedia"]
+        }
+      },
+      "style_key": "peart",
+      "song_key": "closer-to-the-heart",
+      "youtube": "https://www.youtube.com/watch?v=kyhW2v0NDM0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=16578"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:peart-rush-wikipedia"]

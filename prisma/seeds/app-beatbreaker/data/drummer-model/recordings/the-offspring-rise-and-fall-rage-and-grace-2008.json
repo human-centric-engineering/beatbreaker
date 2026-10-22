@@ -1,0 +1,51 @@
+{
+  "id": "rec:the-offspring-rise-and-fall-rage-and-grace-2008",
+  "title": "Rise and Fall, Rage and Grace",
+  "artist": "The Offspring",
+  "year": 2008,
+  "type": "album",
+  "style_ids": ["style:alternative-rock", "style:punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:josh-freese"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "You're Gonna Go Far, Kid",
+      "drummer_ids": ["drummer:josh-freese"],
+      "drums": {
+        "description": "A punchy, driving straight-eighth beat played as a session drummer for the band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rise-and-fall-rage-and-grace-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ql9-82oV2JE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23200"
+        }
+      ]
+    },
+    {
+      "title": "Hammerhead",
+      "drummer_ids": ["drummer:josh-freese"],
+      "drums": {
+        "description": "A fast, heavy punk drive under the chugging verse riff.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rise-and-fall-rage-and-grace-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=xA32ofgzBho",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=32792"
+        }
+      ]
+    }
+  ]
+}

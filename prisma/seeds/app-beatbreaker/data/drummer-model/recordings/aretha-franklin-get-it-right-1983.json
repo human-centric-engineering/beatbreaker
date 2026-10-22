@@ -1,0 +1,33 @@
+{
+  "id": "rec:aretha-franklin-get-it-right-1983",
+  "title": "Get It Right",
+  "artist": "Aretha Franklin",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yogi-horton"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Get It Right",
+      "drummer_ids": ["drummer:yogi-horton"],
+      "drums": {
+        "description": "Punchy, dance-floor R&B groove with Marcus Miller on bass, from the second Vandross-produced Aretha album.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:get-it-right-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=8GKfwW7r0-k",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2184013"
+        }
+      ]
+    }
+  ]
+}

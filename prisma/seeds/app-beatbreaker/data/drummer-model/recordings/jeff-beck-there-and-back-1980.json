@@ -1,0 +1,33 @@
+{
+  "id": "rec:jeff-beck-there-and-back-1980",
+  "title": "There & Back",
+  "artist": "Jeff Beck",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:simon-phillips"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Space Boogie",
+      "drummer_ids": ["drummer:simon-phillips"],
+      "drums": {
+        "description": "A blistering double-bass shuffle at high tempo, one of the best-known double-bass performances in rock.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:there-and-back-jeff-beck-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZZ_8YHFKRpM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3841895"
+        }
+      ]
+    }
+  ]
+}

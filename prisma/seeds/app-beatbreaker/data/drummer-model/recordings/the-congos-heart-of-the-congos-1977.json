@@ -17,5 +17,61 @@
         "source_ids": ["src:unitedreggae-mikey-boo-2017"]
       }
     }
+  ],
+  "tracks": [
+    {
+      "title": "Fisherman",
+      "drummer_ids": ["drummer:mikey-boo-richards"],
+      "drums": {
+        "description": "A loping, deep one-drop under the Black Ark's phased haze.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:heart-of-the-congos-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=mFTxmDy74LI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2257382"
+        }
+      ]
+    },
+    {
+      "title": "Row Fisherman",
+      "drummer_ids": ["drummer:mikey-boo-richards"],
+      "drums": {
+        "description": "A soft, rolling roots groove with rim clicks.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:heart-of-the-congos-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PDr0-Gv9jZc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2689972"
+        }
+      ]
+    },
+    {
+      "title": "Congoman",
+      "drummer_ids": ["drummer:mikey-boo-richards"],
+      "drums": {
+        "description": "A slow nyabinghi-flavoured groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:heart-of-the-congos-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TkmDH-uw8fs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1637401"
+        }
+      ]
+    }
   ]
 }

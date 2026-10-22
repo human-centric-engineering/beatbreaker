@@ -12,6 +12,62 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Dixie Chicken",
+      "drummer_ids": ["drummer:richie-hayward"],
+      "drums": {
+        "description": "A New Orleans second-line feel on a rock kit, the record that turned Little Feat toward funk.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:richie-hayward-wikipedia", "src:dixie-chicken-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yaHEfJApEVM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3678194"
+        }
+      ]
+    },
+    {
+      "title": "Fat Man in the Bathtub",
+      "drummer_ids": ["drummer:richie-hayward"],
+      "drums": {
+        "description": "A slinky, syncopated funk groove with off-kilter kick placement.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:richie-hayward-wikipedia", "src:dixie-chicken-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dAOCw72yzII",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=213635"
+        }
+      ]
+    },
+    {
+      "title": "Two Trains",
+      "drummer_ids": ["drummer:richie-hayward"],
+      "drums": {
+        "description": "A swampy, syncopated funk groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:richie-hayward-wikipedia", "src:dixie-chicken-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=b1pQ7UhgH3A",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1350877"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:richie-hayward-wikipedia", "src:dixie-chicken-wikipedia"]

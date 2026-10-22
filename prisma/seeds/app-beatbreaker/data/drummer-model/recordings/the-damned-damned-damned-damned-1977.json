@@ -16,5 +16,37 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Neat Neat Neat",
+      "drummer_ids": ["drummer:rat-scabies"],
+      "drums": {
+        "description": "A frantic, rolling beat full of tom fills.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:neat-neat-neat-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=gXKDtkCzSCw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=67511"
+        }
+      ]
+    },
+    {
+      "title": "Fan Club",
+      "drummer_ids": ["drummer:rat-scabies"],
+      "drums": {
+        "description": "A pounding, aggressive groove.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:damned-damned-damned-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eq61uIImbU8"
+    }
   ]
 }

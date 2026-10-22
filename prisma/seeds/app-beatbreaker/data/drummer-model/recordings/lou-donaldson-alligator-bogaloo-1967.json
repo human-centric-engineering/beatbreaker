@@ -1,0 +1,27 @@
+{
+  "id": "rec:lou-donaldson-alligator-bogaloo-1967",
+  "title": "Alligator Bogaloo",
+  "artist": "Lou Donaldson",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:funk", "style:new-orleans-funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:idris-muhammad"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Alligator Bogaloo",
+      "drummer_ids": ["drummer:idris-muhammad"],
+      "drums": {
+        "description": "A loose, funky boogaloo groove with New Orleans syncopation.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:alligator-bogaloo-wikipedia", "src:idris-muhammad-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=OmVgqCdgy4A"
+    }
+  ]
+}

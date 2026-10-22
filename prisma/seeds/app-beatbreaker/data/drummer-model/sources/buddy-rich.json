@@ -214,5 +214,13 @@
     "reliability": 0.8,
     "accessed": "2026-10-18",
     "notes": "Watched in frames (1:00-3:00): an interview close-up in a light jacket over a dark open shirt, then the band's title card and the band on a TV set. The source of Drumeo's Love for Sale lick (Live in Copenhagen, 1968)."
+  },
+  {
+    "id": "src:bird-and-diz-wikipedia",
+    "type": "encyclopedia",
+    "title": "Bird and Diz - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Bird_and_Diz",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
   }
 ]

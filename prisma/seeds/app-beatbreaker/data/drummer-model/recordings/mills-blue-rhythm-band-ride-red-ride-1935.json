@@ -12,6 +12,20 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Ride, Red, Ride",
+      "drummer_ids": ["drummer:oneil-spencer"],
+      "drums": {
+        "description": "A hot, driving swing with snare and cymbal accents pushing Red Allen's trumpet.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mills-blue-rhythm-band-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Kqyja2lvPvE"
+    }
+  ],
   "evidence": {
     "confidence": "likely",
     "source_ids": ["src:oneil-spencer-wikipedia"]

@@ -1,0 +1,33 @@
+{
+  "id": "rec:the-crickets-oh-boy-1957",
+  "title": "Oh, Boy!",
+  "artist": "The Crickets",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jerry-allison"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Oh, Boy!",
+      "drummer_ids": ["drummer:jerry-allison"],
+      "drums": {
+        "description": "A fast, driving beat with a strong backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:oh-boy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=pRD_Yp_lkEI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=706742"
+        }
+      ]
+    }
+  ]
+}

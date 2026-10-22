@@ -10,5 +10,66 @@
       "drummer_id": "drummer:francis-clay",
       "name": "Francis Clay"
     }
+  ],
+  "tracks": [
+    {
+      "title": "I Got My Brand on You",
+      "drummer_ids": ["drummer:francis-clay"],
+      "drums": {
+        "description": "Mid-tempo stop-time blues opener played with a crisp, jazz-inflected snare.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:at-newport-1960-wikipedia", "src:francis-clay-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=IEUrVqImq6k"
+    },
+    {
+      "title": "I'm Your Hoochie Coochie Man",
+      "drummer_ids": ["drummer:francis-clay"],
+      "drums": {
+        "description": "Stop-time riff figure with hard accents on the band breaks and a shuffle between them.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:at-newport-1960-wikipedia"]
+        }
+      }
+    },
+    {
+      "title": "Baby, Please Don't Go",
+      "drummer_ids": ["drummer:francis-clay"],
+      "drums": {
+        "description": "Fast, driving beat under the riff, with Clay pushing the tempo hard in front of the festival crowd.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:at-newport-1960-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fKUf4mnIyu8"
+    },
+    {
+      "title": "Tiger in Your Tank",
+      "drummer_ids": ["drummer:francis-clay"],
+      "drums": {
+        "description": "Upbeat shuffle with a bright backbeat and quick snare fills.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:at-newport-1960-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HdoEIpCqJEU"
+    },
+    {
+      "title": "Got My Mojo Working",
+      "drummer_ids": ["drummer:francis-clay"],
+      "drums": {
+        "description": "Fast, swinging shuffle that builds in energy, then is reprised as an encore.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:at-newport-1960-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-SBmury81Ws"
+    }
   ]
 }

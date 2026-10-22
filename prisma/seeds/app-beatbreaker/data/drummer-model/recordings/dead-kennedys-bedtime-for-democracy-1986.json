@@ -1,0 +1,33 @@
+{
+  "id": "rec:dead-kennedys-bedtime-for-democracy-1986",
+  "title": "Bedtime for Democracy",
+  "artist": "Dead Kennedys",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:hardcore-punk", "style:punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dh-peligro"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Chickenshit Conformist",
+      "drummer_ids": ["drummer:dh-peligro"],
+      "drums": {
+        "description": "A long, heavy mid-tempo groove that builds in intensity.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dh-peligro-wikipedia", "src:bedtime-for-democracy-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sVzDhbEXvSo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=381009"
+        }
+      ]
+    }
+  ]
+}

@@ -71,6 +71,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Mama Africa",
+      "drummer_ids": ["drummer:santa-davis"],
+      "drums": {
+        "description": "Steppers: the kick on every beat, the snare on 2 and 4, a sixteenth after each \"and\" on the hi-hat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mama-africa-1983-wikipedia"]
+        }
+      },
+      "style_key": "santadavis",
+      "song_key": "mama-africa",
+      "youtube": "https://www.youtube.com/watch?v=14YZNEAL0ro",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=235658"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:mama-africa-1983-wikipedia"]

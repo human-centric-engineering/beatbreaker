@@ -15,5 +15,19 @@
       "name": "Ricky Lawson",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "I Will Always Love You",
+      "drummer_ids": ["drummer:ricky-lawson"],
+      "drums": {
+        "description": "Drums held back until the key change, then a single snare hit that launches the final chorus.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:i-will-always-love-you-whitney-houston-recording-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=3JWTaaS7LdU"
+    }
   ]
 }

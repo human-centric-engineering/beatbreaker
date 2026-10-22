@@ -12,6 +12,31 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "Sound Chaser",
+      "drummer_ids": ["drummer:alan-white"],
+      "drums": {
+        "description": "A fast, complex jazz-rock part with odd meters and tight unison runs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:relayer-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=e6ziYgtjC5g"
+    },
+    {
+      "title": "The Gates of Delirium",
+      "drummer_ids": ["drummer:alan-white"],
+      "drums": {
+        "description": "A long suite with a battle section of crashing metal percussion.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:relayer-wikipedia"]
+        }
+      }
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:alan-white-yes-drummer-wikipedia"]

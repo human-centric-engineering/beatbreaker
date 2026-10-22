@@ -18,6 +18,20 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Taylor's Wailers",
+      "drummer_ids": ["drummer:art-taylor"],
+      "drums": {
+        "description": "Crisp, swinging hard-bop drumming with exchanges on his own date.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:taylor-s-wailers-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sPRmXwuz6YA"
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:art-taylor-wikipedia"]

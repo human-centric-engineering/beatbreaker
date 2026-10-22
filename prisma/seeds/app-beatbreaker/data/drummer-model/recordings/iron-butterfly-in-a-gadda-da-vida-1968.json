@@ -12,6 +12,80 @@
       "drummer_role": "sole_drummer"
     }
   ],
+  "tracks": [
+    {
+      "title": "In-A-Gadda-Da-Vida",
+      "drummer_ids": ["drummer:ron-bushy"],
+      "drums": {
+        "description": "Seventeen-minute track with a two-and-a-half-minute tom-heavy drum solo in the middle, a solo that inspired Ringo Starr's solo on the Beatles' \"The End\".",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:in-a-gadda-da-vida-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Tfpn3wHoNGA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=38568"
+        }
+      ]
+    },
+    {
+      "title": "Most Anything You Want",
+      "drummer_ids": ["drummer:ron-bushy"],
+      "drums": {
+        "description": "Straight, driving rock beat under the organ riff, with quick fills between vocal lines.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:in-a-gadda-da-vida-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5QZdITJX6I0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=3282489"
+        }
+      ]
+    },
+    {
+      "title": "Flowers and Beads",
+      "drummer_ids": ["drummer:ron-bushy"],
+      "drums": {
+        "description": "Light, bouncing pop-psychedelic groove kept simple behind the vocal harmonies.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:in-a-gadda-da-vida-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rN8iFqDvB_c",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2413544"
+        }
+      ]
+    },
+    {
+      "title": "Are You Happy",
+      "drummer_ids": ["drummer:ron-bushy"],
+      "drums": {
+        "description": "Fast, pounding rock drive with heavy tom fills, closer to hard rock than the rest of side one.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:in-a-gadda-da-vida-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=XcSZTBuQyK4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7296458"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "widely_reported",
     "source_ids": ["src:ron-bushy-wikipedia"]

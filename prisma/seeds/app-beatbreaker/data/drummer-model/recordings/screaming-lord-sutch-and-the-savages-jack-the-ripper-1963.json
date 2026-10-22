@@ -1,0 +1,27 @@
+{
+  "id": "rec:screaming-lord-sutch-and-the-savages-jack-the-ripper-1963",
+  "title": "Jack the Ripper",
+  "artist": "Screaming Lord Sutch and the Savages",
+  "year": 1963,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:blues"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carlo-little"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Jack the Ripper",
+      "drummer_ids": ["drummer:carlo-little"],
+      "drums": {
+        "description": "A heavy, pounding beat with booming toms, the loud style Keith Moon learned from him.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:screaming-lord-sutch-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lWCOFkyeGNs"
+    }
+  ]
+}

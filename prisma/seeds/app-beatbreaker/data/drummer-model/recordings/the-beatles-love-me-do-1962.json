@@ -14,6 +14,31 @@
       "drummer_id": "drummer:andy-white",
       "name": "Andy White",
       "drummer_role": "sole_drummer"
+    },
+    {
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Love Me Do",
+      "drummer_ids": ["drummer:andy-white", "drummer:ringo-starr"],
+      "drums": {
+        "description": "The session drummer on the album version, a steady, simple beat while Ringo Starr played tambourine.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:love-me-do-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "love-me-do",
+      "youtube": "https://www.youtube.com/watch?v=0pGOFX1D_jg",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=59466"
+        }
+      ]
     }
   ]
 }

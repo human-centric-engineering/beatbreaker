@@ -81,6 +81,101 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Left & Right",
+      "artist": "D'Angelo featuring Method Man and Redman",
+      "drummer_ids": ["drummer:questlove"],
+      "drums": {
+        "description": "One kick pattern for the whole song (1, the \"a\" of 2, 3, the \"a\" of 4), the cross-stick for the raps.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:voodoo-wikipedia", "src:questlove-slate-voodoo-2013"]
+        }
+      },
+      "style_key": "questlove",
+      "song_key": "left-and-right",
+      "youtube": "https://www.youtube.com/watch?v=eT75hdcOOkU"
+    },
+    {
+      "title": "Chicken Grease",
+      "drummer_ids": ["drummer:questlove"],
+      "drums": {
+        "description": "The kick in swung sixteenths under straight eighth hats, the snare dragged late; one groove for 64 bars.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-1173485", "src:danielsen-beat-bin-2023"]
+        }
+      },
+      "style_key": "questlove",
+      "song_key": "chicken-grease",
+      "youtube": "https://www.youtube.com/watch?v=It2s36sL4aM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1039191"
+        }
+      ]
+    },
+    {
+      "title": "Spanish Joint",
+      "drummer_ids": ["drummer:questlove"],
+      "drums": {
+        "description": "A baiao kick under the cross-stick on the \"and\" of 2 and on 4; stops with the horns; open hats to the end.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:voodoo-wikipedia", "src:questlove-slate-voodoo-2013"]
+        }
+      },
+      "style_key": "questlove",
+      "song_key": "spanish-joint",
+      "youtube": "https://www.youtube.com/watch?v=clXS_1NJC_Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=432801"
+        }
+      ]
+    },
+    {
+      "title": "Feel Like Makin' Love",
+      "drummer_ids": ["drummer:questlove"],
+      "drums": {
+        "description": "The slowest, plainest thing on Voodoo: eighth hats, the kick on 1 and 3 and an \"and\" every other bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:voodoo-wikipedia"]
+        }
+      },
+      "style_key": "questlove",
+      "song_key": "feel-like-makin-love",
+      "youtube": "https://www.youtube.com/watch?v=SMuMMhfHaNw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2416343"
+        }
+      ]
+    },
+    {
+      "title": "Untitled (How Does It Feel)",
+      "drummer_ids": ["drummer:questlove"],
+      "drums": {
+        "description": "A slow ballad groove laid far behind the beat, the backbeat dragged against the bass in the Voodoo manner.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4347114", "src:questlove-slate-voodoo-2013"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=SxVNOnPyvIU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4347114"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:voodoo-wikipedia"]

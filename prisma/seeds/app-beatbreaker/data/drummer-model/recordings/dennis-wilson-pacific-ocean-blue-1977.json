@@ -15,5 +15,19 @@
       "name": "Dennis Wilson",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "River Song",
+      "drummer_ids": ["drummer:dennis-wilson"],
+      "drums": {
+        "description": "A slow, swelling part that builds with the choir and piano.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:pacific-ocean-blue-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YiZoSHVQXmk"
+    }
   ]
 }

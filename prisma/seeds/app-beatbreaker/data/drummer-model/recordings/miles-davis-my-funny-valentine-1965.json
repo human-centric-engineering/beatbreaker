@@ -1,0 +1,32 @@
+{
+  "id": "rec:miles-davis-my-funny-valentine-1965",
+  "title": "My Funny Valentine",
+  "artist": "Miles Davis",
+  "year": 1965,
+  "type": "live_track",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "My Funny Valentine",
+      "drummer_ids": ["drummer:tony-williams"],
+      "drums": {
+        "description": "The live ballad on brushes: whispered, then a sudden swell.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:tony-williams-goodman-2011",
+            "src:my-funny-valentine-miles-davis-album-wikipedia"
+          ]
+        }
+      },
+      "style_key": "tonywilliams",
+      "song_key": "my-funny-valentine",
+      "youtube": "https://www.youtube.com/watch?v=XdrAzpYdOYs"
+    }
+  ]
+}

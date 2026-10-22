@@ -1,0 +1,33 @@
+{
+  "id": "rec:jethro-tull-minstrel-in-the-gallery-1975",
+  "title": "Minstrel in the Gallery",
+  "artist": "Jethro Tull",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:folk-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:barriemore-barlow"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Minstrel in the Gallery",
+      "drummer_ids": ["drummer:barriemore-barlow"],
+      "drums": {
+        "description": "A shifting part from soft folk into hard rock.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:minstrel-in-the-gallery-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=loYi7gRrN0Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2920928"
+        }
+      ]
+    }
+  ]
+}

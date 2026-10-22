@@ -16,5 +16,42 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8
     }
+  ],
+  "tracks": [
+    {
+      "title": "Blank Generation",
+      "drummer_ids": ["drummer:marky-ramone"],
+      "drums": {
+        "description": "A loose, swinging groove that lets the jagged guitars breathe.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:blank-generation-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=h1L8DVEZu90",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=411163"
+        }
+      ]
+    },
+    {
+      "title": "Love Comes in Spurts",
+      "drummer_ids": ["drummer:marky-ramone"],
+      "drums": {
+        "description": "A fast, nervy punk beat with snappy fills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:blank-generation-album-wikipedia"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=941175"
+        }
+      ]
+    }
   ]
 }

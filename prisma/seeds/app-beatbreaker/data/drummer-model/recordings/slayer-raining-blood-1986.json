@@ -27,6 +27,28 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Raining Blood",
+      "drummer_ids": ["drummer:dave-lombardo"],
+      "drums": {
+        "description": "The tom intro, then the skank beat accelerating from 214 to 250 bpm, crashes on every beat at the end.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:raining-blood-wikipedia"]
+        }
+      },
+      "style_key": "lombardo",
+      "song_key": "raining-blood",
+      "youtube": "https://www.youtube.com/watch?v=CkaE237oiwE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=17904"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:wikipedia-lombardo"]

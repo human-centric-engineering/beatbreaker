@@ -41,6 +41,22 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Whatcha Gonna Do About It",
+      "drummer_ids": ["drummer:kenney-jones"],
+      "drums": {
+        "description": "Four on the floor under the cymbal, triplet runs on the snare and the tom.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-53870", "src:small-faces-wikipedia"]
+        }
+      },
+      "style_key": "kenneyjones",
+      "song_key": "whatcha-gonna-do-about-it",
+      "youtube": "https://www.youtube.com/watch?v=43Dc9BsHhDY"
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:small-faces-wikipedia"]

@@ -61,6 +61,92 @@
       ]
     }
   ],
+  "tracks": [
+    {
+      "title": "Disorder",
+      "drummer_ids": ["drummer:stephen-morris"],
+      "drums": {
+        "description": "Eighths on the hat, then the hat opened on the 'and's in a two-bar pair with fills in threes, Martin Hannett's dry, separated drum sound.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:disorder-song-wikipedia", "src:songsterr-10382"]
+        }
+      },
+      "style_key": "stephenmorris",
+      "song_key": "disorder",
+      "youtube": "https://www.youtube.com/watch?v=5BIElTtN6Fs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10382"
+        }
+      ]
+    },
+    {
+      "title": "Shadowplay",
+      "drummer_ids": ["drummer:stephen-morris"],
+      "drums": {
+        "description": "The hat alone, then open hats in quarters and a snare roll every fourth bar.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:shadowplay-song-wikipedia", "src:songsterr-10539"]
+        }
+      },
+      "style_key": "stephenmorris",
+      "song_key": "shadowplay",
+      "youtube": "https://www.youtube.com/watch?v=yPt3-lB5Lsc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10539"
+        }
+      ]
+    },
+    {
+      "title": "She's Lost Control",
+      "drummer_ids": ["drummer:stephen-morris"],
+      "drums": {
+        "description": "One machine-like bar all song, the synth-drum hiss on 1 and its 'and', and a run down the toms to end a chorus.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:she-s-lost-control-wikipedia",
+            "src:songsterr-10600",
+            "src:morris-electricityclub-2019"
+          ]
+        }
+      },
+      "style_key": "stephenmorris",
+      "song_key": "shes-lost-control",
+      "youtube": "https://www.youtube.com/watch?v=s4prQ11orEM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10600"
+        }
+      ]
+    },
+    {
+      "title": "New Dawn Fades",
+      "drummer_ids": ["drummer:stephen-morris"],
+      "drums": {
+        "description": "Slow, the ride in sixteenths over a busy kick and fills down the toms.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:unknown-pleasures-wikipedia", "src:songsterr-22516"]
+        }
+      },
+      "style_key": "stephenmorris",
+      "song_key": "new-dawn-fades",
+      "youtube": "https://www.youtube.com/watch?v=7j5LmyNNsrE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22516"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:unknown-pleasures-wikipedia"]

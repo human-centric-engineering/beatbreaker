@@ -15,5 +15,43 @@
       "name": "John 'JR' Robinson",
       "drummer_role": "sole_drummer"
     }
+  ],
+  "tracks": [
+    {
+      "title": "Rock with You",
+      "drummer_ids": ["drummer:jr-robinson"],
+      "drums": {
+        "description": "A smooth, light disco groove with a steady hat that floats under the vocal.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:off-the-wall-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=5X-Mrc2l1d0",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=74746"
+        }
+      ]
+    },
+    {
+      "title": "Don't Stop 'Til You Get Enough",
+      "drummer_ids": ["drummer:jr-robinson"],
+      "drums": {
+        "description": "An energetic disco groove with a driving four-on-the-floor kick.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:off-the-wall-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yURRmWtbTbo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=74756"
+        }
+      ]
+    }
   ]
 }

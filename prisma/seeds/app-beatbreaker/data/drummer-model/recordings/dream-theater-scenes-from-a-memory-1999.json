@@ -51,6 +51,54 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Home",
+      "drummer_ids": ["drummer:mike-portnoy"],
+      "drums": {
+        "description": "An eastern-tinged groove built on a tom pattern, then a heavy riff in shifting meters.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:scenes-from-a-memory-wikipedia"]
+        }
+      },
+      "style_key": "portnoy",
+      "song_key": "home",
+      "youtube": "https://www.youtube.com/watch?v=6qNgrtyUIQQ"
+    },
+    {
+      "title": "The Dance of Eternity",
+      "drummer_ids": ["drummer:mike-portnoy"],
+      "drums": {
+        "description": "An instrumental with more than a hundred time-signature changes, Portnoy's double bass and fills tracking every one.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:scenes-from-a-memory-wikipedia", "src:mike-portnoy-wikipedia"]
+        }
+      },
+      "style_key": "portnoy",
+      "song_key": "dance-of-eternity",
+      "youtube": "https://www.youtube.com/watch?v=eYCYGpu0OxM"
+    },
+    {
+      "title": "Fatal Tragedy",
+      "drummer_ids": ["drummer:mike-portnoy"],
+      "drums": {
+        "description": "Builds from a piano intro to a long unison instrumental of odd-meter runs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:scenes-from-a-memory-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dau5acQfaww",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5678"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:scenes-from-a-memory-wikipedia"]

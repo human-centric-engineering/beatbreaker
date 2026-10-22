@@ -38,6 +38,28 @@
       }
     }
   ],
+  "tracks": [
+    {
+      "title": "Nuclear Burn",
+      "drummer_ids": ["drummer:phil-collins"],
+      "drums": {
+        "description": "11/8: a bar of 4/4 in ghosted sixteenths and two threes, the open hat closed by the foot.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:unorthodox-behaviour-wikipedia"]
+        }
+      },
+      "style_key": "collins",
+      "song_key": "nuclear-burn",
+      "youtube": "https://www.youtube.com/watch?v=J3Xa91_JIDk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=820499"
+        }
+      ]
+    }
+  ],
   "evidence": {
     "confidence": "verified",
     "source_ids": ["src:unorthodox-behaviour-wikipedia", "src:phil-collins-drumeo-12"]

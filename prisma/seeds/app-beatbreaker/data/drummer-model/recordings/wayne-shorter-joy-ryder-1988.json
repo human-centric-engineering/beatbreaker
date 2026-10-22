@@ -1,0 +1,27 @@
+{
+  "id": "rec:wayne-shorter-joy-ryder-1988",
+  "title": "Joy Ryder",
+  "artist": "Wayne Shorter",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:terri-lyne-carrington"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Joy Ryder",
+      "drummer_ids": ["drummer:terri-lyne-carrington"],
+      "drums": {
+        "description": "Busy, fusion-funk groove behind Shorter's electric band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:joy-ryder-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7C-mH-2JSbQ"
+    }
+  ]
+}

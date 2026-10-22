@@ -1,0 +1,27 @@
+{
+  "id": "rec:the-allman-brothers-band-idlewild-south-1970",
+  "title": "Idlewild South",
+  "artist": "The Allman Brothers Band",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:southern-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:butch-trucks"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Midnight Rider",
+      "drummer_ids": ["drummer:butch-trucks"],
+      "drums": {
+        "description": "A tight, driving mid-tempo groove with maracas and a crisp backbeat.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:idlewild-south-wikipedia", "src:butch-trucks-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Z8zk7XKyoE8"
+    }
+  ]
+}

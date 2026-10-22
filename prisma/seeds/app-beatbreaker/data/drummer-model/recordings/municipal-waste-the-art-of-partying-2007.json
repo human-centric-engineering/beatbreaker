@@ -1,0 +1,33 @@
+{
+  "id": "rec:municipal-waste-the-art-of-partying-2007",
+  "title": "The Art of Partying",
+  "artist": "Municipal Waste",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:grindcore", "style:hardcore-punk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-witte"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "The Art of Partying",
+      "drummer_ids": ["drummer:dave-witte"],
+      "drums": {
+        "description": "Speeding crossover thrash beats with punk d-beat sections.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:the-art-of-partying-wikipedia", "src:dave-witte-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=LR8fIyfgdGs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23914"
+        }
+      ]
+    }
+  ]
+}

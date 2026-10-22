@@ -1,0 +1,29 @@
+{
+  "id": "rec:paul-simon-greatest-hits-etc-1977",
+  "title": "Greatest Hits, Etc.",
+  "artist": "Paul Simon",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-gadd"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Slip Slidin' Away",
+      "drummer_ids": ["drummer:steve-gadd"],
+      "drums": {
+        "description": "Quiet eighths on the hats and a cross-stick on 2 and 4, under the voices.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:slip-slidin-away-wikipedia"]
+        }
+      },
+      "style_key": "gadd",
+      "song_key": "slip-slidin-away",
+      "youtube": "https://www.youtube.com/watch?v=iUODdPpnxcA"
+    }
+  ]
+}
