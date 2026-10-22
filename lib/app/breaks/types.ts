@@ -645,6 +645,11 @@ export interface Style extends StyleAttrs {
    */
   drummer?: boolean;
   /**
+   * A drummer's main bands, the best known first: the picker prints them
+   * under the name, so two Roger Taylors read apart, and a search finds them.
+   */
+  bands?: string[];
+  /**
    * The songs a style plays, where one meter, one tempo and one feel cannot
    * hold it: a drummer who played a 3/4 jazz waltz, a slow 12/8 blues and a
    * brushed swing in the same band. Each New picks one (see `songs.ts`), and

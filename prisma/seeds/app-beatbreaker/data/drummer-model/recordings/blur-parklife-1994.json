@@ -1,0 +1,55 @@
+{
+  "id": "rec:blur-parklife-1994",
+  "title": "Parklife",
+  "artist": "Blur",
+  "release": "Food",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:britpop"],
+  "personnel": [
+    {
+      "name": "Damon Albarn",
+      "role": "vocals, keyboards"
+    },
+    {
+      "name": "Graham Coxon",
+      "role": "guitars, backing vocals"
+    },
+    {
+      "name": "Alex James",
+      "role": "bass"
+    },
+    {
+      "name": "Dave Rowntree",
+      "role": "drums, percussion"
+    },
+    {
+      "name": "Stephen Street",
+      "role": "producer"
+    }
+  ],
+  "studio_context": "Maison Rouge and RAK, from August 1993, with Stephen Street; Rowntree credited with drums, percussion, programming and crowd noise.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-rowntree",
+      "name": "Dave Rowntree",
+      "drummer_role": "drums_and_percussion",
+      "significance": 1.0,
+      "why_it_matters": "The album that made Britpop: Parklife's open hat on every beat with the snare slanting onto the 'and' of 4, and Girls & Boys, the drum machine he programmed instead of playing.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:parklife-album-wikipedia",
+          "src:dave-rowntree-music-week-2024",
+          "src:girls-and-boys-wikipedia"
+        ],
+        "note": "Girls & Boys is his programming, not his playing."
+      },
+      "pattern_ids": ["pattern:rowntree-parklife", "pattern:rowntree-girls-and-boys"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:parklife-album-wikipedia"]
+  }
+}

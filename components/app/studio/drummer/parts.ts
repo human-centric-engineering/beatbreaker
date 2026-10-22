@@ -1178,7 +1178,10 @@ export function makeMaterials(who: Persona = PERSONAS[0], kit = true): Materials
         ? furMaterial(who.trousers)
         : who.polka
           ? dotted(who.trousers, who.polka.trousers, 0.9, 'twill')
-          : cloth(who.trousers, 0.9, 'twill'),
+          : // a one-piece in satin is satin to the ankle
+            who.satin && (who.top === 'coveralls' || who.top === 'suit')
+            ? satin(who.trousers)
+            : cloth(who.trousers, 0.9, 'twill'),
     shoe: robot
       ? metalMaterial(who.metal)
       : beast

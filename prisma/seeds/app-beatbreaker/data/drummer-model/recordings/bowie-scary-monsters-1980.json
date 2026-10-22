@@ -1,0 +1,63 @@
+{
+  "id": "rec:bowie-scary-monsters-1980",
+  "title": "Scary Monsters (and Super Creeps)",
+  "artist": "David Bowie",
+  "release": "RCA",
+  "year": 1980,
+  "type": "album",
+  "producer": "David Bowie, Tony Visconti",
+  "style_ids": ["style:new-wave", "style:experimental-rock"],
+  "personnel": [
+    {
+      "name": "David Bowie",
+      "role": "vocals, keyboards"
+    },
+    {
+      "name": "Robert Fripp",
+      "role": "guitar"
+    },
+    {
+      "name": "Carlos Alomar",
+      "role": "guitar"
+    },
+    {
+      "name": "George Murray",
+      "role": "bass"
+    },
+    {
+      "name": "Roy Bittan",
+      "role": "piano"
+    },
+    {
+      "name": "Andy Clark",
+      "role": "synthesiser"
+    },
+    {
+      "name": "Chuck Hammer",
+      "role": "guitar synthesiser"
+    }
+  ],
+  "studio_context": "The Power Station, New York, February 1980, and Good Earth, London, in April: the last of the D.A.M. Trio records.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dennis-davis",
+      "name": "Dennis Davis",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Ashes to Ashes' ska-ish beat, the snare on 2 and the 'and' of 3, learned overnight from Bowie playing it on a chair and a cardboard box; the title track's pounding after Joy Division.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:scary-monsters-album-wikipedia",
+          "src:ashes-to-ashes-bowie-song-wikipedia",
+          "src:fashion-bowie-song-wikipedia"
+        ]
+      },
+      "pattern_ids": ["pattern:davis-ashes-to-ashes"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:scary-monsters-album-wikipedia"]
+  }
+}

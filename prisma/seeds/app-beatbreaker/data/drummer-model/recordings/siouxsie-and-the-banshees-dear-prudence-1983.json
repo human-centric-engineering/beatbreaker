@@ -1,0 +1,46 @@
+{
+  "id": "rec:siouxsie-and-the-banshees-dear-prudence-1983",
+  "title": "Dear Prudence",
+  "artist": "Siouxsie and the Banshees",
+  "release": "Polydor",
+  "year": 1983,
+  "type": "studio_track",
+  "style_ids": ["style:new-wave"],
+  "personnel": [
+    {
+      "name": "Siouxsie Sioux",
+      "role": "vocals"
+    },
+    {
+      "name": "Steven Severin",
+      "role": "bass"
+    },
+    {
+      "name": "Robert Smith",
+      "role": "guitar"
+    },
+    {
+      "name": "Budgie",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Recorded in Stockholm in July 1983 and finished at Angel, London, with Robert Smith on guitar.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:budgie",
+      "name": "Budgie",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.7,
+      "why_it_matters": "The band's biggest hit: the kick on 1 and its 'and', 3 and its 'and', a verse on the mid tom with the snare ghosting between, the middle eight four on the floor.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dear-prudence-wikipedia", "src:songsterr-542451"]
+      },
+      "pattern_ids": ["pattern:budgie-dear-prudence"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:dear-prudence-wikipedia"]
+  }
+}

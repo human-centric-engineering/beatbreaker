@@ -108,6 +108,27 @@ describe('the drummer model', () => {
     expect(named.sort()).toEqual(drummerStyles);
   });
 
+  it('gives every drummer style bands its record or its own description names', () => {
+    // the picker prints them under the name: each has to be one the drummer played in
+    const records = new Map<string, unknown>();
+    for (const { json } of readFolder(DRUMMER_MODEL_DIR, 'drummers')) {
+      const key = (json as { beatbreaker?: { style_key?: string } }).beatbreaker?.style_key;
+      if (key) records.set(key, json);
+    }
+    const unbacked: string[] = [];
+    for (const [key, style] of Object.entries(STYLES)) {
+      if (!style.drummer) continue;
+      expect(style.bands?.length, key).toBeGreaterThan(0);
+      const record = records.get(key) as { affiliations?: Array<{ name: string }> } | undefined;
+      const said = [...(record?.affiliations ?? []).map((a) => a.name), style.hint]
+        .join(' | ')
+        .toLowerCase();
+      for (const band of style.bands ?? [])
+        if (!said.includes(band.toLowerCase())) unbacked.push(`${key}: ${band}`);
+    }
+    expect(unbacked).toEqual([]);
+  });
+
   it('names the drummers the catalogue plays', () => {
     const playable = corpus.drummers
       .filter(({ record }) => record.beatbreaker?.style_key)
@@ -116,6 +137,7 @@ describe('the drummer model', () => {
     expect(playable).toEqual([
       'drummer:adrienne-davies',
       'drummer:al-jackson-jr',
+      'drummer:alan-white-oasis',
       'drummer:antonio-sanchez',
       'drummer:ari-hoenig',
       'drummer:art-blakey',
@@ -127,6 +149,7 @@ describe('the drummer model', () => {
       'drummer:brian-blade',
       'drummer:brian-downey',
       'drummer:buddy-rich',
+      'drummer:budgie',
       'drummer:carlton-barrett',
       'drummer:chad-smith',
       'drummer:changuito',
@@ -138,7 +161,9 @@ describe('the drummer model', () => {
       'drummer:danny-carey',
       'drummer:dave-grohl',
       'drummer:dave-lombardo',
+      'drummer:dave-rowntree',
       'drummer:david-garibaldi',
+      'drummer:dennis-davis',
       'drummer:earl-palmer',
       'drummer:elvin-jones',
       'drummer:gabe-serbian',
@@ -159,6 +184,7 @@ describe('the drummer model', () => {
       'drummer:joey-jordison',
       'drummer:john-bonham',
       'drummer:keith-moon',
+      'drummer:kenney-jones',
       'drummer:klek-de-poitrine',
       'drummer:lars-ulrich',
       'drummer:lenny-white',
@@ -167,6 +193,7 @@ describe('the drummer model', () => {
       'drummer:max-roach',
       'drummer:michael-shrieve',
       'drummer:mike-clark',
+      'drummer:mike-joyce',
       'drummer:mike-portnoy',
       'drummer:mitch-mitchell',
       'drummer:nameless-ghoul',
@@ -174,12 +201,17 @@ describe('the drummer model', () => {
       'drummer:nick-mason',
       'drummer:nicko-mcbrain',
       'drummer:omar-hakim',
+      'drummer:paul-cook',
       'drummer:phil-collins',
       'drummer:phil-rudd',
+      'drummer:phil-selway',
       'drummer:philly-joe-jones',
       'drummer:questlove',
+      'drummer:reni',
+      'drummer:rick-buckler',
       'drummer:ringo-starr',
       'drummer:roger-taylor',
+      'drummer:roger-taylor-duran-duran',
       'drummer:roy-haynes',
       'drummer:santa-davis',
       'drummer:sheila-e',
@@ -197,6 +229,7 @@ describe('the drummer model', () => {
       'drummer:topper-headon',
       'drummer:travis-barker',
       'drummer:vinnie-colaiuta',
+      'drummer:woody-woodmansey',
       'drummer:yussef-dayes',
       'drummer:zigaboo-modeliste',
     ]);

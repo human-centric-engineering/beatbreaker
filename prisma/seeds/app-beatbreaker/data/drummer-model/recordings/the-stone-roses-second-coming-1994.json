@@ -1,0 +1,47 @@
+{
+  "id": "rec:the-stone-roses-second-coming-1994",
+  "title": "Second Coming",
+  "artist": "The Stone Roses",
+  "release": "Geffen",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:blues-rock"],
+  "personnel": [
+    {
+      "name": "Ian Brown",
+      "role": "vocals"
+    },
+    {
+      "name": "John Squire",
+      "role": "guitars"
+    },
+    {
+      "name": "Mani",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Recorded at Forge Studios, Oswestry, and Rockfield, 1992-1994, after John Squire turned to Led Zeppelin.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:reni",
+      "name": "Reni",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Love Spreads: the ride, more toms and the bass drum moving every bar, his playing at its most Bonham.",
+      "pattern_ids": ["pattern:reni-love-spreads"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:second-coming-wikipedia",
+          "src:reni-wikipedia",
+          "src:songsterr-54720",
+          "src:reni-far-out-love-spreads-2022"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:second-coming-wikipedia"]
+  }
+}

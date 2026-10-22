@@ -1,0 +1,54 @@
+{
+  "id": "rec:bowie-the-man-who-sold-the-world-1970",
+  "title": "The Man Who Sold the World",
+  "artist": "David Bowie",
+  "release": "Mercury",
+  "year": 1970,
+  "type": "album",
+  "producer": "Tony Visconti",
+  "style_ids": ["style:hard-rock", "style:rock"],
+  "personnel": [
+    {
+      "name": "David Bowie",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Mick Ronson",
+      "role": "guitar"
+    },
+    {
+      "name": "Tony Visconti",
+      "role": "bass, production"
+    },
+    {
+      "name": "Ralph Mace",
+      "role": "Moog synthesiser"
+    }
+  ],
+  "studio_context": "Trident and Advision, London, April–May 1970, a month after he joined; the band lived together at Haddon Hall. Visconti brought him to timpani, wood blocks and maracas.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:woody-woodmansey",
+      "name": "Woody Woodmansey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "His first record with Bowie: the title track grooves on the floor tom in place of the hat, the kick off the beat.",
+      "pattern_ids": ["pattern:woodmansey-floor-tom-groove"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-man-who-sold-the-world-song-wikipedia",
+          "src:woody-woodmansey-wikipedia",
+          "src:woodmansey-strange-brew-interview"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:the-man-who-sold-the-world-song-wikipedia",
+      "src:woody-woodmansey-wikipedia"
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "id": "rec:bowie-hunky-dory-1971",
+  "title": "Hunky Dory",
+  "artist": "David Bowie",
+  "release": "RCA",
+  "year": 1971,
+  "type": "album",
+  "producer": "Ken Scott",
+  "style_ids": ["style:rock", "style:glam-rock"],
+  "personnel": [
+    {
+      "name": "David Bowie",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Mick Ronson",
+      "role": "guitar, piano, arrangements"
+    },
+    {
+      "name": "Trevor Bolder",
+      "role": "bass"
+    },
+    {
+      "name": "Rick Wakeman",
+      "role": "piano"
+    }
+  ],
+  "studio_context": "Trident, London, June–August 1971, co-produced by Ken Scott and Bowie; Changes (30 July) and Life on Mars? (6 August) with Wakeman on piano and Ronson's strings.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:woody-woodmansey",
+      "name": "Woody Woodmansey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Less is more: Changes holds one groove through bars of 2/4 and 3/4; Life on Mars? a solid beat under the strings, the track he is most proud of.",
+      "pattern_ids": ["pattern:woodmansey-eighths-and-the-ands"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:hunky-dory-wikipedia",
+          "src:changes-bowie-song-wikipedia",
+          "src:life-on-mars-wikipedia",
+          "src:woodmansey-quietus-bakers-dozen-2017"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:hunky-dory-wikipedia"]
+  }
+}

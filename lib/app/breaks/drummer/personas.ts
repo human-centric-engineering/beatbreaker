@@ -63,12 +63,22 @@ export type Beard =
 /**
  * Something on the head, over the hair: a tam is a tall, slouching crocheted
  * crown; a trilby a short brim snapped down at the front over a tapered,
- * creased crown; a band a bandana folded into a strip and tied round the brow,
+ * creased crown; a bucket a soft round crown with a brim sloping down all
+ * the way round (Reni's); a band a bandana folded into a strip and tied round the brow,
  * printed in pale paisley on the accent colour, the hair loose above and
  * below it (Mike Portnoy's).
  */
 export type Hat =
-  'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana' | 'tam' | 'flat' | 'trilby' | 'band';
+  | 'beanie'
+  | 'cap'
+  | 'cowboy'
+  | 'tophat'
+  | 'bandana'
+  | 'tam'
+  | 'flat'
+  | 'trilby'
+  | 'bucket'
+  | 'band';
 
 /**
  * What's on top: a T-shirt, a long-sleeved shirt buttoned down the front, a

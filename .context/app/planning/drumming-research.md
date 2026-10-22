@@ -15575,6 +15575,1594 @@ shoes are not in shot. Rendered headless (front and face).
 - The records, for tempo: YouTube sRn7WlikdUA, 6x3QtLCAPp8, 4S62h99aodY, C8hi3ZnhFac
 - Footage: YouTube 8fIimwo42_c
 
+## CO. Alan White of Oasis (2026-10-21)
+
+The `alanwhite` style plays **songs** the way `slydunbar` (CK) does: each New
+picks one of his records, and its tempo, sections and grooves come with it. His
+record is `drummer-model/drummers/alan-white-oasis.json` (schema 1.5), id
+`drummer:alan-white-oasis`. The id is not `drummer:alan-white`, because that
+id is already the Yes drummer, a stub in Bill Bruford's record. There are three
+new recordings ((What's the Story) Morning Glory?, Be Here Now, Heathen
+Chemistry) and `sources/alan-white-oasis.json`. One genre is new,
+`style:britpop` (`styles/britpop.json`, a sub-genre of indie rock). It needs a
+`GENRE_FAMILY` row (`rock`). Filed with the British rock and pop drummers.
+
+**Who he is.** Alan Victor White was born in Lewisham on 26 May 1972
+(Wikipedia). His elder brother Steve White played with Paul Weller and the Style
+Council and "greatly impacted his development as a drummer". Bob Armstrong
+taught him the Moeller method: "You move your arm up and drop the stick for a
+bounce and come down for a power-stroke. ... I think the reason there are so
+many grace notes and bits and bobs in my drumming is that the way I play was
+the way I was taught by Bob Armstrong" (Modern Drummer, August 1996, T. Bruce
+Wittet). "The first stuff I was really into was soul", with "Clyde
+Stubblefield and all those guys" for the grooves and the fills. Then came the
+Beatles, the Kinks and the Small Faces: "It couldn't have been another drummer
+in the Beatles. It had to be Ringo." He also names Ginger Baker ("a London
+boy"). Wikipedia adds Keith Moon, Chad Smith, Mick Avory and John Bonham.
+
+He played in Starclub from 1991 to 1994, and on sessions for Idha and for Dr
+Robert of the Blow Monkeys. Paul Weller recommended him to Noel Gallagher, and
+he joined Oasis in April 1995 when Tony McCarroll was removed. The next day he
+mimed Some Might Say on Top of the Pops, and a week later he was at Rockfield
+recording Morning Glory. Four albums followed, and most of the B-sides. He left
+in early 2004 and Zak Starkey took the chair. Noel: he would adapt a song's
+rhythm or suggest its tempo, and "You're the drummer. You do what you think is
+right." Owen Morris, the producer, thought him "essentially a jazz drummer" who
+"was always shuffling away on his snare ... and never hitting the basic back
+beats in a big dumb rock and roll way". Morris meant it as criticism, but it is
+the best description of his signature.
+
+**The off-beat snare.** Wonderwall's verse puts the snare on the "e" of 1, on
+2, the "a" of 2, the "and" of 3, on 4 and on the "a" of 4, under the ride in
+eighths. The kick plays 1, its "and", 3 and its "and". Three human Songsterr
+tabs by three different authors agree on this placement: Wonderwall (2),
+Don't Look Back in Anger (15472) and Champagne Supernova (49284). The last two
+play it under the hats, with the last note often a ghost. On Wonderwall he
+used Pro-Mark Hot Rods instead of sticks (Wikipedia, after Rick Beato). He
+came in "on Noel's cue" instead of at the top of a phrase: "It's a bit of a
+weird one, but it worked!" Of Don't Look Back in Anger he said "I can be
+straight ... because that's what's needed". Of Champagne Supernova: "I wish I
+had been a little heavier."
+
+**Kit.** In 1995 he played an old Rogers Holiday kit with its original heads,
+his brother's old Radio King snares, and big cymbals, "otherwise it just
+doesn't cut through". He endorsed Pearl and Sabian (Modern Drummer). The 2026
+tabs name a Ludwig Super Classic. In the Knebworth film (August 1996) the
+shells look white and the cymbals are large. No free samples of his kit
+exist, so the style uses `sixties`: SM Drums' 1960s Ludwig with ringing toms
+and washing crashes, for the vintage kit. The two Be Here Now songs use
+`bigRoom`, for the album's famously loud, overdubbed sound, and The Hindu
+Times uses `studioRock`, tighter and drier.
+
+**The songs.** Eight, every one from a human Songsterr tab. Each tempo was
+beat-tracked from the record (autocorrelation of the onset flux), and each
+section order follows the tab's markers or bars:
+
+| Song                     | Year | Tempo (record / tab) | Meter                | What the groove is                                                                                                 | Source of the bars       |
+| ------------------------ | ---- | -------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------ |
+| Wonderwall               | 1995 | 87.4 / 88            | 4/4, one bar 2/4     | The off-beat snare under the ride on hot rods; the pre-chorus's crash on every beat; the chorus's 2/4 bar and stop | Songsterr 2, rev 9711655 |
+| Don't Look Back in Anger | 1995 | 81.4 / 81            | 4/4                  | The off-beat snare under the hats; the pre-chorus's mid tom in eighths and sixteenths; the snare on every beat     | 15472, rev 9506865       |
+| Roll With It             | 1995 | 127.3 / 127          | 4/4                  | A crash ridden in quarters and eighths; every other verse bar pushed onto the "and" of 1                           | 49269, rev 6228512       |
+| Morning Glory            | 1995 | 137.1 / 137          | 4/4                  | The intro's mid tom on 2 and 4; straight eighths, the kick on 1 or its "and"; the hats thrown open for the chorus  | 15823, rev 9577604       |
+| Champagne Supernova      | 1995 | 75.2 / 75            | 4/4                  | The off-beat snare under the hats; the hats open in the chorus; a crash ridden in eighths for the post-chorus      | 49284, rev 8795613       |
+| D'You Know What I Mean?  | 1997 | 80.1 / 80            | 4/4                  | One kick pattern all song, a ghost after each backbeat; hats, then the ride; over a slowed Amen loop (not played)  | 49272, rev 343968        |
+| Stand By Me              | 1997 | 85.7 / 87            | 4/4, 3/4 in choruses | Three bars of 4/4 and one of 3/4 three times in each chorus; the 3/4 bar crash and kick on every beat              | 49244 (and 433605)       |
+| The Hindu Times          | 2002 | 114.3 / 114          | 4/4                  | Hats in sixteenths, the kick on 1, 3 and its "and"; the crash every other bar                                      | 49294, rev 637345        |
+
+**What the style encodes.** The base has six figures, one per kind of bar in
+the songs. The two off-beat snares are weighted highest: Wonderwall's under
+the ride, and Don't Look Back in Anger's under the hats. The others are
+Morning Glory's straight eighths, Roll With It's crash ridden in eighths, D'You
+Know What I Mean?'s kick, and The Hindu Times's sixteenths. Five fills come
+from the tabs' phrase ends: open hats into the high tom; the snare's run into
+the high tom; the mid and floor toms in sixteenths. Straight time, no swing.
+His grace notes are ghosts weighted to the "e" of 1 and the "a" of 4
+(`ghostWeights` 1 and 15), and the tabs' 32nd-note drags are written as single
+ghosts. The weight is 0.8, the same as Helders: a groove player whose band is
+known for its songs more than its drumming.
+
+**Left out, and why.** Where a song opens on a bar with nothing on 2 and 4 (a
+song's first section must have a findable backbeat), that bar is left out:
+Wonderwall's entry on three snares, Don't Look Back in Anger's bar of toms,
+Champagne Supernova's first fill, D'You Know What I Mean?'s intro of a cymbal
+and kick every other bar, and The Hindu Times's snare build. Endings that are
+only a crash and a kick are left out too, except The Hindu Times's, which is
+its own section. Long choruses and outros are rounded to whole sections, and
+each song's comment says by how much. Stand By Me's cabasa and tambourine and
+D'You Know What I Mean?'s tambourine (the tabs' percussion tracks) are not
+played. Some Might Say is McCarroll's (the album credits him on track 7), and
+Go Let It Out (2000) is built on a sampled drum loop (its credits: "drums,
+drum loop"), so neither is used.
+
+**Devices.** None. The off-beat snare is a placement inside a straight 4/4
+bar, not a grouping or a displacement. Stand By Me's 3/4 bars are changed
+bars, not a polymeter. Recorded as a `devices_search`.
+
+**Sources.** Wikipedia: Alan White (Oasis drummer), (What's the Story) Morning
+Glory?, Be Here Now, Heathen Chemistry, Wonderwall, D'You Know What I Mean?,
+Tony McCarroll. Modern Drummer, August 1996 (T. Bruce Wittet), read in a fan
+site's copy (oocities.org/Hollywood/4693/drummer.htm). drummerszone.com
+profile. Owen Morris, "The Rise and Fall of Me Recording Oasis", quoted through
+Wikipedia. Songsterr tabs 2, 15472, 49284, 15823, 49269, 49272, 49244, 433605
+and 49294 (all human). The Knebworth 1996 film of Don't Look Back in Anger
+(YouTube TG8yXHy7cME), for the likeness.
+
+## CP. Mike Joyce (2026-10-21)
+
+The `mikejoyce` style plays **songs** the way `helders` (BM) does: each New picks
+one of his records with the Smiths, and its tempo, kit and sections come with it, in
+the record's order. His record (`drummer-model/drummers/mike-joyce.json`, schema
+1.5) is new, at `drummer:mike-joyce`: no record pointed at him before. Four records
+are new in `recordings/`: The Smiths (1984), Hatful of Hollow (1984), Meat Is
+Murder (1985) and The Queen Is Dead (1986). No genre is new: indie rock, punk,
+Motown and funk exist. Two drummer stubs are new: `drummer:john-maher` (Buzzcocks)
+and `drummer:donald-johnson` (A Certain Ratio).
+
+**Who he is.** Michael Adrian Paul Joyce was born in Manchester on 1 June 1963 to
+Irish Catholic parents. Before the Smiths he drummed for the Hoax in Manchester and
+Victim, a Belfast punk band; he joined the Smiths in October 1982 after auditions,
+in place of Simon Wolstencroft, who had played on the first demos but would not
+join. After them: Sinéad O'Connor with Andy Rourke, Morrissey's 1989 singles,
+Suede, Buzzcocks, Public Image Ltd and Julian Cope. In 1996 he won his case for an
+equal share of the Smiths' royalties. His memoir, The Drums, came out in November
+2025 (Wikipedia).
+
+**In his own words.** On what made him a drummer: "I went to see Buzzcocks play in
+Manchester when I was about 14-15, and that was it ... the first gig that I'd seen
+where I was completely transfixed by John Maher and his playing" (Far Out, 2022).
+On the Smiths: "I don't really sit on a groove with a lot of them" (Marr's songs
+change so often); his favourite, How Soon Is Now?, "just for the groove"; "I just
+played drums for what I thought worked for the track." On fills: "The main thing
+for a drummer is to listen to the music ... a great drum fill ... is only great if
+it sounds right within the song. I think a lot of drummers tend to be too
+flamboyant for their own good"; on Charlie Watts, "every Stones track that has ever
+been just sounds fantastic" (Hotpress, 2008). Wikipedia cites a MusicRadar
+interview (March 2018) headed with his three styles before the Smiths: "fast and
+loud, faster and louder and fastest and loudest. The Smiths was a shock".
+
+**How the records were made.** Two of them are not simply played. This Charming
+Man's drums "were originally programmed on a Linn LM-1, under the direction of
+producer John Porter. Porter used the programme to trigger the sampled sounds of
+the live drum kit". On How Soon Is Now?, Porter kept the beat even with a Drawmer
+noise gate keyed by sixteenth-note cowbell from his LinnDrum. The Queen Is Dead's
+intro is a loop: "We got Mike to play this rumbling rhythm and then sampled a small
+section of it" (Stephen Street); live, Joyce played it by hand (all Wikipedia). All
+three keep a sampled kit here, since the sound is his kit's.
+
+**The songs.** Eight, each from a human Songsterr tab, each tempo the record's
+(autocorrelated over 60 seconds; `beats.py` locks to 120 on these), the tab's length
+at its tempo checked against the record's:
+
+| Song                                 | Record                  | Tab (rev)                | Measured | Written | Kit          |
+| ------------------------------------ | ----------------------- | ------------------------ | -------- | ------- | ------------ |
+| This Charming Man                    | single, 1983            | 17973 (6441694), 3237543 | 104      | 101–107 | `sixties`    |
+| What Difference Does It Make?        | The Smiths, 1984        | 17436 (9131873)          | 163      | 158–166 | `sixties`    |
+| Heaven Knows I'm Miserable Now       | single, 1984            | 17400 (9332590)          | 114      | 111–117 | `sixties`    |
+| How Soon Is Now?                     | single, 1984 (Hatful)   | 18218 (8642589)          | 96       | 93–98   | `sixties`    |
+| Barbarism Begins at Home             | Meat Is Murder, 1985    | 18076 (9555012)          | 127      | 124–130 | `studioRock` |
+| Bigmouth Strikes Again               | single and album, 1986  | 18167 (9487230)          | 133–136  | 130–138 | `bigRoom`    |
+| The Queen Is Dead                    | The Queen Is Dead, 1986 | 635023 (5355146)         | 140      | 136–142 | `bigRoom`    |
+| There Is a Light That Never Goes Out | The Queen Is Dead, 1986 | 18092 (6033109), 717147  | 137      | 133–139 | `drs`        |
+
+Every song is in sections in the record's order (the tab's markers, or for The
+Queen Is Dead, which has none, its bars read in order). This Charming Man is a
+Motown beat counted in quarters: both human tabs put the snare on every "and" at
+104, so the song's backbeats are steps 2, 6, 10 and 14. How Soon Is Now? is one
+groove, two hands on the hat in sixteenths leaving it for the snare, for seven
+minutes, a crash on the refrains' 1s and a run on the snare every fourth bar. The
+Queen Is Dead's time is on the floor tom in eighths, the bass drum rumbling on the
+"a" of 1, the "and" of 2 and the "and" of 3 and its "a". Bigmouth Strikes Again has
+a splash at the top of each four bars and the snare running in from the "and" of 3.
+There Is a Light That Never Goes Out is eighths and a moving bass drum, with a
+two-bar turn on the snare that opens it and leads into each chorus. Barbarism
+Begins at Home is funk in eighths on a four-bar cycle, a splash on 4 at its top.
+
+**What the grid decided.** The critic holds the snare to three sixteenths in a row,
+so each four-stroke run on 4 leaves out its "e" and the longer runs into Bigmouth's
+verses go in threes. Bigmouth's interlude (a bar of sixteenths on the snare, the tab
+adding eighths on a crash, which takes three hands) is a buzz on each eighth, the
+crash on 1. What Difference Does It Make? runs past the 150 at which sixteenths are
+playable here, so its stops answer on the eighths and the song has its own fills.
+This Charming Man's intro bar, three on the snare round the "and" of 2 then the
+guitar alone, leaves no backbeat on 3 and is left out for its crash on the "and" of
+4, and the song's last push-and-stop goes with it. Barbarism's tab puts the hat, a
+splash and the snare together on 4; the hat is left off that step. The Queen Is
+Dead's breakdown doubles the floor tom with the bass drum in sixteenths; the bass
+drum keeps the eighths. What Difference Does It Make?'s tab covers 77 bars of the
+record's 3:50, so its song is the tab's order, not the whole record.
+
+**Left out.** Panic (its only human tab is from 2016, in 12/8 at a tempo the record
+does not have); Shoplifters of the World Unite (machine tab only); Please, Please,
+Please, Let Me Get What I Want and The Boy with the Thorn in His Side (tabs read,
+not used); Strangeways, Here We Come; Heaven Knows I'm Miserable Now's tambourine
+overdub.
+
+**Devices.** None: no groupings, cross-rhythms or displacements in the eight tabs;
+a few fills the tabs write in triplets are fills, not a device.
+
+**Kit.** Sampled only, no kit row. No freely licensed samples of his own kits were
+found. The 1983–84 records play `sixties` (SM Drums' 1960s Ludwig: a bright snare,
+ringing toms; the This Charming Man tab names a Red Sparkle Ludwig); Barbarism
+Begins at Home the drier `studioRock`; The Queen Is Dead and Bigmouth Strikes
+Again the bigger `bigRoom`; There Is a Light That Never Goes Out the even `drs`. His
+gear by year is an open question.
+
+**What the style encodes.** Weight 0.7. Straight (swing 0), `ghostBias` 0.05 and no
+ghost weights (the tabs write none), eighths on the hat, the snare on 2 and 4,
+`midFills` 0.2 and `fillChance` 0.6: short snare runs into the phrase rather than
+tom fills, as he says a fill should only be there if the song wants it. The base's
+six figures and five fills come from the songs.
+
+**Likeness.** The 1984 Sire publicity photographs (public domain, Wikimedia
+Commons): slim, clean-shaven, dark hair short at the sides and full on top falling
+over the brow (`tousled`; `quiff`, `mop` and `crop` rendered and compared), a dark
+knitted jumper drawn as the dark knit `scoop` top. The kit is red sparkle with
+chrome, a guess from the tab's note and his own story of wanting a red kit like
+John Maher's; Top of the Pops (1983) and Rockpalast (1984) footage was too dark or
+pink to read it.
+
+**Sources.**
+
+- Wikipedia: Mike Joyce (musician); The Smiths; This Charming Man; How Soon Is
+  Now?; The Queen Is Dead (song); Barbarism Begins at Home (accessed 2026-10-21).
+- Jordan Potter, "Far Out Meets: The Smiths' Mike Joyce", Far Out, 28 September 2022.
+- "He bangs the drum", Hotpress, 11 February 2008.
+- "Mike Joyce's 10 best drum tracks with The Smiths", Radio X, 19 November 2025.
+- Songsterr human tabs 17973, 3237543, 17436, 17400, 18218, 18076, 18167, 635023,
+  18092 and 717147 (revisions as in the table).
+- The Smiths (1984 Sire publicity photos) 001 and 002, Wikimedia Commons (public
+  domain).
+
+## CQ. Woody Woodmansey (2026-10-21)
+
+The `woodmansey` style plays **songs**: each New picks one of eight of his
+records with David Bowie, and plays it in sections in the record's order. His
+record (`drummer-model/drummers/woody-woodmansey.json`, schema 1.5) is new
+(`drummer:woody-woodmansey`; no stub named him), with four new recordings
+(`rec:bowie-the-man-who-sold-the-world-1970`, `rec:bowie-hunky-dory-1971`,
+`rec:bowie-ziggy-stardust-1972`, `rec:bowie-aladdin-sane-1973`, named as the
+Dennis Davis records of this batch are) and `sources/woody-woodmansey.json`. One
+genre is new, `style:glam-rock` (a child of `style:rock`), which needs a
+`GENRE_FAMILY` row in the rock family. Filed with the British rock and pop
+drummers.
+
+**Who he is.** Michael "Woody" Woodmansey was born in Driffield, in the East
+Riding of Yorkshire, on 4 February 1950 (Wikipedia). Mick Ronson brought him
+into Bowie's band, then called Hype, in late March 1970, in place of John
+Cambridge; within weeks he was living at Haddon Hall with Bowie, Ronson and Tony
+Visconti and recording The Man Who Sold the World. With Ronson and Trevor
+Bolder he was the Spiders from Mars: Hunky Dory (1971), Ziggy Stardust (1972),
+Aladdin Sane (1973) and the Ziggy Stardust tour. Bowie dismissed him in July
+1973, and Aynsley Dunbar played on Pin Ups. Bowie in 1994: "He was quite open to
+direction and in a way sort of carried out what I wanted done much more than
+most of the other drummers I have worked with." Later: the Spiders from Mars
+album (1976), U-Boat, Screen Idols, Art Garfunkel, and from 2014 Holy Holy with
+Visconti, playing the old records; a memoir, Spider from Mars (2016, with Joel
+McIver).
+
+**How he played, in his words.** His heroes were the heavy players: "John
+Bonham from Zeppelin was a big hero of mine", and "anything from Cream to
+Zeppelin, Hendrix, Jeff Beck Group and the blues" (the Strange Brew). What he
+took to Bowie's songs was restraint: "you could put a song across really well
+without doing licks at 1000 miles an hour ... don't play if it's not going to
+really add, leave it and then make an entrance when it needs it." On Changes:
+"For me as a drummer I went for less-is-more ... I even tried putting little
+drum rolls on it here and there, but then listened and thought: 'Nah! It
+doesn't work!' It sounded like being flashy for the sake of it." On Suffragette
+City (his book, via the Bowie Bible): "when I tried different beats the song was
+diminished ... the beat that is on there keeps the listener involved and
+doesn't let up." On Moonage Daydream: "you had to keep grounded, keep that
+solid beat going and not be affected." On Life on Mars?, the track he is most
+proud of: "I went through the string arrangement and knew what I could and
+couldn't do ... It still needed to be a solid beat, but kind of a
+futuristic-meets-classic rock thing." And the exception, Ziggy Stardust: "I was
+really into King Crimson at the time and I loved the drummer. He used to play
+things, strange drum rolls at strange places in the song ... It kind of left it
+hanging at certain places and didn't make it sound like a 'normal' rock song."
+(All but the first two from the Quietus, 2017.) He does not name King
+Crimson's drummer; the record's edge to `drummer:michael-giles`, who played on
+the first album, is marked `inferred`.
+
+**The songs.** Eight, each from a human Songsterr tab, its tempo measured from
+the record by autocorrelation (the beat tracker locks to 120 on these):
+
+| Song                       | Record                           | Tempo                                                            | Meter                                            | The groove                                                                                                             | Source of the bars                                |
+| -------------------------- | -------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| The Man Who Sold the World | The Man Who Sold the World, 1970 | 120 (tab 118; record 119.8, 120.1)                               | 4/4, a bar of 2/4 in each verse                  | the floor tom on 1 and the "and" of 3 for the hat, the kick on 3 and the "and" of 4                                    | Songsterr 41, rev 9340330 (its second drum track) |
+| Changes                    | Hunky Dory, 1971                 | 114 (tab 114; record 113.9, 115.4)                               | 4/4, 2/4 twice and 3/4 four times in each chorus | eighths, the kick on 1, its "and", the "and" of 2, 3, its "and", the "and" of 4; crashes on every beat of the 3/4 bars | Songsterr 32935, rev 2189082                      |
+| Life on Mars?              | Hunky Dory, 1971                 | 60 (tab 128 in double time; record 119.9, 118.4 in its quarters) | 4/4                                              | eighths opened with the snare on 2 and 4, the kick on the "a"s                                                         | Songsterr 3115, rev 9723953, two tab bars to one  |
+| Ziggy Stardust             | Ziggy Stardust, 1972             | 82 (tab 80; record 82.1, 82.0)                                   | 4/4                                              | the riff's crashes on 1 and 3; the chorus's snare doubled with its "e"                                                 | Songsterr 366, rev 7631838                        |
+| Moonage Daydream           | Ziggy Stardust, 1972             | 72 (tab 72; record 72.1, 72.5)                                   | 4/4                                              | the hat opened on 4, the kick on the "a"s of 1 and 3; the snare in threes over the rack tom                            | Songsterr 67279, rev 9292023                      |
+| Starman                    | Ziggy Stardust, 1972             | 100 (tab 87 to 100; record 100.0, 101.1)                         | 4/4                                              | eighths, the kick on the "and"s of 3 and 4; the crash alone for the octave call                                        | Songsterr 3112, rev 8865747                       |
+| Suffragette City           | Ziggy Stardust, 1972             | 142 (tab 140 to 145; record 142.1, 144.2)                        | 4/4                                              | eighths, the kick on every "and" but 1's and 3's; the stop and the build; "wham bam"                                   | Songsterr 29032, rev 9151312                      |
+| The Jean Genie             | single 1972, Aladdin Sane 1973   | 129 (tab 130; record 128.5, 129.6)                               | 4/4                                              | the hat on the beat; the chorus's crashes on 1 and 4; the gallop in the middle                                         | Songsterr 407347, rev 687199                      |
+
+All the tabs are human (`aiGenerated` false). The tabs' thirty-second rolls
+(Ziggy Stardust, Life on Mars?, Moonage Daydream's bridge) are sixteenths here,
+three at a time, since a run of four on the snare is past the critic; The Jean
+Genie's opening triplets on the toms are sixteenths. Bars without drums (the
+piano verses of Changes and Life on Mars?, the guitar intros) are left out,
+except where the drums mark them: Changes keeps the last bar of each verse, the
+kick in eighths with the piano. The odd meters are the records': Changes' bars
+of 2/4 and 3/4 are sections of their own, and so is The Man Who Sold the World's
+2/4 bar in each verse (its riff's 2/4 bar of the hat's foot alone is left out).
+Life on Mars? is written in the tab at 128 with the snare on 3: two of its bars
+are one bar of 4/4 at the record's 60, its eighths sixteenths, which is how a
+drummer counts the ballad. Its choruses are nine and a half bars, played as
+ten.
+
+**Not used.** Five Years, whose opening beat he says he made "out of sort of
+despair and apathy": the only tab (407348) is a one-bar loop in 6/8 that the
+record does not bear out, and on a beat grid the record's opening is too loose
+to reconstruct. Hang On to Yourself, Queen Bitch and Soul Love have human tabs
+too, left for another time.
+
+**The base.** Six figures and six fills from the songs: Suffragette City's and
+Changes' eighths with the kick on the "and"s, Starman's and Ziggy Stardust's,
+The Jean Genie's hat on the beat, Moonage Daydream's open hat on 4, The Man Who
+Sold the World's floor tom; the fills from Ziggy Stardust, Suffragette City,
+Starman, Moonage Daydream's threes, The Man Who Sold the World's pre-chorus and
+Changes' bridge. No ghost notes (the tabs write none), no swing, few mid-phrase
+fills (`midFills` 0.05), a crash on most phrase tops. Weight 0.6.
+
+**Devices.** One grouping: the end of each Moonage Daydream chorus, two bars of
+the snare's accent every third sixteenth with two notes on the rack tom
+between, across the bar line (Songsterr 67279). Changes' meter changes are the
+song's, not a device; no cross-rhythm or hemiola found in the eight tabs.
+
+**Kit.** Sampled, no kit row: `studioRock` (tight, dry and close) for Ken
+Scott's Trident drums on Ziggy Stardust and The Jean Genie; `teatowel` (damped
+and dead) for the Hunky Dory songs; `sixties` (SM Drums' 1960s Ludwig, ringing
+toms) for The Man Who Sold the World, his floor-tom song. No gear source was
+found for 1970–73: the Recordproduction.com feature lists his present Premier
+and Zildjians, and the Songsterr tabs' track names (a Ludwig Super Classic in
+silver sparkle, a Hayman Showman, a Premier) cite nothing.
+
+**Likeness.** From Top of the Pops, recorded 5 July 1972 and broadcast the next
+night (the BBC's upload of Starman, 0:34–0:50, watched as contact sheets): a
+rose-pink satin jumpsuit, light brown hair full on top and feathered over the
+ears to the collar, long sideburns, clean-shaven; the bass drum in a grey
+marbled pearl wrap with chrome. Drawn as `coveralls` in satin with the `shaggy`
+cut (the model's `shag` spikes on top), an oyster wrap in grey. His legs and
+feet are never in shot.
+
+**Open questions.** His kit in 1970–73, by maker; which King Crimson drummer he
+meant; Five Years from a transcription; his memoir's account of each record.
+
+### Sources (CQ)
+
+- https://en.wikipedia.org/wiki/Mick_Woodmansey
+- https://thequietus.com/interviews/bakers-dozen/woody-woodmansey-david-bowie-interview-spiders-from-mars/ (22 February 2017)
+- https://thestrangebrew.co.uk/interviews/woody-woodmansey-on-david-bowie/
+- https://bowiebible.com/songs/suffragette-city
+- https://www.recordproduction.com/techniques/ken-scott-drum-recording-feature-with-woody-woodmansey (his present kit only)
+- https://en.wikipedia.org/wiki/Ziggy_Stardust_(song)
+- https://en.wikipedia.org/wiki/Suffragette_City
+- https://en.wikipedia.org/wiki/Moonage_Daydream
+- https://en.wikipedia.org/wiki/Starman_(David_Bowie_song)
+- https://en.wikipedia.org/wiki/Life_on_Mars%3F
+- https://en.wikipedia.org/wiki/Changes_(David_Bowie_song)
+- https://en.wikipedia.org/wiki/The_Jean_Genie
+- https://en.wikipedia.org/wiki/The_Man_Who_Sold_the_World_(song)
+- https://en.wikipedia.org/wiki/Hunky_Dory
+- https://en.wikipedia.org/wiki/Aladdin_Sane
+- Songsterr tabs 366, 29032, 67279, 3112, 3115, 32935, 407347, 41 (and 407348, not used)
+- https://www.youtube.com/watch?v=oOKWF3IHu0I (Starman, Top of the Pops, 1972)
+- The records, from YouTube uploads (official but for Starman): na8xgu-KLAk (Ziggy Stardust), rq1bcVOmyjw (Suffragette City), RPUAldgS7Sg (Moonage Daydream), h9tPn70Hq8Y (Starman), AZKcl4-tcuo (Life on Mars?), aaYpQVsifvI (Changes), dWGZ5PkvXwU (The Jean Genie), u3MX-rUtS6M (The Man Who Sold the World), 2ObjtVdsV3I (Five Years)
+
+## CR. Dennis Davis (2026-10-21)
+
+The `dennisdavis` style plays **songs** the way `slydunbar` (CK) does: each New
+picks one of his records with David Bowie, and its tempo, kit and grooves come
+with it, section by section in the record's order. His record
+(`drummer-model/drummers/dennis-davis.json`, schema 1.5) is new (no stub named
+him), with six new Bowie recordings (Young Americans, Station to Station, Low,
+"Heroes", Lodger, Scary Monsters; Let's Dance already existed for Omar Hakim)
+and `sources/dennis-davis.json`. No genre is new: `style:funk`,
+`style:rnb-soul`, `style:experimental-rock` (for art rock), `style:new-wave`
+and `style:jazz-fusion`, all in `GENRE_FAMILY`. Filed with the rock drummers:
+he is American, not one of this batch's British players, but Bowie's drummer
+for longer than anyone in the 1970s.
+
+**Who he is.** Born in Manhattan on 28 August 1951 (Wikipedia; a 1978 concert
+compilation dedicated to him gives 1949), died of cancer on 6 April 2016. He
+studied with Max Roach and Elvin Jones, joined the Clark Terry Big Band in
+1967, served in the US Navy (and its Drum and Bugle Corps) in 1969-70, and
+played jazz funk with Roy Ayers from Red, Black and Green (1973) on, where he
+met Carlos Alomar. Bowie hired him in 1974 for two Young Americans tracks,
+Fame and Across the Universe (the Philadelphia tracks are Andy Newmark's).
+Alomar, Davis and George Murray, the "D.A.M. Trio", were the rhythm section of
+Station to Station, Low, "Heroes", Lodger and Scary Monsters and the 1976 and
+1978 tours. Then four albums with Stevie Wonder (Hotter than July's Master
+Blaster), Jermaine Jackson, George Benson; percussion on Bowie's tours of the
+2000s, with his former student Sterling Campbell on drums. Tony Visconti,
+playing his son Hikaru his drum and conga tracks from Look Back in Anger: he
+"plays so many things at once ... and yet it doesn't sound busy".
+
+**The Low drum sound.** Visconti put Davis's snare through an Eventide H910
+Harmonizer, the first pitch shifter sold, and fed the result back in, "an
+infinite dropping of [the] pitch, ever renewing itself". David Buckley calls it
+"brutal", "mechanistic", "revolutionary", strongest on Speed of Life, Breaking
+Glass and Sound and Vision; Davis said it sounded "as big as a house"; Rob
+Sheffield, "one of rock's all-time most imitated drum sounds". Stephen Morris
+asked Joy Division's engineer for the drums of Speed of Life on An Ideal for
+Living (1978): "Strangely enough he couldn't." Wikipedia credits it to "early
+pitch shifting technology coupled with Davis's sensitive touch". It is a
+studio treatment of an acoustic kit, so the Low songs take a sampled kit, the
+big room (`bigRoom`).
+
+**The songs.** Eight records, each from a human Songsterr tab read section by
+section (`tab.py`, and a raw-note reader where a tab maps drums oddly), each
+tempo measured from the record by autocorrelation of the onset flux:
+
+| Song                             | Year | Tempo (tab / record) | Meter | Sections                                                      | Source of the bars                                                                                                |
+| -------------------------------- | ---- | -------------------- | ----- | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Fame                             | 1975 | 96 / 95              | 4/4   | intro, riff, verse (A8 B8 C8)                                 | Nikita, 29031 r6763012; the kick written on the floor toms, a side-stick part over the kit; two 3/4 bars left out |
+| Golden Years                     | 1975 | 106 / 108            | 4/4   | intro, verse, chorus, outro (A4 B8 C6 D8)                     | BIGBASS, 407358 r1027652; a 2/4 bar left out                                                                      |
+| Station to Station (second half) | 1976 | 115 / 121-122        | 4/4   | the thud and the turn, groove, open hats, outro (A8 B8 C8 D4) | Robert Dwyer, 1543504 r8033890; a 5/4 bar left out                                                                |
+| Sound and Vision                 | 1977 | 110 / 105-106        | 4/4   | instrumental, stop, verse, outro (A8 B2 C8 D4)                | Matt Munns, 32934 r662852                                                                                         |
+| Breaking Glass                   | 1977 | 94 / 95              | 4/4   | verse with no kick, chorus (A8 B4)                            | Daniel Barry, 731238 r6185985                                                                                     |
+| "Heroes"                         | 1977 | 113 / 112            | 4/4   | verse, pre-chorus, chorus, post-chorus (A8 B8 C4 D8)          | Fullmetal Communist, 3291 r9723095                                                                                |
+| Look Back in Anger               | 1979 | 129 / 129-131        | 4/4   | riff, verse (A4 B8)                                           | John Norris, 468068 r4083454; the tab stops after 37 bars                                                         |
+| Ashes to Ashes                   | 1980 | 120 / 120-122        | 4/4   | intro, verse, chorus, four on the floor (A8 B8 C8 D2)         | Jonn Goon, 29035 r2436691                                                                                         |
+
+- **Fame**: the tab writes the kit oddly (the kick as GM 41/43, floor toms;
+  a side stick doubling the hat on 1, the "and" of 2, 3 and the "and" of 4;
+  snare and side stick together on 2 and 4), read as a plain snare backbeat
+  with the cross-stick on the off-beats. The riff section's cross-stick moves
+  round the guitar.
+- **Golden Years**: the ghosted groove (ghosts on the "e" of 1 and the "a" of
+  2, 3 and 4, the hat opened on the "and" of 1 and 3) under every verse and the
+  outro; the chorus opens the hat on every "and". An intro of sixteenths on the
+  hat over a kick on 2 and 4 and no snare.
+- **Station to Station**: only the second half, from the floor-tom "thud" that
+  turns the song (Wikipedia's words) to the end. The first half's march
+  beat-tracks from 136 to 141 (Wikipedia hears 6/4 against 4/4; the tab writes
+  4/4) and cannot share a break with the groove at 121, which a section's
+  `tempoRatio` (half or double) cannot bridge. The tab's own tempos (130, 115)
+  are both off the record's.
+- **Sound and Vision**: one groove, the kick on 1, its "and", the "and" of 2
+  and 3, the hat opened on 1, 3 and its "and"; the dotted-eighth snare fill;
+  two stops. The tab's 110 is faster than the record (105-106), which its 83
+  bars over the record's three minutes also say.
+- **Breaking Glass**: a verse with no bass drum at all, the hat two closed and
+  an open to the beat with the foot closing it on every "a".
+- **"Heroes"**: the kick on 1, its "and", 3 and its "and" through the verses,
+  then from the pre-chorus on 1, the "and" of 2, 3 and the "and" of 4, which
+  holds from verse 4 to the fade. Visconti buried the kick in the mix.
+- **Look Back in Anger**: one twelve-bar cycle three times, the ride bell over
+  a running kick; the tab's last twenty bars are empty, so the arrangement
+  repeats the cycle to the record's length, a reconstruction not checked bar
+  by bar. Four of the tab's six ghosts per bar are left out: with them every
+  sixteenth sounds, and the critic wants a quarter of the bar as air.
+- **Ashes to Ashes**: the snare on 2 and the "and" of 3 in the intro and
+  verses (the section's `backbeats` say so), on 2 and 4 in the chorus. Davis
+  "initially struggled with the ska-influenced drumbeat. Bowie played the beat
+  he envisioned for the drummer on a chair and cardboard box", and the take
+  is the next day's.
+
+The critic allows no run of four sixteenths on the snare anywhere, fills
+included, so the tabs' long snare runs (Fame's intro and riff, Golden Years'
+chorus, Station to Station, Sound and Vision) put every fourth stroke on a tom;
+each comment says so.
+
+**Not used.** TVC 15, D.J., Speed of Life and Fashion: TVC 15 and D.J. have no
+drum tab; Fashion's two are machine-made; Speed of Life was left for room.
+**Boys Keep Swinging is not his**: Lodger's credits put Carlos Alomar on drums
+and Davis on bass, the band swapping instruments. Nor is the drummer in the
+Fashion video (the Rumour's Stephen Goulding).
+
+**The base.** Six figures, one from each of six songs (Golden Years' ghosted
+groove weighted highest), and five fills (Sound and Vision's dotted eighths,
+Golden Years' toms, "Heroes"' three sixteenths, Station to Station's tom run,
+Breaking Glass's two snares and a tom). Straight, ghostBias 0.35 on the base
+(Golden Years' habit); the Berlin songs set it to 0. Weight 0.6: a groove
+player with a moving kick and ghosts, busier than Watts, lighter than Purdie.
+Kit: `funkSoul` for the base and the 1975-76 songs (SM Drums' 1960s Ludwig
+with a fat snare, the dry mid-70s soul sound), `bigRoom` for Low and "Heroes",
+`studioRock` for Lodger and Scary Monsters. No free samples of his kit or of
+the Harmonizer snare were found.
+
+**Devices.** None: the eight tabs have no groupings, cross-rhythms or
+hemiolas. Ashes to Ashes' snare on the "and" of 3 is a displaced backbeat, not
+a polyrhythm. `devices_search` records what was read.
+
+**Lineage.** Studied with Max Roach and Elvin Jones (both modelled); taught
+Sterling Campbell (a new stub); influenced Stephen Morris (modelled: the Speed
+of Life request). Rhythm-section partner George Murray; bandmates Carlos
+Alomar, David Bowie, Roy Ayers.
+
+**Likeness.** From David Hemmings's film of the Isolar II tour at Earls Court,
+1 July 1978 (a Blackout compilation dedicated to him, YouTube yuqgcg1pGZM):
+short natural hair, a short full beard, metal-framed lightly tinted glasses, a
+white T-shirt; dark shells, chrome hardware, a white front head on the bass
+drum. The shells' colour under blue light, and the trousers, are guesses.
+
+**Open questions.** Station to Station's march from a transcription; the Roy
+Ayers years; Fashion and TVC 15 transcribed; his kits and the treated snare;
+where his time sits (not measured).
+
+### Sources (CR)
+
+- https://en.wikipedia.org/wiki/Dennis_Davis
+- https://en.wikipedia.org/wiki/Young_Americans_(album)
+- https://en.wikipedia.org/wiki/Fame_(David_Bowie_song)
+- https://en.wikipedia.org/wiki/Station_to_Station
+- https://en.wikipedia.org/wiki/Station_to_Station_(song)
+- https://en.wikipedia.org/wiki/TVC_15
+- https://en.wikipedia.org/wiki/Low_(David_Bowie_album)
+- https://en.wikipedia.org/wiki/Sound_and_Vision
+- https://en.wikipedia.org/wiki/%22Heroes%22_(David_Bowie_album)
+- https://en.wikipedia.org/wiki/%22Heroes%22_(David_Bowie_song)
+- https://en.wikipedia.org/wiki/Lodger_(album)
+- https://en.wikipedia.org/wiki/Scary_Monsters_(and_Super_Creeps)
+- https://en.wikipedia.org/wiki/Ashes_to_Ashes_(David_Bowie_song)
+- https://en.wikipedia.org/wiki/Fashion_(David_Bowie_song)
+- Songsterr drum tabs: 29031 (Fame), 407358 (Golden Years), 1543504 (Station to Station, Ver 2), 32934 (Sound and Vision), 731238 (Breaking Glass), 3291 ("Heroes"), 468068 (Look Back in Anger), 29035 (Ashes to Ashes)
+- https://www.youtube.com/watch?v=yuqgcg1pGZM (Blackout, live 1978, dedicated to him: the likeness)
+- Records beat-tracked: YouTube Ypgq0qdgVZA (Fame), ApHM1ct4tdM (Golden Years), ZpIhsGg2SJ0 (Station to Station), ZV_UsQPTBy4 (Sound and Vision), RI0o7y1wbzE (Breaking Glass), 44FId4BpMx0 ("Heroes", single edit), TWWFsQ6cjM8 (Look Back in Anger, 2017 mix), wBDD37Xv6A0 (Ashes to Ashes, single version)
+
+## CS. Rick Buckler (2026-10-21)
+
+The `buckler` style plays **songs** the way `headon` (BK) does: each New picks one
+of his records, intro to outro, and its tempo and grooves come with it. His record
+(`drummer-model/drummers/rick-buckler.json`, schema 1.5) is new, at
+`drummer:rick-buckler`: no record pointed at him before. Five records are new in
+`recordings/`, one for each album a song comes from: In the City (1977), All Mod
+Cons (1978), Setting Sons (1979), Sound Affects (1980) and The Gift (1982). One
+genre is new, `style:mod-revival` (from punk, influenced by R&B and soul), which
+needs a `GENRE_FAMILY` row (rock).
+
+**Who he is.** Paul Richard Buckler was born in Woking on 6 December 1955 and died
+there on 17 February 2025. At Sheerwater Secondary School in the early 1970s he
+joined Paul Weller and Steve Brookes in the Jam; Bruce Foxton moved to bass when
+Brookes left, and the three played from the first single, In the City (May 1977),
+to Weller's end of the band in December 1982: six albums, eighteen top-40 singles,
+four number ones (Going Underground, Start!, Town Called Malice, Beat Surrender).
+He was a trainee draughtsman until the band broke. Afterwards Time UK, Sharp with
+Foxton, a studio in Islington, cabinet-making in the 1990s, then the Gift (2005)
+and From the Jam with Foxton (2007 to 2009), where Mark Brzezicki took his place
+(Wikipedia).
+
+**In his own words.** Weller and Brookes needed a drummer and gave him "a big stack
+of albums that were sort of Chuck Berry-style things": "Go away and learn some of
+those" (Q, 2015, reprinted by MOJO). He was self-taught (CultureSonar). His models:
+"people like Ian Paice with Deep Purple, John Bonham with Led Zeppelin ... They were
+all a big influence on me"; "there was no way I could be as good as Ian Paice"; "I
+did take a leaf out of Ringo Starr's book". On parts: "There's no point in trying
+to copy something. You have to make it your own and leave your mark on it"; "We did
+make a specific point during The Jam that we didn't want to get stuck in any
+musical rut" (Modern Drummer, April 2008); "I realized that the song is the star"
+(CultureSonar). Others: "Buckler's tightly-wound playing and bursts of snare gave
+an electric edge to Weller's songs"; on Down in the Tube Station, "the nervous
+interaction between Buckler's hi-hat and Foxton's bassline creates a growing sense
+of dread" (MOJO, 2025). Sound Affects' influences include, "particularly evident in
+Rick Buckler's drumming, Michael Jackson's Off the Wall" (Wikipedia); Town Called
+Malice has "a stomping, Motown-inspired beat" (The Guardian).
+
+**The songs.** Five, one from each album, each tempo the record's, autocorrelated
+over 20 to 80 seconds:
+
+| Song                                 | Record              | Tab                                        | Measured     | Written |
+| ------------------------------------ | ------------------- | ------------------------------------------ | ------------ | ------- |
+| In the City                          | In the City, 1977   | Songsterr 38821 (human), 100 bars at 175   | 179.5        | 176–180 |
+| Down in the Tube Station at Midnight | All Mod Cons, 1978  | Songsterr 912739 (**machine**), 195 at 174 | 169.5        | 167–171 |
+| The Eton Rifles                      | Setting Sons, 1979  | Songsterr 2599543 (human), 154 at 155      | 156.9, 157.1 | 155–159 |
+| Start!                               | Sound Affects, 1980 | Songsterr 10538 (human), 74 at 140         | 140.2        | 138–142 |
+| Town Called Malice                   | The Gift, 1982      | Songsterr 10495 (human), 143 at 204        | 203.2, 201.7 | 200–204 |
+
+None of the tabs has section markers. Each song's sections are read from its drum
+part (where the hat opens, where the crashes come, where the snare stops) and named
+for what the drums do; they are in the record's order, and the comments give each
+section's bars in the tab. Where a song is longer than 32 slots will hold, the
+long passages are shortened, said in each comment: Tube Station's last verse (28
+bars as 12) and outro (20 as 8), The Eton Rifles' outro (34 as 16), Town Called
+Malice's verses (72 as 48, and the last 33 as 16).
+
+- **In the City**: tacet for the guitar, then eighths on the floor tom under the
+  snare on 2 and 4; the verses on the open hat in quarters; the choruses in eighths
+  ending on crashes on 2 and 4; a break of eighths on the kick and the hat foot;
+  the solo on the open hat in eighths; the floor tom to finish.
+- **Down in the Tube Station at Midnight**: the kick under Foxton's riff (1, the
+  "and" of 2, 4) with eighths on the hat and no snare, then the hat in quarters with
+  the foot on the "and"s; eighth-note verses; the open hat for the choruses and the
+  climax. The only tab is a machine's; its bars are used where they agree with the
+  record, and the song is labelled as from a machine tab in the hint. The 21-bar
+  break of the heartbeat and the train has no drums and is left out.
+- **The Eton Rifles**: the snare and floor tom in eighths, falling down the toms;
+  verses with the kick on 1, the "and" of 2, 3 and its "and"; choruses of a crash
+  on every beat and two bars of stabs under "hello-hurray"; the bridge on the ride;
+  stops; a gap with the snare on 1 and the "a" of 4 alone; the outro on the ride
+  with the snare on 2, its "and" and 4.
+- **Start!**: the riff with the Taxman bass line, the hat skipping the "and" of 2
+  for the kick on its "a", the snare on 2, the "and" of 3 and 4; plain eighths in
+  the verses; the hat alone in quarters under the solo; a snare roll back in. A
+  plain tab of six distinct bars.
+- **Town Called Malice**: the snare alone on 2 and 4 under the organ; the riff with
+  the hat and snare on the "and" of 4; verses on the hat in quarters, the kick on 1
+  and later 1 and 3; the open hat for the middle; a break on the hat alone; the
+  snare rolling in for four bars; the verse to the end.
+
+**What the grid decided.** Above 150 a figure or fill may not run four sixteenths
+in a row (ten notes a second), and the critic never allows four snares in a row:
+every run in the tabs is broken into threes (In the City's and Tube Station's
+four-stroke pickups lose their "e", Eton Rifles' tom runs go in threes, Start!'s
+roll is three and a rest), and Tube Station's thirteen-stroke roll into the break
+is eighths with three sixteenths at its end. Town Called Malice at 202 is past
+every sixteenth and sextuplet grid (190), so it is written in eighths (`4/4-8`):
+the groove loses nothing, but its eighth-note triplet rolls (bars 52, 107–110, 125) and bar 28's sixteenths are eighths, three and a rest. A bar with no backbeat
+fails, so Start!'s stop (bar 52) is left out and In the City's bar 61 gains a
+snare on 4.
+
+**Left out.** Going Underground (1980, his first number one): Songsterr has no
+drum tab of it at all, no transcription was found, and the record is too dense to
+read by beat-tracking. That's Entertainment: its only drum part is a machine's,
+edited by a human, of kick and hat alone (the record has almost no kit). News of
+the World: the only human tab is of From the Jam's later live version. 'A' Bomb
+in Wardour Street, David Watts, Strange Town, The Modern World, Beat Surrender:
+machine tabs only (and the band's late records list Peter Wilson among the extra players on drums).
+
+**Devices.** None. Town Called Malice's triplets are a roll inside the beat, not a
+cross-rhythm; no grouping or displacement in any tab read.
+
+**Kit.** Sampled throughout. No freely licensed samples of his kits were found.
+The base is `police` (the DRS kit with Paiste cymbals and a tight, high snare, for
+the white Premier and three Paistes Christie's sold as his 1980s kit); In the City
+`garage` (the raw debut), Tube Station `studioRock` (tight and dry), The Eton
+Rifles and Town Called Malice `police`, Start! `teatowel` (Sound Affects' dry,
+deadened drums).
+
+**The style.** Weight 0.65: a punk band's backbeat from the arm, below Moon and
+Bonham, above the jazz players. Straight, no ghost notes (no tab writes one), the
+feel on the beat (nothing measured). The base's six figures and five fills are the
+songs' commonest bars: The Eton Rifles' verse, Malice's quarters, In the City's
+open hat, Tube Station's verse, Start!'s riff and The Eton Rifles' ride outro.
+
+**Likeness.** Top of the Pops, 27 March 1980, the week Going Underground went in
+at number one (the band's upload, YouTube 45uSLVE837s, contact sheets read; the kit
+at 2:00–2:20): slim, a mod's cut in mid-brown (`mop`; `swept` and `crop` tried),
+clean-shaven, a dark navy shirt buttoned to the neck; chrome-wrapped shells and
+chrome stands. Rendered headless (front and face).
+
+**Open questions.** His autobiography (That's Entertainment, 2015) and The Jam:
+Our Story (1994) for his own account of his parts; Going Underground; Funeral
+Pyre's rolls and Precious; his kits before 1980; who cites him.
+
+**Sources.**
+
+- https://en.wikipedia.org/wiki/Rick_Buckler, https://en.wikipedia.org/wiki/The_Jam, https://en.wikipedia.org/wiki/In_the_City_(The_Jam_album), https://en.wikipedia.org/wiki/All_Mod_Cons, https://en.wikipedia.org/wiki/Down_in_the_Tube_Station_at_Midnight, https://en.wikipedia.org/wiki/Setting_Sons, https://en.wikipedia.org/wiki/The_Eton_Rifles, https://en.wikipedia.org/wiki/Sound_Affects, https://en.wikipedia.org/wiki/Start!, https://en.wikipedia.org/wiki/The_Gift_(The_Jam_album), https://en.wikipedia.org/wiki/Town_Called_Malice
+- Modern Drummer, "Rick Buckler", April 2008: https://www.moderndrummer.com/2008/04/rick-buckler/
+- Chris Catchpole, Q, September 2015, reprinted as "Rick Buckler Remembered", MOJO, February 2025: https://www.mojo4music.com/articles/stories/rick-buckler-remembered
+- Steven Valvano, "Rick Buckler of The Jam: A Tribute", CultureSonar, 22 February 2025: https://www.culturesonar.com/rick-buckler-of-the-jam-a-tribute/
+- Christie's, lot 284, Rick Buckler/The Jam drum kit: https://www.christies.com.cn/lot/lot-464161
+- The Jam, Going Underground, Top of the Pops, 27 March 1980: YouTube 45uSLVE837s
+- Songsterr tabs 38821, 912739, 2599543, 10538, 10495 (drum tracks, read bar by bar)
+
+## CT. Dave Rowntree of Blur (2026-10-21)
+
+The `rowntree` style plays **songs** the way `slydunbar` (CK) does: each New
+picks one of his records, and its tempo, sections and grooves come with it. His
+record is `drummer-model/drummers/dave-rowntree.json` (schema 1.5), id
+`drummer:dave-rowntree`, with no stub before it. There are five new recordings
+(Leisure, Parklife, The Great Escape, Blur, 13) and
+`sources/dave-rowntree.json`. No genre is new: `style:britpop`,
+`style:alternative-rock` and `style:indie-rock` all have a `GENRE_FAMILY` row.
+Filed with the British rock and pop drummers.
+
+**Who he is.** David Alexander De Horne Rowntree was born in Colchester on 8
+May 1964 (Wikipedia; drummerszone has "Dorset, 1968"). His mother played the
+viola and his father was a BBC sound engineer. He studied percussion at the
+Landermere Music School at weekends and played it with his father in the
+Colchester Silver Band, a brass band. Drummerszone says a "gargantuan
+Scotsman" taught him the kit "the hard way". He played in bands with Graham
+Coxon as they grew up, and went to the Saturday jazz classes Coxon's father
+ran. Ginger Baker "was a drumming hero of mine growing up, he wrote some
+music books for aspiring drummers which I worked through religiously" (V13,
+February 2023). After an HND in computer science he was a programmer for
+Colchester Borough Council, until Coxon introduced him to Damon Albarn in 1989
+and he left to join the band that became Blur. He has played on every Blur
+album since, from Leisure (1991) to The Ballad of Darren (2023), and on two
+tracks of Gorillaz (2001). Since then he has been a solicitor, a Labour
+councillor, an animator and a television composer.
+
+**How he plays.** Plainly, and for dancing. His commonest bar is eighths on
+the hat, the snare on 2 and 4, and the kick doubled: 1 and its "and", 3 and its
+"and". Three human tabs by different authors write it, for Beetlebum, Country
+House and Coffee & TV, and Coffee & TV holds it the whole song. The tabs write
+almost no ghost notes, and fills come only where a section turns. He described
+what changed on Parklife: "Quite dramatically, on Parklife, I started adding
+in offbeats and slanting the rhythms ... I came off the beats and I added in
+the funk. That's where my rhythmic sense lies" (Music Week, 29 July 2024). The
+tab shows it: the hat open on every beat, and every other bar the snare on the
+"and" of 4 with the kick on the "and" of 2 and of 3. Song 2 has the same
+slant. There's No Other Way (1991) is the baggy beat of its year, the snare
+on 2, the "a" of 2, the "and" of 3 and 4. Two of the hits are not plain kit
+playing:
+
+- **Girls & Boys:** he "is not playing on the track, being replaced by a drum
+  machine he programmed", and it was his favourite song on the Best Of because
+  he "isn't really in it" (Wikipedia). The tab names an Akai S2800, a sampler.
+- **Song 2:** Stephen Street set up "two drum kits ... with Dave Rowntree and
+  Graham Coxon hitting out a rhythm", recorded it on the room mics to sound
+  "lo-fi and small", and "copied, pasted and repeated" a few bars into a loop
+  the length of the song (Sound On Sound). The album credits Coxon with
+  additional drums.
+
+**Kit.** Today he endorses Yamaha (a Birch Custom Absolute, says Yamaha's
+artist page). In the Song 2 video (1997) he plays a black Pearl kit with chrome
+hardware. No free samples of his kit exist. The style's base is `studioRock`,
+the dry, close studio kit of Stephen Street's records. Song 2 takes `garage`
+(rattling and trashy, for the room-mic loop). Girls & Boys takes `vintage`, the
+down-sampled sampler kit: a sampler is what made it, so it stays a sampled
+kit. The Universal takes `bigRoom`, under its strings and brass.
+
+**The songs.** Eight, every one from a human Songsterr tab. Each tempo was
+beat-tracked from the record (autocorrelation of the onset flux), and each
+section order follows the tab's markers or bars:
+
+| Song                 | Year | Tempo (record / tab) | Meter | What the groove is                                                                                     | Source of the bars   |
+| -------------------- | ---- | -------------------- | ----- | ------------------------------------------------------------------------------------------------------ | -------------------- |
+| There's No Other Way | 1991 | 112.0 / 112          | 4/4   | The baggy snare on the "a" of 2 and the "and" of 3; the crash on 1 and 2 in the verse; the tom pairs   | 2839614, rev 5734753 |
+| Girls & Boys         | 1994 | 120.1 / 120          | 4/4   | The drum machine he programmed: four on the floor, the hat open between; crashes or toms every eighth  | 3028, rev 8840643    |
+| Parklife             | 1994 | 138.4 / 139          | 4/4   | The hat open on every beat, the snare on the "and" of 4 every other bar; the chorus on the crash       | 32119, rev 7721661   |
+| Country House        | 1995 | 88.1 / 88            | 4/4   | The mid tom every other verse bar; the snare on every beat; the hats open; the interlude on the foot   | 27187, rev 8630162   |
+| The Universal        | 1995 | 81.4 / 82            | 4/4   | The verse's snare on the "and" of 2 and on 4 with the mid tom; a plain chorus, a splash every two bars | 27189, rev 7995848   |
+| Beetlebum            | 1997 | 89.6 / 90            | 4/4   | Eighths on the hat, the kick doubled; the chorus on the ride                                           | 23264, rev 6702166   |
+| Song 2               | 1997 | 129.9 / 130          | 4/4   | The hats with gaps, the kick on the "and" of 1 and of 2; the open hat in quarters for "Woo-hoo"        | 3684, rev 9624496    |
+| Coffee & TV          | 1999 | 121.8 / 122          | 4/4   | One bar all song, the kick doubled; snare runs into the post-chorus and through the solo               | 27192, rev 7360301   |
+
+**What the style encodes.** Six base figures, one per kind of bar in the
+songs. The doubled kick is weighted highest. The others are Country House's
+mid tom, Parklife's slant, There's No Other Way's baggy snare, Song 2's gapped
+hats and Beetlebum's ride. Five fills come from the tabs' section ends: Coffee
+& TV's two snare runs, Parklife's triplets, There's No Other Way's tom pairs
+and Song 2's every-eighth build. Straight time, no swing, `ghostBias` 0.1. The
+weight is 0.65 (Dennis Davis 0.6, Alan White 0.8): a steady, plain player in a
+band famous for its songs.
+
+**Left out, and why.** Songs open where the drums do, on a bar with a
+backbeat, so these openings are left out:
+
+- Parklife's two bars of band, bar of toms and fill
+- Girls & Boys's eight bars of the machine's hats alone
+- Coffee & TV's bar of 5/4 and its coda at 90 (a song's sections share one tempo)
+- Country House's floor-tom roll
+- The Universal's bar of 2/4
+
+Other changes from the tabs:
+
+- **Triplets:** Parklife's triplet fills are written in sixteenths, as the
+  tab's own four-to-the-beat grid gives them.
+- **Snare runs:** five sixteenths in a row put every fourth stroke on the mid
+  tom, because the critic allows no more than three.
+- **Country House:** the tab writes a ride in eighths under the chorus's open
+  hats, which one pair of hands can't play, so the ride is dropped. The stops
+  at the end of its first two choruses take the last chorus's fill.
+- **Parklife:** the tambourine in eighths (an overdub) and the tab's triangle
+  are not played.
+- **Tender** (1999) is left out: its human tab writes a dotted gospel lilt in
+  kick and shaker that fits neither the sixteenth nor the triplet grid, with
+  no hat or cymbal to carry it.
+
+**Devices.** None. Parklife's triplets are a figure in a 4/4 bar, and Coffee &
+TV's 5/4 bar is one changed bar. Recorded as a `devices_search`.
+
+**Sources.** Wikipedia: Dave Rowntree, Leisure, Parklife, The Great Escape,
+Blur, 13, Girls & Boys, Song 2, Parklife (song), Beetlebum, Country House,
+The Universal, There's No Other Way, Coffee & TV. V13, "Dave Rowntree: 'If I
+can't write about myself on my solo record, when can I?'" (February 2023),
+read in the Wayback Machine's copy. Music Week, "Hitmakers: The songwriting
+secrets behind Blur's Parklife" (Ben Homewood, 29 July 2024). Sound On Sound,
+"How I Got That Sound: Stephen Street". The drummerszone.com profile. Yamaha's
+artist page. Songsterr tabs 2839614, 3028, 32119, 27187, 27189, 23264, 3684,
+27192 and 3094 (all human). The official Song 2 video (YouTube SSbBvKaM6sk),
+for the likeness.
+
+## CU. Roger Taylor of Duran Duran (2026-10-21)
+
+The `rogertaylorduran` style plays **songs** the way `woodmansey` (CQ) and
+`slydunbar` (CK) do: each New picks one of his records and plays it in its
+sections, intro to outro, and its tempo and grooves come with it. His record
+(`drummer-model/drummers/roger-taylor-duran-duran.json`, schema 1.5) is new:
+`drummer:roger-taylor` is Queen's Roger Meddows Taylor, born 1949, and his
+record already says that any record of the other needs its own slug. Five new
+recordings (Duran Duran, Rio, Is There Something I Should Know?, Seven and the
+Ragged Tiger, A View to a Kill) and `sources/roger-taylor-duran-duran.json`. No
+genre is new: `style:new-wave`, `style:disco` and `style:rock`, all in
+`GENRE_FAMILY`. Filed with the British rock and pop drummers.
+
+**Who he is.** Roger Andrew Taylor was born in Birmingham on 26 April 1960,
+grew up in Shard End and Castle Bromwich, and began drumming at about twelve,
+"teaching himself by playing along with favourite records" (Wikipedia). Scent
+Organs reached the regional finals of Melody Maker's band competition in 1978;
+he was briefly in Cult Figures, and joined Duran Duran in 1979. He played on
+Duran Duran (1981), Rio (1982), Seven and the Ragged Tiger (1983), Arena and A
+View to a Kill (1985), then left after Live Aid, "suffering from exhaustion"
+(Wikipedia's Duran Duran). Steve Ferrone played on Notorious (1986), Sterling
+Campbell after him. He rejoined in 2001 with the rest of the Rio line-up; Rock
+and Roll Hall of Fame with the band in 2022.
+
+**How he played.** The influences he names are Tony Thompson, Charlie Watts
+and Paul Thompson of Roxy Music (Wikipedia), and Bonham. To Modern Drummer
+(Billy Amendola, December 2007): "Tony Thompson was a very big influence on me.
+His playing on all those early Chic records and everything that Nile Rodgers
+produced was just great"; Watts "had this great organic snare sound"; "some of
+the greatest drummers are not the most technical players in the world—like
+Ringo Starr". On dance music: "it all emanates from the beat ... it's all about
+the sound of the bass drum and the hi-hat"; on his partner: "John is quite a
+busy bass player who grew up on all these funky disco grooves." On himself:
+"you learn to be part of a song by playing with records. You learn to serve
+the song"; "I used to be kind of tight in my playing"; "give them space and
+room to breathe"; "I like playing to a click." To Westword (cited from a
+search excerpt; the page refused the fetch): "Chic was one of the first bands
+that took that music that was happening in New York discos, that were just
+production projects ... and turned it into a really great band with a great
+drummer." Annie Zaleski hears Planet Earth's "stomping beats" and Girls on
+Film's "percolating drums"; Rob Sheffield, Chic's bass line with the Sex
+Pistols' attitude.
+
+The tabs agree with that: the kick on every beat under Planet Earth and
+Hungry Like the Wolf; Girls on Film's kick on 1, the "a" of 1, the "and" of 2,
+3 and the "and" of 4; sixteenths on the hat over the snare's 2 and 4, so with
+one hand (Rio, Planet Earth, The Reflex's gallop); the hat opened on the "and"
+of 3; few fills, short ones, and no ghost notes. And a part that builds: no hat
+in Hungry Like the Wolf's first verse, Save a Prayer on the cross-stick for two
+verses before the snare comes in.
+
+**Machines.** Hungry Like the Wolf keeps its demo's TR-808 under his kit (the
+bass and drums "were then added"); Save a Prayer and Planet Earth run over
+sequencers; Is There Something I Should Know? had his drums "replaced with
+samples triggered via AMS delay units" in the final mix. In each, the drum
+part is his playing; every song stays on a sampled kit.
+
+**The songs.** Eight, every one in its sections in the record's order:
+
+| Song                              | Year | Tempo (record)                               | Meter | What the groove is                                                                                                                         | Bars from                                                                                             |
+| --------------------------------- | ---- | -------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
+| Planet Earth                      | 1981 | 132 (131.8; tab 130)                         | 4/4   | the kick on every beat, sixteenths on the hat, a crash on every 1 of the chorus, a middle eight with no snare                              | Songsterr 436169 (human, "Live" but the album's 130 bars)                                             |
+| Girls on Film                     | 1981 | 131 (131.3–131.6; tab 132)                   | 4/4   | the kick on the "a" of 1 and the "and" of 2, a bar of quarters into the chorus, a bridge with no hat                                       | Songsterr 5934 (human; second drum track, the first is congas)                                        |
+| Hungry Like the Wolf              | 1982 | 128 (127.6; tab 129; US single "130 B.P.M.") | 4/4   | four on the floor, no hat in the first verse, the toms on 4 every fourth chorus bar, a bridge of the kick alone                            | Songsterr 6313 (human)                                                                                |
+| Save a Prayer                     | 1982 | 114 (113.8; tab 113)                         | 4/4   | the cross-stick on 2 and 4, then on 2 and 3, then on 4; the snare from chorus 2; half time to the fade                                     | Songsterr 6599 (human)                                                                                |
+| Rio                               | 1982 | 141 (140.7; tab 140)                         | 4/4   | sixteenths on the hat over the kick on 1 alone; the snare on every beat in the last verse and outro                                        | Songsterr 30563 (human)                                                                               |
+| Is There Something I Should Know? | 1983 | 125 (125.0; tab says 118)                    | 4/4   | the chant's kick and snare together; a chorus bar with no hat; sixteenths and a china in the interlude; the snare on every beat to the end | Songsterr 415596 (human)                                                                              |
+| The Reflex                        | 1983 | 126 (126.2; tab says 122)                    | 4/4   | the hat in a sixteenth-note gallop, the kick on the "a" of 1 in the chorus; the mid-section's stabs                                        | Songsterr 415598 (human)                                                                              |
+| A View to a Kill                  | 1985 | 126 (125.6–126.4; tab 126)                   | 4/4   | the kick on 1 and the "and" of 3, something at the end of every fourth bar; the chorus's kick on the "and" of 2                            | a drum-sheet video (YouTube Ej7LXSv10l8) for the kit; Songsterr 30564 (human) for the order and fills |
+
+Tempos are measured from the uploads by autocorrelation of the onset flux.
+Two tabs' tempo maps are wrong (Is There Something I Should Know? at 118, The
+Reflex at 122): at the records' 125 and 126 their bar counts give the records'
+lengths. A View to a Kill's tab writes the kick and snare on tom notes (MIDI 45
+and 48, with an electronic-snare note doubling both) and no hat; the
+drum-sheet video's kit falls where the tab's tom notes do in every verse and
+chorus bar compared, so the sheet's kit is used, with the hat in eighths.
+
+What is left out, and said in each song's comment: openings with no backbeat
+(Rio's four-bar entrance on the hat and toms, The Reflex's a cappella intro),
+A View to a Kill's four-bar post-chorus (two bars of silence round two of the
+band's hits), most of The Reflex's mid-section (its first two and last two
+bars are kept). Long sections are rounded to whole sections, and each comment
+says by how much. Every run of four or more sixteenths on the snare is cut to
+three, or its fourth stroke moved to a tom, since the critic will not pass a
+fourth; Hungry Like the Wolf's chorus bar with the hat, the snare and the tom
+all on 4 drops the hat.
+
+**Tried and dropped.** New Moon on Monday (1984; Songsterr 415597, human) for
+room. Union of the Snake's only tab (33529, 2009) has a drum track named "Percussion"; not read. Wild Boys,
+Careless Memories and Planet Earth's second tab are machine-made. Notorious
+and Ordinary World are not his (Steve Ferrone; the 1990s line-up).
+
+**The base.** Six figures and five fills from the songs: four on the floor
+(the commonest, weight 2), Girls on Film's verse, Is There Something I Should
+Know?'s verse, A View to a Kill's chorus, Girls on Film's chorus and Save a Prayer's first-verse kick; fills from
+Girls on Film, Is There Something I Should Know?, Hungry Like the Wolf, A View
+to a Kill and Rio. Straight, no ghost notes (no tab writes one), `midFills`
+almost nil, a tight feel on the grid. Weight 0.55: a light, wrist-and-forearm
+pop drummer, heavier than a jazz player's, well under Bonham's.
+
+**Devices.** None: every song is in 4/4 with its grooves and fills on the
+grid, no groupings, cross-rhythms or displacements. `devices_search` records
+what was read.
+
+**Kit.** Sampled: `police` (Bright and tight: the DRS kit with its snare
+raised and its hats short) for the tight, dry 1981–82 records; `bigRoom` for
+Is There Something I Should Know?, The Reflex and A View to a Kill, when his
+drums were sampled, gated and big. No free samples of his kit were found.
+
+**Likeness.** Live Aid, JFK Stadium, Philadelphia, 13 July 1985, his last show
+with the band for sixteen years (MTV's broadcast of A View to a Kill): a black
+sleeveless vest, short wavy dark hair full on top, clean-shaven, black gloves,
+headphones, blue trousers; a white Tama kit (TAMA on the bass drum head) with
+chrome and a rack of long black tube toms. The shoes are a guess.
+
+**Open questions.** His kit by year (only Live Aid's is seen); which other
+early tracks are layered with machines; period interviews (Smash Hits,
+International Musician, 1981–85) for how he played them; where his time sits
+(not measured).
+
+### Sources (CU)
+
+- https://en.wikipedia.org/wiki/Roger_Taylor_(Duran_Duran_drummer)
+- https://en.wikipedia.org/wiki/Duran_Duran
+- https://en.wikipedia.org/wiki/Planet_Earth_(Duran_Duran_song)
+- https://en.wikipedia.org/wiki/Girls_on_Film
+- https://en.wikipedia.org/wiki/Hungry_Like_the_Wolf
+- https://en.wikipedia.org/wiki/Save_a_Prayer
+- https://en.wikipedia.org/wiki/Rio_(Duran_Duran_song)
+- https://en.wikipedia.org/wiki/Is_There_Something_I_Should_Know%3F
+- https://en.wikipedia.org/wiki/The_Reflex
+- https://en.wikipedia.org/wiki/A_View_to_a_Kill_(song)
+- https://en.wikipedia.org/wiki/Notorious_(Duran_Duran_album)
+- https://moderndrummer.com/2007/12/roger-taylor-3/ (Modern Drummer, Billy Amendola, 2007)
+- https://www.westword.com/music/roger-taylor-of-duran-duran-on-writing-new-music-rather-than-resting-on-ones-laurels-5704869/ (refused the fetch; quoted from the search excerpt)
+- https://www.songsterr.com/a/wsa/duran-duran-tab-s436169 (Planet Earth)
+- https://www.songsterr.com/a/wsa/duran-duran-tab-s5934 (Girls on Film)
+- https://www.songsterr.com/a/wsa/duran-duran-tab-s6313 (Hungry Like the Wolf)
+- https://www.songsterr.com/a/wsa/duran-duran-tab-s6599 (Save a Prayer)
+- https://www.songsterr.com/a/wsa/duran-duran-tab-s30563 (Rio)
+- https://www.songsterr.com/a/wsa/duran-duran-tab-s415596 (Is There Something I Should Know?)
+- https://www.songsterr.com/a/wsa/duran-duran-tab-s415598 (The Reflex)
+- https://www.songsterr.com/a/wsa/duran-duran-tab-s30564 (A View to a Kill)
+- https://www.youtube.com/watch?v=Ej7LXSv10l8 (A View to a Kill, drum-sheet video, O Baterista Doméstico)
+- https://www.youtube.com/watch?v=SxR6AJAh-Gw (Live Aid, 13 July 1985, MTV)
+- Record uploads measured: 8vOcbSBFZjo (Planet Earth), 7cCMijTX5Ss (Girls on Film, 2010 remaster), fRX-Dz32ltc (Hungry Like the Wolf, 2009 remaster), dW6LN3aQDDc (Save a Prayer, 2009 remaster), My_S02NCN18 (Rio, 2009 remaster), GiBzKtfXyZ8 (Is There Something I Should Know?), xl_mWGyEUm8 (The Reflex, 2010 remaster), KsEKnfgY-yk (A View to a Kill)
+
+## CV. Reni (2026-10-21)
+
+The `reni` style plays **songs** the way `mikejoyce` (CP) does: each New picks one of
+his records with the Stone Roses, and its tempo, kit and sections come with it, in the
+record's order. His record (`drummer-model/drummers/reni.json`, schema 1.5) is new, at
+`drummer:reni`: no record pointed at him before (Matt Helders's mentions him by name
+only). Three records are new in `recordings/`: The Stone Roses (1989), the Fools Gold
+single (1989) and Second Coming (1994). No genre is new: indie rock, funk rock,
+psychedelic rock and Britpop exist. Two drummer stubs are new: `drummer:jon-brookes`
+(the Charlatans) and `drummer:robbie-maddix` (who followed him in 1995).
+
+**Who he is.** Alan John Wren was born in Manchester on 10 April 1964 and grew up in
+Gorton, the second of six; he taught himself, around instruments in a pub as a boy.
+He joined the Stone Roses in May 1984, tearing their advert off the wall of A1 Music so
+no one else would see it; at their first gig Pete Townshend borrowed him for his own
+set (Pictures of Lily), and later called him "the most natural drummer I've seen since
+Keith Moon". He left in March 1995, the first of the four to go; fronted the Rub, as
+singer and guitarist, 1998–2001; and drummed again in the reunion, 2011–2017, on a kit
+with two bass drums (Wikipedia). He sang the band's harmonies, and wore the bucket hat
+still called a "Reni hat".
+
+**How he played.** Early on, "the energy from influences such as Keith Moon" ("like ten
+Keith Moons in one", Andy Couzens). From Sally Cinnamon (1987) a three-piece kit, "a
+mixture of Ludwig, vintage, and a big expensive Sonor snare drum", painted by John
+Squire, and "a jazz-tinged, but ultimately rock-based, playing style", his "busy use of
+the high-hat, snare, and solitary tom-tom". For Second Coming, with Squire listening to
+Led Zeppelin, "extra tom-toms for a style analogous to John Bonham". Matched grip, but
+traditional on television for One Love and Fools Gold around 1990. Jon Brookes of the
+Charlatans: "He never pounded the drums, he used to caress them ... very light touch, at
+the same time very musical." Rhythm (2004): "funkier and more subtle than any drummer
+in the genre had ever been ... economical, soulful, and inventive." John Robb: "he could
+hit hard like a rock drummer but also had a real swing". John Leckie: "every tom,
+cymbal and drum is from a different kit" (all Wikipedia). Interviews in his own words
+are rare; none were found.
+
+**Fools Gold.** Ian Brown said the song "was written over 'The Funky Drummer' by James
+Brown, which Reni had to learn the beat from" (Wikipedia); John Squire, "That's where I
+heard the 'Funky Drummer' loop that we built 'Fools Gold' around", and Far Out has Reni
+learning the beat rather than the band sampling it (2023). Others hear Bobby Byrd's Hot
+Pants as the break. The record holds 112.6 throughout, as a loop would; how much of it
+is a loop and how much his hands is not settled, and the song says so. Its bars are the
+beat as the tab and the isolated bass and drums give it.
+
+**The songs.** Eight, each from a human Songsterr tab, each tempo the record's
+(autocorrelated over 60 to 100 seconds; `beats.py` locks to 120 on these), checked
+against fan uploads of his isolated drums where there were any:
+
+| Song                  | Record                | Tab (rev)         | Measured          | Written | Kit        |
+| --------------------- | --------------------- | ----------------- | ----------------- | ------- | ---------- |
+| I Wanna Be Adored     | The Stone Roses, 1989 | 19352 (9067287)   | 112–113           | 110–116 | `smdrums`  |
+| She Bangs the Drums   | The Stone Roses, 1989 | 24335 (8706369)   | 145               | 142–148 | `sixties`  |
+| Waterfall             | The Stone Roses, 1989 | 26803 (5475818)   | 104               | 101–107 | `smdrums`  |
+| Made of Stone         | The Stone Roses, 1989 | 19501 (5695075)   | 130–134           | 128–136 | `smdrums`  |
+| This Is the One       | The Stone Roses, 1989 | 19403 (22072)     | 123–133           | 122–134 | `smdrums`  |
+| I Am the Resurrection | The Stone Roses, 1989 | 7241810 (9544775) | 135; coda 120–125 | 122–136 | `smdrums`  |
+| Fools Gold            | single, 1989          | 23358 (9741320)   | 112.6             | 109–116 | `funkSoul` |
+| Love Spreads          | Second Coming, 1994   | 54720 (8985559)   | 92.4              | 89–95   | `bigRoom`  |
+
+Leckie gave the band "steady tempos", but they still climb: Made of Stone from 130 to
+134, This Is the One from 123 to 133; each range spans the climb. Every song is in
+sections in the record's order. What they show is a drummer who keeps moving the snare
+off 2 and 4: Waterfall puts it on the "a" of 3 (and of 1) over four on the bass drum
+and both hands on the hat; Made of Stone's verse has no snare at all, the hat opened on
+the off-beats; This Is the One spends its first minute on the hat foot alone; I Am the
+Resurrection's intro and verses put the snare on every beat and its coda on the "e"s of
+1 and 3. The bass drum pushes the "and"s (She Bangs the Drums, I Wanna Be Adored).
+
+**What the grid decided.** The critic wants a backbeat within a step of each of the
+section's backbeats in every bar, fills included. So I Wanna Be Adored's habit, the
+snare on the "and" of 3 and the "and" of 4 at the end of a phrase, keeps the backbeat
+on 4 under it, which the tab leaves out; its bridge's break (the snare on 1, 2 and 3)
+and Waterfall's breaks with nothing near the "a" of 3 are left out. The snare runs at
+most three sixteenths (This Is the One's six and Love Spreads' are split with a tom),
+and the bass drum two (Love Spreads' threes lose their third). Love Spreads' fills that
+slip into triplets are left out. I Am the Resurrection's other human tab (24332) is a
+one-bar loop and is not used; the one used (7241810) runs at one tempo, so the coda's
+slower tempo is the low end of the range. Fools Gold's tab is 90 bars of one groove, so
+its song runs to the length of the 4.15 edit.
+
+**Left out.** Elephant Stone (its human tab is one bar repeated), Sally Cinnamon (a
+percussion track only), One Love (a thin 2010 tab), Sugar Spun Sister (four distinct
+bars), Ten Storey Love Song and Begging You.
+
+**Swing and ghosts.** The records measure straight: the hat band autocorrelates at the
+eighth and sixteenth, not the triplet (Fools Gold shows a trace of lilt, so its song
+allows swing to 8). The tabs write ghosts only in Fools Gold, and the isolated bass and
+drums there put snare-band strokes on most sixteenths, so that song rolls for ghosts at
+0.5 on the "and" of 1, the "a" of 2, the "e" of 3 and the "and" of 4. On Made of Stone
+the isolated drums show the snare on the eighths, not between them, so the other songs
+keep ghosts low (0.05–0.1) and the base takes 0.25, weighted where Fools Gold puts them.
+
+**Devices.** None: Waterfall's snare on the "a" of 3 is a displaced backbeat, not a
+cross-rhythm; Made of Stone's chorus stabs on the dotted quarter are the song's figure;
+Love Spreads' triplet fills are fills.
+
+**Kit.** Sampled only, no kit row. No freely licensed samples of his kit were found.
+`smdrums` (SM Drums' 1960s Ludwig, round and a little loose) for his vintage Ludwig;
+She Bangs the Drums the brighter `sixties`; Fools Gold the fat-snared `funkSoul`, where
+the ghosts speak; Love Spreads the big `bigRoom` of Second Coming.
+
+**What the style encodes.** Weight 0.6 (a light touch). Straight (swing 0, range to 6),
+`ghostBias` 0.25 weighted to Fools Gold's places, eighths on the hat, the snare on 2 and
+4 in the base, `midFills` 0.2 and `fillChance` 0.6. The base's six figures and five
+fills come from the songs.
+
+**Likeness.** The Empress Ballroom, Blackpool, 12 August 1989, from the film of the gig
+(YouTube VEOEIo0DxgM): slim, clean-shaven, singing into a boom mic, a mustard T-shirt
+with a dark ringed neck, and the white bucket hat he wore throughout, pulled low over his
+short brown hair (`hat: 'bucket'`, added to the personas for him). The shells (painted Pollock-fashion by Squire) are drawn plain off-white;
+polka dots were rendered and looked like nothing he played.
+
+**Sources.**
+
+- Wikipedia: Reni (musician); The Stone Roses (album); Fools Gold (song); Second Coming
+  (The Stone Roses album); I Am the Resurrection; Love Spreads (accessed 2026-10-21).
+- Jordan Potter, "How James Brown and Johnny Cash inspired a classic song by The Stone
+  Roses", Far Out, 17 January 2023.
+- Tyler Golsen, "Listen to Reni's isolated drums on The Stone Roses' 'Love Spreads'",
+  Far Out, 27 January 2022.
+- Songsterr human tabs 19352, 24335, 26803, 19501, 19403, 7241810 (and 24332, not used),
+  23358 and 54720 (revisions as in the table).
+- Isolated drums on YouTube: Box Set Go (Made of Stone 36F8w2hoRJM, I Am the Resurrection
+  E5M4KXAPBbk, Waterfall Mcj-_bFCV64); Betheriel (Fools Gold f2xxBiChTVM, She Bangs the
+  Drums AZEDS95iJu0); strange_invitation (Love Spreads 2iePKcrATSA).
+- The Stone Roses live at the Empress Ballroom, Blackpool, 1989 (YouTube VEOEIo0DxgM).
+
+## CW. Kenney Jones (2026-10-21)
+
+The `kenneyjones` style plays **songs** the way `buckler` (CS) does: each New picks
+one of his records, intro to outro, and its tempo and grooves come with it. His
+record (`drummer-model/drummers/kenney-jones.json`, schema 1.5) takes the stub id
+`drummer:kenney-jones`, which Keith Moon's record (`replaced_by`) and Phil Rudd's
+(`cites_as_influence`, Tin Soldier) already point at. Seven recordings are new: the
+Small Faces' Whatcha Gonna Do About It (1965), All or Nothing (1966) and Tin Soldier
+(1967) as singles, Ogdens' Nut Gone Flake (1968), the Faces' A Nod Is As Good As a
+Wink... (1971) and Ooh La La (1973), and the Who's Face Dances (1981). No genre is
+new: `style:rock`, `style:rnb-soul`, `style:psychedelic-rock`, `style:hard-rock`
+and, on the recordings, `style:folk-rock` and `style:new-wave`.
+
+**Who he is.** Kenneth Thomas Jones was born in Whitechapel on 16 September 1948.
+Steve Marriott and Ronnie Lane took him into the Small Faces in 1965, at sixteen,
+with Jimmy Winston on organ (Ian McLagan from 1966): "one of the most acclaimed
+and influential mod groups of the mid-1960s", then psychedelic, with All or
+Nothing their only number one and Ogdens' Nut Gone Flake a number-one album. When
+Marriott left in 1969, Jones, Lane and McLagan took on Rod Stewart and Ronnie Wood
+as the Faces, to 1975. In November 1978 Pete Townshend asked him to replace Keith
+Moon in the Who (he had been with Moon on the night Moon died): Face Dances, It's
+Hard, the tours of 1979 to 1982, Live Aid. Daltrey never took to him ("a wheel off
+a Cadillac stuck onto a Rolls Royce"), his playing "straighter and less frenetic
+than Moon's"; Simon Phillips took the 1989 tour. Later the Law with Paul Rodgers,
+the Jones Gang, and Faces reunions to the 2020s. He "virtually taught" Zak Starkey
+and gave him one of Moon's kits (Wikipedia).
+
+**In his own words** (Adam Budofsky, Modern Drummer, 18 August 2011). "Al Jackson
+will remain my hero till the day I'm gone"; "Booker T. & the MG's was always on my
+record player"; "Before anything else, I was very much influenced by jazz ... Rock
+'n' roll beats come from the jazz, really." On Stay With Me: "It's 16ths on the
+hi-hat all the way through, and in order to get the groove right you have to get
+the tempo bang-on." "The Faces are unique in playing so laid back"; "Tempos could
+be a nightmare in the Faces, because you didn't know what everyone had been up to
+the night before!" On You Better You Bet: "a good recording", and "Changing the
+backbeat between the snare and the tom was just my handle on it." "For rock gigs I
+play with my left stick turned around the other way [butt end]"; "I also hit the
+drums a lot harder than most players"; "my tuning is completely different from
+most drummers'." The 1966 sessions were "just a couple of overheads and a snare
+mic'."
+
+**The songs.** Seven, each tempo the record's, autocorrelated:
+
+| Song                      | Record                           | Tab                                              | Measured            | Written        |
+| ------------------------- | -------------------------------- | ------------------------------------------------ | ------------------- | -------------- |
+| Whatcha Gonna Do About It | single, 1965                     | Songsterr 53870 (human), 78 bars at 160          | 158.7               | 156–162, 4/4-6 |
+| All or Nothing            | single, 1966                     | Songsterr 574302 (human), 51 bars at 114         | 113.2               | 111–116        |
+| Tin Soldier               | single, 1967                     | Songsterr 247832 (human), 94 bars at 110–115     | 114.4 rising to 121 | 112–120        |
+| Lazy Sunday               | Ogdens' Nut Gone Flake, 1968     | Songsterr 2437122 (human), 97 bars at 132        | 132.4, 131.4        | 128–136        |
+| Stay With Me              | A Nod Is As Good As a Wink, 1971 | Songsterr 6034591, 34816, 1694079 (human, agree) | 183.4 = 2 × 91.7    | 89–94, coda ×2 |
+| Ooh La La                 | Ooh La La, 1973                  | Songsterr 34815 (human), 127 bars at 148         | 149.5               | 146–152        |
+| You Better You Bet        | Face Dances, 1981                | Songsterr 255588 (human), 158 bars at 162        | 162.4               | 158–166        |
+
+The Small Faces tempos are from Beat-Club's clips of the band miming to the
+singles; Lazy Sunday from the band's stereo upload, Stay With Me and Ooh La La from
+the album tracks, You Better You Bet from the promo video (3:58, the tab's length).
+
+- **Whatcha Gonna Do About It**: the kick on every beat under quarters on the
+  cymbal, the snare on 2 and 4, and eighth-note triplet fills on the snare then the
+  high tom at the ends of the solo; the outro alternates a bar of triplets on the
+  snare from 2. Written on the sextuplet grid so the triplets sit where he plays
+  them. A plain tab from 2010; the tambourine line is not played.
+- **All or Nothing**: eighths on the hat, half-open under the backbeat; the verse's
+  kick on the "and" of 2, with a push into each line (the snare on the "and" of 2,
+  3, its "and" and the "and" of 4); the chorus's kick on 1, 3 and the "and" of 4,
+  and a roll of sixteenths from 3 into every "all or nothing". **The tab stops at
+  bar 51, 1:47 into a record of 3:04**: the second verse and the last choruses are
+  laid out from the lyric with the same bars, said in the hint.
+- **Tin Soldier**: the cross-stick in eighths, then on the beat under the hat; the
+  verse in eighths, the kick on 1, 3, its "and" and the "and" of 4; a break on the
+  hat alone and a bridge on the hat's own figure (the "breakdown into the guitar"
+  that Phil Rudd names); the chorus with the snare and open hat on every beat;
+  crashes on every beat for the climax; a quiet passage of sixteenths on the hat.
+  It speeds up as it goes, so the range runs 112 to 120.
+- **Lazy Sunday**: the intro on the hat in quarters; the verse stopping on the kick
+  alone; the chorus on the ride, the kick on 1, the "and" of 2, 3, its "and" and the
+  "and" of 4; "close my eyes" stops on the hat foot; the ride alone for the middle;
+  the second verse on the open hat. The coda ("Lazy Sunday afternoon" at 96 to 100)
+  is left out: a section can run only at the song's tempo, half or twice it.
+- **Stay With Me**: the three tabs write the body in quarters at 183 with the snare
+  on 3, which is a bar of 91.5 written as two; read so, it is eighths on the hat,
+  the kick on the "and" of 1 (and of 3), the snare on 2 and 4. **The hat is written
+  in sixteenths, as Jones describes it**, not the tabs' eighths. The coda, back to
+  rock eighths on the ride at 183, runs at twice the tempo. The intro at 170 is left
+  out (neither the tempo nor twice it).
+- **Ooh La La**: the cross-stick on 2 and 4 and the kick on 1, under acoustic
+  guitars, for the whole song; the kick on 3 too through the middle. His entry (four
+  bars of the kick on 4) is left out.
+- **You Better You Bet**: the intro with the snare on 2 and the floor tom on 4 ("my
+  handle on it"); verses on the hat in quarters, the kick on 1, its "and", 3 and its
+  "and"; choruses in half time with the snare on 3; the bridge on the floor tom in
+  eighths; the third verse's backbeat swapped, the floor tom on 2 and the snare on
+  4; the outro on the toms under the crash.
+
+**What the grid decided.** The critic never allows four snares in a row, so every
+roll is broken into threes (All or Nothing's and Tin Soldier's rolls). A section's
+first bar needs its backbeat, so All or Nothing's opening bar of sixteenths on the
+tom and Whatcha Gonna Do About It's pickup triplets are left out (the tom bar plays
+as the intro's fill instead). Past 150 no figure or fill may run four sixteenths,
+so one of the base fills (Tin Soldier bars 29 and 31) is thinned to play at every
+tempo; Ooh La La and You Better You Bet set their own fills. You Better You Bet's
+half-time choruses and Tin Soldier's breaks name their own backbeats.
+
+**Left out.** Itchycoo Park (1967): the only drum tab (Songsterr 2218570) is a
+"regenerated" track, one bar looped with no hat, and the record's phased drums
+could not confirm it. Sha-La-La-La-Lee and Cindy Incidentally: machine tabs only.
+Here Come the Nice and the rest of Ogdens': not tabbed for drums or not his hits.
+
+**Devices.** None. The triplet runs of Whatcha Gonna Do About It are a fill inside
+the beat; the "triplets with the bass drum" he names on Rod Stewart's I Know I'm
+Losing You were not read in a transcription.
+
+**Kit.** Sampled throughout; no freely licensed samples of his kits were found.
+The base and the four Small Faces songs are on `sixties` (SM Drums' 1960s Ludwig,
+for the silver glitter and black Ludwigs his own site lists for the Small Faces:
+22, 13, 14 and a 14-inch snare); the Faces' Stay With Me and Ooh La La on
+`teatowel` (Glyn Johns's dry, damped early-1970s sound); You Better You Bet on
+`studioRock` (the Who's black Yamaha, a tight 1981 studio kit).
+
+**The style.** Weight 0.65: he hit hard, but the grooves are plain, nearer
+Buckler and Rudd than Moon. Straight, no ghost notes (no tab writes one). The feel
+puts the backbeat a shade late ("so laid back"), not measured. The base's six
+figures and five fills are the songs' commonest bars.
+
+**Likeness.** Beat-Club (Radio Bremen), the Small Faces miming Tin Soldier at the
+turn of 1968 (Beat-Club's upload, YouTube _w4uxZj1Q50, contact sheets read; the
+kit at 1:28–1:44): slim, a dark mop over the ears with the fringe to the brows,
+clean-shaven, a pale shirt open at the neck with long pointed collars; shells that
+catch the light like the silver glitter Ludwig. The film is black and white, so the
+colours are guesses. Rendered headless (front and three-quarter face).
+
+**Open questions.** His memoir, Let the Good Times Roll (2018), and the Hellier
+interviews, for his own account of Tin Soldier, Itchycoo Park's phasing and the Who
+years; which kit on which record; isolated stems for Stay With Me's hat; who else
+cites him.
+
+**Sources.**
+
+- https://en.wikipedia.org/wiki/Kenney_Jones, https://en.wikipedia.org/wiki/Small_Faces, https://en.wikipedia.org/wiki/Faces_(band)
+- Adam Budofsky, "Kenney Jones: British Drumming Royalty", Modern Drummer, 18 August 2011: https://moderndrummer.com/?p=8769
+- Kenney Jones, "Drums" (his kits): https://kenneyjones.com/about-kenney/drums/
+- Beat-Club (Radio Bremen), the Small Faces: Whatcha Gonna Do About It, All or Nothing, Itchycoo Park, Tin Soldier (YouTube sah6C87QsGo, sa6rZjJ43Js, fayL1WTR1Go, _w4uxZj1Q50)
+- Songsterr tabs 53870, 574302, 247832, 2437122, 6034591, 34816, 1694079, 34815, 255588 (drum tracks, read bar by bar)
+
+## CX. Paul Cook (2026-10-21)
+
+The `paulcook` style plays **songs** the way `headon` (BK) and `buckler` (CS) do:
+each New picks one of his records, intro to outro, and its tempo and grooves come
+with it. His record (`drummer-model/drummers/paul-cook.json`, schema 1.5) is new,
+at `drummer:paul-cook`: no record pointed at him before. Two records are new in
+`recordings/`: the Anarchy in the U.K. single (EMI, 1976) and Never Mind the
+Bollocks, Here's the Sex Pistols (Virgin, 1977), which holds the other seven
+songs. No genre is new (`style:punk`, `style:rock`).
+
+**Who he is.** Paul Thomas Cook was born on 20 July 1956 and raised in
+Hammersmith. At the Christopher Wren School in Shepherd's Bush he met Steve
+Jones; with Wally Nightingale they formed the Strand in 1972–73, which became the
+Sex Pistols with John Lydon and Glen Matlock (Sid Vicious from February 1977).
+He played on every one of their records: the EMI single Anarchy in the U.K.
+(November 1976), God Save the Queen, Pretty Vacant and Holidays in the Sun on
+Virgin, and Never Mind the Bollocks (October 1977), until the band broke up in
+San Francisco in January 1978. Afterwards the Great Rock 'n' Roll Swindle
+soundtrack and the Professionals with Jones, Johnny Thunders' So Alone, Joan
+Jett, Bananarama's first album as producer, Chiefs of Relief, Edwyn Collins's
+band from A Girl Like You (1994) on, Man-Raze with Phil Collen, Vic Godard and
+Subway Sect, and the Pistols' reunions from 1996 to 2008 (Wikipedia).
+
+**In his own words.** Before the Pistols he had "hardly any [experience], really
+... We were quite late starters"; "It was all a learning process as we were going
+along"; "We kept it simple, as we had to, because we were just learning our
+instruments ... not technically great at the time, so it was very tribal ...
+That's where the power comes from" (Ink 19, 2011). His drummers: Kenney Jones of
+the Faces, Paul Thompson of Roxy Music, Al Jackson Jr., Mitch Mitchell (Wikipedia,
+Ink 19); "I listened to all of those drummers, Paul Thompson, Simon Kirke from
+Free"; "Al Jackson I really liked as well, I thought he was a brilliant drummer";
+"Motown drummers as well I thought were really cool, with all those little
+rolls". Chris Spedding, producing the 1976 demos, told them "to just keep it
+simple and play 4/4 because that was the power of the band". With Jones: "I was
+just accenting everything that Steve was playing"; "When we recorded Never Mind
+The Bollocks we did it with just guitar and drums ... We were a two-piece band"
+(MusicRadar, 2015). MusicRadar on the singles: "the perfectly-judged hats on God
+Save The Queen, the crash-laden Anarchy in the UK, or the tribal toms of Pretty
+Vacant", "Cook's thoughtful kit work". Jones: he and Cook "weren't just having a
+laugh" and were "really dedicated in the studio" (Wikipedia).
+
+**The songs.** Eight, the four singles and four album tracks, each tempo the
+record's, autocorrelated over 20 to 80 and 80 to 140 seconds:
+
+| Song                | Record              | Tab                                         | Measured | Written |
+| ------------------- | ------------------- | ------------------------------------------- | -------- | ------- |
+| Anarchy in the U.K. | EMI single, 1976    | Songsterr 8702 (human), 119 bars at 132     | 135      | 133–137 |
+| God Save the Queen  | Virgin single, 1977 | Songsterr 345 (human), 99 at 152            | 149      | 146–150 |
+| Pretty Vacant       | Virgin single, 1977 | Songsterr 8706 (human), 116 at 148 to 141   | 146–148  | 143–148 |
+| Holidays in the Sun | Virgin single, 1977 | Songsterr 612 (human), 116 at 127 then 147  | 150–151  | 146–150 |
+| Bodies              | Never Mind the B…   | Songsterr 8703 (human), 114 at 128 then 160 | 156–158  | 155–159 |
+| No Feelings         | Never Mind the B…   | Songsterr 1706231 (human), 114 at 158       | 164      | 161–166 |
+| E.M.I.              | Never Mind the B…   | Songsterr 79644 (human), 113 at 151         | 148, 144 | 145–150 |
+| Problems            | Never Mind the B…   | Songsterr 53202 (human), 162 at 155         | 154      | 152–157 |
+
+Anarchy, God Save the Queen, Pretty Vacant, Holidays and No Feelings have section
+markers; Bodies takes its sections from a second human tab (1629558), and E.M.I.
+and Problems are named from what the drums do. All are in the record's order;
+long passages are rounded to whole sections, said in each comment.
+
+- **Anarchy in the U.K.**: eighths on the rack tom; the verses on the hat in
+  eighths over the kick in quarters; the choruses on the ride with a crash on every
+  1 and six-stroke snare runs; the first solo's stops with the kick in eighths; the
+  second solo's crash stabs on 3 and 4.
+- **God Save the Queen**: the guitar's stabs on the crash, the snare and the kick;
+  the open hat on the beat; the verses on the half-open hat in quarters; the
+  pre-choruses on the hat in eighths; the choruses on the ride, ending in a tom roll;
+  the outro with crashes and the snare on 1 and 2, and the stabs again.
+- **Pretty Vacant**: the floor tom in eighths under the snare ("the tribal toms");
+  crashes on 1 and 2 and the ride; the verses on the open hat in eighths; the
+  choruses on the ride; a bar of crashes with the snare and kick on every eighth.
+- **Holidays in the Sun**: the riff on the ride with the kick off the 1; eighths in
+  the verses; the open hat in quarters in the choruses; the bridge's crashes on every
+  beat and a roll round the toms; the solo's off-beat snare; crashes to the end.
+- **Bodies**: the open hat on the beat over a kick that moves bar to bar; crashes on
+  2 and 4 in the choruses; the stop on the floor tom; the ride outro.
+- **No Feelings**: the snare with the guitar, then the hat in quarters, the ride in
+  the choruses and the open hat through the solo. Its newer tab is barred an eighth
+  late and is read two sixteenths earlier; the older one (8705, 2008) agrees.
+- **E.M.I.**: crashes on every beat; the verses with the kick in eighths under the
+  hat foot on the beat; the ride with the kick off the 1 in the "unlimited edition"
+  choruses; a passage with the hat foot in eighths.
+- **Problems**: the riff's stabs, then eighths on the hat over the kick on every beat
+  and the "and" of 3, for four minutes.
+
+**What the grid decided.** The critic never allows four snares in a row: the six-
+stroke runs of Anarchy, God Save the Queen, Pretty Vacant and E.M.I. move their
+fourth stroke to a tom, and the four-stroke endings of No Feelings and Holidays
+lose their "e". A run of four sixteenths caps a song at 150, which Anarchy, God
+Save the Queen, Pretty Vacant, Holidays and E.M.I. sit under; Bodies, No Feelings
+and Problems, at 154 to 164, have no such run (No Feelings' bar 6 of sixteenths on
+the snare and kick and its tom fill at bar 62 are left out). Where a tab writes the
+hat, a crash and the snare on one step (the Bodies chorus, the Problems solo), the
+hat gives way. A bar with no snare on 2 or 4 fails, so sections of stabs say their
+own backbeat (God Save the Queen's and Problems' riffs on 4, Anarchy's second solo
+on 2, No Feelings' intro end on the "and" of 2 and 4) or none (Anarchy's stops,
+No Feelings' opening, Bodies' stop), and Anarchy's chorus bar of crash stabs keeps
+a snare on 4 the tab leaves out. Intros at another tempo are left out: Holidays'
+marching boots at 127 and Bodies' floor tom at 127, against songs at 150 and 158
+(a section can only run at the song's tempo, half or double); so are Anarchy's
+opening bars of crash and kick (no backbeat) and Pretty Vacant's seven bars tacet.
+
+**Left out.** Submission, Seventeen, Liar, New York (album tracks; human tabs exist,
+left for room), Silly Thing (1979, Cook singing; not the classic band).
+
+**Devices.** None. Every tab is plain 4/4 in even eighths and sixteenths; God Save
+the Queen's dotted stabs follow the guitar, not a cross-rhythm.
+
+**Kit.** Sampled throughout. No make, sizes or freely licensed samples of his kit
+were found; the Pretty Vacant video shows a black four-piece with chrome hardware
+and a leopard-print cloth over the snare. The base is `bigrusty` (Big Rusty: a
+thick 1980s kit with a damped 24" kick and a wooden snare, played hard under a wash
+of cymbal) for the loud, thick drums of Chris Thomas's Wessex sessions, as are
+Anarchy, God Save the Queen, Pretty Vacant and E.M.I.; Holidays in the Sun and
+Bodies take `bigRoom` (Big Rusty in a big room, rimshots for accents) for the two
+heaviest songs; No Feelings and Problems, the tracks Heylin puts to Bill Price
+alone, take `studioRock` (tight, dry and close).
+
+**The style.** Weight 0.75: a hard hitter ("very tribal ... that's where the power
+comes from"), between Buckler (0.65) and the metal players. Straight, no ghost notes
+(no tab writes one), on the beat (nothing measured). The base's six figures and five
+fills are the songs' commonest bars: God Save the Queen's verse, Anarchy's verse,
+Pretty Vacant's chorus, E.M.I.'s verse, Problems' verse and Bodies' open hat.
+
+**Likeness.** The Pretty Vacant video, ITN, Wells Street, London, 12 July 1977 (the
+band's upload, YouTube R6GDdKrQ8EI, contact sheets read; at the kit 0:30–0:42 and
+2:45–3:10): twenty-one, fair hair short and ragged (`shaggy`; `tousled` and `spikes`
+tried), clean-shaven, a black sleeveless vest; a black gloss kit with chrome.
+Rendered headless (front and face).
+
+**Open questions.** His kit's make in 1976–77; Bodies' 127 intro (a tempo change or
+an edit); who cites him as an influence (none found in what was read); Jones's
+Lonely Boy (2016) and Heylin's Never Mind the Bollocks for the drum sessions.
+
+**Sources.**
+
+- https://en.wikipedia.org/wiki/Paul_Cook, https://en.wikipedia.org/wiki/Sex_Pistols, https://en.wikipedia.org/wiki/Never_Mind_the_Bollocks,_Here%27s_the_Sex_Pistols, https://en.wikipedia.org/wiki/Anarchy_in_the_U.K., https://en.wikipedia.org/wiki/God_Save_the_Queen_(Sex_Pistols_song), https://en.wikipedia.org/wiki/Pretty_Vacant, https://en.wikipedia.org/wiki/Holidays_in_the_Sun_(song)
+- Gail Worley, "An Interview with Drummer Paul Cook of Sex Pistols and Manraze", Ink 19, 29 November 2011: https://ink19.com/2011/11/magazine/interviews/an-interview-with-drummer-paul
+- "The drumming wisdom of Paul Cook", MusicRadar, 2015: https://www.musicradar.com/news/drums/the-drumming-wisdom-of-paul-cook-629347 (read through the copy at https://www.bajaao.com/blogs/blog/the-drumming-wisdom-of-paul-cook)
+- Sex Pistols, Pretty Vacant (official video, ITN, July 1977): YouTube R6GDdKrQ8EI
+- Songsterr tabs 8702, 4945459, 345, 8706, 612, 8703, 1629558, 1706231, 8705, 79644, 53202 (drum tracks, read bar by bar)
+
+## CY. Phil Selway (2026-10-21)
+
+The `selway` style plays **songs** the way `rowntree` (CT) does: each New picks
+one of his records, and its tempo and grooves come with it. His record
+(`drummer-model/drummers/phil-selway.json`, schema 1.5) is new, at
+`drummer:phil-selway`: no record pointed at him before. Five recordings are new in
+`recordings/`: Pablo Honey (1993), The Bends (1995), OK Computer (1997), Hail to the
+Thief (2003) and In Rainbows (2007). No genre is new: alternative rock and
+experimental rock exist.
+
+**Who he is.** Philip James Selway was born in Abingdon, Oxfordshire, on 23 May
+1967 and started drums and guitar at fifteen. He met Thom Yorke, Ed O'Brien and
+Colin and Jonny Greenwood at Abingdon School, where they formed On a Friday in
+1985; they signed to EMI as Radiohead in 1991. His earliest influences were Joy
+Division, the Clash and the Velvet Underground, and he called Blondie's Clem Burke
+his "drummer hero" (Wikipedia). Of Unknown Pleasures: "I think I have borrowed
+quite a bit from Stephen Morris's drumming over the years" (musicOMH, 2015); the
+same list names The Beat's I Just Can't Stop It (2 Tone "a very formative scene"),
+Bowie's Low and the Wailers' Burnin' ("the best groove ever"). After OK Computer he
+did not play a kit for six months, then took lessons with Bob Armstrong "to work on
+technique and get a better grasp of a lot of different styles" (Rhythm, July 2001).
+From Kid A drum machines came into the music; playing Idioteque live, "Trying to
+give that sense of the electronic in the piece but doing it through your 'normal'
+instrument playing ... that naturally develops your own musical voice" (Wikipedia).
+Clive Deamer played second drums on the King of Limbs and Moon Shaped Pool tours,
+Chris Vatalaro in 2025. Gigwise named him the 26th-greatest drummer in 2008 for his
+"mathematical precision"; O'Brien: "Philip has this incredible groove, and he has
+this weight to what he does."
+
+**In his own words.** To Rhythm (July 2001): "There might be bits of soul drumming
+and hip-hop and even lighter jazz things all swimming around within my drumming,
+which is the context of something that is, broadly, a rock band. But none of those
+styles is a carbon copy"; "while I'm not a session musician-type player, what I
+have done is develop quite a distinctive style, which sounds like me"; "The sound
+of the drums has to be right for each song." The magazine on Paranoid Android:
+"Phil's restrained cross-sticking for much of the first three minutes, after which
+a brisk run around the toms heralds everything going gonzoid ... until the choir
+comes in and the cross-sticking returns." On OK Computer (Wikipedia): "We give each
+other an awful lot of space to develop our parts."
+
+**The songs.** Eight, each from a human Songsterr tab, each tempo the record's,
+autocorrelated:
+
+| Song             | Record                  | Tab (revision)             | Measured        | Written                   |
+| ---------------- | ----------------------- | -------------------------- | --------------- | ------------------------- |
+| Creep            | Pablo Honey, 1993       | 97 (9676660), at 92        | 92.5            | 90–95                     |
+| Just             | The Bends, 1995         | 51255 (9394648), at 88     | 87.7            | 86–90                     |
+| Paranoid Android | OK Computer, 1997       | 16501 (9338583), 82/62/82  | 81.9, 62.9      | 80–84, slow section ×0.75 |
+| Karma Police     | OK Computer, 1997       | 217 (9624012), at 75       | 74.5            | 73–77                     |
+| There There      | Hail to the Thief, 2003 | 17056 (9329386), at 126    | 126.7           | 124–129                   |
+| 15 Step          | In Rainbows, 2007       | 41634 (9401714), 5/4 at 92 | 95 (bar 3.16 s) | 92–97, 5/4                |
+| Reckoner         | In Rainbows, 2007       | 464393 (8712472), at 104   | 104.4           | 102–106                   |
+| Bodysnatchers    | In Rainbows, 2007       | 34780 (8462926), at 168    | 167.6           | 165–170                   |
+
+Creep is the hats over the kick on 1, the "a" of 2 and the "and" of 3, the chorus
+on the ride, a quiet verse on the ride alone and the last chorus on the
+cross-stick. Just is a two-bar riff on the ride, the snare pushed to the "e" of 3
+and the "and" of 4, the pre-chorus on the ride's bell. Paranoid Android is the
+cross-stick twice on 2 and twice on 4 under eighths on the hat, its 7/8 bars in
+threes (Wikipedia: "several three-bar segments in the second section ... in 7/8"),
+the second section's snare and runs round the toms, and Jonny Greenwood's slow
+section, which the tab and the record both put at 62 against 82: it plays here at
+three quarters of the song's tempo, the hats in sixteenths over the cross-stick.
+Karma Police alternates the kick on the "and" of 3 with the kick on the "and" of 2.
+There There holds one figure for its whole length: the floor tom in eighths, the
+cross-stick on 2 and 4, the high tom on the "and" of 2 and the low tom on the "and"
+of 4 (O'Brien's and Jonny Greenwood's extra toms are their own tracks in the tab).
+15 Step is in 5/4, a drum machine's "stuttering pattern" (Wikipedia) with his kit
+over it from the chorus's fifth bar: the kick on 1, the "a" and "and" of 2 and the
+"and" of 3, the snare stuttering with rimshots, the figure repeating every half bar
+(what is often counted as 5/4 at 189). Reckoner is the ride and its bell with ghost
+notes on the "e" and "a" round the backbeat. Bodysnatchers puts the kick on every
+"and" under the ride, then moves to the floor tom, and ends on the snare alone.
+
+**What the grid decided.** A quarter of every bar must be air (no kick and no
+snare): Just's instrumental verse and 15 Step's interlude take the airier of the
+tab's bars, and the style's six-stroke fills stay in their songs. No snare runs
+four sixteenths: the runs in Just, Reckoner, Karma Police and Paranoid Android are
+in threes, the fourth stroke on a tom or moved to the backbeat. Bars without drums
+are left out: Karma Police's piano intro and most of its chorus, Reckoner's
+falsetto chorus, 15 Step's machine-only intro, Bodysnatchers' guitar intro, Just's
+two opening bars. 15 Step uses the tab's 5/4 at a quarter of 92–97 rather than 189:
+the notes fall in the same places either way.
+
+**Credits.** Every song is his kit, but two records are not his playing straight
+through: 15 Step layers his kit over a programmed pattern (its hint says so), and
+Karma Police's ending was rebuilt by Yorke and Nigel Godrich from loops and samples
+(Wikipedia). Airbag is left out: its beat is "built from a seconds-long recording of
+Selway's drumming" (OK Computer, Wikipedia), a loop rather than a part. So is
+Idioteque, which has "no 'real' drums" on the record (Rhythm).
+
+**Kit.** Sampled, as every drummer's: `studioRock` for the base, Nigel Godrich's
+dry close sound; `bigRoom` for Creep (a live take at Chipping Norton) and There
+There (Ocean Way); `teatowel` for Karma Police's damped drums; `london`, small and
+lo-fi, for 15 Step; `funkSoul`, whose snare speaks its ghosts, for Reckoner;
+`garage` for Bodysnatchers' distorted, trashy record. He has played Premier since
+the band's gear was stolen in the mid-1990s (Rhythm).
+
+**What the style encodes.** `weight` 0.75; straight time; `ghostBias` 0.1 (the
+ghosts are written into Reckoner's and 15 Step's figures); `crossStick` on; few
+fills (`fillChance` 0.4) and runs round the toms at a section change. No device:
+Paranoid Android's 7/8 and 15 Step's 5/4 are meters, not cross-rhythms
+(`devices_search`).
+
+**Likeness.** Later... with Jools Holland, BBC Two, 1997, Paranoid Android (the
+BBC's footage, 2:59–3:06): his head shaved, clean-shaven, a black T-shirt, a
+wine-red gloss kit with chrome hardware and brass cymbals.
+
+Sources: Wikipedia (Philip Selway, Pablo Honey, The Bends, OK Computer, Hail to the
+Thief, In Rainbows, Creep, Paranoid Android, Karma Police, 15 Step); "Where do we go
+from here?", Rhythm, July 2001 (citizeninsane.eu); "This Music Made Me: Philip
+Selway", musicOMH, 2015; Songsterr 97, 51255, 16501, 217, 17056, 41634, 464393,
+34780; Later... with Jools Holland, BBC, 1997 (YouTube NzPtr_n-m8A).
+
+## CZ. Budgie of Siouxsie and the Banshees (2026-10-21)
+
+The `budgie` style plays **songs** the way `slydunbar` (CK) does: each New
+picks one of his records, and its tempo, sections and grooves come with it. His
+record is `drummer-model/drummers/budgie.json` (schema 1.5). It keeps the stub's
+id, `drummer:budgie`, which `taylor-hawkins.json` already names as an
+influence. There are five new recordings (Kaleidoscope, Israel, Juju, Dear
+Prudence, Tinderbox) and `sources/budgie.json`. No genre is new: the record
+uses `style:new-wave` (which the model names "New wave / post-punk") and
+`style:punk`. Filed with the British rock and pop drummers.
+
+**Who he is.** Peter Edward Clarke was born on 21 August 1957 and grew up in
+St Helens (Wikipedia). At art school in Liverpool he rehearsed at Eric's club
+and played in the Spitfire Boys and Big in Japan. In 1979 he drummed on the
+Slits' Cut. That September he joined Siouxsie and the Banshees on the Join
+Hands tour, meant as a temporary replacement for Kenny Morris, who had left two
+days in. He stayed until the band split in 1996, nine studio albums. In 1981
+he and Siouxsie formed the Creatures, a band built on drums and percussion,
+marimba and metallophone. They married in 1991 and divorced in 2007. Since
+then he has played with John Cale, the Indigo Girls, Juno Reactor, Efterklang
+and John Grant. He made taiko duets with Leonard Eto for Hai! (2003), and Los
+Angeles (2023) with Lol Tolhurst and Jacknife Lee. His memoir is The Absence:
+Memoirs of a Banshee Drummer (2025).
+
+**How he plays.** He moved the time off the hi-hat and onto the toms. In
+Spellbound the floor tom plays eighths through the whole song, the snare on
+every beat in the choruses and on 2 and 4 in the verses. In Halloween the floor
+tom plays eighths again, the hat's foot closing with the snare on 2 and 4. In
+Happy House the floor tom plays sixteenths over four on the floor, with a
+single snare on the "a" of 2. Arabian Knights' verses have no snare at all:
+the mid tom plays eighths and the high tom and tambourine mark 2 and 4.
+Israel has no bass drum: the mid tom on 1 and the snare on 2, 3 and 4. Each
+section gets one figure and holds it, and the change of figure is the
+arrangement. The sources say the same:
+
+- **Spin** (No. 28 of the 100 greatest drummers of alternative music): "he
+  didn't just play rhythms - he played hooks and leads, brilliant parts that
+  set the songs on fire. His tom-tom-intensive approach, [was] enlightened by
+  his awareness of world music."
+- **Stewart Copeland**, on the Banshees' 1981 singles: "very economical and
+  offbeat ... Budgie didn't play your standard hi-hat-kick-snare; there were a
+  lot of tom-toms and a big throb."
+- **Wikipedia on Happy House**: "Budgie, who was interested in African
+  polyrhythms, used a reggae vibe on the song."
+- **Ari Up** of the Slits: "He could go from reggae to punk to funk to jazz
+  [...] but still very steady."
+- **Taylor Hawkins**: "The way Budgie played drums was so influential - the
+  tribal thing he was doing was so innovative."
+
+NME readers voted him the best drummer of 1983. David Cavanagh called him,
+with Terry Chambers, "the outstanding English drummer of the post-punk era".
+Ian McCulloch said Pete de Freitas "loved [Budgie's] drumming", and Bad
+Religion's Jamie Miller names him his favourite drummer. On Kaleidoscope's
+Skin he asked Nigel Gray for a second kit, "as if I was playing to myself a
+call and answer".
+
+**Devices.** None. Every tab read is straight 4/4. The "African polyrhythms"
+in Wikipedia's account of Happy House do not show up as a cross-rhythm or
+hemiola in any bar: they are tom ostinatos over four on the floor. The
+`devices_search` records what was read.
+
+**Kit.** No source read here names his drums or cymbals of 1980-86, and no
+free samples of his kit exist. In the Spellbound video (1981) he plays a pale
+silver kit with chrome hardware and a tambourine on a stand over the toms.
+Kaleidoscope, Israel and Juju were co-produced by Nigel Gray at Surrey Sound,
+the producer and room of the Police's first three albums. So the base and
+the six 1980-81 songs use `police`, the DRS kit the Copeland styles use. Dear
+Prudence (Stockholm and Angel, 1983) and Cities in Dust (Matrix, London, 1985) use `bigRoom`. No song is on a machine: Kaleidoscope's drum machines are
+on Red Light and Lunar Camel, which are not here.
+
+**The songs.** Eight, every one from a human Songsterr tab. Each tempo is
+autocorrelated from the record's onset flux, and each section order follows
+the tab's markers, or its bars where it has none:
+
+| Song            | Year | Tempo (record / tab)      | Meter | What the groove is                                                                                       | Source of the bars   |
+| --------------- | ---- | ------------------------- | ----- | -------------------------------------------------------------------------------------------------------- | -------------------- |
+| Happy House     | 1980 | 125 / 108-118             | 4/4   | The floor tom in sixteenths over four on the floor; a snare on the "a" of 2; the coda on the mid tom     | 4453297, rev 6837199 |
+| Christine       | 1980 | 150 / 78 (written halved) | 4/4   | The kick on the "and" of 1 and of 3, the hat's foot on 1 and 3; crashes on 2 and its "and"               | 79656, rev 98048     |
+| Israel          | 1980 | 108 / 103                 | 4/4   | No bass drum: the mid tom on 1, the snare on 2, 3 and 4; the snare on every beat for the chorus          | 17648, rev 3810617   |
+| Spellbound      | 1981 | 155 / 149-152 (held 150)  | 4/4   | The floor tom in eighths; the snare on every beat in the chorus, on 2 and 4 in the verse                 | 436043, rev 9629815  |
+| Arabian Knights | 1981 | 136 / 128-132             | 4/4   | The verse with no snare: the mid tom in eighths, the high tom and tambourine on 2 and 4; open hats       | 496603, rev 9729614  |
+| Halloween       | 1981 | 168-174 / 160             | 4/4   | The floor tom in eighths, the snare and the hat's foot on 2 and 4; the break round the three toms        | 445125, rev 643709   |
+| Dear Prudence   | 1983 | 101 / 102                 | 4/4   | The kick on 1 and its "and", 3 and its "and"; a verse on the mid tom; the middle eight four on the floor | 542451, rev 4028390  |
+| Cities in Dust  | 1985 | 120.6 / 120               | 4/4   | The kick in a dotted figure under eighths on the hat; the ride's bell in the verse; the china on 4       | 499165, rev 8967854  |
+
+Where the songs differ from the tabs (each comment says so):
+
+- **Christine** is written at 78 with the snare on every "and". The record
+  runs at 75 in that frame, so played as a drummer counts it, it is 150 with
+  the snare on 2 and 4. Each tab bar is two bars here.
+- **Spellbound** is held to 150, five under the record. In the outro bridge
+  two snares fall between the floor tom's strokes, five strokes in a row, and
+  that is past ten notes a second any faster.
+- **Halloween's break** leaves out every fourth stroke of the toms'
+  sixteenths, for the same reason at 171. The record speeds up from about 168
+  to 174.
+- **Happy House**: the tab's opening four bars, the hat alone on 2 and 4, are
+  left out.
+- **Spellbound and Halloween** have percussion-only and cymbal-only intros;
+  those are left out too.
+- **Israel's** bongos, timbales and agogo (a second track) are left out. Its
+  splash run on the fourth beat is kept as the tab writes it.
+- **Snare runs** in the fills put a tom in every fourth stroke.
+
+Dropped:
+
+- **Kiss Them for Me** (1991): "The song's drum beat was taken from a Roland
+  TR-909 drum machine beat that had previously been used on Schoolly D's ...
+  P.S.K." (Wikipedia). It is not his playing.
+- **Peek-a-Boo** (1988): its only human tab writes a plain rock beat that was
+  not checked against the record, and how much of the record is his playing
+  was not sourced.
+- **Into the Light**, Spin's pick: no tab was found.
+
+**What the style encodes.** Six base figures from the songs: Halloween's and
+Spellbound's floor tom in eighths, Spellbound's chorus, Arabian Knights' verse,
+Happy House's chorus and Israel's verse. Five fills: Halloween's round of the
+toms, Spellbound's two section ends, Halloween's floor-tom pair and Dear
+Prudence's snare pairs. Straight time, `ghostBias` 0.05: only Dear Prudence's
+third verse has ghost notes. The weight is 0.7, level with Mike Joyce and under
+Alan White's 0.8. The likeness is from the Spellbound video: platinum hair to
+the collar, clean-shaven, a black and white striped shirt (drawn white, since
+stripes cannot be drawn yet) and the pale silver kit.
+
+**Sources.** Wikipedia: Budgie (musician); Siouxsie and the Banshees;
+Kaleidoscope; Juju; Tinderbox; Happy House; Christine; Israel; Spellbound;
+Arabian Knights (song); Dear Prudence; Cities in Dust; Kiss Them for Me (song).
+Songsterr tabs 4453297, 79656, 17648, 436043, 496603, 445125, 542451, 499165.
+The Spellbound video (YouTube TjvvK-Rj0WI). The records, beat-tracked from the
+band's official uploads.
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

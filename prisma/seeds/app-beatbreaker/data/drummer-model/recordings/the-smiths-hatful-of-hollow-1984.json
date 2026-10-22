@@ -1,0 +1,46 @@
+{
+  "id": "rec:the-smiths-hatful-of-hollow-1984",
+  "title": "Hatful of Hollow",
+  "artist": "The Smiths",
+  "release": "Rough Trade",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:indie-rock"],
+  "personnel": [
+    {
+      "name": "Morrissey",
+      "role": "vocals"
+    },
+    {
+      "name": "Johnny Marr",
+      "role": "guitars"
+    },
+    {
+      "name": "Andy Rourke",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "A compilation of singles, B-sides and BBC sessions: This Charming Man, Heaven Knows I'm Miserable Now and How Soon Is Now? among them, produced by John Porter.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-joyce",
+      "name": "Mike Joyce",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "This Charming Man's Motown beat (his kit's samples triggered from a Linn LM-1), and How Soon Is Now?, the groove he chose as his favourite.",
+      "pattern_ids": ["pattern:joyce-charming-man", "pattern:joyce-how-soon-is-now"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:this-charming-man-wikipedia",
+          "src:how-soon-is-now-wikipedia",
+          "src:mike-joyce-far-out-2022"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:this-charming-man-wikipedia", "src:how-soon-is-now-wikipedia"]
+  }
+}

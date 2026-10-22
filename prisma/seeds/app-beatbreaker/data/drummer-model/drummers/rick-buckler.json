@@ -1,0 +1,845 @@
+{
+  "meta": {
+    "id": "drummer:rick-buckler",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.35,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Going Underground (1980): no drum tab of any kind exists on Songsterr and no transcription was found; the record is too dense to read by beat-tracking. Not written as a song.",
+      "Down in the Tube Station at Midnight: the only tab is machine-made; check its bars against the record, and the heartbeat effect against the drums.",
+      "His kits by year: a chrome-wrapped kit on Top of the Pops in March 1980, the white Premier with Paiste cymbals of the 1980s (Christie's), the 'Great White' kit of the Malice and Funeral Pyre videos. Makes and sizes before 1980 not found.",
+      "Read his autobiography (That's Entertainment, 2015) and The Jam: Our Story (1994) for his own account of his parts, Funeral Pyre's rolls and Precious.",
+      "Who cites him: no drummer naming him as an influence was found."
+    ]
+  },
+  "identity": {
+    "name": "Rick Buckler",
+    "full_name": "Paul Richard Buckler",
+    "born": {
+      "date": "1955-12-06",
+      "place": "Woking, Surrey, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rick-buckler-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2025-02-17",
+      "place": "Woking, Surrey, England"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Woking (1972-1976)", "London punk and the mod revival (1977-1982)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1972,
+      "to": 2009
+    },
+    "roles": ["band_member", "touring", "producer"],
+    "summary": "The Jam's drummer from its start at Sheerwater Secondary School in Woking in 1972 to its end in December 1982: six albums, eighteen top-40 singles and four number ones with Paul Weller and Bruce Foxton. Self-taught, first on a stack of Chuck Berry records Weller handed him; Ian Paice, John Bonham and Ringo Starr his models. Plain, driving eighths with the kick pushing the 'and's, the open hat and crashes marking the words, and 'bursts of snare' (MOJO); by Sound Affects the Off the Wall soul in his playing, by Town Called Malice a Motown stomp. Later Time UK, production, From the Jam (2007-2009). He died in Woking in February 2025."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Rock and roll",
+        "impact": "Weller's 'big stack of albums that were sort of Chuck Berry-style things': 'Go away and learn some of those.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buckler-q-2015-mojo-2025", "src:the-jam-wikipedia"]
+        }
+      },
+      {
+        "tradition": "British hard rock",
+        "impact": "Ian Paice and John Bonham: 'They were all a big influence on me.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buckler-modern-drummer-2008"]
+        }
+      },
+      {
+        "tradition": "Motown and soul",
+        "impact": "The Jam's mod sets of 'Motown, Stax and Atlantic covers'; Town Called Malice's Motown beat.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-jam-wikipedia", "src:town-called-malice-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1972,
+        "event": "The Jam formed at Sheerwater Secondary School, Woking, with Weller and Steve Brookes; Foxton joined on bass after Brookes left.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-jam-wikipedia", "src:rick-buckler-wikipedia"]
+        }
+      },
+      {
+        "year": 1977,
+        "event": "In the City, the first single and album; support to the Clash on the White Riot tour.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:rick-buckler-wikipedia", "src:in-the-city-jam-album-wikipedia"]
+        }
+      },
+      {
+        "year": 1980,
+        "event": "Going Underground and Start!, the first two number ones.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:rick-buckler-wikipedia", "src:start-jam-song-wikipedia"]
+        }
+      },
+      {
+        "year": 1982,
+        "event": "Town Called Malice; Weller ended the band in December.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:town-called-malice-wikipedia", "src:the-jam-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:buckler-punk-mod",
+      "label": "Punk and the mod revival",
+      "years": {
+        "from": 1977,
+        "to": 1979
+      },
+      "context": "In the City to Setting Sons: a three-piece playing punk with Who and Kinks songs behind it.",
+      "defining_traits": [
+        "the floor tom in eighths",
+        "the open hat in quarters",
+        "short snare bursts"
+      ],
+      "key_recording_ids": [
+        "rec:the-jam-in-the-city-1977",
+        "rec:the-jam-all-mod-cons-1978",
+        "rec:the-jam-setting-sons-1979"
+      ]
+    },
+    {
+      "id": "era:buckler-soul",
+      "label": "Sound Affects and The Gift",
+      "years": {
+        "from": 1980,
+        "to": 1982
+      },
+      "context": "Off the Wall and Revolver, then Motown and soul: Start!, That's Entertainment, Town Called Malice, Precious.",
+      "defining_traits": [
+        "the Taxman riff on the kick and snare",
+        "the Motown stomp",
+        "triplet rolls on the snare"
+      ],
+      "key_recording_ids": ["rec:the-jam-sound-affects-1980", "rec:the-jam-the-gift-1982"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:mod-revival",
+        "name": "Mod revival",
+        "weight": 1.0,
+        "authority": 0.9,
+        "notes": "The defining band of the 1979 revival."
+      },
+      {
+        "style_id": "style:punk",
+        "name": "Punk",
+        "weight": 0.6,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:new-wave",
+        "name": "New wave / post-punk",
+        "weight": 0.5,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:motown",
+        "name": "Motown",
+        "weight": 0.3,
+        "authority": 0.3,
+        "notes": "Town Called Malice and The Gift."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "driver",
+    "descriptors": ["driving", "tight", "song-first", "punchy"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:buckler-q-2015-mojo-2025"],
+        "note": "'Tightly-wound' (MOJO); not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight: every tab read is even eighths. MOJO hears a 'melancholy swing' in Just Who Is the 5 O'Clock Hero?, not read here."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "f",
+      "ghost_note_level": 1,
+      "accent_level": 115,
+      "balance": "The snare and the crashes on top; no ghost notes in any tab."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 16],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.3
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [130, 205],
+    "timekeeping_context": ["free"],
+    "interaction": "Locked to Foxton's bass lines: the kick under the riff in Tube Station and Start!, the hat against the bass (MOJO).",
+    "descriptors": ["driving", "tight", "punchy"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Bursts of snare",
+        "description": "Short snare runs from the \"and\" of 3 into the next section; triplet rolls on Town Called Malice.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:buckler-q-2015-mojo-2025",
+            "src:songsterr-2599543",
+            "src:songsterr-10495"
+          ]
+        }
+      },
+      {
+        "name": "The open hat in quarters",
+        "description": "The hat opened on every beat under a verse or a chorus (In the City, The Eton Rifles).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-38821", "src:songsterr-2599543"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick with the bass riff",
+        "description": "The kick doubling Foxton's riff: Tube Station's 1, 'and' of 2 and 4; Start!'s 'a' of 2.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-912739", "src:songsterr-10538"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single-stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2599543", "src:songsterr-10495"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.0,
+      "foot_ostinato_usage": 0.2,
+      "double_bass": 0.0,
+      "notes": "Hands and feet together: a plain backbeat under eighths, the kick moving with the bass.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Songsterr 38821 (In the City), 912739 (Tube Station, machine), 2599543 (The Eton Rifles), 10538 (Start!), 10495 (Town Called Malice), every bar of each",
+          "Modern Drummer (2008), Q (2015) and CultureSonar (2025) on his playing"
+        ],
+        "note": "No device found: no cross-rhythm, hemiola, grouping or displacement in any tab read. Town Called Malice's eighth-note triplet rolls are a roll inside the beat, not a cross-rhythm."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths, or quarters opened under a verse; skipped for the kick in Start!.",
+      "snare": "On 2 and 4, with short bursts from the \"and\" of 3; triplet rolls in Town Called Malice.",
+      "kick": "On 1 and pushing the \"and\"s, or doubling the bass riff.",
+      "toms": "The floor tom in eighths for intros (In the City, The Eton Rifles); runs down the toms into a verse.",
+      "cymbals": "Crashes on 1 of a line, on 2 and 4 under a chorus hook, on every beat for a climax; the ride for a bridge or an outro."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a tight, dry late-1970s British studio kit",
+      "a cracking snare",
+      "Paiste cymbals"
+    ],
+    "cymbal_character": "Paiste (the 1980s kit at Christie's).",
+    "sample_hints": {
+      "mod": "A small five-piece with a tight, high snare and bright cymbals; dry, close, little room."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:buckler-christies-premier-kit", "src:jam-totp-going-underground-1980"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:buckler-snare-bursts",
+      "label": "Bursts of snare",
+      "category": "fill",
+      "description": "Short, hard snare runs into the next line, and triplet rolls to build a song back in.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:the-jam-setting-sons-1979"
+        },
+        {
+          "recording_id": "rec:the-jam-the-gift-1982"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:buckler-q-2015-mojo-2025",
+          "src:songsterr-2599543",
+          "src:songsterr-10495"
+        ]
+      }
+    },
+    {
+      "id": "trait:buckler-kick-with-bass",
+      "label": "The kick with the bass",
+      "category": "groove",
+      "description": "The kick doubling Foxton's riff under eighths on the hat.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:buckler-tube-station-riff", "pattern:buckler-start-riff"],
+      "heard_on": [
+        {
+          "recording_id": "rec:the-jam-all-mod-cons-1978"
+        },
+        {
+          "recording_id": "rec:the-jam-sound-affects-1980"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:songsterr-912739",
+          "src:songsterr-10538",
+          "src:buckler-q-2015-mojo-2025"
+        ]
+      }
+    },
+    {
+      "id": "trait:buckler-motown-stomp",
+      "label": "The Motown stomp",
+      "category": "groove",
+      "description": "The hat in quarters and the snare on 2 and 4 at 200, Town Called Malice.",
+      "audibility": "obvious",
+      "frequency": "rare",
+      "pattern_ids": ["pattern:buckler-town-called-malice"],
+      "heard_on": [
+        {
+          "recording_id": "rec:the-jam-the-gift-1982"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:town-called-malice-wikipedia", "src:songsterr-10495"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:buckler-in-the-city-floor-tom",
+        "name": "In the City: the floor tom in eighths",
+        "type": "groove",
+        "function": "A crash on 1, eighths on the floor tom, the snare on 2 and 4, the kick on 1, 3 and its \"and\" and the \"and\" of 4 (the intro and the end).",
+        "style_ids": ["style:punk", "style:mod-revival"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-38821"],
+          "note": "Songsterr 38821, bars 9-12, 64-67, 94-97."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 179,
+          "playable_range_bpm": [170, 182]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "floor_tom_1": "x...x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:the-jam-in-the-city-1977",
+          "transcription_source_id": "src:songsterr-38821"
+        },
+        "tags": ["1977", "floor tom"]
+      },
+      {
+        "id": "pattern:buckler-tube-station-riff",
+        "name": "Down in the Tube Station: the kick under the bass",
+        "type": "groove",
+        "function": "Eighths on the hat, the kick on 1, the \"and\" of 2 and 4 with the bass riff, no snare (the intro and the interludes).",
+        "style_ids": ["style:mod-revival"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-912739"],
+          "note": "A machine tab (Songsterr 912739, bars 2-9, 40-53, 78-85), read against the record."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 169,
+          "playable_range_bpm": [160, 172]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "kick": "x.....x.....x..."
+        },
+        "source": {
+          "recording_id": "rec:the-jam-all-mod-cons-1978",
+          "transcription_source_id": "src:songsterr-912739"
+        },
+        "tags": ["1978", "intro"]
+      },
+      {
+        "id": "pattern:buckler-eton-rifles-verse",
+        "name": "The Eton Rifles: the verse",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the kick on 1, the \"and\" of 2, 3 and its \"and\".",
+        "style_ids": ["style:mod-revival"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2599543"],
+          "note": "Songsterr 2599543, eleven of bars 14-28."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 157,
+          "playable_range_bpm": [150, 160]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x.x....."
+        },
+        "source": {
+          "recording_id": "rec:the-jam-setting-sons-1979",
+          "transcription_source_id": "src:songsterr-2599543"
+        },
+        "tags": ["1979", "verse"]
+      },
+      {
+        "id": "pattern:buckler-start-riff",
+        "name": "Start!: the riff",
+        "type": "groove",
+        "function": "The hat skipping the \"and\" of 2 for the kick on its \"a\", the snare on 2, the \"and\" of 3 and 4, the kick on 1 (with the Taxman bass line).",
+        "style_ids": ["style:mod-revival"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10538"],
+          "note": "Songsterr 10538, 37 of 74 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [132, 144]
+        },
+        "lanes": {
+          "hihat": "x.x.x..xx.x.x.x.",
+          "snare": "....x.....x.x...",
+          "kick": "x......x........"
+        },
+        "source": {
+          "recording_id": "rec:the-jam-sound-affects-1980",
+          "transcription_source_id": "src:songsterr-10538"
+        },
+        "tags": ["1980", "riff"]
+      },
+      {
+        "id": "pattern:buckler-town-called-malice",
+        "name": "Town Called Malice: the stomp",
+        "type": "groove",
+        "function": "The hat in quarters, the snare on 2 and 4, the kick on 1 (later 1 and 3), at 202.",
+        "style_ids": ["style:mod-revival", "style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10495"],
+          "note": "Songsterr 10495, 41 and 26 of 143 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 202,
+          "playable_range_bpm": [190, 206]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "x..............."
+        },
+        "source": {
+          "recording_id": "rec:the-jam-the-gift-1982",
+          "transcription_source_id": "src:songsterr-10495"
+        },
+        "tags": ["1982", "motown"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:buckler-chrome-1980",
+      "label": "Chrome-wrapped five-piece (1980)",
+      "years": {
+        "from": 1980,
+        "to": 1980
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "layout_notes": "On Top of the Pops, 27 March 1980: chrome-wrapped shells and chrome stands, one tom on the bass drum, a floor tom. Make not identified.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jam-totp-going-underground-1980"]
+      }
+    },
+    {
+      "id": "kit:buckler-premier-white",
+      "label": "Premier, white (1980s)",
+      "years": {
+        "from": 1980
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "crash_1"
+        },
+        {
+          "instrument": "ride"
+        }
+      ],
+      "layout_notes": "Christie's lot 284: a five-piece Premier in white with three Paiste cymbals, used in the 1980s.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:buckler-christies-premier-kit"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "The Jam",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1982
+      },
+      "bandmates": [
+        {
+          "name": "Paul Weller"
+        },
+        {
+          "name": "Bruce Foxton"
+        },
+        {
+          "name": "Steve Brookes"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rick-buckler-wikipedia", "src:the-jam-wikipedia"]
+      }
+    },
+    {
+      "name": "Time UK",
+      "type": "band_member",
+      "years": {
+        "from": 1983,
+        "to": 1986
+      },
+      "bandmates": [
+        {
+          "name": "Jimmy Edwards"
+        },
+        {
+          "name": "Danny Kustow"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rick-buckler-wikipedia"]
+      }
+    },
+    {
+      "name": "From the Jam",
+      "type": "band_member",
+      "years": {
+        "from": 2007,
+        "to": 2009
+      },
+      "bandmates": [
+        {
+          "name": "Bruce Foxton"
+        },
+        {
+          "name": "Russell Hastings"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rick-buckler-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-jam-in-the-city-1977",
+    "rec:the-jam-all-mod-cons-1978",
+    "rec:the-jam-setting-sons-1979",
+    "rec:the-jam-sound-affects-1980",
+    "rec:the-jam-the-gift-1982"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ian Paice",
+        "kind": "drummer",
+        "id": "drummer:ian-paice"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buckler-modern-drummer-2008"],
+        "note": "'People like Ian Paice with Deep Purple, John Bonham with Led Zeppelin ... They were all a big influence on me.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buckler-modern-drummer-2008"],
+        "note": "As for Ian Paice."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buckler-culturesonar-2025"],
+        "note": "'I did take a leaf out of Ringo Starr's book.'"
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Mark Brzezicki",
+        "kind": "drummer",
+        "id": "drummer:mark-brzezicki"
+      },
+      "strength": 0.2,
+      "years": {
+        "from": 2009,
+        "to": 2009
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rick-buckler-wikipedia"],
+        "note": "In From the Jam, September 2009."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Bruce Foxton",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1974,
+        "to": 2009
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rick-buckler-wikipedia", "src:the-jam-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Paul Weller",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1972,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rick-buckler-wikipedia", "src:the-jam-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Don't copy a part: make it your own and leave your mark on it.",
+        "paraphrase_of_source_id": "src:buckler-modern-drummer-2008"
+      },
+      {
+        "idea": "The song is the star.",
+        "paraphrase_of_source_id": "src:buckler-culturesonar-2025"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.5,
+    "innovations": ["The mod revival's drumming: punk speed with Motown and Who songs behind it"],
+    "accolades": [],
+    "common_misconceptions": [
+      "That the Jam were Weller's alone: Buckler felt the rhythm section's part in the songs went uncredited (Wikipedia)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "buckler",
+    "headline_pattern_ids": [
+      "pattern:buckler-eton-rifles-verse",
+      "pattern:buckler-town-called-malice",
+      "pattern:buckler-start-riff"
+    ],
+    "default_kit_sound": "A tight, high snare and Paiste cymbals (the DRS kit raised)",
+    "generation_rules": [
+      "Eighths on the hat, the snare on 2 and 4, the kick pushing the \"and\"s.",
+      "The open hat in quarters for a verse; crashes on 1 of a line.",
+      "Short snare runs from the \"and\" of 3 into the next section.",
+      "Straight, no ghost notes."
+    ],
+    "avoid": ["Ghost notes", "Swing", "Long tom solos", "Double bass"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:ian-paice", "drummer:john-bonham", "drummer:ringo-starr"],
+      "primary_descendants": [],
+      "lineage_blurb": "Taught himself on Chuck Berry records, with Ian Paice, Bonham and Ringo as his models; the mod revival's drummer."
+    },
+    "tags": ["mod", "punk", "new wave", "british", "70s", "80s"]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "rec:the-jam-all-mod-cons-1978",
+  "title": "All Mod Cons",
+  "artist": "The Jam",
+  "release": "Polydor",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:mod-revival", "style:new-wave"],
+  "personnel": [
+    {
+      "name": "Paul Weller",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Bruce Foxton",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Rick Buckler",
+      "role": "drums",
+      "drummer_id": "drummer:rick-buckler"
+    }
+  ],
+  "producer": "Vic Coppersmith-Heaven",
+  "studio_context": "RAK Studios and others, London, 1978; Down in the Tube Station at Midnight cut on 7 August 1978.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:rick-buckler",
+      "name": "Rick Buckler",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Down in the Tube Station at Midnight: 'the nervous interaction between Buckler's hi-hat and Foxton's bassline' (MOJO), the kick under the bass riff.",
+      "pattern_ids": ["pattern:buckler-tube-station-riff"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:all-mod-cons-wikipedia",
+          "src:down-in-the-tube-station-wikipedia",
+          "src:buckler-q-2015-mojo-2025"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:all-mod-cons-wikipedia"]
+  }
+}

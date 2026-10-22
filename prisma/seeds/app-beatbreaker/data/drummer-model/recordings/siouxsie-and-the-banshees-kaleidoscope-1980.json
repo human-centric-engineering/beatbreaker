@@ -1,0 +1,56 @@
+{
+  "id": "rec:siouxsie-and-the-banshees-kaleidoscope-1980",
+  "title": "Kaleidoscope",
+  "artist": "Siouxsie and the Banshees",
+  "release": "Polydor",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:new-wave"],
+  "personnel": [
+    {
+      "name": "Siouxsie Sioux",
+      "role": "vocals"
+    },
+    {
+      "name": "Steven Severin",
+      "role": "bass"
+    },
+    {
+      "name": "John McGeoch",
+      "role": "guitars"
+    },
+    {
+      "name": "Budgie",
+      "role": "drums, percussion"
+    },
+    {
+      "name": "Nigel Gray",
+      "role": "co-producer"
+    }
+  ],
+  "studio_context": "Co-produced with Nigel Gray; his first album with the band, synthesizers and drum machines on a few tracks, his kit on the rest.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:budgie",
+      "name": "Budgie",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.9,
+      "why_it_matters": "Happy House, his first record with them: the floor tom in sixteenths over four on the floor, 'a reggae vibe' from a drummer 'interested in African polyrhythms'; Christine's kick on the 'and's.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:kaleidoscope-siouxsie-album-wikipedia",
+          "src:happy-house-siouxsie-wikipedia",
+          "src:songsterr-4453297",
+          "src:songsterr-79656"
+        ],
+        "note": "He plays on tracks 1-5 and 7-11; Lunar Camel (6) is synthesizers."
+      },
+      "pattern_ids": ["pattern:budgie-happy-house", "pattern:budgie-christine"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:kaleidoscope-siouxsie-album-wikipedia"]
+  }
+}

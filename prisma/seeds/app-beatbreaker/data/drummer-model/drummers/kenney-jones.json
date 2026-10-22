@@ -1,0 +1,1032 @@
+{
+  "meta": {
+    "id": "drummer:kenney-jones",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.35,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Itchycoo Park (1967): the only drum tab (Songsterr 2218570) is a 'regenerated' track, one bar looped with no hat, and the record's phased drums could not confirm it. Not written as a song.",
+      "All or Nothing: the tab stops at bar 51 of about 87; the second verse and the last choruses are laid out from the lyric with the tab's bars.",
+      "Stay With Me: the tabs write eighths on the hat, Jones sixteenths 'all the way through'; the style follows him. Check against isolated stems if any appear.",
+      "Read his memoir, Let the Good Times Roll (2018), and the Hellier interviews for his own account of Tin Soldier, Itchycoo Park's phasing and the Who years.",
+      "Which kit on which record: the silver glitter and black Ludwigs and the Rogers of the Small Faces, the Premiers, Yamahas and blonde Ludwigs of the Faces; dates per record not found.",
+      "Who cites him besides Phil Rudd and Zak Starkey: not searched further."
+    ]
+  },
+  "identity": {
+    "name": "Kenney Jones",
+    "full_name": "Kenneth Thomas Jones",
+    "born": {
+      "date": "1948-09-16",
+      "place": "Whitechapel, London, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenney-jones-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": [
+      "East London mod (1965-1969)",
+      "London rock (1969-1975)",
+      "The Who (1978-1988)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1965
+    },
+    "roles": ["band_member", "session", "touring"],
+    "summary": "A founder of the Small Faces in East London in 1965, at sixteen; the mod band's drummer on All or Nothing, Itchycoo Park, Tin Soldier and Ogdens' Nut Gone Flake; then the Faces with Rod Stewart and Ronnie Wood (1969-1975), and the Who's drummer after Keith Moon (1978-1988), on Face Dances and It's Hard. Raised on jazz and Booker T. & the MG's ('Al Jackson will remain my hero'); hit hard, played laid back, and moved the backbeat between the snare and the floor tom. Plain grooves with the kick pushing the 'and's and rolls of sixteenths into the next line; straighter and less frenetic than Moon, which Daltrey never forgave. Later the Law and the Jones Gang; in the Rock and Roll Hall of Fame with the Small Faces/Faces (2012)."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Jazz",
+        "impact": "'Before anything else, I was very much influenced by jazz.' 'Rock 'n' roll beats come from the jazz, really.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:kenney-jones-modern-drummer-2011"]
+        }
+      },
+      {
+        "tradition": "Memphis soul",
+        "impact": "'Al Jackson will remain my hero till the day I'm gone'; 'Booker T. & the MG's was always on my record player.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:kenney-jones-modern-drummer-2011"]
+        }
+      },
+      {
+        "tradition": "Mod R&B",
+        "impact": "The Small Faces' first singles: Whatcha Gonna Do About It, Sha-La-La-La-Lee, All or Nothing.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:small-faces-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1965,
+        "event": "Recruited by Steve Marriott and Ronnie Lane into the Small Faces; rehearsals at the Ruskin Arms, Manor Park.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:small-faces-wikipedia"]
+        }
+      },
+      {
+        "year": 1969,
+        "event": "Marriott leaves; Jones, Lane and McLagan form the Faces with Rod Stewart and Ronnie Wood.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:faces-band-wikipedia", "src:small-faces-wikipedia"]
+        }
+      },
+      {
+        "year": 1978,
+        "event": "Joins the Who in November, after Keith Moon's death; he had been with Moon on the night of his death.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:kenney-jones-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:kenney-jones-small-faces",
+      "label": "The Small Faces",
+      "years": {
+        "from": 1965,
+        "to": 1969
+      },
+      "context": "Mod R&B singles, then psychedelia: All or Nothing to Ogdens' Nut Gone Flake.",
+      "defining_traits": [
+        "the hat half-open on the backbeat",
+        "rolls of sixteenths into the chorus",
+        "the snare on every beat for the chorus"
+      ],
+      "key_recording_ids": [
+        "rec:small-faces-whatcha-gonna-do-about-it-1965",
+        "rec:small-faces-all-or-nothing-1966",
+        "rec:small-faces-tin-soldier-1967",
+        "rec:small-faces-ogdens-nut-gone-flake-1968"
+      ]
+    },
+    {
+      "id": "era:kenney-jones-faces",
+      "label": "The Faces",
+      "years": {
+        "from": 1969,
+        "to": 1975
+      },
+      "context": "A loose, laid-back rock band with Rod Stewart and Ronnie Wood; Glyn Johns's records.",
+      "defining_traits": ["sixteenths on the hat", "laid back", "tempos that move"],
+      "key_recording_ids": ["rec:faces-a-nod-is-as-good-as-a-wink-1971", "rec:faces-ooh-la-la-1973"]
+    },
+    {
+      "id": "era:kenney-jones-the-who",
+      "label": "The Who",
+      "years": {
+        "from": 1978,
+        "to": 1988
+      },
+      "context": "Keith Moon's successor: Face Dances and It's Hard, the tours of 1979-1982.",
+      "defining_traits": [
+        "the backbeat moved to the floor tom",
+        "half-time choruses",
+        "straighter than Moon"
+      ],
+      "key_recording_ids": ["rec:the-who-face-dances-1981"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock",
+        "name": "Rock",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "name": "Mod R&B",
+        "weight": 0.6,
+        "authority": 0.6,
+        "notes": "The Small Faces' first singles."
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "name": "Psychedelic rock",
+        "weight": 0.5,
+        "authority": 0.6,
+        "notes": "Itchycoo Park, Ogdens' Nut Gone Flake."
+      },
+      {
+        "style_id": "style:hard-rock",
+        "name": "Hard rock",
+        "weight": 0.4,
+        "authority": 0.4,
+        "notes": "The Faces."
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "driver",
+    "descriptors": ["solid", "laid back", "hard-hitting", "song-first"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kenney-jones-modern-drummer-2011"],
+        "note": "'The Faces are unique in playing so laid back'; not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight in every tab read."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "f",
+      "ghost_note_level": 1,
+      "accent_level": 115,
+      "balance": "'I also hit the drums a lot harder than most players'; no ghost notes in any tab."
+    },
+    "density": {
+      "groove_notes_per_bar": [4, 22],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.75,
+    "tempo_comfort_bpm": [90, 165],
+    "timekeeping_context": ["free"],
+    "interaction": "Locked to Ronnie Lane's bass in both bands; with the Faces the tempo went where the band went ('Tempos could be a nightmare').",
+    "descriptors": ["solid", "laid back", "hard-hitting"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "The butt end in the left hand",
+        "description": "'For rock gigs I play with my left stick turned around the other way [butt end].'",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:kenney-jones-modern-drummer-2011"]
+        }
+      },
+      {
+        "name": "Rolls of sixteenths into the line",
+        "description": "A roll on the snare from 3 into the next line (All or Nothing, Tin Soldier).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-574302", "src:songsterr-247832"]
+        }
+      },
+      {
+        "name": "The backbeat on the floor tom",
+        "description": "'Changing the backbeat between the snare and the tom was just my handle on it' (You Better You Bet).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:kenney-jones-modern-drummer-2011", "src:songsterr-255588"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick on the \"and\"s",
+        "description": "The kick on the \"and\" of 2 or of 3 and 4 under eighths (All or Nothing, Tin Soldier, Lazy Sunday).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-574302", "src:songsterr-247832", "src:songsterr-2437122"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single-stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-574302", "src:songsterr-247832"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.0,
+      "foot_ostinato_usage": 0.2,
+      "double_bass": 0.0,
+      "notes": "Hands and feet together: a backbeat under eighths or sixteenths, the kick moving on the \"and\"s.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Songsterr 53870 (Whatcha Gonna Do About It), 574302 (All or Nothing), 247832 (Tin Soldier), 2437122 (Lazy Sunday), 6034591 and 34816 (Stay With Me), 34815 (Ooh La La), 255588 (You Better You Bet), every bar of each",
+          "Modern Drummer (2011) on his recordings",
+          "Wikipedia on him, the Small Faces and the Faces"
+        ],
+        "note": "No device found: no cross-rhythm, hemiola or displacement in any tab read. Whatcha Gonna Do About It's eighth-note triplet runs are a fill inside the beat, not a cross-rhythm; the 'triplets with the bass drum' he names on I Know I'm Losing You (Rod Stewart, 1971) were not read in a transcription."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths, half-open on the backbeat; sixteenths on Stay With Me; the open hat in quarters for a chorus.",
+      "snare": "On 2 and 4, on every beat for a chorus, on 3 for a half-time chorus; rolls of sixteenths into the next line.",
+      "kick": "On 1 and 3 and pushing the \"and\"s; on every beat for the early singles.",
+      "toms": "The floor tom for the backbeat or a bridge in eighths; short tom runs at the ends of lines.",
+      "cymbals": "Crashes on 1 of a section, on every beat for a climax; the ride for a chorus (Lazy Sunday)."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks; the left one reversed for rock gigs."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a 1960s Ludwig recorded with two overheads and a snare mic",
+      "the Faces' dry Glyn Johns sound",
+      "his own tuning"
+    ],
+    "cymbal_character": "Sabian in later years; earlier cymbals not named.",
+    "sample_hints": {
+      "small-faces": "A 22-inch bass drum, 13 and 14-inch toms and a 14-inch snare, a little room: a 1960s Ludwig.",
+      "faces": "Dry, damped, close: the early 1970s London studio."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:kenney-jones-official-drums", "src:kenney-jones-modern-drummer-2011"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:kenney-jones-rolls-into-the-line",
+      "label": "Rolls into the line",
+      "category": "fill",
+      "description": "A roll of sixteenths on the snare from 3 into the next line or chorus.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:small-faces-all-or-nothing-1966"
+        },
+        {
+          "recording_id": "rec:small-faces-tin-soldier-1967"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-574302", "src:songsterr-247832"]
+      }
+    },
+    {
+      "id": "trait:kenney-jones-backbeat-on-the-tom",
+      "label": "The backbeat on the floor tom",
+      "category": "groove",
+      "description": "The snare on 2 and the floor tom on 4, or the other way round.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "occasional",
+      "pattern_ids": ["pattern:kenney-jones-you-better-you-bet-intro"],
+      "heard_on": [
+        {
+          "recording_id": "rec:the-who-face-dances-1981"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenney-jones-modern-drummer-2011", "src:songsterr-255588"]
+      }
+    },
+    {
+      "id": "trait:kenney-jones-snare-every-beat",
+      "label": "The snare on every beat",
+      "category": "groove",
+      "description": "Tin Soldier's chorus: the snare and the open hat on every beat.",
+      "audibility": "obvious",
+      "frequency": "rare",
+      "pattern_ids": ["pattern:kenney-jones-tin-soldier-chorus"],
+      "heard_on": [
+        {
+          "recording_id": "rec:small-faces-tin-soldier-1967"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-247832"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:kenney-jones-whatcha-four-on-the-floor",
+        "name": "Whatcha Gonna Do About It: four on the floor",
+        "type": "groove",
+        "function": "Quarters on the cymbal and the kick, the snare on 2 and 4.",
+        "style_ids": ["style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-53870"],
+          "note": "Songsterr 53870, 66 of 78 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 159,
+          "playable_range_bpm": [150, 165]
+        },
+        "lanes": {
+          "ride": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:small-faces-whatcha-gonna-do-about-it-1965",
+          "transcription_source_id": "src:songsterr-53870"
+        },
+        "tags": ["1965", "mod"]
+      },
+      {
+        "id": "pattern:kenney-jones-all-or-nothing-verse",
+        "name": "All or Nothing: the verse",
+        "type": "groove",
+        "function": "Eighths on the hat, half-open on 2 and 4, the kick on 1, the \"and\" of 2, 3 and the \"and\" of 4.",
+        "style_ids": ["style:rnb-soul", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-574302"],
+          "note": "Songsterr 574302, bars 6-17."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 113,
+          "playable_range_bpm": [105, 120]
+        },
+        "lanes": {
+          "hihat": "x.x.o.x.x.x.o.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x.....x."
+        },
+        "source": {
+          "recording_id": "rec:small-faces-all-or-nothing-1966",
+          "transcription_source_id": "src:songsterr-574302"
+        },
+        "tags": ["1966", "verse"]
+      },
+      {
+        "id": "pattern:kenney-jones-tin-soldier-verse",
+        "name": "Tin Soldier: the verse",
+        "type": "groove",
+        "function": "Eighths on the hat, the kick on 1, 3, its \"and\" and the \"and\" of 4.",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-247832"],
+          "note": "Songsterr 247832, 14 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [108, 122]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:small-faces-tin-soldier-1967",
+          "transcription_source_id": "src:songsterr-247832"
+        },
+        "tags": ["1967", "verse"]
+      },
+      {
+        "id": "pattern:kenney-jones-tin-soldier-chorus",
+        "name": "Tin Soldier: the snare on every beat",
+        "type": "groove",
+        "function": "The open hat and the snare on every beat, the kick on 1, the \"and\" of 3 and the \"and\" of 4.",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-247832"],
+          "note": "Songsterr 247832, bars 35-38, 78, 80."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [108, 122]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...",
+          "snare": "x...x...x...x...",
+          "kick": "x.........x...x."
+        },
+        "source": {
+          "recording_id": "rec:small-faces-tin-soldier-1967",
+          "transcription_source_id": "src:songsterr-247832"
+        },
+        "tags": ["1967", "chorus"]
+      },
+      {
+        "id": "pattern:kenney-jones-lazy-sunday-chorus",
+        "name": "Lazy Sunday: the chorus on the ride",
+        "type": "groove",
+        "function": "Eighths on the ride, the kick on 1, the \"and\" of 2, 3, its \"and\" and the \"and\" of 4.",
+        "style_ids": ["style:psychedelic-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2437122"],
+          "note": "Songsterr 2437122, bars 16-22, 33-35."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 132,
+          "playable_range_bpm": [124, 138]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:small-faces-ogdens-nut-gone-flake-1968",
+          "transcription_source_id": "src:songsterr-2437122"
+        },
+        "tags": ["1968", "chorus"]
+      },
+      {
+        "id": "pattern:kenney-jones-stay-with-me",
+        "name": "Stay With Me: sixteenths on the hat",
+        "type": "groove",
+        "function": "Sixteenths on the hat, the kick on the \"and\" of 1 and of 3, the snare on 2 and 4, at 91.5.",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6034591", "src:kenney-jones-modern-drummer-2011"],
+          "note": "The tabs' body read at half their tempo; the sixteenths on the hat from Jones (Modern Drummer, 2011)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 91.5,
+          "playable_range_bpm": [86, 96]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxoxxxxx",
+          "snare": "....x.......x...",
+          "kick": "..x.......x....."
+        },
+        "source": {
+          "recording_id": "rec:faces-a-nod-is-as-good-as-a-wink-1971",
+          "transcription_source_id": "src:songsterr-6034591"
+        },
+        "tags": ["1971", "faces"]
+      },
+      {
+        "id": "pattern:kenney-jones-ooh-la-la",
+        "name": "Ooh La La: the cross-stick and the kick on 1",
+        "type": "groove",
+        "function": "The cross-stick on 2 and 4 and the kick on 1, nothing else.",
+        "style_ids": ["style:folk-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-34815"],
+          "note": "Songsterr 34815, 84 of 127 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 149.5,
+          "playable_range_bpm": [140, 155]
+        },
+        "lanes": {
+          "snare": "....c.......c...",
+          "kick": "x..............."
+        },
+        "source": {
+          "recording_id": "rec:faces-ooh-la-la-1973",
+          "transcription_source_id": "src:songsterr-34815"
+        },
+        "tags": ["1973", "faces"]
+      },
+      {
+        "id": "pattern:kenney-jones-you-better-you-bet-intro",
+        "name": "You Better You Bet: the snare on 2, the floor tom on 4",
+        "type": "groove",
+        "function": "The hat on every beat, the snare on 2 and the floor tom on 4, the kick on the \"and\" of 1, 2 and 3.",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-255588", "src:kenney-jones-modern-drummer-2011"],
+          "note": "Songsterr 255588, bars 13-18 and 127-132; the floor tom on the backbeat in his own words."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 162,
+          "playable_range_bpm": [155, 168]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...",
+          "snare": "....x...........",
+          "floor_tom_1": "............x...",
+          "kick": "..x...x...x....."
+        },
+        "source": {
+          "recording_id": "rec:the-who-face-dances-1981",
+          "transcription_source_id": "src:songsterr-255588"
+        },
+        "tags": ["1981", "the who"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:kenney-jones-ludwig-small-faces",
+      "label": "Ludwig, silver glitter, then black (the Small Faces)",
+      "years": {
+        "from": 1965,
+        "to": 1969
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "size": "14x22"
+        },
+        {
+          "instrument": "snare",
+          "size": "5.5x14"
+        },
+        {
+          "instrument": "tom_1",
+          "size": "9x13"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "size": "14x14"
+        }
+      ],
+      "layout_notes": "His site: a silver glitter Ludwig for the first TV appearance, a black Ludwig that had been Brian Bennett's, and Rogers too; the sizes for the Small Faces and early Faces.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kenney-jones-official-drums"]
+      }
+    },
+    {
+      "id": "kit:kenney-jones-yamaha-who",
+      "label": "Yamaha, black (the Who)",
+      "years": {
+        "from": 1979,
+        "to": 1988
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "layout_notes": "A white Premier in 1979, then a black Yamaha for most of his years in the Who, a bigger set-up with a gong on the riser.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kenney-jones-official-drums"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Small Faces",
+      "type": "band_member",
+      "years": {
+        "from": 1965,
+        "to": 1969
+      },
+      "bandmates": [
+        {
+          "name": "Steve Marriott"
+        },
+        {
+          "name": "Ronnie Lane"
+        },
+        {
+          "name": "Ian McLagan"
+        },
+        {
+          "name": "Jimmy Winston"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:small-faces-wikipedia"]
+      }
+    },
+    {
+      "name": "Faces",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 1975
+      },
+      "bandmates": [
+        {
+          "name": "Rod Stewart"
+        },
+        {
+          "name": "Ronnie Wood"
+        },
+        {
+          "name": "Ronnie Lane"
+        },
+        {
+          "name": "Ian McLagan"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:faces-band-wikipedia"]
+      }
+    },
+    {
+      "name": "The Who",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1988
+      },
+      "bandmates": [
+        {
+          "name": "Roger Daltrey"
+        },
+        {
+          "name": "Pete Townshend"
+        },
+        {
+          "name": "John Entwistle"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenney-jones-wikipedia"]
+      }
+    },
+    {
+      "name": "The Jones Gang",
+      "type": "band_member",
+      "years": {
+        "from": 2001
+      },
+      "bandmates": [
+        {
+          "name": "Rick Wills"
+        },
+        {
+          "name": "Robert Hart"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenney-jones-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:small-faces-whatcha-gonna-do-about-it-1965",
+    "rec:small-faces-all-or-nothing-1966",
+    "rec:small-faces-tin-soldier-1967",
+    "rec:small-faces-ogdens-nut-gone-flake-1968",
+    "rec:faces-a-nod-is-as-good-as-a-wink-1971",
+    "rec:faces-ooh-la-la-1973",
+    "rec:the-who-face-dances-1981"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Al Jackson Jr.",
+        "kind": "drummer",
+        "id": "drummer:al-jackson-jr"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenney-jones-modern-drummer-2011"],
+        "note": "'Al Jackson will remain my hero till the day I'm gone.'"
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1978,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenney-jones-wikipedia"],
+        "note": "In the Who, November 1978."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Simon Phillips",
+        "kind": "drummer",
+        "id": "drummer:simon-phillips"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 1989,
+        "to": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenney-jones-wikipedia"],
+        "note": "For the Who's 1989 reunion tour."
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "name": "Zak Starkey",
+        "kind": "drummer",
+        "id": "drummer:zak-starkey"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kenney-jones-wikipedia"],
+        "note": "He 'virtually taught' Starkey, and gave him one of Moon's kits."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Ronnie Lane",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1965,
+        "to": 1973
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:small-faces-wikipedia", "src:faces-band-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Steve Marriott",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1965,
+        "to": 1969
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:small-faces-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Rod Stewart",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "years": {
+        "from": 1969,
+        "to": 1975
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:faces-band-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Pete Townshend",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1978,
+        "to": 1988
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenney-jones-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Rock beats come from jazz.",
+        "paraphrase_of_source_id": "src:kenney-jones-modern-drummer-2011"
+      },
+      {
+        "idea": "Get the tempo exactly right and the groove follows (Stay With Me).",
+        "paraphrase_of_source_id": "src:kenney-jones-modern-drummer-2011"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.5,
+    "innovations": ["The mod band's drumming: Memphis soul played hard by a British rock band"],
+    "accolades": [
+      {
+        "name": "Rock and Roll Hall of Fame (Small Faces/Faces)",
+        "year": 2012,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:kenney-jones-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he played like Keith Moon in the Who, or should have: Daltrey's complaint was that he did not; Townshend said he was a good choice (Uncut, 2011, in Wikipedia)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "kenneyjones",
+    "headline_pattern_ids": [
+      "pattern:kenney-jones-tin-soldier-verse",
+      "pattern:kenney-jones-stay-with-me",
+      "pattern:kenney-jones-you-better-you-bet-intro"
+    ],
+    "default_kit_sound": "A 1960s Ludwig (SM Drums' Sixties kit); the Faces songs damped and dry",
+    "generation_rules": [
+      "Eighths on the hat, the snare on 2 and 4, the kick pushing the \"and\"s.",
+      "A roll of sixteenths on the snare from 3 into the next line.",
+      "The backbeat moved to the floor tom now and then.",
+      "Straight, no ghost notes, a shade behind the beat."
+    ],
+    "avoid": ["Ghost notes", "Swing", "Double bass", "Moon's continuous tom runs"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:al-jackson-jr"],
+      "primary_descendants": ["drummer:phil-rudd", "drummer:zak-starkey"],
+      "lineage_blurb": "Al Jackson Jr.'s Memphis soul played hard by an East End mod; Phil Rudd's first inspiration, Zak Starkey's teacher, Keith Moon's successor."
+    },
+    "tags": ["mod", "rock", "british", "60s", "70s", "the who"]
+  }
+}

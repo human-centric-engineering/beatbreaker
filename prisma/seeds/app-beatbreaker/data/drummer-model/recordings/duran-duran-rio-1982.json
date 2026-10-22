@@ -1,0 +1,63 @@
+{
+  "id": "rec:duran-duran-rio-1982",
+  "title": "Rio",
+  "artist": "Duran Duran",
+  "release": "EMI",
+  "year": 1982,
+  "type": "album",
+  "producer": "Colin Thurston",
+  "style_ids": ["style:new-wave", "style:disco"],
+  "personnel": [
+    {
+      "name": "Simon Le Bon",
+      "role": "vocals"
+    },
+    {
+      "name": "Nick Rhodes",
+      "role": "keyboards, synthesisers"
+    },
+    {
+      "name": "John Taylor",
+      "role": "bass"
+    },
+    {
+      "name": "Andy Taylor",
+      "role": "guitar"
+    },
+    {
+      "name": "Andy Hamilton",
+      "role": "saxophone"
+    }
+  ],
+  "studio_context": "AIR, London, early 1982, produced by Colin Thurston. Hungry Like the Wolf keeps its demo's TR-808 under his kit; Save a Prayer is built round a sequencer.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-taylor-duran-duran",
+      "name": "Roger Taylor",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Hungry Like the Wolf's kick on every beat over a drum machine; Save a Prayer's long build from the cross-stick to the snare; Rio's sixteenths on the hat over the kick on 1 alone.",
+      "pattern_ids": [
+        "pattern:rtaylor-hungry-like-the-wolf-chorus",
+        "pattern:rtaylor-save-a-prayer-verse",
+        "pattern:rtaylor-rio-verse"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:hungry-like-the-wolf-wikipedia",
+          "src:save-a-prayer-wikipedia",
+          "src:rio-duran-song-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:hungry-like-the-wolf-wikipedia",
+      "src:save-a-prayer-wikipedia",
+      "src:rio-duran-song-wikipedia"
+    ]
+  }
+}

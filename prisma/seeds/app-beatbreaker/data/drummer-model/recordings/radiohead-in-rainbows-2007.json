@@ -1,0 +1,61 @@
+{
+  "id": "rec:radiohead-in-rainbows-2007",
+  "title": "In Rainbows",
+  "artist": "Radiohead",
+  "release": "self-released",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:alternative-rock", "style:experimental-rock"],
+  "personnel": [
+    {
+      "name": "Thom Yorke",
+      "role": "vocals, guitar, piano"
+    },
+    {
+      "name": "Jonny Greenwood",
+      "role": "guitar, keyboards"
+    },
+    {
+      "name": "Ed O'Brien",
+      "role": "guitar, backing vocals"
+    },
+    {
+      "name": "Colin Greenwood",
+      "role": "bass"
+    },
+    {
+      "name": "Philip Selway",
+      "role": "drums"
+    },
+    {
+      "name": "Nigel Godrich",
+      "role": "producer"
+    }
+  ],
+  "studio_context": "Halswell House, Tottenham House and elsewhere, 2005-2007, with Godrich; the band's favourite of their records, Selway and O'Brien said later.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-selway",
+      "name": "Philip Selway",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.9,
+      "why_it_matters": "15 Step's kit over a programmed pattern in 5/4; Reckoner's ride and ghost notes; Bodysnatchers' kick on every 'and'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:in-rainbows-wikipedia",
+          "src:15-step-wikipedia",
+          "src:songsterr-41634",
+          "src:songsterr-464393",
+          "src:songsterr-34780"
+        ],
+        "note": "15 Step layers his kit over a drum machine; Videotape is a TR-909 on the album."
+      },
+      "pattern_ids": ["pattern:selway-15-step", "pattern:selway-reckoner"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:in-rainbows-wikipedia"]
+  }
+}

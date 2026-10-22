@@ -1,0 +1,911 @@
+{
+  "meta": {
+    "id": "drummer:budgie",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.3,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Read his memoir, The Absence: Memoirs of a Banshee Drummer (2025), for his own account of the parts, the kits and his influences.",
+      "His kits by year: no source read here names the drums or cymbals of 1980-86.",
+      "Which drummers he names as influences: the sources read say only that he was interested in African polyrhythms.",
+      "Into the Light (Juju), Spin's 'most booming moment': no tab was found.",
+      "The Creatures' records (Wild Things, Feast, Right Now): no usable tab."
+    ]
+  },
+  "identity": {
+    "name": "Budgie",
+    "full_name": "Peter Edward Clarke",
+    "born": {
+      "date": "1957-08-21",
+      "place": "England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:budgie-wikipedia"],
+        "note": "Grew up in St Helens; Wikipedia does not give the place of birth."
+      }
+    },
+    "nationality": ["English"],
+    "home_scenes": [
+      "Liverpool, Eric's club (1970s)",
+      "Siouxsie and the Banshees, London (1979-1996)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "percussion", "marimba"],
+    "active": {
+      "from": 1977
+    },
+    "roles": ["band_member", "touring", "composer"],
+    "summary": "Siouxsie and the Banshees' drummer from 1979 to their split in 1996, and Siouxsie's partner in the Creatures. From Liverpool's punk scene and the Slits' Cut, he joined the Banshees as a stand-in for Kenny Morris and stayed. He moved the groove off the hi-hat and onto the toms: the floor tom in eighths or sixteenths, four on the floor beneath it, the snare kept for 2 and 4 or every beat, and sometimes no snare or no bass drum at all. Spin: 'he didn't just play rhythms - he played hooks and leads'; Stewart Copeland: 'a lot of tom-toms and a big throb'."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Liverpool punk",
+        "impact": "Rehearsing at Eric's club; the Spitfire Boys and Big in Japan.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:budgie-wikipedia"]
+        }
+      },
+      {
+        "tradition": "African polyrhythm and reggae",
+        "impact": "'Interested in African polyrhythms', he used 'a reggae vibe' on Happy House; Ari Up: 'he could go from reggae to punk to funk to jazz'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:happy-house-siouxsie-wikipedia", "src:budgie-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1979,
+        "event": "Drums on the Slits' Cut.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:budgie-wikipedia"]
+        }
+      },
+      {
+        "year": 1979,
+        "event": "Joined Siouxsie and the Banshees on the Join Hands tour in September, as a temporary replacement for Kenny Morris, and stayed.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:budgie-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:budgie-mcgeoch",
+      "label": "Kaleidoscope to A Kiss in the Dreamhouse",
+      "years": {
+        "from": 1979,
+        "to": 1982
+      },
+      "context": "Nigel Gray's Surrey Sound, John McGeoch on guitar: the Banshees' 'phase two'.",
+      "defining_traits": [
+        "the floor tom in place of the hat",
+        "four on the floor under the toms",
+        "the snare on every beat for a chorus"
+      ],
+      "key_recording_ids": [
+        "rec:siouxsie-and-the-banshees-kaleidoscope-1980",
+        "rec:siouxsie-and-the-banshees-israel-1980",
+        "rec:siouxsie-and-the-banshees-juju-1981"
+      ]
+    },
+    {
+      "id": "era:budgie-hits",
+      "label": "Dear Prudence to Tinderbox",
+      "years": {
+        "from": 1983,
+        "to": 1986
+      },
+      "context": "Robert Smith, then John Carruthers on guitar; the biggest hits.",
+      "defining_traits": [
+        "the kick doubled on 1 and 3",
+        "a verse on the mid tom",
+        "dotted kick figures for the dance floor"
+      ],
+      "key_recording_ids": [
+        "rec:siouxsie-and-the-banshees-dear-prudence-1983",
+        "rec:siouxsie-and-the-banshees-tinderbox-1986"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-wave",
+        "name": "New wave / post-punk",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:punk",
+        "name": "Punk",
+        "weight": 0.4,
+        "authority": 0.3,
+        "notes": "The Spitfire Boys and the Slits."
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.4,
+    "role_tendency": "accompanist",
+    "descriptors": ["tom-heavy", "hypnotic", "tribal", "steady"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-436043"],
+        "note": "Not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight: every tab writes even eighths and sixteenths."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 110,
+      "balance": "The toms and the kick carry it; the snare marks; the cymbals sparing."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 20],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [100, 175],
+    "timekeeping_context": ["free"],
+    "interaction": "Ostinatos under the guitar: each section gets one figure, held, and the change of figure is the arrangement.",
+    "descriptors": ["steady", "hypnotic", "tom-heavy"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "The floor tom as the time",
+        "description": "Eighths or sixteenths on the floor tom where the hat would be (Spellbound, Halloween, Happy House).",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-436043", "src:songsterr-445125", "src:songsterr-4453297"]
+        }
+      },
+      {
+        "name": "Tom ostinatos with no snare",
+        "description": "Arabian Knights' verse: the mid tom in eighths, the high tom on 2 and 4; Israel: no bass drum.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-496603", "src:songsterr-17648"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Four on the floor under the toms",
+        "description": "The kick on every beat beneath a tom ostinato.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4453297", "src:songsterr-436043"]
+        }
+      },
+      {
+        "name": "The hat's foot with the snare",
+        "description": "Halloween: the hat's foot on 2 and 4 with the snare, the floor tom above.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-445125"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill", "groove"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4453297", "src:songsterr-445125"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.5,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.9,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.2,
+      "foot_ostinato_usage": 0.5,
+      "double_bass": 0.0,
+      "notes": "Straight 4/4 ostinatos; on Skin he overdubbed a second kit to answer himself.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Songsterr human tabs of Happy House (4453297), Christine (79656), Israel (17648), Spellbound (436043), Arabian Knights (496603), Halloween (445125), Dear Prudence (542451), Cities in Dust (499165), Kiss Them for Me (654863), Peek-a-Boo (647117)",
+          "Wikipedia on Budgie, Kaleidoscope, Juju, Tinderbox and the singles"
+        ],
+        "note": "No device found. Wikipedia says he was 'interested in African polyrhythms', but every tab read is in straight 4/4 with no cross-rhythm or hemiola; the Spin and Copeland quotes describe tom ostinatos and offbeats, not a polyrhythm."
+      }
+    },
+    "voice_language": {
+      "hihat": "Often absent: the floor tom takes its place; eighths for the pop singles; half-open for Dear Prudence's middle eight.",
+      "snare": "2 and 4, or every beat for a chorus (Spellbound, Israel); one off-beat stroke among the toms (Happy House).",
+      "kick": "Four on the floor under the toms; 1 and its 'and', 3 and its 'and' (Dear Prudence); none at all (Israel).",
+      "toms": "The time itself: the floor tom in eighths or sixteenths, the mid tom in eighths, the high tom on 2 and 4.",
+      "cymbals": "Sparing: a crash to start a section, the ride's bell in Cities in Dust, a china on the 'and' of 4."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.1,
+      "notes": "Sticks; marimba and metallophone in the Creatures."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "Nigel Gray's Surrey Sound (1980-81): big, resonant toms",
+      "a bigger 1980s room for the hits"
+    ],
+    "cymbal_character": "Few cymbals; crashes to mark sections.",
+    "sample_hints": {
+      "post-punk": "A dry studio kit with big toms; a bigger room for 1983-86."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:juju-siouxsie-album-wikipedia",
+        "src:kaleidoscope-siouxsie-album-wikipedia"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:budgie-toms-for-hats",
+      "label": "The toms where the hi-hat was",
+      "category": "groove",
+      "description": "The floor tom or mid tom carries the time in eighths or sixteenths, four on the floor or a moving kick beneath, the snare reduced to markers.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:budgie-spellbound",
+        "pattern:budgie-happy-house",
+        "pattern:budgie-halloween",
+        "pattern:budgie-arabian-knights"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:siouxsie-and-the-banshees-kaleidoscope-1980"
+        },
+        {
+          "recording_id": "rec:siouxsie-and-the-banshees-juju-1981"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:budgie-wikipedia", "src:songsterr-436043", "src:songsterr-4453297"]
+      }
+    },
+    {
+      "id": "trait:budgie-hooks",
+      "label": "Drum parts as hooks",
+      "category": "musical_approach",
+      "description": "Spin: 'he didn't just play rhythms - he played hooks and leads, brilliant parts that set the songs on fire.' Each section has its own figure, held.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:budgie-spellbound", "pattern:budgie-israel"],
+      "heard_on": [
+        {
+          "recording_id": "rec:siouxsie-and-the-banshees-juju-1981"
+        },
+        {
+          "recording_id": "rec:siouxsie-and-the-banshees-israel-1980"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:budgie-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:budgie-spellbound",
+        "name": "Spellbound: the floor tom in eighths, the snare on every beat",
+        "type": "groove",
+        "function": "The chorus: the floor tom in eighths where a hat would be, the snare on every beat, the kick on 1, 2, 3 and the 'and's of 3 and 4. The verses keep the floor tom and put the snare back on 2 and 4.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-436043"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 155,
+          "playable_range_bpm": [148, 150]
+        },
+        "lanes": {
+          "floor_tom_1": "x.x.x.x.x.x.x.x.",
+          "snare": "x...x...x...x...",
+          "kick": "x...x...x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:siouxsie-and-the-banshees-juju-1981",
+          "transcription_source_id": "src:songsterr-436043"
+        },
+        "tags": ["1981", "toms"]
+      },
+      {
+        "id": "pattern:budgie-happy-house",
+        "name": "Happy House: the floor tom in sixteenths over four on the floor",
+        "type": "groove",
+        "function": "The verse: the floor tom in sixteenths, a gap after each beat's first stroke; the chorus adds a snare on the 'a' of 2.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4453297", "src:happy-house-siouxsie-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 125,
+          "playable_range_bpm": [122, 128]
+        },
+        "lanes": {
+          "floor_tom_1": "x.xxx.xxx.xxx.xx",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:siouxsie-and-the-banshees-kaleidoscope-1980",
+          "transcription_source_id": "src:songsterr-4453297"
+        },
+        "tags": ["1980", "toms"]
+      },
+      {
+        "id": "pattern:budgie-arabian-knights",
+        "name": "Arabian Knights: the verse with no snare",
+        "type": "groove",
+        "function": "The mid tom in eighths, the high tom and the tambourine on 2 and 4, the kick on 1, the \"and\" of 2, 3 and the \"and\" of 4.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-496603"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [133, 139]
+        },
+        "lanes": {
+          "tom_2": "x.x.x.x.x.x.x.x.",
+          "tom_1": "....x.......x...",
+          "tambourine": "....x.......x...",
+          "kick": "x.....x.x.....x."
+        },
+        "source": {
+          "recording_id": "rec:siouxsie-and-the-banshees-juju-1981",
+          "transcription_source_id": "src:songsterr-496603"
+        },
+        "tags": ["1981", "toms"]
+      },
+      {
+        "id": "pattern:budgie-halloween",
+        "name": "Halloween: the floor tom in eighths, the hat's foot on 2 and 4",
+        "type": "groove",
+        "function": "The floor tom in eighths, the snare and the hat's foot together on 2 and 4, the kick on 1, the 'and' of 2, 3 and the 'and' of 4.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-445125"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 171,
+          "playable_range_bpm": [168, 174]
+        },
+        "lanes": {
+          "floor_tom_1": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "hihat_pedal": "....x.......x...",
+          "kick": "x.....x.x.....x."
+        },
+        "source": {
+          "recording_id": "rec:siouxsie-and-the-banshees-juju-1981",
+          "transcription_source_id": "src:songsterr-445125"
+        },
+        "tags": ["1981", "toms"]
+      },
+      {
+        "id": "pattern:budgie-israel",
+        "name": "Israel: the tom on 1, the snare on 2, 3 and 4",
+        "type": "groove",
+        "function": "No bass drum: the mid tom on 1 and the snare on each of the other beats.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17648"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 108,
+          "playable_range_bpm": [105, 111]
+        },
+        "lanes": {
+          "tom_2": "x...............",
+          "snare": "....x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:siouxsie-and-the-banshees-israel-1980",
+          "transcription_source_id": "src:songsterr-17648"
+        },
+        "tags": ["1980"]
+      },
+      {
+        "id": "pattern:budgie-christine",
+        "name": "Christine: the kick on the 'and's",
+        "type": "groove",
+        "function": "The snare on 2 and 4, the hat's foot on 1 and 3, the kick on the 'and' of 1 and of 3: the tab writes it at half the tempo.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-79656"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 150,
+          "playable_range_bpm": [146, 154]
+        },
+        "lanes": {
+          "snare": "....x.......x...",
+          "kick": "..x.......x.....",
+          "hihat_pedal": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:siouxsie-and-the-banshees-kaleidoscope-1980",
+          "transcription_source_id": "src:songsterr-79656"
+        },
+        "tags": ["1980"]
+      },
+      {
+        "id": "pattern:budgie-dear-prudence",
+        "name": "Dear Prudence: the verse",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the kick on 1 and its 'and', 3 and its 'and'.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-542451"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 101,
+          "playable_range_bpm": [98, 104]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:siouxsie-and-the-banshees-dear-prudence-1983",
+          "transcription_source_id": "src:songsterr-542451"
+        },
+        "tags": ["1983"]
+      },
+      {
+        "id": "pattern:budgie-cities-in-dust",
+        "name": "Cities in Dust: the kick in threes",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the kick on 1, the 'a' of 1, the 'and' of 2, 3, the 'a' of 3 and the 'and' of 4.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-499165"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 121,
+          "playable_range_bpm": [118, 124]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x..x..x.x..x..x."
+        },
+        "source": {
+          "recording_id": "rec:siouxsie-and-the-banshees-tinderbox-1986",
+          "transcription_source_id": "src:songsterr-499165"
+        },
+        "tags": ["1985"]
+      }
+    ]
+  },
+  "equipment": [],
+  "affiliations": [
+    {
+      "name": "Siouxsie and the Banshees",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1996
+      },
+      "bandmates": [
+        {
+          "name": "Siouxsie Sioux"
+        },
+        {
+          "name": "Steven Severin"
+        },
+        {
+          "name": "John McGeoch"
+        },
+        {
+          "name": "Robert Smith"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:budgie-wikipedia", "src:siouxsie-and-the-banshees-wikipedia"]
+      }
+    },
+    {
+      "name": "The Creatures",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 2004
+      },
+      "bandmates": [
+        {
+          "name": "Siouxsie Sioux"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:budgie-wikipedia"]
+      }
+    },
+    {
+      "name": "The Slits",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1979
+      },
+      "bandmates": [
+        {
+          "name": "Ari Up"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:budgie-wikipedia"]
+      }
+    },
+    {
+      "name": "Big in Japan",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:budgie-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:siouxsie-and-the-banshees-juju-1981",
+    "rec:siouxsie-and-the-banshees-kaleidoscope-1980",
+    "rec:siouxsie-and-the-banshees-israel-1980",
+    "rec:siouxsie-and-the-banshees-dear-prudence-1983",
+    "rec:siouxsie-and-the-banshees-tinderbox-1986"
+  ],
+  "relationships": [
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Kenny Morris",
+        "kind": "drummer",
+        "id": "drummer:kenny-morris"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1979
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:budgie-wikipedia"],
+        "note": "Joined as a temporary replacement for Morris, who left two days into the Join Hands tour, and stayed."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Taylor Hawkins",
+        "kind": "drummer",
+        "id": "drummer:taylor-hawkins"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:budgie-wikipedia"],
+        "note": "Hawkins found Juju in his early twenties: 'the tribal thing he was doing was so innovative'."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Jamie Miller",
+        "kind": "drummer",
+        "id": "drummer:jamie-miller"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:budgie-wikipedia"],
+        "note": "Bad Religion's drummer names Budgie his favourite drummer, for 'a signature feel'."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Stewart Copeland",
+        "kind": "drummer",
+        "id": "drummer:stewart-copeland"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:budgie-wikipedia"],
+        "note": "Copeland listed the Banshees' 1981 singles collection among records with 'fun drumming': 'very economical and offbeat ... a lot of tom-toms and a big throb'. Admiration from Copeland's side."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Pete de Freitas",
+        "kind": "drummer",
+        "id": "drummer:pete-de-freitas"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:budgie-wikipedia"],
+        "note": "Ian McCulloch said Echo and the Bunnymen's drummer 'loved [Budgie's] drumming'."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Siouxsie Sioux",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1979,
+        "to": 2004
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:budgie-wikipedia"],
+        "note": "The Banshees and the Creatures; married 1991-2007."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Steven Severin",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1979,
+        "to": 1996
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:siouxsie-and-the-banshees-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "John McGeoch",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "years": {
+        "from": 1980,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:kaleidoscope-siouxsie-album-wikipedia",
+          "src:juju-siouxsie-album-wikipedia"
+        ]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Robert Smith",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1982,
+        "to": 1984
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dear-prudence-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Leonard Eto",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "years": {
+        "from": 2002
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:budgie-wikipedia"],
+        "note": "Taiko duets for the Creatures' Hai! (2003)."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": []
+  },
+  "legacy": {
+    "influence_score": 0.5,
+    "innovations": [
+      "Post-punk's tom-led groove: the floor tom as the time, four on the floor beneath",
+      "Drum parts written as hooks, one figure to a section"
+    ],
+    "accolades": [
+      {
+        "name": "NME readers' best drummer of 1983",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:budgie-wikipedia"]
+        }
+      },
+      {
+        "name": "No. 28 in Spin's 100 Greatest Drummers of Alternative Music",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:budgie-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That Kiss Them for Me's beat is his playing: it is a TR-909 pattern taken from Schoolly D's P.S.K."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "budgie",
+    "headline_pattern_ids": ["pattern:budgie-spellbound", "pattern:budgie-happy-house"],
+    "default_kit_sound": "The DRS kit for Nigel Gray's Surrey Sound records (1980-81); a big room for Dear Prudence and Cities in Dust",
+    "generation_rules": [
+      "The floor tom in eighths or sixteenths in place of the hat.",
+      "Four on the floor under the toms, or the kick on 1 and its \"and\", 3 and its \"and\".",
+      "The snare on 2 and 4, or every beat for a chorus.",
+      "Few ghost notes, few cymbals; one figure held for a section."
+    ],
+    "avoid": ["Swing", "Double bass", "Busy ride cymbal", "Ghost-note funk"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:kenny-morris"],
+      "primary_descendants": ["drummer:taylor-hawkins"],
+      "lineage_blurb": "Kenny Morris's chair in the Banshees, then the toms where the hi-hat was: the post-punk drummer Taylor Hawkins, Bad Religion's Jamie Miller and Echo and the Bunnymen's Pete de Freitas heard."
+    },
+    "tags": ["post-punk", "new wave", "80s", "banshees", "toms"]
+  }
+}

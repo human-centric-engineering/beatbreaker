@@ -1,0 +1,46 @@
+{
+  "id": "rec:the-stone-roses-fools-gold-1989",
+  "title": "Fools Gold / What the World Is Waiting For",
+  "artist": "The Stone Roses",
+  "release": "Silvertone",
+  "year": 1989,
+  "type": "studio_track",
+  "style_ids": ["style:funk-rock", "style:indie-rock"],
+  "personnel": [
+    {
+      "name": "Ian Brown",
+      "role": "vocals"
+    },
+    {
+      "name": "John Squire",
+      "role": "guitars"
+    },
+    {
+      "name": "Mani",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Recorded at Sawmills, Cornwall, mid-1989, with overdubs at Battery; the 9.53 and 4.15 versions.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:reni",
+      "name": "Reni",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The breakbeat the song was built over, learned and played by him: the record that made 'baggy' a dance music.",
+      "pattern_ids": ["pattern:reni-fools-gold"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:fools-gold-wikipedia",
+          "src:reni-far-out-fools-gold-2023",
+          "src:songsterr-23358"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:fools-gold-wikipedia"]
+  }
+}

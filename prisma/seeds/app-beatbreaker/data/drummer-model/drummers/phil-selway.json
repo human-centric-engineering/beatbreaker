@@ -1,0 +1,820 @@
+{
+  "meta": {
+    "id": "drummer:phil-selway",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.35,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His kits by era: the DW and Premier XPK names in the tabs are the transcribers'; Rhythm (2001) says Premier since the mid-1990s.",
+      "Kid A and Amnesiac: which drums on them are his playing, which loops of it, and which machines.",
+      "Who names him as an influence (no source read here says).",
+      "Bob Armstrong, his teacher around 2000: who he is.",
+      "Read Modern Drummer's and MusicRadar's interviews, and Monomusic's piece on his drumming (the Wayback copy was rate-limited)."
+    ]
+  },
+  "identity": {
+    "name": "Phil Selway",
+    "full_name": "Philip James Selway",
+    "born": {
+      "date": "1967-05-23",
+      "place": "Abingdon, Oxfordshire, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-selway-wikipedia"]
+      }
+    },
+    "nationality": ["English"],
+    "home_scenes": ["Abingdon and Oxford (1985-)", "Radiohead (1991-)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "electronic percussion", "guitar", "vocals"],
+    "active": {
+      "from": 1985
+    },
+    "roles": ["band_member", "touring", "composer"],
+    "summary": "Radiohead's drummer since they were On a Friday at Abingdon School in 1985. He plays parts rather than chops, each written for its song: Creep's 'disciplined simplicity', Paranoid Android's cross-stick under eighths on the hat, There There's floor tom, Reckoner's ghost notes round the ride, 15 Step in 5/4 over a machine. 'Bits of soul drumming and hip-hop and even lighter jazz things all swimming around within my drumming,' he told Rhythm in 2001; he says he borrowed 'quite a bit from Stephen Morris's drumming', and from Kid A on learned to play the electronic parts on the kit. Also a solo singer and songwriter (Familial, 2010) and a Samaritans listener for seventeen years."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Post-punk",
+        "impact": "Joy Division, the Clash and the Velvet Underground were his earliest influences; 'I have borrowed quite a bit from Stephen Morris's drumming'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-selway-wikipedia", "src:phil-selway-musicomh-this-music-made-me"]
+        }
+      },
+      {
+        "tradition": "2 Tone",
+        "impact": "The ska revival 'a very formative scene'; The Beat's I Just Can't Stop It for his 13th birthday.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-selway-musicomh-this-music-made-me"]
+        }
+      },
+      {
+        "tradition": "Soul, hip-hop and light jazz",
+        "impact": "'Bits of soul drumming and hip-hop and even lighter jazz things' inside a rock band's beat, none 'a carbon copy'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-selway-rhythm-2001"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1982,
+        "event": "Began drums and guitar at 15, 'for the social cachet and love of music'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-selway-wikipedia"]
+        }
+      },
+      {
+        "year": 1985,
+        "event": "On a Friday formed at Abingdon School with Yorke, the Greenwoods and O'Brien.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-selway-wikipedia"]
+        }
+      },
+      {
+        "year": 2000,
+        "event": "Lessons with Bob Armstrong after a six-month break from the kit following OK Computer, 'to work on technique and get a better grasp of a lot of different styles'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-selway-rhythm-2001"],
+          "note": "The year is the interview's \"last year\" (2000)."
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:selway-guitar-band",
+      "label": "Pablo Honey and The Bends",
+      "years": {
+        "from": 1991,
+        "to": 1995
+      },
+      "context": "A guitar band: Creep, then John Leckie's The Bends.",
+      "defining_traits": [
+        "plain, driving rock beats",
+        "the chorus on the ride",
+        "disciplined simplicity"
+      ],
+      "key_recording_ids": ["rec:radiohead-pablo-honey-1993", "rec:radiohead-the-bends-1995"]
+    },
+    {
+      "id": "era:selway-ok-computer",
+      "label": "OK Computer to Hail to the Thief",
+      "years": {
+        "from": 1996,
+        "to": 2004
+      },
+      "context": "Nigel Godrich's records: his playing cut into loops (Airbag, The National Anthem), machines on Kid A and Amnesiac, live drums back on Hail to the Thief.",
+      "defining_traits": [
+        "the cross-stick and the toms in place of the snare",
+        "odd meters inside 4/4 songs",
+        "electronic parts played on the kit"
+      ],
+      "key_recording_ids": [
+        "rec:radiohead-ok-computer-1997",
+        "rec:radiohead-hail-to-the-thief-2003"
+      ]
+    },
+    {
+      "id": "era:selway-in-rainbows",
+      "label": "In Rainbows and after",
+      "years": {
+        "from": 2005
+      },
+      "context": "The kit over machines and loops; a second drummer on tour from 2011.",
+      "defining_traits": [
+        "5/4 and stuttering snares",
+        "ghost notes round the ride",
+        "kick on the off-beats"
+      ],
+      "key_recording_ids": ["rec:radiohead-in-rainbows-2007"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:alternative-rock",
+        "name": "Alternative rock",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "name": "Experimental rock",
+        "weight": 0.6,
+        "authority": 0.5,
+        "notes": "OK Computer to In Rainbows: loops, machines, odd meters."
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.2,
+    "role_tendency": "accompanist",
+    "descriptors": ["disciplined", "song-first", "textural", "precise"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:phil-selway-wikipedia"],
+        "note": "Gigwise's 'mathematical precision'; not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.05,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight: every tab writes even eighths and sixteenths."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "mp",
+      "ghost_note_level": 35,
+      "accent_level": 105,
+      "balance": "Often quiet, the cross-stick or the toms in place of the snare; full for the climaxes."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 18],
+      "fill_frequency": "rare",
+      "space_usage": 0.5
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [60, 170],
+    "timekeeping_context": ["free", "click", "live_loops"],
+    "interaction": "'We give each other an awful lot of space to develop our parts' (OK Computer); from Kid A, playing machine parts on the kit.",
+    "descriptors": ["precise", "restrained", "steady"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Cross-stick in place of the snare",
+        "description": "Paranoid Android's opening, There There, Creep's last chorus.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-16501",
+            "src:songsterr-17056",
+            "src:songsterr-97",
+            "src:phil-selway-rhythm-2001"
+          ]
+        }
+      },
+      {
+        "name": "Toms as the groove",
+        "description": "There There's floor tom in eighths, Bodysnatchers' bridge.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17056", "src:songsterr-34780"]
+        }
+      },
+      {
+        "name": "Ghost notes round the backbeat",
+        "description": "Reckoner, 15 Step.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-464393", "src:songsterr-41634"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The hat's foot on the beat",
+        "description": "Under the ride or the toms (Just, There There, Bodysnatchers).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-51255", "src:songsterr-17056", "src:songsterr-34780"]
+        }
+      },
+      {
+        "name": "The kick off the beat",
+        "description": "The kick on the 'and's (Bodysnatchers, Reckoner).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-34780", "src:songsterr-464393"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-464393", "src:songsterr-51255"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.6,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.8,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.7,
+      "foot_ostinato_usage": 0.5,
+      "double_bass": 0.0,
+      "notes": "Odd meters: Paranoid Android's 7/8 groups, 15 Step in 5/4, 2 + 2 = 5's opening in 7/8.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Songsterr human tabs of Creep (97), Just (51255), Paranoid Android (16501), Karma Police (217), There There (17056), 15 Step (41634), Reckoner (464393), Bodysnatchers (34780), Airbag (51299), Street Spirit (146), The National Anthem (51268), Jigsaw Falling into Place (49215)",
+          "Rhythm (July 2001)",
+          "musicOMH (2015)",
+          "Wikipedia's Paranoid Android, 15 Step, OK Computer, Hail to the Thief"
+        ],
+        "note": "No device found: Paranoid Android's 7/8 bars and 15 Step's 5/4 are meters, not cross-rhythms; 15 Step's figure repeats every half bar inside the 5/4; Paranoid Android's slow section is a tempo change (82 to 62), not a modulation the parts imply. None is a cross-rhythm or hemiola."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths, the hat open or half-open on the 'and' of 4; sixteenths in Paranoid Android's slow section.",
+      "snare": "The cross-stick often in place of the snare; the snare pushed off the backbeat (Just); stuttering round 2 and 3 (15 Step).",
+      "kick": "1, the 'a' of 2 and the 'and' of 3 (Creep); on every 'and' (Bodysnatchers).",
+      "toms": "The floor tom as the time (There There, Bodysnatchers); runs round the toms into a section.",
+      "cymbals": "The ride for the chorus, its bell on the off-beats (Just, Reckoner)."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "Nigel Godrich's dry, close drums",
+      "a different sound for each song: 'The sound of the drums has to be right for each song'"
+    ],
+    "cymbal_character": "Plain crashes and a ride used for its bell.",
+    "sample_hints": {
+      "alternative-rock": "A tight, dry studio rock kit; a big room for Creep and There There; damped drums for Karma Police; a small, lo-fi kit for 15 Step."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:phil-selway-rhythm-2001", "src:ok-computer-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:selway-cross-stick",
+      "label": "The cross-stick in place of the snare",
+      "category": "groove",
+      "description": "Paranoid Android's 'restrained cross-sticking' twice on 2 and on 4; There There's cross-stick under the floor tom; Creep's last chorus.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:selway-paranoid-cross-stick", "pattern:selway-there-there"],
+      "heard_on": [
+        {
+          "recording_id": "rec:radiohead-ok-computer-1997"
+        },
+        {
+          "recording_id": "rec:radiohead-hail-to-the-thief-2003"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-selway-rhythm-2001", "src:songsterr-16501", "src:songsterr-17056"]
+      }
+    },
+    {
+      "id": "trait:selway-parts",
+      "label": "A part for each song",
+      "category": "musical_approach",
+      "description": "Each song its own figure, held: Creep's kick, There There's toms, Bodysnatchers' off-beat kick, 15 Step's stutter; 'none of those styles is a carbon copy'.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:selway-creep",
+        "pattern:selway-there-there",
+        "pattern:selway-bodysnatchers",
+        "pattern:selway-15-step"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:radiohead-pablo-honey-1993"
+        },
+        {
+          "recording_id": "rec:radiohead-in-rainbows-2007"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:phil-selway-rhythm-2001",
+          "src:songsterr-97",
+          "src:songsterr-17056",
+          "src:songsterr-34780"
+        ]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:selway-creep",
+        "name": "Creep: the kick on 1, the 'a' of 2 and the 'and' of 3",
+        "type": "groove",
+        "function": "The verse: eighths on the hat, half-open on the 'and' of 4 every other bar, the snare on 2 and 4.",
+        "style_ids": ["style:alternative-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-97"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 92,
+          "playable_range_bpm": [90, 95]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.h.",
+          "snare": "....x.......x...",
+          "kick": "x......xx.x....."
+        },
+        "source": {
+          "recording_id": "rec:radiohead-pablo-honey-1993",
+          "transcription_source_id": "src:songsterr-97"
+        },
+        "tags": ["1992", "1993"]
+      },
+      {
+        "id": "pattern:selway-paranoid-cross-stick",
+        "name": "Paranoid Android: the cross-stick twice on 2 and on 4",
+        "type": "groove",
+        "function": "The first section's bar: eighths on the hat, the cross-stick on 2 and its 'e' and on 4 and its 'e', the kick on 1, its 'e' and 'and', the 'a' of 2, the 'e' of 3 and the 'and' of 3.",
+        "style_ids": ["style:alternative-rock", "style:experimental-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-16501", "src:phil-selway-rhythm-2001"],
+          "note": "Rhythm (2001) on his 'restrained cross-sticking for much of the first three minutes'."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 82,
+          "playable_range_bpm": [80, 84]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....cc......cc..",
+          "kick": "x.xx...x.x.x...."
+        },
+        "source": {
+          "recording_id": "rec:radiohead-ok-computer-1997",
+          "transcription_source_id": "src:songsterr-16501"
+        },
+        "tags": ["1997", "cross-stick"]
+      },
+      {
+        "id": "pattern:selway-there-there",
+        "name": "There There: the floor tom in eighths",
+        "type": "groove",
+        "function": "The floor tom in eighths, the cross-stick on 2 and 4, the high tom on the 'and' of 2, the low tom on the 'and' of 4, the kick on 1 and the 'and' of 3, the hat's foot on the beat.",
+        "style_ids": ["style:alternative-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17056"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 127,
+          "playable_range_bpm": [124, 129]
+        },
+        "lanes": {
+          "floor_tom_1": "x.x.x.x.x.x.x.x.",
+          "snare": "....c.......c...",
+          "tom_1": "......x.........",
+          "tom_2": "..............x.",
+          "kick": "x.........x.....",
+          "hihat_pedal": "k...k...k...k..."
+        },
+        "source": {
+          "recording_id": "rec:radiohead-hail-to-the-thief-2003",
+          "transcription_source_id": "src:songsterr-17056"
+        },
+        "tags": ["2003", "toms"]
+      },
+      {
+        "id": "pattern:selway-reckoner",
+        "name": "Reckoner: ghost notes round the ride",
+        "type": "groove",
+        "function": "The ride in eighths, the snare on 2 and 4 with ghosts on the 'e' of 1, the 'a' of 2, the 'e' of 3 and the 'a' of 4; the kick on the 'and' of 1 and of 3.",
+        "style_ids": ["style:alternative-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-464393"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 104,
+          "playable_range_bpm": [102, 106]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": ".g..x..g.g..x..g",
+          "kick": "..x.......x....."
+        },
+        "source": {
+          "recording_id": "rec:radiohead-in-rainbows-2007",
+          "transcription_source_id": "src:songsterr-464393"
+        },
+        "tags": ["2007", "ghost notes"]
+      },
+      {
+        "id": "pattern:selway-15-step",
+        "name": "15 Step: his kit in 5/4",
+        "type": "groove",
+        "function": "A bar of 5/4 as the tab writes it: eighths on the hat, the kick on 1, the 'a' and 'and' of 2 and the 'and' of 3, then again; the snare's rimshots and hits stuttering round 2 and 3 and 4 and 5.",
+        "style_ids": ["style:experimental-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-41634", "src:15-step-wikipedia"],
+          "note": "Played over the record's programmed pattern."
+        },
+        "time_signature": {
+          "numerator": 5,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 95,
+          "playable_range_bpm": [92, 97]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.x.x.",
+          "snare": "..xr.x..x...xr.x..x.",
+          "kick": "x.....xx..x.....xx.."
+        },
+        "source": {
+          "recording_id": "rec:radiohead-in-rainbows-2007",
+          "transcription_source_id": "src:songsterr-41634"
+        },
+        "tags": ["2007", "5/4"]
+      },
+      {
+        "id": "pattern:selway-bodysnatchers",
+        "name": "Bodysnatchers: the kick on every 'and'",
+        "type": "groove",
+        "function": "The ride in eighths, the snare on 2 and 4, the kick on the 'and' of every beat, the hat's foot on the beat.",
+        "style_ids": ["style:alternative-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-34780"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 168,
+          "playable_range_bpm": [165, 170]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "..x...x...x...x.",
+          "hihat_pedal": "k...k...k...k..."
+        },
+        "source": {
+          "recording_id": "rec:radiohead-in-rainbows-2007",
+          "transcription_source_id": "src:songsterr-34780"
+        },
+        "tags": ["2007"]
+      }
+    ]
+  },
+  "equipment": [],
+  "affiliations": [
+    {
+      "name": "Radiohead",
+      "type": "band_member",
+      "years": {
+        "from": 1985
+      },
+      "bandmates": [
+        {
+          "name": "Thom Yorke"
+        },
+        {
+          "name": "Jonny Greenwood"
+        },
+        {
+          "name": "Ed O'Brien"
+        },
+        {
+          "name": "Colin Greenwood"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-selway-wikipedia"],
+        "note": "On a Friday until 1991."
+      }
+    },
+    {
+      "name": "7 Worlds Collide",
+      "type": "band_member",
+      "years": {
+        "from": 2001
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-selway-wikipedia", "src:phil-selway-rhythm-2001"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:radiohead-ok-computer-1997",
+    "rec:radiohead-in-rainbows-2007",
+    "rec:radiohead-hail-to-the-thief-2003",
+    "rec:radiohead-pablo-honey-1993",
+    "rec:radiohead-the-bends-1995"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Stephen Morris",
+        "kind": "drummer",
+        "id": "drummer:stephen-morris"
+      },
+      "strength": 0.7,
+      "aspects": ["post-punk drumming", "Unknown Pleasures"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-selway-musicomh-this-music-made-me"],
+        "note": "'I think I have borrowed quite a bit from Stephen Morris's drumming over the years.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Clem Burke",
+        "kind": "drummer",
+        "id": "drummer:clem-burke"
+      },
+      "strength": 0.5,
+      "aspects": ["his drummer hero"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-selway-wikipedia"],
+        "note": "He called Blondie's Clem Burke his 'drummer hero'."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Bob Armstrong",
+        "kind": "teacher"
+      },
+      "strength": 0.4,
+      "years": {
+        "from": 2000,
+        "to": 2001
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-selway-rhythm-2001"]
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Clive Deamer",
+        "kind": "drummer",
+        "id": "drummer:clive-deamer"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 2011,
+        "to": 2024
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-selway-wikipedia"],
+        "note": "Radiohead's second drummer on the King of Limbs and Moon Shaped Pool tours: 'One played in the traditional way, the other almost mimicked a drum machine.'"
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Thom Yorke",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-selway-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Jonny Greenwood",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-selway-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Ed O'Brien",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-selway-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Colin Greenwood",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-selway-wikipedia"],
+        "note": "Mojo: 'surely the most inventive rhythm section working close to the rock mainstream'."
+      }
+    }
+  ],
+  "legacy": {
+    "influence_score": 0.5,
+    "innovations": [
+      "Playing machine parts on the kit: Idioteque live, 15 Step",
+      "Cross-stick and toms as the groove in a rock band (Paranoid Android, There There)"
+    ],
+    "accolades": [
+      {
+        "title": "Gigwise's 26th-greatest drummer",
+        "year": 2008,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-selway-wikipedia"]
+        }
+      },
+      {
+        "title": "Rock and Roll Hall of Fame, with Radiohead",
+        "year": 2019,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-selway-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That every drum on the records is his playing: Airbag is a loop cut from his drums, Idioteque has 'no real drums', and 15 Step layers his kit over a machine."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "selway",
+    "headline_pattern_ids": ["pattern:selway-paranoid-cross-stick", "pattern:selway-there-there"],
+    "default_kit_sound": "A tight, dry studio rock kit; a big room for Creep and There There, damped drums for Karma Police, a small lo-fi kit for 15 Step",
+    "generation_rules": [
+      "One figure held per section, as the record holds it.",
+      "The cross-stick or the toms in place of the snare where the song is quiet.",
+      "Few fills; a run round the toms at a section change.",
+      "Straight time, no swing; odd meters where the song has them."
+    ],
+    "avoid": ["Swing", "Double bass", "Busy fills", "Long solos"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:stephen-morris", "drummer:clem-burke"],
+      "primary_descendants": [],
+      "lineage_blurb": "Joy Division's Stephen Morris, by his own account, and Blondie's Clem Burke, his 'drummer hero': Radiohead's parts-first drummer."
+    },
+    "tags": ["radiohead", "alternative", "art-rock", "90s", "2000s", "odd-meter"]
+  }
+}

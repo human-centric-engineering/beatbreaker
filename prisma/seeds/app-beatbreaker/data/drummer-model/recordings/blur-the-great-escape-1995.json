@@ -1,0 +1,54 @@
+{
+  "id": "rec:blur-the-great-escape-1995",
+  "title": "The Great Escape",
+  "artist": "Blur",
+  "release": "Food",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:britpop"],
+  "personnel": [
+    {
+      "name": "Damon Albarn",
+      "role": "vocals, keyboards"
+    },
+    {
+      "name": "Graham Coxon",
+      "role": "guitars, backing vocals"
+    },
+    {
+      "name": "Alex James",
+      "role": "bass"
+    },
+    {
+      "name": "Dave Rowntree",
+      "role": "drums, percussion"
+    },
+    {
+      "name": "Stephen Street",
+      "role": "producer"
+    }
+  ],
+  "studio_context": "With Stephen Street, finished in May 1995; Country House won the Battle of Britpop that August.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-rowntree",
+      "name": "Dave Rowntree",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Country House's open-hat chorus and the mid tom in its verse; The Universal's verse, the snare on the 'and' of 2 and on 4.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-great-escape-album-wikipedia",
+          "src:songsterr-27187",
+          "src:songsterr-27189"
+        ]
+      },
+      "pattern_ids": ["pattern:rowntree-country-house", "pattern:rowntree-the-universal"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-great-escape-album-wikipedia"]
+  }
+}

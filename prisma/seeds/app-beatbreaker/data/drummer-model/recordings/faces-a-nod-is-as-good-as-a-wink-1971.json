@@ -1,0 +1,56 @@
+{
+  "id": "rec:faces-a-nod-is-as-good-as-a-wink-1971",
+  "title": "A Nod Is As Good As a Wink... to a Blind Horse",
+  "artist": "Faces",
+  "release": "Warner Bros.",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:rock", "style:hard-rock"],
+  "producer": "Glyn Johns",
+  "personnel": [
+    {
+      "name": "Rod Stewart",
+      "role": "vocals"
+    },
+    {
+      "name": "Ronnie Wood",
+      "role": "guitar"
+    },
+    {
+      "name": "Ronnie Lane",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Ian McLagan",
+      "role": "keyboards"
+    },
+    {
+      "name": "Kenney Jones",
+      "role": "drums",
+      "drummer_id": "drummer:kenney-jones"
+    }
+  ],
+  "studio_context": "The third album, November 1971; Stay With Me its single.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenney-jones",
+      "name": "Kenney Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Stay With Me: 'It's 16ths on the hi-hat all the way through, and in order to get the groove right you have to get the tempo bang-on' (Jones).",
+      "pattern_ids": ["pattern:kenney-jones-stay-with-me"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:faces-band-wikipedia",
+          "src:kenney-jones-modern-drummer-2011",
+          "src:songsterr-6034591"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:faces-band-wikipedia"]
+  }
+}

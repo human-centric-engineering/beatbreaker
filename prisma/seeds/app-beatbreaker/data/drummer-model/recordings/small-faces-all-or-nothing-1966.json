@@ -1,0 +1,47 @@
+{
+  "id": "rec:small-faces-all-or-nothing-1966",
+  "title": "All or Nothing",
+  "artist": "Small Faces",
+  "release": "Decca",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul", "style:rock"],
+  "personnel": [
+    {
+      "name": "Steve Marriott",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Ronnie Lane",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Ian McLagan",
+      "role": "keyboards"
+    },
+    {
+      "name": "Kenney Jones",
+      "role": "drums",
+      "drummer_id": "drummer:kenney-jones"
+    }
+  ],
+  "studio_context": "Single, August 1966, the band's only UK number one.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenney-jones",
+      "name": "Kenney Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Eighths with the hat half-open on the backbeat, the push into each line of the verse, a roll of sixteenths into every \"all or nothing\".",
+      "pattern_ids": ["pattern:kenney-jones-all-or-nothing-verse"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:small-faces-wikipedia", "src:songsterr-574302"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:small-faces-wikipedia"]
+  }
+}

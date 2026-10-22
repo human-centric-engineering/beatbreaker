@@ -46,9 +46,14 @@ export const drsSticks: Recipe = {
         s: snare,
         // the rest strokes: the stick played from just above the head
         sGhost: drs('Snare_rest', SNARE, 2, 3),
-        sCross: cross,
       },
     },
+    /* The cross-stick levelled on its own recording, 4 dB under the snare.
+       Matched on the snare, it kept DRSKit's own balance: 18 dB under the
+       snare and 16 under the closed hat, so a cross-stick backbeat (Save a
+       Prayer) could hardly be heard under the hats. Here it sits about 6 dB
+       under the snare and 4 over the closed hat, as Big Rusty's and SM Drums' do. */
+    { role: 'snare', slots: { sCross: cross }, level: -4 },
     {
       role: 'hat',
       slots: {

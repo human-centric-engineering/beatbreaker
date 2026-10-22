@@ -1,0 +1,55 @@
+{
+  "id": "rec:bowie-low-1977",
+  "title": "Low",
+  "artist": "David Bowie",
+  "release": "RCA",
+  "year": 1977,
+  "type": "album",
+  "producer": "David Bowie, Tony Visconti",
+  "style_ids": ["style:experimental-rock", "style:new-wave"],
+  "personnel": [
+    {
+      "name": "David Bowie",
+      "role": "vocals, saxophones, keyboards"
+    },
+    {
+      "name": "Brian Eno",
+      "role": "synthesisers"
+    },
+    {
+      "name": "Carlos Alomar",
+      "role": "guitar"
+    },
+    {
+      "name": "Ricky Gardiner",
+      "role": "guitar"
+    },
+    {
+      "name": "George Murray",
+      "role": "bass"
+    },
+    {
+      "name": "Roy Young",
+      "role": "piano"
+    }
+  ],
+  "studio_context": "The Château d'Hérouville, France, from September 1976, and Hansa, Berlin. Visconti put Davis's snare through an Eventide H910 Harmonizer and fed it back into itself.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dennis-davis",
+      "name": "Dennis Davis",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The drum sound 'as big as a house' (Davis): the pitch-dropping snare of Speed of Life, Breaking Glass and Sound and Vision, imitated on records for a decade.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:low-bowie-album-wikipedia", "src:sound-and-vision-wikipedia"]
+      },
+      "pattern_ids": ["pattern:davis-sound-and-vision"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:low-bowie-album-wikipedia"]
+  }
+}

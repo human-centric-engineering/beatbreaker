@@ -1,0 +1,56 @@
+{
+  "id": "rec:bowie-lodger-1979",
+  "title": "Lodger",
+  "artist": "David Bowie",
+  "release": "RCA",
+  "year": 1979,
+  "type": "album",
+  "producer": "David Bowie, Tony Visconti",
+  "style_ids": ["style:new-wave", "style:experimental-rock"],
+  "personnel": [
+    {
+      "name": "David Bowie",
+      "role": "vocals, keyboards"
+    },
+    {
+      "name": "Brian Eno",
+      "role": "synthesisers"
+    },
+    {
+      "name": "Adrian Belew",
+      "role": "guitar"
+    },
+    {
+      "name": "Carlos Alomar",
+      "role": "guitar; drums on Boys Keep Swinging"
+    },
+    {
+      "name": "George Murray",
+      "role": "bass"
+    },
+    {
+      "name": "Simon House",
+      "role": "violin"
+    }
+  ],
+  "studio_context": "Mountain Studios, Montreux, September 1978, and the Record Plant, New York, March 1979; Eno's Oblique Strategies. On Boys Keep Swinging the band swapped instruments: Alomar on drums, Davis on bass.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dennis-davis",
+      "name": "Dennis Davis",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Look Back in Anger: the ride bell over a running kick and ghosts in every gap, 'so many things at once ... and yet it doesn't sound busy' (Visconti).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lodger-album-wikipedia", "src:dennis-davis-wikipedia"],
+        "note": "Drums on tracks 1, 4-6, 9 and 10; percussion on 2, 3 and 7; bass on 8."
+      },
+      "pattern_ids": ["pattern:davis-look-back-in-anger"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:lodger-album-wikipedia"]
+  }
+}

@@ -257,6 +257,7 @@ const styleFields = styleAttrsSchema.extend({
     .optional(),
   polyFill: z.number().min(0).max(1).optional(),
   drummer: z.boolean().optional(),
+  bands: z.array(z.string().trim().min(1).max(80)).min(1).max(4).optional(),
   rimshot: z.number().min(0).max(1).optional(),
   flam: z.number().min(0).max(1).optional(),
   drag: z.number().min(0).max(1).optional(),
@@ -277,10 +278,12 @@ function swingInRange(p: { swing?: number; swingRange?: [number, number] }): boo
 
 /**
  * One of a style's songs: its own meter, tempo, swing, kit and bars, laid over
- * the style's. Every field a style has, optional, bar the four a song cannot
- * change (its style's name, description, drummer flag and songs).
+ * the style's. Every field a style has, optional, bar the five a song cannot
+ * change (its style's name, description, drummer flag, bands and songs).
  */
-const songParams = styleFields.omit({ label: true, hint: true, drummer: true }).partial();
+const songParams = styleFields
+  .omit({ label: true, hint: true, drummer: true, bands: true })
+  .partial();
 const songKey = z
   .string()
   .regex(/^[a-z0-9-]{1,40}$/, 'a song key is a slug: lower-case letters, digits and hyphens');

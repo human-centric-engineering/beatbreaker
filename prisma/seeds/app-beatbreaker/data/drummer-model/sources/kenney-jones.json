@@ -1,0 +1,128 @@
+[
+  {
+    "id": "src:kenney-jones-wikipedia",
+    "type": "encyclopedia",
+    "title": "Kenney Jones - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Kenney_Jones",
+    "reliability": 0.7,
+    "accessed": "2026-10-21",
+    "notes": "Kenneth Thomas Jones, born 16 September 1948, Whitechapel, London. A founder of the Small Faces (1965-1969), then the Faces until their end in 1975; the Who's drummer from November 1978, after Keith Moon's death, on Face Dances and It's Hard and the tours of 1979-1982, Live Aid (1985) and the 1988 BPI award; replaced by Simon Phillips for the 1989 tour. Daltrey: 'I just felt he wasn't the right drummer for the Who'; his playing 'usually straighter and less frenetic than Moon's'. The Law with Paul Rodgers (1991), the Jones Gang (2001-). He 'virtually taught' Zak Starkey and gave him one of Moon's kits. Rock and Roll Hall of Fame 2012 with the Small Faces/Faces. Memoir: Let the Good Times Roll (2018)."
+  },
+  {
+    "id": "src:small-faces-wikipedia",
+    "type": "encyclopedia",
+    "title": "Small Faces - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Small_Faces",
+    "reliability": 0.7,
+    "accessed": "2026-10-21",
+    "notes": "Formed in East London in 1965 by Steve Marriott, Ronnie Lane, Kenney Jones and Jimmy Winston (Ian McLagan replacing Winston in 1966); 'one of the most acclaimed and influential mod groups of the mid-1960s'; Whatcha Gonna Do About It (1965), All or Nothing (1966, number one), Itchycoo Park and Tin Soldier (1967), Lazy Sunday (1968) from Ogdens' Nut Gone Flake, a UK number one. Jones: drums, percussion (1965-1969, 1975-1978)."
+  },
+  {
+    "id": "src:faces-band-wikipedia",
+    "type": "encyclopedia",
+    "title": "Faces (band) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Faces_(band)",
+    "reliability": 0.7,
+    "accessed": "2026-10-21",
+    "notes": "Formed in 1969 when Lane, Jones and McLagan took on Rod Stewart and Ronnie Wood from the Jeff Beck Group; four studio albums to their break-up in 1975 (A Nod Is As Good As a Wink... to a Blind Horse, 1971, with Stay With Me; Ooh La La, 1973). Jones: drums, percussion (1969-1975 and the reunions to the 2020s); Stay With Me with Stewart and Wood at the 2020 Brit Awards."
+  },
+  {
+    "id": "src:kenney-jones-modern-drummer-2011",
+    "type": "magazine",
+    "title": "Kenney Jones: British Drumming Royalty (Adam Budofsky, Modern Drummer, 18 August 2011)",
+    "url": "https://moderndrummer.com/?p=8769",
+    "reliability": 0.8,
+    "accessed": "2026-10-21",
+    "notes": "His recordings in his own words. Stay With Me: 'It's 16ths on the hi-hat all the way through, and in order to get the groove right you have to get the tempo bang-on.' 'The Faces are unique in playing so laid back'; 'Tempos could be a nightmare in the Faces'. 'You Better You Bet in particular was a good recording.' 'Changing the backbeat between the snare and the tom was just my handle on it.' I Know I'm Losing You: 'lots of press rolls and triplets with the bass drum'. Influences: 'Al Jackson will remain my hero till the day I'm gone'; 'Before anything else, I was very much influenced by jazz'; 'Booker T. & the MG's was always on my record player'. Technique: 'For rock gigs I play with my left stick turned around the other way [butt end]'; 'I also hit the drums a lot harder than most players'; 'my tuning is completely different from most drummers''. The 1966 sessions: 'just a couple of overheads and a snare mic'."
+  },
+  {
+    "id": "src:kenney-jones-official-drums",
+    "type": "biography",
+    "title": "Kenney Jones - Drums (kenneyjones.com)",
+    "url": "https://kenneyjones.com/about-kenney/drums/",
+    "reliability": 0.75,
+    "accessed": "2026-10-21",
+    "notes": "His own list of kits: a white Premier Olympic first; a silver glitter Ludwig in the early Small Faces (their first TV, Thank Your Lucky Stars); a black Ludwig that had been Brian Bennett's; Rogers in the Small Faces; an 18-inch blonde Ludwig 'jazz kit'; with the Faces a tartan Premier, white Premier and white Yamaha kits and three blonde Ludwigs; a white Premier with the Who in 1979, then a black Yamaha for most of his Who years, with a gong. Small Faces and early Faces sizes: bass drum 14x22, tom 9x13, floor tom 14x14, snare 5.5x14. Sabian cymbals ('fuller and brighter')."
+  },
+  {
+    "id": "src:small-faces-beat-club-clips",
+    "type": "recording",
+    "title": "The Small Faces on Beat-Club (Radio Bremen): Whatcha Gonna Do About It, All or Nothing, Itchycoo Park, Tin Soldier (Beat-Club's YouTube uploads sah6C87QsGo, sa6rZjJ43Js, fayL1WTR1Go, _w4uxZj1Q50)",
+    "url": "https://www.youtube.com/watch?v=_w4uxZj1Q50",
+    "reliability": 0.65,
+    "accessed": "2026-10-21",
+    "notes": "The band miming to the singles; their audio used for tempo (autocorrelation): Whatcha 158.7, All or Nothing 113.2, Tin Soldier 114.4 rising to 121. The likeness's moment is the Tin Soldier clip (see likenesses.ts)."
+  },
+  {
+    "id": "src:songsterr-53870",
+    "type": "transcription",
+    "title": "Songsterr: Small Faces, What'cha Gonna Do About It (drums), revision 68887",
+    "url": "https://www.songsterr.com/a/wa/song?id=53870",
+    "reliability": 0.5,
+    "accessed": "2026-10-21",
+    "notes": "aiGenerated false; Leonard, 2010; the track 'Kenney Jones (Percussion)'. 160 bpm, 78 bars: the kick on every beat under quarters on the cymbal, the snare on 2 and 4, eighth-note triplet fills on the snare and high tom. A plain tab."
+  },
+  {
+    "id": "src:songsterr-574302",
+    "type": "transcription",
+    "title": "Songsterr: Small Faces, All or Nothing (drums), revision 7314997",
+    "url": "https://www.songsterr.com/a/wa/song?id=574302",
+    "reliability": 0.5,
+    "accessed": "2026-10-21",
+    "notes": "aiGenerated false; Plonker, 2026; the track 'Drumkit - Kenny Jones'. 114 bpm, 51 bars marked with the lyric: the intro, the first verse and two choruses only (the record runs 3:04). The hat half-open on 2 and 4, the kick on the 'and' of 2 in the verse, rolls of sixteenths from 3."
+  },
+  {
+    "id": "src:songsterr-247832",
+    "type": "transcription",
+    "title": "Songsterr: Small Faces, Tin Soldier (drums), revision 1400648",
+    "url": "https://www.songsterr.com/a/wa/song?id=247832",
+    "reliability": 0.6,
+    "accessed": "2026-10-21",
+    "notes": "aiGenerated false; Mia Vaughan, 2025; the track 'Kenney Jones'. 110, 115 from bar 17, 106 at the end; 94 bars, 44 distinct: cross-stick intro, the verse, the chorus with the snare on every beat, crashes on every beat, sixteenth rolls."
+  },
+  {
+    "id": "src:songsterr-2437122",
+    "type": "transcription",
+    "title": "Songsterr: Small Faces, Lazy Sunday (drums), revision 7315084",
+    "url": "https://www.songsterr.com/a/wa/song?id=2437122",
+    "reliability": 0.6,
+    "accessed": "2026-10-21",
+    "notes": "aiGenerated false; Plonker, 2026. 132 bpm, the coda at 96; 97 bars: the ride chorus with the kick on every 'and' but the first, stops on the hat foot, the open hat in quarters."
+  },
+  {
+    "id": "src:songsterr-6034591",
+    "type": "transcription",
+    "title": "Songsterr: Faces, Stay with Me (2) (drums), revision 8497942",
+    "url": "https://www.songsterr.com/a/wa/song?id=6034591",
+    "reliability": 0.5,
+    "accessed": "2026-10-21",
+    "notes": "aiGenerated false; Neal Goff, 2026. 174 then 185; 207 bars. The body written in quarters at 185 with the snare on 3: the hat in eighths, the kick on the 'and' of 1 and the snare on 2 and 4 at 92. Agrees bar for bar with 34816 and 1694079."
+  },
+  {
+    "id": "src:songsterr-34816",
+    "type": "transcription",
+    "title": "Songsterr: Faces, Stay With Me (drums), revision 8148103",
+    "url": "https://www.songsterr.com/a/wa/song?id=34816",
+    "reliability": 0.4,
+    "accessed": "2026-10-21",
+    "notes": "aiGenerated false; Kelly Phillips, 2026; the drum track 'Drums (regenerated)'. The same 207 bars as 6034591."
+  },
+  {
+    "id": "src:songsterr-34815",
+    "type": "transcription",
+    "title": "Songsterr: Faces, Ooh La La (drums), revision 225411",
+    "url": "https://www.songsterr.com/a/wa/song?id=34815",
+    "reliability": 0.5,
+    "accessed": "2026-10-21",
+    "notes": "aiGenerated false; RUSTA, 2013; kit, tambourine and shaker tracks. 148 bpm, 127 bars: the cross-stick on 2 and 4 and the kick on 1 throughout, the kick on 3 too in bars 61-74."
+  },
+  {
+    "id": "src:songsterr-255588",
+    "type": "transcription",
+    "title": "Songsterr: The Who, You Better You Bet (With drums), revision 8359486",
+    "url": "https://www.songsterr.com/a/wa/song?id=255588",
+    "reliability": 0.5,
+    "accessed": "2026-10-21",
+    "notes": "aiGenerated false; Ivan, 2026. 162 bpm, 158 bars: the snare on 2 and the floor tom on 4 in the intro, the chorus in half time with the snare on 3, the bridge on the floor tom, the backbeat swapped to the floor tom on 2 in bars 93-96, a tom outro."
+  }
+]

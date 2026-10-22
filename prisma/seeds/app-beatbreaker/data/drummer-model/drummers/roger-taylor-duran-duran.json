@@ -1,0 +1,1041 @@
+{
+  "meta": {
+    "id": "drummer:roger-taylor-duran-duran",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.3,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "This is Duran Duran's Roger Andrew Taylor (born 1960), not Queen's Roger Meddows Taylor (drummer:roger-taylor).",
+      "His kit in 1980-85: Live Aid shows a white Tama kit and a rack of long black tube toms (Octobans, as he says he used on the Power Station record); the Songsterr tabs name a Tama Imperialstar without a source; no period interview on gear was found.",
+      "How much of the early records is a drum machine under him: Hungry Like the Wolf keeps a TR-808; Save a Prayer and Planet Earth have sequencers; Is There Something I Should Know? had his drums replaced with triggered samples. Which other tracks are layered is not documented here.",
+      "The Westword interview refused the fetch; its Tony Thompson passage is cited from the search excerpt. Period interviews (Smash Hits, International Musician, 1981-85) were not found."
+    ]
+  },
+  "identity": {
+    "name": "Roger Taylor (Duran Duran)",
+    "full_name": "Roger Andrew Taylor",
+    "born": {
+      "date": "1960-04-26",
+      "place": "Birmingham, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-duran-duran-wikipedia"]
+      }
+    },
+    "nationality": ["English"],
+    "home_scenes": [
+      "Birmingham (Scent Organs, Cult Figures; the Rum Runner)",
+      "Duran Duran (1979-1985, 2001-)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drums", "percussion", "electronic drums"],
+    "active": {
+      "from": 1974,
+      "to": 2026
+    },
+    "roles": ["band_member", "touring", "composer"],
+    "summary": "Duran Duran's drummer from 1979 to 1985 and again from 2001: a Birmingham drummer who taught himself by playing to records, and who with John Taylor put Chic's rhythm section under a new-wave band. Tony Thompson was 'a very big influence'. On the early records the kick is on every beat (Planet Earth, Hungry Like the Wolf) or pushes round it (Girls on Film), the hat runs in sixteenths with one hand (Rio, The Reflex), the snare sits on 2 and 4 with few fills. He left after Live Aid in 1985, exhausted; Steve Ferrone played on Notorious. Since 2001 a hybrid kit, the Tama beside a V-Drum kit and triggered samples."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "New York disco and Chic",
+        "impact": "'Tony Thompson was a very big influence on me ... all those early Chic records and everything that Nile Rodgers produced.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:roger-taylor-duran-modern-drummer-2007",
+            "src:roger-taylor-duran-westword"
+          ]
+        }
+      },
+      {
+        "tradition": "British rock",
+        "impact": "Charlie Watts, Paul Thompson of Roxy Music, John Bonham.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:roger-taylor-duran-duran-wikipedia",
+            "src:roger-taylor-duran-modern-drummer-2007"
+          ]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1972,
+        "event": "Began drumming at about twelve, teaching himself by playing along with records.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roger-taylor-duran-duran-wikipedia"]
+        }
+      },
+      {
+        "year": 1978,
+        "event": "Scent Organs reached the regional finals of Melody Maker's band competition.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roger-taylor-duran-duran-wikipedia"]
+        }
+      },
+      {
+        "year": 1979,
+        "event": "Joined Duran Duran.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roger-taylor-duran-duran-wikipedia", "src:duran-duran-wikipedia"]
+        }
+      },
+      {
+        "year": 1985,
+        "event": "Live Aid, Philadelphia: his last show with the band; left in 1986, exhausted.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:roger-taylor-duran-duran-wikipedia",
+            "src:duran-duran-wikipedia",
+            "src:notorious-duran-album-wikipedia"
+          ]
+        }
+      },
+      {
+        "year": 2001,
+        "event": "Rejoined with the other four of the Rio line-up.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roger-taylor-duran-duran-wikipedia", "src:duran-duran-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:rtaylor-duran-1980s",
+      "label": "Duran Duran, 1979-1985",
+      "years": {
+        "from": 1979,
+        "to": 1985
+      },
+      "context": "Duran Duran, Rio, Seven and the Ragged Tiger and A View to a Kill, produced by Colin Thurston, Ian Little and Alex Sadkin, remixed by Nile Rodgers; the 1984 world tour and Arena.",
+      "defining_traits": [
+        "the kick on every beat",
+        "sixteenths on the hat with one hand",
+        "the snare on 2 and 4",
+        "few, short fills"
+      ],
+      "key_recording_ids": [
+        "rec:duran-duran-duran-duran-1981",
+        "rec:duran-duran-rio-1982",
+        "rec:duran-duran-is-there-something-i-should-know-1983",
+        "rec:duran-duran-seven-and-the-ragged-tiger-1983",
+        "rec:duran-duran-a-view-to-a-kill-1985"
+      ]
+    },
+    {
+      "id": "era:rtaylor-duran-reunion",
+      "label": "Duran Duran since 2001",
+      "years": {
+        "from": 2001
+      },
+      "context": "Astronaut (2004) and the albums since; a Tama kit beside a Roland V-Drum kit, triggered samples, to a click.",
+      "defining_traits": ["a hybrid kit", "programming mixed with live drums"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-wave",
+        "name": "New wave",
+        "weight": 1.0,
+        "authority": 0.9,
+        "notes": "Every record here."
+      },
+      {
+        "style_id": "style:disco",
+        "name": "Disco",
+        "weight": 0.6,
+        "authority": 0.5,
+        "notes": "Chic's floor under the band: Planet Earth, Hungry Like the Wolf, The Reflex."
+      },
+      {
+        "style_id": "style:rock",
+        "name": "Rock",
+        "weight": 0.4,
+        "authority": 0.4
+      }
+    ],
+    "versatility": 0.4,
+    "groove_vs_chops": 0.15,
+    "role_tendency": "accompanist",
+    "descriptors": ["tight", "danceable", "economical", "song-first"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:roger-taylor-duran-modern-drummer-2007"],
+        "note": "Not measured; 'I used to be kind of tight in my playing' and 'I like playing to a click'."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight on every record here."
+    },
+    "dynamics": {
+      "range": 0.4,
+      "default_level": "mf",
+      "ghost_note_level": 40,
+      "accent_level": 110,
+      "balance": "The kick and the hat up, as a club record has them: 'it's all about the sound of the bass drum and the hi-hat'."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 22],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [110, 142],
+    "timekeeping_context": ["click", "sequencer"],
+    "interaction": "Locked to John Taylor's bass: 'John is quite a busy bass player who grew up on all these funky disco grooves.'",
+    "descriptors": ["tight", "metronomic", "unflashy"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "One-handed sixteenths on the hat",
+        "description": "Sixteenths on the hat with one hand while the other plays the snare on 2 and 4 (Rio, Planet Earth, The Reflex).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-30563", "src:songsterr-436169", "src:songsterr-415598"],
+          "note": "Inferred from the tabs: the hat keeps its sixteenths under the backbeat."
+        }
+      },
+      {
+        "name": "Cross-stick",
+        "description": "The cross-stick on 2 and 4, then on 2 and 3, through the first half of Save a Prayer.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6599"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Four on the floor",
+        "description": "The kick on every beat under a rock band's backbeat (Planet Earth, Hungry Like the Wolf).",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-436169", "src:songsterr-6313"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5934", "src:songsterr-6313"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.8,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.0,
+      "foot_ostinato_usage": 0.7,
+      "double_bass": 0.0,
+      "notes": "The hat and the kick as an ostinato under the snare: four on the floor, the hat in sixteenths or a gallop.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Songsterr human tabs: Planet Earth (436169), Girls On Film (5934), Hungry Like The Wolf (6313), Save A Prayer (6599), Rio (30563), Is There Something I Should Know (415596), The Reflex (415598), A View To A Kill (30564)",
+          "The drum-sheet video of A View to a Kill (Ej7LXSv10l8)",
+          "Modern Drummer (2007)"
+        ],
+        "note": "No device found: every song here is in 4/4, the grooves and fills on the grid with no groupings, cross-rhythms or displacements. The Reflex's galloping hat is a subdivision, not a device."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths, or sixteenths with one hand; opened on the \"and\" of 3 or of 1; a gallop with a gap before each beat in The Reflex.",
+      "snare": "On 2 and 4; the cross-stick for Save a Prayer's first half; every beat in the outros of Rio and Is There Something I Should Know?",
+      "kick": "On every beat, or on 1 with the \"and\" of 2 and 3 and the \"and\" of 4 round it; on 1 alone in Rio's verse.",
+      "toms": "Few: a rack tom with the snare at the end of a phrase, sixteenths across two toms into Planet Earth's chorus.",
+      "cymbals": "A crash on the 1 of each phrase; on every 1 of Planet Earth's chorus."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a tight, dry, bright early-1980s snare",
+      "the kick and hat up front, as on a dance record",
+      "gated and sampled drums by 1983"
+    ],
+    "cymbal_character": "Not documented here.",
+    "sample_hints": {
+      "new-wave": "A tight, dry kit with a high snare for 1981-82; a big room for 1983-85, when his drums were sampled and triggered."
+    },
+    "evidence": {
+      "confidence": "inferred",
+      "source_ids": ["src:is-there-something-i-should-know-wikipedia"],
+      "note": "From the records and the Is There Something I Should Know? mix; no period gear source found."
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:rtaylor-four-on-the-floor",
+      "label": "Chic under a rock band",
+      "category": "groove",
+      "description": "The kick on every beat with the snare on 2 and 4, under guitars and synthesisers: Planet Earth, Hungry Like the Wolf.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:rtaylor-planet-earth",
+        "pattern:rtaylor-hungry-like-the-wolf-chorus"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:duran-duran-duran-duran-1981"
+        },
+        {
+          "recording_id": "rec:duran-duran-rio-1982"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:roger-taylor-duran-modern-drummer-2007",
+          "src:songsterr-436169",
+          "src:songsterr-6313"
+        ]
+      }
+    },
+    {
+      "id": "trait:rtaylor-one-hand-sixteenths",
+      "label": "Sixteenths on the hat",
+      "category": "groove",
+      "description": "The hat in sixteenths with one hand, over the kick on 1 alone (Rio) or in a gallop (The Reflex).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:rtaylor-rio-verse", "pattern:rtaylor-reflex-chorus"],
+      "heard_on": [
+        {
+          "recording_id": "rec:duran-duran-rio-1982"
+        },
+        {
+          "recording_id": "rec:duran-duran-seven-and-the-ragged-tiger-1983"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-30563", "src:songsterr-415598"]
+      }
+    },
+    {
+      "id": "trait:rtaylor-the-build",
+      "label": "The long build",
+      "category": "musical_approach",
+      "description": "A part that adds one thing at a time: no hat in Hungry Like the Wolf's first verse; Save a Prayer on the cross-stick until its second chorus, then half time to the end.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:rtaylor-save-a-prayer-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:duran-duran-rio-1982"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-6599", "src:songsterr-6313"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:rtaylor-planet-earth",
+        "name": "Planet Earth: the kick on every beat, sixteenths on the hat",
+        "type": "groove",
+        "function": "The kick on every beat, the snare on 2 and 4, sixteenths on the hat opened on the \"and\" of 3 and its \"a\": the riff and the verses.",
+        "style_ids": ["style:new-wave", "style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-436169"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 132,
+          "playable_range_bpm": [129, 134]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxooxxxx",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:duran-duran-duran-duran-1981",
+          "transcription_source_id": "src:songsterr-436169"
+        },
+        "tags": ["1981", "four on the floor"]
+      },
+      {
+        "id": "pattern:rtaylor-girls-on-film-verse",
+        "name": "Girls on Film: the verse",
+        "type": "groove",
+        "function": "Eighths on the hat opened on the \"and\" of 3, the snare on 2 and 4, the kick on 1, the \"a\" of 1, the \"and\" of 2, 3 and the \"and\" of 4: fourteen of the verse's seventeen bars.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5934"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 131,
+          "playable_range_bpm": [128, 134]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.o.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x..x..x.x.....x."
+        },
+        "source": {
+          "recording_id": "rec:duran-duran-duran-duran-1981",
+          "transcription_source_id": "src:songsterr-5934"
+        },
+        "tags": ["1981", "verse"]
+      },
+      {
+        "id": "pattern:rtaylor-hungry-like-the-wolf-chorus",
+        "name": "Hungry Like the Wolf: four on the floor",
+        "type": "groove",
+        "function": "The kick on every beat and the snare on 2 and 4 throughout, eighths on the hat from the first chorus, opened on the \"and\" of 1 or 3.",
+        "style_ids": ["style:new-wave", "style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6313"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [125, 131]
+        },
+        "lanes": {
+          "hihat": "x.o.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:duran-duran-rio-1982",
+          "transcription_source_id": "src:songsterr-6313"
+        },
+        "tags": ["1982", "four on the floor", "chorus"]
+      },
+      {
+        "id": "pattern:rtaylor-save-a-prayer-verse",
+        "name": "Save a Prayer: the cross-stick on 2 and 4",
+        "type": "groove",
+        "function": "Eighths on the hat, the cross-stick on 2 and 4, the kick on 1 and the \"and\" of 2, of 3 and of 4: the intro and first verse, before the snare comes in at the second chorus.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6599"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 114,
+          "playable_range_bpm": [111, 116]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....c.......c...",
+          "kick": "x.....x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:duran-duran-rio-1982",
+          "transcription_source_id": "src:songsterr-6599"
+        },
+        "tags": ["1982", "cross-stick", "ballad"]
+      },
+      {
+        "id": "pattern:rtaylor-rio-verse",
+        "name": "Rio: the kick on 1 alone",
+        "type": "groove",
+        "function": "Sixteenths on the hat with one hand, opened on 1, the snare on 2 and 4, the kick on 1 and nowhere else: the verses and pre-verses.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-30563"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 141,
+          "playable_range_bpm": [137, 143]
+        },
+        "lanes": {
+          "hihat": "oxxxxxxxxxxxxxxx",
+          "snare": "....x.......x...",
+          "kick": "x..............."
+        },
+        "source": {
+          "recording_id": "rec:duran-duran-rio-1982",
+          "transcription_source_id": "src:songsterr-30563"
+        },
+        "tags": ["1982", "verse", "sixteenths"]
+      },
+      {
+        "id": "pattern:rtaylor-istsisk-verse",
+        "name": "Is There Something I Should Know?: the verse",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the kick on 1, the \"and\" of 2, 3 and the \"and\" of 4.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-415596"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 125,
+          "playable_range_bpm": [122, 128]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x.....x."
+        },
+        "source": {
+          "recording_id": "rec:duran-duran-is-there-something-i-should-know-1983",
+          "transcription_source_id": "src:songsterr-415596"
+        },
+        "tags": ["1983", "verse"]
+      },
+      {
+        "id": "pattern:rtaylor-reflex-chorus",
+        "name": "The Reflex: the galloping hat",
+        "type": "groove",
+        "function": "The hat in sixteenths with a gap before each beat, the snare on 2 and 4, the kick on 1, the \"a\" of 1, the \"and\" of 2 and 3: ten of the chorus's sixteen bars.",
+        "style_ids": ["style:new-wave", "style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-415598"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 126,
+          "playable_range_bpm": [123, 129]
+        },
+        "lanes": {
+          "hihat": "x.xxx.xxx.xxx.xx",
+          "snare": "....x.......x...",
+          "kick": "x..x..x.x......."
+        },
+        "source": {
+          "recording_id": "rec:duran-duran-seven-and-the-ragged-tiger-1983",
+          "transcription_source_id": "src:songsterr-415598"
+        },
+        "tags": ["1983", "chorus", "sixteenths"]
+      },
+      {
+        "id": "pattern:rtaylor-a-view-to-a-kill-chorus",
+        "name": "A View to a Kill: the chorus",
+        "type": "groove",
+        "function": "Eighths on the hat opened on the \"and\" of 3, the snare on 2 and 4, the kick on 1, the \"and\" of 2 and 3.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:a-view-to-a-kill-drum-sheet-video", "src:songsterr-30564"],
+          "note": "The sheet's kit; the tab's tom notes fall in the same places."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 126,
+          "playable_range_bpm": [123, 129]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.o.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x......."
+        },
+        "source": {
+          "recording_id": "rec:duran-duran-a-view-to-a-kill-1985",
+          "transcription_source_id": "src:a-view-to-a-kill-drum-sheet-video"
+        },
+        "tags": ["1985", "chorus"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:rtaylor-live-aid-1985",
+      "label": "White Tama with black tube toms (Live Aid, July 1985)",
+      "years": {
+        "from": 1985,
+        "to": 1985
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Tama"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        },
+        {
+          "instrument": "other",
+          "notes": "a rack of long black tube toms (Octobans)"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "crash_1"
+        },
+        {
+          "instrument": "hihat"
+        }
+      ],
+      "layout_notes": "Seen in the MTV broadcast: white shells, TAMA on the bass drum head, chrome hardware, the tube toms racked beside the hi-hat.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:duran-duran-live-aid-1985-mtv"]
+      }
+    },
+    {
+      "id": "kit:rtaylor-2007",
+      "label": "Tama acoustic kit and a Roland TD-20 (2007)",
+      "years": {
+        "from": 2007,
+        "to": 2007
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Tama"
+        },
+        {
+          "instrument": "electronic_pad",
+          "brand": "Roland",
+          "model": "TD-20 V-Drums"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "crash_1",
+          "brand": "Zildjian"
+        }
+      ],
+      "layout_notes": "'I have my Tama acoustic kit set up in front of me ... my V-Drum kit to my left, which is a full TD-20 setup'; samples from the album triggered from a Roland sampler.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-duran-modern-drummer-2007"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Duran Duran",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1986
+      },
+      "bandmates": [
+        {
+          "name": "Simon Le Bon"
+        },
+        {
+          "name": "Nick Rhodes"
+        },
+        {
+          "name": "John Taylor"
+        },
+        {
+          "name": "Andy Taylor"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-duran-duran-wikipedia", "src:duran-duran-wikipedia"]
+      }
+    },
+    {
+      "name": "Duran Duran",
+      "type": "band_member",
+      "years": {
+        "from": 2001
+      },
+      "bandmates": [
+        {
+          "name": "Simon Le Bon"
+        },
+        {
+          "name": "Nick Rhodes"
+        },
+        {
+          "name": "John Taylor"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-duran-duran-wikipedia", "src:duran-duran-wikipedia"]
+      }
+    },
+    {
+      "name": "Arcadia",
+      "type": "session_regular",
+      "years": {
+        "from": 1985,
+        "to": 1985
+      },
+      "bandmates": [
+        {
+          "name": "Simon Le Bon"
+        },
+        {
+          "name": "Nick Rhodes"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-duran-duran-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:duran-duran-duran-duran-1981",
+    "rec:duran-duran-rio-1982",
+    "rec:duran-duran-is-there-something-i-should-know-1983",
+    "rec:duran-duran-seven-and-the-ragged-tiger-1983",
+    "rec:duran-duran-a-view-to-a-kill-1985"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tony Thompson",
+        "kind": "drummer",
+        "id": "drummer:tony-thompson"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:roger-taylor-duran-modern-drummer-2007",
+          "src:roger-taylor-duran-westword"
+        ],
+        "note": "'Tony Thompson was a very big influence on me.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Charlie Watts",
+        "kind": "drummer",
+        "id": "drummer:charlie-watts"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:roger-taylor-duran-duran-wikipedia",
+          "src:roger-taylor-duran-modern-drummer-2007"
+        ]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Paul Thompson",
+        "kind": "drummer",
+        "id": "drummer:paul-thompson"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-duran-duran-wikipedia"],
+        "note": "Roxy Music."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-duran-modern-drummer-2007"],
+        "note": "'Another influence is John Bonham, of course.'"
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-duran-modern-drummer-2007"],
+        "note": "'Some of the greatest drummers are not the most technical players in the world—like Ringo Starr.'"
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Steve Ferrone",
+        "kind": "drummer",
+        "id": "drummer:steve-ferrone"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1986,
+        "to": 1986
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:notorious-duran-album-wikipedia", "src:duran-duran-wikipedia"],
+        "note": "Hired for Notorious while the band looked for a drummer."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "John Taylor",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1979,
+        "to": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:roger-taylor-duran-duran-wikipedia",
+          "src:roger-taylor-duran-modern-drummer-2007"
+        ]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Nick Rhodes",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1979,
+        "to": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:roger-taylor-duran-duran-wikipedia",
+          "src:roger-taylor-duran-modern-drummer-2007"
+        ]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Simon Le Bon",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "years": {
+        "from": 1980,
+        "to": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-duran-duran-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Andy Taylor",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "years": {
+        "from": 1980,
+        "to": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-duran-duran-wikipedia", "src:duran-duran-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Learn to be part of a song by playing along with records: it teaches you to serve the song.",
+        "paraphrase_of_source_id": "src:roger-taylor-duran-modern-drummer-2007"
+      },
+      {
+        "idea": "Leave the other players space and room to breathe; learn how they play and anticipate them.",
+        "paraphrase_of_source_id": "src:roger-taylor-duran-modern-drummer-2007"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.4,
+    "innovations": [
+      "A disco drummer's kick and hat as the floor of a British guitar-and-synth band"
+    ],
+    "accolades": [
+      {
+        "name": "Rock and Roll Hall of Fame (with Duran Duran)",
+        "year": 2022,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roger-taylor-duran-duran-wikipedia", "src:duran-duran-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he is Queen's Roger Taylor: a different drummer, born 1960 in Birmingham.",
+      "That the early records are all drum machines: he plays on them, over a machine on Hungry Like the Wolf."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "rogertaylorduran",
+    "headline_pattern_ids": ["pattern:rtaylor-planet-earth", "pattern:rtaylor-rio-verse"],
+    "default_kit_sound": "A tight, dry kit with its snare raised (Bright and tight) for 1981-82; a big room for 1983-85",
+    "generation_rules": [
+      "The kick on every beat, or on 1 with the \"and\" of 2 and 3 round it.",
+      "Eighths on the hat, or sixteenths with one hand; opened on the \"and\" of 3.",
+      "The snare on 2 and 4; few, short fills at the phrase end.",
+      "No ghost notes; no swing."
+    ],
+    "avoid": ["Ghost notes", "Swing", "Long fills", "Double bass"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:tony-thompson",
+        "drummer:charlie-watts",
+        "drummer:paul-thompson"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Tony Thompson's Chic floor under a Birmingham new-wave band: the drummer on Rio."
+    },
+    "tags": ["new wave", "duran duran", "new romantic", "80s", "british", "four on the floor"]
+  }
+}

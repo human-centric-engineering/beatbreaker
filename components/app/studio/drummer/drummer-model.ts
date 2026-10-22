@@ -3930,6 +3930,34 @@ function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
       // pulled down onto the head, its brim low over the brow
       return worn(parts, 0.142, -0.06);
     }
+    case 'bucket': {
+      /* Reni's at Spike Island: a soft cotton crown, round and a little flattened on top, its
+         stitched brim sloping down all the way round, pulled low so the front shades the brows */
+      const brim = turned(brimProfile(0.104, 0.148, 0.005), (v) => {
+        const { out } = brimAt(v, 0.104, 0.148);
+        v.y -= 0.04 * out;
+        v.z *= 1.1;
+      });
+      const crown = turned(
+        [
+          [0.106, 0],
+          [0.104, 0.035],
+          [0.099, 0.07],
+          [0.09, 0.092],
+          [0.07, 0.104],
+          [0.04, 0.109],
+          [0, 0.11],
+        ],
+        (v) => {
+          v.z *= 1.1;
+        }
+      );
+      const parts = [mesh(brim, m.accent), mesh(crown, m.accent)];
+      parts[0].name = 'brim';
+      parts[1].name = 'bucket';
+      // pulled down to the brows, tipped back a touch so the eyes show under the brim
+      return worn(parts, 0.152, 0.04);
+    }
     case 'tam': {
       /* Yussef Dayes's at Joshua Tree: a tall crocheted crown over his locs, snug round the head
          and rising and swelling above it to a soft rounded peak, slouching a little back */

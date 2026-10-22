@@ -1,0 +1,817 @@
+{
+  "meta": {
+    "id": "drummer:mike-joyce",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.3,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His kits by year: the tabs name a red sparkle Ludwig (1983) and Gretsch (1984-1986), which no interview found here confirms; his cymbals.",
+      "The Drums (2025), his memoir: read it for how he made the parts, the Linn on This Charming Man and the Queen Is Dead loop.",
+      "The MusicRadar interview (March 2018) Wikipedia cites: 'fast and loud, faster and louder and fastest and loudest'; read the body.",
+      "Panic, Shoplifters of the World Unite, London and Death of a Disco Dancer: no usable human tab (Panic's is old and in 12/8, Shoplifters' machine-made); transcribe from the records.",
+      "Strangeways, Here We Come (1987): no songs from it yet."
+    ]
+  },
+  "identity": {
+    "name": "Mike Joyce",
+    "full_name": "Michael Adrian Paul Joyce",
+    "born": {
+      "date": "1963-06-01",
+      "place": "Manchester, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-joyce-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": [
+      "Manchester punk (1978-1982)",
+      "The Smiths (1982-1987)",
+      "Manchester and London sessions (1988-)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1979,
+      "to": 2025
+    },
+    "roles": ["band_member", "session", "touring"],
+    "summary": "The Smiths' drummer, 1982 to 1987: a Manchester punk drummer (the Hoax, Belfast's Victim) who took up the drums after seeing Buzzcocks' John Maher and found in the Smiths a band where he had to drive Johnny Marr's guitars without crowding them. Eighths or two-handed sixteenths on the hat, the snare square on 2 and 4, the bass drum pushing the offbeats, short snare runs into the next phrase, almost no ghost notes: This Charming Man's Motown beat, How Soon Is Now?'s seven-minute groove, The Queen Is Dead's floor tom. 'A great drum fill is only great if it sounds right within the song.' Later with Sinéad O'Connor, Morrissey, Suede, Buzzcocks, PiL and Julian Cope; a broadcaster; his memoir The Drums came out in 2025."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Manchester punk",
+        "impact": "Buzzcocks' John Maher, whom he saw at fourteen or fifteen: 'that was it'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-joyce-far-out-2022"]
+        }
+      },
+      {
+        "tradition": "The Rolling Stones",
+        "impact": "Charlie Watts: 'every Stones track that has ever been just sounds fantastic'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-joyce-hotpress-2008"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1978,
+        "event": "Saw Buzzcocks in Manchester, 'completely transfixed by John Maher', and pressed his mother for a drum kit.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-joyce-far-out-2022"]
+        }
+      },
+      {
+        "year": 1982,
+        "event": "Joined the Smiths after auditions, in place of Simon Wolstencroft, who had drummed on the demos but would not join.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-smiths-wikipedia", "src:mike-joyce-wikipedia"]
+        }
+      },
+      {
+        "year": 1983,
+        "event": "This Charming Man: his kit sampled and triggered from John Porter's Linn LM-1.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:this-charming-man-wikipedia"]
+        }
+      },
+      {
+        "year": 1986,
+        "event": "The Queen Is Dead: the intro a loop of his toms on Stephen Street's sampler, played live by hand.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-queen-is-dead-song-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:mike-joyce-porter",
+      "label": "The singles with John Porter",
+      "years": {
+        "from": 1983,
+        "to": 1984
+      },
+      "context": "This Charming Man, What Difference Does It Make?, Heaven Knows I'm Miserable Now, How Soon Is Now?: a punk drummer reined in under Porter.",
+      "defining_traits": [
+        "eighths and quarters on the hat",
+        "two-handed sixteenths",
+        "the snare square on 2 and 4"
+      ],
+      "key_recording_ids": [
+        "rec:the-smiths-the-smiths-1984",
+        "rec:the-smiths-hatful-of-hollow-1984"
+      ]
+    },
+    {
+      "id": "era:mike-joyce-street",
+      "label": "Meat Is Murder and The Queen Is Dead",
+      "years": {
+        "from": 1985,
+        "to": 1987
+      },
+      "context": "Self-produced with Stephen Street: funk on Barbarism Begins at Home, the floor tom on The Queen Is Dead, snare runs on Bigmouth Strikes Again.",
+      "defining_traits": [
+        "the floor tom in eighths",
+        "snare runs into the verse",
+        "splashes at the top of the phrase"
+      ],
+      "key_recording_ids": [
+        "rec:the-smiths-meat-is-murder-1985",
+        "rec:the-smiths-the-queen-is-dead-1986"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:indie-rock",
+        "name": "Indie rock",
+        "weight": 1.0,
+        "authority": 0.8,
+        "notes": "Jangle pop and post-punk with the Smiths."
+      },
+      {
+        "style_id": "style:punk",
+        "name": "Punk",
+        "weight": 0.4,
+        "authority": 0.3,
+        "notes": "The Hoax and Victim before the Smiths; Buzzcocks in the 1990s."
+      },
+      {
+        "style_id": "style:motown",
+        "name": "Motown",
+        "weight": 0.2,
+        "authority": 0.2,
+        "notes": "This Charming Man's beat."
+      },
+      {
+        "style_id": "style:funk",
+        "name": "Funk",
+        "weight": 0.2,
+        "authority": 0.2,
+        "notes": "Barbarism Begins at Home."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.2,
+    "role_tendency": "driver",
+    "descriptors": ["driving", "unfussy", "energetic", "song-first"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:mike-joyce-far-out-2022"],
+        "note": "Not measured; a punk drummer by training."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight: every transcription is even eighths and sixteenths."
+    },
+    "dynamics": {
+      "range": 0.4,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 115,
+      "balance": "The snare and the hat on top; the bass drum busy underneath."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 22],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.3
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [90, 170],
+    "timekeeping_context": ["free"],
+    "interaction": "With Andy Rourke's bass: 'I don't really sit on a groove with a lot of them', since Marr's songs change chords so often; the fills kept to what the song needs.",
+    "descriptors": ["driving", "straight", "steady"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Two hands on the hat",
+        "description": "Sixteenths on the hi-hat with both hands, the snare hand leaving it on 2 and 4 (How Soon Is Now?, Bigmouth Strikes Again).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18218", "src:songsterr-18167"]
+        }
+      },
+      {
+        "name": "The floor tom as the time",
+        "description": "Eighths on the floor tom in place of the hat (The Queen Is Dead).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-635023"]
+        }
+      },
+      {
+        "name": "Snare runs into the phrase",
+        "description": "Sixteenths on the snare from the \"and\" of 3 or on 4 into the next section.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18167", "src:songsterr-18218", "src:songsterr-635023"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "A busy bass drum",
+        "description": "The bass drum on the offbeat sixteenths under a plain backbeat.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18218", "src:songsterr-635023"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18167"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.6,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.0,
+      "foot_ostinato_usage": 0.5,
+      "double_bass": 0.0,
+      "notes": "Steady hat or floor-tom ostinatos under a plain backbeat.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Songsterr human tabs: This Charming Man (17973, 3237543), How Soon Is Now? (18218), The Queen Is Dead (635023), Bigmouth Strikes Again (18167), There Is a Light That Never Goes Out (18092, 717147), What Difference Does It Make? (17436), Heaven Knows I'm Miserable Now (17400), Barbarism Begins at Home (18076)",
+          "Far Out (2022), Hotpress (2008), Radio X (2025)"
+        ],
+        "note": "No device found: no groupings, cross-rhythms or displacements. The Bigmouth Strikes Again and This Charming Man tabs write triplets in a few fills, which are not a device. Panic's old tab (12/8) was not read."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths, quarters, or both hands in sixteenths; opened on the \"a\" of 4.",
+      "snare": "Square on 2 and 4; runs of sixteenths into the next phrase; no ghost notes.",
+      "kick": "On the offbeat eighths and sixteenths under the backbeat.",
+      "toms": "The floor tom as the time on The Queen Is Dead; little else.",
+      "cymbals": "A crash or a splash at the top of four bars."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["a bright, natural kit", "a ringing snare", "room on The Queen Is Dead"],
+    "cymbal_character": "Not documented here.",
+    "sample_hints": {
+      "indie-rock": "A 1960s-style kit, bright snare, ringing toms (1983-84); bigger and roomier for The Queen Is Dead."
+    },
+    "evidence": {
+      "confidence": "inferred",
+      "source_ids": ["src:this-charming-man-wikipedia", "src:the-queen-is-dead-song-wikipedia"],
+      "note": "From the records, not his account."
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:joyce-two-hands",
+      "label": "Two hands on the hat",
+      "category": "groove",
+      "description": "Sixteenths on the hi-hat with both hands, broken for the snare on 2 and 4, over a busy bass drum.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:joyce-how-soon-is-now"],
+      "heard_on": [
+        {
+          "recording_id": "rec:the-smiths-hatful-of-hollow-1984"
+        },
+        {
+          "recording_id": "rec:the-smiths-the-queen-is-dead-1986"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-18218", "src:songsterr-18167"]
+      }
+    },
+    {
+      "id": "trait:joyce-floor-tom",
+      "label": "The floor tom as the time",
+      "category": "sound",
+      "description": "The Queen Is Dead's eighths on the floor tom under the snare.",
+      "audibility": "obvious",
+      "frequency": "rare",
+      "pattern_ids": ["pattern:joyce-queen-is-dead"],
+      "heard_on": [
+        {
+          "recording_id": "rec:the-smiths-the-queen-is-dead-1986"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-635023", "src:mike-joyce-radio-x-2025"]
+      }
+    },
+    {
+      "id": "trait:joyce-song-first",
+      "label": "Fills only where the song wants them",
+      "category": "musical_approach",
+      "description": "'A great drum fill is only great if it sounds right within the song'; short snare runs into the next phrase rather than tom fills.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:the-smiths-the-queen-is-dead-1986"
+        },
+        {
+          "recording_id": "rec:the-smiths-hatful-of-hollow-1984"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-joyce-hotpress-2008"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:joyce-charming-man",
+        "name": "This Charming Man: the snare on every \"and\"",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on every \"and\", the bass drum on 1, 2, the \"a\" of 2 and the \"and\" of 3: a Motown beat counted in quarters at 104.",
+        "style_ids": ["style:indie-rock", "style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17973", "src:this-charming-man-wikipedia"],
+          "note": "Two human tabs agree; the record is his kit sampled and triggered from a Linn LM-1."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 104,
+          "playable_range_bpm": [101, 107]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "..x...x...x...x.",
+          "kick": "x...x..x.x..x..."
+        },
+        "source": {
+          "recording_id": "rec:the-smiths-hatful-of-hollow-1984",
+          "transcription_source_id": "src:songsterr-17973"
+        },
+        "tags": ["1983", "motown"]
+      },
+      {
+        "id": "pattern:joyce-how-soon-is-now",
+        "name": "How Soon Is Now?: two hands on the hat",
+        "type": "groove",
+        "function": "Sixteenths on the hat with both hands, leaving it for the snare on 2 and 4; the bass drum on 1, the \"a\" of 1, the \"and\" of 2, the \"and\" of 3 and the \"and\" of 4. One groove for nearly seven minutes.",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18218", "src:mike-joyce-far-out-2022"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 96,
+          "playable_range_bpm": [93, 98]
+        },
+        "lanes": {
+          "hihat": "xxxx.xxxxxxx.xxx",
+          "snare": "....x.......x...",
+          "kick": "x..x..x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:the-smiths-hatful-of-hollow-1984",
+          "transcription_source_id": "src:songsterr-18218"
+        },
+        "tags": ["1984", "sixteenths"]
+      },
+      {
+        "id": "pattern:joyce-what-difference",
+        "name": "What Difference Does It Make?: quarters",
+        "type": "groove",
+        "function": "Quarters on the hat, the bass drum on 1 and 3, the snare on 2 and 4, a crash at the top of four bars.",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17436"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 163,
+          "playable_range_bpm": [158, 166]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:the-smiths-the-smiths-1984",
+          "transcription_source_id": "src:songsterr-17436"
+        },
+        "tags": ["1984"]
+      },
+      {
+        "id": "pattern:joyce-barbarism",
+        "name": "Barbarism Begins at Home: funk in eighths",
+        "type": "groove",
+        "function": "Eighths on the hat, lifted on the \"a\" of 4 and closed by the foot, the bass drum on 1, the \"and\" of 2 and 3, the snare on 2 and 4.",
+        "style_ids": ["style:indie-rock", "style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18076", "src:barbarism-begins-at-home-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 127,
+          "playable_range_bpm": [124, 130]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x...",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x.......",
+          "hihat_pedal": "..............x."
+        },
+        "source": {
+          "recording_id": "rec:the-smiths-meat-is-murder-1985",
+          "transcription_source_id": "src:songsterr-18076"
+        },
+        "tags": ["1985", "funk"]
+      },
+      {
+        "id": "pattern:joyce-queen-is-dead",
+        "name": "The Queen Is Dead: eighths on the floor tom",
+        "type": "groove",
+        "function": "Eighths on the floor tom in place of the hat, the snare on 2 and 4, the bass drum on 1, the \"a\" of 1, the \"and\" of 2, the \"and\" of 3 and its \"a\".",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-635023",
+            "src:the-queen-is-dead-song-wikipedia",
+            "src:mike-joyce-radio-x-2025"
+          ]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [136, 142]
+        },
+        "lanes": {
+          "floor_tom_1": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x..x..x...xx...."
+        },
+        "source": {
+          "recording_id": "rec:the-smiths-the-queen-is-dead-1986",
+          "transcription_source_id": "src:songsterr-635023"
+        },
+        "tags": ["1986", "toms"]
+      },
+      {
+        "id": "pattern:joyce-bigmouth",
+        "name": "Bigmouth Strikes Again: the run into the verse",
+        "type": "fill",
+        "function": "Two hands on the hat in sixteenths, then the snare in sixteenths from the \"and\" of 3 into the next verse.",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18167"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 134,
+          "playable_range_bpm": [130, 138]
+        },
+        "lanes": {
+          "hihat": "xxxx.xxxX.......",
+          "snare": "....x.....xxxxxx",
+          "kick": "..x.....x......."
+        },
+        "source": {
+          "recording_id": "rec:the-smiths-the-queen-is-dead-1986",
+          "transcription_source_id": "src:songsterr-18167"
+        },
+        "tags": ["1986", "fill"]
+      },
+      {
+        "id": "pattern:joyce-there-is-a-light",
+        "name": "There Is a Light That Never Goes Out: the turn on the snare",
+        "type": "fill",
+        "function": "Two bars on the snare under eighths on the hat, on 1, 2, the \"and\" of 3 and 4, then on every beat but 3: the figure that opens the song and leads into each chorus.",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18092"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [133, 139]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "x...x.....x.x...|x.x.x.x...x.x.x.",
+          "kick": "x...............|................"
+        },
+        "source": {
+          "recording_id": "rec:the-smiths-the-queen-is-dead-1986",
+          "transcription_source_id": "src:songsterr-18092"
+        },
+        "tags": ["1986", "fill"]
+      }
+    ]
+  },
+  "equipment": [],
+  "affiliations": [
+    {
+      "name": "The Smiths",
+      "type": "band_member",
+      "years": {
+        "from": 1982,
+        "to": 1987
+      },
+      "bandmates": [
+        {
+          "name": "Morrissey"
+        },
+        {
+          "name": "Johnny Marr"
+        },
+        {
+          "name": "Andy Rourke"
+        },
+        {
+          "name": "Craig Gannon"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-joyce-wikipedia", "src:the-smiths-wikipedia"]
+      }
+    },
+    {
+      "name": "Victim",
+      "type": "band_member",
+      "bandmates": [],
+      "notes": "A Belfast punk band, before the Smiths.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-joyce-wikipedia"]
+      }
+    },
+    {
+      "name": "The Hoax",
+      "type": "band_member",
+      "bandmates": [],
+      "notes": "A Manchester band, before the Smiths.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-joyce-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-smiths-hatful-of-hollow-1984",
+    "rec:the-smiths-the-smiths-1984",
+    "rec:the-smiths-meat-is-murder-1985",
+    "rec:the-smiths-the-queen-is-dead-1986"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Maher",
+        "kind": "drummer",
+        "id": "drummer:john-maher"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-joyce-far-out-2022"],
+        "note": "Buzzcocks in Manchester at fourteen or fifteen: 'completely transfixed by John Maher and his playing'."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Charlie Watts",
+        "kind": "drummer",
+        "id": "drummer:charlie-watts"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-joyce-hotpress-2008"],
+        "note": "'He's an amazing drummer, every Stones track that has ever been just sounds fantastic.'"
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Donald Johnson",
+        "kind": "drummer",
+        "id": "drummer:donald-johnson"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mike-joyce-far-out-2022"],
+        "note": "A Certain Ratio's drummer, among 'Manchester's finest'."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Andy Rourke",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1982,
+        "to": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-joyce-wikipedia", "src:the-smiths-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Johnny Marr",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1982,
+        "to": 1987
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-smiths-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Morrissey",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "years": {
+        "from": 1982,
+        "to": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-smiths-wikipedia", "src:mike-joyce-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Listen to the music first; a fill is only good if it sounds right in the song, and most drummers are too flamboyant for their own good.",
+        "paraphrase_of_source_id": "src:mike-joyce-hotpress-2008"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.5,
+    "innovations": [
+      "The Queen Is Dead's sampled tom loop, played by hand on stage",
+      "Two-handed sixteenths on the hat under jangling guitars (How Soon Is Now?)"
+    ],
+    "accolades": [],
+    "common_misconceptions": [
+      "That This Charming Man's drums are simply played: Porter's Linn LM-1 triggered samples of Joyce's kit; and that the Smiths' rhythm section were session players, which the 1996 judgment rejected for royalties."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "mikejoyce",
+    "headline_pattern_ids": ["pattern:joyce-how-soon-is-now", "pattern:joyce-queen-is-dead"],
+    "default_kit_sound": "A bright 1960s-style kit, ringing toms (SM Drums' Ludwig); bigger rooms for The Queen Is Dead",
+    "generation_rules": [
+      "Eighths on the hat, or both hands in sixteenths leaving the hat for the snare.",
+      "The snare square on 2 and 4; the bass drum on the offbeats.",
+      "Fills: short snare runs into the next phrase; a crash or splash on the 1 of four bars.",
+      "Straight, no swing, no ghost notes."
+    ],
+    "avoid": ["Ghost notes", "Swing", "Long tom fills", "Double bass"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:john-maher"],
+      "primary_descendants": [],
+      "lineage_blurb": "Buzzcocks' John Maher made him a drummer; the Smiths made him a groove player."
+    },
+    "tags": ["indie", "jangle-pop", "post-punk", "manchester", "80s"]
+  }
+}

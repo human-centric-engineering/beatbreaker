@@ -1,0 +1,42 @@
+{
+  "id": "rec:the-smiths-the-smiths-1984",
+  "title": "The Smiths",
+  "artist": "The Smiths",
+  "release": "Rough Trade",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:indie-rock"],
+  "personnel": [
+    {
+      "name": "Morrissey",
+      "role": "vocals"
+    },
+    {
+      "name": "Johnny Marr",
+      "role": "guitars"
+    },
+    {
+      "name": "Andy Rourke",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "The debut, produced by John Porter after Troy Tate's sessions were shelved; What Difference Does It Make? its second single.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-joyce",
+      "name": "Mike Joyce",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "The plainest beats he recorded, quarters on the hat under Marr's riff: the punk drummer reined in.",
+      "pattern_ids": ["pattern:joyce-what-difference"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-smiths-wikipedia", "src:songsterr-17436"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-smiths-wikipedia"]
+  }
+}

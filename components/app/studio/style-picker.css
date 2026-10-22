@@ -568,6 +568,13 @@
   text-transform: uppercase;
   letter-spacing: 0.01em;
 }
+.bb .pick-card-bands {
+  margin-top: -4px;
+  padding-right: 64px;
+  color: var(--ink-soft);
+  font: 600 11.5px/1.3 var(--f-mono);
+  letter-spacing: 0.02em;
+}
 .bb .pick-card-tag {
   position: absolute;
   top: 11px;

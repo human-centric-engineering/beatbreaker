@@ -1,0 +1,45 @@
+{
+  "id": "rec:oasis-heathen-chemistry-2002",
+  "title": "Heathen Chemistry",
+  "artist": "Oasis",
+  "release": "Big Brother",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:britpop", "style:rock"],
+  "personnel": [
+    {
+      "name": "Liam Gallagher",
+      "role": "vocals"
+    },
+    {
+      "name": "Noel Gallagher",
+      "role": "guitars, vocals"
+    },
+    {
+      "name": "Gem Archer",
+      "role": "guitar"
+    },
+    {
+      "name": "Andy Bell",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "His last album with the band, with Gem Archer and Andy Bell in the line-up.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alan-white-oasis",
+      "name": "Alan White",
+      "drummer_role": "sole_drummer",
+      "significance": 0.5,
+      "why_it_matters": "The Hindu Times: the plainest of his singles, the hats in sixteenths.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:heathen-chemistry-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:heathen-chemistry-wikipedia"]
+  }
+}

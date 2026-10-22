@@ -1,0 +1,55 @@
+{
+  "id": "rec:radiohead-hail-to-the-thief-2003",
+  "title": "Hail to the Thief",
+  "artist": "Radiohead",
+  "release": "Parlophone",
+  "year": 2003,
+  "type": "album",
+  "style_ids": ["style:alternative-rock", "style:experimental-rock"],
+  "personnel": [
+    {
+      "name": "Thom Yorke",
+      "role": "vocals, guitar, piano"
+    },
+    {
+      "name": "Jonny Greenwood",
+      "role": "guitar, keyboards"
+    },
+    {
+      "name": "Ed O'Brien",
+      "role": "guitar, backing vocals"
+    },
+    {
+      "name": "Colin Greenwood",
+      "role": "bass"
+    },
+    {
+      "name": "Philip Selway",
+      "role": "drums"
+    },
+    {
+      "name": "Nigel Godrich",
+      "role": "producer"
+    }
+  ],
+  "studio_context": "Ocean Way, Hollywood, and Oxfordshire, 2002-2003, with Godrich: live drums again after Kid A and Amnesiac.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-selway",
+      "name": "Philip Selway",
+      "drummer_role": "co_drummer",
+      "significance": 0.8,
+      "why_it_matters": "There There: the floor tom in eighths, the cross-stick on 2 and 4, the toms answering, with O'Brien and Jonny Greenwood on extra toms.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hail-to-the-thief-wikipedia", "src:songsterr-17056"],
+        "note": "O'Brien and Jonny Greenwood add toms on There There."
+      },
+      "pattern_ids": ["pattern:selway-there-there"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:hail-to-the-thief-wikipedia"]
+  }
+}
