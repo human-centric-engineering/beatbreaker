@@ -70,15 +70,15 @@ export function fold(s: string): string {
     .trim();
 }
 
-/** Whether every word of the folded query is a word, or the start of one, in `text`. */
-function matches(words: string[], text: string): boolean {
-  const have = ` ${fold(text)}`;
+/** Whether every word of the folded query is a word, or the start of one, in folded `text`. */
+function matches(words: string[], folded: string): boolean {
+  const have = ` ${folded}`;
   return words.every((w) => have.includes(` ${w}`));
 }
 
-/** How well a name fits: whole match, then a start, then anywhere. Lower is better. */
-function rank(query: string, text: string): number {
-  const t = fold(text).replace(/^the /, '');
+/** How well a folded name fits: whole match, then a start, then anywhere. Lower is better. */
+function rank(query: string, folded: string): number {
+  const t = folded.replace(/^the /, '');
   const q = query.replace(/^the /, '');
   if (t === q) return 0;
   if (t.startsWith(q)) return 1;
@@ -89,11 +89,54 @@ function person(d: IndexDrummer): IndexPerson {
   return { slug: d.slug, label: d.label, candidate: d.candidate };
 }
 
+/** A song as the search reads it: one per artist and title, however many records hold it. */
+interface FoldedSong {
+  song: SongRow;
+  drummerIds: string[];
+  title: string;
+  artistTitle: string;
+}
+
+/** Every name in an index, folded once. */
+interface FoldedIndex {
+  drummers: { d: IndexDrummer; label: string }[];
+  bands: { d: IndexDrummer; name: string; folded: string }[];
+  songs: FoldedSong[];
+}
+
+/* The index is built once and kept (data.ts), so its folding is too. */
+const foldedIndexes = new WeakMap<CatalogueIndex, FoldedIndex>();
+
+function foldIndex(index: CatalogueIndex): FoldedIndex {
+  const known = foldedIndexes.get(index);
+  if (known) return known;
+  const songs = new Map<string, FoldedSong>();
+  for (const s of index.songs) {
+    const title = fold(s.title);
+    const artistTitle = `${fold(s.artist)} ${title}`;
+    const same = songs.get(artistTitle);
+    if (!same) {
+      songs.set(artistTitle, { song: s, drummerIds: [...s.drummerIds], title, artistTitle });
+      continue;
+    }
+    // the same song on another record: one hit, everyone who drums on it, scored if either is
+    for (const id of s.drummerIds) if (!same.drummerIds.includes(id)) same.drummerIds.push(id);
+    if (!same.song.scored && s.scored) same.song = s;
+  }
+  const folded: FoldedIndex = {
+    drummers: index.drummers.map((d) => ({ d, label: fold(d.label) })),
+    bands: index.drummers.flatMap((d) => d.bands.map((name) => ({ d, name, folded: fold(name) }))),
+    songs: [...songs.values()],
+  };
+  foldedIndexes.set(index, folded);
+  return folded;
+}
+
 /**
  * Search the index. Drummers match on their name; bands on the band's name,
- * with every drummer who played in it; songs on the title, then on the band
- * that recorded it. Built drummers come before candidates, and scored songs
- * before unscored, within each fit.
+ * with every drummer who played in it; songs on the title, or the band and the
+ * title, once each however many records hold them. Built drummers come before
+ * candidates, and scored songs before unscored, within each fit.
  */
 export function searchIndex(
   index: CatalogueIndex,
@@ -105,31 +148,29 @@ export function searchIndex(
   const empty = { query, drummers: [], bands: [], songs: [] };
   if (words.length === 0) return empty;
 
+  const folded = foldIndex(index);
   const bySlug = new Map(index.drummers.map((d) => [`drummer:${d.slug}`, d]));
 
-  const drummers = index.drummers
-    .filter((d) => matches(words, d.label))
+  const drummers = folded.drummers
+    .filter((x) => matches(words, x.label))
     .sort(
       (a, b) =>
         rank(q, a.label) - rank(q, b.label) ||
-        Number(a.candidate) - Number(b.candidate) ||
-        a.label.localeCompare(b.label)
+        Number(a.d.candidate) - Number(b.d.candidate) ||
+        a.d.label.localeCompare(b.d.label)
     )
     .slice(0, limit)
-    .map(person);
+    .map((x) => person(x.d));
 
-  const bands = new Map<string, { name: string; drummers: IndexDrummer[] }>();
-  for (const d of index.drummers) {
-    for (const band of d.bands) {
-      if (!matches(words, band)) continue;
-      const key = fold(band);
-      const entry = bands.get(key) ?? { name: band, drummers: [] };
-      if (!entry.drummers.includes(d)) entry.drummers.push(d);
-      bands.set(key, entry);
-    }
+  const bands = new Map<string, { name: string; folded: string; drummers: IndexDrummer[] }>();
+  for (const b of folded.bands) {
+    if (!matches(words, b.folded)) continue;
+    const entry = bands.get(b.folded) ?? { name: b.name, folded: b.folded, drummers: [] };
+    if (!entry.drummers.includes(b.d)) entry.drummers.push(b.d);
+    bands.set(b.folded, entry);
   }
   const bandHits = [...bands.values()]
-    .sort((a, b) => rank(q, a.name) - rank(q, b.name) || a.name.localeCompare(b.name))
+    .sort((a, b) => rank(q, a.folded) - rank(q, b.folded) || a.name.localeCompare(b.name))
     .slice(0, limit)
     .map((b) => ({
       name: b.name,
@@ -138,22 +179,23 @@ export function searchIndex(
         .map(person),
     }));
 
-  const songs = index.songs
-    .filter((s) => matches(words, s.title) || matches(words, `${s.artist} ${s.title}`))
+  // every word in the title is also in the band and the title, so one test does for both
+  const songs = folded.songs
+    .filter((x) => matches(words, x.artistTitle))
     .sort(
       (a, b) =>
         rank(q, a.title) - rank(q, b.title) ||
-        Number(b.scored !== null) - Number(a.scored !== null) ||
-        a.year - b.year ||
-        a.title.localeCompare(b.title)
+        Number(b.song.scored !== null) - Number(a.song.scored !== null) ||
+        a.song.year - b.song.year ||
+        a.song.title.localeCompare(b.song.title)
     )
     .slice(0, limit)
-    .map((s) => ({
+    .map(({ song: s, drummerIds }) => ({
       title: s.title,
       artist: s.artist,
       record: s.record,
       year: s.year,
-      drummers: s.drummerIds.flatMap((id) => {
+      drummers: drummerIds.flatMap((id) => {
         const d = bySlug.get(id);
         return d ? [person(d)] : [];
       }),

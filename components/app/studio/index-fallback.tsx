@@ -3,13 +3,15 @@
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
 
+import { studioStyleHref } from '@/components/app/shell/studio-address';
 import { notScoredLine } from '@/lib/app/lineage/search';
 
 /**
  * What the style picker says when nothing in the crate matches (D75): the
  * index's answer for the same words, so a search for a song the Studio does
  * not play yet names the drummer and says it is not scored, rather than
- * finding nothing. Asked of `GET /api/v1/catalogue/index` a moment after the
+ * finding nothing; a scored song the crate's search missed opens in the
+ * Studio from here. Asked of `GET /api/v1/catalogue/index` a moment after the
  * typing stops; three characters or more.
  */
 
@@ -73,14 +75,21 @@ export function IndexFallback({ query }: { query: string }) {
 
   return (
     <ul className="pick-index" aria-label="In the index">
-      {songs.slice(0, SHOWN).map((s) => (
-        <li key={`${s.artist}/${s.title}/${s.year}`}>
-          {s.scored ? `${s.artist}: ${s.title}` : notScoredLine(s)}
+      {songs.slice(0, SHOWN).map((s, i) => (
+        // by position: the index answers one hit per song, but a key need not trust that
+        <li key={`song/${i}`}>
+          {s.scored ? (
+            <a href={studioStyleHref(s.scored.styleKey, s.scored.songKey)}>
+              {s.artist}: {s.title}
+            </a>
+          ) : (
+            notScoredLine(s)
+          )}
           {s.drummers.length > 0 && <> — {names(s.drummers)}</>}
         </li>
       ))}
-      {bands.slice(0, SHOWN).map((b) => (
-        <li key={`band/${b.name}`}>
+      {bands.slice(0, SHOWN).map((b, i) => (
+        <li key={`band/${i}`}>
           {b.name}: {names(b.drummers)}
         </li>
       ))}

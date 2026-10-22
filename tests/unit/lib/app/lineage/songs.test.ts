@@ -7,7 +7,12 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { readSongs, songsFor, type StoredRecording } from '@/lib/app/lineage/songs';
+import {
+  readSongs,
+  songsFor,
+  type StoredRecording,
+  transcriptionSiteName,
+} from '@/lib/app/lineage/songs';
 
 const YT = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 const SPOTIFY = 'https://open.spotify.com/track/4uLU6hMCjMI75M1A2tKUQC';
@@ -134,6 +139,22 @@ describe('readSongs', () => {
     ]);
   });
 
+  it('drops only the transcription that does not read, keeping the rest', () => {
+    const [row] = readSongs(
+      rec([
+        track({
+          transcriptions: [
+            { site: 'songsterr', url: 'https://www.songsterr.com/a/wa/song?id=1' },
+            { site: '', url: 'x' },
+          ],
+        }),
+      ])
+    );
+    expect(row.transcriptions).toEqual([
+      { site: 'songsterr', url: 'https://www.songsterr.com/a/wa/song?id=1' },
+    ]);
+  });
+
   it('drops a malformed transcriptions list without losing the track', () => {
     const [row] = readSongs(rec([track({ transcriptions: 'nope' })]));
     expect(row.title).toBe('How Soon Is Now?');
@@ -165,5 +186,42 @@ describe('songsFor', () => {
       rec([track({ title: 'Early' })], { id: 'rec:b', year: 1983 }),
     ]);
     expect(rows.map((r) => r.title)).toEqual(['Early', 'Z scored', 'A unscored', 'B unscored']);
+  });
+});
+
+describe('songsFor, a song on several records', () => {
+  const joyce = 'drummer:mike-joyce';
+
+  it('lists it once, keeping the scored row', () => {
+    const live = rec([track()], { id: 'rec:rank', title: 'Rank', year: 1988 });
+    const studio = rec([track({ style_key: 'mikejoyce', song_key: 'how-soon-is-now' })], {
+      id: 'rec:hatful',
+      title: 'Hatful of Hollow',
+      year: 1984,
+    });
+    const rows = songsFor(joyce, [live, studio]);
+    expect(rows).toHaveLength(1);
+    expect(rows[0].recordingId).toBe('rec:hatful');
+  });
+
+  it('keeps a row that plays over one that does not, then the earlier record', () => {
+    const later = rec([track({ youtube: YT })], { id: 'rec:later', year: 1990 });
+    const earlier = rec([track()], { id: 'rec:earlier', year: 1984 });
+    expect(songsFor(joyce, [earlier, later])[0].recordingId).toBe('rec:later');
+    const a = rec([track()], { id: 'rec:a', year: 1990 });
+    const b = rec([track()], { id: 'rec:b', year: 1984 });
+    expect(songsFor(joyce, [a, b])[0].recordingId).toBe('rec:b');
+  });
+});
+
+describe('transcriptionSiteName', () => {
+  it('names a known site, and passes any other through as written', () => {
+    expect(transcriptionSiteName('modern_drummer')).toBe('Modern Drummer');
+    expect(transcriptionSiteName('drumscribe')).toBe('drumscribe');
+  });
+
+  it('never reaches the object prototype', () => {
+    expect(transcriptionSiteName('constructor')).toBe('constructor');
+    expect(transcriptionSiteName('toString')).toBe('toString');
   });
 });

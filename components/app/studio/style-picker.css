@@ -628,6 +628,12 @@
   font-size: 13px;
 }
 
+.bb .pick-index a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* -- foot: the keys, for a keyboard; a touch screen has no use for them */
 
 .bb .pick-ft {

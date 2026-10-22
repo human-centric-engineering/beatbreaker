@@ -17,7 +17,7 @@ const id = z
   .regex(/^(drummer|rec|style|pattern|src|kit|era|trait|lick):[a-z0-9][a-z0-9-]*$/);
 
 /** A drummer's id. A recording's performers are drummers, never a style or a kit. */
-const drummerId = z.string().regex(/^drummer:[a-z0-9][a-z0-9-]*$/);
+export const drummerId = z.string().regex(/^drummer:[a-z0-9][a-z0-9-]*$/);
 
 const evidence = z.looseObject({ confidence: z.enum(CONFIDENCES).optional() });
 

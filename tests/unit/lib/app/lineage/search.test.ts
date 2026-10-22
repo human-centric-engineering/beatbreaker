@@ -113,8 +113,12 @@ describe('searchIndex', () => {
         drummer('b-built', 'Sam Candidate', {}),
       ],
       songs: [
-        song('Echo', { year: 1970 }),
-        song('Echo', { year: 1990, scored: { styleKey: 's', songKey: 'echo' } }),
+        song('Echo', { artist: 'Early Band', year: 1970 }),
+        song('Echo', {
+          artist: 'Later Band',
+          year: 1990,
+          scored: { styleKey: 's', songKey: 'echo' },
+        }),
       ],
     };
     const r = searchIndex(index, 'sam');
@@ -168,5 +172,40 @@ describe('notScoredLine', () => {
     expect(notScoredLine({ artist: 'The Smiths', title: 'How Soon Is Now?' })).toBe(
       'The Smiths: How Soon Is Now? is not scored yet'
     );
+  });
+});
+
+describe('searchIndex, one hit per song', () => {
+  const index: CatalogueIndex = {
+    drummers: [drummer('shrieve', 'Michael Shrieve'), drummer('areas', 'Chepito Areas')],
+    songs: [
+      song('Oye Como Va', { artist: 'Santana', year: 1970, drummerIds: ['drummer:shrieve'] }),
+      song('Oye Como Va', {
+        artist: 'Santana',
+        year: 1970,
+        record: 'Live',
+        drummerIds: ['drummer:areas', 'drummer:shrieve'],
+        scored: { styleKey: 'shrieve', songKey: 'oye' },
+      }),
+      song('Oye Como Va', { artist: 'Tito Puente', year: 1963 }),
+    ],
+  };
+
+  it('answers a song on two records once, with everyone on either, scored if either is', () => {
+    const santana = searchIndex(index, 'oye como va').songs.filter((s) => s.artist === 'Santana');
+    expect(santana).toHaveLength(1);
+    expect(santana[0].drummers.map((d) => d.slug)).toEqual(['shrieve', 'areas']);
+    expect(santana[0].scored).toEqual({ styleKey: 'shrieve', songKey: 'oye' });
+  });
+
+  it('keeps the same title by another artist as its own song', () => {
+    expect(searchIndex(index, 'oye como va').songs.map((s) => s.artist)).toEqual([
+      'Santana',
+      'Tito Puente',
+    ]);
+  });
+
+  it('finds a song by its band and title together', () => {
+    expect(searchIndex(index, 'puente oye').songs.map((s) => s.artist)).toEqual(['Tito Puente']);
   });
 });

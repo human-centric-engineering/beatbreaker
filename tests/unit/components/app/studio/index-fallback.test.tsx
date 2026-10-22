@@ -85,7 +85,10 @@ describe('IndexFallback', () => {
     expect(
       screen.getByText('The Smiths: How Soon Is Now? is not scored yet', { exact: false })
     ).toHaveTextContent('The Smiths: How Soon Is Now? is not scored yet — Mike Joyce');
-    expect(screen.getByText('Queen: Scored One')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Queen: Scored One' })).toHaveAttribute(
+      'href',
+      '/studio?style=s&song=k'
+    );
     expect(screen.getByText('The Smiths: Mike Joyce')).toBeInTheDocument();
     expect(screen.getByText('Mike Joyce is on the long list, not built yet')).toBeInTheDocument();
     expect(screen.queryByText(/Built One/)).toBeNull();

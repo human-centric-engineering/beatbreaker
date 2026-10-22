@@ -17,6 +17,7 @@ import { join } from 'path';
 
 import { z } from 'zod';
 
+import { trackSchema as modelTrack } from '@/lib/app/lineage/corpus';
 import { fold } from '@/lib/app/lineage/search';
 import { DRUMMER_MODEL_DIR } from '@/scripts/lineage/read-corpus';
 
@@ -27,11 +28,8 @@ const OEMBED = {
 type Provider = keyof typeof OEMBED;
 
 const oembedSchema = z.object({ title: z.string() });
-const trackSchema = z.looseObject({
-  title: z.string(),
-  youtube: z.string().optional(),
-  spotify: z.string().optional(),
-});
+/* The model's own track shape, the part this check reads; the rest is kept as it is. */
+const trackSchema = modelTrack.pick({ title: true, youtube: true, spotify: true });
 const recordingSchema = z.looseObject({ tracks: z.array(trackSchema).optional() });
 
 /**
@@ -46,8 +44,9 @@ export function titleNamesSong(song: string, oembedTitle: string): boolean {
 
 /**
  * The title the provider gives for a link; null when it does not resolve;
- * undefined when the provider could not be asked (rate limited or down), which
- * says nothing about the link.
+ * undefined when the provider could not be asked (rate limited, down, the
+ * network failed, or it answered with something that is not JSON), which says
+ * nothing about the link.
  */
 export async function oembedTitle(
   provider: Provider,
@@ -56,15 +55,26 @@ export async function oembedTitle(
 ): Promise<string | null | undefined> {
   const q = new URLSearchParams({ url, format: 'json' });
   for (let attempt = 0; attempt < 3; attempt++) {
-    const res = await fetcher(`${OEMBED[provider]}?${q.toString()}`, {
-      headers: { 'User-Agent': 'BeatBreaker song link check' },
-    });
+    let res: Response;
+    try {
+      res = await fetcher(`${OEMBED[provider]}?${q.toString()}`, {
+        headers: { 'User-Agent': 'BeatBreaker song link check' },
+      });
+    } catch {
+      res = new Response(null, { status: 503 });
+    }
     if (res.status === 429 || res.status >= 500) {
       await new Promise((r) => setTimeout(r, 2000 * (attempt + 1)));
       continue;
     }
     if (!res.ok) return null;
-    const read = oembedSchema.safeParse(await res.json());
+    let body: unknown;
+    try {
+      body = await res.json();
+    } catch {
+      return undefined;
+    }
+    const read = oembedSchema.safeParse(body);
     return read.success ? read.data.title : null;
   }
   return undefined;

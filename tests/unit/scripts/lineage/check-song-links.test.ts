@@ -80,6 +80,16 @@ describe('oembedTitle', () => {
     expect(fetcher).toHaveBeenCalledTimes(3);
   });
 
+  it('counts a network error, and a body that is not JSON, as unreachable', async () => {
+    const thrown = vi.fn().mockRejectedValue(new Error('ECONNRESET'));
+    const run = oembedTitle('youtube', 'u', thrown);
+    await vi.runAllTimersAsync();
+    await expect(run).resolves.toBeUndefined();
+    expect(thrown).toHaveBeenCalledTimes(3);
+    const html = vi.fn().mockResolvedValue(new Response('<html>', { status: 200 }));
+    await expect(oembedTitle('youtube', 'u', html)).resolves.toBeUndefined();
+  });
+
   it('gives up as unreachable, not as a failed link, after three busy answers', async () => {
     const fetcher = vi.fn().mockResolvedValue(reply(500));
     const result = oembedTitle('youtube', 'u', fetcher);

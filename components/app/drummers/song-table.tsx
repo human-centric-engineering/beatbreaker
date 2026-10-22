@@ -7,7 +7,7 @@ import { Embed, PROVIDER_NAMES } from '@/components/app/community/reference-embe
 import { studioStyleHref } from '@/components/app/shell/studio-address';
 import { Button } from '@/components/ui/button';
 import type { ReferenceLink } from '@/lib/app/breaks/links';
-import { type SongRow, TRANSCRIPTION_SITES } from '@/lib/app/lineage/songs';
+import { type SongRow, transcriptionSiteName } from '@/lib/app/lineage/songs';
 
 /**
  * A drummer's songs on their page (Phase 15-c): title, band, record, year,
@@ -124,10 +124,10 @@ function Row({
                       rel="noopener noreferrer nofollow"
                       className="underline underline-offset-4"
                     >
-                      {TRANSCRIPTION_SITES[t.site] ?? t.site}
+                      {transcriptionSiteName(t.site)}
                     </a>
                   ) : (
-                    (TRANSCRIPTION_SITES[t.site] ?? t.site)
+                    transcriptionSiteName(t.site)
                   )}
                 </span>
               ))}
