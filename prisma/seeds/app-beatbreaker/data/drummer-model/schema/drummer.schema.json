@@ -4,7 +4,6 @@
   "title": "Drummer",
   "description": "A drummer: identity, formation, feel, technique, vocabulary, equipment, affiliations and lineage edges. Recordings, styles and sources live in their own registries and are referenced by id.",
   "type": "object",
-  "required": ["meta", "identity", "style_profile", "feel_profile", "vocabulary"],
   "additionalProperties": false,
   "properties": {
     "meta": {
@@ -105,11 +104,12 @@
           "$ref": "common.schema.json#/$defs/Id"
         },
         "schema_version": {
-          "const": "1.5.0",
+          "const": "1.6.0",
           "description": "Every record is at the current version; the test refuses an older one."
         },
         "record_status": {
-          "enum": ["stub", "draft", "reviewed", "canonical"]
+          "enum": ["candidate", "draft", "reviewed", "canonical"],
+          "description": "`candidate`: researched for the long list (D72, D74) but not built: identity, bands, genres, key recordings and the contribution that puts them on the list, with no patterns and no playable style. The other three are built drummers."
         },
         "completeness": {
           "$ref": "common.schema.json#/$defs/Weight"
@@ -1205,6 +1205,32 @@
           "items": {
             "type": "string"
           }
+        },
+        "contribution": {
+          "type": "object",
+          "required": ["description", "evidence"],
+          "description": "What this drummer brought to music history: a feel, a technique, a sound, a role in a genre's birth (D72). One or two sentences, sourced. A candidate is on the long list because of it.",
+          "properties": {
+            "description": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence": {
+              "allOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/Evidence"
+                },
+                {
+                  "required": ["source_ids"],
+                  "properties": {
+                    "source_ids": {
+                      "minItems": 1
+                    }
+                  }
+                }
+              ]
+            }
+          }
         }
       }
     },
@@ -1264,6 +1290,17 @@
           "type": "string",
           "pattern": "^[a-z][a-z0-9]*$",
           "description": "The key of this drummer's playable style in BeatBreaker's catalogue (a style marked drummer: true). Every drummer style has exactly one record naming it, and every style_key names one."
+        },
+        "group": {
+          "type": "string",
+          "pattern": " drummers$",
+          "description": "A candidate's Drummers-tab genre group (D70), e.g. 'Bebop drummers'. A built drummer's group is its style's, in styles.ts."
+        },
+        "build_priority": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3,
+          "description": "A candidate's place in its genre's queue: 1 build next, 2 soon, 3 later. 15-d ranks across genres."
         }
       }
     },
@@ -1355,5 +1392,50 @@
         }
       }
     }
+  },
+  "if": {
+    "properties": {
+      "meta": {
+        "properties": {
+          "record_status": {
+            "const": "candidate"
+          }
+        },
+        "required": ["record_status"]
+      }
+    },
+    "required": ["meta"]
+  },
+  "then": {
+    "required": [
+      "meta",
+      "identity",
+      "style_profile",
+      "affiliations",
+      "legacy",
+      "beatbreaker",
+      "key_recording_ids"
+    ],
+    "properties": {
+      "legacy": {
+        "required": ["contribution"]
+      },
+      "beatbreaker": {
+        "required": ["group", "build_priority"],
+        "not": {
+          "required": ["style_key"]
+        }
+      },
+      "vocabulary": {
+        "properties": {
+          "patterns": {
+            "maxItems": 0
+          }
+        }
+      }
+    }
+  },
+  "else": {
+    "required": ["meta", "identity", "style_profile", "feel_profile", "vocabulary"]
   }
 }

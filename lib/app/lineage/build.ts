@@ -188,7 +188,8 @@ function drummerNode(d: DrummerRecord, sources: ReadonlyMap<string, SourceRecord
     slug: nodeSlug(d.meta.id),
     kind: 'drummer',
     label: d.identity.name,
-    modelled: true,
+    // a candidate is researched, not built (D74): on the map only where it links to one that is
+    modelled: d.meta.record_status !== 'candidate',
     activeFrom: d.identity.active?.from ?? null,
     activeTo: d.identity.active?.ongoing ? null : (d.identity.active?.to ?? null),
     styleKey: d.beatbreaker?.style_key ?? null,

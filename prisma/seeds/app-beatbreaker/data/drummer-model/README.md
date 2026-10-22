@@ -94,3 +94,12 @@ Any claim can carry `evidence` with a confidence (`verified`, `widely_reported`,
 - `technique_profile.coordination.devices_search`: the transcription-level search made for devices — its date and what was read — so a drummer with no device says it was looked for. Every drummer record has a device or a search (a test holds it).
 - `polyrhythm_usage` stays, as a weight.
 - `meta.schema_version` is `const: "1.5.0"`.
+
+## v1.6 additions (BeatBreaker Phase 15-a)
+
+- `meta.record_status` gains `candidate`, replacing the unused `stub`: a drummer researched for the long list (D72, D74) but not built. A candidate needs `identity`, `style_profile`, `affiliations`, `key_recording_ids`, `legacy.contribution`, `beatbreaker.group` and `beatbreaker.build_priority`. It has no patterns, no `feel_profile` requirement and no `style_key`.
+- `legacy.contribution`: what the drummer brought to music history, in a sentence or two, with `evidence` citing at least one source. Every candidate has one; a built drummer may.
+- `beatbreaker.group`: a candidate's Drummers-tab genre group (D70). A built drummer's group comes from its style.
+- `beatbreaker.build_priority`: 1, 2 or 3, the candidate's place in its genre's queue.
+- A candidate is a node on the lineage map but not a modelled one: it shows only where it links to a built drummer.
+- `meta.schema_version` is `const: "1.6.0"`.

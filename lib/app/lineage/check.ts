@@ -132,6 +132,15 @@ export function checkCorpus(corpus: Corpus): string[] {
     }
   }
 
+  /* What puts a drummer on the long list is a sourced contribution (D72): its
+     sources must be ones the registry can cite. */
+  for (const { file, record } of corpus.drummers) {
+    for (const id of record.legacy?.contribution?.evidence?.source_ids ?? []) {
+      if (!sources.has(id))
+        errors.push(`${file} contribution: ${id} is not in the source registry`);
+    }
+  }
+
   for (const { file, record } of [...corpus.drummers, ...corpus.styles]) {
     for (const p of patternsOf(record)) errors.push(...checkPattern(file, p));
   }

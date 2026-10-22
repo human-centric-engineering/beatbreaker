@@ -230,6 +230,42 @@ describe('checkCorpus', () => {
   });
 });
 
+describe('a candidate drummer (D72, D74)', () => {
+  const source = { id: 'src:s', type: 'book', title: 'A history of the drums' };
+  const candidate = (source_ids: string[]) =>
+    drummer('c', {
+      meta: { id: 'drummer:c', schema_version: '1.6.0', record_status: 'candidate' },
+      legacy: {
+        contribution: {
+          description: 'Took the shuffle onto the hi-hat.',
+          evidence: { confidence: 'likely', source_ids },
+        },
+      },
+    });
+
+  it('passes with a contribution the registry can cite', () => {
+    expect(checkCorpus(corpusOf({ drummers: [candidate(['src:s'])], sources: [source] }))).toEqual(
+      []
+    );
+  });
+
+  it('refuses a contribution whose source is not in the registry', () => {
+    expect(checkCorpus(corpusOf({ drummers: [candidate(['src:nowhere'])] }))).toEqual([
+      'drummers/0.json: unresolved reference src:nowhere',
+      'drummers/0.json contribution: src:nowhere is not in the source registry',
+    ]);
+  });
+
+  it('is a drummer on the map but not a modelled one', () => {
+    const graph = buildLineage(corpusOf({ drummers: [candidate(['src:s'])], sources: [source] }));
+    expect(graph.nodes.find((n) => n.id === 'drummer:c')).toMatchObject({
+      label: 'c',
+      modelled: false,
+      activeFrom: 1960,
+    });
+  });
+});
+
 describe('checkGraph', () => {
   it('passes a sound graph', () => {
     expect(checkGraph(buildLineage(corpusOf({ drummers: [drummer('a')] })))).toEqual([]);

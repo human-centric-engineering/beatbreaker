@@ -60,7 +60,11 @@ export const relationshipSchema = z.looseObject({
 });
 
 export const drummerRecordSchema = z.looseObject({
-  meta: z.looseObject({ id, schema_version: z.string() }),
+  meta: z.looseObject({
+    id,
+    schema_version: z.string(),
+    record_status: z.enum(['candidate', 'draft', 'reviewed', 'canonical']).optional(),
+  }),
   identity: z.looseObject({
     name: z.string().min(1),
     active: yearRange.optional(),
@@ -83,6 +87,16 @@ export const drummerRecordSchema = z.looseObject({
     .optional(),
   relationships: z.array(relationshipSchema).optional(),
   key_recording_ids: z.array(id).optional(),
+  legacy: z
+    .looseObject({
+      contribution: z
+        .looseObject({
+          description: z.string().min(1),
+          evidence: z.looseObject({ source_ids: z.array(id).optional() }).optional(),
+        })
+        .optional(),
+    })
+    .optional(),
   beatbreaker: z
     .looseObject({
       style_key: z.string().optional(),
