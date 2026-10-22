@@ -145751,7 +145751,7 @@ export const STYLES: Record<string, Style> = {
                   },
                   1,
                 ],
-                // bars 8, 10: a crash on the "and" of 5
+                // bars 8, 10: a china on the "and" of 5 (tab 68097: note 52)
                 [
                   {
                     c: '.................3..',

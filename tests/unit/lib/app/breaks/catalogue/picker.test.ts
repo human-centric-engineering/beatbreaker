@@ -204,6 +204,7 @@ describe('drummerSection', () => {
       'Pop and session drummers',
       'British Invasion drummers',
       'Mod and mod revival drummers',
+      'Blues drummers',
       'Blues and psychedelic rock drummers',
       'Latin rock drummers',
       'Hard rock drummers',
@@ -215,6 +216,7 @@ describe('drummerSection', () => {
       'Indie rock drummers',
       'Britpop drummers',
       'Alternative rock drummers',
+      'Grunge drummers',
       'Heavy metal drummers',
       'Thrash metal drummers',
       'Modern and extreme metal drummers',
@@ -230,6 +232,7 @@ describe('drummerSection', () => {
       'Modern jazz drummers',
       'Fusion drummers',
       'Afro-Cuban and Latin jazz drummers',
+      'Samba and Brazilian jazz drummers',
       'Afrobeat drummers',
       'Reggae drummers',
     ]);

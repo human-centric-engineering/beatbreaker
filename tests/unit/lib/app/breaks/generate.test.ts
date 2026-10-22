@@ -707,8 +707,9 @@ describe('the rock, jazz and blues styles', () => {
      does in Tool, and Cobham hung his upside down. So do the masked drummers
      whose kits have them (Jordison, Skinny, Jizmak, II), Ghost's records (Rats,
      in its human tab) and the Locust's Factories, from its only tab, a
-     machine's. Neil Peart's Wuhan china is in seven of his songs' tabs, and Keith
-     Moon's is in Who Are You's verse */
+     machine's. Neil Peart's Wuhan china is in seven of his songs' tabs, Keith
+     Moon's is in Who Are You's verse; Josh Freese's is in The Outsider's tab, and
+     Carl Palmer's 22" 2002 China in Tarkus's */
   const CHINA_PLAYERS = [
     'yussefdayes',
     'lombardo',
@@ -724,6 +725,8 @@ describe('the rock, jazz and blues styles', () => {
     'peart',
     'moon',
     'portnoy',
+    'joshfreese',
+    'carlpalmer',
   ];
   /* A clave groove is a few bars that stay in clave, not a stock of grooves to
      vary: Puente's, Changuito's and Prieto's own figures are two each, and
