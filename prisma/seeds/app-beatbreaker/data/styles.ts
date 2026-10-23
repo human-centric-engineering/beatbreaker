@@ -3442,7 +3442,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Mitch Mitchell',
     drummer: true,
     bands: ['The Jimi Hendrix Experience'],
-    hint: 'The Jimi Hendrix Experience: a jazz drummer in a rock band. A busy snare that answers the guitar, the kick following the riff, and fills two or three times as often as most, many of them in threes. Each New plays a style inspired by one of forty-five of his songs, at its own tempo and in its own time: the boogaloo of Fire, the 9/8 jazz waltz of Manic Depression, the 12/8 blues of Red House and Voodoo Chile, brushes on Up from the Skies, swung ride time on Third Stone from the Sun, the toms of I Don’t Live Today. The stage names the song. The grooves are approximations, not transcriptions.',
+    hint: 'The Jimi Hendrix Experience: a jazz drummer in a rock band. A busy snare that answers the guitar, the kick following the riff, and fills two or three times as often as most, many of them in threes. Each New plays a style inspired by one of forty-five of his songs, at its own tempo and in its own time: the boogaloo of Fire, the 9/8 jazz waltz of Manic Depression, the 12/8 blues of Red House and Voodoo Chile, brushes on Up from the Skies, swung ride time on Third Stone from the Sun, the toms of I Don’t Live Today. Eight, from Fire, Purple Haze and Hey Joe to Crosstown Traffic and Voodoo Child (Slight Return), play the record through, intro to outro, from human drum tabs; the rest are reconstructions from descriptions and listening. The stage names the song. Approximations, not the records.',
     toms: true,
     kit: 'smdrums',
     hats: 8,
@@ -3573,7 +3573,9 @@ export const STYLES: Record<string, Style> = {
        one, and the stage names it. Tempos are from tempo databases and lessons
        (songbpm.com, Bonedo's Hey Joe); the bars are reconstructions from
        descriptions and listening, not transcriptions — see
-       `.context/app/planning/drumming-research.md`, section C2. In 12/8 and
+       `.context/app/planning/drumming-research.md`, section C2 — except for
+       eight songs written in sections from human Songsterr tabs (section
+       C2c). In 12/8 and
        9/8 the tempo counts quarter notes, so the beat you feel is two thirds
        of it; swing in 4/4 is a 16th lean unless the song says 8ths. */
     songs: [
@@ -6688,7 +6690,7 @@ export const STYLES: Record<string, Style> = {
     label: 'John Bonham',
     drummer: true,
     bands: ['Led Zeppelin'],
-    hint: "Led Zeppelin: a huge kick, often doubled, a backbeat like a door slamming, sitting back on the beat; fills in threes, hands and feet. Each New plays one of his records, intro to outro: Good Times Bad Times (1969), its kick in sixteenths and triplets under a cowbell; Communication Breakdown (1969); Immigrant Song (1970), a paradiddle between kick and snare; Rock and Roll (1971); When the Levee Breaks (1971); Kashmir (1975), in four under a riff in three; Fool in the Rain (1979), the half-time shuffle and its samba. Black Dog, Trampled Under Foot, Achilles Last Stand and Whole Lotta Love are grooves from them. The stage names the song. The bars are from human Songsterr tabs, checked against the records. Approximations, not the records.",
+    hint: 'Led Zeppelin: a huge kick, often doubled, a backbeat like a door slamming, sitting back on the beat; fills in threes, hands and feet. Each New plays one of his records, intro to outro: Good Times Bad Times (1969), its kick in sixteenths and triplets under a cowbell; Communication Breakdown (1969); Immigrant Song (1970), a paradiddle between kick and snare; Rock and Roll (1971); When the Levee Breaks (1971); Kashmir (1975), in four under a riff in three; Fool in the Rain (1979), the half-time shuffle and its samba. Black Dog, Trampled Under Foot, Achilles Last Stand and Whole Lotta Love are grooves from them. The stage names the song. The bars are from human Songsterr tabs, checked against the records. Approximations, not the records.',
     toms: true,
     kit: 'bigRoom',
     hats: 8,
@@ -8216,7 +8218,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Clyde Stubblefield',
     drummer: true,
     bands: ['James Brown'],
-    hint: "James Brown's drummer, 1965–70: ghost notes so quiet they are felt, a kick that never sits where you expect, and a backbeat that moves, the hats in his right hand alone and the left on the snare. Hardly a fill: the groove is the point. Each New plays one of his records at its own tempo: Funky Drummer's one-handed sixteenths, Cold Sweat's backbeat pushed to the \"and\" of 4, I Got the Feelin's threes on the snare, Mother Popcorn's quarter-note hats. The stage names the song. The first four follow published grids; the rest are approximations.",
+    hint: "James Brown's drummer, 1965–70: ghost notes so quiet they are felt, a kick that never sits where you expect, and a backbeat that moves, the hats in his right hand alone and the left on the snare. Hardly a fill: the groove is the point. Each New plays one of his records at its own tempo: Funky Drummer's one-handed sixteenths and its eight bars alone, Cold Sweat's backbeat pushed to the \"and\" of 4, its stops and its break on the ride, I Got the Feelin's threes on the snare, Mother Popcorn's quarter-note hats. The stage names the song. Cold Sweat is written whole from a transcription of the record; Funky Drummer's order is reconstructed from the record; the grooves of the first four follow published grids; the rest are approximations.",
     kit: 'funkSoul',
     mix: { h: 0.72 },
     hats: 16,
@@ -8262,10 +8264,11 @@ export const STYLES: Record<string, Style> = {
       [{ s: '3.1.3.11' }, 1.0],
     ],
     /* His records, each at its own tempo: one New picks one, and the stage
-       names it. The first four are from Goodhertz's Funklet grids (Jack
-       Stratton's transcriptions, two bars each, tempos as given there); each
-       bar of a two-bar groove is a figure of its own, so a phrase plays one
-       and then, often, the other. The last three are reconstructions in his
+       names it. The first four grooves are from Goodhertz's Funklet grids
+       (Jack Stratton's transcriptions, two bars each); Funky Drummer and Cold
+       Sweat are written in sections, in the record's order, and play their
+       two bars in turn as one two-bar figure; the others keep each bar as a
+       figure of its own. The last three are reconstructions in his
        vocabulary at the record's tempo — no grid of them exists. See
        `.context/app/planning/drumming-research.md`, section E. */
     songs: [
@@ -8811,7 +8814,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Tony Williams',
     drummer: true,
     bands: ['Miles Davis', 'The Tony Williams Lifetime'],
-    hint: 'With Miles, Herbie Hancock, Eric Dolphy and his own Lifetime: a ride so light it nearly straightens, swing that widens as the tempo drops, rimshot stabs, bombs, broken time and phrases in three across the bar line. In 1964–65 the hi-hat foot is mostly silent; on every beat from 1968. Each New plays a style inspired by one of thirty-two songs he played on, in its own time and feel: Seven Steps to Heaven, Nefertiti with the drums as soloist, Maiden Voyage straight, Footprints in 12/8, Emergency! as jazz-rock. The fast tunes are in eighths (4/4 in eighths) and open at a tempo you can practise; the slider goes to 380 for the record speeds. Approximations, not transcriptions.',
+    hint: "With Miles, Herbie Hancock, Eric Dolphy and his own Lifetime: a ride so light it nearly straightens, swing that widens as the tempo drops, rimshot stabs, bombs, broken time and phrases in three across the bar line. In 1964–65 the hi-hat foot is mostly silent; on every beat from 1968. Each New plays a style inspired by one of thirty-two songs he played on, in its own time and feel: Seven Steps to Heaven, Nefertiti with the drums as soloist, Maiden Voyage straight, Footprints in 12/8, Emergency! as jazz-rock. The fast tunes are in eighths and open at a tempo you can practise; the slider goes to 380 for the record speeds. Cantaloupe Island plays whole, its nine choruses as the record has them, and PiL's Rise whole, in a machine transcription's order. Approximations, not transcriptions.",
     toms: true,
     kit: 'virtuosity',
     hats: 8,
@@ -10143,7 +10146,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Ringo Starr',
     drummer: true,
     bands: ['The Beatles'],
-    hint: 'The Beatles: a left-hander on a right-handed kit, so his fills come off the floor tom and start late, and a feel just behind the beat. Washy half-open hats in 1963–64, the crash-ride from 1965, tea towels over the drums by 1968, and parts so made for the song you can name it from the drums alone. Each New plays a style inspired by one of forty-four of his songs, in its own time: She Loves You, Ticket to Ride, Rain, Tomorrow Never Knows, A Day in the Life, Come Together, The End. Songs that change meter are split by section. Most grooves follow human drum transcriptions; approximations, not the records.',
+    hint: 'The Beatles: a left-hander on a right-handed kit, so his fills come off the floor tom and start late, and a feel just behind the beat. Washy half-open hats in 1963–64, the crash-ride from 1965, tea towels over the drums by 1968, and parts so made for the song you can name it from the drums alone. Each New plays a style inspired by one of his songs, in its own time: She Loves You, Ticket to Ride, Rain, Hey Jude, Come Together, Something and The End are played as the records go, section by section; the rest, Tomorrow Never Knows and A Day in the Life among them, as one break each. Songs that change meter are split by section. The grooves follow human drum transcriptions; approximations, not the records.',
     toms: true,
     kit: 'sixties',
     hats: 8,
@@ -10192,9 +10195,10 @@ export const STYLES: Record<string, Style> = {
       // a short one that starts late
       [{ s: '22.22' }, 1.0],
     ],
-    /* His songs. Grooves follow one transcriber's human Songsterr drum tabs
-       (ids in planning/drumming-research.md, section H), tempos from the tabs
-       and Wikipedia; the rest are reconstructions. */
+    /* His songs. Seven are written as the records go, each from the human
+       Songsterr tab its comment names; the rest follow human drum tabs
+       (section H of planning/drumming-research.md), tempos from the tabs and
+       Wikipedia. */
     songs: [
       {
         key: 'love-me-do',
@@ -10230,7 +10234,7 @@ export const STYLES: Record<string, Style> = {
       },
       {
         /* She Loves You (Parlophone single, 23 August 1963; Lennon–McCartney, recorded 1 July 1963).
-   Ringo on drums, on the Ludwig Downbeat in black oyster pearl he had bought that May.
+   Ringo on drums, on the Ludwig Downbeat in black oyster pearl delivered to him that May.
 
    Songsterr 23711 (rev 7659268 by HappyShepherd, 2026; aiGenerated false; the one drum track,
    "Ringo Starr | Ludwig Downbeat Black Oyster Pearl | Drums"): 4/4 at 151, 89 bars, every
@@ -10432,7 +10436,7 @@ export const STYLES: Record<string, Style> = {
       },
       {
         /* Ticket to Ride (Parlophone single, 9 April 1965; on Help!, August 1965; Lennon–McCartney,
-   recorded 15 February 1965). Ringo on drums, Paul on the lead guitar.
+   recorded 15 February 1965). Ringo on drums, Paul on the lead guitar over the coda.
 
    Songsterr 26426 (rev 9093765 by Pedro Artunduaga, 2026; aiGenerated false; the track named
    "Ringo Starr | Ludwig Super Classic Black Oyster Pearl | Drums"; the handclap and tambourine
@@ -10622,8 +10626,8 @@ export const STYLES: Record<string, Style> = {
       },
       {
         /* Rain (Parlophone, B-side of Paperback Writer, 30 May 1966 US, 10 June UK; Lennon–McCartney,
-   recorded 14 and 16 April 1966). Ringo on drums: he has often named it as his favourite of his
-   own playing.
+   recorded 14 and 16 April 1966). Ringo on drums: he has called it the best of all the records he
+   made (1984).
 
    Songsterr 2631 (rev 8637855 by bruh, 2026; aiGenerated false; the track named "Ringo Starr |
    Ludwig Super Classic Black Oyster Pearl | Drums"; the tambourine track beside it is not
@@ -11584,7 +11588,7 @@ export const STYLES: Record<string, Style> = {
 
    Songsterr 2629 (rev 9908689 by bruh, 2026; aiGenerated false; the tracks named "Ringo Starr
    | Ludwig Hollywood Maple | Drums" and "… | Overdub Drums", the second only a few crashes
-   and the bridge's hat; the handclaps are George's and Paul's): 4/4 at 67, the bridge at 72,
+   and the bridge's hat; the handclaps are not his kit): 4/4 at 67, the bridge at 72,
    51 bars, every section marked. The record (the 2019 mix, MZ3Vh8jZFdE) autocorrelates at 67.0
    (15–160 s). One tempo plays the whole break here, the record's 67.
 
@@ -11842,7 +11846,7 @@ export const STYLES: Record<string, Style> = {
       },
       {
         /* The End (Apple, the last song of the Abbey Road medley, 26 September 1969; Lennon–McCartney,
-   recorded 23 July to 18 August 1969). Ringo on drums: his only drum solo on a Beatles record,
+   recorded 23 July to 20 August 1969). Ringo on drums: his only drum solo on a Beatles record,
    and the three-way guitar trade after it.
 
    Songsterr 2841 (rev 9892132 by chers06, 2026; aiGenerated false; the one drum track, "Ringo
@@ -12092,7 +12096,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Tony Allen',
     drummer: true,
     bands: ['Fela Kuti', 'Africa 70'],
-    hint: 'Fela Kuti\'s drummer, who made Afrobeat: four limbs playing like four drummers. The hi-hat foot chicks every "and", the hand plays one-and-a on the hat around the snare, the kick comes in pairs and rarely marks the 1, and the snare pops in clusters with no fixed backbeat. Hardly a fill ("I play like a machine or a loop"). Each New plays a style inspired by one of thirty-four songs: Zombie, Water No Get Enemy, Expensive Shit, Lady, Gentleman, and his own later records. Built on the five patterns he demonstrated himself; the song grooves are variations of them, not transcriptions.',
+    hint: 'Fela Kuti\'s drummer, who made Afrobeat: four limbs playing like four drummers. The hi-hat foot chicks every "and", the hand plays one-and-a on the hat around the snare, the kick comes in pairs and rarely marks the 1, and the snare pops in clusters with no fixed backbeat. Hardly a fill ("I play like a machine or a loop"). Each New plays a style inspired by one of thirty-four songs: Zombie, Water No Get Enemy, Expensive Shit, Lady, Gentleman, and his own later records. Built on the five patterns he demonstrated himself; the song grooves are variations of them, not transcriptions. Zombie, with its stops and march, and Water No Get Enemy play whole, in their records\' order, laid out from the records (Water No Get Enemy\'s opening from a human transcription). Approximations, not the records.',
     toms: true,
     kit: 'smdrums',
     hats: 16,
@@ -13562,7 +13566,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Stewart Copeland',
     drummer: true,
     bands: ['The Police'],
-    hint: 'The Police: a reggae drummer in a punk band. The kick stays off the 1, a cross-stick drops on 3, the backbeat goes to 4 alone or nowhere, and the hi-hat does the talking: accents, little 16th bursts, a bark on the "and" of 4. Verses go sparse and choruses go to rock, often on the ride bell. Few fills, short and often over before the bar line, with a splash on the "and" of 4 instead of a crash on 1. Each New plays a style inspired by one of forty songs, from Fall Out to Synchronicity, most from human transcriptions, at its record tempo (some up to their live speed).',
+    hint: 'The Police: a reggae drummer in a punk band. The kick stays off the 1, a cross-stick drops on 3, the backbeat goes to 4 alone or nowhere, and the hi-hat does the talking: accents, little 16th bursts, a bark on the "and" of 4. Verses go sparse and choruses go to rock, often on the ride bell. Few fills, short and often over before the bar line, with a splash on the "and" of 4 instead of a crash on 1. Each New plays a style inspired by one of forty songs, from Fall Out to Synchronicity, most from human transcriptions, at its record tempo (some up to their live speed). Eight of them, from Message in a Bottle to Synchronicity II, play the record\'s parts in its order, read from human tabs. Approximations, not the records.',
     toms: true,
     kit: 'police',
     hats: 8,
@@ -15628,7 +15632,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Yussef Dayes',
     drummer: true,
     bands: ['Yussef Kamaal'],
-    hint: 'The London drummer of Yussef Kamaal, What Kinda Music and Black Classical Music: dense, linear 16ths where hat, ghosted snare and kick take turns, a backbeat that slides off 2 and 4 to the "and" or the "e", kick clusters of three on one foot, buzz strokes and flams on a snare tuned tight, rim clicks for a backbeat, and a stack for an accent. Tight inside the bar, light on the swing. Each New plays a style inspired by one of twenty-seven tracks, most from Drum Hub\'s transcriptions, at its record tempo.',
+    hint: 'The London drummer of Yussef Kamaal, What Kinda Music and Black Classical Music: dense, linear 16ths where hat, ghosted snare and kick take turns, a backbeat that slides off 2 and 4 to the "and" or the "e", kick clusters of three on one foot, buzz strokes and flams on a snare tuned tight, rim clicks for a backbeat, and a stack for an accent. Tight inside the bar, light on the swing. Each New plays a style inspired by one of twenty-seven tracks, most from Drum Hub\'s transcriptions, at its record tempo; Tioga Pass, Lift Off and Jamaican Links play whole, in the record\'s order, from human Songsterr tabs. Approximations, not the records.',
     toms: true,
     kit: 'london',
     hats: 16,
@@ -16660,7 +16664,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Jabo Starks',
     drummer: true,
     bands: ['James Brown'],
-    hint: "James Brown's other drummer, 1965–76, and Bobby Bland's before that: lean, crisp and steady, a blues and gospel man who never tried to outplay anyone. The hats carry a light swing with a sixteenth slipped in before 3, the kick goes for the 1 and the upbeats, and a section lifts by moving the right hand to the ride, not by a fill. Hardly any fills at all. Each New plays one of nine of his records at its own tempo: Sex Machine's swinging hats, Super Bad's snare on the 1 and the bell in the bridge, The Payback's kick on every beat, Licking Stick's cross-stick. The stage names the song. Six follow published grids; Soul Power, Think (About It) and Turn On Your Love Light are approximations.",
+    hint: "James Brown's other drummer, 1965–76, and Bobby Bland's before that: lean, crisp and steady, a blues and gospel man who never tried to outplay anyone. The hats carry a light swing with a sixteenth slipped in before 3, the kick goes for the 1 and the upbeats, and a section lifts by moving the right hand to the ride, not by a fill. Hardly any fills at all. Each New plays one of nine of his records at its own tempo: Sex Machine's swinging hats, Super Bad's snare on the 1 and the bell in the bridge, The Payback's kick on every beat, Licking Stick's cross-stick. Super Bad, The Payback, Pass the Peas and Licking Stick play whole, in the record's order. Six follow published grids; Soul Power, Think (About It) and Turn On Your Love Light are approximations.",
     kit: 'funkSoul',
     mix: { h: 0.72 },
     hats: 8,
@@ -16723,8 +16727,10 @@ export const STYLES: Record<string, Style> = {
        grooves; Hot Pants, Pass the Peas and Licking Stick are human Songsterr
        tabs. Soul Power, Think (About It) and Turn On Your Love Light are
        reconstructions in his vocabulary at the record's tempo — no grid of
-       them was found. See `.context/app/planning/drumming-research.md`,
-       section M. */
+       them was found. Super Bad, The Payback, Pass the Peas and Licking Stick
+       play whole, their order from the same tabs (The Payback's parts staying
+       Cruise Ship's), checked against the records. See
+       `.context/app/planning/drumming-research.md`, section M. */
     songs: [
       {
         key: 'sex-machine',
@@ -18264,7 +18270,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Steve Gadd',
     drummer: true,
     bands: ['Stuff', 'Steps Ahead', 'Paul Simon'],
-    hint: "The New York session drummer of the 1970s, with Paul Simon, Steely Dan and Chick Corea, later Eric Clapton and James Taylor: drum corps rudiments split across the kit, ghosts felt more than heard, a firm backbeat a hair behind, and a groove that becomes the song's hook. Short fills at the end of a phrase: flams, drags, hand-hand-foot runs round the toms. A dead 1970s studio kit. Each New plays one of fifteen of his songs at its record tempo: 50 Ways to Leave Your Lover's march, Late in the Evening's mozambique, Aja's verse, Chuck E.'s in Love's half-time shuffle, Lenore's displaced backbeat. The stage names the song. Eight follow human transcriptions; the rest are approximations.",
+    hint: "The New York session drummer of the 1970s, with Paul Simon, Steely Dan and Chick Corea, later Eric Clapton and James Taylor: drum corps rudiments split across the kit, ghosts felt more than heard, a firm backbeat a hair behind, and a groove that becomes the song's hook. Short fills at the end of a phrase: flams, drags, hand-hand-foot runs round the toms. A dead 1970s studio kit. Each New plays one of fifteen of his songs at its record tempo: 50 Ways to Leave Your Lover's march, Late in the Evening's mozambique, Aja's verse, Chuck E.'s in Love's half-time shuffle, Lenore's displaced backbeat. Five play whole, in the record's order: 50 Ways, Late in the Evening, The Hustle, Just the Two of Us and When You Got a Good Friend. Eight follow human transcriptions; the rest are approximations.",
     toms: true,
     kit: 'teatowel',
     mix: { h: 0.7 },
@@ -18341,7 +18347,10 @@ export const STYLES: Record<string, Style> = {
        follow human Songsterr transcriptions, read bar by bar: 50 Ways, Late
        in the Evening (the hands; the feet are from lessons), Aja, Chuck E.'s
        in Love, The Hustle, Glamour Profession, Just the Two of Us and When
-       You Got a Good Friend. Lenore is built from a lesson that describes it,
+       You Got a Good Friend. Five of them (50 Ways, Late in the Evening, The
+       Hustle, Just the Two of Us and When You Got a Good Friend) are written
+       in sections in the tab's order, each record's tempo measured. Lenore is
+       built from a lesson that describes it,
        and the rest are reconstructions in his vocabulary. */
     songs: [
       {
@@ -19366,7 +19375,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Omar Hakim',
     drummer: true,
     bands: ['Weather Report', 'Sting'],
-    hint: "The session drummer who was in Weather Report while he made Let's Dance, then played Brothers in Arms, Sting's first solo album and Get Lucky: dead on the grid, the pop records big and simple, a kick that moves in 16ths under quarter-note or eighth-note hats, few fills and short ones, and the fusion dense and conversational. Each New plays one of seventeen of his songs, from Let's Dance to Beyond, at its record tempo. The stage names the song. Twelve follow human transcriptions; the rest are approximations and say so.",
+    hint: "The session drummer who was in Weather Report while he made Let's Dance, then played Brothers in Arms, Sting's first solo album and Get Lucky: dead on the grid, the pop records big and simple, a kick that moves in 16ths under quarter-note or eighth-note hats, few fills and short ones, and the fusion dense and conversational. Each New plays one of seventeen of his songs, from Let's Dance to Beyond, at its record tempo. The stage names the song. Twelve follow human transcriptions, and six of those play whole, in the record's order: Let's Dance, So Far Away, Your Latest Trick, Get Lucky, Giorgio by Moroder and Contact. The rest are approximations and say so.",
     toms: true,
     kit: 'drs',
     hats: 8,
@@ -19430,7 +19439,9 @@ export const STYLES: Record<string, Style> = {
        tab's aiGenerated flag checked); Fortress Around Your Heart, If You Love
        Somebody Set Them Free, Consider Me Gone and Corner Pocket follow AI
        tabs or a regenerated one, and Predator is a reconstruction. Their feel
-       says so. */
+       says so. Six of them (Let's Dance, So Far Away, Your Latest Trick, Get
+       Lucky, Giorgio by Moroder, Contact) are written in sections, intro to
+       outro. */
     songs: [
       {
         /* Let's Dance (EMI America single, 1983; the title track of the album). Omar Hakim on drums:
@@ -20747,7 +20758,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Elvin Jones',
     drummer: true,
     bands: ['John Coltrane'],
-    hint: "Coltrane's drummer 1960–66, then with McCoy Tyner, Wayne Shorter and his own Jazz Machine: a broad, legato ride leaning on the skip note, the hi-hat foot on 2 and 4, and the snare, toms and kick filling the triplets round it in groups of two and four that run across the bar line. Never a loop: the comping changes every bar. An open 1960s jazz kit. Each New plays one of thirteen of his songs in its own time: My Favorite Things and Juju as waltzes over a 6/8 foot part, Afro Blue two against three, Resolution in triplets, Chasin' the Trane and Impressions in fast eighths (the slider goes to 380). The stage names the song. Four follow Todd Bishop's transcriptions; the rest are reconstructions.",
+    hint: "Coltrane's drummer 1960–66, then with McCoy Tyner, Wayne Shorter and his own Jazz Machine: a broad, legato ride leaning on the skip note, the hi-hat foot on 2 and 4, and the snare, toms and kick filling the triplets round it in groups of two and four that run across the bar line. Never a loop: the comping changes every bar. An open 1960s jazz kit. Each New plays one of thirteen of his songs in its own time: My Favorite Things and Juju as waltzes over a 6/8 foot part, Afro Blue two against three, Resolution in triplets, Chasin' the Trane and Impressions in fast eighths (the slider goes to 380). The stage names the song. Four follow Todd Bishop's transcriptions, and Chasin' the Trane plays whole, its blues choruses from his; the rest are reconstructions.",
     toms: true,
     kit: 'virtuosity',
     meter: '4/4-6',
@@ -20808,7 +20819,7 @@ export const STYLES: Record<string, Style> = {
        (jazzomat) and AllSolos's measurements of the solos on each record; Your
        Lady and the Jazz Machine's A Love Supreme have no measured tempo, and
        their ranges are estimates. Four follow Todd Bishop's transcriptions
-       (cruiseshipdrummer.com): Chasin' the Trane (the first six choruses), Your
+       (cruiseshipdrummer.com): Chasin' the Trane (choruses 1–54, in sections), Your
        Lady (intro and head), Juju (his page built from the record's groove)
        and the Jazz Machine's A Love Supreme (its groove). My Favorite Things is
        built from his "Assembling a basic Elvin waltz", which names it; the rest
@@ -22423,7 +22434,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Horacio "El Negro" Hernández',
     drummer: true,
     bands: ['Gonzalo Rubalcaba', 'Michel Camilo'],
-    hint: "The Havana drummer of Rubalcaba's Proyecto, then Hargrove's Habana, Michel Camilo's trios and Santana: four limbs, four Cuban parts. The left foot plays the clave on a pedal block, the right foot the tumbao, the right hand a bell or the cáscara, the left hand conga and timbale figures on snare and toms. Each Latin song keeps one clave and one direction, and its accents stay with it. A bright, tight kit. Each New plays one of eight of his songs at its record tempo: Mambo for Roy's bell, Afrodisia's cáscara, Afro Blue in 6/8, La Comparsa's gallop, his own songo, and Santana's Africa Bamba with a plain backbeat. The stage names the song. Two follow human transcriptions; the rest are reconstructions from his book's grooves.",
+    hint: "The Havana drummer of Rubalcaba's Proyecto, then Hargrove's Habana, Michel Camilo's trios and Santana: four limbs, four Cuban parts. The left foot plays the clave on a pedal block, the right foot the tumbao, the right hand a bell or the cáscara, the left hand conga and timbale figures on snare and toms. Each Latin song keeps one clave and one direction, and its accents stay with it. A bright, tight kit. Each New plays one of eight of his songs at its record tempo: Mambo for Roy's bell, Afrodisia's cáscara, Afro Blue in 6/8, La Comparsa's gallop, his own songo, and Santana's Africa Bamba with a plain backbeat. The stage names the song. Two follow human transcriptions, You Are My Kind whole, in the record's order; the rest are reconstructions from his book's grooves.",
     toms: true,
     kit: 'police',
     mix: { h: 0.7 },
@@ -22459,7 +22470,7 @@ export const STYLES: Record<string, Style> = {
        Blue Note, the Dutch one for For Hamp, Red, Bags, and Cal) and reviews
        for Triangulo and Italuba. Two songs follow human Songsterr transcriptions read bar by
        bar: Africa Bamba (717963) and You Are My Kind (3770724), at the tabs'
-       tempos. The Latin songs are reconstructions: the grooves are the ones
+       tempos. You Are My Kind is written in sections, in the tab's order. The Latin songs are reconstructions: the grooves are the ones
        his book Conversations in Clave transcribes (mambo, cáscara, 6/8,
        conga de comparsa, songo), laid out as his record's two patterns lay
        them, and their tempos are machine estimates (Deezer; La Comparsa's
@@ -22937,7 +22948,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Dave Lombardo',
     drummer: true,
     bands: ['Slayer'],
-    hint: 'Slayer from Show No Mercy to World Painted Blood: the skank beat, kick on the beat and snare on every "and", under the ride, a crash or a wash of open hat at 180 to 250; the snare on 2 and 4 or on every beat over a wall of double bass; half-time on the ride for the heavy riffs, and tom figures over the feet that he hears as Cuban. Two bass drums, not a double pedal, on a dry, punchy kit. Each New plays one of thirteen of his songs in its own time: the fast ones, Angel of Death and Raining Blood among them, in eighths at the speed of the record (the slider goes to 380); the heavy ones, South of Heaven and Seasons in the Abyss among them, in sixteenths. The stage names the song. All thirteen follow human transcriptions; the tom figure of the break is a reconstruction.',
+    hint: 'Slayer from Show No Mercy to World Painted Blood: the skank beat, kick on the beat and snare on every "and", under the ride, a crash or a wash of open hat at 180 to 250; the snare on 2 and 4 or on every beat over a wall of double bass; half-time on the ride for the heavy riffs, and tom figures over the feet that he hears as Cuban. Two bass drums, not a double pedal, on a dry, punchy kit. Each New plays one of thirteen of his songs in its own time, the fast ones in eighths at the speed of the record (the slider goes to 380). Six play whole, section by section in the record\'s order: War Ensemble, Mandatory Suicide, Seasons in the Abyss, World Painted Blood, Black Magic and Necrophobic. All follow human transcriptions; the tom figure of the Angel of Death break is a reconstruction.',
     toms: true,
     kit: 'crocell',
     // two bass drums, alternating the feet in a run (his record's rule)
@@ -22992,9 +23003,12 @@ export const STYLES: Record<string, Style> = {
       [{ s: '3.3.3.3.', k: '........' }, 1],
     ],
     /* His songs. Every groove is read from a human Songsterr transcription
-       (each tab's aiGenerated flag checked), the commonest bars kept, and the
-       tempo is the tab's, checked against songbpm.com, which counts most of
-       them in half time. Past 190 they are in eighths (4/4-8): there the
+       (each tab's aiGenerated flag checked), the commonest bars kept. Six (War
+       Ensemble, Mandatory Suicide, Seasons in the Abyss, World Painted Blood,
+       Black Magic, Necrophobic) play whole, in sections in the tab's order,
+       each record beat-tracked. The tempo is otherwise the tab's, checked
+       against songbpm.com, which counts most of them in half time; Black
+       Magic's 170–190 is the record's. Past 190 they are in eighths (4/4-8): there the
        sixteenths of the tabs' kicks fall on the eighths, and a run of
        sixteenth double bass at 175 and over is left out. The Angel of Death
        break is counted as he counts it, at 105 — half the song's tempo, so a
@@ -24388,7 +24402,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Adrienne Davies',
     drummer: true,
     bands: ['Earth'],
-    hint: "Earth's drummer from Hex (2005) on, half of the band with Dylan Carlson: the slowest drummer you will meet. A ride she prefers to the hats, a heavy, relaxed backbeat, the kick placed rarely, every cymbal left to ring, and almost never a fill: a crash left to swell over the bar instead. A ringing 1960s Ludwig, or a big, rough kit on the heavier Primitive and Deadly. Each New plays one of fifteen of her songs at its record tempo: Hex's half-time, the 12/8 of The Bees Made Honey in the Lion's Skull, the slow shuffles of Angels of Darkness, Demons of Light. The tempo stops at 50, so a song slower than that is counted in eighths: Rise to Glory, at 43 on the record, plays at 87. The stage names the song. One follows a human transcription; the rest are reconstructions.",
+    hint: "Earth's drummer from Hex (2005) on, half of the band with Dylan Carlson: the slowest drummer you will meet. A ride she prefers to the hats, a heavy, relaxed backbeat, the kick placed rarely, every cymbal left to ring, and almost never a fill: a crash left to swell over the bar instead. A ringing 1960s Ludwig, or a big, rough kit on the heavier Primitive and Deadly. Each New plays one of fifteen of her songs at its record tempo: Hex's half-time, the 12/8 of The Bees Made Honey in the Lion's Skull, the slow shuffles of Angels of Darkness, Demons of Light. The tempo stops at 50, so a song slower than that is counted in eighths: Rise to Glory, at 43 on the record, plays at 87. The stage names the song. The Bees Made Honey plays whole, from a human transcription; the rest are reconstructions.",
     toms: true,
     kit: 'smdrums',
     mix: { h: 0.7 },
@@ -24977,7 +24991,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Klek de Poitrine',
     drummer: true,
     bands: ['Angine de Poitrine'],
-    hint: "The masked drummer of the Quebec duo Angine de Poitrine, under Khn de Poitrine's live loops: one groove held for a long time, built up an element at a time and changed rarely and all at once, on a dry, damped kit kept tight to the loop. Odd meters (7/8, 5/8, 12/8) and the drummer's metric modulation: in Fabienk and Tohogd a 4/4 groove runs across the loop's 7/8 bar lines, and in Sherpa and Sarniezz the pulse moves to a new tempo on a note value both share. Dotted-quarter accents run three against four for a build. No swing, few fills. Each New plays one of twelve songs from Vol. 1, Vol. II and the KEXP set; ten follow human Songsterr tabs read bar by bar, two are reconstructions from tabs a machine began.",
+    hint: "The masked drummer of the Quebec duo Angine de Poitrine, under Khn de Poitrine's live loops: one groove held for a long time, built up an element at a time and changed rarely and all at once, on a dry, damped kit kept tight to the loop. Odd meters (7/8, 5/8, 12/8) and the drummer's metric modulation: in Fabienk and Tohogd a 4/4 groove runs across the loop's 7/8 bar lines, and in Sherpa and Sarniezz the pulse moves to a new tempo on a note value both share. Dotted-quarter accents run three against four for a build. No swing, few fills. Each New plays one of twelve songs from Vol. 1, Vol. II and the KEXP set; ten follow human Songsterr tabs read bar by bar, two are reconstructions from tabs a machine began. Yor Zarad plays whole, in the record's order, to the tab's end.",
     toms: true,
     // "la batterie au timbre mat" (Vol. 1's notes); "dampened and close-miked" (MusicRadar)
     kit: 'teatowel',
@@ -27618,7 +27632,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Phil Collins',
     drummer: true,
     bands: ['Genesis'],
-    hint: "Genesis, Brand X, Peter Gabriel and his own records: a jazz-fusion drummer in Brand X's odd meters, the driving engine of 1970s Genesis, then the gated drums of the 1980s, a kick and a huge snare with no cymbal of his own. Fills of two toms struck together, a kick between. Each New plays one of thirteen of his songs at its record tempo: In the Air Tonight's CR-78 verse and its fill, Intruder with no cymbals at all, Nuclear Burn in 11/8 and ...And So to F... in nine for Brand X, The Cinema Show and Dance on a Volcano in 7/8, Supper's Ready in 9/8, Turn It On Again in 6/4 and 7/4. The stage names the song. Every one follows a human transcription.",
+    hint: "Genesis, Brand X, Peter Gabriel and his own records: a jazz-fusion drummer in Brand X's odd meters, the driving engine of 1970s Genesis, then the gated drums of the 1980s, a kick and a huge snare with no cymbal of his own. Fills of two toms struck together, a kick between. Each New plays one of thirteen of his songs at its record tempo: In the Air Tonight's CR-78 verse and its fill, Intruder with no cymbals at all, Nuclear Burn in 11/8 and ...And So to F... in nine for Brand X, The Cinema Show and Dance on a Volcano in 7/8, Supper's Ready in 9/8, Turn It On Again in 6/4 and 7/4. Easy Lover, I Missed Again, I Don't Care Anymore, Squonk and The Cinema Show's instrumental play whole, in the record's order. The stage names the song. Every one follows a human transcription.",
     toms: true,
     // the gated 1980s sound: Big Rusty played hard in a big room; his Genesis and Brand X songs name their own
     kit: 'bigRoom',
@@ -27719,10 +27733,12 @@ export const STYLES: Record<string, Style> = {
        checked on Wikipedia: he plays every drum part named here (on Genesis's
        records from 1971; on Brand X's Unorthodox Behaviour and Product; on
        Peter Gabriel's third album, Intruder; on Philip Bailey's Easy Lover).
-       Nine follow human Songsterr transcriptions (each tab's `aiGenerated`
-       flag checked), read bar by bar with the most common bars kept; four
-       follow Drumeo's transcriptions (Nuclear Burn, The Cinema Show, Behind
-       the Lines, and Supper's Ready beside its tab). See
+       Ten follow human Songsterr transcriptions (each tab's `aiGenerated`
+       flag checked), read bar by bar with the most common bars kept; three
+       follow Drumeo's transcriptions (Nuclear Burn, Behind the Lines, and
+       Supper's Ready beside its tab). Easy Lover, I Don't Care Anymore, I
+       Missed Again, Squonk and The Cinema Show are written in sections in the
+       record's order. See
        the Phil Collins section of `.context/app/planning/drumming-research.md`. */
     songs: [
       {
@@ -29845,7 +29861,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Lenny White',
     drummer: true,
     bands: ['Return to Forever'],
-    hint: "Bitches Brew, Red Clay, then Return to Forever with Chick Corea, Stanley Clarke and Al Di Meola: one of fusion's founding drummers, self-taught, open-handed (the hat and even the ride in his left hand), on the front of the beat. A tune drummer more than a groove drummer, with big statements that cut across the bar. Each New plays one of three of his songs at its record tempo: Duel of the Jester and the Tyrant's heavy half-time and its 7/8, Land of the Midnight Sun's sixteenths with Al Di Meola, and Twennynine's Morning Sunrise, in 7/4 and 4/4. The stage names the song. All three follow human transcriptions; none was found for Sorceress, Vulcan Worlds or Red Clay.",
+    hint: "Bitches Brew, Red Clay, then Return to Forever with Chick Corea, Stanley Clarke and Al Di Meola: one of fusion's founding drummers, self-taught, open-handed (the hat and even the ride in his left hand), on the front of the beat. A tune drummer more than a groove drummer, with big statements that cut across the bar. Each New plays one of three of his songs at its record tempo, each whole, in its sections: Duel of the Jester and the Tyrant's heavy half-time and its 7/8, Land of the Midnight Sun's sixteenths with Al Di Meola, and Twennynine's Morning Sunrise, in 7/4 and 4/4. All three follow human transcriptions; none was found for Sorceress, Vulcan Worlds or Red Clay.",
     toms: true,
     // a real kit recorded properly; his own 1970s sound is not described closely enough to tune one
     kit: 'muldjord',
@@ -30286,7 +30302,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Michael Shrieve',
     drummer: true,
     bands: ['Santana'],
-    hint: "Santana from Woodstock to Welcome: a jazz-minded twenty-year-old who joined the band the day he jammed with it, and played rock time and jazz-influenced patterns into the congas and timbales of Michael Carabello and Chepito Areas. Riding the crash on every beat, a cross-stick in a tresillo, the floor tom over the kick, and Soul Sacrifice's solo. Each New plays one of eight of his songs at its record tempo: Soul Sacrifice as at Woodstock, Evil Ways, Persuasion and Fried Neck Bones, Black Magic Woman, Samba Pa Ti, Taboo and Song of the Wind. The percussion section is on the percussion lanes. The stage names the song. Every one follows a human transcription.",
+    hint: "Santana from Woodstock to Welcome: a jazz-minded twenty-year-old who joined the band the day he jammed with it, and played rock time and jazz-influenced patterns into the congas and timbales of Michael Carabello and Chepito Areas. Riding the crash on every beat, a cross-stick in a tresillo, the floor tom over the kick, and Soul Sacrifice's solo. Each New plays one of eight of his songs at its record tempo: Soul Sacrifice as at Woodstock, Evil Ways, Persuasion and Fried Neck Bones, Black Magic Woman, Samba Pa Ti, Taboo and Song of the Wind. The percussion section is on the percussion lanes. The stage names the song. Every one follows a human transcription; Evil Ways and Black Magic Woman play whole, in their tabs' order.",
     toms: true,
     // a 1960s Ludwig, open and ringing
     kit: 'sixties',
@@ -30624,7 +30640,7 @@ export const STYLES: Record<string, Style> = {
         params: {
           bpm: [120, 130],
           swing: 0,
-          // Songsterr 4222846 (human), Woodstock
+          // Songsterr 1621357 (rev 4222846, human), Woodstock
           figures: [
             [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 2],
             [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 1.2],
@@ -31585,7 +31601,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Tomas Haake',
     drummer: true,
     bands: ['Meshuggah'],
-    hint: 'Meshuggah, from Destroy Erase Improve to Koloss. Everything is in 4/4: the hands keep it, a china, crash or open hat on every beat and the snare on 3, while the kick and ghosted snare play the riff, an odd length that crosses the bar line until it comes round. His fills are the riff too, the toms with the kick on the guitar hits. Each New plays one of eight of his songs at its record tempo, or at 150 where the feet run: Future Breed Machine, New Millennium Cyanide Christ, Rational Gaze, Stengah, Straws Pulled at Random, Electric Red, Do Not Look Down and Demiurge. The stage names the song. Every one follows a human transcription. Bleed is not here: its feet are in 32nds.',
+    hint: "Meshuggah, from Destroy Erase Improve to Koloss. Everything is in 4/4: the hands keep it, a china, crash or open hat on every beat and the snare on 3, while the kick and ghosted snare play the riff, an odd length that crosses the bar line until it comes round. His fills are the riff too, the toms with the kick on the guitar hits. Each New plays one of eight of his songs at its record tempo, or at 150 where the feet run: Future Breed Machine, New Millennium Cyanide Christ, Rational Gaze, Stengah, Straws Pulled at Random, Electric Red, Do Not Look Down and Demiurge. The stage names the song. Every one follows a human transcription, and six play whole, in the record's order. Bleed is not here: its feet are in 32nds.",
     toms: true,
     // a metal band's kit, close and dry, with two of each cymbal
     kit: 'crocell',
@@ -31689,8 +31705,8 @@ export const STYLES: Record<string, Style> = {
        album but Catch Thirtythree, whose drums were programmed; Nothing's
        2006 reissue triggers new sounds from his own hits. Each follows a
        human Songsterr tab (its aiGenerated flag checked), two bars at a time,
-       the commonest kept; the tempo is the tab's, checked against
-       songbpm.com. See the Tomas Haake section of
+       the commonest kept; six of them play in sections, in the tab's order.
+       The tempo is the tab's, checked against songbpm.com. See the Tomas Haake section of
        `.context/app/planning/drumming-research.md`. */
     songs: [
       {
@@ -35380,7 +35396,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Danny Carey',
     drummer: true,
     bands: ['Tool'],
-    hint: 'Tool, from Undertow to 10,000 Days: a jazz-schooled drummer who studied tabla, playing heavy rock in odd meters and setting figures across the bar. Each New plays one of nine of his songs in its own meter and at its record tempo, or at 150 where the toms run: Sober, Forty Six & 2, Eulogy with the hat open on every third sixteenth for three bars, Stinkfist, The Grudge and Vicarious in 5/4, Ticks and Leeches in 7/4, Rosetta Stoned in 3/4 with the kick in fives, and The Pot. The stage names the song. Every one follows a human transcription; Sober, Forty Six & 2 and Stinkfist play whole, in the record\'s order. Lateralus and Schism are not here.',
+    hint: "Tool, from Undertow to 10,000 Days: a jazz-schooled drummer who studied tabla, playing heavy rock in odd meters and setting figures across the bar. Each New plays one of nine of his songs in its own meter and at its record tempo, or at 150 where the toms run: Sober, Forty Six & 2, Eulogy with the hat open on every third sixteenth for three bars, Stinkfist, The Grudge and Vicarious in 5/4, Ticks and Leeches in 7/4, Rosetta Stoned in 3/4 with the kick in fives, and The Pot. The stage names the song. Every one follows a human transcription; Sober, Forty Six & 2 and Stinkfist play whole, in the record's order. Lateralus and Schism are not here.",
     toms: true,
     // an even studio kit with Paiste cymbals, as his are
     kit: 'drs',
@@ -37043,7 +37059,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Gavin Harrison',
     drummer: true,
     bands: ['Porcupine Tree', 'King Crimson'],
-    hint: 'Porcupine Tree from In Absentia on, King Crimson, and the author of Rhythmic Illusions: odd meters played so they sound even, the hat in eighths with the quarter accented over a kick and snare that cross it, on a close, dry kit with a small, tight snare. Each New plays one of eight of his songs in its own meter and at its record tempo: The Sound of Muzak in 7/4, its kick and snare in sevens of sixteenths; Blackest Eyes, Halo, Shallow, Anesthetize on the toms alone, Fear of a Blank Planet in 6/4, The Start of Something Beautiful and Harridan in 5/4. The stage names the song. Every one follows a human transcription.',
+    hint: "Porcupine Tree from In Absentia on, King Crimson, and the author of Rhythmic Illusions: odd meters played so they sound even, the hat in eighths with the quarter accented over a kick and snare that cross it, on a close, dry kit with a small, tight snare. Each New plays one of eight of his songs in its own meters and at its record tempo: The Sound of Muzak in 7/4, its chorus in 4/4; Blackest Eyes, Halo, Shallow, its middle in 6/4; Anesthetize on the toms alone; Fear of a Blank Planet in 6/4 and 4/4; The Start of Something Beautiful in 9/8 and 5/4; Harridan in 5/4. Six play whole, in the record's order. The stage names the song. Every one follows a human transcription.",
     toms: true,
     // the DRS kit with its snare played fast and high, as his small, tight snares are
     kit: 'police',
@@ -37100,7 +37116,7 @@ export const STYLES: Record<string, Style> = {
     /* His records: one New picks one, and the stage names it. Credits from
        Wikipedia and Modern Drummer: Porcupine Tree's drummer from In Absentia
        (2002). Each follows a human Songsterr tab (its aiGenerated flag
-       checked), at the tab's tempo; two were checked against
+       checked), at the record's tempo, beat-tracked; two were checked against
        karaoke-version.com. The 32nd-note pairs some bars have are written as
        two sixteenths or left out. Rhythmic Composition, the published
        transcriptions, was not read. See the Gavin Harrison section of
@@ -38911,7 +38927,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Vinnie Colaiuta',
     drummer: true,
     bands: ['Frank Zappa', 'Sting'],
-    hint: "Zappa's drummer on Joe's Garage, then Sting's and the studios': odd meters played so they feel like four, a quarter-note pattern on the hat or ride carried over bars of five, seven or nine eighths so it comes round every two bars, the kick on 1 and the snare fixed in the bar. A dry, even studio kit. Each New plays one of eight of his songs in its own meter and at its record tempo: Seven Days in 5/8, Saint Augustine in Hell and Love Is Stronger Than Justice in 7/8, I Hung My Head in 9/8, If I Ever Lose My Faith in You, Shape of My Heart, Fields of Gold, and Keep It Greasey's opening. The stage names the song. Most follow human transcriptions.",
+    hint: "Zappa's drummer on Joe's Garage, then Sting's and the studios': odd meters played so they feel like four, a quarter-note pattern on the hat or ride carried over bars of five, seven or nine eighths so it comes round every two bars, the kick on 1 and the snare fixed in the bar. A dry, even studio kit. Each New plays one of eight of his songs in its own meter and at its record tempo: Seven Days in 5/8, Saint Augustine in Hell and Love Is Stronger Than Justice in 7/8, I Hung My Head in 9/8, If I Ever Lose My Faith in You, Shape of My Heart, Fields of Gold, and Keep It Greasey's opening. Seven Days, If I Ever Lose My Faith in You and I Hung My Head play whole, in the order of human transcriptions. The stage names the song.",
     toms: true,
     // an even studio kit, as the Yamaha and Zildjian of the Sting records are
     kit: 'drs',
@@ -38961,8 +38977,9 @@ export const STYLES: Record<string, Style> = {
        Fields of Gold and Keep It Greasey follow human Songsterr tabs at their
        tempos; Saint Augustine in Hell bonedo's notation of the bell with a
        rough tab's kick and snare; Love Is Stronger Than Justice Drum Ninja's
-       description and his own; I Hung My Head bonedo's text, at its
-       play-along's 100. In the odd meters the quarter-note cycle comes round
+       description and his own; I Hung My Head a human Songsterr tab (5357526)
+       at 100. Seven Days, If I Ever Lose My Faith in You and I Hung My Head
+       play in sections, in their tabs' order. In the odd meters the quarter-note cycle comes round
        every two bars, so their figures are two bars, in sixteenths. See the
        Vinnie Colaiuta section of `.context/app/planning/drumming-research.md`. */
     songs: [
@@ -40108,7 +40125,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Antonio Sánchez',
     drummer: true,
     bands: ['Pat Metheny Group'],
-    hint: "The Pat Metheny Group's drummer from Speaking of Now on, with Gary Burton, Chick Corea, his own Migration band and the Birdman score. Metheny wrote The Gathering Sky for his left-foot clave: the clave on the hi-hat pedal with a bell under the heel, the hands free over it. Straight, even time with Metheny, a samba in three, a dark ride. Each New plays one of four of his songs: The Gathering Sky's samba under the guitar and its drum solo over the clave, You and Afternoon. The stage names the song. You and Afternoon follow human transcriptions; The Gathering Sky is a reconstruction from his own lesson.",
+    hint: "The Pat Metheny Group's drummer from Speaking of Now on, with Gary Burton, Chick Corea, his own Migration band and the Birdman score. Metheny wrote The Gathering Sky for his left-foot clave: the clave on the hi-hat pedal with a bell under the heel, the hands free over it. Straight, even time with Metheny, a samba in three, a dark ride. Each New plays one of four of his songs: The Gathering Sky's samba under the guitar and its drum solo over the clave, You and Afternoon. The stage names the song. You plays whole, in the record's order, from a human transcription; Afternoon's bars are a machine transcription's; The Gathering Sky is a reconstruction from his own lesson.",
     toms: true,
     // the open jazz kit with toms, a foot hat and a dark ride
     kit: 'virtuosity',
@@ -40160,8 +40177,9 @@ export const STYLES: Record<string, Style> = {
       [{ s: '2.2.2.', k: '.1.1.1' }, 1],
     ],
     /* His records: one New picks one, and the stage names it. Credits from
-       Wikipedia (Speaking of Now, 2002, his first with the group). You and
-       Afternoon follow human Songsterr tabs at their tempos. The Gathering
+       Wikipedia (Speaking of Now, 2002, his first with the group). You
+       follows a human Songsterr tab, in sections in the record's order;
+       Afternoon's two bars are from a machine-made one (4251855). The Gathering
        Sky follows his own lesson on it, read from its captions: the samba
        is his samba ostinato (Modern Drummer, 2015) fitted to three beats,
        and the solo's clave the 3-2 rumba clave he names, in one bar of
@@ -40562,7 +40580,7 @@ export const STYLES: Record<string, Style> = {
         weight: 1,
         params: {
           bpm: [102, 108],
-          // Songsterr 4251855 (human), bars 1-2 and 37-38
+          // Songsterr 4251855 (machine-made), bars 1-2 and 37-38
           figures: [
             [
               {
@@ -40590,7 +40608,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Roy Haynes',
     drummer: true,
     bands: ['Charlie Parker', 'Sarah Vaughan', 'Chick Corea'],
-    hint: "Snap Crackle: Charlie Parker's and Sarah Vaughan's drummer, Coltrane's sub and Chick Corea's on Now He Sings, Now He Sobs. Broken time on a dry flat ride, the hi-hat foot free rather than on 2 and 4, the snare and bass drum in unison on the \"and\"s of 3 and 4, and now and then threes, sixes or fives laid over the 4/4, or dotted quarters against it. A small jazz kit. Each New plays one of six of his records in its own time: Matrix at 288 and It's Time at 266 in near-straight eighths (the slider goes to 380), Snap Crackle, Bad News Blues and Bluz for Liz swung, Windows as a waltz in 9/8. The stage names the song. They follow a thesis's transcription of Matrix and Todd Bishop's descriptions of his; the rest are reconstructions.",
+    hint: "Snap Crackle: Charlie Parker's and Sarah Vaughan's drummer, Coltrane's sub and Chick Corea's on Now He Sings, Now He Sobs. Broken time on a dry flat ride, the hi-hat foot free rather than on 2 and 4, the snare and bass drum in unison on the \"and\"s of 3 and 4, and now and then threes, sixes or fives laid over the 4/4, or dotted quarters against it. A small jazz kit. Each New plays one of six of his records in its own time: Matrix at 288 and It's Time at 266 in near-straight eighths (the slider goes to 380), Snap Crackle, Bad News Blues and Bluz for Liz swung, Windows as a waltz in 9/8. The stage names the song. Matrix plays its head and nine solo choruses in order, from a thesis's transcription; three follow Todd Bishop's descriptions; the rest are reconstructions.",
     toms: true,
     // the small club jazz kit with toms and a foot hat; his was an 18in bass drum and a flat ride
     kit: 'virtuosity',
@@ -40677,10 +40695,10 @@ export const STYLES: Record<string, Style> = {
     /* His records: one New picks one, and the stage names it. Credits from
        Wikipedia's album pages. Tempos: Huopainen's (Matrix 288) and Bishop's
        (It's Time 266); Windows is songbpm's 181 a beat (algorithmic), the
-       rest estimates. Matrix follows Huopainen's thesis (its text; the
-       notation was not seen) and It's Time, Bad News Blues and Bluz for Liz
+       rest estimates. Matrix follows Huopainen's transcription, read from the
+       notation, in sections; It's Time, Bad News Blues and Bluz for Liz follow
        Bishop's descriptions of his transcriptions, whose PDFs were not read:
-       every figure is a reconstruction of what they say. See the Roy Haynes
+       their figures are reconstructions of what he says. See the Roy Haynes
        section of `.context/app/planning/drumming-research.md`. */
     songs: [
       {
@@ -99831,7 +99849,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Sheila E.',
     drummer: true,
     bands: ['Prince', 'George Duke'],
-    hint: "Sheila Escovedo, Pete Escovedo's daughter and Tito Puente's goddaughter: Azteca at fifteen, George Duke's percussionist, then Prince's drummer and musical director in 1987 and 1988. \"I am a percussionist who plays percussion on drums\": funk with ghosts between the backbeats, timbales and cowbells beside the kit, and a timbalero's fills, an abanico into a rimshot. Each New plays one of eight songs at its record's tempo: The Glamorous Life, Sister Fate, Eye No, Alphabet St., Anna Stesia, Dance On, Positivity, and Housequake live. The stage names the song. The Glamorous Life follows a human transcription; the rest are reconstructions, not transcriptions.",
+    hint: "Sheila Escovedo, Pete Escovedo's daughter and Tito Puente's goddaughter: Azteca at fifteen, George Duke's percussionist, then Prince's drummer and musical director in 1987 and 1988. \"I am a percussionist who plays percussion on drums\": funk with ghosts between the backbeats, timbales and cowbells beside the kit, and a timbalero's fills, an abanico into a rimshot. Each New plays one of eight songs at its record's tempo: The Glamorous Life, Sister Fate, Eye No, Alphabet St., Anna Stesia, Dance On, Positivity, and Housequake live. The stage names the song. The Glamorous Life and Eye No follow human transcriptions, Eye No whole, in the record's order; the rest are reconstructions, not transcriptions.",
     toms: true,
     // the DRS kit: a studio kit with Paiste cymbals, for her Yamaha Recording Custom and Paiste 2002s of the Prince years
     kit: 'drs',
@@ -99839,7 +99857,7 @@ export const STYLES: Record<string, Style> = {
     weight: 0.6,
     bpm: [96, 130],
     swing: 0,
-    // funk with the ghosts between the backbeats (Eye No, Housequake)
+    // funk with the ghosts between the backbeats (Housequake)
     ghostBias: 0.3,
     ghostWeights: { 7: 0.4, 10: 0.3 },
     opens: 1,
@@ -99865,8 +99883,8 @@ export const STYLES: Record<string, Style> = {
       ['0001', 1.2],
       ['0011', 0.6],
     ],
-    /* Her bars from the songs below: Housequake's ghosts round the backbeat, Eye No's
-       sixteenths on the hat, the open hat on the "and" of 4, The Glamorous Life's hat doubled
+    /* Her bars from the songs below: Housequake's ghosts round the backbeat, sixteenths on
+       the hat (from the old reading of Eye No; its tab has eighths), the open hat on the "and" of 4, The Glamorous Life's hat doubled
        on 2 over the kick on the "a" of 2 and the "and" of 3. */
     figures: [
       [{ h: '1.1.1.1.1.1.1.1.', s: '....2..1.1..2...', k: '1.....1...1.....' }, 1.4],
@@ -99887,8 +99905,9 @@ export const STYLES: Record<string, Style> = {
     /* Her songs: one New picks one, and the stage names it. Tempos are beat-tracked from the
        records. Credits are Wikipedia's, after Benoît Clerc and Duane Tudahl: she is on drums on
        Sister Fate and on Lovesexy's Eye No, Alphabet St., Anna Stesia, Dance On and
-       Positivity, and on the Sign o' the Times tour. Only The Glamorous Life has a human
-       transcription (of the record's drum machine); the rest are reconstructions. Left out:
+       Positivity, and on the Sign o' the Times tour. The Glamorous Life and Eye No have human
+       transcriptions (The Glamorous Life's of the record's drum machine); the rest are
+       reconstructions. Left out:
        the records on which Prince or Timothy Riley played the drums or a drum machine (A Love
        Bizarre, The Belle of St. Mark, Koo Koo), and Merci for the Speed of a Mad Clown in
        Summer, her drums, which could not be read. See drumming-research.md §BP. */
@@ -103715,7 +103734,8 @@ export const STYLES: Record<string, Style> = {
       {
         /* Good Times (Chic, Risqué, July 1979; the single, June 1979; Edwards's bass line under
            Rapper's Delight and Queen's Another One Bites the Dust). Songsterr 4942 (human, rev
-           8680359, 2026; its "Tony Thompson" track, beside Sammy Figueroa's percussion): 4/4 at 112
+           8680359, 2026; the current revision, 9849758 of 19 October 2026, has the same groove;
+           its "Tony Thompson" track, beside Sammy Figueroa's percussion): 4/4 at 112
            throughout. The record beat-tracks at 110.4 and autocorrelates at 110.6 (a beat of 0.543
            s, 20–150 s).
 
