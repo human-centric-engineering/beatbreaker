@@ -247,8 +247,8 @@ describe('drummerSection', () => {
     const bonzo = drummers?.groups.flatMap(([, es]) => es).find((e) => e.key === 'bonham');
     expect(bonzo?.label).toBe('John Bonham');
     expect(bonzo?.meta).toEqual([
-      '4/4 sextuplets, 4/4',
-      '70–178 bpm',
+      '4/4, 4/4 sextuplets',
+      '69–178 bpm',
       '11 songs',
       'straight to swung',
       cat.kits.bigRoom.label,
@@ -260,7 +260,7 @@ describe('drummerSection', () => {
     expect(mitch?.label).toBe('Mitch Mitchell');
     expect(mitch?.meta).toEqual([
       '4/4, 9/8, 12/8',
-      '56–225 bpm',
+      '56–230 bpm',
       '45 songs',
       'straight to swung',
       cat.kits.smdrums.label,

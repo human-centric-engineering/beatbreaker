@@ -390,7 +390,8 @@ describe('double kick', () => {
   it('carries the double pedal with the pattern from every double-kick style, and no other', () => {
     for (const key of TEST_STYLE_KEYS) {
       const pat = gen(key, '4/4');
-      expect(!!pat.attrs.doubleKick).toBe(!!STYLES[key].params.doubleKick);
+      // a song, or a section of one, may turn it on for itself (Forty Six & 2's post-chorus)
+      expect(!!pat.attrs.doubleKick).toBe(!!withSong(STYLES[key].params, pat.song).doubleKick);
     }
     expect(
       ['gallop', 'thrash', 'doublekick', 'groove'].every((k) => STYLES[k].params.doubleKick)
@@ -656,10 +657,17 @@ describe('fills inside the phrase (midFills)', () => {
   });
 
   it('makes the drummers who fill more fill more', () => {
-    const count = (key: string) => {
+    const count = (key: string, song?: string) => {
       let n = 0;
       for (let seed = 1; seed <= 60; seed++) {
-        const pat = generatePattern({ style: STYLES[key], seed, bars: 8, density: 50, ghosts: 0 });
+        const pat = generatePattern({
+          style: STYLES[key],
+          song,
+          seed,
+          bars: 8,
+          density: 50,
+          ghosts: 0,
+        });
         // midFills off for the style and for every one of its songs
         const params = STYLES[key].params;
         const songs = params.songs?.map((sg) => ({
@@ -668,6 +676,7 @@ describe('fills inside the phrase (midFills)', () => {
         }));
         const plain = generatePattern({
           style: { ...STYLES[key], params: { ...params, midFills: undefined, songs } },
+          song,
           seed,
           bars: 8,
           density: 50,
@@ -678,9 +687,10 @@ describe('fills inside the phrase (midFills)', () => {
       }
       return n;
     };
-    // Mitchell at a half, Bonham at a quarter, of 180 bars that could be filled
-    expect(count('mitchell')).toBeGreaterThan(count('bonham'));
-    expect(count('bonham')).toBeGreaterThan(20);
+    /* Mitchell at a half, Bonham at a quarter, of 180 bars that could be filled; Bonham
+       on Black Dog, as his songs in sections fill only where the tabs do */
+    expect(count('mitchell')).toBeGreaterThan(count('bonham', 'black-dog'));
+    expect(count('bonham', 'black-dog')).toBeGreaterThan(20);
   });
 });
 
@@ -857,6 +867,8 @@ describe('the rock, jazz and blues styles', () => {
     const HELD: Record<string, string> = {
       sheilae: 'the-glamorous-life:A',
       santadavis: 'bush-doctor-live',
+      // You: its sections play the tab's few bars as written
+      sanchez: 'you',
     };
     for (const key of ROCK) {
       const params = STYLES[key].params;

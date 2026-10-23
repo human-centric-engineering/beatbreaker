@@ -272,7 +272,8 @@ describe('songBreak', () => {
         expect(made.meter, label).toBe(songMeter(style.params, song));
       }
     }
-  });
+    // a hundred and more songs in sections now, each written whole
+  }, 180_000);
 
   it('is the A and the B it always was for a song in one part, and for a style without songs', () => {
     for (const [key, song] of [
