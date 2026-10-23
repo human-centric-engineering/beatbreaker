@@ -250,9 +250,16 @@ few words of `feel`, a `weight`, and `params`: any style field except
     The generator keeps a triple and the critic passes it; four in a row is
     still a run. Dayes's Tioga Pass plays 3, 3e, 3&.
   - `singlePedalRuns` (a `StyleAttrs` field): kick runs of any length on one
-    pedal, heel and toe and the swivel. The generator keeps them and the
-    critic passes them, as with `doubleKick`, but the 3D drummer plays them
-    with one foot. El Estepario Siberiano's exercises and Godzilla.
+    pedal, heel and toe and the swivel. The generator keeps them (under the
+    backbeat too) and the critic passes them, as with `doubleKick`;
+    `keepsKickRuns` is the one test for both. Unlike a double pedal, one foot
+    has a top speed: the critic warns past `RUN_RATE`, 150 in 16ths. The 3D
+    drummer plays them with one foot. El Estepario Siberiano's exercises and
+    Godzilla.
+  - `exercise` (a `StyleAttrs` field): a written lesson, played as taught.
+    The critic asks no air of its bars, as it asks none of a polyrhythm
+    entry. El Estepario's Drumeo exercises and his Pantera Short's step 4,
+    the snare in threes over a kick in threes.
 - **A song that changes meter is written in sections** (11-e-ii-d). A song may
   list `sections` — each a `letter` (A, B, C… in order, at least two), a
   `label`, optional `bars` and `aliases`, and `params` laid over the song's —

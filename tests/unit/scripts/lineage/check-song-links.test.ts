@@ -176,6 +176,37 @@ describe('checkRecordingLinks', () => {
     expect(data.tracks[0].youtube).toBe(YT);
   });
 
+  it('passes a part of a video linked to the video, by the video’s title, and only on a video', async () => {
+    const lesson = vi.fn(() =>
+      Promise.resolve(reply(200, { title: 'Bass Drum Speed Secrets With El Estepario (Part II)' }))
+    ) as unknown as typeof fetch;
+    const video = (type: string) => ({
+      title: 'Bass Drum Speed Secrets With El Estepario (Part II)',
+      type,
+      tracks: [{ title: 'The Anti-Flam', youtube: YT }],
+    });
+    const ok = await checkRecordingLinks('f', video('video'), { fix: false, fetcher: lesson });
+    expect([ok.passed, ok.failures]).toEqual([1, []]);
+    const album = await checkRecordingLinks('f', video('album'), { fix: false, fetcher: lesson });
+    expect(album.failures.map((f) => f.song)).toEqual(['The Anti-Flam']);
+  });
+
+  it('fails a part of a video linked to another video', async () => {
+    const other = vi.fn(() =>
+      Promise.resolve(reply(200, { title: 'Some Other Lesson' }))
+    ) as unknown as typeof fetch;
+    const r = await checkRecordingLinks(
+      'f',
+      {
+        title: 'Bass Drum Speed Secrets',
+        type: 'video',
+        tracks: [{ title: 'The Jackpot', youtube: YT }],
+      },
+      { fix: false, fetcher: other }
+    );
+    expect(r.failures.map((f) => f.got)).toEqual(['Some Other Lesson']);
+  });
+
   it('skips a recording that does not read, and tracks without links', async () => {
     const spy = vi.fn() as unknown as typeof fetch;
     expect(await checkRecordingLinks('f', 'junk', { fix: true, fetcher: spy })).toEqual({

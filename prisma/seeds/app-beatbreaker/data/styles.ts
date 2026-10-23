@@ -152816,9 +152816,10 @@ export const STYLES: Record<string, Style> = {
            the snare added (1-6, 25-30) and the snare in threes (7-12, 31-36). The tempo is the
            video's, 101 (measured; the ride's dotted eighths autocorrelate at 135, four-thirds
            of it), as the tab's map has it. Each bar is a section of its own, so the cycles of
-           two and three bars play as written. He plays the kick on one pedal, heel and toe; the
-           step 4 bars, the snare in threes on top, set `singlePedalRuns` so the critic counts
-           the kick as air there. */
+           two and three bars play as written. He plays the kick on one pedal, heel and toe
+           (the style's `heelToe`: threes, never four). The step 4 bars, the snare in threes
+           on top, leave less air than a groove would, so they are marked `exercise`: the
+           lesson as he teaches it, which the critic asks no air of. */
         key: 'pantera-polyrhythms',
         title: 'Pantera Had Impossible Polyrhythms',
         feel: 'Short, 2023: kick threes, then the ride in dotted eighths, four over three, then the snare in threes (101)',
@@ -152979,7 +152980,7 @@ export const STYLES: Record<string, Style> = {
             label: 'step 4: get a life, the snare in threes, bar 1',
             bars: 1,
             params: {
-              singlePedalRuns: true,
+              exercise: true,
               backbeats: [3, 9, 15],
               figures: [
                 [{ r: '2..2..2..2..2..2', s: '...2.....2.....2', k: '111.111.111.111.' }, 1],
@@ -152991,7 +152992,7 @@ export const STYLES: Record<string, Style> = {
             label: 'step 4: get a life, the snare in threes, bar 2',
             bars: 1,
             params: {
-              singlePedalRuns: true,
+              exercise: true,
               backbeats: [5, 11],
               figures: [
                 [{ r: '..2..2..2..2..2.', s: '.....2.....2....', k: '..111.111.111...' }, 1],
@@ -153003,7 +153004,7 @@ export const STYLES: Record<string, Style> = {
             label: 'step 4: get a life, the snare in threes, bar 3',
             bars: 1,
             params: {
-              singlePedalRuns: true,
+              exercise: true,
               backbeats: [1, 7, 13],
               figures: [
                 [{ r: '.2..2..2..2..2..', s: '.2.....2.....2..', k: '111.111.111.111.' }, 1],
@@ -153015,7 +153016,7 @@ export const STYLES: Record<string, Style> = {
             label: 'step 4: get a life, the snare in threes, bar 4',
             bars: 1,
             params: {
-              singlePedalRuns: true,
+              exercise: true,
               backbeats: [3, 9, 15],
               figures: [
                 [{ r: '2..2..2..2..2..2', s: '...2.....2.....2', k: '..111.111.111...' }, 1],
@@ -153027,7 +153028,7 @@ export const STYLES: Record<string, Style> = {
             label: 'step 4: get a life, the snare in threes, bar 5',
             bars: 1,
             params: {
-              singlePedalRuns: true,
+              exercise: true,
               backbeats: [5, 11],
               figures: [
                 [{ r: '..2..2..2..2..2.', s: '.....2.....2....', k: '111.111.111.111.' }, 1],
@@ -153039,7 +153040,7 @@ export const STYLES: Record<string, Style> = {
             label: 'step 4: get a life, the snare in threes, bar 6',
             bars: 1,
             params: {
-              singlePedalRuns: true,
+              exercise: true,
               backbeats: [1, 7, 13],
               figures: [
                 [{ r: '.2..2..2..2..2..', s: '.2.....2.....2..', k: '..111.111.111...' }, 1],
@@ -153236,6 +153237,7 @@ export const STYLES: Record<string, Style> = {
           swing: 0,
           weight: 0.4,
           singlePedalRuns: true,
+          exercise: true,
           forceKick: [],
           ghostBias: 0,
           ghostWeights: {},
@@ -153329,6 +153331,7 @@ export const STYLES: Record<string, Style> = {
           swing: 0,
           weight: 0.4,
           singlePedalRuns: true,
+          exercise: true,
           forceKick: [],
           ghostBias: 0,
           ghostWeights: {},
@@ -153424,6 +153427,7 @@ export const STYLES: Record<string, Style> = {
           swing: 0,
           weight: 0.4,
           singlePedalRuns: true,
+          exercise: true,
           forceKick: [],
           ghostBias: 0,
           ghostWeights: {},

@@ -414,9 +414,9 @@ export interface PercSpec {
 /**
  * The part of a style that travels with a pattern.
  *
- * Eleven fields, and the list is not arbitrary — it is exactly what the transport
+ * Twelve fields, and the list is not arbitrary — it is exactly what the transport
  * (`isSwung`, `hatShape`, `feelOffset`, `echo`), the critic (`kickFeather`,
- * `targetDensity`, `doubleKick`, `heelToe`, `singlePedalRuns`), the 3D drummer (`doubleKick`, `oneHandHats`,
+ * `targetDensity`, `doubleKick`, `heelToe`, `singlePedalRuns`, `exercise`), the 3D drummer (`doubleKick`, `oneHandHats`,
  * `weight`) and the MIDI
  * export read off a style once a pattern exists.
  * Everything else a style says is an instruction to the *generator*, and is
@@ -473,10 +473,19 @@ export interface StyleAttrs {
   /**
    * Runs of 16ths on one pedal, heel and toe and the swivel, at the speed
    * others need two for: El Estepario Siberiano, who gave up the double
-   * pedal. The generator keeps a run and the critic passes it, as with
-   * `doubleKick`, but the 3D drummer plays it with one foot.
+   * pedal. The generator keeps a run, under the backbeat too, and the critic
+   * passes it, as with `doubleKick` (see `keepsKickRuns`), but asks that one
+   * foot's run go no faster than `RUN_RATE`. The 3D drummer plays it with one
+   * foot.
    */
   singlePedalRuns?: boolean;
+  /**
+   * A written exercise, played as it is taught: its bars are the lesson's,
+   * not a groove for the generator to let breathe, so the critic asks no air
+   * of them, as it asks none of a polyrhythm entry. El Estepario Siberiano's
+   * snare in threes over a kick in threes (his Pantera Short's step 4).
+   */
+  exercise?: boolean;
   /**
    * A tape echo on part of the kit: each note in `lanes` heard once more,
    * `steps` later, at `level` of its strength. Played, not written: the

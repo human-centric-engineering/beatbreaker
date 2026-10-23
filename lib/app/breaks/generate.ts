@@ -37,6 +37,7 @@ import {
   meterOfPat,
   styleAttrs,
   markFill,
+  keepsKickRuns,
   writePerc,
 } from '@/lib/app/breaks/pattern';
 import {
@@ -116,8 +117,8 @@ function genKickBeat(
     return [cell, w * Math.pow(1 + density, notes - 1)];
   });
   let cell = wpick(rng, bent);
-  // (on a double pedal the kick runs on under the backbeat)
-  if (hasBackbeat && !style.doubleKick && !style.singlePedalRuns && cell[0] === '1' && rng() > 0.34)
+  // (where kick runs are kept, on a double pedal or one that can, the kick runs on under the backbeat)
+  if (hasBackbeat && !keepsKickRuns(style) && cell[0] === '1' && rng() > 0.34)
     cell = `0${cell.slice(1)}`;
   return cell;
 }
@@ -157,7 +158,7 @@ function applyKickRules(bar: Bar, style: Style): Bar {
   for (const i of banned) if (i < n) bar.k[i] = 0;
   for (const i of forced) if (i < n) bar.k[i] = 1;
   // on a double pedal a run of kicks is two feet's, and stays; so is one foot's that can
-  if (style.doubleKick || style.singlePedalRuns) return bar;
+  if (keepsKickRuns(style)) return bar;
   /* never more than two 16ths of kick in a row (three, heel and toe) — drop
      whichever the style did not ask for */
   const reach = style.heelToe ? 1 : 0;
