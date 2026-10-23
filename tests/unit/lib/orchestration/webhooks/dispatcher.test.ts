@@ -2290,6 +2290,78 @@ describe('a delivery built from a copy taken before an erasure (t-886)', () => {
     expect(stopWrites()).toHaveLength(1);
   });
 
+  it('resolves who the payload names once for an event fanning out to many subscriptions (t-926)', async () => {
+    vi.mocked(prisma.aiConversation.findUnique).mockResolvedValue({ userId: 'u-9' } as never);
+    vi.mocked(prisma.aiWebhookSubscription.findMany).mockResolvedValue([
+      makeSub({ id: 'sub-1' }),
+      makeSub({ id: 'sub-2' }),
+      makeSub({ id: 'sub-3' }),
+    ] as never);
+
+    await dispatchWebhookEvent('budget_exceeded', { conversationId: 'conv-1' });
+
+    expect(prisma.aiConversation.findUnique).toHaveBeenCalledTimes(1);
+    // Each attempt still decides for itself, on the one resolution.
+    expect(mockFetch).toHaveBeenCalledTimes(3);
+  });
+
+  it('records each delivery before the shared lookup settles', async () => {
+    let release: (value: { userId: string }) => void = () => undefined;
+    vi.mocked(prisma.aiConversation.findUnique).mockImplementation(
+      (() => new Promise((resolve) => (release = resolve))) as never
+    );
+    vi.mocked(prisma.aiWebhookSubscription.findMany).mockResolvedValue([
+      makeSub({ id: 'sub-1' }),
+      makeSub({ id: 'sub-2' }),
+    ] as never);
+
+    const dispatch = dispatchWebhookEvent('budget_exceeded', { conversationId: 'conv-1' });
+
+    await vi.waitFor(() => expect(prisma.aiWebhookDelivery.create).toHaveBeenCalledTimes(2));
+    expect(mockFetch).not.toHaveBeenCalled();
+    release({ userId: 'u-9' });
+    await dispatch;
+    expect(mockFetch).toHaveBeenCalledTimes(2);
+  });
+
+  it('falls back to each attempt looking up for itself when the shared lookup fails, and logs it', async () => {
+    vi.mocked(prisma.aiConversation.findUnique)
+      .mockRejectedValueOnce(new Error('pool exhausted'))
+      .mockResolvedValue({ userId: 'u-9' } as never);
+    erasedSince.userIds = ['u-9'];
+    vi.mocked(prisma.aiWebhookSubscription.findMany).mockResolvedValue([
+      makeSub({ id: 'sub-1' }),
+      makeSub({ id: 'sub-2' }),
+    ] as never);
+
+    await dispatchWebhookEvent('budget_exceeded', { conversationId: 'conv-1' });
+
+    // One shared lookup that failed, then one per attempt, each finding the
+    // erased owner and stopping its row.
+    expect(prisma.aiConversation.findUnique).toHaveBeenCalledTimes(3);
+    expect(stopWrites()).toHaveLength(2);
+    expect(mockFetch).not.toHaveBeenCalled();
+    expect(logger.warn).toHaveBeenCalledWith(
+      expect.stringMatching(/could not resolve who the payload names once/),
+      expect.objectContaining({ eventType: 'budget_exceeded', error: 'pool exhausted' })
+    );
+  });
+
+  it('settles a stopped fan-out row for each subscription from the one resolution', async () => {
+    vi.mocked(prisma.aiConversation.findUnique).mockResolvedValue({ userId: 'u-9' } as never);
+    erasedSince.userIds = ['u-9'];
+    vi.mocked(prisma.aiWebhookSubscription.findMany).mockResolvedValue([
+      makeSub({ id: 'sub-1' }),
+      makeSub({ id: 'sub-2' }),
+    ] as never);
+
+    await dispatchWebhookEvent('budget_exceeded', { conversationId: 'conv-1' });
+
+    expect(prisma.aiConversation.findUnique).toHaveBeenCalledTimes(1);
+    expect(mockFetch).not.toHaveBeenCalled();
+    expect(stopWrites()).toHaveLength(2);
+  });
+
   it('sends an admin action without who acted, and stores what it sent', async () => {
     erasedSince.userIds = ['admin-1'];
     vi.mocked(prisma.aiWebhookSubscription.findMany).mockResolvedValue([makeSub()] as never);

@@ -983,6 +983,73 @@ describe('who a payload about to be sent names (t-886)', () => {
     };
   }
 
+  it('looks up the conversation and the run side by side, naming them in the same order (t-926)', async () => {
+    let releaseConversation: (value: { userId: string }) => void = () => undefined;
+    const client = {
+      aiConversation: {
+        findUnique: vi.fn(
+          () => new Promise<{ userId: string }>((resolve) => (releaseConversation = resolve))
+        ),
+      },
+      aiWorkflowExecution: {
+        findUnique: vi.fn().mockResolvedValue({
+          userId: 'run-owner',
+          startedAt: new Date('2026-10-01T00:00:00Z'),
+          createdAt: new Date('2026-09-30T00:00:00Z'),
+        }),
+      },
+    };
+
+    const pending = subjectsOfPayload(client as never, 'workflow_failed', {
+      event: 'workflow_failed',
+      data: { conversationId: 'conv-1', executionId: 'exec-1' },
+    });
+    // The run's lookup has started while the conversation's is still out.
+    await vi.waitFor(() => expect(client.aiWorkflowExecution.findUnique).toHaveBeenCalled());
+    releaseConversation({ userId: 'chat-owner' });
+    const named = await pending;
+
+    expect([...named.userIds.keys()]).toEqual(['chat-owner', 'run-owner']);
+    expect(named.runStartedAt).toEqual(new Date('2026-10-01T00:00:00Z'));
+    expect(named.dangling).toBe(false);
+  });
+
+  it('counts a conversation or run asked about and not returned as dangling, whatever the client says', async () => {
+    const client = {
+      aiConversation: { findUnique: vi.fn().mockResolvedValue(undefined) },
+      aiWorkflowExecution: { findUnique: vi.fn().mockResolvedValue(undefined) },
+    };
+
+    const named = await subjectsOfPayload(client as never, 'workflow_failed', {
+      event: 'workflow_failed',
+      data: { conversationId: 'conv-gone' },
+    });
+
+    expect(named.dangling).toBe(true);
+  });
+
+  it('reads the payload as it was handed over, not as it is after the lookups', async () => {
+    let release: (value: null) => void = () => undefined;
+    const client = {
+      aiConversation: {
+        findUnique: vi.fn(() => new Promise<null>((resolve) => (release = resolve))),
+      },
+      aiWorkflowExecution: { findUnique: vi.fn() },
+    };
+    const data: Record<string, unknown> = { conversationId: 'conv-1', userId: 'u-1' };
+
+    const pending = subjectsOfPayload(client as never, 'message_created', {
+      event: 'message_created',
+      data,
+    } as never);
+    // The caller reuses its object after handing it over.
+    delete data.userId;
+    release(null);
+    const named = await pending;
+
+    expect([...named.userIds.keys()]).toEqual(['u-1']);
+  });
+
   it('names every person key, on the basis erasure matches it on, activity winning', async () => {
     const client = owners(null);
     const named = await subjectsOfPayload(client as never, 'workflow_failed', {

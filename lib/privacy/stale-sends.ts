@@ -43,6 +43,7 @@
 
 import type { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db/client';
+import { logger } from '@/lib/logging';
 import {
   anyoneErasedSince,
   boundLockWaits,
@@ -52,8 +53,17 @@ import {
   type ErasedSubjects,
   type NamedSubjects,
 } from '@/lib/privacy/erased-subjects';
-import { subjectsOfPayload, withoutErasedSubjects } from '@/lib/privacy/delivery-payloads';
-import { RECIPIENT_ERASED, SUBJECT_ERASED } from '@/lib/orchestration/webhooks/not-retried';
+import {
+  subjectsOfPayload,
+  withoutErasedSubjects,
+  type PayloadSubjects,
+} from '@/lib/privacy/delivery-payloads';
+import {
+  AWAITING_RETRY_STATUSES,
+  RECIPIENT_ERASED,
+  SUBJECT_ERASED,
+  notRetried,
+} from '@/lib/orchestration/webhooks/not-retried';
 
 /**
  * How long a sender waits for erasure's locks before giving up on this attempt
@@ -134,6 +144,74 @@ export interface DeliverySendOptions {
    * the receiver gets an event decided a moment before it.
    */
   holdAcrossSend: boolean;
+  /**
+   * Who the row's payload names, when the caller has already resolved it: an
+   * event's first attempts share one payload, so its fan-out resolves it once
+   * (t-926). A retry leaves it out, and it is resolved from the row it
+   * claimed, which an erasure may have redacted since.
+   */
+  subjects?: PayloadSubjects;
+}
+
+/**
+ * Who an event's payload names, resolved once for its whole fan-out (t-926):
+ * each first attempt's row is created from this same payload. Start it before
+ * the rows are written and await it after each, so a slow lookup never keeps
+ * a delivery from being recorded. A failed lookup is logged and resolves to
+ * undefined: each attempt then looks up for itself, as before t-926.
+ */
+export function resolveFanOutSubjects(
+  eventType: string,
+  payload: Prisma.JsonValue,
+  sender: 'Webhook' | 'Hook'
+): Promise<PayloadSubjects | undefined> {
+  return subjectsOfPayload(prisma, eventType, payload).catch((err: unknown) => {
+    logger.warn(
+      `${sender} dispatch: could not resolve who the payload names once; each attempt will`,
+      {
+        eventType,
+        error: err instanceof Error ? err.message : String(err),
+      }
+    );
+    return undefined;
+  });
+}
+
+/** The delivery tables a stopped attempt is settled in. */
+export type DeliveryTable = 'webhook' | 'hook';
+
+/**
+ * Settle a delivery attempt a sender did not send (t-886): `exhausted`,
+ * `stoppedByErasure`, so no retry or replay sends it, the not-retried reason
+ * appended to its error, and its payload redacted when there is one. Only a
+ * row still waiting to send is written: one already settled stays as it is.
+ * `extra` is what one table also clears (the webhook row's address, when that
+ * is what was erased). The one place a sender writes a stop, for both
+ * delivery tables (t-926); erasure's own pass over the rows writes its stop
+ * in `erase-user.ts`.
+ */
+export async function settleStoppedDelivery(
+  tx: Pick<Prisma.TransactionClient, 'aiWebhookDelivery' | 'aiEventHookDelivery'>,
+  table: DeliveryTable,
+  record: { id: string; lastError: string | null },
+  stop: {
+    reason: typeof RECIPIENT_ERASED | typeof SUBJECT_ERASED;
+    payload: Prisma.JsonValue | null;
+  },
+  extra: { destination?: string; destinationFingerprint?: null } = {}
+): Promise<void> {
+  const where = { id: record.id, status: { in: [...AWAITING_RETRY_STATUSES] } };
+  const payload = stop.payload;
+  const data = {
+    status: 'exhausted',
+    nextRetryAt: null,
+    stoppedByErasure: true,
+    lastError: notRetried(record.lastError, stop.reason),
+    ...(payload !== null ? { payload } : {}),
+    ...extra,
+  };
+  if (table === 'webhook') await tx.aiWebhookDelivery.updateMany({ where, data });
+  else await tx.aiEventHookDelivery.updateMany({ where, data });
 }
 
 /**
@@ -167,7 +245,8 @@ export async function decideDeliveryUnderLocks<T>(
   settle: (tx: Prisma.TransactionClient, decision: DeliveryDecision) => Promise<void>,
   send: (decision: Extract<DeliveryDecision, { kind: 'send' }>) => Promise<T>
 ): Promise<T | null> {
-  const named = await subjectsOfPayload(prisma, delivery.eventType, delivery.payload);
+  const named =
+    options.subjects ?? (await subjectsOfPayload(prisma, delivery.eventType, delivery.payload));
   const since = new Date(
     Math.min(
       takenAt.getTime(),

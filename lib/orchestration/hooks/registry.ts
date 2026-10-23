@@ -58,7 +58,12 @@ import {
   destinationUpdate,
   type DeliveryLike,
 } from '@/lib/orchestration/webhooks/destination';
-import { decideDeliveryUnderLocks } from '@/lib/privacy/stale-sends';
+import {
+  decideDeliveryUnderLocks,
+  resolveFanOutSubjects,
+  settleStoppedDelivery,
+} from '@/lib/privacy/stale-sends';
+import type { PayloadSubjects } from '@/lib/privacy/delivery-payloads';
 import { requireTenantContext } from '@/lib/tenancy/context';
 
 /** Cache TTL — reload hooks from DB every 60 seconds */
@@ -257,18 +262,29 @@ async function dispatchToHooks(payload: HookEventPayload, takenAt: Date): Promis
   const byType = await loadHooks();
   const hooks = byType.get(payload.eventType) ?? [];
 
+  const matched = hooks.filter(
+    (hook): hook is CachedHook & { action: WebhookAction } =>
+      matchesFilter(hook.filter, payload) && hook.action.type === 'webhook'
+  );
+  if (matched.length === 0) return;
+  // Who the payload names, once for every hook (t-926); a retry resolves it
+  // from the row it claimed.
+  const subjects = resolveFanOutSubjects(
+    payload.eventType,
+    payload as unknown as Prisma.JsonValue,
+    'Hook'
+  );
   // Settles once every first attempt has, so the hold `emitHookEvent` takes
   // covers the deliveries too. Retries run on their own timers, and the tick
   // picks them up if the process is gone (`processPendingHookRetries`).
-  const deliveries: Promise<void>[] = [];
-  for (const hook of hooks) {
-    if (!matchesFilter(hook.filter, payload)) continue;
-
-    if (hook.action.type === 'webhook') {
-      deliveries.push(dispatchWebhook(hook.id, hook.action, hook.secret, payload, takenAt));
-    }
-  }
-  await Promise.allSettled(deliveries);
+  await Promise.allSettled(
+    matched.map((hook) =>
+      dispatchWebhook(hook.id, hook.action, hook.secret, payload, takenAt, subjects)
+    )
+  );
+  // Settled within the dispatch even when every create failed and nothing
+  // awaited it.
+  await subjects;
 }
 
 async function dispatchWebhook(
@@ -276,7 +292,8 @@ async function dispatchWebhook(
   action: WebhookAction,
   secret: string | null,
   payload: HookEventPayload,
-  takenAt: Date
+  takenAt: Date,
+  subjects: Promise<PayloadSubjects | undefined>
 ): Promise<void> {
   try {
     const delivery = await prisma.aiEventHookDelivery.create({
@@ -288,7 +305,15 @@ async function dispatchWebhook(
         ...describeDestination('webhook', action.url),
       },
     });
-    await attemptDelivery(delivery, action.url, action.headers ?? null, secret, payload, takenAt);
+    await attemptDelivery(
+      delivery,
+      action.url,
+      action.headers ?? null,
+      secret,
+      payload,
+      takenAt,
+      await subjects
+    );
   } catch (err: unknown) {
     logger.warn('Hook webhook dispatch setup failed', {
       hookId,
@@ -313,7 +338,9 @@ async function dispatchWebhook(
  * history rather than overwriting it.
  *
  * `takenAt` is when the copy the payload came from was taken, which an erasure
- * since may have overtaken (t-886, {@link sendUnlessErased}).
+ * since may have overtaken (t-886, {@link sendUnlessErased}). `subjects`, on an
+ * event's first attempts, is who the payload names, resolved once for the
+ * whole fan-out (t-926); a retry leaves it out.
  */
 async function attemptDelivery(
   record: AttemptRecord,
@@ -321,13 +348,14 @@ async function attemptDelivery(
   customHeaders: Record<string, string> | null,
   secret: string | null,
   payload: HookEventPayload,
-  takenAt: Date
+  takenAt: Date,
+  subjects?: PayloadSubjects
 ): Promise<void> {
   const deliveryId = record.id;
   const now = new Date();
   const recordDestination = destinationUpdate(record, describeDestination('webhook', url), now);
 
-  const posted = await sendUnlessErased(record, payload, takenAt, (toSend) =>
+  const posted = await sendUnlessErased(record, payload, takenAt, subjects, (toSend) =>
     postHook(url, customHeaders, secret, toSend)
   );
   // Left out: recorded as stopped, in the decision's transaction.
@@ -487,6 +515,7 @@ async function sendUnlessErased(
   record: AttemptRecord,
   payload: HookEventPayload,
   takenAt: Date,
+  subjects: PayloadSubjects | undefined,
   post: (payload: HookEventPayload) => Promise<HookPostResult>
 ): Promise<HookPostResult | null> {
   try {
@@ -496,7 +525,7 @@ async function sendUnlessErased(
       takenAt,
       // Posted once the decision has committed: no connection is held across
       // the receiver's response (owner ruling, 2026-10-22).
-      { sendTimeoutMs: DISPATCH_TIMEOUT_MS.hook, holdAcrossSend: false },
+      { sendTimeoutMs: DISPATCH_TIMEOUT_MS.hook, holdAcrossSend: false, subjects },
       async (tx, decision) => {
         const redacted = decision.payload;
         if (decision.kind === 'send' && redacted === null) return;
@@ -507,15 +536,9 @@ async function sendUnlessErased(
           redacted === null ||
           !HookEventPayloadSchema.safeParse(redacted).success
         ) {
-          await tx.aiEventHookDelivery.updateMany({
-            where: { id: record.id, status: { in: [...AWAITING_RETRY_STATUSES] } },
-            data: {
-              status: 'exhausted',
-              nextRetryAt: null,
-              stoppedByErasure: true,
-              lastError: notRetried(record.lastError, SUBJECT_ERASED),
-              ...(redacted !== null ? { payload: redacted } : {}),
-            },
+          await settleStoppedDelivery(tx, 'hook', record, {
+            reason: SUBJECT_ERASED,
+            payload: redacted,
           });
           // Never the person: they are what was erased.
           logger.warn('Hook delivery left out: it names a person erased since its event', {

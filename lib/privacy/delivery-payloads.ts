@@ -361,37 +361,46 @@ export async function subjectsOfPayload(
 
   let dangling = false;
   let runStartedAt: Date | null = null;
-  const { conversationId, executionId } = data;
+  // Every key read now, before any await: a caller's payload object may be
+  // changed after it hands it over (t-926 review), and the row it stores is
+  // what this must describe.
+  const { conversationId, executionId, userId, actorUserId } = data;
+  const approvers = data[APPROVERS_KEY];
+  const approverIds = Array.isArray(approvers) ? [...approvers] : [];
   // Across owners: an event a narrowed caller set off can name someone else's
   // run (an approver acting on it), and the owner layer would refuse that read
   // by id. Only the owner's id leaves, to be locked and checked, never shown.
   await runAcrossOwners(
     'erasure check before a delivery: the owner its payload names',
     async () => {
-      if (typeof conversationId === 'string') {
-        const conversation = await client.aiConversation.findUnique({
-          where: { id: conversationId },
-          select: { userId: true },
-        });
-        if (conversation) name(conversation.userId, 'activity');
-        else dangling = true;
-      }
-      if (typeof executionId === 'string') {
-        const execution = await client.aiWorkflowExecution.findUnique({
-          where: { id: executionId },
-          select: { userId: true, startedAt: true, createdAt: true },
-        });
-        if (execution) {
-          name(execution.userId, 'activity');
-          runStartedAt = execution.startedAt ?? execution.createdAt;
-        } else dangling = true;
-      }
+      // Side by side (t-926); named in the same order as before, conversation
+      // first, once both are back.
+      const [conversation, execution] = await Promise.all([
+        typeof conversationId === 'string'
+          ? client.aiConversation.findUnique({
+              where: { id: conversationId },
+              select: { userId: true },
+            })
+          : undefined,
+        typeof executionId === 'string'
+          ? client.aiWorkflowExecution.findUnique({
+              where: { id: executionId },
+              select: { userId: true, startedAt: true, createdAt: true },
+            })
+          : undefined,
+      ]);
+      // Asked about and not found, however the client says so: dangling.
+      if (conversation) name(conversation.userId, 'activity');
+      else if (typeof conversationId === 'string') dangling = true;
+      if (execution) {
+        name(execution.userId, 'activity');
+        runStartedAt = execution.startedAt ?? execution.createdAt;
+      } else if (typeof executionId === 'string') dangling = true;
     }
   );
-  name(data.userId, 'activity');
-  name(data.actorUserId, ADMIN_ACTION_EVENTS.includes(eventType) ? 'actor' : 'activity');
-  const approvers = data[APPROVERS_KEY];
-  if (Array.isArray(approvers)) for (const approver of approvers) name(approver, 'actor');
+  name(userId, 'activity');
+  name(actorUserId, ADMIN_ACTION_EVENTS.includes(eventType) ? 'actor' : 'activity');
+  for (const approver of approverIds) name(approver, 'actor');
   return { userIds, dangling, runStartedAt };
 }
 
