@@ -277,7 +277,7 @@ describe('songBreak', () => {
   it('is the A and the B it always was for a song in one part, and for a style without songs', () => {
     for (const [key, song] of [
       ['funk', undefined],
-      ['mitchell', 'manic-depression'],
+      ['mitchell', 'red-house'],
     ] as const) {
       const style = testStyle(key);
       const meter = song ? songMeter(style.params, songOf(style.params, song)) : '4/4';

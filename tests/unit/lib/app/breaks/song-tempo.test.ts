@@ -59,14 +59,14 @@ describe('a song’s tempo', () => {
   it('is drawn from the playable range, and the merged style says so', () => {
     const bonham = testStyle('bonham').params;
     const rnr = withSong(bonham, 'rock-and-roll');
-    expect(rnr.bpm).toEqual([166, 174]);
+    expect(rnr.bpm).toEqual([168, 174]);
     // its fills leave a gap between every note
     for (const [f] of rnr.fills ?? []) expect(longestRun(f)).toBeLessThan(4);
     const rng = makeRng(1);
     const song = bonham.songs!.find((s) => s.key === 'rock-and-roll');
     for (let i = 0; i < 50; i++) {
       const bpm = songTempo(bonham, song, rng);
-      expect(bpm).toBeGreaterThanOrEqual(166);
+      expect(bpm).toBeGreaterThanOrEqual(168);
       expect(bpm).toBeLessThanOrEqual(174);
     }
   });

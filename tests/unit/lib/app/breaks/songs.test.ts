@@ -35,13 +35,13 @@ const song = (key: string): StyleSong => {
 
 describe('withSong', () => {
   it("lays the song's params over the style's and keeps the rest", () => {
-    const st = withSong(MITCH.params, 'manic-depression');
+    // a section of a song in sections: the song's params, then the section's
+    const md = song('manic-depression');
+    const st = withSong(MITCH.params, 'manic-depression:A');
     expect(st.meter).toBe('9/8');
-    // the record's 210–240, held where its unbroken runs stay playable (`playableBpm`)
-    expect(song('manic-depression').params.bpm).toEqual([210, 240]);
-    expect(st.bpm).toEqual([150, 150]);
+    expect(st.bpm).toEqual(md.params.bpm);
     expect(st.backbeatLane).toBe('hf');
-    expect(st.figures).toBe(song('manic-depression').params.figures);
+    expect(st.figures).toBe(md.sections?.[0].params.figures);
     // not named by the song: the style's
     expect(st.kit).toBe(MITCH.params.kit);
     expect(st.label).toBe('Mitch Mitchell');
@@ -123,8 +123,9 @@ describe('a pattern written from a song', () => {
   const opts = { bars: 4, density: 50, ghosts: 50 };
 
   it("is in the song's meter, records the song, and carries the song's feel", () => {
+    // the bare key of a song in sections is the section that aliases it
     const pat = generatePattern({ style: MITCH, song: 'manic-depression', seed: 11, ...opts });
-    expect(pat.song).toBe('manic-depression');
+    expect(pat.song).toBe('manic-depression:A');
     expect(pat.meter).toBe('9/8');
     expect(pat.bars[0].k).toHaveLength(18);
     expect(pat.bbLane).toBe('hf');
@@ -154,8 +155,8 @@ describe('a pattern written from a song', () => {
 
   it('keeps its song through a share code, and a pattern without one stays without', () => {
     const a = generatePattern({ style: MITCH, song: 'fire', seed: 2, ...opts });
-    expect(packPattern(a).sg).toBe('fire');
-    expect(patternFromPacked(packPattern(a)).song).toBe('fire');
+    expect(packPattern(a).sg).toBe('fire:B');
+    expect(patternFromPacked(packPattern(a)).song).toBe('fire:B');
     const f = generatePattern({ style: FUNK, seed: 2, ...opts });
     expect('sg' in packPattern(f)).toBe(false);
     expect('song' in patternFromPacked(packPattern(f))).toBe(false);

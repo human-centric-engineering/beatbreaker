@@ -884,7 +884,8 @@ story of the Funky Drummer"; funkydrummer.com School of Funk lesson 10.
 
 ## F. John Bonham (Led Zeppelin) — his records (2026-10-09)
 
-The `bonham` style plays **songs** (C2). Three of them are in **sextuplet 4/4**
+The `bonham` style plays **songs** (C2). Two of them, in part (Good Times
+Bad Times and Fool in the Rain: below), are in **sextuplet 4/4**
 (`4/4-6`, added for him): 24 steps a bar, six to the beat. A straight eighth
 is every third step, an eighth-note triplet every second, and a Bonham triplet
 three real sextuplets rather than sixteenths in threes. Straight sixteenths do
@@ -927,16 +928,16 @@ in 4/4 and folds its triplet fills onto sixteenths.
 
 | Song                    | Tempo   | Grid                 | Source of the bars                                     | Confidence |
 | ----------------------- | ------- | -------------------- | ------------------------------------------------------ | ---------- |
-| Good Times Bad Times    | 90–96   | 4/4-6                | Drumeo, MusicRadar descriptions                        | medium     |
-| Fool in the Rain        | 126–134 | 4/4-6, backbeat on 3 | MusicRadar, Drumeo; kick reconstructed                 | medium     |
-| Rock and Roll           | 166–174 | 4/4-6                | tempo sure; groove and ending reconstructed            | low–medium |
-| Immigrant Song          | 110–114 | 4/4                  | drummercafe (paradiddle)                               | medium     |
-| When the Levee Breaks   | 70–74   | 4/4                  | Drumeo (ghosts, soft kick); kick cluster reconstructed | medium     |
-| Kashmir                 | 78–82   | 4/4                  | reconstruction                                         | low        |
+| Good Times Bad Times    | 92–96   | 4/4 and 4/4-6        | Songsterr 346 (human), checked against the record      | high       |
+| Fool in the Rain        | 127–133 | 4/4-6, backbeat on 3; the samba 4/4 | Songsterr 22692 (human), checked against the record | high |
+| Rock and Roll           | 168–174 | 4/4                  | Songsterr 11537 (human); the free-time ending left out | high       |
+| Immigrant Song          | 111–115 | 4/4                  | Songsterr 568 (human), checked against the record      | high       |
+| When the Levee Breaks   | 69–73   | 4/4                  | Songsterr 11512 (human), checked against the record    | high       |
+| Kashmir                 | 79–83   | 4/4 (re-barred)      | Songsterr 288 (human), re-barred from 3/4              | high       |
 | Black Dog               | 78–84   | 4/4                  | bonedo (8ths, bell in v2, the descending fill)         | low–medium |
 | Trampled Under Foot     | 108–114 | 4/4                  | Drumeo ("loose hi-hats and doubles")                   | low        |
 | Achilles Last Stand     | 142–150 | 4/4                  | reconstruction (the gallop)                            | low        |
-| Communication Breakdown | 170–178 | 4/4                  | reconstruction                                         | low        |
+| Communication Breakdown | 172–178 | 4/4                  | Songsterr 208 (human), checked against the record      | high       |
 | Whole Lotta Love        | 88–92   | 4/4                  | tempo (Wikipedia: 92); reconstruction                  | low        |
 
 Left out:
@@ -947,6 +948,48 @@ Left out:
 - **Since I've Been Loving You.** No trustworthy tempo.
 - **D'yer Mak'er.** No groove found.
 - **Moby Dick.** A solo, partly with the hands.
+
+**Full songs (2026-10-23).** Seven of the eleven songs are now written as the records go,
+intro to outro, from human Songsterr tabs (all `aiGenerated` false, 2026 revisions), each
+record's tempo beat-tracked from the remaster's official audio:
+
+| Song                    | Tab (rev)      | Tab tempo | Record    | Grid                     | Sections |
+| ----------------------- | -------------- | --------- | --------- | ------------------------ | -------- |
+| Good Times Bad Times    | 346 (8733709)  | 95        | 94.1      | 4/4, triplet bars 4/4-6  | 6, 15 slots |
+| Fool in the Rain        | 22692 (8043340)| 98 (12/8) | 130.4     | 4/4-6, the samba 4/4     | 6, 32 slots |
+| Rock and Roll           | 11537 (7996843)| 172       | 170.5     | 4/4                      | 5, 24 slots |
+| Immigrant Song          | 568 (8821234)  | 113       | 113.0     | 4/4                      | 5, 16 slots |
+| When the Levee Breaks   | 11512 (8632208)| 71        | 71.2      | 4/4                      | 5, 32 slots |
+| Kashmir                 | 288 (9012247)  | 80–83     | 79.5–83.4 | 4/4 (re-barred)          | 6, 30 slots |
+| Communication Breakdown | 208 (9324296)  | 175       | 175.0     | 4/4                      | 4, 23 slots |
+
+What the tabs changed:
+
+- **Good Times Bad Times** is in two grids. The groove is in sixteenths (the kick on 1, its
+  "and", the "a" of 2 and the "e", "and" and "a" of 3, three on the one pedal: `heelToe`); the
+  famous kick triplets are sextuplets in their own bars (verse bars 5 and 7, the solo, the last
+  verse). So the sixteenth sections are 4/4 and the triplet sections `4/4-6`.
+- **Fool in the Rain**'s tab is 12/8 at a quarter of 98: its sixteenths are the record's
+  triplet eighths, and one tab bar is two of the record's bars at 131. The samba is 4/4 at the
+  same quarter; its unbroken sixteenths on the snare are thinned to threes for the critic.
+- **Rock and Roll** has no sextuplets: plain 4/4, the hats open in eighths. His free-time
+  ending (at 125–130, off the grid) is left out.
+- **Immigrant Song**: the ghost is on the "a" of 2 and 4, not the "e" of 1.
+- **When the Levee Breaks**: no ghost notes in the tab (Drumeo hears one after each
+  backbeat); the bridges' kick runs five sixteenths long on his one pedal (`singlePedalRuns`).
+- **Kashmir** is barred in the riff's 3/4, but the drums never leave 4/4: re-barred from the
+  tab's notes, 174 bars of his four, the kick doubled on 1 and on 3, a 9/8 bar shifting the bar
+  line by an eighth.
+- **Communication Breakdown**: the hats in quarters, two-bar pairs with the band's hits; not a
+  doubled kick.
+
+Bars with no backbeat (the band's stops, the riff's hits, a lone snare on 1) are left out, as
+the critic needs a backbeat in every bar. Left as breaks: Black Dog (its tab has no section
+markers and writes the riff's displacement as a new tempo every bar), Trampled Under Foot (its
+only tab is six distinct bars, kick on 1 and 3: not his playing), Whole Lotta Love (the
+free-time middle) and Achilles Last Stand (360 bars, 140 distinct, with 5/4 sections at 97
+against 145, a ratio a section's `tempoRatio` of ½ or 2 cannot hold).
+
 
 Sources:
 
@@ -1260,10 +1303,10 @@ backbeat on 3 is step 12.
 | Memphis Soul Stew (live) | 1971 | ~113 (songbpm; may be the studio single) | 16ths but for the backbeat, a crack before every beat     | left hand on every "e"                                             | **reconstruction** from Drummer Cafe |
 | Use Me (Esther Phillips) | 1972 | 82 (Funklet); 83 (songbpm)               | 16ths, open on the "and"s of 1 and 3                      | a busy snare of even hits                                          | Funklet                              |
 | Synthetic Substitution   | 1973 | 93 (Funklet)                             | 8ths, accented                                            | plain backbeat, fast-footed kick ("swings his foot a little")      | Funklet                              |
-| Kid Charlemagne          | 1976 | 95–100 (tab); 97 (songbpm)               | 8ths, open on the "and"s of 1 and 3                       | four on the floor, ghosts on the "e"s and "a"s                     | Songsterr 54434 (human)              |
+| Kid Charlemagne          | 1976 | 96–99 (record); 95–100 (tab); 97 (songbpm)               | 8ths, open on the "and"s of 1 and 3                       | four on the floor, ghosts on the "e"s and "a"s                     | Songsterr 54434 (human)              |
 | The Fez                  | 1976 | 99 (Funklet and songbpm)                 | the "and"s only                                           | linear: snare in every gap, kick on 1 and 3                        | Funklet                              |
 | Haitian Divorce          | 1976 | 74 (Funklet and songbpm)                 | 16ths, open on the "and"s of 1 and 3                      | kick on 1&, 2, 3&, 4; ghosts round the backbeat                    | Funklet                              |
-| Deacon Blues             | 1977 | 116 (tab and songbpm)                    | 8ths; ride in the choruses                                | kick on 1, &2, 3, &4; no ghosts in the tab                         | Songsterr 54440 (human)              |
+| Deacon Blues             | 1977 | 115.2 (record); 116 (tab and songbpm)                    | 8ths; ride in the choruses                                | kick on 1, &2, 3, &4; no ghosts in the tab                         | Songsterr 54440 (human)              |
 | Home at Last             | 1977 | 126 (tab); 128 (songbpm)                 | shuffle, accented on the beat; quarters in the verse      | backbeat on 3, kick on 1, 1-trip, 2-trip, 4-trip                   | Songsterr 3705091 (human) + ghosts   |
 | Babylon Sisters          | 1980 | 120 (tab); 122 (songbpm)                 | shuffle; the intro on the beats                           | kick on 1 and the last triplet of 4; cross-stick on 3 in the intro | Songsterr 3789127 (human) + ghosts   |
 | Hot Sweat                | 1996 | 114 (Funklet)                            | 8ths, then 16ths in pairs                                 | backbeat on 2 and the "and" of 4, then the kick doubled            | Funklet                              |
@@ -1288,6 +1331,46 @@ closed by the foot on the beat; the model has the half-open hat and the foot
 chick but not the foot's close shaping the open note. The ghost level is the
 kit's, not his 25–35 velocity. Dr. John's second bass drum on Rock Steady is
 not played.
+
+**Two songs whole (2026-10-23).** Kid Charlemagne and Deacon Blues now play in
+sections, in the record's order, from their human Songsterr tabs; the other
+ten are still one break each.
+
+- _Kid Charlemagne_: Songsterr 54434, a new revision (9735321, Austin
+  Shearman, 14 October 2026; `aiGenerated` false), 113 bars with its sections
+  marked: intro, four verses each with a bridge (two bars of the groove, two
+  round the toms), a reprise, three choruses, the guitar solo and the outro
+  solo. The record (YouTube jJ9Xk-VoGqo) drifts up through the song as the
+  tab's tempo map has it: 95.9 over 10–90 s, 97.6 over 100–180 s, 99.1 over
+  200–280 s. The verse bar is the old figure, unchanged. Left out: the intro's
+  three bars of hats with no backbeat, the three stop bars of hits off the
+  grid (55, 57, 59), the solo's bar of 2/4 and the fade's last three bars.
+- _Deacon Blues_: Songsterr 54440 (rev 4154365, corbin, 2025; `aiGenerated`
+  false), 218 bars at 116, sections marked. The record (YouTube ICK6e9WK2A8)
+  autocorrelates at 115.2; 210 played bars at that tempo and eight silent
+  ones make the record's 7:34. Verses of sixteen on the hats ending round the
+  toms; choruses on the ride, six bars and a two-bar stop on the rack tom
+  twice, then six bars out on a bar of eighths on the kick. Left out: both
+  intros (the backbeat is on the kick) and the sax solo's two-bar stops.
+
+Considered and left: _Babylon Sisters_ (3789127) and _Home at Last_
+(3705091) have no section markers and are one groove with the kick moving
+under it: 107 of Babylon Sisters' 178 bars are the same bar, and Home at
+Last's kick changes every few bars and stops for whole bars, more than an
+arrangement of 32 slots can follow; the weighted figures already hold their
+bars. _The Fez_ has a new human tab (3761347, Toast Stealer, 2026), but it
+writes every snare note at one level and never plays the linear groove
+Funklet transcribes, and the record's bands (98.8 against the tab's 96) do not
+settle which is right, so Funklet stands. _O-o-h Child_ (903215, flagged human
+but its track named "Drums (regenerated)") has 49 distinct bars in 72, every
+snare at one level, none of Funklet's disco hats. Rock Steady and Use Me have
+machine tabs only. The record tempos: The Fez 98.8, Home at Last 128.4,
+Babylon Sisters 122.7, all inside the songs' ranges.
+
+Sources: Songsterr API (songs 54434, 54440, 3705091, 3789127, 3761347, 903215,
+787133, 1648348, 1119049; AI flags read on each); the records on YouTube
+(jJ9Xk-VoGqo, ICK6e9WK2A8, HXVc1f7IOgs, Hx5ZlTyzU-k, tV4UVvVFpXI),
+autocorrelated.
 
 Sources: goodhertz.com/funklet (rock-steady, ooh-child, purdie-use-me,
 synthetic-substitution, the-fez, hatian-divorce, hot-sweat, purdie-cowbell)
@@ -2428,7 +2511,8 @@ Under a Bad Sign 190 s, Badge 161 s), which is a check on the tempo too.
   only the hat foot on the "and"s of 2 and 4: the tab writes no cymbal under
   the verse, and it is kept as written.
 - **I Feel Free** (4746): a two-bar verse, the hats open on the beat and the
-  "and"s; its tom fill has no run of four, so it plays at 176.
+  "and"s; its tom fill has no run of four, so it plays at full speed (the
+  record is 178, not the tab's 176: below).
 - **Badge** (4135), **Tales of Brave Ulysses** (4922, the snare on every beat,
   then a section of floor tom and both kicks in eighths), **SWLABR** (4888),
   **Strange Brew** (4216) and **Born Under a Bad Sign** (62912, the ride's
@@ -2467,15 +2551,15 @@ can be checked.
 
 | Song                   | Year | Tempo (quarter)                                  | Meter | What defines it                                              | Source of the bars          |
 | ---------------------- | ---- | ------------------------------------------------ | ----- | ------------------------------------------------------------ | --------------------------- |
-| Sunshine of Your Love  | 1967 | 116 (tab); 115 (songbpm)                         | 4/4   | toms, not snare; 1 and 3 accented                            | Songsterr 256 (human)       |
+| Sunshine of Your Love  | 1967 | 115.5 (record); 116 (tab); 115 (songbpm)                         | 4/4   | toms, not snare; 1 and 3 accented                            | Songsterr 256 (human)       |
 | White Room             | 1968 | 110 (tab, songbpm)                               | 5/4   | crash and snare on 1, both floor toms: triplet on 2, eighths | Songsterr 4455 (human)      |
-| Crossroads (live)      | 1968 | 132 (tab; length matches); songbpm 101 disagrees | 4/4   | floor tom on 1, snare on 2, 3, 4, hat foot on the "and"s     | Songsterr 242 (human)       |
-| I Feel Free            | 1966 | 176 (tab, songbpm)                               | 4/4   | open hats on the beat and the "and"s                         | Songsterr 4746 (human)      |
+| Crossroads (live)      | 1968 | 131.5 (record); 132 (tab); songbpm 101 disagrees | 4/4   | floor tom on 1, snare on 2, 3, 4, hat foot on the "and"s     | Songsterr 242 (human)       |
+| I Feel Free            | 1966 | 178 (record); 176 (tab, songbpm)                               | 4/4   | open hats on the beat and the "and"s                         | Songsterr 4746 (human)      |
 | Badge                  | 1969 | 106 (tab, songbpm)                               | 4/4   | eighths; the bridge on the ride, a crash on the "and" of 4   | Songsterr 4135 (human)      |
 | Tales of Brave Ulysses | 1967 | 106 (tab, songbpm)                               | 4/4   | snare on every beat; floor tom and both kicks in eighths     | Songsterr 4922 (human)      |
-| SWLABR                 | 1967 | 124 (tab, songbpm)                               | 4/4   | eighths; crash and snare on every beat; a run down the toms  | Songsterr 4888 (human)      |
-| Strange Brew           | 1967 | 104 (tab); 106 (songbpm)                         | 4/4   | hats opening on 1, kick on 3, the "and" of 3 and of 4        | Songsterr 4216 (human)      |
-| Born Under a Bad Sign  | 1968 | 92 (tab); songbpm 183 (doubled)                  | 4/4   | ride bell on the "and"s, snare with the riff, kicks doubled  | Songsterr 62912 (human)     |
+| SWLABR                 | 1967 | 124 (record, tab, songbpm)                               | 4/4   | eighths; crash and snare on every beat; a run down the toms  | Songsterr 4888 (human)      |
+| Strange Brew           | 1967 | 106.5 (record); 104 (tab); 106 (songbpm)                         | 4/4   | hats opening on 1, kick on 3, the "and" of 3 and of 4        | Songsterr 4216 (human)      |
+| Born Under a Bad Sign  | 1968 | 91.7 (record); 92 (tab); songbpm 183 (doubled)                  | 4/4   | ride bell on the "and"s, snare with the riff, kicks doubled  | Songsterr 62912 (human)     |
 | Toad                   | 1966 | 141 (songbpm; 71 half)                           | 4/4-6 | two kicks in triplets under tom phrases                      | **reconstruction** (record) |
 | Do What You Like       | 1969 | 160 (tab); 153 (songbpm)                         | 5/4   | hat foot in eighths, toms answering, no snare                | Songsterr 3491 (human)      |
 
@@ -2503,6 +2587,40 @@ Lord" has no drum track. Graham Bond Organisation: no tab found.
   4/4 vamp around the solo are not in the songs.
 - The style-level cross-rhythm (a floor-tom accent every six steps) means three
   against four only on a sixteenth grid; Toad turns it off.
+
+**Six songs in sections (2026-10-23).** Six of the human tabs above are now read whole, in
+the record's order, rather than for their most common bars: Sunshine of Your Love,
+Crossroads, I Feel Free, SWLABR, Strange Brew and Born Under a Bad Sign. Each record's tempo is
+measured from the audio (onset autocorrelation, 20–140 s), and each tab's length, played out,
+is checked against the record's.
+
+- **Repeat signs.** SWLABR (4888), Strange Brew (4216) and Tales of Brave Ulysses (4922)
+  write a verse once under repeat signs with an ending for each pass; read without them, the
+  tabs are 15–30 s short of the records. Played out, Strange Brew is 74 bars (2:47 at 106.5,
+  the record's 2:47) and SWLABR 79 (2:33 at 124, the record's 2:32).
+- **Tempos.** Sunshine 115.5 (tab 116), Crossroads 131.5 (132), I Feel Free 178 (176), SWLABR
+  124 (124), Strange Brew 106.5 (104), Born Under a Bad Sign 91.7 (92), Tales 106–107 (106).
+- **Sunshine of Your Love**: intro, three verses, three choruses and the solo; the last verse
+  and the solo bring the crash and the snare in on 1 and 3, the last chorus puts the snare on
+  every beat, and the outro is the crash and the snare in eighths with the two kicks between.
+- **Crossroads**: the tab marks only the intro, the verses and "Solo"; the drum part changes
+  by the twelve-bar chorus, and the sections are named by what it plays: the verse groove, the
+  crash on the "and"s (verse 2), the snare on the "a" of 2 and the "e" of 3 under the solos, a
+  sparer groove with the snare on 2 and 4 alone, and five bars with the snare on 1 and 3.
+- **I Feel Free**: the intro is twenty bars of the cross-stick on 2 and 4 alone under the
+  voices; both bridges are a hit on 1 and then no drums, and are left out.
+- **SWLABR**: the verse has a bar of 3/4 (and the second ending one of 6/4, played as a bar of
+  the crash on the beat). The tab writes no drums in its last twelve bars, though the record's
+  kick and snare bands hold their level to 2:25: they are left out.
+- **Strange Brew**: twelve-bar blues all through; each verse's last four bars open the hats on
+  1, 2 and 3; the solo and the outro go to the crash on the beat and the ride. A note the tab
+  writes on no drum (fret 0, 55 times) is left out.
+- **Born Under a Bad Sign**: one groove, with verse 2's bell on 4, and a two-bar break played
+  twice (the snare on 1, 3 and 4).
+- **Left as breaks.** Tales of Brave Ulysses: played out, the tab's kit runs 20–154 s and the
+  record's about 12–161 s, so some seven bars are missing that the tab does not place. Do What
+  You Like: the album tab (3491) gives it 19 bars, 35 s of a fifteen-minute track. White Room,
+  Badge and Toad already had sections.
 
 Sources: Wikipedia — [Ginger Baker](https://en.wikipedia.org/wiki/Ginger_Baker),
 [Sunshine of Your Love](https://en.wikipedia.org/wiki/Sunshine_of_Your_Love),
@@ -3290,10 +3408,10 @@ follows Todd Bishop's transcription.
 | Song                   | Year | Tempo (quarter)                                 | Meter          | What defines it                                                 | Source of the bars          |
 | ---------------------- | ---- | ----------------------------------------------- | -------------- | --------------------------------------------------------------- | --------------------------- |
 | Stratus                | 1973 | 90 (tab); 86 (songbpm)                          | 4/4            | one-handed sixteenths; snare on 2, the "e" of 3 and 4           | Songsterr 64400 (human)     |
-| Red Baron              | 1973 | 88 (tab); 89 (songbpm)                          | 4/4            | eighths; the same snare; the kick on the "a" of 1               | Songsterr 791843 (human)    |
+| Red Baron              | 1973 | 84.6 (record); 88 (tab); 89 (songbpm)           | 4/4            | eighths; the same snare; the kick on the "a" of 1               | Songsterr 791843 (human)    |
 | Quadrant 4             | 1973 | 240 (tab); 242 (songbpm)                        | 4/4 in eighths | both bass drums on every eighth, swung, under a jazz ride       | Songsterr 519969 (human)    |
 | Spectrum               | 1973 | 110 (tab); songbpm 125                          | 7/8            | hat opening on the "and"s of 1 and 3, snare between the kicks   | Songsterr 1324254 (human)   |
-| Meeting of the Spirits | 1971 | 176–186 (tab)                                   | 6/4            | ride and hat foot, one snare a bar                              | Songsterr 13040 (human)     |
+| Meeting of the Spirits | 1971 | 191–199 (record); 176–186 (tab); plays 184–190  | 6/4            | ride and hat foot, one snare a bar                              | Songsterr 13040 (human)     |
 | Birds of Fire          | 1973 | 98 (tab); songbpm 109                           | 9/8            | ride and hat foot in eighths, snare in pairs, kick off the beat | Songsterr 42451 (human)     |
 | White Rabbit (Benson)  | 1971 | 111 (songbpm; not confirmed by a second source) | 4/4            | a funk beat, then the ride's bell                               | Todd Bishop's transcription |
 
@@ -3338,6 +3456,47 @@ transcription found.
 - There is no sextuplet meter above 190, so a fast triplet shuffle has to be
   swung eighths, which loses the middle triplet.
 - The china is the crash lane's value 3; there is no second china or gong.
+
+**Two songs whole (2026-10-23).** Red Baron and Meeting of the Spirits now play
+part by part, in the order of their tabs; the other five stay one groove each.
+
+- **Red Baron.** Songsterr 791843 (rev 5097811, 2026, `aiGenerated` false) is
+  the whole record: 140 bars, no section markers. The Topic upload
+  (ptsgQ1uYqkA, 397 s) beat-tracks at 87.6 for its first half-minute and
+  83.4–84.7 after, 84.6 on average, and its 557 beats are 139 bars; the tab's
+  snare roll alone (bars 108–110) falls where every band drops to nearly
+  nothing, 5:04–5:12. So the tab's 88 is a little fast: the song is now
+  83–88. Read in order the tab is nine grooves: the opening (1–16), the hat
+  half-open on the "and" of 2 (17–32), the snare on 2 and 4 alone (35–38),
+  the opening bar answered by that one (39–46), the riff with the kick on 1,
+  its "a", the "and" of 2 and 3 (49–60), the riff with the hat open on the
+  "and" of 4 (61–72), the kick busier (75–80), the snare on every beat
+  (83–90), and the riff with the snare on 2 and 4 to the end (91–94,
+  111–134), the fade on the third groove. Left out: the break, 95–110 (his
+  fills round the toms and the roll alone, mostly no backbeat), and a few
+  bars of runs between the parts. The eight-note snare runs are broken into
+  threes.
+- **Meeting of the Spirits.** Songsterr 13040 (rev 6944290, 2026,
+  `aiGenerated` false), 169 bars marked by section: an intro at 100, then 6/4
+  at 176–186. The record (dhc_ZQ545Hg, 412 s) is faster: the snare band's
+  six-beat bar autocorrelates at 1.865 s at 2:00 and 1.848 s at 4:00, a
+  quarter of 193 and 195, the whole mix 191 at 0:40 and 199 at 5:00. 6/4 stops
+  at 190, so the song plays at 184–190. At that speed the record is some 35
+  bars longer than the tab: the tab shortens it, most likely in the solos,
+  and in a mix this dense which bars it drops cannot be heard, so the parts'
+  lengths are the tab's. Its parts: the arpeggios (ride, hat foot, snare on
+  4), the main theme and the solos over it (a crash and the kick under the
+  line every other bar), the unison riff's first bars, the theme again with
+  the snare on every beat, and the violin solo on the china. Left out: the
+  rubato intro, the bars the drums sit out, and the riff's hits with no
+  snare.
+- **Not rebuilt.** The other tabs are excerpts: Stratus (64400) is 32 bars of
+  a 9:48 record, Quadrant 4 (519969) 82 bars at 240 of 4:20, Spectrum
+  (1324254) 21 bars of 5:07, Birds of Fire (42451) 54 bars of 5:50. White
+  Rabbit is Todd Bishop's transcription of its opening grooves.
+- **Library contradiction.** The table above gives Meeting of the Spirits
+  176–186 and Red Baron 88 (tab) and 89 (songbpm): the records are about
+  191–199 and 84–88.
 
 Sources: Wikipedia — [Billy Cobham](https://en.wikipedia.org/wiki/Billy_Cobham),
 [Spectrum](<https://en.wikipedia.org/wiki/Spectrum_(Billy_Cobham_album)>),
@@ -3557,9 +3716,9 @@ Firth groove is a style figure, not a song: it names no record.
 
 | Song                    | Year | Tempo (quarter)                        | What defines it                                                               | Source of the bars        |
 | ----------------------- | ---- | -------------------------------------- | ----------------------------------------------------------------------------- | ------------------------- |
-| Breaking Down the Door  | 2019 | 102 (tab); 103 (songbpm)               | the kick on every beat, the snare on the "a" of 1 and 3, the "and" of 2 and 4 | Songsterr 4521944 (human) |
+| Breaking Down the Door  | 2019 | 102 (tab); 103.0 (the video, beat-tracked) | the kick on every beat, the snare on the "a" of 1 and 3, the "and" of 2 and 4 | Songsterr 4521944 (human) |
 | Corazón Espinado (live) | 2014 | 128 (tab); the 1999 studio take is 120 | hats, then the ride, then the crash and snare on every beat                   | Songsterr 5178015 (human) |
-| She Got Game            | 2026 | 100 (tab)                              | the kick on the "a" of 2 and the 3, the hats filling in sixteenths            | Songsterr 3917543 (human) |
+| She Got Game            | 2026 | 100 (tab and video)                    | the kick on the "a" of 2 and the 3, the hats filling in sixteenths            | Songsterr 3917543 (human) |
 
 - **Breaking Down the Door**'s backbeat is its snare figure (the "a" of 1, the
   "and" of 2, the "a" of 3, the "and" of 4), so it has its own fill, the tab's
@@ -3568,7 +3727,36 @@ Firth groove is a style figure, not a song: it names no record.
 - **She Got Game**'s roll into the chorus is twelve sixteenths on the snare,
   which the critic calls a run; it is written as buzz strokes on the eighths,
   then the backbeat on 4, with the kick into the 1 (the tab's three kicks
-  are two here, the third a triple the critic refuses on one foot).
+  are two here, the third a triple the critic refuses on one foot). That
+  was the break; the roll is the bridge's (bars 46 and 48), which the whole
+  song leaves out (below).
+
+**Whole songs (2026-10-23).** All three songs now play the record's flow, in
+the tab's order, section by section. None of the three tabs marks a section,
+so each part is one of the tab's changes of cymbal or kick, and each record
+was beat-tracked against its tab:
+
+| Song                    | Record checked                           | Tempo (record)              | Sections, slots | What lines up                                                                                                       |
+| ----------------------- | ---------------------------------------- | --------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------- |
+| Breaking Down the Door  | the Vevo video, J5OspxMTwis (4:03)       | 103.0 (tab 102)             | 8, 22           | 103 bars at 103 is the video; the kick band drops 0.7–0.9 dB in the tab's empty bars 37, 41, 45; the kit ends in 103 |
+| Corazón Espinado (live) | Santana's channel, f7IjyuOXmgM (5:00)    | 128.8–129.3, drifting (128) | 9, 30           | the kick band falls 4.7 dB in bar 157, the tab's last hit                                                           |
+| She Got Game            | Public Enemy's channel, 5ihAR9xiUTk (3:30) | 100.0 (tab 100)           | 7, 17           | the hats come in at bar 5 as in the tab; the kick drops for 29–31 and the bridge a bar after the tab's numbers        |
+
+- **Left out**, as everywhere: bars with no backbeat (Breaking Down the
+  Door's cymbal swell, kick-alone and hats-alone intro, its stops' empty
+  bars, its stop on a crash; She Got Game's hats-alone intro, its bridge, its
+  break and stop; Corazón's solo, 91–115, runs of sixteenths on snare and
+  toms), and Corazón's bars in 3/4, 5/4, 6/4 and 2/4.
+- **She Got Game's buzz roll goes with its bridge**: the roll was the
+  bridge's (bars 46 and 48), which is left out. The run into bar 33 stays, as
+  three sixteenths and one on the snare with two kicks after.
+- **Corazón's chorus is on the ride, its verse on the hat**, and its hits
+  section (51–62) alternates the groove with fills; the tab is the video's
+  length, but the mix is too dense to show where its parts change, so their
+  order is the tab's alone.
+- **Shortened to fit**: a song holds 32 distinct bars, and Corazón's tab has
+  81. Its parts play four bars where the record has five, and its verse in
+  three places (13–20, 41–50, 81–86, 136–140) is one section.
 
 **Left out.** Every Kravitz hit (his drums); "Joy" (Derek Mixon); the Playing
 for Change "Oye Como Va", "Yo Soy la Luz", "Corazón Espinado" (studio, live
@@ -3813,10 +4001,10 @@ on The Pot and the double bass under Ticks and Leeches are `doubleKick`.
 
 | Song              | Year | Meter | Tempo (quarter)                        | What defines it                                                    | Source of the bars       |
 | ----------------- | ---- | ----- | -------------------------------------- | ------------------------------------------------------------------ | ------------------------ |
-| Sober             | 1993 | 4/4   | 145–150 (tab 145–157; songbpm 149)     | the hat opening on the "and"s, the snare on 3; the ride section    | Songsterr 19923 (human)  |
-| Forty Six & 2     | 1996 | 4/4   | 78–84 (tab; songbpm 159, double)       | rim clicks over the hat foot; hat and crash with the riff's kick   | Songsterr 460731 (human) |
+| Sober             | 1993 | 4/4   | 145–150 (tab 145–157; record 149.7–154.2; songbpm 149) | the hat opening on the "and"s, the snare on 3; the ride section    | Songsterr 19923 (human)  |
+| Forty Six & 2     | 1996 | 4/4; a section in 7/8 | 78–84 (tab; record 78.4–82.8; songbpm 159, double) | rim clicks over the hat foot; hat and crash with the riff's kick   | Songsterr 460731 (human) |
 | Eulogy            | 1996 | 4/4   | 84–90 (tab 82–90; songbpm 181, double) | the verse; the hat in threes for three bars                        | Songsterr 19725 (human)  |
-| Stinkfist         | 1996 | 4/4   | 85–90 (tab; songbpm 171, double)       | a hat figure with opens on the "a"s, the kick in pairs             | Songsterr 19811 (human)  |
+| Stinkfist         | 1996 | 4/4; sections in 6/4 and 7/4 | 85–90 (tab; record 86.1–90.8; songbpm 171, double) | a hat figure with opens on the "a"s, the kick in pairs             | Songsterr 19811 (human)  |
 | The Grudge        | 2001 | 5/4   | 92–98 (tab 90–98; songbpm 96)          | the hat over the kick; the ride section; fills with the kick under | Songsterr 20085 (human)  |
 | Ticks and Leeches | 2001 | 7/4   | 140–150 (tab 147–164)                  | sixteenths on the rack and floor toms; both feet under them        | Songsterr 56862 (human)  |
 | Vicarious         | 2006 | 5/4   | 110–118 (tab 110–120; songbpm 115)     | the hat opening across the bar, a double on the snare before 2     | Songsterr 56870 (human)  |
@@ -3836,6 +4024,43 @@ were left out for a reason that does not hold, and are still to write._
 **Found on the way, not changed.** A meter of five, six or seven eighths
 split in sixteenths (`5/8-16` and the like) would let in the half of his
 catalogue that is in those meters; it is a new meter, not a style change.
+
+**Whole songs (2026-10-23).** Three of the sectionless songs are now written
+whole, section by section in the tab's order, from the same human Songsterr
+tabs, each checked against the record's audio (Tool's official uploads,
+autocorrelated over stretches of the record):
+
+- _Sober_ (19923, rev 9500451, aiGenerated false): 191 bars, 5:03 by the tab's
+  map against the record's 5:08. The record rises from 149.7 to 154.2, as the
+  tab's map does (152, 149, up to 157 in the solo); the song stays 145–150 for
+  its tom run. Seven sections: the verse (the kick bar and the bar with none,
+  by turns), the pre-chorus, the chorus on the ride, the post-chorus into its
+  run round the kit, the floor tom and kick in eighths, the solo (the snare on
+  2 and the "and" of 3, then 1 and 4) and the outro. Left out: the intro and
+  the bridge's twenty quiet bars of hat and ride, with no snare or tom on 3.
+- _Forty Six & 2_ (460731, rev 9225845): 123 bars, 6:00 against 6:05; the
+  record runs 78.4, 80.5, 82.8, 80.3, the tab's 78–84. Eleven sections: the rim
+  clicks, the tom on the "and" of 1, the verse riff, the chorus on
+  the ride, the post-chorus's kick in fours (two feet), verse 2 over the hat
+  foot, the crash off the beat, the bridge's ride, the outro's ride in 7/8 and
+  in 4/4, and Outro II's stabs. Left out: the ride-alone intro; the verse's stop bar, with no backbeat on 4; the bridge's
+  first eight bars, whose kick and snare leave under a quarter of each bar
+  free; Bridge II (no kit); and the drum solo, a different bar nearly every
+  bar round the toms over unbroken sixteenths on the kick. The tab rides
+  through two open hats in the chorus; the ride gives way to them.
+- _Stinkfist_ (19811, rev 9707346): 103 bars, 5:07 against 5:14; the record
+  86.1–90.8, the tab's 85–90. Eight sections: the verse, the pre-chorus, the
+  chorus's three bars of 6/4 and its bar of 7/4 (the band stopping on 4), the
+  bridge's two tom grooves by turns, the climax on the ride and crash, and the
+  interlude (the snare on 2 alone). Left out: the intro and outro, the
+  bridge's kick-alone bars, and the interlude's last four bars with no
+  backbeat.
+
+**Not rebuilt.** _The Pot_ (29442): 151 distinct bars in 182, its verse
+ghosts never the same twice, moving between 4/4 and 3/4 with a bar of 9/8.
+_The Grudge_, _Ticks and Leeches_, _Vicarious_ and _Rosetta Stoned_ (20085,
+56862, 56870, 56856): 109, 89, 121 and 226 distinct bars, with meter changes
+throughout, against a song's 32 bars. Eulogy already had sections.
 
 ## AF. Ari Hoenig (2026-10-15)
 

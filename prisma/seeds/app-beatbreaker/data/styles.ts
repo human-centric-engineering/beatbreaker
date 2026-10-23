@@ -6688,7 +6688,7 @@ export const STYLES: Record<string, Style> = {
     label: 'John Bonham',
     drummer: true,
     bands: ['Led Zeppelin'],
-    hint: "Led Zeppelin: a huge kick, often doubled, the hats in 8ths and a backbeat like a door slamming, sitting back on the beat. Fills in threes, hands and feet — the Bonham triplet, played as real sextuplets where the song allows. Each New plays one of his records at its own tempo and in its own grid: Good Times Bad Times' kick triplets under a cowbell, Fool in the Rain's half-time shuffle, Immigrant Song's paradiddle between kick and snare, the slow weight of When the Levee Breaks. The stage names the song. The grooves are approximations, not transcriptions.",
+    hint: "Led Zeppelin: a huge kick, often doubled, a backbeat like a door slamming, sitting back on the beat; fills in threes, hands and feet. Each New plays one of his records, intro to outro: Good Times Bad Times (1969), its kick in sixteenths and triplets under a cowbell; Communication Breakdown (1969); Immigrant Song (1970), a paradiddle between kick and snare; Rock and Roll (1971); When the Levee Breaks (1971); Kashmir (1975), in four under a riff in three; Fool in the Rain (1979), the half-time shuffle and its samba. Black Dog, Trampled Under Foot, Achilles Last Stand and Whole Lotta Love are grooves from them. The stage names the song. The bars are from human Songsterr tabs, checked against the records. Approximations, not the records.",
     toms: true,
     kit: 'bigRoom',
     hats: 8,
@@ -17350,7 +17350,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Bernard Purdie',
     drummer: true,
     bands: ['King Curtis and the Kingpins', 'Aretha Franklin'],
-    hint: "Aretha Franklin's musical director and Steely Dan's drummer: strict time, dead in the pocket, a hard backbeat with soft ghosts all round it, and hats that open a crack just before the beat. His shuffle is the half-time one: triplets on the hats, the ghosts on the middle one, the backbeat on 3. Few fills, short and inside the groove. Each New plays a style inspired by one of twelve of his songs, from O-o-h Child and Rock Steady to Home at Last and Babylon Sisters, at its record tempo. The stage names the song. Seven follow Funklet's published grids and four human drum transcriptions; Memphis Soul Stew is an approximation, not a transcription.",
+    hint: "Aretha Franklin's musical director and Steely Dan's drummer: strict time, dead in the pocket, a hard backbeat with soft ghosts all round it, and hats that open a crack just before the beat. His shuffle is the half-time one: triplets on the hats, the ghosts on the middle one, the backbeat on 3. Few fills, short and inside the groove. Each New plays a style inspired by one of twelve of his songs, from O-o-h Child and Rock Steady to Home at Last and Babylon Sisters, at its record tempo. The stage names the song. Seven follow Funklet's published grids and four human drum transcriptions, and two of those, Kid Charlemagne and Deacon Blues, play whole, in the record's order; Memphis Soul Stew is an approximation, not a transcription.",
     kit: 'funkSoul',
     mix: { h: 0.8 },
     hats: 8,
@@ -17415,8 +17415,9 @@ export const STYLES: Record<string, Style> = {
        mapped onto this file's values: Funklet's snare 4 is our accent (3), its
        3 our hit (2), its 2 and 1 our ghost (1); its kick 4 our accent; its
        accented hats our `h` 2, the opens 3 and the half-opens 4. Kid Charlemagne, Deacon Blues, Home at Last and Babylon
-       Sisters are the commonest bars of human Songsterr transcriptions; the
-       two shuffles' tabs leave out the ghosts, which every lesson on the
+       Sisters are the commonest bars of human Songsterr transcriptions;
+       Kid Charlemagne and Deacon Blues are now those transcriptions whole, in
+       sections. The two shuffles' tabs leave out the ghosts, which every lesson on the
        Purdie shuffle puts on the middle triplet, so they are written in.
        Memphis Soul Stew is built from a lesson's description. The shuffles
        are in sextuplet 4/4 (`4/4-6`), so the tempo reads as the record's
@@ -25696,7 +25697,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Ginger Baker',
     drummer: true,
     bands: ['Cream', 'Blind Faith'],
-    hint: "Cream, Blind Faith, Air Force and Fela's Lagos: a jazz drummer, taught by Phil Seamen, who played rock on two bass drums. The toms carry the groove as often as the snare does, the two kicks run ostinatos under tom phrases, and the backbeat may sit on 1 and 3. An open, ringing 1960s Ludwig. Each New plays one of eleven of his songs at its record tempo: Sunshine of Your Love's tom pattern, White Room's 5/4 opening, Crossroads with the floor tom on 1, I Feel Free fast and open, Toad's two-bass-drum triplets and Do What You Like in 5/4. The stage names the song. Ten follow human transcriptions; Toad is a reconstruction.",
+    hint: "Cream, Blind Faith, Air Force and Fela's Lagos: a jazz drummer, taught by Phil Seamen, who played rock on two bass drums. The toms carry the groove as often as the snare does, the two kicks run ostinatos under tom phrases, and the backbeat may sit on 1 and 3. An open, ringing 1960s Ludwig. Each New plays one of eleven of his songs at its record tempo: Sunshine of Your Love's tom pattern, White Room's 5/4 opening, Crossroads with the floor tom on 1, I Feel Free fast and open, Toad's two-bass-drum triplets and Do What You Like in 5/4. The stage names the song. Six play whole, in the record's order: Sunshine, Crossroads, I Feel Free, SWLABR, Strange Brew and Born Under a Bad Sign. Ten follow human transcriptions; Toad is a reconstruction.",
     toms: true,
     kit: 'sixties',
     // two bass drums, not a double pedal: the same thing to the generator, the critic and the 3D drummer
@@ -29163,7 +29164,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Billy Cobham',
     drummer: true,
     bands: ['Mahavishnu Orchestra'],
-    hint: "Miles Davis, the Mahavishnu Orchestra and his own Spectrum: the drummer who took fusion's chops to a new level, open-handed, on two bass drums, with a tight, high snare and an upside-down china. Sixteenths on the hat with one hand while the other works the snare, a shuffle on both bass drums at 240, and grooves in 6/4, 7/8 and 9/8 that never stop driving. Each New plays one of seven of his songs at its record tempo: Stratus, Red Baron, Quadrant 4 and Spectrum, Mahavishnu's Meeting of the Spirits and Birds of Fire, and George Benson's White Rabbit. The stage names the song. Every one follows a human transcription.",
+    hint: "Miles Davis, the Mahavishnu Orchestra and his own Spectrum: the drummer who took fusion's chops to a new level, open-handed, on two bass drums, with a tight, high snare and an upside-down china. Sixteenths on the hat with one hand while the other works the snare, a shuffle on both bass drums at 240, and grooves in 6/4, 7/8 and 9/8 that never stop driving. Each New plays one of seven of his songs at its record tempo: Stratus, Red Baron, Quadrant 4 and Spectrum, Mahavishnu's Meeting of the Spirits and Birds of Fire, and George Benson's White Rabbit. The stage names the song. Every one follows a human transcription; Red Baron and Meeting of the Spirits play whole, part by part in the tabs' order.",
     toms: true,
     // Bishop: a tight, dry, high snare, live and throaty toms; the DRS kit with its snare raised
     kit: 'police',
@@ -29228,7 +29229,9 @@ export const STYLES: Record<string, Style> = {
        Life, on the Mahavishnu Orchestra's first two albums, and on George
        Benson's White Rabbit. Six follow human Songsterr transcriptions
        (each tab's `aiGenerated` flag checked), read bar by bar with the most
-       common bars kept; White Rabbit follows Todd Bishop's. See the Billy
+       common bars kept; Red Baron and Meeting of the Spirits are written in
+       sections, in their tabs' order. White Rabbit follows Todd Bishop's. See
+       the Billy
        Cobham section of `.context/app/planning/drumming-research.md`. */
     songs: [
       {
@@ -30827,7 +30830,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Cindy Blackman Santana',
     drummer: true,
     bands: ['Santana', 'Lenny Kravitz'],
-    hint: "Jazz drummer first, taught by Tony Williams's teacher Alan Dawson and chasing Blakey, Williams and Elvin; eighteen years behind Lenny Kravitz on stage; since 2010 Santana's drummer. She smacks the drums: big backbeats, the crash ridden on the beat, the hat opening on every \"and\". Each New plays one of three of her songs at its record tempo: Santana's Breaking Down the Door, its snare a figure over four on the floor; Corazón Espinado live; and Public Enemy's She Got Game. The stage names the song. All three follow human transcriptions. Her own jazz records and Kravitz's (on which, bar one track, he played the drums himself) have none.",
+    hint: "Jazz drummer first, taught by Tony Williams's teacher Alan Dawson and chasing Blakey, Williams and Elvin; eighteen years behind Lenny Kravitz on stage; since 2010 Santana's drummer. She smacks the drums: big backbeats, the crash ridden on the beat, the hat opening on every \"and\". Each New plays one of three of her songs at its record tempo, each whole, in the record's order: Santana's Breaking Down the Door, its snare a figure over four on the floor; Corazón Espinado live; and Public Enemy's She Got Game. The stage names the song. All three follow human transcriptions. Her own jazz records and Kravitz's (on which, bar one track, he played the drums himself) have none.",
     toms: true,
     // Big Rusty: thick, hit hard, with a big wash of cymbal
     kit: 'bigrusty',
@@ -30894,7 +30897,9 @@ export const STYLES: Record<string, Style> = {
     /* Her records: one New picks one, and the stage names it. Credits checked:
        Africa Speaks (2019) has her on drums throughout; She Got Game (2026)
        credits her; the live Corazón Espinado tab names her track. Each follows
-       a human Songsterr tab (its `aiGenerated` flag checked). See the Cindy
+       a human Songsterr tab (its `aiGenerated` flag checked). Each plays whole,
+       section by section in the tab's order (see the research's "Whole
+       songs"). See the Cindy
        Blackman Santana section of `.context/app/planning/drumming-research.md`. */
     songs: [
       {
@@ -35375,7 +35380,7 @@ export const STYLES: Record<string, Style> = {
     label: 'Danny Carey',
     drummer: true,
     bands: ['Tool'],
-    hint: 'Tool, from Undertow to 10,000 Days: a jazz-schooled drummer who studied tabla, playing heavy rock in odd meters and setting figures across the bar. Each New plays one of nine of his songs in its own meter and at its record tempo, or at 150 where the toms run: Sober, Forty Six & 2, Eulogy with the hat open on every third sixteenth for three bars, Stinkfist, The Grudge and Vicarious in 5/4, Ticks and Leeches in 7/4, Rosetta Stoned in 3/4 with the kick in fives, and The Pot. The stage names the song. Every one follows a human transcription. Lateralus and Schism are not here: their 5/8, 6/8 and 7/8 are in sixteenths.',
+    hint: 'Tool, from Undertow to 10,000 Days: a jazz-schooled drummer who studied tabla, playing heavy rock in odd meters and setting figures across the bar. Each New plays one of nine of his songs in its own meter and at its record tempo, or at 150 where the toms run: Sober, Forty Six & 2, Eulogy with the hat open on every third sixteenth for three bars, Stinkfist, The Grudge and Vicarious in 5/4, Ticks and Leeches in 7/4, Rosetta Stoned in 3/4 with the kick in fives, and The Pot. The stage names the song. Every one follows a human transcription; Sober, Forty Six & 2 and Stinkfist play whole, in the record\'s order. Lateralus and Schism are not here.',
     toms: true,
     // an even studio kit with Paiste cymbals, as his are
     kit: 'drs',
@@ -35484,7 +35489,8 @@ export const STYLES: Record<string, Style> = {
     /* His records: one New picks one, and the stage names it. Credits from
        Wikipedia: Tool's drummer since it formed in 1990, on every record.
        Each follows a human Songsterr tab (its aiGenerated flag checked), the
-       commonest bars kept, two bars at a time where two fit; the tempo is the
+       commonest bars kept, two bars at a time where two fit; Sober, Forty Six
+       & 2 and Stinkfist are in sections, in the tab's order. The tempo is the
        tab's, checked against songbpm.com, which counts three of them double.
        See the Danny Carey section of `.context/app/planning/drumming-research.md`. */
     songs: [
