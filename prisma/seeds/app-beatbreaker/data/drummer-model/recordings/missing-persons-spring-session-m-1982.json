@@ -39,9 +39,31 @@
       "transcriptions": [
         {
           "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=681360"
+          "url": "https://www.songsterr.com/a/wa/song?id=5343064"
         }
-      ]
+      ],
+      "style_key": "bozzio",
+      "song_key": "destination-unknown"
+    },
+    {
+      "title": "Walking in L.A.",
+      "drummer_ids": ["drummer:terry-bozzio"],
+      "drums": {
+        "description": "Crash-and-kick hits in the intro, then eighths with the kick on every beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:walking-in-la-wikipedia", "src:songsterr-753414"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=DHAMh2-cviA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=753414"
+        }
+      ],
+      "style_key": "bozzio",
+      "song_key": "walking-in-la"
     }
   ],
   "evidence": {

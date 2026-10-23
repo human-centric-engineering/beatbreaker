@@ -1,0 +1,35 @@
+{
+  "id": "rec:frank-zappa-captain-beefheart-and-the-mothers-bongo-fury-1975",
+  "title": "Bongo Fury",
+  "artist": "Frank Zappa, Captain Beefheart and the Mothers",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:terry-bozzio"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Muffin Man",
+      "drummer_ids": ["drummer:terry-bozzio"],
+      "drums": {
+        "description": "A half-time riff with the guitar, the snare on 3, its \"and\" and 4, then a long guitar solo over the snare on 3 alone, with fills round the toms.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bongo-fury-wikipedia", "src:songsterr-35886"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-loTjAhBuyI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35886"
+        }
+      ],
+      "style_key": "bozzio",
+      "song_key": "muffin-man"
+    }
+  ]
+}

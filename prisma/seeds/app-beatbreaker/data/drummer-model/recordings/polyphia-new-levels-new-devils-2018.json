@@ -1,0 +1,70 @@
+{
+  "id": "rec:polyphia-new-levels-new-devils-2018",
+  "title": "New Levels New Devils",
+  "artist": "Polyphia",
+  "year": 2018,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:hip-hop-breakbeat"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:polyphia-wikipedia", "src:modern-drummer-aeschliman-2018"],
+    "note": "Released 12 October 2018 (Equal Vision). Discogs lists no personnel; the band's drummer from 2016 (Wikipedia) calls it his first full-length with them (Modern Drummer)."
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clay-aeschliman",
+      "name": "Clay Aeschliman",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "His first full-length with the band: trap beats on a kit, stacks off the hat, sextuplet chops."
+    }
+  ],
+  "tracks": [
+    {
+      "title": "O.D.",
+      "drummer_ids": ["drummer:clay-aeschliman"],
+      "drums": {
+        "description": "Hats and the mid stack over the snare on 3; a chorus with a stack on every beat over linear sixteenths of kick, toms and snare; a linear solo.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:flamscribed-od-transcription", "src:meinl-aeschliman-od"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=IHcAi2FPrTM",
+      "transcriptions": [
+        {
+          "site": "other",
+          "url": "https://www.youtube.com/watch?v=vI3gvnAPXJg",
+          "note": "Adam Miller (Flamscribed), flat.io score, 96 bars"
+        }
+      ],
+      "style_key": "aeschliman",
+      "song_key": "od"
+    },
+    {
+      "title": "G.O.A.T.",
+      "drummer_ids": ["drummer:clay-aeschliman"],
+      "drums": {
+        "description": "Half time with the hat foot on 2, hat rolls, hands alone on the big and little stacks, and sextuplets round the kit to end.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:flamscribed-goat-transcription", "src:meinl-aeschliman-goat"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9_gkpYORQLU",
+      "transcriptions": [
+        {
+          "site": "other",
+          "url": "https://www.youtube.com/watch?v=ufPxfi6WSp4",
+          "note": "Adam Miller (Flamscribed), flat.io score and PDF, 81 bars"
+        },
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4882070",
+          "note": "the first 17 bars only"
+        }
+      ],
+      "style_key": "aeschliman",
+      "song_key": "goat"
+    }
+  ]
+}

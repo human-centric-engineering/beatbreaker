@@ -3431,6 +3431,91 @@ const MILTON_BANANA: Persona = {
   kit: { shell: '#b8161c', finish: 'gloss', hardware: 'chrome', rug: '#2a2226' },
 };
 
+/**
+ * Terry Bozzio with Frank Zappa at the Palladium, New York, on Halloween 1977, at
+ * twenty-six: the concerts filmed for Baby Snakes (1979), his drum solo in it, looked at
+ * frame by frame. Slim and lean, clean-shaven, his dark-brown hair layered to the
+ * shoulders, playing stripped to the waist. A black kit with chrome hardware, a row of
+ * chrome Rototoms (Bishop: "his Rototom set"), and large cymbals. White below the waist:
+ * shorts are a guess from the frames, as are the trainers.
+ */
+const TERRY_BOZZIO: Persona = {
+  id: 'bozzio',
+  name: 'Terry Bozzio',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e6b48f',
+  hair: '#3a2a20',
+  // layered, a fringe, to the shoulders
+  hairStyle: 'mane',
+  beard: 'none',
+  // stripped to the waist, as in Baby Snakes
+  top: 'bare',
+  shirt: '#e6b48f',
+  trousers: '#ece8e0',
+  legs: 'shorts',
+  shoes: '#e8e4dc',
+  footwear: 'trainers',
+  accent: '#2f6fd1',
+  headphones: false,
+  kit: { shell: '#0e0e10', finish: 'gloss', hardware: 'chrome', rug: '#1a1a1c' },
+};
+
+/**
+ * El Estepario Siberiano in "NO ONE CAN PLAY THIS GROOVE." (YouTube Short, 19 July
+ * 2023; Q0-t5v2OBBs, the opening frames and 0:30), about twenty-seven: muscular, a long
+ * full black beard, a black cap on backwards over his dark hair, black closed-back
+ * headphones, a white vest with both arms tattooed (the app draws no tattoos), black
+ * jeans and grey-and-white trainers. A black kit with chrome hardware, a Meinl cowbell
+ * pedal by his left foot, on a red patterned Meinl rug.
+ */
+const EL_ESTEPARIO: Persona = {
+  id: 'estepario',
+  name: 'El Estepario Siberiano',
+  figure: 'male',
+  build: 'muscular',
+  skin: '#d29a76',
+  hair: '#1c1511',
+  // short, under the cap
+  hairStyle: 'capped',
+  beard: 'full',
+  top: 'vest',
+  shirt: '#ecebe6',
+  trousers: '#1b1b1e',
+  shoes: '#55575c',
+  // the cap's colour
+  accent: '#141416',
+  hat: 'cap',
+  headphones: true,
+  kit: { shell: '#1d1d20', finish: 'gloss', hardware: 'chrome', rug: '#8f1d1f' },
+};
+
+/**
+ * Clay Aeschliman in his G.O.A.T. playthrough for Meinl (YouTube, 26 November 2018;
+ * N1LPPEpKveU, frames at 0:12-1:06), at about thirty, the month after New Levels New Devils:
+ * long, dark brown hair in loose curls past his shoulders, a full dark beard, a black
+ * sleeveless shirt with a white print on its chest (not drawn), a tattoo sleeve on his
+ * arm (the app draws no tattoos). A wine-red lacquered kit with chrome hardware under a
+ * crowd of Meinl stacks and chinas. Trousers and shoes are out of shot: dark ones.
+ */
+const CLAY_AESCHLIMAN: Persona = {
+  id: 'aeschliman',
+  name: 'Clay Aeschliman',
+  figure: 'male',
+  build: 'average',
+  skin: '#e2b08f',
+  hair: '#2a1a12',
+  hairStyle: 'mane',
+  beard: 'full',
+  top: 'vest',
+  shirt: '#141416',
+  trousers: '#1c1c20',
+  shoes: '#2a2a2e',
+  accent: '#e9e6df',
+  headphones: false,
+  kit: { shell: '#5a0f16', finish: 'gloss', hardware: 'chrome' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -3538,6 +3623,9 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   kennyclarke: KENNY_CLARKE,
   fredbelow: FRED_BELOW,
   miltonbanana: MILTON_BANANA,
+  bozzio: TERRY_BOZZIO,
+  estepario: EL_ESTEPARIO,
+  aeschliman: CLAY_AESCHLIMAN,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

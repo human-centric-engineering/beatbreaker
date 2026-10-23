@@ -1,0 +1,45 @@
+{
+  "id": "rec:el-estepario-siberiano-michael-jackson-hardest-groove-2023",
+  "title": "MICHAEL JACKSON HARDEST GROOVE.",
+  "artist": "El Estepario Siberiano",
+  "year": 2023,
+  "type": "video",
+  "style_ids": ["style:gospel-chops"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:youtube-estepario-michael-jackson-groove-2023"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:el-estepario-siberiano",
+      "name": "El Estepario Siberiano",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "A groove Short built in steps, a cowbell pedal under the left foot."
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Michael Jackson Hardest Groove",
+      "drummer_ids": ["drummer:el-estepario-siberiano"],
+      "drums": {
+        "description": "A two-bar groove built a step at a time: the kick, the snare, a cowbell under the left foot, the hat in eighths.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:youtube-estepario-michael-jackson-groove-2023",
+            "src:songsterr-1296442"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=b1__WDXkpgM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1296442"
+        }
+      ],
+      "style_key": "estepario",
+      "song_key": "michael-jackson-hardest-groove"
+    }
+  ]
+}

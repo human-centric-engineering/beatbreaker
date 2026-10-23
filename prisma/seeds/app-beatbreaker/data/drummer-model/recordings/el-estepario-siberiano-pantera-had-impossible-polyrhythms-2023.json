@@ -1,0 +1,42 @@
+{
+  "id": "rec:el-estepario-siberiano-pantera-had-impossible-polyrhythms-2023",
+  "title": "PANTERA HAD IMPOSSIBLE POLYRHYTHMS!",
+  "artist": "El Estepario Siberiano",
+  "year": 2023,
+  "type": "video",
+  "style_ids": ["style:groove-metal"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:youtube-estepario-pantera-polyrhythms-2023"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:el-estepario-siberiano",
+      "name": "El Estepario Siberiano",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "A groove Short built in steps: the kick in threes, the ride in dotted eighths over it, the snare in threes."
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Pantera Had Impossible Polyrhythms",
+      "drummer_ids": ["drummer:el-estepario-siberiano"],
+      "drums": {
+        "description": "Kick threes, then the right hand on the ride every third sixteenth (\"4/3 right hand\"), then the snare on 2 and 4, then the snare in dotted quarters.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:youtube-estepario-pantera-polyrhythms-2023", "src:songsterr-1296442"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QbyUrcB_dMA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1296442"
+        }
+      ],
+      "style_key": "estepario",
+      "song_key": "pantera-polyrhythms"
+    }
+  ]
+}

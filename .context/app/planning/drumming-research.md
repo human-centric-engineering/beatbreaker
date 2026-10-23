@@ -17339,7 +17339,7 @@ for the list. It is not part of 15-a.
 - **Europe outside rock:** Balkan, klezmer, chanson, txalaparta and Greece were not searched. Polish, Australian, Israeli and Scandinavian modern jazz need non-English sources.
 - **The Americas:** Dominican merengue and bachata, Colombian cumbia, Trinidad calypso and soca, Haitian kompa, Uruguayan candombe, Argentina and Mexico were not reached because of rate limits. Leads: Samuel Formell and Calixto Oviedo (timba kit).
 - **Rock and after:** emo after the 1990s, 2010s indie, and punk from Japan, Australia and Latin America are thin. Traditional gospel, go-go (no source for Ricky "Sugarfoot" Wellman) and Philly soul beyond Earl Young found no one.
-- **Named but not reached:** El Estepario Siberiano, Lewis Nash, Gregory Hutchinson, Dee Dee Chandler, Walter Johnson and Cie Frazier.
+- **Named but not reached:** Lewis Nash, Gregory Hutchinson, Dee Dee Chandler, Walter Johnson and Cie Frazier.
 
 ## DB. Songs on the index (15-b, 2026-10-22)
 
@@ -19626,6 +19626,452 @@ back cover of O Ritmo e o Som da Bossa Nova (Audio Fidelity, 1963), as
 photographed in Moraes. Songsterr tabs 402454, 4496127, 977100. The records,
 beat-tracked from the Topic uploads (RTGbEiVMD4o, eRiXvWnKC6A) and Stan
 Getz's (kLO8XoNf5EM).
+
+## DL. Terry Bozzio (2026-10-23)
+
+The `bozzio` style plays **songs** the way `carlpalmer` (DI) does: each New
+picks one of his records, and its tempo, meter, sections and grooves come with
+it. He was a 15-a candidate, in batch 2 of DC's ranking (Rolling Stone 17,
+Modern Drummer Hall of Fame), and the owner asked for him by name. His record,
+`drummer-model/drummers/terry-bozzio.json`, keeps the candidate's id,
+`drummer:terry-bozzio`, now at `draft` (schema 1.6.0). One recording is new:
+Bongo Fury (1975). Sheik Yerbouti and Spring Session M were in the model from
+15-b; Dancin' Fool's and Destination Unknown's tracks are linked to the new
+songs, and four tracks are added to them. His new sources are in
+`sources/terry-bozzio.json`. No genre is new: `style:progressive-rock`
+(metal-experimental), `style:new-wave` (rock), `style:jazz-fusion` (jazz).
+Filed with the progressive and math rock drummers.
+
+**This supersedes AK.** Section AK (2026-10-15) searched him for 12-g and did
+not add him, because his devices live in pieces the grid cannot hold: the
+melodic ostinatos on tuned toms and Zappa's nested tuplets. That still holds,
+and nothing here pretends otherwise. But the 15-d rules do not ask for a device
+in a song (a dated `devices_search` is enough), and the songs the grid can hold
+are where most players meet him: Zappa's rock songs and Missing Persons. So he
+is built from those, and the hint says what the style does not play.
+
+**Who he is.** Born in San Francisco on 27 December 1950. He started at six on
+makeshift kits and asked for lessons after seeing the Beatles on The Ed
+Sullivan Show at 13. He studied the drum set with Chuck Brown, and percussion
+and timpani with Lloyd Davis and Roland Kohloff on a scholarship, playing
+Bartok, Dahl, Cowell and Baroque chamber music with the Marin and Napa County
+Symphonies. In 1972 he played the musicals Godspell and Walking in My Time, and
+in San Francisco jazz groups with Mike Nock, Eddie Henderson, Woody Shaw,
+Julian Priester, Eric Gravatt and others. He was Frank Zappa's drummer from
+April 1975 to February 1978 (Bongo Fury, Zoot Allures, Zappa in New York,
+Sheik Yerbouti, the film Baby Snakes), and sang on Punky's Whips, Tryin' to
+Grow a Chin and others. Zappa wrote The Black Page for him. Then the Brecker
+Brothers (Heavy Metal Be-Bop, 1978), U.K. after Bill Bruford (Danger Money and
+Night After Night, 1979), and Missing Persons, which he founded in 1980 with
+Dale Bozzio and Warren Cuccurullo and wrote for (Spring Session M, gold; Rhyme
+& Reason; Color in Your Life). Jeff Beck's Guitar Shop (1989, a Grammy) he
+co-wrote and co-produced. From 1990 to 1995 he developed ostinato-based solo
+compositions and made Melodic Drumming and the Ostinato. Bozzio Levin Stevens
+(1997, 2000); duets with Chad Wackerman (2001). Modern Drummer Hall of Fame,
+1997 (all Wikipedia). His early influences were Carmine Appice, Mitch Mitchell
+and Ginger Baker, his later ones Elvin Jones, Tony Williams and Eric Gravatt
+(Wikipedia).
+
+**How he plays, in the songs.** What the tabs and Todd Bishop's transcription
+show:
+
+- **Hard, exact rock time with half-open hats.** Of Sheik Yerbouti Bishop
+  writes: "he played them half-open much of the time, and when he hit big
+  accents on them, they had a really obnoxious, piercing thing happening". The
+  human tabs of City of Tiny Lites and Tryin' to Grow a Chin write those hats
+  open on every beat; here they are half-open.
+- **Fills round the Rototoms.** Dancin' Fool's opening fills are thirty-seconds
+  and sixteenth triplets from the snare round "his Rototom set", "his right
+  hand on a lower tom and his left on a higher one" (Bishop).
+- **Unison with the band.** Muffin Man's snare on 3, its "and" and 4 with the
+  guitar riff; I'm So Cute's hat, snare and kick together on every eighth;
+  Tryin' to Grow a Chin's snare and tom struck together with the kick; Walking
+  in L.A.'s crash-and-kick hits with the keyboards.
+- **Kick doubles.** City of Tiny Lites' breakdown and the yowza interlude of
+  Dancin' Fool, which Bishop hears as perhaps two bass drums.
+- **Two on the hands, two on the feet.** The "Portnoy fill", two sixteenths on
+  the snare or a tom then two on the double bass, repeated: Portnoy "has
+  credited Terry Bozzio as the originator" (Wikipedia, Mike Portnoy). It is in
+  the base fills, labelled as such; no tab read writes it in a song.
+- **New wave in Missing Persons.** Eighths with the kick on every beat (Walking
+  in L.A.) or on 1 and 3 with the hat opening on the "and"s (Destination
+  Unknown).
+
+**What the style does not play.** His melodic ostinato solos, a foot ostinato
+under melodies on toms "tuned to chromatic and diatonic pitches" (AK): the grid
+has no pitch, and no solo piece's ostinato was found in notation. The Black
+Page, #1 and #2: nested tuplets in thirty-seconds and sixty-fourths (Songsterr
+1105085 and 35874), more than one level of tuplet on a sixteenth grid holds.
+The hint says so.
+
+**Devices.** One, `ostinato-independence` in his solos, sourced to Wikipedia
+and his own Melodic Drumming and the Ostinato (Alfred), as AK found it. No
+pattern carries it and no poly fill is written from it. In the songs scored
+there is none: City of Tiny Lites' third verse puts the snare and kick in a
+3+3+2 under the hat, which is the groove itself. The `devices_search` lists
+what was read.
+
+**Kit.** With Zappa in 1977 (Baby Snakes): black shells, chrome hardware, a row
+of chrome Rototoms and large cymbals; Bishop guesses Paiste 602 hats on Sheik
+Yerbouti. No free samples of his kits exist. The Zappa songs use `police`, the
+DRS kit made bright and tight with its Paiste cymbals, for that hard, piercing
+sound; Muffin Man, live in Austin in 1975, the plainer `drs`; the Missing
+Persons songs `studioRock`. Every kit is sampled. Modern Drummer (December
+1984, read for AK) describes Rhyme & Reason's drums as Simmons triggering a
+LinnDrum; no source read says that of Spring Session M, whose tabs are a kit's
+parts, so no electronic kit is used and nothing from Rhyme & Reason is scored.
+
+**The songs.** Seven. Credits from Wikipedia: Bozzio is on drums on all of
+Sheik Yerbouti and of Bongo Fury except tracks 5 and 6 (Chester Thompson), and
+on Spring Session M. Each record was downloaded from YouTube (22050 Hz mono)
+and autocorrelated in windows for its tempo:
+
+| Song                  | Year | Tempo (record / tab)     | Meter | What the groove is                                                                                 | Source of the bars                        |
+| --------------------- | ---- | ------------------------ | ----- | -------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| Muffin Man            | 1975 | 130.6-131.9 / 130        | 4/4   | A half-time riff, the snare on 3, its "and" and 4 with the guitar; the solo over the snare on 3    | 35886, rev 9070003 (human)                |
+| Dancin' Fool          | 1979 | 132.9-134.6 / 135        | 4/4   | Fills round the Rototoms; the disco beat; the yowza groove, sixteenths on the hat and kick doubles | Bishop (2017); 3098936 (machine) for B, D |
+| City of Tiny Lites    | 1979 | 159-166, about 162 / 155 | 4/4   | Half-open quarters; the third verse's snare and kick together in a 3+3+2; the outro on every beat  | 68251, rev 7716562 (human)                |
+| Tryin' to Grow a Chin | 1979 | 173.6-174.9 / 174        | 4/4   | Snare and tom struck together with the kick; the snare and kick in eighths                         | 68245, rev 85510 (human)                  |
+| I'm So Cute           | 1979 | 92 (184 in eighths) / 94 | 4/4   | Hat, snare and kick together on every eighth; a bridge of sixteenths on the hat                    | 68249, rev 85514 (human)                  |
+| Destination Unknown   | 1982 | 120.45 / 120             | 4/4   | Eighths, the kick on 1 and 3, the hat open on the "and"s of 1 and 4                                | 5343064, rev 8382851 (human)              |
+| Walking in L.A.       | 1982 | 136.9 / 138              | 4/4   | Crash-and-kick hits; eighths with the kick on every beat                                           | 753414, rev 2328684 (human)               |
+
+Where the songs differ from the tabs (each comment says so):
+
+- **The app holds a run of four sixteenths or more to ten notes a second**,
+  150 to the quarter. City of Tiny Lites is at the record's 162 (the tab's 155
+  makes 5:47 against the record's 5:30), so its third verse's and breakdown's
+  sixteenths on the hat are eighths, its snare rolls go in threes, and its kick
+  runs and tom fills leave a step. Tryin' to Grow a Chin at 174 the same.
+- **The app holds the snare to three sixteenths in a row.** Muffin Man's and
+  Destination Unknown's snare runs are broken in threes.
+- **A fill must strike near each backbeat.** I'm So Cute's bar 28, the snare
+  and three toms on the beats, finds no backbeat against a snare on every
+  eighth and is left out; bar 27's floor tom and kick run is its second half.
+- **Three hands.** Where a tab writes the hat over a snare and a tom at once
+  (Tryin' to Grow a Chin's intro, Destination Unknown's fills), the hat is left
+  out; Tryin' to Grow a Chin's half-time hat under a crash and the snare goes to
+  the foot.
+- **Two bass drums.** City of Tiny Lites' kick doubles at 162, and Dancin'
+  Fool's yowza section, are on `doubleKick`, as Bishop hears on the same
+  record. I'm So Cute's bridge, a kick between every snare stroke, is too: one
+  foot would leave no step of air.
+- **Muffin Man**: the tab's sextuplets round the toms (bars 8 and 16) go on
+  sixteenths.
+- **Dancin' Fool** is part reconstruction. Bishop's three passages (the
+  opening, the break at 0:54, the yowza interlude after 2:00) are the
+  sections A and C, his thirty-seconds and triplets put on sixteenths. The
+  verses and last choruses (B, D) are the commonest bars of the only Songsterr
+  tab, a machine tab, not checked bar by bar against the record. The bars that
+  change meter are not scored, and the yowza section's last bar (the kick in
+  sixteenths, no snare) is left out.
+- Lengths are rounded to sections of four bars; spoken bars and the tabs'
+  empty bars are left out.
+
+Dropped:
+
+- **The Only Thing She Needs** and the rest of U.K.'s **Danger Money**: only
+  machine tabs (1073500, 7270181, 1031768, 1030815), whose meters (9/8, 3/4,
+  5/4 and 2/4 bars in the first twenty) and tempo map (120 against the
+  record's 130) do not fit the record. Worth a pass from a human transcription.
+- **The Black Page #1 and #2**: off the grid (above).
+- **Black Napkins** and **Zoot Allures** (1976, human tabs 59089, 35883):
+  guitar features with plain time; the Sheik Yerbouti songs show more.
+- **Words**, **Windows**, **Mental Hopscotch** (Missing Persons): machine
+  tabs, except Windows' second version (5543355), not read closely.
+- **Jeff Beck's Guitar Shop**: no human drum tab found (Savoy's is a machine
+  tab).
+- **Punky's Whips** and **Titties & Beer** (Zappa in New York): no drum tab.
+
+**What the style encodes.** Six base figures from the songs: City of Tiny
+Lites' verse and solo, Walking in L.A.'s verse, Destination Unknown's chorus,
+Tryin' to Grow a Chin's unison intro and Dancin' Fool's yowza groove. Five
+fills: Tiny Lites' snare into the toms, Muffin Man's snare and toms, the
+"Portnoy fill", Chin's beat and a half on each tom, Destination Unknown's tom
+sixteenths. `halfOpen` 0.5 for the hats (Bishop); few ghosts; `flam` 0.3 for
+the fills' flams. The weight is 0.8: he hits hard, full strokes, in the 1977
+footage. The likeness is Baby Snakes, Halloween 1977 at the Palladium, his
+drum solo looked at frame by frame: slim, clean-shaven, his dark-brown hair
+layered to the shoulders, stripped to the waist, behind a black kit with chrome
+hardware. White below the waist; shorts are a guess, as are the trainers.
+
+**Sources.** Wikipedia: Terry Bozzio; Bongo Fury; Muffin Man (song); Sheik
+Yerbouti; Dancin' Fool; Spring Session M; Walking in L.A.; Missing Persons
+(band); Danger Money; Zoot Allures; Zappa in New York; Mike Portnoy; Baby
+Snakes. Todd Bishop, "Transcription: Terry Bozzio / Dancin' Fool - the cool
+parts" (Cruise Ship Drummer, 2017) and its PDF (pdxdrummer.com, through the
+Wayback Machine). Alfred, Melodic Drumming and the Ostinato (read for AK).
+Songsterr tabs 35886, 68251, 68245, 68249, 5343064, 753414 (human) and 3098936
+(machine). The records, from YouTube. Baby Snakes, his drum solo (YouTube
+hQtqvl3FsBY).
+
+- https://en.wikipedia.org/wiki/Terry_Bozzio
+- https://en.wikipedia.org/wiki/Bongo_Fury
+- https://en.wikipedia.org/wiki/Muffin_Man_(song)
+- https://en.wikipedia.org/wiki/Sheik_Yerbouti
+- https://en.wikipedia.org/wiki/Dancin%27_Fool
+- https://en.wikipedia.org/wiki/Spring_Session_M
+- https://en.wikipedia.org/wiki/Walking_in_L.A.
+- https://en.wikipedia.org/wiki/Missing_Persons_(band)
+- https://en.wikipedia.org/wiki/Danger_Money
+- https://en.wikipedia.org/wiki/Zoot_Allures
+- https://en.wikipedia.org/wiki/Mike_Portnoy
+- https://en.wikipedia.org/wiki/Baby_Snakes
+- https://cruiseshipdrummer.com/2017/02/06/transcription-terry-bozzio-dancin-fool-the-cool-parts/
+- http://www.pdxdrummer.com/downloads/lessons_downloads/transcriptions/pdxdrummer.com_transcription_terry-bozzio_dancin-fool.pdf
+- https://www.alfred.com/terry-bozzio-melodic-drumming-and-the-ostinato-volumes-1-2-3/p/93-DV10029001/
+- https://www.songsterr.com/a/wa/song?id=35886
+- https://www.songsterr.com/a/wa/song?id=68251
+- https://www.songsterr.com/a/wa/song?id=68245
+- https://www.songsterr.com/a/wa/song?id=68249
+- https://www.songsterr.com/a/wa/song?id=5343064
+- https://www.songsterr.com/a/wa/song?id=753414
+- https://www.songsterr.com/a/wa/song?id=3098936
+
+## DM. El Estepario Siberiano (2026-10-23)
+
+The `estepario` style plays **songs** the way `carlpalmer` (DI) does, and three
+of them are **exercises**: each New picks one of his videos, and its tempo,
+sections and grooves come with it. He was not on the long list: DA named him and
+did not reach him. The owner asked for him by name, "not a pro drummer but a
+famous YouTube drummer", with his style and the exercises he teaches. His record,
+`drummer-model/drummers/el-estepario-siberiano.json`, is new
+(`drummer:el-estepario-siberiano`, `draft`, schema 1.6.0). His recordings are
+videos (`type: "video"`), six of them, the first in the model: four of his own
+uploads and two Drumeo lessons. His sources are in
+`sources/el-estepario-siberiano.json`. No genre is new: `style:gospel-chops`
+(funk and soul), `style:metal` and `style:hip-hop-breakbeat`. Filed in a new
+group, YouTube drummers: his music is the videos, not a genre.
+
+**Who he is.** Jorge Garrido, from Valencia, born in 1996 or late 1995: he was 24
+when Saratoga named him in December 2020 (Hellpress) and in an interview early in
+2021 (Bateristas Magazine). Not self-taught, as is often said: his first memory of
+the drums is Green Day's _Bullet in a Bible_ DVD, Tré Cool at the front of it, at
+about ten, and from there he took lessons, his first teacher helping him set up a
+Ludwig Accent CS from El Corte Inglés (Bateristas Magazine). He played in
+orchestras, Spain's dance bands, and left his last one to share videos full time
+just as the 2020 lockdown made his channel grow (Bateristas Magazine). Saratoga,
+the Madrid heavy metal band, took him on in December 2020 after Dani Pérez; he
+recorded _XXX_ (2021) and the live _La Historia Continúa_ with them and left in
+March 2023 to give his time to the channel (Hellpress, twice; Más Decibelios).
+Since then he has toured with Residente, including the Zócalo in Mexico City
+(his own video; Wikipedia), and plays in the Cost (Wikipedia). By 2024 he had
+over 5,000 videos and millions of subscribers (Modern Drummer, Mark Griffith,
+September 2024, its open introduction only). Drumeo's online drummer of the year
+in 2023 and drummer of the year in 2024 (Wikipedia; not checked against Drumeo).
+
+**How he plays.** Four things, each sourced:
+
+- **Speed on one pedal.** He played double pedal "since I had the use of reason",
+  then left it when every drummer influencing him built his playing on one pedal:
+  Miguel Lamas, Thomas Pridgen, Tony Royster, Eric Moore, Chris Coleman
+  (Bateristas Magazine). He went viral for "double pedal with one foot", which he
+  calls a solution to a problem, not showing off, and took the Saratoga job before
+  he could play double pedal again (Más Decibelios, from his interview with Jordi
+  Wild). His bass drum routine of a decade is note-value pyramids for the right
+  foot (Drumeo, below).
+- **One hand.** Technical parts and whole songs played with one hand while the
+  other holds a coffee or a beer, on a small kit with one tom (Drumeo; Meer).
+- **Grooves built a limb at a time.** His Shorts of 2023 caption each step:
+  "STEP 1: BASSDRUM", "COWBELL", "HI HAT", "SNARE". The left foot plays a Meinl
+  cowbell on a pedal (seen, and pointed to, in the videos), so all four limbs play
+  parts of their own. Two of these are the record's `ostinato-independence`
+  device; a third, "Pantera Had Impossible Polyrhythms", puts the right hand on the
+  ride every third sixteenth over kick threes ("4/3 RIGHT HAND"), the record's
+  `grouping`. Both are in the groove, so they are the songs' figures, not poly
+  fills.
+- **Covers played his own way.** The criticism a drummer's opinion piece answers
+  is that he plays songs "como le da la gana" (Meer). His favourites among his
+  own videos are Megadeth's Holy Wars and the Backstreet Boys' Everybody, for
+  their mistakes (Modern Drummer).
+
+**Kit.** In 2021 a Yamaha Live Custom Hybrid Oak (22 kick, 10, 12 and 16 toms),
+Recording Custom snares in aluminium (14×5.5) and brass (14×6.5), Meinl Byzance,
+Remo, a Yamaha FP9 double pedal and his own Wincent sticks; for Saratoga the same
+small kit with a ride, two crashes, a china, a splash and the hat (Bateristas
+Magazine). The 2023 Drumeo lessons are on a small Varus kit; Wikipedia gives
+Pearl, Meinl and Evans now. No free samples of his kits exist: the exercises and
+the Shorts use `drs`, the clear studio kit, Godzilla `crocell`, the metal kit.
+Every kit is sampled. The cowbell pedal goes in the claves' slot, which the app
+plays without a hand, as Horacio Hernández's pedal clave does: the app has no foot
+cowbell, and a cowbell in its slot would count as a third hand. The slot can be
+switched to a cowbell to hear it.
+
+**The songs.** Seven. Four are his videos, three his Drumeo exercises:
+
+| Song                               | Video                 | Tempo (video / tab)  | Meter              | What it is                                                                                 | Source of the bars             |
+| ---------------------------------- | --------------------- | -------------------- | ------------------ | ------------------------------------------------------------------------------------------ | ------------------------------ |
+| Pantera Had Impossible Polyrhythms | Short, 22 March 2023  | 101 / 101            | 4/4                | Kick threes; the ride every third sixteenth, four over three; the snare in dotted quarters | Songsterr 1296442, rev 9896840 |
+| Michael Jackson Hardest Groove     | Short, 28 March 2023  | 125 / 100            | 4/4                | A two-bar groove built step by step, a cowbell pedal under the left foot                   | Songsterr 1296442              |
+| The Marathon                       | Drumeo, 21 April 2023 | 60 and 90 / —        | 4/4, sextuplet 4/4 | Hand and foot in turn: eighths, triplets, sixteenths, triplets                             | Drumeo's notation              |
+| The Anti-Flam                      | Drumeo, 28 April 2023 | about 105 / —        | 4/4                | A plain groove over the kick in ones, twos, threes and fours, no flams                     | Drumeo's notation              |
+| The Jackpot                        | Drumeo, 28 April 2023 | 60 and 90 / —        | 4/4                | Hand and foot in sixteenths, singles then doubles; then the Coordination                   | Drumeo's notation and sticking |
+| No One Can Play This Groove        | Short, 19 July 2023   | 126 / 60-80          | 4/4                | Four on the floor, the bell pedal, the hat round it, the snare: one limb at a time         | Songsterr 1296442              |
+| Godzilla                           | 2 November 2023       | 173 / 173 (here 150) | 4/4                | Half time: floor tom and kick under the rap, double-bass sixteenths, snare runs            | Songsterr 688509, rev 8608939  |
+
+Tempos are measured from the videos' audio (autocorrelation over 10-15 second
+windows). The grooves tab (human, by Pino de Drummer, 2026) holds five of his
+Shorts in sections named after them; its tempo map runs slower than the videos in
+two of them, a practice tempo. Godzilla's tab (human, by Geolegend, 2026) runs 241
+bars at 173, the length of the video.
+
+Where the songs differ from the sources (each comment says so):
+
+- **One pedal, runs and all.** The Marathon's sixteenths, the Jackpot and the
+  Coordination strike every sixteenth by hand or foot, and the Anti-Flam's last bar
+  plays four on the kick; the Pantera groove's last step puts the snare in threes over
+  kick threes. Each sets `singlePedalRuns`: the generator keeps the kick runs, the
+  critic passes them and counts the kick as air, and the 3D drummer plays them on one
+  foot, heel-toe, slide and swivel, as he does.
+- **Each bar of a groove is a section of its own**, so the generator's pass-to-pass
+  variations (a kick moved, a hat opened) never touch it, and the Pantera groove's
+  two- and three-bar cycles come round as written: twenty one-bar sections.
+- **Godzilla is written at 146-150, against the record's 173.** Nearly every bar
+  runs four sixteenths or more across the kit, and the app plays no run faster
+  than ten notes a second, 150 on a sixteenth grid. Halving the runs would lose the
+  part. The snare runs are thinned to threes, as the critic holds the snare. The kick's
+  sixteenths are written for one pedal (`singlePedalRuns`), as he plays his videos;
+  his feet are out of shot here, and he did take a double pedal up again for
+  Saratoga, so this one is not confirmed. The intro, the
+  hat-only break and the linear bars are left out.
+- **No One Can Play This Groove**: a voice the tab writes as castanets beside the
+  hat is not in the video and is left out.
+- **The Michael Jackson groove**: the tab's bars 25-30, a ride groove the video's
+  steps do not show, are left out.
+
+Dropped:
+
+- **Blinding Lights** (2023), his most viewed cover (9.8 million views): only a
+  machine-made Songsterr tab (1064807), and its signature, kick bursts of eight
+  sixteenths at 171, is past the app's run rate; it would have had to be both
+  reconstructed and slowed.
+- **I Broke TikTok With This** (2024) and **Coordination Level: Android** (2023,
+  40 million views): four limbs counting different numbers in 5/4, and a groove
+  with no transcription.
+- **Holy Wars** (Megadeth): the only tab of his version (542840) stops at 14 bars.
+- His covers of Slipknot, Dream Theater and System of a Down with human tabs
+  (Duality 6325842, The Enemy Inside 817554, B.Y.O.B. 6339090) are mostly the
+  original drummers' parts.
+- The other Drumeo exercises (the 5K, Happy Feet and the Sprint are inside the
+  Marathon; Badu, Detroit and the Kickstarter), his Fastest Way To Get Faster
+  course for the hands, and the one-handed chops video: not transcribed.
+
+**What the style encodes.** Five base figures from the songs: Godzilla's two
+double-time grooves, the Michael Jackson groove's first bar, No One Can Play This
+Groove without its bell, and the Pantera groove's kick threes. Four fills from
+Godzilla. `heelToe` is on for the kick threes; `doubleKick` is off everywhere, and
+`singlePedalRuns` is on where said above. The weight is 0.7, a hard hitter in the covers, 0.4 in
+the exercises, played relaxed as he teaches them, 0.85 in Godzilla. The likeness
+is from "No One Can Play This Groove": a black cap on backwards, a long full black
+beard, headphones, a white vest, black jeans, a black kit on a red Meinl rug.
+
+**Lineage.** Influenced by Tré Cool (the first spark), Miguel Lamas, Thomas
+Pridgen, Tony Royster Jr., Eric Moore and Chris Coleman (Bateristas Magazine).
+Pridgen, Royster, Moore and Tré Cool have records; Lamas and Coleman do not.
+Replaced Dani Pérez in Saratoga.
+
+**Sources (DM).** Read 2026-10-23.
+
+- Bateristas Magazine, interview: https://bateristasmagazine.wordpress.com/portfolio/el-estepario-siberiano/
+- Hellpress, joining Saratoga: https://www.hellpress.com/noticias/saratoga-jorge-el-estepario-siberiano/
+- Hellpress, leaving Saratoga: https://www.hellpress.com/noticias/estepario-siberiano-explica-salida-saratoga/
+- Más Decibelios, double pedal: https://masdecibelios.es/estepario-doble-pedal-saratoga/
+- Modern Drummer, Mark Griffith, September 2024: https://moderndrummer.com/?p=495911
+- Meer, opinion: https://www.meer.com/es/79153-el-estepario-siberiano-un-elefante-en-una-cacharreria
+- Drumeo Beat, fast feet part 1: https://www.drumeo.com/beat/bass-drum-secrets-el-estepario-part-1/
+- Drumeo Beat, fast feet part 2: https://www.drumeo.com/beat/bass-drum-secrets-el-estepario-part-2/
+- Drumeo Beat, one-handed chops: https://www.drumeo.com/beat/el-estepario-siberiano-one-handed-chops/
+- Wikipedia, El Estepario Siberiano: https://en.wikipedia.org/wiki/El_Estepario_Siberiano
+- Songsterr 1296442 (el estepario grooves), 688509 (Godzilla); 1064807, 542840,
+  6325842, 817554, 6339090 read and not used
+- YouTube: FuQTLptgJoc (Godzilla), Q0-t5v2OBBs, b1__WDXkpgM, QbyUrcB_dMA (the
+  Shorts), tWJGx7YbauQ and lr7zAQZ6Ee0 (Drumeo), XQBxqiJEfzE (Residente, Mexico)
+
+## DN. Clay Aeschliman (2026-10-23)
+
+Added at the owner's request after Bozzio and El Estepario. A new record,
+`drummer-model/drummers/clay-aeschliman.json` (no candidate existed), schema
+1.6.0, and the `aeschliman` style. **Group: Progressive and math rock
+drummers**, not YouTube drummers: his fame is Polyphia's records, and his
+videos are playthroughs of them for Meinl and the band.
+
+**Who he is.** Polyphia's drummer from 2016, replacing Brandon Burkhalter
+(Wikipedia). In his own words (Modern Drummer, 25 October 2018): three years
+marching quads in a competitive high-school drumline, never in a band;
+logistics at college and five years away from the drums; two years in a
+corporate job, then quit to practise six to eight hours a day; his first show
+at twenty-five; the Dallas band Windwalker; a fill-in for Invent Animate on
+Texas in July's farewell tour, whose drummer passed his name to Polyphia for a
+video. He blends trap drumming, "usually used in hip-hop/electronic style
+music", with gospel chops and groove, and names Mike Mitchell, Devon Taylor,
+Eric Moore and Matt Garstka. New Levels New Devils (2018) is his first
+full-length with the band. Gospel drummers moved him away from double bass; on
+Remember That You Will Die (2022) he wrote some parts in MIDI, and wrote The
+Audacity's solo in a day, the record having his second, toned-down take (New
+Noise, November 2022). To Meinl (16 Questions) he first learnt metalcore
+(August Burns Red), his most used rudiment after the double stroke is the
+paradiddle-diddle, his favourite fill "a split paradiddle diddle between your
+hand and your foot", and Tim Henson's small dry room makes the drums sound like
+electronic trap drums. His setup (Meinl Setup Rundown): three stacks (an 18"
+Fat Stack, a 12" trash stack he uses "in place of ... side snare auxiliary
+hits", an 8"/10" electro stack) played off 14" hats, a 16" trash china, a 10"
+splash, crashes and a 21" Byzance Dark ride he never crashes. Tama kits; Iron
+Cobra 900 Power Glides (Modern Drummer), a twin pedal by Equipboard's reading
+of Tama. Born 28 November 1988 by Famous Birthdays only (needs verification).
+
+**Credits.** New Levels New Devils (Equal Vision, 12 October 2018): Discogs
+lists no personnel; his own word and Wikipedia's member dates carry it.
+Remember That You Will Die (Rise, 28 October 2022): Clay Aeschliman, drums;
+Luke Holland, additional drums on tracks 1, 6, 9 and 10 (Wikipedia). The
+scored songs are not among Holland's. Renaissance (2016) is Brandon
+Burkhalter's (Discogs, two CD releases), so Euphoria is not his.
+
+**Devices.** None: a dated `devices_search`. The chops are linear sixteenths
+and whole bars of sextuplets, on the grid.
+
+**The songs.**
+
+| Song        | Year | Record                     | Meter          | Tempo            | What defines it                                                           | Source of the bars                                |
+| ----------- | ---- | -------------------------- | -------------- | ---------------- | ------------------------------------------------------------------------- | ------------------------------------------------- |
+| O.D.        | 2018 | New Levels New Devils      | 4/4            | 136 (measured)   | hats and the mid stack; a stack on every beat over linear sixteenths      | Adam Miller (Flamscribed), flat.io score, 96 bars |
+| G.O.A.T.    | 2018 | New Levels New Devils      | 4/4, 4/4 sext. | 107; held to 100 | half time with the hat foot on 2; hands-only stacks; sextuplet chops      | Adam Miller, PDF, 81 bars                         |
+| Playing God | 2022 | Remember That You Will Die | 4/4            | 137 (measured)   | a stack on 1, the snare on 3; the hat foot on every beat; the ride's bell | Ahn's Drumstory, score in his video, 90 bars      |
+| ABC         | 2022 | Remember That You Will Die | 4/4            | 140 (measured)   | the hat on the "and"s; sixteenths in the chorus; ride interlude           | Songsterr 6473708 (human, 22 revisions)           |
+
+Every tempo was measured by autocorrelation of the record or his playthrough.
+What the app changes, in each song's comment: thirty-second and sextuplet hat
+rolls on sixteenths; the stacks on the china (fat, big, the china) and splash
+(mid, little, the splash); G.O.A.T.'s all-sextuplet bars as 4/4 sextuplet
+sections, which hold the song to 100 by the ten-notes-a-second run cap; a
+fourth snare stroke in a row dropped or moved where the critic refuses it; the
+hat dropped where it would be a third hand. Each is part transcription, part
+approximation; none is a reconstruction from audio.
+
+**Left out.** The Audacity, his written solo: a machine tab (Songsterr 6218650)
+and an auto-generated score only, and Meinl's drums-only mix is not the
+record's arrangement. Euphoria (not his). The O.D. Songsterr tabs (6955557,
+6956466): both drum tracks empty. G.O.A.T.'s other tabs are machine-made.
+Ahn's middle-line x in Playing God (bars 50-54, 57-60), unnamed. Power in the
+Blood (2026), too new to have a transcription.
+
+**Found on the way.** Gumroad sells MIDI "transcriptions with isolated stems"
+of his parts (mididrumsdude): not used, as the stems look unlicensed.
+
+### Sources (DN)
+
+Read 2026-10-23.
+
+- https://www.moderndrummer.com/2018/10/on-the-beat-with-clay-aeschliman-of-polyphia-talks-blending-techniques-inspiration-and-gear/
+- https://newnoisemagazine.com/interviews/interview-polyphia-bring-the-audacity-on-best-album-to-date/
+- https://en.wikipedia.org/wiki/Polyphia ; https://en.wikipedia.org/wiki/Remember_That_You_Will_Die (API)
+- https://www.youtube.com/watch?v=at85tXCgv9A (Meinl, 16 Questions; captions)
+- https://www.youtube.com/watch?v=fJH01yTx5M4 (Meinl, Setup Rundown; captions)
+- https://www.youtube.com/watch?v=N1LPPEpKveU , hEOtEjTP2ag , 3D_Phw8ib9I (his playthroughs)
+- https://www.youtube.com/watch?v=ufPxfi6WSp4 and its Google Drive PDF; https://www.youtube.com/watch?v=vI3gvnAPXJg (Adam Miller)
+- https://www.youtube.com/watch?v=PkxrrSKOmlw (Ahn's Drumstory)
+- https://www.songsterr.com/a/wa/song?id=6473708 ; 4882070
+- https://equipboard.com/pros/clay-aeschliman ; https://www.famousbirthdays.com/people/clay-aeschliman.html
+- Discogs API: masters 1439652 (New Levels New Devils), 986621 (Renaissance)
 
 ## Sources
 

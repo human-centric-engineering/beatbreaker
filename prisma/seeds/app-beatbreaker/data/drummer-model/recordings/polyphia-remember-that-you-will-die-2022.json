@@ -1,0 +1,67 @@
+{
+  "id": "rec:polyphia-remember-that-you-will-die-2022",
+  "title": "Remember That You Will Die",
+  "artist": "Polyphia",
+  "year": 2022,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:hip-hop-breakbeat"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:remember-that-you-will-die-wikipedia"],
+    "note": "Released 28 October 2022 (Rise). Clay Aeschliman, drums; Luke Holland, additional drums on tracks 1, 6, 9 and 10."
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clay-aeschliman",
+      "name": "Clay Aeschliman",
+      "why_it_matters": "Trap beats he wrote in MIDI as well as played, and his written solo on The Audacity; Luke Holland adds drums on four tracks."
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Playing God",
+      "drummer_ids": ["drummer:clay-aeschliman"],
+      "drums": {
+        "description": "Half time under nylon guitar: a stack on 1, the snare on 3, hats in eighths; a breakdown on the hat foot; the ride's bell over the hat.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:ahn-playing-god-transcription",
+            "src:polyphia-playing-god-drum-playthrough",
+            "src:remember-that-you-will-die-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Z5NoQg8LdDk",
+      "transcriptions": [
+        {
+          "site": "other",
+          "url": "https://www.youtube.com/watch?v=PkxrrSKOmlw",
+          "note": "Ahn's Drumstory, score of the record, 90 bars"
+        }
+      ],
+      "style_key": "aeschliman",
+      "song_key": "playing-god"
+    },
+    {
+      "title": "ABC",
+      "drummer_ids": ["drummer:clay-aeschliman"],
+      "drums": {
+        "description": "Pop at 140: the hat on the \"and\"s in the verse, sixteenths in the chorus, an interlude on the ride and hat, syncopated solos.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:songsterr-6473708", "src:remember-that-you-will-die-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Mtd24QIBJ5Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6473708"
+        }
+      ],
+      "style_key": "aeschliman",
+      "song_key": "abc"
+    }
+  ]
+}

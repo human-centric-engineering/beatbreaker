@@ -1,0 +1,1101 @@
+{
+  "meta": {
+    "id": "drummer:clay-aeschliman",
+    "schema_version": "1.6.0",
+    "record_status": "draft",
+    "completeness": 0.3,
+    "created": "2026-10-23",
+    "updated": "2026-10-23",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His birth date: 28 November 1988 only from Famous Birthdays; his first show at twenty-five (Modern Drummer, 2018) fits it.",
+      "Whether his kick runs are on two pedals or one: Modern Drummer names \"Iron Cobra 900 Power Glides\" and Equipboard, from Tama, the twin pedal; New Noise says gospel drummers moved him away from double bass. His feet are out of shot in the playthroughs.",
+      "The Audacity (2022), his own written drum solo: no human transcription found (Songsterr 6218650 is machine-made); not scored.",
+      "The x on the middle line of Ahn's Playing God score: a second snare or a cross-stick; those bars are not scored.",
+      "Be Not Afraid (23 October 2026) and its single Power in the Blood: not yet scored.",
+      "Which tracks of New Levels New Devils, if any, carry programmed drums under his: Miller hears \"backing track\" kick sixteenths in G.O.A.T."
+    ]
+  },
+  "identity": {
+    "name": "Clay Aeschliman",
+    "aliases": [],
+    "born": {
+      "date": "1988-11-28",
+      "evidence": {
+        "confidence": "needs_verification",
+        "source_ids": ["src:famousbirthdays-aeschliman"],
+        "note": "Famous Birthdays only."
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Dallas-Fort Worth", "Polyphia (Plano, Texas)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 2014,
+      "ongoing": true
+    },
+    "roles": ["band_member", "touring"],
+    "summary": "Polyphia's drummer from 2016: a Texas drummer who marched quads in a high-school drumline, gave up the drums for five years, then quit a corporate job to practise six to eight hours a day and played his first show at twenty-five. He came to Polyphia through a fill-in tour with Invent Animate. On New Levels New Devils (2018) and Remember That You Will Die (2022) he plays trap beats on a kit, hats in sixteenths and thirty-seconds under the snare on 3, with three stacks played off the hat and in place of a side snare, and gospel chops in the fills, after Eric Moore, Matt Garstka, Mike Mitchell and Devon Taylor."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Drum corps (high-school drumline)",
+        "impact": "Three years marching quads in a competitive drumline; the paradiddle-diddle and double strokes he still leans on; the Blue Devils of 2005-2008 his favourite corps.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:modern-drummer-aeschliman-2018", "src:meinl-16-questions-aeschliman"]
+        }
+      },
+      {
+        "tradition": "Metalcore",
+        "impact": "What he first learnt: August Burns Red's whole discography, Asking Alexandria, A Skylit Drive.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:meinl-16-questions-aeschliman"]
+        }
+      },
+      {
+        "tradition": "Gospel chops",
+        "impact": "Gospel drummers moved him away from double bass; gospel chops and groove are one of the techniques he blends.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:modern-drummer-aeschliman-2018", "src:new-noise-polyphia-2022"]
+        }
+      },
+      {
+        "tradition": "Trap",
+        "impact": "Trap drumming, \"usually used in hip-hop/electronic style music\", played on a kit; Polyphia's beats are written trap-heavy.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:modern-drummer-aeschliman-2018", "src:new-noise-polyphia-2022"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Marched quads for three years in his high school drumline; never in a band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:modern-drummer-aeschliman-2018"]
+        }
+      },
+      {
+        "event": "Studied logistics and hardly touched sticks for about five years; two years in a corporate job, then quit to practise six to eight hours a day.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:modern-drummer-aeschliman-2018"]
+        }
+      },
+      {
+        "event": "Played his first show at twenty-five, with local bands, then the Dallas band Windwalker.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:modern-drummer-aeschliman-2018"]
+        }
+      },
+      {
+        "event": "Filled in for Invent Animate on Texas in July's farewell tour; Invent Animate's drummer passed his name to Polyphia, who needed a drummer for a video.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:modern-drummer-aeschliman-2018"]
+        }
+      },
+      {
+        "year": 2016,
+        "event": "Joined Polyphia, replacing Brandon Burkhalter.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:polyphia-wikipedia", "src:modern-drummer-aeschliman-2018"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:clay-aeschliman-new-levels",
+      "label": "New Levels New Devils",
+      "years": {
+        "from": 2016,
+        "to": 2019
+      },
+      "context": "His first records with Polyphia: The Most Hated (2017) and New Levels New Devils (2018), produced with Judge and Y2K; trap beats on a kit, stacks off the hat, sextuplet chops.",
+      "defining_traits": [
+        "trap hats on a kit",
+        "stacks off the hat",
+        "linear sixteenths round the kit"
+      ],
+      "key_recording_ids": ["rec:polyphia-new-levels-new-devils-2018"]
+    },
+    {
+      "id": "era:clay-aeschliman-remember",
+      "label": "Remember That You Will Die",
+      "years": {
+        "from": 2019,
+        "ongoing": true
+      },
+      "context": "Remember That You Will Die (2022), some of its parts written first as MIDI; Live at the Factory in Deep Ellum (2023); Be Not Afraid (2026).",
+      "defining_traits": [
+        "half time with the snare on 3",
+        "stacks for accents",
+        "a written drum solo"
+      ],
+      "key_recording_ids": ["rec:polyphia-remember-that-you-will-die-2022"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "name": "Instrumental progressive rock",
+        "weight": 0.9,
+        "authority": 0.6,
+        "notes": "Polyphia's records."
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "name": "Trap beats on a kit",
+        "weight": 0.8,
+        "authority": 0.5,
+        "notes": "Trap drumming blended into the band's songs (Modern Drummer; New Noise)."
+      },
+      {
+        "style_id": "style:gospel-chops",
+        "name": "Gospel chops",
+        "weight": 0.6,
+        "authority": 0.4,
+        "notes": "The chops and groove he names, after Eric Moore and Matt Garstka."
+      },
+      {
+        "style_id": "style:metalcore",
+        "name": "Metalcore",
+        "weight": 0.3,
+        "authority": 0.3,
+        "notes": "What he learnt first; Polyphia's early sound."
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.6,
+    "role_tendency": "hybrid",
+    "descriptors": ["trap", "precise", "stacks", "linear", "chops"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:meinl-aeschliman-goat", "src:meinl-aeschliman-od"],
+        "note": "Not measured: the records are played to a click and programmed parts."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight in everything scored here."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "f",
+      "ghost_note_level": 45,
+      "accent_level": 120,
+      "balance": "Dry and close, like programmed drums: the hats and stacks forward, the kick tight."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 40],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.3
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [100, 150],
+    "timekeeping_context": ["click", "sequencer"],
+    "interaction": "Locked to the band's programmed tracks and to two guitars playing in unison; he is often the last to hear the songs, in the studio.",
+    "descriptors": ["exact", "busy at the bar line", "dry"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Trap hats by hand",
+        "description": "Hat rolls in sixteenths, sextuplets and thirty-seconds, faster and more complex ones practised for the newer records.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:modern-drummer-aeschliman-2018",
+            "src:new-noise-polyphia-2022",
+            "src:flamscribed-goat-transcription",
+            "src:flamscribed-od-transcription"
+          ]
+        }
+      },
+      {
+        "name": "Stacks off the hat",
+        "description": "Accents moved between the 12\" trash stack, the 8\"/10\" electro stack and the hats; the stack in place of a side snare.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:meinl-aeschliman-setup-rundown", "src:flamscribed-od-transcription"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Kick runs",
+        "description": "Kick sixteenths and doubles in the fills and under the hat rolls; on Iron Cobra Power Glides, a twin pedal by Equipboard's reading of Tama.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:modern-drummer-aeschliman-2018",
+            "src:equipboard-aeschliman",
+            "src:flamscribed-goat-transcription"
+          ]
+        }
+      },
+      {
+        "name": "Hat foot on 2",
+        "description": "The hat foot on 2 or on every beat under the half time.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:flamscribed-goat-transcription", "src:ahn-playing-god-transcription"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Paradiddle-diddle",
+        "usage": ["fill", "orchestrated_around_kit", "split_between_limbs"],
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:meinl-16-questions-aeschliman"],
+          "note": "His most used besides the double stroke roll; his favourite fill splits it between a hand and the feet."
+        }
+      },
+      {
+        "name": "Double stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:meinl-16-questions-aeschliman"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.8,
+      "linear_playing": 0.8,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.2,
+      "odd_meter_fluency": 0.4,
+      "foot_ostinato_usage": 0.3,
+      "double_bass": 0.4,
+      "notes": "Linear sixteenths and sextuplets round the snare, toms and kick under a stack on every beat; the hat foot on 2 under the half time.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-23",
+        "searched": [
+          "Adam Miller's (Flamscribed) transcriptions of G.O.A.T. (PDF) and O.D. (video)",
+          "Ahn's Drumstory's Playing God score; Songsterr 6473708 (ABC, human)",
+          "Modern Drummer (2018), New Noise (2022), Meinl's 16 Questions and Setup Rundown"
+        ],
+        "note": "No cross-rhythm, grouping, polymeter or displacement is named or written: the chops are linear sixteenths and sextuplets on the grid, and the sextuplet bars are whole bars of sextuplets, not tuplets inside a bar of sixteenths."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths and sixteenths with rolls of sextuplets and thirty-seconds, open on the \"and\" of 1; the hat foot on 2.",
+      "snare": "On 3 under the half time, on 2 and 4 in the pop songs; ghosts on 4; runs of accents and ghosts in the linear fills.",
+      "kick": "On 1 and the \"and\" of 4, in pairs and sixteenths in the fills.",
+      "toms": "Three: down the kit in sixteenths and sextuplets, in turn with the kick and snare.",
+      "cymbals": "Three stacks (fat, mid, little), a china, a splash, crashes; the ride's bell in the quiet sections, the ride never crashed."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Vic Firth X55A, later his own Meinl Stick & Brush signature stick."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "Dry, close and tight, recorded in a small room so the drums sound like electronic trap drums",
+      "A brass snare cranked high; stacks and chinas everywhere"
+    ],
+    "cymbal_character": "Meinl: Classics Custom Dark hats and trash stack, Byzance Dark ride, Generation X electro stack, the Fat Stack, a 16\" trash china.",
+    "sample_hints": {
+      "rock": "A tight studio kit with a high, cracking snare, a china and a splash for the stacks."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": [
+        "src:meinl-16-questions-aeschliman",
+        "src:meinl-aeschliman-setup-rundown",
+        "src:modern-drummer-aeschliman-2018"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:clay-aeschliman-stacks",
+      "label": "Stacks off the hat",
+      "category": "orchestration",
+      "description": "Three stacks played against the hats, the 12\" trash stack where electronic music would have a side snare: accents moved between them a stroke at a time.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:clay-aeschliman-goat-stacks", "pattern:clay-aeschliman-od-chorus"],
+      "heard_on": [
+        {
+          "recording_id": "rec:polyphia-new-levels-new-devils-2018"
+        },
+        {
+          "recording_id": "rec:polyphia-remember-that-you-will-die-2022"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:meinl-aeschliman-setup-rundown",
+          "src:flamscribed-goat-transcription",
+          "src:flamscribed-od-transcription"
+        ]
+      }
+    },
+    {
+      "id": "trait:clay-aeschliman-trap-on-a-kit",
+      "label": "Trap beats on a kit",
+      "category": "groove",
+      "description": "Half time with the snare on 3, hat rolls of sextuplets and thirty-seconds, the hat foot on 2: programmed beats made playable.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:clay-aeschliman-goat-groove",
+        "pattern:clay-aeschliman-playing-god-groove"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:polyphia-new-levels-new-devils-2018"
+        },
+        {
+          "recording_id": "rec:polyphia-remember-that-you-will-die-2022"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:modern-drummer-aeschliman-2018",
+          "src:new-noise-polyphia-2022",
+          "src:flamscribed-goat-transcription",
+          "src:ahn-playing-god-transcription"
+        ]
+      }
+    },
+    {
+      "id": "trait:clay-aeschliman-linear-chops",
+      "label": "Linear chops round the kit",
+      "category": "fill",
+      "description": "Sixteenths and sextuplets where snare, toms and kick take turns, accents and ghosts on the snare: gospel chops in a rock band.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:clay-aeschliman-goat-sextuplets", "pattern:clay-aeschliman-od-solo"],
+      "heard_on": [
+        {
+          "recording_id": "rec:polyphia-new-levels-new-devils-2018"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:modern-drummer-aeschliman-2018",
+          "src:flamscribed-goat-transcription",
+          "src:flamscribed-od-transcription"
+        ]
+      }
+    },
+    {
+      "id": "trait:clay-aeschliman-paradiddle-diddle",
+      "label": "The paradiddle-diddle, split and orchestrated",
+      "category": "technique",
+      "description": "His most used rudiment after the double stroke, orchestrated round the kit, and split between a hand and the feet in his favourite fill.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:clay-aeschliman-paradiddle-diddle-split"],
+      "heard_on": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meinl-16-questions-aeschliman"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:clay-aeschliman-goat-groove",
+        "name": "G.O.A.T., the groove",
+        "type": "groove",
+        "function": "The crash on 1, the hat open on its \"and\", the hat foot on 2, the snare on 3, ghosts on 4: half time under a trap hat.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:flamscribed-goat-transcription"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 107,
+          "playable_range_bpm": [92, 107]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "hihat": "..o..xx.x.x..xx.",
+          "snare": "........x...g...",
+          "kick": "x.............x.",
+          "hihat_pedal": "....k..........."
+        },
+        "tags": ["2018", "half time", "trap"],
+        "source": {
+          "recording_id": "rec:polyphia-new-levels-new-devils-2018",
+          "transcription_source_id": "src:flamscribed-goat-transcription"
+        }
+      },
+      {
+        "id": "pattern:clay-aeschliman-goat-stacks",
+        "name": "G.O.A.T., the stacks",
+        "type": "groove_variation",
+        "function": "Hands only: the big stack on 1, 2, 3, its \"and\" and the \"and\" of 4, soft hats between, no kick or snare.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:flamscribed-goat-transcription"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 107,
+          "playable_range_bpm": [92, 107]
+        },
+        "lanes": {
+          "stack": "x...x...x.x...x.",
+          "hihat": "..xx..xx....xx.."
+        },
+        "tags": ["2018", "stacks", "hands only"],
+        "source": {
+          "recording_id": "rec:polyphia-new-levels-new-devils-2018",
+          "transcription_source_id": "src:flamscribed-goat-transcription"
+        }
+      },
+      {
+        "id": "pattern:clay-aeschliman-goat-sextuplets",
+        "name": "G.O.A.T., the sextuplets of bar 64",
+        "type": "fill",
+        "function": "Snare and kick in turn in sextuplets, up the toms on 3: the gospel chops of the ending.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:flamscribed-goat-transcription"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 107,
+          "playable_range_bpm": [92, 100]
+        },
+        "lanes": {
+          "hihat": "x.....x.x...............",
+          "snare": ".xx.xx.x.xx.xx....X.....",
+          "tom_1": "..............xx........",
+          "tom_2": "................x.......",
+          "kick": "x..x..x.x..x.....x......"
+        },
+        "tags": ["2018", "gospel chops", "sextuplets"],
+        "source": {
+          "recording_id": "rec:polyphia-new-levels-new-devils-2018",
+          "transcription_source_id": "src:flamscribed-goat-transcription"
+        }
+      },
+      {
+        "id": "pattern:clay-aeschliman-od-chorus",
+        "name": "O.D., the chorus",
+        "type": "groove",
+        "function": "A crash, then the fat stack on every beat over sixteenths that go round the kick, toms and snare, one limb at a time.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:flamscribed-od-transcription"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [128, 136]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "stack": "....x...x...x...",
+          "snare": "........x.......",
+          "tom_1": "...............x",
+          "tom_2": ".x...x.......x..",
+          "floor_tom_1": "..x...x...xx..x.",
+          "kick": "x..xx..x.x..x..."
+        },
+        "tags": ["2018", "linear", "stacks"],
+        "source": {
+          "recording_id": "rec:polyphia-new-levels-new-devils-2018",
+          "transcription_source_id": "src:flamscribed-od-transcription"
+        }
+      },
+      {
+        "id": "pattern:clay-aeschliman-od-solo",
+        "name": "O.D., the solo (bar 73)",
+        "type": "solo_phrase",
+        "function": "Snare accents and ghosts with the kick between and the toms in turn.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:flamscribed-od-transcription"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [128, 136]
+        },
+        "lanes": {
+          "hihat": "....x...........",
+          "snare": "g..X.gg..X.gg.XX",
+          "tom_1": "..x.............",
+          "tom_2": "........x.......",
+          "floor_tom_1": "..........x.....",
+          "kick": ".x..x..x.....x.."
+        },
+        "tags": ["2018", "linear", "gospel chops"],
+        "source": {
+          "recording_id": "rec:polyphia-new-levels-new-devils-2018",
+          "transcription_source_id": "src:flamscribed-od-transcription"
+        }
+      },
+      {
+        "id": "pattern:clay-aeschliman-abc-chorus",
+        "name": "ABC, the chorus",
+        "type": "groove",
+        "function": "Sixteenths on the hat, the snare on 2 and 4, the kick on 1, 3 and its \"and\".",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6473708"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [132, 140]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx",
+          "snare": "....x.......x...",
+          "kick": "x.......x.x....."
+        },
+        "tags": ["2022", "pop"],
+        "source": {
+          "recording_id": "rec:polyphia-remember-that-you-will-die-2022",
+          "transcription_source_id": "src:songsterr-6473708"
+        }
+      },
+      {
+        "id": "pattern:clay-aeschliman-playing-god-groove",
+        "name": "Playing God, the groove",
+        "type": "groove",
+        "function": "The stack on 1, the hat in eighths, the snare on 3, crashes on the \"and\"s of 3 and 4, the kick on 1, the \"and\" of 2 and 4.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ahn-playing-god-transcription"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 137,
+          "playable_range_bpm": [130, 137]
+        },
+        "lanes": {
+          "stack": "x...............",
+          "crash_1": "..........x...x.",
+          "hihat": "..x.x.x.....xx..",
+          "snare": "........x.......",
+          "kick": "x.....x.....x..."
+        },
+        "tags": ["2022", "half time", "stacks"],
+        "source": {
+          "recording_id": "rec:polyphia-remember-that-you-will-die-2022",
+          "transcription_source_id": "src:ahn-playing-god-transcription"
+        }
+      },
+      {
+        "id": "pattern:clay-aeschliman-paradiddle-diddle-split",
+        "name": "A paradiddle-diddle between a hand and the feet",
+        "type": "fill",
+        "function": "RLRRLL with the left on the kick, twice from 2, the hands round the toms: his favourite fill in his words; how he voices it was not seen.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "draft",
+          "method": "artist_demonstration"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "source_ids": ["src:meinl-16-questions-aeschliman"],
+          "note": "\"a split paradiddle diddle between your hand and your foot\" (16 Questions); the voicing is the app's."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [100, 140]
+        },
+        "lanes": {
+          "snare": "....x.....x.....",
+          "tom_1": "......x.........",
+          "tom_2": ".......x....x...",
+          "floor_tom_1": ".............x..",
+          "kick": ".....x..xx.x..xx"
+        },
+        "tags": ["rudiment", "hand and foot"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:clay-aeschliman-2018",
+      "label": "New Levels New Devils (2018)",
+      "context": "studio",
+      "drums": [
+        {
+          "instrument": "snare",
+          "brand": "Tama",
+          "model": "Starphonic Brass",
+          "material": "brass"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "stack",
+          "brand": "Meinl",
+          "model": "Artist Concept Matt Garstka Fat Stack",
+          "size": "18"
+        }
+      ],
+      "hardware": ["Tama Iron Cobra 900 Power Glide pedals"],
+      "layout_notes": "The snare he tracked the record on, and the pedals he \"cannot drum without\".",
+      "endorsements": ["Tama", "Meinl"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-aeschliman-2018"]
+      }
+    },
+    {
+      "id": "kit:clay-aeschliman-meinl",
+      "label": "His Meinl set (about 2017-)",
+      "context": "both",
+      "drums": [],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Meinl",
+          "model": "Classics Custom Dark",
+          "size": "14"
+        },
+        {
+          "instrument": "stack",
+          "brand": "Meinl",
+          "model": "Classics Custom Dark trash stack",
+          "size": "12"
+        },
+        {
+          "instrument": "stack",
+          "brand": "Meinl",
+          "model": "Generation X Electro Stack",
+          "size": "8/10"
+        },
+        {
+          "instrument": "stack",
+          "brand": "Meinl",
+          "model": "Artist Concept Matt Garstka Fat Stack",
+          "size": "18"
+        },
+        {
+          "instrument": "splash",
+          "brand": "Meinl",
+          "model": "Pure Alloy",
+          "size": "10"
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Meinl",
+          "model": "Pure Alloy medium crash",
+          "size": "18"
+        },
+        {
+          "instrument": "crash_2",
+          "brand": "Meinl",
+          "model": "Byzance medium crash",
+          "size": "20"
+        },
+        {
+          "instrument": "ride",
+          "brand": "Meinl",
+          "model": "Byzance Dark",
+          "size": "21"
+        },
+        {
+          "instrument": "china",
+          "brand": "Meinl",
+          "model": "Classics Custom Trash China",
+          "size": "16"
+        }
+      ],
+      "layout_notes": "An 18\" Dual crash as an auxiliary crash too; the two smaller stacks and the hats played off each other.",
+      "endorsements": ["Meinl"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meinl-aeschliman-setup-rundown"]
+      }
+    },
+    {
+      "id": "kit:clay-aeschliman-tama",
+      "label": "Tama Starclassic kits (2019-)",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Tama",
+          "model": "Starclassic",
+          "size": "22"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Tama",
+          "model": "Starclassic",
+          "size": "10"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Tama",
+          "model": "Starclassic",
+          "size": "12"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Tama",
+          "model": "Starclassic",
+          "size": "16"
+        },
+        {
+          "instrument": "snare_2",
+          "brand": "Tama",
+          "model": "S.L.P. Mod Bubinga Clay Aeschliman signature",
+          "size": "12x7"
+        }
+      ],
+      "cymbals": [],
+      "hardware": ["Tama Iron Cobra Power Glide twin pedal (Equipboard, from Tama)"],
+      "sticks": "Meinl Stick & Brush Clay Aeschliman signature (2026)",
+      "layout_notes": "A wine-red kit in the Meinl videos, a blue burst for Playing God, purple sparkle with Evans heads on tour (Drum Rundown).",
+      "endorsements": ["Tama", "Meinl", "Evans"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:equipboard-aeschliman",
+          "src:drum-rundown-aeschliman",
+          "src:polyphia-playing-god-drum-playthrough",
+          "src:meinl-aeschliman-signature-stick",
+          "src:polyphia-wikipedia"
+        ]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Polyphia",
+      "type": "band_member",
+      "years": {
+        "from": 2016
+      },
+      "bandmates": [
+        {
+          "name": "Tim Henson"
+        },
+        {
+          "name": "Scott LePage"
+        },
+        {
+          "name": "Clay Gober"
+        }
+      ],
+      "notes": "The Most Hated (2017), New Levels New Devils (2018), Remember That You Will Die (2022), Live at the Factory in Deep Ellum (2023), Be Not Afraid (2026).",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:polyphia-wikipedia", "src:modern-drummer-aeschliman-2018"]
+      }
+    },
+    {
+      "name": "Windwalker",
+      "type": "band_member",
+      "notes": "A Dallas band, before Polyphia.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-aeschliman-2018"]
+      }
+    },
+    {
+      "name": "Invent Animate",
+      "type": "touring_drummer",
+      "notes": "A fill-in on Texas in July's farewell tour.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-aeschliman-2018"]
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Eric Moore",
+        "kind": "drummer",
+        "id": "drummer:eric-moore"
+      },
+      "strength": 0.6,
+      "aspects": ["chops", "flow"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-aeschliman-2018"],
+        "note": "\"Mike Mitchell, Devon Taylor, Eric Moore, Matt Garstka\": their \"flow, timing, independence, creativity, and sheer chops\"."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Matt Garstka",
+        "kind": "drummer",
+        "id": "drummer:matt-garstka"
+      },
+      "strength": 0.6,
+      "aspects": ["independence", "flow"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-aeschliman-2018", "src:meinl-aeschliman-setup-rundown"],
+        "note": "Named in Modern Drummer; he plays Garstka's Fat Stack."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Mike Mitchell",
+        "kind": "drummer"
+      },
+      "strength": 0.5,
+      "aspects": ["chops"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-aeschliman-2018"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Devon Taylor",
+        "kind": "drummer"
+      },
+      "strength": 0.5,
+      "aspects": ["chops"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-aeschliman-2018"]
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Tim Jackson",
+        "kind": "drummer"
+      },
+      "strength": 0.3,
+      "aspects": ["quads", "drum corps"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meinl-16-questions-aeschliman"],
+        "note": "The Blue Devils' quad player, 2005-2008: \"greatest quad player of all time\"."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Brandon Burkhalter",
+        "kind": "drummer"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 2016
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:polyphia-wikipedia"],
+        "note": "In Polyphia."
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Luke Holland",
+        "kind": "drummer"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 2022,
+        "to": 2022
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:remember-that-you-will-die-wikipedia"],
+        "note": "Additional drums on four tracks of Remember That You Will Die (1, 6, 9, 10)."
+      }
+    }
+  ],
+  "pedagogy": {
+    "videos": [],
+    "philosophy": [
+      {
+        "idea": "Blend techniques into a sound of your own: trap drumming with gospel chops and groove.",
+        "paraphrase_of_source_id": "src:modern-drummer-aeschliman-2018"
+      },
+      {
+        "idea": "Stick with it: stage fright made him sick before shows for five years.",
+        "paraphrase_of_source_id": "src:meinl-16-questions-aeschliman"
+      }
+    ]
+  },
+  "legacy": {
+    "contribution": {
+      "description": "Trap beats and gospel chops played by hand in instrumental progressive rock: the drummer of Polyphia's charting records, whose playthroughs for Meinl and the band are widely transcribed and covered.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:polyphia-wikipedia",
+          "src:modern-drummer-aeschliman-2018",
+          "src:flamscribed-goat-transcription",
+          "src:flamscribed-od-transcription",
+          "src:ahn-playing-god-transcription"
+        ]
+      }
+    },
+    "influence_score": 0.3,
+    "innovations": [
+      "Stacks played off the hat in place of a side snare",
+      "Programmed trap parts played on a kit in a guitar band"
+    ],
+    "accolades": [],
+    "common_misconceptions": []
+  },
+  "beatbreaker": {
+    "style_key": "aeschliman",
+    "headline_pattern_ids": [
+      "pattern:clay-aeschliman-goat-groove",
+      "pattern:clay-aeschliman-od-chorus"
+    ],
+    "default_kit_sound": "A tight, dry studio kit with a high brass snare, a china and a splash for the stacks",
+    "generation_rules": [
+      "Half time: the snare on 3, the hat foot on 2.",
+      "Hat rolls in sixteenths, sextuplets and thirty-seconds, the hat open on the \"and\" of 1.",
+      "Stacks in place of a hat note or a side snare; a stack on every beat in the chorus.",
+      "Fills linear: snare, toms and kick in turn, in sixteenths or sextuplets."
+    ],
+    "avoid": ["Swing", "Brushes", "A wet, roomy sound"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:eric-moore", "drummer:matt-garstka"],
+      "primary_descendants": [],
+      "lineage_blurb": "Gospel chops after Eric Moore and Matt Garstka, drum corps and metalcore, into trap beats on a kit with Polyphia."
+    },
+    "tags": ["polyphia", "trap", "stacks", "gospel chops", "linear", "2010s", "2020s"]
+  },
+  "key_recording_ids": [
+    "rec:polyphia-new-levels-new-devils-2018",
+    "rec:polyphia-remember-that-you-will-die-2022"
+  ]
+}
