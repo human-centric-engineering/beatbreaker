@@ -444,6 +444,7 @@ export function styleAttrs(style: StyleAttrs | undefined): StyleAttrs {
   if (style.oneHandHats) out.oneHandHats = true;
   if (style.weight) out.weight = style.weight;
   if (style.heelToe) out.heelToe = true;
+  if (style.singlePedalRuns) out.singlePedalRuns = true;
   if (style.echo) out.echo = style.echo;
   return out;
 }

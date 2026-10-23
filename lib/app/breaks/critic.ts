@@ -58,6 +58,8 @@ export function playability(pat: Pattern, bpm0: number): Playability {
   const hands = handLanes(pat.perc);
   // on a double pedal a run of kicks is two feet's: no run is too long, and the kick is not the air
   const doubleKick = !!pat.attrs?.doubleKick;
+  // a single pedal played at a double pedal's speed is judged as one
+  const pedalRuns = doubleKick || !!pat.attrs?.singlePedalRuns;
   // heel and toe: three 16ths on one foot, and the fourth is the run
   const heelToe = !!pat.attrs?.heelToe;
 
@@ -154,7 +156,7 @@ export function playability(pat: Pattern, bpm0: number): Playability {
 
     let empties = 0;
     for (let i = 0; i < nSteps; i++) {
-      if (inFill(i) || ((doubleKick || !b.k[i]) && !b.s[i])) empties++;
+      if (inFill(i) || ((pedalRuns || !b.k[i]) && !b.s[i])) empties++;
     }
     /* A polyrhythm exercise (Phase 12) is two streams written out, not a
        groove: its air is the space between the streams, and it has none to
@@ -162,19 +164,21 @@ export function playability(pat: Pattern, bpm0: number): Playability {
     if (empties < airFloor && !stuck && !pat.poly) airless = true;
   }
 
-  if (doubleKick) kickRun = false;
+  if (pedalRuns) kickRun = false;
   /* The tempo a double is played at, in sixteenths: a sextuplet double is half
      again as quick as a sixteenth one at the same quarter. */
   const doubleBpm = (bpm * stepsPerQuarter(meterOfPat(pat))) / 4;
   const fastDoubles =
-    !doubleKick && doubleStrain > 0 && doubleBpm > 132 && doubleStrain > pat.bars.length;
+    !pedalRuns && doubleStrain > 0 && doubleBpm > 132 && doubleStrain > pat.bars.length;
 
   const checks: Check[] = [
     { ok: !rideClash, label: 'One cymbal at a time — no ride under a hi-hat' },
     {
       ok: !kickRun,
-      label: doubleKick
-        ? 'Kick runs go to the double pedal'
+      label: pedalRuns
+        ? doubleKick
+          ? 'Kick runs go to the double pedal'
+          : 'Kick runs go heel and toe on one pedal'
         : heelToe
           ? 'No four 16ths in a row on the kick'
           : 'No triple 16ths on the kick',
@@ -189,7 +193,7 @@ export function playability(pat: Pattern, bpm0: number): Playability {
     },
     {
       ok: !airless,
-      label: doubleKick
+      label: pedalRuns
         ? 'At least a quarter of every bar is air above the kick'
         : 'At least a quarter of every bar is air',
     },

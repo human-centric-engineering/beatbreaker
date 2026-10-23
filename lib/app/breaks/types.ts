@@ -414,9 +414,9 @@ export interface PercSpec {
 /**
  * The part of a style that travels with a pattern.
  *
- * Ten fields, and the list is not arbitrary — it is exactly what the transport
+ * Eleven fields, and the list is not arbitrary — it is exactly what the transport
  * (`isSwung`, `hatShape`, `feelOffset`, `echo`), the critic (`kickFeather`,
- * `targetDensity`, `doubleKick`, `heelToe`), the 3D drummer (`doubleKick`, `oneHandHats`,
+ * `targetDensity`, `doubleKick`, `heelToe`, `singlePedalRuns`), the 3D drummer (`doubleKick`, `oneHandHats`,
  * `weight`) and the MIDI
  * export read off a style once a pattern exists.
  * Everything else a style says is an instruction to the *generator*, and is
@@ -470,6 +470,13 @@ export interface StyleAttrs {
    * it; four in a row is still a run, unless the style has a double pedal.
    */
   heelToe?: boolean;
+  /**
+   * Runs of 16ths on one pedal, heel and toe and the swivel, at the speed
+   * others need two for: El Estepario Siberiano, who gave up the double
+   * pedal. The generator keeps a run and the critic passes it, as with
+   * `doubleKick`, but the 3D drummer plays it with one foot.
+   */
+  singlePedalRuns?: boolean;
   /**
    * A tape echo on part of the kit: each note in `lanes` heard once more,
    * `steps` later, at `level` of its strength. Played, not written: the
