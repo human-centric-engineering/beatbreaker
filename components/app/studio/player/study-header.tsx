@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 import type { PatternSharing } from '@/components/app/breaks/use-break-console';
 import { PinButton } from '@/components/app/studio/pin-button';
 import { NewBreak } from '@/components/app/studio/player/new-break';
+import { RandomPickButton } from '@/components/app/studio/player/random-pick';
 import { StylePicker } from '@/components/app/studio/style-picker';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { usePickStyle } from '@/components/app/studio/use-pick-style';
@@ -133,7 +134,7 @@ function TwistNote() {
 /**
  * The top of the stage: who you are studying (and the crate, beside the name,
  * to study someone else), what the break is, what it is inspired by — and New
- * break.
+ * break, with Random under it.
  *
  * A drummer's style leads with the drummer, large: the name is what you came
  * for. Any other style leads with the style. The break's own name sits under
@@ -201,6 +202,7 @@ export function StudyHeader({ children }: { children?: React.ReactNode }) {
       </div>
       <div className="study-side">
         <NewBreak />
+        <RandomPickButton />
         {children}
       </div>
     </header>

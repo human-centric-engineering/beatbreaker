@@ -1164,6 +1164,28 @@
   gap: 10px;
 }
 
+/* Random, under New break: quieter than it, the same brass */
+.bb .random-pick {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--brass) 55%, transparent);
+  border-radius: 10px;
+  background: none;
+  color: var(--brass);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.14s ease;
+}
+.bb .random-pick:hover {
+  background: color-mix(in srgb, var(--brass) 12%, transparent);
+}
+
 /* "Inspired by [song] — what it is" */
 .bb .song-line {
   display: flex;
@@ -1440,7 +1462,8 @@
 @media print {
   .bb .player-bar,
   .bb .player-dock,
-  .bb .newbreak {
+  .bb .newbreak,
+  .bb .random-pick {
     display: none !important;
   }
 }
