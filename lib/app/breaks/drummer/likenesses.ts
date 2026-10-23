@@ -3513,7 +3513,7 @@ const CLAY_AESCHLIMAN: Persona = {
   shoes: '#2a2a2e',
   accent: '#e9e6df',
   headphones: false,
-  kit: { shell: '#5a0f16', finish: 'gloss', hardware: 'chrome' },
+  kit: { shell: '#5a0f16', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
 };
 
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */

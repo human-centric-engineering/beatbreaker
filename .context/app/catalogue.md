@@ -249,6 +249,10 @@ few words of `feel`, a `weight`, and `params`: any style field except
   - `heelToe` (a `StyleAttrs` field): three 16ths on the kick with one foot.
     The generator keeps a triple and the critic passes it; four in a row is
     still a run. Dayes's Tioga Pass plays 3, 3e, 3&.
+  - `singlePedalRuns` (a `StyleAttrs` field): kick runs of any length on one
+    pedal, heel and toe and the swivel. The generator keeps them and the
+    critic passes them, as with `doubleKick`, but the 3D drummer plays them
+    with one foot. El Estepario Siberiano's exercises and Godzilla.
 - **A song that changes meter is written in sections** (11-e-ii-d). A song may
   list `sections` — each a `letter` (A, B, C… in order, at least two), a
   `label`, optional `bars` and `aliases`, and `params` laid over the song's —
