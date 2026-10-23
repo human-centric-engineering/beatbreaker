@@ -24,10 +24,73 @@
       "youtube": "https://www.youtube.com/watch?v=Kie4Iv3mdIc",
       "transcriptions": [
         {
-          "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=3098936"
+          "site": "other",
+          "url": "https://cruiseshipdrummer.com/2017/02/06/transcription-terry-bozzio-dancin-fool-the-cool-parts/",
+          "note": "Todd Bishop: the opening, the break and the yowza interlude"
         }
-      ]
+      ],
+      "style_key": "bozzio",
+      "song_key": "dancin-fool"
+    },
+    {
+      "title": "City of Tiny Lites",
+      "drummer_ids": ["drummer:terry-bozzio"],
+      "drums": {
+        "description": "The hat half-open in quarters, a third verse in sixteenths with the snare and kick together, kick doubles in the breakdown.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sheik-yerbouti-wikipedia", "src:songsterr-68251"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Eoo_cEPXbG4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=68251"
+        }
+      ],
+      "style_key": "bozzio",
+      "song_key": "city-of-tiny-lites"
+    },
+    {
+      "title": "Tryin' to Grow a Chin",
+      "drummer_ids": ["drummer:terry-bozzio"],
+      "drums": {
+        "description": "Punk at 174 with Bozzio singing: the snare and a tom struck together with the kick, then the snare and kick in eighths.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sheik-yerbouti-wikipedia", "src:songsterr-68245"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ZAOQfH_jsIk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=68245"
+        }
+      ],
+      "style_key": "bozzio",
+      "song_key": "tryin-to-grow-a-chin"
+    },
+    {
+      "title": "I'm So Cute",
+      "drummer_ids": ["drummer:terry-bozzio"],
+      "drums": {
+        "description": "Hat, snare and kick together on every eighth, Bozzio singing the lead; a bridge of sixteenths on the hat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sheik-yerbouti-wikipedia", "src:songsterr-68249"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=yCmLyKerI9U",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=68249"
+        }
+      ],
+      "style_key": "bozzio",
+      "song_key": "im-so-cute"
     }
   ]
 }

@@ -1,0 +1,44 @@
+{
+  "id": "rec:el-estepario-siberiano-godzilla-2023",
+  "title": "EMINEM | GODZILLA - DRUM COVER.",
+  "artist": "El Estepario Siberiano",
+  "year": 2023,
+  "type": "video",
+  "style_ids": ["style:hip-hop-breakbeat", "style:metal"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:youtube-estepario-godzilla-2023"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:el-estepario-siberiano",
+      "name": "El Estepario Siberiano",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "His own part over a rap record: half time, the floor tom and kick under the words, double-bass sixteenths."
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Godzilla",
+      "artist": "Eminem featuring Juice WRLD",
+      "year": 2020,
+      "drummer_ids": ["drummer:el-estepario-siberiano"],
+      "drums": {
+        "description": "Half time, the snare on 3, the floor tom and kick under the rap; sixteenths on the kick under the toms; runs on the snare; a double-time groove to end.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:youtube-estepario-godzilla-2023", "src:songsterr-688509"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=FuQTLptgJoc",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=688509"
+        }
+      ],
+      "style_key": "estepario",
+      "song_key": "godzilla"
+    }
+  ]
+}

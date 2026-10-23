@@ -118,6 +118,13 @@ export const styleAttrsSchema = z.object({
   weight: z.number().min(0).max(1).optional(),
   /** Three 16ths on the kick with one foot. */
   heelToe: z.boolean().optional(),
+  /**
+   * Kick runs of any length on one pedal: kept (under the backbeat too) and
+   * passed as a double pedal's, up to the run rate, and played with one foot.
+   */
+  singlePedalRuns: z.boolean().optional(),
+  /** A written exercise, played as taught: the critic asks no air of its bars. */
+  exercise: z.boolean().optional(),
   /** One repeat of some lanes, played and never written: up to a bar of 4/4 late, never louder. */
   echo: z
     .object({

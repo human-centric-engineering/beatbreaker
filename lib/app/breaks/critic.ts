@@ -9,7 +9,8 @@ import {
 } from '@/lib/app/breaks/lanes';
 import { STEPS, isGroupStart, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { generatePattern, type GenerateOptions } from '@/lib/app/breaks/generate';
-import { meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
+import { keepsKickRuns, meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
+import { RUN_RATE } from '@/lib/app/breaks/songs';
 import { spanStepsIn, withPlainSpans } from '@/lib/app/breaks/poly-fill';
 import { clamp, makeRng } from '@/lib/app/breaks/rng';
 import { sectionBpm } from '@/lib/app/breaks/sections';
@@ -56,8 +57,12 @@ export function playability(pat: Pattern, bpm0: number): Playability {
   let graceClash = false;
   let threeHands = false;
   const hands = handLanes(pat.perc);
-  // on a double pedal a run of kicks is two feet's: no run is too long, and the kick is not the air
+  /* Where kick runs are kept (`keepsKickRuns`) no run is too long, and the
+     kick is not the air: on a double pedal because a run is two feet's, with
+     `singlePedalRuns` because the drummer plays it on one. Only the second
+     still has a top speed (below). */
   const doubleKick = !!pat.attrs?.doubleKick;
+  const pedalRuns = keepsKickRuns(pat.attrs);
   // heel and toe: three 16ths on one foot, and the fourth is the run
   const heelToe = !!pat.attrs?.heelToe;
 
@@ -154,27 +159,33 @@ export function playability(pat: Pattern, bpm0: number): Playability {
 
     let empties = 0;
     for (let i = 0; i < nSteps; i++) {
-      if (inFill(i) || ((doubleKick || !b.k[i]) && !b.s[i])) empties++;
+      if (inFill(i) || ((pedalRuns || !b.k[i]) && !b.s[i])) empties++;
     }
     /* A polyrhythm exercise (Phase 12) is two streams written out, not a
        groove: its air is the space between the streams, and it has none to
        leave for a groove that is not there. */
-    if (empties < airFloor && !stuck && !pat.poly) airless = true;
+    if (empties < airFloor && !stuck && !pat.poly && !pat.attrs?.exercise) airless = true;
   }
 
-  if (doubleKick) kickRun = false;
+  if (pedalRuns) kickRun = false;
   /* The tempo a double is played at, in sixteenths: a sextuplet double is half
      again as quick as a sixteenth one at the same quarter. */
   const doubleBpm = (bpm * stepsPerQuarter(meterOfPat(pat))) / 4;
+  /* One foot: doubles past 132 strain it, unless the style plays runs on one
+     pedal, whose run may go as fast as any run the app plays (RUN_RATE notes
+     a second) and no faster. Two feet have no such limit here. */
+  const footTop = pedalRuns ? (60 * RUN_RATE) / 4 : 132;
   const fastDoubles =
-    !doubleKick && doubleStrain > 0 && doubleBpm > 132 && doubleStrain > pat.bars.length;
+    !doubleKick && doubleStrain > 0 && doubleBpm > footTop && doubleStrain > pat.bars.length;
 
   const checks: Check[] = [
     { ok: !rideClash, label: 'One cymbal at a time — no ride under a hi-hat' },
     {
       ok: !kickRun,
-      label: doubleKick
-        ? 'Kick runs go to the double pedal'
+      label: pedalRuns
+        ? doubleKick
+          ? 'Kick runs go to the double pedal'
+          : 'Kick runs go heel and toe on one pedal'
         : heelToe
           ? 'No four 16ths in a row on the kick'
           : 'No triple 16ths on the kick',
@@ -189,11 +200,17 @@ export function playability(pat: Pattern, bpm0: number): Playability {
     },
     {
       ok: !airless,
-      label: doubleKick
+      label: pedalRuns
         ? 'At least a quarter of every bar is air above the kick'
         : 'At least a quarter of every bar is air',
     },
-    { ok: !fastDoubles, label: `Kick doubles are sane for ${Math.round(bpm)} BPM` },
+    {
+      ok: !fastDoubles,
+      label:
+        pedalRuns && !doubleKick
+          ? `Kick runs on one pedal are sane for ${Math.round(bpm)} BPM`
+          : `Kick doubles are sane for ${Math.round(bpm)} BPM`,
+    },
   ];
   /* Only shown where it can fail: every pattern written before 9-iv passes it,
      and a list that grows a line nobody can trip is noise. */

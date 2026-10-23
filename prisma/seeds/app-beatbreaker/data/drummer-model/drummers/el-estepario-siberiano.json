@@ -1,0 +1,1105 @@
+{
+  "meta": {
+    "id": "drummer:el-estepario-siberiano",
+    "schema_version": "1.6.0",
+    "record_status": "draft",
+    "completeness": 0.3,
+    "created": "2026-10-23",
+    "updated": "2026-10-23",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His birth date: only his age, 24, in December 2020 (Hellpress) and early 2021 (Bateristas Magazine).",
+      "Whether Godzilla's kick sixteenths are on one pedal, as written, or two: his feet are out of shot.",
+      "Blinding Lights (2023), his most viewed cover: only a machine-made tab, and its kick bursts at 171 are past the ten notes a second the app holds a run to; not scored.",
+      "The Modern Drummer interview (September 2024) beyond its open introduction.",
+      "His Fastest Way To Get Faster course for Drumeo (hands) and the one-handed chops video: not transcribed.",
+      "I Broke TikTok With This (2024), four limbs counting different numbers in 5/4: in the grooves tab, not scored."
+    ]
+  },
+  "identity": {
+    "name": "El Estepario Siberiano",
+    "full_name": "Jorge Garrido",
+    "aliases": ["El Estepario", "Jorge Garrido"],
+    "born": {
+      "date": "1996",
+      "place": "Valencia, Spain",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": [
+          "src:hellpress-saratoga-estepario-2020",
+          "src:bateristas-magazine-estepario-2021",
+          "src:el-estepario-siberiano-wikipedia"
+        ],
+        "note": "24 in December 2020 (Hellpress) and in early 2021 (Bateristas Magazine): born 1996 or late 1995. Valencian (Hellpress, Bateristas Magazine, Modern Drummer)."
+      }
+    },
+    "nationality": ["Spanish"],
+    "home_scenes": ["Valencia", "YouTube and Instagram drumming (2019-)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 2009,
+      "ongoing": true
+    },
+    "roles": ["band_member", "touring", "educator", "clinician"],
+    "summary": "Spanish drummer from Valencia, Jorge Garrido, known online as El Estepario Siberiano: the most-followed drummer in Spain by 2020 and one of the most watched anywhere, for drum covers played his own way, one-handed grooves, speed on a single pedal and grooves built a limb at a time on short videos. He took lessons as a boy, played in dance-band orchestras, then shared videos full time from the 2020 lockdown. Saratoga's drummer 2020-2023, then Residente's touring drummer and the Cost's. His influences for one-pedal playing are gospel-chops drummers: Thomas Pridgen, Tony Royster Jr., Eric Moore, Chris Coleman, and Spain's Miguel Lamas."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Gospel chops and single-pedal drumming",
+        "impact": "Left the double pedal for one pedal, after Miguel Lamas, Thomas Pridgen, Tony Royster, Eric Moore and Chris Coleman.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bateristas-magazine-estepario-2021"]
+        }
+      },
+      {
+        "tradition": "Metal",
+        "impact": "Played double pedal all his life before that; took it up again for Saratoga's heavy and power metal.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:bateristas-magazine-estepario-2021",
+            "src:masdecibelios-estepario-double-pedal-2023"
+          ]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Saw Green Day's Bullet in a Bible DVD, with Tre Cool at the front, and began lessons.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bateristas-magazine-estepario-2021"]
+        }
+      },
+      {
+        "year": 2020,
+        "event": "Left his last orchestra job and shared videos full time; his channel grew in the lockdown.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bateristas-magazine-estepario-2021"]
+        }
+      },
+      {
+        "year": 2020,
+        "event": "Joined Saratoga, replacing Dani Perez; learned double pedal again for the record XXX.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:hellpress-saratoga-estepario-2020",
+            "src:masdecibelios-estepario-double-pedal-2023"
+          ]
+        }
+      },
+      {
+        "year": 2023,
+        "event": "Left Saratoga in March to give his time to his channel.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:hellpress-estepario-leaves-saratoga-2023",
+            "src:masdecibelios-estepario-double-pedal-2023"
+          ]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:el-estepario-videos",
+      "label": "Videos and Saratoga",
+      "years": {
+        "from": 2019,
+        "to": 2023
+      },
+      "context": "Covers, one-handed grooves and speed videos on Instagram and YouTube, mostly on one pedal; heavy metal with Saratoga.",
+      "defining_traits": ["one-handed grooves", "single-pedal speed", "covers played his own way"],
+      "key_recording_ids": []
+    },
+    {
+      "id": "era:el-estepario-shorts",
+      "label": "Shorts, Drumeo and his own band",
+      "years": {
+        "from": 2023,
+        "ongoing": true
+      },
+      "context": "Groove Shorts built a limb at a time, a cowbell pedal under the left foot; lessons for Drumeo; Residente's tours and the Cost.",
+      "defining_traits": [
+        "grooves built step by step",
+        "four-limb independence",
+        "bass drum exercises"
+      ],
+      "key_recording_ids": [
+        "rec:el-estepario-siberiano-pantera-had-impossible-polyrhythms-2023",
+        "rec:el-estepario-siberiano-michael-jackson-hardest-groove-2023",
+        "rec:drumeo-bass-drum-speed-secrets-with-el-estepario-part-i-2023",
+        "rec:drumeo-bass-drum-speed-secrets-with-el-estepario-part-ii-2023",
+        "rec:el-estepario-siberiano-no-one-can-play-this-groove-2023",
+        "rec:el-estepario-siberiano-godzilla-2023"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:gospel-chops",
+        "name": "Gospel chops and groove videos",
+        "weight": 0.9,
+        "authority": 0.6,
+        "notes": "His one-pedal technique and his groove Shorts, after Pridgen, Royster, Moore and Coleman."
+      },
+      {
+        "style_id": "style:metal",
+        "name": "Metal",
+        "weight": 0.6,
+        "authority": 0.5,
+        "notes": "Saratoga; metal covers."
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "name": "Covers of rap and pop",
+        "weight": 0.4,
+        "authority": 0.4,
+        "notes": "Godzilla; pop songs re-drummed."
+      }
+    ],
+    "versatility": 0.8,
+    "groove_vs_chops": 0.8,
+    "role_tendency": "soloist",
+    "descriptors": ["fast", "virtuosic", "playful", "independent limbs"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": [
+          "src:youtube-estepario-no-one-can-play-2023",
+          "src:youtube-estepario-pantera-polyrhythms-2023"
+        ],
+        "note": "Not measured: his videos are played to a click or a record."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight in everything scored here."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 120,
+      "balance": "Kick and snare level, every limb heard."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 48],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.2
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [60, 180],
+    "timekeeping_context": ["click"],
+    "interaction": "Plays over records and to a click; in the Shorts, alone, building a groove a limb at a time.",
+    "descriptors": ["exact", "relaxed at speed", "busy"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "One-handed grooves",
+        "description": "Technical parts and whole songs with one hand while the other drinks, on a small kit with one tom.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:drumeo-estepario-one-handed-chops-2023",
+            "src:meer-estepario-2023",
+            "src:el-estepario-siberiano-wikipedia"
+          ]
+        }
+      },
+      {
+        "name": "Relaxed speed",
+        "description": "His Drumeo course Fastest Way To Get Faster: playing very fast while staying relaxed.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:drumeo-estepario-fast-feet-1-2023",
+            "src:drumeo-estepario-one-handed-chops-2023"
+          ]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Single-pedal speed",
+        "description": "Sixteenths and runs on one pedal, the \"double pedal with one foot\" he went viral for, which he calls a solution to a problem; note-value pyramids for the right foot.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:bateristas-magazine-estepario-2021",
+            "src:masdecibelios-estepario-double-pedal-2023",
+            "src:drumeo-estepario-fast-feet-1-2023",
+            "src:drumeo-estepario-fast-feet-2-2023"
+          ]
+        }
+      },
+      {
+        "name": "Cowbell pedal under the left foot",
+        "description": "A Meinl cowbell on a pedal, the left foot's part in his four-limb grooves.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:youtube-estepario-no-one-can-play-2023",
+            "src:youtube-estepario-michael-jackson-groove-2023"
+          ]
+        }
+      },
+      {
+        "name": "Double pedal",
+        "description": "Played all his life, dropped for one pedal, taken up again for Saratoga.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:bateristas-magazine-estepario-2021",
+            "src:masdecibelios-estepario-double-pedal-2023"
+          ]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["groove", "fill"],
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:drumeo-estepario-fast-feet-1-2023",
+            "src:drumeo-estepario-fast-feet-2-2023"
+          ]
+        }
+      },
+      {
+        "name": "Double stroke roll",
+        "usage": ["groove"],
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:drumeo-estepario-fast-feet-2-2023"],
+          "note": "Hand and foot doubles in turn: Badu, Detroit, the Kickstarter, the Jackpot."
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.95,
+      "linear_playing": 0.6,
+      "ostinato_usage": 0.8,
+      "polyrhythm_usage": 0.5,
+      "odd_meter_fluency": 0.6,
+      "foot_ostinato_usage": 0.8,
+      "double_bass": 0.5,
+      "notes": "Four limbs, four parts: the left foot on a cowbell pedal under a kick, hat and snare groove; hand and foot in turn in his exercises; groupings of three over four.",
+      "devices": [
+        {
+          "kind": "ostinato-independence",
+          "where": ["groove"],
+          "description": "A cowbell pedal under the left foot keeps its own figure under the kick, hat and snare, each limb added a step at a time.",
+          "examples": ["No One Can Play This Groove", "Michael Jackson Hardest Groove"],
+          "pattern_ids": [
+            "pattern:el-estepario-no-one-can-play",
+            "pattern:el-estepario-michael-jackson-groove"
+          ],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:youtube-estepario-no-one-can-play-2023",
+              "src:youtube-estepario-michael-jackson-groove-2023",
+              "src:songsterr-1296442"
+            ]
+          }
+        },
+        {
+          "kind": "grouping",
+          "ratio": "4:3",
+          "where": ["groove"],
+          "description": "The right hand on the ride every third sixteenth (\"4/3 right hand\"), four strokes to three beats, over kick threes; then the snare in dotted quarters.",
+          "examples": ["Pantera Had Impossible Polyrhythms"],
+          "pattern_ids": ["pattern:el-estepario-pantera-four-over-three"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:youtube-estepario-pantera-polyrhythms-2023",
+              "src:songsterr-1296442"
+            ]
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-23",
+        "searched": [
+          "Songsterr 1296442 (el estepario grooves, human) and 688509 (Godzilla, human); the machine tabs of Blinding Lights (1064807) and others",
+          "His Shorts No One Can Play This Groove, Michael Jackson Hardest Groove, Pantera Had Impossible Polyrhythms, I Broke TikTok With This, Coordination Level: Android",
+          "Drumeo's Bass Drum Speed Secrets parts I and II and their notation"
+        ],
+        "note": "Both devices are in the groove, so they are the songs' figures rather than poly fills."
+      }
+    },
+    "voice_language": {
+      "hihat": "Round the beat in his grooves, sixteenths in pairs and threes; quarters with the left hand in his exercises.",
+      "snare": "On 2 and 4 under the limbs' figures, or in dotted quarters over them; runs in the covers.",
+      "kick": "The centre of it: four on the floor, threes of sixteenths, runs on one pedal.",
+      "toms": "Few: one rack tom on his small kits; the floor tom under the words in Godzilla.",
+      "cymbals": "The ride in dotted eighths; crash in quarters in a double-time groove."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "His own Wincent signature sticks (2021)."
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "A small, bright modern studio kit, close-miked for video: one rack tom, a floor tom, a few cymbals"
+    ],
+    "cymbal_character": "Meinl (Byzance in 2021).",
+    "sample_hints": {
+      "rock": "A clear studio kit; a metal kit for the heavy covers."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": [
+        "src:bateristas-magazine-estepario-2021",
+        "src:drumeo-estepario-one-handed-chops-2023"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:el-estepario-limb-by-limb",
+      "label": "A groove built a limb at a time",
+      "category": "groove",
+      "description": "His Shorts add the limbs in captioned steps (bass drum, cowbell, hi-hat, snare) until four parts run at once.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:el-estepario-no-one-can-play"],
+      "heard_on": [
+        {
+          "recording_id": "rec:el-estepario-siberiano-no-one-can-play-this-groove-2023"
+        },
+        {
+          "recording_id": "rec:el-estepario-siberiano-michael-jackson-hardest-groove-2023"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:youtube-estepario-no-one-can-play-2023",
+          "src:youtube-estepario-michael-jackson-groove-2023",
+          "src:songsterr-1296442"
+        ]
+      }
+    },
+    {
+      "id": "trait:el-estepario-single-pedal",
+      "label": "Speed on one pedal",
+      "category": "technique",
+      "description": "Runs and sixteenths on a single pedal, and a decade of exercises for the right foot.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:el-estepario-marathon", "pattern:el-estepario-anti-flam"],
+      "heard_on": [
+        {
+          "recording_id": "rec:drumeo-bass-drum-speed-secrets-with-el-estepario-part-i-2023"
+        },
+        {
+          "recording_id": "rec:drumeo-bass-drum-speed-secrets-with-el-estepario-part-ii-2023"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:bateristas-magazine-estepario-2021",
+          "src:masdecibelios-estepario-double-pedal-2023",
+          "src:drumeo-estepario-fast-feet-1-2023"
+        ]
+      }
+    },
+    {
+      "id": "trait:el-estepario-one-hand",
+      "label": "One-handed covers",
+      "category": "technique",
+      "description": "Songs and grooves played with one hand, the other holding a drink.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [],
+      "heard_on": [],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:drumeo-estepario-one-handed-chops-2023", "src:meer-estepario-2023"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:el-estepario-no-one-can-play",
+        "name": "No One Can Play This Groove",
+        "type": "groove",
+        "function": "Four limbs, four parts: four on the floor, the cowbell pedal under the left foot on the \"and\" and \"a\" of every beat, the hat round it, the snare on 2 and 4.",
+        "style_ids": ["style:gospel-chops"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1296442"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 126,
+          "playable_range_bpm": [120, 132]
+        },
+        "lanes": {
+          "hihat": "x.xx..xxx.xx..xx",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x...",
+          "pedal_cowbell": "..xx..xx..xx..xx"
+        },
+        "source": {
+          "recording_id": "rec:el-estepario-siberiano-no-one-can-play-this-groove-2023",
+          "transcription_source_id": "src:songsterr-1296442"
+        },
+        "tags": ["2023", "short", "foot cowbell", "independence"]
+      },
+      {
+        "id": "pattern:el-estepario-michael-jackson-groove",
+        "name": "Michael Jackson Hardest Groove",
+        "type": "groove",
+        "function": "A two-bar groove: the kick on 1, its \"a\", the \"and\" of 2, 3 and 4's \"and\", the cowbell pedal under the left foot on 3 and its \"a\", then 2 and its \"a\".",
+        "style_ids": ["style:gospel-chops"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1296442"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 125,
+          "playable_range_bpm": [118, 130]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x...x.x.x.x.x.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x..x...xx.....x.|x..x...xx.......",
+          "pedal_cowbell": "........x..x....|....x..x........"
+        },
+        "source": {
+          "recording_id": "rec:el-estepario-siberiano-michael-jackson-hardest-groove-2023",
+          "transcription_source_id": "src:songsterr-1296442"
+        },
+        "tags": ["2023", "short", "foot cowbell"]
+      },
+      {
+        "id": "pattern:el-estepario-pantera-four-over-three",
+        "name": "Pantera Had Impossible Polyrhythms: four over three",
+        "type": "groove",
+        "function": "The kick in threes of sixteenths, the right hand on the ride every third sixteenth, so four ride strokes fill three beats and the ride meets the 1 every third bar; the snare on 2 and 4.",
+        "style_ids": ["style:gospel-chops"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1296442"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 3,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 101,
+          "playable_range_bpm": [96, 106]
+        },
+        "lanes": {
+          "ride": "x..x..x..x..x..x|..x..x..x..x..x.|.x..x..x..x..x..",
+          "snare": "....x.......x...|....x.......x...|....x.......x...",
+          "kick": "xxx.xxx.xxx.xxx.|..xxx.xxx.xxx...|xxx.xxx.xxx.xxx."
+        },
+        "source": {
+          "recording_id": "rec:el-estepario-siberiano-pantera-had-impossible-polyrhythms-2023",
+          "transcription_source_id": "src:songsterr-1296442"
+        },
+        "tags": ["2023", "short", "grouping", "dotted eighths"]
+      },
+      {
+        "id": "pattern:el-estepario-marathon",
+        "name": "The Marathon",
+        "type": "exercise",
+        "function": "His bass drum pyramid: right hand and right foot in turn in eighths, then a bar of eighth-note triplets, then sixteenths, then triplets, the left hand on the hat on the quarters. Here the eighths and sixteenths bars.",
+        "style_ids": ["style:gospel-chops"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "artist_demonstration"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:drumeo-estepario-fast-feet-1-2023"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 90,
+          "playable_range_bpm": [60, 100]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...|x...x...x...x...",
+          "snare": "x...x...x...x...|x.x.x.x.x.x.x.x.",
+          "kick": "..x...x...x...x.|.x.x.x.x.x.x.x.x"
+        },
+        "source": {
+          "recording_id": "rec:drumeo-bass-drum-speed-secrets-with-el-estepario-part-i-2023",
+          "transcription_source_id": "src:drumeo-estepario-fast-feet-1-2023"
+        },
+        "tags": ["2023", "drumeo", "single pedal", "speed"]
+      },
+      {
+        "id": "pattern:el-estepario-anti-flam",
+        "name": "The Anti-Flam",
+        "type": "exercise",
+        "function": "Hands on a plain groove while the kick plays ones, twos, threes, then fours of sixteenths, landing exactly with the snare.",
+        "style_ids": ["style:gospel-chops"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "artist_demonstration"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:drumeo-estepario-fast-feet-2-2023"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 4,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 105,
+          "playable_range_bpm": [80, 120]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...|....x.......x...|....x.......x...|....x.......x...",
+          "kick": "x...x...x...x...|xx..xx..xx..xx..|xxx.xxx.xxx.xxx.|xxxx....xxxx...."
+        },
+        "source": {
+          "recording_id": "rec:drumeo-bass-drum-speed-secrets-with-el-estepario-part-ii-2023",
+          "transcription_source_id": "src:drumeo-estepario-fast-feet-2-2023"
+        },
+        "tags": ["2023", "drumeo", "single pedal"]
+      },
+      {
+        "id": "pattern:el-estepario-jackpot",
+        "name": "The Jackpot and the Coordination",
+        "type": "exercise",
+        "function": "Right hand and right foot in sixteenths, singles then doubles, the left hand on the quarters; then the Coordination, the left hand on the snare: RH RF LH RF, RH LH RF RF.",
+        "style_ids": ["style:gospel-chops"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "artist_demonstration"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:drumeo-estepario-fast-feet-2-2023"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 4,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 90,
+          "playable_range_bpm": [60, 100]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...|x...x...x...x...|................|................",
+          "snare": "x.x.x.x.x.x.x.x.|xx..xx..xx..xx..|x.x.x.x.x.x.x.x.|xx..xx..xx..xx..",
+          "kick": ".x.x.x.x.x.x.x.x|..xx..xx..xx..xx|.x.x.x.x.x.x.x.x|..xx..xx..xx..xx"
+        },
+        "source": {
+          "recording_id": "rec:drumeo-bass-drum-speed-secrets-with-el-estepario-part-ii-2023",
+          "transcription_source_id": "src:drumeo-estepario-fast-feet-2-2023"
+        },
+        "tags": ["2023", "drumeo", "single pedal", "coordination"],
+        "sticking_lane": "RFRFRFRFRFRFRFRF|RRFFRRFFRRFFRRFF|RFLFRFLFRFLFRFLF|RLFFRLFFRLFFRLFF"
+      },
+      {
+        "id": "pattern:el-estepario-godzilla-floor-tom",
+        "name": "Godzilla: the floor tom under the rap",
+        "type": "groove",
+        "function": "Half time, the snare on 3; the floor tom and the kick together on 1, 2, its \"and\", 3's \"and\" and 4, the hat on the \"and\" of 1 and of 4.",
+        "style_ids": ["style:gospel-chops"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-688509"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 173,
+          "playable_range_bpm": [146, 150]
+        },
+        "lanes": {
+          "hihat": "..x...........x.",
+          "snare": "........x.......",
+          "floor_tom_1": "x.....x...x.x...",
+          "kick": "x...x.x...x.x..."
+        },
+        "source": {
+          "recording_id": "rec:el-estepario-siberiano-godzilla-2023",
+          "transcription_source_id": "src:songsterr-688509"
+        },
+        "tags": ["2023", "cover", "half time"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:el-estepario-yamaha-2021",
+      "label": "Yamaha Live Custom Hybrid Oak (2021)",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Yamaha",
+          "model": "Live Custom Hybrid Oak",
+          "size": "22"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Yamaha",
+          "model": "Live Custom Hybrid Oak",
+          "size": "10"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Yamaha",
+          "model": "Live Custom Hybrid Oak",
+          "size": "12"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Yamaha",
+          "model": "Live Custom Hybrid Oak",
+          "size": "16"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Yamaha",
+          "model": "Recording Custom",
+          "size": "14x5.5",
+          "material": "aluminium"
+        },
+        {
+          "instrument": "snare_2",
+          "brand": "Yamaha",
+          "model": "Recording Custom",
+          "size": "14x6.5",
+          "material": "brass"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "ride",
+          "brand": "Meinl",
+          "model": "Byzance"
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Meinl",
+          "model": "Byzance"
+        },
+        {
+          "instrument": "crash_2",
+          "brand": "Meinl",
+          "model": "Byzance"
+        },
+        {
+          "instrument": "china",
+          "brand": "Meinl"
+        },
+        {
+          "instrument": "hihat",
+          "brand": "Meinl"
+        }
+      ],
+      "sticks": "Wincent El Estepario Siberiano signature",
+      "hardware": ["Yamaha FP9 double chain pedal"],
+      "layout_notes": "The same small kit for videos and for Saratoga, a 12 tom added in front for the record; heads Remo, changed video to video.",
+      "endorsements": ["Yamaha", "Meinl", "Remo", "Wincent"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bateristas-magazine-estepario-2021"]
+      }
+    },
+    {
+      "id": "kit:el-estepario-2023",
+      "label": "Varus and Pearl kits (2023-)",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Varus"
+        }
+      ],
+      "cymbals": [],
+      "hardware": ["a Meinl cowbell on a pedal under the left foot"],
+      "layout_notes": "The Drumeo lessons on a small Varus kit (the name on the kick); a Meinl cowbell pedal in the Shorts.",
+      "endorsements": ["Pearl", "Meinl", "Evans"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:youtube-drumeo-estepario-part-1-2023",
+          "src:youtube-estepario-no-one-can-play-2023",
+          "src:el-estepario-siberiano-wikipedia"
+        ]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Saratoga",
+      "type": "band_member",
+      "years": {
+        "from": 2020,
+        "to": 2023
+      },
+      "notes": "The record XXX (2021) and the live DVD La Historia Continua.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:hellpress-saratoga-estepario-2020",
+          "src:hellpress-estepario-leaves-saratoga-2023",
+          "src:masdecibelios-estepario-double-pedal-2023"
+        ]
+      }
+    },
+    {
+      "name": "Residente",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2024
+      },
+      "notes": "Including the Zocalo, Mexico City.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:el-estepario-siberiano-wikipedia",
+          "src:youtube-estepario-residente-mexico"
+        ]
+      }
+    },
+    {
+      "name": "The Cost",
+      "type": "band_member",
+      "years": {
+        "from": 2023
+      },
+      "bandmates": [
+        {
+          "name": "Peter Connolly"
+        },
+        {
+          "name": "Chris Attwell"
+        }
+      ],
+      "notes": "Singles from 2024, Her Eyes with Serj Tankian, the album Doppler Affection (2025).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:el-estepario-siberiano-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:el-estepario-siberiano-godzilla-2023",
+    "rec:el-estepario-siberiano-pantera-had-impossible-polyrhythms-2023",
+    "rec:el-estepario-siberiano-michael-jackson-hardest-groove-2023",
+    "rec:el-estepario-siberiano-no-one-can-play-this-groove-2023",
+    "rec:drumeo-bass-drum-speed-secrets-with-el-estepario-part-i-2023",
+    "rec:drumeo-bass-drum-speed-secrets-with-el-estepario-part-ii-2023"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tre Cool",
+        "kind": "drummer",
+        "id": "drummer:tre-cool"
+      },
+      "strength": 0.4,
+      "aspects": ["the wish to play"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bateristas-magazine-estepario-2021"],
+        "note": "Green Day's Bullet in a Bible DVD, Tre Cool at the front of it, his first memory of the drums, at about ten."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Thomas Pridgen",
+        "kind": "drummer",
+        "id": "drummer:thomas-pridgen"
+      },
+      "strength": 0.6,
+      "aspects": ["single-pedal technique"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bateristas-magazine-estepario-2021"],
+        "note": "Named among the drummers whose one-pedal playing made him leave the double pedal."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tony Royster Jr.",
+        "kind": "drummer",
+        "id": "drummer:tony-royster-jr"
+      },
+      "strength": 0.6,
+      "aspects": ["single-pedal technique"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bateristas-magazine-estepario-2021"],
+        "note": "Named among the drummers whose one-pedal playing made him leave the double pedal."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Eric Moore",
+        "kind": "drummer",
+        "id": "drummer:eric-moore"
+      },
+      "strength": 0.6,
+      "aspects": ["single-pedal technique"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bateristas-magazine-estepario-2021"],
+        "note": "Named among the drummers whose one-pedal playing made him leave the double pedal."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Chris Coleman",
+        "kind": "drummer"
+      },
+      "strength": 0.6,
+      "aspects": ["single-pedal technique"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bateristas-magazine-estepario-2021"],
+        "note": "Named among the drummers whose one-pedal playing made him leave the double pedal."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Miguel Lamas",
+        "kind": "drummer"
+      },
+      "strength": 0.6,
+      "aspects": ["single-pedal technique"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bateristas-magazine-estepario-2021"],
+        "note": "The Spanish drummer he names first: \"rarely uses the double pedal\"."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Dani Perez",
+        "kind": "drummer"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 2020
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:hellpress-saratoga-estepario-2020"],
+        "note": "In Saratoga."
+      }
+    }
+  ],
+  "pedagogy": {
+    "videos": [
+      {
+        "title": "Bass Drum Speed Secrets With El Estepario (Part I)",
+        "year": 2023,
+        "publisher": "Drumeo",
+        "summary": "Four note-value pyramids for the right foot: the 5K, Happy Feet, the Sprint, the Marathon.",
+        "url": "https://www.youtube.com/watch?v=tWJGx7YbauQ",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:youtube-drumeo-estepario-part-1-2023",
+            "src:drumeo-estepario-fast-feet-1-2023"
+          ]
+        }
+      },
+      {
+        "title": "Bass Drum Speed Secrets With El Estepario (Part II)",
+        "year": 2023,
+        "publisher": "Drumeo",
+        "summary": "The anti-flam, Badu, Detroit, the Kickstarter, the Jackpot, the Coordination.",
+        "url": "https://www.youtube.com/watch?v=lr7zAQZ6Ee0",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:youtube-drumeo-estepario-part-2-2023",
+            "src:drumeo-estepario-fast-feet-2-2023"
+          ]
+        }
+      },
+      {
+        "title": "Fastest Way To Get Faster",
+        "year": 2023,
+        "publisher": "Drumeo",
+        "summary": "A free ten-lesson course on playing fast and staying relaxed.",
+        "url": "https://www.drumeo.com/faster/",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:drumeo-estepario-fast-feet-1-2023",
+            "src:drumeo-estepario-one-handed-chops-2023"
+          ]
+        }
+      }
+    ],
+    "philosophy": [
+      {
+        "idea": "Speed comes from slow, deliberate practice: raise the tempo only once relaxed.",
+        "paraphrase_of_source_id": "src:drumeo-estepario-fast-feet-2-2023"
+      },
+      {
+        "idea": "One pedal can do what two do; playing it was a solution to a problem, not showing off.",
+        "paraphrase_of_source_id": "src:masdecibelios-estepario-double-pedal-2023"
+      },
+      {
+        "idea": "Work hard, work more, work better, and leave the rest to tomorrow.",
+        "paraphrase_of_source_id": "src:bateristas-magazine-estepario-2021"
+      }
+    ]
+  },
+  "legacy": {
+    "contribution": {
+      "description": "The best-known drummer of the short-video era: covers, one-handed grooves and single-pedal speed watched by millions, and lessons for Drumeo; Drumeo's drummer of the year online (2023) and overall (2024).",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:modern-drummer-estepario-2024",
+          "src:el-estepario-siberiano-wikipedia",
+          "src:drumeo-estepario-fast-feet-1-2023"
+        ]
+      }
+    },
+    "influence_score": 0.5,
+    "innovations": [
+      "Grooves built limb by limb as a short-video form (2023)",
+      "Four-limb grooves with a cowbell pedal under the left foot"
+    ],
+    "accolades": [
+      {
+        "name": "Drumeo Awards: Drummer of the Year, Internet/Social Media (2023); Drummer of the Year (2024)",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:el-estepario-siberiano-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he is self-taught: he took lessons with a teacher from his first kit (Bateristas Magazine)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "estepario",
+    "headline_pattern_ids": [
+      "pattern:el-estepario-no-one-can-play",
+      "pattern:el-estepario-marathon"
+    ],
+    "default_kit_sound": "A clear modern studio kit; a metal kit for the heavy covers",
+    "generation_rules": [
+      "Build from the kick up: four on the floor or threes of sixteenths.",
+      "Give the left foot a part of its own, on a cowbell pedal.",
+      "The snare on 2 and 4 under the limbs, or in threes against them.",
+      "Few ghost notes; the busyness is in the limbs, not the ghosts."
+    ],
+    "avoid": ["Brushes", "Swing", "A laid-back pocket"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:thomas-pridgen",
+        "drummer:tony-royster-jr",
+        "drummer:eric-moore"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Gospel-chops drummers' one-pedal playing, Pridgen, Royster, Moore, Coleman, into short videos watched by millions."
+    },
+    "tags": ["youtube", "shorts", "single pedal", "independence", "drumeo", "2020s"]
+  }
+}

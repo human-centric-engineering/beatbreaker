@@ -426,6 +426,17 @@ export function parseRow(lane: LaneKey, str: string): number[] {
 }
 
 /**
+ * Whether a run of kicks is kept and passed: on a double pedal it is two
+ * feet's, and with `singlePedalRuns` one foot's that can play it. The
+ * generator, the poly fill and the critic all ask this one question.
+ */
+export function keepsKickRuns(
+  style: Pick<StyleAttrs, 'doubleKick' | 'singlePedalRuns'> | undefined
+): boolean {
+  return !!(style?.doubleKick || style?.singlePedalRuns);
+}
+
+/**
  * The snapshot a pattern carries, taken off a style.
  *
  * Explicit field-by-field rather than a spread, so that adding a field to
@@ -444,6 +455,8 @@ export function styleAttrs(style: StyleAttrs | undefined): StyleAttrs {
   if (style.oneHandHats) out.oneHandHats = true;
   if (style.weight) out.weight = style.weight;
   if (style.heelToe) out.heelToe = true;
+  if (style.singlePedalRuns) out.singlePedalRuns = true;
+  if (style.exercise) out.exercise = true;
   if (style.echo) out.echo = style.echo;
   return out;
 }

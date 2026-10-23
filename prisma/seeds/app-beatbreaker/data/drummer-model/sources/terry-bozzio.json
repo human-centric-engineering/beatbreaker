@@ -1,0 +1,128 @@
+[
+  {
+    "id": "src:sheik-yerbouti-wikipedia",
+    "type": "encyclopedia",
+    "title": "Sheik Yerbouti - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sheik_Yerbouti",
+    "reliability": 0.7,
+    "accessed": "2026-10-23",
+    "notes": "Released 3 March 1979, the first release on Zappa Records; mostly live material recorded in 1977 and 1978 with extensive studio overdubs. Personnel: Terry Bozzio, drums, lead (tracks 3, 4, 6, 8, 13, 17) and backing vocals. \"Rubber Shirt\" combines a Bozzio drum track from one setting with an O'Hearn bass part from another (xenochrony)."
+  },
+  {
+    "id": "src:bongo-fury-wikipedia",
+    "type": "encyclopedia",
+    "title": "Bongo Fury - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Bongo_Fury",
+    "reliability": 0.7,
+    "accessed": "2026-10-23",
+    "notes": "Zappa, Captain Beefheart and the Mothers, October 1975. Live portions recorded 20 and 21 May 1975 at the Armadillo World Headquarters, Austin; tracks 5, 6 and the introduction to 9 (Muffin Man) in the studio in January 1975. \"The first appearance of Terry Bozzio.\" Personnel: Terry Bozzio, drums; Chester Thompson, drums (5, 6)."
+  },
+  {
+    "id": "src:walking-in-la-wikipedia",
+    "type": "encyclopedia",
+    "title": "Walking in L.A. - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Walking_in_L.A.",
+    "reliability": 0.7,
+    "accessed": "2026-10-23",
+    "notes": "Written by Terry Bozzio, produced by Ken Scott at Chateau Recorders, Los Angeles; on Spring Session M (1982), single February 1983, US 70, Top Rock Tracks 12."
+  },
+  {
+    "id": "src:muffin-man-wikipedia",
+    "type": "encyclopedia",
+    "title": "Muffin Man (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Muffin_Man_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-23",
+    "notes": "Recorded live by Zappa and the Mothers for Bongo Fury (1975); a studio-recorded spoken opening, then the chorus; closed his concerts for years afterwards."
+  },
+  {
+    "id": "src:baby-snakes-wikipedia",
+    "type": "encyclopedia",
+    "title": "Baby Snakes - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Baby_Snakes",
+    "reliability": 0.7,
+    "accessed": "2026-10-23",
+    "notes": "The film of Zappa's Halloween 1977 concerts at the Palladium, New York (released 1979), with Bozzio's drum solo."
+  },
+  {
+    "id": "src:bishop-bozzio-dancin-fool-2017",
+    "type": "transcription",
+    "title": "Transcription: Terry Bozzio / Dancin' Fool - the cool parts (Todd Bishop, Cruise Ship Drummer, 6 February 2017)",
+    "url": "https://cruiseshipdrummer.com/2017/02/06/transcription-terry-bozzio-dancin-fool-the-cool-parts/",
+    "reliability": 0.8,
+    "accessed": "2026-10-23",
+    "notes": "The PDF (pdxdrummer.com, read through the Wayback Machine, capture 2025-02-18): the opening instrumental, the same break at 0:54 and the \"yowza\" interlude after 2:00. Notated for five toms: \"he's playing his Rototom set here\"; \"his right hand on a lower tom and his left on a higher one\"; doubles at the start of the yowza section that sound like two bass drums; hats \"half-open much of the time\", \"probably\" Paiste 602 (his guess)."
+  },
+  {
+    "id": "src:alfred-bozzio-melodic-drumming-ostinato",
+    "type": "video_lesson",
+    "title": "Terry Bozzio: Melodic Drumming and the Ostinato, Volumes 1, 2 & 3 (Alfred)",
+    "url": "https://www.alfred.com/terry-bozzio-melodic-drumming-and-the-ostinato-volumes-1-2-3/p/93-DV10029001/",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "Read for section AK (2026-10-15): \"self-accompaniment with ostinato patterns ... melodic, harmonic, and even two-part contrapuntal techniques\"."
+  },
+  {
+    "id": "src:songsterr-68251",
+    "type": "transcription",
+    "title": "Songsterr, Frank Zappa - City Of Tiny Lites, drum track 'Terry \"Ted\" Bozzio' (human, rev 7716562 by Ben Dibden1, 2026)",
+    "url": "https://www.songsterr.com/a/wsa/frank-zappa-city-of-tiny-lites-drum-tab-s68251",
+    "reliability": 0.6,
+    "accessed": "2026-10-23",
+    "notes": "224 bars of 4/4 at 155; markers Intro, Verse 1-3, Chorus, Solo, Bridge, Breakdown, Outro. The verses on the hat in quarters, written open; the third verse in sixteenths with the snare and kick together."
+  },
+  {
+    "id": "src:songsterr-68245",
+    "type": "transcription",
+    "title": "Songsterr, Frank Zappa - Tryin' to Grow a Chin, drum track 'Terry \"Ted\" Bozzio' (human, rev 85510 by Leonard, 2011)",
+    "url": "https://www.songsterr.com/a/wsa/frank-zappa-tryin-to-grow-a-chin-drum-tab-s68245",
+    "reliability": 0.6,
+    "accessed": "2026-10-23",
+    "notes": "152 bars of 4/4 at 174, no markers. Snare, tom and kick together in the intro; the snare and kick in eighths in the chorus."
+  },
+  {
+    "id": "src:songsterr-68249",
+    "type": "transcription",
+    "title": "Songsterr, Frank Zappa - I'm So Cute, drum track 'Terry \"Ted\" Bozzio' (human, rev 85514 by Leonard, 2011)",
+    "url": "https://www.songsterr.com/a/wsa/frank-zappa-im-so-cute-drum-tab-s68249",
+    "reliability": 0.6,
+    "accessed": "2026-10-23",
+    "notes": "62 bars of 4/4 at 94: hat, snare and kick together on every eighth; a bridge of sixteenths on the hat."
+  },
+  {
+    "id": "src:songsterr-35886",
+    "type": "transcription",
+    "title": "Songsterr, Frank Zappa - Muffin Man, drum track 'Terry Bozio' (human, rev 9070003 by Ben Dibden1, 2026)",
+    "url": "https://www.songsterr.com/a/wsa/frank-zappa-muffin-man-drum-tab-s35886",
+    "reliability": 0.6,
+    "accessed": "2026-10-23",
+    "notes": "134 bars of 4/4 at 130; markers Chorus 1, Solo 1, Chorus 2, Dialogue, Riff, Solo 2. The riff in half time, the snare on 3, its \"and\" and 4; fills in sextuplets round the toms."
+  },
+  {
+    "id": "src:songsterr-753414",
+    "type": "transcription",
+    "title": "Songsterr, Missing Persons - Walking In L.A. (human, rev 2328684 by Robert Dwyer, 2025)",
+    "url": "https://www.songsterr.com/a/wsa/missing-persons-walking-in-la-drum-tab-s753414",
+    "reliability": 0.6,
+    "accessed": "2026-10-23",
+    "notes": "124 bars of 4/4 at 138, no markers. Crash-and-kick hits in the intro; eighths with the kick on every beat."
+  },
+  {
+    "id": "src:songsterr-5343064",
+    "type": "transcription",
+    "title": "Songsterr, Missing Persons - Destination Unknown (drum) (human, rev 8382851 by Mecanic, 2026)",
+    "url": "https://www.songsterr.com/a/wsa/missing-persons-destination-unknown-drum-tab-s5343064",
+    "reliability": 0.6,
+    "accessed": "2026-10-23",
+    "notes": "102 bars of 4/4 at 120 after a bar of 2/4; the hat open on the \"and\"s of 1 and 4 in the choruses."
+  },
+  {
+    "id": "src:songsterr-3098936",
+    "type": "transcription",
+    "title": "Songsterr, Frank Zappa - Dancin' Fool (machine tab: aiGenerated true, rev 4070265, 2025)",
+    "url": "https://www.songsterr.com/a/wsa/frank-zappa-dancin-fool-drum-tab-s3098936",
+    "reliability": 0.3,
+    "accessed": "2026-10-23",
+    "notes": "124 bars at 135, mostly 4/4 with a bar of 1/8 and one of 2/4. A machine transcription: only its commonest bars are used, for the verses' disco beat and the last choruses."
+  }
+]

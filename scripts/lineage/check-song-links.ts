@@ -30,7 +30,11 @@ type Provider = keyof typeof OEMBED;
 const oembedSchema = z.object({ title: z.string() });
 /* The model's own track shape, the part this check reads; the rest is kept as it is. */
 const trackSchema = modelTrack.pick({ title: true, youtube: true, spotify: true });
-const recordingSchema = z.looseObject({ tracks: z.array(trackSchema).optional() });
+const recordingSchema = z.looseObject({
+  title: z.string().optional(),
+  type: z.string().optional(),
+  tracks: z.array(trackSchema).optional(),
+});
 
 /**
  * Whether an oEmbed title names the song: its folded title, or the title
@@ -105,12 +109,19 @@ export async function checkRecordingLinks(
   let passed = 0;
   let changed = false;
   if (!read.success) return { failures, passed, changed };
+  /* A video recording's tracks may be parts of the video itself (a lesson's
+     exercises): the link is then the video's, and the title it must give is
+     the recording's, not the part's. Still resolved, never guessed. */
+  const { title: whole, type } = read.data;
+  const names = (song: string, got: string, provider: Provider) =>
+    titleNamesSong(song, got) ||
+    (type === 'video' && provider === 'youtube' && !!whole && titleNamesSong(whole, got));
   for (const track of read.data.tracks ?? []) {
     for (const provider of ['youtube', 'spotify'] as const) {
       const url = track[provider];
       if (!url) continue;
       const got = await oembedTitle(provider, url, fetcher);
-      if (typeof got === 'string' && titleNamesSong(track.title, got)) {
+      if (typeof got === 'string' && names(track.title, got, provider)) {
         passed++;
         continue;
       }

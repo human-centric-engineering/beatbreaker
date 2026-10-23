@@ -71,6 +71,37 @@ After the merge, run `npx vitest run tests/unit/lib/app/lineage` and re-rank
    Saudade_ (the 1958 single and the 1959 LP) track by track; Getz/Gilberto is his. The app's
    `bossa` pattern style is the genre; his style is how he played it.
 
+## Owner's picks (built 2026-10-23)
+
+Three drummers the owner asked for by name, outside the ranking: Terry
+Bozzio (a batch 2 candidate, taken early), and two YouTube drummers with no
+record before this, El Estepario Siberiano and Clay Aeschliman. El Estepario
+starts the YouTube drummers group, the first group for drummers known mainly
+from video, and his recordings are the videos themselves (the recording
+schema's `video` format). Clay Aeschliman is filed with the progressive
+drummers: his fame is Polyphia's records, and his videos play them.
+
+| Fork | Drummer                | Record                           | Style key    | Likeness          | Research | Drummers-tab group                 |
+| ---- | ---------------------- | -------------------------------- | ------------ | ----------------- | -------- | ---------------------------------- |
+| 1    | Terry Bozzio           | `drummer:terry-bozzio`           | `bozzio`     | `TERRY_BOZZIO`    | DL       | Progressive and math rock drummers |
+| 2    | El Estepario Siberiano | `drummer:el-estepario-siberiano` | `estepario`  | `EL_ESTEPARIO`    | DM       | YouTube drummers (new)             |
+| 3    | Clay Aeschliman        | `drummer:clay-aeschliman`        | `aeschliman` | `CLAY_AESCHLIMAN` | DN       | Progressive and math rock drummers |
+
+What came of it:
+
+- **Bozzio** supersedes §AK's "not added": the 15-d rules take a dated
+  `coordination.devices_search` where no device holds in a song, so he is
+  built from the songs the grid can play (Zappa, Missing Persons). His
+  melodic ostinato solos and _The Black Page_ stay out, and his hint says so.
+- **Exercises are songs.** A style has no slot for an exercise, so El
+  Estepario's Drumeo exercises are songs whose sections are the exercise's
+  steps, labelled as exercises. A library entry with written sticking, as
+  the rudiments have, would be a better home later.
+- **`singlePedalRuns`**, a new style attribute: kick runs on one pedal at
+  the speed others need two for. The generator keeps them and the critic
+  passes them, as with `doubleKick`, but the 3D drummer plays them with one
+  foot. Before it, a single-pedal player's runs had to claim a double pedal.
+
 ## The brief each fork gets
 
 Paste this to each fork, with its row from the batch table and `S`, the

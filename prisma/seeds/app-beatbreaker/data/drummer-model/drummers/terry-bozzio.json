@@ -2,52 +2,714 @@
   "meta": {
     "id": "drummer:terry-bozzio",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
-    "completeness": 0.15,
+    "record_status": "draft",
+    "completeness": 0.3,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-23",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Dancin' Fool's verses and the bars that change meter: only a machine tab exists; Bishop transcribed the opening, the break and the yowza interlude.",
+      "U.K.'s Danger Money (The Only Thing She Needs in 5/4 and the rest): only machine tabs, whose meters and tempo map do not fit the record; not scored.",
+      "The Black Page #1 and #2: nested tuplets in thirty-seconds and sixty-fourths that one level of tuplet on a sixteenth grid cannot hold.",
+      "His solo ostinato pieces: the melody on tuned toms is the point, and the grid has no pitch.",
+      "Jeff Beck's Guitar Shop (1989): no human drum tab found.",
+      "The kit he played with Zappa (make and sizes): only the Rototoms (Bishop) and the black shells seen in Baby Snakes."
+    ]
   },
   "identity": {
     "name": "Terry Bozzio",
     "full_name": "Terry John Bozzio",
     "born": {
-      "date": "1950",
+      "date": "1950-12-27",
+      "place": "San Francisco, California",
       "evidence": {
         "confidence": "widely_reported",
         "source_ids": ["src:terry-bozzio-wikipedia"]
       }
     },
     "nationality": ["American"],
+    "home_scenes": ["San Francisco Bay Area (1960s-1975)", "Los Angeles (1980s)"],
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
     "active": {
       "from": 1972,
       "ongoing": true
     },
-    "summary": "American drummer of Frank Zappa's band, U.K. and Missing Persons, later a solo drummer with a huge tuned kit."
+    "roles": ["band_member", "bandleader", "composer", "producer", "clinician", "educator"],
+    "summary": "American drummer of Frank Zappa's band (1975-78), U.K. (1978-80) and Missing Persons (1980-86), which he co-founded and wrote for; then a solo drummer composing ostinato pieces on a huge tuned kit. Zappa wrote The Black Page for him. Raised on Appice, Mitchell and Baker, later Elvin Jones and Tony Williams; schooled in percussion and timpani. Modern Drummer Hall of Fame, 1997."
   },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Orchestral percussion",
+        "impact": "Studied percussion and timpani with Lloyd Davis and Roland Kohloff on a scholarship, and played Bartok, Dahl, Cowell and Baroque chamber music with the Marin and Napa County Symphonies.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:terry-bozzio-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Jazz",
+        "impact": "Played in San Francisco jazz groups with Mike Nock, Eddie Henderson, Woody Shaw and others, and in the Monday Night Jim Dukey Big Band; Elvin Jones, Tony Williams and Eric Gravatt his later influences.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:terry-bozzio-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1964,
+        "event": "Saw the Beatles on The Ed Sullivan Show at 13 and asked his father for drum lessons.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:terry-bozzio-wikipedia"]
+        }
+      },
+      {
+        "year": 1975,
+        "event": "Joined Frank Zappa in April 1975; his first record with him, Bongo Fury, recorded live in May.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:terry-bozzio-wikipedia", "src:bongo-fury-wikipedia"]
+        }
+      },
+      {
+        "year": 1978,
+        "event": "Replaced Bill Bruford in U.K. after Bruford and Holdsworth left late in 1978.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:terry-bozzio-wikipedia"]
+        }
+      },
+      {
+        "year": 1980,
+        "event": "Founded Missing Persons with Dale Bozzio and Warren Cuccurullo.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:terry-bozzio-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:terry-bozzio-zappa",
+      "label": "Frank Zappa",
+      "years": {
+        "from": 1975,
+        "to": 1978
+      },
+      "context": "Zappa's drummer and a singer in his band: rock songs, disco parodies and written pieces, live and overdubbed.",
+      "defining_traits": [
+        "half-open hats played hard",
+        "fills of thirty-seconds round Rototoms",
+        "kick doubles",
+        "The Black Page, written for him"
+      ],
+      "key_recording_ids": [
+        "rec:frank-zappa-captain-beefheart-and-the-mothers-bongo-fury-1975",
+        "rec:frank-zappa-zappa-in-new-york-1978",
+        "rec:frank-zappa-sheik-yerbouti-1979"
+      ]
+    },
+    {
+      "id": "era:terry-bozzio-uk",
+      "label": "U.K.",
+      "years": {
+        "from": 1978,
+        "to": 1980
+      },
+      "context": "A progressive rock trio with John Wetton and Eddie Jobson, after Bill Bruford.",
+      "defining_traits": ["odd meters", "a big kit"],
+      "key_recording_ids": ["rec:u-k-danger-money-1979"]
+    },
+    {
+      "id": "era:terry-bozzio-missing-persons",
+      "label": "Missing Persons",
+      "years": {
+        "from": 1980,
+        "to": 1986
+      },
+      "context": "The new wave band he co-founded and wrote for, with keyboards and synthesizers; the later records with electronic drums.",
+      "defining_traits": [
+        "eighths with the kick on every beat",
+        "the hat opening on the \"and\"s",
+        "crash-and-kick hits"
+      ],
+      "key_recording_ids": ["rec:missing-persons-spring-session-m-1982"]
+    },
+    {
+      "id": "era:terry-bozzio-solo",
+      "label": "Solo drumming",
+      "years": {
+        "from": 1990
+      },
+      "context": "Ostinato-based solo compositions on a very large tuned kit, recorded and taught (Melodic Drumming and the Ostinato).",
+      "defining_traits": ["foot ostinatos under melodies on tuned toms"]
+    }
+  ],
   "style_profile": {
     "genres": [
       {
         "style_id": "style:progressive-rock",
+        "name": "Progressive rock",
         "weight": 0.8,
-        "authority": 0.7
-      },
-      {
-        "style_id": "style:jazz-fusion",
-        "weight": 0.6
+        "authority": 0.7,
+        "notes": "Zappa, U.K."
       },
       {
         "style_id": "style:new-wave",
-        "weight": 0.5
+        "name": "New wave",
+        "weight": 0.6,
+        "authority": 0.6,
+        "notes": "Missing Persons."
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "name": "Jazz fusion",
+        "weight": 0.4,
+        "notes": "The Brecker Brothers, Heavy Metal Be-Bop (1978)."
+      }
+    ],
+    "versatility": 0.8,
+    "groove_vs_chops": 0.7,
+    "role_tendency": "soloist",
+    "descriptors": ["exact", "hard-hitting", "theatrical", "virtuosic"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-68251", "src:songsterr-753414"],
+        "note": "Not measured: the records were beat-tracked for tempo only."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight in every song scored."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 120,
+      "balance": "Hats and snare to the front; the hats \"piercing\" when accented (Bishop)."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 32],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.3
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [90, 180],
+    "timekeeping_context": ["free"],
+    "interaction": "Plays with the band's figures: Muffin Man's snare with the guitar riff, I'm So Cute's unison eighths, Walking in L.A.'s crash-and-kick hits with the keyboards.",
+    "descriptors": ["exact", "loud", "driving"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Fills round the toms in thirty-seconds",
+        "description": "Runs of thirty-seconds and sixteenth triplets from the snare round Rototoms, the right hand on a lower tom and the left on a higher one (Dancin' Fool).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-bozzio-dancin-fool-2017"]
+        }
+      },
+      {
+        "name": "Hats half-open",
+        "description": "The hats half-open much of the time on Sheik Yerbouti, with piercing accents.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-bozzio-dancin-fool-2017", "src:songsterr-68251"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Kick doubles",
+        "description": "Kick doubles in the grooves (City of Tiny Lites' breakdown, Dancin' Fool's yowza), which Bishop hears as possibly two bass drums.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-bozzio-dancin-fool-2017", "src:songsterr-68251"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Flam",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-bozzio-dancin-fool-2017"]
+        }
+      },
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill", "solo"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-bozzio-dancin-fool-2017", "src:songsterr-35886"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.9,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.8,
+      "polyrhythm_usage": 0.4,
+      "odd_meter_fluency": 0.9,
+      "foot_ostinato_usage": 0.9,
+      "double_bass": 0.6,
+      "notes": "The songs scored are in 4/4; his ostinato and tuplet work is in his solo pieces and Zappa's written music, not in them.",
+      "devices": [
+        {
+          "kind": "ostinato-independence",
+          "where": ["solos"],
+          "description": "Self-accompaniment: a foot ostinato under melodies and counterpoint played by the hands on toms tuned to pitches, as a pianist's left hand under the right.",
+          "examples": ["Melodic Drumming and the Ostinato", "Solo Drum Music I & II"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:terry-bozzio-wikipedia",
+              "src:alfred-bozzio-melodic-drumming-ostinato"
+            ],
+            "note": "His own instructional series (Alfred) and his solo records (Wikipedia). No named solo piece's ostinato was found in notation (section AK), so no pattern carries it."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-23",
+        "searched": [
+          "Songsterr human tabs of City of Tiny Lites (68251), Tryin' to Grow a Chin (68245), I'm So Cute (68249), Muffin Man (35886), Walking In L.A. (753414), Destination Unknown (5343064), The Black Page 2 (35874), Black Napkins (59089), Zoot Allures (35883)",
+          "Todd Bishop's Dancin' Fool transcription (2017)",
+          "Machine tabs of Dancin' Fool (3098936) and U.K.'s The Only Thing She Needs (1073500), Danger Money and Rendezvous 6:02",
+          "Section AK of drumming-research.md (2026-10-15): The Black Page, Modern Drummer December 1984, Drum Channel and Alfred"
+        ],
+        "note": "In the songs scored no device: the third verse of City of Tiny Lites puts the snare and kick in a 3+3+2 against the hat, played as the groove. The Black Page's nested tuplets and the cross-rhythms of Manx Needs Women are Zappa's written parts (AK)."
+      }
+    },
+    "voice_language": {
+      "hihat": "Half-open in quarters or eighths, accented hard (Sheik Yerbouti); eighths opening on the \"and\"s in Missing Persons.",
+      "snare": "On 2 and 4, or with the band: on every eighth with the kick in punk songs, on 3 and its \"and\" in Muffin Man.",
+      "kick": "On 1 and 3 or every beat; doubles, perhaps on two bass drums.",
+      "toms": "Rototoms in fills of thirty-seconds, the right hand low and the left high.",
+      "cymbals": "Crashes with the kick on the band's hits; the cymbal's bell in eighths."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.1,
+      "notes": "Sticks."
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "A big kit with Rototoms; the hats half-open and piercing (Bishop); black shells and chrome hardware in Baby Snakes (1977)"
+    ],
+    "cymbal_character": "Paiste (Bishop's guess for Sheik Yerbouti: 602 Extra Heavy or Heavy, or Sound Creation).",
+    "sample_hints": {
+      "rock": "A bright, tight kit for the Zappa records; a dry studio rock kit for Missing Persons."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:bishop-bozzio-dancin-fool-2017", "src:baby-snakes-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:terry-bozzio-rototom-fills",
+      "label": "Fills round the Rototoms",
+      "category": "fill",
+      "description": "Thirty-seconds and sixteenth triplets from the snare round a set of Rototoms, the right hand on a lower tom and the left on a higher one, to a crash on the \"a\" of 4 (Dancin' Fool).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [],
+      "heard_on": [
+        {
+          "recording_id": "rec:frank-zappa-sheik-yerbouti-1979"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-bozzio-dancin-fool-2017"]
+      }
+    },
+    {
+      "id": "trait:terry-bozzio-half-open-hats",
+      "label": "Half-open hats",
+      "category": "sound",
+      "description": "The hats half-open much of the time, piercing when accented (Sheik Yerbouti).",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:terry-bozzio-tiny-lites-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:frank-zappa-sheik-yerbouti-1979"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-bozzio-dancin-fool-2017"]
+      }
+    },
+    {
+      "id": "trait:terry-bozzio-two-and-two",
+      "label": "Two on the hands, two on the feet",
+      "category": "fill",
+      "description": "The fill later named for Mike Portnoy, who credits Bozzio with it: two sixteenths on the snare or a tom, two on the bass drums, repeated.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:terry-bozzio-two-and-two-fill"],
+      "heard_on": [],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mike-portnoy-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:terry-bozzio-tiny-lites-verse",
+        "name": "City of Tiny Lites: the verse",
+        "type": "groove",
+        "function": "The hat half-open on every beat, the snare on 2 and 4, the kick on 1 and 3: the plain rock beat of the Sheik Yerbouti years, played hard.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-68251"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 162,
+          "playable_range_bpm": [156, 166]
+        },
+        "lanes": {
+          "hihat": "h...h...h...h...",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:frank-zappa-sheik-yerbouti-1979",
+          "transcription_source_id": "src:songsterr-68251"
+        },
+        "tags": ["1979", "half-open hats"]
+      },
+      {
+        "id": "pattern:terry-bozzio-tiny-lites-third-verse",
+        "name": "City of Tiny Lites: the third verse",
+        "type": "groove_variation",
+        "function": "The snare and kick together on 1 and 3, then on the \"and\" of 1, the \"a\" of 2 and 3, under sixteenths on the hat.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-68251"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 162,
+          "playable_range_bpm": [156, 166]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx",
+          "snare": "x.......x.......|..x..x..x.......",
+          "kick": "x.......x.......|..x..x..x......."
+        },
+        "source": {
+          "recording_id": "rec:frank-zappa-sheik-yerbouti-1979",
+          "transcription_source_id": "src:songsterr-68251"
+        },
+        "tags": ["1979"]
+      },
+      {
+        "id": "pattern:terry-bozzio-chin-intro",
+        "name": "Tryin' to Grow a Chin: the intro",
+        "type": "intro",
+        "function": "The snare and a tom struck together with the kick on a beat and its \"and\", at 174.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-68245"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 174,
+          "playable_range_bpm": [168, 178]
+        },
+        "lanes": {
+          "snare": "x.x...x.x...x.x.",
+          "tom_2": "x.x...x.x...x.x.",
+          "kick": "x.x...x.x...x.x."
+        },
+        "source": {
+          "recording_id": "rec:frank-zappa-sheik-yerbouti-1979",
+          "transcription_source_id": "src:songsterr-68245"
+        },
+        "tags": ["1979", "unison"]
+      },
+      {
+        "id": "pattern:terry-bozzio-muffin-man-riff",
+        "name": "Muffin Man: the riff",
+        "type": "groove",
+        "function": "Half time with the guitar: a crash on 1, the hat on 2, 3 and 4, the snare on 3, its \"and\" and 4.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-35886"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 131,
+          "playable_range_bpm": [126, 134]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "hihat": "....o...o...o...",
+          "snare": "........x.x.x...",
+          "kick": "x.....x...x....."
+        },
+        "source": {
+          "recording_id": "rec:frank-zappa-captain-beefheart-and-the-mothers-bongo-fury-1975",
+          "transcription_source_id": "src:songsterr-35886"
+        },
+        "tags": ["1975", "half time"]
+      },
+      {
+        "id": "pattern:terry-bozzio-dancin-fool-yowza",
+        "name": "Dancin' Fool: the yowza groove",
+        "type": "groove",
+        "function": "The hat in sixteenths with accents on the beats, the snare accented on 2 and 4, the kick doubled after 2, perhaps on two bass drums (Bishop).",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-bozzio-dancin-fool-2017"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 134,
+          "playable_range_bpm": [130, 138]
+        },
+        "lanes": {
+          "hihat": "XxxxXxxxXxoxXxxx",
+          "snare": "....X.......X...",
+          "kick": "x......xx.x....x"
+        },
+        "source": {
+          "recording_id": "rec:frank-zappa-sheik-yerbouti-1979",
+          "transcription_source_id": "src:bishop-bozzio-dancin-fool-2017"
+        },
+        "tags": ["1979", "double bass"]
+      },
+      {
+        "id": "pattern:terry-bozzio-walking-in-la-verse",
+        "name": "Walking in L.A.: the verse",
+        "type": "groove",
+        "function": "Eighths on the hat, the kick on every beat, the snare on 2 and 4.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-753414"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 137,
+          "playable_range_bpm": [132, 140]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:missing-persons-spring-session-m-1982",
+          "transcription_source_id": "src:songsterr-753414"
+        },
+        "tags": ["1982", "new wave"]
+      },
+      {
+        "id": "pattern:terry-bozzio-destination-unknown-chorus",
+        "name": "Destination Unknown: the chorus",
+        "type": "groove",
+        "function": "Eighths with the hat open on the \"and\" of 1 and of 4, the kick on 1 and 3.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5343064"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [116, 124]
+        },
+        "lanes": {
+          "hihat": "x.o.x.x.x.x.x.o.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:missing-persons-spring-session-m-1982",
+          "transcription_source_id": "src:songsterr-5343064"
+        },
+        "tags": ["1982", "new wave"]
+      },
+      {
+        "id": "pattern:terry-bozzio-two-and-two-fill",
+        "name": "The \"Portnoy fill\"",
+        "type": "fill",
+        "function": "Two sixteenths on the snare or a tom, then two on the bass drums, repeated: the fill named for Mike Portnoy, who credits Bozzio with it.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mike-portnoy-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [100, 150]
+        },
+        "lanes": {
+          "tom_1": "........xx......",
+          "tom_2": "............xx..",
+          "kick": "..........xx..xx"
+        },
+        "tags": ["fill", "double bass"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:terry-bozzio-zappa-1977",
+      "label": "Zappa years (1977)",
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "other",
+          "model": "Rototoms"
+        }
+      ],
+      "hardware": [],
+      "layout_notes": "Black shells and chrome hardware, a row of chrome Rototoms and large cymbals, as seen in Baby Snakes (Halloween 1977); Bishop hears his Rototom set on Dancin' Fool.",
+      "endorsements": [],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-bozzio-dancin-fool-2017", "src:baby-snakes-wikipedia"]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "Frank Zappa",
       "type": "band_member",
       "years": {
         "from": 1975,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"]
+      }
+    },
+    {
+      "name": "The Brecker Brothers",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1977,
         "to": 1978
       },
       "evidence": {
@@ -78,13 +740,354 @@
         "confidence": "widely_reported",
         "source_ids": ["src:terry-bozzio-wikipedia"]
       }
+    },
+    {
+      "name": "Bozzio Levin Stevens",
+      "type": "band_member",
+      "years": {
+        "from": 1997,
+        "to": 2000
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"]
+      }
     }
   ],
   "key_recording_ids": [
+    "rec:frank-zappa-captain-beefheart-and-the-mothers-bongo-fury-1975",
     "rec:frank-zappa-zappa-in-new-york-1978",
+    "rec:frank-zappa-sheik-yerbouti-1979",
     "rec:u-k-danger-money-1979",
     "rec:missing-persons-spring-session-m-1982"
   ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Carmine Appice",
+        "kind": "drummer",
+        "id": "drummer:carmine-appice"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"],
+        "note": "An early influence (Wikipedia)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"],
+        "note": "An early influence (Wikipedia)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"],
+        "note": "An early influence (Wikipedia)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"],
+        "note": "A later influence (Wikipedia)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"],
+        "note": "A later influence (Wikipedia)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Eric Gravatt",
+        "kind": "drummer",
+        "id": "drummer:eric-gravatt"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"],
+        "note": "A later influence (Wikipedia)."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Chuck Brown",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"],
+        "note": "Drum set lessons while at the College of Marin."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Lloyd Davis",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"],
+        "note": "Percussion and timpani, on a scholarship."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Roland Kohloff",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"],
+        "note": "Percussion and timpani, on a scholarship."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Bill Bruford",
+        "kind": "drummer",
+        "id": "drummer:bill-bruford"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"],
+        "note": "In U.K., late 1978."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Vinnie Colaiuta",
+        "kind": "drummer",
+        "id": "drummer:vinnie-colaiuta"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:vinnie-colaiuta-wikipedia"],
+        "note": "Colaiuta took the drum chair in Zappa's band after him (Colaiuta's record)."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Chad Wackerman",
+        "kind": "drummer",
+        "id": "drummer:chad-wackerman"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"],
+        "note": "The Duets video and Alternative Duets CDs (2001)."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Mike Portnoy",
+        "kind": "drummer",
+        "id": "drummer:mike-portnoy"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mike-portnoy-wikipedia", "src:mike-portnoy-faroutmagazine-2023"],
+        "note": "Among his favourite drummers; credits Bozzio as the originator of the \"Portnoy fill\"."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Tomas Haake",
+        "kind": "drummer",
+        "id": "drummer:tomas-haake"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tomas-haake-wikipedia"],
+        "note": "Among the drummers he names."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Sean Reinert",
+        "kind": "drummer",
+        "id": "drummer:sean-reinert"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sean-reinert-wikipedia"],
+        "note": "Named among Reinert's influences (Reinert's record)."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Tommy Lee",
+        "kind": "drummer",
+        "id": "drummer:tommy-lee"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tommy-lee-wikipedia"],
+        "note": "Named among Lee's influences (Lee's record)."
+      }
+    },
+    {
+      "type": "composed_for",
+      "target": {
+        "name": "Frank Zappa",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia", "src:the-black-page-wikipedia"],
+        "note": "Zappa wrote The Black Page for him, \"originally a solo piece for drums\"."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Frank Zappa",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Eddie Jobson",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Warren Cuccurullo",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Dale Bozzio",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Patrick O'Hearn",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia", "src:spring-session-m-wikipedia"],
+        "note": "With Zappa from 1976 and in Missing Persons."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "John Wetton",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia", "src:danger-money-wikipedia"],
+        "note": "U.K."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Tony Levin",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"],
+        "note": "Bozzio Levin Stevens."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [],
+    "notes": "Instructional videos: Solo Drums (Warner Bros., late 1980s), Melodic Drumming and the Ostinato Vols. 1-3; twice Clinician of the Year (Wikipedia)."
+  },
   "legacy": {
     "contribution": {
       "description": "Zappa wrote \"The Black Page\" for him; he then co-led Missing Persons and developed solo ostinato-based drumming on a large tuned kit. Credited as the source of the 'Portnoy fill', he is cited by Mike Portnoy and Tomas Haake. Modern Drummer Hall of Fame 1997.",
@@ -97,10 +1100,54 @@
           "src:tomas-haake-wikipedia"
         ]
       }
-    }
+    },
+    "influence_score": 0.7,
+    "innovations": [
+      "Ostinato-based solo compositions on a tuned kit (1990s)",
+      "The Black Page, written for him by Zappa"
+    ],
+    "accolades": [
+      {
+        "name": "Modern Drummer Hall of Fame (1997)",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:terry-bozzio-wikipedia"]
+        }
+      },
+      {
+        "name": "Rolling Stone, 100 Greatest Drummers of All Time: 17 (2016)",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rollingstone-100-drummers-2016"]
+        }
+      }
+    ],
+    "common_misconceptions": []
   },
   "beatbreaker": {
-    "group": "Progressive and math rock drummers",
-    "build_priority": 1
+    "style_key": "bozzio",
+    "headline_pattern_ids": [
+      "pattern:terry-bozzio-tiny-lites-verse",
+      "pattern:terry-bozzio-dancin-fool-yowza"
+    ],
+    "default_kit_sound": "A bright, tight kit with Paiste cymbals for the Zappa records; a dry studio rock kit for Missing Persons",
+    "generation_rules": [
+      "Half-open hats, played hard.",
+      "Fills round the toms in sixteenths and thirty-seconds, to a crash.",
+      "Kick doubles in the groove.",
+      "Few ghost notes."
+    ],
+    "avoid": ["Brushes", "Swing", "Laid-back pocket"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:mitch-mitchell",
+        "drummer:ginger-baker",
+        "drummer:elvin-jones",
+        "drummer:tony-williams"
+      ],
+      "primary_descendants": ["drummer:mike-portnoy", "drummer:tomas-haake"],
+      "lineage_blurb": "Appice, Mitchell and Baker first, then Elvin Jones and Tony Williams; Zappa's written music and U.K.'s odd meters; Mike Portnoy, who credits him with the \"Portnoy fill\", and Tomas Haake among the drummers who name him."
+    },
+    "tags": ["zappa", "prog", "new wave", "missing persons", "70s", "80s"]
   }
 }

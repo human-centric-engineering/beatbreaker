@@ -1,6 +1,6 @@
 import { LANES, TOM_LANES, bbValue } from '@/lib/app/breaks/lanes';
 import { isGroupStart, stepsOf, stepsPerQuarter } from '@/lib/app/breaks/meter';
-import { cloneBar, clonePolySpan, markFill } from '@/lib/app/breaks/pattern';
+import { cloneBar, clonePolySpan, keepsKickRuns, markFill } from '@/lib/app/breaks/pattern';
 import { makeRng, wpick } from '@/lib/app/breaks/rng';
 import type {
   Bar,
@@ -239,8 +239,8 @@ export interface PolyFillContext {
   clave?: boolean;
   /** The value a clave stroke has on the snare. */
   claveValue?: number;
-  /** A double pedal: a run of kicks is two feet's, and stays. */
-  doubleKick?: boolean;
+  /** Kick runs are kept (`keepsKickRuns`): a double pedal, or one pedal that can. */
+  kickRuns?: boolean;
 }
 
 /** The context a style writes its poly fills in. */
@@ -256,7 +256,7 @@ export function polyFillContext(
     backbeats,
     clave: style.clave,
     claveValue: bbValue('s', style),
-    doubleKick: style.doubleKick,
+    kickRuns: keepsKickRuns(style),
   };
 }
 
@@ -332,8 +332,9 @@ export function writePolyFill(
     }
   }
   /* The figure's first kicks are the figure's: a groove kick just before
-     them that would make three 16ths in a row on one foot goes. */
-  if (ownKick && !ctx.doubleKick) {
+     them that would make three 16ths in a row on one foot goes, unless the
+     style keeps its kick runs. */
+  if (ownKick && !ctx.kickRuns) {
     const k = (t: number) => {
       const [b, i] = cell(t);
       return bars[b]?.k[i] ?? 0;

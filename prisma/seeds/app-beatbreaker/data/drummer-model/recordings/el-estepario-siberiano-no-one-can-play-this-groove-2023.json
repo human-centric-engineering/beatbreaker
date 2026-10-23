@@ -1,0 +1,42 @@
+{
+  "id": "rec:el-estepario-siberiano-no-one-can-play-this-groove-2023",
+  "title": "NO ONE CAN PLAY THIS GROOVE.",
+  "artist": "El Estepario Siberiano",
+  "year": 2023,
+  "type": "video",
+  "style_ids": ["style:gospel-chops"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:youtube-estepario-no-one-can-play-2023"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:el-estepario-siberiano",
+      "name": "El Estepario Siberiano",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "His most viewed groove of 2023: four limbs, four parts, a cowbell pedal under the left foot."
+    }
+  ],
+  "tracks": [
+    {
+      "title": "No One Can Play This Groove",
+      "drummer_ids": ["drummer:el-estepario-siberiano"],
+      "drums": {
+        "description": "Four on the floor, a cowbell pedal under the left foot on the \"and\"s and \"a\"s, the hat round it, the snare on 2 and 4, built a limb at a time.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:youtube-estepario-no-one-can-play-2023", "src:songsterr-1296442"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Q0-t5v2OBBs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1296442"
+        }
+      ],
+      "style_key": "estepario",
+      "song_key": "no-one-can-play-this-groove"
+    }
+  ]
+}

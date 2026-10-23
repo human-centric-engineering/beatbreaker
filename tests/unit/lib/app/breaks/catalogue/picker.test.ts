@@ -125,6 +125,8 @@ describe('drummerSection', () => {
       'harrison',
       'klek',
       'carlpalmer',
+      'bozzio',
+      'aeschliman',
       'paulcook',
       'headon',
       'barker',
@@ -198,6 +200,7 @@ describe('drummerSection', () => {
       'carltonbarrett',
       'slydunbar',
       'santadavis',
+      'estepario',
     ]);
     expect(drummers?.groups.map(([g]) => g)).toEqual([
       'Rock and roll and roots drummers',
@@ -235,6 +238,7 @@ describe('drummerSection', () => {
       'Samba and Brazilian jazz drummers',
       'Afrobeat drummers',
       'Reggae drummers',
+      'YouTube drummers',
     ]);
     for (const key of keysOf(drummers!)) expect(keysOf(section)).not.toContain(key);
   });
