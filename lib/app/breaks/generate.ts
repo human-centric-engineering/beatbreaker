@@ -687,9 +687,19 @@ function varyFigureBar(rng: Rng, bar: Bar, style: Style, m: Meter): Bar {
   const n = b.k.length;
   const backbeats = style.backbeats ?? [];
   const roll = rng();
-  const opensAt = inMeter([14, 6, 10, 2], m).filter(
-    (i) => i < n && b.h[i] === 1 && b.h[i - 1] !== 3 && b.h[i + 1] !== 3
-  );
+  /* As in varyBar: a style whose hat never opens keeps it closed here too,
+     and one that says where its opens go opens only there. */
+  const opensAt =
+    style.hat && !style.hat.opens?.length
+      ? []
+      : inMeter([14, 6, 10, 2], m).filter(
+          (i) =>
+            i < n &&
+            b.h[i] === 1 &&
+            b.h[i - 1] !== 3 &&
+            b.h[i + 1] !== 3 &&
+            (!style.openSlots || style.openSlots.includes(i))
+        );
   if (roll < 0.45 && !kickRuns(b)) {
     // the kick follows the riff: an 8th or a 16th off the beat comes or goes
     const cands = inMeter(VARY_KICK, m).filter(

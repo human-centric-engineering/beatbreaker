@@ -838,8 +838,10 @@ describe('the rock, jazz and blues styles', () => {
     /* Davies holds one bar through a phrase by design (two to eight notes a
        bar, fills almost never), so now and then two of twelve presses land
        on the same bar of the same song. Agbekor's bell, rattle, kagan and
-       dance beat never change; only the lead drum's calls do. */
-    const STILL = ['davies', 'agbekor'];
+       dance beat never change; only the lead drum's calls do. Milton Banana's
+       brushed bossa holds its groove, his hat never opens, and his accents
+       land on the crash, which this does not compare. */
+    const STILL = ['davies', 'agbekor', 'miltonbanana'];
     /* The Glamorous Life's intro is Prince's Linn, one bar held, and low seeds
        land on it. Santa Davis's Bush Doctor holds one figure through each
        section, as its tab does (the verse x15, the chorus x38), so a whole

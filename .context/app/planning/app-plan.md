@@ -5003,9 +5003,10 @@ Over Beethoven; Johnny B. Goode and Sweet Little Sixteen marked disputed
 (Jasper Thomas, per the union filings); Tim Alexander on The Hollow. The
 re-rank after the merge leaves batches 2 to 4 as DC planned them. Found on the
 way: YouTube refuses downloads from the forks (HTTP 403), so most tempos come
-from iTunes' 30-second previews and say so; and the generator can open a
-closed hat in a style that never does (`varyFigureBar`), which a brush player
-like Banana never would.
+from iTunes' 30-second previews and say so; and the generator's figure bars
+opened the hat in a style that never does (`varyFigureBar`), which a brush
+player like Banana never would; it now keeps to the style's `openSlots` and
+hat, as `varyBar` already did.
 
 **Not in Phase 15:** scoring the songs. Each one is still a drummer batch of
 its own (`drumming-research.md`). Also out: a request or vote for a song;

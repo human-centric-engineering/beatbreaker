@@ -3323,7 +3323,7 @@ const CARL_PALMER: Persona = {
   accent: '#c9773a',
   headphones: false,
   chain: true,
-  kit: { shell: '#c9773a', finish: 'sparkle', hardware: 'chrome', rug: '#1c1a18' },
+  kit: { shell: '#c9773a', finish: 'metal', hardware: 'chrome', rug: '#1c1a18' },
 };
 
 /**
