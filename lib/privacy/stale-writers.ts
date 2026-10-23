@@ -100,7 +100,7 @@ export const SCRUBBED_COLUMNS: readonly ScrubbedModel[] = [
 export type StaleWriteAnchor = 'version' | 'row-lock' | 'taken-at' | 'intent' | 'erasure' | 'seed';
 
 /** The §122 tasks that convert a `pending` writer. */
-export type StaleWriterTask = 't-899' | 't-900' | 't-902';
+export type StaleWriterTask = 't-899' | 't-900';
 
 interface StaleWriterBase {
   /** Repo-relative path of the file that writes. */
@@ -124,6 +124,12 @@ export interface PendingStaleWriter extends StaleWriterBase {
 
 export type StaleWriter = AnchoredStaleWriter | PendingStaleWriter;
 
+/** The backup importer's two contact writers share one rule (t-902). */
+const IMPORTED_CONTACTS =
+  "Imports email subscriptions or the escalation list. Strips anyone erased since the bundle's " +
+  '`exportedAt` when this install sealed it, for this org and these addresses ' +
+  "(`export-seal.ts`), else anyone ever erased; under erasure's locks (t-902).";
+
 const RUN_ROUTES = 'app/api/v1/admin/orchestration/executions/[id]';
 
 /** Every Sunrise file that writes a scrubbed column. Ordered by anchor, then path. */
@@ -131,6 +137,18 @@ export const STALE_WRITERS: readonly StaleWriter[] = [
   // ---------------------------------------------------------------------
   // Settled.
   // ---------------------------------------------------------------------
+  {
+    file: 'lib/orchestration/backup/importer.ts',
+    model: 'AiWebhookSubscription',
+    anchor: 'taken-at',
+    how: IMPORTED_CONTACTS,
+  },
+  {
+    file: 'lib/orchestration/backup/importer.ts',
+    model: 'AiOrchestrationSettings',
+    anchor: 'taken-at',
+    how: IMPORTED_CONTACTS,
+  },
   {
     file: 'lib/orchestration/engine/orchestration-engine.ts',
     model: 'AiWorkflowExecution',
@@ -362,21 +380,9 @@ export const STALE_WRITERS: readonly StaleWriter[] = [
     file: 'lib/orchestration/backup/importer.ts',
     model: 'AiWorkflowVersion',
     anchor: 'pending',
-    task: 't-902',
-    how: "Imports workflow snapshots. Strips anyone ever erased; ignores the bundle's `exportedAt`.",
-  },
-  {
-    file: 'lib/orchestration/backup/importer.ts',
-    model: 'AiWebhookSubscription',
-    anchor: 'pending',
-    task: 't-902',
-    how: "Imports subscriptions. Strips anyone ever erased; ignores the bundle's `exportedAt`.",
-  },
-  {
-    file: 'lib/orchestration/backup/importer.ts',
-    model: 'AiOrchestrationSettings',
-    anchor: 'pending',
-    task: 't-902',
-    how: "Imports the escalation list. Strips anyone ever erased; ignores the bundle's `exportedAt`.",
+    task: 't-900',
+    how:
+      'Imports workflow snapshots. Strips anyone ever erased, because `createInitialVersion` ' +
+      'refuses an ever-erased address until t-900 (t-902).',
   },
 ];
