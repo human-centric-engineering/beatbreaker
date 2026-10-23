@@ -3497,6 +3497,9 @@ const EL_ESTEPARIO: Persona = {
  * sleeveless shirt with a white print on its chest (not drawn), a tattoo sleeve on his
  * arm (the app draws no tattoos). A wine-red lacquered kit with chrome hardware under a
  * crowd of Meinl stacks and chinas. Trousers and shoes are out of shot: dark ones.
+ * On stage now (a recent live photograph), he wears a black cap the
+ * right way round, its peak over his brow, with the curls gathered back under it
+ * and tied in a loose knot low behind his head: that is how he is drawn.
  */
 const CLAY_AESCHLIMAN: Persona = {
   id: 'aeschliman',
@@ -3505,13 +3508,17 @@ const CLAY_AESCHLIMAN: Persona = {
   build: 'average',
   skin: '#e2b08f',
   hair: '#2a1a12',
-  hairStyle: 'mane',
+  // gathered back under the cap and tied low behind the head
+  hairStyle: 'knot',
   beard: 'full',
   top: 'vest',
   shirt: '#141416',
   trousers: '#1c1c20',
   shoes: '#2a2a2e',
-  accent: '#e9e6df',
+  // the cap's colour
+  accent: '#141416',
+  hat: 'cap',
+  forwards: true,
   headphones: false,
   kit: { shell: '#5a0f16', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
 };

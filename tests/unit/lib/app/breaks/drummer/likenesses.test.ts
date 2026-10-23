@@ -110,6 +110,8 @@ describe('LIKENESSES', () => {
       top: 'tee',
       tongue: true,
     });
+    // Clay Aeschliman on stage: a black cap the right way round, his curls tied back under it
+    expect(LIKENESSES.aeschliman).toMatchObject({ hat: 'cap', forwards: true, hairStyle: 'knot' });
     // Sheila E.'s hair long and swept back, big silver hoops
     expect(LIKENESSES.sheilae).toMatchObject({ hairStyle: 'flowing' });
     expect(LIKENESSES.sheilae.hoops).toMatch(/^#[0-9a-f]{6}$/i);
