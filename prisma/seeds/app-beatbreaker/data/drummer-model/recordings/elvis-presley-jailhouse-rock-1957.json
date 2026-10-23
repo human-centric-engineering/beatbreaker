@@ -22,13 +22,15 @@
           "source_ids": ["src:jailhouse-rock-song-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=xqBdTn3_0Rw",
+      "youtube": "https://www.youtube.com/watch?v=PpsUOOfb-vE",
       "transcriptions": [
         {
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=15879"
         }
-      ]
+      ],
+      "style_key": "djfontana",
+      "song_key": "jailhouse-rock"
     },
     {
       "title": "(You're So Square) Baby I Don't Care",

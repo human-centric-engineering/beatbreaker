@@ -2,10 +2,19 @@
   "meta": {
     "id": "drummer:kenny-clarke",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
+    "record_status": "draft",
+    "completeness": 0.45,
     "created": "2026-10-22",
     "updated": "2026-10-22",
-    "authors": ["claude"]
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Which take of Bags' Groove the Songsterr tab follows is not named; both takes measure 146.",
+      "Swing to Bop's pianist is disputed (Kenny Kersey or Thelonious Monk); the drummer is not.",
+      "His triplet runs on Love Me or Leave Me (290) and Two Not One (238) are past the sextuplet ceiling of 190 and are approximated as swung eighths.",
+      "Equipment is not sourced: no brand or sizes for his kit are given here.",
+      "The MJQ (Django), Walkin' and Ascenseur pour l'echafaud tracks have no human transcription and are not scored.",
+      "Bishop's 1941 Hot House intro was not used: a commenter credits Sid Catlett, and Bishop could not settle it."
+    ]
   },
   "identity": {
     "name": "Kenny Clarke",
@@ -19,17 +28,111 @@
       }
     },
     "died": {
-      "date": "1985-01-26"
+      "date": "1985-01-26",
+      "place": "Montreuil, France",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kenny-clarke-wikipedia"],
+        "note": "A heart attack at his home; he and his wife had settled in Montreuil."
+      }
     },
     "nationality": ["American"],
     "home_scenes": ["Minton's Playhouse, New York (early 1940s)", "Paris (from 1956)"],
+    "handedness": "unknown",
+    "setup_type": "drum_kit",
     "primary_instruments": ["drum kit"],
     "active": {
       "from": 1931,
       "to": 1985
     },
-    "summary": "The house drummer at Minton's whose ride-cymbal time and bass-drum \"bombs\" became bebop drumming."
+    "roles": ["band_member", "session", "bandleader", "educator"],
+    "summary": "The house drummer at Minton's whose ride-cymbal time and bass-drum \"bombs\" became bebop drumming.",
+    "alter_egos": [
+      {
+        "name": "Klook",
+        "context": "Short for 'Klook-mop', in imitation of a rimshot followed directly by a bass-drum bomb.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:kenny-clarke-wikipedia"]
+        }
+      },
+      {
+        "name": "Liaquat Ali Salaam",
+        "context": "The name he took on converting to Islam in 1946.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:kenny-clarke-wikipedia"]
+        }
+      }
+    ]
   },
+  "formation": {
+    "first_instrument": "snare drum",
+    "other_instruments": ["vibraphone", "piano", "trombone"],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Orphanage marching band",
+        "impact": "Played snare in the band of the Coleman Industrial Home in Pittsburgh at eight or nine.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:kenny-clarke-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:kenny-clarke-mintons",
+      "label": "Teddy Hill and Minton's",
+      "years": {
+        "from": 1935,
+        "to": 1943
+      },
+      "context": "From Edgar Hayes and Teddy Hill's band (where he moved the time to the ride cymbal) to house drummer at Minton's Playhouse, where bebop was worked out in the after-hours jams.",
+      "defining_traits": [
+        "the time on the ride cymbal",
+        "bombs on the bass drum",
+        "brushes on the snare"
+      ],
+      "key_recording_ids": ["rec:charlie-christian-swing-to-bop-1941"]
+    },
+    {
+      "id": "era:kenny-clarke-new-york",
+      "label": "Gillespie, the MJQ and Prestige",
+      "years": {
+        "from": 1946,
+        "to": 1956
+      },
+      "context": "Gillespie's big band and sextet; Paris 1948-51; the Modern Jazz Quartet 1951-55; Miles Davis's Prestige sessions of 1954; house drummer at Savoy and at Van Gelder's ('Klook's corner').",
+      "defining_traits": [
+        "light, quiet cymbal and bass drum",
+        "ruffs, triplets and short rolls on a tight snare",
+        "the Kenny note"
+      ],
+      "key_recording_ids": [
+        "rec:modern-jazz-quartet-django-1956",
+        "rec:miles-davis-walkin-1957",
+        "rec:miles-davis-bags-groove-1957",
+        "rec:lee-konitz-with-warne-marsh-1955",
+        "rec:kenny-clarke-jazzmen-detroit-1956"
+      ]
+    },
+    {
+      "id": "era:kenny-clarke-paris",
+      "label": "Paris and the Clarke-Boland Big Band",
+      "years": {
+        "from": 1956,
+        "to": 1985
+      },
+      "context": "Paris from 1956: the Blue Note and the Club Saint-Germain, Ascenseur pour l'echafaud with Miles Davis, the Three Bosses with Bud Powell, the Kenny Clarke/Francy Boland Big Band 1961-72; a drum school with Dante Agostini.",
+      "defining_traits": ["softer than most drummers in a big band", "just enough decoration"],
+      "key_recording_ids": [
+        "rec:miles-davis-ascenseur-pour-lechafaud-1958",
+        "rec:kenny-clarke-francy-boland-big-band-jazz-is-universal-1962"
+      ]
+    }
+  ],
   "style_profile": {
     "genres": [
       {
@@ -46,10 +149,338 @@
         "style_id": "style:big-band-swing",
         "weight": 0.4,
         "authority": 0.4
+      },
+      {
+        "style_id": "style:cool-jazz",
+        "weight": 0.3,
+        "authority": 0.4
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.75,
+    "role_tendency": "accompanist",
+    "descriptors": ["light", "swinging", "unselfish", "rudimental", "inventive"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kenny-clarke-wikipedia"],
+        "note": "'Clarke follows feelings, lives inside the pulse' (Korall, quoted)."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "'A strong quarter note groove' on Swing to Bop; the eighths swung, flattening with the tempo (Bishop's fours at 238 and 290)."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "mp",
+      "balance": "'His cymbal sound and bass drum work were light and quietly persuasive'; in the big band 'Playing softer than most drummers' (Korall, quoted on Wikipedia)."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 10],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.6
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [100, 300],
+    "timekeeping_context": ["free"],
+    "interaction": "Comping with the snare on the 'and' of 1 or of 3 (the Kenny note), and from the 1930s playing the brass and saxophone figures with the band: 'play the figures over the regular beat'.",
+    "descriptors": ["light", "inside the pulse", "unselfish"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Brushes",
+        "description": "The swing rhythm on the snare with the left hand in the gap (Swing to Bop); fours on brushes at 290, ties for sweeps (Love Me or Leave Me).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-clarke-swing-to-bop-2022", "src:bishop-clarke-fours-lmlm-2015"]
+        }
+      },
+      {
+        "name": "Rudiments on the snare",
+        "description": "'well-executed ruffs, triplets, short rolls on a tightly tuned snare' (Korall); paradiddle triplet licks, five-stroke rolls, four-stroke ruffs and stick shots in his fours (Two Not One).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-clarke-fours-two-not-one-2019", "src:kenny-clarke-wikipedia"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.7,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.8,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.0,
+      "foot_ostinato_usage": 0.9,
+      "double_bass": 0.0,
+      "notes": "The time moved to the ride cymbal to free the left hand; exercises for independence of the bass drum and snare under the ride, written with Gillespie (Wikipedia).",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-22",
+        "searched": [
+          "Todd Bishop's transcriptions, read bar by bar: Swing to Bop (91 bars), Love Me or Leave Me (eight fours), Two Not One (eight fours), The Kenny Note (Apothegm's head)",
+          "The Songsterr tab of Bags' Groove (242 bars)",
+          "Kenny Clarke on Wikipedia"
+        ],
+        "note": "No device written: quarter-note triplets in one four of Love Me or Leave Me and half-note triplets in one of Two Not One are rhythms within the bar, not a cross-rhythm, grouping or metric device kept across bar lines."
+      }
+    },
+    "foot_techniques": [
+      {
+        "name": "Bombs",
+        "description": "The bass drum for irregular accents ('dropping bombs') instead of four on the floor; the hi-hat on the backbeats.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:kenny-clarke-wikipedia"]
+        }
+      },
+      {
+        "name": "Feathered bass drum",
+        "description": "'You can assume that he's feathering the bass drum throughout' (Bishop, Swing to Bop).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-clarke-swing-to-bop-2022"]
+        }
+      }
+    ]
+  },
+  "sound_profile": {
+    "aesthetic": ["a light cymbal", "a tightly tuned snare", "a quiet bass drum"],
+    "cymbal_character": "'His cymbal sound and bass drum work were light and quietly persuasive' (Korall).",
+    "sample_hints": {
+      "50s": "A small jazz kit, a light ride, a tight snare, a soft bass drum."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:kenny-clarke-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:kenny-clarke-ride-time",
+      "label": "The time on the ride cymbal",
+      "category": "groove",
+      "description": "He came upon the ride cymbal for the time on a fast tune with Teddy Hill, freeing the left hand.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenny-clarke-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:kenny-clarke-bombs",
+      "label": "Dropping bombs",
+      "category": "groove",
+      "description": "Irregular accents on the bass drum; a rimshot followed directly by a bomb gave him his name, Klook.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenny-clarke-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:kenny-clarke-kenny-note",
+      "label": "The Kenny note",
+      "category": "groove",
+      "description": "Comping with the snare on the 'and' of 1 or of 3 (Apothegm).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-kenny-note-2012"]
+      }
+    },
+    {
+      "id": "trait:kenny-clarke-cross-stick-4",
+      "label": "The cross-stick on 4",
+      "category": "groove",
+      "description": "Under the solos of Bags' Groove, 190 of the tab's 242 bars.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-462220"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:kenny-clarke-kenny-note",
+        "name": "Apothegm: the Kenny note",
+        "type": "comping",
+        "function": "The ride and the foot on 2 and 4, the snare on the 'and' of 3.",
+        "style_ids": ["style:bebop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-kenny-note-2012"],
+          "note": "Bishop's two-measure phrase, its second bar."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 175,
+          "playable_range_bpm": [170, 180]
+        },
+        "lanes": {
+          "ride": "x.xxx.xx",
+          "snare": ".....X..",
+          "hihat_pedal": "..k...k."
+        },
+        "source": {
+          "recording_id": "rec:kenny-clarke-jazzmen-detroit-1956",
+          "transcription_source_id": "src:bishop-kenny-note-2012",
+          "section": "the head"
+        },
+        "tags": ["1956", "comping"]
+      },
+      {
+        "id": "pattern:kenny-clarke-bags-cross-stick",
+        "name": "Bags' Groove: the cross-stick on 4",
+        "type": "groove",
+        "function": "The ride swung, the foot on 2 and 4, the cross-stick on 4.",
+        "style_ids": ["style:bebop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-462220"],
+          "note": "Tab bars 15-16 and 107 more."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 146,
+          "playable_range_bpm": [140, 150]
+        },
+        "lanes": {
+          "ride": "x.xxx.xx",
+          "snare": "......c.",
+          "hihat_pedal": "..k...k."
+        },
+        "source": {
+          "recording_id": "rec:miles-davis-bags-groove-1957",
+          "transcription_source_id": "src:songsterr-462220",
+          "section": "the solos"
+        },
+        "tags": ["1954", "cross-stick"]
+      },
+      {
+        "id": "pattern:kenny-clarke-swing-to-bop-brushes",
+        "name": "Swing to Bop: the time on brushes",
+        "type": "groove",
+        "function": "The ride rhythm on the snare with brushes, the left hand in the gap.",
+        "style_ids": ["style:bebop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-clarke-swing-to-bop-2022"],
+          "note": "Bishop bars 2, 4-6, 8, 10; the foot is a reconstruction."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 220,
+          "playable_range_bpm": [214, 226]
+        },
+        "lanes": {
+          "snare": "x.xxx.xx",
+          "hihat_pedal": "..k...k."
+        },
+        "source": {
+          "recording_id": "rec:charlie-christian-swing-to-bop-1941",
+          "transcription_source_id": "src:bishop-clarke-swing-to-bop-2022",
+          "section": "Christian's solo"
+        },
+        "tags": ["1941", "brushes"]
       }
     ]
   },
   "affiliations": [
+    {
+      "name": "Teddy Hill's band",
+      "type": "band_member",
+      "years": {
+        "from": 1939,
+        "to": 1940
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenny-clarke-wikipedia"]
+      }
+    },
+    {
+      "name": "Minton's Playhouse house band",
+      "type": "house_band",
+      "years": {
+        "from": 1941,
+        "to": 1942
+      },
+      "bandmates": [
+        {
+          "name": "Thelonious Monk"
+        },
+        {
+          "name": "Joe Guy"
+        },
+        {
+          "name": "Nick Fenton"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenny-clarke-wikipedia", "src:mintons-playhouse-wikipedia"]
+      }
+    },
+    {
+      "name": "Dizzy Gillespie",
+      "type": "band_member",
+      "years": {
+        "from": 1946,
+        "to": 1948
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenny-clarke-wikipedia"]
+      }
+    },
     {
       "name": "Modern Jazz Quartet",
       "type": "band_member",
@@ -57,8 +488,32 @@
         "from": 1952,
         "to": 1955
       },
+      "bandmates": [
+        {
+          "name": "John Lewis"
+        },
+        {
+          "name": "Milt Jackson"
+        },
+        {
+          "name": "Percy Heath"
+        }
+      ],
       "evidence": {
         "confidence": "widely_reported",
+        "source_ids": ["src:kenny-clarke-wikipedia"]
+      }
+    },
+    {
+      "name": "Miles Davis",
+      "type": "session_regular",
+      "years": {
+        "from": 1951,
+        "to": 1957
+      },
+      "notes": "The Prestige sessions of 1954 (Walkin', Bags' Groove) and Ascenseur pour l'echafaud in Paris.",
+      "evidence": {
+        "confidence": "verified",
         "source_ids": ["src:kenny-clarke-wikipedia"]
       }
     },
@@ -76,23 +531,15 @@
     }
   ],
   "key_recording_ids": [
+    "rec:charlie-christian-swing-to-bop-1941",
+    "rec:miles-davis-walkin-1957",
     "rec:miles-davis-bags-groove-1957",
     "rec:modern-jazz-quartet-django-1956",
+    "rec:lee-konitz-with-warne-marsh-1955",
+    "rec:kenny-clarke-jazzmen-detroit-1956",
+    "rec:miles-davis-ascenseur-pour-lechafaud-1958",
     "rec:kenny-clarke-francy-boland-big-band-jazz-is-universal-1962"
   ],
-  "legacy": {
-    "contribution": {
-      "description": "Moved the time from the hi-hat to the ride cymbal and used the bass drum for irregular accents (\"dropping bombs\"), the basis of bebop drumming, worked out as house drummer at Minton's Playhouse.",
-      "evidence": {
-        "confidence": "verified",
-        "source_ids": ["src:kenny-clarke-wikipedia"]
-      }
-    }
-  },
-  "beatbreaker": {
-    "group": "Bebop drummers",
-    "build_priority": 1
-  },
   "relationships": [
     {
       "type": "influenced",
@@ -119,6 +566,106 @@
         "confidence": "likely",
         "source_ids": ["src:kenny-clarke-wikipedia"]
       }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Chick Webb",
+        "kind": "drummer",
+        "id": "drummer:chick-webb"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenny-clarke-wikipedia"],
+        "note": "At the 1939 World's Fair Webb 'strongly influenced him and encouraged his rhythmic explorations'."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Connie Kay",
+        "kind": "drummer",
+        "id": "drummer:connie-kay"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:connie-kay-wikipedia"],
+        "note": "In the Modern Jazz Quartet, 1955."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Dizzy Gillespie",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenny-clarke-wikipedia"],
+        "note": "Gillespie encouraged the ride-cymbal time; they wrote independence exercises together."
+      }
     }
-  ]
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Play along with the brass and saxophone figures, to emphasise and support their lines: the drummer outlines the band, not only the time.",
+        "paraphrase_of_source_id": "src:kenny-clarke-wikipedia"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": [
+      "The time kept on the ride cymbal rather than the hi-hat",
+      "The bass drum for irregular accents, 'dropping bombs'",
+      "The hi-hat foot on 2 and 4 under the ride: the bebop drum kit's division of labour"
+    ],
+    "cultural_references": [
+      {
+        "description": "'Oop bop sh'bam a klook a mop': his nickname in the lyric of Gillespie's Oop Bop Sh'Bam.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:kenny-clarke-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That bebop drumming began with Max Roach: Clarke's ride-cymbal time came first, with Teddy Hill and at Minton's; Roach became the leading bebop drummer while Clarke was in the army (Wikipedia)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "kennyclarke",
+    "headline_pattern_ids": [
+      "pattern:kenny-clarke-kenny-note",
+      "pattern:kenny-clarke-bags-cross-stick",
+      "pattern:kenny-clarke-swing-to-bop-brushes"
+    ],
+    "default_kit_sound": "A small 1950s jazz kit, a light ride, a tight snare, a soft feathered bass drum",
+    "generation_rules": [
+      "The time on the ride, the foot on 2 and 4, the bass drum feathered.",
+      "The snare on the 'and' of 1 or of 3; bombs dropped on the bass drum, not kept.",
+      "Light: just enough decoration."
+    ],
+    "avoid": ["A backbeat on the snare", "Four on the floor played loud"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:chick-webb"],
+      "primary_descendants": ["drummer:max-roach", "drummer:art-blakey", "drummer:roy-haynes"],
+      "lineage_blurb": "From Chick Webb and the swing bands to the ride-cymbal time of bebop; Max Roach, Art Blakey, Roy Haynes and Philly Joe Jones built on it."
+    },
+    "tags": [
+      "bebop",
+      "minton's",
+      "modern jazz quartet",
+      "miles davis",
+      "prestige",
+      "savoy",
+      "paris",
+      "brushes",
+      "klook"
+    ]
+  }
 }

@@ -3168,6 +3168,269 @@ const BUDGIE: Persona = {
   kit: { shell: '#cfc8b4', finish: 'metal', hardware: 'chrome', rug: '#26231f' },
 };
 
+/**
+ * Simon Phillips with Toto at the Varus Open Air, Osnabrück, 3 June 2004 (Wikimedia
+ * Commons, "Simon Phillips on drums.jpg" and "Simon Phillips on drums 02.jpg", the same
+ * kit), forty-seven: slim, clean-shaven, a head of tight copper-blond curls to the
+ * collar. Behind an emerald-green gloss Tama kit on a chrome rack: two 24" bass drums
+ * with clear-ported Tama heads, a row of toms, the octobans on the right, the cymbals high.
+ * Only his head shows over the toms: the dark shirt, trousers and shoes are a guess.
+ */
+const SIMON_PHILLIPS: Persona = {
+  id: 'simonphillips',
+  name: 'Simon Phillips',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e6b896',
+  hair: '#c7834a',
+  hairStyle: 'curly',
+  beard: 'none',
+  top: 'tee',
+  shirt: '#1d1f24',
+  trousers: '#1c1c1e',
+  shoes: '#141414',
+  accent: '#1f7a3a',
+  headphones: false,
+  kit: { shell: '#1f7a3a', finish: 'gloss', hardware: 'chrome', rug: '#1a1a1a', octobans: true },
+};
+
+/**
+ * Josh Freese with Devo at the Bank of America Pavilion, Boston, 27 June 2008
+ * ("Josh Freese at the DEVO, Boston 6-27-08", Flickr via Wikimedia Commons,
+ * CC BY-SA 2.0): thirty-five, slim, fair, clean-shaven, his light-brown hair
+ * cut short and pushed up off the brow. Devo's yellow suit, its collar spread
+ * and DEVO printed across the chest, drawn as the band's one-piece coveralls.
+ * A DW kit in a dark gloss finish, black on the bass drum's front head, chrome
+ * hardware, brass cymbals. A microphone clipped to the collar, no headphones.
+ * His legs are behind the kit: dark shoes are a guess.
+ */
+const JOSH_FREESE: Persona = {
+  id: 'joshfreese',
+  name: 'Josh Freese',
+  figure: 'male',
+  build: 'slim',
+  skin: '#ecc4a8',
+  hair: '#7a5a3e',
+  // cut short and pushed up off the brow
+  hairStyle: 'tousled',
+  beard: 'none',
+  // Devo's yellow suit, one piece, its collar spread
+  top: 'coveralls',
+  shirt: '#e8cf3a',
+  trousers: '#e8cf3a',
+  shoes: '#1a1a1c',
+  footwear: 'shoes',
+  // the black of DEVO across the chest
+  accent: '#141416',
+  headphones: false,
+  kit: { shell: '#15171f', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * Matt Cameron with Soundgarden at the Paramount Theatre, Seattle, 5-6 March 1992,
+ * on the Badmotorfinger tour (the Motorvision film; "Searching With My Good Eye
+ * Closed", YouTube 8ChIpzH31gQ, the kit behind Chris Cornell at 2:22-2:31):
+ * twenty-nine, slim, light-brown hair in a mop cut over the brow and the tops of
+ * the ears, clean-shaven, a black T-shirt with the sleeves cut off. The copper
+ * gloss Drum Workshop kit his Wikipedia page dates from the autumn of 1991 (12-
+ * and 13-inch rack toms, a 15-inch floor tom, a 22-inch bass drum), chrome lugs
+ * and stands, Zildjian crashes. His legs are behind the kit throughout: dark
+ * trousers and shoes are a guess. No headphones.
+ */
+const MATT_CAMERON: Persona = {
+  id: 'mattcameron',
+  name: 'Matt Cameron',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e6b896',
+  hair: '#6e4c30',
+  // a mop: over the brow and the tops of the ears
+  hairStyle: 'mop',
+  beard: 'none',
+  // a black T-shirt with the sleeves cut off
+  top: 'vest',
+  shirt: '#1a1a1c',
+  trousers: '#24242a',
+  shoes: '#1c1c1e',
+  accent: '#1a1a1c',
+  headphones: false,
+  kit: { shell: '#b4582c', finish: 'gloss', hardware: 'chrome', rug: '#26221f' },
+};
+
+/**
+ * D. J. Fontana at twenty-five behind Elvis Presley on The Milton Berle Show,
+ * 5 June 1956, the first Hound Dog on television, the night "D.J. Fontana had
+ * added a drum roll between verses" (Hound Dog's Wikipedia article; YouTube
+ * 9zuhsfdTYiY: at the kit between Presley and Bill Black at 0:52 and
+ * 1:52–2:00). Slim, clean-shaven, short black hair combed up and back; the
+ * band's uniform, Scotty Moore's and Black's too, a dark jacket over a white
+ * shirt and a black bow tie. His four-piece round-badge Gretsch in copper
+ * nitron (Copper Mist) with chrome hardware, bought from Herb Brochstein's
+ * shop in Houston, and one cymbal (scottymoore.net; Fontana to Modern
+ * Drummer, 1985: "a small tom, floor tom, bass drum, snare drum, a cymbal, and
+ * that's about it"). The broadcast is black and white: the jacket's dark
+ * blue, the trousers and the shoes are a guess.
+ */
+const DJ_FONTANA: Persona = {
+  id: 'djfontana',
+  name: 'D. J. Fontana',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e2b08c',
+  hair: '#18130f',
+  // short, combed up off the brow and back
+  hairStyle: 'slick',
+  beard: 'none',
+  top: 'jacket',
+  shirt: '#1d2230',
+  under: '#f2f0ea',
+  neckwear: 'bow',
+  tie: '#121214',
+  trousers: '#1d2230',
+  shoes: '#121212',
+  footwear: 'shoes',
+  accent: '#121214',
+  headphones: false,
+  kit: { shell: '#a8653c', finish: 'gloss', hardware: 'chrome', rug: '#2a2626' },
+};
+
+/**
+ * Carl Palmer with Emerson, Lake & Palmer in 1975, at twenty-five ("Carl palmer pelo
+ * 1975.jpg", from the Argentine magazine Pelo, Wikimedia Commons, public domain):
+ * slim, clean-shaven, his dark-brown hair parted in the middle, straight and past the
+ * shoulders, playing stripped to the waist as he did in the 1970s (Wikipedia, Carl
+ * Palmer), a chain at his neck. Behind a Ludwig kit, the toms in a copper metal
+ * finish, chrome hardware, the bass drum's white front head lettered Ludwig, his
+ * Paiste cymbals high. His legs are behind the kit: dark trousers and boots are a
+ * guess.
+ */
+const CARL_PALMER: Persona = {
+  id: 'carlpalmer',
+  name: 'Carl Palmer',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e8b996',
+  hair: '#3b2a1f',
+  // parted in the middle, straight, past the shoulders
+  hairStyle: 'curtains',
+  beard: 'none',
+  // stripped to the waist for his solos in the 1970s
+  top: 'bare',
+  shirt: '#e8b996',
+  trousers: '#1e1c1c',
+  shoes: '#161412',
+  footwear: 'boots',
+  accent: '#c9773a',
+  headphones: false,
+  chain: true,
+  kit: { shell: '#c9773a', finish: 'metal', hardware: 'chrome', rug: '#1c1a18' },
+};
+
+/**
+ * Kenny Clarke at fifty, at the American Jazz Festival in Brussels, October
+ * 1964, the Paris years of the Clarke-Boland Big Band (a photograph on
+ * Wikimedia Commons, "Kenny Clarke en 1964", CC BY-SA 4.0; a 1971 Anefo
+ * photograph from Loosdrecht shows the same build and moustache): a heavy-set
+ * man, short close-cropped hair, a small moustache; a dark suit, a white
+ * shirt, a narrow dark tie and a white pocket square. His kit is a Premier
+ * (the name is on the bass drum head) in silver sparkle, with chrome
+ * hardware. The photograph is black and white: the suit's charcoal and the
+ * sparkle's silver are guesses, and the pocket square is not drawn.
+ */
+const KENNY_CLARKE: Persona = {
+  id: 'kennyclarke',
+  name: 'Kenny Clarke',
+  figure: 'male',
+  build: 'heavy',
+  skin: '#4a2b1d',
+  hair: '#151210',
+  // short and close
+  hairStyle: 'crop',
+  beard: 'moustache',
+  top: 'jacket',
+  shirt: '#1f1f24',
+  under: '#f2f0ea',
+  neckwear: 'long',
+  tie: '#141414',
+  trousers: '#1f1f24',
+  shoes: '#111111',
+  footwear: 'shoes',
+  accent: '#f2f0ea',
+  headphones: false,
+  kit: { shell: '#c9cacb', finish: 'sparkle', hardware: 'chrome', rug: '#2a2626' },
+};
+
+/**
+ * Fred Below at forty-nine, on stage in France on 17 December 1975, in Lionel
+ * Decoster's photograph (Wikimedia Commons, File:Fred_Below.jpg, CC BY-SA 3.0:
+ * at the kit from the front, singing along). No photograph or film of him at
+ * the kit in the 1950s was found. A dark beret worn level (drawn as a flat
+ * cap, the nearest the figure has), a moustache, a dark knit top with long
+ * sleeves. No headphones. A Ludwig in an oyster pearl wrap, two rack toms, a
+ * white Ludwig front head, chrome hardware. The photograph is black and white:
+ * the colours of the top and the wrap are a guess, and his trousers and feet
+ * are never in shot. Decoster's second photograph, 8 December 1978, shows him
+ * grey-bearded in a beret, a polo neck and a long-collared jacket at a black
+ * sparkle kit.
+ */
+const FRED_BELOW: Persona = {
+  id: 'fredbelow',
+  name: 'Fred Below',
+  figure: 'male',
+  build: 'average',
+  skin: '#4f3121',
+  hair: '#1c1816',
+  // cropped short under the beret
+  hairStyle: 'crop',
+  hairTexture: 'coily',
+  beard: 'moustache',
+  // a beret worn level: the flat cap is the nearest shape
+  hat: 'flat',
+  // a dark knit top with long sleeves, a round neck
+  top: 'scoop',
+  shirt: '#1d1c20',
+  // the trousers and shoes are never in shot: a guess
+  trousers: '#2a2826',
+  shoes: '#1a1614',
+  footwear: 'shoes',
+  accent: '#1d1c20',
+  headphones: false,
+  kit: { shell: '#e4e6ea', finish: 'oyster', hardware: 'chrome', rug: '#2a2222' },
+};
+
+/**
+ * Milton Banana on the cover of O Ritmo e o Som da Bossa Nova (Audio Fidelity, 1963), the
+ * photograph of him at the kit the record was sold on ("o maior baterista de bossa nova"):
+ * twenty-eight, solidly built, short black hair combed straight back off a high forehead,
+ * heavy dark brows, clean-shaven; a charcoal suit jacket over a white shirt and a dark
+ * long tie. A small four-piece in red with a plain white front head on the bass drum,
+ * chrome lugs and stands, the ride on his right and the hats on his left, a stick in his
+ * right hand. The trousers are the suit's; the shoes are out of shot (black, a guess).
+ * No headphones. The trio's 1965 Odeon cover shows him the same way: at the kit in a white
+ * shirt and a dark tie, the hair combed back.
+ */
+const MILTON_BANANA: Persona = {
+  id: 'miltonbanana',
+  name: 'Milton Banana',
+  figure: 'male',
+  build: 'average',
+  skin: '#d4a681',
+  hair: '#141110',
+  // combed straight back off the forehead
+  hairStyle: 'slick',
+  beard: 'none',
+  top: 'jacket',
+  shirt: '#3a3d44',
+  under: '#f2f0ea',
+  tie: '#1c1c22',
+  trousers: '#3a3d44',
+  shoes: '#121212',
+  footwear: 'shoes',
+  accent: '#3a3d44',
+  headphones: false,
+  kit: { shell: '#b8161c', finish: 'gloss', hardware: 'chrome', rug: '#2a2226' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -3267,6 +3530,14 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   paulcook: PAUL_COOK,
   selway: PHIL_SELWAY,
   budgie: BUDGIE,
+  simonphillips: SIMON_PHILLIPS,
+  joshfreese: JOSH_FREESE,
+  mattcameron: MATT_CAMERON,
+  djfontana: DJ_FONTANA,
+  carlpalmer: CARL_PALMER,
+  kennyclarke: KENNY_CLARKE,
+  fredbelow: FRED_BELOW,
+  miltonbanana: MILTON_BANANA,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

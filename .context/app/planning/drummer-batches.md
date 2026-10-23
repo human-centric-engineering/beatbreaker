@@ -9,7 +9,7 @@ completely in its own scratch folder and never touches the repo. The parent
 merges. The owner's memory note on drummer batches has the merge steps and the
 traps from earlier batches; this file is what each fork is told.
 
-## Batch 1 (planned 2026-10-22)
+## Batch 1 (planned and built 2026-10-22)
 
 Every drummer here is a 15-a candidate: the record exists, and so do its
 songs from 15-b. Keep the record id. Research letters follow DC in

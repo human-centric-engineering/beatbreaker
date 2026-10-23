@@ -1,0 +1,61 @@
+{
+  "id": "rec:emerson-lake-and-palmer-emerson-lake-and-palmer-1970",
+  "title": "Emerson, Lake & Palmer",
+  "artist": "Emerson, Lake & Palmer",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:emerson-lake-and-palmer-album-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carl-palmer",
+      "name": "Carl Palmer",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Knife-Edge",
+      "drummer_ids": ["drummer:carl-palmer"],
+      "drums": {
+        "description": "Crash and snare on 1 and 3 over the kick in eighths for the riff; the snare and floor tom in sixteenths under the organ solo.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-60317", "src:emerson-lake-and-palmer-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7YKc7jlgKM8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=60317"
+        }
+      ],
+      "style_key": "carlpalmer",
+      "song_key": "knife-edge"
+    },
+    {
+      "title": "Tank",
+      "drummer_ids": ["drummer:carl-palmer"],
+      "drums": {
+        "description": "His solo spot: a riff on ride and snare in eighths over a three-three-two kick, take twos with the organ, then a drum solo.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:emerson-lake-and-palmer-album-wikipedia", "src:songsterr-59634"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9c9KvU6cE6E",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=59634"
+        }
+      ],
+      "style_key": "carlpalmer",
+      "song_key": "tank"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+[
+  {
+    "id": "src:emerson-lake-and-palmer-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Emerson, Lake & Palmer (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Emerson,_Lake_%26_Palmer_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Released by Island on 20 November 1970, recorded at Advision in July 1970. \"Knife-Edge\" from the first movement of Janáček's Sinfonietta with a quotation of Bach's French Suite No. 1; \"Tank\", Palmer's solo spot, composed with Emerson: a first section with clavinet, piano and bass, a drum solo in the middle, clavinet and Moog to end. Personnel: Carl Palmer, drums and percussion."
+  },
+  {
+    "id": "src:trilogy-elp-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Trilogy (Emerson, Lake & Palmer album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Trilogy_(Emerson,_Lake_%26_Palmer_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Released by Island on 23 June 1972, recorded at Advision from September 1971. \"Hoedown\", from Copland's Rodeo with his permission, opened their shows from 1972 to 1974; \"The Sheriff\" leads into it with a drum solo. Personnel: Carl Palmer, drums and percussion."
+  },
+  {
+    "id": "src:songsterr-60317",
+    "type": "transcription",
+    "title": "Emerson, Lake & Palmer - Knife-Edge (Songsterr tab 60317)",
+    "url": "https://www.songsterr.com/a/wsa/emerson-lake-and-palmer-knife-edge-tab-s60317",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Human (aiGenerated false), revision 8194047 by David; drum track \"Carl Palmer\"; 172 bars, the tempo map 123-145. Bridges: crash and snare on 1 and 3 over eighths on the kick; the organ solo: snare and floor tom in sixteenths over the kick in eighths."
+  },
+  {
+    "id": "src:songsterr-59634",
+    "type": "transcription",
+    "title": "Emerson, Lake & Palmer - Tank (Songsterr tab 59634)",
+    "url": "https://www.songsterr.com/a/wsa/emerson-lake-and-palmer-tank-tab-s59634",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Human, revision 4396118 by Ivan; 226 bars at 168, then 138 for the outro; the drum solo (bars 85-155) left as empty bars. The theme: ride and snare in eighths over the kick in dotted quarters."
+  },
+  {
+    "id": "src:songsterr-68097",
+    "type": "transcription",
+    "title": "Emerson, Lake & Palmer - Tarkus A Eruption (Songsterr tab 68097)",
+    "url": "https://www.songsterr.com/a/wsa/emerson-lake-and-palmer-tarkus-a-eruption-tab-s68097",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Human, revision 797753 by BelovedProblemChild; 66 bars from 110, drifting 94-114; 10/8 with the ride in sixteenths, 8/8 in threes on snare and floor tom, and bars of 4/8 to 9/8."
+  },
+  {
+    "id": "src:songsterr-60368",
+    "type": "transcription",
+    "title": "Emerson, Lake & Palmer - Hoedown (Songsterr tab 60368)",
+    "url": "https://www.songsterr.com/a/wsa/emerson-lake-and-palmer-hoedown-tab-s60368",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Human, revision 4516877 by victor; 130 bars at 142 (the record about 137). The groove with the snare on 2, its \"a\", the \"and\" of 3 and 4; the hits in unison with the band."
+  },
+  {
+    "id": "src:songsterr-33984",
+    "type": "transcription",
+    "title": "Emerson, Lake & Palmer - Karn Evil 9 1st Impression, Part 2 (Songsterr tab 33984)",
+    "url": "https://www.songsterr.com/a/wsa/emerson-lake-and-palmer-karn-evil-9-1st-impression-part-2-tab-s33984",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Human, revision 6477273 by BelovedProblemChild; 152 bars, mostly 131-133 (the record about 128). Sixteenths on the snare under the accents; the organ solo on the ride; a linear \"drum solo verse\"; tambourine alone in the first verses."
+  },
+  {
+    "id": "src:songsterr-504374",
+    "type": "transcription",
+    "title": "Emerson, Lake & Palmer - Fanfare for the Common Man (Songsterr tab 504374)",
+    "url": "https://www.songsterr.com/a/wsa/emerson-lake-and-palmer-fanfare-for-the-common-man-tab-s504374",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Human, revision 4300203 by BelovedProblemChild; 207 bars, the drums from bar 20, at 155 with an eighth-note triplet feel (148 for bars 67-100). The shuffle on the ride, then on the hat under the solo."
+  },
+  {
+    "id": "src:songsterr-2007",
+    "type": "transcription",
+    "title": "Asia - Heat Of The Moment (Songsterr tab 2007)",
+    "url": "https://www.songsterr.com/a/wsa/asia-heat-of-the-moment-tab-s2007",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Human, revision 8360867 by BelovedProblemChild; 120 bars at 132-146; the verses in 5/4, the hat on the beat with the kick and the snare on 5 every other bar; the chorus a plain rock beat."
+  }
+]

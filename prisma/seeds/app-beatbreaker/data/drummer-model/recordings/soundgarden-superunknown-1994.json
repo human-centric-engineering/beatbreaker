@@ -34,7 +34,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=18672"
         }
-      ]
+      ],
+      "style_key": "mattcameron",
+      "song_key": "spoonman"
     },
     {
       "title": "Black Hole Sun",
@@ -52,7 +54,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=227"
         }
-      ]
+      ],
+      "style_key": "mattcameron",
+      "song_key": "black-hole-sun"
     },
     {
       "title": "The Day I Tried to Live",
@@ -70,7 +74,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=83713"
         }
-      ]
+      ],
+      "style_key": "mattcameron",
+      "song_key": "the-day-i-tried-to-live"
     },
     {
       "title": "Fell on Black Days",
@@ -88,7 +94,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=19633"
         }
-      ]
+      ],
+      "style_key": "mattcameron",
+      "song_key": "fell-on-black-days"
     }
   ]
 }

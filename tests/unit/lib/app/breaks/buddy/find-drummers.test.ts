@@ -137,6 +137,7 @@ describe('find_drummers and rhythmic devices (12-b)', () => {
     expect((await find({ query: 'hemiola' })).map((d) => d.slug).sort()).toEqual([
       'ari-hoenig',
       'elvin-jones',
+      'josh-freese',
     ]);
     const modulation = (await find({ query: 'metric modulation' })).map((d) => d.slug);
     expect(modulation).toEqual(expect.arrayContaining(['tony-williams', 'klek-de-poitrine']));

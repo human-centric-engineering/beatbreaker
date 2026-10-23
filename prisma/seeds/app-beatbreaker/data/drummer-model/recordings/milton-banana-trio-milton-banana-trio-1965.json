@@ -1,0 +1,65 @@
+{
+  "id": "rec:milton-banana-trio-milton-banana-trio-1965",
+  "title": "Milton Banana Trio",
+  "artist": "Milton Banana Trio",
+  "release": "Odeon (MOFB 3417)",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:samba", "style:bossa-nova"],
+  "personnel": [
+    {
+      "name": "Milton Banana",
+      "role": "drums"
+    },
+    {
+      "name": "Wanderley",
+      "role": "piano"
+    },
+    {
+      "name": "Guará",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "The trio's first record on Odeon, a trio led from the drums, \"algo incomum na época\". Also issued in Japan, Venezuela and Europe.",
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:moraes-milton-banana-samba-2020", "src:wikipedia-pt-milton-banana"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:milton-banana",
+      "name": "Milton Banana",
+      "drummer_role": "leader",
+      "significance": 0.85,
+      "why_it_matters": "Sticks: the hat or the ride in sixteenths, the rim syncopating against the piano, the bass drum a dois. Moraes's example of his \"samba de prato conduzido\", the way he played most.",
+      "pattern_ids": ["pattern:banana-samba-do-aviao-theme", "pattern:banana-samba-do-aviao-solo"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:moraes-milton-banana-samba-2020"]
+      }
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Samba do Avião",
+      "drummer_ids": ["drummer:milton-banana"],
+      "drums": {
+        "description": "With sticks: the hat in sixteenths, the rim syncopating against the piano, the bass drum a dois; the intro on the ride's bell and the rim in unison with the piano.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:moraes-milton-banana-samba-2020"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=eRiXvWnKC6A",
+      "transcriptions": [
+        {
+          "site": "other",
+          "url": "https://repositorio.ufu.br/bitstream/123456789/30100/1/CaracteristicasConducaoSamba.pdf",
+          "note": "Moraes (2020), appendix C: 97 bars of 2/4."
+        }
+      ],
+      "style_key": "miltonbanana",
+      "song_key": "samba-do-aviao"
+    }
+  ]
+}

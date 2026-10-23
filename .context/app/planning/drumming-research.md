@@ -18551,6 +18551,1082 @@ Read 2026-10-22.
 - DownBeat, the Jazz Hall of Fame table: https://en.wikipedia.org/wiki/DownBeat
   (read through the Wikipedia API)
 
+## DD. Simon Phillips (2026-10-22)
+
+The `simonphillips` style plays **songs** the way `budgie` (CZ) does: each New
+picks one of his records, and its tempo, meter, sections and grooves come with
+it. He was a 15-a candidate, first in DC's ranking. His record,
+`drummer-model/drummers/simon-phillips.json`, keeps the candidate's id,
+`drummer:simon-phillips`, now at `draft` (schema 1.6.0). One recording is new:
+the Michael Schenker Group's first album (1980). Sin After Sin, There & Back
+and Crises were already in the model from 15-b, and their tracks are linked to
+the new songs. His new sources are in `sources/simon-phillips.json`. No genre
+is new: `style:hard-rock`, `style:metal`, `style:jazz-fusion` and
+`style:pop-rock-session`. Filed with the fusion drummers.
+
+**Who he is.** Born in London on 6 February 1957 (Wikipedia). His father, Sid
+Phillips, led a Dixieland band. Simon first recorded with it at six, joined it
+at twelve and toured and broadcast with it until 1973 (his own site). Then came
+Jesus Christ Superstar in the West End, and London sessions for records, films
+and jingles from his mid-teens. In 1976 he drummed for 801, Phil Manzanera and
+Brian Eno's band, on 801 Live. In 1977 he played the whole of Judas Priest's
+Sin After Sin in place of Alan Moore. After that came Jack Bruce, Jeff Beck's
+There & Back (1980), the Michael Schenker Group's first album (1980), Pete
+Townshend, Mike Oldfield's Crises (1983, which he co-produced), and the Who's
+1989 reunion tour. He moved to Los Angeles in 1990. In 1992 Toto asked him to
+fill in after Jeff Porcaro's death, and he stayed until 2014, when Keith
+Carlock replaced him. Since then he has played with Hiromi's Trio Project
+(2011-16) and made his own Protocol records (Protocol 4 was nominated for a
+Grammy in 2019). He is in Modern Drummer's Hall of Fame (2003).
+
+**How he plays.** He is a right-handed player who plays open-handed, the left
+hand on the hat (Wikipedia's list of left-handed musicians). He plays two bass
+drums (two 24-inch bass drums on every kit his site lists). What the songs show:
+
+- **Two bass drums under the groove.** In Dissident Aggressor, both feet play
+  eighth-note triplets under the ride on the beat and the snare on 3: a
+  half-time with a gallop underneath, held through the verses and the solo.
+  "On that album, Phillips introduced the combination of the double bass
+  drumming that would come to define heavy metal in later years ... Andrew L.
+  Cope has described Sin After Sin as a key album in the development of heavy
+  metal technique, in particular for its use of double kick drumming"
+  (Wikipedia). Sinner's chorus turns the beat round, with the snare on 1 and 3
+  and eighths on both feet. Armed and Ready's last choruses put eighths under
+  the open hat.
+- **The kick pushing the "and"s.** In Sinner's verse the hat plays eighths,
+  accented on the beat, and the kick plays 1 and the "and"s of 2, 3 and 4, with
+  a push onto the "and" of 1 every other bar. In Armed and Ready the hat is open
+  on the beat and a crash is pushed onto the "and" of 2.
+- **A shuffle on the double bass.** Space Boogie runs at about 260, the snare on
+  2 and 4 and the kick under every beat.
+- **Session restraint.** Moonlight Shadow is plain and exact: the hat in eighths
+  and the kick on 1, the "and" of 2 and 3. Under the guitar solos the floor tom
+  plays eighths with a beat left out every two.
+
+He names Buddy Rich, Grady Tate, Louie Bellson, Tony Williams, Billy Cobham,
+Steve Gadd, Ian Paice, Tommy Aldridge and Bernard Purdie as his main
+influences (Wikipedia). Jeff Porcaro counted him among his favourite drummers.
+
+**Devices.** None named. The tabs show double-bass ostinatos and a chorus
+turned round, not a cross-rhythm or a displacement. The `devices_search` lists
+what was read.
+
+**Kit.** His own site lists his current Tama kits: two 24" bass drums, a 20"
+gong drum, rack toms from 10" to 16", three snares, low-pitch octobans and two
+Iron Cobra double pedals. Crises (1983) names Tama as his drums. No free
+samples of his kits exist. The 1977 and 1980 rock songs use thick, hard-hit
+kits: `bigrusty` for Sin After Sin, and `bigRoom` for the Michael Schenker
+Group, produced by Roger Glover. Space Boogie and Moonlight Shadow use `drs`,
+a clear studio kit. The base uses `studioRock`. Every kit is sampled.
+
+**The songs.** Six. Five follow human Songsterr tabs and one a machine tab.
+Each tempo is autocorrelated from the record. YouTube refused downloads while
+this was built (HTTP 403), so each record was read from its iTunes preview,
+30 seconds from the middle of the album track:
+
+| Song                | Year | Tempo (record / tab)        | Meter | What the groove is                                                                                    | Source of the bars   |
+| ------------------- | ---- | --------------------------- | ----- | ----------------------------------------------------------------------------------------------------- | -------------------- |
+| Dissident Aggressor | 1977 | 136 / 146                   | 4/4-6 | Both bass drums in triplets, the ride on the beat, the snare on 3; a chorus with the snare on 2 and 4 | 71888, rev 8658534   |
+| Sinner              | 1977 | 181 / 180                   | 4/4   | The hat in eighths accented on the beat, the kick on the "and"s; the chorus with the snare on 1 and 3 | 10517, rev 7178419   |
+| Armed and Ready     | 1980 | 172 / 150-160               | 4/4   | The hat open on the beat, a crash pushed onto the "and" of 2; both feet in eighths at the end         | 4164294, rev 5454519 |
+| Into the Arena      | 1980 | 105 (70.3 dotted) / 105     | 12/8  | The kick on the first and third eighth of 1 and 3; busier under the solo; kick and snare trading      | 43384, rev 619840    |
+| Space Boogie        | 1980 | 258-260 / 264-268, at half  | 4/4-6 | A shuffle on both bass drums, the ride on the beat, the snare on 2 and 4                              | 3841895 (machine)    |
+| Moonlight Shadow    | 1983 | 128.5 / 65 (written halved) | 4/4   | The hat in eighths, the kick on 1, the "and" of 2 and 3; the floor tom under the solos                | 23361, rev 8385623   |
+
+Where the songs differ from the tabs (each comment says so):
+
+- **Dissident Aggressor** is written at 146. On a 136 grid the record's kick
+  lands on every triplet, so it is played at 136. The half-time intro is played
+  at the song's tempo, two bars to each tab bar. The bridge (the hat in
+  triplets, no backbeat) and the last two bars (the app holds that bar to 100)
+  are left out.
+- **Armed and Ready** is marked 150 and 160, but the record runs at 172. The
+  intro's sixteenths on both feet are left out: the app holds a run of
+  sixteenths to 150. So are the hat-only riff and the last choruses' stops,
+  which have no snare on 4.
+- **Into the Arena** is in 12/8, and the app counts quarter notes there, so it
+  is at 105. The slow 4/4 coda is left out.
+- **Sinner**: the interlude's stops and the middle's bars of 3/4 and 6/4 are
+  left out.
+- **Moonlight Shadow** is written at 65 with the hat in sixteenths. Played as a
+  drummer counts it, it is 128.5 with the hat in eighths, so each tab bar is two
+  bars here. One fill leaves out the hat under a snare-and-tom stroke, which
+  would need three hands.
+- **Space Boogie is a reconstruction.** The only tab is a machine one at 264
+  that loses the beat in places. On the record, the kick band repeats at 258 and
+  the snare and cymbals at 129. The tab writes the kick sometimes as all three
+  triplets and more often, in its commonest bar, as two to the beat. It is
+  played here as that two-to-the-beat shuffle, in sextuplet 4/4 at half the
+  tempo: each bar is two of the record's, and the snare on 2 and 4 lands on
+  steps 3, 9, 15 and 21. Every triplet on the kick would be a run on every
+  step, which the app holds to 100 in that meter. The comment, the hint and
+  this section say so.
+
+Dropped:
+
+- **Star Cycle** (There & Back): Jan Hammer plays the drums on it, not
+  Phillips (Wikipedia, There & Back: Phillips on tracks 2-7).
+- **Third Uncle** (801 Live, 1976): no transcription was found.
+- **I Will Remember** (Tambu, 1995) and the other Toto songs: the one human tab
+  writes only a percussion part, and Mindfields' tab is a machine one.
+- **Diamonds and Rust** (Sin After Sin): a machine tab only.
+
+**What the style encodes.** Six base figures from the songs: Sinner's two
+verse bars and its solo on the ride, Armed and Ready's verse and its last
+choruses, and Moonlight Shadow's verse. Five fills: Sinner's chorus end and
+bar 262, Armed and Ready's snare in threes, Sinner's tom run (every other
+stroke) and Moonlight Shadow's tom pair. `doubleKick` is on throughout. The
+weight is 0.8, a hard hitter but a session player. The likeness is from Toto
+at the Varus Open Air, Osnabrück, 3 June 2004 (Wikimedia Commons): copper-blond
+curls to the collar, clean-shaven, and an emerald-green gloss Tama kit with
+chrome hardware and octobans. His clothes are not in shot and are a guess.
+
+**Sources.** Wikipedia: Simon Phillips (drummer); Sin After Sin; Dissident
+Aggressor; There & Back (Jeff Beck album); The Michael Schenker Group (album);
+Crises (album); Moonlight Shadow; 801 Live; Tambu (album); List of musicians who
+play left-handed. His own site, simon-phillips.com (About Simon, Gear).
+Songsterr tabs 71888, 10517, 4164294, 43384, 3841895 (machine), 23361. The
+records, from their iTunes previews. Wikimedia Commons: "Simon Phillips on
+drums.jpg" and "Simon Phillips on drums 02.jpg".
+
+## DE. D. J. Fontana (2026-10-22)
+
+The `djfontana` style plays **songs** the way `budgie` (CZ) does: each New
+picks one of his records, and its tempo, sections and grooves come with it. His
+record is `drummer-model/drummers/dj-fontana.json` (schema 1.6.0), the 15-a
+candidate upgraded in place with the same id, which `levon-helm.json`,
+`keith-moon.json` and `max-weinberg.json` already name as an influence. One
+recording is new (Blue Suede Shoes, the opening track of Elvis Presley), the
+other three songs link the 15-b tracks, and his sources are in
+`sources/dj-fontana.json`. No genre is new: `style:rock-and-roll` and
+`style:country`. Filed with the rock and roll and roots drummers.
+
+**Who he is.** Dominic Joseph Fontana was born in Shreveport on 15 March 1931
+and died in Nashville on 13 June 2018 (Wikipedia; Best Classic Bands). He
+learned with a cousin who played drums, practising on pillows, and listened
+"only ... to big band and Dixieland" (Modern Drummer, 1985). From fifteen he
+played the strip acts in Shreveport's clubs: "So I learn to follow these
+people" (Fresh Air, 1987). After the Army in Korea he was the Louisiana
+Hayride's house drummer, first behind a curtain, then "with a snare drum, a
+stick, and a brush". Scotty Moore asked him to sit in with Presley's trio on
+16 October 1954; he joined for good in November 1955 and was on every RCA
+session from the first, 10 January 1956: "Heartbreak Hotel", "Blue Suede
+Shoes", "Hound Dog", "Don't Be Cruel", "All Shook Up", "Jailhouse Rock", some
+460 Presley recordings in all. Moore and Bill Black left in 1958; Fontana went
+on with Presley through the sixties and the 1968 special, then worked in
+Nashville. Rock and Roll Hall of Fame (sidemen), 2009.
+
+**How he plays.** Plainly. "I never was fancy"; the Hayride's country singers
+taught him that fills "actually throws the singers off", and "to play cleaner and ... to
+stay out of the way" (Modern Drummer). On the four tabs read he keeps a shuffle
+with the snare on 2 and 4, plays the stops with the band and fills only where
+the song turns. He followed the singer: "Elvis wanted you to catch every leg
+movement", as a dancer had, and on stage the band, which could not hear
+Presley, played to "his hands, his feet, legs" (Fresh Air). The sources:
+
+- **Levon Helm** (AP, 2004): "Elvis and Scotty and Bill were making good
+  music, but it wasn't rock 'n' roll until D.J. put the backbeat into it."
+- **Stan Lynch**: "There were no drum parts written for him on those Elvis
+  records."
+- **Hound Dog's** Wikipedia article: by the Milton Berle Show of 5 June 1956
+  "D.J. Fontana had added a drum roll between verses"; of the record,
+  "Fontana's machine-gun drumming ... has become deservedly famous: the only
+  part of his kit consistently audible in the mix is the snare". Terry Gross
+  called it "one of the most famous drum rolls in history"; Fontana: "We
+  didn't ever plan anything."
+- **Don't Be Cruel**: Presley had him try the back of his leather guitar case,
+  "I popped it with one hand and used a stick in my other hand" (Modern
+  Drummer). The Post's 2018 obituary, retelling Guralnick's Last Train to
+  Memphis, has him strike the guitar's back with a mallet: a contradiction the
+  record's `open_questions` keep.
+- **Jailhouse Rock**: the stop-time lick was for the film's scene of convicts
+  breaking rocks, "Scotty and I were piddling around and just lucked out on
+  that lick" (Modern Drummer).
+
+**Devices.** None. Every tab read is 4/4 in triplet feel. The roll is triplets
+on the snare at the bar line's end, a fill, not a cross-rhythm. The
+`devices_search` records what was read.
+
+**Kit.** His 1950s kit was a four-piece round-badge Gretsch in copper nitron
+("Copper Mist"), bought from Herb Brochstein's shop in Houston: snare 5.5x14,
+tom 8x12, floor tom 14x14, bass drum 14x20 with an unshaven calfskin front
+head, a 20-inch ride (scottymoore.net). Fontana remembered a 22-inch bass drum
+and goatskin heads, and "a small tom, floor tom, bass drum, snare drum, a
+cymbal, and that's about it" (Modern Drummer). No free samples of it exist.
+Every song plays `virtuosity`, the small jazz kit Earl Palmer's 1950s songs
+use: a small bass drum and one room.
+
+**The songs.** Four, every one from a human Songsterr tab with the tab's
+triplet feel read as a shuffle on the triplet grid (`4/4-6`). Each tempo is the
+record beat-tracked and autocorrelated; each credit is checked against the
+song's personnel:
+
+| Song             | Year | Tempo (record / tab) | Meter | What the groove is                                                                                        | Source of the bars  |
+| ---------------- | ---- | -------------------- | ----- | --------------------------------------------------------------------------------------------------------- | ------------------- |
+| Blue Suede Shoes | 1956 | 189-190 / 188        | 4/4   | Stop-time on 1, the "and" of 3 and 4; "go, cat, go", a bar of snare triplets; the hat open on every beat  | 6722, rev 6096184   |
+| Hound Dog        | 1956 | 177 / 172            | 4/4   | The hat on the beats, the kick on 1 and the "and" of 2; a bar of snare triplets at the end of every verse | 14793, rev 6300745  |
+| Don't Be Cruel   | 1956 | 169 / 167            | 4/4   | The hat on every beat and the last triplet of 2 and 4, the backbeat (a guitar case on the record)         | 183631, rev 1543778 |
+| Jailhouse Rock   | 1957 | 166 / 167            | 4/4   | Stop-time verses, the snare on 1 and the "and" of 3, the hat foot on the beats; the chorus's hat shuffled | 15879, rev 9508495  |
+
+Personnel: Blue Suede Shoes, its Wikipedia article and Elvis Presley's (the New
+York sessions of 30 and 31 January 1956); Hound Dog and Don't Be Cruel, their
+articles (RCA, New York, 2 July 1956); Jailhouse Rock, its article's AFM
+contracts. Fontana is not on the Sun sides: the trio made them without a
+drummer.
+
+Where the songs differ from the tabs (each comment says so):
+
+- **Blue Suede Shoes** is held to 190, the triplet grid's top; the record runs
+  at 189-190. Its count-in bar and pickup are left out.
+- **Hound Dog's** first verse opens on a bar with the drums out, left out. The
+  last roll, sixteenths in the tab, is played in triplets as the others, and
+  the band's last hits after it are left out.
+- **Don't Be Cruel's** backbeat is the guitar case on the record and the snare
+  here. Its last four bars, with no drums, are left out.
+- **Jailhouse Rock's** two bars that drop the backbeat on 4 (the third
+  chorus's last bar, a crash and the kick on 4 into the solo, and the solo's
+  last) are played as the groove: the critic holds every bar to 2 and 4. The
+  lone pickup before the intro is left out.
+
+Dropped:
+
+- **Heartbreak Hotel** (1956): its tab (403863) writes one rhythm for the
+  whole kit, the cymbal, the snare and two toms stacked on every note, so what
+  he plays is not known. No source read says either.
+- **All Shook Up** (1957): a cross-stick on 2 and 4 and the kick on 1, under
+  Presley's own slaps on his guitar (tab 33963). The sound is Presley's.
+- **Too Much** (1957): its tab's drum track is "regenerated", with bars in 3/4
+  and 2/4 not checked against the record.
+- **(You're So Square) Baby I Don't Care** (1957): a good human tab (7161072),
+  but the record is at 194, over `4/4-6`'s 190, and its stops come every few
+  bars, too many to hold in 32 sections with every bar keeping its backbeat.
+
+**What the style encodes.** Five base figures from the songs: Jailhouse Rock's
+chorus, Hound Dog's verse, Don't Be Cruel's hat, Blue Suede Shoes' chorus and
+Jailhouse Rock's solo on the ride. Four fills: Hound Dog's roll, Jailhouse
+Rock's chorus end, "now go, cat, go" and Blue Suede Shoes' chorus pickup. The
+slider swings the eighths (45 by default). The weight is 0.6, above Earl
+Palmer's 0.55: a loud snare, plain time. The likeness is from the Milton Berle
+Show of 5 June 1956, the first Hound Dog on television: short black hair
+combed back, clean-shaven, the band's dark jacket, white shirt and black bow
+tie, and the copper Gretsch. The broadcast is black and white; the clothes'
+colours are a guess.
+
+**Sources.** Wikipedia: D. J. Fontana; Hound Dog (song); Don't Be Cruel;
+Jailhouse Rock (song); Blue Suede Shoes; Elvis Presley (album); Heartbreak
+Hotel; All Shook Up. Modern Drummer's 1985 interview (republished 2018). Fresh
+Air's 1987 interview (KCUR, 2018). NAMM Oral History (2001). Best Classic
+Bands' obituary (2018); The Post's (2018, through search extracts). scottymoore.net
+on his Gretsch. Songsterr tabs 6722, 14793, 183631, 15879; 403863, 33963,
+411769, 7161072 (read, not used). The Milton Berle Show, 5 June 1956 (YouTube
+9zuhsfdTYiY). The records, beat-tracked from YouTube uploads.
+
+## DF. Matt Cameron (2026-10-22)
+
+The `mattcameron` style plays **songs**, as the other drummer styles do: each
+New picks one of his records, and its meter, tempo, sections and grooves come
+with it. His record is `drummer-model/drummers/matt-cameron.json`, the 15-a
+candidate upgraded in place (`record_status: draft`, schema 1.6.0), and its
+seven scored songs are the 15-b tracks on Badmotorfinger and Superunknown,
+linked to the style. New: `sources/matt-cameron.json` (the seven Songsterr
+tabs, the seven songs' Wikipedia pages and the Motorvision film). No genre is
+new: `style:grunge`, `style:hard-rock`, `style:alternative-rock` and
+`style:metal`. Filed under a new group, **Grunge drummers**, after
+Alternative rock.
+
+**Who he is.** Matthew David Cameron was born in San Diego on 28 November
+1962 (Wikipedia). As a boy he "wasn't a big rock fan" and was "more into
+jazz"; he names progressive rock and jazz, hard bop among it, as his main
+interests, and Keith Moon as his biggest influence. He moved to Seattle in
+1983 and played in Bam Bam, feeDBack and Skin Yard. In September 1986 he
+joined Soundgarden in place of Scott Sundquist. Chris Cornell: "When I first
+met Matt, he was already the best drummer in town." He stayed until the
+band's split in 1997 and through the reunion (2010-2017), and drummed on
+Temple of the Dog (1991). In 1998 Pearl Jam took him on for the Yield tour
+when Jack Irons left; he learned over 80 songs in two weeks and stayed until
+July 2025. Rolling Stone ranked him 52nd of its 100 greatest drummers (2016);
+he is in the Rock and Roll Hall of Fame with Pearl Jam (2017) and Soundgarden
+(2025).
+
+**How he plays.** "The task of figuring out the time signatures for
+Soundgarden's songs was usually left to Cameron." The meters were the riffs'
+own, "a total accident" in Kim Thayil's words, worked out after the songs were
+written. What he does with them is keep the backbeat where a rock drummer
+expects it: in Outshined's and Spoonman's 7/4 the snare falls on 2, 4 and 6
+and the "and" of 7, so the bar ends a beat early; in Fell on Black Days' 6/4
+on 2, 4 and 6, three bars of 2/4 rather than one long one. The kick follows
+the riff, often in pairs. The sources say the same:
+
+- **Modern Drummer** (quoted on Wikipedia): "His ghost-note grooves and the
+  uncanny ability to make odd time feel like straight time have already earned
+  him status among rock's drumming's elite pacemakers."
+- **Chris Cornell**, on Fell on Black Days: "the drums are totally straight,
+  even though the riff is in six, so it doesn't feel quirky at all."
+- **Cameron**, on Jesus Christ Pose: "As soon as I played this pattern everyone
+  dove right in, and within an hour we had the guts of the song." Thayil:
+  "Matt's drum part is insane – it's so fast and coordinated."
+- **Wikipedia**: tom grooves and "tribal patterns" (Jesus Christ Pose, Gun,
+  Spoonman); open-handed playing on Slaves & Bulldozers, the outro of Rusty
+  Cage, Somewhere and Limo Wreck; the paradiddle spread between ride and snare
+  on Never the Machine Forever and Pearl Jam's Unemployable.
+- **Bill Bruford** (his Wikipedia page): Cameron said "Listening to a lot of
+  Bruford prepared me supremely to play in Soundgarden", for his placement of
+  fives and sevens.
+
+**Devices.** None. Every odd meter in the tabs is the bar's own (7/4, 6/4, 7/8
+with 4/4, 3 + 3 + 5 + 3 + 5), not a grouping or cross-rhythm laid over another
+bar, and the tom grooves keep to the beat. The `devices_search` records what
+was read.
+
+**Kit.** No free samples of his kits exist. By the autumn of 1991 he played a
+copper gloss Drum Workshop kit (12- and 13-inch toms, a 15-inch floor tom, a
+22-inch bass drum, a knurled steel snare); for Superunknown a black DW with a
+24 x 16 bass drum and a 14-inch tom on a snare stand, and two kits on Like
+Suicide; Gregg Keplinger's stainless steel snares (Wikipedia). The base and
+the Badmotorfinger songs use `studioRock`, Big Rusty's damped kick under the
+DRS snare and Crocell's cymbals, for that record's dry, punchy drums. The
+Superunknown songs use `bigRoom`, for its "huge drum sound". No song is on a
+machine.
+
+**The songs.** Seven records, eight songs: Rusty Cage's slow end is a song of
+its own. Every one follows a human Songsterr tab; each tempo is beat-tracked
+from the record (uploads on YouTube, the band's videos where they would play)
+and each section order follows the tab's markers. Cameron is the only drummer
+on both albums (the recording records, from Wikipedia), and Rusty Cage's and
+Black Hole Sun's pages list him in their personnel.
+
+| Song                    | Year | Tempo (record / tab) | Meter                  | What the groove is                                                                                             | Source of the bars |
+| ----------------------- | ---- | -------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------- | ------------------ |
+| Jesus Christ Pose       | 1991 | 134.7 / 136          | 4/4                    | The floor tom and high tom round the 1, the snare accented in sixteenths from 2; the bridge on the ride        | 54189, rev 9584771 |
+| Outshined               | 1991 | 95.0 / 95            | 7/4 and 4/4            | 7/4 verses, the snare on 2, 4, 6 and the "and" of 7; open-hat 4/4 choruses, the fourth bar in sixteenths       | 23502, rev 9367314 |
+| Rusty Cage              | 1991 | 204.9 / 204          | 4/4 (in eighths)       | Open hats on the beat, the kick in pairs; interludes and the bridge on the ride; four bars of stops            | 54221, rev 7324569 |
+| Rusty Cage (the end)    | 1991 | 133 / 134            | 6/4, 5/4, 3/4, 5/4     | A cycle of nineteen beats, 3 + 3 + 5 + 3 + 5, open hats on the beat                                            | 54221, rev 7324569 |
+| Spoonman                | 1994 | 90.5 / 90            | 7/4, 4/4, 3/4          | The riff on the rack tom in 7/4, the foot in eighths; a 4/4 chorus on the ride; the spoon solo in 3/4          | 18672, rev 9449280 |
+| The Day I Tried to Live | 1994 | 133.2 / 66           | 7/8 and 4/4, as 15/8   | The floor tom round the 1 under a ghosted backbeat; open-hat choruses; a 4/4 post-chorus on the ride           | 83713, rev 8859554 |
+| Black Hole Sun          | 1994 | 105.9 / 53 (eighths) | 4/4, 2/4 (as 6/4), 9/8 | Sixteenths on the hat; the chorus on the ride; each phrase closed by a bar of 2/4; the solo in 9/8             | 227, rev 9810061   |
+| Fell on Black Days      | 1994 | 100.2 / 101          | 6/4 and 4/4            | Eighths on the hat, the snare on 2, 4 and 6; the bridge on the ride and the toms; the last chorus on the crash | 19633, rev 9767651 |
+
+Where the songs differ from the tabs (each comment says so):
+
+- **Two meters in turn are written as one bar.** The Day I Tried to Live's
+  bars of 7/8 and 4/4 are one bar of 15/8; Black Hole Sun's 4/4 and 2/4 pairs
+  one of 6/4; Rusty Cage's two bars of 3/4 one of 6/4. The same notes at the
+  same speed, but the app's 15/8 counts in threes where his is 2 + 2 + 3 and
+  four twos.
+- **The Day I Tried to Live** is at the tab's 66, where the record's eighths
+  at 133 are sixteenths. The critic counts steps, so the riff's four kicks in a
+  row lose the third.
+- **Rusty Cage** is two songs, since one break has one tempo and the end's 134
+  is neither half nor double the body's 204. The body is in eighths
+  (`4/4-8`): sixteenths are too fast past 190, and it has none.
+- **Jesus Christ Pose's** snare line runs seven sixteenths in a row; the
+  critic holds a groove to three and wants a quarter of the bar left as air,
+  so two ghosts of the pattern are left out, and in the interlude one ghost of
+  each pair. The accents all stay.
+- **Snare runs** of four sixteenths in the fills (Outshined's bridge,
+  Spoonman's chorus and outro, Jesus Christ Pose's bridge) keep three.
+- **Left out**: the bars where the band plays alone (the intros of Black Hole
+  Sun, Rusty Cage and The Day I Tried to Live), Spoonman's post-chorus and
+  break, Outshined's bridge of hat alone, Jesus Christ Pose's tom solo in the
+  outro, the slowing bars before Rusty Cage's end, and Black Hole Sun's half
+  verse. Spoonman's pots and pans are overdubs and are left out.
+- **Rounded section lengths**: Outshined's solo and verse (13 of 7/4, read as
+  12), Fell on Black Days' bridges and third verse (one bar either way), Black
+  Hole Sun's second chorus (8, read as 7) and outro (7 pairs, read as 6).
+
+Not built:
+
+- **My Wave** (5/4 and 4/4) and **Room a Thousand Years Wide** (his music; 6/4,
+  then 3/4 and 5/4): human tabs exist (19481, 19540). Eight was the cap.
+- **Pearl Jam**: Breakerfall, his first Pearl Jam album's opener, has no
+  transcription. Hunger Strike (Temple of the Dog) is a plain groove.
+
+**What the style encodes.** Five base figures, all 4/4 from the songs:
+Outshined's open-hat chorus, Rusty Cage's verse, Spoonman's chorus on the
+ride, Fell on Black Days' bridge on the ride and The Day I Tried to Live's
+post-chorus. Three fills: Outshined's pre-chorus end, Fell on Black Days'
+bridge down the toms in pairs, Spoonman's chorus end. `ghostBias` 0.3 for "his
+ghost-note grooves"; each song sets its own, 0 where the tab writes every
+ghost. The weight is 0.9, under Grohl's 1, for a heavy hitter whose ghost
+notes stay soft. The likeness is from the Motorvision film of the Paramount
+Theatre shows, 5-6 March 1992: a light-brown mop, clean-shaven, a black
+T-shirt with the sleeves cut off, the copper DW kit.
+
+**Sources.** Wikipedia: Matt Cameron; Soundgarden; Badmotorfinger;
+Superunknown; Jesus Christ Pose; Outshined; Rusty Cage; Spoonman; Black Hole
+Sun; The Day I Tried to Live; Fell on Black Days; My Wave; Bill Bruford.
+Songsterr tabs 54189, 23502, 54221, 18672, 227, 83713, 19633. Rolling Stone,
+"100 Greatest Drummers of All Time" (2016). Motorvision, "Searching With My
+Good Eye Closed" (YouTube 8ChIpzH31gQ). The records, beat-tracked from
+uploads on YouTube.
+
+## DG. Josh Freese (2026-10-22)
+
+The `joshfreese` style plays **songs** the way `budgie` (CZ) does: each New
+picks one of his records, and its tempo, meter, sections and grooves come with
+it. His record is `drummer-model/drummers/josh-freese.json` (schema 1.6.0), the
+15-a candidate upgraded in place: same id, `record_status: draft`, its `group`
+and `build_priority` gone. No recording is new: his songs sit on the 15-b
+tracks of Mer de Noms, Thirteenth Step, Rise and Fall, Rage and Grace and
+Hitler Bad, Vandals Good, linked by `track-links.json`. Seven Songsterr tabs
+are in `sources/josh-freese.json`. No genre is new. Filed with the Alternative
+rock drummers.
+
+**Who he is.** Joshua Ryan Freese was born on 25 December 1972 in Orlando,
+where his father Stan Freese led the Walt Disney World Marching Band
+(Wikipedia). The family moved to Disneyland in 1974, and he started on drums at
+eight. At twelve Simmons signed him to an endorsement after he played a sample
+kit at the NAMM Show. From 1985 to 1988 he was the second drummer in Polo, a
+teenage covers band, at Disneyland. At sixteen he left school to record with
+Dweezil Zappa. The Vandals hired him in 1989 and he has played on all their
+albums since but one. He joined a reformed Devo in 1996 (replacing David
+Kendrick), Guns N' Roses in 1997 (replacing Matt Sorum), A Perfect Circle in
+1999 (replacing Tim Alexander before Mer de Noms), and the Foo Fighters in 2023,
+after Taylor Hawkins's death, until 2025. He toured with Nine Inch Nails
+(2005-08, and on Year Zero and The Slip), Sting and Weezer, and is on more than
+400 albums since 1986: Evanescence's Fallen, Avril Lavigne's Let Go, Katy
+Perry's Teenage Dream, the Offspring's records from Splinter (2003) on.
+
+**How he plays.** Variety: "the pristine reputation as one of the most
+in-demand session drummers in the business". He calls himself "the blue collar
+freelance drummer to the stars". He says he learned to play from Devo's
+Freedom of Choice (1980). On the records read here, each section has its own
+part and holds it, and almost nothing is ghosted:
+
+- **A Perfect Circle's 6/8.** Judith, Orestes and 3 Libras are in 6/8 at 72 to
+  82 a quarter. Judith puts a rimshot on 4 under a crash on 1, the open hat on
+  every eighth and the bass drum on 1 and the "and"s of 2 and 3. 3 Libras'
+  first verse is a cross-stick on every eighth under sixteenths on the hat.
+- **Meters that change.** The Outsider's verses are 4/4, its pre-choruses,
+  choruses and bridge 3/4, its last chorus 6/8.
+- **The bass drum with the riff.** The Outsider's verse puts it in dotted
+  eighths across the bar: 1, the "a" of 1, the "and" of 2, the "e" and "a" of 3.
+- **Punk time.** Hammerhead and You're Gonna Go Far, Kid put the crash in
+  eighths with the snare on every "and"; the Vandals' chorus puts the snare
+  and the open hat on every beat with the bass drum on every "and", at 165.
+
+**Devices.** Two. Under Orestes' guitar solo the snare falls on every
+quarter of the 6/8 bar, three against its two dotted quarters: a hemiola
+(3:2). The Outsider's verse groups the bass drum in threes across 4/4, three,
+three, three and two sixteenths. The Outsider's changes of meter are changes,
+not a device. The `devices_search` records what was read.
+
+**Kit.** In 2007 he said he starts from "the basic Ringo 4 piece set up": a
+four-piece with the Vandals, two rack and two floor toms and a second snare
+with A Perfect Circle, "more cymbals with APC too" (Guitar Center, quoted on
+Wikipedia). In the 2008 photograph below he plays a DW kit. No free samples of
+his kit exist. The base and the Offspring and The Outsider songs use
+`studioRock`, tight and close as Bob Rock's and Alan Moulder's mixes sound.
+3 Libras and Orestes use the even `drs`, Judith the base. The Vandals song
+uses `police`, a bright, tight snare. No electronics.
+
+**The songs.** Seven, every one from a human Songsterr tab. The tempos are
+beat-tracked from the records where they would download, and each tab's
+length at its tempo is checked against the record's. Each section order
+follows the tab's markers, or its bars where it has none:
+
+| Song                     | Year | Tempo (record / tab) | Meter         | What the groove is                                                                                   | Source of the bars |
+| ------------------------ | ---- | -------------------- | ------------- | ---------------------------------------------------------------------------------------------------- | ------------------ |
+| My Girlfriend's Dead     | 1998 | 167 / 165            | 4/4           | The hat foot in eighths; the open hat in eighths; the snare on every beat over the "and"s            | 21916, rev 30417   |
+| Judith                   | 2000 | 82.4 / 82            | 6/8           | A rimshot on 4, the open hat on every eighth; the ride after the choruses; the floor tom in eighths  | 920, rev 7454114   |
+| Orestes                  | 2000 | 74.0 / 74            | 6/8           | Closed eighths, the snare on 4; under the solo, the snare on every quarter                           | 24542, rev 8279661 |
+| 3 Libras                 | 2000 | 71.9 / 72            | 6/8           | A cross-stick on every eighth; crashes on 1 and 4 over the open hat; sixteenths on the ride          | 24544, rev 8194378 |
+| The Outsider             | 2003 | (4:06) / 84-87       | 4/4, 3/4, 6/8 | The bass drum in dotted eighths; the 3/4 chorus on the crash; the toms in the second verse           | 24543, rev 9305092 |
+| You're Gonna Go Far, Kid | 2008 | (2:57) / 126         | 4/4           | The hat foot and no snare; the gallop on the high tom; the crash in eighths, the snare on the "and"s | 23200, rev 8454699 |
+| Hammerhead               | 2008 | 152.8 / 151          | 4/4           | The crash in eighths, the snare on every "and"; a half-time bridge on crashed quarters               | 32792, rev 8690459 |
+
+The Outsider's and You're Gonna Go Far, Kid's audio would not download, so
+their tempos are the tabs': 107 bars at 85 run 242 s against the album's 4:06,
+and 92 bars at 126 run 175 s against its 2:57.
+
+Credits checked: Mer de Noms' liner notes credit Freese on tracks 2-11 and Tim
+Alexander on The Hollow (track 1); Judith (4), Orestes (5) and 3 Libras (6) are
+his. Thirteenth Step, Rise and Fall, Rage and Grace and Hitler Bad, Vandals
+Good credit him on drums. 3 Libras' tab names its drum track "Tim Alexander":
+a mislabel.
+
+Where the songs differ from the tabs (each comment says so):
+
+- **Runs on the snare.** Runs of four or more sixteenths leave one out, as the
+  app plays them: Judith's pre-chorus fill, The Outsider's, the Offspring
+  fills.
+- **Hammerhead** is held to 150, three under the record, the fastest the app
+  plays its sixteenths. Its bridge is played as 24 bars of 56, and the two-bar
+  lead-ins, the interlude and the pre-chorus's last bar (crashes on 1, 2 and 3,
+  no snare on the "and"s) are left out.
+- **My Girlfriend's Dead** at 165 plays no sixteenths: its fills keep their
+  eighths, and two four-bar runs of snare fills are left out. It is the least
+  certain song: a 2009 tab with no markers, checked against the record only
+  for tempo and length.
+- **You're Gonna Go Far, Kid's** pre-chorus roll plays its ghost on the "and"
+  of 1 as a hit, so the bar keeps the "and"s the section is built on. The
+  gallop, written in 32nds and sextuplets, is rounded to sixteenths, as is
+  The Outsider's second verse.
+- **3 Libras'** two pickup bars of 3/8 are left out (no meter here holds
+  three eighths), and so are the drumless intros of 3 Libras and Orestes.
+- **Judith's** last bar adds the snare under the final crash on 4.
+
+Dropped:
+
+- **Weak and Powerless** (2003): the tab's verse puts four and five
+  sixteenths in a row on the bass drum at 80. That needs a double pedal or a
+  thinned riff, and no source read says which he played. It waits for one.
+- **The Noose** (2003): a slow build at 66, close to Orestes; left for a later
+  pass.
+- **People That Are Going to Hell** (1998): its only tab is machine-made.
+
+**What the style encodes.** Four base figures from the 4/4 songs: The
+Outsider's dotted-eighth bass drum, the Vandals' verse, My Girlfriend's Dead's
+verse with a crash and the bass drum on the "and"s, and The Outsider's verse
+with a splash and a china on 4. Three fills: The Outsider's verse ends and the
+Vandals' snare on 4. Straight time, `ghostBias` 0.04. The weight is 0.8,
+heavier than Mike Joyce and under Chad Smith's 1. The likeness is from Devo at
+the Bank of America Pavilion, Boston, 27 June 2008 (Flickr via Wikimedia
+Commons, CC BY-SA 2.0): short light-brown hair pushed up, clean-shaven, Devo's
+yellow suit, a dark DW kit with chrome.
+
+**Sources.** Wikipedia: Josh Freese; Mer de Noms; Thirteenth Step; Rise and
+Fall, Rage and Grace; Hitler Bad, Vandals Good. Songsterr tabs 920, 24544,
+24542, 24543, 23200, 32792, 21916 (and 912, 1208 read for Weak and Powerless
+and The Noose). Wikimedia Commons: "Josh Freese at the DEVO, Boston 6-27-08".
+The records, beat-tracked from the official uploads where they would download.
+
+## DH. Kenny Clarke (2026-10-22)
+
+The `kennyclarke` style plays **songs**, as `phillyjoe` (CG) does: each New picks
+one of his records and plays it in sections, its tempo and bars with it. His record
+(`drummer-model/drummers/kenny-clarke.json`, schema 1.6) keeps the 15-a candidate's
+id `drummer:kenny-clarke`, which Max Roach's, Art Blakey's, Roy Haynes's and Jack
+DeJohnette's records (`cites_as_influence`), Philly Joe Jones's (`influenced_by`),
+Connie Kay's (`replaced`) and Charlie Watts's (`admired`) already point at. Three
+recordings are new: Charlie Christian's Swing to Bop at Minton's (1941), Lee Konitz
+with Warne Marsh (1955) and Jazzmen: Detroit (1956); Love Me or Leave Me is a new
+track on Walkin'. One genre is new to his record, `style:cool-jazz` (already in
+`GENRE_FAMILY`).
+
+**Who he is.** Kenneth Clarke Spearman was born in Pittsburgh on 9 January 1914,
+orphaned at about five, and played snare in his orphanage's marching band. In New
+York from 1935 (Edgar Hayes, Claude Hopkins), he joined Teddy Hill's band in 1939,
+where on a fast tune he "came upon the idea of using the ride cymbal on his right
+hand to keep time rather than the hi-hat, an approach that freed up his left hand to
+play more syncopated figures"; on the bass drum "irregular accents (dropping bombs)
+while using the hi-hat on the backbeats". A rimshot followed by a bomb, "Klook-mop",
+gave him his name. Chick Webb "strongly influenced him". In 1941 Hill made him the
+leader of the house band at Minton's Playhouse (Monk, Joe Guy, Nick Fenton), where
+the after-hours jams with Gillespie and Charlie Christian "led to the birth of
+bebop"; he and Monk wrote Epistrophy. After the army (1943-46) he was with
+Gillespie, in Paris 1948-51, then the Modern Jazz Quartet to 1955 ("I wouldn't be
+able to play the drums my way again after four or five years of playing
+eighteenth-century drawing-room jazz"), Miles Davis's Prestige sessions of 1954,
+and house drummer at Savoy and at Van Gelder's ("Klook's corner"). From 1956 he
+lived in Paris: Ascenseur pour l'échafaud, the Three Bosses with Bud Powell, the
+Kenny Clarke/Francy Boland Big Band 1961-72, a drum school with Dante Agostini. He
+died at home in Montreuil on 26 January 1985 (Wikipedia).
+
+**How he played** (Burt Korall, Drummin' Men, quoted on Wikipedia). With the MJQ:
+"His cymbal sound and bass drum work were light and quietly persuasive. Charming
+rudimental touches – well-executed ruffs, triplets, short rolls on a tightly tuned
+snare – added dimension as he danced within or around the time." On the 1954 Miles
+Davis records, "his best work of the 1950s – perhaps of his entire career": "Clarke
+follows feelings, lives inside the pulse ... Like Dave Tough, he is a totally
+unselfish player – nonintrusive yet spirited and spiritual." In the big band:
+"Playing softer than most drummers in a large ensemble ... He used just enough
+decoration." Todd Bishop: "Clarke really favors comping with the snare drum on the
+& of 1 and/or 3" (the Kenny note).
+
+**The songs.** Five, each tempo measured from the record (autocorrelation of the
+full track where YouTube allowed it, otherwise of the iTunes Search API's 30-second
+preview):
+
+| Song                | Record                                         | Bars from                                   | Measured                   | Written        |
+| ------------------- | ---------------------------------------------- | ------------------------------------------- | -------------------------- | -------------- |
+| Swing to Bop        | Minton's Playhouse, 12 May 1941 (Jerry Newman) | Bishop's transcription, 91 bars at 220      | 220 (preview)              | 214–226, 4/4-8 |
+| Love Me or Leave Me | Walkin', recorded 3 April 1954                 | Bishop's transcription of his fours, ♩=290  | 276 (preview, before them) | 276–292, 4/4-8 |
+| Bags' Groove        | Bags' Groove, recorded 24 December 1954        | Songsterr 462220 (human), 242 bars at 140   | 146 (both takes' previews) | 140–150, 4/4-6 |
+| Two Not One         | Lee Konitz with Warne Marsh, 14 June 1955      | Bishop's transcription of his fours, 238    | 230 (preview)              | 230–240, 4/4-8 |
+| Apothegm            | Jazzmen: Detroit, recorded 9 May 1956          | Bishop's The Kenny Note, the head's 32 bars | 173–177 (the whole record) | 170–180, 4/4-6 |
+
+- **Swing to Bop**: on brushes, the ride rhythm on the snare (1, 2 and its "and",
+  3, 4 and its "and"), "a strong quarter note groove, with Clarke making some big
+  angular jabs with the snare drum and bass drum". The time between is his commonest
+  bars; the written bars come in Bishop's order: the end of the first A, the
+  bridge's jabs, the second chorus's bass drum on the "and"s and its bars of
+  accented eighths, the third chorus's quarter notes and ghosted eighths, the last
+  bar. The foot on 2 and 4 and the feathered bass drum are Bishop's assumptions, not
+  his notes.
+- **Love Me or Leave Me**: six of his eight brush fours (the second and third,
+  like the fifth and first, left out), each bar a section, four bars of the horns'
+  time between: triplets, accents on the "and"s, ruffs into accented beats,
+  quarter-note triplets, 5:4 runs over the bar line. The ties are sweeps; only the
+  first note of a tie plays.
+- **Bags' Groove**: the head on the ride and the foot alone; from the second
+  chorus the cross-stick on 4 under the ride, swung or in quarters (190 of the
+  tab's 242 bars); the crash and bass drum on the 1 at the top of a chorus; comps in
+  triplets on the snare and bass drum in the bar before it. The tab does not name
+  the take. The arrangement: intro, the head, three choruses of solos, the head.
+- **Two Not One**: six of his eight fours with sticks (the second and sixth left
+  out), with the saxophones' time between: rolls into accented "and"s, stick shots,
+  the cymbal and snare together in eighths, triplets right through a bar, four-stroke
+  ruffs. "Clarke doesn't play the tom toms at all."
+- **Apothegm**: the head's two-bar phrase (the time, then the snare on the "and"
+  of 3), its second 16 bars as Bishop writes them (the snare on the "and" of 1 or of
+  3, a few on 2 and 4, the bass drum on 4), then the solos on the same punctuation.
+
+**What the grid decided.** The sextuplet meter stops at 190, so the three fast songs
+are in swung eighths (`4/4-8`) with `swingCurve`, the swing flattening with the
+tempo as A0 sets out: each triplet keeps its first and last notes, a sixteenth
+triplet into a beat is a drag, a 5:4 group the nearest eighths. The critic holds the
+snare to three eighths in a row and a quarter of every bar to air, so runs of
+triplets lose every fourth note and a full bar of accented eighths drops its plainest
+ones. A two-bar figure in sextuplets is past the 32-step row, so every written bar is
+a section of its own and two fours of each set are left out to stay inside 26
+sections. The brush time puts six of eight eighths on the snare, so those songs drop
+no bass drum into it (`noKick` on the two rests). Rolls are a buzz on each beat they
+last; stick shots are rimshots.
+
+**Left out.** Walkin' and Blue 'n' Boogie, Django and La Ronde Suite, Générique,
+Oleo, Airegin and Doxy: no human transcription (Songsterr's for Django, Générique,
+Doxy and Airegin are machine-made). Bishop's Hot House intro (1941): a reader
+credits Sid Catlett and Bishop could not settle it.
+
+**Devices.** None. A four of quarter-note triplets on Love Me or Leave Me and a
+half-note triplet bar on Two Not One stay inside their bars.
+
+**Kit.** Sampled throughout: no samples of his own are free to use. The base and the
+stick songs are on `virtuosity` (the jazz kit every jazz drummer style plays); Swing
+to Bop and Love Me or Leave Me on `jazzBrushes`.
+
+**The style.** Weight 0.4: light, "quietly persuasive". The base keeps the ride whole
+with the foot on 2 and 4 and the bass drum feathered (`kickFeather`), the Kenny note
+in the ghost weights on the "and"s of 1 and 3, the bombs in the kick rows, and
+figures for Klook-mop (the rimshot on 4, the bomb on its "and") and the cross-stick
+on 4. Fills from the songs: accented eighths, a press into a stick shot, accented
+"and"s with a bomb.
+
+**Likeness.** Kenny Clarke at fifty at the American Jazz Festival in Brussels,
+October 1964 (Wikimedia Commons, "Kenny Clarke en 1964"; the 1971 Anefo photograph
+from Loosdrecht for the build): heavy-set, close-cropped hair, a small moustache, a
+dark suit, a white shirt and a narrow dark tie, at a Premier kit in silver sparkle.
+The photograph is black and white, so the colours are guesses. Rendered headless
+(front, three-quarter face, body).
+
+**Open questions.** Which take of Bags' Groove the tab follows; Swing to Bop's
+pianist (Kenny Kersey or Monk); his kits' brands and sizes before 1964; Mike
+Hennessey's Klook (1990) for his own account of Minton's.
+
+**Sources.**
+
+- https://en.wikipedia.org/wiki/Kenny_Clarke, https://en.wikipedia.org/wiki/Minton%27s_Playhouse, https://en.wikipedia.org/wiki/Charlie_Christian
+- https://en.wikipedia.org/wiki/Walkin%27, https://en.wikipedia.org/wiki/Bags%27_Groove, https://en.wikipedia.org/wiki/Lee_Konitz_with_Warne_Marsh
+- Todd Bishop, "Transcription: Kenny Clarke - Swing to Bop", Cruise Ship Drummer!, 23 April 2022: https://cruiseshipdrummer.com/2022/04/23/transcription-kenny-clarke-swing-to-bop/
+- Todd Bishop, "Transcription: Kenny Clarke fours", 12 March 2015 (Love Me or Leave Me): https://cruiseshipdrummer.com/2015/03/12/transcription-kenny-clarke-fours/
+- Todd Bishop, "Transcription: Kenny Clarke fours - 02", 29 October 2019 (Two Not One): https://cruiseshipdrummer.com/2019/10/29/transcription-kenny-clarke-fours-02/
+- Todd Bishop, "The Kenny Note", 8 July 2012 (Apothegm): https://cruiseshipdrummer.com/2012/07/08/the-kenny-note/
+- Songsterr tab 462220, Miles Davis, Bags' Groove (drum track, read bar by bar): https://www.songsterr.com/a/wa/song?id=462220
+- Thelonious Monk discography (Swing to Bop's date): https://www.jazzdisco.org/thelonious-monk/discography/
+- Jazzmen Detroit - Complete Sessions, Fresh Sound Records FSRCD 645 (dates, personnel): https://www.freshsoundrecords.com/kenny-clarke-albums/5579-jazzmen-detroit-complete-sessions.html
+- Wikimedia Commons: "Kenny Clarke en 1964" (Brussels, October 1964); "Finale Internationaal Jazz Festival Loosdrecht, drummer Kenny Clarke" (Anefo, 7 August 1971)
+- Records (tempo): YouTube 7xDTtRsOmUE (Apothegm), zEwq9KG-Ay0 (the Bags' Groove session); iTunes Search API previews of Swing to Bop, Love Me or Leave Me, both takes of Bags' Groove and Two Not One
+
+## DI. Carl Palmer (2026-10-22)
+
+The `carlpalmer` style plays **songs** the way `simonphillips` (DD) does: each
+New picks one of his records, and its tempo, meter, sections and grooves come
+with it. He was a 15-a candidate, in batch 1 of DC's ranking (Modern Drummer
+Hall of Fame, cited by Neil Peart). His record,
+`drummer-model/drummers/carl-palmer.json`, keeps the candidate's id,
+`drummer:carl-palmer`, now at `draft` (schema 1.6.0). Two recordings are new:
+Emerson, Lake & Palmer's first album (1970) and Trilogy (1972). Tarkus, Brain
+Salad Surgery, Works Volume 1 and Asia were already in the model from 15-b, and
+their tracks are linked to the new songs. His new sources are in
+`sources/carl-palmer.json`. No genre is new: `style:progressive-rock`
+(metal-experimental) and `style:hard-rock` (rock). Filed with the progressive
+and math rock drummers.
+
+**Who he is.** Born on 20 March 1950 (Wikipedia). He took lessons with James
+Blades, "Britain's best-known classical percussionist of the twentieth
+century", and made his first record with the Craig in 1966, then joined Chris
+Farlowe and the Thunderbirds. In 1969 he replaced Drachen Theaker in the Crazy
+World of Arthur Brown on a US tour, and left with Vincent Crane that summer to
+form Atomic Rooster. In 1970 he joined Keith Emerson and Greg Lake in Emerson,
+Lake & Palmer, until 1979 and again from 1992 to 1998. In 1981 he co-founded
+Asia with John Wetton, Steve Howe and Geoff Downes, and played with them until
+1991 and again from 2006. Since 2001 he has led his own band, now Carl Palmer's
+ELP Legacy. Modern Drummer Hall of Fame, 1989; Prog God at the 2017
+Progressive Music Awards (all Wikipedia).
+
+**How he plays.** His early influences were Joe Morello, Philly Joe Jones, Art
+Blakey, Gene Krupa and Buddy Rich, and his style "was initially influenced more
+from jazz than any other genre" (Wikipedia). In Asia he played "a more basic
+approach", with more double bass drum. What the songs show:
+
+- **Odd meters as grooves.** Emerson wrote Tarkus from a rhythm in 10/8 that
+  Palmer had played on his practice pad backstage, and the band learned its 5/4
+  and 10/8 before it went to tape (Wikipedia, Tarkus). Eruption's groove is the
+  ride in sixteenths over the snare on 2, its "a", 4 and its "a", the kick in
+  pairs and threes between. Asia's Heat of the Moment has its verses in 5/4.
+- **In unison with the keyboard.** The snare, toms and kick play the organ's
+  rhythm with it: Hoedown's hits on hat, snare and kick together; Karn Evil 9's
+  accents on the snare; Tarkus's 8/8, the snare and the floor tom together on
+  every third sixteenth, three-three-three-three-two-two.
+- **A barn dance on a rock kit.** Hoedown's groove puts the snare on 2, its "a",
+  the "and" of 3 and 4, the hat opening on the "and"s of 3 and 4.
+- **The snare and the floor tom together.** In threes in Tarkus; in sixteenths
+  over the kick in eighths under Knife-Edge's organ solo.
+- **A solo spot.** Tank was his feature on the first album: a riff, take twos
+  traded with the organ, then a drum solo (Wikipedia, the album). In the 1970s
+  he stripped to the waist during his solos (Wikipedia).
+
+Neil Peart named him among his influences (Rhythm, 1987, in Peart's record).
+
+**Devices.** None named in a fill, comp or solo. The groupings of three in
+Tarkus's 8/8 and Tank's riff are the groove itself, played with the band, so
+they are the songs' figures here, not poly fills. The `devices_search` lists
+what was read.
+
+**Kit.** A Ludwig kit in the first ELP years (the 1975 photo shows Ludwig on
+the bass drum's head). In 1973 he had British Steel make a kit of half-inch
+stainless-steel shells, engraved, on a rotating platform, about 2.5 tons with
+the other percussion and wired to be "synthesized"; Ringo Starr bought it around
+1980 (Wikipedia). Paiste cymbals since 1971; timpani, tubular bells and tam-tam
+on stage. No free samples of his kits exist. Knife-Edge and Tank use
+`sixties` (the Sixties Ludwig); Eruption `teatowel`, a damped early-1970s
+sound; Hoedown `bigrusty`; Karn Evil 9 `police`, bright and tight for the steel
+kit; Fanfare and Heat of the Moment `bigRoom`. The base uses `sixties`. Every
+kit is sampled. Toccata, the one record where he played synthesised percussion,
+is not scored.
+
+**The songs.** Seven, all from human Songsterr tabs. YouTube refused downloads
+while this was built (HTTP 403), so each record was read from its iTunes
+preview, 30 seconds of the album track, and checked against the tab's own
+tempo map and length:
+
+| Song                                | Year | Tempo (record / tab)       | Meter         | What the groove is                                                                                     | Source of the bars  |
+| ----------------------------------- | ---- | -------------------------- | ------------- | ------------------------------------------------------------------------------------------------------ | ------------------- |
+| Knife-Edge                          | 1970 | 137 / 123-145, mostly 140  | 4/4           | Crash and snare on 1 and 3 over eighths on the kick; the snare and floor tom in sixteenths in the solo | 60317, rev 8194047  |
+| Tank                                | 1970 | 168.8 / 168                | 4/4           | Ride and snare in eighths over a three-three-two kick; take twos with the organ                        | 59634, rev 4396118  |
+| Tarkus: Eruption                    | 1971 | not measured / 110, to 100 | 5/4, then 4/4 | The ride in sixteenths over kick pairs and threes; 8/8 in threes on snare and floor tom                | 68097, rev 797753   |
+| Hoedown                             | 1972 | 137 / 142                  | 4/4           | The snare on 2, its "a", the "and" of 3 and 4; hits with the band; the synth solo's open hat           | 60368, rev 4516877  |
+| Karn Evil 9: 1st Impression, Part 2 | 1973 | 126-128 / 131-133          | 4/4           | The band's accents on the snare; the organ solo on the ride; a linear drum-solo verse                  | 33984, rev 6477273  |
+| Fanfare for the Common Man          | 1977 | not measured / 155         | 4/4, shuffled | A shuffle on the ride, the hat's foot on the beat; then on the hat under the solo                      | 504374, rev 4300203 |
+| Heat of the Moment                  | 1982 | 136.6 / 132-146            | 5/4, then 4/4 | A verse in 5/4; a plain rock chorus; the snare in sixteenths after 3 in the solo                       | 2007, rev 8360867   |
+
+Where the songs differ from the tabs (each comment says so):
+
+- **The app holds the snare to three sixteenths in a row.** So Karn Evil 9's
+  verses, sixteenths on the snare under the accents, play the accents only;
+  Hoedown's runs into the hits, Tank's runs and Heat of the Moment's solo run
+  are thinned the same way.
+- **Tank**: the riff's last two 32nds are two ghosted sixteenths. The take
+  twos, two bars of stop and two of his answer, are one bar each. The drum
+  solo is not in the tab (empty bars), and the Moog outro at 138 is left out:
+  the song has one tempo.
+- **Tarkus: Eruption**: the tab's bars of 4/8, 6/8, 7/8 and 9/8 are left out;
+  each is a bar or two the app would play as a section of its own. The record
+  drifts from 110 down to about 100; the song is at the start's tempo. The
+  preview is of the whole suite and autocorrelates at 148, four-thirds of 110:
+  the kick's groups of three, not the beat.
+- **Knife-Edge**: the verses (three hat strokes on each half bar, no backbeat)
+  and the Bach section (on a percussion voice the app does not have) are left
+  out.
+- **Karn Evil 9**: the verses with the tambourine alone, and the roll-up, are
+  left out. The record is about 3% under the tab: 4:46 against the tab's 4:39.
+- **Fanfare for the Common Man**: the preview is of the opening fanfare, with
+  no steady beat, so the tempo is the tab's. The middle (bars 67-100, stops and
+  breaks at 148) is left out. The tab is marked with an eighth-note triplet feel
+  from bar 18, so the song is swung by the eighth.
+- **Heat of the Moment**: the verse alternates a bar of the hat on the beat with
+  a bar of the hat on 1 and 2, the kick and the snare on 5. A figure holds one
+  bar of 5/4, so it is mostly one bar with both in it, and the second bar as
+  written now and then. The tambourine on the backbeat is someone else's. The
+  first verse's eight bars of the hat alone, and the "spacey bit", are left out.
+
+Dropped:
+
+- **Toccata** (Brain Salad Surgery): his synthesised percussion movement; no
+  transcription was found.
+- **Lucky Man** (1970) and **From the Beginning** (1972): Greg Lake's songs,
+  whose tabs exist but were not read closely; the parts players learn from him
+  are in the suites and the instrumentals.
+- **The Barbarian** (1970): its tempo map accelerates from 145 to 215, past
+  what a song with one tempo can hold.
+- **Atomic Rooster** (1970): no tab of a song from the album he played on was
+  found.
+
+**What the style encodes.** Five base figures from the songs: Hoedown's groove
+and its synth solo, Karn Evil 9's organ solo, Knife-Edge's second bridge and
+Heat of the Moment's chorus. Four fills: Knife-Edge's snare in threes into the
+floor tom, Fanfare's dotted eighths round the toms, and Tarkus's bars of 4/8.
+`doubleKick` is on, as in Tarkus's kick pairs and threes. The weight is 0.85,
+a hard, busy player. The likeness is from 1975 (Wikimedia Commons, "Carl palmer
+pelo 1975.jpg", public domain): long dark-brown hair parted in the middle,
+clean-shaven, stripped to the waist, a chain at his neck, behind a Ludwig kit
+with copper-finished toms. His legs are not in shot and are a guess.
+
+**Sources.** Wikipedia: Carl Palmer; Emerson, Lake & Palmer (album); Tarkus;
+Trilogy (Emerson, Lake & Palmer album); Brain Salad Surgery; Works Volume 1;
+Asia (Asia album). Neil Peart in Rhythm (1987), in Peart's record. Songsterr
+tabs 60317, 59634, 68097 (and 60303), 60368, 33984, 504374, 2007. The records,
+from their iTunes previews. Wikimedia Commons: "Carl palmer pelo 1975.jpg".
+
+## DJ. Fred Below (2026-10-22)
+
+The `fredbelow` style plays **songs** the way the last batches' styles do: each
+New picks one of his records, and its tempo and grooves come with it. His record
+(`drummer-model/drummers/fred-below.json`, schema 1.6.0) was a 15-a candidate and
+keeps its id, `drummer:fred-below`, now at `draft`. One recording is new in
+`recordings/`: Rock and Roll Music (1957). No genre is new: blues, blues shuffle,
+rock and roll and bebop exist. He opens a new Drummers-tab group, Blues drummers.
+
+**Who he is.** Frederick Below Jr. was born in Chicago on 6 September 1926 and
+died there on 13 August 1988 (Wikipedia, after Eagle and LeBlanc). He learned
+music at DuSable High School under Captain Walter Dyett ("That's where I learned
+my music") and at about fourteen formed a jazz band with Johnny Griffin and
+Eugene Wright. Conscripted in 1945, he "practiced on helmet liners, helmets,
+boxes"; at Fort McClellan he sat in with Tommy Potter and Lester Young. He
+graduated from the Roy C. Knapp School of Percussion in 1948, re-enlisted with
+the 427th Army Band in Germany, and came home in 1951 to the Aces: Louis and Dave
+Myers on guitars, Junior Wells on harmonica. In 1952 Little Walter left Muddy
+Waters, took the Aces, and Below was his drummer, credited as the Jukes on most
+of the records (Little Walter, Wikipedia). From 1955 he worked as a Chess session
+drummer: Muddy Waters, Sonny Boy Williamson, Howlin' Wolf, Jimmy Rogers, Elmore
+James, Otis Rush, J. B. Lenoir, Bo Diddley and Chuck Berry. Tony Russell (The
+Blues, 1997) calls him a creator of "much of the rhythmic structure of Chicago
+blues, especially its backbeat".
+
+**In his own words.** Scott K Fish's interview for Modern Drummer (9 July 1982,
+excerpts on Fish's blog): Below "outline[d] his extensive musical background and
+his influence in shaping the forms and phrasing of Chicago blues"; Fish credits
+him with moving blues players from "'haphazard' odd number phrasing to the
+standard blues phrasing of 8 bars, 12 bars and so forth". Asked whether he thinks
+rhythmically or melodically: melodically, all the time. On the Knapp school,
+Fish: "not all Chicago Blues drummers were simply 'feel' players."
+
+**The credits, settled.** The brief asked for Roll Over Beethoven and every Chuck
+Berry credit. The Chuck Berry Database (Fred Rothwell, Morten Reff and Dietmar
+Rudolph, crlf.de) lists the personnel of every session from the union filings:
+
+| Song                           | Session             | Drums (the Database) | Below's Wikipedia article |
+| ------------------------------ | ------------------- | -------------------- | ------------------------- |
+| Roll Over Beethoven            | 19 April 1956       | Melvin Billups       | Below                     |
+| School Day                     | 15 December 1956    | **Fred Below**       | Below                     |
+| Rock and Roll Music            | 6 or 15 May 1957    | **Fred Below**       | Below                     |
+| Sweet Little Sixteen           | 29-30 December 1957 | Jasper Thomas        | Below                     |
+| Johnny B. Goode                | 6 January 1958      | Jasper Thomas        | Below                     |
+| Memphis, Tennessee             | 26 September 1958   | Jasper Thomas (dub)  | Below                     |
+| Let It Rock, Too Pooped to Pop | 27 and 29 July 1959 | **Fred Below**       | Below (Let It Rock)       |
+
+Roll Over Beethoven is Billups's: Wikipedia's song article and the Database
+agree, and only Below's own article, uncited, says otherwise. Johnny B. Goode is
+disputed. The Chess Box notes and the 2000 Anthology notes name Below, and
+Wikipedia follows them; the Database names Jasper Thomas from "the session
+protocol filed for Union purposes", and adds: "We accept that other experts
+disagree, specifically due to stylistic differences they hear." Sweet Little
+Sixteen is the same. Neither is scored here, and the record's open questions say
+why; the 15-b tracks still credit him, for the parent to settle. School Day and
+Rock and Roll Music are his by both.
+
+**The songs.** Four, each tempo the record's:
+
+| Song                | Record                           | Tab (revision)                     | Measured          | Written |
+| ------------------- | -------------------------------- | ---------------------------------- | ----------------- | ------- |
+| I'm Ready           | Muddy Waters, Chess 1579, 1954   | 7198014 (9398098), human, at 120   | 120.3 (365 beats) | 118–123 |
+| My Babe             | Little Walter, Checker 811, 1955 | 73166 (5802188), human, at 150     | 158.4 (422 beats) | 156–161 |
+| School Day          | Chuck Berry, Chess 1653, 1957    | 4585688 (5998856), machine, at 130 | 131.1 (352 beats) | 129–133 |
+| Rock and Roll Music | Chuck Berry, Chess 1671, 1957    | 1772388 (6993794), human, at 165   | 166.0 (414 beats) | 163–168 |
+
+I'm Ready is a jazz drummer's ride under Muddy Waters: the ride on 1, 2 and its
+swung "and", 3, 4 and its "and", over the backbeat, the kick on 1 and 3 or pushing
+on the "and" of 2; the band's stop-time on 1, the "and" of 2 and the "and" of 4,
+two hits, the stop on 1, and a pickup in swung eighths back into time; the
+harmonica solo on the hat foot alone; the ride shuffling every beat. The tab has
+its triplet feel on, so each straight eighth is read as the beat's last triplet,
+which the record's ride confirms. My Babe is the two-beat his name is on: the
+snare on every beat and its last triplet, the accents on 2 and 4, the kick only
+on 1 of every other bar, the hat foot on 2 and 4; each verse ends on the band's
+stop and the snare on the last triplet of 3 and on 4. School Day is the shuffle on
+the hat with the backbeat. Rock and Roll Music is the plainest of them: "It's got
+a back beat, you can't lose it."
+
+**What the grid and the records decided.** A figure is one bar, so My Babe's pair
+of bars (the kick on 1, then an accent on 1) are two figures mixed. Every bar of a
+section needs that section's backbeat, so the stop bars and the pickups are
+sections of their own. I'm Ready's tab has no markers; its order is read bar by
+bar and rounded to whole sections (the stop-time runs three bars in places, four
+here). School Day's only tab is a machine's: its groove is checked against a full
+copy of the record (the hat band peaks at the triplet), and where the tab has the
+band's stop twice, the record's hat drops out on the twelfth bar of five of its
+seven verses, so those verses end on the stop. Rock and Roll Music's tab stops the
+band at the end of each strain; the beat-tracked record shows no such bars, so
+they are left out, with the tab's bar of hits and the seven blank bars after it.
+
+**Not scored.** Blues with a Feeling (1953), I Just Want to Make Love to You (1954)
+and Don't Start Me Talkin' (1955) are his by Wikipedia's song articles, but their
+only tabs are machine ones (Songsterr 275053, 1098787, 2006320), and only their
+30-second previews could be fetched to check them. Hoochie Coochie Man is Elgin
+Evans's (Wikipedia: Below "is sometimes listed"). Quality, not a quota: four.
+
+**Kit.** Sampled, as every drummer's. `virtuosity`, the jazz kit with a ride worth
+riding and a hat played with the foot, for the base and the blues records; SM
+Drums' 1960s Ludwig (`smdrums`) for the two Chuck Berry songs. No source read
+names his 1950s kit.
+
+**What the style encodes.** `weight` 0.55, a firm but light backbeat; a triplet
+shuffle (`swing` 95 of 75–100, eighths); few ghosts (`ghostBias` 0.1); short fills
+at the phrase end; the hat foot on 2 and 4. No device: the shuffle, jazz time and
+stop-time are feel and arrangement (`devices_search`).
+
+**Likeness.** On stage in France, 17 December 1975, in Lionel Decoster's
+photograph (Wikimedia Commons, CC BY-SA 3.0): a dark beret worn level (drawn as a
+flat cap), a moustache, a dark knit top, a Ludwig in oyster pearl with a white
+front head and chrome hardware. The photograph is black and white, so the colours
+are a guess.
+
+Sources: Wikipedia (Fred Below, Little Walter, My Babe, I'm Ready, School Days,
+Rock and Roll Music, Roll Over Beethoven, Johnny B. Goode, Sweet Little Sixteen,
+Hoochie Coochie Man, Don't Start Me Talkin', Blues with a Feeling, I Just Want to
+Make Love to You); the Chuck Berry Database, crlf.de (musician 48, songs 116, 183,
+192, 178, 207); Scott K Fish, Fred Below interview excerpts (scottkfish.com, 2015
+and 2018, from 1982); Songsterr 7198014, 73166, 4585688, 1772388; Wikimedia
+Commons, File:Fred_Below.jpg and File:Fred-Below-1978.jpg (Lionel Decoster).
+
+## DK. Milton Banana (2026-10-22)
+
+The `miltonbanana` style plays **songs**, as the other drummer styles do: each
+New picks one of his records, and its tempo, sections and grooves come with it.
+His record is `drummer-model/drummers/milton-banana.json`, the 15-a candidate
+upgraded in place (same id, `drummer:milton-banana`, now a draft at schema
+1.6.0). There are two new recordings, O Ritmo e o Som da Bossa Nova (1963) and
+Milton Banana Trio (1965), each with its scored track, and
+`sources/milton-banana.json`. The Girl from Ipanema's 15-b track on
+Getz/Gilberto is linked to its song. No genre is new: `style:bossa-nova` and
+`style:samba`, both in the Latin, African and Asian family. Filed in a new
+group, Samba and Brazilian jazz drummers.
+
+**Who he is.** Antônio de Souza was born in Rio de Janeiro on 23 April 1935
+and taught himself the drums. From 1955 he played Rio's nightclubs: Waldir
+Calmon's orchestra at the Boate Arpège, Djalma Ferreira's Milionários do
+Ritmo at the Drink, then Luiz Eça's group at the Hotel Plaza (Cravo Albin
+dictionary). He drummed on João Gilberto's Chega de Saudade 78 (recorded 10
+July 1958, with Bim Bom), the recording taken as bossa nova's start, and the
+LP that followed in 1959; the Jobim estate's credits give him the whole LP,
+as "percussão" (Portuguese Wikipedia). In 1962 he played the Carnegie Hall
+bossa nova festival and the Au Bon Gourmet show with João Gilberto, Jobim,
+Vinicius de Moraes and Os Cariocas; in March 1963 he played drums and
+pandeiro on Getz/Gilberto in New York, then toured Europe with João
+Gilberto, João Donato and Tião Neto. His first record under his own name, O
+Ritmo e o Som da Bossa Nova, was made that year with Oscar Castro-Neves's
+group. From 1965 he led the Milton Banana Trio, a trio "comandado por um
+baterista, algo incomum na época", on more than twenty records for Odeon and
+then RCA. He died in Rio in May 1999: the 15th by the Portuguese Wikipedia
+and the dictionary, the 22nd by the English Wikipedia. At his funeral a
+wreath from João Gilberto read "A Milton, a quem o Brasil não homenageou nem
+reconheceu nunca. Ass.: todos os músicos do Brasil".
+
+**How he plays.** The best source is Felipe Diego de Moraes's master's
+dissertation (Universidade Federal de Uberlândia, 2020), which analyses his
+samba through Leandro Barsalini's matrices and transcribes two whole songs.
+What it finds, and what it quotes:
+
+- **A brush and one stick.** Banana to Mello (1976): "Essa batida me
+  empolgava, eu sentia que não dava para tocar de baquetas, tocava de
+  vassourinha e uma baqueta só". João Gilberto told him "está ressonando
+  demais esta caixa ... Ritmo, só ritmo". In Chega de Saudade (1963) the
+  brush is swept in sixteenths on the snare "do início ao fim da música" while
+  the stick phrases on the rim against the flute and the guitar.
+- **No bass drum under the bossa.** "Nas gravações analisadas do período
+  1958-1963, a ausência do bumbo era recorrente": the bass plays the surdo's
+  rhythm instead. The hi-hat foot comes in on the second eighth of each beat.
+- **Sixteenths in the right hand.** With sticks, the "samba de prato
+  conduzido" is the way he played most: Favery (2018), "semicolcheias
+  contínuas rápidas em sua mão direita, com um fraseado comedido na bateria
+  quando solicitado, e, essencialmente com a sua mão esquerda sincopando na
+  maioria das vezes no aro da caixa". The bass drum plays a dois, a dotted
+  eighth and a sixteenth to each beat, the weight on 2.
+- **The second generation.** Favery again: with Edison Machado, Dom Um Romão
+  and Hélcio Milito, he "contribuiu de forma decisiva para a quebra do
+  paradigma do samba 'batucado' na bateria".
+- **Who names him.** Tutty Moreno: "o bumbo a dois é uma ciência ... o
+  Milton Banana, um cara que tinha um swing maravilhoso". Márcio Bahia counts
+  him among the drummers "que mais me influenciaram". The bassist Humberto
+  Clayber: "Milton Banana influenciou a mim e ao Bebeto com aquela batida: tum
+  tumtum tumtum".
+
+The 1963 LP's notes compare him with Kenny Clarke: he joined "a sutil
+acentuação e a perfeita articulação do moderno jazz norte-americano (no
+estilo de Kenny Clarke)" to bossa nova, and João Gilberto "encontrou no
+estilo de 'Milton Banana' um apoio perfeito". The record keeps that as a
+`style_lineage` edge, marked as a writer's comparison.
+
+**Devices.** None. The rim's figure is a two-bar clave in 2/4 and its
+variations: the samba's own timeline, not a cross-rhythm laid over it. The
+`devices_search` records what was read.
+
+**Kit.** No source read names his drums. The cover of O Ritmo e o Som da
+Bossa Nova shows a small red four-piece with chrome hardware and a plain
+white front head. The bossa songs use `drsBrush`, the DRS kit with a brushed
+snare and hat and the stick kit's cross-stick and hat foot, which is how he
+held them; Samba do Avião, with sticks, uses `drs`.
+
+**The songs.** Three, two from Moraes's transcriptions and one from a human
+Songsterr tab. One bar here is two bars of 2/4, as the `jazzsamba` style is
+written, so the tempo is the 2/4 beat and the sixteenths are the 2/4
+sixteenths. Each tempo is autocorrelated from the record's onset flux:
+
+| Song                  | Year | Tempo (2/4 beat)       | What the drums do                                                                                           | Source of the bars                    |
+| --------------------- | ---- | ---------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| Chega de Saudade      | 1963 | 86 (0.175 s sixteenth) | The brush in sixteenths, the rim's clave against the flute, the hat foot on the "and"s from bar 41; no kick | Moraes, appendix B (153 bars)         |
+| The Girl from Ipanema | 1964 | 65 (130.2 in eighths)  | Brush strokes in a two-bar pattern in the A sections, the cross-stick alone in the bridge; no kick          | Songsterr 402454, rev 8662252 (human) |
+| Samba do Avião        | 1965 | 96 (0.156 s sixteenth) | Sticks: the hat in sixteenths, the rim syncopating, the bass drum a dois; the bell and rim with the piano   | Moraes, appendix C (97 bars)          |
+
+Where the songs differ from their sources (each comment says so):
+
+- **The brush's sweep** is written as sixteenths on the hi-hat lane, as the
+  `bossa` style keeps a brush: the grid has no sweep, and a snare row of them
+  would be a run.
+- **Chega de Saudade**: Moraes's page for bars 9-28 is blank in the PDF;
+  bars 1-8 are his figure 42. Section lengths are rounded to whole bars.
+- **The Girl from Ipanema**: the tab writes the A sections on a maracas note,
+  read here as the brush. Its 175 bars at 65 make 5:26 of the record's 5:27,
+  so its form is the record's. A second human tab (4496127) adds a surdo
+  bass drum and a snare on the "and"s, which neither Ivan's tab nor Moraes's
+  account of the records of 1958-63 supports; it is not followed.
+- **Samba do Avião**: "baqueta contra baqueta" (bar 5) is written on the rim.
+  Where the bass drum and the rim leave less than a quarter of a 4/4 bar free
+  of kick and snare, the rim's last sixteenth is left out (bars 22, 29, 65).
+  The bell and snare phrases' ten bars are written as eight, and the
+  theme's bars 14-17 are in its pool, so the song fits 32 bars of sections.
+
+Not scored:
+
+- **João Gilberto's 1958-59 records** (Chega de Saudade, Desafinado, Bim Bom,
+  Hô-bá-lá-lá): only machine tabs (Songsterr 7153011, 6691369), and the drums
+  are faint under the voice and guitar.
+- **Desafinado on Getz/Gilberto**: its human tab (977100, by Toletum) leaves
+  the drums out of the first 48 bars of 2/4, where the record's top end
+  suggests the brush is playing; not settled.
+- **Corcovado, Doralice and the rest of Getz/Gilberto**: no human tab.
+
+**What the style encodes.** Five base figures: the 1963 Chega de Saudade's
+clave with and without the foot, its piano-solo variant, and Samba do
+Avião's theme and solo. Four fills: two of Chega de Saudade's busier bars and
+two of Samba do Avião's phrase ends. No ghost notes, no open hats (the base
+says `openSlots: []`), no crash marking the phrase; the bass drum is barred
+from the surdo's gaps, and from every step in the bossa songs. The weight is
+0.2, by the bossa style's 0.15. The likeness is the cover of O Ritmo e o Som
+da Bossa Nova: black hair combed back, clean-shaven, a charcoal suit, a white
+shirt and a dark tie, the red kit.
+
+**Sources.** Moraes, "Características da condução do samba pelo baterista
+Milton Banana em seu conjunto de música instrumental" (UFU, 2020), with
+Mello (1976), Favery (2018), Barsalini (2009) and Campos (2014) as he quotes
+them. The Dicionário Cravo Albin's entry. Wikipedia: Milton Banana (English
+and Portuguese); Chega de Saudade (álbum, Portuguese); Getz/Gilberto. The
+back cover of O Ritmo e o Som da Bossa Nova (Audio Fidelity, 1963), as
+photographed in Moraes. Songsterr tabs 402454, 4496127, 977100. The records,
+beat-tracked from the Topic uploads (RTGbEiVMD4o, eRiXvWnKC6A) and Stan
+Getz's (kLO8XoNf5EM).
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

@@ -139,6 +139,8 @@ close = s.index(']', gi + len(group) + 2)
 before = s[:close].rstrip()
 if before.endswith(','):
     s = before + f"\n      '{key}',\n    " + s[close:]
+elif before.endswith('['):
+    s = before + f"'{key}'" + s[close:]  # the group's first drummer
 else:
     s = before + f", '{key}'" + s[close:]
 styles_p.write_text(s)

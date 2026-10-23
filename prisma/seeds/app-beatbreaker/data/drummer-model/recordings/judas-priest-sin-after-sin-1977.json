@@ -33,7 +33,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=71888"
         }
-      ]
+      ],
+      "style_key": "simonphillips",
+      "song_key": "dissident-aggressor"
     },
     {
       "title": "Sinner",
@@ -51,7 +53,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=10517"
         }
-      ]
+      ],
+      "style_key": "simonphillips",
+      "song_key": "sinner"
     }
   ]
 }

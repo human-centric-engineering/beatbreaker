@@ -7,8 +7,20 @@
   "style_ids": ["style:rock-and-roll"],
   "drum_performances": [
     {
-      "drummer_id": "drummer:fred-below",
-      "name": "Fred Below"
+      "drummer_id": "drummer:melvin-billups",
+      "name": "Melvin Billups",
+      "drummer_role": "sole_drummer",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:roll-over-beethoven-wikipedia", "src:chuck-berry-database-crlf"],
+        "note": "The 19 April 1956 session. Fred Below's own Wikipedia article lists the song, uncited.",
+        "alternatives": [
+          {
+            "value": "drummer:fred-below",
+            "source_ids": ["src:fred-below-wikipedia"]
+          }
+        ]
+      }
     }
   ]
 }

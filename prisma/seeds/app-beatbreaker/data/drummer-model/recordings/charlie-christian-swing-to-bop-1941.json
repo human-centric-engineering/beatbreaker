@@ -1,0 +1,82 @@
+{
+  "id": "rec:charlie-christian-swing-to-bop-1941",
+  "title": "Swing to Bop",
+  "artist": "Charlie Christian",
+  "release": "Charlie Christian: Jazz Immortal (Esoteric); later The Immortal Charlie Christian",
+  "year": 1941,
+  "type": "live_track",
+  "style_ids": ["style:bebop"],
+  "personnel": [
+    {
+      "name": "Charlie Christian"
+    },
+    {
+      "name": "Joe Guy"
+    },
+    {
+      "name": "Kenny Kersey"
+    },
+    {
+      "name": "Nick Fenton"
+    },
+    {
+      "name": "Kenny Clarke",
+      "id": "drummer:kenny-clarke"
+    }
+  ],
+  "tempo_bpm": 220,
+  "time_signature": "4/4",
+  "feel": "swung",
+  "studio_context": "Recorded at Minton's Playhouse, Harlem, by Jerry Newman on a portable disc recorder, 12 May 1941.",
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:jazzdisco-thelonious-monk-discography", "src:charlie-christian-wikipedia"],
+    "note": "The date is jazzdisco.org's; the pianist is disputed (Kenny Kersey or Thelonious Monk)."
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenny-clarke",
+      "name": "Kenny Clarke",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The house drummer at Minton's on a record of the jam sessions bebop came out of, on brushes.",
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "A strong quarter-note groove on brushes, 'big angular jabs with the snare drum and bass drum' (Bishop).",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:bishop-clarke-swing-to-bop-2022"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charlie-christian-wikipedia", "src:bishop-clarke-swing-to-bop-2022"]
+      }
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Swing to Bop",
+      "drummer_ids": ["drummer:kenny-clarke"],
+      "drums": {
+        "description": "Brushes: the ride rhythm on the snare, the bass drum feathered, big angular jabs on the snare and bass drum under Christian's solo.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-clarke-swing-to-bop-2022"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "other",
+          "url": "https://cruiseshipdrummer.com/2022/04/23/transcription-kenny-clarke-swing-to-bop/",
+          "note": "Todd Bishop's transcription"
+        }
+      ],
+      "youtube": "https://www.youtube.com/watch?v=_W2FZmKs_rI",
+      "style_key": "kennyclarke",
+      "song_key": "swing-to-bop"
+    }
+  ]
+}

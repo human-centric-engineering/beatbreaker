@@ -1,0 +1,41 @@
+{
+  "id": "rec:emerson-lake-and-palmer-trilogy-1972",
+  "title": "Trilogy",
+  "artist": "Emerson, Lake & Palmer",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:trilogy-elp-album-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carl-palmer",
+      "name": "Carl Palmer",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Hoedown",
+      "drummer_ids": ["drummer:carl-palmer"],
+      "drums": {
+        "description": "A barn dance on a rock kit: the snare on 2, its \"a\", the \"and\" of 3 and 4, and hits on hat, snare and kick with the band.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-60368", "src:trilogy-elp-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=BWmohszZW_w",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=60368"
+        }
+      ],
+      "style_key": "carlpalmer",
+      "song_key": "hoedown"
+    }
+  ]
+}

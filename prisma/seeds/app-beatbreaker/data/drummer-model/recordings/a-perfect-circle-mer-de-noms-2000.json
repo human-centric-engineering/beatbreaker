@@ -13,8 +13,15 @@
     {
       "drummer_id": "drummer:josh-freese",
       "name": "Josh Freese",
-      "drummer_role": "sole_drummer",
+      "drummer_role": "co_drummer",
       "significance": 0.8
+    },
+    {
+      "drummer_id": "drummer:tim-alexander",
+      "name": "Tim Alexander",
+      "drummer_role": "co_drummer",
+      "significance": 0.1,
+      "why_it_matters": "Drums on the opening track, The Hollow (album credits); Freese plays the rest."
     }
   ],
   "tracks": [
@@ -22,7 +29,7 @@
       "title": "Judith",
       "drummer_ids": ["drummer:josh-freese"],
       "drums": {
-        "description": "A heavy, tom-led groove under the verses that turns into a pounding straight drive in the loud sections.",
+        "description": "A heavy 6/8 with a rimshot on 4 and sixteenths on the hi-hat under the verses, the toms kept for fills, turning into a pounding straight drive in the loud sections.",
         "evidence": {
           "confidence": "widely_reported",
           "source_ids": ["src:mer-de-noms-wikipedia"]
@@ -34,7 +41,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=920"
         }
-      ]
+      ],
+      "style_key": "joshfreese",
+      "song_key": "judith"
     },
     {
       "title": "3 Libras",
@@ -52,7 +61,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=24544"
         }
-      ]
+      ],
+      "style_key": "joshfreese",
+      "song_key": "3-libras"
     },
     {
       "title": "Orestes",
@@ -70,7 +81,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=24542"
         }
-      ]
+      ],
+      "style_key": "joshfreese",
+      "song_key": "orestes"
     }
   ]
 }

@@ -23,7 +23,9 @@
           "source_ids": ["src:brain-salad-surgery-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=cc6ymS4NGxg"
+      "youtube": "https://www.youtube.com/watch?v=cc6ymS4NGxg",
+      "style_key": "carlpalmer",
+      "song_key": "karn-evil-9"
     },
     {
       "title": "Toccata",

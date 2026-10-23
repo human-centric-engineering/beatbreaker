@@ -2,65 +2,839 @@
   "meta": {
     "id": "drummer:milton-banana",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
+    "record_status": "draft",
     "created": "2026-10-22",
     "updated": "2026-10-22",
-    "authors": ["claude"]
+    "authors": ["John", "Claude"],
+    "completeness": 0.5,
+    "open_questions": [
+      "His own playing on João Gilberto's 1958-59 sessions, track by track: the Cravo Albin dictionary names him on the Chega de Saudade 78 (recorded 10 July 1958, with Bim Bom), the Jobim estate's credits on the whole LP (\"percussão\"). Ruy Castro's Chega de Saudade (1990) was not read.",
+      "Moraes's page for bars 9-28 of Chega de Saudade (1963) is blank in the PDF: read the printed dissertation.",
+      "The Girl from Ipanema: the human tab writes his A sections as one line of brush strokes on a maracas note and the bridge on the cross-stick, nothing else; a second tab (Songsterr 4496127) adds a surdo bass drum and a snare on the \"and\"s. Neither was checked bar by bar against the record, whose drums are quiet under the guitar.",
+      "Desafinado on Getz/Gilberto (Songsterr 977100, human, by Toletum) has no drums for its first 48 bars of 2/4, where the record's top end suggests the brush is already playing; not scored until that is settled.",
+      "His death: 22 May 1999 (English Wikipedia) or 15 May 1999 (Portuguese Wikipedia, the Cravo Albin dictionary).",
+      "His kits: no source read names a make. The 1963 cover shows a red four-piece; the 1965 cover a dark kit in a studio.",
+      "Mello's interview (A Eterna Bossa Nova? 1976) is quoted from Moraes, not read."
+    ]
   },
   "identity": {
     "name": "Milton Banana",
     "full_name": "Antônio de Souza",
     "born": {
-      "date": "1935-04-23"
+      "date": "1935-04-23",
+      "place": "Rio de Janeiro, Brazil",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:wikipedia-milton-banana",
+          "src:wikipedia-pt-milton-banana",
+          "src:cravo-albin-milton-banana"
+        ]
+      }
     },
     "died": {
-      "date": "1999-05-22"
+      "date": "1999-05-15",
+      "place": "Rio de Janeiro, Brazil",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-pt-milton-banana", "src:cravo-albin-milton-banana"],
+        "note": "At home, recovering from an operation (Portuguese Wikipedia).",
+        "alternatives": [
+          {
+            "value": "1999-05-22",
+            "source_ids": ["src:wikipedia-milton-banana"]
+          }
+        ]
+      }
     },
     "nationality": ["Brazilian"],
-    "home_scenes": ["Rio de Janeiro"],
+    "home_scenes": ["Rio de Janeiro nightclubs: the Arpège, the Drink, the Hotel Plaza"],
     "active": {
-      "from": 1958,
-      "to": 1984
+      "from": 1955,
+      "to": 1998
     },
-    "summary": "Self-taught Brazilian drummer of João Gilberto's records and the Milton Banana Trio."
+    "summary": "Self-taught Rio drummer of the first bossa nova records, with João Gilberto and on Getz/Gilberto, then leader of the Milton Banana Trio.",
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "roles": ["band_member", "bandleader", "session", "touring"],
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": [
+        "src:wikipedia-milton-banana",
+        "src:wikipedia-pt-milton-banana",
+        "src:cravo-albin-milton-banana"
+      ]
+    }
   },
   "style_profile": {
     "genres": [
       {
         "style_id": "style:bossa-nova",
-        "weight": 1,
-        "authority": 0.7
+        "weight": 1.0,
+        "authority": 0.85
       },
       {
         "style_id": "style:samba",
-        "weight": 0.6
+        "weight": 0.8,
+        "authority": 0.6
       }
-    ]
+    ],
+    "versatility": 0.4,
+    "groove_vs_chops": 0.1,
+    "role_tendency": "accompanist",
+    "descriptors": ["quiet", "brushes", "rim clave", "sixteenths", "swing"]
   },
   "affiliations": [
+    {
+      "name": "João Gilberto",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1958,
+        "to": 1964
+      },
+      "notes": "The Chega de Saudade sessions (1958-59), the Carnegie Hall concert and the Boate 676 in Argentina (1962), Getz/Gilberto (1963), Europe (1963). \"Há muitas temporadas\" his drummer, says the 1963 LP.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:cravo-albin-milton-banana",
+          "src:wikipedia-pt-milton-banana",
+          "src:o-ritmo-e-o-som-da-bossa-nova-liner-notes-1963"
+        ]
+      }
+    },
+    {
+      "name": "Stan Getz and João Gilberto (Getz/Gilberto)",
+      "type": "session_regular",
+      "years": {
+        "from": 1963,
+        "to": 1963
+      },
+      "bandmates": [
+        {
+          "name": "Stan Getz"
+        },
+        {
+          "name": "João Gilberto"
+        },
+        {
+          "name": "Antônio Carlos Jobim"
+        },
+        {
+          "name": "Sebastião Neto"
+        },
+        {
+          "name": "Astrud Gilberto"
+        }
+      ],
+      "notes": "Drums and pandeiro, A&R Studios, New York, 18-19 March 1963.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:getz-gilberto-wikipedia"]
+      }
+    },
     {
       "name": "Milton Banana Trio",
       "type": "bandleader",
       "years": {
-        "from": 1966
+        "from": 1965,
+        "to": 1984
+      },
+      "bandmates": [
+        {
+          "name": "Wanderley",
+          "role": "piano"
+        },
+        {
+          "name": "Guará",
+          "role": "bass"
+        }
+      ],
+      "notes": "More than twenty records, on Odeon (1965-76) and RCA (1977-84); the line-up changed.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:wikipedia-pt-milton-banana",
+          "src:cravo-albin-milton-banana",
+          "src:moraes-milton-banana-samba-2020"
+        ]
+      }
+    },
+    {
+      "name": "Luiz Eça's group at the Hotel Plaza",
+      "type": "house_band",
+      "years": {
+        "from": 1956,
+        "to": 1957
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cravo-albin-milton-banana"]
       }
     }
   ],
   "key_recording_ids": [
     "rec:joao-gilberto-chega-de-saudade-1958",
+    "rec:stan-getz-and-joao-gilberto-getz-gilberto-1964",
+    "rec:milton-banana-o-ritmo-e-o-som-da-bossa-nova-1963",
+    "rec:milton-banana-trio-milton-banana-trio-1965",
     "rec:milton-banana-trio-balancando-1966"
   ],
   "legacy": {
     "contribution": {
-      "description": "The drummer of the first bossa nova records: best known for his work with João Gilberto, from Chega de Saudade (1958), and with Stan Getz.",
+      "description": "The drummer of the first bossa nova records, João Gilberto's Chega de Saudade (1958-59), and of Getz/Gilberto (1963), playing the new samba with a brush on the snare and a stick on the rim; then leader of the Milton Banana Trio.",
       "evidence": {
-        "confidence": "likely",
-        "source_ids": ["src:wikipedia-milton-banana"]
+        "confidence": "verified",
+        "source_ids": [
+          "src:cravo-albin-milton-banana",
+          "src:wikipedia-milton-banana",
+          "src:wikipedia-pt-milton-banana",
+          "src:getz-gilberto-wikipedia",
+          "src:moraes-milton-banana-samba-2020"
+        ]
       }
-    }
+    },
+    "influence_score": 0.65,
+    "innovations": [
+      "Bossa nova on the kit: a brush on the snare and a stick on the rim, the bass drum left to the bass",
+      "A trio led from the drums"
+    ],
+    "cultural_references": [
+      {
+        "description": "At his funeral a wreath from João Gilberto: \"A Milton, a quem o Brasil não homenageou nem reconheceu nunca. Ass.: todos os músicos do Brasil\".",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:cravo-albin-milton-banana"]
+        }
+      },
+      {
+        "description": "Called \"Rei do Ritmo\".",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:cravo-albin-milton-banana"]
+        }
+      }
+    ]
   },
   "beatbreaker": {
-    "group": "Samba and Brazilian jazz drummers",
-    "build_priority": 2
+    "style_key": "miltonbanana",
+    "headline_pattern_ids": [
+      "pattern:banana-chega-de-saudade-clave",
+      "pattern:banana-ipanema-bridge",
+      "pattern:banana-samba-do-aviao-theme"
+    ],
+    "default_kit_sound": "A small kit played with a brush and a stick, quiet",
+    "generation_rules": [
+      "One bar is two bars of 2/4; the sixteenths are the 2/4 sixteenths.",
+      "The brush (or, with sticks, the hat) in sixteenths throughout.",
+      "The rim plays a syncopated two-bar figure, varied against the melody.",
+      "No bass drum under the bossa; the bass drum a dois under the samba.",
+      "No crashes marking the phrase."
+    ],
+    "avoid": ["A snare backbeat", "Open hats", "Tom fills", "Loud cymbals"],
+    "lineage_display": {
+      "primary_ancestors": [],
+      "primary_descendants": [],
+      "lineage_blurb": "Rio's nightclub bands and the samba; with Edison Machado and Dom Um Romão, the second generation of Brazilian drummers."
+    },
+    "tags": ["bossa nova", "samba", "brushes", "brazil", "joão gilberto", "getz/gilberto"]
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Self-taught",
+        "impact": "\"Autodidata, aprendeu a tocar bateria sozinho\"; he could not read the part he was given for João Gilberto's record and played by ear (\"Você escuta primeiro, depois manda brasa\").",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:wikipedia-pt-milton-banana", "src:moraes-milton-banana-samba-2020"]
+        }
+      },
+      {
+        "tradition": "Rio nightclub dance bands",
+        "impact": "From 1955 in Waldir Calmon's orchestra at the Boate Arpège, then Djalma Ferreira's Milionários do Ritmo at the Drink; from 1956 Luiz Eça's group at the Hotel Plaza, where, he said, the musicians played what they liked and \"the beat on the drums was different from the beat for dancing\".",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:cravo-albin-milton-banana", "src:moraes-milton-banana-samba-2020"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:milton-banana-joao-gilberto",
+      "label": "João Gilberto's drummer",
+      "years": {
+        "from": 1958,
+        "to": 1964
+      },
+      "context": "The Chega de Saudade 78 (1958) and LP (1959), the Carnegie Hall bossa nova concert and the Au Bon Gourmet show (1962), Getz/Gilberto in New York (March 1963), Europe with João Gilberto, João Donato and Tião Neto (1963); his own first record with Oscar Castro-Neves's group (1963).",
+      "defining_traits": ["a brush and one stick", "the rim's clave", "no bass drum", "quiet"],
+      "kit_setup_id": "kit:milton-banana-1963",
+      "key_recording_ids": [
+        "rec:joao-gilberto-chega-de-saudade-1958",
+        "rec:stan-getz-and-joao-gilberto-getz-gilberto-1964",
+        "rec:milton-banana-o-ritmo-e-o-som-da-bossa-nova-1963"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:cravo-albin-milton-banana",
+          "src:moraes-milton-banana-samba-2020",
+          "src:getz-gilberto-wikipedia"
+        ]
+      }
+    },
+    {
+      "id": "era:milton-banana-trio",
+      "label": "The Milton Banana Trio",
+      "years": {
+        "from": 1965,
+        "to": 1984
+      },
+      "context": "More than twenty records leading his own trio, on Odeon from 1965 and on RCA from 1977 (the Samba É Isso series), \"comandado por um baterista, algo incomum na época\".",
+      "defining_traits": [
+        "sticks",
+        "the hat or the ride in sixteenths",
+        "the rim syncopating",
+        "the bass drum a dois"
+      ],
+      "key_recording_ids": [
+        "rec:milton-banana-trio-milton-banana-trio-1965",
+        "rec:milton-banana-trio-balancando-1966"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:wikipedia-pt-milton-banana",
+          "src:moraes-milton-banana-samba-2020",
+          "src:cravo-albin-milton-banana"
+        ]
+      }
+    }
+  ],
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:moraes-milton-banana-samba-2020"],
+        "note": "No source read says where he sits on the beat."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.2,
+      "notes": "Straight sixteenths in 2/4; Tutty Moreno: \"um cara que tinha um swing maravilhoso\". The lilt is not measured."
+    },
+    "dynamics": {
+      "range": 0.3,
+      "default_level": "p",
+      "balance": "Quiet under the voice: João Gilberto told him the snare was too loud, \"Ritmo, só ritmo\"."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 20],
+      "fill_frequency": "rare",
+      "space_usage": 0.4
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [60, 100],
+    "timekeeping_context": ["free"],
+    "interaction": "The rim answers the melody: against the flute in Chega de Saudade (1963), with the guitar's groupings in the solo, in unison with the piano in Samba do Avião's intro (Moraes).",
+    "descriptors": ["quiet", "steady", "conversational"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "A brush and one stick",
+        "description": "\"Eu sentia que não dava para tocar de baquetas, tocava de vassourinha e uma baqueta só\": the brush swept in sixteenths on the snare (\"vai e vem\"), the stick on the rim.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:moraes-milton-banana-samba-2020"],
+          "note": "His words to Mello (1976), quoted by Moraes."
+        }
+      },
+      {
+        "name": "The rim's clave",
+        "description": "The stick on the snare's rim in a two-bar syncopated figure, often the bossa clave, varied against the melody.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:moraes-milton-banana-samba-2020"]
+        }
+      },
+      {
+        "name": "Sixteenths in the right hand",
+        "description": "With sticks, \"semicolcheias contínuas rápidas em sua mão direita\" on the hat or the ride, the left hand \"sincopando na maioria das vezes no aro da caixa\" (Favery, 2018).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:moraes-milton-banana-samba-2020"],
+          "note": "Favery (2018), quoted by Moraes."
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The bumbo a dois",
+        "description": "The bass drum as the surdo, a dotted eighth and a sixteenth to each beat of 2/4, the weight on 2; Tutty Moreno: \"o bumbo a dois é uma ciência ... o Milton Banana, um cara que tinha um swing maravilhoso\".",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:moraes-milton-banana-samba-2020"]
+        }
+      },
+      {
+        "name": "The hat foot on the \"and\"s",
+        "description": "The foot chick on the second eighth of each beat, \"incisive\", from the second chorus of Chega de Saudade (1963) and under Samba do Avião's bridge.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:moraes-milton-banana-samba-2020"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single strokes",
+        "usage": ["groove"],
+        "weight": 0.5
+      }
+    ],
+    "coordination": {
+      "independence": 0.5,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.7,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.0,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-22",
+        "searched": [
+          "Moraes (2020), all four analyses and both transcriptions (Chega de Saudade 1963, Samba do Avião 1965)",
+          "Songsterr 402454 (The Girl from Ipanema, human), 4496127 (human), 977100 (Desafinado, human)",
+          "The Cravo Albin dictionary; Wikipedia (English and Portuguese); the 1963 LP's notes"
+        ],
+        "note": "None found. The rim plays a two-bar clave in 2/4 and its variations, which is the samba's own timeline rather than a cross-rhythm laid over it; every source read is in 2/4."
+      }
+    },
+    "voice_language": {
+      "snare": "The brush in sixteenths on the head; the stick on the rim in a syncopated clave; with sticks, the head phrasing with the piano in the bridges.",
+      "kick": "Mostly none in the bossa records (\"the absence of the bass drum was recurrent\", Moraes); with the trio, a dois: a dotted eighth and a sixteenth to each beat.",
+      "toms": "A pair of sixteenths or eighths at a phrase end.",
+      "hihat": "Closed sixteenths with the stick (the trio); the foot on the \"and\"s.",
+      "cymbals": "The ride in sixteenths in a bridge, its bell in unison with the rim; a crash only to close a phrase."
+    },
+    "implements": {
+      "sticks": 0.6,
+      "brushes": 0.6
+    }
+  },
+  "sound_profile": {
+    "aesthetic": ["quiet", "the brush on the snare", "a dry rim click"],
+    "cymbal_character": "One ride and the hats on the 1963 cover; makes not found.",
+    "by_era": [
+      {
+        "era_id": "era:milton-banana-joao-gilberto",
+        "description": "The snare damped and quiet under João Gilberto's voice: \"está ressonando demais esta caixa, essa esteira ressoa demais\"."
+      }
+    ],
+    "sample_hints": {
+      "60s": "A small kit, the snare brushed and its rim clicked, the bass drum soft or silent."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:moraes-milton-banana-samba-2020"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:milton-banana-brush-and-stick",
+      "label": "A brush and one stick",
+      "category": "technique",
+      "description": "The brush keeping sixteenths on the snare, the stick on the rim, the first bossa nova drumming on record.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:milton-banana-o-ritmo-e-o-som-da-bossa-nova-1963"
+        }
+      ],
+      "pattern_ids": ["pattern:banana-chega-de-saudade-clave"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:moraes-milton-banana-samba-2020"]
+      }
+    },
+    {
+      "id": "trait:milton-banana-rim-clave",
+      "label": "The rim's clave",
+      "category": "groove",
+      "description": "A two-bar syncopated figure on the rim, varied bar to bar against the melody and the guitar.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:banana-chega-de-saudade-clave", "pattern:banana-ipanema-bridge"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:moraes-milton-banana-samba-2020"]
+      }
+    },
+    {
+      "id": "trait:milton-banana-samba-de-prato",
+      "label": "Sixteenths over the bumbo a dois",
+      "category": "groove",
+      "description": "With sticks: the hat or the ride in sixteenths, the left hand on the rim, the bass drum a dois; Moraes finds this \"samba de prato conduzido\" the way he played most.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:banana-samba-do-aviao-theme"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:moraes-milton-banana-samba-2020"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:banana-chega-de-saudade-clave",
+        "name": "Chega de Saudade (1963): the brush and the rim's clave",
+        "type": "groove",
+        "function": "The theme: the brush in sixteenths, the rim on the \"and\" of 1 and the \"a\" of 2, then 1, its \"and\", the \"a\" of 2 and its last 16th.",
+        "style_ids": ["style:bossa-nova"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:moraes-milton-banana-samba-2020"],
+          "note": "Appendix B, bars 29-36. The brush's sweep is written as sixteenths."
+        },
+        "time_signature": {
+          "numerator": 2,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 86,
+          "playable_range_bpm": [84, 88]
+        },
+        "lanes": {
+          "snare": "xxxxxxxx|xxxxxxxx",
+          "other": "..c..c..|c.c..c.c"
+        },
+        "source": {
+          "recording_id": "rec:milton-banana-o-ritmo-e-o-som-da-bossa-nova-1963",
+          "transcription_source_id": "src:moraes-milton-banana-samba-2020"
+        },
+        "clave": {
+          "type": "bossa",
+          "direction": "n/a",
+          "carried_by": "snare",
+          "evidence": {
+            "confidence": "inferred",
+            "source_ids": ["src:moraes-milton-banana-samba-2020"],
+            "note": "Moraes calls it the left hand's phrasing; its likeness to the bossa clave is read here."
+          }
+        },
+        "tags": ["1963", "brushes", "bossa nova"]
+      },
+      {
+        "id": "pattern:banana-chega-de-saudade-foot",
+        "name": "Chega de Saudade (1963): the hi-hat foot on the \"and\"s",
+        "type": "groove_variation",
+        "function": "From the second chorus: the same, the foot on the second eighth of each beat.",
+        "style_ids": ["style:bossa-nova"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:moraes-milton-banana-samba-2020"],
+          "note": "Appendix B, bars 41-76."
+        },
+        "time_signature": {
+          "numerator": 2,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 86,
+          "playable_range_bpm": [84, 88]
+        },
+        "lanes": {
+          "snare": "xxxxxxxx|xxxxxxxx",
+          "other": "..c..c..|c.c..c.c",
+          "hihat_pedal": "..k...k.|..k...k."
+        },
+        "source": {
+          "recording_id": "rec:milton-banana-o-ritmo-e-o-som-da-bossa-nova-1963",
+          "transcription_source_id": "src:moraes-milton-banana-samba-2020"
+        },
+        "tags": ["1963", "brushes"]
+      },
+      {
+        "id": "pattern:banana-ipanema-bridge",
+        "name": "The Girl from Ipanema: the cross-stick in the bridge",
+        "type": "groove",
+        "function": "Every bridge: the cross-stick on 1, the \"and\" of 1, 2, its \"e\" and its \"a\".",
+        "style_ids": ["style:bossa-nova"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-402454"]
+        },
+        "time_signature": {
+          "numerator": 2,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 65,
+          "playable_range_bpm": [63, 67]
+        },
+        "lanes": {
+          "snare": "c.c.cc.c"
+        },
+        "source": {
+          "recording_id": "rec:stan-getz-and-joao-gilberto-getz-gilberto-1964",
+          "transcription_source_id": "src:songsterr-402454"
+        },
+        "tags": ["1963", "getz/gilberto"]
+      },
+      {
+        "id": "pattern:banana-samba-do-aviao-theme",
+        "name": "Samba do Avião: the hat, the rim, the bumbo a dois",
+        "type": "groove",
+        "function": "The theme over the bass drum: the hat in sixteenths, the rim's clave, the bass drum on 1, the \"a\" of 1, 2 and the \"a\" of 2.",
+        "style_ids": ["style:samba"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:moraes-milton-banana-samba-2020"],
+          "note": "Appendix C, bars 24-27."
+        },
+        "time_signature": {
+          "numerator": 2,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 96,
+          "playable_range_bpm": [94, 98]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxx|xxxxxxxx",
+          "snare": "..c..c..|c.c..c.c",
+          "kick": "x..xx..x|x..xx..x"
+        },
+        "source": {
+          "recording_id": "rec:milton-banana-trio-milton-banana-trio-1965",
+          "transcription_source_id": "src:moraes-milton-banana-samba-2020"
+        },
+        "tags": ["1965", "samba de prato", "sticks"]
+      },
+      {
+        "id": "pattern:banana-samba-do-aviao-solo",
+        "name": "Samba do Avião: the rim under the piano solo",
+        "type": "comping",
+        "function": "The piano solo: the rim answering the piano across the bar line over the bass drum a dois.",
+        "style_ids": ["style:samba"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:moraes-milton-banana-samba-2020"],
+          "note": "Appendix C, bars 62-63."
+        },
+        "time_signature": {
+          "numerator": 2,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 96,
+          "playable_range_bpm": [94, 98]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxx|xxxxxxxx",
+          "snare": "cc.cc..c|c.c.cc..",
+          "kick": "x..xx..x|x..xx..x"
+        },
+        "source": {
+          "recording_id": "rec:milton-banana-trio-milton-banana-trio-1965",
+          "transcription_source_id": "src:moraes-milton-banana-samba-2020"
+        },
+        "tags": ["1965", "sticks"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:milton-banana-1963",
+      "label": "A red four-piece, 1963",
+      "era_ids": ["era:milton-banana-joao-gilberto"],
+      "context": "unknown",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "hihat"
+        }
+      ],
+      "layout_notes": "As on the cover of O Ritmo e o Som da Bossa Nova: red shells, chrome lugs and stands, a plain white front head, the ride on his right and the hats on his left. Make and sizes not found.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:o-ritmo-e-o-som-da-bossa-nova-liner-notes-1963"],
+        "note": "From the front cover photograph."
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Samba",
+        "kind": "style",
+        "id": "style:samba"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:moraes-milton-banana-samba-2020"],
+        "note": "Favery (2018): with Edison Machado, Dom Um Romão and Hélcio Milito, the second generation of Brazilian drummers, who broke with the \"samba batucado\"."
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Kenny Clarke",
+        "kind": "drummer",
+        "id": "drummer:kenny-clarke"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:o-ritmo-e-o-som-da-bossa-nova-liner-notes-1963"],
+        "note": "The 1963 notes: he joined \"a sutil acentuação e a perfeita articulação do moderno jazz norte-americano (no estilo de Kenny Clarke)\" to bossa nova. A writer's comparison, not his own word."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Sebastião Neto (Tião Neto)",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:getz-gilberto-wikipedia", "src:cravo-albin-milton-banana"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "João Gilberto",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cravo-albin-milton-banana", "src:wikipedia-pt-milton-banana"]
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Tutty Moreno",
+        "kind": "drummer"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:moraes-milton-banana-samba-2020"],
+        "note": "\"O bumbo a dois é uma ciência ... o Milton Banana, um cara que tinha um swing maravilhoso\" (Barsalini, 2009, quoted by Moraes)."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Márcio Bahia",
+        "kind": "drummer"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:moraes-milton-banana-samba-2020"],
+        "note": "Among the Brazilian drummers \"que mais me influenciaram\" (Sesc Instrumental, 2013, quoted by Moraes)."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Humberto Clayber",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:moraes-milton-banana-samba-2020"],
+        "note": "The bassist: \"Milton Banana influenciou a mim e ao Bebeto com aquela batida: tum tumtum tumtum ... a bumbada do Milton\" (Campos, 2014, quoted by Moraes)."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Listen first, then play: he learned the record by ear rather than from the part.",
+        "paraphrase_of_source_id": "src:moraes-milton-banana-samba-2020"
+      },
+      {
+        "idea": "Rhythm, only rhythm: under the voice the snare must not ring.",
+        "paraphrase_of_source_id": "src:moraes-milton-banana-samba-2020"
+      }
+    ]
   }
 }

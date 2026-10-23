@@ -52,7 +52,7 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 64 styles and 97 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 64 styles and 105 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(64);
     expect([...drummers].sort()).toEqual([
@@ -72,6 +72,7 @@ describe('the style table', () => {
       'budgie',
       'burr',
       'carey',
+      'carlpalmer',
       'carltonbarrett',
       'chadsmith',
       'changuito',
@@ -83,9 +84,11 @@ describe('the style table', () => {
       'davies',
       'dejohnette',
       'dennisdavis',
+      'djfontana',
       'downey',
       'earlpalmer',
       'elvinjones',
+      'fredbelow',
       'gadd',
       'gadson',
       'garibaldi',
@@ -104,16 +107,20 @@ describe('the style table', () => {
       'jimmycobb',
       'jizmak',
       'jordison',
+      'joshfreese',
       'kenneyjones',
+      'kennyclarke',
       'klek',
       'krupa',
       'lennywhite',
       'levonhelm',
       'locust',
       'lombardo',
+      'mattcameron',
       'mcbrain',
       'mikeclark',
       'mikejoyce',
+      'miltonbanana',
       'mitchell',
       'moon',
       'morello',
@@ -139,6 +146,7 @@ describe('the style table', () => {
       'selway',
       'sheilae',
       'shrieve',
+      'simonphillips',
       'skinny',
       'sleeptoken',
       'slydunbar',
@@ -157,7 +165,7 @@ describe('the style table', () => {
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(2415);
+    expect(COMBOS).toHaveLength(2535);
   });
 });
 
@@ -699,8 +707,9 @@ describe('the rock, jazz and blues styles', () => {
      does in Tool, and Cobham hung his upside down. So do the masked drummers
      whose kits have them (Jordison, Skinny, Jizmak, II), Ghost's records (Rats,
      in its human tab) and the Locust's Factories, from its only tab, a
-     machine's. Neil Peart's Wuhan china is in seven of his songs' tabs, and Keith
-     Moon's is in Who Are You's verse */
+     machine's. Neil Peart's Wuhan china is in seven of his songs' tabs, Keith
+     Moon's is in Who Are You's verse; Josh Freese's is in The Outsider's tab, and
+     Carl Palmer's 22" 2002 China in Tarkus's */
   const CHINA_PLAYERS = [
     'yussefdayes',
     'lombardo',
@@ -716,6 +725,8 @@ describe('the rock, jazz and blues styles', () => {
     'peart',
     'moon',
     'portnoy',
+    'joshfreese',
+    'carlpalmer',
   ];
   /* A clave groove is a few bars that stay in clave, not a stock of grooves to
      vary: Puente's, Changuito's and Prieto's own figures are two each, and
@@ -827,8 +838,10 @@ describe('the rock, jazz and blues styles', () => {
     /* Davies holds one bar through a phrase by design (two to eight notes a
        bar, fills almost never), so now and then two of twelve presses land
        on the same bar of the same song. Agbekor's bell, rattle, kagan and
-       dance beat never change; only the lead drum's calls do. */
-    const STILL = ['davies', 'agbekor'];
+       dance beat never change; only the lead drum's calls do. Milton Banana's
+       brushed bossa holds its groove, his hat never opens, and his accents
+       land on the crash, which this does not compare. */
+    const STILL = ['davies', 'agbekor', 'miltonbanana'];
     /* The Glamorous Life's intro is Prince's Linn, one bar held, and low seeds
        land on it. Santa Davis's Bush Doctor holds one figure through each
        section, as its tab does (the verse x15, the chorus x38), so a whole

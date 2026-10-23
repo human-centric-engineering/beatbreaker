@@ -1,0 +1,71 @@
+{
+  "id": "rec:lee-konitz-with-warne-marsh-1955",
+  "title": "Lee Konitz with Warne Marsh",
+  "artist": "Lee Konitz and Warne Marsh",
+  "release": "Atlantic 1217",
+  "year": 1955,
+  "type": "album",
+  "style_ids": ["style:cool-jazz", "style:bebop"],
+  "personnel": [
+    {
+      "name": "Lee Konitz"
+    },
+    {
+      "name": "Warne Marsh"
+    },
+    {
+      "name": "Sal Mosca"
+    },
+    {
+      "name": "Billy Bauer"
+    },
+    {
+      "name": "Oscar Pettiford"
+    },
+    {
+      "name": "Kenny Clarke",
+      "id": "drummer:kenny-clarke"
+    }
+  ],
+  "studio_context": "Coastal Studios, New York, 14 June 1955.",
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:lee-konitz-with-warne-marsh-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenny-clarke",
+      "name": "Kenny Clarke",
+      "drummer_role": "sole_drummer",
+      "significance": 0.5,
+      "why_it_matters": "Fours with sticks at a bright tempo, transcribed by Todd Bishop.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lee-konitz-with-warne-marsh-wikipedia"]
+      }
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Two Not One",
+      "drummer_ids": ["drummer:kenny-clarke"],
+      "drums": {
+        "description": "Trading fours with sticks at 238: triplet licks, press rolls, stick shots and four-stroke ruffs, no toms.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-clarke-fours-two-not-one-2019"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "other",
+          "url": "https://cruiseshipdrummer.com/2019/10/29/transcription-kenny-clarke-fours-02/",
+          "note": "Todd Bishop's transcription of the fours"
+        }
+      ],
+      "youtube": "https://www.youtube.com/watch?v=A6-3kbhUUj8",
+      "style_key": "kennyclarke",
+      "song_key": "two-not-one"
+    }
+  ]
+}

@@ -2,32 +2,171 @@
   "meta": {
     "id": "drummer:fred-below",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
+    "record_status": "draft",
+    "completeness": 0.45,
     "created": "2026-10-22",
     "updated": "2026-10-22",
-    "authors": ["claude"]
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Johnny B. Goode: the Chuck Berry Database lists Jasper Thomas from the session's union filing; the Chess Box and the 2000 Anthology notes, and Wikipedia after them, name Below. Sweet Little Sixteen the same (the Database: Jasper Thomas). Neither is scored here; the 15-b tracks credit Below.",
+      "Roll Over Beethoven: Melvin Billups (Wikipedia's song article, the Chuck Berry Database), not Below; Below's own Wikipedia article lists it. The existing recording credits Below.",
+      "Who he influenced: no source read names a drummer who learned from him, though his place in the Chicago blues backbeat (Tony Russell) suggests many. Sam Lay, Odie Payne and S. P. Leary want checking.",
+      "Blues with a Feeling, I Just Want to Make Love to You and Don't Start Me Talkin' have only machine tabs, which the 30-second previews could not check: transcribe them from the records.",
+      "His kit in the 1950s: no source read names it. The 1975 and 1978 photographs show a Ludwig in oyster pearl and a black sparkle kit.",
+      "His birth and death dates: 6 September 1926 and 13 August 1988 (Wikipedia, after Eagle and LeBlanc); the List of Chicago blues musicians gives 16 September and 14 August."
+    ]
   },
   "identity": {
     "name": "Fred Below",
     "full_name": "Frederick Below Jr.",
     "born": {
       "date": "1926-09-06",
+      "place": "Chicago, Illinois, US",
       "evidence": {
         "confidence": "likely",
-        "source_ids": ["src:fred-below-wikipedia"]
+        "source_ids": ["src:fred-below-wikipedia"],
+        "note": "Wikipedia, after Eagle and LeBlanc, Blues: A Regional Experience (2013); the List of Chicago blues musicians gives 16 September."
       }
     },
     "died": {
-      "date": "1988-08-13"
+      "date": "1988-08-13",
+      "place": "Chicago, Illinois, US",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:fred-below-wikipedia"],
+        "note": "Of liver cancer, at 61."
+      }
     },
     "nationality": ["American"],
-    "home_scenes": ["Chicago", "Chess Records"],
+    "home_scenes": ["Chicago", "DuSable High School (Captain Walter Dyett)", "Chess Records"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
     "active": {
-      "from": 1952,
+      "from": 1946,
       "to": 1988
     },
-    "summary": "Chess Records drummer of the 1950s, with Little Walter and on Chuck Berry's \"Johnny B. Goode\"."
+    "roles": ["session", "band_member", "touring"],
+    "summary": "The drummer of Chess Records' Chicago blues in the 1950s. A jazz drummer by training (DuSable High School under Walter Dyett, with Johnny Griffin and Eugene Wright; the Roy C. Knapp School of Percussion, 1946-48), he joined the Aces with Louis and Dave Myers and Junior Wells, and from 1952 was Little Walter's drummer (credited as the Jukes): Blues with a Feeling, My Babe. Then the label's session drummer behind Muddy Waters (I Just Want to Make Love to You, I'm Ready), Sonny Boy Williamson, Howlin' Wolf, Jimmy Rogers, Otis Rush and Chuck Berry (School Day, Rock and Roll Music). Tony Russell credits him with much of the rhythmic structure of Chicago blues, its backbeat especially."
   },
+  "formation": {
+    "first_instrument": "drum kit",
+    "institutions": [
+      {
+        "name": "DuSable High School, Chicago (Captain Walter Dyett)",
+        "outcome": "Drums in Dyett's school band, and a jazz band with his friends Johnny Griffin and Eugene Wright at about fourteen.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fred-below-wikipedia"]
+        }
+      },
+      {
+        "name": "Roy C. Knapp School of Percussion, Chicago",
+        "outcome": "Graduated in 1948 after the war: \"a wide and thorough musical education\".",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fred-below-wikipedia", "src:scott-k-fish-below-knapp"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Bebop and swing",
+        "impact": "A jazz drummer before the blues: in the Army he sat in with Tommy Potter and Lester Young; he brought jazz ride time and a schooled reader's phrasing to Chicago blues (\"not all Chicago Blues drummers were simply 'feel' players\").",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fred-below-wikipedia", "src:scott-k-fish-below-1982"]
+        }
+      },
+      {
+        "tradition": "Army band",
+        "impact": "The 427th Army Band in Germany from 1948, and nightclub work there before he came home in 1951.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fred-below-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1945,
+        "event": "Conscripted into the infantry: \"I practiced on helmet liners, helmets, boxes and things like that.\"",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fred-below-wikipedia"]
+        }
+      },
+      {
+        "year": 1948,
+        "event": "Graduated from the Roy C. Knapp School of Percussion and re-enlisted, in the Special Services, as a member of the 427th Army Band in Germany.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fred-below-wikipedia"]
+        }
+      },
+      {
+        "year": 1951,
+        "event": "Back in Chicago, joined the Aces: Louis and Dave Myers on guitars, Junior Wells on harmonica.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fred-below-wikipedia", "src:little-walter-wikipedia"]
+        }
+      },
+      {
+        "year": 1952,
+        "event": "Little Walter left Muddy Waters, took over the Aces, and Below became his drummer: the Jukes on the records.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:fred-below-wikipedia", "src:little-walter-wikipedia"]
+        }
+      },
+      {
+        "year": 1955,
+        "event": "Left Little Walter's band to work as a Chess session drummer, still playing on Walter's records.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:fred-below-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:fred-below-chess",
+      "label": "Little Walter and the Chess studio",
+      "years": {
+        "from": 1952,
+        "to": 1960
+      },
+      "context": "The Aces behind Little Walter, then the house drummer at Chess with Willie Dixon on bass: Muddy Waters, Sonny Boy Williamson, Howlin' Wolf, Jimmy Rogers, Otis Rush, John Brim, J. B. Lenoir, and Chuck Berry's School Day and Rock and Roll Music.",
+      "defining_traits": [
+        "the shuffle with a hard backbeat",
+        "jazz ride time under the blues",
+        "the band's stop-time",
+        "the snare shuffling every beat (My Babe)"
+      ],
+      "key_recording_ids": [
+        "rec:little-walter-blues-with-a-feeling-1953",
+        "rec:little-walter-my-babe-1955",
+        "rec:muddy-waters-im-ready-1954",
+        "rec:sonny-boy-williamson-dont-start-me-talkin-1955",
+        "rec:chuck-berry-school-days-1957",
+        "rec:chuck-berry-rock-and-roll-music-1957"
+      ]
+    },
+    {
+      "id": "era:fred-below-later",
+      "label": "Tours and the blues revival",
+      "years": {
+        "from": 1960,
+        "to": 1988
+      },
+      "context": "Sessions and clubs in Chicago, and Europe: the American Folk Blues tours and, in 1970, a tour with the Myers brothers again; photographed in France in 1975 and 1978.",
+      "defining_traits": ["the Chess shuffle on the festival stage"],
+      "key_recording_ids": []
+    }
+  ],
   "style_profile": {
     "genres": [
       {
@@ -37,16 +176,571 @@
       },
       {
         "style_id": "style:blues-shuffle",
-        "weight": 0.8,
-        "authority": 0.7
+        "weight": 0.9,
+        "authority": 0.85
       },
       {
         "style_id": "style:rock-and-roll",
+        "weight": 0.5,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:bebop",
+        "weight": 0.2,
+        "authority": 0.1
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.2,
+    "role_tendency": "accompanist",
+    "descriptors": ["shuffle", "backbeat", "Chicago blues", "jazz-trained", "stop-time", "dynamics"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-73166", "src:songsterr-7198014"],
+        "note": "No source read says where he sits on the beat."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "typical_swing_ratio": 0.67,
+      "notes": "A triplet shuffle on the blues records (My Babe, I'm Ready, School Day: the records' hat and ride autocorrelate at the triplet); Rock and Roll Music's tab is straight on the beats."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "mf",
+      "balance": "A firm backbeat under the harmonica; the band's stop-time hits together. He spoke of playing with dynamics rather than loud (Scott K Fish interview, 1982)."
+    },
+    "density": {
+      "groove_notes_per_bar": [3, 12],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [70, 170],
+    "timekeeping_context": ["free"],
+    "interaction": "Set the forms: Scott K Fish credits him with moving blues players from 'haphazard' odd-numbered phrasing to eight and twelve bars. Stop-time with the band under Muddy Waters' vocal.",
+    "descriptors": ["steady", "swinging", "schooled"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "The snare shuffling every beat",
+        "description": "My Babe's two-beat: the snare on every beat and its last triplet, the backbeat accented, the kick on 1 of every other bar.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-73166"]
+        }
+      },
+      {
+        "name": "Jazz ride time over a backbeat",
+        "description": "I'm Ready: the ride on 1, 2 and its swung 'and', 3, 4 and its 'and', the snare hard on 2 and 4.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7198014"]
+        }
+      },
+      {
+        "name": "The shuffle on the hat",
+        "description": "School Day: the hat in shuffled eighths, the backbeat, the kick on 1 and 3.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4585688"],
+          "note": "A machine tab, checked against the record."
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The hat foot on 2 and 4",
+        "description": "Under My Babe and I'm Ready; alone on 2, 4 and their swung \"and\"s under the harmonica solo.",
         "weight": 0.6,
-        "authority": 0.4
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-73166", "src:songsterr-7198014"]
+        }
+      },
+      {
+        "name": "The kick with the band in stop-time",
+        "description": "On 1, the 'and' of 2 and the 'and' of 4 with the whole band (I'm Ready).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7198014"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Triplets",
+        "usage": ["groove", "fill"],
+        "weight": 0.7
+      },
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "weight": 0.4
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.05,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.1,
+      "foot_ostinato_usage": 0.3,
+      "double_bass": 0.0,
+      "notes": "Jazz coordination applied to the blues: the ride and the hat foot over the backbeat.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-22",
+        "searched": [
+          "Songsterr drum tabs read bar by bar: My Babe 73166 (human), I'm Ready 7198014 (human), Rock And Roll Music 1772388 (human), School Days 4585688 (machine); the machine tabs of Blues with a Feeling 275053, I Just Want to Make Love to You 1098787 and Don't Start Me Talkin' 2006320 looked at",
+          "The records beat-tracked: My Babe and I'm Ready in full (the Topic channel's uploads), School Day and Rock and Roll Music in full copies, the rest as iTunes previews",
+          "Scott K Fish's 1982 interview excerpts; Wikipedia: Fred Below, Little Walter and the songs' articles; the Chuck Berry Database"
+        ],
+        "note": "None found. His playing is the shuffle with a backbeat, jazz ride time and stop-time with the band: a feel and an arrangement, not a device."
+      }
+    },
+    "voice_language": {
+      "snare": "The backbeat on 2 and 4; in My Babe the snare shuffles every beat with the accents on 2 and 4; stop-time hits with the band; pickups in swung eighths.",
+      "kick": "On 1 and 3, or 1 of every other bar under My Babe; pushing on the 'and' of 2 in I'm Ready; with the band's hits.",
+      "hihat": "Shuffled eighths (School Day), on the beats (Rock and Roll Music); the foot on 2 and 4.",
+      "ride": "Jazz time, the beat and its swung 'and' on 2 and 4 (I'm Ready), or the beat and its 'and' on every beat.",
+      "toms": "Rare on these records.",
+      "cymbals": "Few crashes: one on 1 at the start of a section."
+    },
+    "implements": {
+      "sticks": 0.95,
+      "brushes": 0.1,
+      "mallets": 0.0,
+      "notes": "Sticks on the records read."
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a small jazz kit in a small Chicago studio",
+      "heard under the harmonica and the bass",
+      "dry"
+    ],
+    "cymbal_character": "Not documented in the sources read.",
+    "sample_hints": {
+      "blues": "A small jazz kit with a ride worth riding on and a hat played with the foot; for Chuck Berry a warmer 1960s kit."
+    },
+    "evidence": {
+      "confidence": "inferred",
+      "source_ids": ["src:songsterr-73166", "src:songsterr-7198014"],
+      "note": "From the records and the tabs; no source read describes his sound."
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:fred-below-backbeat",
+      "label": "The Chicago blues backbeat",
+      "category": "groove",
+      "description": "Tony Russell: \"a creator of much of the rhythmic structure of Chicago blues, especially its backbeat\".",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:below-im-ready-ride", "pattern:below-school-day-shuffle"],
+      "heard_on": [
+        {
+          "recording_id": "rec:muddy-waters-im-ready-1954"
+        },
+        {
+          "recording_id": "rec:chuck-berry-school-days-1957"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:fred-below-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:fred-below-snare-shuffle",
+      "label": "The snare shuffling every beat",
+      "category": "groove",
+      "description": "My Babe: the snare on every beat and its last triplet, the backbeat accented, the kick only on 1 of every other bar.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:below-my-babe-two-beat"],
+      "heard_on": [
+        {
+          "recording_id": "rec:little-walter-my-babe-1955"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-73166"]
+      }
+    },
+    {
+      "id": "trait:fred-below-jazz-time",
+      "label": "Jazz time in the blues",
+      "category": "feel",
+      "description": "A schooled jazz drummer's ride under Muddy Waters: the beat and its swung 'and' on 2 and 4 over a backbeat.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:below-im-ready-ride"],
+      "heard_on": [
+        {
+          "recording_id": "rec:muddy-waters-im-ready-1954"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-7198014", "src:fred-below-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:fred-below-stop-time",
+      "label": "Stop-time with the band",
+      "category": "musical_approach",
+      "description": "The band's hits together under the vocal, then a pickup back into time: I'm Ready, My Babe's verse ends.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": [
+        "pattern:below-im-ready-stop-time",
+        "pattern:below-im-ready-pickup",
+        "pattern:below-my-babe-verse-end"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:muddy-waters-im-ready-1954"
+        },
+        {
+          "recording_id": "rec:little-walter-my-babe-1955"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-7198014", "src:songsterr-73166"]
+      }
+    },
+    {
+      "id": "trait:fred-below-phrasing",
+      "label": "Eight and twelve bars",
+      "category": "musical_approach",
+      "description": "Scott K Fish credits him with moving blues players from 'haphazard' odd-numbered phrasing to the standard eight and twelve bars.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:scott-k-fish-below-1982"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:below-my-babe-two-beat",
+        "name": "My Babe: the snare shuffling every beat",
+        "type": "groove",
+        "function": "The two-beat under Little Walter: the snare on every beat and its last triplet, the backbeat accented; the kick on 1 of every other bar, the hat foot on 2 and 4.",
+        "style_ids": ["style:blues-shuffle"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-73166"],
+          "note": "Verse bars 1-10 of the tab, in their pairs."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 2,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 158,
+          "playable_range_bpm": [156, 161]
+        },
+        "lanes": {
+          "snare": "......X...x.x...x.X...x.|X.....X...x.x...x.X...x.",
+          "kick": "x.......................|........................",
+          "hihat_pedal": "......k...........k.....|......k...........k....."
+        },
+        "source": {
+          "recording_id": "rec:little-walter-my-babe-1955",
+          "transcription_source_id": "src:songsterr-73166"
+        },
+        "tags": ["chess", "chicago"]
+      },
+      {
+        "id": "pattern:below-my-babe-verse-end",
+        "name": "My Babe: the stop and into the next verse",
+        "type": "fill",
+        "function": "The band stops on 1 in the eleventh bar; the snare on the last triplet of 3 and on 4 in the twelfth.",
+        "style_ids": ["style:blues-shuffle"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-73166"],
+          "note": "Verse bars 11 and 12."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 2,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 158,
+          "playable_range_bpm": [156, 161]
+        },
+        "lanes": {
+          "snare": "X.......................|................X.X.....",
+          "kick": "x.......................|........................"
+        },
+        "source": {
+          "recording_id": "rec:little-walter-my-babe-1955",
+          "transcription_source_id": "src:songsterr-73166"
+        },
+        "tags": ["chess", "chicago"]
+      },
+      {
+        "id": "pattern:below-im-ready-ride",
+        "name": "I'm Ready: the jazz ride over the backbeat",
+        "type": "groove",
+        "function": "The ride on 1, 2 and its swung 'and', 3, 4 and its 'and', the snare on 2 and 4, the kick on 1 and 3.",
+        "style_ids": ["style:blues"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7198014"],
+          "note": "The tab's triplet feel read as the beat's last triplet."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [118, 123]
+        },
+        "lanes": {
+          "ride": "x.....x...x.x.....x...x.",
+          "snare": "......x...........x.....",
+          "kick": "x...........x..........."
+        },
+        "source": {
+          "recording_id": "rec:muddy-waters-im-ready-1954",
+          "transcription_source_id": "src:songsterr-7198014"
+        },
+        "tags": ["chess", "chicago"]
+      },
+      {
+        "id": "pattern:below-im-ready-stop-time",
+        "name": "I'm Ready: the band's stop-time",
+        "type": "groove_variation",
+        "function": "The whole band hits on 1, the swung 'and' of 2 and the swung 'and' of 4 under the vocal.",
+        "style_ids": ["style:blues"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7198014"],
+          "note": "Bars 17-20 of the tab."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [118, 123]
+        },
+        "lanes": {
+          "snare": "x.........x...........x.",
+          "kick": "x.........x...........x."
+        },
+        "source": {
+          "recording_id": "rec:muddy-waters-im-ready-1954",
+          "transcription_source_id": "src:songsterr-7198014"
+        },
+        "tags": ["chess", "chicago"]
+      },
+      {
+        "id": "pattern:below-im-ready-pickup",
+        "name": "I'm Ready: the pickup out of the stop",
+        "type": "fill",
+        "function": "The snare in swung eighths from the 'and' of 1 back into time.",
+        "style_ids": ["style:blues"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7198014"],
+          "note": "Bar 24 of the tab."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [118, 123]
+        },
+        "lanes": {
+          "snare": "....x.x.x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:muddy-waters-im-ready-1954",
+          "transcription_source_id": "src:songsterr-7198014"
+        },
+        "tags": ["chess", "chicago"]
+      },
+      {
+        "id": "pattern:below-school-day-shuffle",
+        "name": "School Day: the shuffle on the hat",
+        "type": "groove",
+        "function": "The hat shuffling, the snare on 2 and 4, the kick on 1 and 3.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4585688"],
+          "note": "A machine tab, checked against the record."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 131,
+          "playable_range_bpm": [129, 133]
+        },
+        "lanes": {
+          "hihat": "x...x.x...x.x...x.x...x.",
+          "snare": "......x...........x.....",
+          "kick": "x...........x..........."
+        },
+        "source": {
+          "recording_id": "rec:chuck-berry-school-days-1957",
+          "transcription_source_id": "src:songsterr-4585688"
+        },
+        "tags": ["chess", "chicago"]
+      },
+      {
+        "id": "pattern:below-rock-and-roll-music",
+        "name": "Rock and Roll Music: the backbeat",
+        "type": "groove",
+        "function": "The hat on the beats, the snare on 2 and 4, the kick on 1 and 3: the plainest of his records.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1772388"],
+          "note": "84 of the tab's 103 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 166,
+          "playable_range_bpm": [163, 168]
+        },
+        "lanes": {
+          "hihat": "x.....x.....x.....x.....",
+          "snare": "......x...........x.....",
+          "kick": "x...........x..........."
+        },
+        "source": {
+          "recording_id": "rec:chuck-berry-rock-and-roll-music-1957",
+          "transcription_source_id": "src:songsterr-1772388"
+        },
+        "tags": ["chess", "chicago"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:fred-below-ludwig-1975",
+      "label": "Ludwig in oyster pearl, 1975",
+      "years": {
+        "from": 1975,
+        "to": 1975
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Ludwig"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Ludwig"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Ludwig"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Ludwig"
+        }
+      ],
+      "cymbals": [],
+      "layout_notes": "An oyster pearl wrap, two rack toms, a white Ludwig front head, chrome hardware, from a black-and-white photograph in France; the colour is not known.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:fred-below-commons-1975"]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "Little Walter and the Jukes",
@@ -54,31 +748,301 @@
       "years": {
         "from": 1952,
         "to": 1955
+      },
+      "bandmates": [
+        {
+          "name": "Little Walter"
+        },
+        {
+          "name": "Louis Myers"
+        },
+        {
+          "name": "Dave Myers"
+        }
+      ],
+      "notes": "The Aces, renamed the Jukes on the records (and the Nightcats on stage).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:fred-below-wikipedia", "src:little-walter-wikipedia"]
+      }
+    },
+    {
+      "name": "The Aces",
+      "type": "band_member",
+      "years": {
+        "from": 1951,
+        "to": 1952
+      },
+      "bandmates": [
+        {
+          "name": "Louis Myers"
+        },
+        {
+          "name": "Dave Myers"
+        },
+        {
+          "name": "Junior Wells"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:fred-below-wikipedia"]
       }
     },
     {
       "name": "Chess Records studio",
       "type": "session_regular",
       "years": {
-        "from": 1953
+        "from": 1953,
+        "to": 1960
+      },
+      "bandmates": [
+        {
+          "name": "Willie Dixon"
+        },
+        {
+          "name": "Otis Spann"
+        },
+        {
+          "name": "Jimmy Rogers"
+        }
+      ],
+      "notes": "Behind Muddy Waters, Sonny Boy Williamson, Howlin' Wolf, Chuck Berry, Bo Diddley, Jimmy Rogers, Elmore James and Otis Rush.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:fred-below-wikipedia"]
       }
-    }
-  ],
-  "key_recording_ids": [
-    "rec:chuck-berry-johnny-b-goode-1958",
-    "rec:chuck-berry-roll-over-beethoven-1956"
-  ],
-  "legacy": {
-    "contribution": {
-      "description": "According to Tony Russell, the creator of much of the rhythmic structure of Chicago blues, its backbeat especially, and the drummer on Chuck Berry's \"Johnny B. Goode\".",
+    },
+    {
+      "name": "Muddy Waters' band (sessions)",
+      "type": "session_regular",
+      "years": {
+        "from": 1954,
+        "to": 1956
+      },
+      "notes": "I Just Want to Make Love to You and I'm Ready, 1954.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:im-ready-muddy-waters-song-wikipedia", "src:fred-below-wikipedia"]
+      }
+    },
+    {
+      "name": "Chuck Berry (sessions)",
+      "type": "session_regular",
+      "years": {
+        "from": 1956,
+        "to": 1959
+      },
+      "notes": "December 1956, May 1957 and July 1959, by the Chuck Berry Database.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chuck-berry-database-crlf"]
+      }
+    },
+    {
+      "name": "427th Army Band",
+      "type": "military_band",
+      "years": {
+        "from": 1948,
+        "to": 1951
+      },
       "evidence": {
         "confidence": "likely",
         "source_ids": ["src:fred-below-wikipedia"]
       }
     }
+  ],
+  "key_recording_ids": [
+    "rec:little-walter-blues-with-a-feeling-1953",
+    "rec:muddy-waters-im-ready-1954",
+    "rec:little-walter-my-babe-1955",
+    "rec:sonny-boy-williamson-dont-start-me-talkin-1955",
+    "rec:chuck-berry-school-days-1957",
+    "rec:chuck-berry-rock-and-roll-music-1957"
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Walter Dyett",
+        "kind": "teacher"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:fred-below-wikipedia"],
+        "note": "\"DuSable High School had one of the best teachers. That was Capt. Walter Dye(tt). That's where I learned my music.\""
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Bebop",
+        "kind": "style",
+        "id": "style:bebop"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:fred-below-wikipedia"],
+        "note": "A jazz band with Johnny Griffin and Eugene Wright at school; sat in with Tommy Potter and Lester Young in the Army."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Little Walter",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:fred-below-wikipedia", "src:little-walter-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Louis Myers",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:fred-below-wikipedia", "src:little-walter-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Dave Myers",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:fred-below-wikipedia", "src:little-walter-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Junior Wells",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:fred-below-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Willie Dixon",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:im-ready-muddy-waters-song-wikipedia",
+          "src:my-babe-wikipedia",
+          "src:rock-and-roll-music-song-wikipedia"
+        ]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Muddy Waters",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:im-ready-muddy-waters-song-wikipedia", "src:fred-below-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Chuck Berry",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:chuck-berry-database-crlf",
+          "src:school-days-chuck-berry-song-wikipedia"
+        ]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Sonny Boy Williamson II",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dont-start-me-talkin-wikipedia", "src:fred-below-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Think melodically, not only rhythmically.",
+        "paraphrase_of_source_id": "src:scott-k-fish-below-1982"
+      },
+      {
+        "idea": "Play with dynamics: build tension and release rather than playing loud throughout.",
+        "paraphrase_of_source_id": "src:scott-k-fish-below-1982"
+      }
+    ]
+  },
+  "legacy": {
+    "contribution": {
+      "description": "According to Tony Russell, the creator of much of the rhythmic structure of Chicago blues, its backbeat especially: Little Walter's drummer from 1952 and the Chess house drummer behind Muddy Waters and Chuck Berry. (Whether he drums on Johnny B. Goode is disputed: the session's union filing names Jasper Thomas.)",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:fred-below-wikipedia", "src:chuck-berry-database-crlf"]
+      }
+    },
+    "influence_score": 0.6,
+    "innovations": [
+      "The shuffle with a hard backbeat in Chicago blues",
+      "Jazz ride time brought to the Chess blues records"
+    ],
+    "accolades": [],
+    "common_misconceptions": [
+      "That he drums on Roll Over Beethoven (Melvin Billups) and, by the session's union filing, on Johnny B. Goode and Sweet Little Sixteen (Jasper Thomas)."
+    ]
   },
   "beatbreaker": {
-    "group": "Blues drummers",
-    "build_priority": 1
+    "style_key": "fredbelow",
+    "headline_pattern_ids": [
+      "pattern:below-my-babe-two-beat",
+      "pattern:below-im-ready-ride",
+      "pattern:below-im-ready-stop-time",
+      "pattern:below-school-day-shuffle"
+    ],
+    "default_kit_sound": "A small jazz kit in a small studio; a warmer 1960s kit for the Chuck Berry records",
+    "generation_rules": [
+      "A triplet shuffle under a backbeat on 2 and 4.",
+      "The ride as jazz time, or the hat shuffled; the hat foot on 2 and 4.",
+      "Stop-time with the band: hits on 1 and the swung 'and's, a pickup back in.",
+      "Fills are short, at the phrase end."
+    ],
+    "avoid": ["Busy tom fills", "Straight sixteenths", "Crashes on every bar"],
+    "lineage_display": {
+      "primary_ancestors": [],
+      "primary_descendants": [],
+      "lineage_blurb": "Bebop and the Roy C. Knapp school, then the Chess studio: the backbeat Chicago blues was built on."
+    },
+    "tags": ["chicago blues", "chess", "shuffle", "backbeat", "50s", "session"]
   }
 }
