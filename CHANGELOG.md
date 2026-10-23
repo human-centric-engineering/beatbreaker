@@ -54,6 +54,35 @@ release process.
 
 ### Changed
 
+- **The workflow builder's save, publish and discard are versioned, and
+  `If-Match` is required (§122, t-900).** `GET /workflows/:id` returns
+  `definitionVersion` (the draft or published snapshot the builder edits, and
+  which version is published). `PATCH /workflows/:id` with `draftDefinition`
+  (including `null`), `POST /workflows/:id/publish` and `POST
+  /workflows/:id/discard-draft` must send it back as `If-Match`: `428
+  PRECONDITION_REQUIRED` without, `412 STALE_RECORD` once the workflow moved
+  on, an erasure included, nothing written. **API clients must read before
+  they save, publish or discard.** A `PATCH` of other fields alone, a
+  rollback and a create are unchanged. The builder shows the reload prompt
+  with a **Copy my changes** option (`StaleSaveNotice` gains
+  `onCopyChanges`). An address typed into a freshly loaded builder is now
+  saved even if its owner was once erased; an erased approver id is still
+  stripped. A new workflow copied from a stored one (a custom template,
+  Duplicate, save-as-template) sends `copiedFrom: { workflowId,
+  definitionVersion }` on `POST /workflows` and is refused with 412 when that
+  source moved on; `GET /workflows/templates` gives each of the org's own
+  templates its `copySource`. A `PATCH` that sends a draft writes its
+  other fields in the same update, after the check, and one that clears the
+  draft is now audited as `workflow.draft.discard`. `AiWorkflowWithVersion` gains `definitionVersion`;
+  `lib/orchestration/config-versions.ts` gains the workflow's version and
+  lock. Backup seals now cover workflow definitions' addresses too, so a
+  sealed import strips only people erased since its `exportedAt` from them,
+  and bundles sealed before this no longer verify (every erasure counts, as
+  for an unsealed bundle). The stale-writer manifest's `pending` anchor,
+  `PendingStaleWriter` and `StaleWriterTask` are removed: §122 has converted
+  every writer. See `.context/privacy/data-erasure.md` ("The workflow
+  builder").
+
 - **Saves of the escalation list, a webhook subscription and a schedule are
   versioned, and `If-Match` is required (§122, t-899).** `GET /settings`
   returns `escalationVersion`; webhook subscriptions and schedules carry
@@ -81,8 +110,9 @@ release process.
   only of people erased since `exportedAt`, so an address an admin re-added
   after an older erasure survives a restore, with a warning counting such
   addresses. Unsealed bundles (every one exported before this), another
-  install's or org's, and edited ones still strip anyone ever erased, as do
-  workflow definitions until t-900; a seal that does not verify is reported.
+  install's or org's, and edited ones still strip anyone ever erased; a seal
+  that does not verify is reported. Workflow definitions joined the seal in
+  t-900.
   Rotating `BETTER_AUTH_SECRET` unseals earlier bundles, and environments
   sharing one share seals. See `.context/privacy/data-erasure.md`
   ("Backup import").

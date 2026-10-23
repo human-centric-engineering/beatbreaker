@@ -7,12 +7,14 @@
  *
  * Nothing was written, and the admin's edits are still in the form. Reloading
  * would discard them, so the notice says so and leaves the reload to them
- * rather than doing it.
+ * rather than doing it. A page that can copy its edits out (the workflow
+ * builder, t-900) offers that first.
  *
  * @see lib/api/record-version.ts
  */
 
-import { AlertTriangle, RotateCw } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { AlertTriangle, Copy, RotateCw } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
@@ -21,9 +23,19 @@ export interface StaleSaveNoticeProps {
   what: string;
   /** Called instead of reloading the page, for a list that can reload its own data. */
   onReload?: () => void;
+  /**
+   * Copies the unsaved edits somewhere they survive a reload, for a page that
+   * can. Its promise says whether the copy landed: the button says so too,
+   * since an admin who trusts a failed copy and reloads loses the edits.
+   */
+  onCopyChanges?: () => Promise<void>;
 }
 
-export function StaleSaveNotice({ what, onReload }: StaleSaveNoticeProps) {
+export function StaleSaveNotice({ what, onReload, onCopyChanges }: StaleSaveNoticeProps) {
+  const [copy, setCopy] = useState<'idle' | 'copied' | 'failed'>('idle');
+  // A page passes a new copier when its edits change (the builder's follows
+  // its canvas), so an earlier "Copied" no longer covers what is on screen.
+  useEffect(() => setCopy('idle'), [onCopyChanges]);
   return (
     <div
       role="alert"
@@ -32,12 +44,44 @@ export function StaleSaveNotice({ what, onReload }: StaleSaveNoticeProps) {
       <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
       <div className="flex-1 space-y-1">
         <p className="font-medium">{what} changed since you opened it. Nothing was saved.</p>
-        <p>
-          Someone else saved it, or a person on it had their data erased. Your changes are still
-          here: note anything you want to keep, then reload to see the current version and make them
-          again.
-        </p>
+        {onCopyChanges ? (
+          <p>
+            Someone else saved it, or a person on it had their data erased. Your changes are still
+            here, and reloading discards them: copy them first to keep a record, then reload to see
+            the current version and make them again.
+          </p>
+        ) : (
+          <p>
+            Someone else saved it, or a person on it had their data erased. Your changes are still
+            here: note anything you want to keep, then reload to see the current version and make
+            them again.
+          </p>
+        )}
       </div>
+      {onCopyChanges && (
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={() => {
+            // Started inside a promise, so a copier that throws before it has
+            // one (no clipboard outside a secure context) is reported too.
+            Promise.resolve()
+              .then(onCopyChanges)
+              .then(
+                () => setCopy('copied'),
+                () => setCopy('failed')
+              );
+          }}
+        >
+          <Copy className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />
+          {copy === 'copied'
+            ? 'Copied'
+            : copy === 'failed'
+              ? 'Copy failed: try again'
+              : 'Copy my changes'}
+        </Button>
+      )}
       <Button
         type="button"
         variant="outline"
