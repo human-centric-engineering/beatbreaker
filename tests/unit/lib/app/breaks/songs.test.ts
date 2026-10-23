@@ -47,6 +47,12 @@ describe('withSong', () => {
     expect(st.label).toBe('Mitch Mitchell');
   });
 
+  it('holds a song to the tempo its unbroken runs stay playable at (`playableBpm`)', () => {
+    // In from the Storm: the record's 140–160, its runs held to 150
+    expect(song('in-from-the-storm').params.bpm).toEqual([140, 160]);
+    expect(withSong(MITCH.params, 'in-from-the-storm').bpm).toEqual([140, 150]);
+  });
+
   it("drops the style's swing range for a song that names one swing and no range", () => {
     expect(MITCH.params.swingRange).toBeDefined();
     const fire = withSong(MITCH.params, 'fire');

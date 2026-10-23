@@ -69,6 +69,42 @@ describe('randomPick', () => {
     }
   });
 
+  it('names what it picked: the drummer and the song, the style, or the exercise', () => {
+    const mitch = pool.find(([p]) => p.kind === 'drummer' && p.style === 'mitchell')![0];
+    const first = cat.styles.mitchell.params.songs![0];
+    expect(mitch.label).toBe(`Mitch Mitchell — ${first.title}`);
+    expect(pool.find(([p]) => p.kind === 'style' && p.style === 'funk')![0].label).toBe(
+      cat.styles.funk.params.label
+    );
+    const rudiment = testRudiments().entries[0];
+    expect(pool.find(([p]) => p.kind === 'exercise' && p.entryId === rudiment.id)![0].label).toBe(
+      rudiment.title
+    );
+  });
+
+  it('never picks what is on the stage, unless that is all there is', () => {
+    const rng = makeRng(3);
+    const song = cat.styles.mitchell.params.songs![0].key;
+    const entry = testRudiments().entries[0].id;
+    for (let i = 0; i < 2000; i++) {
+      const a = randomPick(cat, rng, { style: 'mitchell', song })!;
+      expect(a.kind !== 'drummer' || a.style !== 'mitchell' || a.song !== song).toBe(true);
+      const b = randomPick(cat, rng, { entryId: entry })!;
+      expect(b.kind !== 'exercise' || b.entryId !== entry).toBe(true);
+    }
+    // a style with no songs is on the stage by its key alone
+    for (let i = 0; i < 2000; i++) {
+      const c = randomPick(cat, rng, { style: 'funk' })!;
+      expect(c.kind !== 'style' || c.style !== 'funk').toBe(true);
+    }
+    const one = {
+      ...cat,
+      styleGroups: [['Funk', ['funk']]] as Array<[string, string[]]>,
+      libraries: [],
+    };
+    expect(randomPick(one, rng, { style: 'funk' })).toMatchObject({ style: 'funk' });
+  });
+
   it('picks nothing from an empty catalogue', () => {
     const empty = { ...cat, styles: {}, styleGroups: [], libraries: [] };
     expect(randomPick(empty, Math.random)).toBeNull();

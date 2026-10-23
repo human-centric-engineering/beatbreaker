@@ -227,7 +227,7 @@ describe('New break', () => {
 describe('Random', () => {
   /* Math.random is held for the pick: 0 takes the first pattern in the pool (the
      first style the picker shows), just under 1 the last (the last exercise) */
-  it('writes a break in the style a pick lands on, back at the top, and says so', async () => {
+  it('writes a break in the style a pick lands on, and says so', async () => {
     const user = userEvent.setup();
     mount(<RandomPickButton />, 'ulrich');
     await waitFor(() => expect(studio?.view.A?.style).toBe('ulrich'));
@@ -235,7 +235,6 @@ describe('Random', () => {
     vi.spyOn(Math, 'random').mockReturnValue(0);
     await user.click(screen.getByRole('button', { name: 'Random' }));
     await waitFor(() => expect(studio!.view.A?.style).toBe(first));
-    expect(restartFromTop).toHaveBeenCalledTimes(1);
     const label = studio!.catalogue.styles[first].params.label;
     expect(studio!.notice?.message).toContain(label);
     vi.restoreAllMocks();

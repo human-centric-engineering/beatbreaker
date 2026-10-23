@@ -3600,6 +3600,8 @@ export const STYLES: Record<string, Style> = {
    ride, seventeen times to the end. Every fill is the tab's own bar, with any four sixteenths
    on the snare broken by a note on the rack tom, and in a whole bar of fill over the kick
    enough of the snare moved to the toms to leave the bar a quarter air (the critic's rules).
+   A song holds 32 bars and its sections take them all, so each ten-bar verse plays as
+   section B's eight: two bars short of the record.
 
    Tempo: the tab's 156; the record (YouTube 49r6aiQpabE, the Experience Hendrix upload, 2:46)
    autocorrelates at 155.1 (20–140 s). The fills' runs of sixteenths hold a song to 150, so it

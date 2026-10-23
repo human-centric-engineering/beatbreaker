@@ -3779,7 +3779,6 @@ function paisleyMaterial(ground: THREE.Color): THREE.MeshStandardMaterial {
 
 /** A forwards cap's peak: its height and depth on the head, and how far it is tipped down. */
 const FRONT_PEAK: V3 = [0.15, -0.004, -0.1];
-const FRONT_CROWN = 0.0;
 
 function hatFor(hat: Hat, m: Materials, forwards = false): THREE.Object3D[] {
   switch (hat) {
@@ -3805,8 +3804,9 @@ function hatFor(hat: Hat, m: Materials, forwards = false): THREE.Object3D[] {
         peak.rotation.x = 0.3;
       }
       const crown = cover(0.112, 0.46, m.accent);
-      // pulled down at the front to the brow, rather than pushed back off it
-      if (forwards) crown.rotation.x = FRONT_CROWN;
+      /* worn forwards, set level on the head rather than tipped back as `cover` lays it
+         (0.35), so its front comes down to the brow and meets the peak */
+      if (forwards) crown.rotation.x = 0;
       return [crown, button, peak];
     }
     case 'cowboy': {

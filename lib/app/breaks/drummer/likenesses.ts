@@ -3515,7 +3515,7 @@ const CLAY_AESCHLIMAN: Persona = {
   shirt: '#141416',
   trousers: '#1c1c20',
   shoes: '#2a2a2e',
-  // the cap's colour
+  // the cap's colour; on dark trainers it leaves their heel flash the laces' colour, not a loud one
   accent: '#141416',
   hat: 'cap',
   forwards: true,
