@@ -52,7 +52,7 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 64 styles and 108 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 64 styles and 111 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(64);
     expect([...drummers].sort()).toEqual([
@@ -87,9 +87,11 @@ describe('the style table', () => {
       'dejohnette',
       'dennisdavis',
       'djfontana',
+      'djjohnson',
       'downey',
       'earlpalmer',
       'elvinjones',
+      'errico',
       'estepario',
       'fredbelow',
       'gadd',
@@ -127,6 +129,7 @@ describe('the style table', () => {
       'mitchell',
       'moon',
       'morello',
+      'newmark',
       'nickmason',
       'paice',
       'paulcook',
@@ -168,7 +171,7 @@ describe('the style table', () => {
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(2580);
+    expect(COMBOS).toHaveLength(2625);
   });
 });
 

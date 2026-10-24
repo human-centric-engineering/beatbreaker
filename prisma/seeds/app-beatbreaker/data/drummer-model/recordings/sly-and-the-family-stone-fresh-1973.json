@@ -7,13 +7,18 @@
   "style_ids": ["style:funk"],
   "evidence": {
     "confidence": "widely_reported",
-    "source_ids": ["src:andy-newmark-wikipedia"]
+    "source_ids": ["src:andy-newmark-wikipedia", "src:live-from-my-drum-room-newmark-2021"]
   },
   "drum_performances": [
     {
       "drummer_id": "drummer:andy-newmark",
       "name": "Andy Newmark",
-      "drummer_role": "sole_drummer"
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "Every track played along with Sly's Ace Tone Rhythm Ace, his drums over the machine rather than instead of it (Newmark, Live From My Drum Room, 2021): In Time's syncopated snare and open hat, widely copied by later funk and hip-hop drummers.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:live-from-my-drum-room-newmark-2021"]
+      }
     }
   ],
   "tracks": [
@@ -21,13 +26,25 @@
       "title": "In Time",
       "drummer_ids": ["drummer:andy-newmark"],
       "drums": {
-        "description": "A sparse, syncopated funk groove with ghosted snare and an open hat, widely copied by later funk and hip-hop drummers.",
+        "description": "A sparse, syncopated funk groove over Sly's Rhythm Ace: the snare unaccented on the 'e' of 1 and accented on the 'and' of 3 and the 'e' of 4, no ghosts, and an open hat; widely copied by later funk and hip-hop drummers.",
         "evidence": {
           "confidence": "widely_reported",
-          "source_ids": ["src:fresh-sly-and-the-family-stone-album-wikipedia"]
+          "source_ids": [
+            "src:fresh-sly-and-the-family-stone-album-wikipedia",
+            "src:malaguti-in-time-transcription"
+          ]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=g6xhSqz_4m8"
+      "youtube": "https://www.youtube.com/watch?v=g6xhSqz_4m8",
+      "style_key": "newmark",
+      "song_key": "in-time",
+      "transcriptions": [
+        {
+          "site": "other",
+          "url": "https://www.youtube.com/watch?v=vn_OaiqLllU",
+          "note": "Massimo Malaguti, score of verse 1, 17 bars"
+        }
+      ]
     },
     {
       "title": "If You Want Me to Stay",
@@ -58,6 +75,30 @@
         }
       },
       "youtube": "https://www.youtube.com/watch?v=Nnr3SMeckGg"
+    },
+    {
+      "title": "Let Me Have It All",
+      "drummer_ids": ["drummer:andy-newmark"],
+      "drums": {
+        "description": "Busy funk on a loose two-bar idea: eighths on the hat, the snare round 2 with ghosts, the \"and\" of 3 and the \"e\" of 4, fills through the 1 with the hat foot on the \"and\"s.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:bishop-let-me-have-it-all-transcription",
+            "src:fresh-sly-and-the-family-stone-album-wikipedia"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CGumgIIq7d4",
+      "transcriptions": [
+        {
+          "site": "other",
+          "url": "https://cruiseshipdrummer.com/2025/12/10/groove-o-the-day-let-me-have-it-all-andy-newmark/",
+          "note": "Todd Bishop, Groove o' the day, ten bars from 0:28, PDF"
+        }
+      ],
+      "style_key": "newmark",
+      "song_key": "let-me-have-it-all"
     }
   ]
 }

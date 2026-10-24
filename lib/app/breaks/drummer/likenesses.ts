@@ -3523,6 +3523,110 @@ const CLAY_AESCHLIMAN: Persona = {
   kit: { shell: '#5a0f16', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
 };
 
+/**
+ * Greg Errico with Sly and the Family Stone playing Thank You (Falettinme Be Mice Elf Agin)
+ * on American television in the winter of 1969-70, at twenty-one (an upscaled upload,
+ * ImDxjn8tcYY, looked at frame by frame; the owner's stills are from it): slim, his brown
+ * hair long and curly to the shoulders, round tinted glasses in thin gold frames,
+ * clean-shaven; a lime-green blouse with full sleeves under an open waistcoat patterned in
+ * gold. His kit's front head, white, carries the band's name in stacked wavy black letters,
+ * "SLY AND THE FAMILY STONE", drawn from the real head; the toms are black, studded all
+ * over with rows of small white dots, the hardware chrome. The make is not named in any
+ * source read. Trousers and shoes are out of shot: dark ones, a guess. No headphones.
+ */
+const GREG_ERRICO: Persona = {
+  id: 'errico',
+  name: 'Greg Errico',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e2b393',
+  hair: '#5a3a22',
+  // long, full and curly, to the shoulders
+  hairStyle: 'frizz',
+  beard: 'none',
+  glasses: { shape: 'round', frame: '#c9a24a', tint: '#3a2820', dark: true },
+  top: 'button-up',
+  shirt: '#a6c93c',
+  satin: true,
+  waistcoat: { cloth: '#c9a23e', trim: '#7a5a1e' },
+  trousers: '#2a2622',
+  shoes: '#1c1814',
+  footwear: 'boots',
+  accent: '#c9a23e',
+  headphones: false,
+  kit: {
+    shell: '#111114',
+    finish: 'gloss',
+    hardware: 'chrome',
+    rug: '#2a2226',
+    // the rows of small white dots studding the black shells
+    dots: '#ecebe6',
+    fineDots: true,
+    head: { art: 'sly-and-the-family-stone', ground: '#f1ede4', ink: '#141414' },
+  },
+};
+
+/**
+ * DJ Johnson with Khruangbin at NPR Music's Tiny Desk, Washington, D.C. (YouTube,
+ * vWLJeqLPfSU, uploaded 23 May 2018; frames at 1:36 and 2:00-2:12), touring Con Todo el
+ * Mundo: heavily built, his head shaved, a full black beard; a black denim jacket
+ * worn open over a black T-shirt with a white print (not drawn), blue jeans. A small kit, a
+ * chrome piccolo snare with a strip of brown leather over its head, one floor tom, the hats on
+ * his left. No headphones. The shells' colour is hidden behind the desk: a deep red with a
+ * sparkle at KEXP a month later (Hl-XsneiGHo, 27 June 2018, the frames at 2:50-3:16), drawn
+ * so here. His shoes are out of shot: dark ones, a guess.
+ */
+const DJ_JOHNSON: Persona = {
+  id: 'djjohnson',
+  name: 'DJ Johnson',
+  figure: 'male',
+  build: 'heavy',
+  skin: '#4e2f20',
+  hair: '#141110',
+  hairStyle: 'bald',
+  beard: 'full',
+  // the denim jacket open over the T-shirt
+  top: 'jacket',
+  shirt: '#17171a',
+  under: '#111113',
+  neckwear: 'tee',
+  trousers: '#3e5a7e',
+  shoes: '#1c1c1e',
+  accent: '#17171a',
+  headphones: false,
+  kit: { shell: '#5c1a20', finish: 'sparkle', hardware: 'chrome', rug: '#2a2422' },
+};
+
+/**
+ * Andy Newmark at the Kilburn State Theatre, London, in 1974, at twenty-four, the year after
+ * Fresh: Ronnie Wood's two shows for I've Got My Own Album to Do, with Keith Richards, Rod
+ * Stewart, Ian McLagan and Willie Weeks (the filmed concert; DRUMMERWORLD's remaster on YouTube,
+ * BPy7mfSZY5Q, frames at 0:15 and 5:50-6:35; the owner's still from the same film). Wavy light
+ * brown hair over his ears, parted in the middle; round wire glasses with tinted lenses;
+ * clean-shaven; a loose cream shirt, long-sleeved, open at the neck. A dark wine-red kit with
+ * chrome hardware and a white front head (not drawn: BeatBreaker's own is kept). No headphones:
+ * a live show. Trousers and shoes are out of shot: dark brown ones.
+ */
+const ANDY_NEWMARK: Persona = {
+  id: 'newmark',
+  name: 'Andy Newmark',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e8bc9c',
+  hair: '#6e4c30',
+  hairStyle: 'shaggy',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#e2d4a8',
+  neckwear: 'open',
+  trousers: '#4a3a2c',
+  shoes: '#2a1e18',
+  accent: '#e2d4a8',
+  glasses: { shape: 'round', frame: '#b89a5a', tint: '#c89a50' },
+  headphones: false,
+  kit: { shell: '#3a1418', finish: 'gloss', hardware: 'chrome', rug: '#2a2222' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -3633,6 +3737,9 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   bozzio: TERRY_BOZZIO,
   estepario: EL_ESTEPARIO,
   aeschliman: CLAY_AESCHLIMAN,
+  errico: GREG_ERRICO,
+  djjohnson: DJ_JOHNSON,
+  newmark: ANDY_NEWMARK,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

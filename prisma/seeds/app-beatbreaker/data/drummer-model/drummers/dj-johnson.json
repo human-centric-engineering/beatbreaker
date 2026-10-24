@@ -1,0 +1,1187 @@
+{
+  "meta": {
+    "id": "drummer:dj-johnson",
+    "schema_version": "1.6.0",
+    "record_status": "draft",
+    "completeness": 0.3,
+    "created": "2026-10-24",
+    "updated": "2026-10-24",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His handedness: Wikipedia says \"He is left-handed\"; Modern Drummer (2020) says he plays the keyboard left-handed while drumming; at the Tiny Desk (2018) his hats are on his left, a right-handed kit.",
+      "Where Speer and he met in 2004: at the Red Cat Jazz Cafe (Wikipedia, his page) or in Rudy Rasmus's gospel band (Wikipedia, the band's); both say they then played in that band.",
+      "The kit on the records: Modern Drummer (2020) lists a 14x20 Gretsch bass drum, a 14x14 floor tom and a Diamond maple piccolo snare; the Evan Finds the Third Room tab writes a mid tom, which no source puts on his kit.",
+      "Time (You and I) (2020): its only Songsterr drum track is marked regenerated, so it is not built.",
+      "Ali (2022), A La Sala (2024), The Universe Smiles Upon You ii (2025) and Texas Moon (2022): not yet scored."
+    ]
+  },
+  "identity": {
+    "name": "DJ Johnson",
+    "full_name": "Donald Johnson Jr.",
+    "aliases": ["Donald \"DJ\" Johnson", "Donald Ray Johnson", "Beanz"],
+    "born": {
+      "date": "1983-03-13",
+      "place": "Houston, Texas",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dj-johnson-wikipedia", "src:modern-drummer-dj-johnson-2020"],
+        "note": "Wikipedia; Modern Drummer calls him thirty-six in 2020."
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Houston"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "organ", "keyboards"],
+    "active": {
+      "from": 2004,
+      "ongoing": true
+    },
+    "roles": ["band_member", "touring", "producer"],
+    "summary": "Khruangbin's drummer: a Houston musician who started on drums at two or three, after his uncle John Foster, moved to the organ in his late teens and played it in Rudy Rasmus's gospel band at St. John's, where he met Mark Speer. Asked to join Speer and Laura Lee's trio to play \"simple break-beats\", he came back to the kit. On a small jazz kit with one floor tom and a piccolo snare damped with a strip of leather, he plays breakbeats mimicked \"down to the tone of the drum\", sixteenths or eighths on the hat, hardly a fill and never to a click. Half of the Houston hip-hop production duo Beanz N Kornbread."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Black gospel church music",
+        "impact": "\"In church it's not about you; you disappear and let God play through you\": serving the song, tempo and level before anything.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:modern-drummer-dj-johnson-2020", "src:khruangbin-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Breakbeats and the records sampled in hip-hop",
+        "impact": "He learnt the kit by mimicking drum breaks as closely as he could, down to the tone of the drum and the opening of the hat; live, the band plays the records hip-hop sampled.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:modern-drummer-dj-johnson-2020"]
+        }
+      },
+      {
+        "tradition": "School and orchestral percussion",
+        "impact": "The Texas All-State ensembles; orchestral percussion with Jim Whitfill.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:dj-johnson-wikipedia", "src:modern-drummer-dj-johnson-2020"]
+        }
+      },
+      {
+        "tradition": "Houston hip-hop",
+        "impact": "Producing as Beanz N Kornbread; the chopped and screwed tempos he hears in the Leon Bridges EPs.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:dj-johnson-wikipedia",
+            "src:grammy-leon-bridges-dj-johnson-texas-moon-2022"
+          ]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Started on drums at two or three, after his uncle, the drummer John Foster.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:grammy-leon-bridges-dj-johnson-texas-moon-2022"]
+        }
+      },
+      {
+        "event": "Quit the drums, \"because there's so many dope drummers in Houston\", and moved to the organ in his late teens.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:grammy-leon-bridges-dj-johnson-texas-moon-2022",
+            "src:dj-johnson-wikipedia"
+          ]
+        }
+      },
+      {
+        "year": 2004,
+        "event": "Met Mark Speer; both hired players in Pastor Rudy Rasmus's gospel band at St. John's United Methodist, Houston, Johnson on organ.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:khruangbin-wikipedia", "src:dj-johnson-wikipedia"]
+        }
+      },
+      {
+        "year": 2010,
+        "event": "Asked to join Speer and Laura Lee's new trio as its drummer, to play \"simple break-beats\": \"my red carpet back to the drum set\".",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:khruangbin-wikipedia",
+            "src:grammy-leon-bridges-dj-johnson-texas-moon-2022"
+          ],
+          "note": "The year is that of the Yppah tour that led to the band."
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:dj-johnson-universe",
+      "label": "The Universe Smiles Upon You",
+      "years": {
+        "from": 2010,
+        "to": 2016
+      },
+      "context": "The trio's first EPs and album, made in a barn in Burton, Texas, after 1960s Thai music: breakbeats in sixteenths on the hat, a cross-stick in August 10.",
+      "defining_traits": ["sixteenths on the hat", "the kick off the beat", "no crash"],
+      "key_recording_ids": ["rec:khruangbin-the-universe-smiles-upon-you-2015"]
+    },
+    {
+      "id": "era:dj-johnson-con-todo",
+      "label": "Con Todo el Mundo and Mordechai",
+      "years": {
+        "from": 2017,
+        "to": 2021
+      },
+      "context": "The band's two Dead Oceans albums, after Middle Eastern and Spanish music, then disco; the Texas Sun EP with Leon Bridges, recorded live with Bridges \"like concerts\".",
+      "defining_traits": ["four on the floor", "the hat foot", "ghost notes round 3"],
+      "key_recording_ids": [
+        "rec:khruangbin-con-todo-el-mundo-2018",
+        "rec:khruangbin-mordechai-2020",
+        "rec:khruangbin-and-leon-bridges-texas-sun-2020"
+      ]
+    },
+    {
+      "id": "era:dj-johnson-later",
+      "label": "Ali to A La Sala",
+      "years": {
+        "from": 2022,
+        "ongoing": true
+      },
+      "context": "Ali with Vieux Farka Touré (2022), Texas Moon with Leon Bridges (2022), A La Sala (2024), The Universe Smiles Upon You ii (2025).",
+      "defining_traits": ["the same small kit"],
+      "key_recording_ids": []
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk",
+        "name": "Breakbeat funk",
+        "weight": 0.9,
+        "authority": 0.6,
+        "notes": "Breakbeats mimicked down to the tone (Modern Drummer, 2020); his influences Stubblefield, Starks, Purdie, Gadson."
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "name": "Psychedelic, Thai and global funk",
+        "weight": 0.8,
+        "authority": 0.5,
+        "notes": "Khruangbin's records, after 1960s Thai music, Iranian pop and surf."
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "name": "Soul",
+        "weight": 0.6,
+        "authority": 0.4,
+        "notes": "White Gloves; the Leon Bridges EPs; Ed Greene's Barry White records among his influences."
+      },
+      {
+        "style_id": "style:disco",
+        "name": "Disco",
+        "weight": 0.4,
+        "authority": 0.3,
+        "notes": "Evan Finds the Third Room and Mordechai's four on the floor."
+      },
+      {
+        "style_id": "style:dub",
+        "name": "Dub",
+        "weight": 0.3,
+        "authority": 0.3,
+        "notes": "Carlton Barrett and Style Scott among his influences; the band's dub mixes."
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "name": "Hip-hop",
+        "weight": 0.3,
+        "authority": 0.3,
+        "notes": "Producing as Beanz N Kornbread; the band plays the records hip-hop sampled."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.1,
+    "role_tendency": "accompanist",
+    "descriptors": ["breakbeat", "restrained", "dry", "laid back", "minimal"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"],
+        "note": "\"If I were a metronome, it would sound like the metronome is slightly ahead of the people playing with it, or slightly behind\"; not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight in every song scored here."
+    },
+    "dynamics": {
+      "range": 0.3,
+      "default_level": "mp",
+      "ghost_note_level": 40,
+      "accent_level": 95,
+      "balance": "\"I learned how to mix myself on the kit, like you would behind a console\": the hats even, the snare and kick short and low."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 26],
+      "fill_frequency": "rare",
+      "space_usage": 0.6
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [80, 112],
+    "timekeeping_context": ["free"],
+    "interaction": "The trio records its foundations together and plays its parts together for the first time; \"we're basically just a group of listeners\".",
+    "descriptors": ["in the pocket", "unhurried", "no fills"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Sixteenths on the hat",
+        "description": "One hand on the hat in even sixteenths through a whole song, at 82 in August 10 and 109 in People Everywhere.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-452123", "src:songsterr-608013"]
+        }
+      },
+      {
+        "name": "Cross-stick backbeat",
+        "description": "A cross-stick for every backbeat in August 10.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-452123"]
+        }
+      },
+      {
+        "name": "Ghost notes round the backbeat",
+        "description": "Soft strokes on the \"a\" of 2, the \"e\" of 3 and the \"a\" of 4 (Cómo Me Quieres, White Gloves).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-457082", "src:songsterr-470466"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Hat foot on 3",
+        "description": "The hat foot on 3 while the hand rests, in Cómo Me Quieres.",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-457082"]
+        }
+      },
+      {
+        "name": "Four on the floor",
+        "description": "The kick on every beat under the disco of Evan Finds the Third Room.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-691246"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.5,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.7,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.1,
+      "foot_ostinato_usage": 0.3,
+      "double_bass": 0.0,
+      "notes": "One bar held for a whole song under a moving guitar and bass; live he plays the keyboard with his left hand while drumming.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-24",
+        "searched": [
+          "Songsterr 452123, 608013, 470466, 470471, 457082, 691246, 470474 and 948571 (all human)",
+          "Modern Drummer (2020), GRAMMY.com (2022), Live For Live Music (2019)"
+        ],
+        "note": "No cross-rhythm, grouping, polymeter or displacement is written or named: every part is a one- or two-bar groove on the grid in 4/4."
+      }
+    },
+    "voice_language": {
+      "hihat": "Even sixteenths or eighths, opened on the \"and\" of 3 or 4 to turn; half-open on every \"and\" in August 10's bridge and Cómo Me Quieres.",
+      "snare": "On 2 and 4, a cross-stick in August 10; a piccolo with a leather strip over its centre, low and dry; a few ghosts round 3.",
+      "kick": "On 1 and round 3, off the beat on the \"and\" or \"a\"; four on the floor for the disco songs.",
+      "toms": "One floor tom, in the fills alone.",
+      "cymbals": "An 18\" dark crash, hardly struck; the ride on a section's first 1."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Promark DJ Johnson signature sticks."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "Dry, dead and low, like a 1970s record",
+      "A piccolo snare damped with a strip of leather to sound like a deeper drum"
+    ],
+    "cymbal_character": "Thin, soft cymbals: CB Percussion MX hats and a Meinl Byzance Dark crash.",
+    "sample_hints": {
+      "funk": "A damped, dead kit with the room taken out and a low, short snare."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:modern-drummer-dj-johnson-2020", "src:npr-tiny-desk-khruangbin-2018"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:dj-johnson-breakbeats",
+      "label": "Breakbeats, mimicked to the tone",
+      "category": "groove",
+      "description": "One or two bars of a breakbeat held through a song, sixteenths or eighths on the hat, the kick off the beat, nearly nothing added.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:dj-johnson-august-10-groove",
+        "pattern:dj-johnson-people-everywhere-groove"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:khruangbin-the-universe-smiles-upon-you-2015"
+        },
+        {
+          "recording_id": "rec:khruangbin-mordechai-2020"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:modern-drummer-dj-johnson-2020",
+          "src:khruangbin-wikipedia",
+          "src:live-for-live-music-khruangbin-2019"
+        ]
+      }
+    },
+    {
+      "id": "trait:dj-johnson-leather-snare",
+      "label": "The leather on the snare",
+      "category": "sound",
+      "description": "A strip of leather over part of a piccolo snare's head, its centre included, to drop it in pitch.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": [],
+      "heard_on": [
+        {
+          "recording_id": "rec:khruangbin-con-todo-el-mundo-2018"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:modern-drummer-dj-johnson-2020",
+          "src:npr-tiny-desk-khruangbin-2018",
+          "src:kexp-khruangbin-august-10-2018"
+        ]
+      }
+    },
+    {
+      "id": "trait:dj-johnson-no-fills",
+      "label": "Hardly a fill",
+      "category": "fill",
+      "description": "\"No drum solos\"; a fill only where a part ends, the snare into the floor tom.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [],
+      "heard_on": [
+        {
+          "recording_id": "rec:khruangbin-the-universe-smiles-upon-you-2015"
+        },
+        {
+          "recording_id": "rec:khruangbin-con-todo-el-mundo-2018"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:live-for-live-music-khruangbin-2019"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:dj-johnson-august-10-groove",
+        "name": "August 10, the groove",
+        "type": "groove",
+        "function": "Sixteenths on the hat, a cross-stick on 2 and 4, the kick on 1, its \"and\" and the \"a\" of 2, then the \"e\" and \"and\" of 3.",
+        "style_ids": ["style:funk", "style:psychedelic-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-452123"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 82,
+          "playable_range_bpm": [78, 84]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx",
+          "snare": "....c.......c...",
+          "kick": "x.x....x.xx....."
+        },
+        "tags": ["2015", "cross-stick", "breakbeat"],
+        "source": {
+          "recording_id": "rec:khruangbin-the-universe-smiles-upon-you-2015",
+          "transcription_source_id": "src:songsterr-452123"
+        }
+      },
+      {
+        "id": "pattern:dj-johnson-august-10-bridge",
+        "name": "August 10, the bridge",
+        "type": "groove_variation",
+        "function": "The hat half-open on every \"and\", the kick off the 1: on its \"and\", the \"a\" of 2, the \"and\" of 3 and the \"a\" of 4.",
+        "style_ids": ["style:funk", "style:psychedelic-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-452123"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 82,
+          "playable_range_bpm": [78, 84]
+        },
+        "lanes": {
+          "hihat": "xxhxxxhxxxhxxxhx",
+          "snare": "....c.......c...",
+          "kick": "..x....x..x....x"
+        },
+        "tags": ["2015", "half-open hat"],
+        "source": {
+          "recording_id": "rec:khruangbin-the-universe-smiles-upon-you-2015",
+          "transcription_source_id": "src:songsterr-452123"
+        }
+      },
+      {
+        "id": "pattern:dj-johnson-people-everywhere-groove",
+        "name": "People Everywhere (Still Alive), the groove",
+        "type": "groove",
+        "function": "Sixteenths on the hat, the snare on 2 and 4, the kick on 1, 3 and its \"e\": one bar for 54 of the song's 64.",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-608013"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 109,
+          "playable_range_bpm": [104, 110]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx",
+          "snare": "....x.......x...",
+          "kick": "x.......xx......"
+        },
+        "tags": ["2015", "breakbeat"],
+        "source": {
+          "recording_id": "rec:khruangbin-the-universe-smiles-upon-you-2015",
+          "transcription_source_id": "src:songsterr-608013"
+        }
+      },
+      {
+        "id": "pattern:dj-johnson-white-gloves-ghosts",
+        "name": "White Gloves, the ghosts",
+        "type": "groove",
+        "function": "Eighths, the snare on 2 and 4, a soft stroke on the \"a\" of 2 in one bar and the \"e\" of 3 in the next.",
+        "style_ids": ["style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-470466"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 91,
+          "playable_range_bpm": [86, 92]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x..g....x...",
+          "kick": "x.........x....."
+        },
+        "tags": ["2015", "ballad", "ghost notes"],
+        "source": {
+          "recording_id": "rec:khruangbin-the-universe-smiles-upon-you-2015",
+          "transcription_source_id": "src:songsterr-470466"
+        }
+      },
+      {
+        "id": "pattern:dj-johnson-maria-tambien-groove",
+        "name": "Maria También, the groove",
+        "type": "groove",
+        "function": "Eighths, the snare on 2, the \"e\" of 3, 4 and the \"a\" of 4, the kick on 1 and its \"and\", then the \"and\" of 3.",
+        "style_ids": ["style:funk", "style:surf-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-470471"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 104,
+          "playable_range_bpm": [98, 104]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x....x..x..x",
+          "kick": "x.x.......x....."
+        },
+        "tags": ["2018", "surf", "Thai funk"],
+        "source": {
+          "recording_id": "rec:khruangbin-con-todo-el-mundo-2018",
+          "transcription_source_id": "src:songsterr-470471"
+        }
+      },
+      {
+        "id": "pattern:dj-johnson-como-me-quieres-groove",
+        "name": "Cómo Me Quieres, the groove",
+        "type": "groove",
+        "function": "The hat on 1, the \"and\" of 1, 2, its \"e\" and \"and\", half-open on its \"a\", the hat foot on 3; the snare on 2 and 4.",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-457082"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 85,
+          "playable_range_bpm": [80, 86]
+        },
+        "lanes": {
+          "hihat": "x.x.xxxh..x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.........x.....",
+          "hihat_pedal": "........x......."
+        },
+        "tags": ["2018", "hat foot"],
+        "source": {
+          "recording_id": "rec:khruangbin-con-todo-el-mundo-2018",
+          "transcription_source_id": "src:songsterr-457082"
+        }
+      },
+      {
+        "id": "pattern:dj-johnson-como-me-quieres-verse",
+        "name": "Cómo Me Quieres, the verse",
+        "type": "groove_variation",
+        "function": "Ghosts on the \"a\" of 2, the \"e\" of 3 and the \"a\" of 4 round the backbeat, a sixteenth pair on the hat on 2.",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-457082"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 85,
+          "playable_range_bpm": [80, 86]
+        },
+        "lanes": {
+          "hihat": "x.x.xxx.x.x.x.x.",
+          "snare": "....x..g.g..x..g",
+          "kick": "x.........x....."
+        },
+        "tags": ["2018", "ghost notes"],
+        "source": {
+          "recording_id": "rec:khruangbin-con-todo-el-mundo-2018",
+          "transcription_source_id": "src:songsterr-457082"
+        }
+      },
+      {
+        "id": "pattern:dj-johnson-evan-groove",
+        "name": "Evan Finds the Third Room, the groove",
+        "type": "groove",
+        "function": "Four on the floor, the hat in eighths with a run of sixteenths into 3, opened on its \"and\", the kick on the \"a\" of 4.",
+        "style_ids": ["style:disco", "style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-691246"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 106,
+          "playable_range_bpm": [100, 106]
+        },
+        "lanes": {
+          "hihat": "x.x.x.xxxxo.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..x"
+        },
+        "tags": ["2018", "disco", "four on the floor"],
+        "source": {
+          "recording_id": "rec:khruangbin-con-todo-el-mundo-2018",
+          "transcription_source_id": "src:songsterr-691246"
+        }
+      },
+      {
+        "id": "pattern:dj-johnson-texas-sun-groove",
+        "name": "Texas Sun, the groove",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the kick on 1, the \"and\" of 2, 3 and the \"and\" of 4: 71 bars of the song's one bar.",
+        "style_ids": ["style:rnb-soul", "style:country"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-470474"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 112,
+          "playable_range_bpm": [106, 112]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x.....x."
+        },
+        "tags": ["2020", "Leon Bridges"],
+        "source": {
+          "recording_id": "rec:khruangbin-and-leon-bridges-texas-sun-2020",
+          "transcription_source_id": "src:songsterr-470474"
+        }
+      },
+      {
+        "id": "pattern:dj-johnson-so-we-wont-forget-offbeats",
+        "name": "So We Won't Forget, the hat on the \"and\"s",
+        "type": "groove",
+        "function": "The hat on the \"and\"s alone, the snare on 2 and 4, the kick on 1 and 3 and nothing else.",
+        "style_ids": ["style:funk", "style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-948571"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 101,
+          "playable_range_bpm": [96, 102]
+        },
+        "lanes": {
+          "hihat": "..x...x...x...x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "tags": ["2020", "disco"],
+        "source": {
+          "recording_id": "rec:khruangbin-mordechai-2020",
+          "transcription_source_id": "src:songsterr-948571"
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:dj-johnson-2020",
+      "label": "His kit (Modern Drummer, 2020)",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "snare",
+          "brand": "Diamond Drum Co.",
+          "model": "maple piccolo",
+          "size": "3x13",
+          "material": "maple"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Gretsch",
+          "size": "14x14"
+        },
+        {
+          "instrument": "kick",
+          "brand": "Gretsch",
+          "size": "14x20"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "CB Percussion",
+          "model": "MX",
+          "size": "14"
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Meinl",
+          "model": "Byzance Dark",
+          "size": "18"
+        }
+      ],
+      "sticks": "Promark DJ Johnson signature",
+      "layout_notes": "A jazz kit, smaller than most rock drummers': no rack tom; a leather strip over part of the snare head; the hats on his left.",
+      "endorsements": ["Promark"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:modern-drummer-dj-johnson-2020",
+          "src:dj-johnson-wikipedia",
+          "src:npr-tiny-desk-khruangbin-2018"
+        ]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Khruangbin",
+      "type": "band_member",
+      "years": {
+        "from": 2010
+      },
+      "bandmates": [
+        {
+          "name": "Laura Lee"
+        },
+        {
+          "name": "Mark Speer"
+        }
+      ],
+      "notes": "The Universe Smiles Upon You (2015), Con Todo el Mundo (2018), Mordechai (2020), Ali (2022), A La Sala (2024), The Universe Smiles Upon You ii (2025); Texas Sun (2020) and Texas Moon (2022) with Leon Bridges.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:khruangbin-wikipedia", "src:dj-johnson-wikipedia"]
+      }
+    },
+    {
+      "name": "Leon Bridges",
+      "type": "band_member",
+      "years": {
+        "from": 2020,
+        "to": 2022
+      },
+      "notes": "Khruangbin backing Bridges on the Texas Sun (2020) and Texas Moon (2022) EPs, recorded live with him.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:grammy-leon-bridges-dj-johnson-texas-moon-2022",
+          "src:khruangbin-wikipedia"
+        ]
+      }
+    },
+    {
+      "name": "Rudy Rasmus's gospel band, St. John's United Methodist, Houston",
+      "type": "house_band",
+      "years": {
+        "from": 2004
+      },
+      "notes": "On organ, a hired player, with Mark Speer on guitar.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:khruangbin-wikipedia", "src:dj-johnson-wikipedia"]
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "type": "family",
+      "target": {
+        "name": "John Foster",
+        "kind": "drummer"
+      },
+      "strength": 0.6,
+      "aspects": ["first drummer"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:grammy-leon-bridges-dj-johnson-texas-moon-2022"],
+        "note": "His uncle, the drummer whose example started him at two or three."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Clyde Stubblefield",
+        "kind": "drummer",
+        "id": "drummer:clyde-stubblefield"
+      },
+      "strength": 0.6,
+      "aspects": ["breakbeats"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jabo Starks",
+        "kind": "drummer",
+        "id": "drummer:jabo-starks"
+      },
+      "strength": 0.6,
+      "aspects": ["breakbeats"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Bernard Purdie",
+        "kind": "drummer",
+        "id": "drummer:bernard-purdie"
+      },
+      "strength": 0.6,
+      "aspects": ["groove"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"],
+        "note": "The interviewer heard \"a mellower version of Bernard Purdie\"; Johnson names him."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "James Gadson",
+        "kind": "drummer",
+        "id": "drummer:james-gadson"
+      },
+      "strength": 0.5,
+      "aspects": ["groove"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Ed Greene",
+        "kind": "drummer",
+        "id": "drummer:ed-greene"
+      },
+      "strength": 0.5,
+      "aspects": ["soul"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"],
+        "note": "Ed Greene's Barry White records."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "John \"JR\" Robinson",
+        "kind": "drummer",
+        "id": "drummer:jr-robinson"
+      },
+      "strength": 0.4,
+      "aspects": ["groove"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Al Jackson Jr.",
+        "kind": "drummer",
+        "id": "drummer:al-jackson-jr"
+      },
+      "strength": 0.5,
+      "aspects": ["pocket"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Ernie Isley",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "aspects": ["feel"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"],
+        "note": "\"a big influence\"."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Buddy Miles",
+        "kind": "drummer",
+        "id": "drummer:buddy-miles"
+      },
+      "strength": 0.4,
+      "aspects": ["groove"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Dave Early",
+        "kind": "drummer"
+      },
+      "strength": 0.3,
+      "aspects": ["restraint"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"],
+        "note": "Sade's drummer."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Martin Ditcham",
+        "kind": "drummer"
+      },
+      "strength": 0.3,
+      "aspects": ["restraint"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"],
+        "note": "Sade's drummer."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jeff Porcaro",
+        "kind": "drummer",
+        "id": "drummer:jeff-porcaro"
+      },
+      "strength": 0.5,
+      "aspects": ["groove"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"],
+        "note": "He plays Porcaro's part on \"I Keep Forgettin'\" live."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Earl Palmer",
+        "kind": "drummer",
+        "id": "drummer:earl-palmer"
+      },
+      "strength": 0.4,
+      "aspects": ["groove"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"],
+        "note": "On David Axelrod's records, \"The Dr. and the Diamond\"."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Carlton Barrett",
+        "kind": "drummer",
+        "id": "drummer:carlton-barrett"
+      },
+      "strength": 0.4,
+      "aspects": ["reggae"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Style Scott",
+        "kind": "drummer",
+        "id": "drummer:style-scott"
+      },
+      "strength": 0.4,
+      "aspects": ["dub"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-dj-johnson-2020"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "videos": [],
+    "philosophy": [
+      {
+        "idea": "Study the nuances of a groove, not its surface; mix yourself on the kit as from behind a console.",
+        "paraphrase_of_source_id": "src:modern-drummer-dj-johnson-2020"
+      },
+      {
+        "idea": "Keep it simple: the music tells you what it needs.",
+        "paraphrase_of_source_id": "src:live-for-live-music-khruangbin-2019"
+      },
+      {
+        "idea": "Serve the music as in church: tempo, place and level before yourself.",
+        "paraphrase_of_source_id": "src:modern-drummer-dj-johnson-2020"
+      }
+    ]
+  },
+  "legacy": {
+    "contribution": {
+      "description": "The drums of Khruangbin, one of the most popular instrumental bands of their time: breakbeats played as if sampled, on a small, damped kit, under a trio that draws on music from round the world.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:khruangbin-wikipedia", "src:modern-drummer-dj-johnson-2020"]
+      }
+    },
+    "influence_score": 0.3,
+    "innovations": [
+      "A piccolo snare damped with a leather strip to stand in for a deep one on the road"
+    ],
+    "accolades": [],
+    "common_misconceptions": [
+      "That his drumming is simple: \"At first listen, his drumming sounds simple. But his tone, touch, timing, and focused parts make the ... music groove hard\" (Modern Drummer, 2020)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "djjohnson",
+    "headline_pattern_ids": [
+      "pattern:dj-johnson-august-10-groove",
+      "pattern:dj-johnson-people-everywhere-groove"
+    ],
+    "default_kit_sound": "A damped, dead kit with the room taken out, the snare low and short",
+    "generation_rules": [
+      "One or two bars held for the song; little variation.",
+      "Sixteenths or eighths on the hat; the snare on 2 and 4.",
+      "The kick on 1 and round 3, off the beat.",
+      "Hardly a crash or a fill; a fill only where a part ends, into the floor tom."
+    ],
+    "avoid": ["Swing", "Busy fills", "Rack toms", "A wet, roomy sound"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:clyde-stubblefield",
+        "drummer:bernard-purdie",
+        "drummer:carlton-barrett"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Gospel church organ, the breakbeats of Stubblefield, Starks and Purdie, and Jamaica's Barrett and Style Scott, into Khruangbin's dry, minimal grooves."
+    },
+    "tags": ["khruangbin", "breakbeat", "minimal", "Houston", "2010s", "2020s"]
+  },
+  "key_recording_ids": [
+    "rec:khruangbin-the-universe-smiles-upon-you-2015",
+    "rec:khruangbin-con-todo-el-mundo-2018",
+    "rec:khruangbin-mordechai-2020",
+    "rec:khruangbin-and-leon-bridges-texas-sun-2020"
+  ]
+}

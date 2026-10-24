@@ -21232,6 +21232,421 @@ Read 2026-10-23.
 - https://equipboard.com/pros/clay-aeschliman ; https://www.famousbirthdays.com/people/clay-aeschliman.html
 - Discogs API: masters 1439652 (New Levels New Devils), 986621 (Renaissance)
 
+## DO. DJ Johnson (2026-10-24)
+
+Added at the owner's request, with August 10 named as the song to build with the
+most care. A new record, `drummer-model/drummers/dj-johnson.json`, at
+`drummer:dj-johnson`, schema 1.6.0, and the `djjohnson` style. No candidate
+existed: `drummer:donald-johnson` is A Certain Ratio's drummer (CP), a
+different man, and is left as it was. Four recordings are new, each carrying
+its tracks: The Universe Smiles Upon You (2015), Con Todo el Mundo (2018),
+Mordechai (2020) and the Texas Sun EP with Leon Bridges (2020). No genre is
+new. **Group: Funk drummers**: his own account of his playing is breakbeats,
+and his first influences are Stubblefield, Starks, Purdie and Gadson.
+
+**Who he is.** Donald Johnson Jr. (Donald Ray Johnson to Modern Drummer), born
+in Houston on 13 March 1983 (Wikipedia; Modern Drummer calls him thirty-six in
+2020). He started on drums at two or three, after his uncle, the drummer John
+Foster; quit them, "because there's so many dope drummers in Houston", and
+moved to the organ in his late teens (GRAMMY.com, 2022; Wikipedia). The Texas
+All-State ensembles; orchestral percussion with Jim Whitfill. In 2004 he and
+Mark Speer were hired players in Pastor Rudy Rasmus's gospel band at St.
+John's United Methodist, Johnson on organ. After Speer and Laura Lee toured
+with Yppah in 2010 they asked him to join their trio as its drummer, to play
+"simple break-beats" under the guitar and bass (Wikipedia): "my red carpet
+back to the drum set". Half of the Houston hip-hop production duo Beanz N
+Kornbread, with Kenneth Roy.
+
+**How he plays, in his words.** To Modern Drummer (Ilya Stemkovsky, 2020):
+"I was never a chops-oriented drummer. I focused on drum breaks or breakbeats.
+I would mimic those as closely as possible, down to the tone of the drum or
+the opening or tone of the hi-hat ... I studied the nuances of a groove as
+opposed to its surface. To get it right, I learned how to mix myself on the
+kit, like you would behind a console." From church: "it's not about you; you
+disappear". "We never use a click on anything." To Live For Live Music (2019),
+on fills: "Depends on your definition of 'drum fill'"; "No drum solos";
+"Keep it simple. Because the music just doesn't need it." He names Clyde
+Stubblefield and Jabo Starks, Bernard Purdie, James Gadson, Ed Greene's Barry
+White records, JR Robinson, Al Jackson, Ernie Isley, Buddy Miles, Sade's Dave
+Early and Martin Ditcham, Jeff Porcaro, Earl Palmer on David Axelrod's records,
+Carlton Barrett and Style Scott.
+
+**The kit.** "A jazz kit, smaller than many rock drummers'" (Wikipedia). In
+2020: a 3x13 Diamond Drum Co. maple snare, a 14x14 Gretsch floor tom, a 14x20
+Gretsch bass drum; 14" CB Percussion MX hats and an 18" Meinl Byzance Dark
+crash (Modern Drummer). No rack tom. "I use a leather strip on the head, which
+drops the drum in pitch. So it allows me to play a piccolo snare everywhere I
+go. The leather doesn't cover the entire head, just a portion of it, including
+the center." At NPR's Tiny Desk (May 2018) and KEXP (June 2018) the same:
+a chrome piccolo snare under a brown leather strip, one floor tom, the hats on
+his left, a crash; deep red sparkle shells at KEXP. The style's kit is
+`teatowel` (Gogodze's damped kit, slowed, the room taken out): no samples of
+his own are free to use.
+
+**Credits.** The Universe Smiles Upon You: Wikipedia's personnel, Donald "DJ"
+Johnson, drums. For the others no credit list was readable (Discogs refused
+the request; Bandcamp lists none): he is the trio's only drummer on every
+record (Wikipedia; Modern Drummer), and the Texas Sun tab names its drum track
+"Drumkit - Donald Johnson". Texas Sun was recorded live with Bridges and the
+engineer Steve Christensen, "like concerts" (GRAMMY.com).
+
+**Devices.** None: a dated `devices_search`. Every part is a one- or two-bar
+groove in 4/4 on the grid.
+
+**The songs.** Eight, each from a human Songsterr tab (`aiGenerated` false),
+each tempo measured by autocorrelation of the record:
+
+| Song                            | Year | Record                       | Tempo (record / tab) | What defines it                                                                         | Source of the bars  |
+| ------------------------------- | ---- | ---------------------------- | -------------------- | --------------------------------------------------------------------------------------- | ------------------- |
+| August 10                       | 2015 | The Universe Smiles Upon You | 82.1 / "165"         | Sixteenths on the hat, a cross-stick on 2 and 4, the kick off the beat; no crash        | 452123, rev 375470  |
+| People Everywhere (Still Alive) | 2015 | The Universe Smiles Upon You | 109.2 / 110          | One bar for 54 of 64: sixteenths, the kick on 1, 3 and its "e"                          | 608013, rev 719388  |
+| White Gloves                    | 2015 | The Universe Smiles Upon You | 91.5 / 90            | Eighths; a soft stroke on the "a" of 2 or the "e" of 3 from the second verse            | 470466, rev 4684259 |
+| Maria También                   | 2018 | Con Todo el Mundo            | 103.7 / "208"        | Eighths, the snare on 2, the "e" of 3, 4 and its "a"; a bar and a half out              | 470471, rev 9147209 |
+| Cómo Me Quieres                 | 2018 | Con Todo el Mundo            | 85.5 / 84            | The hat alone with the foot on 3; ghosts either side of 3; half-open hats on the "and"s | 457082, rev 606520  |
+| Evan Finds the Third Room       | 2018 | Con Todo el Mundo            | 105.8 / 100-106      | Four on the floor, the hat opened on the "and" of 3, eighths then sixteenths            | 691246, rev 2977424 |
+| Texas Sun                       | 2020 | Texas Sun (Leon Bridges)     | 111.5 / 114          | Quarters, then eighths, over the kick on 1, the "and" of 2, 3 and the "and" of 4        | 470474, rev 413610  |
+| So We Won't Forget              | 2020 | Mordechai                    | 100.8 / 103          | The kick on 1 and 3 and nothing else; the hat on the "and"s; the snare on the "a" of 2  | 948571, rev 2792837 |
+
+**August 10, with the most care.** Its tab is written at 165 with the
+cross-stick on 3, but the record autocorrelates at 82.1 (and at 164.4, its
+eighth): the transcriber counted in eighths, so every tab bar is half a bar of
+the record and its eighth-note hats are sixteenths. The record's snare band
+peaks on the second and fourth beats at 82, where the tab's cross-sticks fall
+when read two tab bars to one. Read that way the tab's 178 bars after its 2/4
+pickup are the record's 89, which at 82 last 260 s of its 266. The groove is a
+four-bar unit: the kick on 1, its "and" and the "a" of 2, then the "e" and
+"and" of 3 in every bar, with a last kick on the "a" of 4 in the second bar and
+the "and" of 4 in the fourth. Twelve times through, three of the phrases close
+on the hat opened on the "and" of 4, one on the floor tom (tab bar 65), one
+into the bridge (97). The bridge, sixteen bars, opens the hat half on every
+"and" and takes the kick off the 1 but for its first and ninth bars. Then the
+groove again, and a last bar of kicks and cross-sticks. There is no crash in
+the whole tab. Maria También's tab is counted in eighths too (208 for the
+record's 104), and is read the same way.
+
+Where the songs differ from the tabs or the records (each comment says so):
+
+- **Percussion is left out**: August 10's congas, cabasa, triangle and
+  woodblock; Cómo Me Quieres' congas and shakers; Texas Sun's tambourine, and a
+  note it doubles on the kick under a triangle's number.
+- **Snare runs**: People Everywhere's opening bar of eight snare sixteenths and
+  its last bar's four are left out, as the critic takes no four in a row
+  without written sticking.
+- **Silence**: Maria También's bar of nothing in its break is left out (the
+  critic takes no bar without a backbeat), keeping the half bar where the hat
+  and snare come back in.
+- **White Gloves' extra strokes are ghosts**: the tab writes them at full
+  weight; on the record the snare band there is about half the backbeat's.
+- **Evan's mid tom**: the tab writes the fills on a mid tom, which no source
+  puts on his kit; kept as written.
+- **Phrase ends** fall where a section draws them, not on the record's exact
+  bars, and lengths are rounded to whole sections.
+
+**Left out.** Time (You and I) (Mordechai, 2020), the owner's suggestion with
+So We Won't Forget: its only Songsterr drum track is named "Drums
+(regenerated)", so So We Won't Forget, a human tab of the same album and a
+close cousin of its groove, stands for it. Pelota (2020) is percussion more than
+kit. Ali (2022), A La Sala (2024), The Universe Smiles Upon You ii (2025) and
+Texas Moon (2022): not yet looked at.
+
+**Open questions.** His handedness: Wikipedia says "He is left-handed"; Modern
+Drummer says he plays the keyboard left-handed as he drums, and at the Tiny
+Desk his hats are on his left, a right-handed kit. Where he and Speer met in
+2004: the Red Cat Jazz Cafe (his Wikipedia page) or the church band (the
+band's).
+
+### Sources (DO)
+
+Read 2026-10-24.
+
+- https://en.wikipedia.org/wiki/Donald_%22DJ%22_Johnson ; https://en.wikipedia.org/wiki/Khruangbin ; https://en.wikipedia.org/wiki/The_Universe_Smiles_Upon_You (API)
+- https://www.moderndrummer.com/article/khruangbins-dj-johnson/ (Wayback Machine, 25 July 2020)
+- https://www.grammy.com/news/leon-bridges-khruangbin-texas-moon-ep-interview
+- https://liveforlivemusic.com/features/khruangbin-interview-2019/
+- https://www.youtube.com/watch?v=vWLJeqLPfSU (NPR Tiny Desk, frames) ; Hl-XsneiGHo (KEXP, frames)
+- https://khruangbin.bandcamp.com/album/mordechai ; https://khruangbin.bandcamp.com/album/texas-sun
+- https://www.songsterr.com/a/wa/song?id=452123 ; 608013 ; 470466 ; 470471 ; 457082 ; 691246 ; 470474 ; 948571 ; 910938 (Time (You and I), not used)
+- Records: YouTube XutKfAL7wx8, Js4CLSsH--c, gk40wQHtR2o, 7hlGqj3ImQI, pg9_a90l69g, QcD_YXCxxZM, zSWNWWREtsI, e7hsV5gSVdY
+
+## DP. Greg Errico (2026-10-24)
+
+The `errico` style plays **songs** the way `bozzio` (DL) does: each New picks
+one of his records with Sly and the Family Stone, and its tempo, meter,
+sections and grooves come with it. He was a 15-a candidate (41st in DC's
+ranking, Funk), and the owner asked for
+him by name. His record, `drummer-model/drummers/greg-errico.json`, keeps the
+candidate's id, `drummer:greg-errico`, now at `draft` (schema 1.6.0). No
+recording is new: Dance to the Music, Everyday People, Stand!, Hot Fun in the
+Summertime and Thank You were in the model from 15-b. Five of their tracks are
+linked to the new songs, and one track, Stand! itself, is added to the Stand!
+album. His new sources are in `sources/greg-errico.json`. No genre is new:
+`style:funk`, `style:rnb-soul` (funk-soul), `style:psychedelic-rock` (rock).
+Filed with the funk drummers.
+
+**Who he is.** Born in San Francisco on 1 September 1948. He started at
+fourteen and is self-taught: while his friends worked from method books he
+played along to records in his basement, "everything from Xavier Cugat to Buddy
+Rich" (Modern Drummer, 17 September 2015). A founding member of Sly and the
+Family Stone in December 1966, at seventeen and a half its youngest, and its
+drummer on A Whole New Thing (1967), Dance to the Music and Life (1968),
+Stand! (1969) and the singles of 1969, at Woodstock and the Fillmore East; in
+1971 the first member to quit, "citing the band's continuing turmoil", during
+the There's a Riot Goin' On sessions. Then on tour with Weather Report
+(1973-74; Zawinul said no one played Boogie Woogie Waltz better), David Bowie's
+Diamond Dogs tour (1974), the Jerry Garcia Band on and off to 1984,
+Quicksilver Messenger Service; he produced and drummed on Betty Davis (1973).
+Rock and Roll Hall of Fame with the band, 1993 (all Wikipedia unless named).
+
+**How he plays, in the songs.** What the tabs and the records show:
+
+- **Straight eighths, driving, hardly a fill.** Every 4/4 record here
+  autocorrelates at the half beat and not the third: no swing. The tabs write
+  a fill every twenty bars or so, and Thank You and Higher none at all.
+- **The kick moving with the bass.** Thank You's kick on 1, the "a" of 2 and 3
+  leaves Larry Graham's slapped bass its room; Everyday People's moves off the
+  1 every other bar. Errico on Graham: "natural chemistry", knowing when the
+  bass drum and the bass should lock and when they should play counterparts
+  (Modern Drummer, 2015).
+- **The snare where the record wants it.** On every beat for Dance to the
+  Music's "glorified Motown beats" (Jerry Martini, Wikipedia); on the
+  off-beats, the open hat on every eighth over the kick on the beats, for I
+  Want to Take You Higher's church shout; on 2 and 4 elsewhere.
+- **The floor tom with the kick.** Sing a Simple Song's stomp: the kick and
+  the floor tom together on 1 and its "e" and on 3 and its "e", the hat on the
+  "and"s.
+
+**The songs.** Seven. Every credit is from Wikipedia's personnel list for the
+song: Errico on drums on each. Each record was downloaded from YouTube (22050
+Hz mono), its tempo taken by a comb over the onset autocorrelation, and its
+swing from the hat band's autocorrelation at a third, a half and two thirds of
+the beat. No human drum transcription was found for six of them, so they follow
+machine tabs (Songsterr's `aiGenerated`, or a revision history that is a
+machine's), checked against the record for tempo, meter, length and form:
+
+| Song                      | Year | Tempo (record / tab) | Meter    | What the groove is                                                                          | Source of the bars             |
+| ------------------------- | ---- | -------------------- | -------- | ------------------------------------------------------------------------------------------- | ------------------------------ |
+| Dance to the Music        | 1967 | 127.9 / 128          | 4/4      | The snare on every beat; the kick alone under the scat; snare sixteenths into the band      | 404345, rev 292994 (human)     |
+| Everyday People           | 1968 | 115.5 / 115          | 4/4      | Eighths, two bars in turn, the kick off the 1 in the second                                 | 247823, rev 7314416 (machine)  |
+| Sing a Simple Song        | 1968 | 101.6 / "90"         | 4/4      | The kick and floor tom on 1 and its "e", the hat on the "and"s; a shout on every eighth     | 2418053, rev 3195775 (machine) |
+| Stand!                    | 1969 | 108.1 / 108          | 4/4, 2/4 | Eighths, the kick moving bar to bar; three bars of 2/4 at the ends of lines; no coda        | 2867716, rev 3769496 (machine) |
+| I Want to Take You Higher | 1969 | 103.4 / 104          | 4/4      | The open hat on every eighth, the snare on the off-beats; the backbeat back for the chorus  | 3077253, rev 4042291 (machine) |
+| Hot Fun in the Summertime | 1969 | 145.8 / 146          | 12/8     | Eighths on the hats, the snare on 2 and 4 of the four pulses                                | 247819, rev 2296366 (machine)  |
+| Thank You (Falettinme…)   | 1969 | 106.3 / 106          | 4/4      | The hat open on the "and"s of 1 and 3, the kick on the "a" of 2; sixteenths in the vamp out | 3441846, rev 4514148 (machine) |
+
+Where the songs differ from the tabs or the records (each comment says so):
+
+- **Stand! stops before its coda.** After an acetate went down quietly in a San
+  Francisco club, Sly recut the final gospel section, and "most of the Family
+  Stone was unavailable for the session, and Stone resorted to using mostly
+  studio musicians" (Wikipedia). The record's hats and tambourine jump 5-6 dB
+  at 2:22, the tab's bar 65: the song is bars 1-63.
+- **Sing a Simple Song's tab gives the wrong tempo.** It says 90; its 98 bars
+  fill the record's 3:55 at 101.6, which the record measures.
+- **The app holds the snare to three sixteenths in a row.** Dance to the
+  Music's fill and its bars into the band, and Sing a Simple Song's opening
+  bar, are broken in threes; that bar's last beat is left as air, as the critic
+  asks a quarter of every bar to be.
+- **Thank You** follows the single (4:48; the tab's 129 bars at 106 are 4:51);
+  the record linked, -T9vmaTI2LE, is the longer 6:01 cut at the same tempo.
+  Songsterr 69664, the record's linked tab, has human revisions without drums
+  (2011, 2026) and drums from a machine regeneration (2026); it agrees with
+  3441846 on the groove. Its last-vamp sixteenths on the hats, a run of
+  fourteen in bars 94-97, are broken in threes.
+- **Lengths are rounded to whole sections**, and silent bars are left out:
+  Sing a Simple Song's three bars of voices, the four bars before the drums
+  in Thank You and in Hot Fun, Higher's last bar (to keep its
+  arrangement to 32 slots).
+- **A 12/8 figure is one bar.** Rows are 32 steps at most, so Hot Fun's two
+  bars in turn are two figures a section picks between.
+
+**What the style does not play.** Love City's drum solo (Life, 1968), the
+Errico most sampled ("particularly Gregg Errico's drum solo on 'Love City'",
+Wikipedia, Life): no transcription of it was found. The Woodstock set: human
+tabs of Dance to the Music and Stand! there exist (Songsterr 1648762, 1648774,
+Brandon Bromberg) and could make live versions later.
+
+**Devices.** None: a groove drummer. The `devices_search` lists the tabs and
+sources read.
+
+**Kit.** On television in the winter of 1969-70 (Thank You; ImDxjn8tcYY,
+looked at frame by frame): a white front head lettered "SLY AND THE FAMILY
+STONE" in stacked wavy letters; black toms studded all over with rows of small
+white dots; chrome hardware. No source read names the make or the finish;
+Wikipedia says only that he has played Slingerland, Ludwig and DW, and DW
+with Paiste now. No free samples of his kits exist. The 1967-68 songs and Stand!
+and Hot Fun use `smdrums`, a 1960s Ludwig, round and a little loose; Thank You
+and Higher `funkSoul`, the same Ludwig with a fat, short snare. Every kit is
+sampled.
+
+**The likeness.** The same television performance: slim, at twenty-one, his
+brown hair long, full and curly to the shoulders, round tinted glasses in thin
+gold frames, clean-shaven, a lime-green blouse with full sleeves under an open
+waistcoat patterned in gold. The kit as above, its head drawn from the real
+one (`head: 'sly-and-the-family-stone'`), its dots the `dots` field.
+
+**Lineage.** Self-taught from records, Xavier Cugat to Buddy Rich
+(`influenced_by` Rich, from Modern Drummer 2015). David Garibaldi, Jeff Porcaro
+and Chad Smith name him (`cited_by`, matching their records'
+`cites_as_influence`). Larry Graham is his rhythm-section partner; Sly, Freddie
+and Rose Stone, Cynthia Robinson and Jerry Martini his bandmates.
+
+**Sources.** Wikipedia: Greg Errico; Dance to the Music; Everyday People; Sing
+a Simple Song; Stand! (song); I Want to Take You Higher; Hot Fun in the
+Summertime; Thank You (Falettinme Be Mice Elf Agin); Life. Robin Tolleson,
+"Greg Errico on Sly and the Family Stone's Fantastic, Forgotten Concert
+Document Live at the Fillmore East", Modern Drummer, 17 September 2015.
+Songsterr 404345 (human), 247823, 2418053, 2867716, 3077253, 247819, 3441846
+and 69664 (machine). The records on YouTube: Jn2PNlhvy8E, YUUhDoCx8zc,
+42YGprrAOj0, Q49vjFN6Fsw, BqWQzOzK3kw, Bg0tFRea0wA, -T9vmaTI2LE; the
+television performance ImDxjn8tcYY.
+
+## DQ. Andy Newmark (2026-10-24)
+
+The `newmark` style plays **songs** the way `dennisdavis` (CR) does: each New
+picks one of his records, and its tempo, kit, sections and grooves come with
+it, in the record's order. He was a 15-a candidate (Pop and session drummers),
+and the owner asked for him by name, In Time and the rest of Fresh above all.
+His record, `drummer-model/drummers/andy-newmark.json`, keeps the candidate's
+id, `drummer:andy-newmark`, now at `draft` (schema 1.6.0). One recording is new,
+Gary Wright's The Dream Weaver (1975), carrying Love Is Alive; Let Me Have It
+All is a new track on Fresh; In Time, Young Americans and More Than This were
+in the model from 15-b and are linked to the new songs. His new sources are in
+`sources/andy-newmark.json`. No genre is new: `style:funk`, `style:rnb-soul`
+(funk-soul), `style:pop-rock-session` (rock). Filed with the pop and session
+drummers.
+
+**Who he is.** Born in Port Chester, New York, on 14 July 1950 and raised in
+Mamaroneck; his mother was Bermudian, and he moved to Bermuda at sixteen and
+played in the Bermuda Jam (Wikipedia). His first lesson was at nine, in 1959,
+on a practice pad from Haskell Harr's book; from fourteen to eighteen he was "a
+two and four rhythm and blues rock and roll drummer", until seeing Tony
+Williams at about nineteen "my mind expanded" (Live From My Drum Room, 28 March
+2021). His roommate Rick Marotta sent him to Carly Simon's audition and "set me
+straight when I started overplaying"; Simon "wanted a drummer that played like
+Russ Kunkel". On No Secrets in London he watched Jim Gordon record You're So
+Vain and learnt "conviction and owning every note". Pat Rizzo brought him to
+Sly Stone in 1972, to replace Gerry Gibson (who had replaced Greg Errico); he
+made one album with the band, Fresh (1973), and toured with it for two years.
+Then the first month of George Harrison and Ravi Shankar's 1974 tour, Ronnie
+Wood's I've Got My Own Album to Do (1974) with Willie Weeks, Bowie's Young
+Americans, Gary Wright, Lennon's Double Fantasy (1980), Roxy Music's Avalon (1982),
+and London sessions with Bryan Ferry, Pink Floyd, Roger
+Waters and David Gilmour (Wikipedia). Sly Stone, in his memoir, called him the
+best drummer he ever worked with.
+
+**His kit and sound** (Modern Drummer, 1984, as Todd Bishop excerpted it): a
+four-piece, because "a four-piece drumset tends to make me play more groove
+conscious. Ninety-five percent of the time, I'm playing only hihat, snare and
+bass drum"; a 24" Yamaha bass drum ("I have a very, very heavy foot"), flat,
+with a blanket inside; a 12" (or 13") rack tom and a 16" floor tom, unmuffled;
+a 5½ x 14 snare tuned tight with rimshots live, in the studio "way down ... a
+little piece of tape or a little Kleenex"; Zildjian 13" New Beat hats, "the
+smallest that Zildjian makes", for a high "tick", a 20" K or A ride, two quick
+crashes. On time: "I stretch the time as far as I can. I put as much space as
+I can between every beat"; "I can sort of play behind the click a hair".
+
+**Fresh and the Rhythm Ace.** Wikipedia says Fresh, like There's a Riot Goin'
+On, "features prominent use of drum machine rhythms", without saying how. In
+his own words (Live From My Drum Room, 2021), every track was played along with
+Sly's rhythm box, "a really old-fashioned little rhythm ... a rumba, a cha-cha,
+a tango, and rock one and rock two", an Ace Tone Rhythm Ace, which he played
+along with again on Gary Wright's Love Is Alive: "If you heard just the drums
+on Fresh and the Rhythm Ace, I'm all over the place ... I am not locked in with
+the machine. I'll move ahead. Then you hear it in the cans. I compensate. But
+that's why it feels so live." So every Fresh song is his kit (sampled, the
+damped `teatowel`), and the box, which is in the mix, is not written. Todd
+Bishop hears "a second drum track hiding in the mix" on Let Me Have It All;
+which notes are overdubs is not known.
+
+**Devices.** None: a dated `devices_search`. In Time's snare off 2 and 4 is a
+composed figure inside the bar, not a displacement carried over the bar line.
+
+**The songs.**
+
+| Song               | Year | Record                         | Meter | Tempo          | What defines it                                                                            | Source of the bars                                      |
+| ------------------ | ---- | ------------------------------ | ----- | -------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------- |
+| In Time            | 1973 | Fresh                          | 4/4   | 102 (measured) | sixteenths on the hat, opened on the "a" of 1, closed by the foot on 2; no snare on 2 or 4 | Massimo Malaguti, score in his video, verse 1 (17 bars) |
+| Let Me Have It All | 1973 | Fresh                          | 4/4   | 93 (measured)  | busy, a loose two-bar idea, the snare round 2, fills through the 1                         | Todd Bishop, PDF, the first chorus (10 bars)            |
+| Young Americans    | 1975 | Young Americans                | 4/4   | 84 (measured)  | the hat round the beat, opened on 2 and 4 over the snare                                   | Songsterr 67275 (human), by its markers                 |
+| Love Is Alive      | 1975 | The Dream Weaver (Gary Wright) | 4/4   | 98 (measured)  | two-bar verses with the snare once on 2; open sixteenths in the chorus; the bell           | Songsterr 1310174 (human), sections read from its bars  |
+| More Than This     | 1982 | Avalon (Roxy Music)            | 4/4   | 128 (measured) | quarter notes on the hat, played live to Ferry's machine                                   | Songsterr 486431 (human), drum track "Andy Newmark"     |
+
+Every tempo is the record's, by beat tracking and autocorrelation. Credits:
+Fresh's personnel lists Newmark as its drummer, and Rustee Allen on bass for In
+Time and Let Me Have It All (Wikipedia, the album); Young Americans, Sigma
+Sound, August 1974 (Wikipedia, the song); Love Is Alive, Newmark on drums with
+all else on keyboards (Wikipedia, the song; Jim Keltner drums elsewhere on The
+Dream Weaver); Avalon, Newmark on tracks 1-7 and 9, Rick Marotta on 8
+(Wikipedia, the album), More Than This being track 1.
+
+**In Time, how it was built.** No human tab exists (Songsterr 385785 has no
+drum track). Malaguti's video plays its score over the record, and its audio
+lines up with the record at 40.5 s, where verse 1 begins: his 17 bars are verse
+1 and the bar into the first instrumental. The form is the record's timed
+lyrics (lrclib, the Fresh release, 347 s) on the beat track: intro 0:00-0:40,
+verses at 0:40, 1:40, 2:33 and 3:56, instrumentals at 1:20, 2:17 and 3:33, the
+"daylight is all I see" bridge at 3:11 and the "two years too long to wait"
+coda from 4:46. A cover (Jake Najor, MmHWk0C4C0c), aligned to the record,
+plays the same hat-and-snare groove through the intro and the instrumentals.
+So the sections reuse the verse's bars: plainer ones in the intro and
+instrumentals, the busier ones in the bridge and coda. That split, and the
+sections' lengths (8 bars each, the schema's limit), are a reconstruction, and
+the song's comment says so. Malaguti's last bar (the snare only on 4) is a
+figure: as a fill it would take the "and" of 3 from bars that play it
+everywhere else, and the critic would find no backbeat.
+
+**Let Me Have It All.** The record's timed lyrics put Bishop's first bar (from
+0:28) at the end of verse 1 and his bars 2-9 on chorus 1, bar 9 the fill into
+verse 2, bar 10 verse 2's first bar. The chorus plays his bars; the verse is
+his bar 10 with three of his bars whose snare keeps off the "and" of 3; the
+four-bar intro is reconstructed. His runs of four snare sixteenths into the 1
+(bars 1 and 9) put the third on the mid tom, as the critic takes no four in a
+row without written sticking.
+
+**The others.** Young Americans follows its tab section by section; the
+opening fill ends the interlude (as on the record at bar 60), and fills of four
+snare sixteenths in a row are left out. Love Is Alive's tab has no markers; its
+shapes give the form (intro, verse, chorus, verse, chorus, bridge on the bell,
+verse, chorus, outro on the bell), and the twelve-bar verses are eight. More
+Than This: where the tab writes the hat, the snare and a tom on one step (bars
+8, 16, 34) the hat goes; bar 60's run of seven snares and bar 26's off-grid
+notes are left out; the outro's quarter-note stretch is the verse again.
+
+**Left out.** If You Want Me to Stay, Fresh's hit: its human Songsterr tab
+(69663) has an empty drum track in every revision, and the two others (3853702, 6426954) are machine-made; a fold of the record shows the hat in plain eighths,
+not the machine tabs' sixteenth pickups, so they are not trusted. Babies Makin'
+Babies: Bishop's grooves (2018) are of the alternate version on the 2007
+reissue and cover only its first minute. Frisky, Thankful N' Thoughtful, Skin
+I'm In, Keep On Dancin': no transcription found. Anticipation (Bishop's
+transcription, 2011): brushes and a ridden crash, "the departure" from how he
+played, in his words; (Just Like) Starting Over (Songsterr 11882, human) and
+Dream Weaver (Freddie Hubbard's Windjammer, Bishop): not yet scored.
+
+**Library contradictions.** Fresh's In Time track (15-b) says "ghosted snare";
+Malaguti writes no ghosts, the snare's unaccented strokes being full. The
+album's personnel line is Wikipedia's; Discogs was not read.
+
+**The likeness.** Ronnie Wood's Kilburn concert, 1974, with Keith Richards and
+Willie Weeks (DRUMMERWORLD's remaster, BPy7mfSZY5Q, and the owner's still from
+it): wavy light brown hair over the ears, round wire glasses with tinted
+lenses, a loose cream shirt, a dark wine-red kit.
+
+### Sources (DQ)
+
+Read 2026-10-24.
+
+- https://en.wikipedia.org/wiki/Andy_Newmark ; Fresh_(Sly_and_the_Family_Stone_album) ; If_You_Want_Me_to_Stay ; Young_Americans_(song) ; Young_Americans_(album) ; Avalon_(Roxy_Music_album) ; More_Than_This_(Roxy_Music_song) ; Double_Fantasy ; The_Dream_Weaver ; Love_Is_Alive_(Gary_Wright_song) ; I've_Got_My_Own_Album_to_Do (API)
+- https://cruiseshipdrummer.com/2011/07/06/1984-modern-drummer-interview-andy-newmark/ ; https://cruiseshipdrummer.com/2024/06/15/andy-newmarks-set-up/ (Modern Drummer, 1984)
+- https://www.youtube.com/watch?v=cUQftJ6IFVs (Live From My Drum Room, E29, 28 March 2021; captions)
+- https://www.youtube.com/watch?v=vn_OaiqLllU (Massimo Malaguti, In Time)
+- https://cruiseshipdrummer.com/2025/12/10/groove-o-the-day-let-me-have-it-all-andy-newmark/ and its PDF; .../2018/12/28/groove-o-the-day-andy-newmark-babies-makin-babies/ ; .../2011/07/24/transcription-andy-newmark-anticipation/ ; .../2021/01/02/groove-o-the-day-andy-newmark-dreamweaver/
+- https://www.songsterr.com/a/wa/song?id=67275 ; 1310174 ; 486431 ; 69663 (empty drums) ; 3853702 , 6426954 (machine-made) ; 385785 (no drums)
+- https://lrclib.net (timed lyrics: In Time, 347 s; Let Me Have It All, 176 s)
+- https://www.youtube.com/watch?v=MmHWk0C4C0c (Jake Najor, In Time cover, aligned to the record)
+- https://www.youtube.com/watch?v=BPy7mfSZY5Q (DRUMMERWORLD, Kilburn 1974)
+- https://albumism.com/features/sly-the-family-stone-fresh-turns-45-anniversary-retrospective
+- Records: g6xhSqz_4m8 (In Time), CGumgIIq7d4 (Let Me Have It All), gZFabOuF4Ps (If You Want Me to Stay), iO6OvHxD_m8 (Young Americans, 2016 remaster), 2MZdvuGgcvU (Love Is Alive), kOnde5c7OG8 (More Than This)
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

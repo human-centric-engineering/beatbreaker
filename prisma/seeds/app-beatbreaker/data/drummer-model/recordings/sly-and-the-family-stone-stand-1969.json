@@ -22,7 +22,9 @@
           "source_ids": ["src:greg-errico-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=42YGprrAOj0"
+      "youtube": "https://www.youtube.com/watch?v=42YGprrAOj0",
+      "style_key": "errico",
+      "song_key": "sing-a-simple-song"
     },
     {
       "title": "I Want to Take You Higher",
@@ -35,12 +37,22 @@
         }
       },
       "youtube": "https://www.youtube.com/watch?v=BqWQzOzK3kw",
-      "transcriptions": [
-        {
-          "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=3077253"
+      "style_key": "errico",
+      "song_key": "i-want-to-take-you-higher"
+    },
+    {
+      "title": "Stand!",
+      "drummer_ids": ["drummer:greg-errico"],
+      "drums": {
+        "description": "Eighths with the kick moving bar to bar and a bar of 2/4 at the end of a line; the gospel coda was recut with studio players.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:stand-song-wikipedia", "src:songsterr-2867716"]
         }
-      ]
+      },
+      "youtube": "https://www.youtube.com/watch?v=Q49vjFN6Fsw",
+      "style_key": "errico",
+      "song_key": "stand"
     }
   ]
 }

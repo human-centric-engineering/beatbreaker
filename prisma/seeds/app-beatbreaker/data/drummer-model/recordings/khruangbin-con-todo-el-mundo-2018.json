@@ -1,0 +1,83 @@
+{
+  "id": "rec:khruangbin-con-todo-el-mundo-2018",
+  "title": "Con Todo el Mundo",
+  "artist": "Khruangbin",
+  "year": 2018,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:funk", "style:middle-eastern"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:khruangbin-wikipedia", "src:modern-drummer-dj-johnson-2020"],
+    "note": "Released 26 January 2018 (Dead Oceans; Night Time Stories). The trio's drummer on every record (Wikipedia; Modern Drummer)."
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dj-johnson",
+      "name": "DJ Johnson",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "The band's second album, after Middle Eastern and Spanish music: the hat foot, ghosts round 3 and four on the floor."
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Maria También",
+      "drummer_ids": ["drummer:dj-johnson"],
+      "drums": {
+        "description": "Eighths at 104, the snare on 2, the \"e\" of 3, 4 and the \"a\" of 4; a break of a bar and a half.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:khruangbin-wikipedia", "src:songsterr-470471"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7hlGqj3ImQI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=470471"
+        }
+      ],
+      "style_key": "djjohnson",
+      "song_key": "maria-tambien"
+    },
+    {
+      "title": "Cómo Me Quieres",
+      "drummer_ids": ["drummer:dj-johnson"],
+      "drums": {
+        "description": "The hat alone with the foot on 3, then the snare and kick under it; ghosts either side of 3; the hat half-open on the \"and\"s.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:khruangbin-wikipedia", "src:songsterr-457082"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=g0AFKOMcJWk",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=457082"
+        }
+      ],
+      "style_key": "djjohnson",
+      "song_key": "como-me-quieres"
+    },
+    {
+      "title": "Evan Finds the Third Room",
+      "drummer_ids": ["drummer:dj-johnson"],
+      "drums": {
+        "description": "Four on the floor at 106, the hat opened on the \"and\" of 3, in eighths and then in sixteenths.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:khruangbin-wikipedia", "src:songsterr-691246"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=QcD_YXCxxZM",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=691246"
+        }
+      ],
+      "style_key": "djjohnson",
+      "song_key": "evan"
+    }
+  ]
+}

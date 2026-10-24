@@ -1,0 +1,43 @@
+{
+  "id": "rec:khruangbin-mordechai-2020",
+  "title": "Mordechai",
+  "artist": "Khruangbin",
+  "year": 2020,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:funk", "style:disco"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:khruangbin-wikipedia", "src:khruangbin-bandcamp"],
+    "note": "Released 26 June 2020 (Dead Oceans; Night Time Stories); ten tracks (Bandcamp)."
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dj-johnson",
+      "name": "DJ Johnson",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "The band's third album, with more singing and disco: eighths and the hat on the \"and\"s under the kick on 1 and 3."
+    }
+  ],
+  "tracks": [
+    {
+      "title": "So We Won't Forget",
+      "drummer_ids": ["drummer:dj-johnson"],
+      "drums": {
+        "description": "Eighths at 101, the kick on 1 and 3 and nothing else; the hat on the \"and\"s; a passage with the snare on the \"a\" of 2.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:khruangbin-bandcamp", "src:songsterr-948571"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=lo4KMGiy--Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=948571"
+        }
+      ],
+      "style_key": "djjohnson",
+      "song_key": "so-we-wont-forget"
+    }
+  ]
+}

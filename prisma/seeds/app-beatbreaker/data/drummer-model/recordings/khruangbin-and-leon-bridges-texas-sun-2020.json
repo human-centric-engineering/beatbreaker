@@ -1,0 +1,50 @@
+{
+  "id": "rec:khruangbin-and-leon-bridges-texas-sun-2020",
+  "title": "Texas Sun",
+  "artist": "Khruangbin and Leon Bridges",
+  "year": 2020,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:country"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:khruangbin-wikipedia",
+      "src:grammy-leon-bridges-dj-johnson-texas-moon-2022",
+      "src:khruangbin-bandcamp"
+    ],
+    "note": "An EP, released 7 February 2020 (Dead Oceans); four tracks, recorded live with Bridges with the engineer Steve Christensen."
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dj-johnson",
+      "name": "DJ Johnson",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "Khruangbin backing Leon Bridges, recorded \"like concerts\": the restraint he names for Bridges' songs."
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Texas Sun",
+      "drummer_ids": ["drummer:dj-johnson"],
+      "drums": {
+        "description": "The hat in quarters, then eighths, over the kick on 1, the \"and\" of 2, 3 and the \"and\" of 4, all but unchanged.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:grammy-leon-bridges-dj-johnson-texas-moon-2022",
+            "src:songsterr-470474"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=zSWNWWREtsI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=470474"
+        }
+      ],
+      "style_key": "djjohnson",
+      "song_key": "texas-sun"
+    }
+  ]
+}

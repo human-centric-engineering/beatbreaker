@@ -2,10 +2,18 @@
   "meta": {
     "id": "drummer:greg-errico",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
+    "record_status": "draft",
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-24",
+    "authors": ["John", "Claude"],
+    "completeness": 0.3,
+    "open_questions": [
+      "No human transcription of six of the seven songs: Everyday People, Sing a Simple Song, Stand!, Higher, Hot Fun and Thank You follow machine tabs, checked against the records for tempo and form only.",
+      "Love City (Life, 1968), the drum solo hip-hop sampled most: no transcription found; not scored.",
+      "Who drummed on the recut coda of Stand!: Wikipedia says only \"mostly studio musicians\".",
+      "His kit in 1969: the toms black, studded with rows of white dots, seen on television; Wikipedia names Slingerland, Ludwig and DW over his career but not this kit.",
+      "The Woodstock set (1969) and the Fillmore East shows (1968): human tabs of the Woodstock Dance to the Music and Stand! exist (Songsterr 1648762, 1648774) and could make live versions."
+    ]
   },
   "identity": {
     "name": "Greg Errico",
@@ -22,25 +30,604 @@
       "from": 1966,
       "ongoing": true
     },
-    "summary": "Founding drummer of Sly and the Family Stone (1966–71), later with Weather Report on tour, David Bowie and the Jerry Garcia Band."
+    "summary": "American drummer, founding member of Sly and the Family Stone (1966-71), on every one of their records up to There's a Riot Goin' On, the first to leave the band; then on tour with Weather Report (1973-74) and David Bowie (1974), with the Jerry Garcia Band on and off to 1984, and a producer (Betty Davis, 1973). Self-taught from records. Rock and Roll Hall of Fame, 1993.",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "roles": ["band_member", "session", "producer"]
   },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Self-taught from records",
+        "impact": "Started at fourteen and taught himself, playing along in his basement to \"everything from Xavier Cugat to Buddy Rich\", jazz, soul and big band, while his friends worked from method books.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:greg-errico-moderndrummer-2015"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1966,
+        "event": "A founding member of Sly and the Family Stone in December 1966, at seventeen and a half its youngest.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:greg-errico-wikipedia", "src:greg-errico-moderndrummer-2015"]
+        }
+      },
+      {
+        "year": 1969,
+        "event": "Played Woodstock with the band.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:greg-errico-wikipedia"]
+        }
+      },
+      {
+        "year": 1971,
+        "event": "The first member to quit the band, citing its continuing turmoil, during the sessions for There's a Riot Goin' On.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:greg-errico-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:greg-errico-family-stone",
+      "label": "Sly and the Family Stone",
+      "years": {
+        "from": 1966,
+        "to": 1971
+      },
+      "context": "The band's drummer from A Whole New Thing (1967) to the singles of 1969, Woodstock and the Fillmore East: psychedelic soul with four singers, horns and Larry Graham's bass.",
+      "defining_traits": [
+        "the hats in eighths, straight",
+        "the kick moving round the bass line",
+        "the snare on every beat for Motown, on the off-beats for church",
+        "very few fills"
+      ],
+      "key_recording_ids": [
+        "rec:sly-and-the-family-stone-dance-to-the-music-1968",
+        "rec:sly-and-the-family-stone-everyday-people-1968",
+        "rec:sly-and-the-family-stone-stand-1969",
+        "rec:sly-and-the-family-stone-hot-fun-in-the-summertime-1969",
+        "rec:sly-and-the-family-stone-thank-you-falettinme-be-mice-elf-agin-1969"
+      ]
+    },
+    {
+      "id": "era:greg-errico-after-sly",
+      "label": "Weather Report, Bowie, Jerry Garcia Band",
+      "years": {
+        "from": 1973,
+        "to": 1984
+      },
+      "context": "On tour with Weather Report (1973-74) and David Bowie (Diamond Dogs, 1974); the Jerry Garcia Band on and off; producing and drumming on Betty Davis (1973).",
+      "defining_traits": ["session and touring drummer", "producer"]
+    }
+  ],
   "style_profile": {
     "genres": [
       {
         "style_id": "style:funk",
+        "name": "Funk",
         "weight": 0.9,
-        "authority": 0.7
+        "authority": 0.7,
+        "notes": "Sly and the Family Stone."
       },
       {
         "style_id": "style:psychedelic-rock",
-        "weight": 0.5
+        "name": "Psychedelic rock",
+        "weight": 0.5,
+        "notes": "The band's psychedelic soul."
       },
       {
         "style_id": "style:rnb-soul",
-        "weight": 0.5
+        "name": "R&B and soul",
+        "weight": 0.5,
+        "notes": "Hot Fun in the Summertime, Everyday People."
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.2,
+    "role_tendency": "driver",
+    "descriptors": ["driving", "straight", "locked with the bass", "unfussy"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-404345"],
+        "note": "Not measured: the records were beat-tracked for tempo and swing only."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight eighths in every 4/4 song scored (each record autocorrelates at the half beat, not the third); Hot Fun is in 12/8."
+    },
+    "dynamics": {
+      "range": 0.4,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 115,
+      "balance": "Hats, snare and kick even; the open hat carries Higher."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 20],
+      "fill_frequency": "rare",
+      "space_usage": 0.5
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [100, 130],
+    "timekeeping_context": ["free"],
+    "interaction": "With Larry Graham: \"natural chemistry\", knowing when the bass drum and the bass should lock and when they should play counterparts (Modern Drummer, 2015); Thank You's kick leaves the slapped bass its room.",
+    "descriptors": ["driving", "in the pocket", "straight"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Open hat on the eighths",
+        "description": "The hat left open on every eighth to drive a shout (I Want to Take You Higher), or opened on the \"and\"s of 1 and 3 (Thank You).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3077253", "src:songsterr-3441846"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Kick round the bass line",
+        "description": "The kick moving bar to bar with the bass: on the \"a\" of 2 in Thank You, off the 1 every other bar in Everyday People; \"outstanding kick work\" (Modern Drummer, 2015).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:greg-errico-moderndrummer-2015",
+            "src:songsterr-3441846",
+            "src:songsterr-247823"
+          ]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-404345"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.3,
+      "foot_ostinato_usage": 0.1,
+      "double_bass": 0.0,
+      "notes": "Grooves in 4/4 and 12/8; Stand!'s bars of 2/4 are the song's.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-24",
+        "searched": [
+          "Songsterr: Dance to the Music (404345, human); machine tabs of Everyday People (247823), Sing a Simple Song (2418053), Stand! (2867716), I Want to Take You Higher (3077253), Hot Fun in the Summertime (247819), Thank You (3441846, 69664)",
+          "Human tabs of the Woodstock Dance to the Music (1648762) and Stand! (1648774)",
+          "Wikipedia: Greg Errico, Stand! (song), Dance to the Music, Everyday People, Thank You, Hot Fun in the Summertime, Sing a Simple Song, I Want to Take You Higher, Life",
+          "Modern Drummer, 17 September 2015 (Live at the Fillmore East)"
+        ],
+        "note": "No polyrhythmic or metric device in any song or source read: a groove drummer."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths, straight; open on every eighth for a shout; opened on the \"and\"s of 1 and 3 in Thank You; sixteenths in its vamp.",
+      "snare": "On 2 and 4; on every beat (Dance to the Music); on the off-beats (Higher); runs of sixteenths into the band.",
+      "kick": "Moving round the bass line: the \"a\" of 2, the \"and\"s, pairs on 1 and its \"e\".",
+      "toms": "The floor tom with the kick in Sing a Simple Song; sixteenths on a tom for a fill.",
+      "cymbals": "A crash on every eighth in Higher's intro; little else."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "A 1960s kit, round and a little loose, the hats bright; the white front head lettered \"SLY AND THE FAMILY STONE\" and black toms studded with white dots on television in 1969-70"
+    ],
+    "cymbal_character": "Not documented for the period; Paiste now (Wikipedia).",
+    "sample_hints": {
+      "funk": "A 1960s Ludwig for the 1967-68 records; a fat, short snare for Thank You and Higher."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:greg-errico-wikipedia", "src:sly-and-the-family-stone-thank-you-tv-1969"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:greg-errico-thank-you-kick",
+      "label": "The kick on the \"a\" of 2",
+      "category": "groove",
+      "description": "Thank You's groove: the kick on 1, the \"a\" of 2 and 3, the hat opened on the \"and\"s of 1 and 3, the space left for the slapped bass.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:greg-errico-thank-you-groove"],
+      "heard_on": [
+        {
+          "recording_id": "rec:sly-and-the-family-stone-thank-you-falettinme-be-mice-elf-agin-1969"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-3441846", "src:songsterr-69664"]
+      }
+    },
+    {
+      "id": "trait:greg-errico-snare-every-beat",
+      "label": "The snare on every beat",
+      "category": "groove",
+      "description": "Dance to the Music's \"glorified Motown beats\" (Jerry Martini): the snare on all four beats under the kick on the \"and\"s.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:greg-errico-dance-to-the-music-beat"],
+      "heard_on": [
+        {
+          "recording_id": "rec:sly-and-the-family-stone-dance-to-the-music-1968"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dance-to-the-music-song-wikipedia", "src:songsterr-404345"]
+      }
+    },
+    {
+      "id": "trait:greg-errico-church-two-beat",
+      "label": "The church two-beat",
+      "category": "groove",
+      "description": "The snare on the off-beats over the kick on the beats, the hat open on every eighth: I Want to Take You Higher's shout.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "pattern_ids": ["pattern:greg-errico-higher-two-beat"],
+      "heard_on": [
+        {
+          "recording_id": "rec:sly-and-the-family-stone-stand-1969"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-3077253"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:greg-errico-thank-you-groove",
+        "name": "Thank You: the groove",
+        "type": "groove",
+        "function": "The hat opened on the \"and\"s of 1 and 3, the snare on 2 and 4, the kick on 1, the \"a\" of 2, 3 and the \"a\" of 4: room for Larry Graham's slapped bass. A machine tab, checked against the record for tempo and form.",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3441846"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 106,
+          "playable_range_bpm": [102, 110]
+        },
+        "lanes": {
+          "hihat": "x.o.x.x.x.o.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x......xx......x"
+        },
+        "source": {
+          "recording_id": "rec:sly-and-the-family-stone-thank-you-falettinme-be-mice-elf-agin-1969",
+          "transcription_source_id": "src:songsterr-3441846"
+        },
+        "tags": ["1969", "open hats"]
+      },
+      {
+        "id": "pattern:greg-errico-dance-to-the-music-beat",
+        "name": "Dance to the Music: the snare on every beat",
+        "type": "groove",
+        "function": "The Motown beat the song was made with: the hat and the snare on every beat, the kick on 1 and the \"and\"s of 2, 3 and 4.",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-404345"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [124, 132]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...",
+          "snare": "x...x...x...x...",
+          "kick": "x.....x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:sly-and-the-family-stone-dance-to-the-music-1968",
+          "transcription_source_id": "src:songsterr-404345"
+        },
+        "tags": ["1967", "four on the snare"]
+      },
+      {
+        "id": "pattern:greg-errico-dance-to-the-music-fill",
+        "name": "Dance to the Music: the fill",
+        "type": "fill",
+        "function": "The snare on 1 and 2, then in sixteenths through 3 and 4 into the band.",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-404345"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [124, 132]
+        },
+        "lanes": {
+          "hihat": "x...x...........",
+          "snare": "x...x...xxxxxxxx",
+          "kick": "x.....x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:sly-and-the-family-stone-dance-to-the-music-1968",
+          "transcription_source_id": "src:songsterr-404345"
+        },
+        "tags": ["1967", "fill"]
+      },
+      {
+        "id": "pattern:greg-errico-everyday-people-groove",
+        "name": "Everyday People: the two bars",
+        "type": "groove",
+        "function": "Eighths on the hats, the kick on 1, the \"and\"s of 2 and 3, 3 and the \"and\" of 4, then the same with the \"and\" of 1 in place of the 1. A machine tab, checked against the record for tempo and form.",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-247823"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [112, 118]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.....x.x.x...x.|..x...x.x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:sly-and-the-family-stone-everyday-people-1968",
+          "transcription_source_id": "src:songsterr-247823"
+        },
+        "tags": ["1968"]
+      },
+      {
+        "id": "pattern:greg-errico-sing-a-simple-song-stomp",
+        "name": "Sing a Simple Song: the stomp",
+        "type": "groove",
+        "function": "The hat on the \"and\"s, the snare on 2 and 4, the kick and the floor tom together on 1 and its \"e\" and on 3 and its \"e\". A machine tab, checked against the record for tempo and form.",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2418053"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 102,
+          "playable_range_bpm": [98, 106]
+        },
+        "lanes": {
+          "hihat": "..x...x...x...x.",
+          "snare": "....x.......x...",
+          "tom_3": "x.......x.......",
+          "kick": "xx......xx......"
+        },
+        "source": {
+          "recording_id": "rec:sly-and-the-family-stone-stand-1969",
+          "transcription_source_id": "src:songsterr-2418053"
+        },
+        "tags": ["1968", "floor tom"]
+      },
+      {
+        "id": "pattern:greg-errico-higher-two-beat",
+        "name": "I Want to Take You Higher: the shout",
+        "type": "groove",
+        "function": "A church two-beat: the open hat on every eighth, the snare on the off-beats, the kick on the beats. A machine tab, checked against the record for tempo and form.",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3077253"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 103,
+          "playable_range_bpm": [100, 106]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.",
+          "snare": "..x...x...x...x.",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:sly-and-the-family-stone-stand-1969",
+          "transcription_source_id": "src:songsterr-3077253"
+        },
+        "tags": ["1969", "gospel"]
+      },
+      {
+        "id": "pattern:greg-errico-stand-verse",
+        "name": "Stand!: the verse",
+        "type": "groove",
+        "function": "Eighths, the kick on 1, 3, its \"and\" and the \"and\" of 4; a bar of 2/4 at the end of a line. A machine tab, checked against the record for tempo and form.",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2867716"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 108,
+          "playable_range_bpm": [104, 112]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:sly-and-the-family-stone-stand-1969",
+          "transcription_source_id": "src:songsterr-2867716"
+        },
+        "tags": ["1969"]
+      },
+      {
+        "id": "pattern:greg-errico-hot-fun-verse",
+        "name": "Hot Fun in the Summertime: the verse",
+        "type": "groove",
+        "function": "A lilting 12/8: the hats on every eighth, the snare on 2 and 4 of the four pulses, the kick on 1, the last eighth of 2, 3 and the last eighth of 4. A machine tab, checked against the record for tempo and form.",
+        "style_ids": ["style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-247819"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 146,
+          "playable_range_bpm": [140, 150]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.x.x.x.x.",
+          "snare": "......x...........x.....",
+          "kick": "x.........x.x.........x."
+        },
+        "source": {
+          "recording_id": "rec:sly-and-the-family-stone-hot-fun-in-the-summertime-1969",
+          "transcription_source_id": "src:songsterr-247819"
+        },
+        "tags": ["1969", "12/8"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:greg-errico-tv-1969",
+      "label": "Television, 1969-70",
+      "context": "live",
+      "drums": [],
+      "hardware": [],
+      "layout_notes": "A white front head on the bass drum lettered \"SLY AND THE FAMILY STONE\" in stacked wavy letters; the toms black, studded with rows of small white dots; chrome hardware. The make is not named in any source read; Wikipedia names Slingerland, Ludwig and DW over his career.",
+      "endorsements": [],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:sly-and-the-family-stone-thank-you-tv-1969",
+          "src:greg-errico-wikipedia"
+        ]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "Sly and the Family Stone",
@@ -48,6 +635,34 @@
       "years": {
         "from": 1966,
         "to": 1971
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:greg-errico-wikipedia"]
+      }
+    },
+    {
+      "name": "Weather Report",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1973,
+        "to": 1974
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:greg-errico-wikipedia"]
+      }
+    },
+    {
+      "name": "David Bowie",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1974,
+        "to": 1974
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:greg-errico-wikipedia"]
       }
     },
     {
@@ -56,13 +671,171 @@
       "years": {
         "from": 1974,
         "to": 1984
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:greg-errico-wikipedia"]
+      }
+    },
+    {
+      "name": "Quicksilver Messenger Service",
+      "type": "band_member",
+      "years": {
+        "from": 1985,
+        "to": 1995
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:greg-errico-wikipedia"],
+        "note": "\"Mid 80's - mid 90's\" (Wikipedia)."
       }
     }
   ],
   "key_recording_ids": [
+    "rec:sly-and-the-family-stone-dance-to-the-music-1968",
+    "rec:sly-and-the-family-stone-everyday-people-1968",
     "rec:sly-and-the-family-stone-stand-1969",
-    "rec:sly-and-the-family-stone-hot-fun-in-the-summertime-1969"
+    "rec:sly-and-the-family-stone-hot-fun-in-the-summertime-1969",
+    "rec:sly-and-the-family-stone-thank-you-falettinme-be-mice-elf-agin-1969"
   ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:greg-errico-moderndrummer-2015"],
+        "note": "\"I'd put on everything from Xavier Cugat to Buddy Rich\": the records he taught himself to."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "David Garibaldi",
+        "kind": "drummer",
+        "id": "drummer:david-garibaldi"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:david-garibaldi-wikipedia", "src:david-garibaldi-drumclick-2025"],
+        "note": "Among the drummers Garibaldi names (Garibaldi's record)."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Jeff Porcaro",
+        "kind": "drummer",
+        "id": "drummer:jeff-porcaro"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:porcaro-starlicks-1988", "src:hot-fun-wikipedia"],
+        "note": "Porcaro's record; Toto cited Hot Fun in the Summertime for Hold the Line."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Chad Smith",
+        "kind": "drummer",
+        "id": "drummer:chad-smith"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chad-smith-wikipedia"],
+        "note": "Among Smith's influences (Smith's record)."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Larry Graham",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:greg-errico-moderndrummer-2015",
+          "src:thank-you-falettinme-be-mice-elf-agin-wikipedia"
+        ],
+        "note": "\"Natural chemistry\": when the bass drum and bass lock and when they play counterparts."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Sly Stone",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:greg-errico-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Freddie Stone",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:greg-errico-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Rose Stone",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:greg-errico-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Cynthia Robinson",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:greg-errico-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Jerry Martini",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:greg-errico-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [],
+    "notes": "Self-taught; no method of his own published."
+  },
   "legacy": {
     "contribution": {
       "description": "The original drummer of Sly and the Family Stone, whose intricate grooves on their late-1960s records have been sampled by hip-hop producers over and over; Jeff Porcaro, David Garibaldi and Chad Smith all name him.",
@@ -70,10 +843,43 @@
         "confidence": "likely",
         "source_ids": ["src:greg-errico-wikipedia"]
       }
-    }
+    },
+    "influence_score": 0.6,
+    "innovations": [],
+    "accolades": [
+      {
+        "name": "Rock and Roll Hall of Fame, with Sly and the Family Stone (1993)",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:greg-errico-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": []
   },
   "beatbreaker": {
-    "group": "Funk drummers",
-    "build_priority": 1
+    "style_key": "errico",
+    "headline_pattern_ids": [
+      "pattern:greg-errico-thank-you-groove",
+      "pattern:greg-errico-dance-to-the-music-beat"
+    ],
+    "default_kit_sound": "SM Drums' 1960s Ludwig; Funk & soul's fat snare for Thank You and Higher",
+    "generation_rules": [
+      "Straight eighths on the hats.",
+      "The kick moves round the bass line.",
+      "Hardly a fill.",
+      "Few ghost notes."
+    ],
+    "avoid": ["Swing", "Busy fills", "Ghost-note clusters"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:buddy-rich"],
+      "primary_descendants": [
+        "drummer:david-garibaldi",
+        "drummer:jeff-porcaro",
+        "drummer:chad-smith"
+      ],
+      "lineage_blurb": "Self-taught from records, Xavier Cugat to Buddy Rich; David Garibaldi, Jeff Porcaro and Chad Smith among the drummers who name him."
+    },
+    "tags": ["sly and the family stone", "funk", "psychedelic soul", "60s", "woodstock"]
   }
 }

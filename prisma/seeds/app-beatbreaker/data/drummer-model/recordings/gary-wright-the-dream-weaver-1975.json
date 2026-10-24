@@ -1,0 +1,48 @@
+{
+  "id": "rec:gary-wright-the-dream-weaver-1975",
+  "title": "The Dream Weaver",
+  "artist": "Gary Wright",
+  "year": 1975,
+  "type": "album",
+  "release": "Warner Bros.",
+  "style_ids": ["style:pop-rock-session"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:the-dream-weaver-wikipedia", "src:love-is-alive-gary-wright-wikipedia"],
+    "note": "Drums by Andy Newmark and Jim Keltner; Love Is Alive is Newmark's."
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:andy-newmark",
+      "name": "Andy Newmark",
+      "drummer_role": "co_drummer",
+      "why_it_matters": "Live drums on an album played on keyboards, to an Ace Tone Rhythm Ace, as on Fresh."
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Love Is Alive",
+      "drummer_ids": ["drummer:andy-newmark"],
+      "drums": {
+        "description": "Sixteenths on the hat in the intro, two-bar verses with the snare once on 2, sixteenths opened on every \"and\" in the chorus, the ride's bell in the bridge and outro: played to a Rhythm Ace.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:love-is-alive-gary-wright-wikipedia",
+            "src:live-from-my-drum-room-newmark-2021",
+            "src:songsterr-1310174"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=2MZdvuGgcvU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=1310174"
+        }
+      ],
+      "style_key": "newmark",
+      "song_key": "love-is-alive"
+    }
+  ]
+}

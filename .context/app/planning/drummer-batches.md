@@ -102,6 +102,35 @@ What came of it:
   passes them, as with `doubleKick`, but the 3D drummer plays them with one
   foot. Before it, a single-pedal player's runs had to claim a double pedal.
 
+## Owner's picks, second set (built 2026-10-24)
+
+Three more by name. Greg Errico and Andy Newmark were candidates (batch 1
+ranks); DJ Johnson of Khruangbin had no record: `drummer:donald-johnson` is A
+Certain Ratio's drummer, a different man, so his is `drummer:dj-johnson`.
+
+| Fork | Drummer      | Record                 | Style key   | Likeness       | Research | Drummers-tab group       |
+| ---- | ------------ | ---------------------- | ----------- | -------------- | -------- | ------------------------ |
+| 1    | DJ Johnson   | `drummer:dj-johnson`   | `djjohnson` | `DJ_JOHNSON`   | DO       | Funk drummers            |
+| 2    | Greg Errico  | `drummer:greg-errico`  | `errico`    | `GREG_ERRICO`  | DP       | Funk drummers            |
+| 3    | Andy Newmark | `drummer:andy-newmark` | `newmark`   | `ANDY_NEWMARK` | DQ       | Pop and session drummers |
+
+What came of it:
+
+- **A player's own front head.** `KitStyle.head` paints the kick's front head
+  as the player's was, in place of BeatBreaker's name: Errico's Sly and the
+  Family Stone lettering, traced from the owner's image into outlines
+  (`front-heads.ts`). `fineDots` prints his black shells' rows of small studs.
+- **Machine tabs are not transcriptions.** Errico's fork found four Sly tracks
+  listing machine-made Songsterr tabs under `transcriptions`, which is for
+  human ones; they are gone. Six of his seven songs follow machine tabs
+  (nothing human exists), checked against the records for tempo and form,
+  and say so.
+- **Fresh was played to a drum machine.** Newmark played along with Sly's
+  Rhythm Ace on every track (his own account, 2021): his drums over it, not
+  instead of it, so the songs keep sampled kits and the machine's part is not
+  written. In Time's bars are verse 1 from a published score; the rest of its
+  form reuses them, and says so.
+
 ## The brief each fork gets
 
 Paste this to each fork, with its row from the batch table and `S`, the
