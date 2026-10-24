@@ -1124,7 +1124,12 @@ that reads them ([The owner chokepoint](#the-owner-chokepoint), t-801):
   workflows, knowledge and cost logs are `not-personal`, each with its reason.
   `tests/unit/lib/db/owner-classification.test.ts` parses every schema file —
   core's and the fork tiers' — and fails on an unclassified model linked to a
-  user or to a personal model.
+  user or to a personal model. A user link is a relation to `User`, or a
+  column that is not the key of a relation to another model and is named
+  `userId`, `createdBy`, `uploadedBy` or `ownerId`, or is a `String` named
+  `…UserId` (`respondentUserId`). A user id named any other way is invisible
+  to it until you start the doc line above the field with
+  `/// owner-classification: user-id`.
 - **A fork classifies its own models in `lib/app/owner-classification.ts`**
   (t-807), never by editing `OWNER_CLASSIFICATION`. The scaffold ships empty;
   fill `initAppOwnerClassification()` with one `registerAppOwnerClassification()`
