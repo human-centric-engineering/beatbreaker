@@ -31,6 +31,7 @@ const fakes = vi.hoisted(() => {
     setAside: ReturnType<typeof vi.fn>;
     setSeeThrough: ReturnType<typeof vi.fn>;
     setBrushes: ReturnType<typeof vi.fn>;
+    setLeather: ReturnType<typeof vi.fn>;
     ingest: (step: ScheduledStep) => void;
     dispose: ReturnType<typeof vi.fn>;
   }[] = [];
@@ -44,6 +45,7 @@ const fakes = vi.hoisted(() => {
     setAside = vi.fn();
     setSeeThrough = vi.fn();
     setBrushes = vi.fn();
+    setLeather = vi.fn();
     ingest = vi.fn();
     dispose = vi.fn();
     constructor(
@@ -283,6 +285,26 @@ describe('DrummerCanvas', () => {
     expect(stage.setSeeThrough).toHaveBeenCalledWith(true);
     rerender(<DrummerCanvas {...props} seeThrough={false} />);
     expect(stage.setSeeThrough).toHaveBeenLastCalledWith(false);
+    expect(fakes.instances.length).toBe(1);
+  });
+
+  it('lays the leather on the snare from the start for a kit deadened with it, and takes it off without a new stage', () => {
+    const { subscribeSteps } = listeners();
+    const props = {
+      lefty: false,
+      grip: 'american' as const,
+      view: 'front' as const,
+      viewSeq: 0,
+      playing: false,
+      subscribeSteps,
+      audioNow: stableAudioNow,
+      audioLatency: stableAudioLatency,
+    };
+    const { rerender } = render(<DrummerCanvas {...props} leather />);
+    const stage = fakes.instances[0];
+    expect(stage.setLeather).toHaveBeenCalledWith(true);
+    rerender(<DrummerCanvas {...props} leather={false} />);
+    expect(stage.setLeather).toHaveBeenLastCalledWith(false);
     expect(fakes.instances.length).toBe(1);
   });
 

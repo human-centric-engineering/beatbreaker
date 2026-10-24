@@ -316,6 +316,7 @@ export function DrummerView({
                 }}
                 seeThrough={seeThrough}
                 brushes={!!c.catalogue?.kits[c.kit]?.brushes}
+                leather={!!c.catalogue?.kits[c.kit]?.leather}
                 aside={chartShown}
                 style={c.style}
                 playing={c.playing}

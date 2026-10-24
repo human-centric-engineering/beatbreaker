@@ -168,6 +168,8 @@ export interface Kit {
   trim?: number;
   /** Played with wire brushes rather than sticks: the 3D drummer holds brushes for it. */
   brushes?: boolean;
+  /** A strip of leather laid over the snare head to deaden it: the 3D kit draws it. */
+  leather?: boolean;
   /** Attribution, shown in the Kit panel. */
   credit?: string;
   master: { lp?: number; drive?: number; room?: number };

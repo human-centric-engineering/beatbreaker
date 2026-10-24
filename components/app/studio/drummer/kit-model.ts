@@ -41,6 +41,8 @@ export interface KitModel {
   ) => void;
   /** Put up what a player's kit has beyond the usual (Copeland's octobans, their own front head), and take down what it does not. */
   dress: (kit: KitStyle) => void;
+  /** Lay a strip of leather over the snare head, for a sound kit whose snare is deadened with one. */
+  setLeather: (on: boolean) => void;
   /**
    * Draw the name on the front head the other way round, for a kit seen in a
    * mirror: a left-handed kit is the right-handed one mirrored, and the name
@@ -400,8 +402,22 @@ export function buildKit(m: Materials): KitModel {
     heads.push({ id, geometry, shape, moved: false });
     root.add(f);
   }
-  // snare stand, tom mounts off the kick, floor tom legs
+  /* A strip of worn brown leather over the snare head, toward its far rim and
+     off where the stick lands: DJ Johnson's at the Tiny Desk (2018). On the
+     drum's body, so it rides the drum when it shakes; lifted clear of the head's dip. */
   const snare = PIECES.snare;
+  const leather = new THREE.Mesh(
+    new THREE.BoxGeometry(snare.radius * 0.9, 0.003, 0.045),
+    new THREE.MeshStandardMaterial({ color: '#4a2c18', roughness: 0.8 })
+  );
+  leather.name = 'leather';
+  leather.position.set(snare.radius * 0.1, 0.0045, -snare.radius * 0.62);
+  leather.rotation.y = 0.25;
+  leather.castShadow = true;
+  leather.visible = false;
+  shakers.find((s) => s.id === 'snare')?.group.add(leather);
+
+  // snare stand, tom mounts off the kick, floor tom legs
   root.add(
     stand(
       new THREE.Vector3(snare.centre[0], snare.centre[1] - snare.depth - 0.02, snare.centre[2]),
@@ -755,6 +771,9 @@ export function buildKit(m: Materials): KitModel {
          about the centre too, and needs no offset to land back on the head. */
       logoMirrored = mirrored;
       logo.repeat.x = mirrored ? -1 : 1;
+    },
+    setLeather(on: boolean) {
+      leather.visible = on;
     },
     dress(kit: KitStyle) {
       octobans.visible = !!kit.octobans;

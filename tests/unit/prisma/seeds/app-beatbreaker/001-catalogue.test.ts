@@ -426,6 +426,17 @@ describe('the catalogue seed', () => {
     expect(samples.slots?.s).toEqual({ piece: 'bigrusty-s' });
     expect(samples.slots?.cSplash).toEqual({ piece: 'salamander-splash' });
 
+    // a kit's own settings for a slot ride on its piece: the Damped and dead snare cut short
+    const teatowel = prisma.kit.rows.find((r) => r.key === 'teatowel');
+    const dead = (teatowel?.samples as { slots?: Record<string, unknown> }).slots;
+    expect(dead?.s).toEqual({ piece: 'gogodze-s', decay: 0.3 });
+    expect(dead?.k).toEqual({ piece: 'gogodze-k' });
+    // and the same pack's other kit keeps its snare as recorded
+    const london = prisma.kit.rows.find((r) => r.key === 'london');
+    expect((london?.samples as { slots?: Record<string, unknown> }).slots?.s).toEqual({
+      piece: 'gogodze-s',
+    });
+
     // every slot of every recorded kit names a piece the seed wrote
     const keys = new Set(prisma.kitPiece.rows.map((r) => r.key));
     for (const kit of prisma.kit.rows.filter((r) => r.engine === 'pack')) {

@@ -98,11 +98,34 @@ describe('buildKit', () => {
   });
 });
 
+describe('buildKit().setLeather', () => {
+  it('lays a strip of leather on the snare head for a deadened kit, and takes it off again', () => {
+    const { root, setLeather } = buildKit(makeMaterials());
+    const leather = root.getObjectByName('leather');
+    expect(leather).toBeTruthy();
+    expect(leather?.visible).toBe(false);
+    // on the snare's head, inside its rim, and toward the far side, off where the stick lands
+    root.updateMatrixWorld(true);
+    const at = leather?.getWorldPosition(new THREE.Vector3()) ?? new THREE.Vector3();
+    const [x, y, z] = PIECES.snare.centre;
+    expect(Math.hypot(at.x - x, at.z - z)).toBeLessThan(PIECES.snare.radius);
+    expect(at.y).toBeCloseTo(y, 1);
+    expect(at.z).toBeLessThan(z);
+    // a child of the drum's body, so it rides the drum when it shakes
+    expect(leather?.parent?.getObjectByName('head')).toBeTruthy();
+    setLeather(true);
+    expect(leather?.visible).toBe(true);
+    setLeather(false);
+    expect(leather?.visible).toBe(false);
+  });
+});
+
 describe('buildKit().update — percussion visibility', () => {
   it('keeps perc1/perc2 pieces hidden until the pattern calls for them, then shows each independently', () => {
-    const { root, update, dress } = buildKit(makeMaterials());
-    // the octobans up, so only what the pattern puts up and takes down comes and goes
+    const { root, update, dress, setLeather } = buildKit(makeMaterials());
+    // the octobans and the leather up, so only what the pattern puts up and takes down comes and goes
     dress({ ...PERSONAS[0].kit, octobans: true });
+    setLeather(true);
     const pose = idlePose();
 
     const snapshot = () => {
@@ -143,8 +166,9 @@ describe('buildKit().update — percussion visibility', () => {
   });
 
   it('puts the double pedal in only for a pattern played on one', () => {
-    const { root, update, dress } = buildKit(makeMaterials());
+    const { root, update, dress, setLeather } = buildKit(makeMaterials());
     dress({ ...PERSONAS[0].kit, octobans: true });
+    setLeather(true);
     const pose = idlePose();
     const hidden = () => {
       let n = 0;

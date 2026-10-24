@@ -39,6 +39,8 @@ export interface DrummerCanvasProps {
   seeThrough?: boolean;
   /** The kit is played with brushes: wire brushes in the hands rather than sticks. */
   brushes?: boolean;
+  /** The kit's snare is deadened with a strip of leather over its head. */
+  leather?: boolean;
   /** The Studio's style: a drummer's own seats their likeness, if they have one. */
   style?: string;
   playing: boolean;
@@ -57,6 +59,7 @@ export default function DrummerCanvas({
   aside = false,
   seeThrough = false,
   brushes = false,
+  leather = false,
   style,
   playing,
   subscribeSteps,
@@ -91,9 +94,29 @@ export default function DrummerCanvas({
   }, [who, persona]);
   const grips = useMemo(() => gripsFor(grip), [grip]);
   // what a stage made after the first mount must start from
-  const latest = useRef({ lefty, grips, playing, view, persona: who, aside, seeThrough, brushes });
+  const latest = useRef({
+    lefty,
+    grips,
+    playing,
+    view,
+    persona: who,
+    aside,
+    seeThrough,
+    brushes,
+    leather,
+  });
   useEffect(() => {
-    latest.current = { lefty, grips, playing, view, persona: who, aside, seeThrough, brushes };
+    latest.current = {
+      lefty,
+      grips,
+      playing,
+      view,
+      persona: who,
+      aside,
+      seeThrough,
+      brushes,
+      leather,
+    };
   });
 
   /* One stage per mount. The three callbacks must be stable (the console's
@@ -112,6 +135,7 @@ export default function DrummerCanvas({
     s.setLefty(latest.current.lefty);
     s.setSeeThrough(latest.current.seeThrough);
     s.setBrushes(latest.current.brushes);
+    s.setLeather(latest.current.leather);
     s.setGrips(latest.current.grips);
     s.setPlaying(latest.current.playing);
     s.flyTo(latest.current.view);
@@ -169,6 +193,10 @@ export default function DrummerCanvas({
   useEffect(() => {
     stage.current?.setBrushes(brushes);
   }, [brushes]);
+
+  useEffect(() => {
+    stage.current?.setLeather(leather);
+  }, [leather]);
 
   return (
     <>
