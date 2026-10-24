@@ -15,7 +15,7 @@ import {
   hatShift,
   cymbalY,
 } from '@/lib/app/breaks/drummer/kit-layout';
-import type { KitStyle } from '@/lib/app/breaks/drummer/personas';
+import type { FrontHead, KitStyle } from '@/lib/app/breaks/drummer/personas';
 import { HAT_CLOSED_GAP, type Pose } from '@/lib/app/breaks/drummer/pose';
 import { makeRng } from '@/lib/app/breaks/rng';
 
@@ -39,7 +39,7 @@ export interface KitModel {
     doublePedal?: boolean,
     percInst?: ReadonlyMap<PieceId, string>
   ) => void;
-  /** Put up what a player's kit has beyond the usual (Copeland's octobans), and take down what it does not. */
+  /** Put up what a player's kit has beyond the usual (Copeland's octobans, their own front head), and take down what it does not. */
   dress: (kit: KitStyle) => void;
   /**
    * Draw the name on the front head the other way round, for a kit seen in a
@@ -50,6 +50,9 @@ export interface KitModel {
 }
 
 const vec = (a: V3) => new THREE.Vector3(a[0], a[1], a[2]);
+
+/** A front head's identity, every field of it: two heads alike in all of them paint the same. */
+const headKey = (head: FrontHead | undefined) => JSON.stringify(head ?? null);
 
 /**
  * How fast the kick's front head is drawn shivering, Hz. Its real fundamental
@@ -441,7 +444,14 @@ export function buildKit(m: Materials): KitModel {
   kickBody.rotation.x = Math.PI / 2;
   kickBody.position.z = kick.depth / 2;
   // a white batter head facing the drummer, a black reso out front with the name round it
-  const logo = kickLogoTexture();
+  // (or the player's own head, once dressed: see `dress`)
+  let logo = kickLogoTexture();
+  let logoKey = headKey(undefined);
+  let logoMirrored = false;
+  // each head painted once, kept while the kit lives: a player picked again is not repainted
+  const painted = new Map<string, THREE.Texture>();
+  if (logo) painted.set(logoKey, logo);
+  let frontMaterial: THREE.MeshStandardMaterial | undefined;
   // (in rings, so it can shiver, the middle most: see `resoShake`)
   let reso:
     | {
@@ -466,10 +476,8 @@ export function buildKit(m: Materials): KitModel {
       out[k] = resoShape(u);
       across[k] = resoAcross(u);
     }
-    const front = new THREE.Mesh(
-      geometry,
-      new THREE.MeshStandardMaterial({ map: logo, roughness: 0.6 })
-    );
+    frontMaterial = new THREE.MeshStandardMaterial({ map: logo, roughness: 0.6 });
+    const front = new THREE.Mesh(geometry, frontMaterial);
     // (its +z, the way it bows, out of the front of the drum)
     front.rotation.x = Math.PI / 2;
     front.position.y = -kick.depth - 0.001;
@@ -745,10 +753,22 @@ export function buildKit(m: Materials): KitModel {
       /* u read right to left: the mirror the rig is drawn in, undone for the
          name alone. The texture already turns about its centre, so the flip is
          about the centre too, and needs no offset to land back on the head. */
+      logoMirrored = mirrored;
       logo.repeat.x = mirrored ? -1 : 1;
     },
     dress(kit: KitStyle) {
       octobans.visible = !!kit.octobans;
+      // the front head changed only when it differs: BeatBreaker's, or the player's own
+      const key = headKey(kit.head);
+      if (!frontMaterial || key === logoKey) return;
+      const next = painted.get(key) ?? kickLogoTexture(kit.head);
+      if (!next) return;
+      painted.set(key, next);
+      logo = next;
+      logoKey = key;
+      logo.repeat.x = logoMirrored ? -1 : 1;
+      frontMaterial.map = logo;
+      frontMaterial.needsUpdate = true;
     },
     update(pose: Pose, percussion: ReadonlySet<PieceId>, doublePedal = false, percInst) {
       const up1 = percussion.has('perc1');

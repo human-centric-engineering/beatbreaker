@@ -12,6 +12,7 @@
 import * as THREE from 'three';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { FRONT_HEAD_ART } from '@/components/app/studio/drummer/front-heads';
 import {
   disposeMaterials,
   kickLogoTexture,
@@ -30,18 +31,42 @@ interface Drawn {
   strokes: number;
   /** Each character written, with the colour it was written in. */
   text: { ch: string; colour: string }[];
+  /** Each fill of a path: its colour and fill rule. */
+  fills: { colour: string; rule?: string }[];
+  /** Outlines closed. */
+  closes: number;
+  /** Rect fills' colours, in order. */
+  rectColours: string[];
 }
 
 let drawn: Drawn;
 
 beforeEach(() => {
-  drawn = { rects: 0, arcs: 0, lines: 0, curves: 0, strokes: 0, text: [] };
+  drawn = {
+    rects: 0,
+    arcs: 0,
+    lines: 0,
+    curves: 0,
+    strokes: 0,
+    text: [],
+    fills: [],
+    closes: 0,
+    rectColours: [],
+  };
   const context = {
     fillStyle: '',
     strokeStyle: '',
     lineWidth: 1,
     lineCap: 'butt',
-    fillRect: () => void drawn.rects++,
+    fillRect(this: { fillStyle: string }) {
+      drawn.rects++;
+      drawn.rectColours.push(this.fillStyle);
+    },
+    fill(this: { fillStyle: string }, rule?: string) {
+      drawn.fills.push({ colour: this.fillStyle, rule });
+    },
+    closePath: () => void drawn.closes++,
+    scale: () => undefined,
     beginPath: () => undefined,
     arc: () => void drawn.arcs++,
     moveTo: () => undefined,
@@ -244,6 +269,23 @@ describe('canvas textures', () => {
     const colourOf = (ch: string) => drawn.text.find((t) => t.ch === ch)!.colour;
     expect(colourOf('T')).toBe('#ece6d6');
     expect(colourOf('K')).toBe('#dba644');
+  });
+
+  it("paints a player's own front head in place of the name: the art in its ink on its ground", () => {
+    const head = { art: 'sly-and-the-family-stone', ground: '#f1ede4', ink: '#141414' } as const;
+    const tex = kickLogoTexture(head);
+    expect(tex).toBeInstanceOf(THREE.CanvasTexture);
+    // no BeatBreaker: no name round it, no brass rings
+    expect(drawn.text).toEqual([]);
+    expect(drawn.arcs).toBe(0);
+    expect(drawn.rectColours).toEqual(['#f1ede4']);
+    // every outline of the lettering, curved, closed and filled once, even-odd so the counters stay open
+    const art = FRONT_HEAD_ART['sly-and-the-family-stone'];
+    expect(drawn.closes).toBe(art.paths.length);
+    expect(drawn.curves).toBeGreaterThan(art.paths.length);
+    expect(drawn.fills).toEqual([{ colour: '#141414', rule: 'evenodd' }]);
+    // turned the right way up, as BeatBreaker's is
+    expect(tex!.rotation).toBe(Math.PI);
   });
 
   it('draws nothing, and falls back to no texture, where the canvas gives no context', () => {

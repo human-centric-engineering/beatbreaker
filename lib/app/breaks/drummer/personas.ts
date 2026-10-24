@@ -171,8 +171,22 @@ export interface KitStyle {
   trim?: string;
   /** Polka dots on the shells, in this colour. */
   dots?: string;
+  /** The dots small and set close, in tight rows, like studs (Greg Errico's black kit, 1969–70). */
+  fineDots?: boolean;
   /** A rank of octobans, tall narrow tubes, over the toms (Stewart Copeland's). */
   octobans?: boolean;
+  /** The kick's front head as the player's own was painted, in place of BeatBreaker's name round it. */
+  head?: FrontHead;
+}
+
+/** The art a front head can carry, drawn from the real head (see `front-heads.ts`). */
+export type FrontHeadArt = 'sly-and-the-family-stone';
+
+/** A front head painted with a band's art: the head in `ground`, the art on it in `ink`. */
+export interface FrontHead {
+  art: FrontHeadArt;
+  ground: string;
+  ink: string;
 }
 
 /** Glasses: the shape of their lenses, their frames' colour and a tint in the lenses, if any. */

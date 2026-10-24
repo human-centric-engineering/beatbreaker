@@ -25,12 +25,8 @@
         }
       },
       "youtube": "https://www.youtube.com/watch?v=-T9vmaTI2LE",
-      "transcriptions": [
-        {
-          "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=69664"
-        }
-      ]
+      "style_key": "errico",
+      "song_key": "thank-you-falettinme"
     }
   ]
 }

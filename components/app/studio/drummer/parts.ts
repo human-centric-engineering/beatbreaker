@@ -1,7 +1,9 @@
 import * as THREE from 'three';
 
+import { FRONT_HEAD_ART, tracePath } from '@/components/app/studio/drummer/front-heads';
 import {
   type Finish,
+  type FrontHead,
   type Hardware,
   PERSONAS,
   type Persona,
@@ -93,10 +95,12 @@ function lathingTexture(): THREE.Texture | null {
 /**
  * The kick's front head: black, with the name running round it in a ring
  * between two brass lines — "BEAT" in cream and "BREAKER" in brass, as the
- * wordmark sets it, twice round. Drawn once onto a canvas; skipped where
- * there is no canvas (the tests run in Node).
+ * wordmark sets it, twice round. Or, for a player whose own head is drawn
+ * (`KitStyle.head`), that head: its art in its ink on its ground, filling it
+ * as the real one does. Drawn once onto a canvas; skipped where there is no
+ * canvas (the tests run in Node).
  */
-export function kickLogoTexture(): THREE.Texture | null {
+export function kickLogoTexture(head?: FrontHead): THREE.Texture | null {
   if (typeof document === 'undefined') return null;
   const size = 1024;
   const canvas = document.createElement('canvas');
@@ -104,6 +108,34 @@ export function kickLogoTexture(): THREE.Texture | null {
   canvas.height = size;
   const ctx = canvas.getContext('2d');
   if (!ctx) return null;
+  if (head) paintHead(ctx, size, head);
+  else paintWordmark(ctx, size);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  // the head is laid face out with its canvas upside down: turn it the right way up
+  tex.center.set(0.5, 0.5);
+  tex.rotation = Math.PI;
+  return tex;
+}
+
+/** A player's own front head: the art, nine-tenths of the head across, centred on it. */
+function paintHead(ctx: CanvasRenderingContext2D, size: number, head: FrontHead): void {
+  const art = FRONT_HEAD_ART[head.art];
+  ctx.fillStyle = head.ground;
+  ctx.fillRect(0, 0, size, size);
+  const scale = (size * 0.9) / Math.max(art.width, art.height);
+  ctx.save();
+  ctx.translate((size - art.width * scale) / 2, (size - art.height * scale) / 2);
+  ctx.scale(scale, scale);
+  ctx.fillStyle = head.ink;
+  ctx.beginPath();
+  for (const d of art.paths) tracePath(ctx, d);
+  ctx.fill('evenodd');
+  ctx.restore();
+}
+
+/** BeatBreaker's own head: the name twice round a black head, between brass rings. */
+function paintWordmark(ctx: CanvasRenderingContext2D, size: number): void {
   const c = size / 2;
   const cream = '#ece6d6';
   const brass = '#dba644';
@@ -146,12 +178,6 @@ export function kickLogoTexture(): THREE.Texture | null {
     ctx.restore();
     at += turns[i] + gap;
   });
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  // the head is laid face out with its canvas upside down: turn it the right way up
-  tex.center.set(0.5, 0.5);
-  tex.rotation = Math.PI;
-  return tex;
 }
 
 /**
@@ -1451,7 +1477,9 @@ export function styleKit(m: Materials, who: Persona, seeThrough = false): void {
   // and polka dots, if the kit has them
   if (kit.dots && !seeThrough) {
     // the print colours it, ground and dots both
-    printDots(m.shell, { ground: kit.shell, dot: kit.dots, spacing: 0.06, radius: 0.011 });
+    // (a fine print half the size and half the pitch: rows of studs rather than polka dots)
+    const [spacing, radius] = kit.fineDots ? [0.03, 0.0055] : [0.06, 0.011];
+    printDots(m.shell, { ground: kit.shell, dot: kit.dots, spacing, radius });
     m.shell.color.set('#ffffff');
   } else {
     delete m.shell.userData.dots;

@@ -2,16 +2,23 @@
   "meta": {
     "id": "drummer:andy-newmark",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
+    "record_status": "draft",
+    "completeness": 0.35,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-24",
+    "authors": ["claude", "John", "Claude"],
+    "open_questions": [
+      "In Time: only the first verse is transcribed (Malaguti); the intro, the instrumentals, the bridge and the coda are reconstructed from it, and the Rhythm Ace's own part is not transcribed.",
+      "If You Want Me to Stay: its one human Songsterr tab (69663) has an empty drum track, and the two others are machine-made; a fold of the record shows the hat in eighths, not the machine tabs' sixteenth pickups. Not scored.",
+      "Babies Makin' Babies: Todd Bishop's grooves are of the alternate version (2007 reissue), and cover only its first minute. Not scored.",
+      "Which parts of Fresh are Newmark and which the Rhythm Ace or a second drum track: Bishop hears \"a second drum track hiding in the mix\" on Let Me Have It All.",
+      "Lennon's Double Fantasy, Carly Simon's Anticipation (Bishop transcribed it), George Harrison and Pink Floyd sessions: not scored yet."
+    ]
   },
   "identity": {
     "name": "Andy Newmark",
     "full_name": "Andrew Newmark",
-    "nationality": ["American"],
-    "roles": ["session", "band_member"],
+    "aliases": [],
     "born": {
       "date": "1950-07-14",
       "place": "Port Chester, New York",
@@ -20,38 +27,770 @@
         "source_ids": ["src:andy-newmark-wikipedia"]
       }
     },
+    "nationality": ["American"],
+    "home_scenes": ["New York sessions", "Sly and the Family Stone (1972-1974)", "London sessions"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
     "active": {
-      "from": 1970,
+      "from": 1965,
       "ongoing": true
     },
-    "primary_instruments": ["drum kit"],
-    "summary": "Drummer of Sly and the Family Stone's Fresh and of Roxy Music's Avalon, and a session player for Lennon, Harrison and Bowie.",
-    "home_scenes": ["New York sessions", "London sessions"]
+    "roles": ["session", "band_member", "touring"],
+    "summary": "A New York session drummer, raised in Mamaroneck with summers in his mother's Bermuda, paid to play from fifteen. After Carly Simon's Anticipation he joined Sly and the Family Stone in 1972 and made Fresh (1973), played along with Sly's Rhythm Ace: In Time's sixteenth hat with no snare on 2 or 4. Then Ronnie Wood's I've Got My Own Album to Do (1974), Bowie's Young Americans, Gary Wright's Love Is Alive, Lennon's Double Fantasy and Roxy Music's Avalon. A four-piece kit, a heavy foot, and the time stretched as far as it goes."
   },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Rhythm and blues",
+        "impact": "From fourteen to eighteen \"a two and four rhythm and blues rock and roll drummer\"; the funk of Fresh is \"what I had been cooking up ever since I was 14\".",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:live-from-my-drum-room-newmark-2021"]
+        }
+      },
+      {
+        "tradition": "Jazz (Tony Williams)",
+        "impact": "Seeing Tony Williams at about nineteen expanded his playing; he \"started stretching out\", like Mitch Mitchell, Keith Moon and Danny Seraphine then.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:live-from-my-drum-room-newmark-2021"]
+        }
+      },
+      {
+        "tradition": "West Coast session drumming",
+        "impact": "Russ Kunkel's and Jim Gordon's simple, laid-back parts, which he learnt to play for Carly Simon.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:live-from-my-drum-room-newmark-2021",
+            "src:modern-drummer-newmark-1984"
+          ]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1959,
+        "event": "First drum lesson at nine, on a practice pad, from Haskell Harr's book.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:live-from-my-drum-room-newmark-2021", "src:andy-newmark-wikipedia"]
+        }
+      },
+      {
+        "event": "Paid gigs at fifteen; moved to Bermuda, his mother's home, at sixteen and played in the Bermuda Jam.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:andy-newmark-wikipedia"]
+        }
+      },
+      {
+        "year": 1971,
+        "event": "Carly Simon's Anticipation, through his roommate Rick Marotta's lead; then No Secrets in London, where he watched Jim Gordon record You're So Vain.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:live-from-my-drum-room-newmark-2021", "src:andy-newmark-wikipedia"]
+        }
+      },
+      {
+        "year": 1972,
+        "event": "Auditioned for Sly Stone at Pat Rizzo's invitation and replaced Gerry Gibson in the Family Stone.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:andy-newmark-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:andy-newmark-fresh",
+      "label": "Fresh and New York funk",
+      "years": {
+        "from": 1971,
+        "to": 1974
+      },
+      "context": "Carly Simon's Anticipation, then Sly and the Family Stone's Fresh, played along with Sly's Rhythm Ace, and two years on the road with the band; Ronnie Wood's I've Got My Own Album to Do and its Kilburn concerts.",
+      "defining_traits": [
+        "sixteenths on the hat, opened and closed by the foot",
+        "snare off the backbeat",
+        "busy, two-bar ideas"
+      ],
+      "key_recording_ids": ["rec:sly-and-the-family-stone-fresh-1973"]
+    },
+    {
+      "id": "era:andy-newmark-session",
+      "label": "The session years",
+      "years": {
+        "from": 1974,
+        "to": 1979
+      },
+      "context": "Bowie's Young Americans at Sigma Sound, Gary Wright's The Dream Weaver (to a Rhythm Ace again), George Harrison's 1974 tour, Carly Simon, Joe Walsh, Cat Stevens.",
+      "defining_traits": [
+        "the hat round the beat",
+        "a heavy kick",
+        "time stretched behind the beat"
+      ],
+      "key_recording_ids": [
+        "rec:bowie-young-americans-1975",
+        "rec:gary-wright-the-dream-weaver-1975"
+      ]
+    },
+    {
+      "id": "era:andy-newmark-london",
+      "label": "Double Fantasy, Avalon and London",
+      "years": {
+        "from": 1980,
+        "ongoing": true
+      },
+      "context": "Lennon's Double Fantasy (1980), Roxy Music's Avalon (1982) and its tour on Yamaha drums, then London sessions with Bryan Ferry, Pink Floyd's The Final Cut, Roger Waters and David Gilmour.",
+      "defining_traits": [
+        "simple parts played to machines",
+        "quarter notes on the hat",
+        "fills played live"
+      ],
+      "key_recording_ids": [
+        "rec:john-lennon-and-yoko-ono-double-fantasy-1980",
+        "rec:roxy-music-avalon-1982"
+      ]
+    }
+  ],
   "style_profile": {
     "genres": [
       {
         "style_id": "style:funk",
-        "weight": 0.7,
-        "authority": 0.4
+        "name": "Funk",
+        "weight": 0.8,
+        "authority": 0.5,
+        "notes": "Fresh: In Time, Let Me Have It All."
       },
       {
         "style_id": "style:pop-rock-session",
-        "weight": 0.8
+        "name": "Pop and rock sessions",
+        "weight": 0.8,
+        "authority": 0.5,
+        "notes": "Love Is Alive, Double Fantasy, Avalon and hundreds of sessions."
       },
       {
         "style_id": "style:rnb-soul",
-        "weight": 0.4
+        "name": "Soul",
+        "weight": 0.5,
+        "authority": 0.3,
+        "notes": "Young Americans' Philadelphia soul."
+      }
+    ],
+    "versatility": 0.8,
+    "groove_vs_chops": 0.15,
+    "role_tendency": "accompanist",
+    "descriptors": ["funky", "spacious", "heavy foot", "small kit", "behind the beat"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-newmark-1984"],
+        "note": "\"I can sort of play behind the click a hair so that the record can still have the tension.\""
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.05,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight sixteenths in everything scored here."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "mf",
+      "ghost_note_level": 50,
+      "accent_level": 115,
+      "balance": "A big, flat kick (\"a thump that hits me in my gut\"), a dry snare, small bright hats."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 26],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.6
+    },
+    "consistency": 0.7,
+    "tempo_comfort_bpm": [80, 130],
+    "timekeeping_context": ["free", "sequencer", "click"],
+    "interaction": "Played to Sly's Rhythm Ace and Ferry's drum machine without locking to them: \"I'll move ahead. Then you hear it in the cans. I compensate.\"",
+    "descriptors": ["stretched time", "conviction", "groove first"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Sixteenths on the hat with one hand or two",
+        "description": "In Time's hat in sixteenths round the snare; one-handed in Babies Makin' Babies (Bishop).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:malaguti-in-time-transcription",
+            "src:bishop-babies-makin-babies-transcription"
+          ]
+        }
+      },
+      {
+        "name": "Rimshots live, a dry snare in the studio",
+        "description": "Live, \"99% of the time ... a rimshot\"; in the studio the snare tuned down with tape on it.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:modern-drummer-newmark-1984"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "A heavy kick",
+        "description": "A 24\" bass drum, flat, with a blanket inside: \"I have a very, very heavy foot.\"",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:modern-drummer-newmark-1984"]
+        }
+      },
+      {
+        "name": "Hat foot closing the open hat",
+        "description": "The hat opened on the \"a\" of 1 and closed by the foot on 2 in In Time; the foot on the \"and\"s through Let Me Have It All's fills.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:malaguti-in-time-transcription",
+            "src:bishop-let-me-have-it-all-transcription"
+          ]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.6,
+      "linear_playing": 0.3,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.05,
+      "odd_meter_fluency": 0.2,
+      "foot_ostinato_usage": 0.2,
+      "double_bass": 0.0,
+      "notes": "Groove-first: snare figures off the backbeat over a running hat, the foot closing the open hats.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-24",
+        "searched": [
+          "Massimo Malaguti's In Time transcription; Todd Bishop's Let Me Have It All, Babies Makin' Babies and Anticipation transcriptions",
+          "Songsterr 67275 (Young Americans), 1310174 (Love Is Alive), 486431 (More Than This), all human",
+          "Modern Drummer (1984, as excerpted); Live From My Drum Room (2021)"
+        ],
+        "note": "No cross-rhythm, grouping, polymeter or metric modulation is named or written. In Time's snare off 2 and 4 is a composed figure that repeats in the bar, not a displacement held across the bar line."
+      }
+    },
+    "voice_language": {
+      "hihat": "Sixteenths opened on the \"a\" of 1 and closed by the foot on 2 (In Time); eighths in the busy funk; quarter notes for Roxy Music; small, high hats for a \"tick\".",
+      "snare": "Off the backbeat in In Time, round 2 with ghosts in Let Me Have It All, plain 2 and 4 in the pop songs; tuned down and taped in the studio.",
+      "kick": "Big and flat; syncopated on the \"e\"s and \"a\"s in the funk, on 1, its \"and\", 2 and 3 in Young Americans.",
+      "toms": "Two, a high rack tom and a low floor tom, \"a big difference in pitch\"; fills down them at phrase ends.",
+      "cymbals": "One 20\" ride, two bright crashes that \"die away very quickly\"; the crash ridden on soft songs (Anticipation)."
+    },
+    "implements": {
+      "sticks": 0.9,
+      "brushes": 0.1,
+      "mallets": 0.0,
+      "notes": "Vic Firth 5A (Wikipedia); brushes on Anticipation."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "A four-piece kit: hat, snare and bass drum \"ninety-five percent of the time\"",
+      "Noteless bass drum and snare, \"a thump and a crack\"; toms left to ring",
+      "Small, bright, quick cymbals"
+    ],
+    "cymbal_character": "Zildjian A and K: 13\" New Beat hats, a 20\" K or A ride, two thin crashes of 16-18\".",
+    "sample_hints": {
+      "funk": "A damped, dry kit with the room taken out, a deadened snare and a flat kick.",
+      "pop": "A tight studio rock kit."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:modern-drummer-newmark-1984", "src:andy-newmark-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:andy-newmark-no-backbeat",
+      "label": "In Time's snare off 2 and 4",
+      "category": "groove",
+      "description": "The snare on the \"e\" of 1, the \"and\" of 3 and the \"e\" of 4 over sixteenths on the hat, with nothing on 2 or 4: the groove Miles Davis had his band listen to.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:andy-newmark-in-time-groove",
+        "pattern:andy-newmark-in-time-variation"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:sly-and-the-family-stone-fresh-1973"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:malaguti-in-time-transcription",
+          "src:fresh-sly-and-the-family-stone-album-wikipedia"
+        ]
+      }
+    },
+    {
+      "id": "trait:andy-newmark-foot-closes-the-hat",
+      "label": "Open on the \"a\", closed by the foot",
+      "category": "technique",
+      "description": "The hat opened on the \"a\" of a beat and closed by the foot on the next: on 2 through In Time, on the \"and\"s through Let Me Have It All's fills.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:andy-newmark-in-time-groove"],
+      "heard_on": [
+        {
+          "recording_id": "rec:sly-and-the-family-stone-fresh-1973"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:malaguti-in-time-transcription",
+          "src:bishop-let-me-have-it-all-transcription"
+        ]
+      }
+    },
+    {
+      "id": "trait:andy-newmark-to-the-machine",
+      "label": "Played to a rhythm box, not locked to it",
+      "category": "studio_practice",
+      "description": "Fresh and Love Is Alive to an Ace Tone Rhythm Ace, Avalon to Ferry's drum machine: he moves ahead of it and comes back, \"that's why it feels so live\".",
+      "audibility": "subtle",
+      "frequency": "frequent",
+      "pattern_ids": [
+        "pattern:andy-newmark-love-is-alive-verse",
+        "pattern:andy-newmark-more-than-this-groove"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:sly-and-the-family-stone-fresh-1973"
+        },
+        {
+          "recording_id": "rec:gary-wright-the-dream-weaver-1975"
+        },
+        {
+          "recording_id": "rec:roxy-music-avalon-1982"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:live-from-my-drum-room-newmark-2021"]
+      }
+    },
+    {
+      "id": "trait:andy-newmark-small-kit",
+      "label": "A four-piece kit",
+      "category": "setup",
+      "description": "One rack tom, one floor tom, the ride where he wants it: \"A four-piece drumset tends to make me play more groove conscious.\"",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": [],
+      "heard_on": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-newmark-1984"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:andy-newmark-in-time-groove",
+        "name": "In Time, the verse groove",
+        "type": "groove",
+        "function": "The hat in sixteenths opened on the \"a\" of 1 and closed by the foot on 2; the snare on the \"e\" of 1, the \"and\" of 3 and the \"e\" of 4, none on 2 or 4; the kick on 1, the \"e\" of 3 and the \"a\" of 4.",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:malaguti-in-time-transcription"]
+        },
+        "source": {
+          "recording_id": "rec:sly-and-the-family-stone-fresh-1973",
+          "transcription_source_id": "src:malaguti-in-time-transcription"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 102,
+          "playable_range_bpm": [99, 104]
+        },
+        "lanes": {
+          "hihat": "x.xo..x.x.x.x.x.",
+          "snare": ".x........X..X..",
+          "kick": "x........x.....x",
+          "hihat_pedal": "....x..........."
+        },
+        "tags": ["1973", "no backbeat", "Rhythm Ace"]
+      },
+      {
+        "id": "pattern:andy-newmark-in-time-variation",
+        "name": "In Time, bar 8",
+        "type": "groove_variation",
+        "function": "Two snares on the \"and\" of 3, the kick on 4 and its \"e\", the hat opened there and closed by the foot on the \"and\".",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:malaguti-in-time-transcription"]
+        },
+        "source": {
+          "recording_id": "rec:sly-and-the-family-stone-fresh-1973",
+          "transcription_source_id": "src:malaguti-in-time-transcription"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 102,
+          "playable_range_bpm": [99, 104]
+        },
+        "lanes": {
+          "hihat": "x.xo..x.x.x.xo..",
+          "snare": ".X........XX....",
+          "kick": "x........x..xx..",
+          "hihat_pedal": "....x.........x."
+        },
+        "tags": ["1973"]
+      },
+      {
+        "id": "pattern:andy-newmark-let-me-have-it-all-chorus",
+        "name": "Let Me Have It All, the chorus",
+        "type": "groove",
+        "function": "Eighths on the hat; the snare on the \"e\" of 1, on 2 with a ghost after, the \"and\" of 3 and the \"e\" of 4; the kick on 1, its \"a\", the \"e\" of 3 and the \"a\" of 4.",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-let-me-have-it-all-transcription"]
+        },
+        "source": {
+          "recording_id": "rec:sly-and-the-family-stone-fresh-1973",
+          "transcription_source_id": "src:bishop-let-me-have-it-all-transcription"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 93,
+          "playable_range_bpm": [90, 96]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": ".x..Xg....X..X..",
+          "kick": "x..x.....x.....x"
+        },
+        "tags": ["1973", "busy"]
+      },
+      {
+        "id": "pattern:andy-newmark-young-americans-groove",
+        "name": "Young Americans, the groove",
+        "type": "groove",
+        "function": "The hat on 1, its \"e\" and \"and\", opened on 2 over the snare, back on its \"a\"; the same from 3; the kick on 1, its \"and\", 2, 3, its \"and\" and 4.",
+        "style_ids": ["style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-67275"]
+        },
+        "source": {
+          "recording_id": "rec:bowie-young-americans-1975",
+          "transcription_source_id": "src:songsterr-67275"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 84,
+          "playable_range_bpm": [81, 87]
+        },
+        "lanes": {
+          "hihat": "xxx.o..xxxx.o..x",
+          "snare": "....x.......x...",
+          "kick": "x.x.x...x.x.x..."
+        },
+        "tags": ["1975", "Philly soul"]
+      },
+      {
+        "id": "pattern:andy-newmark-love-is-alive-verse",
+        "name": "Love Is Alive, the verse",
+        "type": "groove",
+        "function": "Two bars: eighths on the hat, the snare on 2 and 4 and then on 4 alone; the kick on 1, its \"and\", 3, its \"and\" and the \"and\" of 4, then on 1, the \"and\" of 2 and 3.",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1310174"]
+        },
+        "source": {
+          "recording_id": "rec:gary-wright-the-dream-weaver-1975",
+          "transcription_source_id": "src:songsterr-1310174"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 98,
+          "playable_range_bpm": [95, 101]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...|............x...",
+          "kick": "x.x.....x.x...x.|x.....x.x......."
+        },
+        "tags": ["1975", "Rhythm Ace"]
+      },
+      {
+        "id": "pattern:andy-newmark-love-is-alive-chorus",
+        "name": "Love Is Alive, the chorus",
+        "type": "groove",
+        "function": "Sixteenths on the hat opened on every \"and\", the snare on 2 and 4, the kick on 1, the \"and\" of 2 and 3.",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1310174"]
+        },
+        "source": {
+          "recording_id": "rec:gary-wright-the-dream-weaver-1975",
+          "transcription_source_id": "src:songsterr-1310174"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 98,
+          "playable_range_bpm": [95, 101]
+        },
+        "lanes": {
+          "hihat": "xxox.xoxxxoxxxox",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x......."
+        },
+        "tags": ["1975"]
+      },
+      {
+        "id": "pattern:andy-newmark-more-than-this-groove",
+        "name": "More Than This, the verse",
+        "type": "groove",
+        "function": "Quarter notes on the hat, the snare on 2 and 4, the kick on 1, the \"and\" of 2 and 3, played live to the machine.",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-486431"]
+        },
+        "source": {
+          "recording_id": "rec:roxy-music-avalon-1982",
+          "transcription_source_id": "src:songsterr-486431"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [124, 131]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x......."
+        },
+        "tags": ["1982", "drum machine"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:andy-newmark-yamaha",
+      "label": "Yamaha Recording Custom and Tour Custom (1982-)",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Yamaha",
+          "model": "Recording Custom",
+          "size": "24"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Yamaha",
+          "model": "Recording Custom",
+          "size": "12"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Yamaha",
+          "model": "Recording Custom",
+          "size": "16"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Yamaha",
+          "size": "5.5x14"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Zildjian",
+          "model": "A New Beat",
+          "size": "13"
+        },
+        {
+          "instrument": "ride",
+          "brand": "Zildjian",
+          "model": "K or A",
+          "size": "20"
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Zildjian",
+          "model": "A thin crash",
+          "size": "16-18"
+        },
+        {
+          "instrument": "crash_2",
+          "brand": "Zildjian",
+          "model": "A thin crash",
+          "size": "16-18"
+        }
+      ],
+      "heads": "Remo",
+      "sticks": "Vic Firth 5A",
+      "layout_notes": "A 13\" tom in place of the 12\" at times; the bass drum flat with a blanket inside; the snare taped in the studio; toms unmuffled, both heads alike. Yamaha since the 1982 Roxy Music tour in Japan.",
+      "endorsements": ["Yamaha", "Zildjian", "Remo", "Vic Firth"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:modern-drummer-newmark-1984",
+          "src:andy-newmark-wikipedia",
+          "src:live-from-my-drum-room-newmark-2021"
+        ]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "Sly and the Family Stone",
       "type": "band_member",
       "years": {
         "from": 1972,
-        "to": 1973
+        "to": 1974
+      },
+      "notes": "Fresh (1973) and two years of concerts; replaced Gerry Gibson.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:andy-newmark-wikipedia"]
+      }
+    },
+    {
+      "name": "Carly Simon",
+      "type": "session_regular",
+      "years": {
+        "from": 1971
+      },
+      "notes": "Anticipation, No Secrets and her albums through the 1970s and 1990s.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:andy-newmark-wikipedia"]
+      }
+    },
+    {
+      "name": "David Bowie",
+      "type": "session_regular",
+      "years": {
+        "from": 1974,
+        "to": 1974
+      },
+      "notes": "The Sigma Sound sessions for Young Americans.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:young-americans-wikipedia"]
+      }
+    },
+    {
+      "name": "John Lennon",
+      "type": "session_regular",
+      "years": {
+        "from": 1980,
+        "to": 1980
+      },
+      "notes": "Double Fantasy and Milk and Honey.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:andy-newmark-wikipedia", "src:double-fantasy-wikipedia"]
       }
     },
     {
@@ -60,25 +799,192 @@
       "years": {
         "from": 1980,
         "to": 1983
-      }
-    }
-  ],
-  "key_recording_ids": [
-    "rec:sly-and-the-family-stone-fresh-1973",
-    "rec:john-lennon-and-yoko-ono-double-fantasy-1980",
-    "rec:roxy-music-avalon-1982"
-  ],
-  "legacy": {
-    "contribution": {
-      "description": "Played the tight, dry funk of Sly and the Family Stone's Fresh (1973); Sly Stone called him the best drummer he ever worked with. He then gave Roxy Music's Avalon its glide.",
+      },
+      "notes": "Avalon (tracks 1-7 and 9) and the 1982 tour.",
       "evidence": {
         "confidence": "widely_reported",
-        "source_ids": ["src:andy-newmark-wikipedia"]
+        "source_ids": [
+          "src:andy-newmark-wikipedia",
+          "src:avalon-roxy-music-album-wikipedia",
+          "src:live-from-my-drum-room-newmark-2021"
+        ]
+      }
+    },
+    {
+      "name": "Ronnie Wood",
+      "type": "session_regular",
+      "years": {
+        "from": 1974
+      },
+      "notes": "I've Got My Own Album to Do and the Kilburn concerts (1974), with Willie Weeks.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ive-got-my-own-album-to-do-wikipedia"]
       }
     }
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.6,
+      "aspects": ["stretching out"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:live-from-my-drum-room-newmark-2021"],
+        "note": "\"It was only when I saw Tony Williams when I was about 19 that my mind expanded.\""
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Jim Gordon",
+        "kind": "drummer",
+        "id": "drummer:jim-gordon"
+      },
+      "strength": 0.6,
+      "aspects": ["conviction", "simple parts"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:live-from-my-drum-room-newmark-2021"],
+        "note": "Watching him record You're So Vain (1972): \"I really got it from Jim Gordon big time\"."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Russ Kunkel",
+        "kind": "drummer",
+        "id": "drummer:russ-kunkel"
+      },
+      "strength": 0.4,
+      "aspects": ["simple beats", "brushes"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:live-from-my-drum-room-newmark-2021",
+          "src:modern-drummer-newmark-1984"
+        ],
+        "note": "Carly Simon \"wanted a drummer that played like Russ Kunkel\"; he studied Sweet Baby James before the audition."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Jim Keltner",
+        "kind": "drummer",
+        "id": "drummer:jim-keltner"
+      },
+      "strength": 0.3,
+      "aspects": ["simple beats"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:modern-drummer-newmark-1984"],
+        "note": "\"When Russ Kunkel, Gordon or Keltner would just play those real simple beats, they got off on it.\""
+      }
+    },
+    {
+      "type": "mentored_by",
+      "target": {
+        "name": "Rick Marotta",
+        "kind": "drummer",
+        "id": "drummer:rick-marotta"
+      },
+      "strength": 0.3,
+      "aspects": ["restraint"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:live-from-my-drum-room-newmark-2021"],
+        "note": "His roommate sent him to Carly Simon's audition and \"set me straight when I started overplaying\"."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Gerry Gibson",
+        "kind": "drummer"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 1972
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:andy-newmark-wikipedia"],
+        "note": "In Sly and the Family Stone; Gibson had replaced Greg Errico."
+      }
+    }
+  ],
+  "pedagogy": {
+    "videos": [],
+    "philosophy": [
+      {
+        "idea": "Stretch the time and leave air between the notes: the air makes the notes sound good.",
+        "paraphrase_of_source_id": "src:modern-drummer-newmark-1984"
+      },
+      {
+        "idea": "Own every note: no throwaway notes, conviction behind each one.",
+        "paraphrase_of_source_id": "src:live-from-my-drum-room-newmark-2021"
+      },
+      {
+        "idea": "A small kit makes you play for the groove.",
+        "paraphrase_of_source_id": "src:modern-drummer-newmark-1984"
+      }
+    ]
+  },
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of Fresh, whose In Time, its groove with no snare on 2 or 4, Miles Davis played to his band over and over, and the session drummer of Young Americans, Love Is Alive, Double Fantasy and Avalon. Sly Stone called him the best drummer he ever worked with.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:andy-newmark-wikipedia",
+          "src:fresh-sly-and-the-family-stone-album-wikipedia"
+        ]
+      }
+    },
+    "influence_score": 0.5,
+    "innovations": ["Live drums played loosely against a rhythm box on a hit record (Fresh, 1973)"],
+    "accolades": [],
+    "common_misconceptions": [
+      "That his time on Fresh and Love Is Alive is machine-perfect: he played to a Rhythm Ace, drifting ahead and compensating (\"If you heard just the drums on Fresh and the Rhythm Ace, I'm all over the place\"; Live From My Drum Room, 2021)."
+    ]
   },
   "beatbreaker": {
-    "group": "Pop and session drummers",
-    "build_priority": 1
-  }
+    "style_key": "newmark",
+    "headline_pattern_ids": [
+      "pattern:andy-newmark-in-time-groove",
+      "pattern:andy-newmark-let-me-have-it-all-chorus"
+    ],
+    "default_kit_sound": "A damped, dry four-piece with a flat kick, a deadened snare and small bright hats",
+    "generation_rules": [
+      "Funk: sixteenths on the hat, opened on the \"a\" and closed by the foot on the beat; the snare free to leave 2 and 4.",
+      "Pop: the plainest part that sits, the hat in quarters or eighths, fills down two toms at phrase ends.",
+      "A heavy, syncopated kick; few ghosts.",
+      "A hair behind the beat."
+    ],
+    "avoid": [
+      "Swing",
+      "Double bass",
+      "Big tom fills round many drums",
+      "A wet, roomy sound in the funk"
+    ],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:tony-williams", "drummer:jim-gordon"],
+      "primary_descendants": [],
+      "lineage_blurb": "New York rhythm and blues stretched by Tony Williams, cooled by Jim Gordon and Russ Kunkel: Fresh's funk and the sessions after."
+    },
+    "tags": ["sly and the family stone", "fresh", "session", "funk", "rhythm ace", "1970s", "1980s"]
+  },
+  "key_recording_ids": [
+    "rec:sly-and-the-family-stone-fresh-1973",
+    "rec:bowie-young-americans-1975",
+    "rec:gary-wright-the-dream-weaver-1975",
+    "rec:john-lennon-and-yoko-ono-double-fantasy-1980",
+    "rec:roxy-music-avalon-1982"
+  ]
 }
