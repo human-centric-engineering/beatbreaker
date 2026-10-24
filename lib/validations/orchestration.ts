@@ -3198,6 +3198,18 @@ const agentCallTurnContinuingSchema = z.object({
     arguments: z.record(z.string(), z.unknown()),
   }),
   toolResult: z.unknown(),
+  // `LlmReasoningBlock[]` — replayed on resume so a thinking Claude model's
+  // continuing turn keeps its signed thinking blocks. No `.catch`: replaying
+  // the turn without them makes Anthropic reject every retry, so a malformed
+  // value fails the parse, which the resume logs before starting the step fresh.
+  reasoning: z
+    .array(
+      z.discriminatedUnion('type', [
+        z.object({ type: z.literal('thinking'), thinking: z.string(), signature: z.string() }),
+        z.object({ type: z.literal('redacted_thinking'), data: z.string() }),
+      ])
+    )
+    .optional(),
   tokensUsed: z.number().nonnegative(),
   costUsd: z.number().nonnegative(),
 });
