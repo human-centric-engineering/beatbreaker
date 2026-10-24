@@ -210,7 +210,11 @@ and white, the colours are marked as a guess.
 - **Klek's smock** hangs loose and flares to the hem, squared across the
   shoulders by pads under the cloth; his gloves have no nails.
 - **The kit dresses for them.** `KitModel.dress()` puts up what a kit has
-  beyond the usual (Copeland's octobans); `styleKit()` paints an oyster pearl
+  beyond the usual (Copeland's octobans) and repaints the kick's front head
+  where the player's own is drawn (`KitStyle.head`: Greg Errico's Sly and the
+  Family Stone lettering, traced outlines in `front-heads.ts`, filled
+  even-odd; BeatBreaker's name round a black head otherwise). A new head is a
+  new `FrontHeadArt` and its outlines, traced from the real head. `styleKit()` paints an oyster pearl
   wrap, spotted shells, a sparkle finish's flakes (mirror-bright, a few
   millimetres across, each at its own angle, so it glitters from the stool),
   or see-through acrylic (`acrylic`: Bonham's Amber
