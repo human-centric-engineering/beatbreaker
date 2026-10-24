@@ -567,6 +567,17 @@ describe('styleKit — spotted shells', () => {
     expect(m.shell.color.getHexString()).toBe(PERSONAS[0].kit.shell.slice(1));
   });
 
+  it('prints fine dots at half the size and half the pitch, as a shader of their own', () => {
+    const kit = { ...PERSONAS[0].kit, shell: '#0f0f10', dots: '#ecebe6' };
+    const m = makeMaterials(PERSONAS[0]);
+    styleKit(m, { ...PERSONAS[0], kit });
+    const polka = m.shell.customProgramCacheKey();
+    expect(m.shell.userData.dots).toMatchObject({ spacing: 0.06, radius: 0.011 });
+    styleKit(m, { ...PERSONAS[0], kit: { ...kit, fineDots: true } });
+    expect(m.shell.userData.dots).toMatchObject({ spacing: 0.03, radius: 0.0055 });
+    expect(m.shell.customProgramCacheKey()).not.toBe(polka);
+  });
+
   it('gives an oyster pearl its own lacquered surface', () => {
     const s = makeMaterials(LIKENESSES.mitchell).shell;
     expect(s.clearcoat).toBe(1);

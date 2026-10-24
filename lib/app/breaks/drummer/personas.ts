@@ -171,6 +171,8 @@ export interface KitStyle {
   trim?: string;
   /** Polka dots on the shells, in this colour. */
   dots?: string;
+  /** The dots small and set close, in tight rows, like studs (Greg Errico's black kit, 1969–70). */
+  fineDots?: boolean;
   /** A rank of octobans, tall narrow tubes, over the toms (Stewart Copeland's). */
   octobans?: boolean;
   /** The kick's front head as the player's own was painted, in place of BeatBreaker's name round it. */

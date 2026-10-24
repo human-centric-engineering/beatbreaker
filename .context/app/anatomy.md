@@ -215,7 +215,7 @@ and white, the colours are marked as a guess.
   Family Stone lettering, traced outlines in `front-heads.ts`, filled
   even-odd; BeatBreaker's name round a black head otherwise). A new head is a
   new `FrontHeadArt` and its outlines, traced from the real head. `styleKit()` paints an oyster pearl
-  wrap, spotted shells, a sparkle finish's flakes (mirror-bright, a few
+  wrap, spotted shells (`fineDots`: small and close-set in rows, like studs, for Errico's black kit), a sparkle finish's flakes (mirror-bright, a few
   millimetres across, each at its own angle, so it glitters from the stool),
   or see-through acrylic (`acrylic`: Bonham's Amber
   Vistalite, Jabo Starks's and Billy Cobham's clear kits), which lets the light

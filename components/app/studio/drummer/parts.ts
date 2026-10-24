@@ -1477,7 +1477,9 @@ export function styleKit(m: Materials, who: Persona, seeThrough = false): void {
   // and polka dots, if the kit has them
   if (kit.dots && !seeThrough) {
     // the print colours it, ground and dots both
-    printDots(m.shell, { ground: kit.shell, dot: kit.dots, spacing: 0.06, radius: 0.011 });
+    // (a fine print half the size and half the pitch: rows of studs rather than polka dots)
+    const [spacing, radius] = kit.fineDots ? [0.03, 0.0055] : [0.06, 0.011];
+    printDots(m.shell, { ground: kit.shell, dot: kit.dots, spacing, radius });
     m.shell.color.set('#ffffff');
   } else {
     delete m.shell.userData.dots;
