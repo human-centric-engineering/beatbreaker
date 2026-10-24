@@ -68,22 +68,38 @@ describe('buildKit().dress: the front head', () => {
   };
   const sly = { art: 'sly-and-the-family-stone', ground: '#f1ede4', ink: '#141414' } as const;
 
-  it("repaints the head for a player's own, frees the old one, and goes back to BeatBreaker's", () => {
+  it("paints a player's own head, and each head once: picked again, it is the same texture", () => {
     const m = makeMaterials();
     canvas2d();
     const { root, dress } = buildKit(m);
     const front = frontOf(root);
     const ours = front.map!;
-    const freed = vi.spyOn(ours, 'dispose');
     dress({ ...PERSONAS[0].kit, head: sly });
     expect(front.map).not.toBe(ours);
-    expect(freed).toHaveBeenCalledOnce();
     const theirs = front.map!;
-    // the same head again is left as it is
+    // the same head again, as a new object, is left as it is
     dress({ ...PERSONAS[0].kit, head: { ...sly } });
     expect(front.map).toBe(theirs);
+    // back to BeatBreaker's, and to theirs again: neither painted twice
     dress(PERSONAS[0].kit);
-    expect(front.map).not.toBe(theirs);
+    expect(front.map).toBe(ours);
+    const painted = vi.mocked(HTMLCanvasElement.prototype.getContext).mock.calls.length;
+    dress({ ...PERSONAS[0].kit, head: sly });
+    expect(front.map).toBe(theirs);
+    expect(vi.mocked(HTMLCanvasElement.prototype.getContext).mock.calls.length).toBe(painted);
+  });
+
+  it('paints a head that differs in any one field as a head of its own', () => {
+    const m = makeMaterials();
+    canvas2d();
+    const { root, dress } = buildKit(m);
+    const front = frontOf(root);
+    dress({ ...PERSONAS[0].kit, head: sly });
+    const black = front.map!;
+    dress({ ...PERSONAS[0].kit, head: { ...sly, ink: '#c40000' } });
+    expect(front.map).not.toBe(black);
+    dress({ ...PERSONAS[0].kit, head: { ...sly, ground: '#111111' } });
+    expect(front.map).not.toBe(black);
   });
 
   it("keeps a mirrored kit's head reading forwards across a repaint", () => {

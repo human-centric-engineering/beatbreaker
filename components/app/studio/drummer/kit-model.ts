@@ -51,6 +51,9 @@ export interface KitModel {
 
 const vec = (a: V3) => new THREE.Vector3(a[0], a[1], a[2]);
 
+/** A front head's identity, every field of it: two heads alike in all of them paint the same. */
+const headKey = (head: FrontHead | undefined) => JSON.stringify(head ?? null);
+
 /**
  * How fast the kick's front head is drawn shivering, Hz. Its real fundamental
  * is about 52 Hz (a 22-inch reso tuned low), but drawn at 60 frames a second
@@ -443,8 +446,11 @@ export function buildKit(m: Materials): KitModel {
   // a white batter head facing the drummer, a black reso out front with the name round it
   // (or the player's own head, once dressed: see `dress`)
   let logo = kickLogoTexture();
-  let logoHead: FrontHead | undefined;
+  let logoKey = headKey(undefined);
   let logoMirrored = false;
+  // each head painted once, kept while the kit lives: a player picked again is not repainted
+  const painted = new Map<string, THREE.Texture>();
+  if (logo) painted.set(logoKey, logo);
   let frontMaterial: THREE.MeshStandardMaterial | undefined;
   // (in rings, so it can shiver, the middle most: see `resoShake`)
   let reso:
@@ -752,17 +758,14 @@ export function buildKit(m: Materials): KitModel {
     },
     dress(kit: KitStyle) {
       octobans.visible = !!kit.octobans;
-      // the front head repainted only when it changes: BeatBreaker's, or the player's own
-      const same =
-        kit.head?.art === logoHead?.art &&
-        kit.head?.ground === logoHead?.ground &&
-        kit.head?.ink === logoHead?.ink;
-      if (!frontMaterial || same) return;
-      const next = kickLogoTexture(kit.head);
+      // the front head changed only when it differs: BeatBreaker's, or the player's own
+      const key = headKey(kit.head);
+      if (!frontMaterial || key === logoKey) return;
+      const next = painted.get(key) ?? kickLogoTexture(kit.head);
       if (!next) return;
-      logo?.dispose();
+      painted.set(key, next);
       logo = next;
-      logoHead = kit.head;
+      logoKey = key;
       logo.repeat.x = logoMirrored ? -1 : 1;
       frontMaterial.map = logo;
       frontMaterial.needsUpdate = true;

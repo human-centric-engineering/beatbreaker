@@ -21423,15 +21423,15 @@ the beat. No human drum transcription was found for six of them, so they follow
 machine tabs (Songsterr's `aiGenerated`, or a revision history that is a
 machine's), checked against the record for tempo, meter, length and form:
 
-| Song                      | Year | Tempo (record / tab) | Meter    | What the groove is                                                                          | Source of the bars             |
-| ------------------------- | ---- | -------------------- | -------- | ------------------------------------------------------------------------------------------- | ------------------------------ |
-| Dance to the Music        | 1967 | 127.9 / 128          | 4/4      | The snare on every beat; the kick alone under the scat; snare sixteenths into the band      | 404345, rev 292994 (human)     |
-| Everyday People           | 1968 | 115.5 / 115          | 4/4      | Eighths, two bars in turn, the kick off the 1 in the second                                 | 247823, rev 7314416 (machine)  |
-| Sing a Simple Song        | 1968 | 101.6 / "90"         | 4/4      | The kick and floor tom on 1 and its "e", the hat on the "and"s; a shout on every eighth     | 2418053, rev 3195775 (machine) |
-| Stand!                    | 1969 | 108.1 / 108          | 4/4, 2/4 | Eighths, the kick moving bar to bar; three bars of 2/4 at the ends of lines; no coda        | 2867716, rev 3769496 (machine) |
-| I Want to Take You Higher | 1969 | 103.4 / 104          | 4/4      | The open hat on every eighth, the snare on the off-beats; the backbeat back for the chorus  | 3077253, rev 4042291 (machine) |
-| Hot Fun in the Summertime | 1969 | 145.8 / 146          | 12/8     | Eighths on the hats, the snare on 2 and 4 of the four pulses                                | 247819, rev 2296366 (machine)  |
-| Thank You (Falettinme…)   | 1969 | 106.3 / 106          | 4/4      | The hat open on the "and"s of 1 and 3, the kick on the "a" of 2; sixteenths in the vamp out | 3441846, rev 4514148 (machine) |
+| Song                      | Year | Tempo (record / tab) | Meter    | What the groove is                                                                                | Source of the bars             |
+| ------------------------- | ---- | -------------------- | -------- | ------------------------------------------------------------------------------------------------- | ------------------------------ |
+| Dance to the Music        | 1967 | 127.9 / 128          | 4/4      | The snare on every beat; the kick alone under the scat; snare sixteenths into the band            | 404345, rev 292994 (human)     |
+| Everyday People           | 1968 | 115.5 / 115          | 4/4      | Eighths, two bars in turn, the kick off the 1 in the second                                       | 247823, rev 7314416 (machine)  |
+| Sing a Simple Song        | 1968 | 101.6 / "90"         | 4/4      | The kick on 1 and its "e" with the floor tom on 1, the hat on the "and"s; a shout on every eighth | 2418053, rev 3195775 (machine) |
+| Stand!                    | 1969 | 108.1 / 108          | 4/4, 2/4 | Eighths, the kick moving bar to bar; three bars of 2/4 at the ends of lines; no coda              | 2867716, rev 3769496 (machine) |
+| I Want to Take You Higher | 1969 | 103.4 / 104          | 4/4      | The open hat on every eighth, the snare on the off-beats; the backbeat back for the chorus        | 3077253, rev 4042291 (machine) |
+| Hot Fun in the Summertime | 1969 | 145.8 / 146          | 12/8     | Eighths on the hats, the snare on 2 and 4 of the four pulses                                      | 247819, rev 2296366 (machine)  |
+| Thank You (Falettinme…)   | 1969 | 106.3 / 106          | 4/4      | The hat open on the "and"s of 1 and 3, the kick on the "a" of 2; sixteenths in the vamp out       | 3441846, rev 4514148 (machine) |
 
 Where the songs differ from the tabs or the records (each comment says so):
 

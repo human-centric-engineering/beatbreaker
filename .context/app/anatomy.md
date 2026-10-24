@@ -213,14 +213,18 @@ and white, the colours are marked as a guess.
   beyond the usual (Copeland's octobans) and repaints the kick's front head
   where the player's own is drawn (`KitStyle.head`: Greg Errico's Sly and the
   Family Stone lettering, traced outlines in `front-heads.ts`, filled
-  even-odd; BeatBreaker's name round a black head otherwise). A new head is a
-  new `FrontHeadArt` and its outlines, traced from the real head. `styleKit()` paints an oyster pearl
-  wrap, spotted shells (`fineDots`: small and close-set in rows, like studs, for Errico's black kit), a sparkle finish's flakes (mirror-bright, a few
-  millimetres across, each at its own angle, so it glitters from the stool),
-  or see-through acrylic (`acrylic`: Bonham's Amber
-  Vistalite, Jabo Starks's and Billy Cobham's clear kits), which lets the light
-  through the shell and gives it back to the next kit. A drummer who played
-  timbales (Tito Puente) has them as the kit's toms, in their steel.
+  even-odd; BeatBreaker's name round a black head otherwise). Each head is
+  painted once and kept while the kit lives. A new head is a new
+  `FrontHeadArt` and its outlines, traced from the real head; `tracePath()`
+  draws absolute M, L, C and Z only, and throws on anything else.
+  `styleKit()` paints an oyster pearl wrap, spotted shells (`fineDots`: small
+  and close-set in rows, like studs, for Errico's black kit), a sparkle
+  finish's flakes (mirror-bright, a few millimetres across, each at its own
+  angle, so it glitters from the stool), or see-through acrylic (`acrylic`:
+  Bonham's Amber Vistalite, Jabo Starks's and Billy Cobham's clear kits),
+  which lets the light through the shell and gives it back to the next kit. A
+  drummer who played timbales (Tito Puente) has them as the kit's toms, in
+  their steel.
 
 ## Conventions
 

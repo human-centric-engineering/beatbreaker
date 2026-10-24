@@ -32,6 +32,13 @@ describe('tracePath', () => {
     ]);
   });
 
+  it('refuses a command it does not draw, rather than dropping part of the shape', () => {
+    const { ctx, calls } = recorder();
+    for (const d of ['M0 0H5V5Z', 'M0 0l1 1Z', 'M0 0S1 1 2 2Z', 'M0 0Q1 1 2 2Z'])
+      expect(() => tracePath(ctx, d)).toThrow(/does not draw/);
+    expect(calls).toEqual([]);
+  });
+
   it('runs several curves under one C', () => {
     const { ctx, calls } = recorder();
     tracePath(ctx, 'M0 0C1 1 2 2 3 3 4 4 5 5 6 6Z');

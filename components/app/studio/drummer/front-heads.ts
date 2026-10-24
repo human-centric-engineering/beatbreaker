@@ -53,9 +53,14 @@ export const FRONT_HEAD_ART: Record<FrontHeadArt, FrontHeadPaths> = {
 
 /**
  * Draw an outline from `FrontHeadPaths` into the context's current path: the
- * caller begins the path and fills it. Only M, L, C and Z occur.
+ * caller begins the path and fills it. Only absolute M, L, C and Z are drawn;
+ * an outline with any other command throws rather than losing its shape (trace
+ * new art with the same settings, or extend this).
  */
 export function tracePath(ctx: CanvasRenderingContext2D, d: string): void {
+  // anything else (H, V, S, a relative command) would be dropped and a letter lost: refuse it
+  if (!/^[MLCZ\d\s,.-]*$/.test(d))
+    throw new Error(`front head outline uses a command tracePath does not draw: ${d.slice(0, 40)}`);
   const re = /([MLCZ])([^MLCZ]*)/g;
   for (const [, op, args] of d.matchAll(re)) {
     const n = args.trim()

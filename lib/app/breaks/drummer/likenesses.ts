@@ -3605,7 +3605,7 @@ const DJ_JOHNSON: Persona = {
  * brown hair over his ears, parted in the middle; round wire glasses with tinted lenses;
  * clean-shaven; a loose cream shirt, long-sleeved, open at the neck. A dark wine-red kit with
  * chrome hardware and a white front head (not drawn: BeatBreaker's own is kept). No headphones:
- * a live show. Trousers and shoes are out of shot: dark brown ones.
+ * a live show. Trousers and shoes are out of shot: dark brown ones, a guess.
  */
 const ANDY_NEWMARK: Persona = {
   id: 'newmark',

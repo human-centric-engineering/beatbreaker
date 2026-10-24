@@ -177258,7 +177258,7 @@ export const STYLES: Record<string, Style> = {
     ],
     /* His commonest bars, from the songs: Thank You's groove, the hat opened on the "and"s of 1
        and 3 and the kick on the "a" of 2; Everyday People's two bars, the kick off the 1 in the
-       second; Sing a Simple Song's kick and floor tom together on 1 and its "e"; Dance to the
+       second; Sing a Simple Song's kick on 1 and its "e", the floor tom with it on 1; Dance to the
        Music's snare on every beat; I Want to Take You Higher's snare on the off-beats; Stand!'s
        kick on 1, 3 and the "and"s. */
     figures: [
@@ -177268,7 +177268,7 @@ export const STYLES: Record<string, Style> = {
       [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.1...1.' }, 1.2],
       // Everyday People, bars 2, 4, 6 ... 64 (x26): the same without the 1, the kick on its "and"
       [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '..1...1.1.1...1.' }, 0.8],
-      // Sing a Simple Song, bars 12-23 (x24): the hat on the "and"s, the kick and floor tom on 1, its "e", 3 and its "e"
+      // Sing a Simple Song, bars 12-23 (x24): the hat on the "and"s, the kick on 1, its "e", 3 and its "e", the floor tom on 1 and 3
       [
         {
           h: '..1...1...1...1.',
@@ -177581,7 +177581,8 @@ export const STYLES: Record<string, Style> = {
            are the record's, its tempo is not.  His part: three bars of voices alone (bars 1-3, left
            out here), then a bar of the snare in sixteenths (4, broken in threes here, as the app
            holds the snare to, its last beat left as air); the stomp, the hat on the "and"s, the
-           snare on 2 and 4, the kick with the floor tom on 1 and its "e" and on 3 and its "e"
+           snare on 2 and 4, the kick on 1 and its "e" and on 3 and its "e", the floor tom with it on 1
+           and 3 (on the "e"s too in 8-11)
            (5-23, 36-47, 64-71); eighths on the hats, the kick on 1, its "e" and the "and" of 3
            (24-31, 48-61); the shout, the snare, the open hat and the kick on every eighth (32-34);
            the vamp to the end, eighths with the kick on 1 and 3 (72-94). One fill, the snare on 3,
@@ -177589,7 +177590,7 @@ export const STYLES: Record<string, Style> = {
            sections. */
         key: 'sing-a-simple-song',
         title: 'Sing a Simple Song',
-        feel: 'the kick and floor tom together on 1 and its "e", the hat on the off-beats, a shout on every eighth (record 102)',
+        feel: 'the kick on 1 and its "e" with the floor tom on the 1, the hat on the off-beats, a shout on every eighth (record 102)',
         weight: 1.2,
         params: {
           kit: 'smdrums',
@@ -177629,7 +177630,7 @@ export const STYLES: Record<string, Style> = {
           },
           {
             letter: 'B',
-            label: 'the stomp: the kick and floor tom on 1 and its "e"',
+            label: 'the stomp: the kick on 1 and its "e", the floor tom on 1',
             bars: 4,
             params: {
               fillChance: 0,
