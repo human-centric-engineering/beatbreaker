@@ -138,7 +138,8 @@ describe('his songs', () => {
         ghosts: 0,
       });
       expect(pat.meter).toBe('4/4-6');
-      expect(pat.song).toBe(key);
+      // Come Together is in sections now: the lick is its section B
+      expect(pat.song?.split(':')[0]).toBe(key);
       expect(pat.bars[0].k).toHaveLength(24);
     }
   });

@@ -16,10 +16,11 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { FeelPop } from '@/components/app/studio/player/feel-deck';
 import { MixerPop } from '@/components/app/studio/player/mixer-desk';
 import { PlayerBar } from '@/components/app/studio/player/player-bar';
+import { RandomPickButton } from '@/components/app/studio/player/random-pick';
 import { SoundPop } from '@/components/app/studio/player/sound-deck';
 import { StudyHeader } from '@/components/app/studio/player/study-header';
 import { type Studio, StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
-import { testCatalogue } from '@/tests/helpers/catalogue';
+import { testCatalogue, testPolyrhythms, testRudiments } from '@/tests/helpers/catalogue';
 import { LAPTOP, stubWidth } from '@/tests/helpers/media';
 import { openMenu, pickOption } from '@/tests/helpers/select-menu';
 
@@ -220,6 +221,42 @@ describe('New break', () => {
     expect(studio!.nextSong).toEqual({ style: 'ulrich', song: songs[0].key });
     await pickOption(user, pick, '');
     expect(studio!.nextSong).toBeNull();
+  });
+});
+
+describe('Random', () => {
+  /* Math.random is held for the pick: 0 takes the first pattern in the pool (the
+     first style the picker shows), just under 1 the last (the last exercise) */
+  it('writes a break in the style a pick lands on, and says so', async () => {
+    const user = userEvent.setup();
+    mount(<RandomPickButton />, 'ulrich');
+    await waitFor(() => expect(studio?.view.A?.style).toBe('ulrich'));
+    const first = studio!.catalogue.styleGroups[0][1][0];
+    vi.spyOn(Math, 'random').mockReturnValue(0);
+    await user.click(screen.getByRole('button', { name: 'Random' }));
+    await waitFor(() => expect(studio!.view.A?.style).toBe(first));
+    const label = studio!.catalogue.styles[first].params.label;
+    expect(studio!.notice?.message).toContain(label);
+    vi.restoreAllMocks();
+  });
+
+  it('opens an exercise a pick lands on, as its shelf would', async () => {
+    const user = userEvent.setup();
+    const catalogue = testCatalogue();
+    catalogue.libraries = [...catalogue.libraries, testRudiments(), testPolyrhythms()];
+    render(
+      <StudioProvider catalogue={catalogue} openStyle="ulrich">
+        <Probe />
+        <RandomPickButton />
+      </StudioProvider>
+    );
+    await ready();
+    const last = testPolyrhythms().entries.at(-1)!;
+    vi.spyOn(Math, 'random').mockReturnValue(0.999999);
+    await user.click(screen.getByRole('button', { name: 'Random' }));
+    await waitFor(() => expect(studio!.notice?.message).toBe(`Random exercise: ${last.title}`));
+    expect(studio!.view.A?.name).toBe(last.title);
+    vi.restoreAllMocks();
   });
 });
 

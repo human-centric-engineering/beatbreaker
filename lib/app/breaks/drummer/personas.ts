@@ -47,7 +47,8 @@ export type HairStyle =
   | 'backswept'
   | 'ringlets'
   | 'locs'
-  | 'frizz';
+  | 'frizz'
+  | 'knot';
 
 export type Beard =
   | 'none'
@@ -261,6 +262,8 @@ export interface Persona {
   /** Sticks the tongue out over the lower lip now and then, grinning (Lars Ulrich). */
   tongue?: boolean;
   hat?: Hat;
+  /** A cap worn with its peak to the front, over the brow, rather than on backwards. */
+  forwards?: boolean;
   /** The hat sewn all over with sequins, in the accent colour, glittering as the head moves (Tony Allen's). */
   sequins?: boolean;
   cyborg?: Cyborg;

@@ -74,8 +74,24 @@ import type { SampleList, YourKitView } from '@/lib/validations/samples';
  * — so they stay in code and stay imported directly.
  */
 
+/**
+ * How a whole new pattern replaces the stage, for a caller that has more to
+ * do: both happen only once it actually does, so not while the unsaved-changes
+ * prompt is up, nor at all if it is cancelled.
+ */
+export interface ReplaceOptions {
+  /** If playing, go back to the top and count in to it, as New break does. */
+  fromTop?: boolean;
+  /** Run once the new pattern is on the stage: say what it is, say. */
+  onLoaded?: () => void;
+}
+
 export interface Studio extends BreakConsole {
   catalogue: StudioCatalogue;
+  /** As the console's, letting the stage go first; see {@link ReplaceOptions}. */
+  newBreakIn: (style: string, song?: string, opts?: ReplaceOptions) => boolean;
+  /** As the console's, letting the stage go first; see {@link ReplaceOptions}. */
+  loadLibraryEntry: (id: string, at?: PracticePlace, opts?: ReplaceOptions) => void;
   /**
    * The line of feedback under the frame — "Copied", "That code is not one of
    * ours". It lives here because the drawers raise it and the frame shows it,
@@ -320,7 +336,7 @@ export function StudioProvider({
      Regenerating one section is an edit to the pattern, not a new one, so
      `newBreak('A')` and `newBreak('B')` pass straight through. */
   const { detach, needsPrompt } = doc;
-  const { newBreak, newBreakIn, loadLibraryEntry, loadCode, rename } = state;
+  const { newBreak, newBreakIn, loadLibraryEntry, loadCode, rename, restartFromTop } = state;
 
   /* The replacement waiting on the prompt, if there is one. Kept as a thunk so
      "Don't save" and "Save" run exactly what was asked for, later. The detach
@@ -366,20 +382,24 @@ export function StudioProvider({
       },
       /* A style the address named: a whole new pattern, so the stage is let
          go first. Said when it cannot be written, rather than doing nothing. */
-      newBreakIn: (style: string, song?: string): boolean => {
+      newBreakIn: (style: string, song?: string, opts?: ReplaceOptions): boolean => {
         replace(() => {
+          if (opts?.fromTop) restartFromTop();
           if (!newBreakIn(style, song)) {
             say('That style is not in the Studio', { error: true });
             return false;
           }
           setEntry(null);
+          opts?.onLoaded?.();
         });
         return true;
       },
-      loadLibraryEntry: (id: string) =>
+      loadLibraryEntry: (id: string, _at?: PracticePlace, opts?: ReplaceOptions) =>
         replace(() => {
+          if (opts?.fromTop) restartFromTop();
           setEntry({ id, notes: null });
           loadLibraryEntry(id);
+          opts?.onLoaded?.();
         }),
       /* This answers "does it read?", not "has it loaded?": a code that
          reads may be waiting on the unsaved-changes prompt, which can still be
@@ -397,7 +417,7 @@ export function StudioProvider({
         return true;
       },
     }),
-    [replace, newBreak, newBreakIn, loadLibraryEntry, loadCode, say]
+    [replace, newBreak, newBreakIn, loadLibraryEntry, loadCode, restartFromTop, say]
   );
 
   /* Opening from the history happens after a fetch, so it reads `replace` as

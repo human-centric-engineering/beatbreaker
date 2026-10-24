@@ -2914,6 +2914,39 @@ function hairFor(style: HairStyle, m: Materials, coily = false): THREE.Object3D[
       );
       return [hair, tie, swinging(at, 1.2, [tail])];
     }
+    case 'knot': {
+      /* Clay Aeschliman's on stage now, under his cap: dark, curly and long, gathered back and tied
+         in a loose knot low behind the head, the curls bursting out of it below the cap's band.
+         Grown close over the scalp, which the cap mostly covers, the knot a ball of curls */
+      const line = (d: THREE.Vector3) => hairline(d, 0.55, -0.05, -0.6);
+      const hair = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.03, line(d) + 0.05, d.y),
+          depth: (d) => 0.006 + 0.004 * ramp(0.1, 0.8, d.y),
+          tuck: 0.001,
+          lumpy: 0.1,
+        },
+        m.hair
+      );
+      hair.name = 'knot';
+      const geo = new THREE.SphereGeometry(0.05, 48, 32);
+      const p = geo.getAttribute('position');
+      const d = new THREE.Vector3();
+      for (let i = 0; i < p.count; i++) {
+        d.fromBufferAttribute(p, i).normalize();
+        const r = 0.9 + 0.08 * clump(d, 5) + 0.09 * Math.abs(clump(d, 11)) + 0.03 * clump(d, 23);
+        p.setXYZ(i, p.getX(i) * r, p.getY(i) * r, p.getZ(i) * r);
+      }
+      // wider than it is deep, and fuller below the tie, where the curls hang
+      geo.scale(1.35, 1.1, 0.85);
+      geo.computeVertexNormals();
+      const coils = coilTexture([1.4, 0.7]);
+      const knot = mesh(geo, afroMaterial(m, coils, false));
+      knot.name = 'hair knot';
+      const at: V3 = [0, 0.07, 0.122];
+      knot.position.set(at[0], at[1] - 0.01, at[2]);
+      return [hair, swinging([0, 0.08, 0.1], 0.5, [knot], NAPE_HINGE)];
+    }
     case 'ringlets': {
       /* Dafnis Prieto's in 2010: a medium mop of loose dark ringlets, full on top and at the
          sides, half over the ears, a soft fringe of curls, no parting. Grown out of the scalp,
@@ -3744,7 +3777,10 @@ function paisleyMaterial(ground: THREE.Color): THREE.MeshStandardMaterial {
   return plain;
 }
 
-function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
+/** A forwards cap's peak: its height and depth on the head, and how far it is tipped down. */
+const FRONT_PEAK: V3 = [0.15, -0.004, -0.1];
+
+function hatFor(hat: Hat, m: Materials, forwards = false): THREE.Object3D[] {
   switch (hat) {
     case 'beanie': {
       const pom = ball(0.028, m.accent, 12);
@@ -3752,15 +3788,26 @@ function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
       return [cover(0.114, 0.52, m.accent), pom];
     }
     case 'cap': {
-      // on backwards: the peak comes off the band at the nape, drooping a little
+      // on backwards: the peak comes off the band at the nape, drooping a little; or, worn
+      // forwards, off the band over the brow, pulled down a little to shade the eyes
       const button = ball(0.009, m.accent, 10);
       button.scale.y = 0.45;
       button.position.set(0, 0.229, 0.054);
       button.rotation.x = 0.35;
       const peak = mesh(peakGeometry(), m.accent);
-      peak.position.set(0, 0.124, 0.015);
-      peak.rotation.x = 0.3;
-      return [cover(0.112, 0.46, m.accent), button, peak];
+      peak.name = 'cap peak';
+      if (forwards) {
+        peak.position.set(0, FRONT_PEAK[0], FRONT_PEAK[1]);
+        peak.rotation.set(FRONT_PEAK[2], Math.PI, 0);
+      } else {
+        peak.position.set(0, 0.124, 0.015);
+        peak.rotation.x = 0.3;
+      }
+      const crown = cover(0.112, 0.46, m.accent);
+      /* worn forwards, set level on the head rather than tipped back as `cover` lays it
+         (0.35), so its front comes down to the brow and meets the peak */
+      if (forwards) crown.rotation.x = 0;
+      return [crown, button, peak];
     }
     case 'cowboy': {
       // the brim's sides rolled up, dipping front and back; the crown pinched at
@@ -4137,7 +4184,7 @@ function afroPick(colour: string): THREE.Group {
 }
 
 function accessoriesFor(who: Persona, m: Materials): THREE.Object3D[] {
-  const out: THREE.Object3D[] = who.hat ? hatFor(who.hat, m) : [];
+  const out: THREE.Object3D[] = who.hat ? hatFor(who.hat, m, who.forwards) : [];
   if (who.glasses) out.push(...glassesFor(who.glasses));
   if (who.shades) {
     for (const side of [-1, 1]) {

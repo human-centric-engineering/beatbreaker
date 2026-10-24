@@ -523,6 +523,20 @@ describe('a mesh vest, gloves and a tam', () => {
     expect(Math.max(...points(peak).map((p) => p.z))).toBeLessThan(0);
   });
 
+  it.each([
+    [false, 1],
+    [true, -1],
+  ] as const)(
+    'turns a cap forwards (%s) or backwards, its peak all to that side',
+    (forwards, side) => {
+      const { root } = dressed({ hat: 'cap', forwards, accent: '#141416', hairStyle: 'capped' });
+      const [peak] = named(root, 'cap peak');
+      expect((peak.material as THREE.MeshStandardMaterial).color.getHexString()).toBe('141416');
+      // backwards it comes off the band at the nape (+z); forwards, over the brow (-z)
+      for (const p of points(peak)) expect(p.z * side).toBeGreaterThan(0);
+    }
+  );
+
   it('sets a bucket hat on the head, its brim sloping down all round, in the accent colour', () => {
     const { root } = dressed({ hat: 'bucket', accent: '#e6e4dc', hairStyle: 'crop' });
     const [crown] = named(root, 'bucket');
@@ -850,12 +864,26 @@ describe('hair and beards cut as the drummers wore them', () => {
     ['ringlets', true],
     ['flowing', true],
     ['capped', true],
+    ['knot', true],
     // tied in by its band: a swing would slide it off the band
     ['frizz', false],
   ] as const)('grows %s hair out of the scalp (swinging: %s)', (style, swinging) => {
     const root = head({ hairStyle: style });
     expect(named(root, style)).toHaveLength(1);
     expect(swings(root) > 0).toBe(swinging);
+  });
+
+  it("ties the hair in a knot low behind the head, below a cap's band, wider than it is deep", () => {
+    const root = head({ hairStyle: 'knot', hat: 'cap', forwards: true, accent: '#141416' });
+    const [knot] = named(root, 'hair knot');
+    // in the head's frame: the knot hangs in a swing pivoted behind the head
+    const pts = points(knot).map((p) => p.add(knot.parent!.position));
+    // all of it behind the head, and below the top of the skull (0.212 up the head)
+    for (const p of pts) expect(p.z).toBeGreaterThan(0.04);
+    expect(Math.max(...pts.map((p) => p.y))).toBeLessThan(0.15);
+    const wide = Math.max(...pts.map((p) => p.x)) - Math.min(...pts.map((p) => p.x));
+    const deep = Math.max(...pts.map((p) => p.z)) - Math.min(...pts.map((p) => p.z));
+    expect(wide).toBeGreaterThan(deep);
   });
 
   /** How far the top stands off the middle of the skull (0.1 up the head): along the middle, and either side. */

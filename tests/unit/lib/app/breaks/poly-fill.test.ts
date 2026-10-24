@@ -168,7 +168,8 @@ describe('poly fills over many seeds', () => {
   it('is not chosen against by the critic: generateGood keeps them at the rate', () => {
     for (const [key, song] of [
       ['elvinjones', 'resolution'],
-      ['collins', undefined],
+      // Intruder: his songs in sections fill only where the tab does, and draw none
+      ['collins', 'intruder'],
     ] as const) {
       const rate = withSong(STYLES[key], song).polyFill!;
       let n = 0;

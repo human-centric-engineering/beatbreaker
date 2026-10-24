@@ -52,7 +52,8 @@ describe.each(Object.keys(FAMILIES))('%s', (key) => {
           { style: resolved, song: song.key, seed, bars: 4, density: 50, ghosts: 50 },
           bpm
         );
-        expect(res.pattern.song).toBe(song.key);
+        // a song in sections records the section it wrote: `key:A`
+        expect(res.pattern.song?.split(':')[0]).toBe(song.key);
         expect(res.pattern.meter).toBe(songMeter(st, song));
         expect(playability(res.pattern, bpm).hard, `${song.key} at ${bpm}`).toBe(true);
       }

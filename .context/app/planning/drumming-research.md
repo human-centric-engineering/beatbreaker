@@ -694,6 +694,8 @@ built from. Tempos are from songbpm.com (algorithmic, so sometimes half or
 double; the doubtful ones are marked) and Bonedo's Hey Joe lesson. No free
 transcription of his parts exists (the Hal Leonard drum books are paywalled),
 so every bar in the seed is a reconstruction from descriptions and listening.
+(No longer so: Songsterr now has human drum tabs of most of his records, and
+eight songs follow them; see C2c.)
 
 | Song                                 | Meter                   | Tempo (quarter)                                    | Feel                                     | Time on                        | Confidence                             |
 | ------------------------------------ | ----------------------- | -------------------------------------------------- | ---------------------------------------- | ------------------------------ | -------------------------------------- |
@@ -765,6 +767,57 @@ Love, Changes, and probably the studio Room Full of Mirrors. AI-generated tabs
 | Hear My Train A Comin'            | 4/4         | 72           | slow 16th blues rock                           | s22554          |
 | Midnight                          | 4/4         | 80           | jazz funk, ride on the beat                    | s72224          |
 | Lover Man                         | 4/4         | 100          | crash-ride blues rock, live                    | s22569          |
+
+### C2c. Eight songs from the tabs, section by section (2026-10-23)
+
+C2 said no free transcription of his parts existed. That was true then and is not now:
+Songsterr has human drum tabs (all `aiGenerated: false`) of most of the Experience's
+records, most of them posted in 2026. Eight of the songs are now written from those tabs,
+in the record's order, intro to outro, with the other thirty-seven left as the
+reconstructions C2 describes. Each tab's length by its own tempo map was checked against
+the record's, and each record was beat-tracked (autocorrelation of the onset flux,
+20–120 s, on the Experience Hendrix uploads).
+
+| Song                         | Songsterr (rev, author)           | Tab tempo | Record       | Plays at | Sections, in order                                                       |
+| ---------------------------- | --------------------------------- | --------- | ------------ | -------- | ------------------------------------------------------------------------ |
+| Fire                         | 322 (7117434, Persona673)         | 156       | 155.1        | 146–150  | intro, verse, stop and run, chorus, "move over Rover", solo, outro (×17) |
+| Purple Haze                  | 310 (9830193, Nubbed_Joe98)       | 103–114   | 109.8        | 106–114  | intro, verse (no time), solo, intro again, verse, outro                  |
+| Foxey Lady                   | 22552 (8912149, jason pearson)    | 93        | 99.0         | 95–101   | the two-bar riff, the chorus; four times                                 |
+| Hey Joe                      | 22556 (9156249, braidzz)          | 75–87     | 83.9         | 80–87    | verse on the hat (fill every fourth bar), verse on the ride, outro       |
+| Manic Depression             | 22570 (4708516, Nicole D)         | 147 (3/4) | 149.4 (d.q.) | 218–230  | verse, stop and roll, the riff, solo, stops, outro with no time          |
+| Voodoo Child (Slight Return) | 39280 (9682557, Nikita Emelyanov) | 87–91     | 87.8         | 84–92    | riff on the hat, verse, chorus, solo, the long outro on the ride         |
+| Spanish Castle Magic         | 10148 (7016861, Ben Dibden1)      | 98        | 97.8         | 94–102   | riff, verse (a ruff and the kick), chorus, verse, solo, outro            |
+| Crosstown Traffic            | 22548 (8250604, Nikita Emelyanov) | 114       | 114.0/112.4  | 110–116  | the hook (snare pairs across the bar), intro, verse, chorus, solo, outro |
+
+What the tabs changed:
+
+- **Fire** plays under its record: its fills are whole bars of sixteenths round the kit,
+  and a run that long holds a song to 150 (`playableBpm`). The outro is seventeen pairs of
+  a bar round the kit and a bar of the ride.
+- **Purple Haze**'s verse has no time at all, as Cook transcribes it: a crash every other
+  bar and the snare answering the vocal between. Written as two-bar figures.
+- **Foxey Lady** is two bars, the second stopping after the "a" of 2 for the guitar, so its
+  backbeat is 2 alone. The tab's 93 is slow against the record's 99.
+- **Manic Depression**: the tab writes 3/4 in straight eighths; the record swings them as
+  triplets, so it stays in 9/8 with the tab's "and"s on each beat's last triplet. The tab
+  has no hat foot; the foot on 2 and 3 is C2's. Its old break had runs that held it to
+  150; the new one has none and plays at the record's 224 to the quarter.
+- **Spanish Castle Magic**'s verse has no cymbal: three sixteenths and a note on the snare
+  at the top of the bar over the kick in eighths, the backbeat on 2 alone; the outro puts
+  the snare in dotted eighths across the bar, the backbeat on 4.
+- **Crosstown Traffic**'s hook, every eight bars or so, is the snare in pairs three steps
+  apart (C2's dotted eighths), no kick, no cymbal.
+
+Where the critic and the tab disagree the critic won, and the song says so: any four
+sixteenths on the snare have the fourth on the rack tom, a run of four on the kick under
+a snare run is every other note, and a whole bar of fill over the kick has enough of the
+snare on the toms to leave a quarter of the bar air. Bars of the guitar alone (Purple
+Haze's stops, Foxey Lady's interlude, Hey Joe's and Voodoo Child's intros) are left out.
+
+Considered and left as they were: Little Wing (Songsterr 321) and The Wind Cries Mary
+(9045), which have human tabs but whose parts are one groove with a fill, so sections
+would add nothing the break lacks; Third Stone from the Sun (408961) and If 6 Was 9
+(22559), whose long free-time passages the grid cannot hold.
 
 ### C3. How he played: what the generator now encodes
 
@@ -860,19 +913,57 @@ critic's air rule (a quarter of the bar free of kick and snare) failed a real
 bar, the softest Funklet ghosts are left out (I Got the Feelin' bar 2: the
 two lone ghosts, keeping the threes; Mother Popcorn bar 2: the three softest).
 
-| Song                                       | Year | Tempo (quarter)              | Hats                                | What defines it                                                     | Source of the bars               |
-| ------------------------------------------ | ---- | ---------------------------- | ----------------------------------- | ------------------------------------------------------------------- | -------------------------------- |
-| Funky Drummer                              | 1969 | 101 (Funklet); 96 (songbpm)  | 16ths, one hand, opens just after 2 | snare `....3..1.1.23..2`, kick `1.1.......1..1..`                   | Funklet                          |
-| Cold Sweat                                 | 1967 | 112 (Funklet); 120 (songbpm) | 8ths, open on the "and"s of 1 and 3 | bar 1 backbeat on the "and" of 4; bar 2 no kick on 1                | Funklet; PAS, Bonedo, Wikipedia  |
-| I Got the Feelin'                          | 1967 | 128 (Funklet); 129 (songbpm) | 8ths                                | bar 1 backbeat on the "and"s of 2 and 4; bar 2 threes on the snare  | Funklet; Goodhertz notes         |
-| Mother Popcorn                             | 1969 | 117 (Funklet and songbpm)    | quarters                            | backbeat on 2 and the "and" of 4; bar 2 kick on every "and"         | Funklet; drumstinytranscriptions |
-| Say It Loud – I'm Black and I'm Proud      | 1968 | 108–115 (databases disagree) | 8ths (assumed)                      | —                                                                   | **reconstruction**               |
-| Give It Up or Turnit a Loose (Sex Machine) | 1970 | 111 (songbpm)                | 8ths (assumed)                      | the "clap your hands, stomp your feet" break, drums under the voice | **reconstruction**               |
-| Get Up, Get into It, Get Involved          | 1970 | 109 (songbpm)                | 16ths (assumed)                     | —                                                                   | **reconstruction**               |
+| Song                                       | Year | Tempo (quarter)                                         | Hats                                | What defines it                                                     | Source of the bars               |
+| ------------------------------------------ | ---- | ------------------------------------------------------- | ----------------------------------- | ------------------------------------------------------------------- | -------------------------------- |
+| Funky Drummer                              | 1969 | 101 (Funklet); 96 (songbpm); record 96→101              | 16ths, one hand, opens just after 2 | snare `....3..1.1.23..2`, kick `1.1.......1..1..`                   | Funklet                          |
+| Cold Sweat                                 | 1967 | 112 (Funklet); record 112.5–113.4; 120 (songbpm, wrong) | 8ths, open on the "and"s of 1 and 3 | bar 1 backbeat on the "and" of 4; bar 2 no kick on 1                | Funklet; PAS, Bonedo, Wikipedia  |
+| I Got the Feelin'                          | 1967 | 128 (Funklet); 129 (songbpm)                            | 8ths                                | bar 1 backbeat on the "and"s of 2 and 4; bar 2 threes on the snare  | Funklet; Goodhertz notes         |
+| Mother Popcorn                             | 1969 | 117 (Funklet and songbpm)                               | quarters                            | backbeat on 2 and the "and" of 4; bar 2 kick on every "and"         | Funklet; drumstinytranscriptions |
+| Say It Loud – I'm Black and I'm Proud      | 1968 | 108–115 (databases disagree)                            | 8ths (assumed)                      | —                                                                   | **reconstruction**               |
+| Give It Up or Turnit a Loose (Sex Machine) | 1970 | 111 (songbpm)                                           | 8ths (assumed)                      | the "clap your hands, stomp your feet" break, drums under the voice | **reconstruction**               |
+| Get Up, Get into It, Get Involved          | 1970 | 109 (songbpm)                                           | 16ths (assumed)                     | —                                                                   | **reconstruction**               |
 
 Left out: "There Was a Time" (songbpm's 139 may be double), "Ain't It Funky
 Now" (no tempo found), "Let a Man Come In and Do the Popcorn" and "Lowdown
 Popcorn" (drummer not confirmed).
+
+**Full songs (2026-10-23).** Two of the seven are now written in sections, in the
+record's order.
+
+- **Cold Sweat** follows Songsterr 38840 (rev 8119215 by Victor Pastor, 2026, a human
+  tab, aiGenerated false): 209 bars at 112. The album version (Parts 1 and 2, 7:28)
+  autocorrelates at 112.5–113.4. Its band energies line up with the tab bar for bar:
+  the band stops dead in bars 32 and 66, the horns leave under the drum break (bars
+  125–144), and the fade is bars 205–209. That puts the tempo at 112–113, not the 120
+  in the table above (songbpm's 120 is wrong). The order: the groove under the intro
+  and first verse (1–30); the stop, "I break out in a cold sweat" (31–36: the snare on
+  the "and"s, a bar of silence, the snare on the quarters, two hits with the horns, a
+  pickup); the second verse (37–64); a shorter stop (65–68); Maceo's solo (69–122);
+  "give the drummer some" (123–144): eighths on the ride, the kick and snare
+  syncopated in two-bar phrases, a tom on the "and"s, and a run of sixteenths on the
+  tom out of it; the groove (145–176); the out-vamp with the snare on 1 (177–206).
+  The groove keeps Funklet's dynamics, since the tab writes every snare note at one
+  level. The tab mostly opens the hats on the "and" of 3 only (x51 bars); Funklet's
+  opening on the "and"s of 1 and 3 is in the tab too (bars 45, 47, 89, 91). Both are
+  figures. The break's 22 bars are played as two eights and the two-bar run, and the
+  32nd-note flams in it sit on the grid.
+- **Funky Drummer** has no human transcription of the record: Songsterr's 4903001
+  and 5258151 are machine drafts, and 2327134 is the Bonus Beat Reprise, Danny
+  Krivit's 1986 loop of the break. So its structure is a reconstruction from the
+  record and Wikipedia. Wikipedia describes an extended vamp, the break announced
+  late ("give the drummer some"), "an eight-bar unaccompanied solo, a version of the
+  riff he plays through most of the piece", the vamp again, and a reprise of the
+  solo into the fade. The 9:14 record beat-tracks at 96 rising to about 101 (99.8 on
+  average, about 227 bars). Its sustained low end (bass and organ) drops 5–6 dB for
+  exactly eight bars, 134–141 (5:21–5:41): the break. Funklet's two bars are now one
+  two-bar figure played in turn. The break section plays it with no fill and no added
+  ghost.
+
+Left as they were: I Got the Feelin', Mother Popcorn, Get Up, Get into It, Get Involved
+and Give It Up or Turnit a Loose have no transcription on Songsterr at all, beyond
+empty or machine drafts. Say It Loud's only tab (3061078) is a machine draft. Its
+verse and chorus shape fits the record's length (85 bars at 114), but its chorus bar
+could not be checked against the record under the children's chorus.
 
 Sources: goodhertz.com/funklet (funky-drummer, cold-sweat, i-got-the-feelin,
 mother-popcorn); Wikipedia (Clyde Stubblefield, Funky Drummer, Cold Sweat,
@@ -884,7 +975,8 @@ story of the Funky Drummer"; funkydrummer.com School of Funk lesson 10.
 
 ## F. John Bonham (Led Zeppelin) — his records (2026-10-09)
 
-The `bonham` style plays **songs** (C2). Three of them are in **sextuplet 4/4**
+The `bonham` style plays **songs** (C2). Two of them, in part (Good Times
+Bad Times and Fool in the Rain: below), are in **sextuplet 4/4**
 (`4/4-6`, added for him): 24 steps a bar, six to the beat. A straight eighth
 is every third step, an eighth-note triplet every second, and a Bonham triplet
 three real sextuplets rather than sixteenths in threes. Straight sixteenths do
@@ -925,19 +1017,19 @@ in 4/4 and folds its triplet fills onto sixteenths.
   (left), dropping left strokes (drummercafe). Its gaps are banned to the kick
   (`noKick`), so a varied bar keeps its air.
 
-| Song                    | Tempo   | Grid                 | Source of the bars                                     | Confidence |
-| ----------------------- | ------- | -------------------- | ------------------------------------------------------ | ---------- |
-| Good Times Bad Times    | 90–96   | 4/4-6                | Drumeo, MusicRadar descriptions                        | medium     |
-| Fool in the Rain        | 126–134 | 4/4-6, backbeat on 3 | MusicRadar, Drumeo; kick reconstructed                 | medium     |
-| Rock and Roll           | 166–174 | 4/4-6                | tempo sure; groove and ending reconstructed            | low–medium |
-| Immigrant Song          | 110–114 | 4/4                  | drummercafe (paradiddle)                               | medium     |
-| When the Levee Breaks   | 70–74   | 4/4                  | Drumeo (ghosts, soft kick); kick cluster reconstructed | medium     |
-| Kashmir                 | 78–82   | 4/4                  | reconstruction                                         | low        |
-| Black Dog               | 78–84   | 4/4                  | bonedo (8ths, bell in v2, the descending fill)         | low–medium |
-| Trampled Under Foot     | 108–114 | 4/4                  | Drumeo ("loose hi-hats and doubles")                   | low        |
-| Achilles Last Stand     | 142–150 | 4/4                  | reconstruction (the gallop)                            | low        |
-| Communication Breakdown | 170–178 | 4/4                  | reconstruction                                         | low        |
-| Whole Lotta Love        | 88–92   | 4/4                  | tempo (Wikipedia: 92); reconstruction                  | low        |
+| Song                    | Tempo   | Grid                                | Source of the bars                                     | Confidence |
+| ----------------------- | ------- | ----------------------------------- | ------------------------------------------------------ | ---------- |
+| Good Times Bad Times    | 92–96   | 4/4 and 4/4-6                       | Songsterr 346 (human), checked against the record      | high       |
+| Fool in the Rain        | 127–133 | 4/4-6, backbeat on 3; the samba 4/4 | Songsterr 22692 (human), checked against the record    | high       |
+| Rock and Roll           | 168–174 | 4/4                                 | Songsterr 11537 (human); the free-time ending left out | high       |
+| Immigrant Song          | 111–115 | 4/4                                 | Songsterr 568 (human), checked against the record      | high       |
+| When the Levee Breaks   | 69–73   | 4/4                                 | Songsterr 11512 (human), checked against the record    | high       |
+| Kashmir                 | 79–83   | 4/4 (re-barred)                     | Songsterr 288 (human), re-barred from 3/4              | high       |
+| Black Dog               | 78–84   | 4/4                                 | bonedo (8ths, bell in v2, the descending fill)         | low–medium |
+| Trampled Under Foot     | 108–114 | 4/4                                 | Drumeo ("loose hi-hats and doubles")                   | low        |
+| Achilles Last Stand     | 142–150 | 4/4                                 | reconstruction (the gallop)                            | low        |
+| Communication Breakdown | 172–178 | 4/4                                 | Songsterr 208 (human), checked against the record      | high       |
+| Whole Lotta Love        | 88–92   | 4/4                                 | tempo (Wikipedia: 92); reconstruction                  | low        |
 
 Left out:
 
@@ -947,6 +1039,47 @@ Left out:
 - **Since I've Been Loving You.** No trustworthy tempo.
 - **D'yer Mak'er.** No groove found.
 - **Moby Dick.** A solo, partly with the hands.
+
+**Full songs (2026-10-23).** Seven of the eleven songs are now written as the records go,
+intro to outro, from human Songsterr tabs (all `aiGenerated` false, 2026 revisions), each
+record's tempo beat-tracked from the remaster's official audio:
+
+| Song                    | Tab (rev)       | Tab tempo | Record    | Grid                    | Sections    |
+| ----------------------- | --------------- | --------- | --------- | ----------------------- | ----------- |
+| Good Times Bad Times    | 346 (8733709)   | 95        | 94.1      | 4/4, triplet bars 4/4-6 | 6, 15 slots |
+| Fool in the Rain        | 22692 (8043340) | 98 (12/8) | 130.4     | 4/4-6, the samba 4/4    | 6, 32 slots |
+| Rock and Roll           | 11537 (7996843) | 172       | 170.5     | 4/4                     | 5, 24 slots |
+| Immigrant Song          | 568 (8821234)   | 113       | 113.0     | 4/4                     | 5, 16 slots |
+| When the Levee Breaks   | 11512 (8632208) | 71        | 71.2      | 4/4                     | 5, 32 slots |
+| Kashmir                 | 288 (9012247)   | 80–83     | 79.5–83.4 | 4/4 (re-barred)         | 6, 30 slots |
+| Communication Breakdown | 208 (9324296)   | 175       | 175.0     | 4/4                     | 4, 23 slots |
+
+What the tabs changed:
+
+- **Good Times Bad Times** is in two grids. The groove is in sixteenths (the kick on 1, its
+  "and", the "a" of 2 and the "e", "and" and "a" of 3, three on the one pedal: `heelToe`); the
+  famous kick triplets are sextuplets in their own bars (verse bars 5 and 7, the solo, the last
+  verse). So the sixteenth sections are 4/4 and the triplet sections `4/4-6`.
+- **Fool in the Rain**'s tab is 12/8 at a quarter of 98: its sixteenths are the record's
+  triplet eighths, and one tab bar is two of the record's bars at 131. The samba is 4/4 at the
+  same quarter; its unbroken sixteenths on the snare are thinned to threes for the critic.
+- **Rock and Roll** has no sextuplets: plain 4/4, the hats open in eighths. His free-time
+  ending (at 125–130, off the grid) is left out.
+- **Immigrant Song**: the ghost is on the "a" of 2 and 4, not the "e" of 1.
+- **When the Levee Breaks**: no ghost notes in the tab (Drumeo hears one after each
+  backbeat); the bridges' kick runs five sixteenths long on his one pedal (`singlePedalRuns`).
+- **Kashmir** is barred in the riff's 3/4, but the drums never leave 4/4: re-barred from the
+  tab's notes, 174 bars of his four, the kick doubled on 1 and on 3, a 9/8 bar shifting the bar
+  line by an eighth.
+- **Communication Breakdown**: the hats in quarters, two-bar pairs with the band's hits; not a
+  doubled kick.
+
+Bars with no backbeat (the band's stops, the riff's hits, a lone snare on 1) are left out, as
+the critic needs a backbeat in every bar. Left as breaks: Black Dog (its tab has no section
+markers and writes the riff's displacement as a new tempo every bar), Trampled Under Foot (its
+only tab is six distinct bars, kick on 1 and 3: not his playing), Whole Lotta Love (the
+free-time middle) and Achilles Last Stand (360 bars, 140 distinct, with 5/4 sections at 97
+against 145, a ratio a section's `tempoRatio` of ½ or 2 cannot hold).
 
 Sources:
 
@@ -1002,6 +1135,33 @@ The 32 songs and where each one's data comes from:
 Not Tony: Bitches Brew, _The Prisoner_, and the LA tracks of _Seven Steps to
 Heaven_. No 5/4 or 7/4 Tony track could be verified, so none is labelled one.
 
+**Whole songs (2026-10-23).** Two of the 32 now play intro to end, in sections:
+
+- _Cantaloupe Island_ (Empyrean Isles, 1964). No human transcription of the
+  record exists (Songsterr 462215 is 196 bars at 120, a minute too long for
+  it). The form is the lead sheet's sixteen bars (F minor, D-flat, D minor, F
+  minor, four each); the record (RVG remaster) autocorrelates at 116.2, and its
+  bass roots bar by bar give a four-bar intro, nine choruses and twelve bars of
+  F minor to the end, 160 bars, the record's 5:30. Thomas Brett (brettworks, 2023) places a rimshot on 4 at the end of the D minor bars (0:33, 1:09) and
+  buzzed tom fills in the solos (2:49). The head is choruses one, two and nine:
+  their melody chroma matches (0.79–0.81) where no other pair does, and the
+  trumpet band drops at chorus six, the piano solo. The solo order and the one
+  head out are a reading of the audio.
+- _Rise_ (Public Image Ltd, Album, 1986; Tony on tracks 1, 2 and 6). Only
+  machine tabs exist; Songsterr 1298868 (aiGenerated) is 130 bars at 85, and
+  the album version autocorrelates at 84.8, 130 bars in 6:08 against the
+  record's 6:06. The old 112–122 was wrong. The kick on every beat and the hats
+  in eighths are in the audio; the snare on 4, and the sections (the drum
+  part's own changes, not verse and chorus), are the tab's.
+
+Looked at and left: Fred (the only tab, 1820848, is a machine tab whose bars
+jump between 5/4, 7/8 and 2/4 through the solos, and whose tempo map holds 150
+where the record falls to about 139 from 1:30 to 5:30); Maiden Voyage, Footprints
+and Snake Oil (machine tabs only, and nothing about how the drum part changes
+from section to section); Seven Steps to Heaven and So What (the songs are the
+live versions, and the tabs are of the studio records); the rest have no tab
+at all.
+
 ## H. Ringo Starr (2026-10-10)
 
 The grooves come from 52 Songsterr drum tabs, all marked human-made, by one
@@ -1049,6 +1209,48 @@ Personnel checks:
 - Double-tracked drums.
 - Tempo drift and crescendo shapes.
 - Stop-time bars with no backbeat. The critic rejects them.
+
+**Whole songs (2026-10-23).** Seven of the breaks are now the records' flow,
+section by section, from human Songsterr tabs (each `aiGenerated` false),
+with tempos taken from the tabs and from autocorrelating the records:
+
+| Song           | Tab (rev)       | Tab tempo | Record    | Sections                                                   |
+| -------------- | --------------- | --------- | --------- | ---------------------------------------------------------- |
+| She Loves You  | 23711 (7659268) | 151       | 150.8     | floor-tom intro, hat verse, floor-tom chorus               |
+| Ticket to Ride | 26426 (9093765) | 123       | 123.5     | intro, broken beat, hat bridge, later broken beat          |
+| Rain           | 2631 (8637855)  | 112       | 109.5     | intro, verse, chorus                                       |
+| Hey Jude       | 2573 (9088587)  | 74        | 73.4–74.1 | entry, bridge, verse, coda, coda and fade                  |
+| Come Together  | 62923 (9717320) | 83        | 82.8      | lick, verse, chorus, bridge/solo, outro (`4/4-6`)          |
+| Something      | 2629 (9908689)  | 67 (72)   | 67.0      | verse, chorus, bridge in triplets, solo, outro             |
+| The End        | 2841 (9892132)  | 123       | 124.3     | "Oh yeah", crash bars, verse, solo, bridge, guitars, piano |
+
+What the tabs changed:
+
+- **She Loves You** has the verse on the hat and the intro, chorus and outro
+  on the floor tom, the other way round from the break before. The tab writes
+  the hat open; it is drawn as his washy half-open hat.
+- **Ticket to Ride**: both human tabs (26426 and 2369881) put the snare's second
+  note on the last triplet of 3 and the high tom after 4, not a flam on the
+  "and" of 3 and the tom on 4. From the second chorus on, the kick moves to 1,
+  3 and its "and", and the tom to the "and" of 4. At 123 the sextuplet grid's
+  top of 100 is too slow, so the triplet notes sit on their nearest sixteenths.
+- **Something** has no cymbal in the verse, and the snare is plain: the
+  break's rimshots and hat are not in the tab. The bridge is in triplets: the
+  kick on every eighth-note triplet under sextuplets on the floor tom.
+- **The End's solo** has no snare: the kick in eighths and the toms only. Its
+  section has no backbeat (`backbeats: []`).
+
+Stop-time bars, silent bars and bars with nothing on 2 or 4 are left out
+throughout (the critic needs a backbeat in every bar): the chorus holds of
+Rain, the verse stops of Come Together, the tag of She Loves You and the
+"I don't know" bars of Something. Come Together's lick has the hat on 2 and the
+toms on 3 and 4, so its section names 3 and 4 as the backbeats.
+
+Not rebuilt: **A Day in the Life** (the verses are free tom fills and long
+silences, and the one full human tab, 22718, is in double time with a running
+tempo map); **Tomorrow Never Knows** (one loop for the whole song, which the tab
+confirms); and the rest, which are one groove for most of the record or whose
+tabs were not checked.
 
 ## I. Tony Allen (2026-10-10)
 
@@ -1105,6 +1307,39 @@ as it is; changing it moves its golden):
 - Its kick cells have no 1 + 1e double.
 - It has a fixed backbeat on 6 and 12.
 
+**Two songs whole (2026-10-23).** Zombie and Water No Get Enemy now play in
+their record's order. Neither has a human transcription of the whole record,
+so both are laid out from the records themselves, beat-tracked and read band
+by band (kick 40–110 Hz, cymbals 7–11 kHz) bar by bar, with Songsterr's tabs
+as a check on where the kit stops:
+
+- **Zombie** (1976, 12:32): 132 throughout (131.9 over 60–700 s); 409 bars of
+  music, and the AI tab (662859) has 408. The kit is out for the first sixteen
+  bars and the last thirty-four. Between them, one groove (his two-bar figure),
+  broken by stops (bars 212–240) and a march (276–283, 301–328) where the kick
+  falls away and the hats play only on the beat. The tab has quarters on the
+  hat alone in the same bars. Something sounds in the snare's band on every
+  beat of the march, but the horns play there too and the two cannot be told
+  apart, so only the hats are written.
+- **Water No Get Enemy** (1975, 11:01): 90.5; 249 bars, and the AI tab
+  (2865237) has 250. The human tab (489456) holds the opening: the intro (the
+  snare and the kick in pairs), then the hat foot alone for six bars, where the
+  record's kick band falls 25–33 dB for exactly those bars, then the groove.
+  Its last five bars (stops and a crash) are not in the record, where the hats
+  just fall away from bar 245, and are left out. Past its bar 53 the record is
+  the groove to the end.
+- The intro's kick and snare pairs fill fifteen of sixteen steps, as the tab
+  has them; the second of each snare pair is left out for the critic, as the
+  fourth pattern is thinned.
+
+**Left as breaks, and why.** Every other Fela tab on Songsterr is AI-generated
+(Lady, Shakara, Gentleman, Sorrow Tears and Blood, Roforofo Fight, Opposite
+People, Yellow Fever, He Miss Road, No Agreement, Upside Down, Black Man's Cry,
+Go Back), and the web has no human transcription of any. Their parts are rock
+beats, and the changes in them are the machine's noise rather than anything
+the records' bands show. Those records are one groove from the kit's entry to
+the end, which is what their breaks already play.
+
 ## J. Stewart Copeland (2026-10-10)
 
 **The sources.** About 20 human-made Songsterr drum tabs (each tab's
@@ -1150,6 +1385,46 @@ The verse-to-chorus flip is `build`: the busier figure second, every phrase.
 on Every Breath You Take, cymbal chokes, and how much faster he played live
 (the ranges reach live tempos only where a source gives one).
 
+### J2. Eight songs in full (2026-10-23)
+
+**The sources.** Eight human Songsterr tabs (`aiGenerated` false on each), read section by
+section from their own markers, and each record beat-tracked from the band's YouTube uploads:
+
+| Song                          | Tab (rev)       | Tab tempo | Record | Sections | Bars laid out |
+| ----------------------------- | --------------- | --------- | ------ | -------- | ------------- |
+| Message in a Bottle           | 3706 (9697344)  | 151       | 150.8  | 7        | 32            |
+| Every Breath You Take         | 438 (9349293)   | 117       | 117.4  | 4        | 16            |
+| Can't Stand Losing You        | 15357 (6249577) | 144       | 141.5  | 7        | 28            |
+| De Do Do Do, De Da Da Da      | 16045 (993930)  | 144       | 147.3  | 5        | 28            |
+| Synchronicity II              | 15847 (6046916) | 158       | 158.3  | 5        | 32            |
+| Don't Stand So Close to Me    | 15665 (6204737) | 140       | 140.1  | 4        | 32            |
+| Spirits in the Material World | 15480 (9155249) | 140       | 141.3  | 4        | 16            |
+| Bring On the Night            | 15968 (8945454) | 109       | 109.6  | 5        | 24            |
+
+Each song plays its sections in the record's order, intro to outro. A song holds 32 distinct
+bars and 32 arrangement slots, and these records run 90 to 200 bars, so a part that repeats on
+the record repeats in the arrangement, and a long one (Synchronicity II's pre-verse, Message in
+a Bottle's outro, Don't Stand So Close to Me's solo) is played shorter than the record. Each
+song's comment says which.
+
+**What the whole songs show** that the single breaks did not:
+
+- The parts are different grooves, not one groove with fills. Message in a Bottle's chorus has
+  no backbeat at all, the hat over four on the floor; its second verse moves the answer to the
+  toms; its third puts the snare back under open hats. Don't Stand So Close to Me's first verse
+  is the kick on 3 and nothing else, its second four on the floor with the snare on 3.
+- What changes is often only the cymbal: Every Breath You Take keeps one groove for the whole
+  record and moves from no hat (the floor tom doubling the kick) to the hat, the bell and the
+  ride.
+- Tempo: Can't Stand Losing You is 141–142 on the record, not the 144 of the tab and songbpm;
+  De Do Do Do is 147, faster than its tab's 144.
+- Don't Stand So Close to Me's tab writes GM note 80 (a mute triangle) on the off-beats of the
+  first verse: not on the kit, and not played.
+
+**Left as single breaks:** Every Little Thing She Does Is Magic (81 distinct bars in 91, a bar
+of 2/4 and off-grid notes: too varied to lay out in 32 bars without losing what it is), and the
+rest of the forty, whose tabs this pass did not read.
+
 ## K. Yussef Dayes (2026-10-10)
 
 **The sources.** Drum Hub's human transcriptions (Alex Richards): a beat sheet
@@ -1187,6 +1462,39 @@ or the transcriber's, with the half/double reading chosen per track.
 with sextuplets (48 steps a bar) and the live Tioga paradiddle-diddles in
 32nds; 32nd ruffs (approximated by 16th pairs); the snares-off drum in
 Marching Band (played on the high tom).
+
+**Three tracks whole (2026-10-23).** Tioga Pass, Lift Off and Jamaican Links
+are now written in sections, in the record's order, from the three human
+Songsterr tabs, each checked against its record:
+
+- _Tioga Pass_ (Black Classical Music, 2023): Songsterr 884502 (rev 6069598,
+  aiGenerated false), 175 bars marked Theme A, B, A', Bass Change up, Theme C,
+  Build, Bass Solo, Theme C', Bridge, Outro. The tab says 95; the record
+  (Brownswood's upload, E686UyA6xvU) autocorrelates at 90.3–92.7, about 91.5.
+  Its drums come in at about 1:10 and stop from 3:06 to 4:06, where the tab's
+  bass change-up leaves them silent (bars 69–94). Seven sections, 29 slots.
+  Left out: the drumless intro, the change-up's silent bars, the floor-tom
+  builds (no backbeat), three bars with four kicks in a row, and the bridge's
+  32nd rolls.
+- _Lift Off_ (What Kinda Music, 2020): Songsterr 6965167 (rev 9133210,
+  aiGenerated false), 176 bars at 140, no markers. The record (UdKCIFj5bik)
+  autocorrelates at 139.7 throughout; 176 bars at 140 is its 5:02. Half-time,
+  the snare on 3: the snare alone under the guitar, the groove, the ride
+  chorus and the breakdown on the bell, 23 slots. Left out: the kick alone,
+  the band's hits in 3/4 and 2/4 (bars 107–117) and the snare roll after them.
+- _Jamaican Links_ (live, Welcome to the Hills, 2020, track 2 of his upload
+  TLWygV_OGc0): Songsterr 1273078 (rev 1913345, aiGenerated false), 48 bars at 133. The track's 85 s of music autocorrelates at 136–139; 48 bars at 136 is
+  84.7 s, and its level drops at the tab's stop (bars 30–33). The tempo is now
+  134–140 (was 130–136). The stop is left out: three of its bars have no
+  backbeat.
+
+The tabs write every snare note at one level; the notes off the backbeat are
+ghosts in the songs, as Drum Hub's transcriptions have them, and no ghosts are
+rolled on top (`ghostWeights: {}`). The other Songsterr tabs of his tracks are
+machine drafts (Rust, Nightrider, Love Is the Message, Lowrider, What Kinda
+Music, Raisins Under the Sun, Last 100, For My Ladies): not used for structure,
+as the brief asks for a human one and his dense ghosted 16ths are what a
+machine draft gets wrong.
 
 ## L. Bernard Purdie (2026-10-11)
 
@@ -1253,20 +1561,20 @@ in `4/4-6`, as Bonham's Fool in the Rain is, so the tempo reads as the
 record's quarter (Home at Last 126–128, not 12/8's dotted quarter) and the
 backbeat on 3 is step 12.
 
-| Song                     | Year | Tempo (quarter)                          | Hats                                                      | What defines it                                                    | Source of the bars                   |
-| ------------------------ | ---- | ---------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------ |
-| O-o-h Child              | 1970 | 89 (Funklet); 88 (songbpm)               | disco: two 16ths and an open "and", accented on the beat  | busy kick (1, &1, 3, &3, a3), snare cracking on the "e" of 3       | Funklet                              |
-| Rock Steady              | 1971 | 103 (Funklet); 102 (Payne); 105          | 8ths, open on the "and"s of 1 and 3, a crack on 2a and 4a | no kick on 1; foot on the quarters                                 | Funklet; funkydrummer.com lesson 22  |
-| Memphis Soul Stew (live) | 1971 | ~113 (songbpm; may be the studio single) | 16ths but for the backbeat, a crack before every beat     | left hand on every "e"                                             | **reconstruction** from Drummer Cafe |
-| Use Me (Esther Phillips) | 1972 | 82 (Funklet); 83 (songbpm)               | 16ths, open on the "and"s of 1 and 3                      | a busy snare of even hits                                          | Funklet                              |
-| Synthetic Substitution   | 1973 | 93 (Funklet)                             | 8ths, accented                                            | plain backbeat, fast-footed kick ("swings his foot a little")      | Funklet                              |
-| Kid Charlemagne          | 1976 | 95–100 (tab); 97 (songbpm)               | 8ths, open on the "and"s of 1 and 3                       | four on the floor, ghosts on the "e"s and "a"s                     | Songsterr 54434 (human)              |
-| The Fez                  | 1976 | 99 (Funklet and songbpm)                 | the "and"s only                                           | linear: snare in every gap, kick on 1 and 3                        | Funklet                              |
-| Haitian Divorce          | 1976 | 74 (Funklet and songbpm)                 | 16ths, open on the "and"s of 1 and 3                      | kick on 1&, 2, 3&, 4; ghosts round the backbeat                    | Funklet                              |
-| Deacon Blues             | 1977 | 116 (tab and songbpm)                    | 8ths; ride in the choruses                                | kick on 1, &2, 3, &4; no ghosts in the tab                         | Songsterr 54440 (human)              |
-| Home at Last             | 1977 | 126 (tab); 128 (songbpm)                 | shuffle, accented on the beat; quarters in the verse      | backbeat on 3, kick on 1, 1-trip, 2-trip, 4-trip                   | Songsterr 3705091 (human) + ghosts   |
-| Babylon Sisters          | 1980 | 120 (tab); 122 (songbpm)                 | shuffle; the intro on the beats                           | kick on 1 and the last triplet of 4; cross-stick on 3 in the intro | Songsterr 3789127 (human) + ghosts   |
-| Hot Sweat                | 1996 | 114 (Funklet)                            | 8ths, then 16ths in pairs                                 | backbeat on 2 and the "and" of 4, then the kick doubled            | Funklet                              |
+| Song                     | Year | Tempo (quarter)                            | Hats                                                      | What defines it                                                    | Source of the bars                   |
+| ------------------------ | ---- | ------------------------------------------ | --------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------ |
+| O-o-h Child              | 1970 | 89 (Funklet); 88 (songbpm)                 | disco: two 16ths and an open "and", accented on the beat  | busy kick (1, &1, 3, &3, a3), snare cracking on the "e" of 3       | Funklet                              |
+| Rock Steady              | 1971 | 103 (Funklet); 102 (Payne); 105            | 8ths, open on the "and"s of 1 and 3, a crack on 2a and 4a | no kick on 1; foot on the quarters                                 | Funklet; funkydrummer.com lesson 22  |
+| Memphis Soul Stew (live) | 1971 | ~113 (songbpm; may be the studio single)   | 16ths but for the backbeat, a crack before every beat     | left hand on every "e"                                             | **reconstruction** from Drummer Cafe |
+| Use Me (Esther Phillips) | 1972 | 82 (Funklet); 83 (songbpm)                 | 16ths, open on the "and"s of 1 and 3                      | a busy snare of even hits                                          | Funklet                              |
+| Synthetic Substitution   | 1973 | 93 (Funklet)                               | 8ths, accented                                            | plain backbeat, fast-footed kick ("swings his foot a little")      | Funklet                              |
+| Kid Charlemagne          | 1976 | 96–99 (record); 95–100 (tab); 97 (songbpm) | 8ths, open on the "and"s of 1 and 3                       | four on the floor, ghosts on the "e"s and "a"s                     | Songsterr 54434 (human)              |
+| The Fez                  | 1976 | 99 (Funklet and songbpm)                   | the "and"s only                                           | linear: snare in every gap, kick on 1 and 3                        | Funklet                              |
+| Haitian Divorce          | 1976 | 74 (Funklet and songbpm)                   | 16ths, open on the "and"s of 1 and 3                      | kick on 1&, 2, 3&, 4; ghosts round the backbeat                    | Funklet                              |
+| Deacon Blues             | 1977 | 115.2 (record); 116 (tab and songbpm)      | 8ths; ride in the choruses                                | kick on 1, &2, 3, &4; no ghosts in the tab                         | Songsterr 54440 (human)              |
+| Home at Last             | 1977 | 126 (tab); 128 (songbpm)                   | shuffle, accented on the beat; quarters in the verse      | backbeat on 3, kick on 1, 1-trip, 2-trip, 4-trip                   | Songsterr 3705091 (human) + ghosts   |
+| Babylon Sisters          | 1980 | 120 (tab); 122 (songbpm)                   | shuffle; the intro on the beats                           | kick on 1 and the last triplet of 4; cross-stick on 3 in the intro | Songsterr 3789127 (human) + ghosts   |
+| Hot Sweat                | 1996 | 114 (Funklet)                              | 8ths, then 16ths in pairs                                 | backbeat on 2 and the "and" of 4, then the kick doubled            | Funklet                              |
 
 Kits: the 1970–73 soul records and Hot Sweat play `smdrums` (the 60s Ludwig,
 "the funk and soul kit"); the Steely Dan records play `teatowel`, damped and
@@ -1288,6 +1596,46 @@ closed by the foot on the beat; the model has the half-open hat and the foot
 chick but not the foot's close shaping the open note. The ghost level is the
 kit's, not his 25–35 velocity. Dr. John's second bass drum on Rock Steady is
 not played.
+
+**Two songs whole (2026-10-23).** Kid Charlemagne and Deacon Blues now play in
+sections, in the record's order, from their human Songsterr tabs; the other
+ten are still one break each.
+
+- _Kid Charlemagne_: Songsterr 54434, a new revision (9735321, Austin
+  Shearman, 14 October 2026; `aiGenerated` false), 113 bars with its sections
+  marked: intro, four verses each with a bridge (two bars of the groove, two
+  round the toms), a reprise, three choruses, the guitar solo and the outro
+  solo. The record (YouTube jJ9Xk-VoGqo) drifts up through the song as the
+  tab's tempo map has it: 95.9 over 10–90 s, 97.6 over 100–180 s, 99.1 over
+  200–280 s. The verse bar is the old figure, unchanged. Left out: the intro's
+  three bars of hats with no backbeat, the three stop bars of hits off the
+  grid (55, 57, 59), the solo's bar of 2/4 and the fade's last three bars.
+- _Deacon Blues_: Songsterr 54440 (rev 4154365, corbin, 2025; `aiGenerated`
+  false), 218 bars at 116, sections marked. The record (YouTube ICK6e9WK2A8)
+  autocorrelates at 115.2; 210 played bars at that tempo and eight silent
+  ones make the record's 7:34. Verses of sixteen on the hats ending round the
+  toms; choruses on the ride, six bars and a two-bar stop on the rack tom
+  twice, then six bars out on a bar of eighths on the kick. Left out: both
+  intros (the backbeat is on the kick) and the sax solo's two-bar stops.
+
+Considered and left: _Babylon Sisters_ (3789127) and _Home at Last_
+(3705091) have no section markers and are one groove with the kick moving
+under it: 107 of Babylon Sisters' 178 bars are the same bar, and Home at
+Last's kick changes every few bars and stops for whole bars, more than an
+arrangement of 32 slots can follow; the weighted figures already hold their
+bars. _The Fez_ has a new human tab (3761347, Toast Stealer, 2026), but it
+writes every snare note at one level and never plays the linear groove
+Funklet transcribes, and the record's bands (98.8 against the tab's 96) do not
+settle which is right, so Funklet stands. _O-o-h Child_ (903215, flagged human
+but its track named "Drums (regenerated)") has 49 distinct bars in 72, every
+snare at one level, none of Funklet's disco hats. Rock Steady and Use Me have
+machine tabs only. The record tempos: The Fez 98.8, Home at Last 128.4,
+Babylon Sisters 122.7, all inside the songs' ranges.
+
+Sources: Songsterr API (songs 54434, 54440, 3705091, 3789127, 3761347, 903215,
+787133, 1648348, 1119049; AI flags read on each); the records on YouTube
+(jJ9Xk-VoGqo, ICK6e9WK2A8, HXVc1f7IOgs, Hx5ZlTyzU-k, tV4UVvVFpXI),
+autocorrelated.
 
 Sources: goodhertz.com/funklet (rock-steady, ooh-child, purdie-use-me,
 synthetic-substitution, the-fez, hatian-divorce, hot-sweat, purdie-cowbell)
@@ -1384,17 +1732,17 @@ ghost and an accent on the "a" of 4, or unison accents with the kick.
 Make It Funky, Papa Don't Take No Mess, Doing It to Death, Think, Love Light
 and Hot Pants Road have only AI-generated tabs, which were not used.
 
-| Song                                     | Year | Tempo (quarter)                               | Hats                                                                     | What defines it                                                                                     | Source of the bars                       |
-| ---------------------------------------- | ---- | --------------------------------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| Get Up (I Feel Like Being a) Sex Machine | 1970 | 109 (Funklet); 108 (songbpm, Songsterr)       | 8ths, opens on the "and"s of 1 and 3, 16th before 3                      | snare `....3.11.1..3..1`, kick `2.........1...1.`, heavy swing                                      | Funklet; Songsterr s10223                |
-| Super Bad                                | 1970 | 132 (MD); 125 (songbpm, Songsterr); 120 (tab) | 8ths and a 16th, opens on the "and"s of 1 and 3; ride bell in the bridge | snare on the 1 and the "and" of 2; bridge: bell and snare on 2, 3, 4, then on the "and"s of 1 and 3 | MD (Connell); Songsterr s10344, s6535055 |
-| The Payback                              | 1973 | 99 (Cruise Ship); 98 (songbpm); 95 (tab)      | quarters, open on the "and" of 1 or 3                                    | kick on every beat and the "a" of 4; snare on 2 alone in the intro; ghosts later                    | Cruise Ship Drummer                      |
-| Hot Pants                                | 1971 | 98 (songbpm and tab)                          | 8ths with 16ths before 3 and before the 1                                | kick on 1 and 3; long stops (1 and 2, then silence)                                                 | Songsterr s1889573                       |
-| Pass the Peas                            | 1971 | 102 (tab); 99 (search)                        | 8ths                                                                     | plain kick on 1 and 3, snare on the "a" of 2 and the "e" of 3                                       | Songsterr s1936430                       |
-| Licking Stick – Licking Stick            | 1968 | 104 (tab); 115 (getsongbpm)                   | 8ths, opens on the "and" of 3 (and of 1)                                 | cross-stick backbeat with clicks on the "a" of 2 and the "e" of 3                                   | Songsterr s4694682                       |
-| Soul Power                               | 1971 | 105 (songbpm)                                 | shuffled 16th lilt; ride in the B section                                | shuffling verse; ride with the bell on 2 and 4, foot on 2 and 4                                     | **reconstruction**                       |
-| Think (About It)                         | 1972 | 113 (songbpm); 110–115 (AI tab, not used)     | swung, "plenty of shuffle in the hi-hats"                                | the "yeah! woo!" break                                                                              | **reconstruction**                       |
-| Turn On Your Love Light                  | 1961 | 106 (songbpm; may be half)                    | swung 8ths, ride to lift                                                 | gospel R&B drive                                                                                    | **reconstruction**                       |
+| Song                                     | Year | Tempo (quarter)                                               | Hats                                                                     | What defines it                                                                                     | Source of the bars                       |
+| ---------------------------------------- | ---- | ------------------------------------------------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| Get Up (I Feel Like Being a) Sex Machine | 1970 | 109 (Funklet); 108 (songbpm, Songsterr)                       | 8ths, opens on the "and"s of 1 and 3, 16th before 3                      | snare `....3.11.1..3..1`, kick `2.........1...1.`, heavy swing                                      | Funklet; Songsterr s10223                |
+| Super Bad                                | 1970 | 125.9 (record); 132 (MD); 125 (songbpm, Songsterr); 120 (tab) | 8ths and a 16th, opens on the "and"s of 1 and 3; ride bell in the bridge | snare on the 1 and the "and" of 2; bridge: bell and snare on 2, 3, 4, then on the "and"s of 1 and 3 | MD (Connell); Songsterr s10344, s6535055 |
+| The Payback                              | 1973 | 97.2–99.0 (record); 99 (Cruise Ship); 98 (songbpm); 95 (tab)  | quarters, open on the "and" of 1 or 3                                    | kick on every beat and the "a" of 4; snare on 2 alone in the intro; ghosts later                    | Cruise Ship Drummer                      |
+| Hot Pants                                | 1971 | 98 (songbpm and tab)                                          | 8ths with 16ths before 3 and before the 1                                | kick on 1 and 3; long stops (1 and 2, then silence)                                                 | Songsterr s1889573                       |
+| Pass the Peas                            | 1971 | about 100 (record); 102 (tab); 99 (search)                    | 8ths                                                                     | plain kick on 1 and 3, snare on the "a" of 2 and the "e" of 3                                       | Songsterr s1936430                       |
+| Licking Stick – Licking Stick            | 1968 | 104.3 (record); 104 (tab); 115 (getsongbpm, wrong)            | 8ths, opens on the "and" of 3 (and of 1)                                 | cross-stick backbeat with clicks on the "a" of 2 and the "e" of 3                                   | Songsterr s4694682                       |
+| Soul Power                               | 1971 | 105 (songbpm)                                                 | shuffled 16th lilt; ride in the B section                                | shuffling verse; ride with the bell on 2 and 4, foot on 2 and 4                                     | **reconstruction**                       |
+| Think (About It)                         | 1972 | 113 (songbpm); 110–115 (AI tab, not used)                     | swung, "plenty of shuffle in the hi-hats"                                | the "yeah! woo!" break                                                                              | **reconstruction**                       |
+| Turn On Your Love Light                  | 1961 | 106 (songbpm; may be half)                                    | swung 8ths, ride to lift                                                 | gospel R&B drive                                                                                    | **reconstruction**                       |
 
 **Left out:**
 
@@ -1414,6 +1762,45 @@ between sections is two figures in a phrase. `build` would put the ride
 section second, but it sorts by note count, and his ride bars are no busier
 than his hat bars, so it is not set. There is no way to say "the ride figure
 second" when the ride figure is not the busier one.
+
+**Whole songs (2026-10-23).** Four of the nine records now play whole, in the
+record's order, from human Songsterr tabs whose length and tempo were checked
+against the record (each record from James Brown's or the J.B.'s' own YouTube
+channel, beat-tracked and autocorrelated):
+
+| Song          | Tab (rev, author)                 | Tab       | Record                                  | Range   | Sections                                                      |
+| ------------- | --------------------------------- | --------- | --------------------------------------- | ------- | ------------------------------------------------------------- |
+| Super Bad     | s6535055 (8533751, MyFirstBass23) | 156 @ 125 | 125.9 (XV9a3tUPqTo, 5:03)               | 123–129 | intro, verse, turnaround, bridge ×2, its end, snare off the 1 |
+| The Payback   | s2397269 (9121582, Luciano)       | 183 @ 95  | 97.2 rising to 99.0 (1cBZcpSeiFc, 7:41) | 95–100  | intro, groove, the ghosts                                     |
+| Pass the Peas | s1936430 (3269488, Stephan)       | 82 @ 102  | about 100 (iymr-OAGJUY, 3:12)           | 99–104  | groove, the horns' answer, its bar of eighths, the break      |
+| Licking Stick | s4694682 (6141416, beenooniii)    | 128 @ 104 | 104.3 (R9tgnn7kyQE, 4:54)               | 101–107 | the hats' two opens by turns, the struck snare, the kick off  |
+
+- **Super Bad.** The tab's bars line up with the record's: the kit ends in bar
+  156 at 125.9, and the snare band drops while the cymbal band swings bar by
+  bar in exactly 49–74 and 106–124, the two bridges on the ride. Modern
+  Drummer's 132 is faster than the record. The parts stay Connell's; the
+  bridge's two bars are now one two-bar figure, as the tab alternates them.
+- **The Payback.** The tab's kick (1, the "a" of 2, 3, the "a" of 4, with
+  the floor tom) is not the record's: folded over three stretches, the kick
+  band is as strong on 2 and 4 as on 1 and 3, as Cruise Ship Drummer has it.
+  Its structure is right, though: the record's kick is lower for the intro,
+  and dips in the tab's stop (61–62) and its band hits (107, 118, 165, 172,
+  178). The stop and the hits have no backbeat the critic holds, so they are
+  left out, and the song is the intro, the groove and the ghosts.
+- **Pass the Peas.** The kit comes in on the tab's bar 4 and leaves on its 75,
+  the horns playing out alone. Its one bar of 2/4 (eighths on the snare) is
+  written as the end of a 4/4 bar; the stops in 17–23 are left out.
+- **Licking Stick.** getsongbpm's 115 was wrong: the record is 104.3, the
+  tab's tempo, and the tab is the record's length. The record's bands hardly
+  move from bar to bar, so the order of the hats' opens and of the four bars
+  of struck snare is the tab's alone.
+
+**Left as breaks.** Sex Machine's tab (s10223) is one groove for 133 of its
+138 bars; its other bars, the eighth-note pushes into the chorus, have no
+backbeat. Hot Pants's tab (s1889573) has no snare in 67 of its 168 bars (the
+hat and the kick on the 1 alone, or nothing), so too much of it cannot be
+written. Soul Power, Think (About It) and Turn On Your Love Light have only
+AI tabs.
 
 Sources: goodhertz.com/funklet/get-up (Jack Stratton, 2011); moderndrummer.com
 "John 'Jabo' Starks: 'Superbad'" (transcribed by Joseph Connell, 2018);
@@ -1525,23 +1912,68 @@ of the Highway are reconstructions (Songsterr has only machine-made tabs of
 them, or none). Each written fill keeps a struck note at or next to the
 backbeat it covers, or the critic finds no backbeat in the last bar.
 
-| Song                                     | Year | Tempo (quarter)                                  | Hats                                 | What defines it                                                            | Source of the bars                          |
-| ---------------------------------------- | ---- | ------------------------------------------------ | ------------------------------------ | -------------------------------------------------------------------------- | ------------------------------------------- |
-| 50 Ways to Leave Your Lover (Paul Simon) | 1975 | 105 (tab); 102 (songbpm, Bonedo)                 | 16ths, left hand                     | hat foot, hat and snare in turn; kick on the "a" of 2 and 3; a roll into 4 | Songsterr 234652 (human)                    |
-| Late in the Evening (Paul Simon)         | 1980 | 119 (songbpm)                                    | none: the cowbell                    | mozambique bell; the left hand on the low tom; foot on 1–4                 | Songsterr 424011 (human; feet from lessons) |
-| Aja (Steely Dan)                         | 1977 | 117 (songbpm)                                    | 8ths, opens on the "and"s of 1 and 3 | cross-stick on 2 and 4; kick on 1, &2, 3, &4                               | Songsterr 54438 (human)                     |
-| Nite Sprite (Chick Corea)                | 1976 | 120 (musiciwant)                                 | 16ths                                | funk 16ths, the 10" tom answering                                          | **reconstruction**                          |
-| Lenore (Chick Corea)                     | 1976 | 130 (Drummer Cafe); 91 (songbpm)                 | 8ths                                 | backbeat a 16th early (A) and late (B); floor tom on 1                     | lesson (reconstruction)                     |
-| Samba Song (Chick Corea, _Friends_)      | 1978 | 136 (Todd Bishop's solo transcription)           | ride 8ths                            | clave on the rim, surdo in the kick                                        | **reconstruction**                          |
-| Chuck E.'s in Love (Rickie Lee Jones)    | 1979 | 116 (tab), so 58 half-time; 109 (AcousticBrainz) | on the "and"s, shuffled              | half-time shuffle in 4/4-6 at 56–60, snare on 3                            | Songsterr 385456 (human)                    |
-| The Hustle (Van McCoy)                   | 1975 | 110 (songbpm)                                    | 16ths, opens through the bar         | kick on 1 and the "and" of 2                                               | Songsterr 57585 (human)                     |
-| Glamour Profession (Steely Dan)          | 1980 | 117–118 (Shazam, Tunebat, songbpm)               | 8ths on the "and"s                   | disco, four on the floor, foot on 1                                        | Songsterr 64450 (human)                     |
-| Third World Man (Steely Dan)             | 1980 | 107 (songbpm)                                    | 8ths                                 | slow, ghosts round the backbeat                                            | **reconstruction**                          |
-| Slip Slidin' Away (Paul Simon)           | 1977 | 121 (songbpm)                                    | 8ths                                 | cross-stick on 2 and 4                                                     | **reconstruction**                          |
-| Just the Two of Us (Grover Washington)   | 1980 | 96 (karaoke-version; Mixmeister 95.8)            | 8ths                                 | kick on 1, the "a" of 2 and 3                                              | Songsterr 597061 (human)                    |
-| We're in This Love Together (Al Jarreau) | 1981 | 79 (songbpm; Musicnotes 70–75 "shuffle")         | 16ths, swung                         | slow 16th shuffle                                                          | **reconstruction**                          |
-| When You Got a Good Friend (Clapton)     | 2004 | 96 (songbpm)                                     | 8ths, shuffled, accented on the beat | kick on every beat; a ghost on the "and" of 4                              | Songsterr 5009 (human)                      |
-| Stretch of the Highway (James Taylor)    | 2015 | 110 (songbpm)                                    | 16ths                                | rolling groove, cross-stick verse                                          | **reconstruction**                          |
+| Song                                     | Year | Tempo (quarter)                                      | Hats                                 | What defines it                                                            | Source of the bars                          |
+| ---------------------------------------- | ---- | ---------------------------------------------------- | ------------------------------------ | -------------------------------------------------------------------------- | ------------------------------------------- |
+| 50 Ways to Leave Your Lover (Paul Simon) | 1975 | 102.0 (record); 105 (tab); 102 (songbpm, Bonedo)     | 16ths, left hand                     | hat foot, hat and snare in turn; kick on the "a" of 2 and 3; a roll into 4 | Songsterr 234652 (human)                    |
+| Late in the Evening (Paul Simon)         | 1980 | 119.0 (record); 119 (songbpm)                        | none: the cowbell                    | mozambique bell; the left hand on the low tom; foot on 1–4                 | Songsterr 424011 (human; feet from lessons) |
+| Aja (Steely Dan)                         | 1977 | 117 (songbpm)                                        | 8ths, opens on the "and"s of 1 and 3 | cross-stick on 2 and 4; kick on 1, &2, 3, &4                               | Songsterr 54438 (human)                     |
+| Nite Sprite (Chick Corea)                | 1976 | 120 (musiciwant)                                     | 16ths                                | funk 16ths, the 10" tom answering                                          | **reconstruction**                          |
+| Lenore (Chick Corea)                     | 1976 | 130 (Drummer Cafe); 91 (songbpm)                     | 8ths                                 | backbeat a 16th early (A) and late (B); floor tom on 1                     | lesson (reconstruction)                     |
+| Samba Song (Chick Corea, _Friends_)      | 1978 | 136 (Todd Bishop's solo transcription)               | ride 8ths                            | clave on the rim, surdo in the kick                                        | **reconstruction**                          |
+| Chuck E.'s in Love (Rickie Lee Jones)    | 1979 | 116 (tab), so 58 half-time; 109 (AcousticBrainz)     | on the "and"s, shuffled              | half-time shuffle in 4/4-6 at 56–60, snare on 3                            | Songsterr 385456 (human)                    |
+| The Hustle (Van McCoy)                   | 1975 | 110.2 (record); 110 (songbpm)                        | 16ths, opens through the bar         | kick on 1 and the "and" of 2                                               | Songsterr 57585 (human)                     |
+| Glamour Profession (Steely Dan)          | 1980 | 117–118 (Shazam, Tunebat, songbpm)                   | 8ths on the "and"s                   | disco, four on the floor, foot on 1                                        | Songsterr 64450 (human)                     |
+| Third World Man (Steely Dan)             | 1980 | 107 (songbpm)                                        | 8ths                                 | slow, ghosts round the backbeat                                            | **reconstruction**                          |
+| Slip Slidin' Away (Paul Simon)           | 1977 | 121 (songbpm)                                        | 8ths                                 | cross-stick on 2 and 4                                                     | **reconstruction**                          |
+| Just the Two of Us (Grover Washington)   | 1980 | 95.5 (record); 96 (karaoke-version; Mixmeister 95.8) | 8ths                                 | kick on 1, the "a" of 2 and 3                                              | Songsterr 597061 (human)                    |
+| We're in This Love Together (Al Jarreau) | 1981 | 79 (songbpm; Musicnotes 70–75 "shuffle")             | 16ths, swung                         | slow 16th shuffle                                                          | **reconstruction**                          |
+| When You Got a Good Friend (Clapton)     | 2004 | 96.4 (record); 96 (songbpm)                          | 8ths, shuffled, accented on the beat | kick on every beat; a ghost on the "and" of 4                              | Songsterr 5009 (human)                      |
+| Stretch of the Highway (James Taylor)    | 2015 | 110 (songbpm)                                        | 16ths                                | rolling groove, cross-stick verse                                          | **reconstruction**                          |
+
+**Whole songs (2026-10-23).** Five of the songs now play whole, section by
+section in the record's order, from the same human Songsterr tabs read for
+their order rather than their most common bars, each record's tempo
+measured from the audio (onset autocorrelation over the whole track):
+
+- **50 Ways** (234652): no markers; the march's two bars in turn, a
+  turnaround bar with the hats open on the "and" of 4, the chorus fifteen
+  bars, twice, then the march to the end. The record (ABXtWqmArUU) is 102.0,
+  not the tab's 105, and its first verse is 32 bars of the march where the
+  tab has 22 (the first chorus at 76 s); the rest matches the tab. The song
+  plays the record's first verse.
+- **Late in the Evening** (424011): the kit is written as strings and frets,
+  read by the track's tuning (42 hat, 51 ride, 47 low tom, 43 and 41 floor
+  toms, 44 hat foot, 57 and 59 cymbals); hands only, the hat foot only in the
+  band's hits. Markers: intro, verse 1, "Verses 2,3" (one passage, played
+  twice here), horn melody, verse 4, drum break, outro; the toms in threes
+  close verses 1 and 4, the band's hits (foot on 1, 2 and 4, ride on 3) close
+  the intro, the horn melody, the break and the outro; a stop bar after
+  verses 2 and 3 is left out. Record (ilzvuie7Bks) 119.0. The record runs on
+  past the tab's last hits into a horn fade.
+- **The Hustle** (57585): twice over, the strings' passage with no snare (left
+  out), the band in on crash, snare and kick, the groove with a bar down the
+  toms every eighth, a second groove (the kick on the "a" of 1 and the "and"
+  of 4), the break, the groove and two bars of snare fill. Record
+  (SFzMs2SN--s) 110.2, the tab's tempo.
+- **Just the Two of Us** (597061, the track "Steve Gadd - Drums"): the verses
+  are the kick and the hat foot alone, and the interlude the ride on the beats
+  with the hat on the "and"s, so those sections take the hat foot and the ride
+  as their backbeat. The album track (6IO74QV6wHY) is 7:27 at 95.5; the tab's
+  93 bars are 3:54, a shorter edit, and its order is followed.
+- **When You Got a Good Friend** (5009): the guitar alone (no drums), four
+  verses of the shuffle from a crash, a turnaround on the snare in triplets on
+  4 closing the first three. Record (ZMWgqr3-Sb4) 96.4 (the tab 95, the song
+  was 92–98).
+
+Left as they were: **Chuck E.'s in Love** (its tab's bars pair into this
+grid's half-time bars only in runs: a single bar falls out of the pairing at
+the six tacet bars and the ritard to 66 in the middle, and again before the
+outro, and its snare fill is seven triplets in a row); **Aja** (its ride
+sections, the floor tom on 3 and no backbeat, and the solo); **Glamour
+Profession** (the human tab, 64450, stops at 2:00 of a 5:00 record; the full
+one, 4208860, is machine-made). Songsterr's tabs of Slip Slidin' Away
+(234661), Third World Man (7527116) and We're in This Love Together (864033)
+are all machine-made.
 
 **Left out.** "Still Crazy After All These Years" (Roger Hawkins). "Night
 Game" (credit unclear on the page). "Hey Nineteen" (percussion only). "My
@@ -1641,25 +2073,25 @@ Report.
 - Timing: the style's feel is near zero, a 0.005 wobble and nothing else.
   That is the claim of everyone who worked with him, not a measurement.
 
-| Song                               | Year | Tempo (quarter)          | Hats                                  | What defines it                                                     | Source of the bars                 |
-| ---------------------------------- | ---- | ------------------------ | ------------------------------------- | ------------------------------------------------------------------- | ---------------------------------- |
-| Let's Dance                        | 1983 | 114 (tab); 115 (search)  | quarters, open on 4                   | kick `1..1..1.1.......`; an 8th-note crescendo into the groove      | Songsterr (human)                  |
-| Money for Nothing                  | 1985 | 134 (tab and songbpm)    | 8ths, open on the "and" of 4          | kick on 1, 3 and the "and" of 4; ghosts into 4                      | Songsterr (human)                  |
-| So Far Away                        | 1985 | 114 (tab and songbpm)    | 8ths, half-open on the "and" of 4     | kick on 1 and the "and" of 2; a 16th pair before the 1              | Songsterr (human)                  |
-| Your Latest Trick                  | 1985 | 123 (tab and songbpm)    | 8ths, a 16th burst on the "and" of 1  | cross-stick on 2 and the "and" of 3, or the "and" of 2 and 4        | Songsterr (human)                  |
-| One World                          | 1985 | 108 (tab and songbpm)    | 8ths (assumed; the tab has none)      | plain 1 and 3, 2 and 4; a snare pickup on the "and" of 4            | Songsterr (human)                  |
-| Slave to Love                      | 1985 | 74 (tab); 147 (songbpm)  | the foot on every other 16th          | kick on every beat and the "e" of 3; the snare enters later         | Songsterr (human)                  |
-| If You Love Somebody Set Them Free | 1985 | 125 (songbpm); 128 (tab) | 8ths                                  | kick pushing into 3                                                 | **Songsterr AI tab**               |
-| Love Is the Seventh Wave           | 1985 | 160 (tab); 81 (songbpm)  | 8ths, a bark on the "and" of 4        | kick on 3 only; the cross-stick with it is added                    | Songsterr (human), snare **added** |
-| Fortress Around Your Heart         | 1985 | 120 (tab and songbpm)    | 8ths                                  | cross-stick verse, struck chorus, kick 1, "and" of 2, 3             | **regenerated tab**                |
-| Consider Me Gone                   | 1985 | 124 (tab); 127 (songbpm) | ride, swung                           | a rim click on 4 alone                                              | **Songsterr AI tab**               |
-| Get Lucky                          | 2013 | 116 (tab and songbpm)    | 16ths, open on every beat             | the hats are the groove; claps on 2 and 4, also his                 | Songsterr (human)                  |
-| Giorgio by Moroder                 | 2013 | 113 (tab and songbpm)    | 8ths; then the foot, crashes on beats | four on the floor; the climax's kick in dotted 8ths                 | Songsterr (human)                  |
-| Contact                            | 2013 | 120 (tab); 124 (songbpm) | open on the beat; then the ride       | the snare answering the riff, a snare build                         | Songsterr (human)                  |
-| Fragments of Time                  | 2013 | 131 (tab); 130 (songbpm) | quarters, 8ths or 16ths by section    | kick `1.1...1.1.1...1.`; a crash on the "and" of 4                  | Songsterr (human)                  |
-| Beyond                             | 2013 | 100 (tab); 104 (songbpm) | 16ths                                 | the kick in dotted 8ths, `..1..1..1..1..1.`                         | Songsterr (human)                  |
-| Predator                           | 1984 | 106 (songbpm)            | 16ths, open on the "and" of 2         | dense ghosts, kick 1, "a" of 1, "a" of 2, "and" of 3                | **reconstruction**                 |
-| Corner Pocket                      | 1985 | 108 (songbpm); 105 (tab) | 16ths or 8ths                         | kick on 1, the "a" of 1 and the "and" of 2; the backbeat on 4 alone | **Songsterr AI tab**               |
+| Song                               | Year | Tempo (quarter)                          | Hats                                  | What defines it                                                     | Source of the bars                 |
+| ---------------------------------- | ---- | ---------------------------------------- | ------------------------------------- | ------------------------------------------------------------------- | ---------------------------------- |
+| Let's Dance                        | 1983 | 114 (tab); 115 (search)                  | quarters, open on 4                   | kick `1..1..1.1.......`; an 8th-note crescendo into the groove      | Songsterr (human)                  |
+| Money for Nothing                  | 1985 | 134 (tab and songbpm)                    | 8ths, open on the "and" of 4          | kick on 1, 3 and the "and" of 4; ghosts into 4                      | Songsterr (human)                  |
+| So Far Away                        | 1985 | 114 (tab and songbpm)                    | 8ths, half-open on the "and" of 4     | kick on 1 and the "and" of 2; a 16th pair before the 1              | Songsterr (human)                  |
+| Your Latest Trick                  | 1985 | 123 (tab and songbpm)                    | 8ths, a 16th burst on the "and" of 1  | cross-stick on 2 and the "and" of 3, or the "and" of 2 and 4        | Songsterr (human)                  |
+| One World                          | 1985 | 108 (tab and songbpm)                    | 8ths (assumed; the tab has none)      | plain 1 and 3, 2 and 4; a snare pickup on the "and" of 4            | Songsterr (human)                  |
+| Slave to Love                      | 1985 | 74 (tab); 147 (songbpm)                  | the foot on every other 16th          | kick on every beat and the "e" of 3; the snare enters later         | Songsterr (human)                  |
+| If You Love Somebody Set Them Free | 1985 | 125 (songbpm); 128 (tab)                 | 8ths                                  | kick pushing into 3                                                 | **Songsterr AI tab**               |
+| Love Is the Seventh Wave           | 1985 | 160 (tab); 81 (songbpm)                  | 8ths, a bark on the "and" of 4        | kick on 3 only; the cross-stick with it is added                    | Songsterr (human), snare **added** |
+| Fortress Around Your Heart         | 1985 | 120 (tab and songbpm)                    | 8ths                                  | cross-stick verse, struck chorus, kick 1, "and" of 2, 3             | **regenerated tab**                |
+| Consider Me Gone                   | 1985 | 124 (tab); 127 (songbpm)                 | ride, swung                           | a rim click on 4 alone                                              | **Songsterr AI tab**               |
+| Get Lucky                          | 2013 | 116 (tab and songbpm)                    | 16ths, open on every beat             | the hats are the groove; claps on 2 and 4, also his                 | Songsterr (human)                  |
+| Giorgio by Moroder                 | 2013 | 113 (tab and songbpm)                    | 8ths; then the foot, crashes on beats | four on the floor; the climax's kick in dotted 8ths                 | Songsterr (human)                  |
+| Contact                            | 2013 | 120 (tab); 120.1 (record); 124 (songbpm) | open on the beat; then the ride       | the snare answering the riff, a snare build                         | Songsterr (human)                  |
+| Fragments of Time                  | 2013 | 131 (tab); 130 (songbpm)                 | quarters, 8ths or 16ths by section    | kick `1.1...1.1.1...1.`; a crash on the "and" of 4                  | Songsterr (human)                  |
+| Beyond                             | 2013 | 100 (tab); 104 (songbpm)                 | 16ths                                 | the kick in dotted 8ths, `..1..1..1..1..1.`                         | Songsterr (human)                  |
+| Predator                           | 1984 | 106 (songbpm)                            | 16ths, open on the "and" of 2         | dense ghosts, kick 1, "a" of 1, "a" of 2, "and" of 3                | **reconstruction**                 |
+| Corner Pocket                      | 1985 | 108 (songbpm); 105 (tab)                 | 16ths or 8ths                         | kick on 1, the "a" of 1 and the "and" of 2; the backbeat on 4 alone | **Songsterr AI tab**               |
 
 The tabs were read with Songsterr's API: each tab's `aiGenerated` flag was
 checked, the drum part's bars counted, and the commonest bars used as
@@ -1692,6 +2124,50 @@ Left out:
 **Still not modelled:** the gated-reverb snare as an effect (the `bigrusty`
 kit stands in), his live hybrid kit, and Weather Report's percussion scores
 "that you need 12 hands to play".
+
+**Whole songs (2026-10-23).** Six of the songs now play intro to outro, in
+the record's order, section by section from the human tabs above (each tab's
+`aiGenerated` flag false, its length checked against the record):
+
+| Song               | Record                                   | Tempo (measured)                   | Sections                                                                                                         |
+| ------------------ | ---------------------------------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Let's Dance        | the single, 4:07 (s29034, 124 bars)      | 115.1 (tab 114)                    | the crescendo, its pickup bar, the main groove (the verses, bongos and outro), the chorus                        |
+| So Far Away        | the album, 5:08 (s30586, 147 bars + 4)   | 114.7 (tab 114)                    | a pickup, the verse, the chorus to its stop, the stop, the chorus's end, the interlude                           |
+| Your Latest Trick  | the album, 6:30 (s30096, 185 bars)       | 122.6 (tab 123; the opening at 71) | the sax over the hats alone, the groove                                                                          |
+| Get Lucky          | the radio edit, 4:09 (s381654, 125 bars) | 116.1 (tab 116)                    | the groove, the chorus's end, the interlude, the vocoder's pickup, the bridge's open hats                        |
+| Giorgio by Moroder | the album, 9:04 (s405392, 260 bars)      | 113.1 (tab 113, 111, 114, 115)     | four on the floor, the riff alone, the breakdown's groove, the climax on ride and hats, the bass solo, the outro |
+| Contact            | the album, 6:31 (s390281, 157 bars)      | 120.1 (tab 120)                    | the kit coming in (a crash every bar), the ride, the open hats                                                   |
+
+- **Checked against the records.** Daft Punk's Drumless Editions of Giorgio
+  by Moroder (I4QaqpUA4hM) and Contact (eQQubmdYtMY) are the same mixes
+  without the kit, so the record less the drumless one is the drums. In both
+  the kit is there exactly where the tabs have it: Giorgio's from 0:38 to
+  1:37, 1:57 to 5:18 and 5:52 to 8:44, the cymbals 16–19 dB up for just the
+  breakdown's sixteen bars; Contact's only in its three drum sections. Get
+  Lucky's radio edit loses its kick for exactly the tab's eight bars under the
+  vocoder, and its hats jump for the bridge's sixteen.
+- **Your Latest Trick is one two-bar figure.** The cross-stick is on 2 and the
+  "and" of 3 in one bar and on the "and" of 2 and on 4 in the next, all the
+  way through; the tab never plays the two bars apart, as the old break drew
+  them.
+- **Left out, as no bar of them has a backbeat:** Giorgio's monologue, click,
+  kick-alone interlude, strings and drum solo; Contact's kick alone before
+  and after the kit; Get Lucky's seven bars under the vocoder; So Far Away's
+  guitar opening, the hat on 2 and 4 alone. Your Latest Trick's opening is at
+  71 against 123, neither half nor double, and is left out too.
+- **Thinned for the critic:** Giorgio's breakdown opens with six bars of 16th
+  ghosts on the snare, and its climax ends each four on a whole bar of snare
+  or tom 16ths: left out. Contact's runs of eight snare 16ths are broken into
+  8ths and pairs, as the old break had them.
+- **Shortened to fit thirty-two slots and bars:** Giorgio's four on the floor
+  (24 of 27 bars), breakdown groove (8 of 10), bass solo (12 of 16) and outro
+  (16 of 17); the fades of So Far Away and Your Latest Trick.
+- **Not rebuilt:** Money for Nothing (one groove to the end, and its section
+  ends are Terry Williams's tom fills); Love Is the Seventh Wave and One World
+  (one groove, no section markers in the first, no hats in the second's tab);
+  Slave to Love (no markers, two distinct bars); Fragments of Time (the tab
+  stops at bar 110 of the record's 155); Beyond (the tab is 32 bars); and the
+  songs from AI tabs or none.
 
 Sources: en.wikipedia.org (Omar Hakim; Let's Dance (David Bowie album); Let's
 Dance (David Bowie song); Modern Love (David Bowie song); China Girl (song);
@@ -1803,21 +2279,21 @@ My Favorite Things is built from Bishop's "Assembling a basic Elvin waltz"
 1. Afro Blue, Resolution, Acknowledgement, Bessie's Blues, Speak No Evil,
    Witch Hunt, Impressions and Pursuance are reconstructions in his vocabulary.
 
-| Song                                         | Year | Tempo (quarter)                                       | Meter | What defines it                                         | Source of the bars           |
-| -------------------------------------------- | ---- | ----------------------------------------------------- | ----- | ------------------------------------------------------- | ---------------------------- |
-| My Favorite Things (Coltrane)                | 1960 | 179 (jazzomat 179.3; AllSolos 177–179)                | 9/8   | waltz, the "and" of 1, triplets under the ride, hemiola | lesson (Bishop) + Hein       |
-| Afro Blue (Live at Birdland)                 | 1963 | about 200: songbpm 133 (four readings) and 100 (two)  | 9/8   | two cross-beats a bar, 2:3                              | **reconstruction**           |
-| Juju (Wayne Shorter)                         | 1964 | 177 (AllSolos, Elvin's solo; jazzomat 178.2, "LATIN") | 9/8   | 6/8 feet under the waltz ride, rim click on 2           | Bishop, Page o' coordination |
-| Your Lady (Coltrane)                         | 1963 | **none found**; 150–170 estimated                     | 9/8   | linear kick / foot / left hand in 6/8                   | Bishop transcription         |
-| Resolution (A Love Supreme)                  | 1964 | 178–182 (AllSolos)                                    | 4/4-6 | every triplet filled, accents in fours                  | **reconstruction**           |
-| Acknowledgement (A Love Supreme)             | 1964 | 126 (AllSolos, "latin")                               | 4/4-6 | triplets round the toms over the bass figure            | **reconstruction**           |
-| Bessie's Blues (Crescent)                    | 1964 | 184 (jazzomat)                                        | 4/4-6 | short fast blues, comps on the "ands"                   | **reconstruction**           |
-| Speak No Evil (Wayne Shorter)                | 1964 | 142–143 (AllSolos; jazzomat 142.7)                    | 4/4-6 | broad ride, a few hard comps                            | **reconstruction**           |
-| Witch Hunt (Wayne Shorter)                   | 1964 | 136–139 (AllSolos)                                    | 4/4-6 | horn calls answered on snare and kick                   | **reconstruction**           |
-| Chasin' the Trane (Coltrane)                 | 1961 | 235–244 (Bishop); 236 (AllSolos)                      | 4/4-8 | snare on the "ands", foot on 2 and 4, no piano          | Bishop transcription         |
-| Impressions (Coltrane, Vanguard)             | 1961 | 272 (AllSolos); 293.4 (jazzomat, swing ratio 0.99:1)  | 4/4-8 | near-even gallop, 3/4 phrases across the bar            | **reconstruction**           |
-| Pursuance (A Love Supreme)                   | 1964 | 277–300 (AllSolos; his solo 284–300)                  | 4/4-8 | fastest swing on the record, rolling toms               | **reconstruction**           |
-| A Love Supreme (Jazz Machine, Live in Japan) | 1978 | **none found**; 180–220 estimated (eighth writing)    | 4/4-8 | mozambique on the bell                                  | Bishop groove transcription  |
+| Song                                         | Year | Tempo (quarter)                                       | Meter | What defines it                                         | Source of the bars                   |
+| -------------------------------------------- | ---- | ----------------------------------------------------- | ----- | ------------------------------------------------------- | ------------------------------------ |
+| My Favorite Things (Coltrane)                | 1960 | 179 (jazzomat 179.3; AllSolos 177–179)                | 9/8   | waltz, the "and" of 1, triplets under the ride, hemiola | lesson (Bishop) + Hein               |
+| Afro Blue (Live at Birdland)                 | 1963 | about 200: songbpm 133 (four readings) and 100 (two)  | 9/8   | two cross-beats a bar, 2:3                              | **reconstruction**                   |
+| Juju (Wayne Shorter)                         | 1964 | 177 (AllSolos, Elvin's solo; jazzomat 178.2, "LATIN") | 9/8   | 6/8 feet under the waltz ride, rim click on 2           | Bishop, Page o' coordination         |
+| Your Lady (Coltrane)                         | 1963 | **none found**; 150–170 estimated                     | 9/8   | linear kick / foot / left hand in 6/8                   | Bishop transcription                 |
+| Resolution (A Love Supreme)                  | 1964 | 178–182 (AllSolos)                                    | 4/4-6 | every triplet filled, accents in fours                  | **reconstruction**                   |
+| Acknowledgement (A Love Supreme)             | 1964 | 126 (AllSolos, "latin")                               | 4/4-6 | triplets round the toms over the bass figure            | **reconstruction**                   |
+| Bessie's Blues (Crescent)                    | 1964 | 184 (jazzomat)                                        | 4/4-6 | short fast blues, comps on the "ands"                   | **reconstruction**                   |
+| Speak No Evil (Wayne Shorter)                | 1964 | 142–143 (AllSolos; jazzomat 142.7)                    | 4/4-6 | broad ride, a few hard comps                            | **reconstruction**                   |
+| Witch Hunt (Wayne Shorter)                   | 1964 | 136–139 (AllSolos)                                    | 4/4-6 | horn calls answered on snare and kick                   | **reconstruction**                   |
+| Chasin' the Trane (Coltrane)                 | 1961 | 234–250 (Bishop's marks and timestamps)               | 4/4-8 | snare on the "ands", foot on 2 and 4, no piano          | Bishop transcription (choruses 1–54) |
+| Impressions (Coltrane, Vanguard)             | 1961 | 272 (AllSolos); 293.4 (jazzomat, swing ratio 0.99:1)  | 4/4-8 | near-even gallop, 3/4 phrases across the bar            | **reconstruction**                   |
+| Pursuance (A Love Supreme)                   | 1964 | 277–300 (AllSolos; his solo 284–300)                  | 4/4-8 | fastest swing on the record, rolling toms               | **reconstruction**                   |
+| A Love Supreme (Jazz Machine, Live in Japan) | 1978 | **none found**; 180–220 estimated (eighth writing)    | 4/4-8 | mozambique on the bell                                  | Bishop groove transcription          |
 
 The Afro Blue tempo is a reading: songbpm's two values agree only if the
 waltz quarter is 200 (133 is the dotted-quarter cross-beat, 100 the half
@@ -1851,6 +2327,36 @@ transcribed its Afro 6/8, the long bell pattern, but no tempo was found).
   kit.
 - On the Jazz Machine's A Love Supreme he plays the bell pattern in 16ths,
   double time over the feet; it is written here in Bishop's eighths.
+
+**Chasin' the Trane, whole (2026-10-23).** Bishop's transcription runs further than the
+first six choruses: nine parts on cruiseshipdrummer.com (2020–21), six choruses each, choruses
+1–54, 0:00 to 10:29 (the PDFs on pdxdrummer.com, read bar by bar). The series stops there; the
+rest of the record is not transcribed. Coltrane is the only soloist for the sixteen minutes and
+the twelve-bar blues is the only form; Gary Giddins counts "about 80 choruses" (Stereophile;
+NPR). Bishop's tempo marks rise through it, 235 (printed "135") in part 1, 238, 236, 237, 244,
+243 (printed "143"), 244, 246 and 246, and his timestamps agree: 72 bars in 74 s at the start
+(234), in 71 s at 4:38 (243), in 69 s at 9:20 (250). The song's range is now 232–248.
+
+His part changes with the solo. In the first choruses the snare comps on the "and" of 4 or 2,
+accented, with a buzz on 4, and the kick is seldom there: on a downbeat or the "and" before one.
+From about chorus 13 the kick is under the snare's comps and on the "and"s round them, the snare
+accented anywhere in the bar. Each chorus ends on a turnaround in its twelfth bar (bar 12: the
+snare on the "and" of 2 and on 3, the kick on the "and" of 3 and on 4; bar 300: the high tom in
+the middle of the bar, the crash on the "and" of 4 tied over the bar line).
+
+The song is written in those choruses. A section holds eight bars, so a chorus is two: its
+first eight bars (A in the first choruses, from part 1; B in the later ones, from parts 3 and 5)
+and its last four with the turnaround (C, from bars 9–12 and 297–300). Thirty-two arrangement
+slots hold sixteen choruses, four early and twelve later: 192 bars, about three and a quarter
+minutes of the record's sixteen. Not written: his triplet streams, the triplets in his
+turnarounds and the roll of sixteenths that ends chorus 13 (bar 156), none of which eighths hold;
+and the open circles Bishop prints over some ride notes.
+
+**Left as breaks.** Every other song: Songsterr has no human drum tab of any of them (the drum
+tracks for Acknowledgement, My Favorite Things and Speak No Evil are machine drafts; Bessie's
+Blues has a one-bar human tab of a solo), and no transcription of a whole performance was
+found. Bishop's Your Lady transcription covers the intro and head, which the song already
+plays; its PDF was not found at pdxdrummer.com, and the Internet Archive was offline.
 
 ## Q. Tito Puente (2026-10-11)
 
@@ -2011,6 +2517,13 @@ date.
 - Songbpm does not say which take it measured for Babarabatiri, Picadillo,
   Ran Kan Kan and Para Los Rumberos, and its Mambo Diablo figure is read as
   the quarter (half note 77.5) by judgement, not by a source.
+
+**Full songs (2026-10-23).** Songsterr was searched again for every song in
+the style: its only drum tabs of his records are machine-made (Oye Como Va
+6811158, Mambo Diablo 2355256), its Oye Como Va drum tabs are otherwise of
+Santana's record, and Ran Kan Kan and El Cayuco have no drum track. With no
+human transcription to follow, and a timbalero translated onto a kit, the
+songs stay one break each rather than whole records laid out from the audio.
 
 ## R. José Luis "Changuito" Quintana (2026-10-11)
 
@@ -2184,6 +2697,12 @@ _Ritmo y Candela_ and _Speed of Light_: percussion, not kit.
   musician page says 18 January 1948, Casablanca, and "self taught /
   autodidacta"; it also gives his death as 6 June 2025, as the record does.
 
+- _Full songs (2026-10-23)._ None of his twelve songs has a tab on Songsterr,
+  human or machine; the only Los Van Van tabs there are ¡Qué sorpresa! and
+  Anda Ven y Quiéreme, which are not among his songs. Moore's transcriptions
+  give the parts, not the order of a record's sections, so the songs stay
+  one break each.
+
 ## S. Horacio "El Negro" Hernández (2026-10-11)
 
 The `horaciohernandez` style plays **songs** the way `gadd` does (N): each New
@@ -2298,6 +2817,40 @@ false on both, read bar by bar:
   in pairs round a snare on 4. The four strokes the tab writes as crashes in
   the interlude are left out.
 
+**You Are My Kind, whole (2026-10-23).** The song now plays the record's
+sections in order, from the same human tab (Songsterr 3770724, rev 4949609 by
+Santiago Delgado; aiGenerated false), 110 bars at 105 throughout. The album's
+Wikipedia personnel credits Horacio Hernandez on drums for this track (Karl
+Perazzo percussion, Raul Rekow congas); _Shaman_ lists it at 4:19. The record
+(YouTube 37XFwtYU2OU, 260 s) autocorrelates at 105.0 over 20–120 s and
+120–220 s, the tab's tempo; 110 bars at 105 is 4:11, the record less its fade,
+and the cymbal and snare bands thin out over bars 37–39 and 63–64, where the
+tab stops.
+
+The tab's order: no drums (1–7), a pickup (8); the intro on open eighths
+(9–12); the first verse's cross-stick figure (13–20); the groove on closed
+eighths (21–32); sixteenths (33–36); a stop on the cymbals (37–39) and the
+kick-pairs fill (40); the groove (41–62); cymbal and kick (63–64); the bridge,
+the kick moving under the hats with the hat opened on the "and" of 1 (65–68),
+the cross-stick on 2 and 4 (69–72), the snare again (73–76); the intro's hats
+(77–84, a roll off the grid at 78); open sixteenths (85–92); closed sixteenths
+(93–100), opening on each 1 (101–104); a crash, two bars of groove, a last hit
+(105–107).
+
+Eight sections of four bars (32, the most a song holds), twenty-two slots.
+Left out, as every bar needs its backbeat: the empty bars, the pickup, both
+stops, the last hit and the roll at 78. The groove after the stop plays 20 of
+its 22 bars, and 105–106 are not played. The verse's five strokes a bar on the
+crash (GM 49) stay left out: the record's cymbal band does not show them. The
+tab writes every snare at one level, so there are no ghosts.
+
+Africa Bamba stays one part. Its human tab (717963, now rev 7556575 by Simo, 2026) has no snare in about two bars of three through its first 85 bars: the
+song's flow is the hats and the kick under the percussion, which a section
+cannot hold without its backbeat. The other tab (5781759) is machine-made. The
+six Latin songs have no tab of his records on Songsterr (searched again by
+title: Mambo for Roy, Afrodisia, Afro Blue, La Comparsa, A Night in Torino,
+Que Negro Está), so they stay reconstructions.
+
 The six Latin songs are **reconstructions**. Mambo for Roy, Afrodisia, Afro
 Blue, La Comparsa and Que Negro Está are grooves his book transcribes (mambo,
 cáscara, 6/8, conga de comparsa, songo), laid out as the record's two
@@ -2322,16 +2875,16 @@ Comparsa's 100 is the tempo on Songsterr's machine-made tab (5641772,
 has two Deezer figures, 117.5 and 156.6; read as one clave a bar, 117.5 is a
 songo tempo and 156.6 far too quick, so 117.5 is used. All six are open to a listen.
 
-| Song                                     | Year | Tempo                                | Meter          | What defines it                         | Source of the bars        |
-| ---------------------------------------- | ---- | ------------------------------------ | -------------- | --------------------------------------- | ------------------------- |
-| Africa Bamba (Santana)                   | 1999 | 100 (tab); 99 (songbpm, Deezer)      | 4/4, 16th hats | kick 1, a1, 2, 3, a3, 4; snare 2 and 4  | Songsterr 717963 (human)  |
-| You Are My Kind (Santana, Seal)          | 2002 | 105 (tab; Deezer 104.9)              | 4/4, 8th hats  | kick 1, a1, &2, &3 (&4 every other bar) | Songsterr 3770724 (human) |
-| Mambo for Roy (Hargrove's Crisol)        | 1997 | 136 (Deezer, machine)                | 4/4, one clave | son 2-3 foot, bell, tumbao kick         | **reconstruction**        |
-| Afrodisia (Hargrove's Crisol)            | 1997 | 112 (Deezer, machine)                | 4/4, one clave | cáscara over rumba 2-3                  | record's cáscara pattern  |
-| Afro Blue (Gary Burton)                  | 2001 | 193 eighths (Deezer) = 96.6 quarters | 12/8           | 6/8 bell, 6/8 clave on the foot         | **reconstruction**        |
-| La Comparsa (Michel Camilo, _Triangulo_) | 2002 | 100 (Songsterr machine tab)          | 4/4, one clave | son 2-3 foot, galloping hands           | **reconstruction**        |
-| A Night in Torino (Tunisia) (Italuba)    | 2004 | 124 (Deezer, machine)                | 4/4, one clave | rumba 2-3 foot, ride bell, toms         | **reconstruction**        |
-| Que Negro Está (Italuba)                 | 2004 | 117.5 (Deezer; another entry 156.6)  | 4/4, one clave | the record's songo, every other step    | record's songo pattern    |
+| Song                                     | Year | Tempo                                 | Meter          | What defines it                         | Source of the bars        |
+| ---------------------------------------- | ---- | ------------------------------------- | -------------- | --------------------------------------- | ------------------------- |
+| Africa Bamba (Santana)                   | 1999 | 100 (tab); 99 (songbpm, Deezer)       | 4/4, 16th hats | kick 1, a1, 2, 3, a3, 4; snare 2 and 4  | Songsterr 717963 (human)  |
+| You Are My Kind (Santana, Seal)          | 2002 | 105 (tab; record 105.0; Deezer 104.9) | 4/4, 8th hats  | kick 1, a1, &2, &3 (&4 every other bar) | Songsterr 3770724 (human) |
+| Mambo for Roy (Hargrove's Crisol)        | 1997 | 136 (Deezer, machine)                 | 4/4, one clave | son 2-3 foot, bell, tumbao kick         | **reconstruction**        |
+| Afrodisia (Hargrove's Crisol)            | 1997 | 112 (Deezer, machine)                 | 4/4, one clave | cáscara over rumba 2-3                  | record's cáscara pattern  |
+| Afro Blue (Gary Burton)                  | 2001 | 193 eighths (Deezer) = 96.6 quarters  | 12/8           | 6/8 bell, 6/8 clave on the foot         | **reconstruction**        |
+| La Comparsa (Michel Camilo, _Triangulo_) | 2002 | 100 (Songsterr machine tab)           | 4/4, one clave | son 2-3 foot, galloping hands           | **reconstruction**        |
+| A Night in Torino (Tunisia) (Italuba)    | 2004 | 124 (Deezer, machine)                 | 4/4, one clave | rumba 2-3 foot, ride bell, toms         | **reconstruction**        |
+| Que Negro Está (Italuba)                 | 2004 | 117.5 (Deezer; another entry 156.6)   | 4/4, one clave | the record's songo, every other step    | record's songo pattern    |
 
 **Left out.** _Live at the Blue Note_ (his, a Grammy, but no tempo or
 description of any track was found). _Triangulo_'s other tracks, Patitucci's
@@ -2428,7 +2981,8 @@ Under a Bad Sign 190 s, Badge 161 s), which is a check on the tempo too.
   only the hat foot on the "and"s of 2 and 4: the tab writes no cymbal under
   the verse, and it is kept as written.
 - **I Feel Free** (4746): a two-bar verse, the hats open on the beat and the
-  "and"s; its tom fill has no run of four, so it plays at 176.
+  "and"s; its tom fill has no run of four, so it plays at full speed (the
+  record is 178, not the tab's 176: below).
 - **Badge** (4135), **Tales of Brave Ulysses** (4922, the snare on every beat,
   then a section of floor tom and both kicks in eighths), **SWLABR** (4888),
   **Strange Brew** (4216) and **Born Under a Bad Sign** (62912, the ride's
@@ -2467,15 +3021,15 @@ can be checked.
 
 | Song                   | Year | Tempo (quarter)                                  | Meter | What defines it                                              | Source of the bars          |
 | ---------------------- | ---- | ------------------------------------------------ | ----- | ------------------------------------------------------------ | --------------------------- |
-| Sunshine of Your Love  | 1967 | 116 (tab); 115 (songbpm)                         | 4/4   | toms, not snare; 1 and 3 accented                            | Songsterr 256 (human)       |
+| Sunshine of Your Love  | 1967 | 115.5 (record); 116 (tab); 115 (songbpm)         | 4/4   | toms, not snare; 1 and 3 accented                            | Songsterr 256 (human)       |
 | White Room             | 1968 | 110 (tab, songbpm)                               | 5/4   | crash and snare on 1, both floor toms: triplet on 2, eighths | Songsterr 4455 (human)      |
-| Crossroads (live)      | 1968 | 132 (tab; length matches); songbpm 101 disagrees | 4/4   | floor tom on 1, snare on 2, 3, 4, hat foot on the "and"s     | Songsterr 242 (human)       |
-| I Feel Free            | 1966 | 176 (tab, songbpm)                               | 4/4   | open hats on the beat and the "and"s                         | Songsterr 4746 (human)      |
+| Crossroads (live)      | 1968 | 131.5 (record); 132 (tab); songbpm 101 disagrees | 4/4   | floor tom on 1, snare on 2, 3, 4, hat foot on the "and"s     | Songsterr 242 (human)       |
+| I Feel Free            | 1966 | 178 (record); 176 (tab, songbpm)                 | 4/4   | open hats on the beat and the "and"s                         | Songsterr 4746 (human)      |
 | Badge                  | 1969 | 106 (tab, songbpm)                               | 4/4   | eighths; the bridge on the ride, a crash on the "and" of 4   | Songsterr 4135 (human)      |
 | Tales of Brave Ulysses | 1967 | 106 (tab, songbpm)                               | 4/4   | snare on every beat; floor tom and both kicks in eighths     | Songsterr 4922 (human)      |
-| SWLABR                 | 1967 | 124 (tab, songbpm)                               | 4/4   | eighths; crash and snare on every beat; a run down the toms  | Songsterr 4888 (human)      |
-| Strange Brew           | 1967 | 104 (tab); 106 (songbpm)                         | 4/4   | hats opening on 1, kick on 3, the "and" of 3 and of 4        | Songsterr 4216 (human)      |
-| Born Under a Bad Sign  | 1968 | 92 (tab); songbpm 183 (doubled)                  | 4/4   | ride bell on the "and"s, snare with the riff, kicks doubled  | Songsterr 62912 (human)     |
+| SWLABR                 | 1967 | 124 (record, tab, songbpm)                       | 4/4   | eighths; crash and snare on every beat; a run down the toms  | Songsterr 4888 (human)      |
+| Strange Brew           | 1967 | 106.5 (record); 104 (tab); 106 (songbpm)         | 4/4   | hats opening on 1, kick on 3, the "and" of 3 and of 4        | Songsterr 4216 (human)      |
+| Born Under a Bad Sign  | 1968 | 91.7 (record); 92 (tab); songbpm 183 (doubled)   | 4/4   | ride bell on the "and"s, snare with the riff, kicks doubled  | Songsterr 62912 (human)     |
 | Toad                   | 1966 | 141 (songbpm; 71 half)                           | 4/4-6 | two kicks in triplets under tom phrases                      | **reconstruction** (record) |
 | Do What You Like       | 1969 | 160 (tab); 153 (songbpm)                         | 5/4   | hat foot in eighths, toms answering, no snare                | Songsterr 3491 (human)      |
 
@@ -2503,6 +3057,40 @@ Lord" has no drum track. Graham Bond Organisation: no tab found.
   4/4 vamp around the solo are not in the songs.
 - The style-level cross-rhythm (a floor-tom accent every six steps) means three
   against four only on a sixteenth grid; Toad turns it off.
+
+**Six songs in sections (2026-10-23).** Six of the human tabs above are now read whole, in
+the record's order, rather than for their most common bars: Sunshine of Your Love,
+Crossroads, I Feel Free, SWLABR, Strange Brew and Born Under a Bad Sign. Each record's tempo is
+measured from the audio (onset autocorrelation, 20–140 s), and each tab's length, played out,
+is checked against the record's.
+
+- **Repeat signs.** SWLABR (4888), Strange Brew (4216) and Tales of Brave Ulysses (4922)
+  write a verse once under repeat signs with an ending for each pass; read without them, the
+  tabs are 15–30 s short of the records. Played out, Strange Brew is 74 bars (2:47 at 106.5,
+  the record's 2:47) and SWLABR 79 (2:33 at 124, the record's 2:32).
+- **Tempos.** Sunshine 115.5 (tab 116), Crossroads 131.5 (132), I Feel Free 178 (176), SWLABR
+  124 (124), Strange Brew 106.5 (104), Born Under a Bad Sign 91.7 (92), Tales 106–107 (106).
+- **Sunshine of Your Love**: intro, three verses, three choruses and the solo; the last verse
+  and the solo bring the crash and the snare in on 1 and 3, the last chorus puts the snare on
+  every beat, and the outro is the crash and the snare in eighths with the two kicks between.
+- **Crossroads**: the tab marks only the intro, the verses and "Solo"; the drum part changes
+  by the twelve-bar chorus, and the sections are named by what it plays: the verse groove, the
+  crash on the "and"s (verse 2), the snare on the "a" of 2 and the "e" of 3 under the solos, a
+  sparer groove with the snare on 2 and 4 alone, and five bars with the snare on 1 and 3.
+- **I Feel Free**: the intro is twenty bars of the cross-stick on 2 and 4 alone under the
+  voices; both bridges are a hit on 1 and then no drums, and are left out.
+- **SWLABR**: the verse has a bar of 3/4 (and the second ending one of 6/4, played as a bar of
+  the crash on the beat). The tab writes no drums in its last twelve bars, though the record's
+  kick and snare bands hold their level to 2:25: they are left out.
+- **Strange Brew**: twelve-bar blues all through; each verse's last four bars open the hats on
+  1, 2 and 3; the solo and the outro go to the crash on the beat and the ride. A note the tab
+  writes on no drum (fret 0, 55 times) is left out.
+- **Born Under a Bad Sign**: one groove, with verse 2's bell on 4, and a two-bar break played
+  twice (the snare on 1, 3 and 4).
+- **Left as breaks.** Tales of Brave Ulysses: played out, the tab's kit runs 20–154 s and the
+  record's about 12–161 s, so some seven bars are missing that the tab does not place. Do What
+  You Like: the album tab (3491) gives it 19 bars, 35 s of a fifteen-minute track. White Room,
+  Badge and Toad already had sections.
 
 Sources: Wikipedia — [Ginger Baker](https://en.wikipedia.org/wiki/Ginger_Baker),
 [Sunshine of Your Love](https://en.wikipedia.org/wiki/Sunshine_of_Your_Love),
@@ -2615,24 +3203,25 @@ made so the critic passes, and the rest:
   crash on the pushes, eighths on the feet) is kept as one two-bar figure.
 - The 6/4, 5/4, 9/8, 10/8, 11/8 and 12/8 bars of Mandatory Suicide, Black
   Magic, Jesus Saves, At Dawn They Sleep, Hell Awaits and Postmortem are left
-  out: one song has one meter.
+  out: one song has one meter. (Mandatory Suicide's 6/4 bars are now played,
+  as a section in their own meter: below.)
 
-| Song                       | Year | Tempo (quarter)                                 | Grid  | What defines it                                                                   | Source of the bars                               |
-| -------------------------- | ---- | ----------------------------------------------- | ----- | --------------------------------------------------------------------------------- | ------------------------------------------------ |
-| Angel of Death             | 1986 | 206–220 (tab); 106/212 (songbpm)                | 4/4-8 | skank on ride or open hats; the 182 rock beat; half-time on the ride              | Songsterr 17586 (human)                          |
-| Angel of Death (the break) | 1986 | 103–110, half the tab's 206–220                 | 4/4   | both feet throughout; toms over them; the double-bass ride beat either side       | Songsterr 17586 (human); toms **reconstruction** |
-| Raining Blood              | 1986 | 211–251 (tab, skank sections); 89/178 (songbpm) | 4/4-8 | skank to the 250 of the ending, crash on every beat; the intro toms in unison     | Songsterr 17904 (human)                          |
-| Necrophobic                | 1986 | 241–259 (tab); 124/248 (songbpm)                | 4/4-8 | the fastest on the record: skank on hats and ride                                 | Songsterr 53719 (human)                          |
-| Jesus Saves                | 1986 | 210–228 (tab, fast part); 109/218 (songbpm)     | 4/4-8 | skank on the bell after a splash; the bell over a snare on every beat             | Songsterr 53758 (human)                          |
-| War Ensemble               | 1990 | 195–207 (tab); 99/198 (songbpm)                 | 4/4-8 | eighths on both feet, snare on every beat; skank; the two-bar march               | Songsterr 18010 (human)                          |
-| Cult                       | 2006 | 200–210 (tab); 101/202 (songbpm)                | 4/4-8 | skank; ride quarters over eighths on the feet; a tom groove                       | Songsterr 37608 (human)                          |
-| South of Heaven            | 1988 | 134–146 (tab); 139 (songbpm)                    | 4/4   | hats over 2 and 4; snare on every beat over double bass; dotted-eighth china      | Songsterr 17962 (human)                          |
-| Mandatory Suicide          | 1988 | 148 (tab and songbpm)                           | 4/4   | hats on the beat, double bass or 1 and 3; the ride; a half-time bar               | Songsterr 17669 (human)                          |
-| Seasons in the Abyss       | 1990 | 152 (tab and songbpm)                           | 4/4   | rock beat on the ride, the snare doubling at the bar's end, the mid tom answering | Songsterr 17564 (human)                          |
-| Dead Skin Mask             | 1990 | 110 (tab and songbpm)                           | 4/4   | no snare: floor tom and bell on 2 and 4; double bass under the ride; a gallop     | Songsterr 18024 (human)                          |
-| Hell Awaits (intro)        | 1985 | 103–106 (tab); 106 (songbpm)                    | 4/4   | both toms with the kick on 2 and 4; toms on 1 and 3 over double bass              | Songsterr 18291 (human)                          |
-| World Painted Blood        | 2009 | 180–182 (tab); 93/186 (songbpm)                 | 4/4   | eighths on both feet under crashes, hats or a tom figure in threes; skank         | Songsterr 60404 (human)                          |
-| Black Magic                | 1983 | 177–190 (tab); 94/188 (songbpm)                 | 4/4   | skank on open hats                                                                | Songsterr 17871 (human)                          |
+| Song                       | Year | Tempo (quarter)                                   | Grid  | What defines it                                                                   | Source of the bars                               |
+| -------------------------- | ---- | ------------------------------------------------- | ----- | --------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Angel of Death             | 1986 | 206–220 (tab); 106/212 (songbpm)                  | 4/4-8 | skank on ride or open hats; the 182 rock beat; half-time on the ride              | Songsterr 17586 (human)                          |
+| Angel of Death (the break) | 1986 | 103–110, half the tab's 206–220                   | 4/4   | both feet throughout; toms over them; the double-bass ride beat either side       | Songsterr 17586 (human); toms **reconstruction** |
+| Raining Blood              | 1986 | 211–251 (tab, skank sections); 89/178 (songbpm)   | 4/4-8 | skank to the 250 of the ending, crash on every beat; the intro toms in unison     | Songsterr 17904 (human)                          |
+| Necrophobic                | 1986 | 241–259 (tab); 124/248 (songbpm)                  | 4/4-8 | the fastest on the record: skank on hats and ride                                 | Songsterr 53719 (human)                          |
+| Jesus Saves                | 1986 | 210–228 (tab, fast part); 109/218 (songbpm)       | 4/4-8 | skank on the bell after a splash; the bell over a snare on every beat             | Songsterr 53758 (human)                          |
+| War Ensemble               | 1990 | 195–207 (tab); 99/198 (songbpm)                   | 4/4-8 | eighths on both feet, snare on every beat; skank; the two-bar march               | Songsterr 18010 (human)                          |
+| Cult                       | 2006 | 200–210 (tab); 101/202 (songbpm)                  | 4/4-8 | skank; ride quarters over eighths on the feet; a tom groove                       | Songsterr 37608 (human)                          |
+| South of Heaven            | 1988 | 134–146 (tab); 139 (songbpm)                      | 4/4   | hats over 2 and 4; snare on every beat over double bass; dotted-eighth china      | Songsterr 17962 (human)                          |
+| Mandatory Suicide          | 1988 | 148 (tab and songbpm)                             | 4/4   | hats on the beat, double bass or 1 and 3; the ride; a half-time bar               | Songsterr 17669 (human)                          |
+| Seasons in the Abyss       | 1990 | 152 (tab and songbpm)                             | 4/4   | rock beat on the ride, the snare doubling at the bar's end, the mid tom answering | Songsterr 17564 (human)                          |
+| Dead Skin Mask             | 1990 | 110 (tab and songbpm)                             | 4/4   | no snare: floor tom and bell on 2 and 4; double bass under the ride; a gallop     | Songsterr 18024 (human)                          |
+| Hell Awaits (intro)        | 1985 | 103–106 (tab); 106 (songbpm)                      | 4/4   | both toms with the kick on 2 and 4; toms on 1 and 3 over double bass              | Songsterr 18291 (human)                          |
+| World Painted Blood        | 2009 | 180–182 (tab); 93/186 (songbpm)                   | 4/4   | eighths on both feet under crashes, hats or a tom figure in threes; skank         | Songsterr 60404 (human)                          |
+| Black Magic                | 1983 | 170–190 (record); 177–190 (tab); 94/188 (songbpm) | 4/4   | skank on open hats                                                                | Songsterr 17871 (human)                          |
 
 **Left out.** Criminally Insane, Postmortem, Hallowed Point, Chemical
 Warfare, Ghosts of War, Silent Scream, Expendable Youth, At Dawn They Sleep,
@@ -2661,6 +3250,56 @@ neither grid (above).
   182 middle, Postmortem's 12/8 and the odd bars are not written.
 - He stretches endings live (two more bars on Raining Blood's): the model has
   no live arrangement.
+
+**Six songs whole (2026-10-23).** War Ensemble, Mandatory Suicide, Seasons in
+the Abyss, World Painted Blood, Black Magic and Necrophobic now play section by
+section in the record's order, from the newest human Songsterr revisions (each
+`aiGenerated` false), read bar by bar with the tabs' own section markers. Each
+record was beat-tracked (spectral-flux autocorrelation over a window):
+
+| Song                 | Tab (rev)       | Tab tempo        | Record                                                   | Range   | Sections                    |
+| -------------------- | --------------- | ---------------- | -------------------------------------------------------- | ------- | --------------------------- |
+| War Ensemble         | 18010 (7603842) | 195–207          | 207.6 early, 195.7 later                                 | 196–207 | A4 B8 C8 D8 E4, 31 slots    |
+| Mandatory Suicide    | 17669 (8988265) | 148              | 149.5, 144.4                                             | 143–150 | A4 B4 C4 (6/4) D8 E4 F4, 25 |
+| Seasons in the Abyss | 17564 (8815095) | 64–65, 152, 74   | 151.9, 156.1                                             | 148–156 | A4 B8 C8 D8 E4, 19          |
+| World Painted Blood  | 60404 (3290076) | 95, 180–182      | 185.3, 185.0                                             | 178–186 | A8 B8 C4 D4 E8, 32          |
+| Black Magic          | 17871 (8029701) | 177–190, 160     | 168–172 for a minute, then 186–190; 159 in the breakdown | 170–190 | A4 B4 C2, 30                |
+| Necrophobic          | 53719 (8104093) | 235–262, 201–212 | 246.2, 250.6                                             | 242–252 | A4 B4 C4, 19                |
+
+What the tabs show that the breaks did not:
+
+- **Mandatory Suicide's riff is in 6/4**, the snare on 2, 4 and 6 under the ride
+  between crashes on 1 and 4, three times in the song; a section in its own
+  meter now holds it. The outro is sixteenths on both feet for 36 bars, under
+  the ride and then under open hats on the beat.
+- **World Painted Blood's verse is the skank beat in sixteenths** (the kick on
+  the beat, the snare on each "and", the hat on the eighths) at 182, and its
+  chorus alternates the tom figure bar by bar between the floor and the mid
+  tom (a two-bar figure now). The solo and verses 5 and 6 are half-time, the
+  snare on 3.
+- **Seasons in the Abyss** sets a crash on every 1 of the chorus and doubles
+  the snare on the "and" and "a" of 4 every other bar; the main riff and the
+  bridge are half-time.
+- **Black Magic's record does not hold one tempo**: about 170 for its first
+  minute, 188–190 after it, 159 for the breakdown (a rock beat on 2 and 4).
+  The tab's 188 from bar 13 is faster than the record there.
+- **War Ensemble's bridge** is the two-bar march; its interludes and the
+  second solo's first half put the snare on 1 and 3 over eighths on the feet.
+
+Left out, and why: band hits with no snare (every song's intro, War
+Ensemble's verse ends, Mandatory Suicide's stops); sections at neither the
+song's tempo nor half of it (Seasons' clean intro at 64 and outro at 74,
+Necrophobic's break and outro at 202–206, World Painted Blood's intro at 95);
+bars a meter cannot hold at the song's tempo; World Painted Blood's ending,
+sixteenths on both feet under the toms, which would hold the song to 150. Any
+four notes in a row hold a song in sixteenths to 150 (`RUN_RATE`), so the
+fills of the three sixteenth-grid songs past 150 are broken at three; snare
+runs everywhere are broken at three for the critic.
+
+Not rebuilt: **Cult** (its verses put a bar of 5/4 after every three of 4/4 at
+200–210, and a 5/4 bar is held to 190 here); **Jesus Saves** (its slow intro
+at 137–140 is two-thirds of the fast part's 210, a ratio a section cannot
+take, and the tab marks the 98 bars of the fast part as one section).
 
 Sources:
 
@@ -2789,7 +3428,7 @@ the eighths, the even steps. Father Midnight is swung (`swingUnit` 8, swing
   2 and 4, the snare on pulse 3; every other bar the last kick is a snare;
   once, the snare on 3 and 4 with a kick after each, which is the fill. Every
   second bar of the tab is 15/8, the cymbal stopping for its last two
-  pulses; that is left out.
+  pulses; that was left out, and is now a section of its own (below).
 
 Songsterr's other tabs of her songs (Old Black 1042140, Rise to Glory
 1227621, Even Hell Has Its Heroes 2300416, Torn by the Fox 4019772) are
@@ -2848,7 +3487,8 @@ Hibernaculum: personnel not checked.
 - Nothing says how long a cymbal rings: "let every cymbal ring" is the
   samples' own decay, and the kit has no choke to avoid.
 - A song cannot change meter bar by bar, so the Bees tab's alternating 12/8
-  and 15/8 is written as 12/8 alone.
+  and 15/8 was written as 12/8 alone; the whole song (below) makes the
+  15/8 bar a section of its own.
 - In a song counted in eighths the generator's variation can put a crash
   accent on an off-beat eighth here, the record's sixteenth; `noKick` keeps
   the kick off those steps, but no field keeps a cymbal off them.
@@ -2862,6 +3502,29 @@ Hibernaculum: personnel not checked.
   "measure actual tempos" is partly answered here, from previews.
 - The record lists Bill Frisell as a likely guest on Bees; not checked, and
   not relevant to the drums.
+
+**The Bees Made Honey, whole (2026-10-23).** The song now plays in sections,
+in the tab's order (Songsterr 609341 again, read by its section markers): A,
+ten bars of a 12/8 bar and a 15/8 bar by turns, the kit stopping after the
+snare on 3 in each 15/8 bar while the riff's chord is held; B, eight bars of
+12/8 opening on a crash; A again; the Solo, B's bars with the tab's one
+variation in its fourth bar. The 15/8 bars, left out before, are written as
+a section of their own (15/8 exists as a meter).
+
+The album track (8:15, the length Wikipedia gives; Davies on drums and
+percussion per the liner notes as Wikipedia lists them) has the kit from
+about 0:12 to 7:00, then the guitars alone. Its ride band (3–5 kHz) is about
+6 dB quieter in the tab's A (0:12–1:00, 1:24–2:24) than in B and the Solo
+(1:00–1:24, from 2:24); at the tab's 82, ten bars of A are 49 s and eight of
+B 35 s, which is where the record changes. The tab stops at 3:00. Past it
+the order is a reconstruction from the same band: loud to about 4:18,
+quieter to about 4:54, loud to 7:00, played as B's bars twice, the riff
+twice and B's bars four times (the 32 slots end the kit at about 6:50).
+Autocorrelating the onsets for the riff's 27-eighth cycle against the
+12-eighth bar was inconclusive: the guitars' sustain swamps it.
+
+Songsterr searched again by every title: Rise to Glory (1227621), Old Black
+(1042140), Torn by the Fox (4019772) and There Is a Serpent Coming (6201098, 2026) have machine tabs only; the other ten titles have none.
 
 Sources: [Hex (Wikipedia)](https://en.wikipedia.org/wiki/Hex;_Or_Printing_in_the_Infernal_Method),
 [The Bees Made Honey in the Lion's Skull (Wikipedia)](https://en.wikipedia.org/wiki/The_Bees_Made_Honey_in_the_Lion%27s_Skull),
@@ -3069,6 +3732,46 @@ versions' differences from the KEXP set, since most tabs follow KEXP.
 - **Kit.** Not documented anywhere found (the record's open question stands);
   `teatowel` is chosen from the descriptions of its sound.
 
+**Yor Zarad, as a whole song (2026-10-23).** Songsterr 5353242 is human on all five
+revisions (Nova, 25 May 2026; "Added section, added 16th note high hat which is on
+recordings"), 93 bars of 7/8 at an eighth of 214. The official audio (R4yj-LMYnvs, 6:30)
+autocorrelates at an eighth of 214.0–214.5 from 40 s to 380 s, so 107 to the quarter. The
+record is about 198 bars at that tempo, so the tab is an abridgment. 4664503 (begun by
+machine, one human revision, "Fixed stuff") runs 201 bars but writes drums only to its bar
+23; its pickups at bars 10, 14 and 18 and the groove from 22 fall on the record's kick, bar
+for bar, which fixes the record's bar numbers.
+
+Laid against the record's kick, snare and hat bands bar by bar:
+
+| Record bars | Tab bars | What plays                                                                            |
+| ----------- | -------- | ------------------------------------------------------------------------------------- |
+| 1–6         | —        | the loop alone                                                                        |
+| 7–22        | 1–16     | the intro: the kit silent but for a pickup every fourth bar                           |
+| 23–42       | 17–36    | 16 bars of 16ths on the hat, 4 of the half-open hat, fills every 4                    |
+| 43–46       | 37–40    | a three-bar stop and the pickup                                                       |
+| 47–78       | 41–59    | 8 bars of 16ths, 24 of the half-open hat, the last round the toms (the tab writes 19) |
+| 79–110      | 60–77    | no kick, then a build (the tab: the hat alone, two empty bars)                        |
+| 111–126     | 78–81    | the half-open hat (the tab writes 4)                                                  |
+| 127–133     | 82–88    | the ride bell with the kick on a quarter pulse                                        |
+| 134         | 89       | one hit                                                                               |
+| 135–150     | 90–93    | the half-open hat to the tab's end (the tab writes 4)                                 |
+| 151–198     | —        | a quiet passage, then a long last groove: past the tab                                |
+
+The song plays the record's order with the record's bar counts where it plays longer than
+the tab writes, from bar 23 to bar 150: four sections (the 16ths, the half-open hat, the
+half-open hat round the toms, the ride), 22 slots. Left out: the intro, the stop, the
+hat-alone passage and the one hit (no backbeat), the build (not in the tab), and the
+record's last 48 bars (past the tab). The ride section's snare plays four strokes in every
+bar (4, 7, 9, 11 in 16ths), which are its backbeats. Doubt: the bar counts come from band
+levels, whose kick band also carries the bass loop, so a phrase boundary may be a bar off;
+the record's last 48 bars are not written.
+
+Considered and left: Ababa Hotel (4595298: two human revisions since its machine start,
+neither saying the drums were changed; 121 distinct bars in 228, a machine import's
+scatter), Utzp (4664492, the same; 4713601, "Utzp (Intro)", human but the intro only),
+Tamebsz (4046299's drums still stop after the intro; 4908122 is machine-made). A newer Yor
+Zarad tab, 7298255, is machine-made.
+
 Sources: anginedepoitrine.bandcamp.com/album/vol-1 and /album/vol-ii (track
 lists, credits, the _Vol. 1_ notes); en.wikipedia.org/wiki/Angine_de_Poitrine;
 musicradar.com/artists/in-actual-fact-its-pure-maths-just-what-are-angine-de-poitrine-actually-doing-musically-we-dissect-their-biggest-track
@@ -3151,21 +3854,21 @@ record at its marked tempo, it matches (In the Air Tonight 323 s at 95 against
 334; I Missed Again 224 against 221; I Don't Care Anymore 300 against 302;
 Squonk 391 against 387; Intruder 291 against 294).
 
-| Song                               | Year | Tempo (quarter)                                            | Meter     | What defines it                                                             | Source of the bars                     |
-| ---------------------------------- | ---- | ---------------------------------------------------------- | --------- | --------------------------------------------------------------------------- | -------------------------------------- |
-| In the Air Tonight                 | 1981 | 95 (tab, Drumeo); 96 (Wikipedia)                           | 4/4       | CR-78 verse; the break; kick and rimshot, no cymbal of his own              | Songsterr 50420 (human); Drumeo (fill) |
-| Intruder (Peter Gabriel)           | 1980 | 94 (tab; length matches); songbpm 105                      | 4/4       | no cymbals at all: kick and gated snare                                     | Songsterr 1070567 (human)              |
-| I Missed Again                     | 1981 | 108 (tab; length matches)                                  | 4/4       | hats open on the "and"s of 1 and 4                                          | Songsterr 1061008 (human)              |
-| I Don't Care Anymore               | 1982 | 140 (tab; length matches)                                  | 4/4       | a two-bar tom ostinato in eighths for a cymbal                              | Songsterr 669676 (human, early)        |
-| Easy Lover (Philip Bailey)         | 1984 | 132 (tab); 129 (songbpm, Drumeo)                           | 4/4       | straight eighths, kick on the "and"s of 2 and 4                             | Songsterr 33578 (human)                |
-| Turn It On Again                   | 1980 | 126–128 (tab); 128 (songbpm)                               | 6/4 + 7/4 | a rock beat run across a bar of 6/4 and one of 7/4                          | Songsterr 36367 (human)                |
-| Behind the Lines                   | 1980 | 164 (Drumeo, songbpm)                                      | 4/4       | the ride's bell on the beats, the hat between                               | Drumeo                                 |
-| Squonk                             | 1976 | 86 (tab, songbpm; length matches)                          | 4/4       | slow and heavy, snare accented                                              | Songsterr 36370 (human)                |
-| Dance on a Volcano                 | 1976 | 110–123 (tab); 114 (songbpm)                               | 7/8       | kick and hat foot on every eighth; ride; the bell over a busy snare         | Songsterr 36377 (human)                |
-| The Cinema Show                    | 1973 | 119 (Drumeo: eighth = 238); 134 (songbpm)                  | 7/8       | hat opened on 1, 3 and after 6, closed by the foot                          | Drumeo                                 |
-| Supper's Ready (Apocalypse in 9/8) | 1972 | 94 (Drumeo: eighth = 188)                                  | 9/8       | 2+2+2+2+1, a flam, the kick running into the bar line                       | Drumeo; Songsterr 61645 (human)        |
-| ...And So to F... (Brand X)        | 1979 | 156 (tab); played at 140–150                               | 9/8       | the ride in eighths, the kick on the bass line                              | Songsterr 1477092 (human)              |
-| Nuclear Burn (Brand X)             | 1976 | 153 (Drumeo: eighth = 306); songbpm 173; played at 140–150 | 11/8      | a bar of 4/4 in ghosted sixteenths, then two threes, hat closed by the foot | Drumeo                                 |
+| Song                               | Year | Tempo (quarter)                                                               | Meter     | What defines it                                                             | Source of the bars                     |
+| ---------------------------------- | ---- | ----------------------------------------------------------------------------- | --------- | --------------------------------------------------------------------------- | -------------------------------------- |
+| In the Air Tonight                 | 1981 | 95 (tab, Drumeo); 96 (Wikipedia)                                              | 4/4       | CR-78 verse; the break; kick and rimshot, no cymbal of his own              | Songsterr 50420 (human); Drumeo (fill) |
+| Intruder (Peter Gabriel)           | 1980 | 94 (tab; length matches); songbpm 105                                         | 4/4       | no cymbals at all: kick and gated snare                                     | Songsterr 1070567 (human)              |
+| I Missed Again                     | 1981 | 106.3 (record); 108 (tab)                                                     | 4/4       | hats open on the "and"s of 1 and 4                                          | Songsterr 1061008 (human)              |
+| I Don't Care Anymore               | 1982 | 140.1 (record); 140 (tab; length matches)                                     | 4/4       | a two-bar tom ostinato in eighths for a cymbal                              | Songsterr 669676 (human, early)        |
+| Easy Lover (Philip Bailey)         | 1984 | 128.9 (record); 132 (tab); 129 (songbpm, Drumeo)                              | 4/4       | straight eighths, kick on the "and"s of 2 and 4                             | Songsterr 33578 (human)                |
+| Turn It On Again                   | 1980 | 126–128 (tab); 128 (songbpm)                                                  | 6/4 + 7/4 | a rock beat run across a bar of 6/4 and one of 7/4                          | Songsterr 36367 (human)                |
+| Behind the Lines                   | 1980 | 164 (Drumeo, songbpm)                                                         | 4/4       | the ride's bell on the beats, the hat between                               | Drumeo                                 |
+| Squonk                             | 1976 | 84–86 (record); 86 (tab, songbpm)                                             | 4/4       | slow and heavy, snare accented                                              | Songsterr 36370 (human)                |
+| Dance on a Volcano                 | 1976 | 110–123 (tab); 114 (songbpm)                                                  | 7/8       | kick and hat foot on every eighth; ride; the bell over a busy snare         | Songsterr 36377 (human)                |
+| The Cinema Show                    | 1973 | 130–139 (record, the instrumental); 119 (Drumeo: eighth = 238); 134 (songbpm) | 7/8       | hat opened on 1, 3 and after 6, closed by the foot                          | Songsterr 36373 (human); Drumeo        |
+| Supper's Ready (Apocalypse in 9/8) | 1972 | 94 (Drumeo: eighth = 188)                                                     | 9/8       | 2+2+2+2+1, a flam, the kick running into the bar line                       | Drumeo; Songsterr 61645 (human)        |
+| ...And So to F... (Brand X)        | 1979 | 156 (tab); played at 140–150                                                  | 9/8       | the ride in eighths, the kick on the bass line                              | Songsterr 1477092 (human)              |
+| Nuclear Burn (Brand X)             | 1976 | 153 (Drumeo: eighth = 306); songbpm 173; played at 140–150                    | 11/8      | a bar of 4/4 in ghosted sixteenths, then two threes, hat closed by the foot | Drumeo                                 |
 
 - **The In the Air Tonight break** follows Drumeo. The tab agrees on the
   notes and puts its kick on 4 a triplet late, near the "e". Drumeo's two
@@ -3233,6 +3936,49 @@ Songsterr tabs 50420, 1070567, 1061008, 669676, 33578, 36367, 36370, 36377,
 `aiGenerated` flag); [songbpm.com](https://songbpm.com/@genesis) (Genesis,
 Phil Collins, Brand X, Peter Gabriel, Philip Bailey).
 
+### X2. Five songs in full (2026-10-23)
+
+Five of the thirteen are now written in sections in the record's order, each from
+its human Songsterr tab (`aiGenerated` false) laid against the record and the
+record beat-tracked (kick and full-band autocorrelation of the official audio):
+
+| Song                 | Tab, revision        | Tab tempo | Record                                                   | Plays at | Sections, slots |
+| -------------------- | -------------------- | --------- | -------------------------------------------------------- | -------- | --------------- |
+| Easy Lover           | 33578, rev 9393374   | 132       | 128.9 (Hr9GJUcP1-g, 5:06); 162 bars at 128.9 is 5:02     | 127–131  | 6, 32           |
+| I Don't Care Anymore | 669676, rev 812044   | 140       | 140.1 (18UALvCPYs8, 5:06)                                | 138–142  | 4, 22           |
+| I Missed Again       | 1061008, rev 1566849 | 108       | 106.3 (pHLR9AROF5w, 3:47); the tab's 402 beats are 3:47  | 104–108  | 7, 21           |
+| Squonk               | 36370, rev 5142879   | 86        | bar 2.86 s for 1:30 (84.0), then 2.80–2.82 s (85.1–85.8) | 84–87    | 9, 32           |
+| The Cinema Show      | 36373, rev 6686743   | 130–138   | 7/8 bar 1.61 s at 6:00 (130) to 1.51 s at 10:00 (139)    | 130–138  | 7, 31           |
+
+- **The Cinema Show** is its instrumental only (bars 213–396, 5:56 to the end):
+  the song before it runs from 90 to 164 and back, which one tempo cannot hold.
+  Drumeo's eighth of 238 (a quarter of 119), which the table above gives, is
+  slower than the record, whose 7/8 starts at a quarter of 130 and pushes to 139,
+  as the tab's map does. The tab writes the hat open on each group of the bar
+  and closed by the foot on every sixteenth between, under the ride and the
+  snare with both hands taken: the hat played by the foot, written as the foot
+  on each group.
+- **I Missed Again**: from bar 23 the tab's notes sit three sixteenths off its
+  bar lines (the snare on the 8th and 16th sixteenths). Re-read from bar 23's
+  fourth sixteenth they are the verse's groove, the snare on 2 and 4 with a pair
+  at the end of the bar. The record's snare band stays on 2 and 4 through
+  0:46–1:03, so the shift is the tab's.
+- **I Don't Care Anymore** has no snare for its first 104 bars, the tom
+  ostinato alone; the snare comes in on 3 at the bridge.
+- **Squonk** moves the snare to the "and"s of 2 and 4 in its outro, then to the
+  "and" of 4 alone.
+- Left out everywhere: bars with no snare on a backbeat (intros of hits, whole
+  bars round the toms), bars in other meters inside a song (Squonk's 5/4, 2/4
+  and 7/8), notes off the grid, and snare runs past three (thinned).
+
+Left as one break each: Intruder (one groove for 100 of its 114 bars), Behind
+the Lines (its tab's tempo map climbs from 145 to 172), Dance on a Volcano (110
+to 164 across its sections), Supper's Ready (the Apocalypse's organ solo is 28
+distinct bars in 34, mostly off the grid, with kick runs), ...And So to F... (92
+distinct bars in 251, no markers), Nuclear Burn (its only human-flagged tab's
+track is "Drums (regenerated)"), Turn It On Again and In the Air Tonight
+(already in sections).
+
 ## Y. Billy Cobham (2026-10-14)
 
 The `cobham` style plays **songs**, as `collins` does (X). His record
@@ -3290,10 +4036,10 @@ follows Todd Bishop's transcription.
 | Song                   | Year | Tempo (quarter)                                 | Meter          | What defines it                                                 | Source of the bars          |
 | ---------------------- | ---- | ----------------------------------------------- | -------------- | --------------------------------------------------------------- | --------------------------- |
 | Stratus                | 1973 | 90 (tab); 86 (songbpm)                          | 4/4            | one-handed sixteenths; snare on 2, the "e" of 3 and 4           | Songsterr 64400 (human)     |
-| Red Baron              | 1973 | 88 (tab); 89 (songbpm)                          | 4/4            | eighths; the same snare; the kick on the "a" of 1               | Songsterr 791843 (human)    |
+| Red Baron              | 1973 | 84.6 (record); 88 (tab); 89 (songbpm)           | 4/4            | eighths; the same snare; the kick on the "a" of 1               | Songsterr 791843 (human)    |
 | Quadrant 4             | 1973 | 240 (tab); 242 (songbpm)                        | 4/4 in eighths | both bass drums on every eighth, swung, under a jazz ride       | Songsterr 519969 (human)    |
 | Spectrum               | 1973 | 110 (tab); songbpm 125                          | 7/8            | hat opening on the "and"s of 1 and 3, snare between the kicks   | Songsterr 1324254 (human)   |
-| Meeting of the Spirits | 1971 | 176–186 (tab)                                   | 6/4            | ride and hat foot, one snare a bar                              | Songsterr 13040 (human)     |
+| Meeting of the Spirits | 1971 | 191–199 (record); 176–186 (tab); plays 184–190  | 6/4            | ride and hat foot, one snare a bar                              | Songsterr 13040 (human)     |
 | Birds of Fire          | 1973 | 98 (tab); songbpm 109                           | 9/8            | ride and hat foot in eighths, snare in pairs, kick off the beat | Songsterr 42451 (human)     |
 | White Rabbit (Benson)  | 1971 | 111 (songbpm; not confirmed by a second source) | 4/4            | a funk beat, then the ride's bell                               | Todd Bishop's transcription |
 
@@ -3338,6 +4084,47 @@ transcription found.
 - There is no sextuplet meter above 190, so a fast triplet shuffle has to be
   swung eighths, which loses the middle triplet.
 - The china is the crash lane's value 3; there is no second china or gong.
+
+**Two songs whole (2026-10-23).** Red Baron and Meeting of the Spirits now play
+part by part, in the order of their tabs; the other five stay one groove each.
+
+- **Red Baron.** Songsterr 791843 (rev 5097811, 2026, `aiGenerated` false) is
+  the whole record: 140 bars, no section markers. The Topic upload
+  (ptsgQ1uYqkA, 397 s) beat-tracks at 87.6 for its first half-minute and
+  83.4–84.7 after, 84.6 on average, and its 557 beats are 139 bars; the tab's
+  snare roll alone (bars 108–110) falls where every band drops to nearly
+  nothing, 5:04–5:12. So the tab's 88 is a little fast: the song is now
+  83–88. Read in order the tab is nine grooves: the opening (1–16), the hat
+  half-open on the "and" of 2 (17–32), the snare on 2 and 4 alone (35–38),
+  the opening bar answered by that one (39–46), the riff with the kick on 1,
+  its "a", the "and" of 2 and 3 (49–60), the riff with the hat open on the
+  "and" of 4 (61–72), the kick busier (75–80), the snare on every beat
+  (83–90), and the riff with the snare on 2 and 4 to the end (91–94,
+  111–134), the fade on the third groove. Left out: the break, 95–110 (his
+  fills round the toms and the roll alone, mostly no backbeat), and a few
+  bars of runs between the parts. The eight-note snare runs are broken into
+  threes.
+- **Meeting of the Spirits.** Songsterr 13040 (rev 6944290, 2026,
+  `aiGenerated` false), 169 bars marked by section: an intro at 100, then 6/4
+  at 176–186. The record (dhc_ZQ545Hg, 412 s) is faster: the snare band's
+  six-beat bar autocorrelates at 1.865 s at 2:00 and 1.848 s at 4:00, a
+  quarter of 193 and 195, the whole mix 191 at 0:40 and 199 at 5:00. 6/4 stops
+  at 190, so the song plays at 184–190. At that speed the record is some 35
+  bars longer than the tab: the tab shortens it, most likely in the solos,
+  and in a mix this dense which bars it drops cannot be heard, so the parts'
+  lengths are the tab's. Its parts: the arpeggios (ride, hat foot, snare on
+  4), the main theme and the solos over it (a crash and the kick under the
+  line every other bar), the unison riff's first bars, the theme again with
+  the snare on every beat, and the violin solo on the china. Left out: the
+  rubato intro, the bars the drums sit out, and the riff's hits with no
+  snare.
+- **Not rebuilt.** The other tabs are excerpts: Stratus (64400) is 32 bars of
+  a 9:48 record, Quadrant 4 (519969) 82 bars at 240 of 4:20, Spectrum
+  (1324254) 21 bars of 5:07, Birds of Fire (42451) 54 bars of 5:50. White
+  Rabbit is Todd Bishop's transcription of its opening grooves.
+- **Library contradiction.** The table above gives Meeting of the Spirits
+  176–186 and Red Baron 88 (tab) and 89 (songbpm): the records are about
+  191–199 and 84–88.
 
 Sources: Wikipedia — [Billy Cobham](https://en.wikipedia.org/wiki/Billy_Cobham),
 [Spectrum](<https://en.wikipedia.org/wiki/Spectrum_(Billy_Cobham_album)>),
@@ -3392,11 +4179,11 @@ the last two bars) for the statements off the grid; `midFills` 0.3. The kit is
 `muldjord`, a real kit recorded properly; nothing found describes his 1970s
 sound closely enough to tune one to it.
 
-| Song                              | Year | Tempo (quarter)          | Meter     | What defines it                                              | Source of the bars        |
-| --------------------------------- | ---- | ------------------------ | --------- | ------------------------------------------------------------ | ------------------------- |
-| Duel of the Jester and the Tyrant | 1976 | 150–160 (tab)            | 4/4 + 7/8 | heavy half-time, snare on 3; unison eighths; 7/8 on the ride | Songsterr 914514 (human)  |
-| Land of the Midnight Sun          | 1976 | 120 (tab); 119 (songbpm) | 4/4       | sixteenths on the hat in one hand, the snare in pairs        | Songsterr 414449 (human)  |
-| Morning Sunrise (Twennynine)      | 1979 | 71 (tab, songbpm)        | 7/4 + 4/4 | a cross-stick in the 7/4 opening; slow eighths in the verse  | Songsterr 3084901 (human) |
+| Song                              | Year | Tempo (quarter)                          | Meter              | What defines it                                              | Source of the bars        |
+| --------------------------------- | ---- | ---------------------------------------- | ------------------ | ------------------------------------------------------------ | ------------------------- |
+| Duel of the Jester and the Tyrant | 1976 | 150–160 (tab)                            | 4/4 + 7/8          | heavy half-time, snare on 3; unison eighths; 7/8 on the ride | Songsterr 914514 (human)  |
+| Land of the Midnight Sun          | 1976 | 120 (tab); 120.1 (record); 119 (songbpm) | 4/4 + a bar of 6/4 | sixteenths on the hat in one hand, the snare in pairs        | Songsterr 414449 (human)  |
+| Morning Sunrise (Twennynine)      | 1979 | 71 (tab, songbpm)                        | 7/4 + 4/4          | a cross-stick in the 7/4 opening; slow eighths in the verse  | Songsterr 3084901 (human) |
 
 - **Duel** is two sections: A the half-time theme (the tab's most common bars,
   with the band's unison of eighth-note kicks under a crash); B its 7/8, on
@@ -3405,6 +4192,16 @@ sound closely enough to tune one to it.
   150 and the song runs to 160.
 - **Morning Sunrise** opens in 7/4 in the tab, so A is the 7/4 and B the
   verse.
+- **Land of the Midnight Sun, whole (2026-10-23).** Songsterr 414449 (rev 282966, Dmitry
+  Enikeev, 2016; aiGenerated false) is 236 bars at 120 in twelve marked sections. The record
+  (Al Di Meola's channel, INbJNbLD4Rw, 9:10, as Wikipedia gives it) beat-tracks at 120.1
+  throughout, and its strongest change of timbre is at bar 22, where the tab's first section
+  ends. It is 274 bars, though, so the tab is about 38 bars short somewhere; with Mingo Lewis's
+  percussion in every band, where could not be told. The song now plays the tab's order:
+  the groove with its bars of 6/4, the two-bar figure with the mid tom on 1, the ride groove,
+  the turn, the long sixteenths under the solo, the four-bar figure, and the groove again. The
+  three passages of the hat alone (no kick or snare) and the fill bars off the grid are left
+  out, and the long passages are played short to fit 32 bars and 32 slots.
 
 **Left out.** "Medieval Overture" (Songsterr 515705, human): 3/4 at 240 in
 the tab, past 3/4's 190 here; the bars are eighths and the bell, and could be
@@ -3502,6 +4299,44 @@ Fillmore tabs: Bob Livingston.
 - Two Santana percussionists at once (congas and timbales) need two slots;
   each song here writes the one its tab gives.
 
+**Whole songs (2026-10-23).** Two of the eight now play as their records run,
+section by section; the other six stay one part each.
+
+- **Evil Ways.** Songsterr 3582839 (rev 4726883, 2026, aiGenerated false) is
+  now marked by section: Intro (1–9), Verse 1, Chorus, Verse 2, Chorus, Organ
+  Solo (42–71), Verse 2, Chorus, Guitar Solo (86–118). 118 bars at 120. The
+  album track (Santana's upload, 6EMqXsy_Zwo, 3:56) autocorrelates at 117.7
+  over 10–120 s and 119.6 over 130–230 s; 118 bars at 118.5 is 3:59, the
+  track with its fade. The congas and timbales fill the record's bands, so it
+  confirms the tempo and the length but not his bar-by-bar changes: the order
+  is the tab's. Nine sections in 32 bars: the intro, the cross-stick verse,
+  its turn onto every beat, the chorus on the hat and then the ride, the
+  backbeat under the organ (27 bars, played as 28), the build in eighths on
+  the crash and snare, the guitar solo's ride, and its last bars on the crash.
+  Left out: the pickup roll, the build's last two bars (snare runs of seven)
+  and the last bar; one of the outro's three ride grooves is folded into the
+  others as a figure.
+- **Black Magic Woman.** Songsterr 357 (rev 9421986, 2026, aiGenerated false;
+  the track "Drums / Michael Shrieve") is marked Intro, Solo 01, Verse 01–02,
+  Solo 02, Verse 03 and Ending, the last at 144: Gypsy Queen, left out. The
+  album track (M91Mc-y5xJY) autocorrelates at 121.3 over 20–100 s and 125.6
+  over 100–215 s, then 146 past 235 s, where Gypsy Queen comes in. His part:
+  the hat open in threes alone, then with the kick a bar about; the kick alone
+  under the verses (the bongos, GM 60–61 in his track, play the groove); the
+  ride in the second solo. Four sections, 26 slots, in the tab's order.
+
+**Left as one part.**
+
+- _Soul Sacrifice_ (Woodstock, 1621352): 404 bars, sixty distinct, in some twenty-five blocks
+  of twenty different grooves, with a hundred-bar solo; 32 bars cannot hold
+  them in order without dropping half the record.
+- _Persuasion_ (1621303), _Fried Neck Bones_ (1621357) and _Taboo_ (1815434):
+  each a string of different three- or five-bar blocks (Fried Neck Bones has
+  thirty), more than 32 bars hold.
+- _Song of the Wind_ (17440): one groove, its two cross-stick bars alternating
+  without a section shape. _Samba Pa Ti_ (17329): 43 bars of ballad without
+  the kit, then one groove for 64.
+
 Sources: [Wikipedia, Michael Shrieve](https://en.wikipedia.org/wiki/Michael_Shrieve);
 [A Breath of Fresh Air, transcript](https://abreathoffreshair.com.au/transcript/transcript-santanas-drummer-michael-shrieve-on-life-music-and-beyond/);
 [Scott K. Fish, Michael Shrieve pt 1](https://scottkfish.com/2025/01/23/michael-shrieve-pt-1-of-2/);
@@ -3555,11 +4390,11 @@ cymbal); `rimshot` 0.35 ("smack those drums"); a feel on top, after Williams
 (inferred); `buzz` 0.1 for the roll that opens She Got Game's chorus. Her Vic
 Firth groove is a style figure, not a song: it names no record.
 
-| Song                    | Year | Tempo (quarter)                        | What defines it                                                               | Source of the bars        |
-| ----------------------- | ---- | -------------------------------------- | ----------------------------------------------------------------------------- | ------------------------- |
-| Breaking Down the Door  | 2019 | 102 (tab); 103 (songbpm)               | the kick on every beat, the snare on the "a" of 1 and 3, the "and" of 2 and 4 | Songsterr 4521944 (human) |
-| Corazón Espinado (live) | 2014 | 128 (tab); the 1999 studio take is 120 | hats, then the ride, then the crash and snare on every beat                   | Songsterr 5178015 (human) |
-| She Got Game            | 2026 | 100 (tab)                              | the kick on the "a" of 2 and the 3, the hats filling in sixteenths            | Songsterr 3917543 (human) |
+| Song                    | Year | Tempo (quarter)                            | What defines it                                                               | Source of the bars        |
+| ----------------------- | ---- | ------------------------------------------ | ----------------------------------------------------------------------------- | ------------------------- |
+| Breaking Down the Door  | 2019 | 102 (tab); 103.0 (the video, beat-tracked) | the kick on every beat, the snare on the "a" of 1 and 3, the "and" of 2 and 4 | Songsterr 4521944 (human) |
+| Corazón Espinado (live) | 2014 | 128 (tab); the 1999 studio take is 120     | hats, then the ride, then the crash and snare on every beat                   | Songsterr 5178015 (human) |
+| She Got Game            | 2026 | 100 (tab and video)                        | the kick on the "a" of 2 and the 3, the hats filling in sixteenths            | Songsterr 3917543 (human) |
 
 - **Breaking Down the Door**'s backbeat is its snare figure (the "a" of 1, the
   "and" of 2, the "a" of 3, the "and" of 4), so it has its own fill, the tab's
@@ -3568,7 +4403,35 @@ Firth groove is a style figure, not a song: it names no record.
 - **She Got Game**'s roll into the chorus is twelve sixteenths on the snare,
   which the critic calls a run; it is written as buzz strokes on the eighths,
   then the backbeat on 4, with the kick into the 1 (the tab's three kicks
-  are two here, the third a triple the critic refuses on one foot).
+  are two here, the third a triple the critic refuses on one foot). That
+  was the break; the roll is the bridge's (bars 46 and 48), which the whole
+  song leaves out (below).
+
+**Whole songs (2026-10-23).** All three songs now play the record's flow, in
+the tab's order, section by section. None of the three tabs marks a section,
+so each part is one of the tab's changes of cymbal or kick, and each record
+was beat-tracked against its tab:
+
+| Song                    | Record checked                             | Tempo (record)              | Sections, slots | What lines up                                                                                                        |
+| ----------------------- | ------------------------------------------ | --------------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Breaking Down the Door  | the Vevo video, J5OspxMTwis (4:03)         | 103.0 (tab 102)             | 8, 22           | 103 bars at 103 is the video; the kick band drops 0.7–0.9 dB in the tab's empty bars 37, 41, 45; the kit ends in 103 |
+| Corazón Espinado (live) | Santana's channel, f7IjyuOXmgM (5:00)      | 128.8–129.3, drifting (128) | 9, 30           | the kick band falls 4.7 dB in bar 157, the tab's last hit                                                            |
+| She Got Game            | Public Enemy's channel, 5ihAR9xiUTk (3:30) | 100.0 (tab 100)             | 7, 17           | the hats come in at bar 5 as in the tab; the kick drops for 29–31 and the bridge a bar after the tab's numbers       |
+
+- **Left out**, as everywhere: bars with no backbeat (Breaking Down the
+  Door's cymbal swell, kick-alone and hats-alone intro, its stops' empty
+  bars, its stop on a crash; She Got Game's hats-alone intro, its bridge, its
+  break and stop; Corazón's solo, 91–115, runs of sixteenths on snare and
+  toms), and Corazón's bars in 3/4, 5/4, 6/4 and 2/4.
+- **She Got Game's buzz roll goes with its bridge**: the roll was the
+  bridge's (bars 46 and 48), which is left out. The run into bar 33 stays, as
+  three sixteenths and one on the snare with two kicks after.
+- **Corazón's chorus is on the ride, its verse on the hat**, and its hits
+  section (51–62) alternates the groove with fills; the tab is the video's
+  length, but the mix is too dense to show where its parts change, so their
+  order is the tab's alone.
+- **Shortened to fit**: a song holds 32 distinct bars, and Corazón's tab has 81. Its parts play four bars where the record has five, and its verse in
+  three places (13–20, 41–50, 81–86, 136–140) is one section.
 
 **Left out.** Every Kravitz hit (his drums); "Joy" (Derek Mixon); the Playing
 for Change "Oye Como Va", "Yo Soy la Luz", "Corazón Espinado" (studio, live
@@ -3733,16 +4596,16 @@ tom with the kick, the cymbal keeping the beat (`time`), four or five cells;
 the **grouping** cell is Electric Red's pair-and-kick in threes, six or ten
 cells. Rate 0.3.
 
-| Song                          | Year | Tempo (quarter)                    | What defines it                                                  | Source of the bars       |
-| ----------------------------- | ---- | ---------------------------------- | ---------------------------------------------------------------- | ------------------------ |
-| Future Breed Machine          | 1995 | 140–150 (tab 166–186; songbpm 175) | china on the beat over the riff, then double bass in 16ths       | Songsterr 13389 (human)  |
-| New Millennium Cyanide Christ | 1998 | 140–150 (tab 152; songbpm 150)     | china in eighths, ghosted snare inside the riff, the snare on 3  | Songsterr 12605 (human)  |
-| Rational Gaze                 | 2002 | 128–136 (tab and songbpm 133)      | half-open hat on the beat, rimshot on 3, the kick on the riff    | Songsterr 13236 (human)  |
-| Stengah                       | 2002 | 116–122 (tab 120; songbpm 118)     | open hat on the beat, ghosts, the kick every three sixteenths    | Songsterr 12661 (human)  |
-| Straws Pulled at Random       | 2002 | 136–142 (tab and songbpm 140)      | both toms on the beat over the hat foot; china over a spare kick | Songsterr 43182 (human)  |
-| Electric Red                  | 2008 | 106–114 (tab and songbpm 110)      | toms and kick in threes; the floor tom in eighths over the riff  | Songsterr 43186 (human)  |
-| Do Not Look Down              | 2012 | 154–162 (tab and songbpm 160)      | crash on the beat, rimshot on 3, a spare kick across the bar     | Songsterr 269211 (human) |
-| Demiurge                      | 2012 | 82–88 (tab 85; songbpm 113)        | crash on the beat, ghosted snare between the kicks               | Songsterr 383114 (human) |
+| Song                          | Year | Tempo (quarter)                              | What defines it                                                  | Source of the bars       |
+| ----------------------------- | ---- | -------------------------------------------- | ---------------------------------------------------------------- | ------------------------ |
+| Future Breed Machine          | 1995 | 140–150 (tab 166–186; songbpm 175)           | china on the beat over the riff, then double bass in 16ths       | Songsterr 13389 (human)  |
+| New Millennium Cyanide Christ | 1998 | 140–150 (tab 152; record 152.5; songbpm 150) | china in eighths, ghosted snare inside the riff, the snare on 3  | Songsterr 12605 (human)  |
+| Rational Gaze                 | 2002 | 128–136 (tab and songbpm 133)                | half-open hat on the beat, rimshot on 3, the kick on the riff    | Songsterr 13236 (human)  |
+| Stengah                       | 2002 | 116–122 (tab 120; songbpm 118)               | open hat on the beat, ghosts, the kick every three sixteenths    | Songsterr 12661 (human)  |
+| Straws Pulled at Random       | 2002 | 136–142 (tab and songbpm 140)                | both toms on the beat over the hat foot; china over a spare kick | Songsterr 43182 (human)  |
+| Electric Red                  | 2008 | 106–114 (tab and songbpm 110)                | toms and kick in threes; the floor tom in eighths over the riff  | Songsterr 43186 (human)  |
+| Do Not Look Down              | 2012 | 154–162 (tab and songbpm 160)                | crash on the beat, rimshot on 3, a spare kick across the bar     | Songsterr 269211 (human) |
+| Demiurge                      | 2012 | 82–88 (tab and record 85)                    | crash on the beat, ghosted snare between the kicks               | Songsterr 383114 (human) |
 
 Tempos are the tab's, checked against songbpm.com. Where the feet run four
 sixteenths or more (Future Breed Machine, New Millennium Cyanide Christ) the
@@ -3764,6 +4627,47 @@ grid.
 cycle that takes eight or sixteen to come round, so the generated riff
 restarts every two bars where the record's keeps going. A song-length
 cross-cycle would need a figure longer than two bars.
+
+**Six songs whole (2026-10-23).** New Millennium Cyanide Christ, Rational
+Gaze, Straws Pulled at Random, Electric Red, Do Not Look Down and Demiurge now
+play in sections, in the order of their tabs' own markers (the same human
+Songsterr tabs, at their current revisions, all `aiGenerated` false). Each
+tab was laid against the record:
+
+| Song                          | Tab                | Tab length at its tempo    | Record                                                      | Measured       |
+| ----------------------------- | ------------------ | -------------------------- | ----------------------------------------------------------- | -------------- |
+| New Millennium Cyanide Christ | 12605 rev 9286274  | 213 bars, 5:35.1           | 5:35                                                        | 152.5          |
+| Rational Gaze                 | 13236 rev 9731948  | 152 bars, 4:34 to its fade | 5:04 (2002), 5:26 (2006; full level to 4:42, then the fade) | 132.8          |
+| Straws Pulled at Random       | 43182 rev 8341599  | 180 bars, 5:08.6           | 5:10 / 5:16                                                 | 140.4          |
+| Electric Red                  | 43186 rev 9386153  | 156 bars, 5:40             | 5:51 (fades 5:20–5:43)                                      | 109.95         |
+| Do Not Look Down              | 269211 rev 9253004 | 186 bars, 4:39             | 4:43                                                        | 160.3          |
+| Demiurge                      | 383114 rev 9218240 | 126 bars, 5:56             | 6:12 (19 s without drums, fade 5:24–6:08)                   | 170.4 = 2 × 85 |
+
+Lengths from Wikipedia's track lists, which credit him with the drums on
+_Chaosphere_, _Nothing_, _obZen_ and _Koloss_; tempos by spectral-flux
+autocorrelation over the middle of each record. Demiurge's sixteenth pulse at
+170.4 confirms the tab's 85, not songbpm's 113.
+
+Each section is two or four bars of its part, drawn two bars at a time from
+the tab's own pairs, so each pair keeps its bar line; a part's cycle of eight
+or sixteen bars is not kept in order (as above). A song holds 32 bars and 32
+arrangement slots, so each part plays at about half its length. Where the
+snare leaves the 3 to play the riff (Rational Gaze's "Irrational gaze",
+"Perspectives distorted" and solo) a section keeps no backbeat, as
+Anesthetize's toms do (§AJ); in Demiurge's "Writhing", "Sucking vomit" and
+"Terror rising" the rimshot is on 2 and 4, and those sections say so.
+Demiurge's tab writes no fills, so the song plays none. Bars with no backbeat
+(Cyanide Christ's floor-tom bars 162–169, Rational Gaze's hat foot alone at
+137–140, the last hits) are left out.
+
+**Left as they were.** _Future Breed Machine_: its tab (13389 rev 9372341)
+writes the chorus in 12/8 + 13/8, the clean section and first solo in 13/8,
+the second breakdown in 7/4 and a pre-verse in 17/16; 13/8 and 17/16 are not
+among the meters (`meter.ts`), so the song stays the two-bar 4/4 figures it
+has. _Stengah_: its tab (12661) is 5:18 at 120 against the record's 5:38; the
+quiet intro matches (0–16 s), but by the bass break the record is 16 s (eight
+bars) behind the tab, and the dense mix does not show where the missing bars
+are.
 
 ## AE. Danny Carey (2026-10-15)
 
@@ -3811,17 +4715,17 @@ round the kit, three or six cells in 4/4 and **all seven** in the 5/4 and
 7/4 songs, whose two bars hold 35 sixteenths. Rate 0.25. The kick in fours
 on The Pot and the double bass under Ticks and Leeches are `doubleKick`.
 
-| Song              | Year | Meter | Tempo (quarter)                        | What defines it                                                    | Source of the bars       |
-| ----------------- | ---- | ----- | -------------------------------------- | ------------------------------------------------------------------ | ------------------------ |
-| Sober             | 1993 | 4/4   | 145–150 (tab 145–157; songbpm 149)     | the hat opening on the "and"s, the snare on 3; the ride section    | Songsterr 19923 (human)  |
-| Forty Six & 2     | 1996 | 4/4   | 78–84 (tab; songbpm 159, double)       | rim clicks over the hat foot; hat and crash with the riff's kick   | Songsterr 460731 (human) |
-| Eulogy            | 1996 | 4/4   | 84–90 (tab 82–90; songbpm 181, double) | the verse; the hat in threes for three bars                        | Songsterr 19725 (human)  |
-| Stinkfist         | 1996 | 4/4   | 85–90 (tab; songbpm 171, double)       | a hat figure with opens on the "a"s, the kick in pairs             | Songsterr 19811 (human)  |
-| The Grudge        | 2001 | 5/4   | 92–98 (tab 90–98; songbpm 96)          | the hat over the kick; the ride section; fills with the kick under | Songsterr 20085 (human)  |
-| Ticks and Leeches | 2001 | 7/4   | 140–150 (tab 147–164)                  | sixteenths on the rack and floor toms; both feet under them        | Songsterr 56862 (human)  |
-| Vicarious         | 2006 | 5/4   | 110–118 (tab 110–120; songbpm 115)     | the hat opening across the bar, a double on the snare before 2     | Songsterr 56870 (human)  |
-| Rosetta Stoned    | 2006 | 3/4   | 108–116 (tab 105–119; songbpm 112)     | the kick in fives under 3/4, the snare on 3                        | Songsterr 56856 (human)  |
-| The Pot           | 2006 | 4/4   | 104–110 (tab; songbpm 107)             | the riff on the kick under hat and crashes; china, kick in fours   | Songsterr 29442 (human)  |
+| Song              | Year | Meter                        | Tempo (quarter)                                        | What defines it                                                    | Source of the bars       |
+| ----------------- | ---- | ---------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------ |
+| Sober             | 1993 | 4/4                          | 145–150 (tab 145–157; record 149.7–154.2; songbpm 149) | the hat opening on the "and"s, the snare on 3; the ride section    | Songsterr 19923 (human)  |
+| Forty Six & 2     | 1996 | 4/4; a section in 7/8        | 78–84 (tab; record 78.4–82.8; songbpm 159, double)     | rim clicks over the hat foot; hat and crash with the riff's kick   | Songsterr 460731 (human) |
+| Eulogy            | 1996 | 4/4                          | 84–90 (tab 82–90; songbpm 181, double)                 | the verse; the hat in threes for three bars                        | Songsterr 19725 (human)  |
+| Stinkfist         | 1996 | 4/4; sections in 6/4 and 7/4 | 85–90 (tab; record 86.1–90.8; songbpm 171, double)     | a hat figure with opens on the "a"s, the kick in pairs             | Songsterr 19811 (human)  |
+| The Grudge        | 2001 | 5/4                          | 92–98 (tab 90–98; songbpm 96)                          | the hat over the kick; the ride section; fills with the kick under | Songsterr 20085 (human)  |
+| Ticks and Leeches | 2001 | 7/4                          | 140–150 (tab 147–164)                                  | sixteenths on the rack and floor toms; both feet under them        | Songsterr 56862 (human)  |
+| Vicarious         | 2006 | 5/4                          | 110–118 (tab 110–120; songbpm 115)                     | the hat opening across the bar, a double on the snare before 2     | Songsterr 56870 (human)  |
+| Rosetta Stoned    | 2006 | 3/4                          | 108–116 (tab 105–119; songbpm 112)                     | the kick in fives under 3/4, the snare on 3                        | Songsterr 56856 (human)  |
+| The Pot           | 2006 | 4/4                          | 104–110 (tab; songbpm 107)                             | the riff on the kick under hat and crashes; china, kick in fours   | Songsterr 29442 (human)  |
 
 **Left out.** _Lateralus_ and _Schism_ (Songsterr 20198, 6700, human): their
 5/8, 6/8 and 7/8 are written in sixteenths, and BeatBreaker's eighth-note
@@ -3836,6 +4740,43 @@ were left out for a reason that does not hold, and are still to write._
 **Found on the way, not changed.** A meter of five, six or seven eighths
 split in sixteenths (`5/8-16` and the like) would let in the half of his
 catalogue that is in those meters; it is a new meter, not a style change.
+
+**Whole songs (2026-10-23).** Three of the sectionless songs are now written
+whole, section by section in the tab's order, from the same human Songsterr
+tabs, each checked against the record's audio (Tool's official uploads,
+autocorrelated over stretches of the record):
+
+- _Sober_ (19923, rev 9500451, aiGenerated false): 191 bars, 5:03 by the tab's
+  map against the record's 5:08. The record rises from 149.7 to 154.2, as the
+  tab's map does (152, 149, up to 157 in the solo); the song stays 145–150 for
+  its tom run. Seven sections: the verse (the kick bar and the bar with none,
+  by turns), the pre-chorus, the chorus on the ride, the post-chorus into its
+  run round the kit, the floor tom and kick in eighths, the solo (the snare on
+  2 and the "and" of 3, then 1 and 4) and the outro. Left out: the intro and
+  the bridge's twenty quiet bars of hat and ride, with no snare or tom on 3.
+- _Forty Six & 2_ (460731, rev 9225845): 123 bars, 6:00 against 6:05; the
+  record runs 78.4, 80.5, 82.8, 80.3, the tab's 78–84. Eleven sections: the rim
+  clicks, the tom on the "and" of 1, the verse riff, the chorus on
+  the ride, the post-chorus's kick in fours (two feet), verse 2 over the hat
+  foot, the crash off the beat, the bridge's ride, the outro's ride in 7/8 and
+  in 4/4, and Outro II's stabs. Left out: the ride-alone intro; the verse's stop bar, with no backbeat on 4; the bridge's
+  first eight bars, whose kick and snare leave under a quarter of each bar
+  free; Bridge II (no kit); and the drum solo, a different bar nearly every
+  bar round the toms over unbroken sixteenths on the kick. The tab rides
+  through two open hats in the chorus; the ride gives way to them.
+- _Stinkfist_ (19811, rev 9707346): 103 bars, 5:07 against 5:14; the record
+  86.1–90.8, the tab's 85–90. Eight sections: the verse, the pre-chorus, the
+  chorus's three bars of 6/4 and its bar of 7/4 (the band stopping on 4), the
+  bridge's two tom grooves by turns, the climax on the ride and crash, and the
+  interlude (the snare on 2 alone). Left out: the intro and outro, the
+  bridge's kick-alone bars, and the interlude's last four bars with no
+  backbeat.
+
+**Not rebuilt.** _The Pot_ (29442): 151 distinct bars in 182, its verse
+ghosts never the same twice, moving between 4/4 and 3/4 with a bar of 9/8.
+_The Grudge_, _Ticks and Leeches_, _Vicarious_ and _Rosetta Stoned_ (20085,
+56862, 56870, 56856): 109, 89, 121 and 226 distinct bars, with meter changes
+throughout, against a song's 32 bars. Eulogy already had sections.
 
 ## AF. Ari Hoenig (2026-10-15)
 
@@ -3958,6 +4899,11 @@ read, and copies of his books on file-sharing sites were not used.
   ratio a source gives; none does yet.
 - _Someday My Prince Will Come_ at 235 a beat is past 9/8's ceiling (300,
   200 a beat) and 3/4's (190).
+
+- **Full songs (2026-10-23).** Songsterr searched again by name and by every
+  title: no tab of a Hoenig record. The tabs under these titles are other
+  players' records (Coltrane, Miles Davis, Monk, Wynton Kelly, Metheny,
+  Hampton Hawes), so his ten songs stay one-part reconstructions.
 
 ## AG. Max Roach (2026-10-15)
 
@@ -4089,6 +5035,8 @@ used.
   Also Waltzes in Moby Dick (Wikipedia, Max Roach) could be added to
   Bonham's record as evidence.
 
+- **Whole songs (2026-10-23).** None of the seven is written in sections: Songsterr has no human tab of any of them (Jordu's 3043559 is machine-made; the "Blue Seven" and "ValseHot" tabs are other pieces), so the songs stay one groove each.
+
 ## AH. Dafnis Prieto (2026-10-15)
 
 Phase 12-f. The `prieto` style plays songs; his record is
@@ -4193,6 +5141,10 @@ bar. Four songs, short of six to ten: the rest had no bars to read.
   clave songs as rumba 3-2, rumba 2-3 with the cáscara, and 6/8; Blah Blah Blah
   has no clave slot.
 - songbpm reads Una Vez Más at 108 on the Big Band's page and 109 on his own.
+
+- **Full songs (2026-10-23).** Searched Songsterr again for Una Vez Más, Song
+  for Chico and The Triumphant Journey: still no tab of his records, human or
+  machine, so they stay as short breaks.
 
 ## AI. Agbekor and mozambique (2026-10-15)
 
@@ -4416,16 +5368,16 @@ _Harridan_'s eight-sixteenth snare crescendo is an intro, and runs longer
 than the critic lets a snare, so it takes the style's single strokes down the
 toms alone.
 
-| Song                             | Year | Record                 | Meter | Tempo (quarter)                              | What defines it                                                         | Source of the bars                           |
-| -------------------------------- | ---- | ---------------------- | ----- | -------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------- |
-| The Sound of Muzak               | 2002 | In Absentia            | 7/4   | 92-96 (tab 94; karaoke-version ~95)          | kick-kick-snare in sevens of 16ths, hat accented on every quarter       | Songsterr 15884 (human)                      |
-| Blackest Eyes (verse)            | 2002 | In Absentia            | 4/4   | 92-96 (tab 94; karaoke-version ~95)          | hat eighths, a snare on the "e" of 3 between the backbeats              | Songsterr 16042 (human)                      |
-| Halo                             | 2005 | Deadwing               | 4/4   | 96-100 (tab 98; musiciwant 120, algorithmic) | open hat alone on 3, kick 1, "a" of 1, "and" of 2, "a" of 2, "and" of 3 | Songsterr 15089 (human)                      |
-| Shallow                          | 2005 | Deadwing               | 4/4   | 84-88 (tab 86)                               | hard rock eighths; snare on the last 16th; a busier second bar          | Songsterr 15172 (human)                      |
-| The Start of Something Beautiful | 2005 | Deadwing               | 5/4   | 156-164 (tab 160)                            | eighths only: hat foot under, snare on the "and"s of 2 and 4            | Songsterr 644873 (human); meter caveat below |
-| Anesthetize (part 1, verse)      | 2007 | Fear of a Blank Planet | 4/4   | 106-114 (tab 110)                            | toms only, ghosted 16ths, accents 3+3+2 in eighths                      | Songsterr 50753 (human)                      |
-| Fear of a Blank Planet (verse)   | 2007 | Fear of a Blank Planet | 6/4   | 158-166 (tab 163)                            | hat eighths loud-soft, snare on 2, 4 and 6, kick moving across 2 bars   | Songsterr 50744 (human)                      |
-| Harridan                         | 2022 | Closure/Continuation   | 5/4   | 124-130 (tab 127)                            | hat quarters, snare on 2 and 5; the chorus crash in threes              | Songsterr 581744 (human)                     |
+| Song                             | Year | Record                 | Meter       | Tempo (quarter)                                         | What defines it                                                                                                  | Source of the bars                             |
+| -------------------------------- | ---- | ---------------------- | ----------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| The Sound of Muzak               | 2002 | In Absentia            | 7/4         | 93-97 (record 95.2; tab 94; karaoke-version ~95)        | kick-kick-snare in sevens of 16ths, hat accented on every quarter                                                | Songsterr 15884 (human)                        |
+| Blackest Eyes (verse)            | 2002 | In Absentia            | 4/4         | 93-97 (record 95.1; tab 94; karaoke-version ~95)        | hat eighths, a snare on the "e" of 3 between the backbeats                                                       | Songsterr 16042 (human)                        |
+| Halo                             | 2005 | Deadwing               | 4/4         | 96-100 (tab and record 98; musiciwant 120, algorithmic) | open hat alone on 3, kick 1, "a" of 1, "and" of 2, "a" of 2, "and" of 3                                          | Songsterr 15089 (human)                        |
+| Shallow                          | 2005 | Deadwing               | 4/4         | 85-89 (record 87.0; tab 86)                             | hard rock eighths; snare on the last 16th; a busier second bar                                                   | Songsterr 15172 (human)                        |
+| The Start of Something Beautiful | 2005 | Deadwing               | 9/8 and 5/4 | 157-163 (tab and record 160)                            | eighths only: hat foot under, snare on the "and"s of 2 and 4                                                     | Songsterr 644873 (human); caveat settled below |
+| Anesthetize (part 1, verse)      | 2007 | Fear of a Blank Planet | 4/4         | 106-114 (tab 110)                                       | toms only, ghosted 16ths, accents 3+3+2 in eighths                                                               | Songsterr 50753 (human)                        |
+| Fear of a Blank Planet (verse)   | 2007 | Fear of a Blank Planet | 6/4         | 158-165 (record 162; tab 163)                           | hat eighths loud-soft (the old revision; the current one: below), snare on 2, 4 and 6, kick moving across 2 bars | Songsterr 50744 (human)                        |
+| Harridan                         | 2022 | Closure/Continuation   | 5/4         | 124-130 (tab 127)                                       | hat quarters, snare on 2 and 5; the chorus crash in threes                                                       | Songsterr 581744 (human)                       |
 
 Tempos are each tab's (`automations.tempo`); Blackest Eyes and The Sound of
 Muzak checked against karaoke-version.com ("variable (around 95 BPM)"). The
@@ -4454,7 +5406,8 @@ songs; musiciwant's Halo 120 is algorithmic and files it under the wrong album).
   chorus" (guitarguitar, 2019); the tab writes the verse and chorus as 5/4 at
   160 and the 9/8 as hats only. A 5/4 bar of eighths at 160 sounds as two 5/8
   bars at 320 eighths would, so the bars hold either way; the section names
-  are the tab's.
+  are the tab's. (Out of date: the tab's current revision writes the verse in
+  9/8 with the kit; see the whole songs below.)
 
 **Found on the way, not changed.**
 
@@ -4473,6 +5426,48 @@ songs; musiciwant's Halo 120 is algorithmic and files it under the wrong album).
 - A snare figure the songs share off the backbeat (_Blackest Eyes_' "e" of 3)
   is read as a backbeat by the generator, so a half-bar fill that drops it
   fails the critic. The song's fill is one beat long instead.
+
+**Whole songs (2026-10-23).** Six of the eight now play intro to outro, in the
+record's order, section by section from the same human Songsterr tabs, re-read
+at their current revisions (all 2026, all `aiGenerated: false`). Each tab's
+length was matched to the record's, and each record beat-tracked (the
+onset envelope's autocorrelation, 20 s to the end):
+
+| Song                             | Tab (rev)        | Tab: bars, tempo, length | Record (upload, length)    | Record tempo | Plays at |
+| -------------------------------- | ---------------- | ------------------------ | -------------------------- | ------------ | -------- |
+| The Sound of Muzak               | 15884 (9450674)  | 93, 94, 5:04             | 4ulgVOBpNWA, 5:02          | 95.2         | 93-97    |
+| Blackest Eyes                    | 16042 (8615113)  | 105, 94, 4:25            | 73O6L90El7c (Kscope), 4:24 | 95.1         | 93-97    |
+| Halo                             | 15089 (7783232)  | 111 played, 98, 4:32     | Vgd174oanT4, 4:38          | 98.0         | 96-100   |
+| Shallow                          | 15172 (9762892)  | 87, 86, 4:18             | JSu3q1zSrx8 (2017), 4:17   | 87.0         | 85-89    |
+| The Start of Something Beautiful | 644873 (9881074) | 254, 160, 7:24           | 1RKUudgJ6FA (2017), 7:43   | 160.0        | 157-163  |
+| Fear of a Blank Planet           | 50744 (9364966)  | 221, 163, 7:08           | EQywPv5DBpw (2024), 7:29   | 162.0        | 158-165  |
+
+- _The Sound of Muzak_: the verses, pre-choruses and solo in 7/4; the
+  choruses in 4/4, on the ride, the snare on the "a" of 1 and on 4.
+- _Blackest Eyes_: the distortion riff (the snare and kick in the gaps of the
+  guitar's riff), the verse, the chorus on the ride in sixteenths, the
+  breakdown with the hat open on every beat. Its tags in 3/4 and 5/4 are left
+  out.
+- _Halo_: verse, chorus on the ride, the outro with the hat foot in quarters.
+  The bridge is in 17/16, which the grid has no meter for, and is left out.
+- _Shallow_: the chorus is a bar of crashes and snares in dotted eighths (three,
+  three, three, three, two, two) and a bar of the backbeat, then the same on
+  the open hat with the kick in pairs; ten bars of 6/4; the crash in eighths
+  with the snare on every "and". The kick's pairs under the open-hat chorus are
+  thinned to their first note for the critic's air.
+- _The Start of Something Beautiful_: the caveat above is settled by the tab's
+  current revision, which writes the verses and the bridge in 9/8 (the snare on
+  7, or on 5 and 8's "and") and the choruses and pre-chorus in 5/4, the
+  sixteenths at one speed throughout; it agrees with his "rhythm in 9/8"
+  (guitarguitar, 2019).
+- _Fear of a Blank Planet_: 6/4 with the 4/4 choruses and heavy riff; the
+  ending in half time. At 162 any four notes in a row would hold it to 150,
+  so the fills and hat runs that have them are left out.
+- A bar in 5/4, 6/4, 7/4 or 9/8 is too long for a two-bar figure, so those
+  songs' cycles are drawn by weight.
+- _Anesthetize_ stays a break: part one is the one tom groove for 112 bars,
+  and its guitar solo has the snare in sixteen sixteenths without a gap.
+  _Harridan_ already had its sections.
 
 ## AK. Terry Bozzio (2026-10-15): searched, not sourced
 
@@ -4667,7 +5662,9 @@ a flat ride Paiste" (Panken); Iverson calls it "his famous flat ride".
 
 Confidence note: Huopainen's thesis is a full transcription of the head and
 the piano-solo comping, with bar numbers and limbs; its text was read in full
-through a text extraction, but the notation images were not seen. Bishop's
+through a text extraction, but the notation images were not seen (they have
+since been read: the appendix's notation is vector, readable when rendered;
+see "Matrix in sections" below). Bishop's
 _It's Time_ is his description; the PDF was not read (as for Roach, §AG).
 
 **Not tagged.** "Broken time" (PAS playlist, _Matrix_, _Yardbird Suite_) is a
@@ -4708,7 +5705,7 @@ through".
 
 | Song           | Year | Record                         | Meter | Tempo (quarter)                                         | What defines it                                                                           | Source of the bars                                                      |
 | -------------- | ---- | ------------------------------ | ----- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| Matrix         | 1968 | Now He Sings, Now He Sobs      | 4/4-8 | 280–296 (Huopainen 288; songbpm 120, wrong)             | flat ride, broken time; 3/4, 6/4 and 5/4 cycles, the 5/4 on the hat foot; dotted quarters | Huopainen's transcription (thesis text; notation not seen)              |
+| Matrix         | 1968 | Now He Sings, Now He Sobs      | 4/4-8 | 280–296 (Huopainen 288; songbpm 120, wrong)             | flat ride, broken time; 3/4, 6/4 and 5/4 cycles, the 5/4 on the hat foot; dotted quarters | Huopainen's transcription (notation read), in sections                  |
 | It's Time      | 1964 | It's Time! (Jackie McLean)     | 4/4-8 | 260–272 (Bishop 266)                                    | "broken up 3 feel all the way through"; unisons, sparse hat, near-straight eighths        | Bishop's description (PDF not read)                                     |
 | Bad News Blues | 1963 | Cracklin'                      | 4/4-6 | 150–170 (estimate)                                      | dotted-8th cymbal sketching a shuffle, light backbeats, accents on the "and" of 4         | Bishop's description of three transcriptions (PDFs not read)            |
 | Bluz for Liz   | 1963 | Cleopatra Feelin' Jazzy        | 4/4-6 | 120–140 (estimate)                                      | buzzed accents on the "and" of 3 / "and" of 4, soft hat-foot splashes, sparse bass drum   | Bishop's description (108 bars; PDF not read)                           |
@@ -4738,6 +5735,32 @@ notes and accents.
   style flag; Roach and Hoenig both put the foot on 2 and 4.
 - Huopainen's thesis cites Riley's _Beyond Bop Drumming_ (1997); Riley was
   not read here.
+
+**Matrix in sections (2026-10-23).** Huopainen's appendix 1 ("Roy Haynesin
+komppaus kappaleessa Matrix", pp. 36–41 of the PDF) was read from the notation
+this time, rendered page by page; the earlier pass had only the text. It is his
+part bar by bar at 288: bars 1–24 the head (two twelve-bar choruses), 25–228 the
+piano solo (seventeen choruses, as the text says), 229–232 the start of the bass
+solo, where it stops. The thesis's key (p. 12): ride on the top line, the hand
+hat in the top space, the foot hat below the staff, snare in the second space,
+bass drum in the bottom one, crash above with a stroke, a buzz marked z. The
+head's second chorus is on the hand hat, opening on the beats; the comping has
+the foot on 2 and 4 in many bars, which the style's free foot does not stop.
+The record (Chick Corea's channel, -x8cDCEzhEs, 6:29) autocorrelates at about
+290 in its high band (289.3 at 150–210 s, the clearest window; 280–304 in the
+others), with Huopainen's 288.
+
+The song is six sections of the bars read, in the transcription's order: the
+head (A, B), the comping (C), a chorus's last four bars with the dotted
+quarters (D), the 6/4 on the ride (E, 25–32), the 5/4 on the hat foot (F,
+61–68), arranged as the head and the first nine solo choruses (bars 1–132).
+Left out: the bass solo and the head out, past the transcription; the head's
+sixteenths on the snare (4–5) and triplets on the half-open hat (19–20), which
+the eighth grid cannot hold; and bars not read clearly enough to write (35–36,
+55, 70–72, 80–84). A section plays its bars as a pool, not bar for bar.
+
+No Songsterr tab of any of his six records has a drum part: Matrix 3179550 is
+machine-made with an empty drum track; the others have none at all.
 
 ## AM. Jack DeJohnette (2026-10-15)
 
@@ -4922,6 +5945,11 @@ choosing.
   St_) has no meter.
 - Max Roach's record already lists DeJohnette as `influenced` (§AG).
 
+- **Whole songs (2026-10-23).** None of the five songs without sections can
+  be laid out from intro to outro. Songsterr has no tab of any of these
+  records, and Bishop's transcriptions are of the grooves, not the
+  performances (Green Dolphin St. is time bars only). They stay as one part.
+
 ## AN. Antonio Sánchez (2026-10-15)
 
 Phase 12-g ([`polyrhythm-plan.md`](./polyrhythm-plan.md) §7 B). The
@@ -5025,8 +6053,8 @@ written: their strokes are only in the Hudson booklet.
 | ----------------------- | ---- | --------------- | ----- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------ |
 | The Gathering Sky       | 2002 | Speaking of Now | 3/4   | 120–140 (estimate; an AcousticBrainz figure of 134, algorithmic, via search only) | the "3-4 samba, sort of" under the guitar solo; his samba ostinato | reconstruction (his lesson; Modern Drummer 2015) |
 | The Gathering Sky, solo | 2002 | Speaking of Now | 4/4   | as the samba (estimate; no ratio given)                                           | a 3-2 rumba clave on the hi-hat foot, the hands soloing over it    | reconstruction (his lesson)                      |
-| You                     | 2002 | Speaking of Now | 4/4   | 95–105 (tab 98, 95 at bar 80, 105 at bar 90)                                      | a ride in 8ths and paired 16ths, snare on 2& and 4, kick across it | Songsterr 3523898 (human, Michael Dybala)        |
-| Afternoon               | 2002 | Speaking of Now | 4/4   | 102–108 (tab 105)                                                                 | a two-bar kick-and-snare figure under hat, later ride, 8ths        | Songsterr 4251855 (human, Brady94)               |
+| You                     | 2002 | Speaking of Now | 4/4   | 101–107 (tab 98, 95 at bar 80, 105 at bar 90; plays at 105)                       | a ride in 8ths and paired 16ths, snare on 2& and 4, kick across it | Songsterr 3523898 (human, Michael Dybala)        |
+| Afternoon               | 2002 | Speaking of Now | 4/4   | 102–108 (tab 105)                                                                 | a two-bar kick-and-snare figure under hat, later ride, 8ths        | Songsterr 4251855 (machine-made (aiGenerated))   |
 
 **Left out.** _As It Is_: the tab's bar 9 was read, but its tempo was not,
 and songbpm's 136 for the studio take could as well be 68. _Grids and
@@ -5054,6 +6082,28 @@ Trip_ Hal Leonard book is guitar transcriptions. The 7/8 clave (two bars,
   _Challenge Within_ and the 5/4 and 7/8 claves their bars.
 - A fill does not clear the hat-foot lane, so the clave on the foot runs
   under the hands' fills as it should; the heel bell is a `held` clave slot.
+
+**You, as the record runs (full-songs pass, 2026-10-23).** Songsterr 3523898 (rev 4648464,
+Michael Dybala, 2026, its only revision, human) is 219 bars at 98, 95 from bar 81 and 105 from
+bar 91: 516 s against the 8:25 the album's track list gives the song. The kit plays bars 84–180
+and 185–198 only; bars 1–83, 92–119, 181–184 and 199–219 are tacet in the tab. The record
+(YouTube _rXJcRkPb7s) autocorrelates at 97.8 through its first three minutes and at 104.9 at
+7:15–7:45, so the tab's two tempos are the record's; the song plays at the 105 most of his part
+is in (101–107). Written as thirteen sections of two or four bars, his part in the tab's order:
+the ride in pairs and threes over a kick on 1; the ride in eighths; the crash and the ride on
+the beat; the hats with the snare on 2 and 4; the ride with a crash every other bar; the ride's
+paired sixteenths with no snare, then with the snare on 2& and 4 (the old break's groove, bars
+153–156, which the old key now names); the paired sixteenths on 4; round the toms under the
+ride; the hats with the snare on 4; the ride in eighths; and the last stretch, a crash every
+other bar with the toms between. Bar 186's sextuplets on the tom (off the grid) and the last hit
+are left out. **Doubt:** the record's percussion (Richard Bona, Dave Samuels) is busy from about
+2:20, a minute before the tab's kit comes in at 3:25; whether some of that is Sánchez the
+mix does not say.
+
+**Afternoon's tab is a machine's.** Songsterr 4251855's only revision (5565695, Brady,
+2026-03-06) is `aiGenerated: true`; the table above called it human. Its two bars still play as a
+short break, but as a machine's reading, and it was not rebuilt. **The Gathering Sky** has no
+tab, human or machine, and stays a reconstruction from his lesson.
 
 ## AO. Vinnie Colaiuta (2026-10-15)
 
@@ -5120,16 +6170,16 @@ is settled. _I Hung My Head_ keeps bonedo's quarter accents on the hat and
 leaves its bell to the hat, as a hand has one cymbal and the critic holds
 it so.
 
-| Song                           | Year | Record                     | Meter | Tempo (quarter)                                  | What defines it                                                         | Source of the bars                                     |
-| ------------------------------ | ---- | -------------------------- | ----- | ------------------------------------------------ | ----------------------------------------------------------------------- | ------------------------------------------------------ |
-| Seven Days                     | 1993 | Ten Summoner's Tales       | 5/8   | 92–94 (tab 94; Ley 184 eighths)                  | hat 16ths, accents a quarter apart across the bar; cross-stick on 4     | Songsterr 422388 (human), Ley, his account             |
-| Saint Augustine in Hell        | 1993 | Ten Summoner's Tales       | 7/8   | 86–92 (tab 89)                                   | bell quarters across two bars of 7/8; snare on 3 and 7                  | bonedo notation (bell), Songsterr 3779971 (kick/snare) |
-| Love Is Stronger Than Justice  | 1993 | Ten Summoner's Tales       | 7/8   | 82–88 (tab 170 in 7/4 eighths, i.e. 85)          | hat 16ths, kick 1, &4, 6, snare 3 and 7; ride quarters over the bar     | Drum Ninja (description), his account; reconstruction  |
-| If I Ever Lose My Faith in You | 1993 | Ten Summoner's Tales       | 4/4   | 96–100 (tab 99)                                  | hat 16ths, kick 1, a of 1, & of 2, & of 3; chorus ride and bell in 8ths | Songsterr 19407 (human)                                |
-| Shape of My Heart              | 1993 | Ten Summoner's Tales       | 4/4   | 80–84 (tab 164 in eighths; 82–84 search summary) | hat 16ths, kick on 1 and 3, cross-stick on 2 and 4                      | Songsterr 22055 (human)                                |
-| Fields of Gold                 | 1993 | Ten Summoner's Tales       | 4/4   | 100–104 (tab 104)                                | cross-stick on 2 and 4, kick on 1 and & of 2, shaker                    | Songsterr 397226 (human)                               |
-| I Hung My Head                 | 1996 | Mercury Falling            | 9/8   | 95–105 (estimate; bonedo's play-along at 100)    | hat 8ths, accents a quarter apart across the bar; 2+3+2+2               | reconstruction (bonedo text)                           |
-| Keep It Greasey (intro)        | 1979 | Joe's Garage Acts II & III | 4/4   | 132–138 (tab 136)                                | ride bell in a broken 16th line over a busy kick, ghosted snare         | Songsterr 604777 (human)                               |
+| Song                           | Year | Record                     | Meter | Tempo (quarter)                                  | What defines it                                                         | Source of the bars                                                             |
+| ------------------------------ | ---- | -------------------------- | ----- | ------------------------------------------------ | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Seven Days                     | 1993 | Ten Summoner's Tales       | 5/8   | 92–94 (tab 94; Ley 184 eighths; record 92.5)     | hat 16ths, accents a quarter apart across the bar; cross-stick on 4     | Songsterr 422388 (human), Ley, his account                                     |
+| Saint Augustine in Hell        | 1993 | Ten Summoner's Tales       | 7/8   | 86–92 (tab 89)                                   | bell quarters across two bars of 7/8; snare on 3 and 7                  | bonedo notation (bell), Songsterr 3779971 (kick/snare; now marked aiGenerated) |
+| Love Is Stronger Than Justice  | 1993 | Ten Summoner's Tales       | 7/8   | 82–88 (tab 170 in 7/4 eighths, i.e. 85)          | hat 16ths, kick 1, &4, 6, snare 3 and 7; ride quarters over the bar     | Drum Ninja (description), his account; reconstruction                          |
+| If I Ever Lose My Faith in You | 1993 | Ten Summoner's Tales       | 4/4   | 96–100 (tab 99)                                  | hat 16ths, kick 1, a of 1, & of 2, & of 3; chorus ride and bell in 8ths | Songsterr 19407 (human)                                                        |
+| Shape of My Heart              | 1993 | Ten Summoner's Tales       | 4/4   | 80–84 (tab 164 in eighths; 82–84 search summary) | hat 16ths, kick on 1 and 3, cross-stick on 2 and 4                      | Songsterr 22055 (human)                                                        |
+| Fields of Gold                 | 1993 | Ten Summoner's Tales       | 4/4   | 100–104 (tab 104)                                | cross-stick on 2 and 4, kick on 1 and & of 2, shaker                    | Songsterr 397226 (human)                                                       |
+| I Hung My Head                 | 1996 | Mercury Falling            | 9/8   | 98–102 (tab and record 100)                      | hat 8ths, accents a quarter apart across the bar; 2+3+2+2               | Songsterr 5357526 (human)                                                      |
+| Keep It Greasey (intro)        | 1979 | Joe's Garage Acts II & III | 4/4   | 132–138 (tab 136)                                | ride bell in a broken 16th line over a busy kick, ghosted snare         | Songsterr 604777 (human)                                                       |
 
 **Left out.**
 
@@ -5143,6 +6193,32 @@ it so.
 - _Love Is Stronger Than Justice_'s chorus, "a country two-beat" in 4/4 (Berklee 2001): the verse defines it. It could be a 4/4 section, but the ratio of its tempo to the verse's is not given.
 - The tabs' 32nd-note hat pairs in _Seven Days_ (end of every other bar): written as one sixteenth.
 - Jeff Beck, Joni Mitchell, Gino Vannelli, Herbie Hancock, Megadeth (_The System Has Failed_, 2004): no drum part was read.
+
+**Whole songs (2026-10-23).** Three of the songs now play in sections, in the order of a human
+Songsterr tab, each checked against the record's tempo and length:
+
+- _Seven Days_: Songsterr 422388 (rev 4795957, Ivan, 2026; aiGenerated false; marked by
+  section), 169 bars of 5/8 at 94. The official audio beat-tracks at 92.5, 427 quarters in 276 s
+  against the tab's 422.5, which agrees with Ley's 184 eighths. Verse, chorus on the bell with the
+  hat foot in eighths, verse 3 and the outro with the kick on every eighth, the bridge's line
+  split between the hat and the ride, the outro on the ride. A song holds 32 bars: verse 1 plays
+  28 of 32, each chorus 12 of 14, the bridge 16 of 22.
+- _If I Ever Lose My Faith in You_: Songsterr 19407 (rev 6024809, Ivan, 2026; marked by
+  section), 110 bars at 99. The record beat-tracks at 98.0, 440 beats, the tab's bars beat for
+  beat. The tab's hat leaves the snare's 2 and 4 to the snare; the interlude and the outro put the
+  snare on 4 alone; the bridge is eighths on the hat. No fills but the verse's last bar.
+- _I Hung My Head_: a human tab now exists, Songsterr 5357526 ("Tab by DP", rev 7006849, 2026;
+  aiGenerated false; no section markers), 102 bars of 9/8 at 100. The record beat-tracks at 100.0,
+  466 quarters against the tab's 459. It confirms the old reading of the groove (eighths on the
+  hat, the snare on the third and eighth eighths, the kick on 1 and the sixth) and adds the ride
+  sections (bars 41–48, 63–74, 89–102). It writes the hat unaccented and no ghosts; bonedo's
+  accent every quarter is kept as the cross-rhythm. The table's "estimate 95–105" is now 98–102.
+
+**Still short breaks.** _Saint Augustine in Hell_: Songsterr 3779971 is now marked aiGenerated
+(rev 4952100), and 5215405 ("Fix") is a machine import too. _Love Is Stronger Than Justice_: only
+a machine tab (3092438). _Shape of My Heart_: the kit track of 22055 (rev 9736205) is one groove,
+the kick in or out, for 160 of its 188 bars. _Fields of Gold_: 91 of its 92 bars are one bar.
+_Keep It Greasey_: 153 of its 248 bars are 19/16, which no meter holds.
 
 **Found on the way, not changed.**
 
@@ -11337,6 +12413,11 @@ open at the neck, no headphones; a dark kit under blue light, clear tom heads,
 brass cymbals. The film is soft and coloured by the lighting; the trousers and
 shoes are never in shot.
 
+- **Atrocity Exhibition, whole (2026-10-23).** Songsterr 39992's latest revision
+  is still 4950571. Its drum track is 192 bars, 3 distinct: the riff in bars 1–130,
+  a single hit in bar 131, and bars 132–192 empty. One groove throughout, so it stays
+  a single part: sections would only repeat the bar.
+
 ### Sources (BL)
 
 - Wikipedia: [Stephen Morris (drummer)](<https://en.wikipedia.org/wiki/Stephen_Morris_(drummer)>), [Joy Division](https://en.wikipedia.org/wiki/Joy_Division), [Unknown Pleasures](https://en.wikipedia.org/wiki/Unknown_Pleasures), [Closer](<https://en.wikipedia.org/wiki/Closer_(Joy_Division_album)>), [Atrocity Exhibition](<https://en.wikipedia.org/wiki/Atrocity_Exhibition_(song)>), [Love Will Tear Us Apart](https://en.wikipedia.org/wiki/Love_Will_Tear_Us_Apart), [Ceremony](<https://en.wikipedia.org/wiki/Ceremony_(New_Order_song)>), [Power, Corruption & Lies](https://en.wikipedia.org/wiki/Power,_Corruption_%26_Lies), all read 2026-10-18.
@@ -11831,7 +12912,8 @@ guide:
   Alphabet St., Anna Stesia, Dance On and Positivity.
 - Ringo Starr & His All-Starr Band, 2001, 2003 and 2006.
 
-**What could not be found.** No transcription of her drumming. Songsterr's
+**What could not be found.** No transcription of her drumming (until Eye No's,
+posted on 20 October 2026: below). Songsterr's
 tabs of the Lovesexy songs, Housequake, Hot Thing and U Got the Look are all
 machine-made (`aiGenerated` checked, every revision). The one human tab, The
 Glamorous Life (5489882, rev 8443383), writes the record's drum machine. Her
@@ -11848,21 +12930,52 @@ Glamorous Life is the exception: its kit part follows the human tab of the
 drum machine bar by bar, and the timbale break (section E, in the album
 version, not the tab) is hers, reconstructed.
 
-| Song                       | Year | Tempo (beat-tracked) | Her part                                 | Source of the bars                    |
-| -------------------------- | ---- | -------------------- | ---------------------------------------- | ------------------------------------- |
-| The Glamorous Life         | 1984 | 127.5 (tab 128)      | cowbells, timbales, cymbal over the LM-1 | Songsterr 5489882 (human); E rebuilt  |
-| Sister Fate                | 1985 | 125.8                | drums and Simmons                        | reconstruction                        |
-| Eye No                     | 1988 | 112.0                | drums                                    | reconstruction                        |
-| Alphabet St.               | 1988 | 104.1                | drums                                    | reconstruction                        |
-| Anna Stesia                | 1988 | 99.9                 | drums                                    | reconstruction (verse; gospel ending) |
-| Dance On                   | 1988 | 124.9                | drums                                    | reconstruction                        |
-| Positivity                 | 1988 | 105.6                | drums                                    | reconstruction                        |
-| Housequake (the 1987 film) | 1987 | 125.9                | drums                                    | reconstruction                        |
+| Song                       | Year | Tempo (beat-tracked) | Her part                                 | Source of the bars                     |
+| -------------------------- | ---- | -------------------- | ---------------------------------------- | -------------------------------------- |
+| The Glamorous Life         | 1984 | 127.5 (tab 128)      | cowbells, timbales, cymbal over the LM-1 | Songsterr 5489882 (human); E rebuilt   |
+| Sister Fate                | 1985 | 125.8                | drums and Simmons                        | reconstruction                         |
+| Eye No                     | 1988 | 112.1 (tab 113)      | drums                                    | Songsterr 7558516 (human), in sections |
+| Alphabet St.               | 1988 | 104.1                | drums                                    | reconstruction                         |
+| Anna Stesia                | 1988 | 99.9                 | drums                                    | reconstruction (verse; gospel ending)  |
+| Dance On                   | 1988 | 124.9                | drums                                    | reconstruction                         |
+| Positivity                 | 1988 | 105.6                | drums                                    | reconstruction                         |
+| Housequake (the 1987 film) | 1987 | 125.9                | drums                                    | reconstruction                         |
 
 Left out: A Love Bizarre, The Belle of St. Mark and Koo Koo (not her drums);
 U Got the Look (her drum machine: the drummers' kits stay sampled, and the
 `linn` kit is a model, not the machine); Merci for the Speed of a Mad Clown
 in Summer and Yellow (her drums, but nothing to read them from).
+
+**Eye No, in sections (2026-10-23).** A human tab of Eye No appeared on
+Songsterr three days before this pass: 7558516 (rev 9863665 by Toby Games,
+20 October 2026, its only revision, `aiGenerated` false), a full band
+transcription with the drums on track 3. Its 146 bars are 27 empty at 100
+(the spoken intro), then 4/4 at 113. The album track (the Lovesexy album
+version, 5:47 on Wikipedia's track list) autocorrelates at 112.1 from 70 to
+300 s. The kit comes in at 65.1 s, where the tab's empty bars end (64.8 s
+at its 100), and the tab holds the record bar for bar from there: the snare
+and hat bands drop for the record's bars 34–41, the tab's 61–68 (the hat and
+the kick alone), and the kick band jumps 4 dB for the record's bars 107–108,
+the tab's two bars of sixteenths on the crash and the kick. The tab writes
+no drums in its last ten bars; on the record the kit plays on, quieter, to
+318 s.
+
+Her part as the tab writes it is plainer than this section's reconstruction
+had it: eighths on the hat, the snare on 2 and 4, no ghost notes, and the
+kick on 1 and the "and" of 3 in one bar and on the "and" of 1 and the "and"
+of 3 in the next, bar after bar; a crash on every other bar in the chorus;
+fills at the ends of the verse's eight-bar phrases. The song now plays six
+sections in the tab's order (the verse, the hat-and-kick break, the second
+verse, the chorus, the band's hits, the hat in sixteenths), 102 of the
+tab's 109 bars of drums. Left out: the pickup bar, two stops with no snare
+on 4, two off-grid fills, the 2/4 bar and the ending (the crash and the kick
+in sixteenths, the last hit), and the tambourine the tab writes beside the
+kit.
+
+Searched again for the rest: Sister Fate, Dance On and Positivity have no
+tab; Alphabet St. (647176) and Housequake (3331198) are still machine-made
+only, and Alphabet St.'s other two entries (419120, 377686) have no drum
+track. They stay reconstructions.
 
 **Kit.** The 1986 tour's red Yamaha Recording Custom with two bass drums, a
 Ludwig Black Beauty and Paiste 2002s; the 1987–88 tours' turquoise kit with
@@ -12202,6 +13315,13 @@ under lilac light. His trousers and feet are never in shot.
 **Devices.** None found (`devices_search`): every tab is a groove held, with
 no cross-rhythm, grouping or displacement; the 2/4 bars are the band's
 arrangement.
+
+- _Full songs (2026-10-23)._ None of I Want Your Love, We Are Family or Good Times was split
+  into sections. I Want Your Love (Songsterr 66958) and Good Times (4942) are one groove from
+  the first bar to the last in their tabs, the parts differing only in their last bar; the
+  breaks already play those bars. We Are Family's tab (53535) runs 160 bars against the album
+  version's 249 (119.4 throughout, 8:21) and the single's 3:36, and the record's drum bands are
+  flat from end to end, so its abridged order cannot be checked against the record.
 
 ## BT. Lars Ulrich (2026-10-19)
 
@@ -12548,6 +13668,20 @@ guide); how much of Bohemian Rhapsody's drum part was Mercury's, who
 looped on tape; the Queen The Greatest episode read directly; the source and
 date of the likeness image.
 
+**Crazy Little Thing Called Love, whole (2026-10-23).** Songsterr 23541's drums are the same
+in rev 9926253 (Aleksey, 23 October 2026, human) as in rev 9547995. The tab is marked with a
+triplet feel in eighths from bar 1, so its written "and"s play on the last triplet: the kick
+into 4, the pickup's "and" of 3. 111 bars at 155 is 2:52; the official video (zO6D_BAuYCI) runs
+2:51 and beat-tracks at a mean of 154.4 (152–157 by 10 s window). The kick and hat bands drop
+about 1.5 dB for the ten bars after the solo (about 1:42–1:57), where the tab writes no drums,
+and fall away over the last eight bars, where it writes none either. The song now plays in
+sections in the tab's order: the verse (A), verse 1's end on the snare's triplets (B), the
+pickup (C), a verse's end with the kick on 1 and 3 (D), the bar of triplets into the last verse
+(E) and the closing stop on 1, 2 and 3 (F), 26 slots. Still left out: the stop-time of the
+bridge and the solo (hits on 1, cross-stick and quarter-note triplets, no backbeat the critic
+finds), the bars with no drums, and two of the last verse's 26 bars. Bar 75 is overfull in the
+tab (two sixteenths and twelve triplet eighths) and plays as the twelve triplets.
+
 ### Sources (BV)
 
 - https://en.wikipedia.org/wiki/Roger_Taylor_(Queen_drummer)
@@ -12808,6 +13942,15 @@ quarter notes, as the app does.
 - **Sections with no backbeat.** St. George and the Dragon's interludes are the
   crash and kick together with no snare, written as a section with no
   backbeats; Lido Shuffle's stops have the snare on 2 alone.
+- _Beat It in sections (2026-10-23)._ Songsterr 10259's drums track (rev 9349405,
+  human), read by its section markers: one two-bar groove from the band's entry to
+  the fade, but the hat never opens in the verses, opens on 3 in every fourth bar of
+  the choruses and the guitar solo, and the verses, the bridge and the fade end their
+  eight bars on a crash and the kick on the "and" of 4. 148 bars at 139 is 4:15 of
+  the album track's 4:18 (Wikipedia). Written as five sections (band intro, verse,
+  chorus, bridge and fade, solo) in the tab's order, 132 bars over 22 slots; the
+  synth intro, its pickup bar and the alternate ending are left out, and the band
+  intro and last chorus play short to fit 32 bars.
 
 **Left out.** Rosanna's ruffs in sixteenth-note triplets and its coda; Lido
 Shuffle's fills in quarter-note and sixteenth-note triplets, its bars of rest,
@@ -14982,6 +16125,9 @@ the tab has them); Freddie Freeloader and Flamenco Sketches; the Half Note
 trio records; his kits and cymbals by year (the tab calls the So What kit a
 Gretsch; a forum says an 18in old K ride); where his time sat.
 
+- _Blue in Green, rechecked (2026-10-23)._ Songsterr 73923 is still at Ivan's revision
+  586966: one bar for the whole of the time, so the song stays one part.
+
 ### Sources (CI)
 
 - https://en.wikipedia.org/wiki/Jimmy_Cobb
@@ -15466,6 +16612,14 @@ curls, thin square glasses, a moustache and short goatee, a red and black
 buffalo-check flannel shirt, sage trousers, a copper sparkle kit. Checked in
 headless renders.
 
+- **Full songs (2026-10-23).** None of his songs without sections could be laid out whole. Kissing
+  My Love's only Songsterr tab (2913731, rev 3829236) is machine-made. Who Is He has a human tab,
+  3322968 (rumblefish, rev 5172242, 2026): 79 bars at 98, the record's 3:13 (the official audio
+  beat-tracks at 99.3), one groove throughout with the hat opened on the "and" of 2 in bars 9–24
+  only, a cross-stick on 2 and 4 in bars 77–78, no fills and no hat foot. Bishop writes the
+  opened hat as the groove. The record does not show where the opened hat starts and stops, so the
+  song keeps Bishop's bar.
+
 ## CN. Mike Clark (2026-10-21)
 
 The `mikeclark` style plays **songs** the way `garibaldi` (CA) does: each New
@@ -15560,6 +16714,11 @@ shoes are not in shot. Rendered headless (front and face).
 
 **Open questions.** His books, Funk Drumming (2005) and The Post-Bop Drum Book
 (2020), not read; Actual Proof past bar 15; Butterfly; his kit on Thrust.
+
+- **Whole songs (2026-10-23).** God Make Me Funky was not rebuilt in sections: the only Songsterr
+  tab of the record (2600429, one revision, 3425936) is machine-made, and Hein's transcription
+  covers the opening break only. The record holds one groove with hardly a fill (Hein), which the
+  song already plays.
 
 **Sources.**
 

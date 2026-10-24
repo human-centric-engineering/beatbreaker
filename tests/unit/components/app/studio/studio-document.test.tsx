@@ -393,6 +393,25 @@ describe('the unsaved-changes prompt', () => {
     expect(apiClient.post).not.toHaveBeenCalled(); // test-review:accept no_arg_called — Cancel saves nothing
   });
 
+  it('asks before Random replaces it too, and says the pick only once it is on the stage', async () => {
+    const user = userEvent.setup();
+    await open(saved(false));
+    await user.keyboard(']');
+    await user.click(screen.getByRole('button', { name: 'Random' }));
+    await screen.findByRole('alertdialog');
+    // asked, not yet replaced: nothing is said about a pick that may not come
+    expect(screen.queryByText(/^Random (drummer|style|exercise): /)).toBeNull();
+    await user.click(screen.getByRole('button', { name: 'Cancel' }));
+    await waitFor(() => expect(screen.queryByRole('alertdialog')).toBeNull());
+    expect(title()).toBe('Cold Carpet');
+    expect(screen.queryByText(/^Random (drummer|style|exercise): /)).toBeNull();
+    // asked again and let go: now it is said
+    await user.click(screen.getByRole('button', { name: 'Random' }));
+    await user.click(await screen.findByRole('button', { name: 'Don’t save' }));
+    await screen.findByText(/^Random (drummer|style|exercise): /, undefined, { timeout: 4000 });
+    expect(title()).not.toBe('Cold Carpet');
+  });
+
   it('Don’t save replaces it and saves nothing', async () => {
     const user = await editedCopy();
     await user.click(screen.getByRole('button', { name: 'Don’t save' }));
