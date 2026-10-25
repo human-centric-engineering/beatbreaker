@@ -352,6 +352,8 @@ describe('the Studio', () => {
     // the kit is chosen on the player's Sound button
     const kitPicker = () => sound.getByLabelText('Kit');
     const sound = await openSound(user);
+    // funk opens on its own recorded kit: back to the synthesised one first
+    await pickOption(user, kitPicker(), "Studio '70s");
     expect(voice().getByLabelText('Size')).toBeTruthy();
     expect(voice().getByLabelText('Bright')).toBeTruthy();
 
@@ -440,12 +442,13 @@ describe('the Studio', () => {
        rather than previewing an empty difference. */
     const faint = () =>
       staves[0].querySelectorAll('[stroke="var(--faint)"], [fill="var(--faint)"]');
-    const preview = screen.getByRole('button', { name: 'Preview next layer' });
-    expect(preview).toBeEnabled();
-    expect(faint().length).toBeGreaterThan(0);
-
-    await user.click(screen.getByRole('radio', { name: 'Full break' }));
+    // a pattern opens at the full break: nothing above it to preview
     expect(screen.getByRole('button', { name: 'Preview next layer' })).toBeDisabled();
+
+    const layers = within(screen.getByRole('radiogroup', { name: 'Difficulty layer' }));
+    await user.click(layers.getAllByRole('radio')[3]);
+    expect(screen.getByRole('button', { name: 'Preview next layer' })).toBeEnabled();
+    expect(faint().length).toBeGreaterThan(0);
   });
 
   it('shows what the style asked for before you take the lanes over', async () => {

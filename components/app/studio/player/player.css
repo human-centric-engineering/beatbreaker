@@ -241,8 +241,9 @@
   color: var(--brass-bright);
 }
 /* While the section and the layer over the chapters are hidden, it comes down
-   to the chapters, rather than hanging over the room they keep. Idle, it goes
-   down into the corner, as before. */
+   to the chapters, rather than hanging over the room they keep. Idle, the
+   chapters stay where they are, and so it stays over them: never under the
+   progress line. */
 @media (hover: hover) {
   .bb
     .player:not(.is-idle)
@@ -252,7 +253,7 @@
   }
 }
 .bb .player.is-idle:not(:focus-within) .player-screen > .player-to-chart {
-  bottom: 14px;
+  bottom: calc(var(--bar-low-h, var(--bar-h, 64px)) + 6px);
 }
 
 /* ============================================================

@@ -22,6 +22,7 @@ import { LAPTOP, PHONE, stubWidth } from '@/tests/helpers/media';
 
 import { KitPanel } from '@/components/app/studio/panels/kit-panel';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
+import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 import { openMenu, pickOption } from '@/tests/helpers/select-menu';
 
@@ -33,9 +34,12 @@ function ToastProbe() {
 /* An empty kit of your own (D20), handed over the way the page does. */
 const YOUR_KIT = { id: 'ckit00000000000000000001', key: 'yours-a', label: 'Mine', slots: {} };
 
+// bossa names no kit, so the stage opens on the synthesised default rather than a style's own
+const ON_DEFAULT_KIT = { ...DEFAULT_STUDIO_SETTINGS, startStyle: 'bossa' };
+
 const renderPanel = () =>
   render(
-    <StudioProvider catalogue={testCatalogue()} yourKits={[YOUR_KIT]}>
+    <StudioProvider catalogue={testCatalogue()} yourKits={[YOUR_KIT]} settings={ON_DEFAULT_KIT}>
       <KitPanel />
       <ToastProbe />
     </StudioProvider>

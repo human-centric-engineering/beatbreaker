@@ -576,8 +576,8 @@ describe('DrummerCanvas — who is playing', () => {
         <FreshCanvas {...props} shuffleSeq={0} />
       </StrictMode>
     );
-    expect(named(container)).toBe('On the kit: The Original');
-    // the first of whoever is left: The Original again, unless Shuffle knows it is on screen
+    expect(named(container)).toBe('On the kit: NPC Dude');
+    // the first of whoever is left: NPC Dude again, unless Shuffle knows it is on screen
     const random = vi.spyOn(Math, 'random').mockReturnValue(0);
     try {
       for (let seq = 1; seq <= 5; seq++) {
@@ -629,7 +629,7 @@ describe('DrummerCanvas — who is playing', () => {
       expect(fakes.instances).toHaveLength(1);
     });
 
-    it('leaves the cast’s first seat in a tab to The Original when a likeness opens the view', async () => {
+    it('leaves the cast’s first seat in a tab to NPC Dude when a likeness opens the view', async () => {
       vi.resetModules();
       const { default: FreshCanvas } =
         await import('@/components/app/studio/drummer/drummer-canvas');
@@ -639,7 +639,22 @@ describe('DrummerCanvas — who is playing', () => {
       first.unmount();
       // the view opened again on a style with no likeness: the cast's first seat is still free
       const again = render(<FreshCanvas {...props} style="funk" />);
-      expect(named(again.container)).toBe('On the kit: The Original');
+      expect(named(again.container)).toBe('On the kit: NPC Dude');
+    });
+
+    it('seats somebody else from the cast on Random, and leaves a likeness in its seat', () => {
+      const props = base();
+      const { rerender, container } = render(<DrummerCanvas {...props} style="funk" castSeq={0} />);
+      const first = fakes.instances[0].persona;
+      // Random landed on a style: somebody new from the cast
+      rerender(<DrummerCanvas {...props} style="bossa" castSeq={1} />);
+      const sat = fakes.instances[0].setPersona.mock.lastCall?.[0] as { name: string };
+      expect(sat).not.toBe(first);
+      expect(PERSONAS).toContain(sat);
+      expect(named(container)).toBe(`On the kit: ${sat.name}`);
+      // a likeness is not stood down by it
+      rerender(<DrummerCanvas {...props} style="copeland" castSeq={2} />);
+      expect(named(container)).toBe('On the kit: Stewart Copeland');
     });
 
     it('stands them down for the cast on Shuffle, until the style changes', () => {

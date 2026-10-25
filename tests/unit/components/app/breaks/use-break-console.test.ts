@@ -220,7 +220,9 @@ describe('arriving', () => {
     const { result } = await mount();
     expect(result.current.patterns.A?.name).toBe('Linked');
     expect(result.current.bpm).toBe(101);
-    expect(result.current.level).toBe(4);
+    // opened whole, whatever layer the link was sent at
+    expect(result.current.level).toBe(5);
+    expect(result.current.viewMode).toBe('both');
   });
 
   it('falls back to a fresh break when the link will not read', async () => {
@@ -299,7 +301,7 @@ describe('arriving on a saved pattern (/studio/[id])', () => {
     const { result } = await mount(saved('From the database'));
     expect(result.current.patterns.A?.name).toBe('From the database');
     expect(result.current.bpm).toBe(88);
-    expect(result.current.level).toBe(4);
+    expect(result.current.level).toBe(5);
     // nothing was rolled: a generated arrival records its tries
     expect(result.current.tries).toBeNull();
   });
@@ -947,6 +949,70 @@ describe('sections in different meters (11-e-ii-a)', () => {
   });
 });
 
+describe('opening a pattern', () => {
+  it('opens every pattern at the top layer and on All, however the last was left', async () => {
+    const { result } = await mount();
+    act(() => result.current.setLevel(2));
+    act(() => result.current.setViewMode('A'));
+    act(() => result.current.loadLibraryEntry('entry-0'));
+    expect(result.current.level).toBe(5);
+    expect(result.current.viewMode).toBe('both');
+
+    act(() => result.current.setLevel(1));
+    act(() => result.current.setViewMode('B'));
+    act(() => {
+      result.current.newBreak();
+    });
+    expect(result.current.level).toBe(5);
+    expect(result.current.viewMode).toBe('both');
+
+    act(() => result.current.setLevel(3));
+    act(() => result.current.setViewMode('A'));
+    act(() => {
+      result.current.loadCode(codeFor('Pasted'));
+    });
+    expect(result.current.level).toBe(5);
+    expect(result.current.viewMode).toBe('both');
+  });
+
+  it('keeps the layer a practice place asks for', async () => {
+    const { result } = await mount();
+    act(() => result.current.loadLibraryEntry('entry-0', { level: 2, bpm: 90 }));
+    expect(result.current.level).toBe(2);
+    expect(result.current.bpm).toBe(90);
+  });
+
+  it('a new section is an edit, not an opening: the layer and section stay', async () => {
+    const { result } = await mount();
+    act(() => result.current.setLevel(2));
+    act(() => result.current.setViewMode('A'));
+    act(() => {
+      result.current.newBreak('A');
+    });
+    expect(result.current.level).toBe(2);
+    expect(result.current.viewMode).toBe('A');
+  });
+
+  it('opens at the kit and mix its style asks for, over a kit and fader you moved', async () => {
+    const { result } = await mount(undefined, {
+      settings: { ...DEFAULT_STUDIO_SETTINGS, startStyle: 'bossa' },
+    });
+    act(() => result.current.setKit('liveroom'));
+    act(() => result.current.setLaneMix('h', 0.123));
+    // funk names a kit of its own
+    act(() => {
+      result.current.loadCode(codeFor('Pasted'));
+    });
+    expect(result.current.kit).toBe(STYLES.funk.kit);
+    expect(result.current.mixTouched).toEqual({});
+    expect(result.current.mix.h).not.toBe(0.123);
+    // a style naming none hands your kit back
+    act(() => result.current.setLaneMix('h', 0.123));
+    act(() => result.current.loadLibraryEntry('entry-0'));
+    expect(result.current.mix.h).not.toBe(0.123);
+  });
+});
+
 describe('the kit', () => {
   it('takes a drum machine now they are built (9-vi-e), and refuses a kit that does not exist', async () => {
     const { result } = await mount();
@@ -1288,28 +1354,34 @@ describe('your settings (D19, D21)', () => {
 
   it('starts from the settings the page read, not the defaults', async () => {
     const { result } = await mount(undefined, {
-      settings: { ...DEFAULT_STUDIO_SETTINGS, kit: 'liveroom', countIn: 2, startStyle: 'bossa' },
+      settings: {
+        ...DEFAULT_STUDIO_SETTINGS,
+        kit: 'liveroom',
+        userKit: 'liveroom',
+        countIn: 2,
+        startStyle: 'bossa',
+      },
     });
+    // bossa names no kit of its own, so yours plays it
     expect(result.current.kit).toBe('liveroom');
     expect(result.current.countIn).toBe(2);
     // a pattern you arrive to is written in your starting style
     expect(result.current.patterns.A?.style).toBe('bossa');
   });
 
-  it('opens a fresh console at your starting layer (7B, D27) — set from your ability', async () => {
+  it('opens a fresh console at the top layer, on All, whatever your starting layer', async () => {
     const { result } = await mount(undefined, {
       settings: { ...DEFAULT_STUDIO_SETTINGS, startLevel: 1 },
     });
-    expect(result.current.level).toBe(1);
-  });
-
-  it('falls back to the default starting layer when no settings were read', async () => {
-    const { result } = await mount();
-    expect(result.current.level).toBe(DEFAULT_STUDIO_SETTINGS.startLevel);
+    expect(result.current.level).toBe(5);
+    expect(result.current.viewMode).toBe('both');
   });
 
   it('sends a burst of changes as one PATCH, after the last', async () => {
-    const { result } = await mount();
+    // bossa names no kit, so arriving on it sends none of its own
+    const { result } = await mount(undefined, {
+      settings: { ...DEFAULT_STUDIO_SETTINGS, startStyle: 'bossa' },
+    });
     vi.useFakeTimers();
     act(() => result.current.setDensity(10));
     act(() => result.current.setDensity(20));
@@ -1355,7 +1427,9 @@ describe('your settings (D19, D21)', () => {
   });
 
   it('on a new pattern, changing the length and meter moves them too', async () => {
-    const { result } = await mount();
+    const { result } = await mount(undefined, {
+      settings: { ...DEFAULT_STUDIO_SETTINGS, startStyle: 'bossa' },
+    });
     vi.useFakeTimers();
     act(() => result.current.setBars(4));
     act(() => result.current.setMeter('7/8'));
@@ -1501,7 +1575,11 @@ describe('your settings (D19, D21)', () => {
 
   it('sends tuning a kit at a time, and a reset as that kit with nothing in it', async () => {
     const { result } = await mount(undefined, {
-      settings: { ...DEFAULT_STUDIO_SETTINGS, sound: { liveroom: { k: { rate: 1.1 } } } },
+      settings: {
+        ...DEFAULT_STUDIO_SETTINGS,
+        startStyle: 'bossa',
+        sound: { liveroom: { k: { rate: 1.1 } } },
+      },
     });
     vi.useFakeTimers();
     act(() => result.current.setParam('k', 'pitch', 0.5));
@@ -1544,11 +1622,12 @@ describe('your settings (D19, D21)', () => {
 
     const { result } = await mount(undefined, options);
     expect(readScratch(localStorage)).not.toBeNull();
-    expect(result.current.level).toBe(1);
-    expect(result.current.bpm).toBe(68);
-    // the break's own tempo came back with it: L5 is where it was written
-    act(() => result.current.setLevel(5));
+    // it opens whole: the top layer, at the break's own tempo
+    expect(result.current.level).toBe(5);
     expect(result.current.bpm).toBe(100);
+    // and the match still holds against that tempo
+    act(() => result.current.setLevel(1));
+    expect(result.current.bpm).toBe(68);
   });
 
   it('keeps nothing of the pattern or your settings in the browser', async () => {
@@ -1798,7 +1877,10 @@ describe('the 3D drummer feed (subscribeSteps, audioLatency)', () => {
   });
 
   it('reports 0 latency before any AudioContext exists', async () => {
-    const { result } = await mount();
+    // a style on the synthesised kit: a sampled one makes a context to decode into
+    const { result } = await mount(undefined, {
+      settings: { ...DEFAULT_STUDIO_SETTINGS, startStyle: 'bossa' },
+    });
     expect(fakes.made.audio.at(-1)?.ctx).toBeNull();
     expect(result.current.audioLatency()).toBe(0);
   });

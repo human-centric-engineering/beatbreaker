@@ -10448,16 +10448,18 @@ export const STYLES: Record<string, Style> = {
    2369881 (rev 3213831, 2025), writes the same parts, the high tom a sixteenth later. The
    record (the 2015 remaster, UHsN9d4FTVI) autocorrelates at 123.5 (15–150 s).
 
-   The broken beat is not quite on a sixteenth grid: the tab writes the snare's second note on
-   the last triplet of 3 and the high tom on the middle triplet of 4, against a kick on the
-   straight "and" of 2. Sextuplets (`4/4-6`) top out at 100, under the record's 123, so each is
-   on its nearest sixteenth, as the tab reads at four to the quarter: the snare on the "a" of 3,
-   the high tom on the "e" of 4. Through the first two verses and choruses: the kick on 1, the
-   "and" of 2 and 3, the snare on 2 and the "a" of 3, the high tom on the "e" of 4. From the second chorus's fifth bar on: the kick on 1, 3 and its "and", the snare on 2
-   and 4, the high tom on the "and" of 4. The bridge and the outro are a plain beat on the hat.
-   No cymbal in the verses but the crash on the 1 of a section.
-   The break before had a flam on the "and" of 3 and an accented high tom on 4; neither tab
-   writes a flam, and both put the tom after the beat, so this follows them.
+   The broken beat is not on a sixteenth grid: over 3 and 4 it is a quarter-note triplet — the
+   kick on 3, the snare on its second note (two thirds through 3), the high tom on its third (a
+   third through 4) — against a straight kick on the "and" of 2. Steve Ley's transcription
+   (OnlineDrummer, Help! 1965, at 124) writes it so, and flams the snare on 2 and both of the
+   triplet's hands, the snare and the high tom; Songsterr's tab puts the notes on the same
+   triplets but writes no flams. So the intro and the first verses and choruses are in
+   sextuplets (`4/4-6`, which holds 123), on the triplets, every hand a flam: the kick on 1, the
+   "and" of 2 and 3, the snare flammed on 2 and on 3's last triplet, the high tom flammed on
+   4's middle one. Ringo plays it loose and behind, which the Elastic feel keeps.
+   From the second chorus's fifth bar on (Songsterr): the kick on 1, 3 and its "and", the snare
+   on 2 and 4, the high tom on the "and" of 4. The bridge and the outro are a plain beat on the
+   hat. No cymbal in the verses but the crash on the 1 of a section.
 
    The tab's order: the guitar alone (1–2), the intro (3–4), verse 1 (5–12), chorus (13–20),
    verse 2 (21–28), chorus (29–36), bridge (37–45), verse 3 (46–53), chorus (54–61), bridge
@@ -10467,7 +10469,7 @@ export const STYLES: Record<string, Style> = {
    the critic). The bridge's nine bars and the outro's ten are written as eight. */
         key: 'ticket-to-ride',
         title: 'Ticket to Ride',
-        feel: 'the broken beat: no cymbal, the snare on the "a" of 3, the high tom just after 4 (record 123)',
+        feel: 'the broken beat: no cymbal, flams on the snare and high tom, a quarter-note triplet over 3 and 4 (record 123)',
         weight: 1.2,
         params: {
           bpm: [120, 126],
@@ -10486,14 +10488,54 @@ export const STYLES: Record<string, Style> = {
             letter: 'A',
             label: 'the intro: the broken beat, a crash on the 1',
             bars: 2,
-            params: {},
+            params: {
+              meter: '4/4-6',
+              backbeats: [6],
+              // as written: no ghosts, crash pushes or rimshots, which would land on the triplets or take a flam's place
+              ghostBias: 0,
+              anticipate: 0,
+              rimshot: 0,
+              // its own (never drawn) fill, so the song's sixteenth fills do not hold a sextuplet bar down
+              fills: [[{ s: '2...' }, 1]],
+              figures: [
+                // Steve Ley bars 3–20: the kick on 1, the "and" of 2 and 3; the snare flammed on 2 and on 3's last triplet, the high tom flammed on 4's middle one
+                [
+                  {
+                    k: '1........1..1...........',
+                    s: '......6.........6.......',
+                    t1: '....................3...',
+                  },
+                  1,
+                ],
+              ],
+            },
           },
           {
             letter: 'B',
             label: 'the verses and choruses: the broken beat',
             bars: 8,
             aliases: ['ticket-to-ride'],
-            params: {},
+            params: {
+              meter: '4/4-6',
+              backbeats: [6],
+              // as written: no ghosts, crash pushes or rimshots, which would land on the triplets or take a flam's place
+              ghostBias: 0,
+              anticipate: 0,
+              rimshot: 0,
+              // its own (never drawn) fill, so the song's sixteenth fills do not hold a sextuplet bar down
+              fills: [[{ s: '2...' }, 1]],
+              figures: [
+                // as the intro
+                [
+                  {
+                    k: '1........1..1...........',
+                    s: '......6.........6.......',
+                    t1: '....................3...',
+                  },
+                  1,
+                ],
+              ],
+            },
           },
           {
             letter: 'C',

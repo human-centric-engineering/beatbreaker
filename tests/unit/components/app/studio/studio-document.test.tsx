@@ -92,7 +92,11 @@ function SaveAsProbe() {
   );
 }
 
-async function open(initial?: InitialPattern, settings?: StudioSettings) {
+/* On the kit the fixtures' style (funk) asks for: opening a pattern follows its
+   style's kit, which on any other kit is a settings write these tests do not count. */
+const ON_FUNK_KIT: StudioSettings = { ...DEFAULT_STUDIO_SETTINGS, kit: 'funkSoul' };
+
+async function open(initial?: InitialPattern, settings: StudioSettings = ON_FUNK_KIT) {
   render(
     <StudioProvider catalogue={catalogue} initial={initial} settings={settings}>
       <StudioFrame />
@@ -357,7 +361,7 @@ describe('opening a saved pattern with the tempo matched to the layer', () => {
   it('opens at the tempo it was saved at, as Saved — your starting tempo does not move it', async () => {
     // the match on, and a starting tempo far from the pattern's own
     window.history.replaceState(null, '', `/studio/${ID}`);
-    await open(saved(true), { ...DEFAULT_STUDIO_SETTINGS, matchTempo: true, startBpm: 200 });
+    await open(saved(true), { ...ON_FUNK_KIT, matchTempo: true, startBpm: 200 });
     await waitFor(() => expect(saveState()).toBe('Saved'));
     await act(async () => new Promise((r) => setTimeout(r, 2500)));
     expect(saveState()).toBe('Saved');

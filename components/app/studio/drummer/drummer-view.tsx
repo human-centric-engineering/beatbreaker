@@ -310,6 +310,7 @@ export function DrummerView({
                 view={view}
                 viewSeq={viewSeq}
                 shuffleSeq={shuffleSeq}
+                castSeq={c.castSeq}
                 onNewDrummer={() => {
                   setView('front');
                   setViewSeq((n) => n + 1);

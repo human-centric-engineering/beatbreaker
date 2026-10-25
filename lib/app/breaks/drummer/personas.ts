@@ -381,7 +381,7 @@ export const PERSONAS: readonly Persona[] = [
   {
     // the drummer who played before there was a cast, exactly as he was
     id: 'original',
-    name: 'The Original',
+    name: 'NPC Dude',
     figure: 'male',
     build: 'average',
     skin: '#c58c6a',
@@ -1145,7 +1145,7 @@ export function otherThan(id: string | undefined, random: () => number = Math.ra
 }
 
 /**
- * Who sits in as the drummer view opens: The Original the first time in a
+ * Who sits in as the drummer view opens: NPC Dude the first time in a
  * tab, and after that anyone but whoever sat last — so opening the view again
  * shows somebody new. It only reads who sat last (see `noteSeated`): safe to
  * call while rendering.

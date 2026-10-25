@@ -96,11 +96,11 @@ describe('PERSONAS', () => {
 });
 
 describe('openingPersona, otherThan and noteSeated', () => {
-  it('seats The Original first in a tab, then somebody other than whoever sat last', async () => {
+  it('seats NPC Dude first in a tab, then somebody other than whoever sat last', async () => {
     vi.resetModules();
     const fresh = await import('@/lib/app/breaks/drummer/personas');
     expect(fresh.openingPersona(() => 0.5).id).toBe('original');
-    // only reading: asked again before anyone is seated, still The Original
+    // only reading: asked again before anyone is seated, still NPC Dude
     expect(fresh.openingPersona(() => 0).id).toBe('original');
     fresh.noteSeated('original');
     for (const r of [0, 0.5, 0.999]) expect(fresh.openingPersona(() => r).id).not.toBe('original');
