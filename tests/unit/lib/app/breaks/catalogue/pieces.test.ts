@@ -26,13 +26,16 @@ const PIECES = new Map([[SNARE.key, SNARE]]);
 
 describe('resolveSlot', () => {
   it("is the piece's recordings of the same slot, in its folder, with the slot's settings", () => {
-    expect(resolveSlot('s', { piece: 'drs-s', level: 0.9, tune: 50, decay: 0.7 }, PIECES)).toEqual({
+    expect(
+      resolveSlot('s', { piece: 'drs-s', level: 0.9, tune: 50, decay: 0.7, damp: 0.6 }, PIECES)
+    ).toEqual({
       layers: [{ v: 1, files: ['s-0-0.m4a'] }],
       trim: 1.6,
       folder: 'drs',
       level: 0.9,
       tune: 50,
       decay: 0.7,
+      damp: 0.6,
     });
   });
 

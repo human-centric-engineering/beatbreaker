@@ -57,6 +57,12 @@ export interface KitSlotSettings {
   tune?: number;
   /** How much of the recording rings before it is faded out, 0.2–1. */
   decay?: number;
+  /**
+   * Something laid on the head, 0–1: leather, a towel, a wallet. The ring is
+   * cut off just after the stroke and the crack over it rolled off, as a
+   * hand on a drum would. Absent is a head left open.
+   */
+  damp?: number;
 }
 
 /** One file per velocity layer: the shape every kit shipped in before Phase 9. */

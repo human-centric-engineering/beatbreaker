@@ -839,10 +839,10 @@ describe('a kit made of pieces (9-v)', () => {
     expect(fetchMock.mock.calls.map((c) => c[0])).toEqual(['/kits/drs/k-0-0.m4a']);
   });
 
-  it("applies the slot's Level and Tune on top of the voice's, and hands its Decay to playBuf", async () => {
-    const at = (level?: number, tune?: number, decay?: number): ResolvedKit =>
+  it("applies the slot's Level and Tune on top of the voice's, and hands its Decay and Damp to playBuf", async () => {
+    const at = (level?: number, tune?: number, decay?: number, damp?: number): ResolvedKit =>
       packKit({
-        slots: { s: { layers: [{ v: 1, files: ['s.m4a'] }], level, tune, decay } },
+        slots: { s: { layers: [{ v: 1, files: ['s.m4a'] }], level, tune, decay, damp } },
       });
     const source = new PackSource();
     const playBuf = vi.spyOn(engine, 'playBuf');
@@ -850,14 +850,16 @@ describe('a kit made of pieces (9-v)', () => {
     engine.kit = at();
     await source.load(engine, engine.kit);
     source.hit(engine, 0, 's', 1);
-    const [, , plainGain, , plainRate, , , plainDecay] = playBuf.mock.calls[0];
+    const [, , plainGain, , plainRate, , , plainDecay, plainDamp] = playBuf.mock.calls[0];
 
-    engine.kit = at(1.5, -1200, 0.4);
+    engine.kit = at(1.5, -1200, 0.4, 0.85);
     await source.load(engine, engine.kit);
     source.hit(engine, 0, 's', 1);
-    const [, , gain, , rate, , , decay] = playBuf.mock.calls[1];
+    const [, , gain, , rate, , , decay, damp] = playBuf.mock.calls[1];
 
     expect(plainDecay).toBeUndefined();
+    expect(plainDamp).toBeUndefined();
+    expect(damp).toBe(0.85);
     expect(gain).toBeCloseTo(plainGain * 1.5, 9);
     // an octave down is half the rate
     expect(rate).toBeCloseTo((plainRate as number) / 2, 9);

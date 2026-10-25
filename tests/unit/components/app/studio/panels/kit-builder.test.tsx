@@ -115,15 +115,16 @@ function patched(kit: YourKitView, body: Record<string, unknown>): YourKitView {
       delete slots[slot];
       continue;
     }
-    const { piece, from, level, tune, decay } = v as {
+    const { piece, from, level, tune, decay, damp } = v as {
       piece: string;
       from?: string;
       level?: number;
       tune?: number;
       decay?: number;
+      damp?: number;
     };
     const label = PIECES.find((p) => p.key === piece)?.label ?? piece;
-    slots[slot] = { piece, ...(from ? { from } : {}), label, spec: SPEC, level, tune, decay };
+    slots[slot] = { piece, ...(from ? { from } : {}), label, spec: SPEC, level, tune, decay, damp };
   }
   const pan = { ...kit.pan };
   for (const [lane, v] of Object.entries((body.pan ?? {}) as Record<string, number | null>)) {
@@ -286,6 +287,7 @@ describe('the builder, on a kit of yours', () => {
       gain: expect.closeTo((0.95 / 0.9) * 0.8, 6),
       tune: -300,
       decay: 1,
+      damp: 0,
     });
     await waitFor(() =>
       expect(sent.find((s) => s.method === 'PATCH')?.body).toEqual({
@@ -350,6 +352,47 @@ describe('the builder, on a kit of yours', () => {
     );
   });
 
+  it('damps the row when the Damp drag ends, hears it damped, and keeps it through another knob', async () => {
+    const user = userEvent.setup();
+    renderDrawer();
+    await pickOption(user, kitPicker(), 'yours-a');
+    const snareRow = rowPicker('Snare').closest('.build-row') as HTMLElement;
+    await user.click(within(snareRow).getByRole('button', { name: 'Adjust' }));
+
+    const damp = within(snareRow).getByLabelText<HTMLInputElement>('Damp');
+    expect(damp.value).toBe('0');
+    fireEvent.change(damp, { target: { value: '85' } });
+    fireEvent.keyUp(damp);
+
+    await waitFor(() =>
+      expect(sent.find((s) => s.method === 'PATCH')?.body).toEqual({
+        slots: {
+          s: { piece: 'muldjord-s', tune: -300, damp: 0.85 },
+          sGhost: { piece: 'muldjord-s', tune: -300, damp: 0.85 },
+        },
+      })
+    );
+    expect(preview).toHaveBeenLastCalledWith(
+      '/kits/muldjord/s-0.8.m4a',
+      's',
+      expect.objectContaining({ damp: 0.85 })
+    );
+
+    // a later Level change does not lose the damp
+    await waitFor(() => expect(damp.value).toBe('85'));
+    const level = within(snareRow).getByLabelText<HTMLInputElement>('Level');
+    fireEvent.change(level, { target: { value: '90' } });
+    fireEvent.keyUp(level);
+    await waitFor(() =>
+      expect(sent.filter((s) => s.method === 'PATCH').at(-1)?.body).toEqual({
+        slots: {
+          s: { piece: 'muldjord-s', level: 0.9, tune: -300, damp: 0.85 },
+          sGhost: { piece: 'muldjord-s', level: 0.9, tune: -300, damp: 0.85 },
+        },
+      })
+    );
+  });
+
   it('pans the row’s lanes: the hats and the foot together', async () => {
     const user = userEvent.setup();
     renderDrawer();
@@ -386,6 +429,7 @@ describe('the builder, on a kit of yours', () => {
       gain: expect.closeTo((0.95 / 0.8) * 1.1, 6),
       tune: -300,
       decay: 1,
+      damp: 0,
     });
     await waitFor(() =>
       expect(screen.getByRole('status').textContent).toBe('Could not play Muldjord kit · Snare')
@@ -475,6 +519,7 @@ describe('the builder, on a kit of yours', () => {
       gain: 0.3,
       tune: 0,
       decay: 1,
+      damp: 0,
     });
   });
 });

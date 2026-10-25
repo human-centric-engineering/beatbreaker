@@ -684,7 +684,7 @@ export interface BreakConsole {
   previewSample: (
     url: string,
     voice: string,
-    opts: { gain: number; tune?: number; decay?: number }
+    opts: { gain: number; tune?: number; decay?: number; damp?: number }
   ) => Promise<boolean>;
 }
 
@@ -2590,8 +2590,11 @@ export function useBreakConsole(
   }, []);
 
   const previewSample = useCallback(
-    (url: string, voice: string, opts: { gain: number; tune?: number; decay?: number }) =>
-      audioRef.current?.preview(url, voice, opts) ?? Promise.resolve(false),
+    (
+      url: string,
+      voice: string,
+      opts: { gain: number; tune?: number; decay?: number; damp?: number }
+    ) => audioRef.current?.preview(url, voice, opts) ?? Promise.resolve(false),
     []
   );
 

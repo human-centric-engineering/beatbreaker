@@ -73,6 +73,7 @@ function settingsOf(v: KitSlotSettings): KitSlotSettings {
   if (v.level !== undefined) out.level = v.level;
   if (v.tune !== undefined) out.tune = v.tune;
   if (v.decay !== undefined) out.decay = v.decay;
+  if (v.damp !== undefined) out.damp = v.damp;
   return out;
 }
 

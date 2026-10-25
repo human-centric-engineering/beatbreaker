@@ -447,6 +447,12 @@ export interface StyleAttrs {
   /** How hard this style leans on the hi-hat dynamic shape. */
   hatDepth?: number;
   /**
+   * How hard the hats are played, as a velocity multiplier: a light touch
+   * reaches the kit's softer recordings, not only a quieter one. August 10's
+   * hats are barely brushed.
+   */
+  hatTouch?: number;
+  /**
    * Played with a double pedal: a run of 16ths on the kick goes right foot,
    * left foot, so the generator does not thin it, the critic does not call it
    * unplayable, and the 3D drummer plays it on two pedals.

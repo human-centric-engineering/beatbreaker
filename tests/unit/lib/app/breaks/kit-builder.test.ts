@@ -115,7 +115,7 @@ describe('rowNow and rowSettings', () => {
     const now = rowNow(mine, row('snare'));
     expect(now.slot).toBe('sGhost');
     expect(now.piece).toBe('drs-s');
-    expect(now.settings).toEqual({ level: 1, tune: -200, decay: 1 });
+    expect(now.settings).toEqual({ level: 1, tune: -200, decay: 1, damp: 0 });
     expect(rowNow(mine, row('kick'))).toMatchObject({ slot: undefined, piece: undefined });
   });
 
@@ -123,6 +123,22 @@ describe('rowNow and rowSettings', () => {
     expect(rowSettings(mine, row('snare'), { level: 1.2, tune: 100, decay: 1 })).toEqual({
       sGhost: { piece: 'drs-s', level: 1.2, tune: 100 },
       sCross: { sample: 'csmp1', level: 1.2, tune: 100 },
+    });
+  });
+
+  it('reads a row’s damp, and writes it to every slot of the row until it is set back to 0', () => {
+    const damped = kit({
+      s: { piece: 'gogodze-s', label: 'x', spec: SPEC, damp: 0.85 },
+      sGhost: { piece: 'gogodze-s', label: 'x', spec: SPEC, damp: 0.85 },
+    });
+    expect(rowNow(damped, row('snare')).settings.damp).toBe(0.85);
+    expect(rowSettings(damped, row('snare'), { level: 0.9, damp: 0.85 })).toEqual({
+      s: { piece: 'gogodze-s', level: 0.9, damp: 0.85 },
+      sGhost: { piece: 'gogodze-s', level: 0.9, damp: 0.85 },
+    });
+    expect(rowSettings(damped, row('snare'), { damp: 0 })).toEqual({
+      s: { piece: 'gogodze-s' },
+      sGhost: { piece: 'gogodze-s' },
     });
   });
 

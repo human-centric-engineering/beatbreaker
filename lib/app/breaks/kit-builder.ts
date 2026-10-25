@@ -98,12 +98,13 @@ export function pieceGroups(pieces: PieceView[], row: BuilderRow): PieceGroup[] 
   return [...groups.values()];
 }
 
-/** A slot's Level, Tune and Decay, with the ones at their defaults left out. */
+/** A slot's Level, Tune, Decay and Damp, with the ones at their defaults left out. */
 export function settingsOf(v: KitSlotSettings): KitSlotSettings {
   const out: KitSlotSettings = {};
   if (v.level !== undefined && v.level !== 1) out.level = v.level;
   if (v.tune !== undefined && v.tune !== 0) out.tune = v.tune;
   if (v.decay !== undefined && v.decay !== 1) out.decay = v.decay;
+  if (v.damp !== undefined && v.damp !== 0) out.damp = v.damp;
   return out;
 }
 
@@ -134,6 +135,7 @@ export function rowNow(kit: YourKitView, row: BuilderRow): RowNow {
       level: entry?.level ?? 1,
       tune: entry?.tune ?? 0,
       decay: entry?.decay ?? 1,
+      damp: entry?.damp ?? 0,
     },
   };
 }

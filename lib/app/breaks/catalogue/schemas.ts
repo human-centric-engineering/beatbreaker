@@ -485,6 +485,7 @@ export const kitSlotSettingsSchema = z.object({
   level: z.number().min(0).max(2).optional(),
   tune: z.number().int().min(-1200).max(1200).optional(),
   decay: z.number().min(0.2).max(1).optional(),
+  damp: z.number().min(0).max(1).optional(),
 });
 
 /* A folder under `/kits/`, the same rule as a pack's name: no `..`, no slash. */

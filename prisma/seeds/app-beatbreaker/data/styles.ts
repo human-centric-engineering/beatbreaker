@@ -178581,6 +178581,8 @@ export const STYLES: Record<string, Style> = {
           bpm: [78, 84],
           swing: 0,
           crossStick: true,
+          // the sixteenths barely touched: on the record they are a whisper under the cross-stick
+          hatTouch: 0.5,
           backbeats: [4, 12],
           ghostWeights: {},
           opens: 0,

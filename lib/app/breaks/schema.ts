@@ -110,6 +110,8 @@ export const styleAttrsSchema = z.object({
   /** Notes per bar the style aims at. The busiest style in the table is 14. */
   targetDensity: z.number().min(0).max(64).optional(),
   hatDepth: z.number().min(0).max(3).optional(),
+  /** A velocity multiplier on the hats, not a probability. */
+  hatTouch: z.number().min(0.1).max(1).optional(),
   /** Played with a double pedal: kick runs are two feet's, not one's. */
   doubleKick: z.boolean().optional(),
   /** Sixteenth hats in the lead hand alone, not hand to hand. */

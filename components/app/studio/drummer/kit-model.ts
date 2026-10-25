@@ -357,6 +357,62 @@ interface Swinger {
 }
 
 /**
+ * Leather's grain, drawn once onto a canvas: a brown hide mottled lighter where
+ * it has worn, pebbled with fine grain and crossed by a few creases. It is the
+ * colour and the bump both. Null where there is no canvas (the tests run in Node).
+ */
+function leatherTexture(): THREE.Texture | null {
+  if (typeof document === 'undefined') return null;
+  const size = 512;
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  const rng = makeRng(0x1ea7);
+  ctx.fillStyle = '#3f2416';
+  ctx.fillRect(0, 0, size, size);
+  // worn patches, lighter and warmer
+  for (let i = 0; i < 14; i++) {
+    const x = rng() * size;
+    const y = rng() * size;
+    const r = 40 + rng() * 110;
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, rng() < 0.6 ? 'rgba(112,72,46,0.3)' : 'rgba(30,16,9,0.35)');
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(x - r, y - r, r * 2, r * 2);
+  }
+  // the pebbled grain
+  for (let i = 0; i < 26000; i++) {
+    const light = rng() < 0.45;
+    ctx.fillStyle = light ? 'rgba(110,74,50,0.14)' : 'rgba(20,10,5,0.22)';
+    ctx.fillRect(rng() * size, rng() * size, 1 + rng() * 2, 1 + rng() * 2);
+  }
+  // creases
+  ctx.lineCap = 'round';
+  for (let i = 0; i < 9; i++) {
+    let x = rng() * size;
+    let y = rng() * size;
+    let a = rng() * Math.PI * 2;
+    ctx.strokeStyle = 'rgba(28,14,6,0.45)';
+    ctx.lineWidth = 1 + rng() * 1.5;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    for (let j = 0; j < 12; j++) {
+      a += (rng() - 0.5) * 0.6;
+      x += Math.cos(a) * 9;
+      y += Math.sin(a) * 9;
+      ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  return tex;
+}
+
+/**
  * The snare alone on its stand, where the kit puts it: for the grip guide,
  * which shows only the hands and the drum they play.
  */
@@ -402,19 +458,62 @@ export function buildKit(m: Materials): KitModel {
     heads.push({ id, geometry, shape, moved: false });
     root.add(f);
   }
-  /* A strip of worn brown leather over the snare head, toward its far rim and
-     off where the stick lands: DJ Johnson's at the Tiny Desk (2018). On the
-     drum's body, so it rides the drum when it shakes; lifted clear of the head's dip. */
+  /* A piece of worn brown leather laid over the whole snare head and taped
+     down at its edge with black gaffer tape: DJ Johnson's at the Tiny Desk
+     (2018). A head of its own, rippling with the batter head under it when
+     struck, on the drum's body so it rides the drum when it shakes. */
   const snare = PIECES.snare;
-  const leather = new THREE.Mesh(
-    new THREE.BoxGeometry(snare.radius * 0.9, 0.003, 0.045),
-    new THREE.MeshStandardMaterial({ color: '#4a2c18', roughness: 0.8 })
-  );
+  const leather = new THREE.Group();
   leather.name = 'leather';
-  leather.position.set(snare.radius * 0.1, 0.0045, -snare.radius * 0.62);
-  leather.rotation.y = 0.25;
-  leather.castShadow = true;
   leather.visible = false;
+  {
+    const across = snare.radius * 0.93;
+    const geometry = new THREE.RingGeometry(0, across, 64, 8);
+    const pos = geometry.getAttribute('position');
+    const shape = new Float32Array(pos.count);
+    for (let k = 0; k < pos.count; k++) {
+      const x = pos.getX(k);
+      const y = pos.getY(k);
+      const rho = Math.hypot(x, y);
+      // a cut hide, not a pressed disc: its edge wanders a little
+      if (rho > across * 0.99) {
+        const a = Math.atan2(y, x);
+        const out = 1 + 0.018 * Math.sin(a * 3 + 0.7) + 0.01 * Math.sin(a * 7 + 2.1);
+        pos.setXY(k, x * out, y * out);
+      }
+      // displaced as the head under it is, at the same distance from the middle
+      shape[k] = resoShape(Math.min(1, rho / (snare.radius * 0.99)));
+    }
+    const grain = leatherTexture();
+    const hide = new THREE.Mesh(
+      geometry,
+      new THREE.MeshStandardMaterial({
+        color: grain ? '#ffffff' : '#3f2416',
+        map: grain,
+        bumpMap: grain,
+        bumpScale: 1,
+        roughness: 0.68,
+      })
+    );
+    hide.rotation.x = -Math.PI / 2;
+    hide.position.y = 0.0025;
+    hide.receiveShadow = true;
+    leather.add(hide);
+    heads.push({ id: 'snare', geometry, shape, moved: false });
+
+    // the tape across the leather's edge onto the head: by the player, out front, and to the left
+    const tape = new THREE.MeshStandardMaterial({ color: '#1c1c1e', roughness: 0.55 });
+    for (const [a, long] of [
+      [1.2, 0.05],
+      [-1.75, 0.045],
+      [2.9, 0.04],
+    ] as const) {
+      const strip = new THREE.Mesh(new THREE.BoxGeometry(long, 0.0012, 0.024), tape);
+      strip.position.set(Math.cos(a) * across, 0.0038, Math.sin(a) * across);
+      strip.rotation.y = -a;
+      leather.add(strip);
+    }
+  }
   shakers.find((s) => s.id === 'snare')?.group.add(leather);
 
   // snare stand, tom mounts off the kick, floor tom legs

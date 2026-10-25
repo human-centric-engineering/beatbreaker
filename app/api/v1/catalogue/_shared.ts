@@ -59,8 +59,8 @@ const BASE = '/kits';
  * served before round-robins — one file per layer, the first of each — kept
  * so a client written against it still plays. `trim` is the slot's level, a
  * gain to multiply in beside the kit's own `trim` (1 where a slot has none).
- * `level`, `tune` and `decay` are a kit's own settings for it (9-v), where it
- * has any.
+ * `level`, `tune`, `decay` and `damp` are a kit's own settings for it (9-v),
+ * where it has any.
  */
 export interface SlotOut {
   velocities: number[] | null;
@@ -70,6 +70,7 @@ export interface SlotOut {
   level?: number;
   tune?: number;
   decay?: number;
+  damp?: number;
 }
 
 /**
@@ -98,6 +99,7 @@ export function slotsWithUrls(
       ...(spec.level !== undefined ? { level: spec.level } : {}),
       ...(spec.tune !== undefined ? { tune: spec.tune } : {}),
       ...(spec.decay !== undefined ? { decay: spec.decay } : {}),
+      ...(spec.damp !== undefined ? { damp: spec.damp } : {}),
     };
   }
   return Object.keys(out).length ? out : undefined;

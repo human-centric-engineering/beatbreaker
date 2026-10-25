@@ -489,7 +489,8 @@ export class PackSource implements SampleSource {
       rate,
       take.off,
       shelf,
-      spec?.decay
+      spec?.decay,
+      spec?.damp
     );
     if (slotId === 'hOpen' || slotId === 'hHalf') engine.noteHatTail(played);
     return true;

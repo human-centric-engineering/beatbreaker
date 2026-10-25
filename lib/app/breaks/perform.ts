@@ -373,7 +373,8 @@ function voiceStep(pat: Pattern, bar: Bar, i: number, opts: PerformOptions): Voi
     const hv = bar.h[i];
     const open = hv === 3 || hv === HALF_OPEN;
     // a half-open hat is shaped as an open one is: a struck note, not a tick
-    const shaped = LEVELS.h[hv] * hatShape(i, open ? 3 : hv, m, attrs, opts.hats);
+    const shaped =
+      LEVELS.h[hv] * hatShape(i, open ? 3 : hv, m, attrs, opts.hats) * (attrs?.hatTouch ?? 1);
     const voice: Voice = {
       lane: 'h',
       note: hv === HALF_OPEN ? MIDI_MAP.hHalf : open ? MIDI_MAP.hOpen : MIDI_MAP.h,

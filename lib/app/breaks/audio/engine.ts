@@ -108,6 +108,22 @@ function clamp(v: number, a: number, b: number): number {
   return Math.max(a, Math.min(b, v));
 }
 
+/**
+ * What a slot's `damp` does to a recording (a strip of leather on the head):
+ * how long the stroke sounds as struck (`hold`, seconds), how fast the ring
+ * dies after it (`tau`, the time constant), and where its top is rolled off
+ * (`lp`, Hz, from 16 kHz open down to 2 kHz at full damp). Null for an open head.
+ */
+export function dampOf(damp: number | undefined): { hold: number; tau: number; lp: number } | null {
+  if (!damp || damp <= 0) return null;
+  const d = clamp(damp, 0, 1);
+  return {
+    hold: 0.035 - 0.015 * d,
+    tau: 0.15 * (1 - d) + 0.012,
+    lp: 16000 * (2000 / 16000) ** d,
+  };
+}
+
 /** −0.3 dBFS: the loudest sample the master lets through. */
 export const CEILING = 0.966;
 /** Where the ceiling starts to bend. Below it the signal passes untouched. */
@@ -600,7 +616,8 @@ export class BreakAudio {
     rate?: number,
     offset?: number,
     shelf?: number,
-    decay?: number
+    decay?: number,
+    damp?: number
   ): PlayedBuffer {
     const ctx = this.ctx as AudioContext;
     const src = ctx.createBufferSource();
@@ -610,23 +627,37 @@ export class BreakAudio {
     g.gain.setValueAtTime(Math.max(0.0001, gain), t);
 
     // there is nothing to tune inside a recording, so "bright" is a shelf over the top
+    let out: AudioNode = src;
     if (shelf) {
       const hs = ctx.createBiquadFilter();
       hs.type = 'highshelf';
       hs.frequency.value = 3000;
       hs.gain.value = clamp(shelf, -12, 12);
-      src.connect(hs);
-      hs.connect(g);
-    } else {
-      src.connect(g);
+      out.connect(hs);
+      out = hs;
     }
+    const muffle = dampOf(damp);
+    if (muffle) {
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass';
+      lp.frequency.value = muffle.lp;
+      lp.Q.value = 0.5;
+      out.connect(lp);
+      out = lp;
+    }
+    out.connect(g);
     this.send(g, voice);
 
     const from = offset ?? 0;
     const full = (buf.duration - from) / (rate ?? 1);
     const short = decay !== undefined && decay < 1;
-    const len = short ? full * clamp(decay, 0.2, 1) : full;
-    if (short) {
+    let len = short ? full * clamp(decay, 0.2, 1) : full;
+    if (muffle) {
+      // the stroke as struck, then the ring choked off: gone 60 dB down in seven time constants
+      len = Math.min(len, muffle.hold + muffle.tau * 7);
+      g.gain.setValueAtTime(Math.max(0.0001, gain), t + muffle.hold);
+      g.gain.setTargetAtTime(0.0001, t + muffle.hold, muffle.tau);
+    } else if (short) {
       g.gain.setValueAtTime(Math.max(0.0001, gain), t + len / 2);
       g.gain.exponentialRampToValueAtTime(0.0001, t + len);
     }
@@ -829,14 +860,14 @@ export class BreakAudio {
    * One recording, heard on its own: a piece in the kit builder, before it is
    * in the kit (9.18). The kit's sources decode a piece only once the kit
    * holds it, so this fetches and decodes the file itself, once per URL. It
-   * goes straight to the bus, as any audition does. `tune` is cents and
-   * `decay` is {@link playBuf}'s. False when there is no Web Audio or the
+   * goes straight to the bus, as any audition does. `tune` is cents, and
+   * `decay` and `damp` are {@link playBuf}'s. False when there is no Web Audio or the
    * file would not load; a file that would not load is tried again next time.
    */
   async preview(
     url: string,
     voice: string,
-    { gain, tune, decay }: { gain: number; tune?: number; decay?: number }
+    { gain, tune, decay, damp }: { gain: number; tune?: number; decay?: number; damp?: number }
   ): Promise<boolean> {
     const ctx = this.init();
     if (!ctx) return false;
@@ -867,7 +898,8 @@ export class BreakAudio {
       2 ** ((tune ?? 0) / 1200),
       undefined,
       undefined,
-      decay
+      decay,
+      damp
     );
     return true;
   }

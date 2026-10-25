@@ -38,7 +38,7 @@ export const YOUR_KIT_HINT = 'Your own kit. A slot you leave empty plays the syn
  * - A slot holding a piece (9-v) has the piece's recordings and folder, which
  *   the pack source fetches from `/kits/<folder>/`.
  *
- * Either carries the slot's Level, Tune and Decay.
+ * Either carries the slot's Level, Tune, Decay and Damp.
  */
 export function yourKitToCatalogue(view: YourKitView): CatalogueKit {
   const slots: NonNullable<CatalogueKit['samples']['slots']> = {};
@@ -47,6 +47,7 @@ export function yourKitToCatalogue(view: YourKitView): CatalogueKit {
       ...(s.level !== undefined ? { level: s.level } : {}),
       ...(s.tune !== undefined ? { tune: s.tune } : {}),
       ...(s.decay !== undefined ? { decay: s.decay } : {}),
+      ...(s.damp !== undefined ? { damp: s.damp } : {}),
     };
     slots[slot] =
       'sampleId' in s ? { v: null, files: [s.sampleId], ...settings } : { ...s.spec, ...settings };

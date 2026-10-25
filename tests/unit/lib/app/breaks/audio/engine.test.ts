@@ -23,6 +23,7 @@ import {
   BreakAudio,
   CEILING,
   ceilingCurve,
+  dampOf,
   OVER,
   driveCurve,
   SourceStack,
@@ -1246,6 +1247,25 @@ describe('hit()', () => {
 /* sound-file playback: playBuf and the sample fall-through contract      */
 /* ---------------------------------------------------------------------- */
 
+describe('dampOf()', () => {
+  it('leaves an open head alone', () => {
+    expect(dampOf(undefined)).toBeNull();
+    expect(dampOf(0)).toBeNull();
+  });
+
+  it('chokes harder, sooner and darker the more is laid on the head', () => {
+    const light = dampOf(0.3);
+    const heavy = dampOf(0.85);
+    expect(heavy?.tau).toBeLessThan(light?.tau ?? 0);
+    expect(heavy?.hold).toBeLessThan(light?.hold ?? 0);
+    expect(heavy?.lp).toBeLessThan(light?.lp ?? 0);
+    // a leathered snare's ring is 20 dB down within an eighth of a second of the stroke
+    expect(Math.exp(-(0.12 - (heavy?.hold ?? 0)) / (heavy?.tau ?? 1))).toBeLessThan(0.1);
+    expect(dampOf(1)?.lp).toBeCloseTo(2000, 6);
+    expect(dampOf(5)).toEqual(dampOf(1));
+  });
+});
+
 describe('playBuf()', () => {
   it('plays a buffer at the given rate and gain, with an optional brightness shelf', () => {
     const { audio, ctx } = initEngine();
@@ -1291,6 +1311,32 @@ describe('playBuf()', () => {
     expect(src.stoppedAt).toBeCloseTo(0.92, 9);
     // the pitch is untouched: Decay is not a time-stretch
     expect(src.playbackRate.value).toBe(1);
+  });
+
+  it('chokes a damped head (leather on the snare): the stroke as struck, its ring cut, its top rolled off', () => {
+    const { audio, ctx } = initEngine();
+    const buf = ctx.createBuffer(1, 44100, 44100); // 1s
+    const nodes = recordNodes(ctx, () =>
+      audio.playBuf(0.5, buf as unknown as AudioBuffer, 0.8, 's', 1, 0, undefined, undefined, 0.85)
+    );
+    const src = pick<FakeAudioBufferSourceNode>(nodes, 'bufferSource')[0];
+    const lp = src.outputs[0] as FakeBiquadFilterNode;
+    expect(lp.type).toBe('lowpass');
+    const muffle = dampOf(0.85);
+    expect(lp.frequency.value).toBeCloseTo(muffle?.lp ?? 0, 6);
+    const g = lp.outputs[0] as FakeGainNode;
+    expect(g.gain.events).toEqual([
+      { type: 'setValueAtTime', value: 0.8, time: 0.5 },
+      { type: 'setValueAtTime', value: 0.8, time: 0.5 + (muffle?.hold ?? 0) },
+      {
+        type: 'setTargetAtTime',
+        value: 0.0001,
+        time: 0.5 + (muffle?.hold ?? 0),
+        timeConstant: muffle?.tau,
+      },
+    ]);
+    // stopped once it is 60 dB down, long before the recording ends
+    expect(src.stoppedAt).toBeLessThan(0.5 + 0.3);
   });
 
   it('plays the whole recording at Decay 1, the way it always has', () => {
