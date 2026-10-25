@@ -34,9 +34,17 @@ function Chapters() {
   const order = playableSlots(c.arrangement, c.view, solo);
   // each slot's place in the order it plays; a slot that does not play has none
   const rank = new Map(order.map((slot, n) => [slot, n]));
-  const pos = c.position && !c.position.count ? c.position : null;
-  const at = pos?.secIdx ?? -1;
+  const live = c.position && !c.position.count ? c.position : null;
+  // paused, the bar holds where it stopped, as a video's does
+  const held = !live && !c.playing ? c.pausedAt : null;
+  const at = live ? (live.secIdx ?? -1) : (held?.slot ?? -1);
   const here = rank.get(at) ?? -1;
+  // where in its slot: bars in, and the steps done of that bar
+  const into = live
+    ? { barIdx: live.barIdx ?? 0, done: live.slot + 1 }
+    : held
+      ? { barIdx: held.barIdx, done: held.step }
+      : null;
 
   return (
     <div className="chapters" role="group" aria-label="Arrangement: go to a slot">
@@ -46,9 +54,9 @@ function Chapters() {
         // as long as it lasts: a section at double speed takes half the time
         const weight = bars / ratioOf(c.patterns[letter]);
         let fill = 0;
-        if (i === at && pos && pat) {
+        if (i === at && into && pat) {
           const steps = patSteps(pat) || 16;
-          fill = ((pos.barIdx ?? 0) + (pos.slot + 1) / steps) / bars;
+          fill = (into.barIdx + into.done / steps) / bars;
         } else if (here >= 0 && (rank.get(i) ?? here) < here) fill = 1;
         const cued = !c.playing && c.cue === i;
         return (
@@ -99,11 +107,20 @@ function Readout() {
       </span>
     );
   }
+  if (c.pausedAt && c.cue !== null) {
+    const letter = c.arrangement[c.cue];
+    const bars = c.view[letter]?.bars.length ?? 1;
+    return (
+      <span className="player-read mono">
+        Paused · <b>{letter}</b> · bar {c.pausedAt.barIdx + 1}/{bars}
+      </span>
+    );
+  }
   if (c.cue !== null) {
     return (
       <span className="player-read mono">
-        {/* paused, or only cued — a skip or a chapter while stopped */}
-        {c.paused ? 'Paused' : 'Ready'} · from <b>{c.arrangement[c.cue]}</b>
+        {/* only cued: a skip or a chapter while stopped */}
+        Ready · from <b>{c.arrangement[c.cue]}</b>
       </span>
     );
   }

@@ -180,8 +180,9 @@
 
 /* Playing and left alone, the chrome fades, as a video's does; any movement
    or focus inside brings it back. Who is on the kit and what they play
-   stay, and the shade at the top with them. */
-.bb .player.is-idle:not(:focus-within) .player-bar,
+   stay, and the shade at the top with them, and so do the chapters: where
+   you are in the song is never hidden. */
+.bb .player.is-idle:not(:focus-within) .player-bar > :not(.chapters),
 .bb .player.is-idle:not(:focus-within) .player-screen::after {
   opacity: 0;
 }
@@ -260,6 +261,8 @@
 
 .bb .player-bar {
   color: var(--p-ink);
+}
+.bb .player-bar > * {
   transition: opacity 0.4s ease;
 }
 .bb .player-bar.overlay {
@@ -290,9 +293,11 @@
   gap: 3px;
   align-items: flex-end;
 }
+/* Every slot fits the width, however many there are: a slot narrower than its
+   letter clips the letter and keeps its track, so the whole song is in view. */
 .bb .chapter {
   flex: 1 1 0;
-  min-width: 22px;
+  min-width: 0;
   display: flex;
   flex-direction: column-reverse;
   gap: 4px;
@@ -327,6 +332,8 @@
   box-shadow: 0 0 10px rgb(240 189 92 / 0.6);
 }
 .bb .chapter-letter {
+  overflow: hidden;
+  white-space: nowrap;
   font-family: var(--f-display);
   font-size: 13px;
   line-height: 1;

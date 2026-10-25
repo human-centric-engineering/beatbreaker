@@ -10,6 +10,7 @@ import { YourSampleSource } from '@/lib/app/breaks/audio/your-samples';
 import {
   Transport,
   type PlayEvent,
+  type ResumePoint,
   type ScheduledStep,
   type SectionLetter,
   type TransportSnapshot,
@@ -396,6 +397,11 @@ export interface BreakConsole {
   cue: number | null;
   /** The cue is where Pause stopped, not one a skip or a chapter set while stopped. */
   paused: boolean;
+  /**
+   * Where in the cued slot Pause stopped: Play goes on from that step, with no
+   * count-in. Null when not paused.
+   */
+  pausedAt: ResumePoint | null;
   /** Skip a section forward or back, as a media player skips a track (`skipSlot`). */
   skip: (delta: 1 | -1) => void;
   /** Go to the top of an arrangement slot: now, while playing, or for the next Play. */
@@ -1017,7 +1023,7 @@ export function useBreakConsole(
   const [twistOn, setTwistOn] = useState<{ seeds: string; twist: Twist } | null>(null);
   const twist = twistOn && twistOn.seeds === seedsOf(patterns) ? twistOn.twist : null;
   const [cueAt, setCue] = useState<number | null>(null);
-  const [pausedAt, setPaused] = useState(false);
+  const [resumeAt, setResumeAt] = useState<ResumePoint | null>(null);
   /* A cue is a place in this break: a new one (a new seed on A) goes back to
      the top, and a slot the arrangement has lost since is no place at all. */
   const [cueSeed, setCueSeed] = useState(patterns.A?.seed);
@@ -1026,7 +1032,8 @@ export function useBreakConsole(
     setCue(null);
   }
   const cue = cueAt !== null && cueAt < arrangement.length ? cueAt : null;
-  const paused = cue !== null && pausedAt;
+  const pausedAt = cue !== null ? resumeAt : null;
+  const paused = pausedAt !== null;
 
   /* The section choice, held to the sections there are. */
   const viewMode = viewIn(viewChoice, patterns);
@@ -2465,27 +2472,27 @@ export function useBreakConsole(
     const t = transportRef.current;
     if (!t) return;
     if (t.playing) {
-      // a pause: Play comes back in at the top of the section it was in
-      const at = t.cursor();
+      // a pause: Play goes on from the very step it stopped at
+      const at = t.pausePoint();
       t.stop();
       if (at && at.slot >= 0) {
         setCue(at.slot);
-        setPaused(true);
+        setResumeAt(at);
       }
       return;
     }
-    if (t.start({ from: cue ?? undefined })) {
+    if (t.start(pausedAt ? { resume: pausedAt } : { from: cue ?? undefined })) {
       setPlaying(true);
       setCue(null);
-      setPaused(false);
+      setResumeAt(null);
     } else logger.warn('BeatBreaker: no Web Audio in this browser — notation still works');
-  }, [cue]);
+  }, [cue, pausedAt]);
 
   const stopToTop = useCallback(() => {
     const t = transportRef.current;
     if (t?.playing) t.stop();
     setCue(null);
-    setPaused(false);
+    setResumeAt(null);
   }, []);
 
   const skip = useCallback((delta: 1 | -1) => {
@@ -2500,7 +2507,7 @@ export function useBreakConsole(
       return;
     }
     setCue((was) => skipSlot(slots, was ?? slots[0] ?? 0, 0, delta) ?? was);
-    setPaused(false);
+    setResumeAt(null);
   }, []);
 
   const seekSlot = useCallback((slot: number) => {
@@ -2512,7 +2519,7 @@ export function useBreakConsole(
     // cued where Play will start: a chapter that does not play gives way to the next that does
     const snap = snapshotRef.current;
     setCue(playableFrom(playableSlots(snap.arrangement, snap.patterns, snap.solo), slot));
-    setPaused(false);
+    setResumeAt(null);
   }, []);
 
   /* ---- what a practice session drives (7D) ----------------------------- */
@@ -2528,7 +2535,7 @@ export function useBreakConsole(
     setPlaying(true);
     // from the top: a cue left by an earlier Pause or skip is not this run's
     setCue(null);
-    setPaused(false);
+    setResumeAt(null);
     return true;
   }, []);
 
@@ -2961,6 +2968,7 @@ export function useBreakConsole(
     stopToTop,
     cue,
     paused,
+    pausedAt,
     skip,
     seekSlot,
     loops,

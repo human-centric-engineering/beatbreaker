@@ -1128,3 +1128,95 @@ describe('Transport — cued starts and seeking', () => {
     t.stop();
   });
 });
+
+describe('Transport — pause and resume', () => {
+  function make(over: Partial<TransportSnapshot> = {}) {
+    const A = patternIn('4/4');
+    const B = patternIn('4/4');
+    B.bars[0].s[4] = 2;
+    const f = fakeAudio();
+    const onStep = vi.fn<(step: ScheduledStep) => void>();
+    const onDownbeat = vi.fn();
+    const snap = snapshot(A, {
+      patterns: { A, B },
+      arrangement: ['A', 'B'],
+      click: false,
+      countIn: 1,
+      ...over,
+    });
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep,
+      onDownbeat,
+    });
+    const run = (until: number) => {
+      while (f.ctx.currentTime < until) {
+        f.ctx.currentTime += 0.02;
+        vi.advanceTimersByTime(25);
+      }
+    };
+    return { t, B, f, onStep, onDownbeat, run, snap };
+  }
+
+  it('stops on the first step not yet heard, and goes on from it with no count-in', () => {
+    const { t, B, f, onStep, onDownbeat, run } = make();
+    // past a bar of count-in and A's bar, some steps into B
+    t.start();
+    run(4.6);
+    const at = t.pausePoint();
+    // the first of B's steps the look-ahead scheduled that the speakers have not reached
+    const next = onStep.mock.calls
+      .map(([st]) => st)
+      .find((st) => st.bar === B.bars[0] && st.t > f.ctx.currentTime + 0.005);
+    expect(next?.slot).toBeGreaterThan(0);
+    expect(at).toEqual({ slot: 1, barIdx: 0, step: next?.slot, loops: 0 });
+    t.stop();
+
+    onStep.mockClear();
+    onDownbeat.mockClear();
+    t.start({ resume: at ?? undefined });
+    const first = onStep.mock.calls[0][0];
+    expect(first.count).toBeFalsy();
+    expect(first.bar).toBe(B.bars[0]);
+    expect(first.slot).toBe(next?.slot);
+    // not bar 1 of anything: a session clock is not told it is
+    expect(onDownbeat).not.toHaveBeenCalled();
+    t.stop();
+  });
+
+  it('counts in again when the pause was at the top of a section', () => {
+    const { t, onStep } = make();
+    t.start({ resume: { slot: 1, barIdx: 0, step: 0, loops: 0 } });
+    expect(onStep.mock.calls[0][0].count).toBe(true);
+    t.stop();
+  });
+
+  it('paused during the count-in, comes back in at the top of the section, counted', () => {
+    const { t, onStep, run } = make();
+    t.start({ from: 1 });
+    run(0.5);
+    const at = t.pausePoint();
+    expect(at).toEqual({ slot: 1, barIdx: 0, step: 0, loops: 0 });
+    t.stop();
+    onStep.mockClear();
+    t.start({ resume: at ?? undefined });
+    expect(onStep.mock.calls[0][0].count).toBe(true);
+    t.stop();
+  });
+
+  it('starts at the top of the slot, counted, where the arrangement has lost the bar it paused in', () => {
+    const { t, onStep } = make();
+    t.start({ resume: { slot: 1, barIdx: 3, step: 6, loops: 0 } });
+    expect(onStep.mock.calls[0][0].count).toBe(true);
+    expect(t.cursor()).toEqual({ slot: 1, barIdx: 0 });
+    t.stop();
+  });
+
+  it('has no pause point while stopped', () => {
+    expect(make().t.pausePoint()).toBeNull();
+  });
+});

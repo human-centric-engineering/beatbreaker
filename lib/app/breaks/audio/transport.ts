@@ -53,6 +53,21 @@ export interface PlayEvent {
   slot: number;
   bar?: Bar;
   meter?: Meter;
+  /** How many times the arrangement had come round when this step was scheduled. */
+  loops?: number;
+}
+
+/**
+ * Where a Pause stopped: the step that had not yet been heard, in the slot and
+ * bar it is in, and how many times the arrangement had come round. Play goes
+ * on from exactly there.
+ */
+export interface ResumePoint {
+  /** The arrangement slot, or -1 when soloing a section it never calls. */
+  slot: number;
+  barIdx: number;
+  step: number;
+  loops: number;
 }
 
 /**
@@ -361,12 +376,17 @@ export class Transport {
   ) {}
 
   /**
-   * Play from the top of the arrangement — or from slot `from`, where Pause
-   * or a skip left it cued — after the count-in: the setting's,
+   * Play from the top of the arrangement — or from the top of slot `from`,
+   * where a skip left it cued — after the count-in: the setting's,
    * or `countIn` bars where the caller asks for its own (a restart counts in
    * even when the setting is None).
+   *
+   * `resume` is where a Pause stopped ({@link pausePoint}): play goes on from
+   * that very step, with no count-in unless it is the top of a section. A
+   * point the arrangement no longer has (it was changed while paused) is the
+   * top of its slot instead, counted in.
    */
-  start(opts: { countIn?: number; from?: number } = {}): boolean {
+  start(opts: { countIn?: number; from?: number; resume?: ResumePoint } = {}): boolean {
     const ctx = this.audio.init();
     if (!ctx) return false;
     this.audio.resume();
@@ -375,17 +395,30 @@ export class Transport {
     this.buildSeq(snap);
     this.perform(snap.humanise.seed);
     this.step = 0;
-    // a cued slot (Pause, or a skip while stopped) starts there; anything else, the top
-    this.seqIndex = opts.from === undefined ? 0 : Math.max(0, this.entryOf(opts.from));
+    // a cued slot (a skip while stopped) starts there; anything else, the top
+    const from = opts.resume?.slot ?? opts.from;
+    this.seqIndex = from === undefined ? 0 : Math.max(0, this.entryOf(from));
     this.queue = [];
     this.heard = null;
     this.sought = null;
     this.loops = 0;
-    this.countBars = opts.countIn ?? snap.countIn;
+    let midway = false;
+    const r = opts.resume;
+    if (r) {
+      this.loops = r.loops;
+      const at = this.seq.findIndex((e) => e.secIdx === r.slot && e.barIdx === r.barIdx);
+      if (at >= 0) {
+        this.seqIndex = at;
+        this.step = Math.max(0, Math.min(r.step, this.barSteps(snap) - 1));
+        midway = this.step > 0 || r.barIdx > 0;
+      }
+    }
+    // in the middle of a section, Play just goes on: a count-in is for the top of one
+    this.countBars = midway ? 0 : (opts.countIn ?? snap.countIn);
     this.countLeft = this.countBars * patSteps(this.countInPattern(snap));
     this.nextTime = ctx.currentTime + 0.08;
     this.playing = true;
-    if (this.countLeft === 0) this.cb.onDownbeat?.(this.nextTime);
+    if (this.countLeft === 0 && !midway) this.cb.onDownbeat?.(this.nextTime);
 
     this.tick();
     this.paint();
@@ -423,6 +456,34 @@ export class Transport {
     if (heard) return heard;
     const pos = this.seq[this.seqIndex];
     return pos ? { slot: pos.secIdx, barIdx: pos.barIdx } : null;
+  }
+
+  /**
+   * Where a Pause now would stop: the first step not yet heard. During a
+   * count-in, the top of the slot it leads into. Null while stopped.
+   */
+  pausePoint(): ResumePoint | null {
+    if (!this.playing) return null;
+    const now = this.audio.ctx?.currentTime ?? 0;
+    const counting = this.queue.some((ev) => ev.count && ev.t > now + 0.005);
+    if (this.countLeft > 0 || counting) {
+      const pos = this.seq[this.seqIndex];
+      return pos ? { slot: pos.secIdx, barIdx: 0, step: 0, loops: this.loops } : null;
+    }
+    // the first step queued that the speakers have not reached
+    const next = this.queue.find((ev) => !ev.count && ev.t > now + 0.005);
+    if (next && next.secIdx !== undefined) {
+      return {
+        slot: next.secIdx,
+        barIdx: next.barIdx ?? 0,
+        step: next.slot,
+        loops: next.loops ?? this.loops,
+      };
+    }
+    const pos = this.seq[this.seqIndex];
+    return pos
+      ? { slot: pos.secIdx, barIdx: pos.barIdx, step: this.step, loops: this.loops }
+      : null;
   }
 
   /**
@@ -669,6 +730,7 @@ export class Transport {
       secIdx: pos.secIdx,
       slot: i,
       bar,
+      loops: this.loops,
     });
   }
 

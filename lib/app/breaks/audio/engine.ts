@@ -383,6 +383,19 @@ export class BreakAudio {
   }
 
   /**
+   * The master Room turned up past the kit's own, sent from every lane alike.
+   * The master Room alone is only the reverb's return, so on a kit whose lanes
+   * send next to nothing (Damped and dead's kick sends none) turning it up
+   * changed nothing that could be heard. At the kit's own setting this is 0,
+   * so a kit plays as it shipped until the knob goes up.
+   */
+  roomAdded(): number {
+    const want = this.sound?.master?.room;
+    if (typeof want !== 'number') return 0;
+    return Math.max(0, want - (this.kit?.master?.room ?? 0));
+  }
+
+  /**
    * A `WaveShaperNode`'s curve can be assigned exactly once — the spec throws
    * `InvalidStateError` on the second assignment — so changing the drive means
    * a new node spliced into the chain, not a new curve on the old one.
@@ -494,7 +507,7 @@ export class BreakAudio {
   private toRoom(node: AudioNode, voice: string, extra?: number): void {
     const ctx = this.ctx as AudioContext;
     const ch = this.route ? this.channel(this.route) : null;
-    const amt = this.roomOf(voice) * (extra ?? 1);
+    const amt = (this.roomOf(voice) + this.roomAdded()) * (extra ?? 1);
     if (amt > 0.005 && this.convolver) {
       const s = ctx.createGain();
       s.gain.value = amt;

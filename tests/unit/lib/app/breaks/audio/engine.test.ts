@@ -475,6 +475,19 @@ describe('roomOf()', () => {
   });
 });
 
+describe('roomAdded()', () => {
+  it('sends the master Room past the kit’s own from every lane, and nothing at or under it', () => {
+    const audio = newEngine();
+    const own = STUDIO70.master.room ?? 0;
+    audio.setKit(STUDIO70, withTuning(STUDIO70, undefined));
+    expect(audio.roomAdded()).toBe(0);
+    audio.setKit(STUDIO70, withTuning(STUDIO70, { master: { room: own + 0.5 } }));
+    expect(audio.roomAdded()).toBeCloseTo(0.5, 9);
+    audio.setKit(STUDIO70, withTuning(STUDIO70, { master: { room: 0 } }));
+    expect(audio.roomAdded()).toBe(0);
+  });
+});
+
 /* ---------------------------------------------------------------------- */
 /* drive and reverb caches                                                */
 /* ---------------------------------------------------------------------- */
