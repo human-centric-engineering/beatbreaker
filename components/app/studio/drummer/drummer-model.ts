@@ -494,6 +494,7 @@ const LONG_SLEEVES = {
   suit: [0.075, 0.03, 0.024],
   tuxedo: [LONG_SLEEVE_SHORT + 0.008, 0.008, 0.007],
   jacket: [LONG_SLEEVE_SHORT + 0.008, 0.008, 0.007],
+  military: [LONG_SLEEVE_SHORT + 0.008, 0.009, 0.007],
   kaftan: [LONG_SLEEVE_SHORT + 0.006, 0.014, 0.008],
   tunic: [LONG_SLEEVE_SHORT + 0.03, 0.014, 0.01],
   guayabera: [LONG_SLEEVE_SHORT, 0.011, CUFF_SLACK],
@@ -1207,6 +1208,11 @@ function cuffRuffle(mat: THREE.Material): THREE.Mesh {
  * A band round the wrist, in the hand's frame (`z` to the knuckles), just back
  * of it: a kaftan's embroidered cuff, or a sweatband.
  */
+/** Gold braid: metal thread, bright where it catches the light and soft between. */
+function goldBraid(colour: string): THREE.MeshStandardMaterial {
+  return new THREE.MeshStandardMaterial({ color: colour, metalness: 0.85, roughness: 0.4 });
+}
+
 function wristBand(mat: THREE.Material, name: string): THREE.Mesh {
   const geo = new THREE.CylinderGeometry(0.043, 0.045, 0.034, 32, 1, true);
   geo.rotateX(Math.PI / 2);
@@ -2738,6 +2744,45 @@ function hairFor(style: HairStyle, m: Materials, coily = false): THREE.Object3D[
       mop.name = 'mop';
       return [mop];
     }
+    case 'pepper': {
+      /* Ringo Starr's in 1967, for Sgt. Pepper: the mop grown out, thick and full, its fringe
+         swept across the brow to one side and lower over it there, the ears covered to their
+         lobes, the back over the collar, and long sideburns down in front of the ears. */
+      const line = (d: THREE.Vector3) => {
+        // the fringe sweeps from a parting on his right down across to his left brow
+        const sweep = 0.1 * Math.max(-1, Math.min(1, d.x / 0.45));
+        return hairline(d, 0.36 - sweep, -0.4, -0.92);
+      };
+      const pepper = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.03, line(d) + 0.012, d.y),
+          depth: (d) =>
+            0.016 +
+            0.014 * ramp(-0.5, 0.7, d.y) +
+            0.006 * ramp(0.2, -0.6, d.z) +
+            // the parting on his right, a shallow line back from the brow
+            -0.006 * bell((d.x + 0.32) / 0.05) * ramp(0.5, 0.75, d.y) * ramp(0.1, -0.5, d.z) +
+            0.0015 * clump(d, 12),
+          tuck: 0.0015,
+          lumpy: 0.1,
+        },
+        beardMaterial(m)
+      );
+      pepper.name = 'pepper';
+      // the sideburns, down in front of the ears to the bottom of them
+      const sideburns = grow(
+        {
+          mask: (d) => {
+            const a = around(d);
+            return ramp(1.2, 1.26, a) * ramp(1.52, 1.44, a) * ramp(-0.5, -0.42, d.y);
+          },
+          depth: () => 0.0045,
+        },
+        beardMaterial(m)
+      );
+      sideburns.name = 'sideburns';
+      return [pepper, sideburns];
+    }
     case 'swept': {
       /* Ginger Baker's at the Royal Albert Hall, 1968: swept straight back off a high forehead,
          well receded at the temples, no parting, wavy and springy, flipping out in curls over the
@@ -3494,6 +3539,28 @@ function beardFor(beard: Beard, m: Materials, colour = m.hair.color): THREE.Obje
       return [
         grow(
           { mask: (d) => moustacheBand(d, 0.46), depth: () => 0.0026 },
+          beardMaterial(m, colour)
+        ),
+      ];
+    case 'droop':
+      /* full and soft over the lip, past the corners of the mouth, its ends drooping a little
+         toward the jaw: Ringo Starr's in 1967 */
+      return [
+        grow(
+          {
+            mask: (d) => {
+              const a = around(d);
+              // a band along the lip, curving down toward its ends
+              const mid = -0.305 - 0.1 * ramp(0.22, 0.52, a);
+              const half = 0.042 - 0.01 * ramp(0.3, 0.52, a);
+              return (
+                ramp(mid + half + 0.014, mid + half, d.y) *
+                ramp(mid - half - 0.014, mid - half, d.y) *
+                ramp(0.56, 0.5, a)
+              );
+            },
+            depth: (d) => 0.0032 - 0.0014 * ramp(0.3, 0.6, around(d)),
+          },
           beardMaterial(m, colour)
         ),
       ];
@@ -5081,6 +5148,8 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   const rings = trunkOf(who);
   torso.add(loft(trunk(shape, female, -1, BELT + 0.01), m.jeans, 48, TRUNK_SQUARE));
   torso.add(skinOver(rings, m.skin, who));
+  // one gold braid for a uniform: its frogging, its collar, and its cuffs
+  const braid = who.regalia ? goldBraid(who.regalia.braid) : undefined;
   if (person) {
     // the neckline at the base of the neck
     const dress = {
@@ -5092,6 +5161,14 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
       embroidery: m.embroidery,
       collar: who.collar,
       yoke: m.accent,
+      regalia: who.regalia &&
+        braid && {
+          braid,
+          cords: who.regalia.cords
+            ? new THREE.MeshStandardMaterial({ color: who.regalia.cords, roughness: 0.7 })
+            : undefined,
+          medals: who.regalia.medals,
+        },
     };
     for (const o of shirtFor(who.top, rings, m.shirt, NECK_BASE, dress)) torso.add(o);
     if (who.braces) for (const o of braces(rings, m.braces, NECK_BASE)) torso.add(o);
@@ -5179,6 +5256,10 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
     const ruffle = m.shirt.clone();
     ruffle.side = THREE.DoubleSide;
     for (const a of Object.values(arms)) a.hand.group.add(cuffRuffle(ruffle));
+  }
+  // a military tunic's cuffs are banded in its gold braid
+  if (who.top === 'military' && braid) {
+    for (const a of Object.values(arms)) a.hand.group.add(wristBand(braid, 'cuff braid'));
   }
   // a kaftan's cuffs are embroidered as its front is
   if (who.top === 'kaftan') {

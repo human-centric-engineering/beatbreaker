@@ -355,7 +355,7 @@ async function seedKits(
   for (const [key, kit] of Object.entries(KITS)) {
     /* `engine` is pulled out to keep it out of `...params` — it is a column,
      not a parameter. `kitEngine` supplies the default for a row that names none. */
-    const { label, hint, engine: _engine, credit, ...params } = kit;
+    const { label, hint, engine: _engine, credit, slots: settings, ...params } = kit;
     const parsed = kitParamsSchema.parse(params);
 
     /* A pack kit is a map of pieces (9-v): each slot names the piece that
@@ -373,7 +373,7 @@ async function seedKits(
             slots: Object.fromEntries(
               Object.entries(packPieceMap(recipe, manifest)).map(([slot, piece]) => [
                 slot,
-                { piece },
+                { piece, ...settings?.[slot] },
               ])
             ),
             ...(pack.perc ? { perc: pack.perc } : {}),

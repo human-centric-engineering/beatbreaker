@@ -89,23 +89,51 @@ export class SourceStack implements SampleSource {
 /**
  * Soft clipping for the drive control.
  *
+ * At 1 it is `tanh(x) / tanh(1)`, as it always was. Past 1 the mix is pushed
+ * `amount³` times harder into the tanh and given back only the square root
+ * of that, so the knob saturates rather than turning the kit up. Pushed
+ * `amount` times, as it once was, a kit's hits never reached the bend: 2.6
+ * was 5 dB louder and no brighter. Now 2.6 takes about 9 dB off the hits'
+ * peaks against their body and adds 3 dB of top in harmonics (rendered
+ * offline on Damped and dead), and a kit at its own setting (every kit
+ * ships at 1.0–1.5) plays within 2 dB of the level it had. Past 1.5 the body
+ * comes up more than that: Rare groove, at 1.75 under the old curve, ships at
+ * 1.5, where its body sits where it did and its peaks bend further.
+ *
  * Odd length, so index `(n-1)/2` is exactly `x = 0`. An even-length curve maps
  * silence to a small non-zero value and puts a DC offset on the whole mix.
  */
 export function driveCurve(amount: number): Float32Array<ArrayBuffer> {
-  const n = 1025;
+  const n = 4097;
   // Explicitly ArrayBuffer-backed: `curve` will not accept a SharedArrayBuffer view.
   const c = new Float32Array(new ArrayBuffer(n * Float32Array.BYTES_PER_ELEMENT));
-  const a = Math.max(1, amount);
+  const push = Math.max(1, amount) ** 3;
+  const back = 1 / Math.sqrt(push) / Math.tanh(1);
   for (let i = 0; i < n; i++) {
     const x = (i / (n - 1)) * 2 - 1;
-    c[i] = Math.tanh(x * a) / Math.tanh(a);
+    c[i] = Math.tanh(x * push) * back;
   }
   return c;
 }
 
 function clamp(v: number, a: number, b: number): number {
   return Math.max(a, Math.min(b, v));
+}
+
+/**
+ * What a slot's `damp` does to a recording (a strip of leather on the head):
+ * how long the stroke sounds as struck (`hold`, seconds), how fast the ring
+ * dies after it (`tau`, the time constant), and where its top is rolled off
+ * (`lp`, Hz, from 16 kHz open down to 2 kHz at full damp). Null for an open head.
+ */
+export function dampOf(damp: number | undefined): { hold: number; tau: number; lp: number } | null {
+  if (!damp || damp <= 0) return null;
+  const d = clamp(damp, 0, 1);
+  return {
+    hold: 0.035 - 0.015 * d,
+    tau: 0.15 * (1 - d) + 0.012,
+    lp: 16000 * (2000 / 16000) ** d,
+  };
 }
 
 /** −0.3 dBFS: the loudest sample the master lets through. */
@@ -367,6 +395,22 @@ export class BreakAudio {
   }
 
   /**
+   * The master Room turned up past the kit's own, sent from every lane alike.
+   * The master Room alone is only the reverb's return, so on a kit whose lanes
+   * send next to nothing (Damped and dead's kick sends none) turning it up
+   * changed nothing that could be heard. At the kit's own setting this is 0,
+   * so a kit plays as it shipped until the knob goes up — and with no kit
+   * loaded there is no setting of its own to measure past, so nothing is
+   * added: the whole Room is already the return.
+   */
+  roomAdded(): number {
+    const want = this.sound?.master?.room;
+    const own = this.kit?.master?.room;
+    if (typeof want !== 'number' || typeof own !== 'number') return 0;
+    return Math.max(0, want - own);
+  }
+
+  /**
    * A `WaveShaperNode`'s curve can be assigned exactly once — the spec throws
    * `InvalidStateError` on the second assignment — so changing the drive means
    * a new node spliced into the chain, not a new curve on the old one.
@@ -378,7 +422,8 @@ export class BreakAudio {
 
     const next = ctx.createWaveShaper();
     next.curve = driveCurve(amount);
-    next.oversample = '2x';
+    // pushed this hard it makes harmonics far up, which 2x would fold back down as grit
+    next.oversample = '4x';
     next.connect(this.lp);
     if (this.shaper) {
       try {
@@ -478,7 +523,7 @@ export class BreakAudio {
   private toRoom(node: AudioNode, voice: string, extra?: number): void {
     const ctx = this.ctx as AudioContext;
     const ch = this.route ? this.channel(this.route) : null;
-    const amt = this.roomOf(voice) * (extra ?? 1);
+    const amt = (this.roomOf(voice) + this.roomAdded()) * (extra ?? 1);
     if (amt > 0.005 && this.convolver) {
       const s = ctx.createGain();
       s.gain.value = amt;
@@ -600,7 +645,8 @@ export class BreakAudio {
     rate?: number,
     offset?: number,
     shelf?: number,
-    decay?: number
+    decay?: number,
+    damp?: number
   ): PlayedBuffer {
     const ctx = this.ctx as AudioContext;
     const src = ctx.createBufferSource();
@@ -610,24 +656,43 @@ export class BreakAudio {
     g.gain.setValueAtTime(Math.max(0.0001, gain), t);
 
     // there is nothing to tune inside a recording, so "bright" is a shelf over the top
+    let out: AudioNode = src;
     if (shelf) {
       const hs = ctx.createBiquadFilter();
       hs.type = 'highshelf';
       hs.frequency.value = 3000;
       hs.gain.value = clamp(shelf, -12, 12);
-      src.connect(hs);
-      hs.connect(g);
-    } else {
-      src.connect(g);
+      out.connect(hs);
+      out = hs;
     }
+    const muffle = dampOf(damp);
+    if (muffle) {
+      const lp = ctx.createBiquadFilter();
+      lp.type = 'lowpass';
+      lp.frequency.value = muffle.lp;
+      lp.Q.value = 0.5;
+      out.connect(lp);
+      out = lp;
+    }
+    out.connect(g);
     this.send(g, voice);
 
     const from = offset ?? 0;
     const full = (buf.duration - from) / (rate ?? 1);
     const short = decay !== undefined && decay < 1;
-    const len = short ? full * clamp(decay, 0.2, 1) : full;
-    if (short) {
-      g.gain.setValueAtTime(Math.max(0.0001, gain), t + len / 2);
+    let len = short ? full * clamp(decay, 0.2, 1) : full;
+    // the stroke as struck, then the ring choked off: gone 60 dB down in seven time constants
+    const choked = muffle ? muffle.hold + muffle.tau * 7 : Infinity;
+    if (muffle && choked <= len) {
+      len = choked;
+      g.gain.setValueAtTime(Math.max(0.0001, gain), t + muffle.hold);
+      g.gain.setTargetAtTime(0.0001, t + muffle.hold, muffle.tau);
+    } else if (short) {
+      /* Decay cuts it sooner than the damp would choke it, so it fades to
+         silence by the cut, from no later than the damp's hold: stopped with
+         the choke still sounding, every hit would click. */
+      const from = muffle ? Math.min(muffle.hold, len / 2) : len / 2;
+      g.gain.setValueAtTime(Math.max(0.0001, gain), t + from);
       g.gain.exponentialRampToValueAtTime(0.0001, t + len);
     }
     src.start(t, from);
@@ -829,14 +894,14 @@ export class BreakAudio {
    * One recording, heard on its own: a piece in the kit builder, before it is
    * in the kit (9.18). The kit's sources decode a piece only once the kit
    * holds it, so this fetches and decodes the file itself, once per URL. It
-   * goes straight to the bus, as any audition does. `tune` is cents and
-   * `decay` is {@link playBuf}'s. False when there is no Web Audio or the
+   * goes straight to the bus, as any audition does. `tune` is cents, and
+   * `decay` and `damp` are {@link playBuf}'s. False when there is no Web Audio or the
    * file would not load; a file that would not load is tried again next time.
    */
   async preview(
     url: string,
     voice: string,
-    { gain, tune, decay }: { gain: number; tune?: number; decay?: number }
+    { gain, tune, decay, damp }: { gain: number; tune?: number; decay?: number; damp?: number }
   ): Promise<boolean> {
     const ctx = this.init();
     if (!ctx) return false;
@@ -867,7 +932,8 @@ export class BreakAudio {
       2 ** ((tune ?? 0) / 1200),
       undefined,
       undefined,
-      decay
+      decay,
+      damp
     );
     return true;
   }

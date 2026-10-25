@@ -26,6 +26,8 @@ describe('buildKit().dress: the front head', () => {
       textAlign: 'start',
       textBaseline: 'alphabetic',
       measureText: (t: string) => ({ width: 50 * t.length }),
+      // the snare's leather is drawn on a canvas too
+      createRadialGradient: () => ({ addColorStop: noop }),
       ...Object.fromEntries(
         [
           'fillRect',
@@ -52,14 +54,15 @@ describe('buildKit().dress: the front head', () => {
   };
   afterEach(() => vi.restoreAllMocks());
 
-  /** The front head's material: the one mesh on the kit painted from a canvas. */
+  /** The front head's material: the one mesh painted from a canvas that is not the leather's grain. */
   const frontOf = (root: THREE.Object3D) => {
     const found: THREE.MeshStandardMaterial[] = [];
     root.traverse((o) => {
       if (
         o instanceof THREE.Mesh &&
         o.material instanceof THREE.MeshStandardMaterial &&
-        o.material.map instanceof THREE.CanvasTexture
+        o.material.map instanceof THREE.CanvasTexture &&
+        !o.material.bumpMap
       )
         found.push(o.material);
     });

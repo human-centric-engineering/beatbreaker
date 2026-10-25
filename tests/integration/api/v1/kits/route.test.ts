@@ -264,6 +264,7 @@ interface PieceSlot {
   level?: number;
   tune?: number;
   decay?: number;
+  damp?: number;
 }
 
 interface KitWithPieces {
@@ -281,7 +282,7 @@ describe('pieces in your kits (9-v)', () => {
     const kit = seedKit(USER_ID);
 
     const res = await patch(kit.id, {
-      slots: { s: { piece: 'bigrusty-s', level: 1.2, tune: -300, decay: 0.5 } },
+      slots: { s: { piece: 'bigrusty-s', level: 1.2, tune: -300, decay: 0.5, damp: 0.6 } },
       pan: { s: -0.2 },
     });
     expect(res.status).toBe(200);
@@ -292,6 +293,7 @@ describe('pieces in your kits (9-v)', () => {
       level: 1.2,
       tune: -300,
       decay: 0.5,
+      damp: 0.6,
       spec: {
         folder: 'bigrusty',
         trim: 1.5,
@@ -302,7 +304,7 @@ describe('pieces in your kits (9-v)', () => {
 
     // what was stored is the reference, not a copy of the recordings
     expect(db.kits[0].samples).toEqual({
-      slots: { s: { piece: 'bigrusty-s', level: 1.2, tune: -300, decay: 0.5 } },
+      slots: { s: { piece: 'bigrusty-s', level: 1.2, tune: -300, decay: 0.5, damp: 0.6 } },
       pan: { s: -0.2 },
     });
   });
@@ -416,7 +418,8 @@ describe('make my own from this kit (9-v)', () => {
         samples: {
           slots: {
             k: { piece: 'bigrusty-k' },
-            s: { piece: 'bigrusty-s' },
+            // a leathered snare, as the Damped and dead kit's is
+            s: { piece: 'bigrusty-s', damp: 0.85 },
             sRim: { piece: 'bigrusty-s' },
           },
         },
@@ -440,6 +443,8 @@ describe('make my own from this kit (9-v)', () => {
       s: 'bigrusty-s',
       sRim: 'bigrusty-s',
     });
+    // the kit's settings on a slot come with the piece
+    expect(data.slots.s).toMatchObject({ damp: 0.85 });
     expect(data.params?.master.lp).toBe(9000);
 
     const mine = db.kits.find((k) => k.id === data.id);

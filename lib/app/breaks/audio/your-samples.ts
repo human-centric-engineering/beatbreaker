@@ -178,7 +178,7 @@ export class YourSampleSource implements SampleSource {
     if (!take) return false;
 
     const P = engine.sound?.[slot.voice] ?? kit[slot.voice as 'k'];
-    // the slot's own Level, Tune and Decay (9-v)
+    // the slot's own Level, Tune, Decay and Damp (9-v)
     const spec = specs[from];
     const rate =
       (P.rate ?? 1) * 2 ** ((spec?.tune ?? 0) / 1200) * (1 + (engine.rand() - 0.5) * 0.01);
@@ -191,7 +191,8 @@ export class YourSampleSource implements SampleSource {
       rate,
       take.off,
       undefined,
-      spec?.decay
+      spec?.decay,
+      spec?.damp
     );
     if (slotId === 'hOpen' || slotId === 'hHalf') engine.noteHatTail(played);
     return true;

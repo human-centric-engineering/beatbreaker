@@ -191,6 +191,36 @@ const RINGO: Persona = {
 };
 
 /**
+ * Ringo Starr in 1967, for Sgt. Pepper: the album cover's shoot (30 March) and
+ * the promotional films of the year. His uniform in cerise satin, closed to a
+ * standing collar, frogged in gold, gold-fringed epaulettes and pale blue
+ * cords from the right shoulder, medals on the left breast; the mop grown
+ * out and swept across, sideburns and a full moustache. His Ludwig in silver
+ * sparkle, with the cover's bass drum for its front head.
+ */
+// no shirt or tie shows: the tunic closes to its collar
+const { under: _under, tie: _tie, ...RINGO_1964 } = RINGO;
+const RINGO_PEPPER: Persona = {
+  ...RINGO_1964,
+  id: 'ringo-pepper',
+  hairStyle: 'pepper',
+  beard: 'droop',
+  top: 'military',
+  satin: true,
+  shirt: '#b81f78',
+  trousers: '#b81f78',
+  accent: '#d4a63a',
+  regalia: { braid: '#d4a63a', cords: '#7fb0dc', medals: true },
+  kit: {
+    shell: '#c4c7cc',
+    finish: 'sparkle',
+    hardware: 'chrome',
+    rug: '#2a1f1a',
+    head: { art: 'sgt-pepper', ground: '#f1e8cf', ink: '#2a1a12' },
+  },
+};
+
+/**
  * Clyde Stubblefield with the James Brown Revue on The Hollywood Palace,
  * aired 3 February 1968 (the "Cold Sweat" medley, the only colour close-ups
  * of him at the kit in the 60s): slim, a close natural crop, a pencil
@@ -3742,7 +3772,20 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   newmark: ANDY_NEWMARK,
 };
 
-/** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */
-export function likenessFor(style: string): Persona | undefined {
-  return Object.hasOwn(LIKENESSES, style) ? LIKENESSES[style] : undefined;
+/**
+ * A drummer's other looks, by the name a song gives (`StyleSong.look`): how
+ * they looked in another era. A song that names none plays the likeness.
+ */
+export const LOOKS: Readonly<Record<string, Readonly<Record<string, Persona>>>> = {
+  ringo: { pepper: RINGO_PEPPER },
+};
+
+/**
+ * The drummer who sits in as themselves for `style`, if it is a drummer's own
+ * with a likeness: in the `look` the song playing gives, where they have it.
+ */
+export function likenessFor(style: string, look?: string): Persona | undefined {
+  if (!Object.hasOwn(LIKENESSES, style)) return undefined;
+  const looks = Object.hasOwn(LOOKS, style) ? LOOKS[style] : undefined;
+  return look && looks && Object.hasOwn(looks, look) ? looks[look] : LIKENESSES[style];
 }

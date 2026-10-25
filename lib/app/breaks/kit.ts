@@ -57,6 +57,38 @@ export interface KitSlotSettings {
   tune?: number;
   /** How much of the recording rings before it is faded out, 0.2–1. */
   decay?: number;
+  /**
+   * Something laid on the head, 0–1: leather, a towel, a wallet. The ring is
+   * cut off just after the stroke and the crack over it rolled off, as a
+   * hand on a drum would. Absent is a head left open.
+   */
+  damp?: number;
+}
+
+/** Each slot setting as recorded. Every setting is named here, or this does not compile. */
+const AS_RECORDED = {
+  level: 1,
+  tune: 0,
+  decay: 1,
+  damp: 0,
+} as const satisfies Required<KitSlotSettings>;
+const SLOT_SETTINGS = Object.keys(AS_RECORDED) as (keyof KitSlotSettings)[];
+
+/**
+ * The settings a slot carries, and nothing else — every one there is, so a
+ * new setting is kept wherever a slot is copied, stored or served. With
+ * `dropRecorded`, the ones at the recording's own are left out too.
+ */
+export function slotSettingsOf(
+  v: KitSlotSettings,
+  { dropRecorded = false }: { dropRecorded?: boolean } = {}
+): KitSlotSettings {
+  const out: KitSlotSettings = {};
+  for (const k of SLOT_SETTINGS) {
+    const value = v[k];
+    if (value !== undefined && !(dropRecorded && value === AS_RECORDED[k])) out[k] = value;
+  }
+  return out;
 }
 
 /** One file per velocity layer: the shape every kit shipped in before Phase 9. */
@@ -168,6 +200,8 @@ export interface Kit {
   trim?: number;
   /** Played with wire brushes rather than sticks: the 3D drummer holds brushes for it. */
   brushes?: boolean;
+  /** A strip of leather laid over the snare head to deaden it: the 3D kit draws it. */
+  leather?: boolean;
   /** Attribution, shown in the Kit panel. */
   credit?: string;
   master: { lp?: number; drive?: number; room?: number };

@@ -148,7 +148,10 @@ describe("the player's bar", () => {
     // a pause, not a stop: the slot it was in is cued for the next Play
     await user.click(playBtn);
     expect(playBtn).toHaveAttribute('aria-pressed', 'false');
-    expect(screen.getByText(/Paused · from/)).toBeTruthy();
+    // where in the section it stopped, which is where Play goes on from
+    expect(document.querySelector('.player-read')?.textContent).toMatch(
+      /^Paused · A · bar 1\/\d+$/
+    );
     expect(document.querySelector('.chapter.cued')).not.toBeNull();
 
     // Stop goes back to the top: nothing cued, and nothing left to stop

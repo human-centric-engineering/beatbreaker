@@ -118,9 +118,16 @@ export function kickLogoTexture(head?: FrontHead): THREE.Texture | null {
   return tex;
 }
 
-/** A player's own front head: the art, nine-tenths of the head across, centred on it. */
+/**
+ * A player's own front head: traced art nine-tenths of the head across,
+ * centred on it; or art that paints itself.
+ */
 function paintHead(ctx: CanvasRenderingContext2D, size: number, head: FrontHead): void {
   const art = FRONT_HEAD_ART[head.art];
+  if ('paint' in art) {
+    art.paint(ctx, size, head);
+    return;
+  }
   ctx.fillStyle = head.ground;
   ctx.fillRect(0, 0, size, size);
   const scale = (size * 0.9) / Math.max(art.width, art.height);

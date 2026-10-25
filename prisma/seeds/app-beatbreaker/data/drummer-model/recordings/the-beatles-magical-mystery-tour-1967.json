@@ -70,6 +70,86 @@
           "url": "https://www.songsterr.com/a/wa/song?id=22786"
         }
       ]
+    },
+    {
+      "title": "Strawberry Fields Forever",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Two takes joined: take 7's light chorus, then take 26's pounding one with the floor tom overdubbed in sixteenths, backwards cymbals and hats in the verses, and a heavy drum break in the coda.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:strawberry-fields-forever-wikipedia", "src:songsterr-474133"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "strawberry-fields-forever",
+      "youtube": "https://www.youtube.com/watch?v=gS_-aHQxUqw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=474133"
+        }
+      ]
+    },
+    {
+      "title": "Magical Mystery Tour",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "The hat in quarters through the verse, the snare on 1 and 3 for \"Roll up\", a slower middle and a slow 6/8 coda, with a percussion and extra-drums overdub.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:magical-mystery-tour-song-wikipedia", "src:songsterr-61434"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "magical-mystery-tour",
+      "youtube": "https://www.youtube.com/watch?v=l8WMGBuNaus",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=61434"
+        }
+      ]
+    },
+    {
+      "title": "Hello, Goodbye",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Crash-and-kick stops in the verse, the floor tom in eighths over four on the floor in the chorus, a fill on every bar of the bridge, and the reverb-heavy floor-tom coda.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:hello-goodbye-wikipedia", "src:songsterr-22778"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "hello-goodbye",
+      "youtube": "https://www.youtube.com/watch?v=P2C3f0Atcoo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22778"
+        }
+      ]
+    },
+    {
+      "title": "Baby, You're a Rich Man",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Straight eighths under the percussion's shuffle, the hat splashed open, stops where the band holds a chord, and a snare overdub opening the verses and rolling in the coda.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:baby-you-re-a-rich-man-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "baby-youre-a-rich-man",
+      "youtube": "https://www.youtube.com/watch?v=i5m-sgtwFck",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2562"
+        }
+      ]
     }
   ]
 }

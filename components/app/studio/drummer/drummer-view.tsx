@@ -178,7 +178,8 @@ export function DrummerView({
 
   /* The way to the chart sits just above the bar over the picture, whatever
      its height (two rows on a narrower screen), level with the cue when stopped
-     — and just above the chapters while the section and the layer are hidden. */
+     — and just above the chapters while the section and the layer are hidden,
+     following them down to the foot of the picture when the rest fades. */
   useEffect(() => {
     const bar = root?.querySelector<HTMLElement>('.player-bar.overlay');
     if (!root || !bar || typeof ResizeObserver !== 'function') return;
@@ -192,6 +193,10 @@ export function DrummerView({
       const chapters = bar.querySelector<HTMLElement>('.chapters');
       if (chapters) {
         root.style.setProperty('--bar-low-h', `${bar.offsetHeight - chapters.offsetTop}px`);
+        // and how far the chapters fall, idle, to the bar's foot once the row under them fades
+        const foot = parseFloat(getComputedStyle(bar).paddingBottom) || 0;
+        const drop = bar.offsetHeight - foot - chapters.offsetTop - chapters.offsetHeight;
+        root.style.setProperty('--chapters-drop', `${Math.max(0, drop)}px`);
       }
     };
     measure();
@@ -310,14 +315,17 @@ export function DrummerView({
                 view={view}
                 viewSeq={viewSeq}
                 shuffleSeq={shuffleSeq}
+                castSeq={c.castSeq}
                 onNewDrummer={() => {
                   setView('front');
                   setViewSeq((n) => n + 1);
                 }}
                 seeThrough={seeThrough}
                 brushes={!!c.catalogue?.kits[c.kit]?.brushes}
+                leather={!!c.catalogue?.kits[c.kit]?.leather}
                 aside={chartShown}
                 style={c.style}
+                look={stagePat?.style === c.style ? part?.song.look : undefined}
                 playing={c.playing}
                 subscribeSteps={c.subscribeSteps}
                 audioNow={c.audioNow}

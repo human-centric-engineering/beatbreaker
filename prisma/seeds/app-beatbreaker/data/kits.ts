@@ -27,10 +27,18 @@
  * is not a volume change.
  */
 
-import type { Kit } from '@/lib/app/breaks/kit';
+import type { Kit, KitSlotSettings } from '@/lib/app/breaks/kit';
 import type { LaneKey } from '@/lib/app/breaks/types';
 
-export const KITS: Record<string, Kit> = {
+/**
+ * A kit as this table writes it: a pack kit may also set how it plays some of
+ * its slots (9-v's Level, Tune and Decay), on top of the pieces that fill them.
+ */
+export interface SeedKit extends Kit {
+  slots?: Record<string, KitSlotSettings>;
+}
+
+export const KITS: Record<string, SeedKit> = {
   studio70: {
     label: "Studio '70s",
     hint: 'Warm and dry, tuned low. Fat snare, dark ride — carpet on the walls and a blanket in the kick.',
@@ -46,7 +54,7 @@ export const KITS: Record<string, Kit> = {
   raregroove: {
     label: 'Rare groove',
     hint: 'Sampled off a worn record: rolled-off top, a bit of drive, everything slightly further away.',
-    master: { lp: 7200, drive: 1.75, room: 0.24 },
+    master: { lp: 7200, drive: 1.5, room: 0.24 },
     k: { tune: 46, decay: 0.3, tone: 0.22, room: 0.08 },
     s: { tune: 178, decay: 0.15, tone: 0.44, room: 0.3 },
     h: { tune: 0.88, decay: 0.04, open: 0.26, tone: 6200, room: 0.18 },
@@ -384,17 +392,34 @@ export const KITS: Record<string, Kit> = {
     engine: 'pack',
     pack: 'gogodze',
     trim: 1,
-    hint: "Gogodze's damped kick and deadened toms, played a shade slower so they sit low, with the room taken out: short, dark and punchy, like drums with towels over them. Its cymbals are Big Rusty's. Ringo Starr's later songs play it.",
+    leather: true,
+    hint: "Gogodze's damped kick and deadened toms, played a shade slower so they sit low, with the room taken out, and a strip of leather on the snare that chokes it to a thud: short, dark and punchy, like drums with towels over them. Its cymbals are Big Rusty's, and they and the hats are kept low. Ringo Starr's later songs and DJ Johnson play it.",
     credit:
       'Gogodze Phu Vol II by Karoryfer Lecolds · CC0 1.0 (public domain). Ride, crashes and china from Big Rusty Drums by Karoryfer Samples · CC0 1.0; splash from Salamander Drumkit by Alexander Holm · public domain. Mixed to mono, trimmed and re-encoded for the web; kick, snare and toms played slower.',
     master: { lp: 11000, drive: 1.2, room: 0.04 },
     k: { rate: 0.96, level: 1.0, room: 0.0 },
-    s: { rate: 0.94, level: 0.95, room: 0.04 },
-    h: { rate: 1, level: 0.88, room: 0.03 },
-    r: { rate: 1, level: 0.8, room: 0.06 },
-    c: { rate: 1, level: 0.8, room: 0.08 },
+    // the leather "drops the drum in pitch" (DJ Johnson, Modern Drummer, 2020)
+    s: { rate: 0.9, level: 0.95, room: 0.04 },
+    // hats 8 dB and cymbals 5 under the pack's: on a dead kit they rang over everything
+    h: { rate: 1, level: 0.35, room: 0.03 },
+    r: { rate: 1, level: 0.45, room: 0.06 },
+    c: { rate: 1, level: 0.45, room: 0.08 },
     t: { tune: 84, decay: 0.48, tone: 0.3, room: 0.12 },
     p: { tune: 0.96, level: 0.9, tone: 0.9, room: 0.12 },
+    /* Gogodze's snare falls 25 dB in its first 160 ms, so cutting its tail
+       changed nothing that could be heard. The leather is a damp on the
+       stroke itself: struck, then its ring choked within about 0.1 s and its
+       crack rolled off above 3 kHz. The cross-stick's click is the rim's, and
+       keeps a little more ring. The open hats sustained a second at full
+       strength and washed over the kit: 6 dB under the closed hat and choked
+       at half their length. */
+    slots: {
+      s: { damp: 0.85 },
+      sGhost: { damp: 0.85 },
+      sCross: { decay: 0.5 },
+      hOpen: { level: 0.5, decay: 0.45 },
+      hHalf: { level: 0.6, decay: 0.6 },
+    },
   },
 
   police: {

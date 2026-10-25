@@ -56,10 +56,12 @@ const kickCells = z
 
 /* A written-out bar's rows: lane → step values, `.` for none, each no higher
    than the lane has values for — the same bound the wire format holds a bar
-   to — no longer than the longest meter, and all one length: a row a step
-   short would leave the generator skipping the figure without a word. */
+   to — no longer than two bars of the longest meter (a figure is a bar, or
+   two that play in turn: two of 4/4-6 are 48 steps), and all one length: a
+   row a step short would leave the generator skipping the figure without a
+   word. */
 const figureSchema = z
-  .partialRecord(z.enum(LANES as [LaneKey, ...LaneKey[]]), z.string().regex(/^[0-8.]{1,32}$/))
+  .partialRecord(z.enum(LANES as [LaneKey, ...LaneKey[]]), z.string().regex(/^[0-8.]{1,64}$/))
   .refine(
     (f) =>
       LANES.every((lane) =>
@@ -311,6 +313,10 @@ const styleSongSchema = z
     params: songParams,
     sections: z.array(songSectionSchema).min(2).max(SECTION_LETTERS.length).optional(),
     arrangement: z.array(z.enum(SECTION_LETTERS)).min(1).max(MAX_ARRANGEMENT).optional(),
+    look: z
+      .string()
+      .regex(/^[a-z][a-z0-9-]{0,23}$/)
+      .optional(),
   })
   .superRefine((song, ctx) => {
     const sections = song.sections;
@@ -442,6 +448,8 @@ export const kitParamsSchema = z.object({
   trim: z.number().min(0).max(4).optional(),
   /** Played with wire brushes rather than sticks: the drummer holds brushes for it. */
   brushes: z.boolean().optional(),
+  /** A strip of leather over the snare head: the drummer's kit draws it. */
+  leather: z.boolean().optional(),
   master: z.object({
     lp: z.number().min(20).max(24000).optional(),
     drive: z.number().min(0).max(8).optional(),
@@ -483,6 +491,7 @@ export const kitSlotSettingsSchema = z.object({
   level: z.number().min(0).max(2).optional(),
   tune: z.number().int().min(-1200).max(1200).optional(),
   decay: z.number().min(0.2).max(1).optional(),
+  damp: z.number().min(0).max(1).optional(),
 });
 
 /* A folder under `/kits/`, the same rule as a pack's name: no `..`, no slash. */

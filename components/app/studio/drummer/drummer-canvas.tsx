@@ -20,6 +20,8 @@ import { likenessFor } from '@/lib/app/breaks/drummer/likenesses';
  * A style that is a drummer with a likeness (Copeland, Purdie…) seats that
  * drummer instead, for as long as it is the style — unless Shuffle is
  * pressed, which stands them down for the cast until the style changes.
+ * Random landing on a style or an exercise seats somebody else from the cast
+ * too, but leaves a likeness in its seat.
  */
 
 export interface DrummerCanvasProps {
@@ -31,6 +33,8 @@ export interface DrummerCanvasProps {
   viewSeq: number;
   /** Bumped to seat a different drummer at the kit. */
   shuffleSeq?: number;
+  /** Bumped to seat somebody else from the cast, leaving a likeness where it is. */
+  castSeq?: number;
   /** A different drummer sat down — not the first, on opening the view. */
   onNewDrummer?: () => void;
   /** The chart is up in the corner: move the drummer left, out from under it. */
@@ -39,8 +43,12 @@ export interface DrummerCanvasProps {
   seeThrough?: boolean;
   /** The kit is played with brushes: wire brushes in the hands rather than sticks. */
   brushes?: boolean;
+  /** The kit's snare is deadened with a strip of leather over its head. */
+  leather?: boolean;
   /** The Studio's style: a drummer's own seats their likeness, if they have one. */
   style?: string;
+  /** How the drummer looked in the song playing (`StyleSong.look`): Ringo in 1967, say. */
+  look?: string;
   playing: boolean;
   subscribeSteps: (listener: (step: ScheduledStep) => void) => () => void;
   audioNow: () => number;
@@ -53,11 +61,14 @@ export default function DrummerCanvas({
   view,
   viewSeq,
   shuffleSeq = 0,
+  castSeq = 0,
   onNewDrummer,
   aside = false,
   seeThrough = false,
   brushes = false,
+  leather = false,
   style,
+  look,
   playing,
   subscribeSteps,
   audioNow,
@@ -70,6 +81,7 @@ export default function DrummerCanvas({
   // so a render run twice (Strict Mode) cannot leave Shuffle skipping the wrong player
   const [persona, setPersona] = useState(() => openingPersona());
   const [shuffled, setShuffled] = useState(shuffleSeq);
+  const [cast, setCast] = useState(castSeq);
   // the style whose likeness Shuffle stood down, until the style changes
   const [waived, setWaived] = useState<string | undefined>(undefined);
   const [lastStyle, setLastStyle] = useState(style);
@@ -77,23 +89,47 @@ export default function DrummerCanvas({
     setLastStyle(style);
     setWaived(undefined);
   }
-  const likeness = style === undefined ? undefined : likenessFor(style);
+  const likeness = style === undefined ? undefined : likenessFor(style, look);
   if (shuffled !== shuffleSeq) {
     setShuffled(shuffleSeq);
     if (likeness && waived !== style) setWaived(style);
     setPersona(otherThan(persona.id));
   }
+  if (cast !== castSeq) {
+    setCast(castSeq);
+    setPersona(otherThan(persona.id));
+  }
   const who = likeness && waived !== style ? likeness : persona;
   // only the cast is noted: a likeness is not in the shuffle, and sitting in for the cast
-  // leaves who sat last, and The Original's first seat in a tab, as they were
+  // leaves who sat last, and NPC Dude's first seat in a tab, as they were
   useEffect(() => {
     if (who === persona) noteSeated(persona.id);
   }, [who, persona]);
   const grips = useMemo(() => gripsFor(grip), [grip]);
   // what a stage made after the first mount must start from
-  const latest = useRef({ lefty, grips, playing, view, persona: who, aside, seeThrough, brushes });
+  const latest = useRef({
+    lefty,
+    grips,
+    playing,
+    view,
+    persona: who,
+    aside,
+    seeThrough,
+    brushes,
+    leather,
+  });
   useEffect(() => {
-    latest.current = { lefty, grips, playing, view, persona: who, aside, seeThrough, brushes };
+    latest.current = {
+      lefty,
+      grips,
+      playing,
+      view,
+      persona: who,
+      aside,
+      seeThrough,
+      brushes,
+      leather,
+    };
   });
 
   /* One stage per mount. The three callbacks must be stable (the console's
@@ -112,6 +148,7 @@ export default function DrummerCanvas({
     s.setLefty(latest.current.lefty);
     s.setSeeThrough(latest.current.seeThrough);
     s.setBrushes(latest.current.brushes);
+    s.setLeather(latest.current.leather);
     s.setGrips(latest.current.grips);
     s.setPlaying(latest.current.playing);
     s.flyTo(latest.current.view);
@@ -169,6 +206,10 @@ export default function DrummerCanvas({
   useEffect(() => {
     stage.current?.setBrushes(brushes);
   }, [brushes]);
+
+  useEffect(() => {
+    stage.current?.setLeather(leather);
+  }, [leather]);
 
   return (
     <>

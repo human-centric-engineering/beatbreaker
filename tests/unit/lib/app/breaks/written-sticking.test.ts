@@ -174,6 +174,14 @@ describe('the chart', () => {
     expect(stickingLabels(rudiment([bar], [row]))).toEqual(['lR', 'rrL', 'rrR']);
   });
 
+  it("prints a left-leading drummer's unwritten fill hand to hand from the left (Ringo)", () => {
+    const bar = snareBar('............2222');
+    const pat = { ...rudiment([bar], null), attrs: { fillsLeft: true } };
+    expect(stickingLabels(pat, true)).toEqual(['L', 'R', 'L', 'R']);
+    // without it, the chart's own guess: the drums are the left hand's
+    expect(stickingLabels(rudiment([bar], null), true)).toEqual(['L', 'L', 'L', 'L']);
+  });
+
   it('draws a pattern without sticking as before: no row unless asked, its guess if asked', () => {
     const pat = rudiment([snareBar(PARADIDDLE)], null);
     expect(stickingLabels(pat)).toEqual([]);
@@ -244,6 +252,17 @@ describe('the critic', () => {
     expect(fails(bare)).toEqual(
       expect.arrayContaining(['Snare never runs four 16ths without a break'])
     );
+  });
+
+  it("hands a fill's snare run from the left for a drummer who leads fills with it (Ringo)", () => {
+    const runCheck = (pat: Pattern) =>
+      playability(pat, 90).checks.find((c) => c.label.startsWith('Snare never runs'))?.ok;
+    // a groove with a roll of five on the snare to end the bar, nothing keeping time over it
+    const bar = snareBar('....2.......2222');
+    for (let i = 0; i < 12; i += 2) bar.h[i] = 1;
+    const plain = rudiment([bar], null);
+    expect(runCheck(plain)).toBe(false);
+    expect(runCheck({ ...plain, attrs: { fillsLeft: true } })).toBe(true);
   });
 
   it('still calls a run unplayable where only part of it is written', () => {

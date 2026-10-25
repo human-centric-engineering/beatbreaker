@@ -226,6 +226,10 @@ describe('Stage', () => {
   it('turns the faint preview off again after shipping on', async () => {
     const user = userEvent.setup();
     renderStage();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    // a pattern opens at the full break, which has nothing above it: come down a layer
+    const layers = within(screen.getByRole('radiogroup', { name: 'Difficulty layer' }));
+    await user.click(layers.getAllByRole('radio')[3]);
     const staves = await screen.findAllByRole('img', { name: /Drum notation/ });
 
     // the preview ships on, so the shipped chart already carries the faint

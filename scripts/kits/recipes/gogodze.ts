@@ -32,8 +32,13 @@ export const gogodze: Recipe = {
     { role: 'kick', slots: { k: gz('ks', 4, 3) } },
     {
       role: 'snare',
-      slots: { s: gz('sc', 4, 3), sGhost: gz('sc', 2, 3, [14, 30]), sCross: gz('ss', 3, 2) },
+      slots: { s: gz('sc', 4, 3), sGhost: gz('sc', 2, 3, [14, 30]) },
     },
+    /* The cross-stick levelled on its own recording, 4 dB under the snare, as
+       DRS's is. Matched on the snare, it kept Gogodze's own balance: 17 dB
+       under the snare and 9 under the closed hat, so August 10's cross-stick
+       backbeat could hardly be heard under the sixteenths. */
+    { role: 'snare', slots: { sCross: gz('ss', 3, 2) }, level: -4 },
     {
       role: 'hat',
       slots: {

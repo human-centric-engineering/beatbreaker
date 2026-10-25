@@ -23,6 +23,7 @@ import {
   BreakAudio,
   CEILING,
   ceilingCurve,
+  dampOf,
   OVER,
   driveCurve,
   SourceStack,
@@ -139,23 +140,38 @@ beforeEach(() => {
 /* ---------------------------------------------------------------------- */
 
 describe('driveCurve', () => {
+  const mid = 2048;
+  const top = 4096;
+
   it('is odd-length with the midpoint pinned to silence', () => {
     const c = driveCurve(2);
-    expect(c.length).toBe(1025);
-    expect(c[512]).toBeCloseTo(0, 9); // x = 0 at the exact centre
+    expect(c.length).toBe(4097);
+    expect(c[mid]).toBeCloseTo(0, 9); // x = 0 at the exact centre
   });
 
   it('is monotonically increasing (a soft-clip curve, not noise)', () => {
-    const c = driveCurve(3);
-    expect(c[0]).toBeLessThan(c[512]);
-    expect(c[512]).toBeLessThan(c[1024]);
-    expect(c[1024]).toBeCloseTo(1, 9); // tanh(a)/tanh(a) at x = 1
+    const c = driveCurve(2.6);
+    expect(c[0]).toBeLessThan(c[mid]);
+    expect(c[mid]).toBeLessThan(c[top]);
   });
 
-  it('clamps amount to a minimum of 1 (a value below 1 would divide by ~0)', () => {
+  it('is tanh(x)/tanh(1) at 1, as the drive always was', () => {
+    const c = driveCurve(1);
+    expect(c[top]).toBeCloseTo(1, 6);
+    expect(c[mid + 1024]).toBeCloseTo(Math.tanh(0.5) / Math.tanh(1), 6);
+  });
+
+  it('saturates past 1 rather than only turning up: the top flattens against the middle', () => {
+    // how far up the curve a quarter of full scale gets, against full scale
+    const shape = (c: Float32Array) => c[mid + 512] / c[top];
+    expect(shape(driveCurve(1))).toBeLessThan(0.35);
+    expect(shape(driveCurve(2.6))).toBeGreaterThan(0.99);
+  });
+
+  it('clamps amount to a minimum of 1', () => {
     const low = driveCurve(0.2);
     const one = driveCurve(1);
-    expect(low[1024]).toBeCloseTo(one[1024], 9);
+    expect(low[top]).toBeCloseTo(one[top], 9);
   });
 });
 
@@ -258,7 +274,7 @@ describe('init()', () => {
     // bus -> drive -> lowpass -> compressor -> master -> 1/OVER -> ceiling -> destination
     const shaper = bus.outputs[0] as FakeWaveShaperNode;
     expect(shaper.kind).toBe('waveshaper');
-    expect(shaper.oversample).toBe('2x');
+    expect(shaper.oversample).toBe('4x');
     const lp = shaper.outputs[0] as FakeBiquadFilterNode;
     expect(lp.kind).toBe('biquad');
     expect(lp.type).toBe('lowpass');
@@ -471,6 +487,25 @@ describe('roomOf()', () => {
     const audio = newEngine();
     audio.setKit(STUDIO70, null);
     expect(audio.roomOf('k')).toBeCloseTo(STUDIO70.k.room, 9);
+  });
+});
+
+describe('roomAdded()', () => {
+  it('sends the master Room past the kit’s own from every lane, and nothing at or under it', () => {
+    const audio = newEngine();
+    const own = STUDIO70.master.room ?? 0;
+    audio.setKit(STUDIO70, withTuning(STUDIO70, undefined));
+    expect(audio.roomAdded()).toBe(0);
+    audio.setKit(STUDIO70, withTuning(STUDIO70, { master: { room: own + 0.5 } }));
+    expect(audio.roomAdded()).toBeCloseTo(0.5, 9);
+    audio.setKit(STUDIO70, withTuning(STUDIO70, { master: { room: 0 } }));
+    expect(audio.roomAdded()).toBe(0);
+  });
+
+  it('adds nothing while no kit is loaded: there is no room of its own to measure past', () => {
+    const audio = newEngine();
+    audio.setKit(null, withTuning(STUDIO70, { master: { room: 0.3 } }));
+    expect(audio.roomAdded()).toBe(0);
   });
 });
 
@@ -1246,6 +1281,25 @@ describe('hit()', () => {
 /* sound-file playback: playBuf and the sample fall-through contract      */
 /* ---------------------------------------------------------------------- */
 
+describe('dampOf()', () => {
+  it('leaves an open head alone', () => {
+    expect(dampOf(undefined)).toBeNull();
+    expect(dampOf(0)).toBeNull();
+  });
+
+  it('chokes harder, sooner and darker the more is laid on the head', () => {
+    const light = dampOf(0.3);
+    const heavy = dampOf(0.85);
+    expect(heavy?.tau).toBeLessThan(light?.tau ?? 0);
+    expect(heavy?.hold).toBeLessThan(light?.hold ?? 0);
+    expect(heavy?.lp).toBeLessThan(light?.lp ?? 0);
+    // a leathered snare's ring is 20 dB down within an eighth of a second of the stroke
+    expect(Math.exp(-(0.12 - (heavy?.hold ?? 0)) / (heavy?.tau ?? 1))).toBeLessThan(0.1);
+    expect(dampOf(1)?.lp).toBeCloseTo(2000, 6);
+    expect(dampOf(5)).toEqual(dampOf(1));
+  });
+});
+
 describe('playBuf()', () => {
   it('plays a buffer at the given rate and gain, with an optional brightness shelf', () => {
     const { audio, ctx } = initEngine();
@@ -1291,6 +1345,51 @@ describe('playBuf()', () => {
     expect(src.stoppedAt).toBeCloseTo(0.92, 9);
     // the pitch is untouched: Decay is not a time-stretch
     expect(src.playbackRate.value).toBe(1);
+  });
+
+  it('chokes a damped head (leather on the snare): the stroke as struck, its ring cut, its top rolled off', () => {
+    const { audio, ctx } = initEngine();
+    const buf = ctx.createBuffer(1, 44100, 44100); // 1s
+    const nodes = recordNodes(ctx, () =>
+      audio.playBuf(0.5, buf as unknown as AudioBuffer, 0.8, 's', 1, 0, undefined, undefined, 0.85)
+    );
+    const src = pick<FakeAudioBufferSourceNode>(nodes, 'bufferSource')[0];
+    const lp = src.outputs[0] as FakeBiquadFilterNode;
+    expect(lp.type).toBe('lowpass');
+    const muffle = dampOf(0.85);
+    expect(lp.frequency.value).toBeCloseTo(muffle?.lp ?? 0, 6);
+    const g = lp.outputs[0] as FakeGainNode;
+    expect(g.gain.events).toEqual([
+      { type: 'setValueAtTime', value: 0.8, time: 0.5 },
+      { type: 'setValueAtTime', value: 0.8, time: 0.5 + (muffle?.hold ?? 0) },
+      {
+        type: 'setTargetAtTime',
+        value: 0.0001,
+        time: 0.5 + (muffle?.hold ?? 0),
+        timeConstant: muffle?.tau,
+      },
+    ]);
+    // stopped once it is 60 dB down, long before the recording ends
+    expect(src.stoppedAt).toBeLessThan(0.5 + 0.3);
+  });
+
+  it('fades a damped head to silence by a Decay that cuts it before the choke would, so the stop does not click', () => {
+    const { audio, ctx } = initEngine();
+    const buf = ctx.createBuffer(1, 22050, 44100); // 0.5s
+    const nodes = recordNodes(ctx, () =>
+      audio.playBuf(0.5, buf as unknown as AudioBuffer, 0.8, 's', 1, 0, undefined, 0.2, 0.3)
+    );
+    const src = pick<FakeAudioBufferSourceNode>(nodes, 'bufferSource')[0];
+    const g = (src.outputs[0] as FakeBiquadFilterNode).outputs[0] as FakeGainNode;
+    const muffle = dampOf(0.3);
+    // Decay's 0.1 s is well inside the choke, which would still be sounding at the cut
+    expect((muffle?.hold ?? 0) + (muffle?.tau ?? 0) * 7).toBeGreaterThan(0.1);
+    expect(g.gain.events).toEqual([
+      { type: 'setValueAtTime', value: 0.8, time: 0.5 },
+      { type: 'setValueAtTime', value: 0.8, time: 0.5 + Math.min(muffle?.hold ?? 0, 0.05) },
+      { type: 'exponentialRampToValueAtTime', value: 0.0001, time: 0.6 },
+    ]);
+    expect(src.stoppedAt).toBeCloseTo(0.62, 9);
   });
 
   it('plays the whole recording at Decay 1, the way it always has', () => {

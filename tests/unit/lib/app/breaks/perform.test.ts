@@ -114,6 +114,25 @@ describe('the shaping', () => {
     }
   });
 
+  it('plays the hats with a light touch, softer on every step and nothing else with them', () => {
+    const p = patternWith('4/4', (bar) => {
+      bar.h = bar.h.map(() => 1);
+      bar.k[0] = 1;
+    });
+    p.attrs = { ...p.attrs };
+    const firm = voicesOf(p);
+    p.attrs = { ...p.attrs, hatTouch: 0.5 };
+    const light = voicesOf(p);
+    firm.forEach((voices, i) => {
+      const h = voices.find((v) => v.lane === 'h');
+      const touched = light[i].find((v) => v.lane === 'h');
+      expect(touched?.velocity).toBeCloseTo((h?.velocity ?? 0) * 0.5, 9);
+    });
+    expect(light[0].find((v) => v.lane === 'k')?.velocity).toBe(
+      firm[0].find((v) => v.lane === 'k')?.velocity
+    );
+  });
+
   it('feathers a plain kick on the pulse, and leaves an accent alone', () => {
     const p = patternWith('4/4', (bar) => {
       bar.k[0] = 1;

@@ -98,11 +98,69 @@ describe('buildKit', () => {
   });
 });
 
+describe('buildKit().setLeather', () => {
+  it('lays leather over the snare head for a deadened kit, taped at its edge, and takes it off again', () => {
+    const { root, setLeather } = buildKit(makeMaterials());
+    const leather = root.getObjectByName('leather');
+    expect(leather).toBeTruthy();
+    expect(leather?.visible).toBe(false);
+    // centred on the snare's head, at its height
+    root.updateMatrixWorld(true);
+    const at = leather?.getWorldPosition(new THREE.Vector3()) ?? new THREE.Vector3();
+    const [x, y, z] = PIECES.snare.centre;
+    expect(Math.hypot(at.x - x, at.z - z)).toBeLessThan(0.01);
+    expect(at.y).toBeCloseTo(y, 1);
+    // a child of the drum's body, so it rides the drum when it shakes
+    expect(leather?.parent?.getObjectByName('head')).toBeTruthy();
+    // the hide, nearly the head across but inside its hoop, and three pieces of tape
+    const meshes = leather?.children.filter((o) => o instanceof THREE.Mesh) ?? [];
+    expect(meshes.length).toBe(4);
+    const hide = meshes[0] instanceof THREE.Mesh ? meshes[0].geometry : undefined;
+    hide?.computeBoundingSphere();
+    const across = hide?.boundingSphere?.radius ?? 0;
+    expect(across).toBeGreaterThan(PIECES.snare.radius * 0.85);
+    expect(across).toBeLessThan(PIECES.snare.radius);
+    setLeather(true);
+    expect(leather?.visible).toBe(true);
+    setLeather(false);
+    expect(leather?.visible).toBe(false);
+  });
+
+  it('ripples with the head under it when the snare is struck, and lies still again after', () => {
+    const { root, update, setLeather } = buildKit(makeMaterials());
+    setLeather(true);
+    const hide = root.getObjectByName('leather')?.children[0];
+    const geometry = hide instanceof THREE.Mesh ? hide.geometry : undefined;
+    const lift = () => {
+      const pos = geometry?.getAttribute('position');
+      let most = 0;
+      for (let j = 0; j < (pos?.count ?? 0); j++)
+        most = Math.max(most, Math.abs(pos?.getZ(j) ?? 0));
+      return most;
+    };
+    expect(lift()).toBe(0);
+    update({ ...idlePose(), hits: { snare: { since: 0.002, strength: 1, seed: 1 } } }, new Set());
+    expect(lift()).toBeGreaterThan(0.0005);
+    update(idlePose(), new Set());
+    expect(lift()).toBe(0);
+  });
+
+  it('is left alone, unseen, on a kit without it: a struck snare moves no hidden leather', () => {
+    const { root, update } = buildKit(makeMaterials());
+    const hide = root.getObjectByName('leather')?.children[0];
+    const geometry = hide instanceof THREE.Mesh ? hide.geometry : undefined;
+    const before = geometry?.getAttribute('position').version;
+    update({ ...idlePose(), hits: { snare: { since: 0.002, strength: 1, seed: 1 } } }, new Set());
+    expect(geometry?.getAttribute('position').version).toBe(before);
+  });
+});
+
 describe('buildKit().update — percussion visibility', () => {
   it('keeps perc1/perc2 pieces hidden until the pattern calls for them, then shows each independently', () => {
-    const { root, update, dress } = buildKit(makeMaterials());
-    // the octobans up, so only what the pattern puts up and takes down comes and goes
+    const { root, update, dress, setLeather } = buildKit(makeMaterials());
+    // the octobans and the leather up, so only what the pattern puts up and takes down comes and goes
     dress({ ...PERSONAS[0].kit, octobans: true });
+    setLeather(true);
     const pose = idlePose();
 
     const snapshot = () => {
@@ -143,8 +201,9 @@ describe('buildKit().update — percussion visibility', () => {
   });
 
   it('puts the double pedal in only for a pattern played on one', () => {
-    const { root, update, dress } = buildKit(makeMaterials());
+    const { root, update, dress, setLeather } = buildKit(makeMaterials());
     dress({ ...PERSONAS[0].kit, octobans: true });
+    setLeather(true);
     const pose = idlePose();
     const hidden = () => {
       let n = 0;

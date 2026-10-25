@@ -10,10 +10,10 @@ import { ABILITY_START } from '@/lib/validations/drummer-about';
  * which BeatBuddy's context contributor reads, does not import the chat
  * context cache it is registered with.
  *
- * - **A changed ability** writes the layer and tempo a new pattern starts at
- *   into your Studio settings. Saving the same ability again leaves them
- *   alone, so a tempo you have since set yourself (D21) is not undone by
- *   saving an unrelated field. Clearing your ability leaves them as they are.
+ * - **A changed ability** writes the tempo a new pattern starts at into your
+ *   Studio settings. Saving the same ability again leaves it alone, so a
+ *   tempo you have since set yourself (D21) is not undone by saving an
+ *   unrelated field. Clearing your ability leaves it as it is.
  * - **Every save** drops BeatBuddy's cached copy, so the next turn reads what
  *   you just said rather than waiting out the cache.
  */

@@ -237,6 +237,11 @@ export class DrummerStage {
     this.grips = grips;
   }
 
+  /** A strip of leather over the snare head, for a kit deadened with one: whoever is seated. */
+  setLeather(on: boolean): void {
+    this.kit.setLeather(on);
+  }
+
   /** Brushes in the hands rather than sticks, for a kit played with brushes: whoever is seated. */
   setBrushes(on: boolean): void {
     this.brushes = on;

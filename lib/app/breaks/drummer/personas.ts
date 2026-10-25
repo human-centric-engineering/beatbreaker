@@ -48,7 +48,8 @@ export type HairStyle =
   | 'ringlets'
   | 'locs'
   | 'frizz'
-  | 'knot';
+  | 'knot'
+  | 'pepper';
 
 export type Beard =
   | 'none'
@@ -59,7 +60,8 @@ export type Beard =
   | 'handlebar'
   | 'viking'
   | 'moustache'
-  | 'pencil';
+  | 'pencil'
+  | 'droop';
 
 /**
  * Something on the head, over the hair: a tam is a tall, slouching crocheted
@@ -99,7 +101,9 @@ export type Hat =
  * (Danny Carey, 2002); or a fitted long-sleeved knit top, its neck scooped
  * wide (Billy Cobham, 1972); or a boiler suit, one piece with the trousers,
  * roomy, zipped to below the neck under a spread collar (Joey Jordison with
- * Slipknot, 2002).
+ * Slipknot, 2002); or a military dress tunic in satin, closed to a standing
+ * collar, frogged across the chest in gold braid, its shoulders fringed with
+ * epaulettes (Ringo Starr's Sgt. Pepper uniform, 1967; see `regalia`).
  */
 export type Top =
   | 'tee'
@@ -116,7 +120,8 @@ export type Top =
   | 'track'
   | 'jersey'
   | 'scoop'
-  | 'coveralls';
+  | 'coveralls'
+  | 'military';
 
 /**
  * What is worn at a jacket's or a button-up's collar: a long tie, a bow tie,
@@ -180,9 +185,13 @@ export interface KitStyle {
 }
 
 /** The art a front head can carry, drawn from the real head (see `front-heads.ts`). */
-export type FrontHeadArt = 'sly-and-the-family-stone';
+export type FrontHeadArt = 'sly-and-the-family-stone' | 'sgt-pepper';
 
-/** A front head painted with a band's art: the head in `ground`, the art on it in `ink`. */
+/**
+ * A front head painted with a band's art: the head in `ground`, the art on it
+ * in `ink`. Art painted in its own colours (Sgt. Pepper's drum) takes `ink`
+ * for its outlines.
+ */
 export interface FrontHead {
   art: FrontHeadArt;
   ground: string;
@@ -311,6 +320,13 @@ export interface Persona {
   /** A shirt in satin, with its sheen, rather than a cotton. */
   satin?: boolean;
   /**
+   * A `military` tunic's trimmings: `braid` the gold of its collar, frogging,
+   * buttons, cuffs and fringed epaulettes; `cords` the braided cords looped
+   * from the right shoulder across the chest; `medals` a row on the left
+   * breast (the Beatles' Sgt. Pepper uniforms, 1967).
+   */
+  regalia?: { braid: string; cords?: string; medals?: boolean };
+  /**
    * A word printed across the chest of a T-shirt, in this colour. With a
    * `disc`, a band's shirt: the name across the top of the chest over a round
    * print in the disc's colour, a warrior drawn on it in `figure` (Iron
@@ -365,7 +381,7 @@ export const PERSONAS: readonly Persona[] = [
   {
     // the drummer who played before there was a cast, exactly as he was
     id: 'original',
-    name: 'The Original',
+    name: 'NPC Dude',
     figure: 'male',
     build: 'average',
     skin: '#c58c6a',
@@ -1129,7 +1145,7 @@ export function otherThan(id: string | undefined, random: () => number = Math.ra
 }
 
 /**
- * Who sits in as the drummer view opens: The Original the first time in a
+ * Who sits in as the drummer view opens: NPC Dude the first time in a
  * tab, and after that anyone but whoever sat last — so opening the view again
  * shows somebody new. It only reads who sat last (see `noteSeated`): safe to
  * call while rendering.

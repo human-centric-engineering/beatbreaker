@@ -70,6 +70,7 @@ interface Draft {
   level?: number;
   tune?: number;
   decay?: number;
+  damp?: number;
   pan?: number;
 }
 
@@ -102,10 +103,14 @@ function BuildRow({
     now.settings.level !== 1 ||
     now.settings.tune !== 0 ||
     now.settings.decay !== 1 ||
+    now.settings.damp !== 0 ||
     rowPan(kit, row) !== undefined;
 
   /** Play a piece from its own file, with these settings; else the kit's own voice for the row. */
-  const hear = (p: PieceView | undefined, s: { level: number; tune: number; decay: number }) => {
+  const hear = (
+    p: PieceView | undefined,
+    s: { level: number; tune: number; decay: number; damp: number }
+  ) => {
     const preview = p ? previewOf(p, row) : null;
     // a sample of yours plays from its own file too, so a knob is heard before the kit has it
     const sample = !preview && now.entry && 'sampleId' in now.entry ? now.entry : undefined;
@@ -117,9 +122,12 @@ function BuildRow({
     const gain = preview
       ? clamp(0.95 / Math.max(preview.velocity, 0.01), 0.25, 1.8) * preview.trim * s.level
       : s.level;
-    void c.previewSample(url, voice, { gain, tune: s.tune, decay: s.decay }).then((played) => {
-      if (!played) say(`Could not play ${p?.label ?? sample?.name ?? row.label}`, { error: true });
-    });
+    void c
+      .previewSample(url, voice, { gain, tune: s.tune, decay: s.decay, damp: s.damp })
+      .then((played) => {
+        if (!played)
+          say(`Could not play ${p?.label ?? sample?.name ?? row.label}`, { error: true });
+      });
   };
 
   const choose = (key: string) => {
@@ -143,7 +151,13 @@ function BuildRow({
     const moved = latest.current;
     latest.current = {};
     // a key let go on a slider that did not move is not a change
-    if (moved.level === undefined && moved.tune === undefined && moved.decay === undefined) return;
+    if (
+      moved.level === undefined &&
+      moved.tune === undefined &&
+      moved.decay === undefined &&
+      moved.damp === undefined
+    )
+      return;
     const settings = { ...now.settings, ...moved };
     void sounds
       .changeKit(kit.id, {
@@ -151,6 +165,7 @@ function BuildRow({
           level: settings.level,
           tune: settings.tune,
           decay: settings.decay,
+          damp: settings.damp,
         }),
       })
       .finally(() => setDraft({}));
@@ -259,6 +274,16 @@ function BuildRow({
                 onChange={(n) => drag({ decay: n / 100 })}
                 onCommit={commitSettings}
                 help="How much of the recording rings. Below 100% the hit is faded out early, which tightens a boomy kick or a long cymbal."
+              />
+              <Slider
+                label="Damp"
+                value={Math.round(shown.damp * 100)}
+                min={0}
+                max={100}
+                suffix="%"
+                onChange={(n) => drag({ damp: n / 100 })}
+                onCommit={commitSettings}
+                help="Something laid on the head: a towel, a wallet, a strip of leather. The stroke is heard as struck, then its ring is choked and its top end rolled off, so it comes out short and muffled rather than only quieter. 0% is an open head."
               />
             </>
           ) : (

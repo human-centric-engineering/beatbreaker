@@ -133,16 +133,17 @@ export const drummerAboutSchema = z
 export type DrummerAboutInput = z.infer<typeof drummerAboutSchema>;
 
 /**
- * Where a new pattern starts for each ability (Phase 7B): its layer and its
- * tempo. Intermediate is the Studio's own default. Written into your Studio
- * settings when you change your ability, where you can still change them.
+ * Where a new pattern starts for each ability (Phase 7B): its tempo.
+ * Intermediate is the Studio's own default. Written into your Studio settings
+ * when you change your ability, where you can still change it. Every pattern
+ * opens whole, at the top layer, so an ability sets no layer.
  */
-export const ABILITY_START: Record<Ability, { startLevel: number; startBpm: number }> = {
-  'just-starting': { startLevel: 1, startBpm: 70 },
-  beginner: { startLevel: 2, startBpm: 80 },
-  intermediate: { startLevel: 3, startBpm: 94 },
-  advanced: { startLevel: 4, startBpm: 105 },
-  professional: { startLevel: 5, startBpm: 115 },
+export const ABILITY_START: Record<Ability, { startBpm: number }> = {
+  'just-starting': { startBpm: 70 },
+  beginner: { startBpm: 80 },
+  intermediate: { startBpm: 94 },
+  advanced: { startBpm: 105 },
+  professional: { startBpm: 115 },
 };
 
 /**

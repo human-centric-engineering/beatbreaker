@@ -1,0 +1,29 @@
+[
+  {
+    "id": "src:fixing-a-hole-wikipedia",
+    "type": "encyclopedia",
+    "title": "Fixing a Hole - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Fixing_a_Hole",
+    "reliability": 0.7,
+    "accessed": "2026-10-25",
+    "notes": "Recorded 9 February 1967 at Regent Sound, the lead vocal live with the rhythm track; overdubs 21 February at EMI. Structure: intro, verse, verse, bridge, verse, verse (guitar solo), bridge, verse, outro (fadeout). \"Ringo Starr's hi-hat in the final measure of this introduction introduces a swing beat that stays for the remainder of the song.\" Personnel: Ringo Starr – drums."
+  },
+  {
+    "id": "src:lovely-rita-wikipedia",
+    "type": "encyclopedia",
+    "title": "Lovely Rita - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Lovely_Rita",
+    "reliability": 0.7,
+    "accessed": "2026-10-25",
+    "notes": "Recording began 23 February 1967, eight takes for the basic track: Harrison's guitar on track 1, Lennon's on 2, \"Ringo Starr's drums on track 3\", McCartney's piano on 4. Martin's second piano for the solo added 21 March. Personnel: Ringo Starr – drums, comb and tissue paper."
+  },
+  {
+    "id": "src:baby-you-re-a-rich-man-wikipedia",
+    "type": "encyclopedia",
+    "title": "Baby, You're a Rich Man - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Baby,_You%27re_a_Rich_Man",
+    "reliability": 0.7,
+    "accessed": "2026-10-25",
+    "notes": "Recorded 11 May 1967 at Olympic Sound Studios, Barnes, in a six-hour session; twelve takes before a satisfactory rhythm track. Released 7 July 1967 (UK) as the B-side of All You Need Is Love; on Capitol's US Magical Mystery Tour LP (November 1967). The NME (July 1967) heard an \"unusual shuffle beat, emphasised by handclaps\". Personnel: Ringo Starr – drums, tambourine, maracas, handclaps."
+  }
+]

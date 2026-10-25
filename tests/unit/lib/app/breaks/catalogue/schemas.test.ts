@@ -102,7 +102,8 @@ describe('styleParamsSchema', () => {
 describe('kitParamsSchema', () => {
   it('accepts every shipped kit, unchanged', () => {
     for (const [key, kit] of Object.entries(KITS)) {
-      const { label, hint, engine: _engine, credit, ...params } = kit;
+      // `slots` is the seed's, written into the samples column rather than the params
+      const { label, hint, engine: _engine, credit, slots: _slots, ...params } = kit;
       const parsed = kitParamsSchema.safeParse(params);
       expect(
         parsed.success,
@@ -123,6 +124,15 @@ describe('kitParamsSchema', () => {
     expect(brushed).toEqual(['brush', 'drsBrush', 'jazzBrushes']);
     const { label: _l, hint: _h, engine: _e, credit: _c, ...params } = KITS.brush;
     expect(kitParamsSchema.safeParse({ ...params, brushes: 'yes' }).success).toBe(false);
+  });
+
+  it('marks the Damped and dead kit, and only it, for the drummer to lay leather on the snare', () => {
+    const leathered = [...Object.entries(KITS), ...Object.entries(COMBINATIONS)]
+      .filter(([, kit]) => kit.leather)
+      .map(([key]) => key);
+    expect(leathered).toEqual(['teatowel']);
+    const { label: _l, hint: _h, engine: _e, credit: _c, slots: _s, ...params } = KITS.teatowel;
+    expect(kitParamsSchema.parse(params).leather).toBe(true);
   });
 
   /**

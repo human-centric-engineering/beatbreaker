@@ -10,7 +10,8 @@ import { randomPick, type OnStage } from '@/lib/app/breaks/catalogue/random-pick
  * choose, each in proportion to how many patterns it has (`randomPick`), and
  * never what is on the stage already. Whichever it is plays back at the top
  * with a count-in, and is said once it is on the stage — not while the
- * unsaved-changes prompt is up, nor at all if that is cancelled.
+ * unsaved-changes prompt is up, nor at all if that is cancelled. A style or
+ * an exercise is nobody's in particular, so somebody from the cast sits in.
  */
 export function RandomPickButton() {
   const c = useStudio();
@@ -30,7 +31,11 @@ export function RandomPickButton() {
             : undefined;
         const pick = randomPick(c.catalogue, Math.random, stage);
         if (!pick) return;
-        const opts = { fromTop: true, onLoaded: () => c.say(`Random ${pick.kind}: ${pick.label}`) };
+        const onLoaded = () => {
+          if (pick.kind !== 'drummer') c.recast();
+          c.say(`Random ${pick.kind}: ${pick.label}`);
+        };
+        const opts = { fromTop: true, onLoaded };
         if (pick.kind === 'exercise') c.loadLibraryEntry(pick.entryId, undefined, opts);
         else c.newBreakIn(pick.style, pick.song, opts);
       }}

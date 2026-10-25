@@ -110,6 +110,66 @@
           "url": "https://www.songsterr.com/a/wa/song?id=22774"
         }
       ]
+    },
+    {
+      "title": "Fixing a Hole",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "A swing on the hi-hat from the intro's last bar; the hat in quarters, the floor tom on 2 and its 'and', the snare only on 4, and the crash in quarters for the verse's second half.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:fixing-a-hole-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "fixing-a-hole",
+      "youtube": "https://www.youtube.com/watch?v=UPBd8eHQqIw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2777"
+        }
+      ]
+    },
+    {
+      "title": "Lovely Rita",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "One groove the whole song, the hat in eighths splashed open on the 'and's, and a single fill down the toms into the piano solo.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:lovely-rita-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "lovely-rita",
+      "youtube": "https://www.youtube.com/watch?v=ysDwR5SIR1Q",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=26433"
+        }
+      ]
+    },
+    {
+      "title": "Sgt. Pepper's Lonely Hearts Club Band (Reprise)",
+      "drummer_ids": ["drummer:ringo-starr"],
+      "drums": {
+        "description": "Ringo opens the song proper alone on the drums for four bars before the band comes in; faster and heavier than the opener, a fill off the snare or the toms ending most four-bar phrases.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sgt-pepper-s-lonely-hearts-club-band-song-wikipedia"]
+        }
+      },
+      "style_key": "ringo",
+      "song_key": "sgt-pepper-reprise",
+      "youtube": "https://www.youtube.com/watch?v=aP47nqo2cf4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=59581"
+        }
+      ]
     }
   ]
 }

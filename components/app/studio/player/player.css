@@ -180,10 +180,16 @@
 
 /* Playing and left alone, the chrome fades, as a video's does; any movement
    or focus inside brings it back. Who is on the kit and what they play
-   stay, and the shade at the top with them. */
-.bb .player.is-idle:not(:focus-within) .player-bar,
+   stay, and the shade at the top with them, and so do the chapters: where
+   you are in the song is never hidden. */
+.bb .player.is-idle:not(:focus-within) .player-bar > :not(.chapters),
 .bb .player.is-idle:not(:focus-within) .player-screen::after {
   opacity: 0;
+}
+/* ...and with the row under them gone, the chapters fall to the foot of the
+   picture, as a video's progress line does. */
+.bb .player.is-idle:not(:focus-within) .player-bar.overlay > .chapters {
+  transform: translateY(var(--chapters-drop, 0px));
 }
 .bb .player.is-idle:not(:focus-within) .drummer-canvas {
   cursor: none;
@@ -240,8 +246,9 @@
   color: var(--brass-bright);
 }
 /* While the section and the layer over the chapters are hidden, it comes down
-   to the chapters, rather than hanging over the room they keep. Idle, it goes
-   down into the corner, as before. */
+   to the chapters, rather than hanging over the room they keep. Idle, the
+   chapters fall to the foot of the picture, and it follows them down: just
+   over them, never under the progress line. */
 @media (hover: hover) {
   .bb
     .player:not(.is-idle)
@@ -251,7 +258,7 @@
   }
 }
 .bb .player.is-idle:not(:focus-within) .player-screen > .player-to-chart {
-  bottom: 14px;
+  bottom: calc(var(--bar-low-h, var(--bar-h, 64px)) - var(--chapters-drop, 0px) + 6px);
 }
 
 /* ============================================================
@@ -260,7 +267,11 @@
 
 .bb .player-bar {
   color: var(--p-ink);
-  transition: opacity 0.4s ease;
+}
+.bb .player-bar > * {
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
 }
 .bb .player-bar.overlay {
   position: absolute;
@@ -290,9 +301,11 @@
   gap: 3px;
   align-items: flex-end;
 }
+/* Every slot fits the width, however many there are: a slot narrower than its
+   letter clips the letter and keeps its track, so the whole song is in view. */
 .bb .chapter {
   flex: 1 1 0;
-  min-width: 22px;
+  min-width: 0;
   display: flex;
   flex-direction: column-reverse;
   gap: 4px;
@@ -327,6 +340,8 @@
   box-shadow: 0 0 10px rgb(240 189 92 / 0.6);
 }
 .bb .chapter-letter {
+  overflow: hidden;
+  white-space: nowrap;
   font-family: var(--f-display);
   font-size: 13px;
   line-height: 1;

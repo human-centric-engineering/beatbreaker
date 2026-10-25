@@ -202,8 +202,9 @@ _Build your kit_ is a card in the Sound drawer on any kit of yours
 - **▸ plays the piece's own file**, its loudest take, through
   `BreakAudio.preview()`: the kit's `PackSource` only decodes a piece once the
   kit holds it. A row holding a sample of yours plays the kit's voice.
-- **_Adjust_ opens Level, Tune, Decay and Pan.** The first three go to every
-  filled slot of the row when the drag ends; Pan goes to the row's lanes
+- **_Adjust_ opens Level, Tune, Decay, Damp and Pan.** The first four go to
+  every filled slot of the row when the drag ends (Damp is leather on the
+  head: the stroke as struck, then its ring choked and its top rolled off); Pan goes to the row's lanes
   (Hats to `h` and `hf`; Splash has none, it pans with the crash).
   _Reset to kit_ takes the row back to the recording's own.
 - **_Make my own from this kit_** (a recorded kit) and **_Copy this kit_**

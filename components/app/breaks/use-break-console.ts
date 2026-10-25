@@ -10,6 +10,7 @@ import { YourSampleSource } from '@/lib/app/breaks/audio/your-samples';
 import {
   Transport,
   type PlayEvent,
+  type ResumePoint,
   type ScheduledStep,
   type SectionLetter,
   type TransportSnapshot,
@@ -262,6 +263,18 @@ interface Snapshot {
    * where you have since put it.
    */
   playback?: Playback;
+  /**
+   * The kit and the mix — carried only by an entry whose change opened a
+   * pattern, which switches to its style's kit and hands every fader back, so
+   * one Undo puts your kit and your faders back with the pattern.
+   */
+  kitMix?: KitMix;
+}
+
+interface KitMix {
+  kit: string;
+  mix: Record<string, number>;
+  mixTouched: Record<string, boolean>;
 }
 
 interface Playback {
@@ -396,6 +409,11 @@ export interface BreakConsole {
   cue: number | null;
   /** The cue is where Pause stopped, not one a skip or a chapter set while stopped. */
   paused: boolean;
+  /**
+   * Where in the cued slot Pause stopped: Play goes on from that step, with no
+   * count-in. Null when not paused.
+   */
+  pausedAt: ResumePoint | null;
   /** Skip a section forward or back, as a media player skips a track (`skipSlot`). */
   skip: (delta: 1 | -1) => void;
   /** Go to the top of an arrangement slot: now, while playing, or for the next Play. */
@@ -684,7 +702,7 @@ export interface BreakConsole {
   previewSample: (
     url: string,
     voice: string,
-    opts: { gain: number; tune?: number; decay?: number }
+    opts: { gain: number; tune?: number; decay?: number; damp?: number }
   ) => Promise<boolean>;
 }
 
@@ -814,6 +832,9 @@ interface Setup {
  */
 const LAYER_TEMPO: Record<number, number> = { 1: 0.68, 2: 0.78, 3: 0.86, 4: 0.93, 5: 1 };
 
+/** The layer every pattern opens at: the break as written, all of it. */
+const TOP_LAYER = 5;
+
 /** What the console is told beyond the catalogue and the pattern it opens on. */
 export interface ConsoleOptions {
   /**
@@ -891,9 +912,12 @@ export function useBreakConsole(
      browser; a pattern that was never saved is kept whole in `bb.scratch`.
 
      A new pattern starts from your starting values (D21), and changing one of
-     these while the pattern on the stage is new and unsaved moves them. */
-  // the layer a new pattern opens at; your ability sets it (7B)
-  const [level, setLevel] = useState(settings.startLevel);
+     these while the pattern on the stage is new and unsaved moves them.
+
+     Every pattern opens whole, at the top layer and on All, however the last
+     one was left; only a practice place (going back to where you were, or a
+     session's item) opens at a layer of its own. */
+  const [level, setLevel] = useState(TOP_LAYER);
   const [viewChoice, setViewModeRaw] = useStoredSetting(VIEW);
   /** The section last chosen or edited — what All edits when nothing is playing. */
   const [touched, setTouched] = useState<SectionLetter>('A');
@@ -1017,7 +1041,7 @@ export function useBreakConsole(
   const [twistOn, setTwistOn] = useState<{ seeds: string; twist: Twist } | null>(null);
   const twist = twistOn && twistOn.seeds === seedsOf(patterns) ? twistOn.twist : null;
   const [cueAt, setCue] = useState<number | null>(null);
-  const [pausedAt, setPaused] = useState(false);
+  const [resumeAt, setResumeAt] = useState<ResumePoint | null>(null);
   /* A cue is a place in this break: a new one (a new seed on A) goes back to
      the top, and a slot the arrangement has lost since is no place at all. */
   const [cueSeed, setCueSeed] = useState(patterns.A?.seed);
@@ -1026,7 +1050,8 @@ export function useBreakConsole(
     setCue(null);
   }
   const cue = cueAt !== null && cueAt < arrangement.length ? cueAt : null;
-  const paused = cue !== null && pausedAt;
+  const pausedAt = cue !== null ? resumeAt : null;
+  const paused = pausedAt !== null;
 
   /* The section choice, held to the sections there are. */
   const viewMode = viewIn(viewChoice, patterns);
@@ -1122,6 +1147,19 @@ export function useBreakConsole(
   const baseFor = useCallback(
     (bpmAt: number, levelAt: number) => (matchOn ? bpmAt / (LAYER_TEMPO[levelAt] ?? 1) : bpmAt),
     [matchOn]
+  );
+
+  /**
+   * The tempo a kept pattern opens at, at the top layer: under the match, the
+   * break's own tempo rather than the practice speed its layer was kept at.
+   * Rounded and held here, so the match effect lands on it and does not move it.
+   */
+  const topTempo = useCallback(
+    (doc: BreakDoc) =>
+      matchOn
+        ? clamp(Math.round(baseFor(doc.bpm, doc.level)), 50, maxBpmOf(patternsOf(doc)))
+        : doc.bpm,
+    [matchOn, baseFor]
   );
 
   /* The layer moved, or the match was switched on: put the tempo where that
@@ -1267,6 +1305,21 @@ export function useBreakConsole(
     [catalogue.kits, userKit, kit, update]
   );
 
+  /**
+   * A pattern opened: the kit and the mix its style (with its song laid over
+   * it) ask for, over whatever the last one was left with — faders you moved
+   * included. Your tuning of each kit is yours and stays with the kit.
+   */
+  const followSound = useCallback(
+    (styleKey: string, song: string | undefined) => {
+      const params = catalogue.styles[styleKey]?.params;
+      followKit(params ? withSong(params, song) : undefined);
+      setMixTouched({});
+      applyStyleMix(styleKey, {});
+    },
+    [catalogue.styles, followKit, applyStyleMix]
+  );
+
   const setLaneMix = useCallback((lane: string, v: number) => {
     setMix((prev) => ({ ...prev, [lane]: v }));
     setMixTouched((prev) => ({ ...prev, [lane]: true }));
@@ -1309,51 +1362,75 @@ export function useBreakConsole(
     [holdSwing]
   );
 
-  /** @param withPlayback the change about to be made moves tempo, swing, layer or arrangement too. */
+  const kitMixNow = useCallback(
+    (): KitMix => ({ kit, mix: { ...mix }, mixTouched: { ...mixTouched } }),
+    [kit, mix, mixTouched]
+  );
+
+  const restoreKitMix = useCallback(
+    (k: KitMix) => {
+      if (k.kit !== kit) update({ kit: k.kit });
+      setMix(k.mix);
+      setMixTouched(k.mixTouched);
+    },
+    [kit, update]
+  );
+
+  /** The entry an undo or a redo leaves behind: what is on the stage now, with what `from` carries. */
+  const snapshotNow = useCallback(
+    (from: Snapshot): Snapshot => ({
+      sections: patterns,
+      ...(from.playback ? { playback: playbackNow() } : {}),
+      ...(from.kitMix ? { kitMix: kitMixNow() } : {}),
+    }),
+    [patterns, playbackNow, kitMixNow]
+  );
+
+  /**
+   * @param withPlayback the change about to be made moves tempo, swing, layer or arrangement too.
+   * @param withKitMix it opens a pattern, and so moves the kit and the mix too ({@link followSound}).
+   */
   const pushHistory = useCallback(
-    (withPlayback = false) => {
+    (withPlayback = false, withKitMix = false) => {
       setHistory((h) => {
         const next: Snapshot[] = [
           ...h,
           {
             sections: cloneSections(patterns),
             ...(withPlayback ? { playback: playbackNow() } : {}),
+            ...(withKitMix ? { kitMix: kitMixNow() } : {}),
           },
         ];
         return next.length > HISTORY_CAP ? next.slice(next.length - HISTORY_CAP) : next;
       });
       setFuture([]);
     },
-    [patterns, playbackNow]
+    [patterns, playbackNow, kitMixNow]
   );
 
   const undo = useCallback(() => {
     setHistory((h) => {
       if (!h.length) return h;
       const prev = h[h.length - 1];
-      setFuture((f) => [
-        ...f,
-        { sections: patterns, ...(prev.playback ? { playback: playbackNow() } : {}) },
-      ]);
+      setFuture((f) => [...f, snapshotNow(prev)]);
       setPatterns(prev.sections);
       if (prev.playback) restorePlayback(prev.playback);
+      if (prev.kitMix) restoreKitMix(prev.kitMix);
       return h.slice(0, -1);
     });
-  }, [patterns, playbackNow, restorePlayback]);
+  }, [snapshotNow, restorePlayback, restoreKitMix]);
 
   const redo = useCallback(() => {
     setFuture((f) => {
       if (!f.length) return f;
       const next = f[f.length - 1];
-      setHistory((h) => [
-        ...h,
-        { sections: patterns, ...(next.playback ? { playback: playbackNow() } : {}) },
-      ]);
+      setHistory((h) => [...h, snapshotNow(next)]);
       setPatterns(next.sections);
       if (next.playback) restorePlayback(next.playback);
+      if (next.kitMix) restoreKitMix(next.kitMix);
       return f.slice(0, -1);
     });
-  }, [patterns, playbackNow, restorePlayback]);
+  }, [snapshotNow, restorePlayback, restoreKitMix]);
 
   /* ---- generation ----------------------------------------------------- */
 
@@ -1504,7 +1581,7 @@ export function useBreakConsole(
          with them their slots in the arrangement — which one Undo puts back.
          A song in sections brings its own arrangement, and a New after one
          gives yours back (`arrangementForNew`), so those go into it too. */
-      pushHistory(letters.length > 2 || !!song?.sections || !!stageSongArrangement);
+      pushHistory(letters.length > 2 || !!song?.sections || !!stageSongArrangement, true);
       const next = {
         style: styleKey,
         meter:
@@ -1518,24 +1595,21 @@ export function useBreakConsole(
       // a song in sections plays at a tempo its slowest meter allows
       const top = params && song ? maxBpmOf(songPaces(params, song)) : maxBpm(next.meter);
       const start = params && song ? songTempo(params, song, Math.random) : settings.startBpm;
-      const base = locks.bpm ? baseBpm : clamp(start, 50, top);
-      const at = matchOn ? Math.round(base * (LAYER_TEMPO[level] ?? 1)) : base;
-      const bpmAt = locks.bpm ? clamp(bpm, 50, top) : clamp(at, 50, top);
+      /* At the top layer the tempo is the break's own, so the base is the
+         tempo — a locked one too, which the layer match would otherwise move
+         when the layer comes back up to the top. */
+      const bpmAt = locks.bpm ? clamp(bpm, 50, top) : clamp(Math.round(start), 50, top);
       setStyleRaw(next.style);
       setMeterRaw(next.meter);
       setBarsRaw(next.bars);
-      setBaseBpm(base);
+      setLevel(TOP_LAYER);
+      setViewMode('both');
+      setBaseBpm(baseFor(bpmAt, TOP_LAYER));
       setBpmRaw(bpmAt);
       // a fresh swing in the style's (or the song's) range, unless you have set your own
       const merged = params ? withSong(params, song?.key) : undefined;
       if (!swingHeld.current) setSwingRaw(swingFor(merged, next.meter));
-      if (params?.songs) followKit(merged);
-      if (next.style !== style) {
-        setMixTouched((touched) => {
-          applyStyleMix(next.style, touched);
-          return touched;
-        });
-      }
+      followSound(next.style, song?.key);
       generate('both', { ...next, bpm: bpmAt, creativity: opts.creativity ?? creativity });
       return true;
     },
@@ -1547,17 +1621,15 @@ export function useBreakConsole(
       meter,
       bars,
       bpm,
-      baseBpm,
+      baseFor,
+      setViewMode,
       settings,
       locks.bpm,
-      matchOn,
-      level,
-      applyStyleMix,
+      followSound,
       catalogue.styles,
       styleRow,
       patterns,
       letters,
-      followKit,
       creativity,
       nextSong,
     ]
@@ -1570,20 +1642,18 @@ export function useBreakConsole(
       // a song the style does not hold is the style with a song at random
       const named = song && params.songs?.some((s) => s.key === song) ? song : undefined;
       /* Picked for this New only, as a pick on a saved pattern is: nothing is
-         written to your settings. New follows a song's kit itself; a style
-         without songs asks for its kit here, as picking it would. */
+         written to your settings. New follows the style's (or song's) kit. */
       chosen.current = {
         ...chosen.current,
         style: key,
         meter: params.meter ?? chosen.current.meter,
       };
-      if (!params.songs) followKit(params);
       // a song held in another drummer's style is not this drummer's: let it go
       if (nextSong && nextSong.style !== key) setNextSong(null);
       // a drummer's Play is the drummer as they played: no twist on the first look
       return newBreak('both', { style: key, creativity: 0, ...(named ? { song: named } : {}) });
     },
-    [catalogue.styles, followKit, newBreak, nextSong]
+    [catalogue.styles, newBreak, nextSong]
   );
 
   /**
@@ -1992,7 +2062,7 @@ export function useBreakConsole(
       /* a famous break is an A and a B: sections past B go, and their slots
          with them; after a song in sections, your arrangement comes back */
       const dropping = letters.length > 2 || !!stageSongArrangement;
-      pushHistory(dropping);
+      pushHistory(dropping, true);
       const pat = patternFromPacked(entry.doc, (key) => catalogue.styles[key]);
       const params = catalogue.styles[entry.styleKey]?.params;
       /* A metric modulation (12-d) carries its B, at its tempo ratio: A then
@@ -2034,6 +2104,7 @@ export function useBreakConsole(
       setStyleRaw(entry.styleKey);
       setMeterRaw(pat.meter);
       setBarsRaw(pat.bars.length);
+      followSound(entry.styleKey, pat.song);
       if (at) {
         /* Going back to where you were is an explicit ask, so it wins over
            the tempo lock — and the base is set from it, as a loaded pattern's
@@ -2042,7 +2113,15 @@ export function useBreakConsole(
         setLevel(at.level);
         setBpmRaw(bpmAt);
         setBaseBpm(baseFor(bpmAt, at.level));
-      } else if (!locks.bpm) placeTempo(entry.bpm);
+      } else {
+        /* Opened whole, at the entry's tempo — or at a locked one, whose base
+           is set here so the layer coming up to the top does not move it. */
+        const bpmAt = clamp(Math.round(locks.bpm ? bpm : entry.bpm), 50, maxBpm(pat.meter));
+        setLevel(TOP_LAYER);
+        setBpmRaw(bpmAt);
+        setBaseBpm(baseFor(bpmAt, TOP_LAYER));
+      }
+      setViewMode('both');
       setTries(null);
     },
     [
@@ -2050,7 +2129,9 @@ export function useBreakConsole(
       letters,
       pushHistory,
       locks.bpm,
-      placeTempo,
+      bpm,
+      setViewMode,
+      followSound,
       baseFor,
       arrangement,
       stageSongArrangement,
@@ -2465,27 +2546,27 @@ export function useBreakConsole(
     const t = transportRef.current;
     if (!t) return;
     if (t.playing) {
-      // a pause: Play comes back in at the top of the section it was in
-      const at = t.cursor();
+      // a pause: Play goes on from the very step it stopped at
+      const at = t.pausePoint();
       t.stop();
       if (at && at.slot >= 0) {
         setCue(at.slot);
-        setPaused(true);
+        setResumeAt(at);
       }
       return;
     }
-    if (t.start({ from: cue ?? undefined })) {
+    if (t.start(pausedAt ? { resume: pausedAt } : { from: cue ?? undefined })) {
       setPlaying(true);
       setCue(null);
-      setPaused(false);
+      setResumeAt(null);
     } else logger.warn('BeatBreaker: no Web Audio in this browser — notation still works');
-  }, [cue]);
+  }, [cue, pausedAt]);
 
   const stopToTop = useCallback(() => {
     const t = transportRef.current;
     if (t?.playing) t.stop();
     setCue(null);
-    setPaused(false);
+    setResumeAt(null);
   }, []);
 
   const skip = useCallback((delta: 1 | -1) => {
@@ -2500,7 +2581,7 @@ export function useBreakConsole(
       return;
     }
     setCue((was) => skipSlot(slots, was ?? slots[0] ?? 0, 0, delta) ?? was);
-    setPaused(false);
+    setResumeAt(null);
   }, []);
 
   const seekSlot = useCallback((slot: number) => {
@@ -2512,7 +2593,7 @@ export function useBreakConsole(
     // cued where Play will start: a chapter that does not play gives way to the next that does
     const snap = snapshotRef.current;
     setCue(playableFrom(playableSlots(snap.arrangement, snap.patterns, snap.solo), slot));
-    setPaused(false);
+    setResumeAt(null);
   }, []);
 
   /* ---- what a practice session drives (7D) ----------------------------- */
@@ -2528,7 +2609,7 @@ export function useBreakConsole(
     setPlaying(true);
     // from the top: a cue left by an earlier Pause or skip is not this run's
     setCue(null);
-    setPaused(false);
+    setResumeAt(null);
     return true;
   }, []);
 
@@ -2590,8 +2671,11 @@ export function useBreakConsole(
   }, []);
 
   const previewSample = useCallback(
-    (url: string, voice: string, opts: { gain: number; tune?: number; decay?: number }) =>
-      audioRef.current?.preview(url, voice, opts) ?? Promise.resolve(false),
+    (
+      url: string,
+      voice: string,
+      opts: { gain: number; tune?: number; decay?: number; damp?: number }
+    ) => audioRef.current?.preview(url, voice, opts) ?? Promise.resolve(false),
     []
   );
 
@@ -2603,11 +2687,13 @@ export function useBreakConsole(
   /** Put a whole decoded break on the stage — the arrival paths share this. */
   const applyDoc = (doc: BreakDoc) => {
     setPatterns(sectionsOfDoc(doc));
-    setBpmRaw(doc.bpm);
-    setBaseBpm(baseFor(doc.bpm, doc.level));
+    const bpmAt = topTempo(doc);
+    setBpmRaw(bpmAt);
+    setBaseBpm(baseFor(bpmAt, TOP_LAYER));
     setSwingRaw(doc.swing);
     holdSwing(false);
-    setLevel(doc.level);
+    setLevel(TOP_LAYER);
+    setViewMode('both');
     setArrangement(doc.arrangement);
     // the pickers show the section on the stage
     const on = doc[editing] ?? doc.A;
@@ -2616,7 +2702,7 @@ export function useBreakConsole(
     setBarsRaw(on.bars.length);
     chosen.current = {};
     pickedForNext.current = false;
-    applyStyleMix(doc.A.style, {});
+    followSound(doc.A.style, doc.A.song);
   };
 
   useEffect(() => {
@@ -2715,7 +2801,6 @@ export function useBreakConsole(
       setMeterRaw(atMeter);
       setBpmRaw(atBpm);
       if (!locks.bpm) setBaseBpm(atBpm);
-      followKit(merged);
     }
     const made = songBreak({
       style: styleRow,
@@ -2734,7 +2819,7 @@ export function useBreakConsole(
     setArrangement((a) => made.arrangement ?? arrangementIn(a, made.sections));
     setTries({ tries: made.tries, rejected: made.rejected });
     setSwingRaw(swingFor(merged, atMeter));
-    applyStyleMix(style, {});
+    followSound(style, song?.key);
     setReady(true);
     // deliberately once, on mount: this is the break you arrive to
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -2784,25 +2869,30 @@ export function useBreakConsole(
 
   /** Put a decoded pattern on the stage, as an edit undo can take back. */
   const putDoc = useCallback(
-    (doc: BreakDoc) => {
-      pushHistory();
+    (doc: BreakDoc, at?: PracticePlace) => {
+      pushHistory(false, true);
       setPatterns(sectionsOfDoc(doc));
-      setBpmRaw(doc.bpm);
-      setBaseBpm(baseFor(doc.bpm, doc.level));
+      // at the top layer, unless a practice place asks for its own
+      const levelAt = at ? at.level : TOP_LAYER;
+      const bpmAt = at ? clamp(Math.round(at.bpm), 50, maxBpmOf(patternsOf(doc))) : topTempo(doc);
+      setBpmRaw(bpmAt);
+      setBaseBpm(baseFor(bpmAt, levelAt));
       setSwingRaw(doc.swing);
       holdSwing(false);
-      setLevel(doc.level);
+      setLevel(levelAt);
+      setViewMode('both');
       setArrangement(doc.arrangement);
       const on = doc[editing] ?? doc.A;
       setStyleRaw(on.style);
       setMeterRaw(on.meter);
       setBarsRaw(on.bars.length);
+      followSound(doc.A.style, doc.A.song);
       chosen.current = {};
       pickedForNext.current = false;
       setFeelCross(false);
       setTries(null);
     },
-    [pushHistory, baseFor, holdSwing, editing]
+    [pushHistory, baseFor, topTempo, holdSwing, editing, setViewMode, followSound]
   );
 
   const [flash, setFlash] = useState<Flash | null>(null);
@@ -2862,13 +2952,8 @@ export function useBreakConsole(
     (stored: SharePayload, title: string, at?: PracticePlace): boolean => {
       try {
         const doc = breakDocFromPayload(stored, (key) => catalogue.styles[key]);
-        const bpmAt = at ? clamp(Math.round(at.bpm), 50, maxBpmOf(patternsOf(doc))) : doc.bpm;
         // the row's title, for the reason the arrival path gives
-        putDoc({
-          ...doc,
-          ...(at ? { level: at.level, bpm: bpmAt } : {}),
-          A: { ...doc.A, name: title },
-        });
+        putDoc({ ...doc, A: { ...doc.A, name: title } }, at);
         return true;
       } catch (error) {
         logger.error('BeatBreaker: a saved pattern would not decode', { error });
@@ -2958,6 +3043,7 @@ export function useBreakConsole(
     stopToTop,
     cue,
     paused,
+    pausedAt,
     skip,
     seekSlot,
     loops,

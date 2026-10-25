@@ -8,7 +8,7 @@ import {
   kitParamsSchema,
   kitSamplesSchema,
 } from '@/lib/app/breaks/catalogue/schemas';
-import { type KitSlotSettings, slotFiles } from '@/lib/app/breaks/kit';
+import { type KitSlotSettings, slotFiles, slotSettingsOf } from '@/lib/app/breaks/kit';
 import {
   MAX_YOUR_KITS,
   YOUR_KIT_KEY_PREFIX,
@@ -68,14 +68,6 @@ interface Held {
   pan: Partial<Record<string, number>>;
 }
 
-function settingsOf(v: KitSlotSettings): KitSlotSettings {
-  const out: KitSlotSettings = {};
-  if (v.level !== undefined) out.level = v.level;
-  if (v.tune !== undefined) out.tune = v.tune;
-  if (v.decay !== undefined) out.decay = v.decay;
-  return out;
-}
-
 /**
  * Slot → what is in it. A slot that does not parse is empty. The flat shape,
  * `{ v: null, files: [id] }`, is how a slot of yours was stored before
@@ -88,14 +80,14 @@ function held(samples: unknown): Held {
   for (const [slot, spec] of Object.entries(parsed.data.slots ?? {})) {
     if ('piece' in spec)
       slots[slot] = {
-        ...settingsOf(spec),
+        ...slotSettingsOf(spec),
         piece: spec.piece,
         ...(spec.from ? { from: spec.from } : {}),
       };
-    else if ('sample' in spec) slots[slot] = { ...settingsOf(spec), sample: spec.sample };
+    else if ('sample' in spec) slots[slot] = { ...slotSettingsOf(spec), sample: spec.sample };
     else {
       const first = slotFiles(spec)[0];
-      if (first) slots[slot] = { ...settingsOf(spec), sample: first };
+      if (first) slots[slot] = { ...slotSettingsOf(spec), sample: first };
     }
   }
   return { slots, pan: parsed.data.pan ?? {} };
@@ -139,7 +131,7 @@ async function toViews(userId: string, rows: KitRow[]): Promise<YourKitView[]> {
   return rows.map((row, i) => {
     const slots: YourKitView['slots'] = {};
     for (const [slot, entry] of Object.entries(kits[i].slots)) {
-      const settings = settingsOf(entry);
+      const settings = slotSettingsOf(entry);
       if ('sample' in entry) {
         const name = names.get(entry.sample);
         /* A slot naming a sample that is not yours, or is gone, is empty. Delete
@@ -324,8 +316,8 @@ async function refuseUnknown(
 /** A slot as the patch gives it, as the column stores it. */
 function toEntry(v: YourKitSlotInput): Entry {
   if (typeof v === 'string') return { sample: v };
-  if ('sample' in v) return { ...settingsOf(v), sample: v.sample };
-  return { ...settingsOf(v), piece: v.piece, ...(v.from ? { from: v.from } : {}) };
+  if ('sample' in v) return { ...slotSettingsOf(v), sample: v.sample };
+  return { ...slotSettingsOf(v), piece: v.piece, ...(v.from ? { from: v.from } : {}) };
 }
 
 /**

@@ -128,6 +128,13 @@ export interface Studio extends BreakConsole {
    * again. Always false for anything but a famous break.
    */
   entryEdited: boolean;
+  /**
+   * Bumped to seat somebody else from the cast at the kit — Random, landing on
+   * a style or an exercise rather than a drummer. A likeness still sits in for
+   * a drummer who has one.
+   */
+  castSeq: number;
+  recast: () => void;
   /** The practice history (D18): Recent, and Back / Forward through it. */
   history: PracticeHistoryState;
   /**
@@ -472,9 +479,10 @@ export function StudioProvider({
     (item: TrailItem, at: PracticePlace): Promise<OpenResult> => {
       if (isUnsaved(item)) {
         /* An unsaved roll from the trail (5.13): put back as it was left —
-           its notes, tempo and layer are all in the payload. */
+           its notes in the payload, its layer and tempo the place it was
+           left at, as every other stop on the trail is. */
         replaceNow.current(() => {
-          if (!loadPayload(item.payload, item.name)) {
+          if (!loadPayload(item.payload, item.name, at)) {
             say('That pattern would not open', { error: true });
             return false;
           }
@@ -628,6 +636,9 @@ export function StudioProvider({
      memoise away here — every consumer re-renders when any of the state moves,
      exactly as the single component did. Splitting the context by concern is a
      Phase 4 optimisation with a measurement behind it, not a guess now. */
+  const [castSeq, setCastSeq] = useState(0);
+  const recast = useCallback(() => setCastSeq((n) => n + 1), []);
+
   const value = useMemo<Studio>(
     () => ({
       ...state,
@@ -643,6 +654,8 @@ export function StudioProvider({
       pins: shownPins,
       stagePin,
       entryEdited,
+      castSeq,
+      recast,
       history,
       open,
       openDrawer,
@@ -666,6 +679,8 @@ export function StudioProvider({
       shownPins,
       stagePin,
       entryEdited,
+      castSeq,
+      recast,
       history,
       open,
       openDrawer,

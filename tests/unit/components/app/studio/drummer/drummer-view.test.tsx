@@ -627,6 +627,11 @@ describe('DrummerView, as the main view', () => {
     Object.defineProperty(chapters, 'offsetTop', { configurable: true, get: () => 70 });
     resized!();
     expect(player.style.getPropertyValue('--bar-low-h')).toBe('48px');
+    // and how far they fall, idle, to the bar's foot: under its padding, past the row below them
+    Object.defineProperty(chapters, 'offsetHeight', { configurable: true, get: () => 20 });
+    bar.style.paddingBottom = '12px';
+    resized!();
+    expect(player.style.getPropertyValue('--chapters-drop')).toBe('16px');
     vi.unstubAllGlobals();
   });
 
