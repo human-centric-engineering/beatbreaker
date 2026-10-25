@@ -13,6 +13,7 @@ import {
   percInst,
 } from '@/lib/app/breaks/lanes';
 import { countLabelsOf, groupsOf, isEighths, isGroupStart, stepsOf } from '@/lib/app/breaks/meter';
+import { leftLedFills } from '@/lib/app/breaks/drummer/fill-lead';
 import { meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
 import {
   gridPart,
@@ -560,6 +561,9 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
 
       // sticking / limb row
       if (showSticking) {
+        /* a drummer who leads fills with the other hand plays an unwritten fill hand to
+           hand from the left (`fillsLeft`), and the row says so, as the 3D drummer plays it */
+        const led = !pat.sticking?.[barIndex] && pat.attrs?.fillsLeft ? leftLedFills(bar) : null;
         for (let i = 0; i < nSteps; i++) {
           let lab = '';
           const drum = !!bar.s[i] || tomLanes.some((L) => !!bar[L][i]);
@@ -568,7 +572,8 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
             gracesOf('s', bar.s[i]),
             ...tomLanes.map((L) => gracesOf(L, bar[L][i]))
           );
-          const hand = stickingAt(pat.sticking, barIndex, i);
+          const hand =
+            stickingAt(pat.sticking, barIndex, i) ?? (led && led[i] !== '.' ? led[i] : undefined);
           // a double's two strokes, as its hands are (13-a): RR, or R L where none is written
           const double = doubles.find(
             (t) => i >= t.start && i < t.start + t.span && !UPPER_LANES.includes(tupletLanes(t)[0])

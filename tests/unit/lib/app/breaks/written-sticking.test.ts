@@ -174,6 +174,14 @@ describe('the chart', () => {
     expect(stickingLabels(rudiment([bar], [row]))).toEqual(['lR', 'rrL', 'rrR']);
   });
 
+  it("prints a left-leading drummer's unwritten fill hand to hand from the left (Ringo)", () => {
+    const bar = snareBar('............2222');
+    const pat = { ...rudiment([bar], null), attrs: { fillsLeft: true } };
+    expect(stickingLabels(pat, true)).toEqual(['L', 'R', 'L', 'R']);
+    // without it, the chart's own guess: the drums are the left hand's
+    expect(stickingLabels(rudiment([bar], null), true)).toEqual(['L', 'L', 'L', 'L']);
+  });
+
   it('draws a pattern without sticking as before: no row unless asked, its guess if asked', () => {
     const pat = rudiment([snareBar(PARADIDDLE)], null);
     expect(stickingLabels(pat)).toEqual([]);
