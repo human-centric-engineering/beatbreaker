@@ -140,23 +140,38 @@ beforeEach(() => {
 /* ---------------------------------------------------------------------- */
 
 describe('driveCurve', () => {
+  const mid = 2048;
+  const top = 4096;
+
   it('is odd-length with the midpoint pinned to silence', () => {
     const c = driveCurve(2);
-    expect(c.length).toBe(1025);
-    expect(c[512]).toBeCloseTo(0, 9); // x = 0 at the exact centre
+    expect(c.length).toBe(4097);
+    expect(c[mid]).toBeCloseTo(0, 9); // x = 0 at the exact centre
   });
 
   it('is monotonically increasing (a soft-clip curve, not noise)', () => {
-    const c = driveCurve(3);
-    expect(c[0]).toBeLessThan(c[512]);
-    expect(c[512]).toBeLessThan(c[1024]);
-    expect(c[1024]).toBeCloseTo(1, 9); // tanh(a)/tanh(a) at x = 1
+    const c = driveCurve(2.6);
+    expect(c[0]).toBeLessThan(c[mid]);
+    expect(c[mid]).toBeLessThan(c[top]);
   });
 
-  it('clamps amount to a minimum of 1 (a value below 1 would divide by ~0)', () => {
+  it('is tanh(x)/tanh(1) at 1, as the drive always was', () => {
+    const c = driveCurve(1);
+    expect(c[top]).toBeCloseTo(1, 6);
+    expect(c[mid + 1024]).toBeCloseTo(Math.tanh(0.5) / Math.tanh(1), 6);
+  });
+
+  it('saturates past 1 rather than only turning up: the top flattens against the middle', () => {
+    // how far up the curve a quarter of full scale gets, against full scale
+    const shape = (c: Float32Array) => c[mid + 512] / c[top];
+    expect(shape(driveCurve(1))).toBeLessThan(0.35);
+    expect(shape(driveCurve(2.6))).toBeGreaterThan(0.99);
+  });
+
+  it('clamps amount to a minimum of 1', () => {
     const low = driveCurve(0.2);
     const one = driveCurve(1);
-    expect(low[1024]).toBeCloseTo(one[1024], 9);
+    expect(low[top]).toBeCloseTo(one[top], 9);
   });
 });
 
@@ -259,7 +274,7 @@ describe('init()', () => {
     // bus -> drive -> lowpass -> compressor -> master -> 1/OVER -> ceiling -> destination
     const shaper = bus.outputs[0] as FakeWaveShaperNode;
     expect(shaper.kind).toBe('waveshaper');
-    expect(shaper.oversample).toBe('2x');
+    expect(shaper.oversample).toBe('4x');
     const lp = shaper.outputs[0] as FakeBiquadFilterNode;
     expect(lp.kind).toBe('biquad');
     expect(lp.type).toBe('lowpass');

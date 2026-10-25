@@ -89,17 +89,27 @@ export class SourceStack implements SampleSource {
 /**
  * Soft clipping for the drive control.
  *
+ * At 1 it is `tanh(x) / tanh(1)`, as it always was. Past 1 the mix is pushed
+ * `amount³` times harder into the tanh and given back only the square root
+ * of that, so the knob saturates rather than turning the kit up. Pushed
+ * `amount` times, as it once was, a kit's hits never reached the bend: 2.6
+ * was 5 dB louder and no brighter. Now 2.6 takes about 9 dB off the hits'
+ * peaks against their body and adds 3 dB of top in harmonics (rendered
+ * offline on Damped and dead), and a kit at its own setting (1.0–1.5) plays
+ * within 2 dB of the level it had.
+ *
  * Odd length, so index `(n-1)/2` is exactly `x = 0`. An even-length curve maps
  * silence to a small non-zero value and puts a DC offset on the whole mix.
  */
 export function driveCurve(amount: number): Float32Array<ArrayBuffer> {
-  const n = 1025;
+  const n = 4097;
   // Explicitly ArrayBuffer-backed: `curve` will not accept a SharedArrayBuffer view.
   const c = new Float32Array(new ArrayBuffer(n * Float32Array.BYTES_PER_ELEMENT));
-  const a = Math.max(1, amount);
+  const push = Math.max(1, amount) ** 3;
+  const back = 1 / Math.sqrt(push) / Math.tanh(1);
   for (let i = 0; i < n; i++) {
     const x = (i / (n - 1)) * 2 - 1;
-    c[i] = Math.tanh(x * a) / Math.tanh(a);
+    c[i] = Math.tanh(x * push) * back;
   }
   return c;
 }
@@ -407,7 +417,8 @@ export class BreakAudio {
 
     const next = ctx.createWaveShaper();
     next.curve = driveCurve(amount);
-    next.oversample = '2x';
+    // pushed this hard it makes harmonics far up, which 2x would fold back down as grit
+    next.oversample = '4x';
     next.connect(this.lp);
     if (this.shaper) {
       try {
