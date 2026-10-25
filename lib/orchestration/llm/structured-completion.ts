@@ -49,7 +49,12 @@
 
 import { calculateCost } from '@/lib/orchestration/llm/cost-tracker';
 import { ProviderError } from '@/lib/orchestration/llm/provider';
-import type { LlmFinishReason, LlmMessage, LlmResponseFormat } from '@/lib/orchestration/llm/types';
+import type {
+  LlmFinishReason,
+  LlmMessage,
+  LlmResponseFormat,
+  ReasoningEffort,
+} from '@/lib/orchestration/llm/types';
 import type { getProvider } from '@/lib/orchestration/llm/provider-manager';
 import {
   GEN_AI_OPERATION_NAME,
@@ -82,9 +87,11 @@ export interface StructuredCompletionOptions<T> {
    * rather than relying on the prompt's prose alone.
    *
    * Providers that support it constrain the response (OpenAI-compatible via
-   * `response_format: { type: 'json_schema', ... }`; Anthropic via a forced
-   * single-tool extraction whose input is serialized back into the response
-   * string). Providers without support ignore it — so `parse` plus the
+   * `response_format: { type: 'json_schema', ... }`; Anthropic via native
+   * structured output where the model takes it, else a single-tool extraction
+   * whose input is serialized back into the response string — forced, or
+   * offered with `auto` when thinking is on or the model refuses a forced
+   * tool). Providers without support ignore it — so `parse` plus the
    * existing temp-0 retry remain the cross-provider safety net, and the
    * prompt's prose contract should still describe the shape as a
    * belt-and-suspenders fallback.
@@ -118,6 +125,23 @@ export interface StructuredCompletionOptions<T> {
   temperature?: number;
   maxTokens?: number;
   timeoutMs?: number;
+  /**
+   * How much the model should reason before answering, forwarded on both
+   * attempts. Only reasoning-capable models honour it; others drop it.
+   * Omitted → the provider's default (no extended reasoning on Claude).
+   *
+   * Setting it means sizing the call for reasoning too — the defaults
+   * (1500 tokens, 10s) are for a plain extraction:
+   * - Reasoning tokens count against `maxTokens`. Below 2048 a Claude model
+   *   that takes a thinking budget drops thinking without a word; an adaptive
+   *   one thinks and can spend the whole cap, failing both attempts as
+   *   `truncated_no_output`. Raise `maxTokens`, and `timeoutMs` with it.
+   * - With thinking on, Anthropic refuses a temperature, so neither attempt
+   *   sends one — the temp-0 retry is a second try at the provider's default,
+   *   not a deterministic one. The span still records the requested
+   *   temperature, as every LLM span here records the caller's values.
+   */
+  reasoningEffort?: ReasoningEffort;
   /**
    * Optional caller-supplied error to throw when the attempts are exhausted
    * and nothing parsed.
@@ -280,6 +304,7 @@ export async function runStructuredCompletion<T>(
             timeoutMs,
             signal,
             ...(responseFormat ? { responseFormat } : {}),
+            ...(opts.reasoningEffort ? { reasoningEffort: opts.reasoningEffort } : {}),
           });
           setSpanAttributes(span, {
             [GEN_AI_RESPONSE_MODEL]: opts.model,
