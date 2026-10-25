@@ -186,6 +186,11 @@
 .bb .player.is-idle:not(:focus-within) .player-screen::after {
   opacity: 0;
 }
+/* ...and with the row under them gone, the chapters fall to the foot of the
+   picture, as a video's progress line does. */
+.bb .player.is-idle:not(:focus-within) .player-bar.overlay > .chapters {
+  transform: translateY(var(--chapters-drop, 0px));
+}
 .bb .player.is-idle:not(:focus-within) .drummer-canvas {
   cursor: none;
 }
@@ -242,8 +247,8 @@
 }
 /* While the section and the layer over the chapters are hidden, it comes down
    to the chapters, rather than hanging over the room they keep. Idle, the
-   chapters stay where they are, and so it stays over them: never under the
-   progress line. */
+   chapters fall to the foot of the picture, and it follows them down: just
+   over them, never under the progress line. */
 @media (hover: hover) {
   .bb
     .player:not(.is-idle)
@@ -253,7 +258,7 @@
   }
 }
 .bb .player.is-idle:not(:focus-within) .player-screen > .player-to-chart {
-  bottom: calc(var(--bar-low-h, var(--bar-h, 64px)) + 6px);
+  bottom: calc(var(--bar-low-h, var(--bar-h, 64px)) - var(--chapters-drop, 0px) + 6px);
 }
 
 /* ============================================================
@@ -264,7 +269,9 @@
   color: var(--p-ink);
 }
 .bb .player-bar > * {
-  transition: opacity 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
 }
 .bb .player-bar.overlay {
   position: absolute;
