@@ -12,7 +12,7 @@
 import * as THREE from 'three';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { FRONT_HEAD_ART } from '@/components/app/studio/drummer/front-heads';
+import { FRONT_HEAD_ART, type FrontHeadPaths } from '@/components/app/studio/drummer/front-heads';
 import {
   disposeMaterials,
   kickLogoTexture,
@@ -85,6 +85,9 @@ beforeEach(() => {
     fillText(ch: string) {
       drawn.text.push({ ch, colour: this.fillStyle });
     },
+    strokeText: () => void drawn.strokes++,
+    ellipse: () => void drawn.arcs++,
+    lineJoin: 'miter',
     createImageData: (w: number, h: number) => ({
       width: w,
       height: h,
@@ -280,11 +283,30 @@ describe('canvas textures', () => {
     expect(drawn.arcs).toBe(0);
     expect(drawn.rectColours).toEqual(['#f1ede4']);
     // every outline of the lettering, curved, closed and filled once, even-odd so the counters stay open
-    const art = FRONT_HEAD_ART['sly-and-the-family-stone'];
+    const art = FRONT_HEAD_ART['sly-and-the-family-stone'] as FrontHeadPaths;
     expect(drawn.closes).toBe(art.paths.length);
     expect(drawn.curves).toBeGreaterThan(art.paths.length);
     expect(drawn.fills).toEqual([{ colour: '#141414', rule: 'evenodd' }]);
     // turned the right way up, as BeatBreaker's is
+    expect(tex!.rotation).toBe(Math.PI);
+  });
+
+  it('paints the Sgt. Pepper drum in its own colours: the name round it, LONELY HEARTS across', () => {
+    const head = { art: 'sgt-pepper', ground: '#f1e8cf', ink: '#2a1a12' } as const;
+    const tex = kickLogoTexture(head);
+    expect(tex).toBeInstanceOf(THREE.CanvasTexture);
+    expect(drawn.rectColours[0]).toBe('#f1e8cf');
+    // each letter's face is written once in yellow, over its red shading
+    const faces = drawn.text
+      .filter((t) => t.colour === '#f3c42f')
+      .map((t) => t.ch)
+      .join('');
+    expect(faces).toBe('Sgt PEPPERSCLUB BAND');
+    expect(drawn.text.filter((t) => t.colour === '#c3322a').length).toBeGreaterThan(100);
+    expect(drawn.text.find((t) => t.ch === 'LONELY HEARTS')?.colour).toBe('#a88f2f');
+    // outlined in the ink, and the ornament drawn in curves
+    expect(drawn.strokes).toBeGreaterThan(20);
+    expect(drawn.curves).toBeGreaterThan(10);
     expect(tex!.rotation).toBe(Math.PI);
   });
 

@@ -454,6 +454,7 @@ export function styleAttrs(style: StyleAttrs | undefined): StyleAttrs {
   if (style.hatTouch != null) out.hatTouch = style.hatTouch;
   if (style.doubleKick) out.doubleKick = true;
   if (style.oneHandHats) out.oneHandHats = true;
+  if (style.fillsLeft) out.fillsLeft = true;
   if (style.weight) out.weight = style.weight;
   if (style.heelToe) out.heelToe = true;
   if (style.singlePedalRuns) out.singlePedalRuns = true;

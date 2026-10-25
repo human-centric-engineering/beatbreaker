@@ -9,6 +9,7 @@ import {
 } from '@/lib/app/breaks/lanes';
 import { STEPS, isGroupStart, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { generatePattern, type GenerateOptions } from '@/lib/app/breaks/generate';
+import { leftLedFills } from '@/lib/app/breaks/drummer/fill-lead';
 import { keepsKickRuns, meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
 import { RUN_RATE } from '@/lib/app/breaks/songs';
 import { spanStepsIn, withPlainSpans } from '@/lib/app/breaks/poly-fill';
@@ -83,9 +84,19 @@ export function playability(pat: Pattern, bpm0: number): Playability {
     /* …so long as it is a sticking (D68): doubles and triple strokes are
        (the triple stroke roll, a flam paradiddle-diddle's LLL), but all four
        off one hand is the flailing the run check is for, written or not. */
-    const hand = (i: number) => stickingAt(pat.sticking, bi, i)?.toUpperCase();
+    /* A drummer who leads fills with the other hand (`fillsLeft`) plays a fill
+       nobody wrote hands for hand to hand from the left, as the 3D drummer
+       does: a run of snare in it is that, not one hand. */
+    const led = !row && pat.attrs?.fillsLeft ? leftLedFills(b) : null;
+    const hand = (i: number) =>
+      (row
+        ? stickingAt(pat.sticking, bi, i)
+        : led?.[i] === '.'
+          ? undefined
+          : led?.[i]
+      )?.toUpperCase();
     const handed = (i: number) =>
-      [i, i + 1, i + 2, i + 3].every(written) &&
+      [i, i + 1, i + 2, i + 3].every((j) => written(j) || !!(led && hand(j))) &&
       !(hand(i) === hand(i + 1) && hand(i) === hand(i + 2) && hand(i) === hand(i + 3));
     const stuck = !!row && b.s.some(Boolean) && b.s.every((v, i) => !v || written(i));
     /* A poly fill (12-c) is judged as a fill, as written sticking is: a run of

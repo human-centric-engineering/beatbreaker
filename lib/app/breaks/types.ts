@@ -465,6 +465,13 @@ export interface StyleAttrs {
    */
   oneHandHats?: boolean;
   /**
+   * A left-hander on a right-handed kit, who leads fills with the other hand:
+   * Ringo Starr, whose rolls round the toms start from his left. The 3D
+   * drummer plays each fill the pattern has no sticking written for hand to
+   * hand from the left (`leftLedFills`).
+   */
+  fillsLeft?: boolean;
+  /**
    * How heavily the 3D drummer hits, 0–1: absent or 0 is a hand played from
    * the wrist and fingers, 1 is metal — every stroke taller, the forearm in
    * all of them, the backbeat from the shoulder. Rock sits between.
@@ -760,6 +767,12 @@ export interface StyleSong {
   sections?: SongSection[];
   /** The order the sections play in; absent, each once, A to the last. */
   arrangement?: SectionLetter[];
+  /**
+   * How the drummer looked when they played it, where it is not their
+   * likeness's usual look: a name in `LOOKS` for this style ('pepper' is Ringo
+   * Starr in 1967).
+   */
+  look?: string;
 }
 
 /**

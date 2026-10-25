@@ -5,7 +5,11 @@
 
 import { describe, expect, it, vi } from 'vitest';
 
-import { FRONT_HEAD_ART, tracePath } from '@/components/app/studio/drummer/front-heads';
+import {
+  FRONT_HEAD_ART,
+  type FrontHeadPaths,
+  tracePath,
+} from '@/components/app/studio/drummer/front-heads';
 
 /** A context that records each path call, in order, with its arguments. */
 function recorder() {
@@ -46,30 +50,32 @@ describe('tracePath', () => {
   });
 });
 
+/** The art traced as outlines, not painted in its own colours. */
+const TRACED = Object.entries(FRONT_HEAD_ART).filter(
+  (e): e is [string, FrontHeadPaths] => 'paths' in e[1]
+);
+
 describe('FRONT_HEAD_ART', () => {
-  it.each(Object.entries(FRONT_HEAD_ART))(
-    '%s: closed outlines, every point inside its box',
-    (_, art) => {
-      expect(art.paths.length).toBeGreaterThan(0);
-      for (const d of art.paths) {
-        expect(d).toMatch(/^M/);
-        expect(d).toMatch(/Z$/);
-        const { ctx, calls } = recorder();
-        tracePath(ctx, d);
-        for (const [, ...n] of calls)
-          for (let i = 0; i + 1 < n.length; i += 2) {
-            expect(n[i]).toBeGreaterThanOrEqual(0);
-            expect(n[i]).toBeLessThanOrEqual(art.width);
-            expect(n[i + 1]).toBeGreaterThanOrEqual(0);
-            expect(n[i + 1]).toBeLessThanOrEqual(art.height);
-          }
-      }
+  it.each(TRACED)('%s: closed outlines, every point inside its box', (_, art) => {
+    expect(art.paths.length).toBeGreaterThan(0);
+    for (const d of art.paths) {
+      expect(d).toMatch(/^M/);
+      expect(d).toMatch(/Z$/);
+      const { ctx, calls } = recorder();
+      tracePath(ctx, d);
+      for (const [, ...n] of calls)
+        for (let i = 0; i + 1 < n.length; i += 2) {
+          expect(n[i]).toBeGreaterThanOrEqual(0);
+          expect(n[i]).toBeLessThanOrEqual(art.width);
+          expect(n[i + 1]).toBeGreaterThanOrEqual(0);
+          expect(n[i + 1]).toBeLessThanOrEqual(art.height);
+        }
     }
-  );
+  });
 
   it("fills most of its box, as Sly and the Family Stone's name does the head", () => {
     // the lettering is the trace's own bounds: it reaches every edge of the box
-    const art = FRONT_HEAD_ART['sly-and-the-family-stone'];
+    const art = FRONT_HEAD_ART['sly-and-the-family-stone'] as FrontHeadPaths;
     const xs: number[] = [];
     const ys: number[] = [];
     for (const d of art.paths) {

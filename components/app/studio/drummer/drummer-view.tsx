@@ -319,6 +319,7 @@ export function DrummerView({
                 leather={!!c.catalogue?.kits[c.kit]?.leather}
                 aside={chartShown}
                 style={c.style}
+                look={stagePat?.style === c.style ? part?.song.look : undefined}
                 playing={c.playing}
                 subscribeSteps={c.subscribeSteps}
                 audioNow={c.audioNow}

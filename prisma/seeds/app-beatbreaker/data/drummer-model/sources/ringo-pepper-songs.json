@@ -1,0 +1,56 @@
+[
+  {
+    "id": "src:strawberry-fields-forever-wikipedia",
+    "type": "encyclopedia",
+    "title": "Strawberry Fields Forever - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Strawberry_Fields_Forever",
+    "reliability": 0.7,
+    "accessed": "2026-10-25",
+    "notes": "The released record joins take 7 (sped up) to take 26 (slowed down) at about 1:00; take 26 is a percussion-heavy track with Starr's drums and backwards-recorded hi-hat and cymbals (Lewisohn); the false ending and the coda's heavy drum and percussion piece; 'the resonant tone of Starr's drums'."
+  },
+  {
+    "id": "src:magical-mystery-tour-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Magical Mystery Tour (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Magical_Mystery_Tour_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-25",
+    "notes": "Basic track 25 April 1967 with Starr on drums; on 26 April the four Beatles, Mal Evans and Neil Aspinall overdubbed percussion 'and extra drums'. Melody Maker: 'Paul singing lead over a tom-tom beat'; MacDonald: 'unconvincing time and tempo changes'."
+  },
+  {
+    "id": "src:hello-goodbye-wikipedia",
+    "type": "encyclopedia",
+    "title": "Hello, Goodbye - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Hello,_Goodbye",
+    "reliability": 0.7,
+    "accessed": "2026-10-25",
+    "notes": "Take 14 with Starr on drums; the coda (the 'Maori finale') 'didn't sound quite right' until Emerick increased the reverberation on the tom-toms (McCartney)."
+  },
+  {
+    "id": "src:songsterr-474133",
+    "type": "transcription",
+    "title": "Songsterr 474133: The Beatles, Strawberry Fields Forever (drum tracks, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=474133",
+    "reliability": 0.6,
+    "accessed": "2026-10-25",
+    "notes": "Read through the meta API: aiGenerated false, revision 9414617 by Ricardo Reis, 2026-09-29; marked tempo 95. Separate tracks for 'Drums', 'Overdub Drums' (the floor tom in sixteenths over take 26's choruses and outro), 'Reversed Drums' (the backwards cymbals of verse 2 and hats of verse 3) and 'Reversed Percussion'. 103 bars: choruses of ten or more bars with a bar of 2/4 and one of 6/8 in each; verses 2 and 3 have no forward drums. Several fills marked off the 16th grid. Checked against the 2015 stereo mix: about 91-93 bpm to 1:00 and 97 after it, 99 in the coda (autocorrelation)."
+  },
+  {
+    "id": "src:songsterr-61434",
+    "type": "transcription",
+    "title": "Songsterr 61434: The Beatles, Magical Mystery Tour (drum tracks, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=61434",
+    "reliability": 0.6,
+    "accessed": "2026-10-25",
+    "notes": "Read through the meta API: aiGenerated false, revision 9674477 by 蒼, 2026-10-11. Tempo map 167; 119 rising to 136 from bar 61; 61 (6/8) from bar 77. Tracks 'Drums' and 'Drum Overdub' (crashes, the floor tom with the snare on 3 in the chorus, a soft snare roll in the instrumental). Checked against the 2009 remaster: 167-168 to 1:25, about 131 to 1:55, then the coda's eighths at 0.32 s (autocorrelation)."
+  },
+  {
+    "id": "src:songsterr-22778",
+    "type": "transcription",
+    "title": "Songsterr 22778: The Beatles, Hello, Goodbye (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=22778",
+    "reliability": 0.6,
+    "accessed": "2026-10-25",
+    "notes": "Read through the meta API: aiGenerated false, revision 9674596 by 蒼, 2026-10-11; marked tempo 99. 88 bars: verses of crash-and-kick stops then the hat in eighths; each chorus a bar of 4/4, a bar of 2/4 and the floor tom in eighths over four on the floor; a fill on every bar of the bridge and of verse 3's start; an 18-bar floor-tom coda. Checked against the 2015 remaster: 98 rising to 101.5 (autocorrelation)."
+  }
+]

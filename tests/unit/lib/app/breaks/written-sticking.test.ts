@@ -246,6 +246,17 @@ describe('the critic', () => {
     );
   });
 
+  it("hands a fill's snare run from the left for a drummer who leads fills with it (Ringo)", () => {
+    const runCheck = (pat: Pattern) =>
+      playability(pat, 90).checks.find((c) => c.label.startsWith('Snare never runs'))?.ok;
+    // a groove with a roll of five on the snare to end the bar, nothing keeping time over it
+    const bar = snareBar('....2.......2222');
+    for (let i = 0; i < 12; i += 2) bar.h[i] = 1;
+    const plain = rudiment([bar], null);
+    expect(runCheck(plain)).toBe(false);
+    expect(runCheck({ ...plain, attrs: { fillsLeft: true } })).toBe(true);
+  });
+
   it('still calls a run unplayable where only part of it is written', () => {
     const pat = rudiment([snareBar(singles)], ['RL..............']);
     expect(

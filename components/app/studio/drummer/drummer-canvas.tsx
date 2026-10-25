@@ -43,6 +43,8 @@ export interface DrummerCanvasProps {
   leather?: boolean;
   /** The Studio's style: a drummer's own seats their likeness, if they have one. */
   style?: string;
+  /** How the drummer looked in the song playing (`StyleSong.look`): Ringo in 1967, say. */
+  look?: string;
   playing: boolean;
   subscribeSteps: (listener: (step: ScheduledStep) => void) => () => void;
   audioNow: () => number;
@@ -61,6 +63,7 @@ export default function DrummerCanvas({
   brushes = false,
   leather = false,
   style,
+  look,
   playing,
   subscribeSteps,
   audioNow,
@@ -80,7 +83,7 @@ export default function DrummerCanvas({
     setLastStyle(style);
     setWaived(undefined);
   }
-  const likeness = style === undefined ? undefined : likenessFor(style);
+  const likeness = style === undefined ? undefined : likenessFor(style, look);
   if (shuffled !== shuffleSeq) {
     setShuffled(shuffleSeq);
     if (likeness && waived !== style) setWaived(style);

@@ -1,5 +1,6 @@
 import type { BreakAudio } from '@/lib/app/breaks/audio/engine';
 import type { MidiSink } from '@/lib/app/breaks/audio/midi-out';
+import { leftLedFills } from '@/lib/app/breaks/drummer/fill-lead';
 import { Humaniser } from '@/lib/app/breaks/humanise';
 import {
   M44,
@@ -342,6 +343,18 @@ export function playableFrom(slots: readonly number[], slot: number): number | n
   return slots.find((sl) => sl >= slot) ?? slots[0];
 }
 
+/**
+ * The hands written for a bar, as the drummer is handed them: the pattern's own
+ * sticking; else, for a style whose drummer leads fills with the other hand
+ * (`fillsLeft`), its fills hand to hand from the left; else none.
+ */
+export function handsOf(pat: Pattern | null, barIdx: number): string | null {
+  const written = pat?.sticking?.[barIdx];
+  if (written) return written;
+  const bar = pat?.bars[barIdx];
+  return bar && pat?.attrs?.fillsLeft ? leftLedFills(bar) : null;
+}
+
 export class Transport {
   private timer: ReturnType<typeof setTimeout> | null = null;
   private nextTime = 0;
@@ -621,7 +634,7 @@ export class Transport {
         bar: null,
         // what the band comes in on, so the drummer can be ready for it
         next: (livePat && pos && livePat.bars[pos.barIdx]) ?? null,
-        nextSticking: (livePat && pos && livePat.sticking?.[pos.barIdx]) ?? null,
+        nextSticking: pos ? handsOf(livePat, pos.barIdx) : null,
         nextTuplets: livePat && pos ? tupletStrokes(livePat, pos.barIdx) : [],
         notes: [],
         doubleKick: !!livePat?.attrs?.doubleKick,
@@ -702,8 +715,8 @@ export class Transport {
         meter: m,
         bar,
         next: (after && snap.patterns[after.letter]?.bars[after.barIdx]) ?? null,
-        sticking: livePat.sticking?.[pos.barIdx] ?? null,
-        nextSticking: (after && snap.patterns[after.letter]?.sticking?.[after.barIdx]) ?? null,
+        sticking: handsOf(livePat, pos.barIdx),
+        nextSticking: after ? handsOf(snap.patterns[after.letter] ?? null, after.barIdx) : null,
         tuplets: tupletStrokes(livePat, pos.barIdx),
         nextTuplets: (() => {
           const p = after && snap.patterns[after.letter];

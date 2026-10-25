@@ -417,6 +417,8 @@ export function shirtFor(
       dress.neckwear ?? 'long',
       dress.tie ?? dress.bow ?? mat
     );
+  if (top === 'military')
+    return military(rings, mat, neck, dress.regalia ?? { braid: mat, medals: false });
   if (top === 'tee') {
     const shell = surface(rings, HEM, neck, hanging, mat);
     fold(shell.geometry, rings);
@@ -450,6 +452,8 @@ export interface Dress {
   collar?: Collar;
   /** A track jacket's yoke, across its shoulders. */
   yoke?: THREE.Material;
+  /** A military tunic's gold braid, its cords, and whether it wears medals. */
+  regalia?: { braid: THREE.MeshStandardMaterial; cords?: THREE.Material; medals?: boolean };
 }
 
 /** The same cloth, seen from both sides: a ruffle, which shows its back as it turns. */
@@ -927,6 +931,172 @@ function suitJacket(
   lapels.onBeforeCompile = (shader, renderer) => mat.onBeforeCompile(shader, renderer);
   lapels.customProgramCacheKey = () => mat.customProgramCacheKey();
   return jacketed(rings, mat, neck, under, lapels, LOUNGE, neckwear, tie);
+}
+
+/** A braid's or a cord's line through `points`, round in section. */
+function cord(points: THREE.Vector3[], r: number, mat: THREE.Material, name: string): THREE.Mesh {
+  const curve = new THREE.CatmullRomCurve3(points);
+  return meshOf(new THREE.TubeGeometry(curve, points.length * 6, r, 6), mat, name);
+}
+
+/**
+ * A military dress tunic, the Beatles' Sgt. Pepper uniforms (1967): satin,
+ * closed down the middle to a standing collar edged in gold braid, frogged
+ * across the chest with bars of braid ending in gold buttons, its shoulders
+ * under epaulettes fringed in gold. Braided cords loop from the right
+ * shoulder across the chest to its middle, and medals hang on the left
+ * breast. Its sleeves are the arms', their cuffs banded in braid.
+ */
+function military(
+  rings: Ring[],
+  mat: THREE.MeshStandardMaterial,
+  neck: number,
+  { braid, cords, medals }: NonNullable<Dress['regalia']>
+): THREE.Object3D[] {
+  const from = HEM - 0.025;
+  const coat = (y: number) => hanging(y) + 0.006;
+  const shell = surface(rings, from, neck, coat, mat, undefined, 'tunic');
+  fold(shell.geometry, rings);
+  surfaceNormals(shell.geometry);
+  const front = -Math.PI / 2;
+  const on = (a: number, y: number, out = 0) => onRing(ringAt(rings, y), a, coat(y) + out).at;
+  const out: THREE.Object3D[] = [shell, rim(rings, from + 0.003, coat(from), 0.004, mat)];
+
+  // the standing collar, closed but for a narrow gap at the throat, braid round its top and foot
+  const cols = 64;
+  const pos: number[] = [];
+  const index: number[] = [];
+  const collarRing = ringAt(rings, neck - 0.008);
+  const gap = 0.12;
+  const tall = 0.034;
+  const lip: THREE.Vector3[] = [];
+  for (let i = 0; i <= cols; i++) {
+    const a = front + gap + ((Math.PI * 2 - gap * 2) * i) / cols;
+    const { at, normal } = onRing(collarRing, a, 0.007);
+    for (let j = 0; j <= 2; j++) {
+      const t = j / 2;
+      // leaning in a little toward its top, round the neck
+      pos.push(at.x - normal.x * 0.004 * t, at.y + tall * t, at.z - normal.z * 0.004 * t);
+    }
+    lip.push(new THREE.Vector3(at.x - normal.x * 0.004, at.y + tall, at.z - normal.z * 0.004));
+  }
+  for (let i = 0; i < cols; i++)
+    for (let j = 0; j < 2; j++) {
+      const a = i * 3 + j;
+      index.push(a, a + 3, a + 1, a + 1, a + 3, a + 4);
+    }
+  const collar = new THREE.BufferGeometry();
+  collar.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  collar.setIndex(index);
+  collar.computeVertexNormals();
+  out.push(meshOf(collar, bothSides(mat), 'standing collar'));
+  out.push(cord(lip, 0.003, braid, 'collar braid'));
+  out.push(
+    cord(
+      lip.map((p) => new THREE.Vector3(p.x, p.y - tall * 0.55, p.z)),
+      0.0022,
+      braid,
+      'collar braid'
+    )
+  );
+
+  // braid down the closed front, from the collar to the hem
+  const placket: THREE.Vector3[] = [];
+  for (let y = neck - 0.006; y > from; y -= 0.02) placket.push(on(front, y, 0.001));
+  out.push(cord(placket, 0.0024, braid, 'front braid'));
+
+  // the frogging: bars of braid across the chest, a gold button at each end
+  const knob = new THREE.SphereGeometry(0.0062, 12, 8);
+  for (let k = 0; k < 5; k++) {
+    const y = neck - 0.055 - k * 0.048;
+    const reach = 0.36 - k * 0.03;
+    const bar: THREE.Vector3[] = [];
+    for (let i = 0; i <= 12; i++) bar.push(on(front - reach + (2 * reach * i) / 12, y, 0.0012));
+    out.push(cord(bar, 0.0026, braid, 'frogging'));
+    for (const side of [-1, 1]) {
+      const b = meshOf(knob, braid, 'button');
+      b.position.copy(on(front + side * reach, y, 0.004));
+      b.scale.set(1.25, 0.8, 0.8);
+      out.push(b);
+    }
+  }
+
+  // epaulettes: a stiff board over each shoulder, its outer end fringed in gold. Out where the
+  // shoulder is, past the trunk's own top, as a smock's pads sit
+  const top = ringAt(rings, neck - 0.05);
+  const fringe = new THREE.CylinderGeometry(0.0022, 0.0018, 0.05, 5);
+  fringe.translate(0, -0.025, 0);
+  for (const side of [-1, 1]) {
+    const board = new THREE.Group();
+    board.name = 'epaulette';
+    const pad = meshOf(new RoundedBoxGeometry(0.11, 0.018, 0.07, 2, 0.007), mat, 'epaulette');
+    board.add(pad);
+    const edge = meshOf(new RoundedBoxGeometry(0.116, 0.008, 0.076, 2, 0.003), braid, 'braid');
+    edge.position.y = -0.006;
+    board.add(edge);
+    // the fringe hangs off its outer end, round the top of the arm
+    for (let i = 0; i < 16; i++) {
+      const t = i / 15;
+      const f = meshOf(fringe, braid, 'fringe');
+      f.position.set(0.056, -0.006, -0.036 + 0.072 * t);
+      f.rotation.z = -0.25;
+      board.add(f);
+    }
+    board.position.set(side * 0.148, neck - 0.014, top.z ?? 0);
+    // sloping down to the outside, as the shoulder does; mirrored for the left
+    board.rotation.z = -side * 0.28;
+    if (side < 0) board.scale.x = -1;
+    out.push(board);
+  }
+
+  // the cords: two loops from the right shoulder, hanging across the chest to its middle
+  if (cords) {
+    const shoulder = on(-0.62, neck - 0.03, 0.004);
+    for (const [low, toward] of [
+      [0.13, 0.1],
+      [0.19, 0.04],
+    ] as const) {
+      const loop: THREE.Vector3[] = [shoulder];
+      for (let i = 1; i <= 10; i++) {
+        const t = i / 10;
+        const a = -0.62 + (front + toward + 0.62) * t;
+        const y = neck - 0.03 - low * Math.sin(t * Math.PI * 0.9) - 0.02 * t;
+        loop.push(on(a, y, 0.006));
+      }
+      out.push(cord(loop, 0.0048, cords, 'cord'));
+    }
+  }
+
+  // a row of medals on the left breast: a ribbon bar, each medal hanging from it
+  if (medals) {
+    const ribbon = new THREE.MeshStandardMaterial({ color: '#b8342c', roughness: 0.6 });
+    const silver = new THREE.MeshStandardMaterial({
+      color: '#c9ccd1',
+      metalness: 1,
+      roughness: 0.3,
+    });
+    const y = neck - 0.13;
+    for (let i = 0; i < 4; i++) {
+      const a = front - 0.22 - i * 0.1;
+      const { at, normal } = onRing(ringAt(rings, y), a, coat(y) + 0.003);
+      const strip = meshOf(new THREE.BoxGeometry(0.02, 0.028, 0.002), ribbon, 'ribbon');
+      strip.position.copy(at);
+      strip.lookAt(at.clone().add(normal));
+      out.push(strip);
+      const medal = meshOf(
+        new THREE.CylinderGeometry(0.012, 0.012, 0.0025, 16),
+        i % 2 ? silver : braid,
+        'medal'
+      );
+      medal.position
+        .copy(at)
+        .add(new THREE.Vector3(0, -0.027, 0))
+        .addScaledVector(normal, 0.002);
+      medal.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), normal);
+      out.push(medal);
+    }
+  }
+  return out;
 }
 
 /**

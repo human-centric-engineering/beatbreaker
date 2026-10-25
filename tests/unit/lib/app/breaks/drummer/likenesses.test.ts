@@ -6,7 +6,7 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { LIKENESSES, likenessFor } from '@/lib/app/breaks/drummer/likenesses';
+import { LIKENESSES, LOOKS, likenessFor } from '@/lib/app/breaks/drummer/likenesses';
 import { PERSONAS, otherThan } from '@/lib/app/breaks/drummer/personas';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { DRUMMER_MODEL_DIR, readFolder } from '@/scripts/lineage/read-corpus';
@@ -167,7 +167,8 @@ describe('LIKENESSES', () => {
   });
 
   it('writes every colour as a CSS hex', () => {
-    for (const who of Object.values(LIKENESSES)) {
+    const looks = Object.values(LOOKS).flatMap((l) => Object.values(l));
+    for (const who of [...Object.values(LIKENESSES), ...looks]) {
       const colours = [
         who.skin,
         who.hair,
@@ -201,8 +202,56 @@ describe('LIKENESSES', () => {
         who.kit.rug,
         who.kit.trim,
         who.kit.dots,
+        who.kit.head?.ground,
+        who.kit.head?.ink,
+        who.regalia?.braid,
+        who.regalia?.cords,
       ];
       for (const c of colours.filter((c) => c !== undefined)) expect(c).toMatch(/^#[0-9a-f]{6}$/i);
     }
+  });
+});
+
+describe('LOOKS', () => {
+  const songs = Object.entries(STYLES).flatMap(([style, st]) =>
+    (st.songs ?? []).map((song) => ({ style, song }))
+  );
+
+  it('gives each look to a drummer with a likeness, as the same person, kept out of the cast', () => {
+    const cast = new Set(PERSONAS.map((p) => p.id));
+    const ids = new Set(Object.values(LIKENESSES).map((p) => p.id));
+    for (const [style, looks] of Object.entries(LOOKS)) {
+      expect(LIKENESSES[style], style).toBeDefined();
+      for (const who of Object.values(looks)) {
+        expect(who.name).toBe(LIKENESSES[style].name);
+        expect(cast.has(who.id)).toBe(false);
+        expect(ids.has(who.id)).toBe(false);
+      }
+    }
+  });
+
+  it('has every look a song names, for the style that plays it', () => {
+    const named = songs.filter(({ song }) => song.look);
+    expect(named.length).toBeGreaterThan(0);
+    for (const { style, song } of named)
+      expect(LOOKS[style]?.[song.look!], `${style}:${song.key}`).toBeDefined();
+  });
+
+  it('dresses Ringo for Sgt. Pepper in the songs of 1967, and as on Ed Sullivan in the rest', () => {
+    const pepper = likenessFor('ringo', 'pepper');
+    expect(pepper).toMatchObject({ top: 'military', hairStyle: 'pepper', beard: 'droop' });
+    expect(pepper?.regalia).toMatchObject({ medals: true });
+    expect(pepper?.kit).toMatchObject({ finish: 'sparkle', head: { art: 'sgt-pepper' } });
+    // a look the drummer has not got, or none, is the likeness
+    expect(likenessFor('ringo', 'nothing')).toBe(LIKENESSES.ringo);
+    expect(likenessFor('ringo')).toBe(LIKENESSES.ringo);
+    expect(likenessFor('bonham', 'pepper')).toBe(LIKENESSES.bonham);
+    expect(likenessFor('ringo', 'toString')).toBe(LIKENESSES.ringo);
+    const ringo = songs.filter(({ style }) => style === 'ringo');
+    const pepperSongs = ringo.filter(({ song }) => song.look === 'pepper').map((s) => s.song.key);
+    for (const key of ['sgt-pepper', 'a-day-in-the-life', 'penny-lane', 'all-you-need-is-love'])
+      expect(pepperSongs).toContain(key);
+    for (const key of ['love-me-do', 'help', 'come-together'])
+      expect(pepperSongs).not.toContain(key);
   });
 });

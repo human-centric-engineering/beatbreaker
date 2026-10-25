@@ -1,4 +1,5 @@
-import type { FrontHeadArt } from '@/lib/app/breaks/drummer/personas';
+import { paintSgtPepper } from '@/components/app/studio/drummer/sgt-pepper-head';
+import type { FrontHead, FrontHeadArt } from '@/lib/app/breaks/drummer/personas';
 
 /**
  * Art for a band's kick front head, as outlines: each is an SVG-style path of
@@ -12,7 +13,17 @@ export interface FrontHeadPaths {
   paths: readonly string[];
 }
 
-export const FRONT_HEAD_ART: Record<FrontHeadArt, FrontHeadPaths> = {
+/**
+ * Art painted in its own colours, too many for one ink on one ground: drawn by
+ * hand onto a `size` square canvas, the head the circle inside it.
+ */
+export interface FrontHeadPainted {
+  paint: (ctx: CanvasRenderingContext2D, size: number, head: FrontHead) => void;
+}
+
+export const FRONT_HEAD_ART: Record<FrontHeadArt, FrontHeadPaths | FrontHeadPainted> = {
+  // Ringo Starr's in his Sgt. Pepper look: the bass drum on the album's cover (1967)
+  'sgt-pepper': { paint: paintSgtPepper },
   /*
    * Sly and the Family Stone's name in its wavy, bulging letters, stacked four
    * rows deep into a rough oval, as on Greg Errico's bass drum, 1968–71 (the
