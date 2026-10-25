@@ -346,9 +346,9 @@ release process.
   (`{ kind, url, drumming }`, the URL rebuilt canonical by the server from an
   allowlisted platform or one `https` website), and a public switch per field.
   `GET`/`PUT /api/v1/drummer-about`; `GET /api/v1/public/drummers/:username`
-  returns the username, bio and only the switched-on fields. `StudioSettings`
-  gains `startLevel`, and a changed ability writes `startLevel` and
-  `startBpm`. BeatBuddy's stream now sends `contextId: 'about'` with
+  returns the username, bio and only the switched-on fields. A changed
+  ability writes `startBpm` (`ABILITY_START`); every pattern opens at the top
+  layer, so it sets no layer. BeatBuddy's stream now sends `contextId: 'about'` with
   `contextType: 'studio'`, answered by a `studio` context contributor.
   Home's `HomeView` gains `askAbout`.
 

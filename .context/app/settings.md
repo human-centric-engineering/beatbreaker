@@ -43,7 +43,6 @@ section.
 | `userMeter`                                         | The meter you picked yourself, handed back when a style stops imposing one                                                                                                                    | the default                      |
 | `guides`, `sticking`, `preview`                     | Notation guides, sticking, preview a change before keeping it                                                                                                                                 | on, off, on                      |
 | `startStyle`, `startMeter`, `startBars`, `startBpm` | What _New pattern_ opens with (D21)                                                                                                                                                           | `funk`, default meter, `2`, `94` |
-| `startLevel`                                        | The layer a new Studio opens at (Phase 7B). A changed ability in About you writes it and `startBpm` — see [`about.md`](./about.md)                                                            | `3`                              |
 | `listSpeeds`                                        | Whether a speed you record on a published pattern or a famous break goes on its public table (Phase 7C): `ask` until the first answer, then `list` or `keep` — see [`speeds.md`](./speeds.md) | `ask`                            |
 
 The schema is `studioSettingsSchema` in `lib/validations/studio-settings.ts`;

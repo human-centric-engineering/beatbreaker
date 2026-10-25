@@ -54,7 +54,7 @@ export const KITS: Record<string, SeedKit> = {
   raregroove: {
     label: 'Rare groove',
     hint: 'Sampled off a worn record: rolled-off top, a bit of drive, everything slightly further away.',
-    master: { lp: 7200, drive: 1.75, room: 0.24 },
+    master: { lp: 7200, drive: 1.5, room: 0.24 },
     k: { tune: 46, decay: 0.3, tone: 0.22, room: 0.08 },
     s: { tune: 178, decay: 0.15, tone: 0.44, room: 0.3 },
     h: { tune: 0.88, decay: 0.04, open: 0.26, tone: 6200, room: 0.18 },

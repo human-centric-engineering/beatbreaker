@@ -95,8 +95,10 @@ export class SourceStack implements SampleSource {
  * `amount` times, as it once was, a kit's hits never reached the bend: 2.6
  * was 5 dB louder and no brighter. Now 2.6 takes about 9 dB off the hits'
  * peaks against their body and adds 3 dB of top in harmonics (rendered
- * offline on Damped and dead), and a kit at its own setting (1.0–1.5) plays
- * within 2 dB of the level it had.
+ * offline on Damped and dead), and a kit at its own setting (every kit
+ * ships at 1.0–1.5) plays within 2 dB of the level it had. Past 1.5 the body
+ * comes up more than that: Rare groove, at 1.75 under the old curve, ships at
+ * 1.5, where its body sits where it did and its peaks bend further.
  *
  * Odd length, so index `(n-1)/2` is exactly `x = 0`. An even-length curve maps
  * silence to a small non-zero value and puts a DC offset on the whole mix.
@@ -397,12 +399,15 @@ export class BreakAudio {
    * The master Room alone is only the reverb's return, so on a kit whose lanes
    * send next to nothing (Damped and dead's kick sends none) turning it up
    * changed nothing that could be heard. At the kit's own setting this is 0,
-   * so a kit plays as it shipped until the knob goes up.
+   * so a kit plays as it shipped until the knob goes up — and with no kit
+   * loaded there is no setting of its own to measure past, so nothing is
+   * added: the whole Room is already the return.
    */
   roomAdded(): number {
     const want = this.sound?.master?.room;
-    if (typeof want !== 'number') return 0;
-    return Math.max(0, want - (this.kit?.master?.room ?? 0));
+    const own = this.kit?.master?.room;
+    if (typeof want !== 'number' || typeof own !== 'number') return 0;
+    return Math.max(0, want - own);
   }
 
   /**
@@ -676,13 +681,18 @@ export class BreakAudio {
     const full = (buf.duration - from) / (rate ?? 1);
     const short = decay !== undefined && decay < 1;
     let len = short ? full * clamp(decay, 0.2, 1) : full;
-    if (muffle) {
-      // the stroke as struck, then the ring choked off: gone 60 dB down in seven time constants
-      len = Math.min(len, muffle.hold + muffle.tau * 7);
+    // the stroke as struck, then the ring choked off: gone 60 dB down in seven time constants
+    const choked = muffle ? muffle.hold + muffle.tau * 7 : Infinity;
+    if (muffle && choked <= len) {
+      len = choked;
       g.gain.setValueAtTime(Math.max(0.0001, gain), t + muffle.hold);
       g.gain.setTargetAtTime(0.0001, t + muffle.hold, muffle.tau);
     } else if (short) {
-      g.gain.setValueAtTime(Math.max(0.0001, gain), t + len / 2);
+      /* Decay cuts it sooner than the damp would choke it, so it fades to
+         silence by the cut, from no later than the damp's hold: stopped with
+         the choke still sounding, every hit would click. */
+      const from = muffle ? Math.min(muffle.hold, len / 2) : len / 2;
+      g.gain.setValueAtTime(Math.max(0.0001, gain), t + from);
       g.gain.exponentialRampToValueAtTime(0.0001, t + len);
     }
     src.start(t, from);

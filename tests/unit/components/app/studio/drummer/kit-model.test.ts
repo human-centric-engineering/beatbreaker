@@ -127,7 +127,8 @@ describe('buildKit().setLeather', () => {
   });
 
   it('ripples with the head under it when the snare is struck, and lies still again after', () => {
-    const { root, update } = buildKit(makeMaterials());
+    const { root, update, setLeather } = buildKit(makeMaterials());
+    setLeather(true);
     const hide = root.getObjectByName('leather')?.children[0];
     const geometry = hide instanceof THREE.Mesh ? hide.geometry : undefined;
     const lift = () => {
@@ -142,6 +143,15 @@ describe('buildKit().setLeather', () => {
     expect(lift()).toBeGreaterThan(0.0005);
     update(idlePose(), new Set());
     expect(lift()).toBe(0);
+  });
+
+  it('is left alone, unseen, on a kit without it: a struck snare moves no hidden leather', () => {
+    const { root, update } = buildKit(makeMaterials());
+    const hide = root.getObjectByName('leather')?.children[0];
+    const geometry = hide instanceof THREE.Mesh ? hide.geometry : undefined;
+    const before = geometry?.getAttribute('position').version;
+    update({ ...idlePose(), hits: { snare: { since: 0.002, strength: 1, seed: 1 } } }, new Set());
+    expect(geometry?.getAttribute('position').version).toBe(before);
   });
 });
 

@@ -344,6 +344,13 @@ export function playableFrom(slots: readonly number[], slot: number): number | n
 }
 
 /**
+ * Each pattern's left-led hands, bar by bar, worked out once: the scheduler
+ * asks for them twice a step. A pattern on the stage is never changed in
+ * place — an edit puts a new one there — so its answer never goes stale.
+ */
+const leftLed = new WeakMap<Pattern, (string | null)[]>();
+
+/**
  * The hands written for a bar, as the drummer is handed them: the pattern's own
  * sticking; else, for a style whose drummer leads fills with the other hand
  * (`fillsLeft`), its fills hand to hand from the left; else none.
@@ -351,8 +358,10 @@ export function playableFrom(slots: readonly number[], slot: number): number | n
 export function handsOf(pat: Pattern | null, barIdx: number): string | null {
   const written = pat?.sticking?.[barIdx];
   if (written) return written;
-  const bar = pat?.bars[barIdx];
-  return bar && pat?.attrs?.fillsLeft ? leftLedFills(bar) : null;
+  if (!pat?.attrs?.fillsLeft || !pat.bars[barIdx]) return null;
+  let bars = leftLed.get(pat);
+  if (!bars) leftLed.set(pat, (bars = pat.bars.map(leftLedFills)));
+  return bars[barIdx] ?? null;
 }
 
 export class Transport {

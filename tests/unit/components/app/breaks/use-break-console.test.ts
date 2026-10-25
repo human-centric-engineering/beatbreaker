@@ -1011,6 +1011,37 @@ describe('opening a pattern', () => {
     act(() => result.current.loadLibraryEntry('entry-0'));
     expect(result.current.mix.h).not.toBe(0.123);
   });
+
+  it('puts your kit and your faders back with the pattern on one Undo, and takes them again on Redo', async () => {
+    const { result } = await mount(undefined, {
+      settings: { ...DEFAULT_STUDIO_SETTINGS, startStyle: 'bossa' },
+    });
+    act(() => result.current.setKit('liveroom'));
+    act(() => result.current.setLaneMix('h', 0.123));
+    const before = result.current.patterns.A;
+    act(() => {
+      result.current.loadCode(codeFor('Pasted'));
+    });
+    expect(result.current.kit).toBe(STYLES.funk.kit);
+    act(() => result.current.undo());
+    expect(result.current.patterns.A).toEqual(before);
+    expect(result.current.kit).toBe('liveroom');
+    expect(result.current.mix.h).toBe(0.123);
+    expect(result.current.mixTouched).toEqual({ h: true });
+    act(() => result.current.redo());
+    expect(result.current.kit).toBe(STYLES.funk.kit);
+    expect(result.current.mixTouched).toEqual({});
+  });
+
+  it('leaves the kit alone on an Undo of an edit that did not open a pattern', async () => {
+    const { result } = await mount(undefined, {
+      settings: { ...DEFAULT_STUDIO_SETTINGS, startStyle: 'bossa' },
+    });
+    act(() => result.current.clearSection());
+    act(() => result.current.setKit('liveroom'));
+    act(() => result.current.undo());
+    expect(result.current.kit).toBe('liveroom');
+  });
 });
 
 describe('the kit', () => {
@@ -1369,10 +1400,8 @@ describe('your settings (D19, D21)', () => {
     expect(result.current.patterns.A?.style).toBe('bossa');
   });
 
-  it('opens a fresh console at the top layer, on All, whatever your starting layer', async () => {
-    const { result } = await mount(undefined, {
-      settings: { ...DEFAULT_STUDIO_SETTINGS, startLevel: 1 },
-    });
+  it('opens a fresh console at the top layer, on All', async () => {
+    const { result } = await mount();
     expect(result.current.level).toBe(5);
     expect(result.current.viewMode).toBe('both');
   });

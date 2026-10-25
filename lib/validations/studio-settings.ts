@@ -179,8 +179,6 @@ export const STUDIO_SETTINGS_FIELDS = {
   startMeter: meterKeySchema,
   startBars: z.number().int().min(1).max(4),
   startBpm: tempoSchema,
-  /** The layer a new pattern opens at (Phase 7B). Your ability sets it; you can still change it. */
-  startLevel: z.number().int().min(1).max(5),
   /**
    * Whether a speed you record on a published pattern or a famous break goes
    * on its public table (Phase 7C): `ask` until you first answer, then what
@@ -218,7 +216,6 @@ export const DEFAULT_STUDIO_SETTINGS: StudioSettings = {
   startMeter: DEFAULT_METER,
   startBars: 2,
   startBpm: 94,
-  startLevel: 3,
   listSpeeds: 'ask',
 };
 

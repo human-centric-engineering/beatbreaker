@@ -30,7 +30,7 @@ shows only what they switch on. Profiles can be reported, like patterns.
 - **Don't read the drummer by the context id.** The contributor uses the
   `userId` the chat handler passes; `contextId` is the constant `'about'`.
 - **Don't write the ability's starting values on every save.** `aboutSaved`
-  writes `startLevel` and `startBpm` only when the ability _changed_, so a
+  writes `startBpm` only when the ability _changed_, so a
   tempo the drummer has since set (D21) survives saving an unrelated field.
 
 ## The row
@@ -91,9 +91,9 @@ platform's name.
   Settings (the form sends `asked: true` too), and never once any is set.
 - **`/u/[username]`** shows the channel links and the switched-on fields, and
   a _Report_ button to signed-in readers who are not the owner.
-- **Ability → a new pattern's start.** `ABILITY_START` maps Just starting to
-  L1 at 70 BPM up to Professional at L5 at 115; intermediate is the old
-  default (L3, 94).
+- **Ability → a new pattern's tempo.** `ABILITY_START` maps Just starting to
+  70 BPM up to Professional at 115; intermediate is the old default (94).
+  Every pattern opens whole, at the top layer, so an ability sets no layer.
 - **Styles → the Studio.** `preferStyles` (`lib/app/breaks/catalogue/prefer.ts`)
   puts a _Your styles_ group first in the style picker and your styles'
   famous breaks first in the libraries. It returns a copy; the catalogue memo

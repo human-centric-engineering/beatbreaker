@@ -438,6 +438,8 @@ export function buildKit(m: Materials): KitModel {
     geometry: THREE.BufferGeometry;
     shape: Float32Array;
     moved: boolean;
+    /** Moved only while this is shown: the leather, hidden on every kit without it. */
+    on?: THREE.Object3D;
   }[] = [];
   const swingers: Swinger[] = [];
 
@@ -499,7 +501,7 @@ export function buildKit(m: Materials): KitModel {
     hide.position.y = 0.0025;
     hide.receiveShadow = true;
     leather.add(hide);
-    heads.push({ id: 'snare', geometry, shape, moved: false });
+    heads.push({ id: 'snare', geometry, shape, moved: false, on: leather });
 
     // the tape across the leather's edge onto the head: by the player, out front, and to the left
     const tape = new THREE.MeshStandardMaterial({ color: '#1c1c1e', roughness: 0.55 });
@@ -925,6 +927,7 @@ export function buildKit(m: Materials): KitModel {
       }
       // a struck head dips and rings, as hard as it was struck; still again once it has died
       for (const h of heads) {
+        if (h.on && !h.on.visible) continue;
         const hit = pose.hits[h.id];
         const dip = hit ? headDip(h.id, hit.since, hit.strength, hit.seed) : 0;
         if (dip === 0 && !h.moved) continue;

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import type { KitSlotSettings } from '@/lib/app/breaks/kit';
+import { type KitSlotSettings, slotSettingsOf } from '@/lib/app/breaks/kit';
 import { KIT_CREDITS } from '@/lib/app/breaks/kit-credits.generated';
 import type { LaneKey } from '@/lib/app/breaks/types';
 import type { YourKitSlotInput, YourKitSlotView, YourKitView } from '@/lib/validations/samples';
@@ -100,12 +100,7 @@ export function pieceGroups(pieces: PieceView[], row: BuilderRow): PieceGroup[] 
 
 /** A slot's Level, Tune, Decay and Damp, with the ones at their defaults left out. */
 export function settingsOf(v: KitSlotSettings): KitSlotSettings {
-  const out: KitSlotSettings = {};
-  if (v.level !== undefined && v.level !== 1) out.level = v.level;
-  if (v.tune !== undefined && v.tune !== 0) out.tune = v.tune;
-  if (v.decay !== undefined && v.decay !== 1) out.decay = v.decay;
-  if (v.damp !== undefined && v.damp !== 0) out.damp = v.damp;
-  return out;
+  return slotSettingsOf(v, { dropRecorded: true });
 }
 
 /** What a filled slot of your kit is, as a `PATCH` gives it back, with these settings. */

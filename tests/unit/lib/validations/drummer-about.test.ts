@@ -165,11 +165,10 @@ describe('drummerAboutSchema', () => {
 });
 
 describe('ABILITY_START', () => {
-  it('has an entry for every ability, lowest to highest layer and tempo', () => {
+  it('has an entry for every ability, lowest to highest tempo, and sets no layer', () => {
     expect(Object.keys(ABILITY_START)).toEqual([...ABILITIES]);
-    const levels = ABILITIES.map((a) => ABILITY_START[a].startLevel);
     const tempos = ABILITIES.map((a) => ABILITY_START[a].startBpm);
-    expect(levels).toEqual([...levels].sort((a, b) => a - b));
+    for (const a of ABILITIES) expect(Object.keys(ABILITY_START[a])).toEqual(['startBpm']);
     expect(tempos).toEqual([...tempos].sort((a, b) => a - b));
   });
 });

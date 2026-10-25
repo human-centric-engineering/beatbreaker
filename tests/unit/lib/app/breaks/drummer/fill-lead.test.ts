@@ -68,4 +68,16 @@ describe('handsOf', () => {
   it('keeps what the pattern has written: a rudiment is played as written', () => {
     expect(handsOf(pat({ fillsLeft: true }, ['RLRR']), 0)).toBe('RLRR');
   });
+
+  it('answers each pattern bar by bar, and an edited pattern (a new one) afresh', () => {
+    const first = pat({ fillsLeft: true });
+    expect(handsOf(first, 0)).toBe('............LRLR');
+    expect(handsOf(first, 0)).toBe('............LRLR');
+    expect(handsOf(first, 1)).toBeNull();
+    const edited = {
+      ...first,
+      bars: [bar({ s: '..........111111' })],
+    };
+    expect(handsOf(edited, 0)).toBe('..........LRLRLR');
+  });
 });

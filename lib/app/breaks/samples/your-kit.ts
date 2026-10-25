@@ -1,5 +1,5 @@
 import type { CatalogueKit, StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
-import type { Kit } from '@/lib/app/breaks/kit';
+import { type Kit, slotSettingsOf } from '@/lib/app/breaks/kit';
 import type { YourKitView } from '@/lib/validations/samples';
 
 /**
@@ -43,12 +43,7 @@ export const YOUR_KIT_HINT = 'Your own kit. A slot you leave empty plays the syn
 export function yourKitToCatalogue(view: YourKitView): CatalogueKit {
   const slots: NonNullable<CatalogueKit['samples']['slots']> = {};
   for (const [slot, s] of Object.entries(view.slots)) {
-    const settings = {
-      ...(s.level !== undefined ? { level: s.level } : {}),
-      ...(s.tune !== undefined ? { tune: s.tune } : {}),
-      ...(s.decay !== undefined ? { decay: s.decay } : {}),
-      ...(s.damp !== undefined ? { damp: s.damp } : {}),
-    };
+    const settings = slotSettingsOf(s);
     slots[slot] =
       'sampleId' in s ? { v: null, files: [s.sampleId], ...settings } : { ...s.spec, ...settings };
   }

@@ -501,6 +501,12 @@ describe('roomAdded()', () => {
     audio.setKit(STUDIO70, withTuning(STUDIO70, { master: { room: 0 } }));
     expect(audio.roomAdded()).toBe(0);
   });
+
+  it('adds nothing while no kit is loaded: there is no room of its own to measure past', () => {
+    const audio = newEngine();
+    audio.setKit(null, withTuning(STUDIO70, { master: { room: 0.3 } }));
+    expect(audio.roomAdded()).toBe(0);
+  });
 });
 
 /* ---------------------------------------------------------------------- */
@@ -1365,6 +1371,25 @@ describe('playBuf()', () => {
     ]);
     // stopped once it is 60 dB down, long before the recording ends
     expect(src.stoppedAt).toBeLessThan(0.5 + 0.3);
+  });
+
+  it('fades a damped head to silence by a Decay that cuts it before the choke would, so the stop does not click', () => {
+    const { audio, ctx } = initEngine();
+    const buf = ctx.createBuffer(1, 22050, 44100); // 0.5s
+    const nodes = recordNodes(ctx, () =>
+      audio.playBuf(0.5, buf as unknown as AudioBuffer, 0.8, 's', 1, 0, undefined, 0.2, 0.3)
+    );
+    const src = pick<FakeAudioBufferSourceNode>(nodes, 'bufferSource')[0];
+    const g = (src.outputs[0] as FakeBiquadFilterNode).outputs[0] as FakeGainNode;
+    const muffle = dampOf(0.3);
+    // Decay's 0.1 s is well inside the choke, which would still be sounding at the cut
+    expect((muffle?.hold ?? 0) + (muffle?.tau ?? 0) * 7).toBeGreaterThan(0.1);
+    expect(g.gain.events).toEqual([
+      { type: 'setValueAtTime', value: 0.8, time: 0.5 },
+      { type: 'setValueAtTime', value: 0.8, time: 0.5 + Math.min(muffle?.hold ?? 0, 0.05) },
+      { type: 'exponentialRampToValueAtTime', value: 0.0001, time: 0.6 },
+    ]);
+    expect(src.stoppedAt).toBeCloseTo(0.62, 9);
   });
 
   it('plays the whole recording at Decay 1, the way it always has', () => {

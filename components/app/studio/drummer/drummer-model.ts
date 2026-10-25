@@ -5148,6 +5148,8 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   const rings = trunkOf(who);
   torso.add(loft(trunk(shape, female, -1, BELT + 0.01), m.jeans, 48, TRUNK_SQUARE));
   torso.add(skinOver(rings, m.skin, who));
+  // one gold braid for a uniform: its frogging, its collar, and its cuffs
+  const braid = who.regalia ? goldBraid(who.regalia.braid) : undefined;
   if (person) {
     // the neckline at the base of the neck
     const dress = {
@@ -5159,13 +5161,14 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
       embroidery: m.embroidery,
       collar: who.collar,
       yoke: m.accent,
-      regalia: who.regalia && {
-        braid: goldBraid(who.regalia.braid),
-        cords: who.regalia.cords
-          ? new THREE.MeshStandardMaterial({ color: who.regalia.cords, roughness: 0.7 })
-          : undefined,
-        medals: who.regalia.medals,
-      },
+      regalia: who.regalia &&
+        braid && {
+          braid,
+          cords: who.regalia.cords
+            ? new THREE.MeshStandardMaterial({ color: who.regalia.cords, roughness: 0.7 })
+            : undefined,
+          medals: who.regalia.medals,
+        },
     };
     for (const o of shirtFor(who.top, rings, m.shirt, NECK_BASE, dress)) torso.add(o);
     if (who.braces) for (const o of braces(rings, m.braces, NECK_BASE)) torso.add(o);
@@ -5255,8 +5258,7 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
     for (const a of Object.values(arms)) a.hand.group.add(cuffRuffle(ruffle));
   }
   // a military tunic's cuffs are banded in its gold braid
-  if (who.top === 'military' && who.regalia) {
-    const braid = goldBraid(who.regalia.braid);
+  if (who.top === 'military' && braid) {
     for (const a of Object.values(arms)) a.hand.group.add(wristBand(braid, 'cuff braid'));
   }
   // a kaftan's cuffs are embroidered as its front is

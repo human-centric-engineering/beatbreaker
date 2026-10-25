@@ -1,9 +1,9 @@
-import type {
-  KitSampleSlot,
-  KitSamples,
-  KitSlotSettings,
-  KitStoredSamples,
-  KitStoredSlot,
+import {
+  type KitSampleSlot,
+  type KitSamples,
+  type KitStoredSamples,
+  type KitStoredSlot,
+  slotSettingsOf,
 } from '@/lib/app/breaks/kit';
 
 /**
@@ -28,16 +28,6 @@ export interface CataloguePiece {
   credit?: string;
 }
 
-/** The settings a stored slot carries, and nothing else. */
-function settingsOf(slot: KitSlotSettings): KitSlotSettings {
-  const out: KitSlotSettings = {};
-  if (slot.level !== undefined) out.level = slot.level;
-  if (slot.tune !== undefined) out.tune = slot.tune;
-  if (slot.decay !== undefined) out.decay = slot.decay;
-  if (slot.damp !== undefined) out.damp = slot.damp;
-  return out;
-}
-
 /**
  * One stored slot as playback reads it, or `null` where it names a piece, or
  * a slot of one, that is not there.
@@ -57,9 +47,9 @@ export function resolveSlot(
     const piece = pieces.get(stored.piece);
     const spec = piece?.slots[stored.from ?? slot];
     if (!piece || !spec) return null;
-    return { ...spec, folder: piece.folder, ...settingsOf(stored) };
+    return { ...spec, folder: piece.folder, ...slotSettingsOf(stored) };
   }
-  if ('sample' in stored) return { v: null, files: [stored.sample], ...settingsOf(stored) };
+  if ('sample' in stored) return { v: null, files: [stored.sample], ...slotSettingsOf(stored) };
   return stored;
 }
 

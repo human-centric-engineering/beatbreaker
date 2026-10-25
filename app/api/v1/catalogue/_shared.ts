@@ -1,6 +1,6 @@
 import { checkConditional, computeETag } from '@/lib/api/etag';
 import { successResponse } from '@/lib/api/responses';
-import { type KitSampleSlot, slotLayers, slotTrim } from '@/lib/app/breaks/kit';
+import { type KitSampleSlot, slotLayers, slotSettingsOf, slotTrim } from '@/lib/app/breaks/kit';
 
 /**
  * What every catalogue read has in common.
@@ -96,10 +96,7 @@ export function slotsWithUrls(
       urls: layers.map((l) => url(l.files[0])),
       layers: layers.map((l) => ({ velocity: l.v, urls: l.files.map(url) })),
       trim: slotTrim(spec),
-      ...(spec.level !== undefined ? { level: spec.level } : {}),
-      ...(spec.tune !== undefined ? { tune: spec.tune } : {}),
-      ...(spec.decay !== undefined ? { decay: spec.decay } : {}),
-      ...(spec.damp !== undefined ? { damp: spec.damp } : {}),
+      ...slotSettingsOf(spec),
     };
   }
   return Object.keys(out).length ? out : undefined;

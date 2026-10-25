@@ -263,6 +263,18 @@ interface Snapshot {
    * where you have since put it.
    */
   playback?: Playback;
+  /**
+   * The kit and the mix — carried only by an entry whose change opened a
+   * pattern, which switches to its style's kit and hands every fader back, so
+   * one Undo puts your kit and your faders back with the pattern.
+   */
+  kitMix?: KitMix;
+}
+
+interface KitMix {
+  kit: string;
+  mix: Record<string, number>;
+  mixTouched: Record<string, boolean>;
 }
 
 interface Playback {
@@ -1350,51 +1362,75 @@ export function useBreakConsole(
     [holdSwing]
   );
 
-  /** @param withPlayback the change about to be made moves tempo, swing, layer or arrangement too. */
+  const kitMixNow = useCallback(
+    (): KitMix => ({ kit, mix: { ...mix }, mixTouched: { ...mixTouched } }),
+    [kit, mix, mixTouched]
+  );
+
+  const restoreKitMix = useCallback(
+    (k: KitMix) => {
+      if (k.kit !== kit) update({ kit: k.kit });
+      setMix(k.mix);
+      setMixTouched(k.mixTouched);
+    },
+    [kit, update]
+  );
+
+  /** The entry an undo or a redo leaves behind: what is on the stage now, with what `from` carries. */
+  const snapshotNow = useCallback(
+    (from: Snapshot): Snapshot => ({
+      sections: patterns,
+      ...(from.playback ? { playback: playbackNow() } : {}),
+      ...(from.kitMix ? { kitMix: kitMixNow() } : {}),
+    }),
+    [patterns, playbackNow, kitMixNow]
+  );
+
+  /**
+   * @param withPlayback the change about to be made moves tempo, swing, layer or arrangement too.
+   * @param withKitMix it opens a pattern, and so moves the kit and the mix too ({@link followSound}).
+   */
   const pushHistory = useCallback(
-    (withPlayback = false) => {
+    (withPlayback = false, withKitMix = false) => {
       setHistory((h) => {
         const next: Snapshot[] = [
           ...h,
           {
             sections: cloneSections(patterns),
             ...(withPlayback ? { playback: playbackNow() } : {}),
+            ...(withKitMix ? { kitMix: kitMixNow() } : {}),
           },
         ];
         return next.length > HISTORY_CAP ? next.slice(next.length - HISTORY_CAP) : next;
       });
       setFuture([]);
     },
-    [patterns, playbackNow]
+    [patterns, playbackNow, kitMixNow]
   );
 
   const undo = useCallback(() => {
     setHistory((h) => {
       if (!h.length) return h;
       const prev = h[h.length - 1];
-      setFuture((f) => [
-        ...f,
-        { sections: patterns, ...(prev.playback ? { playback: playbackNow() } : {}) },
-      ]);
+      setFuture((f) => [...f, snapshotNow(prev)]);
       setPatterns(prev.sections);
       if (prev.playback) restorePlayback(prev.playback);
+      if (prev.kitMix) restoreKitMix(prev.kitMix);
       return h.slice(0, -1);
     });
-  }, [patterns, playbackNow, restorePlayback]);
+  }, [snapshotNow, restorePlayback, restoreKitMix]);
 
   const redo = useCallback(() => {
     setFuture((f) => {
       if (!f.length) return f;
       const next = f[f.length - 1];
-      setHistory((h) => [
-        ...h,
-        { sections: patterns, ...(next.playback ? { playback: playbackNow() } : {}) },
-      ]);
+      setHistory((h) => [...h, snapshotNow(next)]);
       setPatterns(next.sections);
       if (next.playback) restorePlayback(next.playback);
+      if (next.kitMix) restoreKitMix(next.kitMix);
       return f.slice(0, -1);
     });
-  }, [patterns, playbackNow, restorePlayback]);
+  }, [snapshotNow, restorePlayback, restoreKitMix]);
 
   /* ---- generation ----------------------------------------------------- */
 
@@ -1545,7 +1581,7 @@ export function useBreakConsole(
          with them their slots in the arrangement — which one Undo puts back.
          A song in sections brings its own arrangement, and a New after one
          gives yours back (`arrangementForNew`), so those go into it too. */
-      pushHistory(letters.length > 2 || !!song?.sections || !!stageSongArrangement);
+      pushHistory(letters.length > 2 || !!song?.sections || !!stageSongArrangement, true);
       const next = {
         style: styleKey,
         meter:
@@ -2026,7 +2062,7 @@ export function useBreakConsole(
       /* a famous break is an A and a B: sections past B go, and their slots
          with them; after a song in sections, your arrangement comes back */
       const dropping = letters.length > 2 || !!stageSongArrangement;
-      pushHistory(dropping);
+      pushHistory(dropping, true);
       const pat = patternFromPacked(entry.doc, (key) => catalogue.styles[key]);
       const params = catalogue.styles[entry.styleKey]?.params;
       /* A metric modulation (12-d) carries its B, at its tempo ratio: A then
@@ -2834,7 +2870,7 @@ export function useBreakConsole(
   /** Put a decoded pattern on the stage, as an edit undo can take back. */
   const putDoc = useCallback(
     (doc: BreakDoc, at?: PracticePlace) => {
-      pushHistory();
+      pushHistory(false, true);
       setPatterns(sectionsOfDoc(doc));
       // at the top layer, unless a practice place asks for its own
       const levelAt = at ? at.level : TOP_LAYER;

@@ -243,7 +243,7 @@ bar 1_, _Reverse the beats_ and _Flatten to L2_.
 | combobox | `<Kick\|Snare\|Hats\|Ride\|Crash\|Splash\|High tom\|Mid tom\|Floor tom>` | Sound, Build your kit, when on one of yours                                                                | ⓘ _Build your kit_ | —        | 38px           |
 | button   | `Hear the <row>`                                                         | Sound, Build your kit, when on yours                                                                       | —                  | —        | `.mini`, 44×38 |
 | button   | `Adjust`                                                                 | Sound, Build your kit, when on yours                                                                       | —                  | —        | `.mini`, 44×38 |
-| slider   | `<Level\|Tune\|Decay\|Pan>`                                              | Sound, a row's knobs, when open                                                                            | ⓘ each             | —        | 24px           |
+| slider   | `<Level\|Tune\|Decay\|Damp\|Pan>`                                        | Sound, a row's knobs, when open                                                                            | ⓘ each             | —        | 24px           |
 | button   | `Reset to kit`                                                           | Sound, a row's knobs, when open                                                                            | —                  | —        | `.mini`        |
 
 A voice's settings are named for what they shape. Today they are _Size_,
