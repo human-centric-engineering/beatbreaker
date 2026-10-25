@@ -498,14 +498,12 @@ export class AnthropicProvider implements LlmProvider {
     messages: LlmMessage[],
     options: LlmOptions
   ): Omit<MessageCreateParamsNonStreaming, 'stream'> {
-    const { system, conversation } = splitSystemMessages(messages);
     const maxTokens = options.maxTokens ?? DEFAULT_MAX_TOKENS;
     const params: Omit<MessageCreateParamsNonStreaming, 'stream'> = {
       model: options.model,
       max_tokens: maxTokens,
-      messages: conversation,
+      messages: [],
     };
-    if (system) params.system = system;
     // Extended thinking — Claude Opus 4+ and Sonnet 4.5+ think. We
     // translate the platform-neutral `reasoningEffort` bucket via the
     // heuristics in model-heuristics. Models from Opus 4.7 / Sonnet 5 on
@@ -574,6 +572,11 @@ export class AnthropicProvider implements LlmProvider {
       // rawBudget === undefined → reasoningEffort === 'minimal' on
       // Anthropic, which deliberately means "no extended thinking".
     }
+    // Split after thinking is settled: a dangling tool call before an
+    // opener only has to go when this request thinks.
+    const { system, conversation } = splitSystemMessages(messages, thinkingEnabled);
+    params.messages = conversation;
+    if (system) params.system = system;
     // Claude models from Opus 4.7 / Sonnet 5 / Haiku 5 on refuse any
     // temperature (400), so it is sent only to the older families that
     // honour one. The caller's value stays on the trace's requestParams.
@@ -693,7 +696,10 @@ export class AnthropicProvider implements LlmProvider {
 // Helpers
 // ---------------------------------------------------------------------------
 
-function splitSystemMessages(messages: LlmMessage[]): {
+function splitSystemMessages(
+  messages: LlmMessage[],
+  thinkingEnabled: boolean
+): {
   system: string | undefined;
   conversation: MessageParam[];
 } {
@@ -701,6 +707,18 @@ function splitSystemMessages(messages: LlmMessage[]): {
   const conversation: MessageParam[] = [];
 
   for (const msg of messages) {
+    if (msg.role === 'system' && msg.turnInstruction) {
+      // Hoisting this one would leave the request ending on whatever came
+      // before it: nothing (a 400), an assistant reply (read as a prefill), or
+      // a tool result continuing a turn whose thinking was not kept. Anthropic
+      // only takes a user turn last, so send it as one, framed so the model
+      // does not read it as the person's words.
+      const text = getTextContent(msg.content);
+      if (!text) continue;
+      if (thinkingEnabled) closeUnthinkingToolTurn(conversation);
+      conversation.push({ role: 'user', content: `${TURN_INSTRUCTION_HEADING}\n\n${text}` });
+      continue;
+    }
     if (msg.role === 'system') {
       const text = getTextContent(msg.content);
       if (text) systemParts.push(text);
@@ -750,6 +768,67 @@ function splitSystemMessages(messages: LlmMessage[]): {
     system: systemParts.length > 0 ? systemParts.join('\n\n') : undefined,
     conversation,
   };
+}
+
+/** Heads a `turnInstruction` sent as a user turn, so it is not read as the person's. */
+const TURN_INSTRUCTION_HEADING = '[Instruction from the application, not a message from the user]';
+
+/**
+ * Close a tool call left unanswered by the assistant at the end of
+ * `conversation` when its turn carries no thinking blocks, as a chat history
+ * rebuilt from the database does (reasoning is not persisted). A user turn
+ * appended straight after its results would sit in the same turn, which on a
+ * thinking model is a continuation sent without its thinking. The `tool_use`
+ * blocks and their results become a text note on the assistant turn, so the
+ * model still knows the call ran (a pending approval is not repeated).
+ */
+function closeUnthinkingToolTurn(conversation: MessageParam[]): void {
+  let resultsStart = conversation.length;
+  while (resultsStart > 0 && isToolResultTurn(conversation[resultsStart - 1])) resultsStart--;
+  if (resultsStart === conversation.length || resultsStart === 0) return;
+
+  const assistant = conversation[resultsStart - 1];
+  if (assistant.role !== 'assistant' || !Array.isArray(assistant.content)) return;
+  if (
+    assistant.content.some(
+      (block) => block.type === 'thinking' || block.type === 'redacted_thinking'
+    )
+  ) {
+    return;
+  }
+
+  const results = new Map<string, string>();
+  for (const turn of conversation.slice(resultsStart)) {
+    if (!Array.isArray(turn.content)) continue;
+    for (const block of turn.content) {
+      if (block.type === 'tool_result' && typeof block.content === 'string') {
+        results.set(block.tool_use_id, block.content);
+      }
+    }
+  }
+  const kept: ContentBlockParam[] = [];
+  const notes: string[] = [];
+  for (const block of assistant.content) {
+    if (block.type === 'tool_use') {
+      notes.push(`[Called ${block.name}; result: ${results.get(block.id) ?? '(none)'}]`);
+    } else {
+      kept.push(block);
+    }
+  }
+  kept.push({ type: 'text', text: notes.join('\n') });
+  conversation.splice(resultsStart - 1, conversation.length, {
+    role: 'assistant',
+    content: kept,
+  });
+}
+
+function isToolResultTurn(msg: MessageParam): boolean {
+  return (
+    msg.role === 'user' &&
+    Array.isArray(msg.content) &&
+    msg.content.length > 0 &&
+    msg.content.every((block) => block.type === 'tool_result')
+  );
 }
 
 /** Convert platform-neutral ContentPart[] to Anthropic ContentBlockParam[]. */

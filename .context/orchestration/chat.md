@@ -161,12 +161,25 @@ await streamChat({
 | `role:'user'` row      | persisted                        | **none**                                                                                                           |
 | `start.messageId`      | present                          | **absent**                                                                                                         |
 | `message.created` hook | fires for `user` and `assistant` | `assistant` only                                                                                                   |
-| Model sees the text as | `user`                           | **`system`**                                                                                                       |
+| Model sees the text as | `user`                           | **`system`** (Anthropic: a last user turn headed as an app instruction — see below)                                |
 | Injection scanner      | runs                             | **skipped** — the text is composed by your own server, and scanning it would flag an app instructing its own agent |
 | Conversation title     | derived from `message`           | derived from the opener                                                                                            |
 
 `message` wins if both are supplied: the person's own words are the turn, and
 the opener is ignored rather than prepended.
+
+**On Anthropic** the opener cannot stay a `system` message: the provider moves
+system messages into the request's `system` field, and Anthropic only accepts
+a user turn last. The message-builder marks it `turnInstruction: true`, and
+the provider sends it in place as a user turn headed
+`[Instruction from the application, not a message from the user]`. If history
+ends on a tool call with no reply after it (a `skipFollowup` capability such
+as `run_workflow` pending approval) and the request thinks, that call and its
+results are sent as a text note on the assistant turn
+(`[Called run_workflow; result: {...}]`) instead, since thinking blocks are
+not persisted and Anthropic would read the opener as continuing that turn. The
+note keeps the model from repeating a call that already ran. Without thinking
+the call is sent as it is. Nothing about the stored transcript changes.
 
 **A turn must carry something.** `message`, `openingTurn.content`, or at least
 one attachment — a request with none of the three is rejected with

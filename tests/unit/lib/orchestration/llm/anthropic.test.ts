@@ -2989,3 +2989,268 @@ describe('AnthropicProvider — native structured output schema (round 2)', () =
     expect(callArgs.tool_choice).toEqual({ type: 'auto' });
   });
 });
+
+describe('AnthropicProvider — agent-opened turns (turnInstruction, t-937)', () => {
+  const HEADING = '[Instruction from the application, not a message from the user]';
+  const opener = {
+    role: 'system' as const,
+    content: 'Open the check-in.',
+    turnInstruction: true,
+  };
+  const openerTurn = { role: 'user', content: `${HEADING}\n\nOpen the check-in.` };
+  const thinkingOptions = { model: 'claude-opus-5-5', reasoningEffort: 'medium' as const };
+  const pendingNote = {
+    role: 'assistant',
+    content: [{ type: 'text', text: '[Called run_workflow; result: {"pendingApproval":true}]' }],
+  };
+
+  beforeEach(() => {
+    createMock.mockResolvedValue({
+      content: [{ type: 'text', text: 'Hello again.' }],
+      usage: { input_tokens: 1, output_tokens: 1 },
+      model: 'claude-opus-5-5',
+      stop_reason: 'end_turn',
+    });
+  });
+
+  function sent(): { system?: string; messages: Array<{ role: string; content: unknown }> } {
+    return createMock.mock.calls[0][0];
+  }
+
+  it('sends the opener as the only turn of a new conversation, not an empty request', async () => {
+    await makeProvider().chat([{ role: 'system', content: 'You are a coach.' }, opener], {
+      model: 'claude-opus-5-5',
+    });
+
+    expect(sent().system).toBe('You are a coach.');
+    expect(sent().messages).toEqual([openerTurn]);
+  });
+
+  it('ends on the opener, not a prefill, when history ends on an assistant reply', async () => {
+    await makeProvider().chat(
+      [
+        { role: 'system', content: 'You are a coach.' },
+        { role: 'user', content: 'Hi' },
+        { role: 'assistant', content: 'Hello! What shall we work on?' },
+        opener,
+      ],
+      thinkingOptions
+    );
+
+    expect(sent().system).toBe('You are a coach.');
+    expect(sent().messages).toEqual([
+      { role: 'user', content: 'Hi' },
+      { role: 'assistant', content: 'Hello! What shall we work on?' },
+      openerTurn,
+    ]);
+  });
+
+  it('turns a trailing tool call that has no thinking into a note, keeping the assistant text', async () => {
+    // A skipFollowup capability (run_workflow pending approval) leaves history
+    // on the tool row; reasoning is not persisted, so the turn has no thinking.
+    await makeProvider().chat(
+      [
+        { role: 'system', content: 'You are a coach.' },
+        { role: 'user', content: 'Start the plan' },
+        {
+          role: 'assistant',
+          content: 'Starting it.',
+          toolCalls: [
+            { id: 'call_1', name: 'run_workflow', arguments: {} },
+            { id: 'call_2', name: 'lookup', arguments: {} },
+          ],
+        },
+        { role: 'tool', content: '{"pendingApproval":true}', toolCallId: 'call_1' },
+        { role: 'tool', content: '{"hit":true}', toolCallId: 'call_2' },
+        opener,
+      ],
+      thinkingOptions
+    );
+
+    expect(sent().messages).toEqual([
+      { role: 'user', content: 'Start the plan' },
+      {
+        role: 'assistant',
+        content: [
+          { type: 'text', text: 'Starting it.' },
+          {
+            type: 'text',
+            text: '[Called run_workflow; result: {"pendingApproval":true}]\n[Called lookup; result: {"hit":true}]',
+          },
+        ],
+      },
+      openerTurn,
+    ]);
+  });
+
+  it('notes a text-less trailing tool call in place of it', async () => {
+    await makeProvider().chat(
+      [
+        { role: 'user', content: 'Start the plan' },
+        {
+          role: 'assistant',
+          content: '',
+          toolCalls: [{ id: 'call_1', name: 'run_workflow', arguments: {} }],
+        },
+        { role: 'tool', content: '{"pendingApproval":true}', toolCallId: 'call_1' },
+        opener,
+      ],
+      thinkingOptions
+    );
+
+    expect(sent().messages).toEqual([
+      { role: 'user', content: 'Start the plan' },
+      pendingNote,
+      openerTurn,
+    ]);
+  });
+
+  it('notes only the last pass of a trailing multi-pass tool loop', async () => {
+    await makeProvider().chat(
+      [
+        { role: 'user', content: 'Start the plan' },
+        {
+          role: 'assistant',
+          content: '',
+          toolCalls: [{ id: 'call_1', name: 'lookup', arguments: {} }],
+        },
+        { role: 'tool', content: '{"hit":true}', toolCallId: 'call_1' },
+        {
+          role: 'assistant',
+          content: '',
+          toolCalls: [{ id: 'call_2', name: 'run_workflow', arguments: {} }],
+        },
+        { role: 'tool', content: '{"pendingApproval":true}', toolCallId: 'call_2' },
+        opener,
+      ],
+      thinkingOptions
+    );
+
+    expect(sent().messages).toEqual([
+      { role: 'user', content: 'Start the plan' },
+      {
+        role: 'assistant',
+        content: [{ type: 'tool_use', id: 'call_1', name: 'lookup', input: {} }],
+      },
+      {
+        role: 'user',
+        content: [{ type: 'tool_result', tool_use_id: 'call_1', content: '{"hit":true}' }],
+      },
+      pendingNote,
+      openerTurn,
+    ]);
+  });
+
+  it('keeps a trailing tool call when the request does not think', async () => {
+    await makeProvider().chat(
+      [
+        { role: 'user', content: 'Start the plan' },
+        {
+          role: 'assistant',
+          content: '',
+          toolCalls: [{ id: 'call_1', name: 'run_workflow', arguments: {} }],
+        },
+        { role: 'tool', content: '{"pendingApproval":true}', toolCallId: 'call_1' },
+        opener,
+      ],
+      { model: 'claude-opus-5-5' }
+    );
+
+    expect(sent().messages).toEqual([
+      { role: 'user', content: 'Start the plan' },
+      {
+        role: 'assistant',
+        content: [{ type: 'tool_use', id: 'call_1', name: 'run_workflow', input: {} }],
+      },
+      {
+        role: 'user',
+        content: [
+          { type: 'tool_result', tool_use_id: 'call_1', content: '{"pendingApproval":true}' },
+        ],
+      },
+      openerTurn,
+    ]);
+  });
+
+  it('keeps the opener in place on a later pass of its own tool loop', async () => {
+    // Pass two of the opening turn: the loop appended its own tool call (with
+    // thinking) after the opener. The request must continue THAT turn, with the
+    // earlier dangling call closed exactly as it was on pass one.
+    const thinking = { type: 'thinking' as const, thinking: '', signature: 'sig-1' };
+    await makeProvider().chat(
+      [
+        { role: 'system', content: 'You are a coach.' },
+        { role: 'user', content: 'Start the plan' },
+        {
+          role: 'assistant',
+          content: '',
+          toolCalls: [{ id: 'call_1', name: 'run_workflow', arguments: {} }],
+        },
+        { role: 'tool', content: '{"pendingApproval":true}', toolCallId: 'call_1' },
+        opener,
+        {
+          role: 'assistant',
+          content: '',
+          toolCalls: [{ id: 'call_2', name: 'lookup', arguments: {} }],
+          reasoning: [thinking],
+        },
+        { role: 'tool', content: '{"hit":true}', toolCallId: 'call_2' },
+      ],
+      thinkingOptions
+    );
+
+    expect(sent().system).toBe('You are a coach.');
+    expect(sent().messages).toEqual([
+      { role: 'user', content: 'Start the plan' },
+      pendingNote,
+      openerTurn,
+      {
+        role: 'assistant',
+        content: [thinking, { type: 'tool_use', id: 'call_2', name: 'lookup', input: {} }],
+      },
+      {
+        role: 'user',
+        content: [{ type: 'tool_result', tool_use_id: 'call_2', content: '{"hit":true}' }],
+      },
+    ]);
+  });
+
+  it('leaves a trailing tool call that carries its thinking blocks alone', async () => {
+    const thinking = { type: 'thinking' as const, thinking: '', signature: 'sig-1' };
+    await makeProvider().chat(
+      [
+        { role: 'user', content: 'Start the plan' },
+        {
+          role: 'assistant',
+          content: '',
+          toolCalls: [{ id: 'call_1', name: 'lookup', arguments: {} }],
+          reasoning: [thinking],
+        },
+        { role: 'tool', content: '{"hit":true}', toolCallId: 'call_1' },
+        opener,
+      ],
+      thinkingOptions
+    );
+
+    expect(sent().messages).toHaveLength(4);
+    expect(sent().messages[1]).toEqual({
+      role: 'assistant',
+      content: [thinking, { type: 'tool_use', id: 'call_1', name: 'lookup', input: {} }],
+    });
+    expect(sent().messages[3]).toEqual(openerTurn);
+  });
+
+  it('still hoists an unmarked system message into the system prompt', async () => {
+    await makeProvider().chat(
+      [
+        { role: 'user', content: 'Hi' },
+        { role: 'assistant', content: 'Hello.' },
+        { role: 'system', content: 'Late note.' },
+      ],
+      { model: 'claude-opus-5-5' }
+    );
+
+    expect(sent().system).toBe('Late note.');
+    expect(sent().messages).toHaveLength(2);
+  });
+});
