@@ -144,6 +144,17 @@ release process.
   you list it. Unlike other seams it needs no `SEAM_DEFAULTS` pin: its row
   checks the entries instead. A fork others build on should not declare. See CUSTOMIZATION.md §4.
 
+- **Provider seams can say "could not ask" instead of "nothing" (t-819).**
+  `resolveEligibleProviders` takes an optional `{ onFailure: 'throw' }`.
+  Under it, a fork resolver that throws, a registrar that failed, or an
+  unreadable org policy throws the new `ProviderSeamUnavailableError` instead
+  of answering "nothing eligible". The new `classifyProvidersByCredential`
+  (`lib/orchestration/llm/provider-credentials.ts`) returns the rows
+  `filterProvidersWithCredential` would keep, plus, separately, each row the
+  credential resolver failed for, with its error. Both are for a caller that
+  records its answer rather than acting on it. The defaults are unchanged:
+  every call-time path still fails closed.
+
 ### Changed
 
 - **Claude `inputTokens` now counts cached input (t-909).** Anthropic reports
@@ -279,7 +290,35 @@ release process.
   the row's first hour. See
   `.context/privacy/data-erasure.md`.
 
+- **A platform agent's `defaultBinding` is handed a shared provider catalogue
+  (t-816).** `PlatformAgentDefinition.defaultBinding` is now called as
+  `(db, catalogue)`. The new `PlatformAgentCatalogue`
+  (`createPlatformAgentCatalogue()` in
+  `lib/orchestration/agents/platform-agents.ts`) holds the active provider and
+  model rows, each read once on first use. The `platformAgents` maintenance
+  job shares one catalogue across every org it visits in a run, so a pass over
+  N orgs reads those tables once, not N times. A drifted org's reconcile also
+  reuses the picks its drift check got, rather than asking for them again. A
+  one-argument `defaultBinding` still type-checks and works.
+  **Forks:** if you implement one, read rows from `catalogue`, and use the
+  seams' "could not ask" forms (see Added).
+
 ### Fixed
+
+- **The clean-up agent stays put while a fork resolver is down (t-819).**
+  Since t-798, a fork's eligibility or credential resolver that threw during
+  a maintenance pass moved the clean-up agent to inherit and wrote a version
+  row. The next pass moved it back and wrote another. `pickCleanupBinding`
+  now leaves the binding where it is, and the job asks again next pass. This
+  happens when the eligibility resolver fails, or when the credential
+  resolver fails for a provider whose model would have won. A credential
+  failure for any other provider can't change the pick, so the pick goes
+  ahead. The pick also asks the eligibility rule before the credential
+  resolver now, so the resolver is only asked about providers the org may
+  use. **Forks:** a credential resolver that throws for a provider it doesn't
+  serve keeps the clean-up agent off that provider for as long as it would
+  have won, with a warning every pass saying so. Answer with no key for such
+  a provider instead.
 
 - **A run's supervisor verdict history is kept (t-925, t-951).** Two
   overlapping retroactive reviews of one run both stay in
