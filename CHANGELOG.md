@@ -18,6 +18,11 @@ release process.
 
 ### Added
 
+- **`sendEmail` takes message headers (t-935, #854).** New optional
+  `headers` on `SendEmailOptions` (`lib/email/send.ts`) is passed to Resend
+  unchanged, so a fork can send the one-click unsubscribe headers
+  (`List-Unsubscribe`, `List-Unsubscribe-Post`) bulk senders need. Only the
+  header names are logged. No change to sends that omit it.
 - **A fork's org-tier admin routes (§111, t-927).** New scaffold
   `lib/app/admin-tier-routes.ts` (`APP_ORG_TIER_ADMIN_ROUTES`, ships empty)
   lists the fork's admin API routes and wrappers that declare `tier: 'org'`, so
@@ -89,6 +94,24 @@ release process.
 
 ### Changed
 
+- **Erasure hooks are told the subject's email and whether it is verified
+  (t-944).** `ErasureExternalContext` and `ErasureTxContext`
+  (`lib/privacy/erasure-hooks.ts`) gain required `email` and `emailVerified`,
+  read from the user row. These are the same fields the export collector gets,
+  so a fork table keyed by address can share one match between export and
+  erasure, and delete by address only for a verified account. Hooks only read
+  the context, so hook code is unaffected, but **a fork test that builds a
+  context by hand stops compiling** until it adds the two fields. An install
+  with a `cleanupExternal` hook makes one extra user-row read per erasure. See
+  `.context/privacy/data-erasure.md` ("What the FK cascade can't do").
+- **The app export collector is told whether the subject's email is verified
+  (t-934, #972).** `exportUserData()` now passes `emailVerified` to
+  `collectAppSubjectData()` alongside `userId` and `email`, so a fork table
+  keyed by address can hand rows over only to an account that proved the
+  address. The scaffold `lib/app/data-export.ts` is unchanged: to read the
+  flag, add `emailVerified: boolean` to your own `AppSubjectQuery`. A
+  collector that spreads its whole argument into a query will now see the
+  extra field. See `.context/privacy/data-export.md` ("Extending It").
 - **The workflow builder's save, publish and discard are versioned, and
   `If-Match` is required (§122, t-900).** `GET /workflows/:id` returns
   `definitionVersion` (the draft or published snapshot the builder edits, and
