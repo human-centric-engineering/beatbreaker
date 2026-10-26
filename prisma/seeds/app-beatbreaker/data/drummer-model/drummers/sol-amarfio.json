@@ -2,12 +2,17 @@
   "meta": {
     "id": "drummer:sol-amarfio",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
-    "completeness": 0.1,
+    "record_status": "draft",
+    "completeness": 0.3,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"],
-    "open_questions": ["The article dates his leaving \"the early 1990s\"; 1993 is a placeholder."]
+    "updated": "2026-10-26",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "The article dates his leaving \"the early 1990s\"; 1993 is a placeholder.",
+      "The 1971-73 records (Osibisa, Woyaya, Heads) and The Coffee Song have no drum transcription, and his kit cannot be told from the band's hand drums by measuring the records: not scored. Music for Gong Gong and Ayiko Bia are the ones to transcribe first.",
+      "The make of the black pearl kit on Beat-Club (1971) is not named in any source read.",
+      "Who played what on the percussion overdubs: the albums credit him with bongos, bells and congas as well as drums, beside Kofi Ayivor and the horn players' percussion."
+    ]
   },
   "identity": {
     "name": "Sol Amarfio",
@@ -32,17 +37,554 @@
       "to": 2022
     },
     "roles": ["band_member", "composer"],
-    "summary": "Ghanaian drummer, self-taught from fourteen, who moved to London around 1960 and co-founded Osibisa there in 1969 with Teddy Osei and Mac Tontoh; the band of African and Caribbean musicians had hits with \"Sunshine Day\" and \"The Coffee Song\". He wrote several of its songs."
+    "summary": "Ghanaian drummer, self-taught from fourteen and known as \"The Rhythm Man\", who played highlife in Accra with the Rhythm Aces, the Star Gazers and the Comets, moved to London in 1961 and co-founded Osibisa there in 1969 with Teddy Osei and Mac Tontoh. The band of Ghanaian and Caribbean players took Afro-rock into the charts with \"Sunshine Day\" and \"Dance the Body Music\"; he wrote or co-wrote many of its songs, \"Woyaya\" among them, and drummed with it into the early 1990s.",
+    "handedness": "right",
+    "kit_orientation": "right_handed"
   },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Accra highlife and Ga music and dance",
+        "impact": "Self-taught from fourteen among the music and dance of Accra: \"the swing of those things sipped into me\" (2018).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sol-amarfio-graphic-obituary-2022"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1952,
+        "event": "Starts drumming at fourteen, teaching himself; nicknamed \"The Rhythm Man\" as a teenager.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sol-amarfio-wikipedia", "src:sol-amarfio-graphic-obituary-2022"]
+        }
+      },
+      {
+        "year": 1958,
+        "event": "With Teddy Osei and Mac Tontoh in the Comets, whose \"(I Feel) Pata Pata\" was a West African hit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:osibisa-wikipedia"]
+        }
+      },
+      {
+        "year": 1961,
+        "event": "Moves to England by way of Liberia, Spain and France; works with George Lee and Willie Cheetham across Europe and North Africa.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sol-amarfio-graphic-obituary-2022", "src:sol-amarfio-wikipedia"],
+          "note": "Wikipedia says \"around 1960\"."
+        }
+      },
+      {
+        "year": 1969,
+        "event": "Co-founds Osibisa in London with Osei and Tontoh.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:sol-amarfio-wikipedia", "src:osibisa-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:sol-amarfio-accra",
+      "label": "Accra highlife",
+      "years": {
+        "from": 1952,
+        "to": 1961
+      },
+      "context": "Highlife bands in Accra: the Rhythm Aces, the Star Gazers with Teddy Osei, and the Comets, with Mac Tontoh on trumpet.",
+      "defining_traits": ["self-taught", "highlife"]
+    },
+    {
+      "id": "era:sol-amarfio-beautiful-seven",
+      "label": "Osibisa: the Beautiful Seven",
+      "years": {
+        "from": 1969,
+        "to": 1973
+      },
+      "context": "The first line-up's Afro-rock on MCA, produced by Tony Visconti: Osibisa and Woyaya (1971), Heads (1972); Beat-Club, 1971. Long tracks with the kit under hand drums, bells and horns.",
+      "defining_traits": [
+        "a rock kit under Ghanaian hand drums and bells",
+        "long builds",
+        "percussion overdubs of his own"
+      ],
+      "key_recording_ids": ["rec:osibisa-osibisa-1971", "rec:osibisa-woyaya-1971"]
+    },
+    {
+      "id": "era:sol-amarfio-island",
+      "label": "Osibisa on Island: the hits",
+      "years": {
+        "from": 1975,
+        "to": 1977
+      },
+      "context": "Welcome Home (1975) and Ojah Awake (1976), produced by Gerry Bron at the Roundhouse, with Kofi Ayivor on congas: shorter Afro-pop and funk songs and two UK hits.",
+      "defining_traits": [
+        "straight eighths on the hats",
+        "a cross-stick in the verses",
+        "the snare on every beat to lift a chorus",
+        "few fills, most of them short snare runs"
+      ],
+      "key_recording_ids": [
+        "rec:osibisa-welcome-home-1975",
+        "rec:osibisa-sunshine-day-1976",
+        "rec:osibisa-ojah-awake-1976"
+      ]
+    }
+  ],
   "style_profile": {
     "genres": [
       {
         "style_id": "style:afro-rock",
+        "name": "Afro-rock",
         "weight": 1,
-        "authority": 0.6
+        "authority": 0.6,
+        "notes": "Osibisa, with highlife, funk, jazz and pop in it."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.15,
+    "role_tendency": "accompanist",
+    "descriptors": ["even", "unfussy", "under the percussion", "effortless"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-5767318", "src:songsterr-5767340"],
+        "note": "Not measured: the records were beat-tracked for tempo and swing only."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight eighths in both songs scored: each record's hat band autocorrelates at the half beat, not the third."
+    },
+    "dynamics": {
+      "range": 0.3,
+      "default_level": "mf",
+      "ghost_note_level": 40,
+      "accent_level": 110,
+      "balance": "Kick and snare even, the hats steady; the cross-stick for the verses."
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 16],
+      "fill_frequency": "rare",
+      "space_usage": 0.5
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [114, 126],
+    "timekeeping_context": ["free"],
+    "interaction": "The kit as the floor under Kofi Ayivor's congas and the horn players' bells and shakers: the hand drums carry the cross-rhythms, the kit keeps straight time and marks the horns' hits with crashes.",
+    "descriptors": ["even", "straight", "relaxed"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Cross-stick verses",
+        "description": "The verses of Sunshine Day on a cross-stick, the choruses on the snare.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5767318"]
+        }
+      },
+      {
+        "name": "Snare on every beat",
+        "description": "Choruses and codas lifted with the snare on all four beats (Sunshine Day's end, Dance the Body Music's coda).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5767318", "src:songsterr-5767340"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Kick on the \"and\" of 2",
+        "description": "The kick on 1, the \"and\" of 2 and 3, often the \"and\" of 4 too: the groove of both hits.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5767318", "src:songsterr-5767340"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5767318"]
+        }
+      },
+      {
+        "name": "Five stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5767340"],
+          "note": "Dance the Body Music, bar 93: 32nds on 3 and on 4."
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.3,
+      "linear_playing": 0.05,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.1,
+      "foot_ostinato_usage": 0.0,
+      "double_bass": 0.0,
+      "notes": "Straight 4/4 on the kit in both songs scored; the cross-rhythms of Osibisa's music are the hand drums'.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-26",
+        "searched": [
+          "Songsterr: Sunshine Day (5767318, human; 1633423, machine), Dance the Body Music (5767340, human; 1633462, machine), Who's Got the Paper (7569137, machine)",
+          "Wikipedia: Sol Amarfio, Osibisa, Osibisa (album), Woyaya, Heads, Welcome Home, Ojah Awake",
+          "Graphic Online obituary and tributes, December 2022",
+          "Beat-Club, 1971 (Phallus C), frames"
+        ],
+        "note": "No polyrhythmic or metric device on the kit in any song or source read."
+      }
+    },
+    "voice_language": {
+      "hihat": "Closed eighths, straight; two sixteenths on the \"e\" and \"and\" in Dance the Body Music's opening.",
+      "snare": "2 and 4; a cross-stick in verses; all four beats to lift; short runs of sixteenths and five-stroke rolls into sections.",
+      "kick": "On 1, the \"and\" of 2 and 3, often the \"and\" of 4; around the snare, off the 1, in a coda.",
+      "toms": "Rare: the high tom in eighths to open Dance the Body Music.",
+      "cymbals": "A crash on the 1 of a section and on the horns' hits."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks, held matched on Beat-Club (1971); hand drums, bongos and bells as well on the records."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "A dry, damped mid-1970s studio kit at the Roundhouse; on Beat-Club in 1971 a kit in a black pearl wrap with brass cymbals"
+    ],
+    "cymbal_character": "Not documented.",
+    "sample_hints": {
+      "afro-rock": "A fat, short snare and a damped kick; a clear cross-stick."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:osibisa-beat-club-1971", "src:welcome-home-osibisa-album-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:sol-amarfio-cross-stick-verse",
+      "label": "The cross-stick verse",
+      "category": "groove",
+      "description": "Sunshine Day's verses: the cross-stick on 2 and 4, the kick on 1, the \"and\" of 2 and 3, under the congas and bells.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:sol-amarfio-sunshine-day-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:osibisa-sunshine-day-1976"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-5767318"]
+      }
+    },
+    {
+      "id": "trait:sol-amarfio-no-snare",
+      "label": "The snare left out",
+      "category": "groove",
+      "description": "Long stretches of hats and kick alone, no backbeat, leaving the horns and hand drums the middle.",
+      "audibility": "subtle",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:sol-amarfio-sunshine-day-horns"],
+      "heard_on": [
+        {
+          "recording_id": "rec:osibisa-sunshine-day-1976"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-5767318"]
+      }
+    },
+    {
+      "id": "trait:sol-amarfio-every-beat",
+      "label": "The snare on every beat",
+      "category": "groove",
+      "description": "A chorus or coda lifted with the snare on all four beats and the kick round it.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": [
+        "pattern:sol-amarfio-sunshine-day-every-beat",
+        "pattern:sol-amarfio-dance-the-body-music-coda"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:osibisa-sunshine-day-1976"
+        },
+        {
+          "recording_id": "rec:osibisa-ojah-awake-1976"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-5767318", "src:songsterr-5767340"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:sol-amarfio-sunshine-day-verse",
+        "name": "Sunshine Day: the verse",
+        "type": "groove",
+        "function": "Eighths on the hats, a cross-stick on 2 and 4, the kick on 1, the \"and\" of 2 and 3.",
+        "style_ids": ["style:afro-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5767318"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 119,
+          "playable_range_bpm": [115, 123]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....c.......c...",
+          "kick": "x.....x.x......."
+        },
+        "source": {
+          "recording_id": "rec:osibisa-sunshine-day-1976",
+          "transcription_source_id": "src:songsterr-5767318"
+        },
+        "tags": ["1975", "cross-stick"]
+      },
+      {
+        "id": "pattern:sol-amarfio-sunshine-day-horns",
+        "name": "Sunshine Day: under the horns",
+        "type": "groove",
+        "function": "The hats and kick alone, no snare, the kick on 1, 3 and the \"and\" of 4.",
+        "style_ids": ["style:afro-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5767318"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 119,
+          "playable_range_bpm": [115, 123]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "kick": "x.......x.....x."
+        },
+        "source": {
+          "recording_id": "rec:osibisa-sunshine-day-1976",
+          "transcription_source_id": "src:songsterr-5767318"
+        },
+        "tags": ["1975", "no backbeat"]
+      },
+      {
+        "id": "pattern:sol-amarfio-sunshine-day-every-beat",
+        "name": "Sunshine Day: the snare on every beat",
+        "type": "groove",
+        "function": "The last choruses: the snare on all four beats, the kick on 1, the \"a\" of 1, the \"and\" of 2, 3, the \"a\" of 3 and the \"and\" of 4.",
+        "style_ids": ["style:afro-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5767318"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 119,
+          "playable_range_bpm": [115, 123]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "x...x...x...x...",
+          "kick": "x..x..x.x..x..x."
+        },
+        "source": {
+          "recording_id": "rec:osibisa-sunshine-day-1976",
+          "transcription_source_id": "src:songsterr-5767318"
+        },
+        "tags": ["1975"]
+      },
+      {
+        "id": "pattern:sol-amarfio-dance-the-body-music-groove",
+        "name": "Dance the Body Music: the groove",
+        "type": "groove",
+        "function": "Eighths on the hats, the snare on 2 and 4, the kick on 1, the \"and\" of 2, 3 and the \"and\" of 4: fifty bars of it.",
+        "style_ids": ["style:afro-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5767340"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 121,
+          "playable_range_bpm": [116, 126]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x.....x."
+        },
+        "source": {
+          "recording_id": "rec:osibisa-ojah-awake-1976",
+          "transcription_source_id": "src:songsterr-5767340"
+        },
+        "tags": ["1976"]
+      },
+      {
+        "id": "pattern:sol-amarfio-dance-the-body-music-coda",
+        "name": "Dance the Body Music: the coda",
+        "type": "groove",
+        "function": "The snare on every beat and the kick in the gaps round it, never on 1 or 3.",
+        "style_ids": ["style:afro-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5767340"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 121,
+          "playable_range_bpm": [116, 126]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "x...x...x...x...",
+          "kick": "...x..x....x..x."
+        },
+        "source": {
+          "recording_id": "rec:osibisa-ojah-awake-1976",
+          "transcription_source_id": "src:songsterr-5767340"
+        },
+        "tags": ["1976", "four on the snare"]
+      },
+      {
+        "id": "pattern:sol-amarfio-dance-the-body-music-crash-bars",
+        "name": "Dance the Body Music: the hats out",
+        "type": "groove",
+        "function": "A crash on 1 and no hats, the snare on the \"a\" of 1 as well as on 2 and 4, the kick as in the groove.",
+        "style_ids": ["style:afro-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5767340"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 121,
+          "playable_range_bpm": [116, 126]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "snare": "...xx.......x...",
+          "kick": "x.....x.x.....x."
+        },
+        "source": {
+          "recording_id": "rec:osibisa-ojah-awake-1976",
+          "transcription_source_id": "src:songsterr-5767340"
+        },
+        "tags": ["1976"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:sol-amarfio-beat-club-1971",
+      "label": "Beat-Club, 1971",
+      "context": "live",
+      "drums": [],
+      "hardware": [],
+      "layout_notes": "Shells in a black pearl wrap, chrome hardware, brass cymbals; a painted Ghanaian drum set beside the kit. The make is not named in any source read.",
+      "endorsements": [],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:osibisa-beat-club-1971"]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "Osibisa",
@@ -53,11 +595,167 @@
       },
       "evidence": {
         "confidence": "widely_reported",
-        "source_ids": ["src:sol-amarfio-wikipedia"]
+        "source_ids": ["src:sol-amarfio-wikipedia", "src:osibisa-wikipedia"],
+        "note": "\"Early 1990s\" (Wikipedia); 1993 a placeholder."
+      }
+    },
+    {
+      "name": "The Star Gazers",
+      "type": "band_member",
+      "years": {
+        "from": 1955,
+        "to": 1958
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:osibisa-wikipedia", "src:sol-amarfio-graphic-obituary-2022"],
+        "note": "\"The 1950s\" (Wikipedia); the years a placeholder."
+      }
+    },
+    {
+      "name": "The Comets",
+      "type": "band_member",
+      "years": {
+        "from": 1958,
+        "to": 1961
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:osibisa-wikipedia", "src:sol-amarfio-graphic-obituary-2022"],
+        "note": "The Comets' hit was 1958; he left Ghana in 1961."
       }
     }
   ],
-  "key_recording_ids": ["rec:osibisa-sunshine-day-1976", "rec:osibisa-the-coffee-song-1976"],
+  "key_recording_ids": [
+    "rec:osibisa-sunshine-day-1976",
+    "rec:osibisa-ojah-awake-1976",
+    "rec:osibisa-welcome-home-1975",
+    "rec:osibisa-osibisa-1971",
+    "rec:osibisa-woyaya-1971"
+  ],
+  "relationships": [
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Teddy Osei",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:osibisa-wikipedia", "src:sol-amarfio-wikipedia"],
+        "note": "From the Star Gazers in Accra to Osibisa."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Mac Tontoh",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:osibisa-wikipedia", "src:sol-amarfio-wikipedia"],
+        "note": "From the Comets to Osibisa."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Kofi Ayivor",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:welcome-home-osibisa-album-wikipedia", "src:ojah-awake-wikipedia"],
+        "note": "Congas on Welcome Home and Ojah Awake, beside his kit."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Wendell Richardson",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:osibisa-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Spartacus R",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:osibisa-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Robert Bailey",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:osibisa-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Loughty Lasisi Amao",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:osibisa-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Kiki Gyan",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:osibisa-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Nii Tettey Tetteh",
+        "kind": "drummer"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sol-amarfio-graphic-tributes-2022"],
+        "note": "Decided to become a professional drummer after seeing Amarfio's success."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Play what comes naturally; force nothing out (\"I do what comes naturally to me behind the drums\", 2018).",
+        "paraphrase_of_source_id": "src:sol-amarfio-graphic-obituary-2022"
+      }
+    ],
+    "notes": "Self-taught; no method of his own published. Remembered for advising young Ghanaian drummers."
+  },
   "legacy": {
     "contribution": {
       "description": "Co-founded Osibisa, the London band whose \"mixture of Western and African music\" took Afro-rock into the charts in the 1970s, and was its drummer for two decades.",
@@ -65,10 +763,34 @@
         "confidence": "likely",
         "source_ids": ["src:sol-amarfio-wikipedia"]
       }
-    }
+    },
+    "influence_score": 0.4,
+    "innovations": [],
+    "accolades": [],
+    "common_misconceptions": [
+      "That Osibisa played Afrobeat: theirs is Afro-rock, highlife and Afro-pop made in London from 1969, apart from Fela Kuti and Tony Allen's Afrobeat in Lagos."
+    ]
   },
   "beatbreaker": {
-    "group": "Afro-rock drummers",
-    "build_priority": 2
+    "style_key": "amarfio",
+    "headline_pattern_ids": [
+      "pattern:sol-amarfio-sunshine-day-verse",
+      "pattern:sol-amarfio-dance-the-body-music-groove"
+    ],
+    "default_kit_sound": "Funk & soul: SM Drums' 1960s Ludwig with a fat, short snare",
+    "generation_rules": [
+      "Straight eighths on the hats.",
+      "The kick on 1, the \"and\" of 2 and 3.",
+      "Few fills, short snare runs.",
+      "No ghost notes.",
+      "No hand percussion: only the kit."
+    ],
+    "avoid": ["Swing", "Afrobeat's broken snare", "Busy fills"],
+    "lineage_display": {
+      "primary_ancestors": [],
+      "primary_descendants": [],
+      "lineage_blurb": "Self-taught in Accra's highlife bands; the drummer of the band that took Afro-rock into the charts from London."
+    },
+    "tags": ["osibisa", "afro-rock", "highlife", "ghana", "70s"]
   }
 }

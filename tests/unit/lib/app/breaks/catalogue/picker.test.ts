@@ -200,6 +200,8 @@ describe('drummerSection', () => {
       'prieto',
       'miltonbanana',
       'tonyallen',
+      'koleoso',
+      'amarfio',
       'carltonbarrett',
       'slydunbar',
       'santadavis',
@@ -240,6 +242,7 @@ describe('drummerSection', () => {
       'Afro-Cuban and Latin jazz drummers',
       'Samba and Brazilian jazz drummers',
       'Afrobeat drummers',
+      'Afro-rock drummers',
       'Reggae drummers',
       'YouTube drummers',
     ]);

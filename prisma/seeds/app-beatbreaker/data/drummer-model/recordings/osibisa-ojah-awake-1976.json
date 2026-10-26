@@ -1,0 +1,46 @@
+{
+  "id": "rec:osibisa-ojah-awake-1976",
+  "title": "Ojah Awake",
+  "artist": "Osibisa",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:afro-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sol-amarfio",
+      "name": "Sol Amarfio",
+      "drummer_role": "sole_drummer",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ojah-awake-wikipedia"]
+      }
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Dance the Body Music",
+      "drummer_ids": ["drummer:sol-amarfio"],
+      "drums": {
+        "description": "The kick on 1, the \"and\" of 2, 3 and the \"and\" of 4 for fifty bars under the congas; a coda with the snare on every beat and the kick round it.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ojah-awake-wikipedia", "src:songsterr-5767340"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-6ogImN_eXY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5767340"
+        }
+      ],
+      "style_key": "amarfio",
+      "song_key": "dance-the-body-music"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ojah-awake-wikipedia"],
+    "note": "Island ILPS 9411, recorded at the Roundhouse, London, 1976; the personnel from the album's back cover (Wikipedia)."
+  }
+}

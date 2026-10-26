@@ -2,7 +2,7 @@
   "id": "rec:osibisa-sunshine-day-1976",
   "title": "Sunshine Day",
   "artist": "Osibisa",
-  "year": 1976,
+  "year": 1975,
   "type": "studio_track",
   "style_ids": ["style:afro-rock"],
   "drum_performances": [
@@ -31,9 +31,11 @@
       "transcriptions": [
         {
           "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=1633423"
+          "url": "https://www.songsterr.com/a/wa/song?id=5767318"
         }
-      ]
+      ],
+      "style_key": "amarfio",
+      "song_key": "sunshine-day"
     }
   ],
   "evidence": {

@@ -21647,6 +21647,263 @@ Read 2026-10-24.
 - https://albumism.com/features/sly-the-family-stone-fresh-turns-45-anniversary-retrospective
 - Records: g6xhSqz_4m8 (In Time), CGumgIIq7d4 (Let Me Have It All), gZFabOuF4Ps (If You Want Me to Stay), iO6OvHxD_m8 (Young Americans, 2016 remaster), 2MZdvuGgcvU (Love Is Alive), kOnde5c7OG8 (More Than This)
 
+## DR. Femi Koleoso (2026-10-26)
+
+The `koleoso` style plays **songs** the way `newmark` (DQ) does: each New picks
+one of his records, and its tempo, kit, sections and grooves come with it, in
+the record's order. He was a 15-a candidate (Modern jazz drummers, priority 1);
+the owner asked for Afrobeat drummers beside Tony Allen, and he is filed with
+the **Afrobeat drummers**, since Ezra Collective's grooves are Afrobeat-led and
+he learnt them from Allen himself. His record,
+`drummer-model/drummers/femi-koleoso.json`, keeps the candidate's id,
+`drummer:femi-koleoso`, now at `draft` (schema 1.6.0). One recording is new,
+Ezra Collective's Dance, No One's Watching (2024), carrying all four songs. His
+new sources are in `sources/femi-koleoso.json`. No genre is new:
+`style:afrobeat` (latin-african), `style:uk-jazz` (jazz), `style:rnb-soul` and
+`style:hip-hop-breakbeat` (funk-soul).
+
+**Who he is.** Born in London (his SABIAN profile), a Nigerian-British
+Londoner ("London, Nigerian, Jubilee Church, Son of an Immigrant": 15
+Questions, 2022). He started on the drums in church at four, then joined
+Tomorrow's Warriors, Gary Crosby and Janine Irons's youth jazz programme,
+where he met the rest of Ezra Collective; he founded the band in 2012 with his
+brother TJ on bass (Wikipedia; Reverb, 2020). Its EPs were recorded at Abbey
+Road in an engineer's downtime (Chapter 7, 2016; Juan Pablo: The Philosopher,
+2018); then You Can't Steal My Joy (2019), Where I'm Meant to Be (2022), the
+first jazz album to win the Mercury Prize (2023), and Dance, No One's Watching
+(2024); the band was the first jazz act to win the Brit Award for Group of the
+Year (2025). He leads it from the kit, and also drums for Jorja Smith (from at
+least her 2018 Tiny Desk Concert) and, since 2020, in Gorillaz's live band
+(Hypebeast, 2022).
+
+**Afrobeat and Tony Allen.** Fela was his "earliest influence ... from my dad's
+CD collection" (15 Questions); his favourite album he did not play on is
+Zombie (SABIAN). He "used to take the overnight bus from London to Paris to
+study with the legendary Tony Allen": "a drum kit opposite a drum kit ... he
+would just lay down a beat and I'd join in. We'd sit on that groove for hours
+and I would copy everything he did and then he would explain some of the
+differences between the grooves". Allen's first words were "Why is everything
+so aggressive? ... you barely have to move", and "I can play the beats, but
+it's the sound and the groove that he could get, that's the life's work"
+(Reverb, 2020). "Uncle Tony shaped the foundation of the sound I was trying to
+create" (Hypebeast, 2022). Where I'm Meant to Be's No Confusion is his tribute:
+"'Confusion' by Fela Kuti is one of the only recorded drum solos by Uncle Tony
+
+- it's so him, no one else could have played it" (The Line of Best Fit,
+  2022). The band began by playing standards "with a Fela Kuti Afrobeat way of
+  playing the changes rather than swinging" (Reverb). So the record gets a
+  `studied_with` edge to Tony Allen; Art Blakey, Max Roach, Chris Dave and
+  Karriem Riggins are `cites_as_influence`, Questlove `admired` (for his drum
+  recording, Hypebeast).
+
+**His kit and sound** (Reverb, 2020): for Ezra Collective "a Ludwig Maple
+Classic and that's an 18" kit that's modelled on bebop drum kits", with "quite
+thick double-ply skins" on the kick "so it's got that beefy stadium sound";
+for Jorja Smith, played to a click and backing track, a 20" Ludwig Keystone
+with 18" and 16" floor toms and a 12" tom. He retunes mid-gig with Ezra, and
+for "a J Dilla studio sound" layers the snare with claps or tambourine. SABIAN
+cymbals; his favourite is the 8" Chopper. The app's kit is `smdrums`, SM Drums'
+1960s Ludwig (the kit Tony Allen's style plays too): no free samples of his own
+exist (Drum-Drops sells packs of his kit, recorded at Livingston Studios).
+On time: for a studio sound "I don't want it to be loose. There's a chance I
+might even use a click"; all four records here are steady to a tenth of a beat
+a minute, so the feel is "Locked in".
+
+**Devices.** None: a dated `devices_search`. The snare in threes (3, 3, then 4
+sixteenths) is a figure inside the bar that starts again on each 1, not a
+cycle across the bar line.
+
+**The songs.** All four are from Dance, No One's Watching (Partisan, 27
+September 2024), whose personnel lists him as the drummer, with no other
+(Wikipedia); Junior Alli-Balogun's percussion is on Where I'm Meant to Be, not
+these.
+
+| Song                         | Year | Meter | Tempo          | What defines it                                                                                         | Source of the bars                                                                          |
+| ---------------------------- | ---- | ----- | -------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| Expensive                    | 2024 | 4/4   | 135 (measured) | Fela's Expensive Shit over four on the floor: the snare in threes; a cowbell bridge, the kick in threes | Songsterr 6427587 (machine), checked against the record                                     |
+| Ajala                        | 2024 | 4/4   | 155 (measured) | the hat opened with the snare figure over four on the floor; recorded in Lagos                          | Songsterr 3217003 (machine), checked against the record                                     |
+| God Gave Me Feet for Dancing | 2024 | 4/4   | 118 (measured) | sixteenths on the hat over four on the floor, the snare on the "a" of 1 and the "and" of 2              | Songsterr 3080488 (human), sections read from its bars                                      |
+| No One's Watching Me         | 2024 | 4/4   | 103 (measured) | the hat on the "and"s, rim clicks on the "a"s, the kick on 1, 3 and its "and"                           | Songsterr 3216852 (machine draft corrected by hand), by its markers; 2259170 (human) agrees |
+
+Every tempo is the record's, by autocorrelation of the onset envelope at 8 and
+16 beats (the official audio or visualiser of each). Expensive is Fela's
+(the album credits the music to him); Ajala was recorded in Lagos in October
+2023; God Gave Me Feet for Dancing is with Yazmin Lacey, No One's Watching Me
+with Olivia Dean (Wikipedia, the album).
+
+**Expensive and Ajala, how they were checked.** No human tab of either exists;
+both Songsterr tabs are machine-made (aiGenerated). Each tab's length at its
+tempo matches the record (Expensive 209 bars at 134 = 6:13 against 6:12 at
+135; Ajala 165 at 154 = 4:17 against 4:15 at 155), and a fold of each record's
+main sections onto a sixteenth grid (kick 40-100 Hz, snare 1-4.5 kHz, hat 7-11
+kHz) peaks where the tabs put the hat, the kick on the beat and the snare's
+1, "a" of 1, "and" of 2 and "and" of 3. The fold cannot check the fills or the
+rarer bars, and the comments say so. Sections are read off the tabs' bar
+sequences, which have no markers. Expensive's 96 bars of the head under the
+solos are played as 64; its bridge, which the tab fills to the last sixteenth
+under the cowbell, plays the snare's run from 4 as the phrase's fill, since
+the critic asks a quarter of each bar to be air; elsewhere, four snare
+sixteenths in a row put the third on the mid tom. Ajala's 24-bar intro, a hit
+on the 1 in the tab (the record has percussion under it), is played as 8, and
+its two fills that run the snare in sixteenths from 3 are left out: at 155 a
+run of four notes holds a song to 150.
+
+**God Gave Me Feet for Dancing.** Stanislas's tab is human and its only
+revision, at 115 where the record is 118. Its first 20 bars have no kit drums
+and are not written. Its runs of five bars are played as four; bar 84's stop
+(the drums off from 3) is left out, the critic finding no backbeat in its
+second half.
+
+**No One's Watching Me.** Tab 3216852 began as George Hilario's machine upload;
+Ben Dibden1's revision corrected its drums by hand and marked its sections,
+which match the record's 112 bars. Jonah van Kessel's human tab (2259170) writes
+the same groove, though its form does not match. The heads' stops on the 1, head
+3's off-grid last bar and the solo's last bar (rim clicks in pairs, with no
+backbeat for the critic) are left out.
+
+**Left out.** Quest for Coin (2019), Victory Dance, No Confusion and Life
+Goes On (2022, the last with music credited in part to Fela), his best-known
+Afrobeat grooves: no transcription that can be used. Victory Dance's two
+machine tabs (3748190, 4687869) are empty or garbled; the others have none.
+Juan Pablo's machine tab (7278907) has 50 distinct bars in 159 and was not
+trusted. The Here Because of Hope tabs (2026) are machine "retranscribed"
+tracks. A record-only transcription was not tried: without a drum stem the
+fold cannot separate his snare from the horns and percussion.
+
+**Library contradictions.** None found. The candidate's two recordings (You
+Can't Steal My Joy, Where I'm Meant to Be) keep their tracks, none scored; their
+descriptions (15-b, `likely`) were not checked against a transcription. The
+brief dated Juan Pablo: The Philosopher 2017; Wikipedia lists it as a 2018 EP.
+
+**The likeness.** The Mercury Prize ceremony, 7 September 2023, the night Where
+I'm Meant to Be won (BBC Music's film of Victory Dance, GV2w4Kvm7Oo, close-ups
+at 1:00): heavily built, head shaved to the scalp, clean-shaven, in-ear
+monitors, a sleeveless top in the band's tie-dyed camouflage of cream, sage
+green and orange (two-colour `motifs` on cream), a silver sparkle kit with
+chrome hardware. His trousers are not in shot; the band wore the print as
+matching sets.
+
+### Sources (DR)
+
+Read 2026-10-26.
+
+- https://en.wikipedia.org/wiki/Ezra_Collective ; Where_I'm_Meant_to_Be ; Dance,_No_One's_Watching (API, with the wikitext's track listings and personnel)
+- https://reverb.com/news/interview-ezra-collectives-femi-koleoso-on-afrobeat-touch-hip-hop-swing (David West, 6 August 2020; read through Reverb's article API)
+- https://hypebeast.com/2022/11/streetsnaps-femi-koleoso-interview (3 November 2022)
+- https://sabian.com/artist/femi-koleoso/
+- https://www.thelineofbestfit.com/news/ezra-collective-and-kojey-radical-pay-tribute-to-tony-allen-on-new-single-no-confusion (1 November 2022)
+- https://15questions.net/interview/fifteen-questions-interview-ezra-collective/ (November 2022)
+- https://www.songsterr.com/a/wa/song?id=6427587 (machine) ; 3217003 (machine) ; 3080488 (human) ; 3216852 (machine draft corrected by hand) ; 2259170 (human) ; 3748190 , 4687869 , 7278907 (machine, not used)
+- https://www.youtube.com/watch?v=GV2w4Kvm7Oo (BBC Music, Victory Dance at the Mercury Prize, 2023) ; Ft0GFsNtlRw (Ajala, live performance)
+- Records: vbHyBupey_s (Expensive), mmKDG9Nm0DA (Ajala), 5JUjFN9AuFU (God Gave Me Feet for Dancing), Vwzpswab92s (No One's Watching Me); also beat-tracked, not scored: RAh6Dj9C9Tc (Quest for Coin, 136), K72z5NBRZJk (Victory Dance, 138), q21001Q96fE (Life Goes On, 125), BDZ0T3iWNMM (Juan Pablo)
+
+## DS. Sol Amarfio (2026-10-26)
+
+The `amarfio` style plays **songs** the way `dennisdavis` (CR) does: each New
+picks one of his records, and its tempo, kit, sections and grooves come with
+it, in the record's order. He was a 15-a candidate (Afro-rock drummers,
+priority 2), and the owner asked for an Afrobeat drummer beside Tony Allen; he
+starts a new group, **Afro-rock drummers**, after Afrobeat's. Afro-rock is not
+Afrobeat, and the hint says so: Osibisa was a London band of Ghanaian and
+Caribbean players mixing highlife and Ghanaian rhythms with rock, jazz, funk
+and pop, from 1969, while Afrobeat was Fela Kuti and Tony Allen's in Lagos. His
+record, `drummer-model/drummers/sol-amarfio.json`, keeps the candidate's id,
+`drummer:sol-amarfio`, now at `draft` (schema 1.6.0). One recording is new,
+Ojah Awake (1976), carrying Dance the Body Music; Sunshine Day was in the model
+from 15-b and is linked to the new song. His new sources are in
+`sources/sol-amarfio.json`. No genre is new: `style:afro-rock` is in
+`GENRE_FAMILY` already (latin-african).
+
+**Who he is.** Solomon Amarki Amarfio, born in Asere, Accra, on 22 September
+1938, died 13 December 2022 (Wikipedia). Self-taught from fourteen and
+nicknamed "The Rhythm Man" as a teenager; he played highlife in Accra with the
+Rhythm Aces, the Star Gazers (with Teddy Osei) and the Comets (with Osei and
+his brother Mac Tontoh, whose "(I Feel) Pata Pata" was a West African hit in
+1958), moved to England in 1961 by way of Liberia, Spain and France, and played
+with George Lee and Willie Cheetham across Europe and North Africa (Graphic
+Online's obituary, 2022; Wikipedia says "around 1960"). In 1969 Osei persuaded
+him and Tontoh to join him in London, and Osibisa was born, the "Beautiful
+Seven" of the first three albums (Wikipedia, the band). He wrote or co-wrote
+much of its music, "Woyaya" among it, and left in the early 1990s. In a 2018
+interview: "I do what comes naturally to me behind the drums. I don't force out
+anything"; he grew up with music and dance around him, and "the swing of those
+things sipped into me". Tributes call his playing "so cool ... he made it seem
+effortless" and single out Ayiko Bia (Graphic Online, 15 December 2022).
+
+**His part in the band.** Every album credits him with more than the kit:
+fontomfrom, bongos, bells and cowbells (Woyaya, Heads), bongos and congas
+(Welcome Home), beside Lasisi Amao's and Robert Bailey's congas and timbales,
+and later Kofi Ayivor's congas. Both tabs scored put bongos, a conga and a
+cowbell in the drum track. Only the kit is written here: the hand drums carry
+the cross-rhythms, and which of them are his overdubs is not known. What is
+left on the kit is plain and even: straight eighths on the hats, the kick on 1,
+the "and" of 2 and 3, a cross-stick for verses, long stretches of hats and
+kick with no snare under the horns, the snare on all four beats to lift a
+chorus, and few fills, most of them a bar of snare sixteenths or a five-stroke
+roll.
+
+**Devices.** None: a dated `devices_search`. The cross-rhythms in Osibisa's
+music are the hand drums', not his.
+
+**The songs.**
+
+| Song                 | Year | Record       | Meter | Tempo          | What defines it                                                                                        | Source of the bars                  |
+| -------------------- | ---- | ------------ | ----- | -------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------- |
+| Sunshine Day         | 1975 | Welcome Home | 4/4   | 119 (measured) | a cross-stick in the verses, the hats and kick alone under the horns, the snare on every beat to close | Songsterr 5767318 (human), 146 bars |
+| Dance the Body Music | 1976 | Ojah Awake   | 4/4   | 121 (measured) | the kick on 1, the "and" of 2, 3 and the "and" of 4 for fifty bars; a coda with the kick off the beats | Songsterr 5767340 (human), 113 bars |
+
+Credits: Welcome Home (Island, 1975) lists Amarfio on "drums, percussion,
+bells, bongos, congas" and opens with Sunshine Day; Ojah Awake (Island, 1976)
+lists him on "drums, percussion, cowbells, bongos", Dance the Body Music its
+fifth track (Wikipedia, both albums, from their sleeves). Both tabs are by the
+same transcriber (naimano, June 2026), aiGenerated false, one revision each,
+and neither copies the machine tab of the same song (1633423, 1633462), whose
+bars differ. Each record was beat-tracked: Sunshine Day at 119 (118.7 in the
+first two minutes, 119.9 after; the tab writes 116), Dance the Body Music at
+121 (120.7, nearer 123 later; the tab writes 120). Both are straight: the hat
+band autocorrelates at the half beat, not the third. At the measured tempo the
+tabs' bar counts end with the records, and each record's kick band comes in
+where its tab's kit does (Sunshine Day bar 4; Dance the Body Music bar 2, with
+bar 93's fill a dip in the kick band). Neither tab has markers, so the sections
+are read from the bars; with the schema's 32 distinct bars and 32 slots, each
+song's sections are its kinds of bar, in the tab's order, lengths rounded to
+whole sections, and each comment says which bars each figure plays.
+
+**What was changed.** The app plays no run of four snare sixteenths without
+written sticking, so the tabs' runs (Sunshine Day bars 3, 39, 71, 134) lose one
+note in four, said in each comment. Dance the Body Music's bar 93 is two
+five-stroke rolls in 32nds, written as three sixteenths each. The tabs'
+bongos, conga and cowbell are left out. Sunshine Day's first two bars (bongos
+alone) are left out; the song starts at the snare roll.
+
+**Left out.** The 1971-73 records, his best-known Afro-rock (Music for Gong
+Gong, Ayiko Bia, Woyaya, Beautiful Seven, Che Che Kule): no transcription of
+any, and measuring the records cannot tell his kit from the band's hand drums,
+so they are not guessed. The Coffee Song (1976): no transcription. Who's Got
+the Paper (1974): a machine tab only (7569137), with no hats for its first
+forty-seven bars, not trusted.
+
+**Library contradictions.** Dance the Body Music sits in the model on
+`rec:osibisa-welcome-home-1975`, but it is on Ojah Awake (1976), not Welcome
+Home (Wikipedia, both track listings): the new recording carries it. Sunshine
+Day's recording is dated 1976; the single was 1975 (UK No. 17 in January 1976) and the album track 1975. Both are left for the parent.
+
+**The likeness.** Beat-Club (Radio Bremen), 1971, Phallus C (the Beat-Club
+channel's upload, captioned "Sol Amarfio dr"): an ochre knitted cap, a white
+sleeveless smock with thin dark red stripes, a long chain with a pendant, a
+kit in a black pearl wrap with brass cymbals.
+
+### Sources (DS)
+
+Read 2026-10-26.
+
+- https://en.wikipedia.org/wiki/Sol_Amarfio ; Osibisa ; Osibisa_(album) ; Woyaya ; Heads_(Osibisa_album) ; Welcome_Home_(Osibisa_album) ; Ojah_Awake (API, extracts and wikitext)
+- https://www.graphic.com.gh/entertainment/showbiz-news/sol-amarfio-a-founding-member-of-the-osibisa-band-has-died.html (obituary, 14 December 2022, quoting a 2018 interview)
+- https://graphic.com.gh/entertainment/showbiz-news/a-big-drum-is-broken-tributes-pour-in-for-sol-amarfo.html (tributes, 15 December 2022)
+- https://www.songsterr.com/a/wa/song?id=5767318 ; 5767340 (human) ; 1633423 , 1633462 , 7569137 (machine-made)
+- https://www.youtube.com/watch?v=xEYPs3nbNJQ (Beat-Club, Phallus C, 1971)
+- Records: pJ3rKjQpIVg (Sunshine Day), -6ogImN_eXY (Dance the Body Music); also beat-tracked, not scored: DktHoG1CfBo (The Coffee Song), IALpmwOm8Vs (Music for Gong Gong), DCHUfkertmI (Ayiko Bia)
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

@@ -9,25 +9,5 @@
     {
       "drummer_id": "drummer:sol-amarfio"
     }
-  ],
-  "tracks": [
-    {
-      "title": "Dance the Body Music",
-      "drummer_ids": ["drummer:sol-amarfio"],
-      "drums": {
-        "description": "Afro-funk groove on kit under the band's percussion, a dancefloor hit in Britain.",
-        "evidence": {
-          "confidence": "likely",
-          "source_ids": ["src:sol-amarfio-wikipedia"]
-        }
-      },
-      "youtube": "https://www.youtube.com/watch?v=-6ogImN_eXY",
-      "transcriptions": [
-        {
-          "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=1633462"
-        }
-      ]
-    }
   ]
 }

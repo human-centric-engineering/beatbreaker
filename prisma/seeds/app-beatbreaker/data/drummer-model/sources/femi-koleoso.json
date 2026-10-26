@@ -1,0 +1,101 @@
+[
+  {
+    "id": "src:dance-no-ones-watching-wikipedia",
+    "type": "encyclopedia",
+    "title": "Dance, No One's Watching - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Dance,_No_One%27s_Watching",
+    "reliability": 0.6,
+    "accessed": "2026-10-26",
+    "notes": "Ezra Collective's third album (Partisan, 27 September 2024), produced by the band. Personnel: Femi Koleoso, drums; TJ Koleoso, bass; Ife Ogunjobi, trumpet; James Mollison, tenor saxophone; Joe Armon-Jones, synthesiser. Ajala recorded in Lagos in October 2023; Expensive's music credited to Fela Kuti; God Gave Me Feet for Dancing with Yazmin Lacey, No One's Watching Me with Olivia Dean."
+  },
+  {
+    "id": "src:femi-koleoso-reverb-2020",
+    "type": "interview",
+    "title": "Interview: Ezra Collective's Femi Koleoso on Afrobeat Touch and Hip-Hop Swing (David West, Reverb, 6 August 2020)",
+    "url": "https://reverb.com/news/interview-ezra-collectives-femi-koleoso-on-afrobeat-touch-hip-hop-swing",
+    "reliability": 0.8,
+    "accessed": "2026-10-26",
+    "notes": "Drums in church from four, then Tomorrow's Warriors; took the overnight bus to Paris for lessons with Tony Allen, kit opposite kit (\"Why is everything so aggressive? ... you barely have to move\"); Max Roach, Art Blakey and Fela; Karriem Riggins, Chris Dave and Clever Austin for hip-hop swing; studio versus live; his Ezra kit a Ludwig Classic Maple with an 18\" bass drum, modelled on bebop kits, and a 20\" Ludwig Keystone with 12\", 16\" and 18\" toms for Jorja Smith; thick double-ply heads on the jazz kick. Read through Reverb's article API."
+  },
+  {
+    "id": "src:femi-koleoso-hypebeast-2022",
+    "type": "magazine",
+    "title": "Streetsnaps: Femi Koleoso (Reggie McCafferty, Hypebeast, 3 November 2022)",
+    "url": "https://hypebeast.com/2022/11/streetsnaps-femi-koleoso-interview",
+    "reliability": 0.6,
+    "accessed": "2026-10-26",
+    "notes": "In Gorillaz's live band since 2020. Art Blakey and Max Roach lifelong inspirations; Chris Dave and Questlove (for his drum recording methods) among later ones; his all-time favourite is Tony Allen: \"Uncle Tony shaped the foundation of the sound I was trying to create.\""
+  },
+  {
+    "id": "src:femi-koleoso-sabian",
+    "type": "manufacturer_profile",
+    "title": "Femi Koleoso - SABIAN Cymbals",
+    "url": "https://sabian.com/artist/femi-koleoso/",
+    "reliability": 0.6,
+    "accessed": "2026-10-26",
+    "notes": "Born and lives in London; Ezra Collective and Jorja Smith. Biggest influences: Art Blakey, Tony Allen, Chris Dave. Favourite album he didn't play on: Fela Kuti's Zombie. Favourite SABIAN cymbal: the 8\" Chopper."
+  },
+  {
+    "id": "src:no-confusion-line-of-best-fit-2022",
+    "type": "news",
+    "title": "Ezra Collective and Kojey Radical pay tribute to Tony Allen on new single \"No Confusion\" (Cerys Kenneally, The Line of Best Fit, 1 November 2022)",
+    "url": "https://www.thelineofbestfit.com/news/ezra-collective-and-kojey-radical-pay-tribute-to-tony-allen-on-new-single-no-confusion",
+    "reliability": 0.6,
+    "accessed": "2026-10-26",
+    "notes": "Koleoso: \"Drum lessons with Uncle Tony didn't just change my life, but Ezra Collective's ... 'Confusion' by Fela Kuti is one of the only recorded drum solos by Uncle Tony - it's so him, no one else could have played it.\""
+  },
+  {
+    "id": "src:ezra-collective-15-questions-2022",
+    "type": "interview",
+    "title": "Fifteen Questions Interview with Ezra Collective (15 Questions, November 2022)",
+    "url": "https://15questions.net/interview/fifteen-questions-interview-ezra-collective/",
+    "reliability": 0.6,
+    "accessed": "2026-10-26",
+    "notes": "\"Earliest influence would be Fela Kuti, from my dad's CD collection\"; \"London, Nigerian, Jubilee Church, Son of an Immigrant\"; on Tony Allen's death, \"I got all my records out and blasted them\"; \"Just trying to write hard drum beats.\""
+  },
+  {
+    "id": "src:songsterr-6427587",
+    "type": "transcription",
+    "title": "Songsterr, Ezra Collective - Expensive (machine, rev 8393194 by Ben, 2026)",
+    "url": "https://www.songsterr.com/a/wa/song?id=6427587",
+    "reliability": 0.4,
+    "accessed": "2026-10-26",
+    "notes": "aiGenerated true, its only revision. 209 bars of 4/4 at 134 (the record is 135), no markers. The head: eighths on the hat, the snare on 1, the \"a\" of 1, the \"and\" of 2 and of 3 and the \"e\" of 4 over four on the floor; a bridge with the kick in threes under a cowbell on the beat; ride-bell sections, one ghosted."
+  },
+  {
+    "id": "src:songsterr-3217003",
+    "type": "transcription",
+    "title": "Songsterr, Ezra Collective - Ajala (machine, rev 4224463 by George Hilario, 2025)",
+    "url": "https://www.songsterr.com/a/wa/song?id=3217003",
+    "reliability": 0.4,
+    "accessed": "2026-10-26",
+    "notes": "aiGenerated true, its only revision. 165 bars of 4/4 at 154 (the record is 155), no markers. The open hat with the snare on 1, the \"a\" of 1, the \"and\" of 2, the \"and\" of 3 and the \"and\" of 4, over four on the floor; the intro only a hit on the 1."
+  },
+  {
+    "id": "src:songsterr-3080488",
+    "type": "transcription",
+    "title": "Songsterr, Ezra Collective - God Gave Me Feet For Dancing (human, rev 4109484 by Stanislas, 2025)",
+    "url": "https://www.songsterr.com/a/wa/song?id=3080488",
+    "reliability": 0.6,
+    "accessed": "2026-10-26",
+    "notes": "aiGenerated false, its only revision. 117 bars of 4/4 at 115 (the record is 118), no markers; no kit drums in the first 20 bars. Sixteenths on the hat over four on the floor, the snare or rim on the \"a\" of 1 and the \"and\" of 2."
+  },
+  {
+    "id": "src:songsterr-3216852",
+    "type": "transcription",
+    "title": "Songsterr, Ezra Collective, Olivia Dean - No One's Watching Me (machine draft corrected by hand, rev 5201214 by Ben Dibden1, 2026)",
+    "url": "https://www.songsterr.com/a/wa/song?id=3216852",
+    "reliability": 0.5,
+    "accessed": "2026-10-26",
+    "notes": "First revision (4224285) by George Hilario, whose uploads are machine-made; Ben Dibden1's revision added section labels and corrected the drums (\"added notes, fixed notes, adjusted note value\"). 114 bars at 103 with markers (Intro, Head 1-4, Verse 1-2, Solo, Outro)."
+  },
+  {
+    "id": "src:songsterr-2259170",
+    "type": "transcription",
+    "title": "Songsterr, Ezra Collective - No One's Watching Me (human, rev 3079161 by Jonah van Kessel, 2025)",
+    "url": "https://www.songsterr.com/a/wa/song?id=2259170",
+    "reliability": 0.5,
+    "accessed": "2026-10-26",
+    "notes": "aiGenerated false. The groove only, in four bars: the hat on the \"and\"s, the rim on the \"a\" of 1, the \"a\" of 2, on 4 and its \"a\", the kick on 1, 3 and its \"and\"; its form does not match the record."
+  }
+]
