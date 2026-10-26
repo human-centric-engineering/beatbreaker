@@ -3657,6 +3657,71 @@ const ANDY_NEWMARK: Persona = {
   kit: { shell: '#3a1418', finish: 'gloss', hardware: 'chrome', rug: '#2a2222' },
 };
 
+/**
+ * Sol Amarfio with Osibisa on Radio Bremen's Beat-Club in 1971, playing Phallus C, at
+ * thirty-two (the Beat-Club channel's upload, xEYPs3nbNJQ, captioned "Sol Amarfio dr";
+ * frames at 2:44-3:08): slim, an ochre knitted cap pulled down over his hair, clean-shaven;
+ * a white sleeveless smock with thin dark red stripes running down it, open at the neck,
+ * over bare arms (drawn as a striped waistcoat with nothing under it); a long chain with a
+ * pendant. His kit is wrapped in a black pearl, the hardware chrome, the cymbals brass; the
+ * make is not named in any source read. The cap is drawn as a beanie, which adds a bobble
+ * his has not got. Trousers and shoes are out of shot: dark ones, a guess. No headphones.
+ */
+const SOL_AMARFIO: Persona = {
+  id: 'amarfio',
+  name: 'Sol Amarfio',
+  figure: 'male',
+  build: 'slim',
+  skin: '#3a2216',
+  hair: '#141110',
+  // cut close: none of it shows under the cap
+  hairStyle: 'bald',
+  hairTexture: 'coily',
+  beard: 'none',
+  // the striped smock, sleeveless and open at the neck
+  top: 'bare',
+  shirt: '#ebe5d8',
+  waistcoat: { cloth: '#ebe5d8', trim: '#ebe5d8', buttoned: true, stripes: '#7a3a2a' },
+  trousers: '#2a2622',
+  shoes: '#1c1814',
+  footwear: 'shoes',
+  // the ochre cap
+  accent: '#b8862e',
+  hat: 'beanie',
+  chain: true,
+  headphones: false,
+  kit: { shell: '#18181c', finish: 'oyster', hardware: 'chrome', rug: '#3a2a22' },
+};
+
+/**
+ * Femi Koleoso with Ezra Collective at the Mercury Prize ceremony, 7 September 2023, the night
+ * Where I'm Meant to Be won (BBC Music's film of Victory Dance, GV2w4Kvm7Oo, close-ups at 1:00):
+ * heavily built, his head shaved to the scalp, clean-shaven, an in-ear monitor rather than
+ * headphones, a sleeveless top in the band's tie-dyed camouflage of cream, sage green and orange.
+ * His kit in silver sparkle with chrome hardware. His trousers are not seen; the band wore the
+ * print as matching sets, so they are its cream.
+ */
+const FEMI_KOLEOSO: Persona = {
+  id: 'koleoso',
+  name: 'Femi Koleoso',
+  figure: 'male',
+  build: 'heavy',
+  skin: '#4f2f20',
+  hair: '#1a1210',
+  // shaved to the scalp
+  hairStyle: 'bald',
+  beard: 'none',
+  top: 'vest',
+  shirt: '#d6c9a0',
+  // the tie-dyed camouflage's green and orange
+  motifs: ['#6f8f4e', '#d9742c'],
+  trousers: '#cfc3a0',
+  shoes: '#e8e8e8',
+  accent: '#d9742c',
+  headphones: false,
+  kit: { shell: '#c9cbcc', finish: 'sparkle', hardware: 'chrome', rug: '#2a2a2e' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -3770,6 +3835,8 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   errico: GREG_ERRICO,
   djjohnson: DJ_JOHNSON,
   newmark: ANDY_NEWMARK,
+  amarfio: SOL_AMARFIO,
+  koleoso: FEMI_KOLEOSO,
 };
 
 /**

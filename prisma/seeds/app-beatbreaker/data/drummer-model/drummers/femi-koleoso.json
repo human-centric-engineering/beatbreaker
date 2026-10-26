@@ -2,41 +2,632 @@
   "meta": {
     "id": "drummer:femi-koleoso",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
+    "record_status": "draft",
+    "completeness": 0.3,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-26",
+    "authors": ["claude", "John", "Claude"],
+    "open_questions": [
+      "Expensive and Ajala follow machine Songsterr tabs: tempo and form match the records, and a fold of each record agrees with the main groove, but the fills and the rarer bars are unchecked.",
+      "Ajala's intro: the tab writes only a hit on the 1 for 24 bars, but the record has percussion, and perhaps hat or rim, under it.",
+      "Quest for Coin (2019), Victory Dance, No Confusion and Life Goes On (2022), his best-known Afrobeat grooves, have no usable transcription (Victory Dance's two machine tabs are empty or garbled); not scored.",
+      "His handedness and which hand leads the hat: not stated in any source read; the footage looked at was too far off to say.",
+      "The Drum-Drops sample packs of his kit (recorded at Livingston Studios) are sold, not free, and their pages could not be read on 2026-10-26."
+    ]
   },
   "identity": {
     "name": "Femi Koleoso",
+    "born": {
+      "place": "London",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:femi-koleoso-sabian"]
+      }
+    },
     "nationality": ["British"],
-    "home_scenes": ["London jazz (Tomorrow's Warriors, 2010s)"],
+    "home_scenes": ["Jubilee Church, London", "London jazz (Tomorrow's Warriors, 2010s)"],
+    "setup_type": "drum_kit",
     "primary_instruments": ["drum kit"],
     "active": {
       "from": 2012,
       "ongoing": true
     },
-    "summary": "Drummer and leader of Ezra Collective, the first jazz band to win the Mercury Prize."
+    "roles": ["bandleader", "band_member", "touring", "composer"],
+    "summary": "A Nigerian-British Londoner who started on the drums in church at four, came up through Tomorrow's Warriors and in 2012 founded Ezra Collective with his brother TJ, the band he leads from the kit. He took the overnight bus to Paris for lessons with Tony Allen, kit facing kit. Ezra Collective's Where I'm Meant to Be (2022) was the first jazz album to win the Mercury Prize; Dance, No One's Watching (2024) plays Fela's Expensive Shit and dance-floor grooves at 103 to 155. He also drums for Jorja Smith and in Gorillaz's live band."
   },
-  "style_profile": {
-    "genres": [
+  "formation": {
+    "traditions": [
       {
-        "style_id": "style:uk-jazz",
-        "weight": 1.0,
-        "authority": 0.7
+        "tradition": "Church",
+        "impact": "He started playing drums in church aged four (Jubilee Church, among the \"building blocks of me\").",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:femi-koleoso-reverb-2020", "src:ezra-collective-15-questions-2022"]
+        }
       },
       {
-        "style_id": "style:afrobeat",
-        "weight": 0.5,
-        "authority": 0.3
+        "tradition": "Afrobeat (Fela Kuti, Tony Allen)",
+        "impact": "Fela was his earliest influence, from his father's CDs; lessons with Tony Allen in Paris shaped \"the foundation of the sound I was trying to create\".",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:ezra-collective-15-questions-2022",
+            "src:femi-koleoso-hypebeast-2022",
+            "src:femi-koleoso-reverb-2020"
+          ]
+        }
       },
       {
-        "style_id": "style:hip-hop-breakbeat",
-        "weight": 0.3,
-        "authority": 0.2
+        "tradition": "Jazz (Art Blakey, Max Roach)",
+        "impact": "Tomorrow's Warriors; Ezra Collective began by imitating Blakey and Roach, then played standards \"with a Fela Kuti Afrobeat way of playing the changes rather than swinging\".",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:femi-koleoso-reverb-2020", "src:femi-koleoso-hypebeast-2022"]
+        }
+      },
+      {
+        "tradition": "Hip-hop (J Dilla, Karriem Riggins)",
+        "impact": "Making \"a straight hip-hop beat swing, almost like a shuffle\", after Karriem Riggins, Chris Dave and Clever Austin.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:femi-koleoso-reverb-2020"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Joined Tomorrow's Warriors, the youth jazz programme of Gary Crosby and Janine Irons, where he met the rest of Ezra Collective.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ezra-collective-wikipedia", "src:femi-koleoso-reverb-2020"]
+        }
+      },
+      {
+        "event": "Lessons with Tony Allen in Paris, reached by overnight bus: kit opposite kit, copying his grooves for hours, then talking them through.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:femi-koleoso-reverb-2020", "src:no-confusion-line-of-best-fit-2022"]
+        }
+      },
+      {
+        "year": 2012,
+        "event": "Founded Ezra Collective with his brother TJ on bass.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ezra-collective-wikipedia"]
+        }
+      },
+      {
+        "year": 2023,
+        "event": "Where I'm Meant to Be won the Mercury Prize, the first jazz album to do so.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ezra-collective-wikipedia", "src:where-i-m-meant-to-be-wikipedia"]
+        }
       }
     ]
   },
+  "eras": [
+    {
+      "id": "era:femi-koleoso-warriors",
+      "label": "Tomorrow's Warriors to You Can't Steal My Joy",
+      "years": {
+        "from": 2012,
+        "to": 2019
+      },
+      "context": "Ezra Collective's EPs, recorded at Abbey Road in an engineer's downtime (Chapter 7, 2016; Juan Pablo: The Philosopher, 2018), Quest for Coin and the debut album; drumming for Jorja Smith.",
+      "defining_traits": ["Afrobeat played as jazz", "hip-hop swing", "long improvised solos"],
+      "key_recording_ids": ["rec:ezra-collective-you-cant-steal-my-joy-2019"]
+    },
+    {
+      "id": "era:femi-koleoso-mercury",
+      "label": "Where I'm Meant to Be and Gorillaz",
+      "years": {
+        "from": 2020,
+        "to": 2023
+      },
+      "context": "Gorillaz's live band from 2020; Where I'm Meant to Be (2022), with No Confusion as a tribute to Tony Allen, and the Mercury Prize.",
+      "defining_traits": [
+        "grooves for dancing",
+        "rap and soul guests",
+        "a studio, locked-in sound"
+      ],
+      "key_recording_ids": ["rec:ezra-collective-where-im-meant-to-be-2022"]
+    },
+    {
+      "id": "era:femi-koleoso-dance",
+      "label": "Dance, No One's Watching",
+      "years": {
+        "from": 2024,
+        "ongoing": true
+      },
+      "context": "Dance, No One's Watching (2024), the Brit Award for Group of the Year (2025) and arena concerts.",
+      "defining_traits": [
+        "four on the floor under Afrobeat snare figures",
+        "fast tempos",
+        "Fela covers"
+      ],
+      "key_recording_ids": ["rec:ezra-collective-dance-no-ones-watching-2024"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:afrobeat",
+        "name": "Afrobeat",
+        "weight": 1.0,
+        "authority": 0.4,
+        "notes": "Expensive (Fela), Ajala; No Confusion and his lessons with Tony Allen."
+      },
+      {
+        "style_id": "style:uk-jazz",
+        "name": "UK jazz",
+        "weight": 1.0,
+        "authority": 0.7,
+        "notes": "Ezra Collective; Tomorrow's Warriors."
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "name": "R&B and soul",
+        "weight": 0.4,
+        "authority": 0.2,
+        "notes": "No One's Watching Me; Jorja Smith."
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "name": "Hip-hop",
+        "weight": 0.3,
+        "authority": 0.2,
+        "notes": "Karriem Riggins's swung hip-hop beat (Footprints, 2020)."
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "driver",
+    "descriptors": ["driving", "danceable", "Afrobeat", "four on the floor", "loud"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "variable",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:femi-koleoso-reverb-2020"],
+        "note": "Locked in for a studio sound (\"I don't want it to be loose ... I might even use a click\"), a laid-back hip-hop shuffle on Footprints."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.05,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight sixteenths in all four songs scored here; swung hip-hop elsewhere (Footprints)."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "f",
+      "ghost_note_level": 50,
+      "accent_level": 120,
+      "balance": "A big kick (\"that beefy stadium sound\" from double-ply heads), the snare and hat up front for dancing."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 26],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.8,
+    "tempo_comfort_bpm": [100, 160],
+    "timekeeping_context": ["free", "click", "dancers"],
+    "interaction": "Leads the band from the kit; cues it back in from his solos with set fills (\"certain drum fills let them know\").",
+    "descriptors": ["locked in", "for dancing", "driving"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "The hat opened with the snare",
+        "description": "Ajala's hat opened on each stroke of the snare figure, over four on the floor at 155.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3217003"]
+        }
+      },
+      {
+        "name": "Rim clicks off the beat",
+        "description": "No One's Watching Me's cross-stick on the \"a\"s of 1 and 2, on 4 and its \"a\", the hat on the \"and\"s.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3216852", "src:songsterr-2259170"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Four on the floor under Afrobeat",
+        "description": "The kick on every beat under snare figures in threes (Expensive, Ajala, God Gave Me Feet for Dancing).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6427587", "src:songsterr-3217003", "src:songsterr-3080488"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.6,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.2,
+      "foot_ostinato_usage": 0.5,
+      "double_bass": 0.0,
+      "notes": "A kick ostinato (four on the floor, or the threes) under snare and cymbal figures that repeat in the bar.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-26",
+        "searched": [
+          "Songsterr 6427587 (Expensive), 3217003 (Ajala), 3080488 (God Gave Me Feet for Dancing), 3216852 and 2259170 (No One's Watching Me)",
+          "Reverb (2020), Hypebeast (2022), The Line of Best Fit (2022), 15 Questions (2022), his SABIAN profile"
+        ],
+        "note": "No cross-rhythm, grouping, polymeter or metric modulation is named or written. The snare in threes (3+3+4+3+3 sixteenths) is a figure inside the bar that starts again on every 1, not a cycle across the bar line."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths in the Afrobeat heads, sixteenths in God Gave Me Feet for Dancing, opened with the snare in Ajala, on the \"and\"s in No One's Watching Me.",
+      "snare": "Figures in threes, not a backbeat: 1, the \"a\" of 1, the \"and\" of 2, the \"and\" of 3; rim clicks in the slow songs.",
+      "kick": "Four on the floor, or in threes (1, the \"a\" of 1, the \"and\" of 2, the \"a\" of 3, the \"and\" of 4) under a cowbell.",
+      "toms": "At the ends of fills.",
+      "cymbals": "The ride's bell on the beat or in eighths over the kick in threes; crashes on the off-beats in God Gave Me Feet for Dancing."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks in all four songs."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "A bebop-sized Ludwig with an 18\" bass drum, the kick fattened with double-ply heads",
+      "Tuning changed mid-gig with Ezra Collective; held firm for Jorja Smith",
+      "For a J Dilla studio sound, the snare layered with claps or tambourine"
+    ],
+    "cymbal_character": "SABIAN; his favourite the 8\" Chopper.",
+    "sample_hints": {
+      "afrobeat": "A vintage Ludwig, warm and a little loose, the kick big."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:femi-koleoso-reverb-2020", "src:femi-koleoso-sabian"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:femi-koleoso-snare-in-threes",
+      "label": "The snare in threes over four on the floor",
+      "category": "groove",
+      "description": "The snare on 1, the \"a\" of 1, the \"and\" of 2 and the \"and\" of 3 (3, 3, then 4 sixteenths) while the kick plays every beat: Fela's Expensive Shit and Ajala made for a dance floor.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:femi-koleoso-expensive-head", "pattern:femi-koleoso-ajala-groove"],
+      "heard_on": [
+        {
+          "recording_id": "rec:ezra-collective-dance-no-ones-watching-2024"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-6427587", "src:songsterr-3217003"]
+      }
+    },
+    {
+      "id": "trait:femi-koleoso-cowbell-over-threes",
+      "label": "A bell on the beat over the kick in threes",
+      "category": "groove",
+      "description": "The cowbell, or the ride's bell, on every beat while the kick plays 1, the \"a\" of 1, the \"and\" of 2, the \"a\" of 3 and the \"and\" of 4: Expensive's bridge and its ride sections.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:femi-koleoso-expensive-bridge"],
+      "heard_on": [
+        {
+          "recording_id": "rec:ezra-collective-dance-no-ones-watching-2024"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-6427587"]
+      }
+    },
+    {
+      "id": "trait:femi-koleoso-allens-student",
+      "label": "Tony Allen's student",
+      "category": "musical_approach",
+      "description": "Lessons with Allen in Paris, kit opposite kit; No Confusion (2022) is his tribute. Allen told him he barely had to move: \"I can play the beats, but it's the sound and the groove that he could get, that's the life's work.\"",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": [],
+      "heard_on": [
+        {
+          "recording_id": "rec:ezra-collective-where-im-meant-to-be-2022"
+        },
+        {
+          "recording_id": "rec:ezra-collective-dance-no-ones-watching-2024"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:femi-koleoso-reverb-2020", "src:no-confusion-line-of-best-fit-2022"]
+      }
+    },
+    {
+      "id": "trait:femi-koleoso-leads-from-the-kit",
+      "label": "Leads the band from the drums",
+      "category": "performance_persona",
+      "description": "Bandleader and main voice of Ezra Collective on stage; his solos are improvised from whatever solo came before, and set fills cue the band back in.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "pattern_ids": [],
+      "heard_on": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:femi-koleoso-reverb-2020", "src:ezra-collective-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:femi-koleoso-expensive-head",
+        "name": "Expensive, the head",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 1, the \"a\" of 1, the \"and\" of 2, the \"and\" of 3 and the \"e\" of 4, the kick on every beat: Fela's tune over four on the floor.",
+        "style_ids": ["style:afrobeat"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6427587"]
+        },
+        "source": {
+          "recording_id": "rec:ezra-collective-dance-no-ones-watching-2024",
+          "transcription_source_id": "src:songsterr-6427587"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [131, 139]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "x..x..x...x..x..",
+          "kick": "x...x...x...x..."
+        },
+        "tags": ["2024", "Fela Kuti", "four on the floor"]
+      },
+      {
+        "id": "pattern:femi-koleoso-expensive-bridge",
+        "name": "Expensive, the bridge",
+        "type": "groove_variation",
+        "function": "The cowbell on the beat, the kick in threes (1, the \"a\" of 1, the \"and\" of 2, the \"a\" of 3, the \"and\" of 4), the snare on the \"and\" of 1, the \"e\" and \"a\" of 2, the \"and\" of 3 and on 4.",
+        "style_ids": ["style:afrobeat"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6427587"]
+        },
+        "source": {
+          "recording_id": "rec:ezra-collective-dance-no-ones-watching-2024",
+          "transcription_source_id": "src:songsterr-6427587"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [131, 139]
+        },
+        "lanes": {
+          "cowbell": "x...x...x...x...",
+          "snare": "..x..x.x..x.x...",
+          "kick": "x..x..x....x..x."
+        },
+        "tags": ["2024", "cowbell"]
+      },
+      {
+        "id": "pattern:femi-koleoso-ajala-groove",
+        "name": "Ajala, the groove",
+        "type": "groove",
+        "function": "The hat opened with the snare on 1, the \"a\" of 1, the \"and\" of 2, the \"and\" of 3 and the \"and\" of 4, the snare on the \"a\" of 3 too, over four on the floor at 155.",
+        "style_ids": ["style:afrobeat"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3217003"]
+        },
+        "source": {
+          "recording_id": "rec:ezra-collective-dance-no-ones-watching-2024",
+          "transcription_source_id": "src:songsterr-3217003"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 155,
+          "playable_range_bpm": [150, 160]
+        },
+        "lanes": {
+          "hihat": "o..o..o...o...o.",
+          "snare": "x..x..x...xx..x.",
+          "kick": "x...x...x...x..."
+        },
+        "tags": ["2024", "Lagos", "fast"]
+      },
+      {
+        "id": "pattern:femi-koleoso-feet-verse",
+        "name": "God Gave Me Feet for Dancing, the verse",
+        "type": "groove",
+        "function": "Sixteenths on the hat, the snare on the \"a\" of 1, the \"and\" of 2 and the \"and\" of 4, the kick on every beat.",
+        "style_ids": ["style:uk-jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3080488"]
+        },
+        "source": {
+          "recording_id": "rec:ezra-collective-dance-no-ones-watching-2024",
+          "transcription_source_id": "src:songsterr-3080488"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 118,
+          "playable_range_bpm": [114, 122]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx",
+          "snare": "...x..x.......x.",
+          "kick": "x...x...x...x..."
+        },
+        "tags": ["2024", "four on the floor"]
+      },
+      {
+        "id": "pattern:femi-koleoso-feet-snare-figure",
+        "name": "God Gave Me Feet for Dancing, the snare figure",
+        "type": "groove_variation",
+        "function": "No hat: the snare on 1, the \"and\" and \"a\" of 1, the \"and\" of 2, 3, its \"and\" and \"a\", the \"e\" and \"and\" of 4, over four on the floor.",
+        "style_ids": ["style:uk-jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3080488"]
+        },
+        "source": {
+          "recording_id": "rec:ezra-collective-dance-no-ones-watching-2024",
+          "transcription_source_id": "src:songsterr-3080488"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 118,
+          "playable_range_bpm": [114, 122]
+        },
+        "lanes": {
+          "snare": "x.xx..x.x.xxx.x.",
+          "kick": "x...x...x...x..."
+        },
+        "tags": ["2024"]
+      },
+      {
+        "id": "pattern:femi-koleoso-no-ones-watching-head",
+        "name": "No One's Watching Me, the head",
+        "type": "groove",
+        "function": "The hat on the \"and\"s and the \"a\" of 3, rim clicks on the \"a\" of 1, the \"a\" of 2, on 4 and its \"a\", the kick on 1, 3 and its \"and\".",
+        "style_ids": ["style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3216852"]
+        },
+        "source": {
+          "recording_id": "rec:ezra-collective-dance-no-ones-watching-2024",
+          "transcription_source_id": "src:songsterr-3216852"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 103,
+          "playable_range_bpm": [100, 106]
+        },
+        "lanes": {
+          "hihat": "..x...x...xx..x.",
+          "snare": "...c...c....c..c",
+          "kick": "x.......x.x....."
+        },
+        "tags": ["2024", "rim click"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:femi-koleoso-ezra",
+      "label": "Ludwig Classic Maple, the Ezra Collective kit (2020)",
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Ludwig",
+          "model": "Classic Maple",
+          "size": "18"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "other",
+          "brand": "SABIAN",
+          "model": "Chopper (his favourite)",
+          "size": "8"
+        }
+      ],
+      "layout_notes": "A kit \"modelled on bebop drum kits\", for solos that ring when quiet; thick double-ply heads on the bass drum. For Jorja Smith, a 20\" Ludwig Keystone with an 18\" and a 16\" floor tom and a 12\" rack tom, played to a click and backing track.",
+      "endorsements": ["Ludwig", "SABIAN"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:femi-koleoso-reverb-2020", "src:femi-koleoso-sabian"]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "Ezra Collective",
@@ -44,27 +635,222 @@
       "years": {
         "from": 2012
       },
+      "notes": "Founded with his brother TJ out of Tomorrow's Warriors; You Can't Steal My Joy (2019), Where I'm Meant to Be (2022, Mercury Prize), Dance, No One's Watching (2024).",
       "evidence": {
         "confidence": "widely_reported",
         "source_ids": ["src:ezra-collective-wikipedia"]
       }
-    }
-  ],
-  "key_recording_ids": [
-    "rec:ezra-collective-you-cant-steal-my-joy-2019",
-    "rec:ezra-collective-where-im-meant-to-be-2022"
-  ],
-  "legacy": {
-    "contribution": {
-      "description": "Leads Ezra Collective from the drums, fusing Afrobeat, calypso, reggae and hip-hop with jazz; the band won the 2023 Mercury Prize, the first jazz act to do so, and was the first jazz band to win a Brit Award for Group of the Year.",
+    },
+    {
+      "name": "Jorja Smith",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2018
+      },
+      "notes": "Her band, including the 2018 Tiny Desk Concert.",
       "evidence": {
         "confidence": "verified",
-        "source_ids": ["src:ezra-collective-wikipedia"]
+        "source_ids": ["src:femi-koleoso-reverb-2020", "src:femi-koleoso-sabian"]
+      }
+    },
+    {
+      "name": "Gorillaz",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2020
+      },
+      "notes": "The live band, through the 2022 world tour.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:femi-koleoso-hypebeast-2022"]
       }
     }
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Tony Allen",
+        "kind": "drummer",
+        "id": "drummer:tony-allen"
+      },
+      "strength": 0.9,
+      "aspects": ["Afrobeat grooves", "a light touch"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:femi-koleoso-reverb-2020",
+          "src:no-confusion-line-of-best-fit-2022",
+          "src:femi-koleoso-hypebeast-2022"
+        ],
+        "note": "Lessons in Paris by overnight bus, kit facing kit; \"Uncle Tony shaped the foundation of the sound I was trying to create\" (Hypebeast, 2022)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.6,
+      "aspects": ["jazz drumming", "West African influence"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:femi-koleoso-sabian",
+          "src:femi-koleoso-reverb-2020",
+          "src:femi-koleoso-hypebeast-2022"
+        ],
+        "note": "Among his \"biggest influences\" (SABIAN)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.5,
+      "aspects": ["jazz drumming"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:femi-koleoso-reverb-2020", "src:femi-koleoso-hypebeast-2022"],
+        "note": "\"I was massively into Max Roach, Art Blakey\" (Reverb, 2020)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Chris Dave",
+        "kind": "drummer",
+        "id": "drummer:chris-dave"
+      },
+      "strength": 0.5,
+      "aspects": ["hip-hop swing"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:femi-koleoso-sabian", "src:femi-koleoso-reverb-2020"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Karriem Riggins",
+        "kind": "drummer",
+        "id": "drummer:karriem-riggins"
+      },
+      "strength": 0.5,
+      "aspects": ["hip-hop swing"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:femi-koleoso-reverb-2020"],
+        "note": "\"One of my biggest influences ... It's basically making a straight hip-hop beat swing.\""
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Questlove",
+        "kind": "drummer",
+        "id": "drummer:questlove"
+      },
+      "strength": 0.3,
+      "aspects": ["recording drums"],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:femi-koleoso-hypebeast-2022"],
+        "note": "Admired \"for his drum recording methods\"."
+      }
+    }
+  ],
+  "pedagogy": {
+    "videos": [],
+    "philosophy": [
+      {
+        "idea": "A drummer should write the music: the drums are what everyone watches.",
+        "paraphrase_of_source_id": "src:femi-koleoso-reverb-2020"
+      },
+      {
+        "idea": "Learn a groove by sitting opposite it and copying, then talk it through, like a drum circle.",
+        "paraphrase_of_source_id": "src:femi-koleoso-reverb-2020"
+      },
+      {
+        "idea": "Never plan a solo's start: answer what was just played, or by the tenth night you are regurgitating.",
+        "paraphrase_of_source_id": "src:femi-koleoso-reverb-2020"
+      }
+    ]
+  },
+  "legacy": {
+    "contribution": {
+      "description": "Leads Ezra Collective from the drums, fusing Afrobeat, calypso, reggae and hip-hop with jazz; the band won the 2023 Mercury Prize, the first jazz act to do so, and was the first jazz band to win a Brit Award for Group of the Year. He carries Tony Allen's Afrobeat, learnt from Allen himself, to London dance floors.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ezra-collective-wikipedia", "src:femi-koleoso-reverb-2020"]
+      }
+    },
+    "influence_score": 0.4,
+    "innovations": ["Afrobeat snare figures over four on the floor, for jazz played to dancers"],
+    "accolades": [
+      {
+        "award": "Mercury Prize",
+        "year": 2023,
+        "for": "Where I'm Meant to Be, with Ezra Collective",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ezra-collective-wikipedia", "src:where-i-m-meant-to-be-wikipedia"]
+        }
+      },
+      {
+        "award": "Brit Award for Group of the Year",
+        "year": 2025,
+        "for": "Ezra Collective",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:ezra-collective-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": []
   },
   "beatbreaker": {
-    "group": "Modern jazz drummers",
-    "build_priority": 1
-  }
+    "style_key": "koleoso",
+    "headline_pattern_ids": [
+      "pattern:femi-koleoso-expensive-head",
+      "pattern:femi-koleoso-ajala-groove"
+    ],
+    "default_kit_sound": "A 1960s Ludwig, warm and a little loose, with a big kick",
+    "generation_rules": [
+      "The snare in figures of threes, not on 2 and 4.",
+      "Four on the floor, or the kick in threes under a bell on the beat.",
+      "The hat in eighths, opened with the snare, or in sixteenths.",
+      "Straight, locked in, at dance tempos."
+    ],
+    "avoid": [
+      "Swing in these songs",
+      "A plain 2-and-4 backbeat",
+      "Double bass",
+      "Busy fills inside the phrase"
+    ],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:tony-allen", "drummer:art-blakey"],
+      "primary_descendants": [],
+      "lineage_blurb": "Tony Allen's Afrobeat, learnt kit to kit in Paris, with Blakey's jazz and Dilla's hip-hop: London jazz for dancing."
+    },
+    "tags": [
+      "ezra collective",
+      "afrobeat",
+      "uk jazz",
+      "mercury prize",
+      "tony allen",
+      "2010s",
+      "2020s"
+    ]
+  },
+  "key_recording_ids": [
+    "rec:ezra-collective-you-cant-steal-my-joy-2019",
+    "rec:ezra-collective-where-im-meant-to-be-2022",
+    "rec:ezra-collective-dance-no-ones-watching-2024"
+  ]
 }

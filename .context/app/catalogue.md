@@ -497,7 +497,7 @@ one twice.
 
 ## Seeding
 
-`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 175 styles (64 genres and 111 drummers), three
+`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 177 styles (64 genres and 113 drummers), three
 libraries — 47 famous breaks (`data/library.ts`), 40 rudiments
 (`data/rudiments.ts`, Phase 10) and 39 polyrhythms (`data/polyrhythms.ts`,
 Phase 12) — 24 kits and six combinations (9-vi-c). Its data lives beside it under `data/`, and
