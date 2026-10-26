@@ -16,6 +16,36 @@
  *
  * Full guide + example: .context/privacy/data-erasure.md · CUSTOMIZATION.md §4
  */
+import { registerErasureCleanupHook } from '@/lib/privacy/erasure-hooks';
+import { deleteByPrefix, isStorageEnabled } from '@/lib/storage/upload';
+
+/**
+ * Registered here rather than from `initApp()`: this seam runs in the module
+ * graph `eraseUser()` runs in, so a script or worker that erases an account
+ * removes its samples too. A boot-time registration only reached the server
+ * process that booted.
+ */
 export function initAppErasureHooks(): void {
-  // No app erasure hooks by default.
+  registerSampleErasure();
+}
+
+/**
+ * Your samples' files go when you do (D20).
+ *
+ * The `sample` rows cascade from `user`, but no FK reaches storage, so the WAVs
+ * under `samples/<userId>/` are removed here, before the erasure transaction.
+ * Best-effort by the hook contract: a storage failure is logged by `eraseUser`
+ * and does not block the erasure. Avatars do not come through here — core
+ * `eraseUser` removes theirs itself.
+ */
+function registerSampleErasure(): void {
+  registerErasureCleanupHook({
+    name: 'beatbreaker-samples',
+    cleanupExternal: async ({ userId }) => {
+      if (!isStorageEnabled()) return;
+      const result = await deleteByPrefix(`samples/${userId}/`);
+      // thrown so `eraseUser` records it; it does not stop the erasure
+      if (!result.success) throw new Error(`Could not delete samples/${userId}/`);
+    },
+  });
 }

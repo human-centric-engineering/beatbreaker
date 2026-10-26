@@ -63,7 +63,6 @@ import {
 } from '@/lib/app/ci';
 import { occupiedTiers } from '@/lib/app/reserved-tiers';
 import { APP_CAPABILITY_PAIRS, APP_UNCHECKED_SEEDS } from '@/lib/app/capability-seed-pairs';
-import { BEATBUDDY_CAPABILITIES } from '@/lib/app/capabilities';
 import { initAppUserCreatedHooks } from '@/lib/app/user-created';
 import {
   getAppSubjectSources,
@@ -448,9 +447,38 @@ const SEAM_DEFAULTS: SeamDefault[] = [
       __resetAppOwnerClassificationForTests();
       // The read triggers the lazy init, so this exercises the REAL file.
       // FORK (BeatBreaker): re-pointed, not deleted. The app classifies its own
-      // user-linked models (0.15.0, §115) and enforces none of them.
+      // user-linked models (0.15.0, §115) and enforces none of them. Pinned by
+      // model and kind, so a model moving between personal and not-personal —
+      // or appearing unannounced — fails here.
       const classified = appOwnerClassifications();
-      expect(Object.keys(classified).length).toBeGreaterThan(0);
+      const byKind = (kind: string) =>
+        Object.entries(classified)
+          .filter(([, c]) => c.kind === kind)
+          .map(([model]) => model)
+          .sort();
+      expect(byKind('personal')).toEqual([
+        'BuddyWorkspace',
+        'Pin',
+        'PracticeRun',
+        'PracticeVisit',
+        'Sample',
+        'StudioSettings',
+        'Take',
+      ]);
+      expect(byKind('not-personal')).toEqual([
+        'Break',
+        'BreakReport',
+        'DrummerAbout',
+        'DrummerProfile',
+        'DrummerReport',
+        'Kit',
+        'PatternLibrary',
+        'PracticeSession',
+        'SpeedRecord',
+        'SpeedReport',
+        'Style',
+        'StyleVersion',
+      ]);
       expect(Object.values(classified).filter((c) => 'enforced' in c)).toEqual([]);
     },
   },
@@ -459,13 +487,11 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     risk: 'a stray default would run one-time work on every install boot',
     // That instrumentation calls this in all envs, try/catch-isolated, is
     // covered by tests/unit/instrumentation.test.ts.
-    // FORK (BeatBreaker): re-pointed, not deleted. Phase 4A (task 4A.7)
-    // registers the app's one erasure hook, which removes your samples' files
-    // (D20); what it deletes is covered by sample-erasure.test.ts.
+    // FORK (BeatBreaker): the samples erasure hook used to be registered
+    // here; it moved to lib/app/erasure.ts so an erasure run outside the
+    // booted server reaches it too; boot has no work left.
     assert: async () => {
-      __resetErasureCleanupHooksForTests();
       await expect(initApp()).resolves.toBeUndefined();
-      expect(getErasureCleanupHooks().map((h) => h.name)).toEqual(['beatbreaker-samples']);
     },
   },
   {
@@ -534,10 +560,15 @@ const SEAM_DEFAULTS: SeamDefault[] = [
   {
     seam: 'lib/app/erasure.ts',
     risk: 'a stray hook would run inside every account erasure on every install \u2014 deleting external data, or scrubbing rows, that the install never asked it to touch',
-    assert: () => {
+    // FORK (BeatBreaker): re-pointed, not deleted. The one hook removes your
+    // samples' files (D20); what it deletes is covered by sample-erasure.test.ts.
+    // tests/setup.ts pins this seam empty for the suite, so the real file is
+    // read with `importActual` and run against the real registry.
+    assert: async () => {
       __resetErasureCleanupHooksForTests();
-      // getErasureCleanupHooks() triggers the lazy init, so this exercises the REAL seam.
-      expect(getErasureCleanupHooks()).toEqual([]);
+      const seam = await vi.importActual<typeof import('@/lib/app/erasure')>('@/lib/app/erasure');
+      seam.initAppErasureHooks();
+      expect(getErasureCleanupHooks().map((h) => h.name)).toEqual(['beatbreaker-samples']);
     },
   },
   {
@@ -659,9 +690,25 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     // FORK (BeatBreaker): re-pointed, not deleted. BeatBuddy's tools are paired
     // from the list 003-beatbuddy seeds them from; no seed goes unchecked.
     assert: () => {
-      expect(APP_CAPABILITY_PAIRS.map((p) => p.slug)).toEqual(
-        BEATBUDDY_CAPABILITIES.map((c) => c.slug)
-      );
+      // Pinned by value: the pairs are built from BEATBUDDY_CAPABILITIES, so
+      // comparing the two could never fail.
+      expect(APP_CAPABILITY_PAIRS.map((p) => p.slug)).toEqual([
+        'get_pattern',
+        'list_styles',
+        'generate_pattern',
+        'write_bars',
+        'apply_doctor_move',
+        'make_cross_rhythm',
+        'tidy_pattern',
+        'set_playback',
+        'explain_difficulty',
+        'find_patterns',
+        'open_pattern',
+        'save_pattern',
+        'suggest_title',
+        'find_drummers',
+        'get_drummer',
+      ]);
       expect(APP_UNCHECKED_SEEDS).toEqual({});
     },
   },

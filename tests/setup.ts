@@ -334,6 +334,24 @@ vi.mock('@/lib/app/brand', async (importOriginal) => {
 vi.mock('@/lib/app/emails', () => ({ emailOverrides: {} }));
 
 /**
+ * FORK (BeatBreaker): pin the erasure-hook seam to "registers nothing", for
+ * every test file.
+ *
+ * Same class as the pins above: `getErasureCleanupHooks()` runs
+ * `lib/app/erasure.ts` lazily, and ours registers the samples hook, so core's
+ * registry and `eraseUser` tests — which assert the hooks they registered are
+ * the only ones, and count storage deletes — would see it and fail through no
+ * fault of theirs. `tests/unit/lib/app/sample-erasure.test.ts` overrides this
+ * with its own hoisted `vi.mock`, and `defaults.test.ts` reads the real seam
+ * with `vi.importActual`.
+ */
+vi.mock('@/lib/app/erasure', () => ({
+  initAppErasureHooks: () => {
+    // Registers nothing, which is precisely Sunrise's shipped default.
+  },
+}));
+
+/**
  * Mock Analytics
  *
  * Analytics hooks require AnalyticsProvider context.
