@@ -337,15 +337,15 @@ const unit: SeedUnit = {
       changeSummary: string
     ): Promise<void> {
       await prisma.$transaction(async (tx) => {
-        const updated = await tx.aiAgent.update({
-          where: { id: agent.id },
-          data,
-          include: {
-            grantedTags: { select: { tagId: true } },
-            grantedDocuments: { select: { documentId: true } },
-          },
+        const row = await tx.aiAgent.update({ where: { id: agent.id }, data });
+        const grantedTags = await tx.aiAgentKnowledgeTag.findMany({
+          where: { agentId: agent.id },
+          select: { tagId: true },
         });
-        const { grantedTags, grantedDocuments, ...row } = updated;
+        const grantedDocuments = await tx.aiAgentKnowledgeDocument.findMany({
+          where: { agentId: agent.id },
+          select: { documentId: true },
+        });
         await tx.aiAgentVersion.create({
           data: {
             agentId: agent.id,
