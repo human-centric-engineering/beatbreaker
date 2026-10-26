@@ -61,31 +61,54 @@ import { registerAppOwnerClassification } from '@/lib/db/owner-classification';
  * BeatBreaker's user-linked models (Sunrise 0.15.0, §115).
  *
  * None is `enforced`: the routes scope these reads, as they did before the
- * owner layer existed. Three personal models could not be enforced as they
- * stand, because the product reads other people's rows on purpose — a
- * published or link-shared `Break`, a link-shared `PracticeSession`, and the
- * fields a drummer switched public on `DrummerAbout` — and the owner layer's
- * only visibility arm is a conversation share.
+ * owner layer existed. A model other people read on purpose is `not-personal`,
+ * however private its unshared rows: the owner layer's only visibility arm is a
+ * conversation share, so marking one personal would describe a check that,
+ * once enforced, refused the published breaks, shared sessions, leaderboards
+ * and public drummer pages the product exists to show. Its `because` names
+ * who else reads it and what the routes check instead.
+ *
+ * Every user column in `prisma/schema/app.prisma` is marked `/// FK to User.id`
+ * where it has no `@relation`, and `tests/unit/lib/app/owner-classification.test.ts`
+ * fails naming any model so marked that is not classified here — core's guard
+ * only knows core's column names.
  */
 export function initAppOwnerClassification(): void {
   const mine = { kind: 'personal', owner: { column: 'userId' } } as const;
   registerAppOwnerClassification({
     tier: 'app',
     models: {
-      Break: mine,
       Take: mine,
       Pin: mine,
       PracticeVisit: mine,
-      SpeedRecord: mine,
-      PracticeSession: mine,
       PracticeRun: mine,
       StudioSettings: mine,
       BuddyWorkspace: mine,
       Sample: mine,
-      DrummerAbout: mine,
-      PracticeSessionItem: {
-        kind: 'personal',
-        owner: { through: { field: 'session', parent: 'PracticeSession' } },
+      Break: {
+        kind: 'not-personal',
+        because:
+          'A pattern is read by anyone at its /p/ address once link-shared or published, and remixed from; userId is whose it is, and the routes check its visibility or the owner.',
+      },
+      PracticeSession: {
+        kind: 'not-personal',
+        because:
+          'A setlist anyone can open at its /s/ address once link-shared; userId is whose it is, and the routes check its visibility or the owner.',
+      },
+      SpeedRecord: {
+        kind: 'not-personal',
+        because:
+          'A listed speed is on public leaderboards and the drummer’s /u/ page; userId is who played it, and the routes check listed and the target’s visibility.',
+      },
+      DrummerAbout: {
+        kind: 'not-personal',
+        because:
+          'The fields a drummer switched public are read by anyone at /u/<username>; userId is whose page it is, and the routes pick the public fields.',
+      },
+      DrummerProfile: {
+        kind: 'not-personal',
+        because:
+          'The public name everything a drummer publishes goes out under, read by anyone at /u/<username>; userId is whose name it is.',
       },
       BreakReport: {
         kind: 'not-personal',
@@ -97,15 +120,20 @@ export function initAppOwnerClassification(): void {
         because:
           'A moderation report on a leaderboard speed, read by the admins who resolve it; reporterId and resolvedById record who acted.',
       },
-      DrummerProfile: {
+      DrummerReport: {
         kind: 'not-personal',
         because:
-          'The public name everything a drummer publishes goes out under, read by anyone at /u/<username>; userId is whose name it is.',
+          'A moderation report on a drummer page, read by the admins who resolve it; subjectId names whose page, reporterId and resolvedById record who acted.',
       },
       Style: {
         kind: 'not-personal',
         because:
           'Catalogue: a null ownerId is a system style everyone reads; ownerId names who authored a user style (D16), read by its visibility.',
+      },
+      StyleVersion: {
+        kind: 'not-personal',
+        because:
+          "A style's frozen history, read by every pattern made from it; createdById records who saved the version.",
       },
       PatternLibrary: {
         kind: 'not-personal',

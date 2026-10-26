@@ -39,6 +39,14 @@ const USER_SCALAR = new Set([
   'actorUserId',
   'subjectUserId',
 ]);
+/**
+ * FORK (BeatBreaker): a user column with no `@relation`, under a name
+ * `USER_SCALAR` does not know (`subjectId`, `reporterId`, `createdById`), is
+ * marked `/// FK to User.id` in `app.prisma` — read here so the audit sees it,
+ * rather than refusing its classification as stale. Expect this to conflict on
+ * a Sunrise sync; keep it.
+ */
+const USER_FK_MARKER = /^\s*\/\/\/\s*FK to User\.id\b/;
 
 interface Relation {
   target: string;
@@ -49,6 +57,8 @@ export interface SchemaModel {
   name: string;
   scalars: Map<string, { type: string; optional: boolean }>;
   relations: Map<string, Relation>;
+  /** Scalars marked `/// FK to User.id` (FORK, see `USER_FK_MARKER`). */
+  userMarked: Set<string>;
 }
 
 /** Parse model blocks: scalar columns and the foreign-key relations this model holds. */
@@ -56,18 +66,30 @@ export function parseSchema(texts: string[]): Map<string, SchemaModel> {
   const out = new Map<string, SchemaModel>();
   for (const text of texts) {
     let current: SchemaModel | null = null;
+    let marked = false;
     for (const line of text.split('\n')) {
       const open = MODEL_OPEN.exec(line);
       if (open) {
-        current = { name: open[1], scalars: new Map(), relations: new Map() };
+        current = {
+          name: open[1],
+          scalars: new Map(),
+          relations: new Map(),
+          userMarked: new Set(),
+        };
         out.set(current.name, current);
+        marked = false;
         continue;
       }
       if (line.startsWith('}')) {
         current = null;
+        marked = false;
         continue;
       }
+      // a marker outside a model, or left dangling before its `}`, marks nothing
+      if (current && USER_FK_MARKER.test(line)) marked = true;
       if (!current || /^\s*(\/\/|@@)/.test(line)) continue;
+      const wasMarked = marked;
+      marked = false;
       const rel = FK_RELATION.exec(line);
       if (rel) {
         const keys = FK_FIELDS.exec(rel[4]);
@@ -83,6 +105,7 @@ export function parseSchema(texts: string[]): Map<string, SchemaModel> {
       const scalar = SCALAR.exec(line);
       if (scalar && !line.includes('@relation')) {
         current.scalars.set(scalar[1], { type: scalar[2], optional: scalar[3] === '?' });
+        if (wasMarked) current.userMarked.add(scalar[1]);
       }
     }
   }
@@ -95,6 +118,7 @@ function userColumnsOf(model: SchemaModel): Set<string> {
     if (rel.target === 'User') rel.keys.forEach((k) => cols.add(k));
   }
   for (const name of model.scalars.keys()) if (USER_SCALAR.has(name)) cols.add(name);
+  for (const name of model.userMarked) cols.add(name);
   return cols;
 }
 

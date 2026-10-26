@@ -105,17 +105,22 @@ entry, and the catalogue with your kits added.
 
 ## Erasure and export
 
-Rows cascade from `user`. No FK reaches storage, so `initApp()`
-(`lib/app/bootstrap.ts`) registers the app's erasure hook,
+Rows cascade from `user`. No FK reaches storage, so the erasure seam
+(`lib/app/erasure.ts`) registers the app's erasure hook,
 `beatbreaker-samples`, whose `cleanupExternal` deletes the `samples/<userId>/`
 prefix before the erasure transaction. It is best-effort by the hook contract:
 a failure is logged by `eraseUser` and does not stop the erasure. (Avatars do
 not take this path; core `eraseUser` removes theirs itself.)
 
+The seam runs lazily, in the module graph `eraseUser()` runs in, so an erasure
+from a script or a worker removes the files too. The hook used to be registered
+from `initApp()` (`lib/app/bootstrap.ts`), which only the booted server runs:
+anywhere else, the account went and its samples' files stayed.
+
 **The registry has to be shared across module graphs** (fixed in Phase 8).
 `instrumentation.ts`, which calls `initApp()`, runs in a separate module graph
 from the routes that call `eraseUser`. With Sunrise's plain module-scoped `Map`,
-the hook was registered where no route could see it, so the samples' files
+a hook registered at boot was where no route could see it, so the samples' files
 outlived the account. `lib/privacy/erasure-hooks.ts` now keeps the registry on
 `globalThis`, as sunrise#462 did for the context-contributor and capability
 registries. This is a fork edit to a core file, raised upstream on
