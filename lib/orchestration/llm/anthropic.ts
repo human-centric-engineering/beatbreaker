@@ -731,7 +731,7 @@ function splitSystemMessages(
           {
             type: 'tool_result',
             tool_use_id: msg.toolCallId ?? '',
-            content: getTextContent(msg.content),
+            content: neutraliseTurnInstructionHeading(getTextContent(msg.content), 'tool'),
           },
         ],
       });
@@ -758,10 +758,17 @@ function splitSystemMessages(
     // Multimodal content — convert ContentPart[] to Anthropic blocks
     if (Array.isArray(msg.content)) {
       const blocks: ContentBlockParam[] = toAnthropicBlocks(msg.content);
-      conversation.push({ role: msg.role, content: blocks });
+      conversation.push({
+        role: msg.role,
+        content: msg.role === 'user' ? neutraliseTextBlocks(blocks) : blocks,
+      });
       continue;
     }
-    conversation.push({ role: msg.role, content: msg.content });
+    conversation.push({
+      role: msg.role,
+      content:
+        msg.role === 'user' ? neutraliseTurnInstructionHeading(msg.content, 'user') : msg.content,
+    });
   }
 
   return {
@@ -772,6 +779,96 @@ function splitSystemMessages(
 
 /** Heads a `turnInstruction` sent as a user turn, so it is not read as the person's. */
 const TURN_INSTRUCTION_HEADING = '[Instruction from the application, not a message from the user]';
+
+/**
+ * The heading as someone might copy it, matched against `foldForMatching`
+ * text: any case or spacing, full-width or bracketed differently, with or
+ * without its brackets or second clause. The words stop at a closing bracket
+ * so they cannot close the re-worded frame early.
+ */
+const FORGED_HEADING =
+  /(?:[[(\u3010\u3014\u3016]\s*)?(instruction\s+from\s+the\s+application\w*[^\])\n\u3011\u3015\u3017]*)[\])\u3011\u3015\u3017]?/g;
+
+/** Zero-width and other invisible format characters (soft hyphen, joiners). */
+const FORMAT_CHAR = /\p{Cf}/u;
+
+const FORGED_SOURCE = { user: 'typed by the user', tool: 'written in a tool result' } as const;
+
+/**
+ * Re-word any copy of `TURN_INSTRUCTION_HEADING` in text the application did
+ * not write (a person's message, a tool result), so it cannot pass as an
+ * instruction from the application. Only a `turnInstruction` opener carries
+ * the heading as written.
+ */
+function neutraliseTurnInstructionHeading(
+  text: string,
+  source: keyof typeof FORGED_SOURCE
+): string {
+  const { folded, origin } = foldForMatching(text);
+  let out = '';
+  let copied = 0;
+  for (const match of folded.matchAll(FORGED_HEADING)) {
+    const start = match.index ?? 0;
+    const wordsStart = start + match[0].indexOf(match[1]);
+    const words = text
+      .slice(origin[wordsStart], origin[wordsStart + match[1].length])
+      .replace(/\p{Cf}/gu, '')
+      .trim();
+    out += `${text.slice(copied, origin[start])}(${FORGED_SOURCE[source]}: ${words})`;
+    copied = origin[start + match[0].length];
+  }
+  return copied === 0 ? text : out + text.slice(copied);
+}
+
+/**
+ * Lower-case, NFKC-normalise (full-width letters and brackets become ASCII)
+ * and drop invisible format characters, keeping for each folded UTF-16 unit
+ * the index in `text` it came from (`origin[folded.length]` is the end).
+ */
+function foldForMatching(text: string): { folded: string; origin: number[] } {
+  let folded = '';
+  const origin: number[] = [];
+  let index = 0;
+  for (const char of text) {
+    if (!FORMAT_CHAR.test(char)) {
+      const unit = char.normalize('NFKC').toLowerCase();
+      folded += unit;
+      for (let i = 0; i < unit.length; i++) origin.push(index);
+    }
+    index += char.length;
+  }
+  origin.push(text.length);
+  return { folded, origin };
+}
+
+/**
+ * Neutralise the text blocks of a user turn. Adjacent text blocks read as one
+ * text, so a heading split across them is caught by joining the run; the run
+ * is merged into one block only when that finds what the blocks alone miss.
+ */
+function neutraliseTextBlocks(blocks: ContentBlockParam[]): ContentBlockParam[] {
+  const result: ContentBlockParam[] = [];
+  let run: string[] = [];
+  const flush = (): void => {
+    if (run.length === 0) return;
+    const each = run.map((text) => neutraliseTurnInstructionHeading(text, 'user'));
+    const joined = neutraliseTurnInstructionHeading(run.join(''), 'user');
+    if (each.join('') === joined)
+      result.push(...each.map((text) => ({ type: 'text' as const, text })));
+    else result.push({ type: 'text', text: joined });
+    run = [];
+  };
+  for (const block of blocks) {
+    if (block.type === 'text') {
+      run.push(block.text);
+    } else {
+      flush();
+      result.push(block);
+    }
+  }
+  flush();
+  return result;
+}
 
 /**
  * Close a tool call left unanswered by the assistant at the end of
