@@ -2,7 +2,8 @@
  * LLM Provider Types
  *
  * Platform-agnostic TypeScript types shared across the LLM provider
- * abstraction. No runtime code. No Next.js imports.
+ * abstraction, with the few constants and helpers that belong to them.
+ * No Next.js imports.
  *
  * These types are the common dialect spoken by every provider
  * (Anthropic, OpenAI, Ollama, vLLM, Together, Fireworks, Groq, ...);
@@ -130,8 +131,49 @@ export type LlmResponseFormat =
  * `output_config.effort: 'low'` with no `thinking` field — some of those
  * models can't turn thinking off, so they still think, at their lowest
  * effort.
+ *
+ * `xhigh` and `max` sit above `high`:
+ *
+ *   - Adaptive-thinking Claude models send them as `output_config.effort`
+ *     of the same name (every one of them takes all five levels).
+ *   - Budget-taking Claude models get a larger budget: 32768 for `xhigh`,
+ *     65536 for `max`, clamped below `max_tokens` like the others.
+ *   - OpenAI-compatible reasoning models get `high`. Which OpenAI models
+ *     accept `xhigh` / `max` varies by model and is not published per id,
+ *     so a sent value could 400; `high` is the nearest value they all take.
  */
-export type ReasoningEffort = 'minimal' | 'low' | 'medium' | 'high';
+export type ReasoningEffort = 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+
+/**
+ * Every {@link ReasoningEffort} value, lowest first. The validation schemas,
+ * backup format and admin select are built from this list.
+ */
+export const REASONING_EFFORTS = [
+  'minimal',
+  'low',
+  'medium',
+  'high',
+  'xhigh',
+  'max',
+] as const satisfies readonly ReasoningEffort[];
+
+/**
+ * How long a GPT-5 model's answers run (`verbosity`). Other models drop it.
+ */
+export const VERBOSITIES = ['low', 'medium', 'high'] as const;
+export type Verbosity = (typeof VERBOSITIES)[number];
+
+/**
+ * Which OpenAI processing tier serves the request (`service_tier`). `flex` is
+ * slower and half price on the models that offer it; `priority` is faster
+ * and dearer. Sent only to OpenAI itself (`api.openai.com`); other providers
+ * drop it. The tier the response reports is what `calculateCost` prices.
+ */
+export const SERVICE_TIERS = ['auto', 'default', 'flex', 'priority'] as const;
+export type ServiceTier = (typeof SERVICE_TIERS)[number];
+
+/** Most stop sequences a request may carry — OpenAI's limit, the lower one. */
+export const MAX_STOP_SEQUENCES = 4;
 
 /** Per-call options passed to a provider. */
 export interface LlmOptions {
@@ -150,6 +192,29 @@ export interface LlmOptions {
    * mapping.
    */
   reasoningEffort?: ReasoningEffort;
+  /**
+   * Text that ends the response when the model writes it (Anthropic
+   * `stop_sequences`, OpenAI `stop`). At most {@link MAX_STOP_SEQUENCES}.
+   * Dropped on OpenAI reasoning models, which refuse it.
+   */
+  stopSequences?: string[];
+  /**
+   * Nucleus sampling, 0–1. Sent only to models that still take sampling
+   * parameters: older Claude models (`acceptsSamplingTemperature`), without
+   * thinking, where it replaces `temperature` (several refuse both), and
+   * non-reasoning OpenAI-compatible models. Dropped elsewhere.
+   */
+  topP?: number;
+  /** GPT-5 answer length. Dropped by every other model. */
+  verbosity?: Verbosity;
+  /**
+   * `false` asks for at most one tool call per turn (OpenAI
+   * `parallel_tool_calls`, Anthropic `disable_parallel_tool_use`). Sent only
+   * with tools. Unset leaves the provider default, which allows several.
+   */
+  parallelToolCalls?: boolean;
+  /** OpenAI processing tier — see {@link ServiceTier}. */
+  serviceTier?: ServiceTier;
   /** Override the provider's default request timeout. */
   timeoutMs?: number;
   /** Caller-supplied cancellation signal. */
@@ -159,23 +224,45 @@ export interface LlmOptions {
 /** Why the model stopped generating. */
 export type LlmFinishReason = 'stop' | 'tool_use' | 'length' | 'error';
 
+/**
+ * Tokens a provider reported for one call.
+ *
+ * `inputTokens` is every input token, cached or not, on every provider.
+ * OpenAI reports it that way; Anthropic reports cache reads and writes
+ * apart from `input_tokens`, and its provider class adds them back in.
+ * The cache counts are the subsets of `inputTokens` billed at a
+ * different rate (`calculateCost`), absent when the provider reported
+ * none.
+ */
+export interface LlmUsage {
+  inputTokens: number;
+  outputTokens: number;
+  /**
+   * For reasoning models (OpenAI o-series, gpt-5), the subset of
+   * `outputTokens` consumed by internal reasoning. Counts against
+   * the same `max_completion_tokens` cap that bounds visible
+   * output, so a high value with a low visible-content length
+   * signals the cap was too tight. Undefined for non-reasoning
+   * models and providers that don't report it.
+   */
+  reasoningTokens?: number;
+  /** Input tokens served from the provider's prompt cache. */
+  cacheReadTokens?: number;
+  /** Input tokens written to the provider's prompt cache (Anthropic). */
+  cacheWriteTokens?: number;
+  /**
+   * The processing tier that served the call, when the provider reported
+   * one other than its standard tier (OpenAI `flex` / `priority`). Priced
+   * by `calculateCost`.
+   */
+  serviceTier?: 'flex' | 'priority';
+}
+
 /** A complete, non-streaming response from a provider. */
 export interface LlmResponse {
   content: string;
   toolCalls?: LlmToolCall[];
-  usage: {
-    inputTokens: number;
-    outputTokens: number;
-    /**
-     * For reasoning models (OpenAI o-series, gpt-5), the subset of
-     * `outputTokens` consumed by internal reasoning. Counts against
-     * the same `max_completion_tokens` cap that bounds visible
-     * output, so a high value with a low visible-content length
-     * signals the cap was too tight. Undefined for non-reasoning
-     * models and providers that don't report it.
-     */
-    reasoningTokens?: number;
-  };
+  usage: LlmUsage;
   /** Echo of the model id the provider actually used. */
   model: string;
   finishReason: LlmFinishReason;
@@ -200,7 +287,7 @@ export type StreamChunk =
   | { type: 'tool_call'; toolCall: LlmToolCall }
   | {
       type: 'done';
-      usage: { inputTokens: number; outputTokens: number };
+      usage: LlmUsage;
       finishReason: LlmFinishReason;
       /** Reasoning blocks streamed this turn, in order — see `LlmResponse.reasoning`. */
       reasoning?: LlmReasoningBlock[];
@@ -393,6 +480,15 @@ export interface ModelInfo {
   tier: ModelTier;
   inputCostPerMillion: number;
   outputCostPerMillion: number;
+  /**
+   * USD per million input tokens read from the provider's prompt cache,
+   * when the pricing source publishes one (OpenRouter's catalogue does).
+   * Absent: `calculateCost` falls back to the provider's published
+   * multiplier, or to the full input rate where it has none.
+   */
+  cacheReadCostPerMillion?: number;
+  /** USD per million input tokens written to the prompt cache, as above. */
+  cacheWriteCostPerMillion?: number;
   maxContext: number;
   supportsTools: boolean;
   /**

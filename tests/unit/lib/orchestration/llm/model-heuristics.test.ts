@@ -12,6 +12,7 @@
 import { describe, it, expect } from 'vitest';
 
 import {
+  acceptsFlexTier,
   acceptsNativeStructuredOutput,
   refusesForcedToolChoice,
   acceptsSamplingTemperature,
@@ -29,6 +30,7 @@ import {
   deriveTierRole,
   deriveToolUse,
   narrowReasoningEffort,
+  openAiReasoningEffort,
   stripModelDateStamp,
   supportedReasoningEfforts,
   supportsReasoningEffort,
@@ -468,11 +470,13 @@ describe('acceptsSamplingTemperature', () => {
 });
 
 describe('narrowReasoningEffort', () => {
-  it('passes through the four enum values verbatim', () => {
+  it('passes through every enum value verbatim', () => {
     expect(narrowReasoningEffort('minimal')).toBe('minimal');
     expect(narrowReasoningEffort('low')).toBe('low');
     expect(narrowReasoningEffort('medium')).toBe('medium');
     expect(narrowReasoningEffort('high')).toBe('high');
+    expect(narrowReasoningEffort('xhigh')).toBe('xhigh');
+    expect(narrowReasoningEffort('max')).toBe('max');
   });
 
   it('returns undefined for null / undefined / empty input', () => {
@@ -552,6 +556,22 @@ describe('anthropicThinkingBudget', () => {
     expect(anthropicThinkingBudget('low')).toBe(1024);
     expect(anthropicThinkingBudget('medium')).toBe(4096);
     expect(anthropicThinkingBudget('high')).toBe(16384);
+  });
+
+  it('gives xhigh and max larger budgets than high', () => {
+    expect(anthropicThinkingBudget('xhigh')).toBe(32768);
+    expect(anthropicThinkingBudget('max')).toBe(65536);
+  });
+});
+
+describe('openAiReasoningEffort', () => {
+  it('clamps xhigh and max to high, which every OpenAI reasoning model takes', () => {
+    expect(openAiReasoningEffort('xhigh')).toBe('high');
+    expect(openAiReasoningEffort('max')).toBe('high');
+  });
+
+  it.each(['minimal', 'low', 'medium', 'high'] as const)('keeps %s as it is', (effort) => {
+    expect(openAiReasoningEffort(effort)).toBe(effort);
   });
 });
 
@@ -653,6 +673,11 @@ describe('anthropicAdaptiveEffort', () => {
     expect(anthropicAdaptiveEffort('medium')).toBe('medium');
     expect(anthropicAdaptiveEffort('high')).toBe('high');
   });
+
+  it('sends xhigh and max by name — every adaptive-thinking model takes them', () => {
+    expect(anthropicAdaptiveEffort('xhigh')).toBe('xhigh');
+    expect(anthropicAdaptiveEffort('max')).toBe('max');
+  });
 });
 
 describe('deriveMatrixSlug', () => {
@@ -672,4 +697,30 @@ describe('deriveMatrixSlug', () => {
       expect(deriveMatrixSlug(providerSlug, modelId)).toBe(expected);
     });
   }
+});
+
+describe('acceptsFlexTier', () => {
+  it.each([
+    'gpt-5',
+    'gpt-5-mini',
+    'gpt-5-nano',
+    'openai/gpt-5.4',
+    'gpt-5.4-mini',
+    'gpt-5-2025-08-07',
+    'o3',
+    'o3-2025-04-16',
+    'o4-mini',
+  ])('offers flex on %s', (id) => expect(acceptsFlexTier(id)).toBe(true));
+
+  it.each([
+    'gpt-4o',
+    'gpt-4.1-mini',
+    'o3-mini',
+    'o3-pro',
+    'o1',
+    'my-gpt-5',
+    'gpt-5-chat-latest',
+    'gpt-5-pro',
+    'gpt-5-codex',
+  ])('does not on %s', (id) => expect(acceptsFlexTier(id)).toBe(false));
 });

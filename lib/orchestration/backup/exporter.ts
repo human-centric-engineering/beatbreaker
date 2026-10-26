@@ -21,6 +21,8 @@ import { bundleContacts, sealExport } from '@/lib/orchestration/backup/export-se
 import type { BackupScope } from '@/lib/orchestration/backup/scope';
 import { IMPORTED_FROM_SLUG_KEY } from '@/lib/orchestration/backup/schema';
 import { z } from 'zod';
+import { REASONING_EFFORTS } from '@/lib/orchestration/llm/types';
+import { narrowServiceTier, narrowVerbosity } from '@/lib/orchestration/llm/model-params';
 import {
   BUILTIN_TEMPLATE_SLUGS,
   SYSTEM_WORKFLOW_SLUGS,
@@ -89,6 +91,11 @@ async function readConfig(includeShared: boolean, orgId: string): Promise<Backup
         // persona/guardrails/toggles lost). Restored here for full fidelity.
         kind: true,
         reasoningEffort: true,
+        stopSequences: true,
+        topP: true,
+        verbosity: true,
+        parallelToolCalls: true,
+        serviceTier: true,
         persona: true,
         guardrails: true,
         personaMode: true,
@@ -221,7 +228,7 @@ async function readConfig(includeShared: boolean, orgId: string): Promise<Backup
   // nested entity each) — flatten them before serialising. The narrowing tables
   // and helper are loop-invariant, so they live outside the per-agent map.
   const retrievalModes = ['model', 'first_turn', 'every_turn', 'keywords'] as const;
-  const reasoningEfforts = ['minimal', 'low', 'medium', 'high'] as const;
+  const reasoningEfforts = REASONING_EFFORTS;
   const narrowMode = (m: string) => (m === 'append' ? ('append' as const) : ('override' as const));
   const flattenedAgents = agents.map((a) => {
     const {
@@ -234,6 +241,8 @@ async function readConfig(includeShared: boolean, orgId: string): Promise<Backup
       voiceMode,
       guardrailsMode,
       reasoningEffort,
+      verbosity,
+      serviceTier,
       ...rest
     } = a;
     return {
@@ -251,6 +260,8 @@ async function readConfig(includeShared: boolean, orgId: string): Promise<Backup
       reasoningEffort: (reasoningEfforts as readonly string[]).includes(reasoningEffort ?? '')
         ? (reasoningEffort as (typeof reasoningEfforts)[number])
         : null,
+      verbosity: narrowVerbosity(verbosity) ?? null,
+      serviceTier: narrowServiceTier(serviceTier) ?? null,
       // `knowledgeCategories` was dropped from the DB in Phase 6 but the
       // backup schema keeps the field on the wire for older importers
       // that still read it. Always emit empty.

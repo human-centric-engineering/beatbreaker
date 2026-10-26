@@ -18,6 +18,47 @@ release process.
 
 ### Added
 
+- **Stop sequences, top P, verbosity, parallel tool calls and service tier
+  (t-911, t-913).** New `LlmOptions` fields `stopSequences`, `topP`,
+  `verbosity`, `parallelToolCalls`, `serviceTier` (types and their lists
+  `VERBOSITIES`, `SERVICE_TIERS`, `MAX_STOP_SEQUENCES` in `types.ts`), each
+  sent only to models that take it and dropped elsewhere. `AiAgent` gains the
+  same five columns (migration `20261026130000_agent_model_params`), in the
+  agent registry, the create / update / export / backup schemas
+  (`modelParamFields`) and the agent form; `serviceTier` is org-owned on a
+  platform agent, the rest platform-owned. An `llm_call` step takes them as
+  config. `modelParamOptions()` (new `lib/orchestration/llm/model-params.ts`)
+  turns stored values into options. `LlmUsage.serviceTier` reports a flex or
+  priority call, which `calculateCost` prices at 0.5× / 2× and `logCost`
+  stamps on the row's `metadata.serviceTier`. **Forks:** an `AiAgent` fixture
+  typed against Prisma needs the five fields, and the platform-agent banner
+  now lists the service tier among the org's settings.
+- **Prompt caching on Claude, and cache-priced cost rows (t-909).** Every
+  Anthropic request now carries a `cache_control` breakpoint on the agent's
+  composed system prompt (with the tools ahead of it), and one on the last
+  turn when the request has earlier turns. No
+  configuration and no top-level automatic caching, which some gateways
+  refuse. New `LlmUsage` (`lib/orchestration/llm/types.ts`), now the type of
+  `LlmResponse.usage`, the stream's `done` chunk and `ProviderError.usage`,
+  adds `cacheReadTokens` / `cacheWriteTokens`; OpenAI's
+  `prompt_tokens_details.cached_tokens` is read too. `calculateCost` takes an
+  optional fourth argument with those counts and prices them from the new
+  `ModelInfo.cacheReadCostPerMillion` / `cacheWriteCostPerMillion` (read from
+  OpenRouter), else Anthropic's 0.1× / 1.25×, else the full input rate.
+  `LogCostParams` takes the same counts, and `AiCostLog` gains nullable
+  `cacheReadTokens` / `cacheWriteTokens` columns (migration
+  `20261026120000_cost_log_cache_tokens`). The structured-completion
+  helper's `tokenUsage` gains optional `cacheRead` / `cacheWrite`.
+- **`xhigh` and `max` reasoning effort (t-906).** `ReasoningEffort`
+  (`lib/orchestration/llm/types.ts`) gains `'xhigh' | 'max'`, accepted on
+  agents, every LLM step's `reasoningEffort`, the agent export bundle and the
+  backup format, and offered as Extra high / Max in the admin select. The full
+  list is the new exported `REASONING_EFFORTS` (`types.ts`).
+  Adaptive-thinking Claude models get them as `output_config.effort`;
+  budget-taking Claude models get a 32768 / 65536 thinking budget, clamped as
+  before; OpenAI-compatible reasoning models get `high`
+  (`openAiReasoningEffort()`). Older bundles import unchanged. **Forks:** a
+  `switch` over `ReasoningEffort` needs the two new cases.
 - **Routes can declare credential path segments (t-933, #971).** New scaffold
   `lib/app/credential-paths.ts` (`appCredentialPaths`, ships empty) lists route
   patterns such as `'/m/[joinRef]'`; the declared segments are collapsed to
@@ -105,6 +146,14 @@ release process.
 
 ### Changed
 
+- **Claude `inputTokens` now counts cached input (t-909).** Anthropic reports
+  cache reads and writes apart from `input_tokens`; the provider now adds
+  them back in, so `LlmUsage.inputTokens` (and `AiCostLog.inputTokens`) is the
+  whole input on every provider, as it already was for OpenAI. A fork
+  computing cost from `inputTokens` itself should pass the usage as
+  `calculateCost`'s fourth argument, or it prices cache hits at the full
+  rate. Anthropic's `system` is now sent as one text block per system
+  message, which a fork's test asserting the old joined string will notice.
 - **Erasure reaches the rest of what a run keeps (t-882).** Besides a run's
   input, trace, output and error, erasure now redacts its `supervisorReport`,
   its running-step `turns`, its cached step-dispatch `result` and its

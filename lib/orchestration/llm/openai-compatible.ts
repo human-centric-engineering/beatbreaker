@@ -41,7 +41,11 @@ import { z } from 'zod';
 import { logger } from '@/lib/logging';
 import { describeFetchFailure } from '@/lib/errors/fetch-error';
 import {
+  acceptsFlexTier,
+  acceptsVerbosity,
   deriveParamProfile,
+  openAiReasoningEffort,
+  reasoningModelAcceptsParallelToolCalls,
   supportedReasoningEfforts,
 } from '@/lib/orchestration/llm/model-heuristics';
 import { getModel } from '@/lib/orchestration/llm/model-registry';
@@ -66,6 +70,7 @@ import type {
   LlmMessage,
   LlmOptions,
   LlmResponse,
+  LlmUsage,
   LlmToolCall,
   LlmToolChoice,
   ModelInfo,
@@ -155,6 +160,11 @@ export class OpenAiCompatibleProvider implements LlmProvider {
   private readonly timeoutMs: number;
   private readonly maxRetries: number;
   private readonly embeddingModel: string;
+  /**
+   * The base URL is OpenAI's own API. `service_tier` goes only there: other
+   * OpenAI-compatible hosts either ignore it or 400 on a value they lack.
+   */
+  private readonly isOpenAiHost: boolean;
 
   constructor(options: OpenAiCompatibleProviderOptions) {
     if (!options.baseUrl) {
@@ -168,6 +178,9 @@ export class OpenAiCompatibleProvider implements LlmProvider {
     this.isLocal = options.isLocal;
     this.timeoutMs = options.timeoutMs ?? (options.isLocal ? LOCAL_TIMEOUT_MS : DEFAULT_TIMEOUT_MS);
     this.maxRetries = options.maxRetries ?? DEFAULT_MAX_RETRIES;
+    this.isOpenAiHost = URL.canParse(options.baseUrl)
+      ? new URL(options.baseUrl).hostname === 'api.openai.com'
+      : false;
     this.embeddingModel =
       options.embeddingModel ??
       (options.isLocal ? DEFAULT_LOCAL_EMBEDDING_MODEL : DEFAULT_CLOUD_EMBEDDING_MODEL);
@@ -301,6 +314,10 @@ export class OpenAiCompatibleProvider implements LlmProvider {
                 usage: {
                   inputTokens: completion.usage.prompt_tokens ?? 0,
                   outputTokens: completion.usage.completion_tokens ?? 0,
+                  ...(completion.usage.prompt_tokens_details?.cached_tokens
+                    ? { cacheReadTokens: completion.usage.prompt_tokens_details.cached_tokens }
+                    : {}),
+                  ...pricedTier(completion.service_tier),
                 },
               }
             : {}),
@@ -308,12 +325,17 @@ export class OpenAiCompatibleProvider implements LlmProvider {
       );
     }
 
+    const cacheReadTokens = completion.usage?.prompt_tokens_details?.cached_tokens;
     const response: LlmResponse = {
       content,
       usage: {
         inputTokens: completion.usage?.prompt_tokens ?? 0,
         outputTokens: completion.usage?.completion_tokens ?? 0,
         ...(reasoningTokens !== undefined ? { reasoningTokens } : {}),
+        // OpenAI caches long prompts automatically and reports the hits here,
+        // already counted in `prompt_tokens`.
+        ...(cacheReadTokens ? { cacheReadTokens } : {}),
+        ...pricedTier(completion.service_tier),
       },
       model: completion.model,
       finishReason: mapFinishReason(choice.finish_reason),
@@ -341,6 +363,8 @@ export class OpenAiCompatibleProvider implements LlmProvider {
 
     let inputTokens = 0;
     let outputTokens = 0;
+    let cacheReadTokens = 0;
+    let servedTier: string | null | undefined;
     let finishReason: LlmFinishReason = 'stop';
 
     // Tool-call fragments are streamed incrementally and keyed by index.
@@ -379,7 +403,9 @@ export class OpenAiCompatibleProvider implements LlmProvider {
         if (chunk.usage) {
           inputTokens = chunk.usage.prompt_tokens;
           outputTokens = chunk.usage.completion_tokens;
+          cacheReadTokens = chunk.usage.prompt_tokens_details?.cached_tokens ?? 0;
         }
+        if (chunk.service_tier) servedTier = chunk.service_tier;
 
         const choice = chunk.choices[0];
         if (!choice) continue;
@@ -411,6 +437,8 @@ export class OpenAiCompatibleProvider implements LlmProvider {
       throw toProviderErrorWithUsage(err, 'OpenAI-compatible stream iteration failed', {
         inputTokens,
         outputTokens,
+        ...(cacheReadTokens ? { cacheReadTokens } : {}),
+        ...pricedTier(servedTier),
       });
     }
 
@@ -445,14 +473,28 @@ export class OpenAiCompatibleProvider implements LlmProvider {
         {
           code: 'truncated_no_output',
           retriable: false,
-          ...(inputTokens > 0 || outputTokens > 0 ? { usage: { inputTokens, outputTokens } } : {}),
+          ...(inputTokens > 0 || outputTokens > 0
+            ? {
+                usage: {
+                  inputTokens,
+                  outputTokens,
+                  ...(cacheReadTokens ? { cacheReadTokens } : {}),
+                  ...pricedTier(servedTier),
+                },
+              }
+            : {}),
         }
       );
     }
 
     yield {
       type: 'done',
-      usage: { inputTokens, outputTokens },
+      usage: {
+        inputTokens,
+        outputTokens,
+        ...(cacheReadTokens ? { cacheReadTokens } : {}),
+        ...pricedTier(servedTier),
+      },
       finishReason,
     };
   }
@@ -676,6 +718,21 @@ export class OpenAiCompatibleProvider implements LlmProvider {
     if (!isReasoning && options.temperature !== undefined) {
       params.temperature = options.temperature;
     }
+    // Reasoning models refuse `top_p` and `stop` as they refuse temperature.
+    if (!isReasoning && options.topP !== undefined) params.top_p = options.topP;
+    if (!isReasoning && options.stopSequences?.length) params.stop = options.stopSequences;
+    if (options.verbosity !== undefined && acceptsVerbosity(options.model)) {
+      params.verbosity = options.verbosity;
+    }
+    // Flex exists only on some models and 400s on the rest, so it goes only
+    // to those (`acceptsFlexTier`); the other tiers every model takes.
+    if (
+      options.serviceTier !== undefined &&
+      this.isOpenAiHost &&
+      (options.serviceTier !== 'flex' || acceptsFlexTier(options.model))
+    ) {
+      params.service_tier = options.serviceTier;
+    }
     // `reasoning_effort` is only honoured by the reasoning family. The
     // OpenAI SDK types only widen to include it on reasoning models, so
     // we cast through a Record<string, unknown> for the field set. Non-
@@ -688,9 +745,10 @@ export class OpenAiCompatibleProvider implements LlmProvider {
     // Caller intent is still recorded on the trace's requestParams so
     // a misconfigured "minimal on o3-mini" is visible after the fact.
     if (isReasoning && options.reasoningEffort !== undefined) {
+      const effort = openAiReasoningEffort(options.reasoningEffort);
       const accepted = supportedReasoningEfforts(options.model, this.name);
-      if (accepted.has(options.reasoningEffort)) {
-        (params as unknown as Record<string, unknown>).reasoning_effort = options.reasoningEffort;
+      if (accepted.has(effort)) {
+        (params as unknown as Record<string, unknown>).reasoning_effort = effort;
       }
     }
     if (options.tools?.length) {
@@ -704,6 +762,14 @@ export class OpenAiCompatibleProvider implements LlmProvider {
       }));
       const choice = mapToolChoice(options.toolChoice);
       if (choice) params.tool_choice = choice;
+      // Only with tools: OpenAI 400s on `parallel_tool_calls` without them.
+      // The o-series refuses it outright; GPT-5 takes it.
+      if (
+        options.parallelToolCalls !== undefined &&
+        (!isReasoning || reasoningModelAcceptsParallelToolCalls(options.model))
+      ) {
+        params.parallel_tool_calls = options.parallelToolCalls;
+      }
     }
     if (options.responseFormat) {
       if (options.responseFormat.type === 'json_object') {
@@ -728,6 +794,14 @@ export class OpenAiCompatibleProvider implements LlmProvider {
 // ---------------------------------------------------------------------------
 // Mapping helpers
 // ---------------------------------------------------------------------------
+
+/**
+ * The served tier as `LlmUsage.serviceTier`, when it is one priced apart from
+ * the standard rate. `default`, `auto` and `scale` add nothing.
+ */
+function pricedTier(tier: string | null | undefined): Pick<LlmUsage, 'serviceTier'> {
+  return tier === 'flex' || tier === 'priority' ? { serviceTier: tier } : {};
+}
 
 function toSdkMessage(msg: LlmMessage): ChatCompletionMessageParam {
   switch (msg.role) {

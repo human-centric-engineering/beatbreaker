@@ -54,6 +54,7 @@ import {
   resolveEffectivePrompt,
 } from '@/lib/orchestration/agents/resolve-effective-prompt';
 import { narrowReasoningEffort } from '@/lib/orchestration/llm/model-heuristics';
+import { modelParamOptions } from '@/lib/orchestration/llm/model-params';
 import { registerStepType } from '@/lib/orchestration/engine/executor-registry';
 import { platformScope, hintScope } from '@/lib/orchestration/scope';
 import {
@@ -163,6 +164,8 @@ async function runSingleTurn(
   // Names already refused this turn, so the hook fires once per distinct name
   // rather than once per iteration — see the emission site for why.
   const refusedToolNames = new Set<string>();
+  // The agent's stop sequences, top P and the rest — the same every turn.
+  const modelParams = modelParamOptions(agent!);
 
   for (let iteration = startIteration; iteration < maxIterations; iteration++) {
     const turnOutcome = await withSpan(
@@ -191,6 +194,7 @@ async function runSingleTurn(
             ...(effectiveReasoningEffort !== undefined
               ? { reasoningEffort: effectiveReasoningEffort }
               : {}),
+            ...modelParams,
             ...(toolDefinitions.length > 0 ? { tools: toolDefinitions } : {}),
             signal: ctx.signal,
           });
@@ -212,8 +216,12 @@ async function runSingleTurn(
               (billedOnFailure ? billedOnFailure.inputTokens + billedOnFailure.outputTokens : 0),
             totalCostUsd +
               (billedOnFailure
-                ? calculateCost(model, billedOnFailure.inputTokens, billedOnFailure.outputTokens)
-                    .totalCostUsd
+                ? calculateCost(
+                    model,
+                    billedOnFailure.inputTokens,
+                    billedOnFailure.outputTokens,
+                    billedOnFailure
+                  ).totalCostUsd
                 : 0)
           );
         }
@@ -226,6 +234,7 @@ async function runSingleTurn(
           requestParams.reasoningEffort = effectiveReasoningEffort;
         }
         if (toolDefinitions.length > 0) requestParams.toolCount = toolDefinitions.length;
+        Object.assign(requestParams, modelParams);
         ctx.stepTelemetry?.push({
           model: model,
           provider: usedSlug,
@@ -239,7 +248,8 @@ async function runSingleTurn(
         const turnCost = calculateCost(
           model,
           response.usage.inputTokens,
-          response.usage.outputTokens
+          response.usage.outputTokens,
+          response.usage
         );
 
         totalTokensUsed += turnTokens;
@@ -261,6 +271,9 @@ async function runSingleTurn(
           provider: usedSlug,
           inputTokens: response.usage.inputTokens,
           outputTokens: response.usage.outputTokens,
+          cacheReadTokens: response.usage.cacheReadTokens,
+          cacheWriteTokens: response.usage.cacheWriteTokens,
+          serviceTier: response.usage.serviceTier,
           operation: CostOperation.CHAT,
           isLocal: turnCost.isLocal,
           traceId: span.traceId(),

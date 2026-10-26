@@ -25,6 +25,12 @@ import { BINDING_OWNERS } from '@/lib/orchestration/agents/binding-owner';
 import { checkSafeProviderUrl, isSafeProviderUrl } from '@/lib/security/safe-url';
 import { KNOWN_STEP_TYPES, TASK_TYPES } from '@/types/orchestration';
 import { validateTaskDefaults } from '@/lib/orchestration/llm/model-registry';
+import {
+  MAX_STOP_SEQUENCES,
+  REASONING_EFFORTS,
+  SERVICE_TIERS,
+  VERBOSITIES,
+} from '@/lib/orchestration/llm/types';
 import { reviewSchemaSchema } from '@/lib/orchestration/review-schema/types';
 import { provenanceItemArraySchema } from '@/lib/orchestration/provenance/types';
 import { validateScopes, listValidApiKeyScopes } from '@/lib/auth/api-key-scopes';
@@ -66,6 +72,34 @@ export const capabilityFunctionDefinitionSchema = z.object({
  * as a bare `z.object` (without the keyword-mode refinement) so its field set is
  * introspectable for the registry parity test. `createAgentSchema` below wraps it.
  */
+/**
+ * Model parameters past temperature / max tokens / reasoning effort
+ * (`LlmOptions`), on an agent and on an `llm_call` step. Each is sent only
+ * to models that take it and dropped, never a 400, elsewhere. Null or absent
+ * leaves the provider's default.
+ */
+export const modelParamFields = {
+  stopSequences: z
+    .array(
+      z
+        .string()
+        .max(200)
+        // Anthropic refuses a stop sequence that is only whitespace.
+        .refine((stop) => stop.trim().length > 0, 'A stop sequence needs a visible character')
+    )
+    .max(MAX_STOP_SEQUENCES, `At most ${MAX_STOP_SEQUENCES} stop sequences`)
+    .optional(),
+  topP: z
+    .number()
+    .min(0, 'Top P must be at least 0')
+    .max(1, 'Top P must be at most 1')
+    .nullable()
+    .optional(),
+  verbosity: z.enum(VERBOSITIES).nullable().optional(),
+  parallelToolCalls: z.boolean().nullable().optional(),
+  serviceTier: z.enum(SERVICE_TIERS).nullable().optional(),
+};
+
 export const createAgentObjectSchema = z.object({
   name: z
     .string()
@@ -135,7 +169,9 @@ export const createAgentObjectSchema = z.object({
   // Reasoning-effort bucket. Honoured only by reasoning-capable models
   // (OpenAI o-series / gpt-5, Anthropic Claude 4 thinking). Silently
   // dropped by other models. Null / undefined = use provider default.
-  reasoningEffort: z.enum(['minimal', 'low', 'medium', 'high']).nullable().optional(),
+  reasoningEffort: z.enum(REASONING_EFFORTS).nullable().optional(),
+
+  ...modelParamFields,
 
   monthlyBudgetUsd: z
     .number()
@@ -334,7 +370,9 @@ export const updateAgentObjectSchema = z.object({
     .max(200000, 'Max tokens must be at most 200000')
     .optional(),
 
-  reasoningEffort: z.enum(['minimal', 'low', 'medium', 'high']).nullable().optional(),
+  reasoningEffort: z.enum(REASONING_EFFORTS).nullable().optional(),
+
+  ...modelParamFields,
 
   monthlyBudgetUsd: z
     .number()
@@ -1286,7 +1324,9 @@ export const bundledAgentSchema = z.object({
   // Reasoning-effort bucket. Optional — older bundles omit it, in which
   // case the agent is imported with null and the runtime sends no
   // reasoning_effort.
-  reasoningEffort: z.enum(['minimal', 'low', 'medium', 'high']).nullable().optional(),
+  reasoningEffort: z.enum(REASONING_EFFORTS).nullable().optional(),
+  // Optional — bundles written before these existed import with none set.
+  ...modelParamFields,
   monthlyBudgetUsd: z.number().positive().max(10000).nullable().optional(),
   // Per-turn cost cap (USD) — runaway-loop guard from improvement #39.
   // Optional so older backup bundles round-trip; null preserves "no cap".
@@ -3319,7 +3359,12 @@ export const executionTraceEntrySchema = z
         temperature: z.number().optional(),
         responseFormat: z.enum(['json_object', 'json_schema']).optional(),
         toolCount: z.number().int().nonnegative().optional(),
-        reasoningEffort: z.enum(['minimal', 'low', 'medium', 'high']).optional(),
+        reasoningEffort: z.enum(REASONING_EFFORTS).optional(),
+        stopSequences: z.array(z.string()).optional(),
+        topP: z.number().optional(),
+        verbosity: z.enum(VERBOSITIES).optional(),
+        parallelToolCalls: z.boolean().optional(),
+        serviceTier: z.enum(SERVICE_TIERS).optional(),
       })
       .optional()
       .catch(() => undefined),
@@ -3408,16 +3453,14 @@ export const llmResponseFormatSchema = z.discriminatedUnion('type', [
 // Step configs that already expose `temperature` / `maxTokens` get this
 // alongside — same surface area as the agent.reasoningEffort field.
 // Honoured by reasoning-capable models; silently dropped by others.
-const reasoningEffortConfigSchema = z
-  .enum(['minimal', 'low', 'medium', 'high'])
-  .nullable()
-  .optional();
+const reasoningEffortConfigSchema = z.enum(REASONING_EFFORTS).nullable().optional();
 
 export const llmCallConfigSchema = stepErrorConfigSchema.extend({
   prompt: z.string().optional(),
   modelOverride: z.string().optional(),
   temperature: z.number().optional(),
   maxTokens: z.number().optional(),
+  ...modelParamFields,
   reasoningEffort: reasoningEffortConfigSchema,
   responseFormat: llmResponseFormatSchema.optional(),
 });

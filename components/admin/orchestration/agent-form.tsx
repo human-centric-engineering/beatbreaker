@@ -59,6 +59,14 @@ import { AgentTestCard } from '@/components/admin/orchestration/agent-test-card'
 import { EmbedConfigPanel } from '@/components/admin/orchestration/agents/embed-config-panel';
 import { KnowledgeAccessSection } from '@/components/admin/orchestration/knowledge-access-section';
 import {
+  ModelParamsFields,
+  type ModelParamField,
+  type ModelParamsValue,
+} from '@/components/admin/orchestration/model-params-fields';
+import { MAX_STOP_SEQUENCES, SERVICE_TIERS, VERBOSITIES } from '@/lib/orchestration/llm/types';
+import { narrowServiceTier, narrowVerbosity } from '@/lib/orchestration/llm/model-params';
+import {
+  REASONING_EFFORT_FORM_VALUES,
   ReasoningEffortSelect,
   toReasoningEffortFormValue,
 } from '@/components/admin/orchestration/reasoning-effort-select';
@@ -113,7 +121,12 @@ const agentFormSchema = z
     // the provider apply its default" — Radix Select forbids empty-string
     // values, so we can't use `''` even though the column persists as
     // null. The submit handler translates `'auto'` → null.
-    reasoningEffort: z.enum(['auto', 'minimal', 'low', 'medium', 'high']),
+    reasoningEffort: z.enum(REASONING_EFFORT_FORM_VALUES),
+    stopSequences: z.array(z.string().min(1).max(200)).max(MAX_STOP_SEQUENCES),
+    topP: z.number().min(0).max(1).nullable(),
+    verbosity: z.enum(VERBOSITIES).nullable(),
+    parallelToolCalls: z.boolean().nullable(),
+    serviceTier: z.enum(SERVICE_TIERS).nullable(),
     monthlyBudgetUsd: z.number().positive().max(10000).optional(),
     // Per-turn cap (improvement #39 runaway-loop guard). Optional /
     // nullable; null means "use the org default" or "no cap" if that
@@ -254,6 +267,28 @@ function toSlug(value: string): string {
     .slice(0, 100);
 }
 
+/** An agent row's model parameters as the form holds them. */
+function toModelParamsValue(
+  agent:
+    | {
+        stopSequences: string[];
+        topP: number | null;
+        verbosity: string | null;
+        parallelToolCalls: boolean | null;
+        serviceTier: string | null;
+      }
+    | null
+    | undefined
+): ModelParamsValue {
+  return {
+    stopSequences: agent?.stopSequences ?? [],
+    topP: agent?.topP ?? null,
+    verbosity: narrowVerbosity(agent?.verbosity) ?? null,
+    parallelToolCalls: agent?.parallelToolCalls ?? null,
+    serviceTier: narrowServiceTier(agent?.serviceTier) ?? null,
+  };
+}
+
 export function AgentForm({
   mode,
   agent,
@@ -373,6 +408,7 @@ export function AgentForm({
       temperature: agent?.temperature ?? 0.7,
       maxTokens: agent?.maxTokens ?? 4096,
       reasoningEffort: toReasoningEffortFormValue(agent?.reasoningEffort),
+      ...toModelParamsValue(agent),
       monthlyBudgetUsd: agent?.monthlyBudgetUsd ?? undefined,
       maxCostPerTurnUsd: agent?.maxCostPerTurnUsd ?? null,
       isActive: agent?.isActive ?? true,
@@ -1362,6 +1398,25 @@ export function AgentForm({
             disabled={locked('reasoningEffort')}
           />
 
+          <ModelParamsFields
+            idPrefix="agent"
+            value={{
+              stopSequences: watch('stopSequences'),
+              topP: watch('topP'),
+              verbosity: watch('verbosity'),
+              parallelToolCalls: watch('parallelToolCalls'),
+              serviceTier: watch('serviceTier'),
+            }}
+            onChange={(patch) => {
+              for (const [field, v] of Object.entries(patch) as Array<
+                [ModelParamField, ModelParamsValue[ModelParamField]]
+              >) {
+                setValue(field, v as never, { shouldDirty: true, shouldValidate: true });
+              }
+            }}
+            isLocked={locked}
+          />
+
           <div className="grid gap-2">
             <Label htmlFor="monthlyBudgetUsd">
               Monthly budget (USD){' '}
@@ -2194,6 +2249,7 @@ export function AgentForm({
                     const fresh = await apiClient.get<AgentWithGrants>(
                       API.ADMIN.ORCHESTRATION.agentById(agent.id)
                     );
+                    const modelParams = toModelParamsValue(fresh);
                     reset({
                       name: fresh.name,
                       slug: fresh.slug,
@@ -2214,6 +2270,13 @@ export function AgentForm({
                       temperature: fresh.temperature,
                       maxTokens: fresh.maxTokens,
                       reasoningEffort: toReasoningEffortFormValue(fresh.reasoningEffort),
+                      // Named, not spread: the reset-parity test reads these keys
+                      // from the source.
+                      stopSequences: modelParams.stopSequences,
+                      topP: modelParams.topP,
+                      verbosity: modelParams.verbosity,
+                      parallelToolCalls: modelParams.parallelToolCalls,
+                      serviceTier: modelParams.serviceTier,
                       monthlyBudgetUsd: fresh.monthlyBudgetUsd ?? undefined,
                       maxCostPerTurnUsd: fresh.maxCostPerTurnUsd ?? null,
                       isActive: fresh.isActive,

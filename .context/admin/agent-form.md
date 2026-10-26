@@ -93,7 +93,7 @@ On a system agent, `GET /agents/:id` returns `platformAgent: { lockedFields, tun
 
 - **Locked controls.** Each control whose field is locked gets its own `disabled`: the General tab's name, slug, description, profile, active and visibility; the Model tab's temperature, max tokens, reasoning effort, inputs, history and guard modes; and every Instructions-tab control (`KnowledgeAccessSection` and `ReasoningEffortSelect` take a `disabled` prop for this). Not a disabled `fieldset`: that would also disable the `<FieldHelp>` buttons inside it, and a locked field's help is still worth reading. Retention, provider, model, fallbacks, budget, per-turn cap and rate limit stay editable.
 - **The payload.** A save drops every locked field, so a field the admin never touched cannot be refused.
-- **The banner.** It says the platform sets what the agent is and updates it with each release, then names, as prose built from `tunableFields`, what this org sets here: "its provider, model, fallback providers, monthly budget, per-turn cost cap, rate limit and how long its conversations are kept". `providerConfig` has no control on this form, so the banner leaves it out. On `mcp-system` it adds "which capabilities it may use".
+- **The banner.** It says the platform sets what the agent is and updates it with each release, then names, as prose built from `tunableFields`, what this org sets here: "its provider, model, fallback providers, monthly budget, per-turn cost cap, rate limit, service tier and how long its conversations are kept". `providerConfig` has no control on this form, so the banner leaves it out. On `mcp-system` it adds "which capabilities it may use".
 
 The Capabilities tab takes `bindingsLocked`: the Available column and Detach are hidden (Attached takes the full width), the switch is disabled, and Configure stays open: a binding's custom config and rate limit are the org's, because the reconcile never writes them. A blank config or rate limit sends `null`, which clears it ("leave blank to inherit"). The Embed tab passes `appearanceLocked` to `EmbedConfigPanel`, which shows a note in place of the widget-appearance editor and keeps the embed tokens; the instructions history takes `readOnly` and offers diffs but no Revert (the revert route refuses system agents).
 
@@ -107,15 +107,26 @@ Number input. Default 4096. Validation min 1, max 200_000.
 
 ### Reasoning effort
 
-Radix `<Select>` (`AiAgent.reasoningEffort`). Controls how much internal reasoning the model does before producing visible output. Values: `auto` (form sentinel, persists as null) · `minimal` · `low` · `medium` · `high`.
+Radix `<Select>` (`AiAgent.reasoningEffort`). Controls how much internal reasoning the model does before producing visible output. Values: `auto` (form sentinel, persists as null) · `minimal` · `low` · `medium` · `high` · `xhigh` (shown as Extra high) · `max`.
 
 Honoured only by reasoning-capable models:
 
-- **OpenAI o-series / gpt-5** (`paramProfile === 'openai-reasoning'`) — sends `reasoning_effort` with the chosen bucket.
-- **Anthropic Claude 4 Opus and Sonnet 4.5+** — enables extended thinking with a token budget derived from the bucket (low = 1024, medium = 4096, high = 16384 tokens). Anthropic enforces two hard rules: `budget_tokens` must be ≥ 1024, and `budget_tokens + visible output` must fit inside `max_tokens`. The provider class therefore requires `maxTokens ≥ 2048` (1024 minimum budget + 1024 visible-output floor) before sending `thinking` at all — below that, thinking is dropped silently. When sent, the budget is clamped to `min(requested, maxTokens − 1024)` so visible output always has room. `minimal` on Anthropic deliberately means "no extended thinking" (the field is omitted entirely).
+- **OpenAI o-series / gpt-5** (`paramProfile === 'openai-reasoning'`) — sends `reasoning_effort` with the chosen bucket; `xhigh` and `max` go as `high`.
+- **Claude Opus 4.7+, Sonnet 5+, Haiku 5+, Fable, Mythos** — adaptive thinking, with the bucket sent as `output_config.effort` by name (`minimal` as `low`).
+- **Claude Opus 4.0–4.6, Sonnet 4.5–4.6, Haiku 4.5** — enables extended thinking with a token budget derived from the bucket (low = 1024, medium = 4096, high = 16384, xhigh = 32768, max = 65536 tokens). Anthropic enforces two hard rules: `budget_tokens` must be ≥ 1024, and `budget_tokens + visible output` must fit inside `max_tokens`. The provider class therefore requires `maxTokens ≥ 2048` (1024 minimum budget + 1024 visible-output floor) before sending `thinking` at all — below that, thinking is dropped silently. When sent, the budget is clamped to `min(requested, maxTokens − 1024)` so visible output always has room. `minimal` on Anthropic deliberately means "no extended thinking" (the field is omitted entirely).
 - **Everything else** — silently dropped. No 400. The caller intent is still recorded on `LlmRequestParamsSnapshot.reasoningEffort` so a misconfigured agent shows up in the execution trace's request-envelope line.
 
 When set on a thinking-capable Anthropic model, the provider class also strips thinking blocks from the response content (callers see only the answer). Streaming `chatStream()` applies the same filter — thinking-delta events are not yielded as text. See `lib/orchestration/llm/anthropic.ts` and `lib/orchestration/llm/model-heuristics.ts → supportsReasoningEffort()` / `anthropicThinkingBudget()`.
+
+### Stop sequences, top P, verbosity, parallel tool calls, service tier
+
+`<ModelParamsFields>` (`components/admin/orchestration/model-params-fields.tsx`), shared with the `llm_call` step editor. Each control's ⓘ says which models take it; everywhere else the value is dropped, never a 400 (see `LlmOptions` in `.context/orchestration/llm-providers.md`).
+
+- **Stop sequences** — textarea, one per line, at most 4 (`AiAgent.stopSequences`, empty = none). The box keeps blank lines while typing; the form gets the parsed list, and the box takes a list replaced from outside (a reset or restore).
+- **Top P** — number 0–1, empty = null.
+- **Verbosity** — select; _Model default_ persists null. GPT-5 only.
+- **Parallel tool calls** — _Model default_ (null) / _Allowed_ (true) / _One at a time_ (false).
+- **Service tier** — _Provider default_ (null) / auto / default / flex / priority. OpenAI only. On a platform agent this one is the org's, the other four the platform's.
 
 ### Max history tokens
 
