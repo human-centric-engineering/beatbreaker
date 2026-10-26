@@ -77,13 +77,16 @@ export function parseSchema(texts: string[]): Map<string, SchemaModel> {
           userMarked: new Set(),
         };
         out.set(current.name, current);
+        marked = false;
         continue;
       }
       if (line.startsWith('}')) {
         current = null;
+        marked = false;
         continue;
       }
-      if (USER_FK_MARKER.test(line)) marked = true;
+      // a marker outside a model, or left dangling before its `}`, marks nothing
+      if (current && USER_FK_MARKER.test(line)) marked = true;
       if (!current || /^\s*(\/\/|@@)/.test(line)) continue;
       const wasMarked = marked;
       marked = false;

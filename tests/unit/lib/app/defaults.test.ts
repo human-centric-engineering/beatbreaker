@@ -567,8 +567,11 @@ const SEAM_DEFAULTS: SeamDefault[] = [
     assert: async () => {
       __resetErasureCleanupHooksForTests();
       const seam = await vi.importActual<typeof import('@/lib/app/erasure')>('@/lib/app/erasure');
-      seam.initAppErasureHooks();
+      // synchronous, as the registry's init gate requires: a promise here is refused
+      expect(seam.initAppErasureHooks()).toBeUndefined();
       expect(getErasureCleanupHooks().map((h) => h.name)).toEqual(['beatbreaker-samples']);
+      // leave the shared registry as the suite-wide pin has it
+      __resetErasureCleanupHooksForTests();
     },
   },
   {

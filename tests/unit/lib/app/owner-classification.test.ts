@@ -70,4 +70,22 @@ model Thing {
     ]);
     expect([...(fixture.get('Thing')?.userMarked ?? [])]).toEqual(['makerId']);
   });
+
+  it('does not carry a marker across a model boundary', () => {
+    const fixture = parseSchema([
+      `
+/// FK to User.id — a stray note above the model, on nothing.
+model First {
+  id    String @id
+  /// FK to User.id — left dangling: the column it was on is gone.
+}
+
+model Second {
+  id    String @id
+}
+`,
+    ]);
+    expect([...(fixture.get('First')?.userMarked ?? [])]).toEqual([]);
+    expect([...(fixture.get('Second')?.userMarked ?? [])]).toEqual([]);
+  });
 });
