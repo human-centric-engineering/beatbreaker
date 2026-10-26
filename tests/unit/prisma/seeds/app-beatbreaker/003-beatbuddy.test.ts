@@ -45,9 +45,9 @@ function makeCtx(
     systemInstructions: opts.instructions ?? BEATBUDDY_INSTRUCTIONS,
     visibility: opts.visibility ?? 'internal',
     ...args.data,
-    grantedTags: [{ tagId: 't2' }, { tagId: 't1' }],
-    grantedDocuments: [],
   }));
+  const tagGrants = vi.fn().mockResolvedValue([{ tagId: 't2' }, { tagId: 't1' }]);
+  const documentGrants = vi.fn().mockResolvedValue([]);
   const lastVersion = vi.fn().mockResolvedValue({ version: 3 });
   const capabilityUpsert = vi.fn(async (args: { where: { slug: string } }) => ({
     id: `cap-${args.where.slug}`,
@@ -64,6 +64,8 @@ function makeCtx(
       aiAgent: { upsert: agentUpsert, update: agentUpdate },
       aiCapability: { upsert: capabilityUpsert },
       aiAgentCapability: { upsert: bindingUpsert },
+      aiAgentKnowledgeTag: { findMany: tagGrants },
+      aiAgentKnowledgeDocument: { findMany: documentGrants },
       aiAgentVersion: { count: versionCount, create: versionCreate, findFirst: lastVersion },
       $transaction: vi.fn(async (fn: (tx: unknown) => Promise<unknown>) => fn(ctx.prisma)),
     },
