@@ -43,12 +43,16 @@
  */
 
 import { Prisma } from '@prisma/client';
-import { z } from 'zod';
 import { createLogger, type Logger } from '@/lib/logging';
 import { keepRunningAfterResponse } from '@/lib/api/after-response';
 import { prisma } from '@/lib/db/client';
 import { approvalRecipients } from '@/lib/privacy/config-recipients';
-import { findErasedSinceRunStarted, redactErased } from '@/lib/privacy/run-recipients';
+import {
+  findErasedSinceRunStarted,
+  redactErased,
+  redactTurns,
+  toStoredJson as toJson,
+} from '@/lib/privacy/run-recipients';
 import { isRecord } from '@/lib/utils';
 import {
   boundLockWaits,
@@ -56,7 +60,11 @@ import {
   SUBJECT_LOCK_WAIT_MS,
   type ErasedSubjects,
 } from '@/lib/privacy/erased-subjects';
-import { RUN_ROW_WRITE_OPTIONS } from '@/lib/orchestration/engine/run-row-lock';
+import { lockRunRow, RUN_ROW_WRITE_OPTIONS } from '@/lib/orchestration/engine/run-row-lock';
+import {
+  STORED_VERDICT_SELECT,
+  withPriorArchived,
+} from '@/lib/orchestration/supervisor/verdict-history';
 import {
   executionTraceEntrySchema,
   stepErrorConfigSchema,
@@ -2197,6 +2205,11 @@ export class OrchestrationEngine {
    * lease guarantees only one host writes per execution, so overwrite is
    * correct.
    *
+   * The refresh and the `turns` write share one transaction (t-882): the
+   * refresh takes the run's row lock, as erasure does before it redacts the
+   * run's turns, and anyone erased since the run started is then left out of
+   * the turns written — the executor holds them in memory from before.
+   *
    * Log-level branch on the clear-write case (`turns.length === 0`): the
    * empty-array write is fired by `executeSingleStep`'s `onAttemptStart`
    * callback between retry attempts. If THAT write fails AND the host
@@ -2217,18 +2230,26 @@ export class OrchestrationEngine {
     const { executionId, token } = lease;
     const isClearWrite = turns.length === 0;
     try {
-      const refreshed = await prisma.aiWorkflowExecution.updateMany({
-        where: { id: executionId, leaseToken: token },
-        data: {
-          leaseExpiresAt: leaseExpiry(),
-          lastHeartbeatAt: new Date(),
-        },
-      });
-      if (refreshed.count === 0) return;
-      await prisma.aiWorkflowRunningStep.updateMany({
-        where: { executionId, stepId },
-        data: { turns: turns as unknown as Prisma.InputJsonValue },
-      });
+      await prisma.$transaction(async (tx) => {
+        const refreshed = await tx.aiWorkflowExecution.updateMany({
+          where: { id: executionId, leaseToken: token },
+          data: {
+            leaseExpiresAt: leaseExpiry(),
+            lastHeartbeatAt: new Date(),
+          },
+        });
+        if (refreshed.count === 0) return;
+        const erased = isClearWrite
+          ? null
+          : await findErasedSinceRunStarted(tx, executionId, [turns]);
+        const written = erased
+          ? redactTurns(toJson(turns), (value) => redactErased(value, erased))
+          : turns;
+        await tx.aiWorkflowRunningStep.updateMany({
+          where: { executionId, stepId },
+          data: { turns: written as unknown as Prisma.InputJsonValue },
+        });
+      }, RUN_ROW_WRITE_OPTIONS);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : String(err);
       if (isClearWrite) {
@@ -2254,6 +2275,7 @@ export class OrchestrationEngine {
     const contextPatchData = drainContextPatch(ctx);
     try {
       const result = await prisma.$transaction(async (tx) => {
+        await archivePriorVerdict(tx, executionId, contextPatchData);
         const written = await tx.aiWorkflowExecution.updateMany({
           where: { id: executionId, leaseToken: token },
           data: {
@@ -2265,7 +2287,11 @@ export class OrchestrationEngine {
             ...contextPatchData,
           },
         });
-        if (written.count > 0) await leaveOutErasedSinceStart(tx, executionId, ctx, trace, null);
+        if (written.count > 0) {
+          await leaveOutErasedSinceStart(tx, executionId, ctx, trace, null, {
+            patch: contextPatchData,
+          });
+        }
         return written;
       }, RUN_ROW_WRITE_OPTIONS);
       if (result.count === 0) {
@@ -2476,6 +2502,7 @@ export class OrchestrationEngine {
       status === WorkflowStatus.COMPLETED ? (ctx.stepOutputs as object) : Prisma.DbNull;
     try {
       const result = await prisma.$transaction(async (tx) => {
+        await archivePriorVerdict(tx, executionId, contextPatchData);
         const written = await tx.aiWorkflowExecution.updateMany({
           where: { id: executionId, leaseToken: token },
           data: {
@@ -2492,15 +2519,11 @@ export class OrchestrationEngine {
           },
         });
         if (written.count > 0) {
-          const left = await leaveOutErasedSinceStart(
-            tx,
-            executionId,
-            ctx,
-            trace,
-            errorMessage,
+          const left = await leaveOutErasedSinceStart(tx, executionId, ctx, trace, errorMessage, {
             outputData,
-            [finalOutput]
-          );
+            alsoSent: [finalOutput],
+            patch: contextPatchData,
+          });
           erased = left?.erased ?? null;
         }
         return written;
@@ -2576,6 +2599,29 @@ function drainContextPatch(ctx: ExecutionContext): Record<string, unknown> {
   }
   ctx.pendingContextPatch = undefined;
   return out;
+}
+
+/**
+ * Archive the run's stored verdict into a supervisor report the patch is about
+ * to write, in place (t-951): the in-workflow step replaces the report whole,
+ * and a run reviewed retroactively, then retried, would otherwise lose every
+ * verdict before it. The stored verdict is read under the run's row lock, as
+ * the review route reads it, so neither writer drops the other's.
+ */
+async function archivePriorVerdict(
+  tx: Prisma.TransactionClient,
+  executionId: string,
+  patch: Record<string, unknown>
+): Promise<void> {
+  if (!isRecord(patch.supervisorReport)) return;
+  await lockRunRow(tx, executionId);
+  const stored = await tx.aiWorkflowExecution.findUnique({
+    where: { id: executionId },
+    select: STORED_VERDICT_SELECT,
+  });
+  if (stored) {
+    patch.supervisorReport = withPriorArchived(patch.supervisorReport, stored, executionId);
+  }
 }
 
 /**
@@ -2669,19 +2715,32 @@ async function leaveOutErasedSinceStart(
   ctx: ExecutionContext,
   trace: ExecutionTraceEntry[],
   errorMessage: string | null,
-  outputData?: () => object,
-  /**
-   * Values the caller sends on after the write and redacts itself from the
-   * result — the completion event's output, which holds the last step's
-   * output as it was before any redaction.
-   */
-  alsoSent: unknown[] = []
+  {
+    outputData,
+    alsoSent = [],
+    patch = {},
+  }: {
+    outputData?: () => object;
+    /**
+     * Values the caller sends on after the write and redacts itself from the
+     * result — the completion event's output, which holds the last step's
+     * output as it was before any redaction.
+     */
+    alsoSent?: unknown[];
+    /**
+     * The context patch the write carried. Its supervisor report quotes step
+     * outputs, so it is checked and rewritten with the rest (t-882).
+     */
+    patch?: Record<string, unknown>;
+  } = {}
 ): Promise<{ erased: ErasedSubjects } | null> {
+  const report = patch.supervisorReport;
   const erased = await findErasedSinceRunStarted(tx, executionId, [
     ctx.inputData,
     ctx.stepOutputs,
     trace,
     errorMessage,
+    report,
     ...alsoSent,
   ]);
   if (!erased) return null;
@@ -2703,6 +2762,9 @@ async function leaveOutErasedSinceStart(
       inputData: ctx.inputData as Prisma.InputJsonValue,
       ...(typeof error === 'string' ? { errorMessage: error } : {}),
       ...(outputData ? { outputData: outputData() } : {}),
+      ...(isRecord(report)
+        ? { supervisorReport: redactErased(toJson(report), erased) ?? Prisma.DbNull }
+        : {}),
     },
   });
   // Never the address or the id: they are what was erased.
@@ -2712,16 +2774,4 @@ async function leaveOutErasedSinceStart(
     userIds: erased.userIds.length,
   });
   return { erased };
-}
-
-const jsonValueSchema = z.json();
-
-/**
- * `value` as the JSON it is persisted as: the trace and the payload are
- * written to a JSON column, so this is the value erasure later reads.
- */
-function toJson(value: unknown): Prisma.JsonValue {
-  if (value === undefined) return null;
-  const parsed: unknown = JSON.parse(JSON.stringify(value));
-  return jsonValueSchema.parse(parsed);
 }

@@ -38,18 +38,16 @@ import { prisma } from '@/lib/db/client';
 import { errorResponse, successResponse } from '@/lib/api/responses';
 import { ConflictError, NotFoundError, ValidationError } from '@/lib/api/errors';
 import { getRouteLogger } from '@/lib/api/context';
-import { logger } from '@/lib/logging';
 import { cuidSchema } from '@/lib/validations/common';
 import {
   adminCanViewExecution,
   executionVisibilityWhere,
 } from '@/lib/orchestration/access/execution-access';
-import { executionTraceSchema, priorSupervisorReportSchema } from '@/lib/validations/orchestration';
+import { executionTraceSchema } from '@/lib/validations/orchestration';
 import {
   CostOperation,
   WorkflowStatus,
   type ExecutionTraceEntry,
-  type SupervisorPreviousVerdict,
   type SupervisorReport,
 } from '@/types/orchestration';
 import { calculateCost, logCost } from '@/lib/orchestration/llm/cost-tracker';
@@ -63,8 +61,12 @@ import {
 } from '@/lib/orchestration/llm/provider-eligibility';
 import { JUDGE_MODEL } from '@/lib/orchestration/evaluations/judge-model';
 import { runSupervisorAssessment, type LlmCallShim } from '@/lib/orchestration/supervisor';
+import {
+  STORED_VERDICT_SELECT,
+  withPriorArchived,
+} from '@/lib/orchestration/supervisor/verdict-history';
 import { withRunRowLocked } from '@/lib/orchestration/engine/run-row-lock';
-import { findErasedSinceCopy, redactErased } from '@/lib/privacy/run-recipients';
+import { findErasedSinceCopy, redactErased, toStoredJson } from '@/lib/privacy/run-recipients';
 
 const TERMINAL_STATUSES = new Set<string>([
   WorkflowStatus.COMPLETED,
@@ -107,11 +109,6 @@ function stepOutputsFromTrace(trace: ExecutionTraceEntry[]): Record<string, unkn
     }
   }
   return out;
-}
-
-/** The report as the JSON it is stored as, for erasure's redaction to walk. */
-function toReportJson(report: SupervisorReport): Prisma.JsonValue {
-  return z.json().parse(JSON.parse(JSON.stringify(report)));
 }
 
 /**
@@ -308,46 +305,42 @@ export const POST = withAdminAuth<{ id: string }>(
       throw err;
     }
 
-    // Archive any prior verdict into supervisorReport.previousVerdicts[] —
-    // operators rerun for a reason; overwriting silently would discard the
-    // history they want to compare against. Validate the prior column
-    // shape so a corrupted Json row can't break the archive lift; on
-    // parse failure we log and skip the archive rather than fail the
-    // rerun (the new verdict still writes through cleanly).
-    const finalReport: SupervisorReport = { ...assessment.report };
-    if (execution.supervisorVerdict && execution.supervisorReport) {
-      const priorParsed = priorSupervisorReportSchema.safeParse(execution.supervisorReport);
-      if (priorParsed.success) {
-        const prior = priorParsed.data;
-        const priorEntry: SupervisorPreviousVerdict = {
-          verdict: prior.verdict,
-          score: typeof prior.score === 'number' ? prior.score : null,
-          reviewedAt: execution.supervisorReviewedAt?.toISOString() ?? new Date(0).toISOString(),
-          triggeredBy: prior.triggeredBy ?? 'in_workflow',
-        };
-        const existing = prior.previousVerdicts ?? [];
-        finalReport.previousVerdicts = [...existing, priorEntry];
-      } else {
-        logger.warn('Prior supervisorReport failed schema validation — archive skipped', {
-          executionId: id,
-          issues: priorParsed.error.issues.map((i) => i.message),
-        });
-      }
-    }
-
     // Written under the run's row lock (§122 t-901), with anyone erased since
     // the read above taken out of the report: the model call between the two
     // can take long enough for an erasure to land, and the report quotes the
     // run it read. By erasure's rule: an id wherever it appears, an address
     // only where it is a whole value, never inside the report's prose. The
-    // lock orders this against an erasure once erasure redacts the report
-    // itself (t-882); until then a review written while an erasure is still
-    // open, before its receipt commits, keeps the person.
+    // lock orders this against an erasure, which redacts the report itself
+    // under the same lock (t-882): a review written while an erasure is still
+    // open waits for it and finds its receipt, or erasure reads what it wrote.
     // Confined as the read above was, so the owner layer sees a write it can
     // check: the row it returns is one this caller may read.
     const report = await withRunRowLocked(id, async (tx) => {
+      // The prior verdict is read here, under the lock, not taken from the
+      // read above: a second review of the run that overlapped this one may
+      // have written since, and archiving the older copy would drop its
+      // verdict from the history (t-925). The run itself must not have moved on
+      // since the read the report was built from (code review): a retry-step
+      // during the model call sets it back to pending and clears `completedAt`,
+      // and a run that then finishes again stamps a new one — either way the
+      // report would judge a trace that no longer exists. `updatedAt` is not
+      // compared: an overlapping review moves it, and that one is archived.
+      const prior = await tx.aiWorkflowExecution.findUnique({
+        where: { id },
+        select: { status: true, completedAt: true, ...STORED_VERDICT_SELECT },
+      });
+      if (!prior) throw new NotFoundError(`Execution ${id} not found`);
+      if (
+        prior.status !== execution.status ||
+        prior.completedAt?.getTime() !== execution.completedAt?.getTime()
+      ) {
+        throw new ConflictError(
+          'The execution was retried during the review; nothing was written. Review it again.'
+        );
+      }
+      const finalReport = withPriorArchived(assessment.report, prior, id);
       const erased = await findErasedSinceCopy(tx, takenAt, [finalReport]);
-      const stored = erased ? redactErased(toReportJson(finalReport), erased) : finalReport;
+      const stored = erased ? redactErased(toStoredJson(finalReport), erased) : finalReport;
       await tx.aiWorkflowExecution.update({
         where: { id, AND: [executionVisibilityWhere(session)] },
         data: {
@@ -364,15 +357,15 @@ export const POST = withAdminAuth<{ id: string }>(
 
     log.info('Retroactive supervisor review completed', {
       executionId: id,
-      verdict: finalReport.verdict,
-      score: finalReport.score,
+      verdict: assessment.report.verdict,
+      score: assessment.report.score,
       tokensUsed: assessment.tokensUsed,
       costUsd: assessment.costUsd,
     });
 
     return successResponse({
-      verdict: finalReport.verdict,
-      score: finalReport.score,
+      verdict: assessment.report.verdict,
+      score: assessment.report.score,
       summary,
       report,
       tokensUsed: assessment.tokensUsed,
