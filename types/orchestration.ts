@@ -27,6 +27,7 @@ import type { ProvenanceItem } from '@/lib/orchestration/provenance/types';
 import type {
   LlmFinishReason,
   LlmReasoningBlock,
+  ProviderTools,
   ReasoningEffort,
   ServiceTier,
   Verbosity,
@@ -382,6 +383,11 @@ interface AgentCallTurnBase {
   assistantContent: string;
   tokensUsed: number;
   costUsd: number;
+  /**
+   * Provider web searches this iteration ran. Summed on resume, so the
+   * agent's per-reply search limit holds across a crash. Absent means none.
+   */
+  webSearchRequests?: number;
 }
 
 /**
@@ -675,6 +681,8 @@ export interface LlmRequestParamsSnapshot {
   verbosity?: Verbosity;
   parallelToolCalls?: boolean;
   serviceTier?: ServiceTier;
+  /** The tools the provider was asked to run itself (Anthropic web search). */
+  providerTools?: ProviderTools;
 }
 
 /**

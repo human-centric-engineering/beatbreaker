@@ -21,6 +21,7 @@ import {
   capabilityScopeSchema,
 } from '@/lib/validations/common';
 import { logger } from '@/lib/logging';
+import { providerToolsSchema } from '@/lib/orchestration/llm/model-params';
 import { BINDING_OWNERS } from '@/lib/orchestration/agents/binding-owner';
 import { checkSafeProviderUrl, isSafeProviderUrl } from '@/lib/security/safe-url';
 import { KNOWN_STEP_TYPES, TASK_TYPES } from '@/types/orchestration';
@@ -100,6 +101,14 @@ export const modelParamFields = {
   serviceTier: z.enum(SERVICE_TIERS).nullable().optional(),
 };
 
+/**
+ * Tools the provider runs itself (`AiAgent.providerTools`), on an agent only:
+ * an `llm_call` step has no setting for them. Null turns them all off.
+ */
+export const agentProviderToolsField = {
+  providerTools: providerToolsSchema.nullable().optional(),
+};
+
 export const createAgentObjectSchema = z.object({
   name: z
     .string()
@@ -172,6 +181,7 @@ export const createAgentObjectSchema = z.object({
   reasoningEffort: z.enum(REASONING_EFFORTS).nullable().optional(),
 
   ...modelParamFields,
+  ...agentProviderToolsField,
 
   monthlyBudgetUsd: z
     .number()
@@ -373,6 +383,7 @@ export const updateAgentObjectSchema = z.object({
   reasoningEffort: z.enum(REASONING_EFFORTS).nullable().optional(),
 
   ...modelParamFields,
+  ...agentProviderToolsField,
 
   monthlyBudgetUsd: z
     .number()
@@ -1327,6 +1338,7 @@ export const bundledAgentSchema = z.object({
   reasoningEffort: z.enum(REASONING_EFFORTS).nullable().optional(),
   // Optional — bundles written before these existed import with none set.
   ...modelParamFields,
+  ...agentProviderToolsField,
   monthlyBudgetUsd: z.number().positive().max(10000).nullable().optional(),
   // Per-turn cost cap (USD) — runaway-loop guard from improvement #39.
   // Optional so older backup bundles round-trip; null preserves "no cap".
@@ -3239,19 +3251,40 @@ const agentCallTurnContinuingSchema = z.object({
   }),
   toolResult: z.unknown(),
   // `LlmReasoningBlock[]` — replayed on resume so a thinking Claude model's
-  // continuing turn keeps its signed thinking blocks. No `.catch`: replaying
-  // the turn without them makes Anthropic reject every retry, so a malformed
-  // value fails the parse, which the resume logs before starting the step fresh.
+  // continuing turn keeps its signed thinking blocks, and a web search turn
+  // keeps what it found. No `.catch`: replaying the turn without them makes
+  // Anthropic reject every retry, so a malformed value fails the parse, which
+  // the resume logs before starting the step fresh.
   reasoning: z
     .array(
       z.discriminatedUnion('type', [
         z.object({ type: z.literal('thinking'), thinking: z.string(), signature: z.string() }),
         z.object({ type: z.literal('redacted_thinking'), data: z.string() }),
+        z.object({
+          type: z.literal('server_tool_use'),
+          id: z.string(),
+          name: z.literal('web_search'),
+          input: z.record(z.string(), z.unknown()),
+        }),
+        z.object({
+          type: z.literal('web_search_tool_result'),
+          toolUseId: z.string(),
+          results: z.array(
+            z.object({
+              url: z.string(),
+              title: z.string(),
+              encryptedContent: z.string(),
+              pageAge: z.string().nullable().optional(),
+            })
+          ),
+          errorCode: z.string().optional(),
+        }),
       ])
     )
     .optional(),
   tokensUsed: z.number().nonnegative(),
   costUsd: z.number().nonnegative(),
+  webSearchRequests: z.number().int().nonnegative().optional(),
 });
 
 const agentCallTurnTerminalSchema = z.object({
@@ -3262,6 +3295,7 @@ const agentCallTurnTerminalSchema = z.object({
   assistantContent: z.string(),
   tokensUsed: z.number().nonnegative(),
   costUsd: z.number().nonnegative(),
+  webSearchRequests: z.number().int().nonnegative().optional(),
 });
 
 // `phase` discriminates the two valid runtime states. One-sided entries
@@ -3365,6 +3399,7 @@ export const executionTraceEntrySchema = z
         verbosity: z.enum(VERBOSITIES).optional(),
         parallelToolCalls: z.boolean().optional(),
         serviceTier: z.enum(SERVICE_TIERS).optional(),
+        providerTools: providerToolsSchema.optional(),
       })
       .optional()
       .catch(() => undefined),

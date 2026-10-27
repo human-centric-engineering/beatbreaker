@@ -1570,7 +1570,7 @@ describe('executeAgentCall', () => {
 
     // ── Test 3b: thinking blocks survive the checkpoint into the resume ─────
 
-    it('single-turn resume: replays the continuing turn’s thinking blocks from the checkpoint', async () => {
+    it('single-turn resume: replays the continuing turn’s thinking and web search blocks from the checkpoint', async () => {
       // Anthropic rejects a continued tool loop whose assistant turn lacks its
       // thinking blocks. Run 1 checkpoints a continuing turn; the checkpoint is
       // JSON-round-tripped and parsed as the resume path parses the running-step
@@ -1581,6 +1581,25 @@ describe('executeAgentCall', () => {
       const reasoning = [
         { type: 'thinking' as const, thinking: 'look it up', signature: 'sig-1' },
         { type: 'redacted_thinking' as const, data: 'opaque' },
+        {
+          type: 'server_tool_use' as const,
+          id: 'srvtoolu_1',
+          name: 'web_search' as const,
+          input: { query: 'sunrise' },
+        },
+        {
+          type: 'web_search_tool_result' as const,
+          toolUseId: 'srvtoolu_1',
+          results: [
+            { url: 'https://a.example', title: 'A', encryptedContent: 'enc', pageAge: null },
+          ],
+        },
+        {
+          type: 'web_search_tool_result' as const,
+          toolUseId: 'srvtoolu_2',
+          results: [],
+          errorCode: 'unavailable',
+        },
       ];
       mockChat.mockResolvedValueOnce({
         content: '',
@@ -1616,6 +1635,42 @@ describe('executeAgentCall', () => {
       const continued = resumedMessages.find((m) => m.role === 'assistant');
       expect(continued?.toolCalls?.[0]?.id).toBe('tc_1');
       expect(continued?.reasoning).toEqual(reasoning);
+    });
+
+    it('holds the agent’s search limit across the tool loop and a resume', async () => {
+      // The limit caps the step's reply; Anthropic counts its own per request.
+      vi.mocked(prisma.aiAgent.findFirst).mockResolvedValue({
+        ...MOCK_AGENT,
+        providerTools: { webSearch: { maxUses: 3 } },
+      } as never);
+      mockChat.mockResolvedValueOnce({
+        content: '',
+        toolCalls: [{ id: 'tc_1', name: 'cap', arguments: {} }],
+        usage: { inputTokens: 10, outputTokens: 5, webSearchRequests: 2 },
+        finishReason: 'tool_use',
+        model: 'claude-sonnet-4-6',
+      });
+      const recordTurn = vi.fn().mockResolvedValue(undefined);
+      await executeAgentCall(makeStep({ mode: 'single-turn' }), makeCtx({ recordTurn }));
+
+      expect(mockChat).toHaveBeenCalledTimes(2);
+      expect(mockChat.mock.calls[0][1].providerTools).toEqual({ webSearch: { maxUses: 3 } });
+      expect(mockChat.mock.calls[1][1].providerTools).toEqual({ webSearch: { maxUses: 1 } });
+
+      const recorded: unknown[] = recordTurn.mock.calls.map((c) => c[0]);
+      const checkpoint = turnEntriesSchema.parse(
+        JSON.parse(
+          JSON.stringify(recorded.filter((t) => (t as { phase?: string }).phase === 'continuing'))
+        )
+      );
+      expect(checkpoint).toEqual([expect.objectContaining({ webSearchRequests: 2 })]);
+
+      mockChat.mockClear();
+      await executeAgentCall(
+        makeStep({ mode: 'single-turn' }),
+        makeCtx({ resumeTurns: checkpoint })
+      );
+      expect(mockChat.mock.calls[0][1].providerTools).toEqual({ webSearch: { maxUses: 1 } });
     });
 
     // ── Test 4: Resume short-circuit (lastPrior has NO toolCall) ───────────

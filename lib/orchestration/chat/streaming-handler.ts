@@ -46,7 +46,7 @@ import type {
 } from '@/lib/orchestration/llm/types';
 import { getBreaker } from '@/lib/orchestration/llm/circuit-breaker';
 import { narrowReasoningEffort } from '@/lib/orchestration/llm/model-heuristics';
-import { modelParamOptions } from '@/lib/orchestration/llm/model-params';
+import { modelParamOptions, spendWebSearches } from '@/lib/orchestration/llm/model-params';
 import { getModel } from '@/lib/orchestration/llm/model-registry';
 import {
   assertModelSupportsAttachments,
@@ -88,6 +88,7 @@ import { scanCitations, scanOutput } from '@/lib/orchestration/chat/output-guard
 import { capabilityDispatcher } from '@/lib/orchestration/capabilities/dispatcher';
 import type { CapabilityResult } from '@/lib/orchestration/capabilities/types';
 import { extractCitations } from '@/lib/orchestration/chat/citations';
+import { providerToolTraces } from '@/lib/orchestration/chat/provider-tool-traces';
 import type { ProvenanceItem } from '@/lib/orchestration/provenance/types';
 import { executionTraceSchema } from '@/lib/validations/orchestration';
 import {
@@ -1541,6 +1542,10 @@ export class StreamingChatHandler {
       // iteration's reasoning starts on a new paragraph in the live panel.
       let reasoningStreamed = false;
 
+      // Provider web searches this reply has run, across its tool-loop calls
+      // and failed attempts: the agent's search limit is per reply.
+      let searchesUsed = 0;
+
       let iteration = 0;
       while (iteration < MAX_TOOL_ITERATIONS) {
         iteration++;
@@ -1624,7 +1629,10 @@ export class StreamingChatHandler {
 
             async function* (llmSpan: Span): AsyncGenerator<ChatEvent, void, unknown> {
               try {
-                const stream = currentProvider.chatStream(messages, llmOptions);
+                const stream = currentProvider.chatStream(
+                  messages,
+                  spendWebSearches(llmOptions, searchesUsed)
+                );
 
                 let toolCallIndex = 0;
                 for await (const chunk of stream) {
@@ -1685,6 +1693,7 @@ export class StreamingChatHandler {
                 // that only one of three paths was listening.
                 if (streamErr instanceof ProviderError && streamErr.usage) {
                   const errUsage = streamErr.usage;
+                  searchesUsed += errUsage.webSearchRequests ?? 0;
                   turnCostUsd += calculateCost(
                     resolvedModel,
                     errUsage.inputTokens,
@@ -1702,6 +1711,7 @@ export class StreamingChatHandler {
                     cacheReadTokens: errUsage.cacheReadTokens,
                     cacheWriteTokens: errUsage.cacheWriteTokens,
                     serviceTier: errUsage.serviceTier,
+                    webSearchRequests: errUsage.webSearchRequests,
                     operation: CostOperation.CHAT,
                     // Read off the span directly: `llmTraceId`/`llmSpanId` are
                     // only assigned on the success path below, so they are
@@ -1920,6 +1930,20 @@ export class StreamingChatHandler {
             },
             { manualStatus: true }
           );
+        }
+
+        // The web searches the provider ran itself this iteration go in the
+        // turn's trace beside the capabilities it dispatched.
+        for (const trace of providerToolTraces(reasoning)) {
+          turnToolCalls.push(trace);
+          if (request.includeTrace) {
+            yield {
+              type: 'capability_result',
+              capabilitySlug: trace.slug,
+              result: { success: trace.success, preview: trace.resultPreview ?? null },
+              trace,
+            };
+          }
         }
 
         if (toolCalls.size === 0) {
@@ -2209,6 +2233,7 @@ export class StreamingChatHandler {
               cacheReadTokens: u.cacheReadTokens,
               cacheWriteTokens: u.cacheWriteTokens,
               serviceTier: u.serviceTier,
+              webSearchRequests: u.webSearchRequests,
               operation: CostOperation.CHAT,
               traceId: llmTraceId,
               spanId: llmSpanId,
@@ -2289,6 +2314,7 @@ export class StreamingChatHandler {
         // trigger another LLM turn that costs more).
         const turnUsage = usage as LlmUsage | null;
         if (turnUsage) {
+          searchesUsed += turnUsage.webSearchRequests ?? 0;
           // Increment the in-process running total BEFORE the
           // fire-and-forget logCost — the per-turn check below must
           // never depend on a successful DB write.
@@ -2309,6 +2335,7 @@ export class StreamingChatHandler {
             cacheReadTokens: turnUsage.cacheReadTokens,
             cacheWriteTokens: turnUsage.cacheWriteTokens,
             serviceTier: turnUsage.serviceTier,
+            webSearchRequests: turnUsage.webSearchRequests,
             operation: CostOperation.CHAT,
             traceId: llmTraceId,
             spanId: llmSpanId,
