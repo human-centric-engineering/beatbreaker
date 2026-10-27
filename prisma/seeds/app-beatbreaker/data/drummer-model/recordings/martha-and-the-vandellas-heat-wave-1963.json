@@ -22,7 +22,15 @@
           "source_ids": ["src:heat-wave-1963-song-wikipedia", "src:richard-pistol-allen-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=bjPKcbKBT2s"
+      "youtube": "https://www.youtube.com/watch?v=bjPKcbKBT2s",
+      "style_key": "pistolallen",
+      "song_key": "heat-wave",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4298372"
+        }
+      ]
     }
   ]
 }

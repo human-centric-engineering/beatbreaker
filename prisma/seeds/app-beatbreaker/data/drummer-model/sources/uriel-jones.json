@@ -1,0 +1,137 @@
+[
+  {
+    "id": "src:funk-brothers-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Funk Brothers - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Funk_Brothers",
+    "reliability": 0.6,
+    "accessed": "2026-10-27",
+    "notes": "Motown's studio band, 1959-1972. Lists Uriel Jones as a drummer from 1963 to 1972, beside Benny Benjamin and Richard \"Pistol\" Allen; Grammy Legend Award, February 2004; the 2006 reunion line-up includes him."
+  },
+  {
+    "id": "src:aint-too-proud-to-beg-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ain't Too Proud to Beg - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ain%27t_Too_Proud_to_Beg",
+    "reliability": 0.6,
+    "accessed": "2026-10-27",
+    "notes": "The Temptations, Gordy, May 1966; written by Norman Whitfield and Eddie Holland, produced by Whitfield; David Ruffin lead. 13 in the Hot 100, 1 R&B. Names no players."
+  },
+  {
+    "id": "src:aint-no-mountain-high-enough-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ain't No Mountain High Enough - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ain%27t_No_Mountain_High_Enough",
+    "reliability": 0.6,
+    "accessed": "2026-10-27",
+    "notes": "Marvin Gaye and Tammi Terrell, Tamla, 20 April 1967; written by Ashford and Simpson, produced by Harvey Fuqua and Johnny Bristol; recorded December 1966 to 1 February 1967. Instrumentation by the Funk Brothers and the Detroit Symphony Orchestra; no drummer named."
+  },
+  {
+    "id": "src:for-once-in-my-life-wikipedia",
+    "type": "encyclopedia",
+    "title": "For Once in My Life - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/For_Once_in_My_Life",
+    "reliability": 0.6,
+    "accessed": "2026-10-27",
+    "notes": "Stevie Wonder's uptempo version, recorded summer 1967, produced by Henry Cosby, released 15 October 1968; 2 in the Hot 100 and on the R&B chart. Personnel: Uriel Jones, drums (citing the Telegraph's obituary, 27 March 2009); James Jamerson's bass singled out by bassists."
+  },
+  {
+    "id": "src:twenty-five-miles-wikipedia",
+    "type": "encyclopedia",
+    "title": "Twenty-Five Miles - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Twenty-Five_Miles",
+    "reliability": 0.6,
+    "accessed": "2026-10-27",
+    "notes": "Edwin Starr, Gordy, 2 January 1969; written by Starr, Johnny Bristol and Harvey Fuqua, Bert Berns and Jerry Wexler credited for its likeness to \"Mojo Mama\"; produced by Bristol and Fuqua; recorded 1968; 6 pop and R&B. Names no drummer."
+  },
+  {
+    "id": "src:signed-sealed-delivered-im-yours-wikipedia",
+    "type": "encyclopedia",
+    "title": "Signed, Sealed, Delivered I'm Yours - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Signed,_Sealed,_Delivered_I%27m_Yours",
+    "reliability": 0.6,
+    "accessed": "2026-10-27",
+    "notes": "Stevie Wonder, Tamla, June 1970; written by Wonder, Syreeta Wright, Lee Garrett and Lula Mae Hardaway; his first self-produced single; arranged by Paul Riser (credits from the album's liner notes, which name no players). 3 in the Hot 100, 1 R&B."
+  },
+  {
+    "id": "src:uriel-jones-drummerszone-2009",
+    "type": "obituary",
+    "title": "In memoriam Uriel Jones 1934-2009 (Drummerszone, March 2009)",
+    "url": "https://drummerszone.com/news/article/artist-news-1-6891/in-memoriam-uriel-jones-1934-2009",
+    "reliability": 0.5,
+    "accessed": "2026-10-27",
+    "notes": "Obituary: \"a drummer who fueled numerous classic Motown hits\"; with Pistol Allen took more of the drum tracks as Benny Benjamin struggled. Names My Girl, Signed, Sealed, Delivered, What Becomes of the Brokenhearted and both versions of I Heard It Through the Grapevine."
+  },
+  {
+    "id": "src:uriel-jones-ap-obituary-2009",
+    "type": "news",
+    "title": "Versatile Motown drummer Uriel Jones dies at 74 (Associated Press, in the Royal Gazette, 26 March 2009)",
+    "url": "https://royalgazette.com/?p=192327",
+    "reliability": 0.7,
+    "accessed": "2026-10-27",
+    "notes": "Died at a Detroit-area hospital of complications from a heart attack the month before; played on the Temptations, the Four Tops, Smokey Robinson and the Miracles. Paul Riser: \"a pulse in his playing that nobody else had\", and he could play \"with finesse and restraint when the song called for it\"."
+  },
+  {
+    "id": "src:chris-bates-aint-too-proud-to-beg",
+    "type": "transcription",
+    "title": "Chris Bates, The Temptations - Ain't Too Proud to Beg (with Drum Music) (YouTube, DrumTuber)",
+    "url": "https://www.youtube.com/watch?v=l_UT5F1YVK0",
+    "reliability": 0.55,
+    "accessed": "2026-10-27",
+    "notes": "A drummer's full chart, shown bar by bar as he plays along with the record: a pickup and 77 bars at 120, rehearsal letters A to G with repeats. Ride bell and rimshots in verse 1, the snare on every beat in the choruses, a cross-stick and the toms in the later verses, a bar of hits at each verse's end."
+  },
+  {
+    "id": "src:drumscribe-signed-sealed-delivered",
+    "type": "transcription",
+    "title": "Drumscribe #674, Signed, Sealed, Delivered (Drums Only) - Stevie Wonder (YouTube, 29 March 2026)",
+    "url": "https://www.youtube.com/watch?v=2pULEBuN-ac",
+    "reliability": 0.5,
+    "accessed": "2026-10-27",
+    "notes": "A Guitar Pro score scrolled under a play-along, marked 109, \"Swing most of the 'a' kicks to achieve good feel\": the hat in eighths by hand, the snare on 2 and 4, the kick on 1, 2, the \"a\" of 2, 3, the \"and\" of 3, 4 and its \"and\"."
+  },
+  {
+    "id": "src:drew-schultz-twenty-five-miles-remix",
+    "type": "recording",
+    "title": "Drew Schultz, Edwin Starr - 25 Miles - Uriel Jones on Drums (YouTube, 24 March 2014)",
+    "url": "https://www.youtube.com/watch?v=ISu-a-_PRR4",
+    "reliability": 0.5,
+    "accessed": "2026-10-27",
+    "notes": "\"A remix from the stereo track of Edwin Starr's iconic hit '25 Miles,' spotlighting the amazing drumming of Funk Brother Uriel Jones.\" By the drummer who interviewed Jones for Modern Drummer (2009). 2:18, an edit."
+  },
+  {
+    "id": "src:songsterr-91549",
+    "type": "transcription",
+    "title": "Songsterr, Stevie Wonder - Signed, Sealed, Delivered (I'm Yours) (human, by xorn, 2012)",
+    "url": "https://www.songsterr.com/a/wa/song?id=91549",
+    "reliability": 0.55,
+    "accessed": "2026-10-27",
+    "notes": "aiGenerated false; read at revision 1189870 (January 2025), whose later edits aligned the bass with the soloed bass track. 73 bars at 107, no markers; the hat on the foot under the tambourine in eighths."
+  },
+  {
+    "id": "src:songsterr-6074409",
+    "type": "transcription",
+    "title": "Songsterr, Edwin Starr - Twenty Five Miles (machine tab, rev 7933067, July 2026)",
+    "url": "https://www.songsterr.com/a/wa/song?id=6074409",
+    "reliability": 0.3,
+    "accessed": "2026-10-27",
+    "notes": "aiGenerated true, its only revision: 103 bars at 124, no markers. The only tab of the song on Songsterr."
+  },
+  {
+    "id": "src:songsterr-54677",
+    "type": "transcription",
+    "title": "Songsterr, Stevie Wonder - For Once In My Life (human, drum track \"Uriel Jones | Drums\", rev 9140564, 2026)",
+    "url": "https://www.songsterr.com/a/wa/song?id=54677",
+    "reliability": 0.6,
+    "accessed": "2026-10-27",
+    "notes": "aiGenerated false; Anthony's month of corrections (September 2026) after an AI regeneration in June; Jack Ashford's tambourine a track of its own. 79 bars at 108 with markers."
+  },
+  {
+    "id": "src:songsterr-73642",
+    "type": "transcription",
+    "title": "Songsterr, Marvin Gaye - Ain't No Mountain High Enough (human, rev 7844281, 2026)",
+    "url": "https://www.songsterr.com/a/wa/song?id=73642",
+    "reliability": 0.55,
+    "accessed": "2026-10-27",
+    "notes": "aiGenerated false, twenty-five revisions; the drums last checked \"according to the original audio\" (Vitalii, January 2026). 84 bars at 129 with markers, the last six empty."
+  }
+]

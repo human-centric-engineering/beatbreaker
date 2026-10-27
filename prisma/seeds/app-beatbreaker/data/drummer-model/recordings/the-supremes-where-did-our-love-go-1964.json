@@ -22,7 +22,15 @@
           "source_ids": ["src:richard-pistol-allen-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=Jt_31gR18NA"
+      "youtube": "https://www.youtube.com/watch?v=Jt_31gR18NA",
+      "style_key": "pistolallen",
+      "song_key": "where-did-our-love-go",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=884899"
+        }
+      ]
     }
   ]
 }

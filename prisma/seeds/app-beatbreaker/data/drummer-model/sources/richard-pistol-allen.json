@@ -1,0 +1,83 @@
+[
+  {
+    "id": "src:brian-holland-scottkfish-1982",
+    "type": "interview",
+    "title": "Scott K. Fish: Brian Holland: Motown's Drummers Were Unbeatable (phone interview, 12 May 1982; posted 7 September 2015)",
+    "url": "https://drummingnewsnetwork.com/?p=13115",
+    "reliability": 0.65,
+    "accessed": "2026-10-27",
+    "notes": "Holland, producer of Holland-Dozier-Holland's records: \"Pistol came in after Benny.\" \"He was more of a shuffle kind of a drummer. He was the best at the shuffles.\" \"On the shuffle things, like Heat Wave, I know Pistol played on that. He might have played on Baby Love by the Supremes.\" Benny Benjamin \"had to play at least 75-percent\" of the Four Tops' and Supremes' records. \"A couple of those guys - like Benny and Pistol - always was emotionally into it.\" Allen played at the 20 Grand, a Detroit bar."
+  },
+  {
+    "id": "src:where-did-our-love-go-wikipedia",
+    "type": "encyclopedia",
+    "title": "Where Did Our Love Go - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Where_Did_Our_Love_Go",
+    "reliability": 0.7,
+    "accessed": "2026-10-27",
+    "notes": "The Supremes, June 1964, Holland-Dozier-Holland; their first number one. Personnel: \"Drums by Richard 'Pistol' Allen\"; Mike Valvano stomping on boards."
+  },
+  {
+    "id": "src:reach-out-ill-be-there-wikipedia",
+    "type": "encyclopedia",
+    "title": "Reach Out I'll Be There - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Reach_Out_I%27ll_Be_There",
+    "reliability": 0.7,
+    "accessed": "2026-10-27",
+    "notes": "The Four Tops, August 1966, Holland-Dozier-Holland; number one in the US and the UK. Names no drummer. The arranger Paul Riser overdubbed a piccolo and flute in the intro and \"a drum pattern played with timpani mallets on a tambourine head\"."
+  },
+  {
+    "id": "src:pistol-allen-photo-metrotimes",
+    "type": "news",
+    "title": "Richard \"Pistol\" Allen at the kit (Metro Times photograph, on Wikipedia as File:Richard Pistol Allen.jpg)",
+    "url": "https://en.wikipedia.org/wiki/File:Richard_Pistol_Allen.jpg",
+    "reliability": 0.6,
+    "accessed": "2026-10-27",
+    "notes": "Black and white, outdoors, undated (the clothes say late 1960s or early 1970s): a cowboy hat, tinted glasses, a dark shirt printed with pale flowers, open at the neck, a thin chain, a dark sleeveless vest, a bracelet; a silver sparkle Ludwig kit."
+  },
+  {
+    "id": "src:pistol-allen-drummerszone",
+    "type": "biography",
+    "title": "Drummerszone: Richard \"Pistol\" Allen",
+    "url": "https://drummerszone.com/artists/richard-pistol-allen/12327/profile/",
+    "reliability": 0.5,
+    "accessed": "2026-10-27",
+    "notes": "Primary session drummer for the Funk Brothers; a studio set of Ludwig, Slingerland, Rogers and Gretsch parts; influences Max Roach, Buddy Rich and Benny Benjamin; names Heat Wave, The Way You Do the Things You Do and Reach Out I'll Be There."
+  },
+  {
+    "id": "src:songsterr-884899",
+    "type": "transcription",
+    "title": "Songsterr: The Supremes - Where Did Our Love Go (drums)",
+    "url": "https://www.songsterr.com/a/wa/song?id=884899",
+    "reliability": 0.55,
+    "accessed": "2026-10-27",
+    "notes": "Human (aiGenerated false), rev 6910948 by Ian Meyer, 19 May 2026: 86 bars at 138. Seven revisions since December 2024; the drum track headed \"Richard 'Pistol' Allen | Ludwig Downbeat Kit\", the foot stomps on a track of their own; section markers."
+  },
+  {
+    "id": "src:songsterr-4298372",
+    "type": "transcription",
+    "title": "Songsterr: Martha Reeves & the Vandellas - Heat Wave (drums)",
+    "url": "https://www.songsterr.com/a/wa/song?id=4298372",
+    "reliability": 0.55,
+    "accessed": "2026-10-27",
+    "notes": "Human (aiGenerated false), rev 5634807 by Robert V Kail, 9 March 2026: 113 bars at 164. No section markers; a 2/4 bar to start."
+  },
+  {
+    "id": "src:songsterr-461356",
+    "type": "transcription",
+    "title": "Songsterr: The Supremes - Baby Love (drums)",
+    "url": "https://www.songsterr.com/a/wa/song?id=461356",
+    "reliability": 0.55,
+    "accessed": "2026-10-27",
+    "notes": "Human (aiGenerated false), rev 394901 by gianluca aculnaig, 4 February 2020: 96 bars at 138. Its one revision; played in rather than gridded (notes drift up to a sixteenth); a side stick on every beat, the tambourine on its own track."
+  },
+  {
+    "id": "src:songsterr-35742",
+    "type": "transcription",
+    "title": "Songsterr: Four Tops - Reach Out And I'll Be There (drums)",
+    "url": "https://www.songsterr.com/a/wa/song?id=35742",
+    "reliability": 0.55,
+    "accessed": "2026-10-27",
+    "notes": "Human (aiGenerated false), rev 5960260 by KP, 28 March 2026: 89 bars at 120. Seventeen revisions since 2009, the drums revised by Finn (2020) and HappyShepherd (2025); section markers; a tambourine track."
+  }
+]

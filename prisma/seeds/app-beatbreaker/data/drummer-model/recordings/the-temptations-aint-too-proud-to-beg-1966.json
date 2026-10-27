@@ -24,10 +24,12 @@
       "youtube": "https://www.youtube.com/watch?v=_ObVQPBD0Uw",
       "transcriptions": [
         {
-          "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=608234"
+          "site": "other",
+          "url": "https://www.youtube.com/watch?v=l_UT5F1YVK0"
         }
-      ]
+      ],
+      "style_key": "urieljones",
+      "song_key": "aint-too-proud-to-beg"
     }
   ]
 }

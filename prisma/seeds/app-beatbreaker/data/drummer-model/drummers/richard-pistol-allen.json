@@ -2,14 +2,24 @@
   "meta": {
     "id": "drummer:richard-pistol-allen",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
+    "record_status": "draft",
+    "completeness": 0.4,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-27",
+    "authors": ["claude"],
+    "open_questions": [
+      "Who played on which Motown record: Motown credited no musicians until 1971. The credits here are Wikipedia's; Brian Holland (1982) put Benny Benjamin on most of the Supremes' and Four Tops' records and was unsure of Baby Love. Allan Slutsky's Standing in the Shadows of Motown (1989) was not read.",
+      "Wikipedia's Allen article also lists Signed, Sealed, Delivered I'm Yours and Marvin Gaye's I Heard It Through the Grapevine, which other sources give to Uriel Jones; not scored here.",
+      "His shuffles, which Holland and Uriel Jones single out: How Sweet It Is's only human tab is James Taylor's version, The Way You Do the Things You Do's only tab is machine-made. Transcribe them from the records.",
+      "Baby Love's only tab is played in, not gridded; its bars here are read to the beat.",
+      "Reach Out I'll Be There's galloping intro: the tab puts it on his snare; Paul Riser overdubbed a pattern with timpani mallets on a tambourine head, which may be it.",
+      "Where his nickname came from, and where he was born: not found in the sources read."
+    ]
   },
   "identity": {
     "name": "Richard 'Pistol' Allen",
     "full_name": "Howard Richard Allen",
+    "nicknames": ["Pistol"],
     "born": {
       "date": "1932-08-13",
       "evidence": {
@@ -18,55 +28,763 @@
       }
     },
     "died": {
-      "date": "2002-06-30"
+      "date": "2002-06-30",
+      "place": "Detroit, Michigan, US",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richard-pistol-allen-wikipedia"],
+        "note": "Of cancer, aged 69, four months before Standing in the Shadows of Motown was released."
+      }
     },
     "nationality": ["American"],
-    "home_scenes": ["Detroit", "Hitsville U.S.A."],
+    "home_scenes": ["Detroit", "Hitsville U.S.A., Motown's Studio A"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
     "active": {
       "from": 1960,
       "to": 2002
     },
-    "summary": "Funk Brothers drummer on most of Holland-Dozier-Holland's Motown hits of the 1960s."
+    "roles": ["session"],
+    "summary": "The Funk Brothers' drummer on most of Holland-Dozier-Holland's Motown hits of the 1960s: Heat Wave, Where Did Our Love Go, Baby Love, Reach Out I'll Be There. A jazz drummer by taste (Max Roach, Buddy Rich), told by Benny Benjamin to hold down simple beats, he was Motown's shuffle man ('the best at the shuffles', Brian Holland) and played light, steady time: the hat open on every beat, the snare or a cross-stick on every beat for a dance record, a short pickup into the phrase. He appeared in Standing in the Shadows of Motown and died in 2002, before it opened."
   },
+  "formation": {
+    "first_instrument": "drums",
+    "other_instruments": [],
+    "traditions": [
+      {
+        "tradition": "Bebop and big-band drumming",
+        "impact": "Max Roach and Buddy Rich among his influences; Benjamin told him to leave the jazz drumming at home on Motown dates.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:richard-pistol-allen-wikipedia", "src:benjamin-loudlands"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1960,
+        "event": "Joins the Funk Brothers at Hitsville after Benjamin (\"Pistol came in after Benny\": Brian Holland).",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:brian-holland-scottkfish-1982", "src:richard-pistol-allen-wikipedia"]
+        }
+      },
+      {
+        "year": 1963,
+        "event": "Heat Wave, Martha and the Vandellas: Holland-Dozier-Holland's first big hit, and his shuffle.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:heat-wave-1963-song-wikipedia", "src:brian-holland-scottkfish-1982"]
+        }
+      },
+      {
+        "year": 1964,
+        "event": "Where Did Our Love Go and Baby Love, the Supremes' first two number ones.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:where-did-our-love-go-wikipedia", "src:baby-love-wikipedia"]
+        }
+      },
+      {
+        "year": 2002,
+        "event": "Plays and speaks in Standing in the Shadows of Motown; dies in June, before its release.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:richard-pistol-allen-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:pistol-allen-motown",
+      "label": "Holland-Dozier-Holland's records",
+      "years": {
+        "from": 1960,
+        "to": 1972
+      },
+      "context": "Hitsville U.S.A., Detroit: the Funk Brothers with James Jamerson, cutting Holland-Dozier-Holland's singles for Martha and the Vandellas, the Supremes and the Four Tops, Benjamin and Uriel Jones sharing the dates.",
+      "defining_traits": [
+        "the hat open on every beat",
+        "the snare or a cross-stick on every beat",
+        "shuffles",
+        "a short pickup on the snare"
+      ],
+      "kit_setup_id": "kit:pistol-allen-studio-a",
+      "key_recording_ids": [
+        "rec:martha-and-the-vandellas-heat-wave-1963",
+        "rec:the-supremes-where-did-our-love-go-1964",
+        "rec:the-supremes-baby-love-1964",
+        "rec:four-tops-reach-out-ill-be-there-1966",
+        "rec:marvin-gaye-how-sweet-it-is-to-be-loved-by-you-1964",
+        "rec:the-temptations-the-way-you-do-the-things-you-do-1964"
+      ]
+    }
+  ],
   "style_profile": {
     "genres": [
       {
         "style_id": "style:motown",
         "weight": 1.0,
-        "authority": 0.7
+        "authority": 0.8
       },
       {
         "style_id": "style:rnb-soul",
-        "weight": 0.7
+        "weight": 0.7,
+        "authority": 0.6
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.15,
+    "role_tendency": "accompanist",
+    "descriptors": ["shuffle", "steady", "light", "Motown", "four on the snare"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-884899"],
+        "note": "Not measured: the records were beat-tracked for tempo only."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "typical_swing_ratio": 0.62,
+      "notes": "Straight eighths on three of the four records scored; Baby Love's eighths swing (the record's hats near a triplet). Holland calls him the shuffle man."
+    },
+    "dynamics": {
+      "range": 0.4,
+      "default_level": "mf",
+      "balance": "A light backbeat or a cross-stick under the singers, the tambourine and the foot stomps on the beat beside him."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 14],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [110, 170],
+    "timekeeping_context": ["free"],
+    "interaction": "Under Holland-Dozier-Holland's arrangements with Jamerson's bass, beside a tambourine, hand claps or foot stomps on the beat.",
+    "descriptors": ["steady", "light", "simple"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "The hat open on every beat",
+        "description": "Heat Wave's verses: an open hat on each beat over a light backbeat.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4298372"]
+        }
+      },
+      {
+        "name": "The snare on every beat",
+        "description": "Reach Out I'll Be There's verses and choruses; Baby Love's cross-stick on every beat.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-35742", "src:songsterr-461356"]
+        }
+      },
+      {
+        "name": "The pickup",
+        "description": "Three or four notes on the snare from the \"and\" or the \"a\" of 3 into the next phrase (Heat Wave, Where Did Our Love Go, Baby Love).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4298372", "src:songsterr-884899"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick under the bass",
+        "description": "On 1 and 3, or on 1, the \"and\" of 2, 3 and the \"and\" of 4 with Jamerson (Where Did Our Love Go).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-884899"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "weight": 0.4
+      }
+    ],
+    "coordination": {
+      "independence": 0.3,
+      "linear_playing": 0.05,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.0,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-27",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read bar by bar: Where Did Our Love Go 884899, Heat Wave 4298372, Baby Love 461356, Reach Out I'll Be There 35742; How Sweet It Is 461160 (James Taylor's version) and The Way You Do the Things You Do 259076 (machine-made) looked at and not used",
+          "Wikipedia (Richard Allen, the songs); Brian Holland to Scott K. Fish (1982); Modern Drummer, Uriel Jones (2009); Drummerszone"
+        ],
+        "note": "None found. Where Did Our Love Go's sextuplet pickups are fills, and Baby Love's swung eighths a feel; no cross-rhythm or metric device in any song or source read."
+      }
+    },
+    "voice_language": {
+      "snare": "A light backbeat on 2 and 4, or on every beat; a cross-stick on every beat (Baby Love); short pickups.",
+      "kick": "On 1 and 3, or with the bass line's \"and\"s.",
+      "toms": "Few: the high and floor toms closing Reach Out I'll Be There's chorus fills.",
+      "hihat": "Eighths, or open on every beat (Heat Wave), opened on the \"and\"s for a lift.",
+      "cymbals": "Hardly a crash: Reach Out I'll Be There's verses and choruses start on one; the ride in quarters for a section of Heat Wave."
+    },
+    "implements": {
+      "sticks": 0.9,
+      "brushes": 0.05,
+      "mallets": 0.05
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "Studio A's small room",
+      "a light snare under the tambourine and the stomps",
+      "the open hat"
+    ],
+    "cymbal_character": "Likely Zildjians (Wikipedia).",
+    "by_era": [
+      {
+        "era_id": "era:pistol-allen-motown",
+        "description": "The studio set of Ludwig, Slingerland, Rogers and Gretsch parts; the Where Did Our Love Go tab names a Ludwig Downbeat; a silver sparkle Ludwig in the one photograph."
+      }
+    ],
+    "sample_hints": {
+      "60s": "A 1960s Ludwig, round and warm, close and a little roomy."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:richard-pistol-allen-wikipedia", "src:pistol-allen-photo-metrotimes"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:pistol-allen-shuffle",
+      "label": "The shuffle man",
+      "category": "feel",
+      "description": "Brian Holland: 'He was the best at the shuffles'; Uriel Jones: 'noted for the shuffle and the 4/4 beat. He was a genius with it.'",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:brian-holland-scottkfish-1982", "src:uriel-jones-moderndrummer-2009"]
+      }
+    },
+    {
+      "id": "trait:pistol-allen-four-on-the-snare",
+      "label": "The snare on every beat",
+      "category": "groove",
+      "description": "Reach Out I'll Be There's snare and Baby Love's cross-stick on all four beats, for the dance floor.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-35742", "src:songsterr-461356"]
+      }
+    },
+    {
+      "id": "trait:pistol-allen-open-hat",
+      "label": "The open hat on the beat",
+      "category": "groove",
+      "description": "Heat Wave's hat open on every beat over a light backbeat.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-4298372"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:pistol-allen-heat-wave-verse",
+        "name": "Heat Wave: the hat open on every beat",
+        "type": "groove",
+        "function": "The hat open on every beat over the snare on 2 and 4 and the kick on 1 and 3: the verse.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4298372"],
+          "note": "37 of the tab's 113 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 166,
+          "playable_range_bpm": [162, 169]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:martha-and-the-vandellas-heat-wave-1963",
+          "transcription_source_id": "src:songsterr-4298372"
+        },
+        "tags": ["1963"]
+      },
+      {
+        "id": "pattern:pistol-allen-heat-wave-pickup",
+        "name": "Heat Wave: the pickup",
+        "type": "fill",
+        "function": "The snare on the \"and\" of 3, 4 and its \"and\" into the next phrase, under the open hat.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4298372"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 166,
+          "playable_range_bpm": [162, 169]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...",
+          "snare": "....x.....x.x.x.",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:martha-and-the-vandellas-heat-wave-1963",
+          "transcription_source_id": "src:songsterr-4298372"
+        },
+        "tags": ["1963"]
+      },
+      {
+        "id": "pattern:pistol-allen-where-did-our-love-go",
+        "name": "Where Did Our Love Go: the verse",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the kick on 1, the \"and\" of 2, 3 and the \"and\" of 4, under the foot stomps.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-884899"],
+          "note": "Most of the tab's 86 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 133,
+          "playable_range_bpm": [130, 136]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x.....x."
+        },
+        "source": {
+          "recording_id": "rec:the-supremes-where-did-our-love-go-1964",
+          "transcription_source_id": "src:songsterr-884899"
+        },
+        "tags": ["1964"]
+      },
+      {
+        "id": "pattern:pistol-allen-where-did-our-love-go-pickup",
+        "name": "Where Did Our Love Go: the sextuplet pickup",
+        "type": "fill",
+        "function": "The snare on the \"a\" of 3, 4, its \"e\" and its \"a\": a sextuplet run in the tab, here the nearest sixteenths.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-884899"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 133,
+          "playable_range_bpm": [130, 136]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x..x....",
+          "snare": "....x......xxx.x",
+          "kick": "x.....x.x......."
+        },
+        "source": {
+          "recording_id": "rec:the-supremes-where-did-our-love-go-1964",
+          "transcription_source_id": "src:songsterr-884899"
+        },
+        "tags": ["1964"]
+      },
+      {
+        "id": "pattern:pistol-allen-baby-love",
+        "name": "Baby Love: the cross-stick on every beat",
+        "type": "groove",
+        "function": "Swung eighths on the hat, a cross-stick on every beat, the kick on 1 and 3.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-461356"],
+          "note": "Read to the beat from a tab played in rather than gridded: a reconstruction."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [133, 140]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "c...c...c...c...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:the-supremes-baby-love-1964",
+          "transcription_source_id": "src:songsterr-461356"
+        },
+        "tags": ["1964"]
+      },
+      {
+        "id": "pattern:pistol-allen-reach-out-verse",
+        "name": "Reach Out I'll Be There: the snare on every beat",
+        "type": "groove",
+        "function": "The snare on every beat under eighths on the hat, the kick on 1, the \"and\" of 3 and the \"and\" of 4.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-35742"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [117, 123]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "x...x...x...x...",
+          "kick": "x.........x...x."
+        },
+        "source": {
+          "recording_id": "rec:four-tops-reach-out-ill-be-there-1966",
+          "transcription_source_id": "src:songsterr-35742"
+        },
+        "tags": ["1966"]
+      },
+      {
+        "id": "pattern:pistol-allen-reach-out-gallop",
+        "name": "Reach Out I'll Be There: the gallop",
+        "type": "groove_variation",
+        "function": "The intro: cross-sticks on 1 and the \"e\", \"and\" and \"a\" of every beat over the kick in eighths (perhaps Paul Riser's overdub of mallets on a tambourine head).",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-35742", "src:reach-out-ill-be-there-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [117, 123]
+        },
+        "lanes": {
+          "snare": "c.ccc.ccc.ccc.cc",
+          "kick": "x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:four-tops-reach-out-ill-be-there-1966",
+          "transcription_source_id": "src:songsterr-35742"
+        },
+        "tags": ["1966"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:pistol-allen-studio-a",
+      "label": "Studio A's kit, 1960s",
+      "years": {
+        "from": 1963,
+        "to": 1972
+      },
+      "context": "studio",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "brand": "Zildjian"
+        }
+      ],
+      "layout_notes": "A studio set of Ludwig, Slingerland, Rogers and Gretsch parts (Wikipedia); the Where Did Our Love Go tab heads its drum track \"Ludwig Downbeat Kit\". A silver sparkle Ludwig in the one photograph of him at a kit.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:richard-pistol-allen-wikipedia",
+          "src:songsterr-884899",
+          "src:pistol-allen-photo-metrotimes"
+        ]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "The Funk Brothers",
-      "type": "house_band",
+      "type": "session_regular",
       "years": {
         "from": 1960,
         "to": 1972
+      },
+      "bandmates": [
+        {
+          "name": "James Jamerson"
+        },
+        {
+          "name": "Benny Benjamin"
+        },
+        {
+          "name": "Uriel Jones"
+        },
+        {
+          "name": "Earl Van Dyke"
+        },
+        {
+          "name": "Robert White"
+        },
+        {
+          "name": "Eddie Willis"
+        },
+        {
+          "name": "Jack Ashford"
+        }
+      ],
+      "notes": "Motown's studio band at Hitsville U.S.A., uncredited on the records until 1971.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richard-pistol-allen-wikipedia"]
       }
     }
   ],
   "key_recording_ids": [
     "rec:martha-and-the-vandellas-heat-wave-1963",
+    "rec:the-supremes-where-did-our-love-go-1964",
     "rec:the-supremes-baby-love-1964",
-    "rec:the-supremes-where-did-our-love-go-1964"
+    "rec:four-tops-reach-out-ill-be-there-1966",
+    "rec:marvin-gaye-how-sweet-it-is-to-be-loved-by-you-1964",
+    "rec:the-temptations-the-way-you-do-the-things-you-do-1964"
   ],
-  "legacy": {
-    "contribution": {
-      "description": "The main Motown session drummer on most of Holland-Dozier-Holland's hits, from \"Heat Wave\" to \"Baby Love\", playing the simple, driving beats Benny Benjamin told him to hold down.",
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.5,
       "evidence": {
         "confidence": "likely",
         "source_ids": ["src:richard-pistol-allen-wikipedia"]
       }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:richard-pistol-allen-wikipedia"]
+      }
+    },
+    {
+      "type": "mentored_by",
+      "target": {
+        "name": "Benny Benjamin",
+        "kind": "drummer",
+        "id": "drummer:benny-benjamin"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:richard-pistol-allen-wikipedia", "src:benjamin-loudlands"],
+        "note": "Benjamin told him to 'leave the jazz drumming at home, hold down simple beats'."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Uriel Jones",
+        "kind": "drummer",
+        "id": "drummer:uriel-jones"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:uriel-jones-moderndrummer-2009"],
+        "note": "Jones: 'Pistol was there before I was'; the two shared Motown's dates as Benjamin's health failed."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "James Jamerson",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richard-pistol-allen-wikipedia"]
+      }
     }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Leave the jazz at home: hold down simple beats (Benjamin's advice to him).",
+        "paraphrase_of_source_id": "src:benjamin-loudlands"
+      }
+    ]
+  },
+  "legacy": {
+    "contribution": {
+      "description": "The drum chair on most of Holland-Dozier-Holland's hits, from Heat Wave to Reach Out I'll Be There: the light, steady Motown beat with the snare on every beat, and its shuffles.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:richard-pistol-allen-wikipedia", "src:brian-holland-scottkfish-1982"]
+      }
+    },
+    "influence_score": 0.55,
+    "innovations": ["The Supremes' cross-stick on every beat (Baby Love), by the tab"],
+    "cultural_references": [
+      {
+        "description": "Standing in the Shadows of Motown (2002): he plays and speaks in it, and died before it opened.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:richard-pistol-allen-wikipedia"]
+        }
+      },
+      {
+        "description": "Michigan Rock and Roll Legends Hall of Fame, 2010, with the Funk Brothers.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:richard-pistol-allen-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That Benny Benjamin played every Motown hit: Heat Wave, Where Did Our Love Go and Baby Love are credited to Allen, though Holland (1982) remembered Benjamin on most of the Supremes' records."
+    ]
   },
   "beatbreaker": {
-    "group": "Soul and Motown drummers",
-    "build_priority": 2
+    "style_key": "pistolallen",
+    "headline_pattern_ids": [
+      "pattern:pistol-allen-heat-wave-verse",
+      "pattern:pistol-allen-where-did-our-love-go",
+      "pattern:pistol-allen-reach-out-verse",
+      "pattern:pistol-allen-baby-love"
+    ],
+    "default_kit_sound": "A 1960s Ludwig in a small room",
+    "generation_rules": [
+      "A light backbeat, or the snare on every beat for a dance record.",
+      "Eighths on the hat, or the hat open on every beat.",
+      "A short pickup on the snare into the next phrase; hardly any crashes."
+    ],
+    "avoid": ["Busy fills under the singer", "Ghost notes", "Crashes on every phrase"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:benny-benjamin", "drummer:max-roach"],
+      "primary_descendants": [],
+      "lineage_blurb": "A jazz drummer by taste after Max Roach and Buddy Rich, simplified on Benny Benjamin's advice into the Motown studio beat, beside Uriel Jones."
+    },
+    "tags": ["motown", "soul", "session", "60s", "funk brothers", "shuffle"]
   }
 }

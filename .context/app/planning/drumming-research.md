@@ -13121,13 +13121,14 @@ trousers; a metal-finish OCDP kit with chrome hardware. His tattoos, which
 cover his arms, chest and back, cannot be drawn, and the model's mohawk is
 taller and spikier than his.
 
-## BR. Benny Benjamin (2026-10-19)
+## BR. Benny Benjamin (2026-10-19, revisited 2026-10-27)
 
 The `bennybenjamin` style plays **songs** the way `aljackson` (AZ) and
 `helders` (BM) do: each New picks one of his records, and its tempo and
 grooves come with it. His record (`drummer-model/drummers/benny-benjamin.json`,
-schema 1.5) is new, written from this section, with eight Motown singles in
-`recordings/` and `sources/benny-benjamin.json`. No record named him before.
+now at schema 1.6.0) is new, written from this section, with nine Motown
+singles in `recordings/` (Nowhere to Run added on the revisit) and
+`sources/benny-benjamin.json`. No record named him before.
 One genre is new: `style:motown` (a sub-genre of R&B and soul), in the
 `funk-soul` family on the map.
 
@@ -13165,9 +13166,11 @@ Hurry Love (the Supremes, 1966). Baby Love (1964) is Pistol Allen's, and Ain't
 That Peculiar (1965) Uriel Jones's; Dancing in the Street's drums are Marvin
 Gaye's.
 
-**The songs.** Five, each from a human Songsterr tab (`aiGenerated` false and a
-drum track not "regenerated"), read section by section, its tempo measured from
-the record (autocorrelation and a beat tracker):
+**The songs.** Eight. The first five (2026-10-19) and Get Ready and Nowhere to
+Run (2026-10-27) each follow a human Songsterr tab (`aiGenerated` false and a
+drum track not "regenerated"), read section by section; You Can't Hurry Love is
+reconstructed. Every tempo is measured from the record (autocorrelation and a
+beat tracker):
 
 - **Money** (643453 and 603770, the same 87 bars; record 132.2): the ride in
   eighths, the snare on 2 alone, the high tom on 4 and its "and" (Brian
@@ -13188,20 +13191,46 @@ the record (autocorrelation and a beat tracker):
   "and"s, the kick on 1 and the "and"s of 2, 3 and 4, and a pickup on the snare
   and the toms into every second bar of the choruses.
 
+- **Nowhere to Run** (7620299, human, 2026, the same part as its author's
+  7522210; 129.8): eighths on the hat, the kick on 1, the "and" of 2, 3 and the
+  "and" of 4; the snare on every beat in the choruses (once over four on the
+  floor), and in eighths from the "and" of 1 into the turns. The older human
+  tab 217212 names him and his Ludwig on its drum track but holds no notes.
+- **Get Ready** (7584060, human, 22 October 2026, its drum track named "Benny
+  Benjamin"; 135.0): the kick on 1, the "and" of 3 and the "and" of 4, a snare
+  on the "and" of 2 in the verses; the chorus the snare on every beat with a
+  pickup from the "and" of 3 into every second bar; after the second chorus the
+  ride in eighths, the band's stops on the crash and the high tom on 4. Bar 1
+  (the guitar alone) is left out and the fade cut to two bars.
+- **You Can't Hurry Love** (reconstructed; 97.6): the snare on every beat, eighths
+  on the hat, the kick on 1 and the "and"s of 2, 3 and 4. Its only drum track
+  (461357, revision 5595965) is a machine's ("regenerated"), written at 193 with
+  the bar line a beat out. The record, folded onto a sixteenth grid ten seconds
+  at a time from the beat tracker's beats, shows the same bar from 0:10 to the
+  fade: the snare level on every beat (with Jack Ashford's tambourine), the hat
+  on the beats and "and"s and nothing between (eighths, where the machine has
+  sixteenths), the kick strongest on the "and"s of 2, 3 and 4. Straight: the
+  library's "hint of shuffle" is not in the fold, and the recording's line is
+  corrected. The pickup on the "a" of 3 and 4 is the machine's, not heard; its
+  four bars of ride at 1:00 are left out.
+
 The pickups' runs of four sixteenths are written as three: the critic refuses
 four in a row on the snare. Every bar that stops the band is a section of its
 own, as a fill would leave a backbeat the figures promise unplayed.
 
-**Left out.** Get Ready, Going to a Go-Go, Shop Around, Mickey's Monkey, Heat
-Wave and Gladys Knight's Grapevine have only machine-made tabs on Songsterr,
-in every revision. You Can't Hurry Love's one human revision (850511, 2024) is
-written at 200 with its notes off the grid, and a beat tracker could not
-resolve its dense mix into bars. Nowhere to Run's human tab has his name on its
-drum track but no notes in it. None of these was rebuilt by ear: five records
-from transcriptions rather than eight with three guessed.
+**Left out.** Going to a Go-Go has no drum track on Songsterr at all, and its
+record, folded as You Can't Hurry Love's was, did not settle where the bar
+begins. Shop Around and Mickey's Monkey have only machine-made tabs, of a plain
+backbeat that shows little; Gladys Knight's Grapevine has only machine-made
+tabs. Heat Wave is Pistol Allen's by Wikipedia's personnel, as the library
+already has it. On 2026-10-19 the rule was five records from transcriptions
+rather than eight with three guessed; the revisit added two new human tabs and
+one reconstruction whose every claim the record's fold bears out, labelled as
+such in the comment, the hint and the record.
 
-**Devices.** None found (`devices_search`): his playing is a steady backbeat,
-the snare on every beat for a dance record, and the pickup into the phrase.
+**Devices.** None found (`devices_search`, renewed 2026-10-27 over the new
+tabs): his playing is a steady backbeat, the snare on every beat for a dance
+record, and the pickup into the phrase.
 
 **The kit.** Before late 1963 he brought his own kit down Hitsville's steps;
 after, Studio A had a permanent, second-hand set of mixed makes (Modern
@@ -13223,7 +13252,10 @@ learned from listening; James Jamerson his rhythm-section partner.
 **Sources.** Wikipedia (Benny Benjamin, and the songs); DRUM! Magazine (Anna
 Pulley, 2018); Modern Drummer (Uriel Jones, 2009; Zoro and Allan Slutsky, The
 Drummers of Motown, 1999); Loudlands Music (Josh Merhar); Drummerszone;
-Songsterr 643453, 603770, 55877, 393450, 19952, 80054 and 62100.
+Songsterr 643453, 603770, 55877, 393450, 19952, 80054 and 62100;
+Songsterr 7584060, 7620299, 7522210, 217212 and 461357 (machine); Wikipedia,
+Nowhere to Run, Get Ready, You Can't Hurry Love, Going to a Go-Go, Shop Around
+and Heat Wave (2026-10-27).
 
 ## BS. Tony Thompson (2026-10-19)
 
@@ -22323,6 +22355,151 @@ Read 2026-10-26.
 - https://www.youtube.com/watch?v=EPhWR4d3FJQ (Born in the U.S.A., official video, John Sayles, 1984; frames)
 - Records: LOkQsVJV8ts (Tenth Avenue Freeze-Out), blbFaatKszE (She's the One), o5IZuuzUa04 (Badlands), EPhWR4d3FJQ (Born in the U.S.A.), 8cNS_Mecbw8 (Dancing in the Dark), nvUOgIgLqOQ (Glory Days), x7ES7ueI7p0 (Bat Out of Hell)
 
+## DW. Uriel Jones (2026-10-27)
+
+The `urieljones` style plays **songs** the way `bennybenjamin` (BR) and
+`aljackson` (AZ) do: each New picks one of his records, and its tempo and
+grooves come with it. His record (`drummer-model/drummers/uriel-jones.json`)
+was a 15-a candidate and is now a draft at schema 1.6.0, with three new singles
+in `recordings/` and `sources/uriel-jones.json`. The owner asked for him by
+name, and for three songs: Ain't Too Proud to Beg, Signed, Sealed, Delivered
+I'm Yours and Twenty-Five Miles.
+
+**Who he was.** Uriel Jones was born in Detroit on 13 June 1934 and died in
+Dearborn on 24 March 2009, aged 74, of complications of a heart attack
+(Wikipedia; AP). He came up in jazz, "Art Blakey, and especially Elvin Jones,
+who had a style like no one else", in the house band of the clubs in Ecorse,
+Michigan; Dave Hamilton, made Stevie Wonder's bandleader, took him on as the
+drummer, and he was "the last drummer who came" to Motown (Modern Drummer,
+2009). He moved from the road to Studio A in late 1963 as Benny Benjamin's
+fill-in (Modern Drummer, 1999; Wikipedia), and "starting in 1965, I was in the
+studio just about every day". With Richard "Pistol" Allen he took more of the
+dates as Benjamin's health failed. Paul Riser: "Uriel's drum sound was the
+most open and laid-back, and he was the funkiest of the three guys we had... He
+had a mixed feel and did a lot of different things well" (Reuters, in
+Wikipedia), and "a pulse in his playing that nobody else had" (AP). He became
+known outside Detroit through Standing in the Shadows of Motown (2002); the
+Funk Brothers took the Grammy Legend Award in 2004.
+
+**What he did.** "Once I heard Benny play in the studio, I tried to clone
+myself after him": the Motown pickups are Benjamin's, "He originated those".
+Pistol Allen "was noted for the shuffle and the 4/4 beat". His own creed: "The
+drummer, I always figure, is supposed to accompany the other musicians"; "a
+great drummer can just lay back and listen for grooves" (all Modern Drummer,
+2009). Cloud Nine, with Spider Webb as a second drummer, was "the most popular
+one we did".
+
+**Which records are his.** Motown credited no players before 1971. Wikipedia's
+biography names Ain't No Mountain High Enough (both versions), I Heard It
+Through the Grapevine and Ain't That Peculiar, Cloud Nine, I Can't Get Next to
+You, Ain't Too Proud to Beg, What Becomes of the Brokenhearted, Home Cookin',
+The Tracks of My Tears, I Second That Emotion and For Once in My Life, whose own
+page names him from the Telegraph's obituary. Grapevine's page names Pistol
+Allen on the toms and Jones. Signed, Sealed, Delivered is his by Drummerszone's
+obituary and his Find a Grave memorial; Wikipedia, from the album's notes,
+names no player. Twenty-Five Miles is his by drummers: Drew Schultz, who
+interviewed him in 2009, remixed it "spotlighting the amazing drumming of Funk
+Brother Uriel Jones", and Aaron Reinhard's transcription and Jeff Tripoli's
+cover name him; no discography does. No source names another drummer on any of
+the three the owner asked for.
+
+**The songs.** Five, intro to outro, each tempo measured from the record by
+autocorrelation:
+
+| Song                                | Year | Tempo (record) | Bars from                                                    | Sections                                                        |
+| ----------------------------------- | ---- | -------------- | ------------------------------------------------------------ | --------------------------------------------------------------- |
+| Ain't Too Proud to Beg              | 1966 | 120 (119.8)    | Chris Bates's chart, read from his video                     | verse 1 on the bell, choruses, verses with the toms, hits, tag  |
+| Ain't No Mountain High Enough       | 1967 | 129 (129.2)    | Songsterr 73642, human                                       | rim-click verses, choruses, bridge, the snare on every beat     |
+| For Once in My Life                 | 1968 | 108 (108.8)    | Songsterr 54677, human, drum track named for him             | intro, verses, chorus, key change, solo, outro                  |
+| Twenty-Five Miles                   | 1969 | 124 (124.0)    | Songsterr 6074409, machine, checked against record and remix | drums' intro, verses, the walking refrains, the count, the fade |
+| Signed, Sealed, Delivered I'm Yours | 1970 | 109 (109.3)    | Songsterr 91549, human                                       | the sitar intro, verses, "Here I am, baby", pickups, the fade   |
+
+- **Ain't Too Proud to Beg.** Songsterr's two tabs began as machine drafts and
+  disagree; Chris Bates's chart (YouTube l_UT5F1YVK0), shown bar by bar as he
+  plays along with the record, was read from its frames: a two-beat pickup
+  (the high tom, three snare sixteenths, a rimshot on 2), verse 1 on the ride's
+  bell in quarters with the kick on 1 and the "and" of 4 and the foot under
+  it, then rimshots on 2 and 4; the choruses a crash and the snare on 2, 3 and
+  4, then on every beat, the kick on 1 and the "and"s of 3 and 4; the later
+  verses a cross-stick on 2 and two eighths on the high tom from 4, then on the
+  floor tom; a bar of hits, the snare with the floor tom, ending each verse;
+  and the tag on the hits. The lyric video put the words on the sections.
+- **Ain't No Mountain High Enough.** The verses quiet: the kick on 1 and the
+  "and" of 4, the foot on 2 and 4, rim clicks from 2 to 3 every second bar and
+  hits on the "and"s of 2, 3 and 4 every fourth; eighths on the hat in the
+  choruses; the bridge's snare doubled on the mid tom; the snare on every beat
+  from there to the end.
+- **For Once in My Life.** The best of the tabs: the hat opened on the "and"
+  of 1 after a crash and on the "and" of 4 a bar later, ghosts on the "a" of 2
+  and 4, a fill on the snare and the high tom every fourth bar, the hat opened
+  on dotted quarters to end a verse; the snare and open hat on every beat in
+  the chorus and outro.
+- **Twenty-Five Miles.** A reconstruction. The only tab is machine-made. Its
+  crashes fall where the timed lyrics (lrclib) put the form; folded over the
+  record and over Schultz's drum-forward remix (YouTube ISu-a-_PRR4), its
+  groove holds: the kick on 1 one bar and its "and" the next, then 3 and the
+  "and"s of 3 and 4, the snare on 2 and 4 with a soft stroke on the "a" of 2;
+  and the remix bears out the refrains' walking figure, the snare on every
+  third sixteenth from the "e" of 1. Its fills and bar-to-bar kicks were not
+  checked note by note.
+- **Signed, Sealed, Delivered.** xorn's tab (2012): the kick on 1, the "a" of 2
+  and 3 under the backbeat and the Motown pickup into almost every second bar.
+  Drumscribe's score (YouTube 2pULEBuN-ac, 2026, marked 109) agrees on the
+  snare and puts kicks on 2, the "and" of 3, 4 and its "and" too, "swing most
+  of the 'a' kicks"; Bob Babbitt's bass hides which, and the tab is followed.
+  The tab's hat is on the foot under Jack Ashford's tambourine; here the hand
+  plays it, as Drumscribe writes it.
+
+Runs of four or more snare sixteenths, which the critic stops, break after
+three throughout; a bar that stops the band, or plays hits, is a section of its
+own. Each song is held to 32 distinct bars: Ain't No Mountain's third verse and
+last chorus play the bridge's snare on every beat with its fill.
+
+**Left out.** I Heard It Through the Grapevine: its Songsterr tab sits an
+eighth off the beat and has no toms, and the toms are Pistol Allen's. Cloud
+Nine, I Can't Get Next to You, What Becomes of the Brokenhearted, The Tracks of
+My Tears, I Second That Emotion, Ain't That Peculiar and Home Cookin' have
+machine tabs only.
+
+**Devices.** None found (`devices_search`): the walking figure is Twenty-Five
+Miles' own groove, heard only in a machine tab checked against the record.
+
+**The kit.** Studio A's house kit from late 1963: second-hand, "a Ludwig drum,
+a Rogers, they were all mixed up", "never more than four drums" and "never but
+two cymbals, a ride and a crash"; he taped a pad of Kleenex to the snare head
+(Modern Drummer, 1999 and 2009). The style plays `funkSoul`, SM Drums' 1960s
+Ludwig with Frankensnare's short, fat snare, on every song.
+
+**The likeness.** No film of him at the kit in the 1960s was found. Standing in
+the Shadows of Motown's reunion, the band showing how they cut Ain't Too Proud
+to Beg (BBC Four, YouTube MIxLdY8B5l0, 0:40-1:04): sixty-seven, heavy-set, a
+black beret, thin wire-rimmed glasses, a dark moustache greying, a black polo
+neck under a dark ribbed cardigan, a blue sparkle kit. The beret is drawn as the
+flat cap, the cardigan as an open jacket.
+
+**Relationships.** Benny Benjamin (he modelled himself on him; first his
+fill-in), Art Blakey and Elvin Jones as influences; Pistol Allen his co-drummer
+on Grapevine; James Jamerson his rhythm-section partner.
+
+**Sources.**
+
+- Wikipedia: Uriel Jones, The Funk Brothers, Ain't Too Proud to Beg, Ain't No
+  Mountain High Enough, For Once in My Life, Twenty-Five Miles, Signed, Sealed,
+  Delivered I'm Yours, I Heard It Through the Grapevine, Cloud Nine
+- Drew Shultz, "Uriel Jones: Architect of the Motown Sound", Modern Drummer,
+  August 2009: https://www.moderndrummer.com/2011/06/uriel-jones-architect-of-the-motown-sound/
+- Zoro and Allan Slutsky, "The Drummers of Motown", Modern Drummer, July 1999:
+  https://moderndrummer.com/2009/06/secrets-of-motown
+- AP obituary, Royal Gazette, 26 March 2009: https://royalgazette.com/?p=192327
+- Drummerszone, "In memoriam Uriel Jones 1934-2009":
+  https://drummerszone.com/news/article/artist-news-1-6891/in-memoriam-uriel-jones-1934-2009
+- Chris Bates, "The Temptations - Ain't Too Proud to Beg (with Drum Music)", YouTube l_UT5F1YVK0
+- Drumscribe #674, "Signed, Sealed, Delivered (Drums Only)", YouTube 2pULEBuN-ac
+- Drew Schultz, "Edwin Starr - 25 Miles - Uriel Jones on Drums", YouTube ISu-a-_PRR4
+- Songsterr 91549, 6074409, 54677, 73642 (and, not used, 608234, 6938144, 8504)
+- Timed lyrics: lrclib (Signed, Sealed, Delivered; Twenty-Five Miles)
+- The Funk Brothers - Ain't Too Proud to Beg (Standing in the Shadows of Motown, BBC Four), YouTube MIxLdY8B5l0
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html
@@ -22759,3 +22936,126 @@ Read 2026-10-26.
 - https://www.onlinedrummer.com/shop/the-boys-are-back-in-town-thin-lizzy-drum-sheet-music/
 - https://uber-rock.co.uk/?p=3975
 - https://www.songsterr.com/api/meta/<id
+
+## DX. Richard "Pistol" Allen (2026-10-27)
+
+The `pistolallen` style plays **songs** the way `bennybenjamin` (BR) and
+`aljackson` (AZ) do: each New picks one of his records, and its tempo, swing
+and grooves come with it. His record (`drummer-model/drummers/richard-pistol-allen.json`,
+schema 1.6.0) was a 15-a candidate and is upgraded in place, with
+`sources/richard-pistol-allen.json`. No new genre.
+
+**Who he was.** Howard Richard "Pistol" Allen was born on 13 August 1932 and
+died of cancer in Detroit on 30 June 2002, aged 69, four months before
+Standing in the Shadows of Motown, in which he plays and speaks, was released
+(Wikipedia). He was the Funk Brothers' drummer on most of Holland-Dozier-
+Holland's hits of the 1960s; "Pistol came in after Benny" (Brian Holland, to
+Scott K. Fish, 1982). His influences were Max Roach, Buddy Rich and Benny
+Benjamin, who told him to "leave the jazz drumming at home, hold down simple
+beats" (Loudlands). He played the 20 Grand, a Detroit club, at night
+(Holland). Michigan Rock and Roll Legends Hall of Fame, 2010, with the Funk
+Brothers. Where the nickname came from, and where he was born, the sources
+read do not say.
+
+**What he did.** Holland: "He was more of a shuffle kind of a drummer. He was
+the best at the shuffles", and he and Benjamin "always was emotionally into
+it". Uriel Jones: "Pistol, he was noted for the shuffle and the 4/4 beat. He
+was a genius with it" (Modern Drummer, 2009). On the records: light, steady
+time under the singers, the hat in eighths or open on every beat, the snare or
+a cross-stick on every beat for a dance record, beside a tambourine, hand
+claps or foot stomps on the beat, and a short pickup on the snare into the
+next phrase. Crashes are rare.
+
+**Which records are his.** Motown credited no players until 1971. Wikipedia
+credits him song by song on Heat Wave (1963), Where Did Our Love Go and Baby
+Love (1964), The Way You Do the Things You Do and How Sweet It Is (1964), and
+his own article adds Reach Out I'll Be There (1966), Signed, Sealed, Delivered
+I'm Yours and Marvin Gaye's I Heard It Through the Grapevine. Holland, who
+produced them, is sure of Heat Wave and unsure of Baby Love, and remembered
+Benjamin on "at least 75-percent" of the Supremes' and Four Tops' records. Stop!
+In the Name of Love is Benjamin's on Wikipedia, Come See About Me Uriel
+Jones's. Signed, Sealed, Delivered and Grapevine are not scored here: other
+sources give them to Jones, whose style is built alongside this one.
+
+**The songs.**
+
+| Song                    | Year | Record                   | Meter | Tempo          | What defines it                                                                                   | Source of the bars                         |
+| ----------------------- | ---- | ------------------------ | ----- | -------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| Heat Wave               | 1963 | Martha and the Vandellas | 4/4   | 166 (measured) | the hat open on every beat; eighths between; the snare in eighths on the band's hits              | Songsterr 4298372 (human), no markers      |
+| Where Did Our Love Go   | 1964 | the Supremes             | 4/4   | 133 (measured) | the verse opening on the kick alone; eighths, the kick on 1, the "and" of 2, 3 and the "and" of 4 | Songsterr 884899 (human), by markers       |
+| Baby Love               | 1964 | the Supremes             | 4/4   | 136 (measured) | swung eighths over a cross-stick on every beat                                                    | Songsterr 461356 (human), read to the beat |
+| Reach Out I'll Be There | 1966 | the Four Tops            | 4/4   | 120 (measured) | the gallop; the snare on every beat; the chorus fill to the floor tom                             | Songsterr 35742 (human), by markers        |
+
+Every tempo is the record's, by onset autocorrelation and a beat tracker.
+
+**How they were built.** Each tab was read bar by bar; a section's figures are
+its distinct bars weighted by how often they come, its fills the bars at the
+ends of lines. Every bar that stops the band is a section of its own.
+
+- **Heat Wave.** The tab (113 bars at 164, no markers, a 2/4 bar to start)
+  against the record's 166.3 (bjPKcbKBT2s). The 2/4 pickup is the second half
+  of a 4/4 bar. The tab's sections run six, seven and fourteen bars; they are
+  rounded to fours, so the song plays 118 bars to the tab's 113.
+- **Where Did Our Love Go.** The tab names him and his kit on its drum track
+  ("Ludwig Downbeat Kit") and gives the foot stomps their own. Its 138 against
+  the record's 133.2 (Jt_31gR18NA); the tab's 86 bars at 133 run the record.
+  The pickups are sextuplets in the tab, here the nearest sixteenths. The
+  arrangement is the tab's bar for bar.
+- **Baby Love.** The tab's one revision is played in, not gridded: its notes
+  drift up to a sixteenth and no two of its 96 bars agree. The record
+  (B4pDCLEkUVw) autocorrelates at 136.5, its hats at a third and two thirds of
+  the beat: a swung eighth, so the song swings its eighths (80). The bars are
+  the tab's read to the beat, a reconstruction: the hat in eighths, a
+  cross-stick on every beat (the tab's side stick), the kick on 1 and 3; the
+  intro's hits, the phrase-end pickups, and the stop. The tab's splashes are
+  crashes; its slowing last two bars are left out, as the record fades.
+- **Reach Out I'll Be There.** 89 bars at 120 against the record's 120.0
+  (AUZ3INx3-KA). The intro's gallop of cross-sticks is on the snare in the tab;
+  Paul Riser overdubbed "a drum pattern played with timpani mallets on a
+  tambourine head" (Wikipedia), which may be it. Its fill bar's run of five is
+  broken by leaving out the cross-stick on 4; where the chorus fill puts the
+  hat, the snare and a tom together, the hat goes. The last chorus plays twelve
+  bars for the tab's ten to the fade.
+
+**Left out.** His shuffles, the playing he is remembered for: How Sweet It Is
+(To Be Loved by You)'s human tabs (461160, 2569868) are James Taylor's 1975
+version, not Marvin Gaye's; The Way You Do the Things You Do has only a
+machine tab (259076). Bernadette (1967) has a human tab but no credit found.
+None was rebuilt by ear.
+
+**Library contradictions.** How Sweet It Is's recording lists Songsterr 461160
+as its transcription: the tab is James Taylor's version (its meta's artist). The
+Way You Do the Things You Do's YouTube link (7Pw0VO64YU4) is a live television
+performance (PBS, It's What's Happening Baby!), not the single (6_0v7Dnua4U).
+Benny Benjamin's record names Heat Wave among his records to transcribe; Heat
+Wave is Allen's (Wikipedia, Holland).
+
+**The kit.** Hitsville's studio set of Ludwig, Slingerland, Rogers and Gretsch
+parts with likely Zildjians (Wikipedia); the Where Did Our Love Go tab names a
+Ludwig Downbeat, and the one photograph of him at a kit shows a silver sparkle
+Ludwig. The style plays SM Drums' 1960s Ludwig (`smdrums`) on every song, as
+Benjamin's does.
+
+**Devices.** None: a dated `devices_search`.
+
+**The likeness.** The Metro Times photograph on Wikipedia (File:Richard Pistol
+Allen.jpg): outdoors, black and white, undated, the late 1960s or early 1970s
+by the clothes. Slim, clean-shaven, a broad-brimmed cowboy hat, tinted
+glasses, a dark shirt printed with pale flowers open at the neck, a thin
+chain, a dark sleeveless vest, a silver sparkle Ludwig. Every colour is a
+guess.
+
+**Relationships.** Max Roach and Buddy Rich as influences, Benny Benjamin his
+mentor (Wikipedia, Loudlands); Uriel Jones beside him at Motown; James
+Jamerson his rhythm-section partner.
+
+### Sources (DX)
+
+Read 2026-10-27.
+
+- https://en.wikipedia.org/wiki/Richard_Allen_(drummer) ; Heat_Wave_(Martha_and_the_Vandellas_song) ; Where_Did_Our_Love_Go ; Baby_Love ; Reach_Out_I'll_Be_There ; Stop!_In_the_Name_of_Love ; Come_See_About_Me ; How_Sweet_It_Is_(To_Be_Loved_by_You) ; The_Way_You_Do_the_Things_You_Do ; Bernadette_(Four_Tops_song) (API); File:Richard_Pistol_Allen.jpg
+- Scott K. Fish, Brian Holland: Motown's Drummers Were Unbeatable (interview of 12 May 1982): https://drummingnewsnetwork.com/?p=13115 ; https://scottkfish.com/2018/05/14/drummers-played-a-major-part-creating-motown-music/
+- Modern Drummer, Uriel Jones: Architect of the Motown Sound (2009): https://www.moderndrummer.com/?p=5923
+- https://drummerszone.com/artists/richard-pistol-allen/12327/profile/
+- https://www.songsterr.com/a/wa/song?id=4298372 ; 884899 ; 461356 ; 35742 (human, scored); 461160 , 2569868 , 7722 (human, not scored); 259076 , 6663040 , 217209 , 186702 (machine)
+- Records: bjPKcbKBT2s (Heat Wave), Jt_31gR18NA (Where Did Our Love Go), B4pDCLEkUVw (Baby Love), AUZ3INx3-KA (Reach Out I'll Be There), 6_0v7Dnua4U (The Way You Do the Things You Do), OhbQVA7hPuQ (How Sweet It Is)

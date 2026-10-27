@@ -1,0 +1,49 @@
+{
+  "id": "rec:martha-and-the-vandellas-nowhere-to-run-1965",
+  "title": "Nowhere to Run",
+  "artist": "Martha and the Vandellas",
+  "release": "Gordy",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "producer": "Holland–Dozier–Holland",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:benny-benjamin",
+      "name": "Benny Benjamin",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "The hard-driving Holland-Dozier-Holland beat beside Ivy Jo Hunter's snow chains: the kick on the 'and's of 2 and 4, the snare on every beat in the chorus.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nowhere-to-run-wikipedia"]
+      }
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Nowhere to Run",
+      "drummer_ids": ["drummer:benny-benjamin"],
+      "drums": {
+        "description": "Eighths on the hat, the backbeat, the kick on 1, the 'and' of 2, 3 and the 'and' of 4; the snare on every beat in the choruses, and in eighths into the turns.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7620299", "src:nowhere-to-run-wikipedia"]
+        }
+      },
+      "style_key": "bennybenjamin",
+      "song_key": "nowhere-to-run",
+      "youtube": "https://www.youtube.com/watch?v=d3xNl8AW9MA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7620299"
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:nowhere-to-run-wikipedia"]
+  }
+}

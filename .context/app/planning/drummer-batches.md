@@ -178,6 +178,38 @@ What came of it (built 2026-10-27):
 - **Jordan's years with the X-Pensive Winos are not played yet:** their two
   candidate songs had disagreeing or groove-only tabs.
 
+## Owner's picks, Motown (planned 2026-10-27)
+
+The Funk Brothers' three drummers, by name. Uriel Jones and Richard "Pistol"
+Allen are 15-a candidates: keep the record ids. Benny Benjamin was built on
+2026-10-19 (BR) from five human tabs; his fork revisits the style rather than
+building it, so `merge.py` (which refuses an existing key) does not apply to
+him and the parent splices his entry by hand. All three file under Soul and
+Motown drummers.
+
+| Fork | Drummer                | Record                         | Style key       | Likeness         | Research | Drummers-tab group       | Copy from                    |
+| ---- | ---------------------- | ------------------------------ | --------------- | ---------------- | -------- | ------------------------ | ---------------------------- |
+| 1    | Uriel Jones            | `drummer:uriel-jones`          | `urieljones`    | `URIEL_JONES`    | DW       | Soul and Motown drummers | `bennybenjamin`, `aljackson` |
+| 2    | Richard "Pistol" Allen | `drummer:richard-pistol-allen` | `pistolallen`   | `PISTOL_ALLEN`   | DX       | Soul and Motown drummers | `bennybenjamin`, `aljackson` |
+| 3    | Benny Benjamin         | `drummer:benny-benjamin`       | `bennybenjamin` | `BENNY_BENJAMIN` | BR       | Soul and Motown drummers | (his own style)              |
+
+**What each fork should watch for:**
+
+1. **Uriel Jones.** The owner asked for three songs by name: "Ain't Too Proud
+   to Beg" (the Temptations, 1966), "Signed, Sealed, Delivered I'm Yours"
+   (Stevie Wonder, 1970) and "25 Miles" (Edwin Starr, 1969). Build all three.
+   Motown credited no players before 1971: check each credit, and where the
+   sources disagree say so in the comment, the hint and the record.
+   Grapevine (Marvin Gaye) and Cloud Nine are his best known.
+2. **Pistol Allen.** Holland-Dozier-Holland's hits: Baby Love, Where Did Our
+   Love Go, Reach Out I'll Be There and the Supremes' four-on-the-floor
+   snare. Uptight is disputed between him and Benjamin.
+3. **Benny Benjamin.** BR left Get Ready, Going to a Go-Go and You Can't
+   Hurry Love out for want of human tabs. Search again, and where none exists
+   reconstruct from the record (beat-tracked, labelled a reconstruction),
+   since the earlier refusal left out his best-known records. Upgrade the
+   record to schema 1.6.0; his likeness stays unless better photographs turn up.
+
 ## The brief each fork gets
 
 Paste this to each fork, with its row from the batch table and `S`, the

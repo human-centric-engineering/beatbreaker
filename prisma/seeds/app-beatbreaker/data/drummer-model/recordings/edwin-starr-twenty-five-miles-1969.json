@@ -1,0 +1,51 @@
+{
+  "id": "rec:edwin-starr-twenty-five-miles-1969",
+  "title": "Twenty-Five Miles",
+  "artist": "Edwin Starr",
+  "year": 1969,
+  "type": "studio_track",
+  "release": "Gordy",
+  "style_ids": ["style:motown", "style:rnb-soul", "style:funk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:twenty-five-miles-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:uriel-jones",
+      "name": "Uriel Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Drew Schultz remixed the stereo track to spotlight the drums: the funkiest of his records.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:drew-schultz-twenty-five-miles-remix", "src:songsterr-6074409"],
+        "note": "Credited to Jones by drummers (Drew Schultz, Aaron Reinhard, Jeff Tripoli), not by a discography."
+      }
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Twenty-Five Miles",
+      "drummer_ids": ["drummer:uriel-jones"],
+      "drums": {
+        "description": "The kick on 1 one bar and its \"and\" the next, then 3 and the \"and\"s of 3 and 4; a soft snare on the \"a\" of 2; in the refrains the snare walking on every third sixteenth. At 124.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:drew-schultz-twenty-five-miles-remix", "src:songsterr-6074409"],
+          "note": "Credited to Jones by drummers (Drew Schultz, Aaron Reinhard, Jeff Tripoli), not by a discography."
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=v6fTlPnR4g4",
+      "transcriptions": [
+        {
+          "site": "other",
+          "url": "https://drumsetsheetmusic.com/products/twenty-five-miles-25-miles-edwin-starr-full-drum-transcription-drum-sheet-music-aaron-reinhard",
+          "note": "Aaron Reinhard's full drum transcription (for sale, not read): Uriel Jones, 124, 4/4"
+        }
+      ],
+      "style_key": "urieljones",
+      "song_key": "twenty-five-miles"
+    }
+  ]
+}

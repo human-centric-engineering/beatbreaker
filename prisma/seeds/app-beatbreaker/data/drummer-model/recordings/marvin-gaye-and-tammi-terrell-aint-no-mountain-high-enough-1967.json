@@ -16,13 +16,21 @@
       "title": "Ain't No Mountain High Enough",
       "drummer_ids": ["drummer:uriel-jones"],
       "drums": {
-        "description": "A galloping, gospel-flavoured beat that pushes the chorus, the snare and tambourine driving the duet forward.",
+        "description": "Quiet rim clicks under the verses, then the snare on every beat with the tambourine from the bridge on, pushing the duet forward.",
         "evidence": {
           "confidence": "widely_reported",
           "source_ids": ["src:uriel-jones-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=ABfQuZqq8wg"
+      "youtube": "https://www.youtube.com/watch?v=ABfQuZqq8wg",
+      "style_key": "urieljones",
+      "song_key": "aint-no-mountain-high-enough",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=73642"
+        }
+      ]
     }
   ]
 }

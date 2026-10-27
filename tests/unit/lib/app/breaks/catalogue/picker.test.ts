@@ -173,6 +173,8 @@ describe('drummerSection', () => {
       'djjohnson',
       'bennybenjamin',
       'aljackson',
+      'pistolallen',
+      'urieljones',
       'tonythompson',
       'questlove',
       'krupa',

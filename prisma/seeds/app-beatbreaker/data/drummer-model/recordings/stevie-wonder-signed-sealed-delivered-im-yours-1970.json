@@ -1,0 +1,56 @@
+{
+  "id": "rec:stevie-wonder-signed-sealed-delivered-im-yours-1970",
+  "title": "Signed, Sealed, Delivered I'm Yours",
+  "artist": "Stevie Wonder",
+  "year": 1970,
+  "type": "studio_track",
+  "release": "Tamla",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:signed-sealed-delivered-im-yours-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:uriel-jones",
+      "name": "Uriel Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Stevie Wonder's first record as his own producer, one of the last Hitsville hits before Motown left Detroit.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:uriel-jones-drummerszone-2009", "src:songsterr-91549"],
+        "note": "Drummerszone's obituary and his Find a Grave memorial name him; Wikipedia names no drummer."
+      }
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Signed, Sealed, Delivered I'm Yours",
+      "drummer_ids": ["drummer:uriel-jones"],
+      "drums": {
+        "description": "Eighths on the hat, the kick on 1, the \"a\" of 2 and 3, and the Motown pickup on the snare into almost every second bar; a bar of sixteenths on the snare before the last verse. At 109.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:uriel-jones-drummerszone-2009", "src:songsterr-91549"],
+          "note": "Drummerszone's obituary and his Find a Grave memorial name him; Wikipedia names no drummer."
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=6To0fvX_wFA",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=91549",
+          "note": "Human tab at 107; the record is 109"
+        },
+        {
+          "site": "other",
+          "url": "https://www.youtube.com/watch?v=2pULEBuN-ac",
+          "note": "Drumscribe's score, marked 109, with a busier kick"
+        }
+      ],
+      "style_key": "urieljones",
+      "song_key": "signed-sealed-delivered"
+    }
+  ]
+}
