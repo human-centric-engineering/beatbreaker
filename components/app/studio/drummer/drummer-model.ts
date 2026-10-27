@@ -12,6 +12,7 @@ import {
   scarf,
   waistcoat,
   chestPrint,
+  chains,
   ringAt,
   braces,
   shirtFor,
@@ -2295,6 +2296,22 @@ function hairFor(style: HairStyle, m: Materials, coily = false): THREE.Object3D[
       return [];
     case 'crop':
       return [hairCap(m)];
+    case 'fade': {
+      // short and close over the top of the head, shaved up the sides and the back to it
+      const line = (d: THREE.Vector3) => hairline(d, 0.42, 0.42, 0.42);
+      const top = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.05, line(d) + 0.05, d.y),
+          depth: () => 0.006,
+          tuck: 0.0015,
+          lumpy: 0.08,
+        },
+        m.hair
+      );
+      // left off under a hood, as the crop's cap is
+      top.name = 'hair cap';
+      return [top];
+    }
     case 'mohawk': {
       // a crest of fins from the brow over the crown to the nape
       const fins: THREE.Object3D[] = [];
@@ -4137,7 +4154,8 @@ function hatFor(hat: Hat, m: Materials, forwards = false): THREE.Object3D[] {
 /**
  * A lens's outline round its middle, metres (`x` out from the nose): an
  * aviator's teardrop, wide at the top and dropping toward the nose; a round
- * one; or a square one with its corners rounded.
+ * one; a square one with its corners rounded; or a wraparound's, long and
+ * shallow, narrowing toward the temple.
  */
 function lensOutline(shape: Glasses['shape']): THREE.Vector2[] {
   const out: THREE.Vector2[] = [];
@@ -4145,7 +4163,17 @@ function lensOutline(shape: Glasses['shape']): THREE.Vector2[] {
     const t = (i / 40) * Math.PI * 2;
     const [c, s] = [Math.cos(t), Math.sin(t)];
     if (shape === 'round') out.push(new THREE.Vector2(0.018 * c, 0.018 * s));
-    else if (shape === 'square') {
+    else if (shape === 'wrap') {
+      const k = 1 / 2;
+      // a little shallower out at the temple than by the nose
+      const taper = 1 - 0.18 * Math.max(0, c);
+      out.push(
+        new THREE.Vector2(
+          0.031 * Math.sign(c) * Math.abs(c) ** k,
+          0.019 * taper * Math.sign(s) * Math.abs(s) ** k
+        )
+      );
+    } else if (shape === 'square') {
       const k = 2 / 5;
       out.push(
         new THREE.Vector2(
@@ -4185,13 +4213,21 @@ function glassesFor(g: Glasses): THREE.Object3D[] {
     side: THREE.DoubleSide,
   });
   const outline = lensOutline(g.shape);
+  const wrap = g.shape === 'wrap';
+  /** How far back a wraparound's lens curves at `x` out from its middle: round toward the temple. */
+  const curve = (x: number) => (wrap ? 14 * Math.max(0, x) ** 2 : 0);
   const out: THREE.Object3D[] = [];
   const inner: THREE.Vector3[] = [];
   for (const side of [-1, 1]) {
     // the lens's outline, with `x` out from the nose on its own side
     const pts = outline.map((p) => new THREE.Vector2(side * p.x, p.y));
-    const centre = new THREE.Vector3(side * 0.034, 0.114, -0.113);
-    const glass = mesh(new THREE.ShapeGeometry(new THREE.Shape(pts)), lens);
+    const centre = new THREE.Vector3(side * (wrap ? 0.036 : 0.034), 0.114, -0.113);
+    const shape = new THREE.ShapeGeometry(new THREE.Shape(pts));
+    const at = shape.getAttribute('position');
+    for (let i = 0; i < at.count; i++) at.setZ(i, curve(side * at.getX(i)));
+    // lit as it curves, not as the flat shape it was cut from
+    shape.computeVertexNormals();
+    const glass = mesh(shape, lens);
     glass.castShadow = false;
     glass.position.copy(centre);
     glass.rotation.y = side * -0.12;
@@ -4199,7 +4235,7 @@ function glassesFor(g: Glasses): THREE.Object3D[] {
     const rim = mesh(
       new THREE.TubeGeometry(
         new THREE.CatmullRomCurve3(
-          pts.map((p) => new THREE.Vector3(p.x, p.y, 0)),
+          pts.map((p) => new THREE.Vector3(p.x, p.y, curve(side * p.x))),
           true
         ),
         64,
@@ -4216,9 +4252,15 @@ function glassesFor(g: Glasses): THREE.Object3D[] {
     // where the bridge meets this lens, and where the arm leaves it
     const near = pts.filter((p) => p.y > 0).reduce((a, b) => (side * b.x < side * a.x ? b : a));
     inner.push(new THREE.Vector3(centre.x + near.x * 0.95, centre.y + near.y, centre.z));
-    const hinge = new THREE.Vector3(side * 0.063, 0.119, -0.104);
+    // a wraparound's lens runs back to the hinge itself: the arm leaves its outer end
+    const tip = pts.reduce((a, b) => (side * b.x > side * a.x ? b : a));
+    const hinge = wrap
+      ? new THREE.Vector3(tip.x, tip.y, curve(side * tip.x))
+          .applyAxisAngle(new THREE.Vector3(0, 1, 0), side * -0.12)
+          .add(centre)
+      : new THREE.Vector3(side * 0.063, 0.119, -0.104);
     out.push(bar(hinge, new THREE.Vector3(side * 0.088, 0.116, -0.01), armR, frame));
-    out.push(bar(new THREE.Vector3(side * 0.058, 0.119, -0.111), hinge, armR, frame));
+    if (!wrap) out.push(bar(new THREE.Vector3(side * 0.058, 0.119, -0.111), hinge, armR, frame));
   }
   out.push(bar(inner[0], inner[1], armR, frame));
   for (const o of out) if (o instanceof THREE.Mesh && o.material === frame) o.name ||= 'frame';
@@ -5221,7 +5263,14 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
     mount.position.copy(jewel.position);
     torso.add(jewel, mount);
   }
-  if (who.chain) {
+  if (typeof who.chain === 'object') {
+    const metal = new THREE.MeshStandardMaterial({
+      color: who.chain.metal,
+      metalness: 0.9,
+      roughness: 0.25,
+    });
+    for (const o of chains(rings, NECK_BASE, metal, !!who.chain.cross)) torso.add(o);
+  } else if (who.chain) {
     const chain = new THREE.Mesh(new THREE.TorusGeometry(0.075 * shape.neck, 0.005, 6, 32), m.gold);
     // lying round the neck, dropping down the chest in front
     chain.rotation.x = Math.PI / 2 - 0.55;

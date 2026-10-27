@@ -827,6 +827,7 @@ export function buildKit(m: Materials): KitModel {
   const octobans = new THREE.Group();
   octobans.name = 'octobans';
   const OCTO_R = 0.076;
+  // in the kit's colour once it is dressed (`dress`)
   const octoShell = new THREE.MeshPhysicalMaterial({
     color: '#0e0e10',
     roughness: 0.3,
@@ -878,6 +879,8 @@ export function buildKit(m: Materials): KitModel {
     },
     dress(kit: KitStyle) {
       octobans.visible = !!kit.octobans;
+      // lacquered in the kit's own colour, a shade deeper, gloss whatever the shells' finish
+      octoShell.color.set(kit.shell).multiplyScalar(0.6);
       // the front head changed only when it differs: BeatBreaker's, or the player's own
       const key = headKey(kit.head);
       if (!frontMaterial || key === logoKey) return;

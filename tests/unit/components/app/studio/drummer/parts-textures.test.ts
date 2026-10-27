@@ -88,6 +88,7 @@ beforeEach(() => {
     strokeText: () => void drawn.strokes++,
     ellipse: () => void drawn.arcs++,
     lineJoin: 'miter',
+    createLinearGradient: () => ({ addColorStop: () => undefined }),
     createImageData: (w: number, h: number) => ({
       width: w,
       height: h,
@@ -291,6 +292,23 @@ describe('canvas textures', () => {
     expect(tex!.rotation).toBe(Math.PI);
   });
 
+  it("fills a head's second ink after its first: the Police's name, then Tama's in gold", () => {
+    const head = {
+      art: 'the-police',
+      ground: '#121212',
+      ink: '#b8b8b8',
+      accent: '#c9a24a',
+    } as const;
+    kickLogoTexture(head);
+    expect(drawn.rectColours).toEqual(['#121212']);
+    expect(drawn.fills).toEqual([
+      { colour: '#b8b8b8', rule: 'evenodd' },
+      { colour: '#c9a24a', rule: 'evenodd' },
+    ]);
+    const art = FRONT_HEAD_ART['the-police'] as FrontHeadPaths;
+    expect(drawn.closes).toBe(art.paths.length + art.accentPaths!.length);
+  });
+
   it('paints the Sgt. Pepper drum in its own colours: the name round it, LONELY HEARTS across', () => {
     const head = { art: 'sgt-pepper', ground: '#f1e8cf', ink: '#2a1a12' } as const;
     const tex = kickLogoTexture(head);
@@ -310,12 +328,70 @@ describe('canvas textures', () => {
     expect(tex!.rotation).toBe(Math.PI);
   });
 
+  it("paints Nicko McBrain's rose window in its own colours, every pane leaded", () => {
+    const head = { art: 'rose-window', ground: '#1b2340', ink: '#141414' } as const;
+    const tex = kickLogoTexture(head);
+    expect(tex).toBeInstanceOf(THREE.CanvasTexture);
+    expect(drawn.rectColours).toEqual(['#1b2340']);
+    expect(drawn.text).toEqual([]);
+    // 28 roundels, 16 lights and their eyes, 28 petals, the rings and the rosette: each filled and leaded
+    expect(drawn.fills.length).toBeGreaterThan(90);
+    expect(drawn.strokes).toBe(drawn.fills.length);
+    const colours = new Set(drawn.fills.map((f) => f.colour));
+    for (const c of ['#f2c230', '#c8302a', '#2f6fd0', '#2aa198', '#7a3fa0'])
+      expect(colours).toContain(c);
+    expect(tex!.rotation).toBe(Math.PI);
+  });
+
   it('draws nothing, and falls back to no texture, where the canvas gives no context', () => {
     vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(null);
     const m = makeMaterials(byId('roxy'));
     expect(m.bronze.bumpMap).toBeNull();
     expect(m.shell.bumpMap).toBeNull();
     expect(kickLogoTexture()).toBeNull();
+  });
+});
+
+describe('a streaked oyster wrap', () => {
+  it("lays Ringo's in streaks of its own, finer than the swirl, and swaps it for the swirl", () => {
+    const m = makeMaterials(LIKENESSES.ringo);
+    const streaked = m.shell.map!;
+    expect(streaked).toBeInstanceOf(THREE.CanvasTexture);
+    expect((streaked.image as HTMLCanvasElement).height).toBe(512);
+    styleKit(m, LIKENESSES.ringo);
+    expect(m.shell.map).toBe(streaked);
+    const freed = vi.fn();
+    streaked.addEventListener('dispose', freed);
+    styleKit(m, LIKENESSES.mitchell);
+    expect(freed).toHaveBeenCalledOnce();
+    expect((m.shell.map!.image as HTMLCanvasElement).height).toBe(256);
+  });
+});
+
+describe('a printed wrap', () => {
+  it('colours the shells from its canvas, top over bottom, and gives way to a pearl or a clear shell', () => {
+    const mcbrain = LIKENESSES.mcbrain;
+    const wrap = mcbrain.kit.wrap!;
+    const m = makeMaterials(mcbrain);
+    const printed = m.shell.map!;
+    expect(printed).toBeInstanceOf(THREE.CanvasTexture);
+    expect(printed.wrapS).toBe(THREE.RepeatWrapping);
+    const top = drawn.rectColours.indexOf(wrap.over);
+    expect(drawn.rectColours.slice(top, top + 2)).toEqual([wrap.over, wrap.under]);
+    // the print is the colour: the shell's own is white under it
+    expect(m.shell.color.getHexString()).toBe('ffffff');
+    styleKit(m, mcbrain);
+    expect(m.shell.map).toBe(printed);
+    const freed = vi.fn();
+    printed.addEventListener('dispose', freed);
+    styleKit(m, LIKENESSES.mitchell);
+    expect(freed).toHaveBeenCalledOnce();
+    expect(m.shell.map).not.toBe(printed);
+    expect(m.shell.map).toBeInstanceOf(THREE.CanvasTexture);
+    // made see-through, a clear shell in its own colour, no print
+    styleKit(m, mcbrain, true);
+    expect(m.shell.map).toBeNull();
+    expect(m.shell.color.getHexString()).not.toBe('ffffff');
   });
 });
 
