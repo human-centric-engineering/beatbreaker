@@ -37,6 +37,7 @@
  * "After" for row i and "Before" for row i-1 (its newer neighbour).
  */
 
+import { PLATFORM_BINDING_FIELDS } from '@/lib/orchestration/agents/binding-owner';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ChevronDown, Clock, Loader2, RotateCcw } from 'lucide-react';
 
@@ -101,7 +102,17 @@ export interface AgentVersionHistoryTabProps {
    * absent for an org's own agent, where a restore brings back everything.
    */
   platformTunableFields?: readonly string[] | null;
+  /**
+   * The platform picks this agent's provider and model and currently owns
+   * them (`bindingOwner: 'platform'`), so a restore leaves them as they are
+   * (t-821), and its provider configuration. The dialog then leaves those
+   * out of what it says a restore brings back, and says why.
+   */
+  bindingFollowsPlatform?: boolean;
 }
+
+/** What a restore leaves alone while the platform owns the binding: the route's own list (t-821). */
+const LEFT_WITH_THE_PLATFORM = new Set<string>(PLATFORM_BINDING_FIELDS);
 
 function formatDate(iso: string): string {
   const d = new Date(iso);
@@ -175,8 +186,14 @@ export function AgentVersionHistoryTab({
   agentId,
   onRestored,
   platformTunableFields,
+  bindingFollowsPlatform = false,
 }: AgentVersionHistoryTabProps) {
   const isPlatformAgent = platformTunableFields != null;
+  // What a restore brings back on a platform agent: while the platform owns
+  // the binding, not the provider, model or provider configuration (t-821).
+  const restoredFields = (platformTunableFields ?? []).filter(
+    (f) => !bindingFollowsPlatform || !LEFT_WITH_THE_PLATFORM.has(f)
+  );
   const [versions, setVersions] = useState<VersionEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -459,10 +476,14 @@ export function AgentVersionHistoryTab({
                 <>
                   This is a platform agent, so a restore brings back only this org&apos;s settings
                   from version {restoreTarget?.version}: its{' '}
-                  {describeTunableFields(platformTunableFields, { includeProviderConfig: true })}.
-                  Its instructions, knowledge and the other settings the platform owns are left as
-                  they are. A new version entry will be created to record this action. Conversations
-                  and cost history are not affected.
+                  {describeTunableFields(restoredFields, { includeProviderConfig: true })}. Its
+                  instructions, knowledge and the other settings the platform owns are left as they
+                  are
+                  {bindingFollowsPlatform
+                    ? ', and so are its provider, model and provider configuration: the platform picks the provider and model for this org, and keeps them on the strongest model it can reach'
+                    : ''}
+                  . A new version entry will be created to record this action. Conversations and
+                  cost history are not affected.
                 </>
               ) : (
                 <>

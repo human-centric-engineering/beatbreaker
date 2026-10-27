@@ -221,6 +221,33 @@ describe('AgentVersionHistoryTab', () => {
       expect(dialog).not.toHaveTextContent(/revert the agent's configuration/);
     });
 
+    it('leaves provider and model out, and says why, while the platform owns them (t-821)', async () => {
+      const user = userEvent.setup();
+      render(
+        <AgentVersionHistoryTab
+          agentId={AGENT_ID}
+          platformTunableFields={[
+            'provider',
+            'model',
+            'providerConfig',
+            'monthlyBudgetUsd',
+            'retentionDays',
+          ]}
+          bindingFollowsPlatform
+        />
+      );
+      await waitFor(() => expect(screen.getByText('v2')).toBeInTheDocument());
+      await user.click(screen.getAllByRole('button', { name: /restore/i })[0]);
+      const dialog = screen.getByRole('alertdialog');
+
+      expect(dialog).toHaveTextContent(
+        "only this org's settings from version 2: its monthly budget and how long its conversations are kept."
+      );
+      expect(dialog).toHaveTextContent(
+        'left as they are, and so are its provider, model and provider configuration: the platform picks the provider and model for this org'
+      );
+    });
+
     it('builds the list from the prop, not a copy of it', async () => {
       const dialog = await openRestoreDialog({ platformTunableFields: ['model', 'retentionDays'] });
 

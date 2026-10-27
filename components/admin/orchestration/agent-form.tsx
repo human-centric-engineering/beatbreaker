@@ -54,6 +54,7 @@ import { InstructionsHistoryPanel } from '@/components/admin/orchestration/instr
 import { AgentCapabilitiesTab } from '@/components/admin/orchestration/agent-capabilities-tab';
 import { AgentInviteTokensTab } from '@/components/admin/orchestration/agent-invite-tokens-tab';
 import { AgentVersionHistoryTab } from '@/components/admin/orchestration/agent-version-history-tab';
+import { PlatformBindingOwner } from '@/components/admin/orchestration/platform-binding-owner';
 import { describeTunableFields } from '@/components/admin/orchestration/platform-agent-fields';
 import { AgentTestCard } from '@/components/admin/orchestration/agent-test-card';
 import { EmbedConfigPanel } from '@/components/admin/orchestration/agents/embed-config-panel';
@@ -213,6 +214,10 @@ export type AgentWithGrants = AiAgent & {
     lockedFields: string[];
     tunableFields: string[];
     bindingsLocked: boolean;
+    /** The platform picks this agent's provider and model while it owns them (t-818). */
+    picksOwnBinding?: boolean;
+    /** It does, and owns them now, so a version restore leaves them as they are (t-821). */
+    bindingFollowsPlatform?: boolean;
   } | null;
   /**
    * Providers the agent names that its org is no longer approved for (§120
@@ -394,6 +399,7 @@ export function AgentForm({
     setValue,
     watch,
     reset,
+    getValues,
     formState: { errors, isDirty },
   } = useForm<AgentFormData>({
     resolver: zodResolver(isEdit ? agentFormSchema : createFormSchema),
@@ -1087,6 +1093,26 @@ export function AgentForm({
 
         {/* ================= TAB 2 — MODEL ================= */}
         <TabsContent value="model" className="space-y-4 pt-4">
+          {isEdit && agent && platformAgent?.picksOwnBinding && (
+            <PlatformBindingOwner
+              agentId={agent.id}
+              bindingOwner={agent.bindingOwner}
+              // A save in flight counts: it re-seeds the form when it lands,
+              // which would put back the binding the hand-back replaced.
+              hasUnsavedChanges={isDirty || authored.provider || authored.model || submitting}
+              onHandedBack={(handedBack) => {
+                // The PATCH returns the row after its reconcile. Nothing else
+                // was unsaved (the control is disabled otherwise), so the form
+                // keeps its values and takes the row's provider and model,
+                // seeded as at mount: the row's own values, never the preview.
+                reset({ ...getValues(), provider: handedBack.provider, model: handedBack.model });
+                setAuthored({ provider: false, model: false });
+                // Re-render the server page, so the owner shown here and the
+                // restore dialog follow the hand-back.
+                router.refresh();
+              }}
+            />
+          )}
           {(providerFallback || modelFallback) && (
             <div className="rounded-md border border-amber-500/50 bg-amber-500/10 p-3 text-sm">
               We couldn&apos;t load the{' '}
@@ -2242,6 +2268,7 @@ export function AgentForm({
             <AgentVersionHistoryTab
               agentId={agent.id}
               platformTunableFields={platformAgent?.tunableFields ?? null}
+              bindingFollowsPlatform={platformAgent?.bindingFollowsPlatform === true}
               onRestored={() => {
                 // Re-pull the fresh agent into the form after a version restore.
                 void (async () => {
