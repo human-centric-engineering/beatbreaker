@@ -39,6 +39,7 @@ import type {
 
 import { z } from 'zod';
 import { logger } from '@/lib/logging';
+import { isRecord } from '@/lib/utils';
 import { describeFetchFailure } from '@/lib/errors/fetch-error';
 import {
   acceptsFlexTier,
@@ -409,6 +410,9 @@ export class OpenAiCompatibleProvider implements LlmProvider {
 
         const choice = chunk.choices[0];
         if (!choice) continue;
+
+        const reasoningText = reasoningDelta(choice.delta);
+        if (reasoningText) yield { type: 'reasoning', text: reasoningText };
 
         if (choice.delta.content) {
           if (wantsParseableJson) structuredText += choice.delta.content;
@@ -889,6 +893,22 @@ function mapToolChoice(
   if (!choice) return undefined;
   if (choice === 'auto' || choice === 'none') return choice;
   return { type: 'function', function: { name: choice.name } };
+}
+
+/**
+ * Reasoning text on a streamed delta, from providers that put it there:
+ * `reasoning_content` (DeepSeek, vLLM, Qwen) or `reasoning` (OpenRouter).
+ * Neither is in the OpenAI SDK's types, and OpenAI's own Chat Completions
+ * sends neither — its reasoning summaries come only from the Responses API.
+ */
+function reasoningDelta(delta: unknown): string | undefined {
+  if (!isRecord(delta)) return undefined;
+  // First non-empty one: a gateway may send `reasoning_content: ''` beside a
+  // populated `reasoning`.
+  for (const text of [delta.reasoning_content, delta.reasoning]) {
+    if (typeof text === 'string' && text.length > 0) return text;
+  }
+  return undefined;
 }
 
 function toolCallFromSdk(call: ChatCompletionMessageToolCall): LlmToolCall | null {
