@@ -88,11 +88,14 @@ import {
   fromResponsesStream,
   codeInterpreterRefusal,
   isSummaryVerificationError,
+  isUndecryptableReasoningError,
   pricedTier,
+  replayedReasoningIds,
   safeParseJson,
   takenProviderTools,
   usesResponsesApi,
   webSearchRefusal,
+  withoutOpenAiReasoning,
 } from '@/lib/orchestration/llm/openai-responses';
 import { earlierCodeRuns } from '@/lib/orchestration/llm/code-execution';
 
@@ -186,6 +189,11 @@ export class OpenAiCompatibleProvider implements LlmProvider {
    * cache period, not one per request.
    */
   private summariesRefused = false;
+  /**
+   * Ids of replayed reasoning items OpenAI couldn't decrypt for this
+   * credential, left out of later requests (`withReasoningFallback`).
+   */
+  private readonly undecryptableReasoning = new Set<string>();
 
   constructor(options: OpenAiCompatibleProviderOptions) {
     if (!options.baseUrl) {
@@ -761,28 +769,30 @@ export class OpenAiCompatibleProvider implements LlmProvider {
     // code runs by it (`CodeRunTiming.requestMs`).
     let requestMs = 0;
     try {
-      response = await this.withSummaryFallback(isReasoning, (summaries) => {
-        const params = buildResponsesParams(messages, options, {
-          isReasoning,
-          providerName: this.name,
-          summaries,
-          tokenCap: options.maxTokens ?? DEFAULT_MAX_TOKENS,
-        });
-        return withRetry<OpenAiResponse>(
-          async () => {
-            const started = Date.now();
-            const result = await this.client.responses.create(params, requestOptions);
-            requestMs = Date.now() - started;
-            return result;
-          },
-          {
-            maxRetries: this.maxRetries,
-            isLocal: this.isLocal,
-            ...(options.signal !== undefined ? { signal: options.signal } : {}),
-            operation: 'openai.responses.create',
-          }
-        );
-      });
+      response = await this.withReasoningFallback(messages, options, (replayed) =>
+        this.withSummaryFallback(isReasoning, (summaries) => {
+          const params = buildResponsesParams(replayed, options, {
+            isReasoning,
+            providerName: this.name,
+            summaries,
+            tokenCap: options.maxTokens ?? DEFAULT_MAX_TOKENS,
+          });
+          return withRetry<OpenAiResponse>(
+            async () => {
+              const started = Date.now();
+              const result = await this.client.responses.create(params, requestOptions);
+              requestMs = Date.now() - started;
+              return result;
+            },
+            {
+              maxRetries: this.maxRetries,
+              isLocal: this.isLocal,
+              ...(options.signal !== undefined ? { signal: options.signal } : {}),
+              operation: 'openai.responses.create',
+            }
+          );
+        })
+      );
     } catch (err) {
       throw toProviderError(err, 'OpenAI Responses chat request failed');
     }
@@ -806,15 +816,19 @@ export class OpenAiCompatibleProvider implements LlmProvider {
     const requestOptions = buildRequestOptions(options);
     let stream: Awaited<ReturnType<typeof this.openResponsesStream>>;
     try {
-      stream = await this.withSummaryFallback(isReasoning, (summaries) =>
-        this.openResponsesStream(
-          buildResponsesParams(messages, options, {
-            isReasoning,
-            providerName: this.name,
-            summaries,
-            tokenCap: options.maxTokens ?? DEFAULT_MAX_TOKENS,
-          }),
-          requestOptions
+      // A refused request fails before its first event, so a retry yields
+      // nothing twice.
+      stream = await this.withReasoningFallback(messages, options, (replayed) =>
+        this.withSummaryFallback(isReasoning, (summaries) =>
+          this.openResponsesStream(
+            buildResponsesParams(replayed, options, {
+              isReasoning,
+              providerName: this.name,
+              summaries,
+              tokenCap: options.maxTokens ?? DEFAULT_MAX_TOKENS,
+            }),
+            requestOptions
+          )
         )
       );
     } catch (err) {
@@ -828,6 +842,44 @@ export class OpenAiCompatibleProvider implements LlmProvider {
     requestOptions: ReturnType<typeof buildRequestOptions>
   ) {
     return this.client.responses.create({ ...params, stream: true }, requestOptions);
+  }
+
+  /**
+   * Run a Responses request replaying `messages`; when OpenAI can't decrypt
+   * a replayed reasoning item (`isUndecryptableReasoningError`), run it once
+   * more with the reasoning items left out (`withoutOpenAiReasoning`), the
+   * search and code items kept. A second refusal, or any other error, is
+   * raised as it is.
+   *
+   * The items left out are remembered on this instance (one per credential,
+   * cached 5 minutes) and left out of later requests up front: a tool loop
+   * replays them on every call that follows, and each would otherwise be
+   * refused first, then lose this credential's own reasoning with them.
+   */
+  private async withReasoningFallback<T>(
+    messages: LlmMessage[],
+    options: LlmOptions,
+    run: (replayed: LlmMessage[]) => Promise<T>
+  ): Promise<T> {
+    const replayed =
+      this.undecryptableReasoning.size > 0
+        ? withoutOpenAiReasoning(messages, this.undecryptableReasoning)
+        : messages;
+    try {
+      return await run(replayed);
+    } catch (err) {
+      if (!isUndecryptableReasoningError(err)) throw err;
+      const ids = replayedReasoningIds(replayed);
+      if (ids.length === 0) throw err;
+      for (const id of ids) this.undecryptableReasoning.add(id);
+      logger.warn('OpenAI could not decrypt replayed reasoning; retrying without it', {
+        provider: this.name,
+        model: options.model,
+        items: ids.length,
+        error: err instanceof Error ? err.message : String(err),
+      });
+      return run(withoutOpenAiReasoning(replayed));
+    }
   }
 
   /**
