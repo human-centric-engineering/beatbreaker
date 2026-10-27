@@ -184807,10 +184807,10 @@ export const STYLES: Record<string, Style> = {
                   },
                   1,
                 ],
-                // bar 33: the snare from 1 in sixteenths, then round the toms from 2
+                // bar 33: the snare from 1 in sixteenths, then round the toms from 2 (the tab's snare on the "a" of 1 left out: the app plays no run of four on the snare)
                 [
                   {
-                    s: '2222............',
+                    s: '222.............',
                     t1: '....1.11........',
                     t2: '........111.....',
                     t3: '............1.1.',
@@ -185004,10 +185004,10 @@ export const STYLES: Record<string, Style> = {
                 [{ s: '....2.......2...', k: '1.1.....1.1.....' }, 0.3],
               ],
               fills: [
-                // bar 24: the rack tom from the "and" of 2, the snare in sixteenths from the "e" of 3 to 4, the floor tom on the "a" of 3 and the "and" and "a" of 4
+                // bar 24: the rack tom from the "and" of 2, the snare in sixteenths from the "e" of 3 to its "a", the floor tom on the "a" of 3 and the "and" and "a" of 4 (the tab's snare on 4 left out: the app plays no run of four on the snare)
                 [
                   {
-                    s: '....2....2222..2',
+                    s: '....2....222...2',
                     t2: '......111.......',
                     t3: '...........1..11',
                     k: '1......11.1....1',
@@ -185025,6 +185025,8 @@ export const STYLES: Record<string, Style> = {
             bars: 8,
             params: {
               fillChance: 0.6,
+              // bar 68's fill runs the kick in sixteenths with the snare and floor tom, on his one pedal
+              singlePedalRuns: true,
               phraseMark: { crash: false },
               figures: [
                 // bars 26-27, 30-31, 34-35, 38-39, 42-43, 46-47, 50-51, 54-55, 58-59, 66-67, 72, 98-99, 106, 110, 114, 119 (x27): the kick on 1, 3 and its "and"
@@ -187031,7 +187033,7 @@ export const STYLES: Record<string, Style> = {
     hats: 8,
     // a big, plain backbeat on 2 and 4 in every song here, hardly a ghost note between
     weight: 0.7,
-    bpm: [62, 120],
+    bpm: [60, 120],
     swing: 0,
     swingRange: [0, 6],
     // the tabs write no ghost notes in any of the six songs
@@ -187059,12 +187061,12 @@ export const STYLES: Record<string, Style> = {
       ['0001', 1],
     ],
     /* His commonest bars, from the songs below: Soul Man's kick on the "a" of 2, Waiting on the
-       World to Change's ride with 3 filled in, Vultures' kick on 1 and 3, Slow Dancing in a Burning
-       Room's quarters leaned on, Angry's kick on the "and" of 2 and of 4. */
+       World to Change's ride in sixteenths from the "and" of 3, Vultures' kick on 1 and 3, Slow Dancing in a
+       Burning Room's quarters leaned on, Angry's kick on the "and" of 2 and of 4. */
     figures: [
       // Soul Man (1978), tab bars 5-15: the kick on 1, the "a" of 2, 3 and its "and"
       [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1......11.1.....' }, 1.2],
-      // Waiting on the World to Change (2006), tab bars 9-16: the ride with the "e", "and" and "a" of 3, the kick on 1, its "and", the "and" of 2, the "and" of 3, its "a", the "e" of 4 and its "a"
+      // Waiting on the World to Change (2006), tab bars 9-16: the ride in sixteenths from the "and" of 3 to the "and" of 4, the kick on 1, its "and", the "and" of 2, the "and" of 3, its "a", the "e" of 4 and its "a"
       [{ r: '1.1.1.1.1.11111.', s: '....2.......2...', k: '1.1...1...11.1.1' }, 1],
       // Vultures (2006), tab bars 2-7: the kick on 1, 3 and its "and"
       [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1.....' }, 1.2],
@@ -187082,8 +187084,6 @@ export const STYLES: Record<string, Style> = {
       [{ h: '2.1.2...', s: '....2...', t3: '......11', k: '1.......' }, 1],
       // Angry, tab bar 22, from 3: the snare on every eighth, the kick under it
       [{ h: '1.1.1.1.', s: '2.2.2.2.', k: '1.1.1.1.' }, 1],
-      // Waiting on the World to Change, tab bar 21, from 3: the kick in sixteenths, the hat opened on 4, the crash on its "a"
-      [{ c: '.......1', r: '1.11....', h: '....3...', s: '....2.2.', k: '1.111111' }, 0.6],
     ],
     /* His records by date: Soul Man (the Blues Brothers, Briefcase Full of Blues, live, 1978);
        Waiting on the World to Change, Gravity, Vultures and Slow Dancing in a Burning Room (John
@@ -187328,10 +187328,12 @@ export const STYLES: Record<string, Style> = {
            left out. */
         key: 'waiting-on-the-world-to-change',
         title: 'Waiting on the World to Change',
-        feel: 'with John Mayer, 2006: eighths on the ride with 3 filled in, the snare on the "and" of 4 every other bar (record 88)',
+        feel: 'with John Mayer, 2006: the ride in eighths, sixteenths across the "and" of 3, the snare on the "and" of 4 (record 88)',
         weight: 1.4,
         params: {
           kit: 'funkSoul',
+          // the chorus's kick run from 3, seven sixteenths on his one pedal
+          singlePedalRuns: true,
           bpm: [85, 91],
           swing: 0,
           hats: 8,
@@ -187517,7 +187519,7 @@ export const STYLES: Record<string, Style> = {
                   },
                   1.4,
                 ],
-                // bar 6: the kick on 1, 2, 3 and the last eighth of 3
+                // bar 6: the kick on 1, 2, 3 and the last sixteenth of 3
                 [
                   {
                     h: '1.1.1.1.1.1.1.1.1.1.1.1.',
@@ -187536,7 +187538,7 @@ export const STYLES: Record<string, Style> = {
             params: {
               phraseMark: { crash: 0.5 },
               figures: [
-                // bars 7, 9, 15: the kick on 1, 2, 3 and the last eighth of 3
+                // bars 7, 9, 15: the kick on 1, 2, 3 and the last sixteenth of 3
                 [
                   {
                     h: '1.1.1.1.1.1.1.1.1.1.1.1.',
@@ -187617,7 +187619,7 @@ export const STYLES: Record<string, Style> = {
             bars: 4,
             params: {
               figures: [
-                // bars 23, 25: a sixteenth before 3, the last eighth of 3 and a sixteenth before the 1
+                // bars 23, 25: a sixteenth before 3, the last sixteenth of 3 and a sixteenth before the 1
                 [
                   {
                     h: '1.1.1.1.1.1.1.1.1.1.1.1.',
@@ -187626,7 +187628,7 @@ export const STYLES: Record<string, Style> = {
                   },
                   1,
                 ],
-                // bar 24: on 4 in place of the last eighth of 3
+                // bar 24: on 4 in place of the last sixteenth of 3
                 [
                   {
                     h: '1.1.1.1.1.1.1.1.1.1.1.1.',
@@ -187704,7 +187706,7 @@ export const STYLES: Record<string, Style> = {
                   },
                   1,
                 ],
-                // bar 39: the last eighth of 3 as well
+                // bar 39: the last sixteenth of 3 as well
                 [
                   {
                     r: '1.1.1.1.1.1.1.1.1.1.1.1.',
