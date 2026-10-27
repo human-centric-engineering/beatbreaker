@@ -105468,12 +105468,12 @@ export const STYLES: Record<string, Style> = {
 
            Eighths on the hat, the backbeat, the kick on 1, the "and" of 3 and the "and" of 4. The
            first verse lays the kick on 1, the "and" of 2 and 3 (bars 7-10), then adds a snare on the
-           "and" of 2 (11-18); the second and third verses put a snare on the "and" of 2 or on 2's
-           "e" and "and" (31-38, 63-74). The chorus is the snare on every beat, as Uptight's, and every
+           "and" of 2 (11-18); the second and third verses put a snare on the "a" of 2 or on 2's
+           "and" and "a" (31-38, 63-74). The chorus is the snare on every beat, as Uptight's, and every
            second bar ends in a pickup: the snare on 3 and three sixteenths from its "and", the kick
            on the "and" of 4 (19-26, 43-50, 75-82). After the second chorus the ride takes the
-           eighths, the snare on 2, its "and" and the "e" of 3 over the kick on 1, its "and", the "and"
-           of 2, 3 and its "and" (51-55); the band's stops on the crash, the snare running into them
+           eighths, the snare on 2, its "a" and the "e" of 3 over the kick on 1, its "and", the "and"
+           of 2, 3, its "and" and the "and" of 4 (51-55); the band's stops on the crash, the snare running into them
            (59-61); and the high tom on 4 and its "and" (62). The tab's runs of four, five and six
            sixteenths on the snare are written with a gap after the third, as the critic will not
            have four from one hand. Bar 1 (the guitar alone) is left out, and the fade is cut to two
@@ -105564,10 +105564,17 @@ export const STYLES: Record<string, Style> = {
               backbeats: [0, 4, 8, 12],
               fillChance: 1,
               figures: [
-                // bars 19-20, 23-24 and the like (x10): the snare on every beat
-                [{ h: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1.........1...1.' }, 1],
-                // bars 22, 25 (x8 in the three choruses): the pickup, three sixteenths from the "and" of 3
-                [{ h: '1.1.1.1.1.......', s: '2...2...2.222...', k: '1.............1.' }, 0.6],
+                /* bars 19-26 and the like: the snare on every beat, then the pickup, three
+                   sixteenths from the "and" of 3; one figure of two bars, so every second bar
+                   ends in it */
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.......',
+                    s: '2...2...2...2...2...2...2.222...',
+                    k: '1.........1...1.1.............1.',
+                  },
+                  1,
+                ],
               ],
               fills: [
                 // bar 22 and the like
@@ -105588,7 +105595,7 @@ export const STYLES: Record<string, Style> = {
               figures: [
                 // bars 27-28, 30
                 [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1...1.' }, 1],
-                // bar 29: the snare on the "e" of 2 and the "and" of 3 too
+                // bar 29: the snare on the "a" of 2 and the "e" of 3 too
                 [{ h: '1.1.1.1.1.1.1.1.', s: '....2..2.2..2...', k: '1.......1.1...1.' }, 0.5],
               ],
             },
@@ -105693,7 +105700,7 @@ export const STYLES: Record<string, Style> = {
           },
         ],
         /* the pickup and intro; verse 1 (8) and the pre-chorus (4); chorus; post-chorus; verse 2 and
-           the pre-chorus (12); chorus; the ride, the verse, the stops and the tom (11); verse 3 and the
+           the pre-chorus (12); chorus; the ride, the verse, the stops and the tom (12); verse 3 and the
            pre-chorus (12); chorus; the fade */
         arrangement: [
           'A',
@@ -105805,7 +105812,9 @@ export const STYLES: Record<string, Style> = {
             },
           },
         ],
-        // the intro; then sixteen phrases of four, the pickup at the end of the third, sixth and tenth
+        /* the intro; then sixteen phrases of four, the pickup at the end of the second, fifth and
+           ninth (bars 10, 22 and 38): the machine's fall a bar later, in a phrase's first bar,
+           where a fill cannot go */
         arrangement: [
           'A',
           'B',
@@ -188941,7 +188950,8 @@ export const STYLES: Record<string, Style> = {
            the snare on the "and" of 3, 4 and its "and"; eighths on the hat again (22-35); seven
            bars of the snare in eighths on the band's hits (36-42); the open hat with its "and"s
            (50-56), the kick moved to the "and" of 2 (57-63), the ride in quarters (71-77); the open
-           hat for the long last verse (85-103); the last bar (113). The tab's sections run six,
+           hat for the long last verse (85-103); eighths (104-109) and the open hat (110-112) once
+           more; the last bar (113). The tab's sections run six,
            seven and fourteen bars; here they are rounded to fours (the intro eight bars for six,
            each seven-bar section eight, the verse twelve for fourteen, the long last verse twenty
            for nineteen), so the song plays 118 bars to the tab's 113 */
@@ -189029,12 +189039,13 @@ export const STYLES: Record<string, Style> = {
               figures: [
                 // bars 36-40 (x5): no hat: the snare on 1, its "and", 2 and its "and", the "and" of 3, 4 and its "and", the kick on 1 and the "and" of 2
                 [{ s: '2.2.2.2...2.2.2.', k: '1.....1.........' }, 2],
-                // bar 41: the kick on 1 alone
-                [{ s: '2.2.2.2...2.2.2.', k: '1...............' }, 0.4],
               ],
               fills: [
                 // bar 42: the snare in eighths through the bar
                 [{ s: '2.2.2.2.2.2.2.2.', k: '1.......1.......' }, 1],
+                /* bar 41: the kick on 1 alone; a fill, not a second figure, as a phrase plays its
+                   second figure in its second half whatever its weight */
+                [{ s: '2.2.2.2...2.2.2.', k: '1...............' }, 0.4],
               ],
             },
           },
@@ -189094,7 +189105,8 @@ export const STYLES: Record<string, Style> = {
           },
         ],
         // the pickup; the intro; the verse into the chorus; eighths, twice; the hits; eighths; the open hat on its
-        // "and"s; the kick on the "and" of 2; the verse; the ride; eighths; the long last verse; eighths; the last bar
+        // "and"s; the kick on the "and" of 2; the verse; the ride; eighths; the long last verse; eighths; the open
+        // hat; the last bar
         arrangement: [
           'A',
           'B',
@@ -189125,7 +189137,7 @@ export const STYLES: Record<string, Style> = {
           'C',
           'C',
           'B',
-          'B',
+          'C',
           'I',
         ],
       },
@@ -189212,12 +189224,15 @@ export const STYLES: Record<string, Style> = {
             label: 'the chorus',
             bars: 4,
             params: {
-              fillChance: 0,
+              fillChance: 0.25,
               figures: [
                 // bars 35, 37-49, 83-86 (x18): the groove
                 [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.....1.' }, 2],
-                // bar 36: the pickup, in the chorus's second bar
-                [{ h: '1.1.1.1.1..1....', s: '....2......222.2', k: '1.....1.1.......' }, 0.2],
+              ],
+              fills: [
+                /* bar 36: the pickup, once in the tab's choruses; a fill now and then, not a second
+                   figure, which a phrase would play through its whole second half */
+                [{ h: '1.1.1.1.1..1....', s: '....2......222.2', k: '1.....1.1.......' }, 1],
               ],
             },
           },
@@ -189395,10 +189410,26 @@ export const STYLES: Record<string, Style> = {
               figures: [
                 // bars 9-56 and on: swung eighths on the hat, the cross-stick on every beat, the kick on 1 and 3
                 [{ h: '1.1.1.1.1.1.1.1.', s: '4...4...4...4...', k: '1.......1.......' }, 2],
-                // about one bar in four: the kick on the "and" of 4 as well
-                [{ h: '1.1.1.1.1.1.1.1.', s: '4...4...4...4...', k: '1.......1.....1.' }, 1],
-                // the snare struck on 1 at the head of a line
-                [{ h: '1.1.1.1.1.1.1.1.', s: '2...4...4...4...', k: '1.......1.......' }, 0.6],
+                /* the variants as two-bar figures, as a phrase plays its second figure through its
+                   second half: the kick on the "and" of 4 as well in the second bar (about one bar
+                   in four)... */
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '4...4...4...4...4...4...4...4...',
+                    k: '1.......1.......1.......1.....1.',
+                  },
+                  1,
+                ],
+                // ...and the snare struck on 1 at the head of a line
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '2...4...4...4...4...4...4...4...',
+                    k: '1.......1.......1.......1.......',
+                  },
+                  0.6,
+                ],
               ],
             },
           },
@@ -189538,6 +189569,7 @@ export const STYLES: Record<string, Style> = {
             bars: 8,
             params: {
               fillChance: 0,
+              phraseMark: { crash: true },
               figures: [
                 // bars 10-16, 34-40, 66-72 (x21): the snare on every beat, eighths on the hat, the kick on 1, the "and" of 3 and the "and" of 4
                 [{ h: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1.........1...1.' }, 2],
@@ -189603,12 +189635,13 @@ export const STYLES: Record<string, Style> = {
             bars: 4,
             params: {
               fillChance: 1,
+              phraseMark: { crash: true },
               figures: [
                 // bars 25-26, 29-30, 49-50, 53-54, 58-59, 62-63, 81-82, 85-86, 89 (x17): the snare on every beat under eighths on the hat, the kick on 1, the "and" of 3 and the "and" of 4
                 [{ h: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1.........1...1.' }, 2],
               ],
               fills: [
-                // bar 27: the snare on the "and" of 3 and 4, the high tom on the "a" of 4, the floor tom on its "and"
+                // bars 27, 31: the snare on the "and" of 3 and 4, the high tom on the "a" of 4, the floor tom on its "and"
                 [
                   {
                     h: '1.1.1.1.1.1.111.',
@@ -189617,7 +189650,7 @@ export const STYLES: Record<string, Style> = {
                     t3: '..............1.',
                     k: '1.....1.......1.',
                   },
-                  1,
+                  2,
                 ],
                 // bar 51: the toms from 3
                 [
@@ -189631,17 +189664,6 @@ export const STYLES: Record<string, Style> = {
                   },
                   1,
                 ],
-                // bar 31: the same fill
-                [
-                  {
-                    h: '1.1.1.1.1.1.111.',
-                    s: '2...2...2.2.2...',
-                    t1: '.............1..',
-                    t3: '..............1.',
-                    k: '1.....1.......1.',
-                  },
-                  1,
-                ],
               ],
             },
           },
@@ -189650,13 +189672,9 @@ export const STYLES: Record<string, Style> = {
             label: 'the turn into the verse',
             bars: 1,
             params: {
-              fillChance: 1,
+              fillChance: 0,
               figures: [
-                // bar 25: the kick on 1, the "and" of 3 and the "and" of 4
-                [{ h: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1.........1...1.' }, 1],
-              ],
-              fills: [
-                // bar 32: the crash, and the chorus fill
+                // bar 32: the crash, and the chorus fill (a bar of its own, so a figure, not a fill)
                 [
                   {
                     c: '1...............',
@@ -189964,7 +189982,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the tag',
             bars: 4,
             params: {
-              // bars 55-58: the snare on every beat, the kick on 1 and the "and"s of 3 and 4
+              // bars 73-76: the snare on every beat, the kick on 1 and the "and"s of 3 and 4
               figures: [
                 [{ h: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1.........1...1.' }, 1],
               ],
@@ -189976,7 +189994,7 @@ export const STYLES: Record<string, Style> = {
             bars: 1,
             params: {
               backbeats: [],
-              // bar 59: the snare, kick and hat on 1, the crash and the kick on the "and" of 2, held
+              // bar 77: the snare, kick and hat on 1, the crash and the kick on the "and" of 2, held
               figures: [
                 [
                   {
@@ -191011,12 +191029,14 @@ export const STYLES: Record<string, Style> = {
             label: 'the sixteenths on the snare',
             bars: 2,
             params: {
-              // bar 59: the pickup from the "a" of 3; bar 60: sixteenths on the snare all through, in threes, the foot's hat in eighths
+              /* bar 59: the pickup from the "a" of 3, its last sixteenth left out so the run does
+                 not go five across the bar line; bar 60: sixteenths on the snare all through, in
+                 threes, the foot's hat in eighths */
               figures: [
                 [
                   {
                     h: '1.1.1.1.1.1.1.1.................',
-                    s: '....2......22.22222.222.222.222.',
+                    s: '....2......22.2.222.222.222.222.',
                     k: '1......11.......................',
                     hf: '................1.1.1.1.1.1.1.1.',
                   },

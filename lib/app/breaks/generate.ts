@@ -828,6 +828,9 @@ function figurePhrase(
       bar.h[0] = 0;
       bar.r[0] = 0;
       if (mark.kick !== false) bar.k[0] = bar.k[0] || 1;
+    } else if (start && crash === false && mark.kick === true) {
+      // no crash, but the kick on the 1 all the same: a verse's first bar
+      bar.k[0] = bar.k[0] || 1;
     }
     bar = applyStyleRules(bar, style);
     bars.push(bar);
