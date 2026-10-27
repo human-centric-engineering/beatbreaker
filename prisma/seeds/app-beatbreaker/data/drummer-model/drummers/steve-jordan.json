@@ -2,15 +2,21 @@
   "meta": {
     "id": "drummer:steve-jordan",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
+    "record_status": "draft",
+    "completeness": 0.3,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-27",
+    "authors": ["claude", "John", "Claude"],
+    "open_questions": [
+      "Soul Man: the Songsterr tab is some twelve bars shorter than the record; the third chorus and the rest of the breakdown repeat its chorus and ride bars.",
+      "Angry: the tab's two drum tracks disagree on the verse (the hat in eighths, or on the foot with a tom on 1 and 3); the newer was taken, unchecked against footage.",
+      "Who Did You Think I Was (Try!, 2005): its two Songsterr tabs disagree (a human one with its tempo doubled, a machine one); not scored.",
+      "You Don't Move Me (Talk Is Cheap, 1988): its one human tab is a single groove with no fills or form; Struggle and the rest of the album have machine tabs only. Not scored, so nothing of the X-Pensive Winos is played.",
+      "Take It So Hard: Wikipedia (the album and the song) credits Charley Drayton on drums and Jordan on bass, against the 15-b track that names Jordan."
+    ]
   },
   "identity": {
     "name": "Steve Jordan",
-    "nationality": ["American"],
-    "roles": ["session", "band_member", "producer"],
     "born": {
       "date": "1957-01-14",
       "place": "New York City",
@@ -19,39 +25,717 @@
         "source_ids": ["src:steve-jordan-wikipedia"]
       }
     },
+    "nationality": ["American"],
+    "home_scenes": ["New York sessions and television bands (1970s-80s)"],
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
     "active": {
       "from": 1978,
       "ongoing": true
     },
-    "primary_instruments": ["drum kit"],
-    "summary": "New York drummer and producer for Keith Richards's X-Pensive Winos, John Mayer and the Rolling Stones."
+    "roles": ["session", "band_member", "producer"],
+    "summary": "A New Yorker who started on timpani, studied privately with Freddie Waits, sat in with Stevie Wonder's Wonderlove as a teenager and played in the Saturday Night Live band and the Blues Brothers (Briefcase Full of Blues, 1978) and David Letterman's. From 1987 Keith Richards's drummer, co-writer and co-producer in the X-Pensive Winos; from 2005 the John Mayer Trio, and producer of Mayer's Continuum (2006); a session drummer for Alicia Keys, Bob Dylan, B.B. King and many more. Charlie Watts named him as the one to replace him, and he has been the Rolling Stones' drummer since 2021 (Hackney Diamonds, 2023)."
   },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Soul and Motown (Al Jackson Jr., Benny Benjamin)",
+        "impact": "His backbeat idols: \"Al Jackson Jr. had one of the most recognizable, steady, precise and exacting backbeats\"; a \"Motown freak\" as a boy.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:steve-jordan-iverson-2024", "src:steve-jordan-modern-drummer-2005"]
+        }
+      },
+      {
+        "tradition": "Jazz (Art Blakey, Freddie Waits)",
+        "impact": "Blakey's \"Blues March\" was the first beat he learned; Freddie Waits taught him privately after the Jazz Interactions classes.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:steve-jordan-modern-drummer-2005"]
+        }
+      },
+      {
+        "tradition": "Orchestral percussion",
+        "impact": "He was a timpanist first, then switched to the kit.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:steve-jordan-modern-drummer-2005"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "As a teenager, an honorary member of Stevie Wonder's band Wonderlove.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:steve-jordan-wikipedia"]
+        }
+      },
+      {
+        "year": 1978,
+        "event": "Drummer of the Blues Brothers, recorded live for Briefcase Full of Blues.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:briefcase-full-of-blues-wikipedia"]
+        }
+      },
+      {
+        "year": 1987,
+        "event": "Hail! Hail! Rock 'n' Roll with Chuck Berry and Keith Richards, then the X-Pensive Winos.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:steve-jordan-wikipedia"]
+        }
+      },
+      {
+        "event": "Learning guitar and bass \"changed the way I play the drums completely\": he stopped overplaying.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:steve-jordan-modern-drummer-2005"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:steve-jordan-new-york",
+      "label": "New York sessions and television bands",
+      "years": {
+        "from": 1976,
+        "to": 1986
+      },
+      "context": "Stuff (as a substitute), Joe Cocker's tour, the Saturday Night Live band and the Blues Brothers, Steve Khan's Eyewitness, the band that became Paul Shaffer's World's Most Dangerous Band on Late Night.",
+      "defining_traits": [
+        "soul and R&B backbeats",
+        "late-1970s funk and fusion beats after Gadd, Mason and Garibaldi"
+      ],
+      "key_recording_ids": ["rec:the-blues-brothers-briefcase-full-of-blues-1978"]
+    },
+    {
+      "id": "era:steve-jordan-winos",
+      "label": "The X-Pensive Winos and producing",
+      "years": {
+        "from": 1987,
+        "to": 2004
+      },
+      "context": "Keith Richards's Talk Is Cheap (1988), Main Offender (1992), co-written and co-produced; sessions for Bob Dylan, Neil Young, B.B. King, Sheryl Crow and Alicia Keys; Robert Cray's Take Your Shoes Off.",
+      "defining_traits": [
+        "loose, swaggering rock grooves",
+        "producer and co-writer as well as drummer"
+      ],
+      "key_recording_ids": ["rec:keith-richards-talk-is-cheap-1988"]
+    },
+    {
+      "id": "era:steve-jordan-mayer",
+      "label": "The John Mayer Trio and Continuum",
+      "years": {
+        "from": 2005,
+        "to": 2020
+      },
+      "context": "The trio with Pino Palladino (Try!, 2005), Continuum (2006), which he produced, Eric Clapton's band (2006-07, 2013).",
+      "defining_traits": ["plain, deep grooves for songs", "a slow 12/8 with a kick pick-up"],
+      "key_recording_ids": ["rec:john-mayer-trio-try-2005", "rec:john-mayer-continuum-2006"]
+    },
+    {
+      "id": "era:steve-jordan-stones",
+      "label": "The Rolling Stones",
+      "years": {
+        "from": 2021,
+        "ongoing": true
+      },
+      "context": "Charlie Watts's chair, first for the 2021 No Filter tour, then Hackney Diamonds (2023) and its tour.",
+      "defining_traits": [
+        "a straight rock eighth with the kick off the beat",
+        "a black Gretsch with a 24\" bass drum, after Watts"
+      ],
+      "key_recording_ids": ["rec:the-rolling-stones-hackney-diamonds-2023"]
+    }
+  ],
   "style_profile": {
     "genres": [
       {
         "style_id": "style:rock",
-        "weight": 0.8
+        "name": "Rock",
+        "weight": 0.8,
+        "authority": 0.6,
+        "notes": "The X-Pensive Winos, the Rolling Stones; Slow Dancing in a Burning Room, Angry."
       },
       {
         "style_id": "style:rnb-soul",
-        "weight": 0.6
+        "name": "R&B and soul",
+        "weight": 0.7,
+        "authority": 0.5,
+        "notes": "The Blues Brothers; Waiting on the World to Change, Vultures; Alicia Keys."
       },
       {
         "style_id": "style:blues-rock",
-        "weight": 0.5
+        "name": "Blues rock",
+        "weight": 0.5,
+        "authority": 0.4,
+        "notes": "The John Mayer Trio; Gravity; B.B. King, Buddy Guy, Robert Cray."
+      }
+    ],
+    "versatility": 0.8,
+    "groove_vs_chops": 0.15,
+    "role_tendency": "accompanist",
+    "descriptors": ["deep pocket", "plain", "song first", "big backbeat"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "variable",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-jordan-modern-drummer-2005"],
+        "note": "\"It's about how it's tilted: What side of the quarter note I'm playing on?\""
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight eighths in every song scored here (the hat autocorrelates at a half beat, none at two thirds); Gravity is in 12/8."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "mf",
+      "ghost_note_level": 40,
+      "accent_level": 115,
+      "balance": "A fat backbeat on 2 and 4 with the kick under it doing the talking; almost no ghost notes in these tabs."
+    },
+    "density": {
+      "groove_notes_per_bar": [9, 20],
+      "fill_frequency": "rare",
+      "space_usage": 0.6
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [60, 120],
+    "timekeeping_context": ["free", "click"],
+    "interaction": "Plays for the song and the singer, a producer's ear; a phrase is marked with a short pick-up, not a fill.",
+    "descriptors": ["deep", "plain", "in the pocket"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "The ride with 3 filled in",
+        "description": "Waiting on the World to Change: eighths on the ride with the \"e\", \"and\" and \"a\" of 3 added in every bar.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-30592"]
+        }
+      },
+      {
+        "name": "Quarters leaned on",
+        "description": "Slow Dancing in a Burning Room: eighths on the hat with the beat accented.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23398"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "A talking kick",
+        "description": "The kick off the beat around a plain backbeat: the \"a\" of 2 in Soul Man, the \"and\"s of Waiting on the World to Change and Angry, the sixteenth pick-ups of Gravity.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-91265",
+            "src:songsterr-30592",
+            "src:songsterr-39716",
+            "src:songsterr-562468"
+          ]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.5,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.2,
+      "foot_ostinato_usage": 0.3,
+      "double_bass": 0.0,
+      "notes": "Repeated one- and two-bar grooves with small changes at the phrase end.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-27",
+        "searched": [
+          "Songsterr 91265 (Soul Man), 30592 (Waiting on the World to Change), 39716 (Gravity), 72065 (Vultures), 23398 (Slow Dancing in a Burning Room), 562468 (Angry); 39713 and 3236355 (Who Did You Think I Was), 3411156 (You Don't Move Me)",
+          "Modern Drummer (2005), Ethan Iverson (2024), Bonedo (2022), Wikipedia"
+        ],
+        "note": "No cross-rhythm, grouping, polymeter, displacement or metric modulation is written or named. Gravity is in 12/8, a meter, not a device."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths, plain or with the beat accented, opened on the \"and\" of 3 or of 2 and 4 to mark a bar.",
+      "snare": "2 and 4, hardly a ghost; two sixteenths after 4, or eighths from 3, into the next part.",
+      "kick": "Off the beat around the backbeat: the \"a\" of 2, the \"and\" of 3, sixteenth pick-ups before 3 and the 1; every eighth in Soul Man's chorus.",
+      "toms": "The floor tom twice before a new part (Slow Dancing); a mid-tom run in Angry's outro.",
+      "cymbals": "Crashes at the start of a section, not every phrase; the ride for a groove (Waiting) or an outro (Gravity); the crash ridden in Angry's outro."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks in all six songs."
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "Deep, round drums with a fat snare for the soul and Mayer records",
+      "A 24\" bass drum and 13\" and 14\" toms on the black Gretsch he plays with the Stones, to come close to Charlie Watts's sound",
+      "\"I have a large collection of drums\": the kit chosen for the session"
+    ],
+    "cymbal_character": "Paiste with the Stones, with Charlie Watts's own Ufip china.",
+    "sample_hints": {
+      "soul": "A 1960s-style kit with a fat, short snare.",
+      "rock": "A big, damped bass drum, a cracking snare."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:steve-jordan-bonedo-2022", "src:steve-jordan-modern-drummer-2005"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:steve-jordan-talking-kick",
+      "label": "The kick does the talking",
+      "category": "groove",
+      "description": "A plain backbeat on 2 and 4, and the kick moving around it: the \"a\" of 2 in Soul Man, the \"and\"s of 2, 3 and 4 in Waiting on the World to Change and Angry.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:steve-jordan-soul-man-verse",
+        "pattern:steve-jordan-waiting-groove",
+        "pattern:steve-jordan-angry-verse"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:the-blues-brothers-briefcase-full-of-blues-1978"
+        },
+        {
+          "recording_id": "rec:john-mayer-continuum-2006"
+        },
+        {
+          "recording_id": "rec:the-rolling-stones-hackney-diamonds-2023"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-91265", "src:songsterr-30592", "src:songsterr-562468"]
+      }
+    },
+    {
+      "id": "trait:steve-jordan-gravity-pickup",
+      "label": "A sixteenth pick-up in a slow 12/8",
+      "category": "groove",
+      "description": "Gravity: the kick a sixteenth before the third pulse and before the next bar's 1, under every eighth on the hat.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:steve-jordan-gravity-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:john-mayer-continuum-2006"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-39716"]
+      }
+    },
+    {
+      "id": "trait:steve-jordan-nothing-wasted",
+      "label": "Nothing wasted",
+      "category": "musical_approach",
+      "description": "Grooves that hardly change for a whole song and fills of a beat or two; he learned guitar and bass and found he had been overplaying.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:steve-jordan-vultures-groove",
+        "pattern:steve-jordan-slow-dancing-verse"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:john-mayer-continuum-2006"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:steve-jordan-modern-drummer-2005",
+          "src:songsterr-72065",
+          "src:songsterr-23398"
+        ]
+      }
+    },
+    {
+      "id": "trait:steve-jordan-producer",
+      "label": "The drummer as producer",
+      "category": "studio_practice",
+      "description": "Co-producer and co-writer of Keith Richards's solo albums, producer of Continuum, Robert Cray, Boz Scaggs and Buddy Guy: he took up producing because records he played on came out badly mixed.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "pattern_ids": [],
+      "heard_on": [
+        {
+          "recording_id": "rec:keith-richards-talk-is-cheap-1988"
+        },
+        {
+          "recording_id": "rec:john-mayer-continuum-2006"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-jordan-modern-drummer-2005", "src:steve-jordan-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:steve-jordan-soul-man-verse",
+        "name": "Soul Man, the verse",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the kick on 1, the \"a\" of 2, 3 and its \"and\".",
+        "style_ids": ["style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-91265"]
+        },
+        "source": {
+          "recording_id": "rec:the-blues-brothers-briefcase-full-of-blues-1978",
+          "transcription_source_id": "src:songsterr-91265"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 117,
+          "playable_range_bpm": [113, 121]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x......xx.x....."
+        },
+        "tags": ["1978", "live", "Blues Brothers"]
+      },
+      {
+        "id": "pattern:steve-jordan-soul-man-chorus",
+        "name": "Soul Man, the chorus",
+        "type": "groove_variation",
+        "function": "The kick on every eighth under the hat, the snare on 2 and 4.",
+        "style_ids": ["style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-91265"]
+        },
+        "source": {
+          "recording_id": "rec:the-blues-brothers-briefcase-full-of-blues-1978",
+          "transcription_source_id": "src:songsterr-91265"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 117,
+          "playable_range_bpm": [113, 121]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x.x.x.x.x.x.x."
+        },
+        "tags": ["1978", "live"]
+      },
+      {
+        "id": "pattern:steve-jordan-waiting-groove",
+        "name": "Waiting on the World to Change, the groove",
+        "type": "groove",
+        "function": "Two bars: eighths on the ride with the \"e\", \"and\" and \"a\" of 3, the snare on 2 and 4 and the \"and\" of 4 in the second bar, the kick on 1, its \"and\", the \"and\" of 2, the \"and\" of 3, its \"a\", the \"e\" of 4 and its \"a\".",
+        "style_ids": ["style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-30592"]
+        },
+        "source": {
+          "recording_id": "rec:john-mayer-continuum-2006",
+          "transcription_source_id": "src:songsterr-30592"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 88,
+          "playable_range_bpm": [85, 91]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.xxxxx.|x.x.x.x.x.xxxxx.",
+          "snare": "....x.......x...|....x.......x.x.",
+          "kick": "x.x...x...xx.x.x|x.x...x...xx.x.x"
+        },
+        "tags": ["2006", "Continuum", "ride"]
+      },
+      {
+        "id": "pattern:steve-jordan-gravity-verse",
+        "name": "Gravity, the verse",
+        "type": "groove",
+        "function": "A slow 12/8: every eighth on the hat, the snare with the kick on the second and fourth pulses, the kick a sixteenth before 3 and before the next 1.",
+        "style_ids": ["style:blues-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-39716"]
+        },
+        "source": {
+          "recording_id": "rec:john-mayer-continuum-2006",
+          "transcription_source_id": "src:songsterr-39716"
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 62,
+          "playable_range_bpm": [60, 64]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.x.x.x.x.",
+          "snare": "......x...........x.....",
+          "kick": "x.....x....xx.....x....x"
+        },
+        "tags": ["2006", "Continuum", "12/8", "slow blues"]
+      },
+      {
+        "id": "pattern:steve-jordan-vultures-groove",
+        "name": "Vultures, the intro and chorus",
+        "type": "groove",
+        "function": "Two bars: eighths on the hat, the snare on 2 and 4, the kick on 1 and 3, then on the \"and\" of 3 as well.",
+        "style_ids": ["style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-72065"]
+        },
+        "source": {
+          "recording_id": "rec:john-mayer-continuum-2006",
+          "transcription_source_id": "src:songsterr-72065"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 98,
+          "playable_range_bpm": [95, 101]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.......x.......|x.......x.x....."
+        },
+        "tags": ["2006", "Continuum"]
+      },
+      {
+        "id": "pattern:steve-jordan-slow-dancing-verse",
+        "name": "Slow Dancing in a Burning Room, the verse",
+        "type": "groove",
+        "function": "Eighths on the hat with the quarters accented, the snare on 2 and 4, the kick on 1 and 3.",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23398"]
+        },
+        "source": {
+          "recording_id": "rec:john-mayer-continuum-2006",
+          "transcription_source_id": "src:songsterr-23398"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 67,
+          "playable_range_bpm": [65, 69]
+        },
+        "lanes": {
+          "hihat": "X.x.X.x.X.x.X.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "tags": ["2006", "Continuum", "ballad"]
+      },
+      {
+        "id": "pattern:steve-jordan-angry-verse",
+        "name": "Angry, the verse",
+        "type": "groove",
+        "function": "Two bars: eighths on the hat, opened on the \"and\" of 3 in the second, the snare on 2 and 4, the kick on 1, the \"and\" of 2, 3 and the \"and\" of 4.",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-562468"]
+        },
+        "source": {
+          "recording_id": "rec:the-rolling-stones-hackney-diamonds-2023",
+          "transcription_source_id": "src:songsterr-562468"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 113,
+          "playable_range_bpm": [110, 116]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.o.x.x.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.....x.x.....x.|x.....x.x.....x."
+        },
+        "tags": ["2023", "Rolling Stones"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:steve-jordan-stones",
+      "label": "Black Gretsch, with the Rolling Stones (2022)",
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Gretsch",
+          "size": "24"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Gretsch",
+          "size": "13"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Gretsch",
+          "size": "14"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "china",
+          "brand": "Ufip",
+          "model": "Charlie Watts's own"
+        }
+      ],
+      "layout_notes": "A solid maple snare built for him; Paiste cymbals besides Watts's china. Chosen to come closer to Charlie Watts's sound, though he endorses Yamaha (he helped design its Club Custom line and played a Yamaha Maple Custom Absolute on Continuum).",
+      "endorsements": ["Yamaha", "Paiste", "Vic Firth", "Remo"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-jordan-bonedo-2022", "src:steve-jordan-wikipedia"]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "Saturday Night Live Band",
-      "type": "house_band"
+      "type": "house_band",
+      "notes": "In the late 1970s.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steve-jordan-wikipedia"]
+      }
+    },
+    {
+      "name": "The Blues Brothers",
+      "type": "band_member",
+      "years": {
+        "from": 1978
+      },
+      "notes": "Credited as Steve \"Getdwa\" Jordan on Briefcase Full of Blues (1978) and Made in America (1980); not in the film.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:briefcase-full-of-blues-wikipedia", "src:steve-jordan-wikipedia"]
+      }
+    },
+    {
+      "name": "Paul Shaffer and the World's Most Dangerous Band",
+      "type": "house_band",
+      "notes": "From the New York 24th Street Band with Will Lee, Clifford Carter and Hiram Bullock; Late Night with David Letterman, from 1982.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steve-jordan-wikipedia"]
+      }
     },
     {
       "name": "Keith Richards' X-Pensive Winos",
       "type": "band_member",
       "years": {
         "from": 1987
+      },
+      "notes": "Drummer, co-writer and co-producer: Talk Is Cheap (1988), Main Offender (1992), Crosseyed Heart (2015).",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steve-jordan-wikipedia", "src:talk-is-cheap-wikipedia"]
       }
     },
     {
@@ -59,6 +743,15 @@
       "type": "band_member",
       "years": {
         "from": 2005
+      },
+      "notes": "With Pino Palladino: Try! (2005); he produced Continuum (2006).",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:steve-jordan-wikipedia",
+          "src:try-wikipedia",
+          "src:continuum-john-mayer-album-wikipedia"
+        ]
       }
     },
     {
@@ -66,27 +759,14 @@
       "type": "band_member",
       "years": {
         "from": 2021
-      }
-    }
-  ],
-  "key_recording_ids": [
-    "rec:keith-richards-talk-is-cheap-1988",
-    "rec:john-mayer-trio-try-2005",
-    "rec:the-rolling-stones-hackney-diamonds-2023"
-  ],
-  "legacy": {
-    "contribution": {
-      "description": "Was the drummer Charlie Watts himself named as his successor (\"Steve Jordan's your man\"), having co-produced and drummed on all Keith Richards's solo albums; he took the Rolling Stones' drum chair in 2021.",
+      },
+      "notes": "In for Charlie Watts on the 2021 No Filter tour, then the band's drummer after Watts's death: Hackney Diamonds (2023).",
       "evidence": {
         "confidence": "widely_reported",
-        "source_ids": ["src:steve-jordan-wikipedia"]
+        "source_ids": ["src:steve-jordan-wikipedia", "src:hackney-diamonds-wikipedia"]
       }
     }
-  },
-  "beatbreaker": {
-    "group": "Pop and session drummers",
-    "build_priority": 1
-  },
+  ],
   "relationships": [
     {
       "type": "replaced",
@@ -97,8 +777,266 @@
       },
       "evidence": {
         "confidence": "widely_reported",
-        "source_ids": ["src:steve-jordan-wikipedia"]
+        "source_ids": ["src:steve-jordan-wikipedia", "src:steve-jordan-bonedo-2022"],
+        "note": "Watts told Richards in the 1980s: \"Steve Jordan's your man.\""
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Freddie Waits",
+        "kind": "drummer",
+        "id": "drummer:freddie-waits"
+      },
+      "strength": 0.6,
+      "aspects": ["jazz drumming"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-jordan-modern-drummer-2005"],
+        "note": "\"One of my mentors\"; met at Jazz Interactions, then lessons privately."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Al Jackson Jr.",
+        "kind": "drummer",
+        "id": "drummer:al-jackson-jr"
+      },
+      "strength": 0.8,
+      "aspects": ["the backbeat"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-jordan-iverson-2024", "src:steve-jordan-modern-drummer-2005"],
+        "note": "\"One of the most recognizable, steady, precise and exacting backbeats.\""
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Benny Benjamin",
+        "kind": "drummer",
+        "id": "drummer:benny-benjamin"
+      },
+      "strength": 0.6,
+      "aspects": ["the backbeat", "Motown"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-jordan-iverson-2024", "src:steve-jordan-modern-drummer-2005"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Fred Below",
+        "kind": "drummer",
+        "id": "drummer:fred-below"
+      },
+      "strength": 0.4,
+      "aspects": ["the backbeat"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-jordan-iverson-2024"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Earl Palmer",
+        "kind": "drummer",
+        "id": "drummer:earl-palmer"
+      },
+      "strength": 0.4,
+      "aspects": ["the backbeat"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-jordan-iverson-2024"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Clyde Stubblefield",
+        "kind": "drummer",
+        "id": "drummer:clyde-stubblefield"
+      },
+      "strength": 0.4,
+      "aspects": ["funk"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-jordan-iverson-2024"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jabo Starks",
+        "kind": "drummer",
+        "id": "drummer:jabo-starks"
+      },
+      "strength": 0.4,
+      "aspects": ["funk"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-jordan-iverson-2024"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.5,
+      "aspects": ["songs", "feel"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-jordan-modern-drummer-2005"],
+        "note": "\"The first time I ever saw anyone play who really drove me insane was Ringo.\""
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.4,
+      "aspects": ["jazz drumming"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-jordan-modern-drummer-2005"],
+        "note": "\"Blues March\" was the first beat he learned, at his father's suggestion."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Steve Gadd",
+        "kind": "drummer",
+        "id": "drummer:steve-gadd"
+      },
+      "strength": 0.4,
+      "aspects": ["late-1970s funk and fusion beats"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-jordan-modern-drummer-2005"],
+        "note": "With Harvey Mason and Dave Garibaldi, \"huge influences on me at that time\"."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Harvey Mason",
+        "kind": "drummer",
+        "id": "drummer:harvey-mason"
+      },
+      "strength": 0.4,
+      "aspects": ["late-1970s funk and fusion beats"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-jordan-modern-drummer-2005"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "David Garibaldi",
+        "kind": "drummer",
+        "id": "drummer:david-garibaldi"
+      },
+      "strength": 0.4,
+      "aspects": ["late-1970s funk beats"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-jordan-modern-drummer-2005"]
       }
     }
+  ],
+  "pedagogy": {
+    "videos": [],
+    "philosophy": [
+      {
+        "idea": "The same beat can be played a million ways: what matters is how it is tilted against the quarter note.",
+        "paraphrase_of_source_id": "src:steve-jordan-modern-drummer-2005"
+      },
+      {
+        "idea": "Learn a groove by singing it, so the feel comes before the coordination.",
+        "paraphrase_of_source_id": "src:steve-jordan-modern-drummer-2005"
+      },
+      {
+        "idea": "Learn guitar and bass: they show what the drummer can do for a song, and stop the overplaying.",
+        "paraphrase_of_source_id": "src:steve-jordan-modern-drummer-2005"
+      }
+    ]
+  },
+  "legacy": {
+    "contribution": {
+      "description": "Was the drummer Charlie Watts himself named as his successor (\"Steve Jordan's your man\"), having co-produced and drummed on all Keith Richards's solo albums; he took the Rolling Stones' drum chair in 2021.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steve-jordan-wikipedia"]
+      }
+    },
+    "influence_score": 0.5,
+    "innovations": [],
+    "accolades": [
+      {
+        "award": "Grammy for Best Pop Vocal Album (as producer)",
+        "year": 2007,
+        "for": "John Mayer's Continuum",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:continuum-john-mayer-album-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he drums on the Rolling Stones' Dirty Work (1986): he played percussion on it, not drums (Wikipedia)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "stevejordan",
+    "headline_pattern_ids": [
+      "pattern:steve-jordan-waiting-groove",
+      "pattern:steve-jordan-gravity-verse"
+    ],
+    "default_kit_sound": "A 1960s-style kit with a fat, short snare",
+    "generation_rules": [
+      "A plain backbeat on 2 and 4, hardly a ghost note.",
+      "The kick off the beat around it: the \"a\" of 2, the \"and\"s.",
+      "Eighths on the hat or ride; a crash only where a section starts.",
+      "Fills of a beat or two: two snare sixteenths after 4, the floor tom twice."
+    ],
+    "avoid": ["Busy fills", "Ghost-note funk", "Double bass", "Swing in these songs"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:al-jackson-jr",
+        "drummer:benny-benjamin",
+        "drummer:charlie-watts"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Al Jackson's and Benny Benjamin's backbeat, kept plain for songs: from the Blues Brothers to the John Mayer Trio, and then Charlie Watts's chair."
+    },
+    "tags": [
+      "session",
+      "producer",
+      "rolling stones",
+      "john mayer",
+      "blues brothers",
+      "keith richards",
+      "1970s",
+      "2000s",
+      "2020s"
+    ]
+  },
+  "key_recording_ids": [
+    "rec:the-blues-brothers-briefcase-full-of-blues-1978",
+    "rec:keith-richards-talk-is-cheap-1988",
+    "rec:john-mayer-trio-try-2005",
+    "rec:john-mayer-continuum-2006",
+    "rec:the-rolling-stones-hackney-diamonds-2023"
   ]
 }

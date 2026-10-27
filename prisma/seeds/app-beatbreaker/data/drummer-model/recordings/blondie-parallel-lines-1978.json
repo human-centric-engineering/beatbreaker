@@ -34,7 +34,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=60306"
         }
-      ]
+      ],
+      "style_key": "clemburke",
+      "song_key": "hanging-on-the-telephone"
     },
     {
       "title": "One Way or Another",
@@ -52,7 +54,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=22628"
         }
-      ]
+      ],
+      "style_key": "clemburke",
+      "song_key": "one-way-or-another"
     },
     {
       "title": "Heart of Glass",
@@ -70,7 +74,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=32090"
         }
-      ]
+      ],
+      "style_key": "clemburke",
+      "song_key": "heart-of-glass"
     },
     {
       "title": "Picture This",
@@ -88,7 +94,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=3020"
         }
-      ]
+      ],
+      "style_key": "clemburke",
+      "song_key": "picture-this"
     }
   ]
 }

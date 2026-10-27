@@ -1,0 +1,46 @@
+{
+  "id": "rec:the-blues-brothers-briefcase-full-of-blues-1978",
+  "title": "Briefcase Full of Blues",
+  "artist": "The Blues Brothers",
+  "year": 1978,
+  "type": "album",
+  "release": "Atlantic",
+  "style_ids": ["style:rnb-soul", "style:blues-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:briefcase-full-of-blues-wikipedia"],
+    "note": "Recorded live at the Universal Amphitheatre, Los Angeles, 9 September 1978; Steve \"Getdwa\" Jordan, drums."
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-jordan",
+      "name": "Steve Jordan",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Jordan at 21 with Steve Cropper and Duck Dunn, playing the Stax and Chicago blues he grew up on: a number-one album and the Soul Man single."
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Soul Man",
+      "drummer_ids": ["drummer:steve-jordan"],
+      "drums": {
+        "description": "Sam and Dave's Stax hit, live: eighths on the hat, the kick on 1, the \"a\" of 2, 3 and its \"and\"; the kick on every eighth in the chorus; a breakdown on the ride and kick. At 117.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:briefcase-full-of-blues-wikipedia", "src:songsterr-91265"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=wdfImB4iOLo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=91265",
+          "note": "Human tab, its drum track named for Jordan; some twelve bars shorter than the record"
+        }
+      ],
+      "style_key": "stevejordan",
+      "song_key": "soul-man-live"
+    }
+  ]
+}

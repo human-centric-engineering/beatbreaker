@@ -21,13 +21,15 @@
           "source_ids": ["src:continuum-john-mayer-album-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=6lgpcZxi74Q",
+      "youtube": "https://www.youtube.com/watch?v=53pweVfVwV8",
       "transcriptions": [
         {
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=39716"
         }
-      ]
+      ],
+      "style_key": "stevejordan",
+      "song_key": "gravity"
     },
     {
       "title": "Waiting on the World to Change",
@@ -45,7 +47,51 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=30592"
         }
-      ]
+      ],
+      "style_key": "stevejordan",
+      "song_key": "waiting-on-the-world-to-change"
+    },
+    {
+      "title": "Vultures",
+      "drummer_ids": ["drummer:steve-jordan"],
+      "drums": {
+        "description": "Written by Mayer, Jordan and Palladino: eighths on the hat, the kick on 1 and 3 and, every other bar, the \"and\" of 3 or of 4; the hat opened on the \"and\" of 3 to end a phrase. At 98.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:continuum-john-mayer-album-wikipedia", "src:songsterr-72065"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=9WDkazi__Bw",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=72065",
+          "note": "Human tab, the drums reworked in 2024"
+        }
+      ],
+      "style_key": "stevejordan",
+      "song_key": "vultures"
+    },
+    {
+      "title": "Slow Dancing in a Burning Room",
+      "drummer_ids": ["drummer:steve-jordan"],
+      "drums": {
+        "description": "Eighths on the hat with the quarters accented, the kick on 1 and 3 and later the \"and\" of 3, the floor tom twice before a new part. At 67.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:continuum-john-mayer-album-wikipedia", "src:songsterr-23398"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=rDuPhf4XoZ4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=23398",
+          "note": "Human tab at 69; the record is 67"
+        }
+      ],
+      "style_key": "stevejordan",
+      "song_key": "slow-dancing-in-a-burning-room"
     }
   ]
 }

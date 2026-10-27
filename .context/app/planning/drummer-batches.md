@@ -131,6 +131,53 @@ What came of it:
   written. In Time's bars are verse 1 from a published score; the rest of its
   form reuses them, and says so.
 
+## Batch 2, first three (planned 2026-10-26)
+
+The top three of the re-ranked long list (`rank.py`, 2026-10-26), all 15-a
+candidates: keep the record ids. Max Weinberg starts a new group, Heartland
+and roots rock drummers, filed after Progressive and math rock and before Punk.
+
+| Fork | Drummer      | Record                 | Style key     | Likeness       | Research | Drummers-tab group                      | Copy from                           |
+| ---- | ------------ | ---------------------- | ------------- | -------------- | -------- | --------------------------------------- | ----------------------------------- |
+| 1    | Steve Jordan | `drummer:steve-jordan` | `stevejordan` | `STEVE_JORDAN` | DT       | Pop and session drummers                | `newmark`, `porcaro`, `watts`       |
+| 2    | Clem Burke   | `drummer:clem-burke`   | `clemburke`   | `CLEM_BURKE`   | DU       | New wave drummers                       | `copeland`, `paulcook`, `moon`      |
+| 3    | Max Weinberg | `drummer:max-weinberg` | `maxweinberg` | `MAX_WEINBERG` | DV       | Heartland and roots rock drummers (new) | `levonhelm`, `kenneyjones`, `watts` |
+
+**What each fork should watch for:**
+
+1. **Steve Jordan.** A session drummer across decades: the _Saturday Night
+   Live_ and _Late Night_ bands, Keith Richards' X-Pensive Winos, John
+   Mayer Trio, and the Rolling Stones since 2021. Keep the build to his
+   pocket: behind-the-beat backbeat, ghost notes, the hi-hat feel. Check each
+   credit; on a session record he may not be on every track.
+2. **Clem Burke.** Blondie, 1976–82: the Moon-and-Ringo fills over a
+   disco or new wave groove. "Heart of Glass" (to a drum machine's pulse:
+   check what he played over it), "Dreaming", "Atomic", "One Way or
+   Another" (not "Call Me": Keith Forsey drums on it). Sampled kits unless the record shows he played electronics.
+3. **Max Weinberg.** The E Street Band from 1974: _Born to Run_, _Darkness_,
+   _Born in the U.S.A._ The big snare and the four-on-the-floor drive. On
+   _Born to Run_ the title track is Ernest "Boom" Carter's, recorded before
+   Weinberg joined, and _Greetings_ and _The Wild, the Innocent_ are Vini
+   Lopez's: check every credit.
+
+What came of it (built 2026-10-27):
+
+- **Library corrections.** The forks found four errors in existing records,
+  each fixed with its source: _Born to Run_'s title track is Ernest "Boom"
+  Carter's (the album now has two co-drummers); _Take It So Hard_ is Charley
+  Drayton's drumming, with Jordan on bass; and three YouTube links pointed at
+  live films (Tenth Avenue Freeze-Out, Gravity, Who Did You Think I Was) where
+  the record was meant.
+- **A tab's "china" is not evidence.** Burke's One Way or Another tab writes
+  its accent on 4 as a china. No china is seen on his 1978 kit and no source
+  names one, so those hits are on the second crash. Check a tab's china
+  against the kit before adding a drummer to the china players.
+- **Heart of Glass's kick** is on every beat (two human tabs and Burke's own
+  account), against the tab followed for the rest of the song; the record
+  keeps it as an open question.
+- **Jordan's years with the X-Pensive Winos are not played yet:** their two
+  candidate songs had disagreeing or groove-only tabs.
+
 ## The brief each fork gets
 
 Paste this to each fork, with its row from the batch table and `S`, the

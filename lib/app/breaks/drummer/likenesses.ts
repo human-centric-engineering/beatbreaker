@@ -3722,6 +3722,97 @@ const FEMI_KOLEOSO: Persona = {
   kit: { shell: '#c9cbcc', finish: 'sparkle', hardware: 'chrome', rug: '#2a2a2e' },
 };
 
+/**
+ * Max Weinberg with the E Street Band on the Born in the U.S.A. tour, 1984, at
+ * thirty-three, in John Sayles's video for "Born in the U.S.A." (concert footage cut
+ * with the studio recording; the official upload, EPhWR4d3FJQ, frames at 4:05-4:13):
+ * slim, short dark brown hair with a wave on top, clean-shaven, thin wire-framed
+ * glasses; a pale grey long-sleeved shirt, its collar open, under a dark buttoned
+ * waistcoat. His kit's shells read white under the blue stage light, the hardware
+ * chrome; the make is not named for this tour in any source read (Slingerland, Ludwig
+ * and Pearl over the years: Wikipedia). Trousers and shoes are out of shot: dark ones,
+ * a guess. No headphones.
+ */
+const MAX_WEINBERG: Persona = {
+  id: 'maxweinberg',
+  name: 'Max Weinberg',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e2b596',
+  hair: '#2a1d15',
+  hairStyle: 'tousled',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#c8ccd2',
+  neckwear: 'open',
+  waistcoat: { cloth: '#25252a', trim: '#25252a', buttoned: true },
+  glasses: { shape: 'square', frame: '#9a9894' },
+  trousers: '#1c1c22',
+  shoes: '#141416',
+  footwear: 'shoes',
+  accent: '#25252a',
+  headphones: false,
+  kit: { shell: '#e6e8ec', finish: 'gloss', hardware: 'chrome', rug: '#2a2622' },
+};
+
+/**
+ * Clem Burke in Blondie's Heart of Glass video, filmed late in 1978 and directed by Stanley
+ * Dorfman, at twenty-four (the band's official upload, WGU_4-5RaxU; frames at the kit,
+ * 1:38-1:44): slim, a dark brown mod mop with a full fringe to his brows and over his ears,
+ * clean-shaven; a plain pale grey T-shirt. His kit is a red sparkle Premier with chrome
+ * hardware, "a Moonie-style red sparkle Premier" (MusicRadar, 2014), with two floor toms; its
+ * white front head with Premier's name is not drawn (BeatBreaker's own is kept). Trousers and
+ * shoes are out of shot behind the kit: black ones, a guess. No headphones: a video shoot.
+ */
+const CLEM_BURKE: Persona = {
+  id: 'clemburke',
+  name: 'Clem Burke',
+  figure: 'male',
+  build: 'slim',
+  skin: '#ecc2a2',
+  hair: '#4a3222',
+  hairStyle: 'mop',
+  beard: 'none',
+  top: 'tee',
+  shirt: '#cfd0cc',
+  trousers: '#1c1c22',
+  shoes: '#18181a',
+  accent: '#a8121c',
+  headphones: false,
+  kit: { shell: '#a3141e', finish: 'sparkle', hardware: 'chrome', rug: '#26201e' },
+};
+
+/**
+ * Steve Jordan with the John Mayer Trio at the Nokia Theatre, Los Angeles, on 8 December 2007, at
+ * fifty, filmed for Where the Light Is (John Mayer's channel, "Who Did You Think I Was (Live at the
+ * Nokia Theatre)", s7KzzospHVY; frames at 0:44-0:47 and 0:52): his black hair cut close, a thin
+ * moustache; a dark charcoal suit, its jacket buttoned, a white pocket square, a white shirt and a
+ * narrow black tie, as Mayer and Pino Palladino wear too. No headphones. The shells are dark under
+ * white coated heads, drawn as black; the hardware chrome. Trousers and shoes are behind the kit:
+ * the suit's trousers and black shoes, a guess. The pocket square is not drawn.
+ */
+const STEVE_JORDAN: Persona = {
+  id: 'stevejordan',
+  name: 'Steve Jordan',
+  figure: 'male',
+  build: 'average',
+  skin: '#5a3826',
+  hair: '#141110',
+  hairStyle: 'crop',
+  hairTexture: 'coily',
+  beard: 'pencil',
+  top: 'jacket',
+  shirt: '#2c2c30',
+  under: '#f2f0ea',
+  neckwear: 'long',
+  tie: '#141414',
+  trousers: '#2c2c30',
+  shoes: '#111111',
+  accent: '#2c2c30',
+  headphones: false,
+  kit: { shell: '#151515', finish: 'gloss', hardware: 'chrome', rug: '#3a2a24' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -3837,6 +3928,9 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   newmark: ANDY_NEWMARK,
   amarfio: SOL_AMARFIO,
   koleoso: FEMI_KOLEOSO,
+  maxweinberg: MAX_WEINBERG,
+  clemburke: CLEM_BURKE,
+  stevejordan: STEVE_JORDAN,
 };
 
 /**

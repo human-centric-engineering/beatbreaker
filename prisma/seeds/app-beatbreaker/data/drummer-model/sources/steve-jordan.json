@@ -1,0 +1,92 @@
+[
+  {
+    "id": "src:briefcase-full-of-blues-wikipedia",
+    "type": "encyclopedia",
+    "title": "Briefcase Full of Blues - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Briefcase_Full_of_Blues",
+    "reliability": 0.6,
+    "accessed": "2026-10-27",
+    "notes": "The Blues Brothers' debut album (Atlantic, 28 November 1978), recorded live at the Universal Amphitheatre, Los Angeles, on 9 September 1978. Personnel (after Richard Buskin in Sound on Sound and the liner notes): Steve \"Getdwa\" Jordan, drums and backing vocals; Steve Cropper and Matt Murphy, guitars; Donald \"Duck\" Dunn, bass; Paul Shaffer, keyboards. Soul Man was a single and reached 14 in Billboard."
+  },
+  {
+    "id": "src:steve-jordan-modern-drummer-2005",
+    "type": "interview",
+    "title": "Steve Jordan (Billy Amendola, Modern Drummer, July 2005)",
+    "url": "https://www.moderndrummer.com/2005/07/steve-jordan-2/",
+    "reliability": 0.8,
+    "accessed": "2026-10-27",
+    "notes": "Timpani and orchestral percussion first; Art Blakey's \"Blues March\" the first beat he learned; \"the first time I ever saw anyone play who really drove me insane was Ringo\", then James Brown, Al Jackson and Benny Benjamin; Freddie Waits taught him privately after the Jazz Interactions classes; Steve Gadd, Harvey Mason and Dave Garibaldi \"huge influences\" in the late 1970s. \"I can play the same beat a million different ways. It's about how it's tilted: What side of the quarter note I'm playing on? What do I want the hi-hat and kick to do?\" Playing guitar and bass changed how he plays drums: he had been overplaying. The Groove Is Here DVD."
+  },
+  {
+    "id": "src:steve-jordan-iverson-2024",
+    "type": "interview",
+    "title": "TT 418: \"In Search of the Backbeat\" (Ethan Iverson, Transitional Technology, July 2024)",
+    "url": "https://iverson.substack.com/p/tt-418-in-search-of-the-backbeat",
+    "reliability": 0.7,
+    "accessed": "2026-10-27",
+    "notes": "Notes to Iverson's piece on the Rolling Stones in The Nation, with Jordan's answer on his backbeat idols: \"Al Jackson Jr. had one of the most recognizable, steady, precise and exacting backbeats. Benny Benjamin, Fred Below, Earl Palmer ... Clyde Stubblefield and Jabo Starks for James Brown.\""
+  },
+  {
+    "id": "src:steve-jordan-bonedo-2022",
+    "type": "magazine",
+    "title": "The Rolling Stones Europa-Tour: Drummer Steve Jordan stellt sein Drumset vor (Bonedo, 2022)",
+    "url": "https://www.bonedo.de/artikel/the-rolling-stones-europa-tour-drummer-steve-jordan-stellt-sein-drumset-vor",
+    "reliability": 0.6,
+    "accessed": "2026-10-27",
+    "notes": "Though a Yamaha endorser, he plays Gretsch with the Stones: a black kit with a 24\" bass drum and 13\" and 14\" toms, to come closer to Charlie Watts's sound, and a solid maple snare built for him; Paiste cymbals, and Charlie Watts's own Ufip china."
+  },
+  {
+    "id": "src:songsterr-91265",
+    "type": "transcription",
+    "title": "Songsterr, The Blues Brothers - Soul Man (Live) (human, rev 234324 by xorn, 2014)",
+    "url": "https://www.songsterr.com/a/wa/song?id=91265",
+    "reliability": 0.55,
+    "accessed": "2026-10-27",
+    "notes": "aiGenerated false, its only revision; the drum track named \"Steve Jordan\". 70 bars at 120, no markers; some twelve bars shorter than the record (the third chorus and part of the breakdown are not in it)."
+  },
+  {
+    "id": "src:songsterr-30592",
+    "type": "transcription",
+    "title": "Songsterr, John Mayer - Waiting On The World To Change (human, drums rev 373948 by Frans Georges, 2019)",
+    "url": "https://www.songsterr.com/a/wa/song?id=30592",
+    "reliability": 0.6,
+    "accessed": "2026-10-27",
+    "notes": "aiGenerated false; the drum track named \"Steve Jordan\"; the current revision (4318651, 2025) adds vocals. 72 bars at 89 (the record is 87.9) with markers."
+  },
+  {
+    "id": "src:songsterr-39716",
+    "type": "transcription",
+    "title": "Songsterr, John Mayer - Gravity (machine drums corrected by hand, rev 9940158, 2026)",
+    "url": "https://www.songsterr.com/a/wa/song?id=39716",
+    "reliability": 0.5,
+    "accessed": "2026-10-27",
+    "notes": "Songsterr AI's drum transcription (rev 647424, 1 December 2023) corrected by hand (\"fixed drums\", Darr, rev 649344), the outro's ride added by Ethan Zoller (rev 9940158, 23 October 2026). 40 bars of 12/8 at 62 quarters, with markers."
+  },
+  {
+    "id": "src:songsterr-72065",
+    "type": "transcription",
+    "title": "Songsterr, John Mayer - Vultures (human, drums reworked by John Lacey, 2024)",
+    "url": "https://www.songsterr.com/a/wa/song?id=72065",
+    "reliability": 0.6,
+    "accessed": "2026-10-27",
+    "notes": "First transcribed by Josh Scussell (2011); the drums reworked in revisions 663090, 665103 and 665128 (January 2024); read at rev 7806727 (aiGenerated false). 104 bars at 98 (the record is 97.8) with markers."
+  },
+  {
+    "id": "src:songsterr-23398",
+    "type": "transcription",
+    "title": "Songsterr, John Mayer - Slow Dancing In A Burning Room (human, rev 9939904, 2026)",
+    "url": "https://www.songsterr.com/a/wa/song?id=23398",
+    "reliability": 0.55,
+    "accessed": "2026-10-27",
+    "notes": "aiGenerated false; kit, shaker and tambourine tracks each named for Jordan and his Yamaha Maple Custom Absolute kit. 68 bars at 69 (the record is 67.1) with markers."
+  },
+  {
+    "id": "src:songsterr-562468",
+    "type": "transcription",
+    "title": "Songsterr, The Rolling Stones - Angry (human, \"DRUM 2\" by Alexandre, rev 4268861, 2025)",
+    "url": "https://www.songsterr.com/a/wa/song?id=562468",
+    "reliability": 0.55,
+    "accessed": "2026-10-27",
+    "notes": "aiGenerated false. Two drum tracks: the older (LS, 2023) puts the hat on the foot and a tom with the kick on 1 and 3; the newer, \"added NEW DRUM track\", has the hat in eighths, opened on the \"and\" of 3 every other bar. 106 bars at 113 (the record is 113.2) with markers."
+  }
+]
