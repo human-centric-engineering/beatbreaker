@@ -21,6 +21,8 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 import type {
+  BashCodeExecutionToolResultErrorCode,
+  CodeExecutionTool20260521,
   ContentBlock,
   ContentBlockParam,
   Message,
@@ -29,6 +31,7 @@ import type {
   MessageParam,
   RawMessageStreamEvent,
   StopReason,
+  TextEditorCodeExecutionToolResultErrorCode,
   Tool,
   ToolChoice,
   ToolUnion,
@@ -40,7 +43,9 @@ import type {
 import type { Stream } from '@anthropic-ai/sdk/core/streaming';
 
 import { logger } from '@/lib/logging';
+import { keepRunningAfterResponse } from '@/lib/api/after-response';
 import {
+  acceptsCodeExecution,
   acceptsNativeStructuredOutput,
   acceptsSamplingTemperature,
   acceptsThinkingBudget,
@@ -61,22 +66,31 @@ import {
   type LlmProvider,
   type ProviderTestResult,
 } from '@/lib/orchestration/llm/provider';
-import type {
-  ContentPart,
-  LlmFinishReason,
-  LlmMessage,
-  LlmOptions,
-  LlmReasoningBlock,
-  LlmResponse,
-  LlmToolCall,
-  LlmToolChoice,
-  LlmUsage,
-  ModelInfo,
-  ProviderConfig,
-  StreamChunk,
-  WebSearchOptions,
+import {
+  CODE_EXECUTION_USD_PER_HOUR,
+  getTextContent,
+  type AnthropicCodeExecutionContent,
+  type ContentPart,
+  type LlmFinishReason,
+  type LlmMessage,
+  type LlmOptions,
+  type LlmReasoningBlock,
+  type LlmResponse,
+  type LlmToolCall,
+  type LlmToolChoice,
+  type LlmUsage,
+  type ModelInfo,
+  type ProviderConfig,
+  type StreamChunk,
+  type WebSearchOptions,
 } from '@/lib/orchestration/llm/types';
-import { getTextContent } from '@/lib/orchestration/llm/types';
+import {
+  billCodeExecution,
+  codeRunOf,
+  earlierCodeRuns,
+  latestContainerId,
+  type CodeRun,
+} from '@/lib/orchestration/llm/code-execution';
 import { isCompleteJson } from '@/lib/orchestration/llm/json-completeness';
 
 /** Model used for cheap connectivity pings. */
@@ -92,6 +106,12 @@ const DEFAULT_MAX_TOKENS = 4096;
  * it has, so a search loop can't run up cost without bound.
  */
 const MAX_PAUSE_CONTINUATIONS = 3;
+
+/**
+ * How long reading a generated file's name may take. The reply waits on it,
+ * and it only labels the trace.
+ */
+const FILE_NAME_TIMEOUT_MS = 5_000;
 
 /** Hard-coded Claude family list. Pricing is also carried by model-registry. */
 const CLAUDE_MODELS: ModelInfo[] = [
@@ -174,7 +194,13 @@ export class AnthropicProvider implements LlmProvider {
       hasTools: Boolean(options.tools?.length),
     });
 
+    // Each code run's container and duration, by the id of the call it
+    // answers. A call that isn't streamed can't time its runs apart, so they
+    // share its request time.
+    const runs = new Map<string, CodeRun>();
+    let started = Date.now();
     let message = await this.createMessage(params, options);
+    recordCodeRuns(runs, message, Date.now() - started, params.container);
     // A paused turn is sent back to carry on; the blocks and usage of every
     // segment make up the one response.
     const blocks: ContentBlock[] = [...message.content];
@@ -184,14 +210,29 @@ export class AnthropicProvider implements LlmProvider {
       message.stop_reason === 'pause_turn' && pauses < MAX_PAUSE_CONTINUATIONS;
       pauses++
     ) {
-      appendPausedTurn(params, message.content.flatMap(toPausedPart), pauses > 0);
+      appendPausedTurn(
+        params,
+        message.content.flatMap((block) => toPausedPart(block, runs)),
+        pauses > 0
+      );
       limitWebSearch(params, options.providerTools?.webSearch?.maxUses, usage.webSearchRequests);
+      // The rest of the turn runs in the container it started in.
+      if (message.container) params.container = message.container.id;
       try {
+        started = Date.now();
         message = await this.createMessage(params, options);
       } catch (err) {
-        // The segments before this one were billed; carry them (#592).
-        throw toProviderErrorWithUsage(err, 'Anthropic chat request failed', usage);
+        // The segments before this one were billed, code runs included; carry
+        // them (#592), and delete what those runs made.
+        const ran = blocks.flatMap((block) => toServerToolBlock(block, runs) ?? []);
+        this.deleteGeneratedFiles(ran);
+        throw toProviderErrorWithUsage(
+          err,
+          'Anthropic chat request failed',
+          withCodeExecution(usage, earlierCodeRuns(messages), ran)
+        );
       }
+      recordCodeRuns(runs, message, Date.now() - started, params.container);
       blocks.push(...message.content);
       usage = addUsage(usage, toLlmUsage(message.usage));
     }
@@ -227,8 +268,14 @@ export class AnthropicProvider implements LlmProvider {
         reasoning.push({ type: 'thinking', thinking: block.thinking, signature: block.signature });
       } else if (block.type === 'redacted_thinking') {
         reasoning.push({ type: 'redacted_thinking', data: block.data });
-      } else if (block.type === 'server_tool_use' || block.type === 'web_search_tool_result') {
-        const serverBlock = toServerToolBlock(block);
+      } else if (
+        block.type === 'server_tool_use' ||
+        block.type === 'web_search_tool_result' ||
+        block.type === 'bash_code_execution_tool_result' ||
+        block.type === 'text_editor_code_execution_tool_result' ||
+        block.type === 'code_execution_tool_result'
+      ) {
+        const serverBlock = toServerToolBlock(block, runs);
         if (serverBlock) reasoning.push(serverBlock);
       } else if (block.type === 'tool_use') {
         if (isStructuredExtraction && block.name.startsWith(EXTRACTION_TOOL_PREFIX)) {
@@ -244,6 +291,10 @@ export class AnthropicProvider implements LlmProvider {
     // offered under `auto` (thinking on), the model may also write a line of
     // text before calling it; joining that in would break the JSON.
     const joinedContent = extracted ?? content.join('');
+    usage = withCodeExecution(usage, earlierCodeRuns(messages), reasoning);
+    // Before anything below can throw, so a truncated call's files go too.
+    await this.nameGeneratedFiles(reasoning, options.signal);
+    this.deleteGeneratedFiles(reasoning);
 
     // Truncation guard. Anthropic returns `stop_reason: 'max_tokens'`
     // when the model hits the cap; with extended thinking turned on
@@ -341,6 +392,9 @@ export class AnthropicProvider implements LlmProvider {
     // Thinking and server-tool blocks of every segment, in order, handed back
     // on `done` so a tool loop can replay them unchanged.
     const reasoning: LlmReasoningBlock[] = [];
+    // When each code run started: once its call has streamed in, the
+    // container is running it until its result block arrives.
+    const runStarts = new Map<string, number>();
     const segmentUsage = (): LlmUsage =>
       addUsage(priorUsage, {
         inputTokens,
@@ -352,6 +406,9 @@ export class AnthropicProvider implements LlmProvider {
 
     for (let pauses = 0; ; pauses++) {
       let stream: Stream<RawMessageStreamEvent>;
+      // A run the previous call asked for beside a client tool waits for this
+      // request, and starts when it does.
+      const segmentStarted = Date.now();
       try {
         stream = await this.client.messages.create(params, buildRequestOptions(options));
       } catch (err) {
@@ -367,6 +424,8 @@ export class AnthropicProvider implements LlmProvider {
       cacheWriteTokens = undefined;
       webSearchRequests = 0;
       let paused = false;
+      // The container this segment ran code in, reported on the message.
+      let container: string | undefined;
       // Buffered tool-use blocks by `content_block` index — Anthropic streams
       // `input_json_delta` fragments that we assemble into a single tool call.
       // A web search's `server_tool_use` input streams the same way.
@@ -388,6 +447,7 @@ export class AnthropicProvider implements LlmProvider {
 
           switch (event.type) {
             case 'message_start': {
+              if (event.message.container) container = event.message.container.id;
               const usage = toLlmUsage(event.message.usage);
               inputTokens = usage.inputTokens;
               cacheReadTokens = usage.cacheReadTokens;
@@ -405,18 +465,36 @@ export class AnthropicProvider implements LlmProvider {
                   server: false,
                 });
               } else if (block.type === 'server_tool_use') {
-                if (block.name === 'web_search') {
+                if (isReplayedServerTool(block.name)) {
                   toolBuffers.set(event.index, {
                     id: block.id,
                     name: block.name,
                     partial: '',
                     server: true,
                   });
+                } else if (block.name === 'code_execution') {
+                  warnUnmappedCodeBlock(block.type, block.name);
                 }
+              } else if (block.type === 'code_execution_tool_result') {
+                warnUnmappedCodeBlock(block.type);
               } else if (block.type === 'web_search_tool_result') {
                 reasoningBlocks.set(
                   event.index,
                   toWebSearchResultBlock(block.tool_use_id, block.content)
+                );
+              } else if (
+                block.type === 'bash_code_execution_tool_result' ||
+                block.type === 'text_editor_code_execution_tool_result'
+              ) {
+                // The container comes on the message, after the results:
+                // filled in once the segment ends.
+                const started = runStarts.get(block.tool_use_id) ?? segmentStarted;
+                reasoningBlocks.set(
+                  event.index,
+                  toCodeExecutionResultBlock(block, {
+                    containerId: '',
+                    durationMs: Date.now() - started,
+                  })
                 );
               } else if (block.type === 'text') {
                 textBlocks.set(event.index, block.text);
@@ -456,13 +534,14 @@ export class AnthropicProvider implements LlmProvider {
             case 'content_block_stop': {
               const buf = toolBuffers.get(event.index);
               if (buf) {
-                if (buf.server) {
+                if (buf.server && isReplayedServerTool(buf.name)) {
                   reasoningBlocks.set(event.index, {
                     type: 'server_tool_use',
                     id: buf.id,
-                    name: 'web_search',
+                    name: buf.name,
                     input: safeParseJson(buf.partial),
                   });
+                  if (buf.name !== 'web_search') runStarts.set(buf.id, Date.now());
                 } else if (isStructuredExtraction && buf.name.startsWith(EXTRACTION_TOOL_PREFIX)) {
                   // Structured output — emit the JSON as text content
                   const parsed = safeParseJson(buf.partial);
@@ -484,6 +563,7 @@ export class AnthropicProvider implements LlmProvider {
             }
 
             case 'message_delta':
+              if (event.delta.container) container = event.delta.container.id;
               if (event.delta.stop_reason) {
                 finishReason = mapStopReason(event.delta.stop_reason);
                 paused = event.delta.stop_reason === 'pause_turn';
@@ -519,9 +599,23 @@ export class AnthropicProvider implements LlmProvider {
         // Carry what the stream has already been billed for — `inputTokens`
         // lands at `message_start` and `outputTokens` updates on every
         // `message_delta`, so a mid-stream failure knows its own cost (#592).
-        throw toProviderErrorWithUsage(err, 'Anthropic stream iteration failed', segmentUsage());
+        // The runs so far were billed too, and what they made is deleted.
+        const ran = [...reasoning, ...reasoningBlocks.values()];
+        this.deleteGeneratedFiles(ran);
+        throw toProviderErrorWithUsage(
+          err,
+          'Anthropic stream iteration failed',
+          withCodeExecution(segmentUsage(), earlierCodeRuns(messages), ran)
+        );
       }
 
+      const segmentContainer =
+        container ?? (typeof params.container === 'string' ? params.container : '');
+      for (const block of reasoningBlocks.values()) {
+        if (block.type === 'code_execution_tool_result' && !block.containerId) {
+          block.containerId = segmentContainer;
+        }
+      }
       const segmentParts = [...new Set([...reasoningBlocks.keys(), ...textBlocks.keys()])]
         .sort((a, b) => a - b)
         .map((index): PausedPart => {
@@ -532,13 +626,18 @@ export class AnthropicProvider implements LlmProvider {
       if (!paused || pauses >= MAX_PAUSE_CONTINUATIONS) break;
       priorUsage = segmentUsage();
       appendPausedTurn(params, segmentParts, pauses > 0);
+      // The rest of the turn runs in the container it started in.
+      if (container) params.container = container;
       limitWebSearch(
         params,
         options.providerTools?.webSearch?.maxUses,
         priorUsage.webSearchRequests
       );
     }
-    const usage = segmentUsage();
+    const usage = withCodeExecution(segmentUsage(), earlierCodeRuns(messages), reasoning);
+    // Before anything below can throw, so a truncated stream's files go too.
+    await this.nameGeneratedFiles(reasoning, options.signal);
+    this.deleteGeneratedFiles(reasoning);
 
     // Mirror the non-streaming truncation guard: a max_tokens stop on a
     // JSON-shaped request means the output is incomplete — either a forced
@@ -610,6 +709,79 @@ export class AnthropicProvider implements LlmProvider {
   }
 
   // --- internal helpers ---
+
+  /**
+   * Put the names of the files this call's code runs made on their result
+   * blocks, for the trace: Anthropic returns only their ids. One metadata
+   * read per file, before the files are deleted, held to a short timeout and
+   * the caller's signal since the reply waits on it; a failed read leaves
+   * the id.
+   */
+  private async nameGeneratedFiles(
+    blocks: LlmReasoningBlock[],
+    signal: AbortSignal | undefined
+  ): Promise<void> {
+    await Promise.all(
+      blocks.map(async (block) => {
+        if (block.type !== 'code_execution_tool_result') return;
+        const fileIds = generatedFileIds([block]);
+        if (fileIds.length === 0) return;
+        block.fileNames = await Promise.all(
+          fileIds.map(async (fileId) => {
+            try {
+              const metadata = await this.client.files.retrieveMetadata(fileId, null, {
+                timeout: FILE_NAME_TIMEOUT_MS,
+                maxRetries: 0,
+                ...(signal ? { signal } : {}),
+              });
+              return metadata.filename;
+            } catch (err) {
+              logger.warn('Anthropic: generated file name not read', {
+                provider: this.name,
+                fileId,
+                error: err instanceof Error ? err.message : String(err),
+              });
+              return fileId;
+            }
+          })
+        );
+      })
+    );
+  }
+
+  /**
+   * Delete the files this call's code runs left in Anthropic's Files storage,
+   * where they would otherwise stay until someone deletes them (owner ruling,
+   * t-956: files aren't delivered, and nothing is left at the provider). Done
+   * straight after the call, so a reply cut short leaves none behind: a later
+   * call that replays a block naming a deleted file still succeeds (measured,
+   * claude-haiku-5-5, 2026-10-27). Not awaited, but kept running after the
+   * response is sent; a failure is logged, never raised.
+   */
+  private deleteGeneratedFiles(blocks: LlmReasoningBlock[]): void {
+    const fileIds = [...new Set(generatedFileIds(blocks))];
+    if (fileIds.length === 0) return;
+    // Kept running after the response is sent: on a serverless host a bare
+    // promise can be frozen part-way, leaving the files behind.
+    const deleting = Promise.allSettled(
+      fileIds.map((fileId) => this.client.files.delete(fileId))
+    ).then((results) => {
+      const failed = results.filter((result) => result.status === 'rejected').length;
+      if (failed > 0) {
+        logger.warn('Anthropic: generated files not deleted', {
+          provider: this.name,
+          failed,
+          total: fileIds.length,
+        });
+      } else {
+        logger.info('Anthropic: generated files deleted', {
+          provider: this.name,
+          count: fileIds.length,
+        });
+      }
+    });
+    keepRunningAfterResponse(deleting, 'Anthropic generated file delete', { provider: this.name });
+  }
 
   private async createMessage(
     params: MessageCreateParamsNonStreaming,
@@ -714,7 +886,21 @@ export class AnthropicProvider implements LlmProvider {
     }
     // Split after thinking is settled: a dangling tool call before an
     // opener only has to go when this request thinks.
-    const { systemParts, conversation } = splitSystemMessages(messages, thinkingEnabled);
+    // Code runs replayed to a request that won't carry the tool (a fallback to
+    // a model without it, or the setting off) would be a 400; they go, and
+    // the text of the turn stays.
+    const sendsCode =
+      options.providerTools?.codeExecution !== undefined &&
+      !(options.responseFormat !== undefined && !options.tools?.length) &&
+      acceptsCodeExecution(options.model);
+    const replayed = sendsCode ? messages : withoutCodeRuns(messages);
+    if (replayed !== messages) {
+      logger.info('Anthropic: code runs left out of replay, request has no code execution tool', {
+        provider: this.name,
+        model: options.model,
+      });
+    }
+    const { systemParts, conversation } = splitSystemMessages(replayed, thinkingEnabled);
     params.messages = conversation;
     // Claude models from Opus 4.7 / Sonnet 5 / Haiku 5 on refuse any
     // temperature or top_p (400), so they are sent only to the older families
@@ -848,6 +1034,27 @@ export class AnthropicProvider implements LlmProvider {
         params.tools = [...(params.tools ?? []), toWebSearchTool(webSearch)];
       }
     }
+    // Anthropic's code execution, kept off a structured-output request for
+    // the same reasons. A later call of a tool loop runs in the container the
+    // reply's earlier runs used, so their files are still there.
+    const codeExecution = options.providerTools?.codeExecution;
+    if (codeExecution && structured) {
+      logger.info('Anthropic: code execution dropped, request wants structured output', {
+        provider: this.name,
+        model: options.model,
+      });
+    } else if (codeExecution) {
+      if (!acceptsCodeExecution(options.model)) {
+        logger.info('Anthropic: code execution dropped, model does not offer it', {
+          provider: this.name,
+          model: options.model,
+        });
+      } else {
+        params.tools = [...(params.tools ?? []), CODE_EXECUTION_TOOL];
+        const container = latestContainerId(messages);
+        if (container) params.container = container;
+      }
+    }
     if (systemParts.length > 0) {
       params.system = systemParts.map((text) => ({ type: 'text', text }));
     }
@@ -966,7 +1173,7 @@ function addUsage(a: LlmUsage | undefined, b: LlmUsage): LlmUsage {
 type PausedPart = { type: 'text'; text: string } | LlmReasoningBlock;
 
 /** A response block as part of a paused turn to send back. */
-function toPausedPart(block: ContentBlock): PausedPart[] {
+function toPausedPart(block: ContentBlock, runs: ReadonlyMap<string, CodeRun>): PausedPart[] {
   switch (block.type) {
     case 'text':
       return [{ type: 'text', text: block.text }];
@@ -975,7 +1182,7 @@ function toPausedPart(block: ContentBlock): PausedPart[] {
     case 'redacted_thinking':
       return [{ type: 'redacted_thinking', data: block.data }];
     default: {
-      const serverBlock = toServerToolBlock(block);
+      const serverBlock = toServerToolBlock(block, runs);
       return serverBlock ? [serverBlock] : [];
     }
   }
@@ -1079,20 +1286,283 @@ function toWebSearchTool(options: WebSearchOptions): WebSearchTool20250305 {
   };
 }
 
-/** A web search's `server_tool_use` or result block, in replayable form. */
-function toServerToolBlock(block: ContentBlock): LlmReasoningBlock | undefined {
-  if (block.type === 'server_tool_use' && block.name === 'web_search') {
+/**
+ * A web search's or code run's `server_tool_use` or result block, in
+ * replayable form. A code result takes its container and duration from
+ * `runs`, by the id of the call it answers.
+ */
+function toServerToolBlock(
+  block: ContentBlock,
+  runs: ReadonlyMap<string, CodeRun>
+): LlmReasoningBlock | undefined {
+  if (block.type === 'server_tool_use' && isReplayedServerTool(block.name)) {
     return {
       type: 'server_tool_use',
       id: block.id,
-      name: 'web_search',
+      name: block.name,
       input: toRecord(block.input),
     };
   }
   if (block.type === 'web_search_tool_result') {
     return toWebSearchResultBlock(block.tool_use_id, block.content);
   }
+  if (
+    block.type === 'bash_code_execution_tool_result' ||
+    block.type === 'text_editor_code_execution_tool_result'
+  ) {
+    return toCodeExecutionResultBlock(block, runs.get(block.tool_use_id));
+  }
+  if (block.type === 'code_execution_tool_result') warnUnmappedCodeBlock(block.type);
+  if (block.type === 'server_tool_use' && block.name === 'code_execution') {
+    warnUnmappedCodeBlock(block.type, block.name);
+  }
   return undefined;
+}
+
+/**
+ * Log a direct `code_execution` call or its result. The models send neither
+ * without programmatic tool calling, so one arriving means that has changed;
+ * the block is left out of the replay, which may cost the turn what the code
+ * did.
+ */
+function warnUnmappedCodeBlock(type: string, name?: string): void {
+  logger.warn('Anthropic: code execution block not mapped, left out of the replay', {
+    type,
+    ...(name ? { name } : {}),
+  });
+}
+
+/**
+ * The server tools whose blocks a turn carries. Without programmatic tool
+ * calling, which Sunrise doesn't turn on, `code_execution_20260521` runs
+ * code through the two sub-tools only (measured on claude-haiku-5-5 and
+ * claude-sonnet-5-5, 2026-10-27). A direct `code_execution` call is not
+ * mapped; `warnUnmappedCodeBlock` says if one arrives.
+ */
+function isReplayedServerTool(
+  name: string
+): name is 'web_search' | 'bash_code_execution' | 'text_editor_code_execution' {
+  return (
+    name === 'web_search' || name === 'bash_code_execution' || name === 'text_editor_code_execution'
+  );
+}
+
+/** A code run's result block, with the container it ran in and how long it took. */
+function toCodeExecutionResultBlock(
+  block: Extract<
+    ContentBlock,
+    { type: 'bash_code_execution_tool_result' | 'text_editor_code_execution_tool_result' }
+  >,
+  run: CodeRun | undefined
+): LlmReasoningBlock {
+  return {
+    type: 'code_execution_tool_result',
+    tool: block.type === 'bash_code_execution_tool_result' ? 'bash' : 'text_editor',
+    toolUseId: block.tool_use_id,
+    content: toCodeExecutionContent(block.content, block.type),
+    containerId: run?.containerId ?? '',
+    durationMs: run?.durationMs ?? 0,
+  };
+}
+
+function toCodeExecutionContent(
+  content: Extract<
+    ContentBlock,
+    { type: 'bash_code_execution_tool_result' | 'text_editor_code_execution_tool_result' }
+  >['content'],
+  resultType: 'bash_code_execution_tool_result' | 'text_editor_code_execution_tool_result'
+): AnthropicCodeExecutionContent {
+  switch (content.type) {
+    case 'bash_code_execution_result':
+      return {
+        type: content.type,
+        stdout: content.stdout,
+        stderr: content.stderr,
+        return_code: content.return_code,
+        content: content.content.map((output) => ({
+          type: 'bash_code_execution_output' as const,
+          file_id: output.file_id,
+        })),
+      };
+    case 'bash_code_execution_tool_result_error':
+      return { type: content.type, error_code: content.error_code };
+    case 'text_editor_code_execution_view_result':
+      return {
+        type: content.type,
+        content: content.content,
+        file_type: content.file_type,
+        num_lines: content.num_lines,
+        start_line: content.start_line,
+        total_lines: content.total_lines,
+      };
+    case 'text_editor_code_execution_create_result':
+      return { type: content.type, is_file_update: content.is_file_update };
+    case 'text_editor_code_execution_str_replace_result':
+      return {
+        type: content.type,
+        lines: content.lines,
+        new_lines: content.new_lines,
+        new_start: content.new_start,
+        old_lines: content.old_lines,
+        old_start: content.old_start,
+      };
+    case 'text_editor_code_execution_tool_result_error':
+      return {
+        type: content.type,
+        error_code: content.error_code,
+        error_message: content.error_message,
+      };
+  }
+  // A result shape newer than the SDK. Read as the tool's own error, so the
+  // turn still replays and the trace shows the run as failed, rather than a
+  // block with no content breaking the call.
+  logger.warn('Anthropic: code execution result shape not recognised', { resultType });
+  return resultType === 'bash_code_execution_tool_result'
+    ? { type: 'bash_code_execution_tool_result_error', error_code: 'unavailable' }
+    : {
+        type: 'text_editor_code_execution_tool_result_error',
+        error_code: 'unavailable',
+        error_message: null,
+      };
+}
+
+/** A code run's result as Anthropic takes it back. */
+function toCodeExecutionResultParam(
+  block: Extract<LlmReasoningBlock, { type: 'code_execution_tool_result' }>
+): ContentBlockParam {
+  const content = block.content;
+  switch (content.type) {
+    case 'bash_code_execution_result':
+      return {
+        type: 'bash_code_execution_tool_result',
+        tool_use_id: block.toolUseId,
+        content: { ...content, content: content.content.map((output) => ({ ...output })) },
+      };
+    case 'bash_code_execution_tool_result_error':
+      return {
+        type: 'bash_code_execution_tool_result',
+        tool_use_id: block.toolUseId,
+        content: { type: content.type, error_code: narrowBashErrorCode(content.error_code) },
+      };
+    case 'text_editor_code_execution_tool_result_error':
+      return {
+        type: 'text_editor_code_execution_tool_result',
+        tool_use_id: block.toolUseId,
+        content: {
+          type: content.type,
+          error_code: narrowTextEditorErrorCode(content.error_code),
+          error_message: content.error_message,
+        },
+      };
+    default:
+      return {
+        type: 'text_editor_code_execution_tool_result',
+        tool_use_id: block.toolUseId,
+        content: { ...content },
+      };
+  }
+}
+
+const BASH_ERROR_CODES: readonly BashCodeExecutionToolResultErrorCode[] = [
+  'invalid_tool_input',
+  'unavailable',
+  'too_many_requests',
+  'execution_time_exceeded',
+  'output_file_too_large',
+];
+
+const TEXT_EDITOR_ERROR_CODES: readonly TextEditorCodeExecutionToolResultErrorCode[] = [
+  'invalid_tool_input',
+  'unavailable',
+  'too_many_requests',
+  'execution_time_exceeded',
+  'file_not_found',
+];
+
+/** A stored error code as Anthropic's type; one it no longer sends reads as `unavailable`. */
+function narrowBashErrorCode(code: string): BashCodeExecutionToolResultErrorCode {
+  return BASH_ERROR_CODES.find((known) => known === code) ?? 'unavailable';
+}
+
+function narrowTextEditorErrorCode(code: string): TextEditorCodeExecutionToolResultErrorCode {
+  return TEXT_EDITOR_ERROR_CODES.find((known) => known === code) ?? 'unavailable';
+}
+
+/** The request's code execution server tool. */
+const CODE_EXECUTION_TOOL: CodeExecutionTool20260521 = {
+  type: 'code_execution_20260521',
+  name: 'code_execution',
+};
+
+/**
+ * Note the code runs a non-streamed segment made: the container the message
+ * reports (or the one the request named), and an equal share of the
+ * request's time each.
+ */
+function recordCodeRuns(
+  runs: Map<string, CodeRun>,
+  message: Message,
+  requestMs: number,
+  requested: MessageCreateParamsNonStreaming['container']
+): void {
+  const results = message.content.filter(
+    (block) =>
+      block.type === 'bash_code_execution_tool_result' ||
+      block.type === 'text_editor_code_execution_tool_result'
+  );
+  const containerId = message.container?.id ?? (typeof requested === 'string' ? requested : '');
+  for (const block of results) {
+    if (
+      block.type !== 'bash_code_execution_tool_result' &&
+      block.type !== 'text_editor_code_execution_tool_result'
+    ) {
+      continue;
+    }
+    runs.set(block.tool_use_id, {
+      containerId,
+      durationMs: Math.round(requestMs / results.length),
+    });
+  }
+}
+
+/**
+ * `messages` with every code run's blocks left out of their replay, or
+ * `messages` itself when none carries any.
+ */
+function withoutCodeRuns(messages: LlmMessage[]): LlmMessage[] {
+  const isCodeRun = (block: LlmReasoningBlock): boolean =>
+    block.type === 'code_execution_tool_result' ||
+    (block.type === 'server_tool_use' && block.name !== 'web_search');
+  if (!messages.some((message) => message.reasoning?.some(isCodeRun))) return messages;
+  return messages.map((message) =>
+    message.reasoning?.some(isCodeRun)
+      ? { ...message, reasoning: message.reasoning.filter((block) => !isCodeRun(block)) }
+      : message
+  );
+}
+
+/** The ids of the files code runs left in `$OUTPUT_DIR`, from their result blocks. */
+function generatedFileIds(blocks: readonly LlmReasoningBlock[]): string[] {
+  return blocks.flatMap((block) =>
+    block.type === 'code_execution_tool_result' &&
+    block.content.type === 'bash_code_execution_result'
+      ? block.content.content.map((output) => output.file_id)
+      : []
+  );
+}
+
+/** This call's code runs, as billed against the runs the reply made before it. */
+function withCodeExecution(
+  usage: LlmUsage,
+  earlier: readonly CodeRun[],
+  blocks: readonly LlmReasoningBlock[]
+): LlmUsage {
+  const runs = blocks.flatMap((block) => {
+    const run = codeRunOf(block);
+    return run ? [run] : [];
+  });
+  const codeExecution = billCodeExecution(earlier, runs, CODE_EXECUTION_USD_PER_HOUR.anthropic);
+  return codeExecution ? { ...usage, codeExecution } : usage;
 }
 
 function toWebSearchResultBlock(
@@ -1432,6 +1902,8 @@ function toReasoningBlockParam(block: LlmReasoningBlock): ContentBlockParam | un
       return { type: 'redacted_thinking', data: block.data };
     case 'server_tool_use':
       return { type: 'server_tool_use', id: block.id, name: block.name, input: block.input };
+    case 'code_execution_tool_result':
+      return toCodeExecutionResultParam(block);
     case 'web_search_tool_result':
       return {
         type: 'web_search_tool_result',
@@ -1452,6 +1924,7 @@ function toReasoningBlockParam(block: LlmReasoningBlock): ContentBlockParam | un
       };
     case 'openai_reasoning':
     case 'openai_web_search_call':
+    case 'openai_code_interpreter_call':
       return undefined;
   }
 }

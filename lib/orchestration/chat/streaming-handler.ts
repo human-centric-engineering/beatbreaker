@@ -88,9 +88,15 @@ import { scanCitations, scanOutput } from '@/lib/orchestration/chat/output-guard
 import { capabilityDispatcher } from '@/lib/orchestration/capabilities/dispatcher';
 import type { CapabilityResult } from '@/lib/orchestration/capabilities/types';
 import { extractCitations } from '@/lib/orchestration/chat/citations';
-import { providerToolTraces } from '@/lib/orchestration/chat/provider-tool-traces';
+import {
+  fitToolCallTraces,
+  providerToolTraces,
+} from '@/lib/orchestration/chat/provider-tool-traces';
 import type { ProvenanceItem } from '@/lib/orchestration/provenance/types';
-import { executionTraceSchema } from '@/lib/validations/orchestration';
+import {
+  executionTraceSchema,
+  MAX_PROVENANCE_CAPABILITY_CALLS,
+} from '@/lib/validations/orchestration';
 import {
   getCapabilityDefinitions,
   registerBuiltInCapabilities,
@@ -1712,6 +1718,7 @@ export class StreamingChatHandler {
                     cacheWriteTokens: errUsage.cacheWriteTokens,
                     serviceTier: errUsage.serviceTier,
                     webSearchRequests: errUsage.webSearchRequests,
+                    codeExecution: errUsage.codeExecution,
                     operation: CostOperation.CHAT,
                     // Read off the span directly: `llmTraceId`/`llmSpanId` are
                     // only assigned on the success path below, so they are
@@ -2105,7 +2112,12 @@ export class StreamingChatHandler {
           // event surface streams the trace live, but the persisted
           // record is unconditional.
           if (isTerminalTurn && turnToolCalls.length > 0) {
-            assistantProvenance.capabilityCalls = turnToolCalls;
+            // Fitted to what the schema reads back, or the whole provenance
+            // is lost on read.
+            assistantProvenance.capabilityCalls = fitToolCallTraces(
+              turnToolCalls,
+              MAX_PROVENANCE_CAPABILITY_CALLS
+            );
           }
           // Snapshot workflow provenance from the LAST synchronously-
           // completed `run_workflow` capability call in this turn. The
@@ -2234,6 +2246,7 @@ export class StreamingChatHandler {
               cacheWriteTokens: u.cacheWriteTokens,
               serviceTier: u.serviceTier,
               webSearchRequests: u.webSearchRequests,
+              codeExecution: u.codeExecution,
               operation: CostOperation.CHAT,
               traceId: llmTraceId,
               spanId: llmSpanId,
@@ -2336,6 +2349,7 @@ export class StreamingChatHandler {
             cacheWriteTokens: turnUsage.cacheWriteTokens,
             serviceTier: turnUsage.serviceTier,
             webSearchRequests: turnUsage.webSearchRequests,
+            codeExecution: turnUsage.codeExecution,
             operation: CostOperation.CHAT,
             traceId: llmTraceId,
             spanId: llmSpanId,

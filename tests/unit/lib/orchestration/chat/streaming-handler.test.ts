@@ -240,7 +240,8 @@ const {
   getProviderIfBreakerClosed,
   isLocalProvider,
 } = await import('@/lib/orchestration/llm/provider-manager');
-const { checkBudget, logCost } = await import('@/lib/orchestration/llm/cost-tracker');
+const { calculateCost, checkBudget, logCost } =
+  await import('@/lib/orchestration/llm/cost-tracker');
 const { capabilityDispatcher } = await import('@/lib/orchestration/capabilities/dispatcher');
 // Registry mocks are established via vi.mock above; capture getCapabilityDefinitions
 // so forced-retrieval tests can make search_knowledge_base appear in the tool set.
@@ -7493,6 +7494,47 @@ describe('attachment gate', () => {
       expect(terminal.data.provenance?.capabilityCalls?.[0]?.slug).toBe('lookup_order');
     });
 
+    it('fits a turn with more provider runs than provenance keeps to its limit (t-956)', async () => {
+      const runs = Array.from({ length: 70 }, (_, i) => ({
+        type: 'openai_code_interpreter_call' as const,
+        id: `ci_${i}`,
+        status: 'completed' as const,
+        containerId: 'cntr_1',
+        code: `print(${i})`,
+        outputs: [{ type: 'logs' as const, logs: String(i) }],
+        durationMs: 10,
+      }));
+      const provider = mockProvider([
+        [
+          { type: 'text', content: 'Done.' },
+          {
+            type: 'done',
+            usage: { inputTokens: 5, outputTokens: 2 },
+            finishReason: 'stop',
+            reasoning: runs,
+          },
+        ],
+      ]);
+      (getProviderWithFallbacks as ReturnType<typeof vi.fn>).mockResolvedValue({
+        provider,
+        usedSlug: 'openai',
+      });
+
+      await collect(streamChat(baseRequest));
+
+      const createCalls = (prisma.aiMessage.create as ReturnType<typeof vi.fn>).mock.calls;
+      const terminal = createCalls
+        .filter((c: unknown[]) => (c[0] as { data: { role: string } }).data.role === 'assistant')
+        .at(-1)?.[0] as {
+        data: { provenance?: { capabilityCalls?: Array<{ arguments: unknown }> } };
+      };
+      const kept = terminal.data.provenance?.capabilityCalls ?? [];
+      // The read schema's limit: a 70-entry list would fail it and lose the provenance.
+      expect(kept).toHaveLength(64);
+      expect(kept[0].arguments).toEqual({ code: 'print(0)' });
+      expect(kept[63].arguments).toEqual({ code: 'print(63)' });
+    });
+
     it('omits the SSE `trace` field on capability_result events when includeTrace=false', async () => {
       setupToolTurn();
       const events = await collect(streamChat(baseRequest));
@@ -8631,6 +8673,129 @@ describe('app message metadata (#475)', () => {
     const createCalls = (prisma.aiMessage.create as ReturnType<typeof vi.fn>).mock.calls;
     const userRow = createCalls.find((c: any) => c[0].data.role === 'user');
     expect(userRow?.[0].data.metadata).toBeUndefined();
+  });
+});
+
+describe('provider code execution (t-956)', () => {
+  const codeExecution = { runs: 2, billedSeconds: 300, usdPerHour: 0.05 };
+
+  function setupAgent() {
+    (prisma.aiAgent.findFirst as ReturnType<typeof vi.fn>).mockResolvedValue(
+      makeAgent({ providerTools: { codeExecution: {} } })
+    );
+  }
+
+  function useProvider(provider: ReturnType<typeof mockProvider>) {
+    (getProviderWithFallbacks as ReturnType<typeof vi.fn>).mockResolvedValue({
+      provider,
+      usedSlug: 'anthropic',
+    });
+  }
+
+  /** The usage object each `calculateCost` call was handed (4th argument). */
+  function usagesPricedSoFar(): unknown[] {
+    return vi.mocked(calculateCost).mock.calls.map((c) => c[3]);
+  }
+
+  it('asks the provider for code execution with the agent’s setting', async () => {
+    setupAgent();
+    const provider = mockProvider([
+      [
+        { type: 'text', content: 'Done.' },
+        { type: 'done', usage: { inputTokens: 10, outputTokens: 5 }, finishReason: 'stop' },
+      ],
+    ]);
+    useProvider(provider);
+
+    await collect(streamChat(baseRequest));
+
+    expect((provider.chatStream.mock.calls[0] as unknown[])[1]).toMatchObject({
+      providerTools: { codeExecution: {} },
+    });
+  });
+
+  it('logs and prices the runs on the final turn’s cost row', async () => {
+    setupAgent();
+    useProvider(
+      mockProvider([
+        [
+          { type: 'text', content: 'The answer is 42.' },
+          {
+            type: 'done',
+            usage: { inputTokens: 10, outputTokens: 5, codeExecution },
+            finishReason: 'stop',
+          },
+        ],
+      ])
+    );
+
+    await collect(streamChat(baseRequest));
+    await Promise.resolve();
+
+    expect(logCost).toHaveBeenCalledWith(expect.objectContaining({ codeExecution }));
+    expect(usagesPricedSoFar()).toContainEqual(expect.objectContaining({ codeExecution }));
+  });
+
+  it('logs and prices the runs of a turn that goes on to call a tool', async () => {
+    setupAgent();
+    useProvider(
+      mockProvider([
+        [
+          {
+            type: 'tool_call',
+            toolCall: { id: 'tc-a', name: 'search_knowledge_base', arguments: { query: 'sun' } },
+          },
+          {
+            type: 'done',
+            usage: { inputTokens: 10, outputTokens: 5, codeExecution },
+            finishReason: 'tool_use',
+          },
+        ],
+        [
+          { type: 'text', content: 'Done.' },
+          { type: 'done', usage: { inputTokens: 20, outputTokens: 5 }, finishReason: 'stop' },
+        ],
+      ])
+    );
+    vi.mocked(capabilityDispatcher.dispatch).mockResolvedValue({ success: true, data: {} });
+
+    await collect(streamChat(baseRequest));
+    await Promise.resolve();
+
+    // The tool-call turn carries the runs; the closing turn made none.
+    const logged = vi.mocked(logCost).mock.calls.map(([row]) => row.codeExecution);
+    expect(logged).toEqual([codeExecution, undefined]);
+    expect(usagesPricedSoFar()[0]).toMatchObject({ codeExecution });
+  });
+
+  it('logs and prices the runs an errored call reports on ProviderError.usage', async () => {
+    setupAgent();
+    const failing = {
+      name: 'failing',
+      isLocal: false,
+      chat: vi.fn(),
+      embed: vi.fn(),
+      listModels: vi.fn(),
+      testConnection: vi.fn(),
+      // eslint-disable-next-line require-yield
+      chatStream: vi.fn(async function* () {
+        throw new ProviderError('hit max_tokens before a complete response', {
+          code: 'truncated_no_output',
+          retriable: false,
+          usage: { inputTokens: 10, outputTokens: 5, codeExecution },
+        });
+      }),
+    };
+    (getProviderWithFallbacks as ReturnType<typeof vi.fn>).mockResolvedValue({
+      provider: failing,
+      usedSlug: 'anthropic',
+    });
+
+    await collect(streamChat(baseRequest));
+    await Promise.resolve();
+
+    expect(logCost).toHaveBeenCalledWith(expect.objectContaining({ codeExecution }));
+    expect(usagesPricedSoFar()).toContainEqual(expect.objectContaining({ codeExecution }));
   });
 });
 

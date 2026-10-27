@@ -18,6 +18,36 @@ release process.
 
 ### Added
 
+- **The providers' own code execution on agents (t-956).** `ProviderTools`
+  gains `codeExecution` (`{}`, stored in `AiAgent.providerTools` beside
+  `webSearch`), with a switch on the agent form. On Claude Opus, Sonnet and
+  Haiku 4.5 and later (new `acceptsCodeExecution()`) Anthropic's
+  `code_execution_20260521` tool is sent; on OpenAI itself the request takes
+  the Responses API path with `code_interpreter` in a no-network container
+  (new `acceptsOpenAiCodeInterpreter()`, `takenProviderTools()`,
+  `codeInterpreterRefusal()`). `LlmReasoningBlock` gains
+  `code_execution_tool_result` and `openai_code_interpreter_call`, and
+  `server_tool_use` now also names `bash_code_execution` /
+  `text_editor_code_execution`. A tool loop replays them, so the next call
+  reuses the container, and the `agent_call` checkpoint keeps them. What the
+  code prints reaches the model and the trace (`provider:code_execution`);
+  files it makes are not delivered, and Anthropic's copies are deleted from
+  its Files storage straight after the call that made them. New `LlmUsage.codeExecution`
+  (`{ runs, billedSeconds, usdPerHour }`) is priced by `calculateCost` and
+  stamped on the cost row: each container a reply uses is billed the larger
+  of its measured run time and 5 minutes (`lib/orchestration/llm/code-execution.ts`),
+  an estimate since neither provider reports the time. On OpenAI, with code execution on, the search limit isn't sent as `max_tool_calls`, which would cap code runs too. New exports on
+  `@/lib/orchestration/llm`: `CodeExecutionOptions`, `CodeExecutionUsage`,
+  `CODE_EXECUTION_MIN_BILLED_SECONDS`, `CODE_EXECUTION_USD_PER_HOUR`,
+  `AnthropicCodeExecutionContent` and `AnthropicServerToolName`. New
+  `withProviderTool()` sets one provider tool and keeps the others: turning
+  web search off on the form no longer clears the whole value. **Forks:** a
+  consumer that switches on `LlmReasoningBlock.type`, or reads
+  `server_tool_use` as a web search, meets the new variants and names; a fork
+  that checks `agent_call` turns against its own schema must accept them; a
+  fork that logs cost itself should pass `codeExecution` to `logCost` beside
+  `webSearchRequests`.
+
 - **OpenAI's web search on agents, through the Responses API (t-955).** An
   agent with `providerTools.webSearch` on OpenAI itself (`api.openai.com`)
   now searches. The request goes through the Responses API

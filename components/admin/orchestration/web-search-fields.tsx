@@ -1,13 +1,14 @@
 'use client';
 
 /**
- * The agent form's web search setting: Anthropic's own web search, which the
- * provider runs while the model answers (`AiAgent.providerTools.webSearch`).
+ * The agent form's web search setting: the provider's own web search, which
+ * it runs while the model answers (`AiAgent.providerTools.webSearch`).
  *
  * Its own component rather than part of `ModelParamsFields`: that one is
  * shared with the `llm_call` step editor, and a step has no web search
- * setting. Controlled: the caller owns the value and receives each change
- * whole. Null means no provider tool is on.
+ * setting. Controlled: the caller owns the whole `providerTools` value and
+ * receives each change whole; this changes only its own key. Null means no
+ * provider tool is on.
  */
 
 import { useState } from 'react';
@@ -24,7 +25,7 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
-import { MAX_WEB_SEARCH_USES } from '@/lib/orchestration/llm/model-params';
+import { MAX_WEB_SEARCH_USES, withProviderTool } from '@/lib/orchestration/llm/model-params';
 import type { ProviderTools, WebSearchOptions } from '@/lib/orchestration/llm/types';
 
 export interface WebSearchFieldsProps {
@@ -78,7 +79,8 @@ export function WebSearchFields({
 
   const send = (next: WebSearchOptions | null): void => {
     setSynced(JSON.stringify(next));
-    onChange(next ? { ...value, webSearch: next } : null);
+    // Turning search off leaves the other provider tools on.
+    onChange(withProviderTool(value, 'webSearch', next));
   };
   const withDomains = (
     base: WebSearchOptions,
@@ -145,7 +147,9 @@ export function WebSearchFields({
                   On OpenAI, the limit applies to each step instead. The step after a tool call
                   usually searches again to cite its sources, and stopping it loses what the earlier
                   searches found. So a reply that calls tools can run past the limit. Opening a page
-                  it found, or searching within one, counts toward the limit too.
+                  it found, or searching within one, counts toward the limit too. With code
+                  execution also on, OpenAI would count code runs against the limit as well, so it
+                  isn&rsquo;t applied there and searches are uncapped.
                 </p>
               </FieldHelp>
             </Label>
