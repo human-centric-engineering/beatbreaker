@@ -9,7 +9,22 @@
     {
       "drummer_id": "drummer:max-weinberg",
       "name": "Max Weinberg",
-      "drummer_role": "sole_drummer"
+      "drummer_role": "co_drummer",
+      "why_it_matters": "His first album with the E Street Band: every track with drums but the title track (Meeting Across the River has none).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:born-to-run-wikipedia", "src:max-weinberg-wikipedia"]
+      }
+    },
+    {
+      "drummer_id": "drummer:ernest-carter",
+      "name": "Ernest \"Boom\" Carter",
+      "drummer_role": "co_drummer",
+      "why_it_matters": "The title track, recorded in 1974 before Weinberg joined.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:born-to-run-wikipedia"]
+      }
     }
   ],
   "tracks": [
@@ -23,13 +38,15 @@
           "source_ids": ["src:max-weinberg-wikipedia", "src:born-to-run-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=r1twvwbB_cU",
+      "youtube": "https://www.youtube.com/watch?v=LOkQsVJV8ts",
       "transcriptions": [
         {
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=387355"
         }
-      ]
+      ],
+      "style_key": "maxweinberg",
+      "song_key": "tenth-avenue-freeze-out"
     },
     {
       "title": "Backstreets",
@@ -60,6 +77,26 @@
           "url": "https://www.songsterr.com/a/wa/song?id=409540"
         }
       ]
+    },
+    {
+      "title": "She's the One",
+      "drummer_ids": ["drummer:max-weinberg"],
+      "drums": {
+        "description": "The Bo Diddley beat on snare and kick together under the piano and organ, a crash at the top of each line; a bridge with the kick in eighths.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:born-to-run-wikipedia", "src:shes-the-one-springsteen-song-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=blbFaatKszE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=18737"
+        }
+      ],
+      "style_key": "maxweinberg",
+      "song_key": "shes-the-one"
     }
   ],
   "evidence": {

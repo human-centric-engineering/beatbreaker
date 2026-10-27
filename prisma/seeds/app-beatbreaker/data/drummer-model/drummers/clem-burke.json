@@ -2,51 +2,676 @@
   "meta": {
     "id": "drummer:clem-burke",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
-    "completeness": 0.15,
+    "record_status": "draft",
+    "completeness": 0.3,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-26",
+    "authors": ["claude"],
+    "open_questions": [
+      "Heart of Glass's kick: explosivo's tab writes it on 1 and 3 with the hat foot between; Albina's two tabs and Burke's account of laying the kick down as a click put it on every beat, as the app does. The bass guitar's eighths fill the kick's band on the record, so a fold of it cannot settle it.",
+      "Dreaming follows a tab whose drum track is named \"regenerated\"; its form and grooves agree with the record's sections and with every description read, but its fills were not checked one by one.",
+      "X Offender (1976), his first record, has only a 2011 tab with no cymbals; Union City Blue, Rip Her to Shreds and Sunday Girl have tabs but were not scored. Plastic Letters, Autoamerican (Rapture, The Tide Is High) and The Hunter are not scored.",
+      "His kit on Parallel Lines and Eat to the Beat: the Premier red sparkle and its stock wooden snare are his own account; the cymbals are not named in any source read."
+    ]
   },
   "identity": {
     "name": "Clem Burke",
     "full_name": "Clement Anthony Burke",
+    "aliases": ["Clement Anthony Bozewski", "Elvis Ramone"],
     "born": {
       "date": "1954-11-24",
+      "place": "Bayonne, New Jersey",
       "evidence": {
         "confidence": "verified",
         "source_ids": ["src:clem-burke-wikipedia"]
-      },
-      "place": "Bayonne, New Jersey"
+      }
     },
     "died": {
       "date": "2025-04-06"
     },
     "nationality": ["American"],
     "home_scenes": ["New York, CBGB era"],
+    "handedness": "left",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
     "active": {
       "from": 1975,
       "to": 2025
     },
-    "summary": "Blondie's drummer for fifty years."
+    "roles": ["band_member", "session", "touring"],
+    "summary": "Blondie's drummer for fifty years, from its first months at CBGB in 1975 to his death. A Bayonne club drummer's son who learnt rudiments in a drum and bugle corps, he played Keith Moon's fills and Hal Blaine's pop on a red sparkle Premier: the power pop of Hanging on the Telephone, the disco of Heart of Glass over a CR-78, and Dreaming's run-through, kept as the take. He kept the band together when Harry and Stein nearly quit, then played for Eurythmics, the Romantics, Bob Dylan, Iggy Pop and, for two nights in 1987, the Ramones as Elvis Ramone."
   },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Drum and bugle corps",
+        "impact": "The St Andrew's Bridgemen in Bayonne: rudiments, endurance and memorised charts (\"I actually wound up on rudimental bass drum\").",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:clem-burke-beatit-2025", "src:clem-burke-wikipedia"]
+        }
+      },
+      {
+        "tradition": "British Invasion rock (Keith Moon, Ringo Starr)",
+        "impact": "\"Keith Moon was a big inspiration for me as Ringo was\"; the red sparkle Premier and the fills inside the phrase are Moon's.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:clem-burke-musicradar-2014", "src:clem-burke-new-directions-2025"]
+        }
+      },
+      {
+        "tradition": "The 1960s session players (Hal Blaine, Earl Palmer)",
+        "impact": "\"Consummate studio musicians\" who \"did all the American hits between them\": playing for the song.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:clem-burke-musicradar-2014", "src:clem-burke-beatit-2025"]
+        }
+      },
+      {
+        "tradition": "Disco",
+        "impact": "Saturday Night Fever and ABBA behind Heart of Glass, Chic behind Rapture: \"real musicians playing great grooves\".",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:clem-burke-musicradar-2014"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Learnt from his father, a club drummer; played in a school marching band and the St Andrew's Bridgemen Drum and Bugle Corps.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:clem-burke-wikipedia", "src:clem-burke-beatit-2025"]
+        }
+      },
+      {
+        "year": 1975,
+        "event": "Joined Blondie after auditioning for Patti Smith, and brought in Gary Valentine on bass when Fred Smith left for Television.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:clem-burke-wikipedia", "src:clem-burke-beatit-2025"]
+        }
+      },
+      {
+        "year": 1978,
+        "event": "Parallel Lines with Mike Chapman, recorded at the Record Plant in six weeks; Heart of Glass, his first time playing to a click, laid down as the kick to an arpeggiator.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:parallel-lines-wikipedia", "src:clem-burke-mixdown-2024"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:clem-burke-cbgb",
+      "label": "CBGB and Richard Gottehrer",
+      "years": {
+        "from": 1975,
+        "to": 1977
+      },
+      "context": "Blondie (1976) and Plastic Letters (1977) for Private Stock and Chrysalis, produced by Richard Gottehrer: the girl-group sound played with punk energy.",
+      "defining_traits": ["girl-group beats", "tom fills", "punk energy"],
+      "key_recording_ids": ["rec:blondie-blondie-1976"]
+    },
+    {
+      "id": "era:clem-burke-chapman",
+      "label": "Parallel Lines to The Hunter",
+      "years": {
+        "from": 1978,
+        "to": 1982
+      },
+      "context": "Mike Chapman's records: Parallel Lines (1978), Eat to the Beat (1979), Autoamerican (1980) and The Hunter (1982). Power pop, disco over a drum machine, and Eat to the Beat cut live in the room.",
+      "defining_traits": ["power pop", "disco four on the floor", "Moon-style fills"],
+      "key_recording_ids": ["rec:blondie-parallel-lines-1978", "rec:blondie-eat-to-the-beat-1979"]
+    },
+    {
+      "id": "era:clem-burke-sideman",
+      "label": "Sideman",
+      "years": {
+        "from": 1982,
+        "to": 1997
+      },
+      "context": "Eurythmics (In the Garden, 1981; Revenge, 1986, with a Simmons kit beside his acoustic one), Chequered Past, the Ramones as Elvis Ramone (1987), Dramarama, and the Romantics from 1990.",
+      "defining_traits": ["session work", "electronic drums beside acoustic ones"],
+      "key_recording_ids": []
+    },
+    {
+      "id": "era:clem-burke-reunion",
+      "label": "Blondie again",
+      "years": {
+        "from": 1997,
+        "to": 2025
+      },
+      "context": "No Exit (1999) to Pollinator (2017), half the set to a click; the Clem Burke Drumming Project on the physical demands of drumming (from 2008).",
+      "defining_traits": ["a click on half the set", "stamina"],
+      "key_recording_ids": []
+    }
+  ],
   "style_profile": {
     "genres": [
       {
         "style_id": "style:new-wave",
+        "name": "New wave",
         "weight": 1.0,
-        "authority": 0.6
+        "authority": 0.6,
+        "notes": "Blondie, Parallel Lines and Eat to the Beat."
       },
       {
         "style_id": "style:punk",
-        "weight": 0.6
+        "name": "Punk",
+        "weight": 0.5,
+        "notes": "CBGB; the Ramones as Elvis Ramone."
+      },
+      {
+        "style_id": "style:disco",
+        "name": "Disco",
+        "weight": 0.4,
+        "authority": 0.3,
+        "notes": "Heart of Glass and Atomic: four on the floor under an open hat."
       },
       {
         "style_id": "style:rock",
-        "weight": 0.5
+        "name": "Rock",
+        "weight": 0.5,
+        "notes": "The Romantics; \"I'm a rock'n'roll enthusiast\"."
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.4,
+    "role_tendency": "driver",
+    "descriptors": ["driving", "power pop", "Moon-style fills", "disco", "athletic"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:dreaming-blondie-song-wikipedia", "src:clem-burke-musicradar-2014"],
+        "note": "No click on the Blondie records (\"I never played to a click in the studio\"); Dreaming, cut live, speeds up from 161 to 167 on a beat track."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight eighths and sixteenths in every song scored here."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 120,
+      "balance": "A 24\" kick and a deep wooden snare played hard; crashes ridden in eighths in the choruses."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 30],
+      "fill_frequency": "every_4_bars",
+      "space_usage": 0.3
+    },
+    "consistency": 0.6,
+    "tempo_comfort_bpm": [112, 168],
+    "timekeeping_context": ["free", "sequencer", "click"],
+    "interaction": "Plays to the vocal and the song as Blaine did, and over it as Moon did: Dreaming is \"me kind of blowing through the song\".",
+    "descriptors": ["live", "pushing", "loud"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Fills led with the left hand",
+        "description": "Left-handed on a right-handed kit, the right hand on the hat but fills started with the left, as Ringo did.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:clem-burke-beatit-2025"]
+        }
+      },
+      {
+        "name": "The floor tom as the timekeeper",
+        "description": "Dreaming's floor tom in eighths under the crash, the snare on 2 (or 2 and 4), runs of sixteenths from snare to toms.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-634063", "src:clem-burke-new-directions-2025"]
+        }
+      },
+      {
+        "name": "The crash ridden in eighths",
+        "description": "Picture This's choruses and Hanging on the Telephone's solo on a crash in eighths.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3020", "src:songsterr-60306"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick pushing the \"and\"s",
+        "description": "Hanging on the Telephone's kick on 1, its \"and\", the \"and\" of 2, 3, its \"and\" and the \"and\" of 4.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-60306"]
+        }
+      },
+      {
+        "name": "Four on the floor",
+        "description": "Heart of Glass and Atomic: the kick on every beat under a disco hat, the hat foot on 1 and 3.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-3447157",
+            "src:songsterr-32089",
+            "src:clem-burke-mixdown-2024"
+          ]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.2,
+      "foot_ostinato_usage": 0.4,
+      "double_bass": 0.0,
+      "notes": "Rock and disco time with fills in sixteenths; the one odd meter scored is Heart of Glass's three bars of 7/4, where the song itself changes meter.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-26",
+        "searched": [
+          "Songsterr 60306 (Hanging on the Telephone), 3020 (Picture This), 32090 and 3447157 (Heart of Glass), 22628 and 3043941 (One Way or Another), 634063 (Dreaming), 32089 (Atomic)",
+          "MusicRadar (2014), Mixdown (2024), Beat It (2025), New Directions in Music (2025), Wikipedia (him, Parallel Lines, Eat to the Beat, the songs)"
+        ],
+        "note": "No cross-rhythm, grouping, polymeter or metric modulation is named or written. Heart of Glass's 7/4 bars are the song's meter, not a figure across the bar line."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths in the power-pop verses, half open in One Way or Another's third verse; a disco hat opened on the \"and\"s in Heart of Glass and Atomic, in threes of sixteenths in Atomic's verse.",
+      "snare": "On 2 and 4, or on 2 alone under Dreaming's floor tom; runs of sixteenths into the next line.",
+      "kick": "Pushing the \"and\"s in the power pop, four on the floor in the disco, on 1 and 3 in One Way or Another's verses.",
+      "toms": "The floor tom as a timekeeper in Dreaming; rack and floor toms together in eighths to open One Way or Another; two floor toms on the kit.",
+      "cymbals": "Crashes ridden in eighths, a second crash on 4, splashes on the beat in Atomic's intro."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks in every song scored here."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "A red sparkle Premier with a 24\" kick, after Keith Moon's",
+      "The stock 14\" x 6.5\" wooden Premier snare on the early Blondie records",
+      "Remo Ambassadors; \"the tuning is very important\"",
+      "Recorded from \"the biggest ambient room we could\", working inward"
+    ],
+    "cymbal_character": "Not named in any source read; crashes and splashes on the records (no china seen on the 1978 kit).",
+    "sample_hints": {
+      "new_wave": "A tight, close studio rock kit for Parallel Lines.",
+      "rock": "A big kit played hard in a room for Eat to the Beat."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:clem-burke-mixdown-2024", "src:clem-burke-musicradar-2014"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:clem-burke-dreaming",
+      "label": "Dreaming's floor tom and fills everywhere",
+      "category": "fill",
+      "description": "The floor tom in eighths over the kick on every beat, the snare on 2, and runs of sixteenths from snare to toms through the whole song: a run-through kept as the take.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:clem-burke-dreaming-riff"],
+      "heard_on": [
+        {
+          "recording_id": "rec:blondie-eat-to-the-beat-1979"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:dreaming-blondie-song-wikipedia",
+          "src:songsterr-634063",
+          "src:clem-burke-new-directions-2025"
+        ]
+      }
+    },
+    {
+      "id": "trait:clem-burke-disco-over-machine",
+      "label": "Disco on a rock kit, over a drum machine",
+      "category": "groove",
+      "description": "Heart of Glass: his kit over a Roland CR-78, the kick laid down first as the click, the hat opened on the \"and\"s; Atomic the same disco groove with no machine.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:clem-burke-heart-of-glass-verse", "pattern:clem-burke-atomic-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:blondie-parallel-lines-1978"
+        },
+        {
+          "recording_id": "rec:blondie-eat-to-the-beat-1979"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:heart-of-glass-song-wikipedia",
+          "src:clem-burke-mixdown-2024",
+          "src:clem-burke-musicradar-2014"
+        ]
+      }
+    },
+    {
+      "id": "trait:clem-burke-power-pop",
+      "label": "Power pop on the hat, the crash or the ride",
+      "category": "groove",
+      "description": "Eighths on the hat in the verse, the ride or a crash in the chorus, the kick pushing the \"and\"s.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:clem-burke-telephone-verse",
+        "pattern:clem-burke-picture-this-chorus",
+        "pattern:clem-burke-one-way-pre-chorus"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:blondie-parallel-lines-1978"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-60306", "src:songsterr-3020", "src:songsterr-22628"]
+      }
+    },
+    {
+      "id": "trait:clem-burke-left-led-fills",
+      "label": "Fills from the left hand",
+      "category": "technique",
+      "description": "A left-hander on a right-handed kit who starts his fills with the left, as Ringo Starr does.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": [],
+      "heard_on": [],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:clem-burke-beatit-2025"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:clem-burke-telephone-verse",
+        "name": "Hanging on the Telephone, the verse",
+        "type": "groove",
+        "function": "Power pop at 152: the hat in eighths, the kick on 1, its \"and\", the \"and\" of 2, 3, its \"and\" and the \"and\" of 4.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-60306"]
+        },
+        "source": {
+          "recording_id": "rec:blondie-parallel-lines-1978",
+          "transcription_source_id": "src:songsterr-60306"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 152,
+          "playable_range_bpm": [147, 157]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x.x...x."
+        },
+        "tags": ["1978", "power pop"]
+      },
+      {
+        "id": "pattern:clem-burke-picture-this-chorus",
+        "name": "Picture This, the chorus",
+        "type": "groove",
+        "function": "The crash ridden in eighths, the kick on 1, 3 and its \"and\".",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3020"]
+        },
+        "source": {
+          "recording_id": "rec:blondie-parallel-lines-1978",
+          "transcription_source_id": "src:songsterr-3020"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 127,
+          "playable_range_bpm": [123, 131]
+        },
+        "lanes": {
+          "crash_2": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x.x....."
+        },
+        "tags": ["1978", "crash ride"]
+      },
+      {
+        "id": "pattern:clem-burke-heart-of-glass-verse",
+        "name": "Heart of Glass, the verse",
+        "type": "groove",
+        "function": "Disco over a CR-78: the hat closed on the \"and\" of 1, opened on the \"and\" of 2 and of 4, the foot on 1 and 3, the kick on every beat.",
+        "style_ids": ["style:disco", "style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-32090"]
+        },
+        "source": {
+          "recording_id": "rec:blondie-parallel-lines-1978",
+          "transcription_source_id": "src:songsterr-32090"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [112, 118]
+        },
+        "lanes": {
+          "hihat": "..x...o...x...o.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x...",
+          "hihat_pedal": "k.......k......."
+        },
+        "tags": ["1978", "disco", "drum machine"]
+      },
+      {
+        "id": "pattern:clem-burke-one-way-pre-chorus",
+        "name": "One Way or Another, \"I will drive past your house\"",
+        "type": "groove",
+        "function": "The ride from 1 to the \"and\" of 3, the second crash on 4 with the snare, the kick on 1, its \"and\", the \"and\" of 2, 3 and the \"a\" of 3.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22628"]
+        },
+        "source": {
+          "recording_id": "rec:blondie-parallel-lines-1978",
+          "transcription_source_id": "src:songsterr-22628"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 164,
+          "playable_range_bpm": [159, 169]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.....",
+          "crash_2": "............x...",
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x..x...."
+        },
+        "tags": ["1978", "crash"]
+      },
+      {
+        "id": "pattern:clem-burke-dreaming-riff",
+        "name": "Dreaming, the riff",
+        "type": "groove",
+        "function": "The floor tom in eighths over the kick on every beat, the crash on 1, the snare on 2 and 4; in the verses the snare on 2 alone and the floor tom into sixteenths on 4.",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-634063"]
+        },
+        "source": {
+          "recording_id": "rec:blondie-eat-to-the-beat-1979",
+          "transcription_source_id": "src:songsterr-634063"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 164,
+          "playable_range_bpm": [159, 169]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "snare": "....x.......x...",
+          "floor_tom_1": "..x.x.x.x.x.x.x.",
+          "kick": "x...x...x...x..."
+        },
+        "tags": ["1979", "floor tom", "Keith Moon"]
+      },
+      {
+        "id": "pattern:clem-burke-atomic-verse",
+        "name": "Atomic, the verse",
+        "type": "groove",
+        "function": "The hat on each beat, its \"e\" and \"and\", four on the floor, the snare on 4 and its \"and\", then on 4 alone.",
+        "style_ids": ["style:disco", "style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-32089"]
+        },
+        "source": {
+          "recording_id": "rec:blondie-eat-to-the-beat-1979",
+          "transcription_source_id": "src:songsterr-32089"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [131, 139]
+        },
+        "lanes": {
+          "hihat": "xxx.xxx.xxx.xxx.|xxx.xxx.xxx.xxx.",
+          "snare": "............x.x.|............x...",
+          "kick": "x...x...x...x...|x...x...x...x..."
+        },
+        "tags": ["1979", "disco"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:clem-burke-premier",
+      "label": "Premier, red sparkle (late 1970s)",
+      "years": {
+        "from": 1977,
+        "to": 1982
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Premier",
+          "size": "24"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Premier",
+          "model": "the stock snare that came with the kit",
+          "size": "14x6.5",
+          "material": "wood",
+          "heads": "Remo Ambassador"
+        }
+      ],
+      "layout_notes": "A Moon-style red sparkle Premier, two floor toms on the left of the kick in the Heart of Glass video; a Premier loaner on the early UK tours, then an endorsement. Later a Ludwig Black Beauty snare and a DW Collector's kit.",
+      "endorsements": ["Premier", "DW"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:clem-burke-mixdown-2024",
+          "src:clem-burke-musicradar-2014",
+          "src:clem-burke-beatit-2025"
+        ]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "Blondie",
@@ -55,9 +680,23 @@
         "from": 1975,
         "to": 2025
       },
+      "notes": "Every Blondie album with Harry and Stein, from Blondie (1976) to Pollinator (2017).",
       "evidence": {
         "confidence": "verified",
         "source_ids": ["src:clem-burke-wikipedia"]
+      }
+    },
+    {
+      "name": "Eurythmics",
+      "type": "session_regular",
+      "years": {
+        "from": 1981,
+        "to": 1988
+      },
+      "notes": "In the Garden (1981) and Revenge (1986), and their tours, with a Simmons kit beside the acoustic one.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clem-burke-wikipedia", "src:clem-burke-musicradar-2014"]
       }
     },
     {
@@ -73,76 +712,187 @@
       }
     }
   ],
-  "legacy": {
-    "contribution": {
-      "description": "Powered Blondie from CBGB to Parallel Lines with a drive schooled on Hal Blaine, Keith Moon, Ringo Starr and Earl Palmer and on drum and bugle corps.",
-      "evidence": {
-        "confidence": "verified",
-        "source_ids": ["src:clem-burke-wikipedia"]
-      }
-    }
-  },
-  "beatbreaker": {
-    "group": "New wave drummers",
-    "build_priority": 1
-  },
-  "key_recording_ids": [
-    "rec:blondie-parallel-lines-1978",
-    "rec:blondie-blondie-1976",
-    "rec:blondie-eat-to-the-beat-1979"
-  ],
   "relationships": [
     {
-      "type": "influenced_by",
-      "target": {
-        "name": "Hal Blaine",
-        "kind": "drummer",
-        "id": "drummer:hal-blaine"
-      },
-      "strength": 0.4,
-      "evidence": {
-        "confidence": "likely",
-        "source_ids": ["src:clem-burke-wikipedia"]
-      }
-    },
-    {
-      "type": "influenced_by",
+      "type": "cites_as_influence",
       "target": {
         "name": "Keith Moon",
         "kind": "drummer",
         "id": "drummer:keith-moon"
       },
-      "strength": 0.4,
+      "strength": 0.8,
+      "aspects": ["fills inside the phrase", "the drummer as a front man", "a red sparkle Premier"],
       "evidence": {
-        "confidence": "likely",
-        "source_ids": ["src:clem-burke-wikipedia"]
+        "confidence": "verified",
+        "source_ids": ["src:clem-burke-musicradar-2014", "src:clem-burke-wikipedia"],
+        "note": "\"Keith Moon was a big inspiration for me as Ringo was, and they were both rock star drummers, they were not the drummer in the back.\""
       }
     },
     {
-      "type": "influenced_by",
+      "type": "cites_as_influence",
       "target": {
         "name": "Ringo Starr",
         "kind": "drummer",
         "id": "drummer:ringo-starr"
       },
-      "strength": 0.4,
+      "strength": 0.6,
+      "aspects": ["fills led with the left hand", "parts for the song"],
       "evidence": {
-        "confidence": "likely",
-        "source_ids": ["src:clem-burke-wikipedia"]
+        "confidence": "verified",
+        "source_ids": [
+          "src:clem-burke-musicradar-2014",
+          "src:clem-burke-beatit-2025",
+          "src:clem-burke-wikipedia"
+        ]
       }
     },
     {
-      "type": "influenced_by",
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Hal Blaine",
+        "kind": "drummer",
+        "id": "drummer:hal-blaine"
+      },
+      "strength": 0.6,
+      "aspects": ["playing for the song", "pop records"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:clem-burke-musicradar-2014",
+          "src:clem-burke-beatit-2025",
+          "src:clem-burke-wikipedia"
+        ],
+        "note": "\"I always appreciated drummers like Hal Blaine and Earl Palmer who were consummate studio musicians\"; he played at Blaine's 80th birthday."
+      }
+    },
+    {
+      "type": "cites_as_influence",
       "target": {
         "name": "Earl Palmer",
         "kind": "drummer",
         "id": "drummer:earl-palmer"
       },
-      "strength": 0.4,
+      "strength": 0.5,
+      "aspects": ["studio versatility"],
       "evidence": {
-        "confidence": "likely",
+        "confidence": "verified",
+        "source_ids": [
+          "src:clem-burke-musicradar-2014",
+          "src:clem-burke-beatit-2025",
+          "src:clem-burke-wikipedia"
+        ],
+        "note": "\"I was great friends with Earl Palmer. I did an interview with him for Rhythm.\""
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Al Jackson Jr.",
+        "kind": "drummer",
+        "id": "drummer:al-jackson-jr"
+      },
+      "strength": 0.3,
+      "aspects": ["groove"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clem-burke-musicradar-2014"],
+        "note": "\"Al Jackson, Keith Moon and Ringo Starr, I always liked their styles.\""
+      }
+    },
+    {
+      "type": "sub_for",
+      "target": {
+        "name": "Gina Schock",
+        "kind": "drummer",
+        "id": "drummer:gina-schock"
+      },
+      "strength": 0.2,
+      "aspects": ["the Go-Go's at the Whisky a Go Go, December 2021"],
+      "evidence": {
+        "confidence": "verified",
         "source_ids": ["src:clem-burke-wikipedia"]
       }
     }
+  ],
+  "pedagogy": {
+    "videos": [],
+    "philosophy": [
+      {
+        "idea": "Use a click as a guide, another instrument to play to: a millisecond off it does not matter unless the part is straight quarter-note disco.",
+        "paraphrase_of_source_id": "src:clem-burke-musicradar-2014"
+      },
+      {
+        "idea": "Do not feel under a microscope in the studio: enjoy it, and leave room to experiment.",
+        "paraphrase_of_source_id": "src:clem-burke-musicradar-2014"
+      },
+      {
+        "idea": "Contribute to the song rather than detract from it, as Hal Blaine and Earl Palmer did.",
+        "paraphrase_of_source_id": "src:clem-burke-beatit-2025"
+      }
+    ]
+  },
+  "legacy": {
+    "contribution": {
+      "description": "Powered Blondie from CBGB to Parallel Lines with a drive schooled on Hal Blaine, Keith Moon, Ringo Starr and Earl Palmer and on drum and bugle corps; put a rock drummer's kit over a drum machine on Heart of Glass, one of the first rock-disco hits, and played Dreaming's fills as a lead voice.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:clem-burke-wikipedia",
+          "src:heart-of-glass-song-wikipedia",
+          "src:clem-burke-musicradar-2014"
+        ]
+      }
+    },
+    "influence_score": 0.5,
+    "innovations": [
+      "A live rock kit combined with a drum machine on a hit record (Heart of Glass, 1978)"
+    ],
+    "accolades": [
+      {
+        "award": "Rock and Roll Hall of Fame (with Blondie)",
+        "year": 2006,
+        "for": "Blondie",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:clem-burke-wikipedia"]
+        }
+      },
+      {
+        "award": "Honorary doctorate, University of Gloucestershire",
+        "year": 2011,
+        "for": "The Clem Burke Drumming Project",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:clem-burke-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": []
+  },
+  "beatbreaker": {
+    "style_key": "clemburke",
+    "headline_pattern_ids": [
+      "pattern:clem-burke-dreaming-riff",
+      "pattern:clem-burke-heart-of-glass-verse"
+    ],
+    "default_kit_sound": "A tight, close studio rock kit; a big room for Eat to the Beat",
+    "generation_rules": [
+      "Power pop: the hat, the ride or a crash in eighths, the kick pushing the \"and\"s.",
+      "Disco: four on the floor under a hat opened on the \"and\"s.",
+      "Fills of sixteenths from the snare down the toms, inside the phrase as well as at its end.",
+      "Straight, no click, a little on top."
+    ],
+    "avoid": ["Swing", "Ghost-note funk", "Double bass"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:keith-moon", "drummer:hal-blaine"],
+      "primary_descendants": [],
+      "lineage_blurb": "Keith Moon's fills and Hal Blaine's pop, taken to CBGB and to the disco: Blondie's drummer."
+    },
+    "tags": ["blondie", "new wave", "power pop", "disco", "cbgb", "1970s"]
+  },
+  "key_recording_ids": [
+    "rec:blondie-parallel-lines-1978",
+    "rec:blondie-blondie-1976",
+    "rec:blondie-eat-to-the-beat-1979"
   ]
 }

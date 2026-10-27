@@ -2,16 +2,24 @@
   "meta": {
     "id": "drummer:max-weinberg",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
-    "completeness": 0.15,
+    "record_status": "draft",
+    "completeness": 0.35,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-26",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Bat Out of Hell (1977): a human Songsterr tab exists (13498, 373 bars) but the record moves from about 130 to 180 and back; not scored. Paradise by the Dashboard Light and You Took the Words Right Out of My Mouth are his too (Wikipedia, the album: drums on tracks 1, 2 and 6).",
+      "Hungry Heart (1980): the only tab (27482) writes no cymbals at all; not scored. The River needs a recording in the model.",
+      "Candy's Room (1978), which he called \"a ballsy thing\" for its single-stroke roll all the way through: only a machine tab (3723941); not scored.",
+      "Which kit on which record: Slingerland, Ludwig and Pearl over the years (Wikipedia), then DW; makes per record not found. The Born in the U.S.A. tour kit reads white under the lights.",
+      "Read The Big Beat (1984) and his Modern Drummer interviews for his own account of the records.",
+      "Feel not measured: beat placement against the band is inferred."
+    ]
   },
   "identity": {
     "name": "Max Weinberg",
     "born": {
-      "date": "1951",
+      "date": "1951-04-13",
       "evidence": {
         "confidence": "widely_reported",
         "source_ids": ["src:max-weinberg-wikipedia"]
@@ -22,21 +30,676 @@
       "from": 1974,
       "ongoing": true
     },
-    "summary": "Bruce Springsteen's E Street Band drummer since 1974 and Conan O'Brien's bandleader."
+    "summary": "Bruce Springsteen's drummer in the E Street Band from 1974, whose steady, hard-hit, song-first playing carries Born to Run, Darkness on the Edge of Town and Born in the U.S.A.; a Broadway pit and bar-mitzvah drummer from New Jersey before that, a session drummer for Jim Steinman (Meat Loaf's Bat Out of Hell), the author of The Big Beat (1984), and Conan O'Brien's bandleader from 1993 to 2010.",
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "nicknames": ["Mighty Max"],
+    "roles": ["band_member", "session", "bandleader", "author"]
   },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Rock and roll on television and the British Invasion",
+        "impact": "D. J. Fontana behind Elvis Presley on The Milton Berle Show (1956) made him want to drum at five; Ringo Starr and the Beatles from 1964; the Ventures.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-weinberg-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Broadway pit bands and big-band showmanship",
+        "impact": "Broadway shows weekly from the age of two; Buddy Rich his idol, Gene Krupa and Ed Shaughnessy admired; later the pit band of Godspell.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-weinberg-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1958,
+        "event": "Sits in with Herbie Zane's bar mitzvah band at seven and plays with it until junior high school.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-weinberg-wikipedia"]
+        }
+      },
+      {
+        "year": 1964,
+        "event": "Plays the New York World's Fair with the Epsilons.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-weinberg-wikipedia"]
+        }
+      },
+      {
+        "year": 1974,
+        "event": "Answers Springsteen's Village Voice ad (\"no junior Ginger Bakers\") and auditions with a hi-hat, snare and bass drum.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-weinberg-wikipedia"]
+        }
+      },
+      {
+        "year": 1980,
+        "event": "A \"drumming slump\" criticised by Springsteen: months of practice to regain his time, and lessons with Joe Morello, who helped him play through tendinitis.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-weinberg-wikipedia", "src:joe-morello-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:max-weinberg-born-to-run",
+      "label": "Born to Run and Darkness",
+      "years": {
+        "from": 1974,
+        "to": 1979
+      },
+      "context": "The E Street Band's Born to Run (1975) and Darkness on the Edge of Town (1978), and Meat Loaf's Bat Out of Hell (1977) for Jim Steinman. A snare covered in paper towels for a Memphis soul sound on Born to Run; a drier, harder sound sought for months on Darkness.",
+      "defining_traits": [
+        "Ringo Starr and Levon Helm in the playing (Wikipedia)",
+        "a paper-towel snare",
+        "quarter notes on everything",
+        "the Bo Diddley beat"
+      ],
+      "key_recording_ids": [
+        "rec:bruce-springsteen-born-to-run-1975",
+        "rec:meat-loaf-bat-out-of-hell-1977",
+        "rec:bruce-springsteen-darkness-on-the-edge-of-town-1978"
+      ]
+    },
+    {
+      "id": "era:max-weinberg-born-in-the-usa",
+      "label": "The River and Born in the U.S.A.",
+      "years": {
+        "from": 1980,
+        "to": 1989
+      },
+      "context": "The River (1980), the slump and Morello's lessons, then Born in the U.S.A. (1984): a reverberant, gated snare, an \"aerobics-timed beat\" on some tracks, \"Max was the best thing on the record\" (Springsteen), and the long tour on bandaged hands until the band broke up in 1989.",
+      "defining_traits": [
+        "the gated snare with no hats",
+        "the kick on the \"and\"s",
+        "two-bar grooves held for a whole song"
+      ],
+      "key_recording_ids": ["rec:bruce-springsteen-born-in-the-u-s-a-1984"]
+    },
+    {
+      "id": "era:max-weinberg-conan",
+      "label": "Conan and the reunion",
+      "years": {
+        "from": 1993,
+        "ongoing": true
+      },
+      "context": "The Max Weinberg 7 on Late Night with Conan O'Brien (1993-2009) and the Tonight Show band (2009-10): drums-driven jump blues; the E Street Band again from 1999.",
+      "defining_traits": ["jump blues", "bandleading"]
+    }
+  ],
   "style_profile": {
     "genres": [
       {
         "style_id": "style:heartland-rock",
-        "weight": 1.0,
-        "authority": 0.8
+        "name": "Heartland rock",
+        "weight": 1,
+        "authority": 0.8,
+        "notes": "The E Street Band."
       },
       {
         "style_id": "style:rock-and-roll",
-        "weight": 0.4
+        "name": "Rock and roll",
+        "weight": 0.4,
+        "notes": "Fontana, the Bo Diddley beat, the Max Weinberg 7's jump blues."
+      },
+      {
+        "style_id": "style:rock",
+        "name": "Rock",
+        "weight": 0.4,
+        "notes": "Bat Out of Hell; Born in the U.S.A."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.2,
+    "role_tendency": "accompanist",
+    "descriptors": ["song-first", "powerful", "controlled", "steady", "showman"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-27473", "src:songsterr-344"],
+        "note": "Not measured: the records were beat-tracked for tempo only."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight eighths in every song scored."
+    },
+    "dynamics": {
+      "range": 0.4,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 120,
+      "balance": "A loud snare and a strong kick, the hats steady and often left out (Born in the U.S.A.)."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 16],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [88, 152],
+    "timekeeping_context": ["free"],
+    "interaction": "Under Springsteen's lead: \"When I stop, keep the drums going\" (Born in the U.S.A.); he plays the song as arranged and lifts it with the kick and the snare, not with fills.",
+    "descriptors": ["on the beat", "driving", "even"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Snare on every beat",
+        "description": "Badlands' verses: the snare on all four beats, doubled on the \"and\" of 3, with the ride and kick in quarters.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:badlands-springsteen-song-wikipedia", "src:songsterr-27473"]
+        }
+      },
+      {
+        "name": "Snare and floor tom together",
+        "description": "Born in the U.S.A.: the two struck together on 1 and its \"and\", and in sixteenths into the backbeat.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19238"]
+        }
+      },
+      {
+        "name": "Single-stroke roll",
+        "description": "Candy's Room: \"a single stroke roll through the entirety\" of it, in his words.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-weinberg-wikipedia"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Kick on the \"and\"s",
+        "description": "The kick on 1, the \"and\" of 1 and the \"and\"s of 2 and 3 (Tenth Avenue Freeze-Out, Glory Days); on 1, 3 and its \"and\" (Born in the U.S.A.).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-387355", "src:songsterr-344", "src:songsterr-19238"]
+        }
+      },
+      {
+        "name": "Four on the floor with the hat foot",
+        "description": "Badlands: the kick and the hat foot on every beat.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-27473"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-weinberg-wikipedia"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.3,
+      "linear_playing": 0.05,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.05,
+      "foot_ostinato_usage": 0.1,
+      "double_bass": 0.0,
+      "notes": "Straight 4/4 in every song scored; the Bo Diddley beat is the nearest to a cross-rhythm.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-26",
+        "searched": [
+          "Songsterr: Tenth Avenue Freeze-Out (387355), She's the One (18737), Badlands (27473), Prove It All Night (27486), Born in the U.S.A. (19238, 436104), Dancing in the Dark (27480), Glory Days (344), Hungry Heart (27482), Cover Me (27471), Jungleland (409540), Candy's Room (3723941, machine), Meat Loaf's Bat Out of Hell (13498) and Paradise by the Dashboard Light (88166)",
+          "Wikipedia: Max Weinberg, E Street Band, Born to Run, Darkness on the Edge of Town, The River, Born in the U.S.A., Bat Out of Hell, and the song pages",
+          "Born in the U.S.A. video (1984), frames"
+        ],
+        "note": "No polyrhythmic or metric device in any song or source read; the Bo Diddley beat (3+3+4+2+4 in sixteenths) is a groove, not a device."
+      }
+    },
+    "voice_language": {
+      "hihat": "Straight eighths, or quarters on the beat (Tenth Avenue Freeze-Out), opened on the \"and\" of 3 every other bar; left out altogether on Born in the U.S.A.",
+      "ride": "Quarter notes in Badlands and the stop-time verses.",
+      "snare": "A big backbeat on 2 and 4; on every beat to drive (Badlands); with the floor tom for weight.",
+      "kick": "On 1 and the \"and\"s; four on the floor in Badlands.",
+      "toms": "Few: the floor tom with the snare, the toms on 2 and 4 in Badlands' pre-chorus.",
+      "cymbals": "A crash at the top of a line; crashes over the groove in Born in the U.S.A.'s outro."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.05,
+      "mallets": 0.0,
+      "notes": "Sticks, matched grip; Regal Tip and later Vater 5A sticks (Wikipedia)."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "Born to Run: a snare covered in heavy paper towels for a Memphis soul sound",
+      "Born in the U.S.A.: the top snare mic through a broken reverb plate and a Kepex gate, a reverberant kit"
+    ],
+    "cymbal_character": "Zildjian: two crashes, a ride and hats, now and then a third crash.",
+    "sample_hints": {
+      "heartland-rock": "A big, cracking snare, gated and reverberant for the 1980s; damped and short for 1975."
+    },
+    "evidence": {
+      "confidence": "widely_reported",
+      "source_ids": ["src:max-weinberg-wikipedia", "src:born-in-the-u-s-a-song-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:max-weinberg-badlands-beat",
+      "label": "The Badlands beat",
+      "category": "groove",
+      "description": "Quarter notes on ride, snare, kick and hat foot, the snare doubled on the \"and\" of 3: his best-known beat.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:max-weinberg-badlands-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:bruce-springsteen-darkness-on-the-edge-of-town-1978"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:badlands-springsteen-song-wikipedia", "src:songsterr-27473"]
+      }
+    },
+    {
+      "id": "trait:max-weinberg-no-hats",
+      "label": "The snare alone",
+      "category": "groove",
+      "description": "Born in the U.S.A.: no hats, the gated snare on 2 and 4 under the synth riff, the kick on 1, 3 and its \"and\".",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:max-weinberg-born-in-the-usa-groove",
+        "pattern:max-weinberg-born-in-the-usa-turnaround"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:bruce-springsteen-born-in-the-u-s-a-1984"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:born-in-the-u-s-a-song-wikipedia", "src:songsterr-19238"]
+      }
+    },
+    {
+      "id": "trait:max-weinberg-kick-on-the-ands",
+      "label": "The kick on the \"and\"s",
+      "category": "groove",
+      "description": "Straight eighths or quarters on top, the kick pushing the \"and\"s of 1, 2 and 3 underneath.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": [
+        "pattern:max-weinberg-tenth-avenue-groove",
+        "pattern:max-weinberg-glory-days-verse"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:bruce-springsteen-born-to-run-1975"
+        },
+        {
+          "recording_id": "rec:bruce-springsteen-born-in-the-u-s-a-1984"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-387355", "src:songsterr-344"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:max-weinberg-tenth-avenue-groove",
+        "name": "Tenth Avenue Freeze-Out: the groove",
+        "type": "groove",
+        "function": "The hat on the beat, the snare on 2 and 4, the kick on 1, the \"and\" of 1, the \"and\" of 2 and the \"and\" of 3: Memphis soul on a paper-towel snare.",
+        "style_ids": ["style:heartland-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-387355"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 117,
+          "playable_range_bpm": [112, 121]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "x.x...x...x....."
+        },
+        "source": {
+          "recording_id": "rec:bruce-springsteen-born-to-run-1975",
+          "transcription_source_id": "src:songsterr-387355"
+        },
+        "tags": ["1975", "soul"]
+      },
+      {
+        "id": "pattern:max-weinberg-shes-the-one-bo-diddley",
+        "name": "She's the One: the Bo Diddley beat",
+        "type": "groove",
+        "function": "Snare and kick together on 1, the \"a\" of 1, the \"and\" of 2, 3 and the \"and\" of 3: three, three, two, two, six.",
+        "style_ids": ["style:heartland-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18737"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 92,
+          "playable_range_bpm": [88, 95]
+        },
+        "lanes": {
+          "snare": "x..x..x...x.x...",
+          "kick": "x..x..x...x.x..."
+        },
+        "source": {
+          "recording_id": "rec:bruce-springsteen-born-to-run-1975",
+          "transcription_source_id": "src:songsterr-18737"
+        },
+        "tags": ["1975", "bo diddley"]
+      },
+      {
+        "id": "pattern:max-weinberg-badlands-verse",
+        "name": "Badlands: the verse",
+        "type": "groove",
+        "function": "Quarter notes on the ride, the kick and the hat foot, the snare on every beat and doubled on the \"and\" of 3: \"one-two-three-four-five-six-(double time) one-two-three\".",
+        "style_ids": ["style:heartland-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:songsterr-27473"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 122,
+          "playable_range_bpm": [118, 126]
+        },
+        "lanes": {
+          "ride": "x...x...x...x...",
+          "snare": "x...x...x.x.x...",
+          "kick": "x...x...x...x...",
+          "hihat_pedal": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:bruce-springsteen-darkness-on-the-edge-of-town-1978",
+          "transcription_source_id": "src:songsterr-27473"
+        },
+        "tags": ["1978", "four on the snare"]
+      },
+      {
+        "id": "pattern:max-weinberg-badlands-pre-chorus",
+        "name": "Badlands: the pre-chorus",
+        "type": "groove",
+        "function": "The rack and floor toms together on 2 and 4 in place of the snare, the kick and hat foot on every beat.",
+        "style_ids": ["style:heartland-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-27473"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 122,
+          "playable_range_bpm": [118, 126]
+        },
+        "lanes": {
+          "tom_1": "....x.......x...",
+          "floor_tom_1": "....x.......x...",
+          "kick": "x...x...x...x...",
+          "hihat_pedal": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:bruce-springsteen-darkness-on-the-edge-of-town-1978",
+          "transcription_source_id": "src:songsterr-27473"
+        },
+        "tags": ["1978", "tom backbeat"]
+      },
+      {
+        "id": "pattern:max-weinberg-born-in-the-usa-groove",
+        "name": "Born in the U.S.A.: the groove",
+        "type": "groove",
+        "function": "No hats: the gated snare on 2 and 4, the kick on 1, 3 and its \"and\".",
+        "style_ids": ["style:heartland-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19238"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 124,
+          "playable_range_bpm": [121, 127]
+        },
+        "lanes": {
+          "snare": "....X.......X...",
+          "kick": "x.......x.x....."
+        },
+        "source": {
+          "recording_id": "rec:bruce-springsteen-born-in-the-u-s-a-1984",
+          "transcription_source_id": "src:songsterr-19238"
+        },
+        "tags": ["1984", "gated snare", "no hats"]
+      },
+      {
+        "id": "pattern:max-weinberg-born-in-the-usa-turnaround",
+        "name": "Born in the U.S.A.: the turnaround",
+        "type": "groove",
+        "function": "Every other bar, the snare and floor tom in sixteenths on the \"e\" of 3 and the \"and\" and \"a\" of 4 between the backbeats.",
+        "style_ids": ["style:heartland-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19238"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 124,
+          "playable_range_bpm": [121, 127]
+        },
+        "lanes": {
+          "snare": "....X....xx.X.xx",
+          "floor_tom_1": "........xxx...xx",
+          "kick": "x.......x.x....."
+        },
+        "source": {
+          "recording_id": "rec:bruce-springsteen-born-in-the-u-s-a-1984",
+          "transcription_source_id": "src:songsterr-19238"
+        },
+        "tags": ["1984"]
+      },
+      {
+        "id": "pattern:max-weinberg-dancing-in-the-dark-two-bars",
+        "name": "Dancing in the Dark: the two bars",
+        "type": "groove",
+        "function": "Straight eighths on the hat, the kick on 1 and 3 in the first bar, on 1, 3, the \"and\" of 3 and the \"and\" of 4 in the second: the whole song.",
+        "style_ids": ["style:heartland-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-27480"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 149,
+          "playable_range_bpm": [145, 152]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.......x.......|x.......x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:bruce-springsteen-born-in-the-u-s-a-1984",
+          "transcription_source_id": "src:songsterr-27480"
+        },
+        "tags": ["1984"]
+      },
+      {
+        "id": "pattern:max-weinberg-glory-days-verse",
+        "name": "Glory Days: the verse",
+        "type": "groove",
+        "function": "Straight eighths, the kick on 1, its \"and\", the \"and\" of 2 and 3, the hat opened on the \"and\" of 3 every other bar.",
+        "style_ids": ["style:heartland-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-344"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 117,
+          "playable_range_bpm": [113, 120]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.o.x.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.x...x.x.......|x.x...x.x......."
+        },
+        "source": {
+          "recording_id": "rec:bruce-springsteen-born-in-the-u-s-a-1984",
+          "transcription_source_id": "src:songsterr-344"
+        },
+        "tags": ["1984"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:max-weinberg-four-piece",
+      "label": "His four-piece",
+      "context": "both",
+      "drums": [],
+      "hardware": [],
+      "layout_notes": "A snare, one mounted tom, a bass drum and a floor tom, two crashes, a ride and hats, now and then a third crash: \"I've got four drums. Anything more is redundant.\" Slingerland, Ludwig and Pearl over the years, then DW; Zildjian cymbals and Remo heads. At his 1974 audition only hats, snare and bass drum.",
+      "endorsements": [],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia"]
+      }
+    },
+    {
+      "id": "kit:max-weinberg-born-in-the-usa-tour",
+      "label": "Born in the U.S.A. tour, 1984",
+      "context": "live",
+      "drums": [],
+      "hardware": [],
+      "layout_notes": "Shells that read white under blue stage light, chrome hardware; the make is not named for this tour in any source read.",
+      "endorsements": [],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:born-in-the-u-s-a-video-1984"]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "E Street Band",
@@ -46,7 +709,8 @@
       },
       "evidence": {
         "confidence": "widely_reported",
-        "source_ids": ["src:max-weinberg-wikipedia"]
+        "source_ids": ["src:max-weinberg-wikipedia", "src:e-street-band-wikipedia"],
+        "note": "Away 1989-1999, when Springsteen dissolved the band."
       }
     },
     {
@@ -65,32 +729,96 @@
   "key_recording_ids": [
     "rec:bruce-springsteen-born-to-run-1975",
     "rec:meat-loaf-bat-out-of-hell-1977",
+    "rec:bruce-springsteen-darkness-on-the-edge-of-town-1978",
     "rec:bruce-springsteen-born-in-the-u-s-a-1984"
   ],
-  "legacy": {
-    "contribution": {
-      "description": "The E Street Band's drummer for over four decades, whose steady, song-first drumming on Born to Run and Born in the U.S.A. Springsteen summed up as 'I ask and he delivers'; he also drummed on Meat Loaf's Bat Out of Hell.",
-      "evidence": {
-        "confidence": "widely_reported",
-        "source_ids": ["src:max-weinberg-wikipedia", "src:rollingstone-100-drummers-2016"]
-      }
-    }
-  },
-  "beatbreaker": {
-    "group": "Heartland and roots rock drummers",
-    "build_priority": 1
-  },
   "relationships": [
     {
       "type": "influenced_by",
       "target": {
-        "name": "D.J. Fontana",
+        "name": "D. J. Fontana",
         "kind": "drummer",
         "id": "drummer:dj-fontana"
       },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia"],
+        "note": "Seeing Fontana behind Presley on The Milton Berle Show in April 1956 was \"my moment\"."
+      },
+      "scope": "individual"
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia"],
+        "note": "\"A major influence\" from 1964; his Born to Run playing evoked Ringo."
+      },
+      "scope": "individual"
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Levon Helm",
+        "kind": "drummer",
+        "id": "drummer:levon-helm"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia"],
+        "note": "One of the two idols his Born to Run playing evoked."
+      },
+      "scope": "individual"
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia"],
+        "note": "\"He grew to idolize drummer Buddy Rich.\""
+      },
+      "scope": "individual"
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "strength": 0.3,
       "evidence": {
         "confidence": "widely_reported",
         "source_ids": ["src:max-weinberg-wikipedia"]
+      },
+      "scope": "individual"
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Ed Shaughnessy",
+        "kind": "drummer",
+        "id": "drummer:ed-shaughnessy"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia"],
+        "note": "The Tonight Show's drummer: \"an ideal job\"."
       },
       "scope": "individual"
     },
@@ -101,11 +829,184 @@
         "kind": "drummer",
         "id": "drummer:joe-morello"
       },
+      "strength": 0.6,
       "evidence": {
         "confidence": "widely_reported",
-        "source_ids": ["src:joe-morello-wikipedia"]
+        "source_ids": ["src:joe-morello-wikipedia", "src:max-weinberg-wikipedia"],
+        "note": "About 1980, to play through tendinitis."
       },
       "scope": "individual"
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Ernest \"Boom\" Carter",
+        "kind": "drummer",
+        "id": "drummer:ernest-carter"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-weinberg-wikipedia", "src:born-to-run-wikipedia"],
+        "note": "In the E Street Band, August 1974."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Bruce Springsteen",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia", "src:e-street-band-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Clarence Clemons",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia", "src:e-street-band-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Roy Bittan",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia", "src:e-street-band-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Danny Federici",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia", "src:e-street-band-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Steven Van Zandt",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia", "src:e-street-band-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Garry Tallent",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:born-to-run-wikipedia",
+          "src:darkness-on-the-edge-of-town-wikipedia",
+          "src:born-in-the-u-s-a-wikipedia"
+        ],
+        "note": "The E Street Band's bassist on every album here."
+      }
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Jay Weinberg",
+        "kind": "drummer"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia"],
+        "note": "His son, a drummer, formerly with Slipknot and Suicidal Tendencies."
+      }
     }
-  ]
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Serve the song: the drummer keeps order (seder) for the band.",
+        "paraphrase_of_source_id": "src:max-weinberg-wikipedia"
+      },
+      {
+        "idea": "\"Show up, do a good job, and give them more than their money's worth.\"",
+        "paraphrase_of_source_id": "src:max-weinberg-wikipedia"
+      }
+    ],
+    "notes": "The Big Beat: Conversations with Rock's Greatest Drummers (1984), interviews with Ringo Starr, Levon Helm, D. J. Fontana, Charlie Watts, Dino Danelli, Hal Blaine and others; a one-man college show from 1986."
+  },
+  "legacy": {
+    "contribution": {
+      "description": "The E Street Band's drummer for over four decades, whose steady, song-first drumming on Born to Run and Born in the U.S.A. Springsteen summed up as 'I ask and he delivers'; he also drummed on Meat Loaf's Bat Out of Hell.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia", "src:rollingstone-100-drummers-2016"]
+      }
+    },
+    "influence_score": 0.55,
+    "innovations": [],
+    "accolades": [
+      {
+        "name": "Best Drummer, Rolling Stone Critics Poll",
+        "year": 1986,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-weinberg-wikipedia"]
+        }
+      },
+      {
+        "name": "Rock and Roll Hall of Fame (the E Street Band)",
+        "year": 2014,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:max-weinberg-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he plays on all of Born to Run: the title track is Ernest \"Boom\" Carter's, recorded before Weinberg joined (Wikipedia, the album)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "maxweinberg",
+    "headline_pattern_ids": [
+      "pattern:max-weinberg-badlands-verse",
+      "pattern:max-weinberg-born-in-the-usa-groove"
+    ],
+    "default_kit_sound": "Studio rock: a tight, dry kit with a cracking snare; Born to Run's songs damped, Born in the U.S.A.'s in a big room",
+    "generation_rules": [
+      "Straight eighths or quarters on top, or no hats at all.",
+      "The kick on 1 and the \"and\"s.",
+      "The snare on every beat to drive a section.",
+      "Few fills: kick and snare together, short snare runs.",
+      "No ghost notes."
+    ],
+    "avoid": ["Swing", "Ghost notes", "Long tom fills", "Double bass"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:dj-fontana", "drummer:ringo-starr", "drummer:levon-helm"],
+      "primary_descendants": [],
+      "lineage_blurb": "Fontana on television, Ringo and Levon Helm on the records, Buddy Rich in the pit band; the drummer who took that into the E Street Band."
+    },
+    "tags": ["e street band", "springsteen", "heartland rock", "70s", "80s"]
+  }
 }

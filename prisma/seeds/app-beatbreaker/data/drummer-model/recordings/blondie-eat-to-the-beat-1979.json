@@ -34,7 +34,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=634063"
         }
-      ]
+      ],
+      "style_key": "clemburke",
+      "song_key": "dreaming"
     },
     {
       "title": "Atomic",
@@ -52,7 +54,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=32089"
         }
-      ]
+      ],
+      "style_key": "clemburke",
+      "song_key": "atomic"
     }
   ]
 }

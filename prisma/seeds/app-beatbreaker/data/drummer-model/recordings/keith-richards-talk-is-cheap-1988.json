@@ -13,13 +13,23 @@
     {
       "drummer_id": "drummer:steve-jordan",
       "name": "Steve Jordan",
-      "drummer_role": "sole_drummer"
+      "drummer_role": "co_drummer"
+    },
+    {
+      "drummer_id": "drummer:charley-drayton",
+      "name": "Charley Drayton",
+      "drummer_role": "co_drummer",
+      "why_it_matters": "Drums on Take It So Hard, where Jordan plays bass.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:talk-is-cheap-wikipedia"]
+      }
     }
   ],
   "tracks": [
     {
       "title": "Take It So Hard",
-      "drummer_ids": ["drummer:steve-jordan"],
+      "drummer_ids": ["drummer:charley-drayton"],
       "drums": {
         "description": "A loose, swaggering rock groove with a laid-back feel.",
         "evidence": {

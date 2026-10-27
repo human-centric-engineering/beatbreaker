@@ -21904,6 +21904,425 @@ Read 2026-10-26.
 - https://www.youtube.com/watch?v=xEYPs3nbNJQ (Beat-Club, Phallus C, 1971)
 - Records: pJ3rKjQpIVg (Sunshine Day), -6ogImN_eXY (Dance the Body Music); also beat-tracked, not scored: DktHoG1CfBo (The Coffee Song), IALpmwOm8Vs (Music for Gong Gong), DCHUfkertmI (Ayiko Bia)
 
+## DT. Steve Jordan (2026-10-27)
+
+The `stevejordan` style plays **songs** the way `newmark` (DQ) does: each New
+picks one of his records, and its tempo, kit, sections and grooves come with
+it, in the record's order. He was a 15-a candidate (Pop and session drummers),
+first in the ranking of 2026-10-26, and is the first of batch 2. His record,
+`drummer-model/drummers/steve-jordan.json`, keeps the candidate's id,
+`drummer:steve-jordan`, now at `draft` (schema 1.6.0). One recording is new,
+the Blues Brothers' Briefcase Full of Blues (1978), carrying Soul Man; Vultures
+and Slow Dancing in a Burning Room are new tracks on Continuum; Waiting on the
+World to Change, Gravity and Angry were in the model from 15-b and are linked
+to the new songs. His new sources are in `sources/steve-jordan.json`. No genre
+is new: `style:rock`, `style:rnb-soul` (funk-soul), `style:blues-rock` (rock).
+Filed with the pop and session drummers.
+
+**Who he is.** Born in New York City on 14 January 1957 (Wikipedia). A
+timpanist first, then the kit; his father had him learn Art Blakey's "Blues
+March", "and you will be able to play anything"; Ringo was "the first time I
+ever saw anyone play who really drove me insane", then James Brown, Al Jackson
+and Benny Benjamin; Freddie Waits taught him privately after the Jazz
+Interactions classes (Modern Drummer, 2005). A teenage honorary member of
+Stevie Wonder's Wonderlove; a substitute in Stuff; the Saturday Night Live band
+and the Blues Brothers (credited Steve "Getdwa" Jordan on Briefcase Full of
+Blues, 1978, not in the film); Steve Khan's Eyewitness; the band that became
+Paul Shaffer's World's Most Dangerous Band on Late Night (Wikipedia). From
+Hail! Hail! Rock 'n' Roll (1987) Keith Richards's drummer, co-writer and
+co-producer in the X-Pensive Winos (Talk Is Cheap, 1988; Main Offender, 1992;
+Crosseyed Heart, 2015); from 2005 the John Mayer Trio with Pino Palladino, and
+producer of Mayer's Continuum (2006). Watts told Richards in the 1980s that
+"Steve Jordan's your man"; Jordan took the Stones' chair for the 2021 tour
+and, after Watts's death, Hackney Diamonds (2023).
+
+**His time, in his words** (Modern Drummer, 2005): "I can play the same beat a
+million different ways. It's about how it's tilted: What side of the quarter
+note I'm playing on? What do I want the hi-hat and kick to do?" Learning guitar
+and bass "changed the way I play the drums completely": he had been
+overplaying. His backbeat idols (to Ethan Iverson, 2024): "Al Jackson Jr. had
+one of the most recognizable, steady, precise and exacting backbeats. Benny
+Benjamin, Fred Below, Earl Palmer ... Clyde Stubblefield and Jabo Starks." In
+the late 1970s Steve Gadd, Harvey Mason and Dave Garibaldi were "huge
+influences". All are edges in the record; Freddie Waits is a stub.
+
+**His kit and sound.** A Yamaha endorser who helped design the Club Custom line
+(Wikipedia; Yamaha); the Continuum tabs name his Yamaha Maple Custom Absolute.
+With the Stones a black Gretsch, 24" bass drum, 13" and 14" toms, "to come
+closer to Charlie's sound", a solid maple snare built for him, Paiste cymbals
+and Watts's own Ufip china (Bonedo, 2022). No samples of his drums are free to
+use: the base and five songs take `funkSoul` (a 1960s Ludwig with a fat 13"
+snare), Angry the `studioRock` kit for the 24" bass drum.
+
+**Devices.** None: a dated `devices_search`. Gravity's 12/8 is the meter, not
+a device.
+
+**The songs.**
+
+| Song                           | Year | Record                                | Meter | Tempo                  | What defines it                                                                  | Source of the bars                                        |
+| ------------------------------ | ---- | ------------------------------------- | ----- | ---------------------- | -------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| Soul Man                       | 1978 | Briefcase Full of Blues (live)        | 4/4   | 117 (measured)         | the kick on the "a" of 2; on every eighth in the chorus; a ride-and-kick break   | Songsterr 91265 (human, "Steve Jordan"), form from lyrics |
+| Waiting on the World to Change | 2006 | Continuum                             | 4/4   | 88 (measured)          | the ride with 3 filled in, the snare on the "and" of 4 every other bar           | Songsterr 30592 (human, "Steve Jordan"), by its markers   |
+| Gravity                        | 2006 | Continuum                             | 12/8  | 62 quarters (measured) | every eighth on the hat, the kick a sixteenth before 3 and before the 1          | Songsterr 39716 (machine drums corrected by hand)         |
+| Vultures                       | 2006 | Continuum                             | 4/4   | 98 (measured)          | the kick on 1 and 3, then the "and" of 3 or of 4; nothing else moves             | Songsterr 72065 (human, drums reworked 2024)              |
+| Slow Dancing in a Burning Room | 2006 | Continuum                             | 4/4   | 67 (measured)          | the quarters leaned on, the floor tom twice into a new part                      | Songsterr 23398 (human), by its markers                   |
+| Angry                          | 2023 | Hackney Diamonds (the Rolling Stones) | 4/4   | 113 (measured)         | the kick on the "and" of 2 and of 4, the hat opened every other bar; crash outro | Songsterr 562468, "DRUM 2" (human, 2025), by its markers  |
+
+Every tempo is the record's, by autocorrelation of the onset envelope (and
+every tab's bar count at that tempo matches the record's length, but Soul
+Man's). The hat autocorrelates at half a beat in all six and not at two
+thirds: straight eighths, swing 0. Credits: Briefcase Full of Blues, Jordan on
+drums (Wikipedia, the album, after Sound on Sound and the liner notes);
+Continuum, Jordan on drums on every track but The Heart of Life, with Clayton
+Cameron also on Belief (Wikipedia, the album's personnel); Hackney Diamonds,
+Jordan on every track but Mess It Up, Live by the Sword (Watts) and Rolling
+Stone Blues (Wikipedia, the album).
+
+**Soul Man, how it was built.** The tab (70 bars, no markers) is about twelve
+bars shorter than the record. The record's timed lyrics (lrclib, 183 s) on its
+tempo give eight bars before verse 1 (0:17), then verse, chorus, verse, chorus
+("Play it, Steve!"), "Listen" (1:21), verse 3, chorus, "grab the rope" and a
+breakdown (1:55-2:23), the last choruses (2:23-2:49). The tab has the intro
+(four bars on the ride, four of the groove), the first two verses and choruses,
+the "Listen" break, five bars of verse 3, seven of ride and kick, a build and
+the last choruses: no third chorus and a shorter breakdown. The song plays the
+record's form with the tab's bars, the third chorus and the rest of the
+breakdown reconstructed from its chorus and ride bars. The key is
+`soul-man-live`, as Al Jackson's `soul-man` (Sam and Dave) is taken. The
+intro's and the breakdown's ride-and-kick bars have no snare and set
+`backbeats: []`.
+
+**The others.** Waiting on the World to Change is a two-bar groove; each
+chorus's fifth and sixth bars (the kick run into a crash on the "a" of 4, then
+the crash on the "and" of 3) are a two-bar section of their own so they fall
+where the record has them; where the tab puts crash, ride and snare on one step
+the ride goes. Gravity follows the tab section by section in 12/8 at 62
+quarters (the record's hat at 124 eighths; 40 bars run 3:52). Vultures' 7-, 5-
+and 9-bar sections are played as 8, 4 and 8; the organ solo's run of four
+snare sixteenths puts the fourth on the mid tom. Slow Dancing's outro of 13 is
+12, the fade left out. Angry: the tab has two drum tracks, the older (LS, 2023)
+with the hat on the foot and a tom on 1 and 3, the newer (Alexandre, 2025,
+"added NEW DRUM track") with the hat in eighths; the newer is taken, unchecked
+against footage (the official video has no band). Its last hit (bar 105, no
+backbeat) is left out.
+
+**Left out.** Who Did You Think I Was (Try!, 2005): the human tab (39713) is
+written at a doubled tempo of 185 with a two-bar figure that does not read as a
+backbeat at 95, and the machine tab (3236355) differs from it everywhere; the
+live mix could not settle it. You Don't Move Me (Talk Is Cheap, 1988; record
+132.8): its one human tab (3411156) is a single groove for 120 bars with no
+fills, its last 13 bars empty; Struggle, Make No Mistake, Wicked as It Seems
+(Main Offender) and the rest have machine tabs only. So the X-Pensive Winos
+are not yet played. Belief: two drummers on the track. If I Ain't Got You
+(Alicia Keys, 2003): not looked at.
+
+**Library contradictions.**
+
+- Take It So Hard (Talk Is Cheap): the 15-b track names Jordan on drums;
+  Wikipedia's pages for the album and the song credit Charley Drayton on drums
+  and Jordan on bass. Not scored; the track's `drummer_ids` should change.
+- Gravity's 15-b YouTube link (6lgpcZxi74Q) is "Gravity (Live at the Stephen
+  Talkhouse - August 26, 2026)", an 11-minute live video, not the Continuum
+  track; the studio audio measured here was 53pweVfVwV8.
+- Who Did You Think I Was's link (s7KzzospHVY) is the Nokia Theatre film of
+  December 2007, not Try!'s House of Blues recording of 22 September 2005
+  (kfvXoq3C3XQ).
+
+**The likeness.** The Nokia Theatre, Los Angeles, 8 December 2007, filmed for
+Where the Light Is (s7KzzospHVY): hair cut close, a thin moustache, a dark
+charcoal suit with a white pocket square, white shirt and narrow black tie; a
+dark kit under coated heads.
+
+### Sources (DT)
+
+Read 2026-10-26 and 27.
+
+- https://en.wikipedia.org/wiki/Steve_Jordan_(drummer) ; Briefcase_Full_of_Blues ; Soul_Man_(song) ; Continuum_(John_Mayer_album) ; Try!_(John_Mayer_Trio_album) ; Talk_Is_Cheap ; Take_It_So_Hard ; Hackney_Diamonds ; Angry_(Rolling_Stones_song) ; Gravity_(John_Mayer_song) ; Waiting_on_the_World_to_Change ; Slow_Dancing_in_a_Burning_Room ; Vultures_(song) (API, wikitext)
+- https://www.moderndrummer.com/2005/07/steve-jordan-2/ (Billy Amendola, Modern Drummer, 2005)
+- https://iverson.substack.com/p/tt-418-in-search-of-the-backbeat (Ethan Iverson, 2024)
+- https://www.bonedo.de/artikel/the-rolling-stones-europa-tour-drummer-steve-jordan-stellt-sein-drumset-vor (Bonedo, 2022)
+- https://es.yamaha.com/es/artists/s/steve-jordan.html
+- https://www.songsterr.com/a/wa/song?id=91265 ; 30592 ; 39716 ; 72065 ; 23398 ; 562468 ; and, not used, 39713 , 3236355 (Who Did You Think I Was) ; 3411156 , 1690340 (You Don't Move Me) ; 746214 , 208393 , 734672 , 745859 (machine-made)
+- https://lrclib.net (timed lyrics: Soul Man, 183 s)
+- https://www.youtube.com/watch?v=s7KzzospHVY (the Nokia Theatre, 2007)
+- Records: wdfImB4iOLo (Soul Man), oBIxScJ5rlY (Waiting on the World to Change), 53pweVfVwV8 (Gravity), 9WDkazi__Bw (Vultures), rDuPhf4XoZ4 (Slow Dancing in a Burning Room), _mEC54eTuGw (Angry); kfvXoq3C3XQ (Who Did You Think I Was, Try!), I5tKd0fKO5g (You Don't Move Me), KuGy-6aS59E (Struggle)
+
+## DU. Clem Burke (2026-10-26)
+
+The `clemburke` style plays **songs** the way `newmark` (DQ) does: each New
+picks one of his records, and its tempo, kit, sections and grooves come with
+it, in the record's order. He was a 15-a candidate (New wave drummers,
+priority 1), second in the re-ranked long list of 2026-10-26, and is filed with
+the **New wave drummers** beside Stewart Copeland and Duran Duran's Roger
+Taylor. His record, `drummer-model/drummers/clem-burke.json`, keeps the
+candidate's id, `drummer:clem-burke`, now at `draft` (schema 1.6.0). No
+recording is new: all six songs are tracks 15-b put on Parallel Lines and Eat
+to the Beat, linked by `track-links.json`. His new sources are in
+`sources/clem-burke.json`. No genre is new: `style:new-wave`, `style:punk` and
+`style:rock` (rock), `style:disco` (funk-soul).
+
+**Who he is.** Clement Anthony Bozewski, born in Bayonne, New Jersey, on 24
+November 1954, died 6 April 2025 (Wikipedia). His father, a club drummer,
+taught him; he played in a school marching band and the St Andrew's Bridgemen
+Drum and Bugle Corps ("I learned basic rudiments and the endurance of marching
+... I actually wound up on rudimental bass drum": Beat It, 2025). He joined
+Blondie early in 1975, after auditioning for Patti Smith, and kept the band
+going when Harry and Stein nearly quit, bringing in Gary Valentine on bass
+(Wikipedia; Beat It). He played on every Blondie album with Harry and Stein,
+for Eurythmics (In the Garden, 1981; Revenge, 1986), Bob Dylan, Iggy Pop and
+Pete Townshend, was a Romantic from 1990 to 2004, and in 1987 played two
+nights as the Ramones' Elvis Ramone; in 2021 he filled in for Gina Schock in
+the Go-Go's (Wikipedia). Rock and Roll Hall of Fame with Blondie, 2006; the
+Clem Burke Drumming Project (from 2008) studied the physical demands of
+drumming and earned him honorary doctorates (Gloucestershire 2011, Chichester
+2022).
+
+**His influences.** "Top 40 radio in the US, The Four Seasons, The Young
+Rascals, The Beatles, The Raspberries ... Hal Blaine and Earl Palmer ... Al
+Jackson, Keith Moon and Ringo Starr, I always liked their styles" (MusicRadar,
+2014); "Keith Moon was a big inspiration for me as Ringo was, and they were
+both rock star drummers, they were not the drummer in the back"; "I always
+appreciated drummers like Hal Blaine and Earl Palmer who were consummate
+studio musicians" (quoted by Beat It). So the candidate's four `influenced_by`
+edges (Moon, Ringo, Blaine, Palmer) become `cites_as_influence` with his own
+words, and Al Jackson Jr. is added; Gina Schock gets a `sub_for` edge.
+For Heart of Glass, Saturday Night Fever, ABBA and Kraftwerk (MusicRadar;
+Beat It).
+
+**Left-handed, fills from the left.** "Clem Burke was left-handed but he
+played a right-handed kit with his right hand leading, however, he would start
+fills with his left hand, just like Ringo Starr does" (Beat It, 2025, with his
+own words on never switching to a left-handed kit). The style sets
+`fillsLeft`, as Ringo's does: the critic and the 3D drummer play an
+unsticked fill hand to hand from the left, so a fill's run of snare sixteenths
+is a sticking, not one hand.
+
+**His kit and sound.** "A Moonie-style red sparkle Premier" (MusicRadar,
+2014), seen in the Heart of Glass video with two floor toms; a Premier loaner
+on the early UK tours, then an endorsement (Live From My Drum Room, quoted by
+Beat It). "The snare on all that early Blondie stuff is all the stock 14" x
+6.5" wooden Premier snare that came with the kit"; a 24" kick; Remo
+Ambassadors; "we would always start with the biggest ambient room we could and
+work our way inward" (Mixdown, 2024). Later a Ludwig Black Beauty and a DW
+Collector's kit. Chapman miked Parallel Lines' toms, snare and hat with
+Neumanns (Wikipedia, the album). No free samples of his own exist. The style
+and the Parallel Lines songs play `studioRock` (tight and close); Dreaming and
+Atomic, cut live in the room, play `bigRoom`.
+
+**Time.** "I never played to a click in the studio with all the Blondie stuff
+... If you're off the click by a millisecond it doesn't really matter that
+much" (MusicRadar). Heart of Glass was the exception, the kick laid down to a
+synthesiser's arpeggiator "which was constantly going out of sync. In the end
+we had to record a few bars, comp it and drop back in" (Mixdown). Dreaming,
+cut live, beat-tracks from 161 to 167. The feel is "Live, no click": straight,
+with a little scatter.
+
+**Devices.** None: a dated `devices_search`. Heart of Glass's three bars of 7/4
+are the song changing meter, written as their own section with its own
+backbeats, not a figure across the bar line.
+
+**The songs.** Parallel Lines and Eat to the Beat credit Clem Burke with the
+drums and no one else (Wikipedia, both albums' personnel). Call Me (1980), on
+the candidate's list of Blondie recordings, is Keith Forsey's, as its record
+already says; it is not his and is not scored.
+
+| Song                     | Year | Meter       | Tempo            | What defines it                                                                                      | Source of the bars                                                           |
+| ------------------------ | ---- | ----------- | ---------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Hanging on the Telephone | 1978 | 4/4         | 152 (measured)   | the hat in eighths, the kick pushing the "and"s; the ride in the chorus, the crash in the solo       | Songsterr 60306 (human), by its markers                                      |
+| Picture This             | 1978 | 4/4         | 127 (measured)   | the crash ridden in eighths, the kick on 1, 3 and its "and"                                          | Songsterr 3020 (human), by its markers                                       |
+| Heart of Glass           | 1978 | 4/4 and 7/4 | 115 (measured)   | over a CR-78: four on the floor, the hat opened on the "and" of 2 and 4; three bars of 7/4           | Songsterr 32090 (human), by its markers; the kick from 3447157 (human)       |
+| One Way or Another       | 1978 | 4/4         | 164 (measured)   | both toms in eighths, the hat; the ride and a second crash on 4 under "I will drive past your house" | Songsterr 22628 (human); the record's form from 3043941 (machine) and lyrics |
+| Dreaming                 | 1979 | 4/4         | 164, held to 150 | the floor tom in eighths under the crash, the snare on 2, runs of sixteenths everywhere              | Songsterr 634063 (human), sections read from its bars and the lyrics         |
+| Atomic                   | 1979 | 4/4         | 135 (measured)   | disco: four on the floor, the hat opened on the "and"s; the verse's hat in threes, the snare on 4    | Songsterr 32089 (human, in half time), sections read from its bars           |
+
+Every tempo is the record's, by beat-tracking the 2001 remasters (the album
+version of each): Telephone 152.1, Picture This 129 falling to 126 (126.6
+overall), Heart of Glass 114.8, One Way or Another 163.6, Dreaming 163.8,
+Atomic 135.2.
+
+**Forms.** Telephone, Picture This and Heart of Glass follow their tabs'
+markers, which match the records' lengths. One Way or Another's tab writes
+each part once where the record repeats it (its "Chorus" is the two "I will
+drive past your house" sections run together, the second verse between them
+not written); the record's form comes from its timed lyrics (lrclib) on the
+beat track, checked against a machine tab of the isolated drum track (151
+bars). Dreaming's and Atomic's tabs are unmarked; their sections are read from
+the bar sequences and the lyrics. Atomic's tab is written in half time (84 bars
+at 67), each of its bars two here.
+
+**Heart of Glass's kick.** explosivo's tab, the one followed, writes the kick
+on 1 and 3 alone with the hat foot between; Albina's two tabs (3401436, 3447157) write it on every beat, and Burke "had to lay a sort of a click track
+with the kick" (Mixdown). The record's bass plays eighths through the kick's
+band, so a fold of it cannot decide. The app puts the kick on every beat, and
+says so; it is an open question in the record.
+
+**What the app changes.** A song holds 32 bars, so long sections are rounded
+(Telephone's 11-bar solo as 8; One Way or Another's outro to the fade as 24;
+Atomic's 40 bars of open hat as 24), and silent intros (the telephone ring,
+One Way or Another's guitar, Heart of Glass's CR-78 alone) are left out. Where
+a tab writes the hat under the crash ridden in eighths (Picture This), the hat
+is left out: three hands with the snare. A run of four sixteenths holds a song
+to 150 (RUN_RATE). Telephone (152) and One Way or Another (164) cut their few
+fill runs to threes; Dreaming's runs are its part, so they are kept and the
+song plays at 146-150, a little under the record, as Fire does in Mitchell's
+style. Bars that leave no quarter of the bar for air are left out (Dreaming's
+twelve snare sixteenths, Atomic's two snare rolls), as is the kick under
+Atomic's tom run.
+
+**Left out.** X Offender (1976), his first record: its only tab (86389, 2011)
+writes no cymbals. Union City Blue, Rip Her to Shreds and Sunday Girl have
+tabs (287488 and 370806 human, 370798 machine) and were not scored; Rapture
+and The Tide Is High (Autoamerican) were not looked at.
+
+**Library contradictions.** None in the model. The brief's watch-list names
+Call Me among his songs; the library rightly credits it to Keith Forsey.
+
+**The likeness.** The Heart of Glass video, filmed late in 1978 by Stanley
+Dorfman (the official upload, WGU_4-5RaxU, frames at the kit at 1:38-1:44):
+slim, a dark brown mod mop with a full fringe, clean-shaven, a plain pale grey
+T-shirt, a red sparkle Premier with chrome hardware. Trousers and shoes are
+behind the kit: black, a guess.
+
+### Sources (DU)
+
+Read 2026-10-26.
+
+- https://en.wikipedia.org/wiki/Clem_Burke ; Parallel_Lines ; Eat_to_the_Beat ; Blondie_(album) ; Heart_of_Glass_(song) ; Dreaming_(Blondie_song) ; Atomic_(song) ; One_Way_or_Another ; Hanging_on_the_Telephone ; Picture_This_(Blondie_song) (API)
+- https://www.musicradar.com/news/drums/clem-burke-in-depth-602724 (2014)
+- https://mixdownmag.com.au/features/how-to-do-pop-the-right-way-clem-burke-of-blondie/ (Paul French, 17 April 2024; read through a summarising fetch)
+- https://en.beatit.tv/?p=36431 (Profiles: Clem Burke, 23 April 2025)
+- https://newdirectionsinmusic.substack.com/p/clem-burke-eat-to-the-beat (2025)
+- https://www.songsterr.com/a/wa/song?id=60306 ; 3020 ; 32090 ; 3401436 ; 3447157 ; 22628 ; 634063 ; 32089 (human) ; 3043941 (machine, form only) ; 86389 , 287488 , 370806 , 370798 (not used)
+- https://lrclib.net (timed lyrics: Dreaming, One Way or Another, Heart of Glass, Atomic)
+- Records (2001 remasters, BlondieMusicOfficial): MA3_nHSfKV4 (Hanging on the Telephone), xS8mUjNF0zY (Picture This), M6zdLTfH-As (Heart of Glass), PFioWmokVgc (One Way or Another), j0QhNKorXpY (Dreaming), 2pF0H8-ktoA (Atomic)
+- https://www.youtube.com/watch?v=WGU_4-5RaxU (the Heart of Glass video)
+
+## DV. Max Weinberg (2026-10-26)
+
+The `maxweinberg` style plays **songs** the way `dennisdavis` (CR) does: each
+New picks one of his records, and its tempo, kit, sections and grooves come with
+it, in the record's order. He was a 15-a candidate, first of batch 2's three
+with Steve Jordan and Clem Burke, and starts a new group, Heartland and roots
+rock drummers. His record, `drummer-model/drummers/max-weinberg.json`, keeps the
+candidate's id, `drummer:max-weinberg`, now at `draft` (schema 1.6.0). No
+recording is new: She's the One is a new track on Born to Run, Dancing in the
+Dark and Glory Days new tracks on Born in the U.S.A.; Tenth Avenue Freeze-Out,
+Badlands and Born in the U.S.A. were in the model from 15-b and are linked to
+the new songs. His new sources are in `sources/max-weinberg.json`. No genre is
+new: `style:heartland-rock`, `style:rock-and-roll`, `style:rock` (all rock).
+
+**Who he is.** Born in Newark, New Jersey, on 13 April 1951 and raised in
+South Orange and Maplewood (Wikipedia). D. J. Fontana behind Elvis Presley on
+The Milton Berle Show in April 1956 was "my moment"; he sat in with Herbie
+Zane's bar mitzvah band at seven and stayed until junior high school, idolised
+Buddy Rich, admired Gene Krupa and Ed Shaughnessy, and from 1964 took Ringo
+Starr as "a major influence". Jersey bands (the Epsilons played the 1964
+World's Fair), an Epic album with Blackstone (1970), the pit band of Godspell.
+He answered Springsteen's Village Voice ad ("no junior Ginger Bakers") and
+auditioned in August 1974 with a hi-hat, a snare and a bass drum, replacing
+Ernest "Boom" Carter, who had replaced Vini Lopez that February (Wikipedia,
+Max Weinberg and E Street Band). On Born to Run "Weinberg's drumming evoked two
+of his idols, Ringo Starr and Levon Helm, and he covered his snare drum with
+heavy paper towels to capture some of the Memphis soul sound"; Darkness (1978)
+was a long fight for a drum sound, and he "regretted not playing faster on
+'Badlands'"; a "drumming slump" about 1980 sent him to months of practice and
+to Joe Morello, who taught him to play through the tendinitis that took seven
+operations on his hands and wrists. Born in the U.S.A. (1984): "Max was the best
+thing on the record" (Springsteen). He wrote The Big Beat (1984), drummed for
+Jim Steinman (Meat Loaf's Bat Out of Hell, 1977; Bonnie Tyler's Total Eclipse of
+the Heart), led the Max Weinberg 7 on Late Night with Conan O'Brien (1993-2009)
+and the Tonight Show band (2009-10), and has been back in the E Street Band
+since 1999.
+
+**His kit and sound.** "I've got four drums. Anything more is redundant.
+Besides, I tend to trip over things": a snare, one mounted tom, a bass drum and
+a floor tom, two crashes, a ride and hats; Slingerland, Ludwig and Pearl over
+the years, then DW, Zildjian cymbals, Remo heads (Wikipedia). Born to Run's
+snare under paper towels takes the damped `teatowel` kit; Darkness's dry, close
+sound the `studioRock` kit (the style's default); Born in the U.S.A.'s snare,
+the top mic through a broken reverb plate with a fixed four-second decay into a
+Kepex gate (Toby Scott, Wikipedia, the song), takes `bigRoom`. All sampled; no
+samples of his own are free to use.
+
+**Devices.** None: a dated `devices_search`. The Bo Diddley beat of She's the
+One (3+3+4+2+4 in sixteenths) is a groove inside the bar, not a device carried
+over it.
+
+**The songs.**
+
+| Song                    | Year | Record                       | Meter | Tempo          | What defines it                                                                          | Source of the bars                  |
+| ----------------------- | ---- | ---------------------------- | ----- | -------------- | ---------------------------------------------------------------------------------------- | ----------------------------------- |
+| Tenth Avenue Freeze-Out | 1975 | Born to Run                  | 4/4   | 117 (measured) | the hat on the beat, the kick on the "and"s of 1, 2 and 3; a stop-time verse on the ride | Songsterr 387355 (human), its order |
+| She's the One           | 1975 | Born to Run                  | 4/4   | 92 (measured)  | the Bo Diddley beat on snare and kick together; a bridge with the kick in eighths        | Songsterr 18737 (human, 2009)       |
+| Badlands                | 1978 | Darkness on the Edge of Town | 4/4   | 122 (measured) | quarter notes on everything, the snare doubled on the "and" of 3; toms on 2 and 4        | Songsterr 27473 (human), by markers |
+| Born in the U.S.A.      | 1984 | Born in the U.S.A.           | 4/4   | 124 (measured) | no hats, the gated snare, snare and floor tom together; the breakdown                    | Songsterr 19238 (human), by markers |
+| Dancing in the Dark     | 1984 | Born in the U.S.A.           | 4/4   | 149 (measured) | two bars held for the whole song                                                         | Songsterr 27480 (human), by markers |
+| Glory Days              | 1984 | Born in the U.S.A.           | 4/4   | 117 (measured) | the kick on 1 and its "and", the hat opened every other bar; the third verse stripped    | Songsterr 344 (human), by markers   |
+
+Every tempo is the record's, by onset autocorrelation. Credits: Born to Run's
+personnel (liner notes, Margotin and Guesdon) gives Weinberg tracks 1-4, 6 and
+8, Ernest Carter track 5, the title track; Darkness's and Born in the U.S.A.'s
+give him every track (Wikipedia, the albums); each song's own page names him.
+
+**How they were built.** Each tab was read section by section; a section's
+figures are its distinct bars weighted by how often they come, its fills the
+bars at the ends of lines, and the arrangement follows the tab's markers with
+lengths rounded to whole sections.
+
+- **Tenth Avenue Freeze-Out.** The tab runs at 106 then 112; the record
+  (LOkQsVJV8ts, 3:10) at 115.5 in its first minute, 117 in its second and
+  about 120 at the end, and the tab's 91 bars fill it at about 117. Its snare
+  runs of four and of eight are broken into threes.
+- **She's the One.** The record (blbFaatKszE, 4:30) pushes from about 89 in
+  the piano-and-vocal opening to 92; the kit comes in at about 1:13, where the
+  tab's 27 empty bars end, and the opening is left out. From there the record
+  runs about eight bars longer than the tab; the arrangement adds two sections
+  of the Bo Diddley vamp for them, a reconstruction.
+- **Badlands.** The tab's 120 bars at 122 run to the record's last chord
+  (o5IZuuzUa04). Wikipedia's "one-two-three-four-five-six-(double time)
+  one-two-three" is the verse bar: the snare on every beat, doubled on the "and"
+  of 3. The 32nd-note snare roll into the last chorus is written in threes of
+  sixteenths.
+- **Born in the U.S.A.** The tab writes the gated snare as snare, both rack
+  toms and a slap together; only the snare is kept. Where it has a crash, the
+  snare and the floor tom at once, the floor tom goes. The breakdown's 32nd-note
+  rolls round the kit (bars 121-128) are two bars of sixteenths, a
+  reconstruction. The record (the official video's album audio) beat-tracks at
+  124.1.
+- **Dancing in the Dark.** 152 bars; the tab's 145 against the record's 148.8
+  (8cNS_Mecbw8, 4:01). No fills: at the end of a line he moves the kick.
+- **Glory Days.** The tab's 120 against the record's 116.6 (an LP rip,
+  nvUOgIgLqOQ, 4:14); its 122 bars at 117 run 4:11.
+
+**Left out.** Meat Loaf's Bat Out of Hell (1977; Songsterr 13498, human, 373
+bars) moves from about 130 to 180 and back, more than one song's tempo range
+holds; Paradise by the Dashboard Light (88166) likewise (254, 174, 132, 168).
+Hungry Heart (1980; 27482) writes no cymbals at all. Candy's Room (1978), the
+single-stroke roll he called "a ballsy thing", has only a machine tab
+(3723941). Prove It All Night (27486), Cover Me (27471), Jungleland (409540),
+Thunder Road (27468): human tabs, not yet scored. The River has no recording in
+the model.
+
+**Library contradictions.** Born to Run's recording lists Weinberg as
+`sole_drummer`; the title track is Ernest Carter's (Wikipedia, the album's
+personnel), so he is not. Its Tenth Avenue Freeze-Out track links YouTube
+r1twvwbB_cU, a 19-minute live performance (Live in New York City), not the
+album cut (LOkQsVJV8ts).
+
+**The likeness.** The Born in the U.S.A. tour, 1984, in John Sayles's video for
+the song (EPhWR4d3FJQ, 4:05-4:13): short dark wavy hair, clean-shaven, thin
+wire-framed glasses, a pale grey shirt open at the collar under a dark buttoned
+waistcoat, a kit that reads white under blue light.
+
+### Sources (DV)
+
+Read 2026-10-26.
+
+- https://en.wikipedia.org/wiki/Max_Weinberg ; E_Street_Band ; Born_to_Run_(album) ; Born_to_Run_(song) ; Darkness_on_the_Edge_of_Town ; The_River_(Bruce_Springsteen_album) ; Born_in_the_U.S.A. ; Born_in_the_U.S.A._(song) ; Tenth_Avenue_Freeze-Out ; She's_the_One_(Bruce_Springsteen_song) ; Badlands_(Bruce_Springsteen_song) ; Hungry_Heart ; Dancing_in_the_Dark_(Bruce_Springsteen_song) ; Glory_Days_(song) ; Bat_Out_of_Hell ; Bat_Out_of_Hell_(song) (API)
+- https://www.songsterr.com/a/wa/song?id=387355 ; 18737 ; 27473 ; 19238 ; 27480 ; 344 (human, scored); 436104 , 27486 , 27471 , 409540 , 27468 , 27482 , 13498 , 88166 (human, not scored); 3723941 , 1510693 , 6538830 (machine)
+- https://www.youtube.com/watch?v=EPhWR4d3FJQ (Born in the U.S.A., official video, John Sayles, 1984; frames)
+- Records: LOkQsVJV8ts (Tenth Avenue Freeze-Out), blbFaatKszE (She's the One), o5IZuuzUa04 (Badlands), EPhWR4d3FJQ (Born in the U.S.A.), 8cNS_Mecbw8 (Dancing in the Dark), nvUOgIgLqOQ (Glory Days), x7ES7ueI7p0 (Bat Out of Hell)
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html
