@@ -16,6 +16,123 @@ release process.
 
 ## [Unreleased]
 
+## [0.16.0] — 2026-10-27
+
+> **Alpha release.** Twenty-second tagged Sunrise release. **MINOR bump**. It
+> lets agents use the providers' own tools: web search on Claude and on
+> OpenAI (through a new opt-in Responses API path), and code execution on
+> both. It adds the newer model parameters (stop sequences, top P, verbosity,
+> parallel tool calls, service tier, `xhigh` and `max` reasoning effort),
+> prompt caching on Claude with cache-priced cost rows, the model's reasoning
+> summary in the admin chat and trace, and Claude thinking blocks kept across
+> a tool loop. And it finishes erasure's stale-write protection (§122):
+> versioned saves that require `If-Match`, backups this install sealed,
+> actions on a run under its row lock, and deliveries checked for erasures
+> since their copy was taken. Measured against `v0.15.0`: 36 PRs merged, no
+> direct commits, 16 issues closed (15 fixed, 1 declined); the suite is 1,400
+> files and 30,364 tests.
+>
+> ## What a fork has to do
+>
+> **Three migrations, then `npm run db:seed`.** All three only add nullable
+> columns (one with a constant default), so none rewrites or scans a table:
+> `20261026120000_cost_log_cache_tokens` (`ai_cost_log`),
+> `20261026130000_agent_model_params` and
+> `20261027100000_agent_provider_tools` (`ai_agent`). The seed re-runs the
+> platform-agents unit, whose reconcile now shares one provider catalogue
+> across orgs; its result is unchanged.
+>
+> **API clients must read before they write.** These routes now require the
+> record's version back as `If-Match`, and answer `428
+> PRECONDITION_REQUIRED` without it and `412 STALE_RECORD` once the record
+> moved on, an erasure included, with nothing written:
+>
+> - `PATCH /workflows/:id` with `draftDefinition`, `POST
+>   /workflows/:id/publish` and `POST /workflows/:id/discard-draft`
+>   (`definitionVersion` from `GET /workflows/:id`). `POST /workflows` with
+>   `copiedFrom` is refused with 412 when its source moved on.
+> - `PATCH /settings` with `escalationConfig` (`escalationVersion`), `PATCH
+>   /webhooks/:id` and `PATCH /workflows/:id/schedules/:scheduleId`
+>   (`version`).
+>
+> **Your type-check will flag:** a hand-built `ErasureExternalContext` or
+> `ErasureTxContext` (new required `email` and `emailVerified`), and the
+> removed `refuseErasedSubjects` (see Removed).
+>
+> **Your tests will flag:**
+>
+> - **`stale-writers.test.ts`, new in this release**, fails for any fork file
+>   that writes a column erasure scrubs in place (`SCRUBBED_COLUMNS`, on
+>   `AiWorkflowExecution`, `AiWorkflowRunningStep`, `AiWorkflowStepDispatch`,
+>   `AiWorkflowExecutionLeaseEvent`, `AiWebhookDelivery`,
+>   `AiEventHookDelivery`, `AiWorkflow`, `AiWorkflowVersion`,
+>   `AiOrchestrationSettings`, `AiWebhookSubscription` and
+>   `AiWorkflowSchedule`), until it declares how it knows its copy is stale
+>   with `registerStaleWriter()`.
+> - **The owner-classification test** now counts a `String` column named
+>   `…UserId` as a user link, so an unclassified one fails until it is
+>   classified in `lib/app/owner-classification.ts`.
+> - **A test asserting Anthropic's joined `system` string**: it is now sent as
+>   one text block per system message.
+>
+> **Changes a build will not catch:**
+>
+> - **Claude's `inputTokens` now counts cached input**, as OpenAI's already
+>   did. A fork that prices `inputTokens` itself should pass the usage to
+>   `calculateCost`, or it prices cache hits at the full rate.
+> - **Backups are now sealed.** A backup this install sealed keeps contacts
+>   re-added after an erasure when restored into the same org. Every bundle
+>   exported before 0.16.0 is unsealed, so restoring one strips anyone ever
+>   erased, as before. Rotating `BETTER_AUTH_SECRET` unseals the bundles
+>   sealed before it.
+> - **The app export collector is also passed `emailVerified`.** A
+>   collector that spreads its argument into a Prisma query passes the extra
+>   field, which Prisma refuses on a model without that column.
+> - **Erasure checks count only erasures since a copy was taken.** A
+>   `send_notification` step emails an address re-entered after an older
+>   erasure again; deliveries naming someone hold a database connection while
+>   they wait for an erasure's locks (up to 30 s).
+> - **Provider tools are off until an agent turns them on**, and then they
+>   cost: $0.01 a web search, and code execution's container time, estimated
+>   as the measured run time with a 5-minute minimum per container. Files the
+>   code makes are not delivered; Anthropic's copies are deleted. Turning on
+>   Anthropic web search needs an organisation admin to enable it in the
+>   Console.
+> - **Replayed provider blocks.** The new `LlmReasoningBlock` rides on
+>   `LlmResponse.reasoning` and the `done` chunk: Claude's thinking, and both
+>   providers' web search and code runs. A fork with its own tool loop must
+>   copy `reasoning` onto the assistant message it appends, or Claude rejects
+>   a thinking turn and the searches and code runs are lost. A fork that
+>   checks `agent_call` turns against its own schema must accept the blocks,
+>   or a resumed step starts again.
+> - **An agent's fallbacks never include its own primary**, and a platform
+>   agent's `defaultBinding` is now called with a shared `catalogue` (a
+>   one-argument one still works).
+> - **The Anthropic SDK (0.137) traces itself with OpenTelemetry** when a
+>   global `TracerProvider` is registered, sending `traceparent` and
+>   metadata-only spans. Sunrise registers none; a fork that does can opt out
+>   with `ANTHROPIC_OPEN_TELEMETRY=false`.
+>
+> **Dependencies.** Late October's bumps, including two majors:
+> `@hookform/resolvers` 6, whose only break is the effect-ts resolver (Sunrise
+> uses `/zod`), and happy-dom 21, test-only, which makes CSS and iframe loading
+> opt-in, so a fork's component tests that rely on either must switch it on.
+> Also `@anthropic-ai/sdk` 0.137, better-auth 1.7.13, dompurify 3.4.17 and
+> fast-uri 3.1.9 (see Security). Held back in `.github/dependabot.yml`: undici
+> 8, `@anthropic-ai/sdk` 1.x, OpenTelemetry 3.x, and `@opentelemetry/api`
+> 1.10, which every OpenTelemetry 2.x package caps its peer below.
+>
+> **Dependency alerts accepted for this release:**
+>
+> - `zod` < 4.6.6 (high, memory exhaustion on oversized input), under
+>   `@vercel/blob` → `@vercel/oidc` → `@vercel/cli-config`, which pins zod
+>   4.1.11 exactly; no release of it takes a patched zod yet. That copy only
+>   validates the Vercel CLI's own config files on disk, not untrusted input.
+>   Sunrise's own zod is 4.6.7.
+> - `postcss-selector-parser` (moderate), under `@tailwindcss/typography`, as
+>   in 0.15.0: the fix is in a major the plugin doesn't accept yet, and it
+>   parses only the app's own CSS, at build time.
+
 ### Added
 
 - **The providers' own code execution on agents (t-956).** `ProviderTools`
@@ -284,8 +401,8 @@ release process.
   only in those rows is found too. The engine's writes of the report and the
   turns, and `recordDispatch`, now leave out anyone erased since the run
   started.
-  `SCRUBBED_COLUMNS` (`lib/privacy/stale-writers.ts`) gains the four, so **a
-  fork file that writes `AiWorkflowRunningStep`, `AiWorkflowStepDispatch`,
+  `SCRUBBED_COLUMNS` (`lib/privacy/stale-writers.ts`, new in this release:
+  see Added) lists the four too, so **a fork file that writes `AiWorkflowRunningStep`, `AiWorkflowStepDispatch`,
   `AiWorkflowExecutionLeaseEvent` or `supervisorReport` fails
   `stale-writers.test.ts` until it declares itself** with
   `registerStaleWriter()`. See `.context/privacy/data-erasure.md`.
@@ -331,10 +448,11 @@ release process.
   `lib/orchestration/config-versions.ts` gains the workflow's version and
   lock. Backup seals now cover workflow definitions' addresses too, so a
   sealed import strips only people erased since its `exportedAt` from them,
-  and bundles sealed before this no longer verify (every erasure counts, as
-  for an unsealed bundle). The stale-writer manifest's `pending` anchor,
-  `PendingStaleWriter` and `StaleWriterTask` are removed: §122 has converted
-  every writer. See `.context/privacy/data-erasure.md` ("The workflow
+  and a bundle sealed by an earlier build of this release no longer
+  verifies (every erasure counts, as for an unsealed bundle); no released
+  bundle was ever sealed. The stale-writer manifest's `pending` anchor,
+  `PendingStaleWriter` and `StaleWriterTask`, added earlier in this release,
+  are gone again: §122 has converted every writer. See `.context/privacy/data-erasure.md` ("The workflow
   builder").
 
 - **Saves of the escalation list, a webhook subscription and a schedule are
@@ -439,6 +557,14 @@ release process.
   fallback (t-798), or when an inherited primary was a listed one. A list that
   named only the primary is now an empty explicit list, not the system fill.
 
+### Removed
+
+- **`refuseErasedSubjects`** (`lib/privacy/erased-subjects.ts`, added in
+  0.15.0). A save that must not write an erased person back now uses a
+  versioned save (`lib/api/record-version.ts`); a fork's own check uses
+  `findErasedSubjects`, which takes a `since` option. See the §122 entries
+  under Changed.
+
 ### Fixed
 
 - **A wrongly typed subject-source declaration is dropped, not thrown
@@ -519,6 +645,20 @@ release process.
   session or a `401` from the lookup. An auth outage or a rejected lookup keeps
   the normal card and its retry, and is logged. A later error that finds a
   valid session clears the card. See `.context/ui/components.md`.
+
+### Security
+
+- **dompurify 3.4.17 clears three alerts** (#1083, in t-952):
+  GHSA-cg2g-xh64-v4q7 (critical, a `SAFE_FOR_TEMPLATES` bypass in shadow-root
+  content), GHSA-mrv2-3pqr-j5jr (high, `IN_PLACE` hooks leaving event
+  handlers armed) and GHSA-c6gr-qvv4-5v3f (low, under
+  `PARSER_MEDIA_TYPE: application/xhtml+xml`). Sunrise's own call, the Learn
+  page's Mermaid diagrams, uses the SVG profile and none of those options;
+  Mermaid shares the same copy.
+- **fast-uri 3.1.9 clears four alerts** (#1107): GHSA-wjr9-j795-jxcr and
+  GHSA-w74x-v6f9-j3xg (medium, host confusion and scheme spoofing) and
+  GHSA-333x-w4r6-6crp and GHSA-xhq7-xmqj-769h (low). It comes in through
+  `ajv`, lockfile only.
 
 ## [0.15.0] — 2026-10-21
 
@@ -10006,7 +10146,8 @@ Sunrise safe to fork and to merge upstream releases into.
 
 ---
 
-[Unreleased]: https://github.com/human-centric-engineering/sunrise/compare/v0.15.0...HEAD
+[Unreleased]: https://github.com/human-centric-engineering/sunrise/compare/v0.16.0...HEAD
+[0.16.0]: https://github.com/human-centric-engineering/sunrise/compare/v0.15.0...v0.16.0
 [0.15.0]: https://github.com/human-centric-engineering/sunrise/compare/v0.14.0...v0.15.0
 [0.14.0]: https://github.com/human-centric-engineering/sunrise/compare/v0.13.0...v0.14.0
 [0.13.0]: https://github.com/human-centric-engineering/sunrise/compare/v0.12.1...v0.13.0
