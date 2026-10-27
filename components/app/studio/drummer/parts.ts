@@ -7,6 +7,7 @@ import {
   type Hardware,
   PERSONAS,
   type Persona,
+  type ShellWrap,
 } from '@/lib/app/breaks/drummer/personas';
 
 /**
@@ -138,6 +139,13 @@ function paintHead(ctx: CanvasRenderingContext2D, size: number, head: FrontHead)
   ctx.beginPath();
   for (const d of art.paths) tracePath(ctx, d);
   ctx.fill('evenodd');
+  // a maker's name over the band's, in a second ink
+  if (art.accentPaths) {
+    ctx.fillStyle = head.accent ?? head.ink;
+    ctx.beginPath();
+    for (const d of art.accentPaths) tracePath(ctx, d);
+    ctx.fill('evenodd');
+  }
   ctx.restore();
 }
 
@@ -1407,14 +1415,46 @@ function embroideryTexture(ground: string): THREE.Texture | null {
 }
 
 /**
- * An oyster pearl wrap, drawn once onto a canvas: dark ground under bands of
- * pale shimmer swirling round the shell, the way the pearl's layers lie in a
- * wrap. Skipped where there is no canvas (the tests run in Node).
+ * How bright a streaked oyster wrap is at `u` round the shell (radians) and
+ * `v` down it (0–1): thin silvery streaks laid round the shell one over
+ * another, wavering a little up and down, each breaking off and starting
+ * again — whole numbers of waves round, so the seam is not seen.
  */
-function oysterTexture(): THREE.Texture | null {
+function streaked(u: number, v: number): number {
+  const t = v * Math.PI * 2;
+  const waver = 0.012 * Math.sin(2 * u + t) + 0.006 * Math.sin(5 * u - 3 * t + 1.3);
+  const y = (v + waver) * Math.PI * 2;
+  const lines = (0.5 + 0.5 * Math.sin(21 * y + 1.6 * Math.sin(9 * y))) ** 3;
+  const fine = (0.5 + 0.5 * Math.sin(47 * y + 2.1 * Math.sin(4 * u + 13 * y))) ** 5;
+  // where along its length each streak shows, by its height
+  const broken = 0.5 + 0.5 * Math.sin(3 * u + 23 * y + 2 * Math.sin(2 * u + 31 * y));
+  return Math.min(1, (0.9 * lines + 0.6 * fine) * (0.35 + 0.65 * broken));
+}
+
+/**
+ * How bright a swirled oyster wrap is at `u` round the shell and `v` down it
+ * (both radians): a few waves bent across each other, whole numbers of them
+ * round, so the seam is not seen.
+ */
+function swirled(u: number, v: number): number {
+  const swirl =
+    Math.sin(3 * u + 2.2 * Math.sin(2 * v + Math.sin(5 * u))) +
+    0.6 * Math.sin(7 * u - 3 * v + 1.7 * Math.cos(4 * u)) +
+    0.3 * Math.sin(13 * u + 9 * v);
+  return (0.5 + 0.5 * Math.sin(swirl * 2.6)) ** 3;
+}
+
+/**
+ * An oyster pearl wrap, drawn once onto a canvas:dark ground under bands of
+ * pale shimmer swirling round the shell, the way the pearl's layers lie in a
+ * wrap; or, `streaks`, laid in long silvery streaks round it (Ludwig's Black
+ * Oyster Pearl). Skipped where there is no canvas (the tests run in Node).
+ */
+function oysterTexture(streaks = false): THREE.Texture | null {
   if (typeof document === 'undefined') return null;
   const w = 512;
-  const h = 256;
+  // fine streaks need the rows
+  const h = streaks ? 512 : 256;
   const canvas = document.createElement('canvas');
   canvas.width = w;
   canvas.height = h;
@@ -1424,13 +1464,7 @@ function oysterTexture(): THREE.Texture | null {
   for (let y = 0; y < h; y++)
     for (let x = 0; x < w; x++) {
       const u = (x / w) * Math.PI * 2;
-      const v = (y / h) * Math.PI * 2;
-      // a few waves bent across each other, whole numbers of them round, so the seam is not seen
-      const swirl =
-        Math.sin(3 * u + 2.2 * Math.sin(2 * v + Math.sin(5 * u))) +
-        0.6 * Math.sin(7 * u - 3 * v + 1.7 * Math.cos(4 * u)) +
-        0.3 * Math.sin(13 * u + 9 * v);
-      const band = (0.5 + 0.5 * Math.sin(swirl * 2.6)) ** 3;
+      const band = streaks ? streaked(u, y / h) : swirled(u, (y / h) * Math.PI * 2);
       const shade = Math.round(70 + 185 * band);
       img.data.set([shade, shade, Math.min(255, shade + 8), 255], (y * w + x) * 4);
     }
@@ -1439,6 +1473,90 @@ function oysterTexture(): THREE.Texture | null {
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.wrapS = THREE.RepeatWrapping;
   tex.wrapT = THREE.RepeatWrapping;
+  return tex;
+}
+
+/**
+ * A printed wrap round the shells, drawn once onto a canvas that goes once
+ * round each: `over` round the top, `under` round the bottom, a white line
+ * between, and six figures in `art` standing across the two, each a skull's
+ * head over a ribbed chest, shaded and outlined dark (Eddie, as on Nicko McBrain's
+ * Sonor). Skipped where there is no canvas (the tests run in Node).
+ */
+function wrapTexture({ over, under, art }: ShellWrap): THREE.Texture | null {
+  if (typeof document === 'undefined') return null;
+  const w = 1024;
+  const h = 256;
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  // the canvas's top is the shell's top, the batter side
+  const seam = h * 0.56;
+  ctx.fillStyle = over;
+  ctx.fillRect(0, 0, w, seam);
+  ctx.fillStyle = under;
+  ctx.fillRect(0, seam, w, h - seam);
+  ctx.fillStyle = '#f2f0ea';
+  ctx.fillRect(0, seam - 2, w, 4);
+  // a fine line in the art's colour round the top and the bottom
+  ctx.fillStyle = art;
+  ctx.fillRect(0, 10, w, 3);
+  ctx.fillRect(0, h - 13, w, 3);
+  ctx.lineJoin = 'round';
+  ctx.strokeStyle = '#141414';
+  ctx.lineWidth = 3;
+  const figures = 6;
+  for (let i = 0; i < figures; i++) {
+    const x = ((i + 0.5) / figures) * w;
+    const top = seam - 62;
+    // lit from above: the art's colour fading to a dark bronze down the figure
+    const shade = ctx.createLinearGradient(0, top - 30, 0, h - 20);
+    shade.addColorStop(0, art);
+    shade.addColorStop(1, '#6a4a1c');
+    ctx.fillStyle = shade;
+    // the shoulders and chest, down into the bottom colour
+    ctx.beginPath();
+    ctx.moveTo(x - 48, h - 22);
+    ctx.quadraticCurveTo(x - 50, top + 30, x - 16, top + 22);
+    ctx.lineTo(x + 16, top + 22);
+    ctx.quadraticCurveTo(x + 50, top + 30, x + 48, h - 22);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    // the skull, over them
+    ctx.beginPath();
+    ctx.ellipse(x, top, 22, 29, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    // its sockets, nose and grin, and the ribs of the chest
+    ctx.fillStyle = '#141414';
+    for (const side of [-1, 1]) {
+      ctx.beginPath();
+      ctx.ellipse(x + side * 9, top - 5, 6, 7, side * 0.3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.beginPath();
+    ctx.moveTo(x, top + 3);
+    ctx.lineTo(x - 3, top + 9);
+    ctx.lineTo(x + 3, top + 9);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillRect(x - 10, top + 15, 20, 2);
+    for (let k = -8; k <= 8; k += 4) ctx.fillRect(x + k - 0.5, top + 12, 1, 7);
+    ctx.lineWidth = 2;
+    for (let r = 0; r < 4; r++) {
+      ctx.beginPath();
+      ctx.moveTo(x - 26, top + 44 + r * 13);
+      ctx.quadraticCurveTo(x, top + 36 + r * 13, x + 26, top + 44 + r * 13);
+      ctx.stroke();
+    }
+    ctx.lineWidth = 3;
+  }
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.wrapS = THREE.RepeatWrapping;
   return tex;
 }
 
@@ -1475,12 +1593,30 @@ export function styleKit(m: Materials, who: Persona, seeThrough = false): void {
   m.shell.bumpMap = flakes;
   m.shell.roughnessMap = flakes;
   m.shell.bumpScale = finish === 'sparkle' ? 0.7 : 0.4;
-  // an oyster wrap is its pattern: the ground's colour lifted, so the pale bands come through
+  // an oyster wrap is its pattern: the ground's colour lifted, so the pale bands come through;
+  // a printed wrap colours the shell itself (given up, as a print is, for a clear one)
+  const wrap = seeThrough ? undefined : kit.wrap;
+  const kind = wrap
+    ? `wrap-${wrap.over}-${wrap.under}-${wrap.art}`
+    : finish === 'oyster'
+      ? kit.streaks
+        ? 'oyster-streaks'
+        : 'oyster'
+      : null;
   const oldMap = m.shell.map;
-  const pearl = finish === 'oyster' ? (oldMap ?? oysterTexture()) : null;
-  if (oldMap && oldMap !== pearl) oldMap.dispose();
-  m.shell.map = pearl;
-  if (pearl) m.shell.color.set(kit.shell).lerp(new THREE.Color('#9a9aa8'), 0.55);
+  const map =
+    kind === null
+      ? null
+      : oldMap?.userData.kind === kind
+        ? oldMap
+        : wrap
+          ? wrapTexture(wrap)
+          : oysterTexture(!!kit.streaks);
+  if (map) map.userData.kind = kind;
+  if (oldMap && oldMap !== map) oldMap.dispose();
+  m.shell.map = map;
+  if (map && wrap) m.shell.color.set('#ffffff');
+  else if (map) m.shell.color.set(kit.shell).lerp(new THREE.Color('#9a9aa8'), 0.55);
   // and polka dots, if the kit has them
   if (kit.dots && !seeThrough) {
     // the print colours it, ground and dots both

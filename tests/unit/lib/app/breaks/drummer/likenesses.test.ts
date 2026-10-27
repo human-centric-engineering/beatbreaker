@@ -143,6 +143,18 @@ describe('LIKENESSES', () => {
     expect(LIKENESSES.carey).toMatchObject({ top: 'jersey', legs: 'shorts' });
     expect(LIKENESSES.hakim).toMatchObject({ top: 'jacket', neckwear: 'tee' });
     expect(LIKENESSES.hakim.scarf).toMatch(/^#[0-9a-f]{6}$/i);
+    expect(LIKENESSES.copeland.kit).toMatchObject({
+      finish: 'sparkle',
+      octobans: true,
+      head: { art: 'the-police' },
+    });
+    expect(LIKENESSES.stevejordan).toMatchObject({
+      hairStyle: 'fade',
+      top: 'jacket',
+      neckwear: 'polo',
+      glasses: { shape: 'wrap', dark: true },
+      chain: { cross: true },
+    });
     expect(LIKENESSES.cobham).toMatchObject({ top: 'scoop' });
     expect(LIKENESSES.cobham.kit.finish).toBe('acrylic');
     expect(LIKENESSES.changuito.chevron).toHaveLength(4);
@@ -158,12 +170,17 @@ describe('LIKENESSES', () => {
       collar: 'spear',
       neckwear: 'open',
     });
-    // McBrain now: parted in the middle, black sunglasses, the band's shirt, a black kit in copper
+    // McBrain now: parted in the middle, black sunglasses, the band's shirt, a kit wrapped in
+    // the tour's art under a rose window
     expect(LIKENESSES.mcbrain).toMatchObject({ hairStyle: 'curtains', top: 'tee' });
     expect(LIKENESSES.mcbrain.logo).toMatchObject({ text: 'IRON MAIDEN' });
     expect(LIKENESSES.mcbrain.logo?.disc).toMatch(/^#[0-9a-f]{6}$/i);
     expect(LIKENESSES.mcbrain.glasses).toMatchObject({ shape: 'square', dark: true });
-    expect(LIKENESSES.mcbrain.kit).toMatchObject({ finish: 'gloss', hardware: 'copper' });
+    expect(LIKENESSES.mcbrain.kit).toMatchObject({
+      hardware: 'chrome',
+      wrap: { over: '#c8302a' },
+      head: { art: 'rose-window' },
+    });
   });
 
   it('writes every colour as a CSS hex', () => {
@@ -204,8 +221,13 @@ describe('LIKENESSES', () => {
         who.kit.dots,
         who.kit.head?.ground,
         who.kit.head?.ink,
+        who.kit.head?.accent,
+        who.kit.wrap?.over,
+        who.kit.wrap?.under,
+        who.kit.wrap?.art,
         who.regalia?.braid,
         who.regalia?.cords,
+        typeof who.chain === 'object' ? who.chain.metal : undefined,
       ];
       for (const c of colours.filter((c) => c !== undefined)) expect(c).toMatch(/^#[0-9a-f]{6}$/i);
     }
@@ -243,6 +265,8 @@ describe('LOOKS', () => {
     expect(pepper?.regalia).toMatchObject({ medals: true });
     expect(pepper?.kit).toMatchObject({ finish: 'sparkle', head: { art: 'sgt-pepper' } });
     // a look the drummer has not got, or none, is the likeness
+    // on Ed Sullivan, the band's drop-T logo on the front head
+    expect(LIKENESSES.ringo.kit.head).toMatchObject({ art: 'the-beatles' });
     expect(likenessFor('ringo', 'nothing')).toBe(LIKENESSES.ringo);
     expect(likenessFor('ringo')).toBe(LIKENESSES.ringo);
     expect(likenessFor('bonham', 'pepper')).toBe(LIKENESSES.bonham);

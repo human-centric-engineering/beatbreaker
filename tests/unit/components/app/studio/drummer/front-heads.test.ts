@@ -58,7 +58,8 @@ const TRACED = Object.entries(FRONT_HEAD_ART).filter(
 describe('FRONT_HEAD_ART', () => {
   it.each(TRACED)('%s: closed outlines, every point inside its box', (_, art) => {
     expect(art.paths.length).toBeGreaterThan(0);
-    for (const d of art.paths) {
+    // and any outlines in a second ink, by the same rules
+    for (const d of [...art.paths, ...(art.accentPaths ?? [])]) {
       expect(d).toMatch(/^M/);
       expect(d).toMatch(/Z$/);
       const { ctx, calls } = recorder();
@@ -70,6 +71,21 @@ describe('FRONT_HEAD_ART', () => {
           expect(n[i + 1]).toBeGreaterThanOrEqual(0);
           expect(n[i + 1]).toBeLessThanOrEqual(art.height);
         }
+    }
+  });
+
+  it("keeps the Beatles' lettering on the head, its box the head's nine-tenths", () => {
+    const art = FRONT_HEAD_ART['the-beatles'] as FrontHeadPaths;
+    expect(art.width).toBe(art.height);
+    // the head's radius in the box's units: the box is nine-tenths of the head across
+    const radius = art.width / 0.9 / 2;
+    const c = art.width / 2;
+    for (const d of art.paths) {
+      const { ctx, calls } = recorder();
+      tracePath(ctx, d);
+      for (const [, ...n] of calls)
+        for (let i = 0; i + 1 < n.length; i += 2)
+          expect(Math.hypot(n[i] - c, n[i + 1] - c)).toBeLessThan(radius * 0.9);
     }
   });
 

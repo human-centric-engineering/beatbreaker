@@ -644,14 +644,19 @@ function jacketed(
   tie: THREE.Material
 ): THREE.Object3D[] {
   const { button } = cut;
-  // worn open over a T-shirt: unbuttoned, its fronts parted down to the hem
-  const unbuttoned = neckwear === 'tee';
-  /** How far round either way of the middle of the front the V is open at height `y`, radians. */
+  // worn open over a T-shirt or a polo neck: unbuttoned, its fronts parted down to the hem
+  const unbuttoned = neckwear === 'tee' || neckwear === 'polo';
+  /**
+   * How far round either way of the middle of the front the V is open at height `y`, radians:
+   * over a polo neck, the fronts hang `parted` apart even at the button, and the cut's own V
+   * opens on top of that toward the shoulders.
+   */
+  const rise = (y: number) => Math.max(0, Math.min(1, (y - button) / (neck - button))) ** 0.9;
+  const parted = 0.24;
   const open = (y: number) =>
-    Math.max(
-      unbuttoned ? 0.09 : 0,
-      cut.open * Math.max(0, Math.min(1, (y - button) / (neck - button))) ** 0.9
-    );
+    neckwear === 'polo'
+      ? parted + cut.open * rise(y)
+      : Math.max(unbuttoned ? 0.09 : 0, cut.open * rise(y));
   const front = (a: number) => apart(a, -Math.PI / 2);
   // a loosened tie: the shirt's top button undone, its neck open down to the knot
   const vFrom = neckwear === 'loose' ? neck - 0.075 : neck;
@@ -684,8 +689,9 @@ function jacketed(
     shirt,
     rim(rings, HEM - 0.007, jacketOut(HEM - 0.01), 0.004, mat),
   ];
-  // a shirt's collar stand, or a T-shirt's ribbed crew neck; an open neck has neither
-  if (unbuttoned) out.push(rim(rings, neck - 0.003, 0.0065, 0.0055, under));
+  // a shirt's collar stand, a T-shirt's ribbed crew neck, or a polo neck; an open neck has none
+  if (neckwear === 'polo') out.push(...poloNeck(rings, neck, under));
+  else if (unbuttoned) out.push(rim(rings, neck - 0.003, 0.0065, 0.0055, under));
   else if (vFrom >= neck) out.push(band(rings, neck - 0.016, neck, 0.0075, under));
   /** How wide a lapel is at height `y`, radians: growing from the button, and cut in at the notch. */
   const lapelWide = (y: number) => {
@@ -754,6 +760,96 @@ function jacketed(
     out.push(...longTie(rings, neck - 0.016, button - 0.02, (y) => hanging(y) + 0.0028, tie));
   }
   return out;
+}
+
+/**
+ * Chains round the neck, in `metal`: one lying close round its base, just
+ * below a collar, and a longer one hanging in a U down the front of the chest
+ * over whatever is worn there, a cross at its foot if `cross`.
+ */
+export function chains(
+  rings: Ring[],
+  neck: number,
+  metal: THREE.Material,
+  cross: boolean
+): THREE.Object3D[] {
+  const front = -Math.PI / 2;
+  const out: THREE.Object3D[] = [];
+  const thick = 0.0022;
+  /**
+   * On the cloth at height `y`, under an open jacket's fronts: the shirt hangs
+   * at `hanging(y)`, the jacket a little out from it (see `jacketed`).
+   */
+  const lie = (y: number) => hanging(y) + thick + 0.0005;
+  /** Where the long chain's foot is, the middle of the front. */
+  let foot = neck;
+  // how high each lies round the back of the neck, a chain's width apart, how far round
+  // either way of the front it leaves the neck, radians, and how far it drops
+  for (const [high, reach, drop] of [
+    [neck - 0.012, 0.6, 0.05],
+    [neck - 0.018, 0.42, 0.15],
+  ]) {
+    const at = (a: number) => {
+      const y = high - drop * Math.max(0, 1 - (apart(a, front) / reach) ** 2);
+      return onRing(ringAt(rings, y), a, lie(y)).at;
+    };
+    const points = Array.from({ length: 96 }, (_, k) => at(front + (Math.PI * 2 * k) / 96));
+    const curve = new THREE.CatmullRomCurve3(points, true);
+    out.push(meshOf(new THREE.TubeGeometry(curve, 192, thick, 6, true), metal, 'chain'));
+    foot = Math.min(foot, high - drop);
+  }
+  if (cross) {
+    const tall = 0.05;
+    // hung from the foot of the long chain, its top through the links, lying flat on the chest
+    const y = foot - tall / 2 + thick;
+    const { at, normal } = onRing(ringAt(rings, y), front, lie(y));
+    const pendant = new THREE.Group();
+    pendant.name = 'cross';
+    const upright = meshOf(new THREE.BoxGeometry(0.009, tall, 0.004), metal, 'cross');
+    const arm = meshOf(new THREE.BoxGeometry(0.03, 0.009, 0.004), metal, 'cross');
+    arm.position.y = 0.01;
+    pendant.add(upright, arm);
+    pendant.position.copy(at);
+    pendant.lookAt(at.clone().add(normal));
+    out.push(pendant);
+  }
+  return out;
+}
+
+/**
+ * A polo neck's collar: knitted in one with the top, standing up round the
+ * throat all the way round, leaning in to it, and folded over at its top, the
+ * fold a soft roll.
+ */
+function poloNeck(rings: Ring[], neck: number, mat: THREE.Material): THREE.Object3D[] {
+  const cols = 64;
+  const tall = 0.05;
+  const pos: number[] = [];
+  const index: number[] = [];
+  const foot = ringAt(rings, neck - 0.01);
+  const fold: THREE.Vector3[] = [];
+  for (let i = 0; i < cols; i++) {
+    const { at, normal } = onRing(foot, (Math.PI * 2 * i) / cols, 0.008);
+    for (let j = 0; j <= 2; j++) {
+      const t = j / 2;
+      pos.push(at.x - normal.x * 0.012 * t, at.y + tall * t, at.z - normal.z * 0.012 * t);
+    }
+    fold.push(
+      new THREE.Vector3(at.x - normal.x * 0.01, at.y + tall - 0.002, at.z - normal.z * 0.01)
+    );
+  }
+  for (let i = 0; i < cols; i++)
+    for (let j = 0; j < 2; j++) {
+      const a = i * 3 + j;
+      const b = ((i + 1) % cols) * 3 + j;
+      index.push(a, b, a + 1, a + 1, b, b + 1);
+    }
+  const collar = new THREE.BufferGeometry();
+  collar.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  collar.setIndex(index);
+  collar.computeVertexNormals();
+  const roll = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(fold, true), 128, 0.004, 8, true);
+  return [meshOf(collar, bothSides(mat), 'polo neck'), meshOf(roll, mat, 'polo neck fold')];
 }
 
 /**

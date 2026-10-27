@@ -663,6 +663,17 @@ describe('buildKit().dress', () => {
     expect(rank.visible).toBe(false);
   });
 
+  it("lacquers the octobans in a deeper shade of the kit's own colour", () => {
+    const { root, dress } = buildKit(makeMaterials());
+    dress({ ...PERSONAS[0].kit, shell: '#1d3a6c', octobans: true });
+    let shell: THREE.MeshPhysicalMaterial | undefined;
+    rankOf(root).traverse((o) => {
+      if (!shell && o instanceof THREE.Mesh && o.material instanceof THREE.MeshPhysicalMaterial)
+        shell = o.material;
+    });
+    expect(shell!.color.getHex()).toBe(new THREE.Color('#1d3a6c').multiplyScalar(0.6).getHex());
+  });
+
   it('builds a rank of four, narrow and each longer than the last, over and behind the toms', () => {
     const { root } = buildKit(makeMaterials());
     const rank = rankOf(root);

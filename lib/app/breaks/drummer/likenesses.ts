@@ -15,8 +15,10 @@ import type { Persona } from '@/lib/app/breaks/drummer/personas';
  * Stewart Copeland on the Synchronicity tour, 1983 (the Atlanta and Montreal
  * film, "Message in a Bottle"): tall and lean, a white ribbed tank top, a
  * tousled sun-streaked shag over the ears with a fringe, clean-shaven, no
- * headphones. His blue Tama Imperialstar, near black under the lights, with
- * its rank of octobans over the toms.
+ * headphones. His Tama in dark blue sparkle with chrome, its rank of octobans
+ * over the toms, and THE POLICE in grey on its black front head under Tama's
+ * name in gold, as a photograph of the kit the owner supplied shows it
+ * (2026-10-27).
  */
 const COPELAND: Persona = {
   id: 'copeland',
@@ -34,11 +36,12 @@ const COPELAND: Persona = {
   accent: '#d8b880',
   headphones: false,
   kit: {
-    shell: '#14244a',
-    finish: 'gloss',
+    shell: '#1d3a6c',
+    finish: 'sparkle',
     hardware: 'chrome',
     rug: '#1c1c22',
     octobans: true,
+    head: { art: 'the-police', ground: '#121212', ink: '#b8b8b8', accent: '#c9a24a' },
   },
 };
 
@@ -167,7 +170,10 @@ const BONHAM: Persona = {
  * Ringo Starr on The Ed Sullivan Show, 9 February 1964: slight, a thick dark
  * brown mop-top with its fringe at the eyebrows, clean-shaven, a near-black
  * slim suit buttoned high over a white shirt and a skinny black tie, Cuban-
- * heeled boots. His Ludwig Downbeat in black oyster pearl.
+ * heeled boots. His Ludwig Downbeat in black oyster pearl, its silvery
+ * streaks laid round the shells (from a photograph of the kit the owner
+ * supplied, 2026-10-27), the band's drop-T logo on its front head under the
+ * maker's name.
  */
 const RINGO: Persona = {
   id: 'ringo',
@@ -187,7 +193,14 @@ const RINGO: Persona = {
   footwear: 'boots',
   accent: '#1f1f24',
   headphones: false,
-  kit: { shell: '#5a5c62', finish: 'oyster', hardware: 'chrome', rug: '#1c1c22' },
+  kit: {
+    shell: '#a4a6ac',
+    finish: 'oyster',
+    streaks: true,
+    hardware: 'chrome',
+    rug: '#1c1c22',
+    head: { art: 'the-beatles', ground: '#f4f2ec', ink: '#141414' },
+  },
 };
 
 /**
@@ -2463,9 +2476,11 @@ const KRUPA: Persona = {
  * neck; a black T-shirt of the band's, IRON MAIDEN in red across the chest
  * over a red disc with Senjutsu's samurai Eddie in a lunge (drawn as a
  * warrior's silhouette); blue jeans; flip-flops (he plays barefoot on one
- * pedal, so the feet are a guess at the kit: dark trainers). His Sonor is black,
- * printed with the tour's artwork (not drawn), its hardware copper, Paiste
- * cymbals.
+ * pedal, so the feet are a guess at the kit: dark trainers). His Sonor as a
+ * second photograph the user gave shows it (2026-10-27): the shells wrapped in
+ * the tour's artwork, red over blue with Eddies in gold across them (drawn as
+ * figures, not the art), the kick's front head a stained-glass rose window,
+ * chrome hardware, Paiste cymbals.
  */
 const MCBRAIN: Persona = {
   id: 'mcbrain',
@@ -2486,7 +2501,14 @@ const MCBRAIN: Persona = {
   glasses: { shape: 'square', frame: '#101010', tint: '#141414', thick: true, dark: true },
   chain: true,
   headphones: false,
-  kit: { shell: '#121214', finish: 'gloss', hardware: 'copper', rug: '#22232a' },
+  kit: {
+    shell: '#c8302a',
+    finish: 'gloss',
+    hardware: 'chrome',
+    rug: '#22232a',
+    wrap: { over: '#c8302a', under: '#2a4fa8', art: '#e3b23c' },
+    head: { art: 'rose-window', ground: '#1b2340', ink: '#141414' },
+  },
 };
 
 /**
@@ -3783,13 +3805,12 @@ const CLEM_BURKE: Persona = {
 };
 
 /**
- * Steve Jordan with the John Mayer Trio at the Nokia Theatre, Los Angeles, on 8 December 2007, at
- * fifty, filmed for Where the Light Is (John Mayer's channel, "Who Did You Think I Was (Live at the
- * Nokia Theatre)", s7KzzospHVY; frames at 0:44-0:47 and 0:52): his black hair cut close, a thin
- * moustache; a dark charcoal suit, its jacket buttoned, a white pocket square, a white shirt and a
- * narrow black tie, as Mayer and Pino Palladino wear too. No headphones. The shells are dark under
- * white coated heads, drawn as black; the hardware chrome. Trousers and shoes are behind the kit:
- * the suit's trousers and black shoes, a guess. The pocket square is not drawn.
+ * Steve Jordan at the kit in a recent concert photograph the owner supplied
+ * (Getty Images; Paras Griffin): his head shaved close, a thin moustache,
+ * black sunglasses with heavy square frames; a navy jacket worn open over a
+ * mustard polo neck, two silver chains over it, the longer with a cross. No
+ * headphones. A Gretsch, dark shells and chrome. Trousers and shoes are
+ * behind the kit: dark, a guess.
  */
 const STEVE_JORDAN: Persona = {
   id: 'stevejordan',
@@ -3798,17 +3819,18 @@ const STEVE_JORDAN: Persona = {
   build: 'average',
   skin: '#5a3826',
   hair: '#141110',
-  hairStyle: 'crop',
+  hairStyle: 'fade',
   hairTexture: 'coily',
   beard: 'pencil',
+  glasses: { shape: 'wrap', frame: '#101010', thick: true, dark: true },
   top: 'jacket',
-  shirt: '#2c2c30',
-  under: '#f2f0ea',
-  neckwear: 'long',
-  tie: '#141414',
-  trousers: '#2c2c30',
+  shirt: '#1d2333',
+  under: '#c98d34',
+  neckwear: 'polo',
+  chain: { metal: '#c4c4c8', cross: true },
+  trousers: '#1a1c24',
   shoes: '#111111',
-  accent: '#2c2c30',
+  accent: '#1d2333',
   headphones: false,
   kit: { shell: '#151515', finish: 'gloss', hardware: 'chrome', rug: '#3a2a24' },
 };

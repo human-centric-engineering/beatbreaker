@@ -142,6 +142,30 @@ describe('a suit jacket', () => {
     expect(low(root)).toBeLessThan(low(dressed(JACKET).root) - 0.15);
   });
 
+  it('hangs wide open over a polo neck, its collar standing up the throat all the way round', () => {
+    const polo = dressed({ ...JACKET, under: '#c98d34', neckwear: 'polo' });
+    const tee = dressed({ ...JACKET, under: '#c98d34', neckwear: 'tee' });
+    expect(named(polo.root, 'collar point')).toHaveLength(0);
+    expect(named(polo.root, 'tie')).toHaveLength(0);
+    const [collar] = named(polo.root, 'polo neck');
+    expect(collar).toBeDefined();
+    expect(named(tee.root, 'polo neck')).toHaveLength(0);
+    // above the top of the shirt, and round the back of the neck as well as the front
+    const neck = Math.max(...points(named(polo.root, 'shirt')[0]).map((p) => p.y));
+    const ring = points(collar);
+    expect(Math.max(...ring.map((p) => p.y))).toBeGreaterThan(neck + 0.03);
+    expect(Math.min(...ring.map((p) => p.z))).toBeLessThan(-0.02);
+    expect(Math.max(...ring.map((p) => p.z))).toBeGreaterThan(0.06);
+    // across the chest the jacket's fronts are further apart than over a T-shirt
+    const gap = (root: THREE.Object3D) =>
+      Math.min(
+        ...points(named(root, 'jacket')[0])
+          .filter((p) => Math.abs(p.y - 0.45) < 0.02 && p.z < 0)
+          .map((p) => Math.abs(p.x))
+      );
+    expect(gap(polo.root)).toBeGreaterThan(gap(tee.root) + 0.02);
+  });
+
   it('leaves a dinner jacket as it was: satin lapels and a bow tie, no notch, no collar points', () => {
     const { root } = dressed({ top: 'tuxedo', shirt: '#141414', under: '#f2f0ea' });
     expect(named(root, 'lapel')).toHaveLength(2);
@@ -153,6 +177,67 @@ describe('a suit jacket', () => {
   it('gives its long sleeves to the arms', () => {
     const { root } = dressed(JACKET);
     for (const arm of named(root, 'arm')) expect(arm.geometry.groups).toHaveLength(2);
+  });
+});
+
+describe('chains', () => {
+  it('hangs a short chain and a long one in their metal, a cross at the foot of the long one', () => {
+    const { root } = dressed({ chain: { metal: '#c4c4c8', cross: true } });
+    const links = named(root, 'chain');
+    expect(links).toHaveLength(2);
+    for (const c of links)
+      expect((c.material as THREE.MeshStandardMaterial).color.getHexString()).toBe('c4c4c8');
+    const low = (c: THREE.Mesh) => Math.min(...points(c).map((p) => p.y));
+    const [short, long] = [...links].sort((a, b) => low(b) - low(a));
+    expect(low(long)).toBeLessThan(low(short) - 0.08);
+    // the cross hangs below the long chain's foot, at the middle of the front
+    const cross = named(root, 'cross');
+    expect(cross).toHaveLength(2);
+    const at = cross[0].parent!.position;
+    expect(at.x).toBeCloseTo(0, 3);
+    expect(at.y).toBeLessThan(low(long));
+    expect(at.z).toBeLessThan(0);
+    // and its top reaches up into the chain's links, not hanging loose below them
+    const top = Math.max(...cross.flatMap(points).map((p) => p.clone().add(at).y));
+    expect(top).toBeGreaterThan(low(long));
+  });
+
+  it('runs the two chains apart round the back of the neck, not one through the other', () => {
+    const { root } = dressed({ chain: { metal: '#c4c4c8' } });
+    const [a, b] = named(root, 'chain').map((c) => points(c).filter((p) => p.z > 0));
+    const nearest = Math.min(...a.map((p) => Math.min(...b.map((q) => p.distanceTo(q)))));
+    // their surfaces clear of each other; on one curve, as they were, they would meet
+    expect(nearest).toBeGreaterThan(0.001);
+  });
+
+  it('lays the chains under an open jacket round the back, not over its cloth', () => {
+    const { root } = dressed({
+      top: 'jacket',
+      shirt: '#1d2333',
+      under: '#c98d34',
+      neckwear: 'polo',
+      chain: { metal: '#c4c4c8' },
+    });
+    // the jacket's cloth straight down the middle of the back, low to high
+    const spine = points(named(root, 'jacket')[0])
+      .filter((p) => Math.abs(p.x) < 1e-6 && p.z > 0)
+      .sort((a, b) => a.y - b.y);
+    /** How far back the jacket's cloth is at height `y`, between the rows either side. */
+    const cloth = (y: number) => {
+      const k = spine.findIndex((p) => p.y >= y);
+      const [lo, hi] = [spine[k - 1], spine[k]];
+      return lo.z + ((hi.z - lo.z) * (y - lo.y)) / (hi.y - lo.y);
+    };
+    for (const chain of named(root, 'chain')) {
+      const back = points(chain).reduce((a, b) => (b.z > a.z ? b : a));
+      // the chain's middle (its back-most point less its thickness) under the cloth
+      expect(back.z - 0.0022).toBeLessThan(cloth(back.y) - 0.001);
+    }
+  });
+
+  it('leaves the cross off unless asked, and the plain gold chain as it was', () => {
+    expect(named(dressed({ chain: { metal: '#c4c4c8' } }).root, 'cross')).toHaveLength(0);
+    expect(named(dressed({ chain: true }).root, 'chain')).toHaveLength(0);
   });
 });
 
@@ -770,6 +855,34 @@ describe('long hair, grown and hanging', () => {
   });
 });
 
+describe('a fade', () => {
+  it('keeps the hair to the top of the head, the sides and back shaved up to it', () => {
+    const low = (root: THREE.Object3D) =>
+      Math.min(
+        ...named(root, 'hair cap')
+          .flatMap(points)
+          .map((p) => p.y)
+      );
+    const fade = dressed({ hairStyle: 'fade' }).root;
+    const crop = dressed({ hairStyle: 'crop' }).root;
+    expect(named(fade, 'hair cap')).toHaveLength(1);
+    expect(low(fade)).toBeGreaterThan(low(crop) + 0.02);
+  });
+
+  it('shaves the back as high as the front, leaving no longer patch at the nape', () => {
+    const hair = named(dressed({ hairStyle: 'fade' }).root, 'hair cap').flatMap(points);
+    const mid = (k: 'x' | 'z') =>
+      (Math.max(...hair.map((p) => p[k])) + Math.min(...hair.map((p) => p[k]))) / 2;
+    const [cx, cz] = [mid('x'), mid('z')];
+    const lowest = (keep: (p: THREE.Vector3) => boolean) =>
+      Math.min(...hair.filter(keep).map((p) => p.y));
+    // the back (+z, away from the face) and the front, each in a quarter round the head
+    const back = lowest((p) => p.z - cz > Math.abs(p.x - cx));
+    const front = lowest((p) => cz - p.z > Math.abs(p.x - cx));
+    expect(back).toBeGreaterThan(front - 0.003);
+  });
+});
+
 describe('glasses', () => {
   it('sets two lenses in rims in front of the eyes, with a bridge and arms back to the ears', () => {
     const { root } = dressed({ glasses: { shape: 'aviator', frame: '#c9a24a', tint: '#b07a3a' } });
@@ -805,7 +918,7 @@ describe('glasses', () => {
   });
 
   it("bridges the lenses across the nose, from each one's inner edge", () => {
-    for (const shape of ['aviator', 'round', 'square'] as const) {
+    for (const shape of ['aviator', 'round', 'square', 'wrap'] as const) {
       const { root } = dressed({ glasses: { shape, frame: '#222222' } });
       const [bridge] = named(root, 'frame').filter((o) => Math.abs(o.position.x) < 1e-9);
       bridge.geometry.computeBoundingBox();
@@ -828,14 +941,55 @@ describe('glasses', () => {
     expect(named(dressed({}).root, 'lens')).toHaveLength(0);
   });
 
-  it.each(['aviator', 'round', 'square'] as const)('cuts a %s lens to its own outline', (shape) => {
-    const { root } = dressed({ glasses: { shape, frame: '#222222' } });
-    const pts = points(named(root, 'lens')[0]);
-    const wide = Math.max(...pts.map((p) => p.x)) - Math.min(...pts.map((p) => p.x));
-    const tall = Math.max(...pts.map((p) => p.y)) - Math.min(...pts.map((p) => p.y));
-    if (shape === 'round') expect(wide / tall).toBeCloseTo(1, 1);
-    else expect(wide).toBeGreaterThan(tall);
+  it('curves a wraparound lens back round toward the temple, where a flat one stays flat', () => {
+    // how far back the lens runs, in its own frame, from its middle to its outer end
+    const depth = (shape: 'wrap' | 'square') => {
+      const lens = named(
+        dressed({ glasses: { shape, frame: '#111111', dark: true } }).root,
+        'lens'
+      )[0];
+      const zs = Array.from({ length: lens.geometry.getAttribute('position').count }, (_, i) =>
+        lens.geometry.getAttribute('position').getZ(i)
+      );
+      return Math.max(...zs) - Math.min(...zs);
+    };
+    expect(depth('square')).toBeCloseTo(0, 6);
+    expect(depth('wrap')).toBeGreaterThan(0.01);
   });
+
+  it('lights a wraparound lens as it curves, its outer end facing round toward the temple', () => {
+    const lens = named(
+      dressed({ glasses: { shape: 'wrap', frame: '#111111', dark: true } }).root,
+      'lens'
+    )[0];
+    const n = lens.geometry.getAttribute('normal');
+    const sideways = Array.from({ length: n.count }, (_, i) => Math.abs(n.getX(i)));
+    expect(Math.max(...sideways)).toBeGreaterThan(0.2);
+  });
+
+  it("joins a wraparound's arms to the outer ends of its rims, with no gap between", () => {
+    const { root } = dressed({ glasses: { shape: 'wrap', frame: '#111111', dark: true } });
+    const rims = named(root, 'lens rim').flatMap(points);
+    // the arms: every frame piece but the bridge, which sits on the middle
+    const arms = named(root, 'frame').filter((o) => Math.abs(o.position.x) > 1e-9);
+    expect(arms).toHaveLength(2);
+    for (const arm of arms) {
+      const nearest = Math.min(...points(arm).flatMap((p) => rims.map((q) => p.distanceTo(q))));
+      expect(nearest).toBeLessThan(0.002);
+    }
+  });
+
+  it.each(['aviator', 'round', 'square', 'wrap'] as const)(
+    'cuts a %s lens to its own outline',
+    (shape) => {
+      const { root } = dressed({ glasses: { shape, frame: '#222222' } });
+      const pts = points(named(root, 'lens')[0]);
+      const wide = Math.max(...pts.map((p) => p.x)) - Math.min(...pts.map((p) => p.x));
+      const tall = Math.max(...pts.map((p) => p.y)) - Math.min(...pts.map((p) => p.y));
+      if (shape === 'round') expect(wide / tall).toBeCloseTo(1, 1);
+      else expect(wide).toBeGreaterThan(tall);
+    }
+  );
 });
 
 describe('hair and beards cut as the drummers wore them', () => {

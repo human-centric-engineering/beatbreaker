@@ -16,6 +16,8 @@ export type Build = 'slim' | 'average' | 'heavy' | 'muscular';
 export type HairStyle =
   | 'bald'
   | 'crop'
+  /** Short and close on top, the sides and back shaved up to it. */
+  | 'fade'
   | 'mohawk'
   | 'spikes'
   | 'afro'
@@ -127,9 +129,10 @@ export type Top =
  * What is worn at a jacket's or a button-up's collar: a long tie, a bow tie,
  * a long tie loosened with its knot pulled down and the shirt open at the
  * neck, or the shirt open at the neck; or (a jacket's) the jacket worn open
- * over a T-shirt, which a button-up takes as buttoned to the neck.
+ * over a T-shirt, or open over a polo neck, its knitted collar folded over
+ * up the throat. A button-up takes either as buttoned to the neck.
  */
-export type Neckwear = 'long' | 'bow' | 'loose' | 'open' | 'tee';
+export type Neckwear = 'long' | 'bow' | 'loose' | 'open' | 'tee' | 'polo';
 
 /** A button-up's collar: points, or the long spear points of the early 1970s. */
 export type Collar = 'point' | 'spear';
@@ -162,7 +165,7 @@ export type Kind = 'human' | 'robot' | 'beast' | 'skeleton';
  */
 export type Finish = 'gloss' | 'sparkle' | 'satin' | 'metal' | 'oyster' | 'acrylic';
 
-/** The hoops, lugs and stands: chrome, blacked out, gold, or copper (Nicko McBrain's now). */
+/** The hoops, lugs and stands: chrome, blacked out, gold, or copper (no likeness's yet). */
 export type Hardware = 'chrome' | 'black' | 'gold' | 'copper';
 
 /** The kit a player brings: its shells and hardware, and the mat it stands on. */
@@ -180,27 +183,57 @@ export interface KitStyle {
   fineDots?: boolean;
   /** A rank of octobans, tall narrow tubes, over the toms (Stewart Copeland's). */
   octobans?: boolean;
+  /**
+   * An oyster wrap laid in long silvery streaks round the shells, as Ludwig's
+   * Black Oyster Pearl is, rather than swirled.
+   */
+  streaks?: boolean;
   /** The kick's front head as the player's own was painted, in place of BeatBreaker's name round it. */
   head?: FrontHead;
+  /**
+   * The shells wrapped in printed artwork: `over` round the top of each,
+   * `under` round the bottom, a white line between, and figures drawn in
+   * `art` across the two (Nicko McBrain's Sonor, its tour artwork).
+   */
+  wrap?: ShellWrap;
+}
+
+/** A printed wrap round the shells: see `KitStyle.wrap`. */
+export interface ShellWrap {
+  over: string;
+  under: string;
+  art: string;
 }
 
 /** The art a front head can carry, drawn from the real head (see `front-heads.ts`). */
-export type FrontHeadArt = 'sly-and-the-family-stone' | 'sgt-pepper';
+export type FrontHeadArt =
+  'sly-and-the-family-stone' | 'sgt-pepper' | 'the-beatles' | 'rose-window' | 'the-police';
 
 /**
  * A front head painted with a band's art: the head in `ground`, the art on it
- * in `ink`. Art painted in its own colours (Sgt. Pepper's drum) takes `ink`
- * for its outlines.
+ * in `ink`, and any of it in a second ink in `accent` (Tama's name in gold
+ * over the Police's). Art painted in its own colours (Sgt. Pepper's drum)
+ * takes `ink` for its outlines.
  */
 export interface FrontHead {
   art: FrontHeadArt;
   ground: string;
   ink: string;
+  accent?: string;
+}
+
+/**
+ * Chains round the neck in `metal`: one lying close round the base of the
+ * neck and a longer one hanging down the chest, a cross on it if `cross`.
+ */
+export interface Chains {
+  metal: string;
+  cross?: boolean;
 }
 
 /** Glasses: the shape of their lenses, their frames' colour and a tint in the lenses, if any. */
 export interface Glasses {
-  shape: 'aviator' | 'round' | 'square';
+  shape: 'aviator' | 'round' | 'square' | 'wrap';
   frame: string;
   /** The lenses' tint; clear unless given. */
   tint?: string;
@@ -280,7 +313,8 @@ export interface Persona {
   earrings?: boolean;
   /** Big beaded hoop earrings hanging to below the jaw, in this metal's colour (in place of `earrings`). */
   hoops?: string;
-  chain?: boolean;
+  /** A gold chain lying round the base of the neck; or, given its `Chains`, chains in that metal. */
+  chain?: boolean | Chains;
   lipstick?: boolean;
   /** Sticks the tongue out over the lower lip now and then, grinning (Lars Ulrich). */
   tongue?: boolean;
