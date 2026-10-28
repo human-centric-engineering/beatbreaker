@@ -600,8 +600,8 @@ release process.
   no-op; changed parameters add a version rather than overwriting one.
 
 
-- **BeatBreaker's break domain** — the first of the app's own code, under the
-  fork-owned `lib/app/breaks/` seam. Pure functions, no DOM, no audio: a seeded
+- **BeatBreaker's break domain** — the first of the app's own code, in the
+  fork-owned `lib/app/breaks/` module. Pure functions, no DOM, no audio: a seeded
   xorshift RNG (`makeRng`), the twelve-meter table and its pulse-group helpers
   (`meter.ts`), the lane roster and GM drum map (`lanes.ts`), bar/pattern
   construction with layer pins (`pattern.ts`), the feel and hi-hat dynamics
@@ -772,6 +772,15 @@ release process.
 
 ### Changed
 
+- **The app's own modules are declared, not listed as seams (Sunrise
+  0.16.0).** `lib/app/breaks/`, `lib/app/lineage/` and `lib/app/practice/`
+  are declared in `lib/app/own-modules.ts` (`appOwnModules`), so their rows
+  leave `VERSIONING.md` and `CUSTOMIZATION.md` §4. They export what they did
+  before; they are the app's own code, not a Sunrise seam. The user columns
+  in `app.prisma` that carry no `@relation` are now marked
+  `/// owner-classification: user-id` in place of `/// FK to User.id`, the
+  mark core's owner-classification audit reads; a new user column needs it.
+
 - **Dropdowns are the app's own, the kit groups are whole, and a style pick
   makes a break.** Every `<select>` in the app is now `SelectMenu`
   (`components/app/ui/select-menu.tsx`), a themed select-only combobox that
@@ -932,6 +941,13 @@ release process.
   still opens.
 
 ### Fixed
+
+- **Share links stay out of logs and analytics.** `lib/app/credential-paths.ts`
+  declares `/p/[slug]`, `/s/[slug]`, `/api/v1/public/patterns/[slug]` and
+  `/api/v1/public/practice-sessions/[slug]`. Their 10-character slugs are the
+  access to a link-only pattern or practice session, and were too short for
+  the shape rules, so they reached the access log, error reports, Sentry and
+  page-view analytics in full. They now read `[param]` there.
 
 - **Erasure cleanup hooks registered at boot now run (BeatBreaker Phase 8-i).**
   `lib/privacy/erasure-hooks.ts` keeps its registry on `globalThis`. Under Next
