@@ -26,7 +26,7 @@
 /// migration and asserted by a drift probe in `lib/app/db-drift.ts`.
 model Break {
   id     String @id @default(cuid())
-  /// FK to User.id — no @relation (that needs a field ON User). Cascades.
+  /// owner-classification: user-id. FK to User.id — no @relation (that needs a field ON User). Cascades.
   userId String
 
   title String @db.VarChar(120)
@@ -134,7 +134,7 @@ model Break {
 model BreakReport {
   id         String  @id @default(cuid())
   breakId    String
-  /// FK to User.id — no @relation. Nulled on erasure.
+  /// owner-classification: user-id. FK to User.id — no @relation. Nulled on erasure.
   reporterId String?
 
   /// "spam" | "not-theirs" | "offensive" | "bad-link" | "other".
@@ -143,7 +143,7 @@ model BreakReport {
   /// "open" | "dismissed" | "actioned".
   status String  @default("open") @db.VarChar(16)
 
-  /// FK to User.id — no @relation. The admin who resolved it; nulled on erasure.
+  /// owner-classification: user-id. FK to User.id — no @relation. The admin who resolved it; nulled on erasure.
   resolvedById String?
   resolvedAt   DateTime?
   createdAt    DateTime  @default(now())
@@ -170,7 +170,7 @@ model BreakReport {
 /// Personal data: `userId` cascades (hand-written FK, probed by
 /// `lib/app/db-drift.ts`).
 model DrummerProfile {
-  /// FK to User.id — no @relation. Cascades. One profile per person.
+  /// owner-classification: user-id. FK to User.id — no @relation. Cascades. One profile per person.
   userId            String    @id
   username          String    @unique @db.VarChar(24)
   bio               String?   @db.VarChar(280)
@@ -200,7 +200,7 @@ model DrummerProfile {
 /// Personal data: `userId` cascades (hand-written FK, probed by
 /// `lib/app/db-drift.ts`).
 model DrummerAbout {
-  /// FK to User.id — no @relation. Cascades. One row per person.
+  /// owner-classification: user-id. FK to User.id — no @relation. Cascades. One row per person.
   userId       String    @id
   /// Any of "learning" | "teaching" | "designing". Empty = not said.
   purposes     String[]  @default([])
@@ -231,16 +231,16 @@ model DrummerAbout {
 /// hand-written and probed by `lib/app/db-drift.ts`.
 model DrummerReport {
   id           String    @id @default(cuid())
-  /// FK to User.id — no @relation. The reported profile's owner. Cascades.
+  /// owner-classification: user-id. FK to User.id — no @relation. The reported profile's owner. Cascades.
   subjectId    String
-  /// FK to User.id — no @relation. Nulled on erasure.
+  /// owner-classification: user-id. FK to User.id — no @relation. Nulled on erasure.
   reporterId   String?
   /// "spam" | "offensive" | "bad-link" | "other".
   reason       String    @db.VarChar(24)
   note         String?   @db.VarChar(500)
   /// "open" | "dismissed" | "actioned".
   status       String    @default("open") @db.VarChar(16)
-  /// FK to User.id — no @relation. The admin who resolved it; nulled on erasure.
+  /// owner-classification: user-id. FK to User.id — no @relation. The admin who resolved it; nulled on erasure.
   resolvedById String?
   resolvedAt   DateTime?
   createdAt    DateTime  @default(now())
@@ -268,7 +268,7 @@ model ReservedUsername {
 /// erasing the user takes theirs.
 model Take {
   id      String @id @default(cuid())
-  /// FK to User.id — no @relation. Cascades.
+  /// owner-classification: user-id. FK to User.id — no @relation. Cascades.
   userId  String
   breakId String
 
@@ -304,7 +304,7 @@ model Take {
 /// a pin on a pattern that was deleted is a pin on nothing.
 model Pin {
   id     String @id @default(cuid())
-  /// FK to User.id — no @relation. Cascades.
+  /// owner-classification: user-id. FK to User.id — no @relation. Cascades.
   userId String
 
   /// "practising" | "later".
@@ -344,7 +344,7 @@ model Pin {
 /// and so do both targets.
 model PracticeVisit {
   id     String @id @default(cuid())
-  /// FK to User.id — no @relation. Cascades.
+  /// owner-classification: user-id. FK to User.id — no @relation. Cascades.
   userId String
 
   breakId        String?
@@ -384,7 +384,7 @@ model PracticeVisit {
 /// leaves every table on the next read — the tables are read from live rows.
 model SpeedRecord {
   id     String @id @default(cuid())
-  /// FK to User.id — no @relation. Cascades.
+  /// owner-classification: user-id. FK to User.id — no @relation. Cascades.
   userId String
 
   breakId        String?
@@ -428,14 +428,14 @@ model SpeedRecord {
 model SpeedReport {
   id           String    @id @default(cuid())
   recordId     String
-  /// FK to User.id — no @relation. Nulled on erasure.
+  /// owner-classification: user-id. FK to User.id — no @relation. Nulled on erasure.
   reporterId   String?
   /// "wrong-speed" | "bad-link" | "other".
   reason       String    @db.VarChar(24)
   note         String?   @db.VarChar(500)
   /// "open" | "dismissed" | "actioned".
   status       String    @default("open") @db.VarChar(16)
-  /// FK to User.id — no @relation. The admin who resolved it; nulled on erasure.
+  /// owner-classification: user-id. FK to User.id — no @relation. The admin who resolved it; nulled on erasure.
   resolvedById String?
   resolvedAt   DateTime?
   createdAt    DateTime  @default(now())
@@ -461,7 +461,7 @@ model SpeedReport {
 /// (D32), nulled when that goes: a copy is its saver's.
 model PracticeSession {
   id     String @id @default(cuid())
-  /// FK to User.id — no @relation. Cascades.
+  /// owner-classification: user-id. FK to User.id — no @relation. Cascades.
   userId String
 
   name         String  @db.VarChar(80)
@@ -553,7 +553,7 @@ model PracticeSessionItem {
 /// `lib/app/db-drift.ts`).
 model PracticeRun {
   id          String   @id @default(cuid())
-  /// FK to User.id — no @relation. Cascades.
+  /// owner-classification: user-id. FK to User.id — no @relation. Cascades.
   userId      String
   sessionId   String?
   sessionName String   @db.VarChar(80)
@@ -583,7 +583,7 @@ model PracticeRun {
 /// Personal data: `userId` cascades (hand-written FK, probed by
 /// `lib/app/db-drift.ts`).
 model StudioSettings {
-  /// FK to User.id — no @relation. Cascades. The key: one row per person.
+  /// owner-classification: user-id. FK to User.id — no @relation. Cascades. The key: one row per person.
   userId    String   @id
   prefs     Json     @default("{}")
   updatedAt DateTime @updatedAt
@@ -605,7 +605,7 @@ model StudioSettings {
 /// Personal data: `userId` cascades (hand-written FK, probed by
 /// `lib/app/db-drift.ts`).
 model BuddyWorkspace {
-  /// FK to User.id — no @relation. Cascades. The key: one row per person.
+  /// owner-classification: user-id. FK to User.id — no @relation. Cascades. The key: one row per person.
   userId    String   @id
   doc       Json
   rev       Int      @default(0)
@@ -630,7 +630,7 @@ model BuddyWorkspace {
 /// hook, registered in `initApp()`, because no FK reaches storage.
 model Sample {
   id         String   @id @default(cuid())
-  /// FK to User.id — no @relation. Cascades.
+  /// owner-classification: user-id. FK to User.id — no @relation. Cascades.
   userId     String
   /// The file name you picked, for the list. Not a path.
   name       String   @db.VarChar(120)
@@ -683,7 +683,7 @@ model Style {
 
   /// Stable key — `funk`, `boombap`. What a pattern document records.
   key     String  @db.VarChar(40)
-  /// FK to User.id — no @relation. Null means a system row. Cascades.
+  /// owner-classification: user-id. FK to User.id — no @relation. Null means a system row. Cascades.
   ownerId String?
 
   label String @db.VarChar(80)
@@ -728,7 +728,7 @@ model StyleVersion {
   /// What changed, for the admin list. Empty on a seeded version 1.
   note   String @default("") @db.VarChar(200)
 
-  /// FK to User.id — no @relation. Nulled on erasure: the version outlives its
+  /// owner-classification: user-id. FK to User.id — no @relation. Nulled on erasure: the version outlives its
   /// author, because patterns other people made point at it.
   createdById String?
   createdAt   DateTime @default(now())
@@ -748,7 +748,7 @@ model PatternLibrary {
   id String @id @default(cuid())
 
   key     String  @db.VarChar(40)
-  /// FK to User.id — no @relation. Null means a system row. Cascades.
+  /// owner-classification: user-id. FK to User.id — no @relation. Null means a system row. Cascades.
   ownerId String?
 
   title       String @db.VarChar(120)
@@ -871,7 +871,7 @@ model Kit {
   id String @id @default(cuid())
 
   key     String  @db.VarChar(40)
-  /// FK to User.id — no @relation. Null means a system row. Cascades.
+  /// owner-classification: user-id. FK to User.id — no @relation. Null means a system row. Cascades.
   ownerId String?
 
   /// "synth" | "drift" | "pack" | "user" — which playback path it takes.

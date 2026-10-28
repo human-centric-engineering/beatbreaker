@@ -1,18 +1,13 @@
 /**
  * Core's owner-classification guard sees BeatBreaker's user columns (§115).
  *
- * The guard (`tests/unit/lib/db/owner-classification.test.ts`) spots a user
- * link by a `User` relation or by core's own column names (`userId`,
- * `ownerId`, `createdBy`, …). Ours are mostly hand-written FKs with no
- * `@relation`, some under names it does not know — `subjectId`, `reporterId`,
- * `createdById` — so `DrummerReport` and `StyleVersion` went unclassified past
- * it, and classifying them was refused as a stale row. What every one carries
- * is the schema's `/// FK to User.id` doc comment, which the shared audit
- * (`tests/helpers/owner-classification-audit.ts`) now reads; this pins that it
- * does.
+ * Ours are mostly hand-written FKs with no `@relation`, some under names core's
+ * guard cannot infer — `subjectId`, `reporterId`, `createdById` — so each is
+ * marked `/// owner-classification: user-id` in `app.prisma`, which the shared
+ * audit (`tests/helpers/owner-classification-audit.ts`) reads. This pins that
+ * the marks are there and that an unclassified marked model is named.
  *
- * If you add a user column without that comment, nothing can see it: write the
- * comment.
+ * If you add a user column without that mark, nothing can see it: write it.
  */
 import { beforeEach, describe, expect, it } from 'vitest';
 import {
@@ -20,28 +15,25 @@ import {
   appOwnerClassifications,
   __resetAppOwnerClassificationForTests,
 } from '@/lib/db/owner-classification';
-import {
-  auditOwnerClassification,
-  fullSchema,
-  parseSchema,
-} from '@/tests/helpers/owner-classification-audit';
+import { auditOwnerClassification, fullSchema } from '@/tests/helpers/owner-classification-audit';
 
 describe('app owner classification against core’s guard', () => {
   const schema = fullSchema();
+  const marked = (model: string) =>
+    [...(schema.get(model)?.scalars ?? new Map())]
+      .filter(([, scalar]) => scalar.userMarked)
+      .map(([name]) => name)
+      .sort();
 
   beforeEach(() => {
     // the reads below run the REAL seam through the registry's lazy init
     __resetAppOwnerClassificationForTests();
   });
 
-  it('reads the user columns only the doc comment marks', () => {
-    expect([...(schema.get('DrummerReport')?.userMarked ?? [])].sort()).toEqual([
-      'reporterId',
-      'resolvedById',
-      'subjectId',
-    ]);
+  it('reads the user columns only the mark names', () => {
+    expect(marked('DrummerReport')).toEqual(['reporterId', 'resolvedById', 'subjectId']);
     // the comment runs on over two lines before its column
-    expect([...(schema.get('StyleVersion')?.userMarked ?? [])]).toEqual(['createdById']);
+    expect(marked('StyleVersion')).toEqual(['createdById']);
   });
 
   it('names a marked model that goes unclassified', () => {
@@ -52,40 +44,5 @@ describe('app owner classification against core’s guard', () => {
       'DrummerReport links to a user or to a personal model and is not classified',
       'StyleVersion links to a user or to a personal model and is not classified',
     ]);
-  });
-
-  it('marks a column only when the comment is on it', () => {
-    const fixture = parseSchema([
-      `
-model Thing {
-  id      String  @id
-  /// FK to User.id — no @relation. Nulled on erasure: the thing outlives
-  /// whoever made it.
-  makerId String?
-  /// Not a user.
-  label   String
-  otherId String
-}
-`,
-    ]);
-    expect([...(fixture.get('Thing')?.userMarked ?? [])]).toEqual(['makerId']);
-  });
-
-  it('does not carry a marker across a model boundary', () => {
-    const fixture = parseSchema([
-      `
-/// FK to User.id — a stray note above the model, on nothing.
-model First {
-  id    String @id
-  /// FK to User.id — left dangling: the column it was on is gone.
-}
-
-model Second {
-  id    String @id
-}
-`,
-    ]);
-    expect([...(fixture.get('First')?.userMarked ?? [])]).toEqual([]);
-    expect([...(fixture.get('Second')?.userMarked ?? [])]).toEqual([]);
   });
 });

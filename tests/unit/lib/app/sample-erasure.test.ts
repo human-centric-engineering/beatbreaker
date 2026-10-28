@@ -30,6 +30,7 @@ import {
 import { deleteByPrefix, isStorageEnabled } from '@/lib/storage/upload';
 
 const USER_ID = 'cmjbv4i3x00003wsloputgwul';
+const ERASED = { userId: USER_ID, email: 'drummer@example.com', emailVerified: true };
 
 function samplesHook() {
   // no initApp(): the registry's own lazy init is the only wiring
@@ -47,7 +48,7 @@ beforeEach(() => {
 
 describe('the samples erasure hook', () => {
   it('deletes everything under the person’s samples prefix, and nobody else’s', async () => {
-    await samplesHook()({ userId: USER_ID });
+    await samplesHook()(ERASED);
 
     expect(deleteByPrefix).toHaveBeenCalledTimes(1);
     expect(deleteByPrefix).toHaveBeenCalledWith(`samples/${USER_ID}/`);
@@ -56,13 +57,13 @@ describe('the samples erasure hook', () => {
   it('throws when the delete fails, so eraseUser records it', async () => {
     vi.mocked(deleteByPrefix).mockResolvedValue({ success: false, key: '' });
 
-    await expect(samplesHook()({ userId: USER_ID })).rejects.toThrow(`samples/${USER_ID}/`);
+    await expect(samplesHook()(ERASED)).rejects.toThrow(`samples/${USER_ID}/`);
   });
 
   it('does nothing when there is no storage to delete from', async () => {
     vi.mocked(isStorageEnabled).mockReturnValue(false);
 
-    await samplesHook()({ userId: USER_ID });
+    await samplesHook()(ERASED);
     expect(deleteByPrefix).not.toHaveBeenCalled();
   });
 });
