@@ -21,7 +21,16 @@
           "confidence": "widely_reported",
           "source_ids": ["src:baby-love-wikipedia", "src:richard-pistol-allen-wikipedia"]
         }
-      }
+      },
+      "style_key": "pistolallen",
+      "song_key": "baby-love",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=461356"
+        }
+      ],
+      "youtube": "https://www.youtube.com/watch?v=B4pDCLEkUVw"
     }
   ]
 }

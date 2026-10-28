@@ -13,7 +13,7 @@
       "name": "Benny Benjamin",
       "drummer_role": "sole_drummer",
       "significance": 0.6,
-      "why_it_matters": "Credited to him; the one human tab writes it at double time off the grid, so no pattern.",
+      "why_it_matters": "Credited to him: the snare on every beat from start to fade, eighths on the hat, the kick on the 'and's under Jamerson's bass. Reconstructed from the record; no human drum transcription.",
       "evidence": {
         "confidence": "verified",
         "source_ids": ["src:you-cant-hurry-love-wikipedia", "src:benny-benjamin-wikipedia"]
@@ -25,12 +25,15 @@
       "title": "You Can't Hurry Love",
       "drummer_ids": ["drummer:benny-benjamin"],
       "drums": {
-        "description": "The galloping Motown snare on every beat with a hint of shuffle, under Jamerson's bass.",
+        "description": "The snare on every beat with Jack Ashford's tambourine, eighths on the hat, the kick on the 'and's of 2, 3 and 4 under Jamerson's bass.",
         "evidence": {
           "confidence": "likely",
-          "source_ids": ["src:you-cant-hurry-love-wikipedia", "src:benjamin-drum-magazine-2018"]
+          "source_ids": ["src:you-cant-hurry-love-wikipedia", "src:songsterr-461357"],
+          "note": "From the record folded onto a sixteenth grid (straight, no shuffle) and a machine tab's snare; the kick needs a human transcription."
         }
       },
+      "style_key": "bennybenjamin",
+      "song_key": "you-cant-hurry-love",
       "youtube": "https://www.youtube.com/watch?v=ovoBi3pXD_A"
     }
   ],

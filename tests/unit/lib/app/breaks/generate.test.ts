@@ -52,7 +52,7 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 64 styles and 116 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 64 styles and 118 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(64);
     expect([...drummers].sort()).toEqual([
@@ -139,6 +139,7 @@ describe('the style table', () => {
       'paulcook',
       'peart',
       'phillyjoe',
+      'pistolallen',
       'porcaro',
       'portnoy',
       'prieto',
@@ -168,6 +169,7 @@ describe('the style table', () => {
       'tonythompson',
       'tonywilliams',
       'ulrich',
+      'urieljones',
       'watts',
       'woodmansey',
       'yussefdayes',
@@ -176,7 +178,7 @@ describe('the style table', () => {
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(2700);
+    expect(COMBOS).toHaveLength(2730);
   });
 });
 
@@ -877,6 +879,8 @@ describe('the rock, jazz and blues styles', () => {
       santadavis: 'bush-doctor-live',
       // You: its sections play the tab's few bars as written
       sanchez: 'you',
+      // Where Did Our Love Go's chorus is one groove, as its tab writes it (x18)
+      pistolallen: 'where-did-our-love-go:D',
     };
     for (const key of ROCK) {
       const params = STYLES[key].params;

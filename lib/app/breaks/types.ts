@@ -636,6 +636,7 @@ export interface Style extends StyleAttrs {
    * kick under it. Both default to true. Tony Allen leaves the 1 to the
    * figure: snare there as often as kick, and almost never a crash. `crash`
    * may be a probability instead: Copeland crashes on a third of his 1s.
+   * `kick: true` with no crash still puts the kick on each half's 1.
    */
   phraseMark?: { crash?: boolean | number; kick?: boolean };
   /**

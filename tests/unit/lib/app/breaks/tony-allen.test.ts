@@ -41,6 +41,18 @@ describe('phraseMark', () => {
     expect(pat.bars[0].k[0]).toBe(1);
   });
 
+  it('puts the kick on the 1 with no crash when it asks for the kick alone', () => {
+    for (let seed = 1; seed <= 20; seed++) {
+      const pat = generatePattern({
+        style: style({ phraseMark: { crash: false, kick: true } }),
+        seed,
+        ...opts,
+      });
+      expect(pat.bars.every((b) => b.c[0] === 0)).toBe(true);
+      expect(pat.bars[0].k[0]).toBe(1);
+    }
+  });
+
   it('draws the same stream either way, so other styles are untouched', () => {
     for (let seed = 1; seed <= 10; seed++) {
       const marked = generatePattern({ style: style({ phraseMark: undefined }), seed, ...opts });

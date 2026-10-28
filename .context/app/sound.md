@@ -285,7 +285,11 @@ off on 2026-10-13, and five became defaults:
 | Garage       | 2026-10-13 | none yet                                                                      |
 
 A combination that replaces a style's kit keeps every recorded slot that kit had: Studio rock's DRS snare has no rimshot, so hard rock stays on Big Rusty, and Jazz brushes carries the DRS brushes kit's Salamander china and splash. A song that names its own kit keeps it. Picking a style that has a kit
-switches to it, and leaving it for a style with none hands yours back.
+switches to it. Picking another drummer or style starts the sound again from
+theirs: their kit (the default, Studio '70s, for a style with none), with
+your tuning taken off it and off any kit their songs play — Room, Drive and
+Top end included — the style's own mix with your faders handed back, and
+Creativity at Faithful. Picking the same one again keeps what you set.
 
 ### Choosing what plays (`packs.ts`)
 

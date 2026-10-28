@@ -3835,6 +3835,86 @@ const STEVE_JORDAN: Persona = {
   kit: { shell: '#151515', finish: 'gloss', hardware: 'chrome', rug: '#3a2a24' },
 };
 
+/**
+ * Pistol Allen at the kit in a black-and-white photograph from Detroit's Metro
+ * Times (on Wikipedia as File:Richard Pistol Allen.jpg), outdoors, undated; the
+ * clothes say the late 1960s or early 1970s, his Motown years. Slim, a long
+ * face, clean-shaven, the hair cut close under a broad-brimmed cowboy hat,
+ * glasses with tinted lenses; a dark shirt printed with pale flowers, open at
+ * the neck, a thin chain, a dark sleeveless vest worn open over it. A silver
+ * sparkle Ludwig (the name on the kick's head) and chrome. The photograph is
+ * black and white: every colour is a guess, and his trousers and feet are
+ * behind the kit.
+ */
+const PISTOL_ALLEN: Persona = {
+  id: 'pistolallen',
+  name: "Richard 'Pistol' Allen",
+  figure: 'male',
+  build: 'slim',
+  skin: '#4e3022',
+  hair: '#141010',
+  hairStyle: 'fade',
+  hairTexture: 'coily',
+  beard: 'none',
+  // a broad felt brim, the crown creased
+  hat: 'cowboy',
+  glasses: { shape: 'aviator', frame: '#1c1814', tint: '#2a1d14' },
+  top: 'button-up',
+  shirt: '#1e1c22',
+  // pale flowers scattered over the dark shirt
+  motifs: ['#ece6da', '#c9c2b4'],
+  neckwear: 'open',
+  waistcoat: { cloth: '#2c2622', trim: '#2c2622' },
+  chain: { metal: '#c4c4c8' },
+  trousers: '#24221f',
+  shoes: '#141210',
+  footwear: 'shoes',
+  // the hat's grey-brown felt
+  accent: '#5a5048',
+  headphones: false,
+  kit: { shell: '#c8ccd2', finish: 'sparkle', hardware: 'chrome', rug: '#2a2420' },
+};
+
+/**
+ * Uriel Jones at the Funk Brothers' reunion filmed for Standing in the Shadows of Motown (2002),
+ * the band showing how they played "Ain't Too Proud to Beg" (BBC Four's broadcast, YouTube
+ * MIxLdY8B5l0, at the kit from 0:40 to 1:04; frames at 0:46): sixty-seven, heavy-set, a black
+ * beret worn level, thin pale wire-rimmed glasses, a dark moustache greying, a black polo neck
+ * under a dark ribbed cardigan. No headphones. A kit in blue sparkle with chrome hardware, a
+ * cymbal over the high tom. No film of him at the kit in the 1960s was found, and the one later
+ * clip labelled with his name (a drum clinic, YouTube dDSoUduxXso) shows the same heavy build in a
+ * cap. The cardigan is drawn as an open jacket over the polo neck, the beret as the flat cap, the
+ * nearest shapes; his trousers and feet are behind the kit, dark and a guess.
+ */
+const URIEL_JONES: Persona = {
+  id: 'urieljones',
+  name: 'Uriel Jones',
+  figure: 'male',
+  build: 'heavy',
+  skin: '#5a3826',
+  hair: '#2a2522',
+  // cropped close under the beret
+  hairStyle: 'crop',
+  hairTexture: 'coily',
+  beard: 'moustache',
+  beardColour: '#3a3532',
+  // thin, pale wire rims
+  glasses: { shape: 'square', frame: '#b8b0a0' },
+  // a beret worn level: the flat cap is the nearest shape
+  hat: 'flat',
+  // a dark ribbed cardigan, open over a black polo neck
+  top: 'jacket',
+  shirt: '#26262a',
+  under: '#141416',
+  neckwear: 'polo',
+  trousers: '#1c1c1e',
+  shoes: '#111111',
+  footwear: 'shoes',
+  accent: '#26262a',
+  headphones: false,
+  kit: { shell: '#2c4a8c', finish: 'sparkle', hardware: 'chrome', rug: '#2a2420' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -3953,6 +4033,8 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   maxweinberg: MAX_WEINBERG,
   clemburke: CLEM_BURKE,
   stevejordan: STEVE_JORDAN,
+  pistolallen: PISTOL_ALLEN,
+  urieljones: URIEL_JONES,
 };
 
 /**

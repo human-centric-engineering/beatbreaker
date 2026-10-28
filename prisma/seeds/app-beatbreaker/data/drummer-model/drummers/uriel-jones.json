@@ -2,48 +2,745 @@
   "meta": {
     "id": "drummer:uriel-jones",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
+    "record_status": "draft",
+    "completeness": 0.3,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-27",
+    "authors": ["claude", "John", "Claude"],
+    "open_questions": [
+      "Motown credited no players before 1971. Ain't Too Proud to Beg and Ain't No Mountain High Enough are his by his Wikipedia biography; Signed, Sealed, Delivered by Drummerszone's obituary; Twenty-Five Miles by drummers' transcriptions and Drew Schultz's remix, not by any discography. No source names another drummer on any of them.",
+      "Twenty-Five Miles is rebuilt from a machine tab: its groove and walking figure were checked against the record and a drum-forward remix, its fills and bar-to-bar kicks were not.",
+      "Signed, Sealed, Delivered: Songsterr's human tab puts the kick on 1, the \"a\" of 2 and 3; Drumscribe's score adds 2, the \"and\" of 3, 4 and its \"and\". The record's bass hides which; the tab is followed.",
+      "I Heard It Through the Grapevine (Marvin Gaye): Wikipedia names Pistol Allen on the toms and Jones; its Songsterr tab sits an eighth off the beat and has no toms. Not scored here.",
+      "Cloud Nine, \"the most popular one we did\" in his words, with Spider Webb as a second drummer: only a machine tab exists. Not scored."
+    ]
   },
   "identity": {
     "name": "Uriel Jones",
     "born": {
       "date": "1934-06-13",
+      "place": "Detroit, Michigan",
       "evidence": {
         "confidence": "likely",
         "source_ids": ["src:uriel-jones-wikipedia"]
       }
     },
     "died": {
-      "date": "2009-03-24"
+      "date": "2009-03-24",
+      "place": "Dearborn, Michigan",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:uriel-jones-wikipedia", "src:uriel-jones-ap-obituary-2009"],
+        "note": "Complications of a heart attack, at Oakwood Hospital, Dearborn."
+      }
     },
     "nationality": ["American"],
     "home_scenes": ["Detroit", "Hitsville U.S.A."],
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
     "active": {
-      "from": 1963,
-      "to": 2009
+      "from": 1959,
+      "to": 2009,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:uriel-jones-wikipedia", "src:uriel-jones-moderndrummer-2009"],
+        "note": "Wikipedia's years active; club work in Ecorse before Motown, the studio from late 1963, every day from 1965."
+      }
     },
-    "summary": "Funk Brothers drummer on Motown hits of the later 1960s, including \"I Heard It Through the Grapevine\"."
+    "roles": ["session"],
+    "summary": "The Funk Brothers' third drummer, hired as Benny Benjamin's fill-in and on the road with Stevie Wonder's band before Studio A, where from 1965 he was in the studio \"just about every day\". Ain't Too Proud to Beg, Ain't No Mountain High Enough, For Once in My Life, Grapevine, Cloud Nine; Paul Riser called him the most open and laid-back of the three drummers, and the funkiest."
   },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Jazz (Art Blakey, Elvin Jones)",
+        "impact": "\"Oh, it was all jazz: Art Blakey, and especially Elvin Jones, who had a style like no one else.\" The house band and jam sessions in the clubs of Ecorse, Michigan.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:uriel-jones-moderndrummer-2009"]
+        }
+      },
+      {
+        "tradition": "Motown (Benny Benjamin)",
+        "impact": "\"Once I heard Benny play in the studio, I tried to clone myself after him.\" The pickups are Benjamin's: \"He originated those.\"",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:uriel-jones-moderndrummer-2009"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Dave Hamilton, chosen as Stevie Wonder's bandleader, took him on as the drummer; he was \"the last drummer who came\" to Motown.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:uriel-jones-moderndrummer-2009"]
+        }
+      },
+      {
+        "year": 1963,
+        "event": "Moved from the road to Studio A, first as Benny Benjamin's fill-in.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:motown-drummers-moderndrummer-1999", "src:uriel-jones-wikipedia"]
+        }
+      },
+      {
+        "year": 1965,
+        "event": "\"Starting in 1965, I was in the studio just about every day.\"",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:uriel-jones-moderndrummer-2009"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:uriel-jones-motown",
+      "label": "The Funk Brothers, Hitsville",
+      "years": {
+        "from": 1963,
+        "to": 1972
+      },
+      "context": "Studio A in Detroit with James Jamerson, Pistol Allen and, until the late 1960s, Benny Benjamin: the Temptations, Marvin Gaye, Stevie Wonder, the Miracles, Edwin Starr. Motown moved to Los Angeles in 1972.",
+      "defining_traits": [
+        "the snare on every beat for a dance record",
+        "ghosts on the \"a\" of 2 and 4",
+        "the Motown pickup into the phrase",
+        "the toms answering the band"
+      ],
+      "key_recording_ids": [
+        "rec:the-temptations-aint-too-proud-to-beg-1966",
+        "rec:marvin-gaye-and-tammi-terrell-aint-no-mountain-high-enough-1967",
+        "rec:stevie-wonder-for-once-in-my-life-1968",
+        "rec:edwin-starr-twenty-five-miles-1969",
+        "rec:stevie-wonder-signed-sealed-delivered-im-yours-1970"
+      ]
+    },
+    {
+      "id": "era:uriel-jones-later",
+      "label": "After Motown, and the Funk Brothers again",
+      "years": {
+        "from": 1972,
+        "to": 2009
+      },
+      "context": "Detroit work after the label left; Standing in the Shadows of Motown (2002) and the Funk Brothers' tours, and the Grammy Legend Award (2004).",
+      "defining_traits": ["the Motown repertoire live with the surviving Funk Brothers"],
+      "key_recording_ids": []
+    }
+  ],
   "style_profile": {
     "genres": [
       {
         "style_id": "style:motown",
+        "name": "Motown",
         "weight": 1.0,
-        "authority": 0.6
+        "authority": 0.6,
+        "notes": "Every song scored here."
       },
       {
         "style_id": "style:rnb-soul",
+        "name": "R&B and soul",
         "weight": 0.7
       },
       {
         "style_id": "style:funk",
-        "weight": 0.4
+        "name": "Funk",
+        "weight": 0.4,
+        "notes": "\"The funkiest of the three guys we had\" (Paul Riser); Cloud Nine's psychedelic soul."
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.15,
+    "role_tendency": "accompanist",
+    "descriptors": ["open", "laid back", "funky", "in the pocket", "pickups"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:uriel-jones-wikipedia", "src:uriel-jones-moderndrummer-2009"],
+        "note": "Paul Riser: \"the most open and laid-back\"; Jones: \"A great drummer can just lay back and listen for grooves.\""
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.05,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight sixteenths in every song scored here; Drumscribe asks for the \"a\" kicks of Signed, Sealed, Delivered swung a little."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "mf",
+      "ghost_note_level": 40,
+      "accent_level": 115,
+      "balance": "A firm backbeat, often on every beat; ghosts on the \"a\" of 2 and 4 in For Once in My Life and Twenty-Five Miles; rim clicks for a quiet verse."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 20],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [100, 135],
+    "timekeeping_context": ["free"],
+    "interaction": "\"The drummer, I always figure, is supposed to accompany the other musicians\": the toms and the snare answer the band's figures and hit its stops; a pickup marks almost every phrase.",
+    "descriptors": ["open", "laid back", "funky"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "The Motown pickup",
+        "description": "Sixteenths on the snare from the \"and\" or the \"a\" of 3 into the next phrase, Benny Benjamin's figure: Signed, Sealed, Delivered nearly every second bar.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-91549", "src:uriel-jones-moderndrummer-2009"]
+        }
+      },
+      {
+        "name": "The snare on every beat",
+        "description": "Ain't Too Proud to Beg's choruses, For Once in My Life's chorus and outro, Ain't No Mountain's bridge and last chorus.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:chris-bates-aint-too-proud-to-beg",
+            "src:songsterr-54677",
+            "src:songsterr-73642"
+          ]
+        }
+      },
+      {
+        "name": "Ghosts on the \"a\"",
+        "description": "A soft snare stroke on the \"a\" of 2 and of 4 under the backbeat (For Once in My Life, Twenty-Five Miles).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-54677", "src:songsterr-6074409"]
+        }
+      },
+      {
+        "name": "The snare doubled on a tom",
+        "description": "Ain't No Mountain High Enough's bridge: the snare with the mid tom in eighths; Ain't Too Proud to Beg's hits, the snare with the floor tom.",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-73642", "src:chris-bates-aint-too-proud-to-beg"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The foot on 2 and 4 in a quiet verse",
+        "description": "The hat's foot on 2 and 4 (or every beat) under the bell or rim clicks: Ain't Too Proud to Beg's first verse, Ain't No Mountain High Enough's verses.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chris-bates-aint-too-proud-to-beg", "src:songsterr-73642"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.0,
+      "foot_ostinato_usage": 0.3,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-27",
+        "searched": [
+          "Chris Bates's chart of Ain't Too Proud to Beg (YouTube l_UT5F1YVK0); Songsterr 91549, 54677, 73642 and 6074409; Drumscribe's score of Signed, Sealed, Delivered",
+          "Modern Drummer (2009; 1999), Wikipedia, Drummerszone and the AP obituary"
+        ],
+        "note": "No cross-rhythm, polymeter, displacement or metric modulation is written or named. Twenty-Five Miles' walking figure, the snare on every third sixteenth for one bar, is a grouping heard only in the groove and only in a machine tab checked against the record; it is the song's own figure, not a device the sources name."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths by hand, opened on the \"and\" of 1 after a crash or the \"and\" of 4 to mark a bar; quarters on the ride's bell for a quiet verse.",
+      "snare": "2 and 4, or every beat for the dance floor; ghosts on the \"a\"s; rimshots and rim clicks for colour; sixteenth pickups into the phrase.",
+      "kick": "Under Jamerson: 1, 3 and the \"and\"s of 3 and 4; the \"a\" of 2 in Signed, Sealed, Delivered; on 1 one bar and its \"and\" the next in Twenty-Five Miles.",
+      "toms": "Two eighths on the high tom, then on the floor tom, answering the band (Ain't Too Proud to Beg); the mid tom doubling the snare.",
+      "cymbals": "\"They never had but two cymbals, a ride and a crash\": a crash to start a section, the ride's bell in a verse."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks in every song scored here."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "The house kit of Studio A: second-hand, mixed makes, \"never more than four drums\"",
+      "A deadened snare: a pad of Kleenex taped to the head",
+      "Heads seldom changed or tuned: the engineers discouraged it"
+    ],
+    "cymbal_character": "A ride and a crash, nothing more.",
+    "sample_hints": {
+      "motown": "A 1960s Ludwig-style kit, a short, damped snare, a warm kick."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:motown-drummers-moderndrummer-1999", "src:uriel-jones-moderndrummer-2009"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:uriel-jones-every-beat",
+      "label": "The snare on every beat",
+      "category": "groove",
+      "description": "For the choruses that have to move a dance floor: Ain't Too Proud to Beg, For Once in My Life's chorus and outro, Ain't No Mountain High Enough's end.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:uriel-jones-aint-too-proud-chorus"],
+      "heard_on": [
+        {
+          "recording_id": "rec:the-temptations-aint-too-proud-to-beg-1966"
+        },
+        {
+          "recording_id": "rec:stevie-wonder-for-once-in-my-life-1968"
+        },
+        {
+          "recording_id": "rec:marvin-gaye-and-tammi-terrell-aint-no-mountain-high-enough-1967"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:chris-bates-aint-too-proud-to-beg",
+          "src:songsterr-54677",
+          "src:songsterr-73642"
+        ]
+      }
+    },
+    {
+      "id": "trait:uriel-jones-pickups",
+      "label": "Benny's pickups",
+      "category": "fill",
+      "description": "The Motown pickup into almost every phrase: sixteenths on the snare from the \"and\" or \"a\" of 3, which he says he took from Benny Benjamin.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:uriel-jones-signed-sealed-groove",
+        "pattern:uriel-jones-for-once-fill"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:stevie-wonder-signed-sealed-delivered-im-yours-1970"
+        },
+        {
+          "recording_id": "rec:stevie-wonder-for-once-in-my-life-1968"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:uriel-jones-moderndrummer-2009",
+          "src:songsterr-91549",
+          "src:songsterr-54677"
+        ]
+      }
+    },
+    {
+      "id": "trait:uriel-jones-answering-toms",
+      "label": "Toms that answer the band",
+      "category": "orchestration",
+      "description": "Ain't Too Proud to Beg's later verses: a cross-stick on 2, then two eighths on the high tom, a bar later on the floor tom, in the band's answer to the singer.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:uriel-jones-aint-too-proud-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:the-temptations-aint-too-proud-to-beg-1966"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:chris-bates-aint-too-proud-to-beg"]
+      }
+    },
+    {
+      "id": "trait:uriel-jones-laid-back",
+      "label": "Open and laid back",
+      "category": "feel",
+      "description": "Paul Riser: \"Uriel's drum sound was the most open and laid-back, and he was the funkiest of the three guys we had... He had a mixed feel and did a lot of different things well.\"",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:uriel-jones-for-once-verse",
+        "pattern:uriel-jones-twenty-five-miles-groove"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:stevie-wonder-for-once-in-my-life-1968"
+        },
+        {
+          "recording_id": "rec:edwin-starr-twenty-five-miles-1969"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:uriel-jones-wikipedia", "src:uriel-jones-ap-obituary-2009"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:uriel-jones-aint-too-proud-chorus",
+        "name": "Ain't Too Proud to Beg, the chorus",
+        "type": "groove",
+        "function": "Two bars: a crash and the snare on 2, 3 and 4, then the snare on every beat; eighths on the hat, the kick on 1 and the \"and\"s of 3 and 4.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chris-bates-aint-too-proud-to-beg"]
+        },
+        "source": {
+          "recording_id": "rec:the-temptations-aint-too-proud-to-beg-1966",
+          "transcription_source_id": "src:chris-bates-aint-too-proud-to-beg"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [116, 124]
+        },
+        "lanes": {
+          "crash_1": "x...............|................",
+          "hihat": "....x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....X...X...X...|X...X...X...X...",
+          "kick": "x.........x...x.|x.........x...x."
+        },
+        "tags": ["1966", "Temptations", "snare on every beat"]
+      },
+      {
+        "id": "pattern:uriel-jones-aint-too-proud-verse",
+        "name": "Ain't Too Proud to Beg, the later verses",
+        "type": "groove_variation",
+        "function": "Two bars: a cross-stick on 2, the hat on 3 and its \"and\", two eighths on the high tom from 4, then on the floor tom; the foot on 2 and 4.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:chris-bates-aint-too-proud-to-beg"]
+        },
+        "source": {
+          "recording_id": "rec:the-temptations-aint-too-proud-to-beg-1966",
+          "transcription_source_id": "src:chris-bates-aint-too-proud-to-beg"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [116, 124]
+        },
+        "lanes": {
+          "crash_1": "x...............|................",
+          "hihat": "....x...x.x.x...|x...x...x.x.x...",
+          "snare": "....c...........|....c...........",
+          "tom_1": "............X.X.|................",
+          "floor_tom_1": "................|............X.X.",
+          "kick": "x...............|................",
+          "hihat_pedal": "....k.......k...|....k.......k..."
+        },
+        "tags": ["1966", "Temptations", "toms"]
+      },
+      {
+        "id": "pattern:uriel-jones-for-once-verse",
+        "name": "For Once in My Life, the verse",
+        "type": "groove",
+        "function": "Two bars: eighths on the hat, opened on the \"and\" of 1 and then on the \"and\" of 4; the snare on 2 and 4 with ghosts on the \"a\" of each; the kick on 1, 3 and its \"and\", and on the \"and\" of 1 in the second bar.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-54677"]
+        },
+        "source": {
+          "recording_id": "rec:stevie-wonder-for-once-in-my-life-1968",
+          "transcription_source_id": "src:songsterr-54677"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 108,
+          "playable_range_bpm": [105, 111]
+        },
+        "lanes": {
+          "hihat": "x.o.x.x.x.x.x.x.|x.x.x.x.x.x.x.o.",
+          "snare": "....x..g....x..g|....x..g....x..g",
+          "kick": "x.......x.x.....|x.x.....x.x....."
+        },
+        "tags": ["1968", "Stevie Wonder", "ghost notes"]
+      },
+      {
+        "id": "pattern:uriel-jones-for-once-fill",
+        "name": "For Once in My Life, the fourth-bar fill",
+        "type": "fill",
+        "function": "From 3: the hat stops, the snare on 3, its \"and\", 4 and its \"e\", two sixteenths on the high tom.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-54677"]
+        },
+        "source": {
+          "recording_id": "rec:stevie-wonder-for-once-in-my-life-1968",
+          "transcription_source_id": "src:songsterr-54677"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 108,
+          "playable_range_bpm": [105, 111]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.........",
+          "snare": "....x..gx.x.xx..",
+          "tom_1": "..............xx",
+          "kick": "x.x............."
+        },
+        "tags": ["1968", "Stevie Wonder", "fill"]
+      },
+      {
+        "id": "pattern:uriel-jones-twenty-five-miles-groove",
+        "name": "Twenty-Five Miles, the groove",
+        "type": "groove",
+        "function": "Two bars: eighths on the hat, the snare on 2 and 4 with a soft stroke on the \"a\" of 2, the kick on 1 (on its \"and\" in the second bar), 3 and the \"and\"s of 3 and 4.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6074409"]
+        },
+        "source": {
+          "recording_id": "rec:edwin-starr-twenty-five-miles-1969",
+          "transcription_source_id": "src:songsterr-6074409"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 124,
+          "playable_range_bpm": [120, 128]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....x..g....x...|....x..g....x...",
+          "kick": "x.......x.x...x.|..x.....x.x...x."
+        },
+        "tags": ["1969", "Edwin Starr", "reconstruction"]
+      },
+      {
+        "id": "pattern:uriel-jones-twenty-five-miles-walking",
+        "name": "Twenty-Five Miles, the walking figure",
+        "type": "groove_variation",
+        "function": "The snare on every third sixteenth from the \"e\" of 1, the kick between, under the hat in eighths: three against the beat for a bar in the refrains.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6074409"]
+        },
+        "source": {
+          "recording_id": "rec:edwin-starr-twenty-five-miles-1969",
+          "transcription_source_id": "src:songsterr-6074409"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 124,
+          "playable_range_bpm": [120, 128]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": ".x..x..x..x..x..",
+          "kick": "..x..x..x..x..x."
+        },
+        "tags": ["1969", "Edwin Starr", "reconstruction"]
+      },
+      {
+        "id": "pattern:uriel-jones-signed-sealed-groove",
+        "name": "Signed, Sealed, Delivered, the groove and pickup",
+        "type": "groove",
+        "function": "Two bars: eighths on the hat, the snare on 2 and 4, the kick on 1, the \"a\" of 2 and 3; in the second bar the snare on the \"a\" of 3, 4 and its \"and\", the Motown pickup.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-91549"]
+        },
+        "source": {
+          "recording_id": "rec:stevie-wonder-signed-sealed-delivered-im-yours-1970",
+          "transcription_source_id": "src:songsterr-91549"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 109,
+          "playable_range_bpm": [106, 112]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...|....x......xx.x.",
+          "kick": "x......xx.......|x......xx......."
+        },
+        "tags": ["1970", "Stevie Wonder", "pickup"]
+      },
+      {
+        "id": "pattern:uriel-jones-aint-no-mountain-verse",
+        "name": "Ain't No Mountain High Enough, the verse",
+        "type": "groove",
+        "function": "Two bars, quiet: the kick on 1 and the \"and\" of 4, the foot on 2 and 4, a run of rim clicks from 2 to 3 in the first bar.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-73642"]
+        },
+        "source": {
+          "recording_id": "rec:marvin-gaye-and-tammi-terrell-aint-no-mountain-high-enough-1967",
+          "transcription_source_id": "src:songsterr-73642"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 129,
+          "playable_range_bpm": [125, 133]
+        },
+        "lanes": {
+          "snare": "....ccccc.......|................",
+          "kick": "x.............x.|x.............x.",
+          "hihat_pedal": "....k.......k...|....k.......k..."
+        },
+        "tags": ["1967", "Marvin Gaye", "Tammi Terrell", "rim clicks"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:uriel-jones-studio-a",
+      "label": "Studio A's house kit, Hitsville (from late 1963)",
+      "context": "studio",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "mixed"
+        },
+        {
+          "instrument": "snare",
+          "brand": "mixed",
+          "notes": "A pad of Kleenex taped to the top head."
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "mixed"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "mixed"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1"
+        }
+      ],
+      "layout_notes": "Second-hand, of mixed makes: \"a Ludwig drum, a Rogers, they were all mixed up\" (Jones); Ludwig, Slingerland, Rogers and Gretsch parts and possibly Zildjian cymbals (Wikipedia). \"Never more than four drums\", \"never but two cymbals\".",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:uriel-jones-moderndrummer-2009",
+          "src:motown-drummers-moderndrummer-1999",
+          "src:uriel-jones-wikipedia"
+        ]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "The Funk Brothers",
@@ -51,25 +748,177 @@
       "years": {
         "from": 1963,
         "to": 1972
+      },
+      "notes": "Motown's studio band in Detroit; with the surviving members in Standing in the Shadows of Motown (2002) and on tour after it.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:funk-brothers-wikipedia", "src:uriel-jones-wikipedia"]
+      }
+    },
+    {
+      "name": "Stevie Wonder's road band",
+      "type": "band_member",
+      "notes": "Under bandleader Dave Hamilton, before the studio.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:uriel-jones-moderndrummer-2009"]
       }
     }
   ],
-  "key_recording_ids": [
-    "rec:marvin-gaye-i-heard-it-through-the-grapevine-1968",
-    "rec:marvin-gaye-and-tammi-terrell-aint-no-mountain-high-enough-1967",
-    "rec:the-temptations-cloud-nine-1968"
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Benny Benjamin",
+        "kind": "drummer",
+        "id": "drummer:benny-benjamin"
+      },
+      "strength": 0.9,
+      "aspects": ["the Motown pickups", "the backbeat"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:uriel-jones-moderndrummer-2009"],
+        "note": "\"Once I heard Benny play in the studio, I tried to clone myself after him.\""
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.5,
+      "aspects": ["jazz drumming"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:uriel-jones-moderndrummer-2009", "src:uriel-jones-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.6,
+      "aspects": ["jazz drumming"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:uriel-jones-moderndrummer-2009"],
+        "note": "\"Especially Elvin Jones, who had a style like no one else.\""
+      }
+    },
+    {
+      "type": "sub_for",
+      "target": {
+        "name": "Benny Benjamin",
+        "kind": "drummer",
+        "id": "drummer:benny-benjamin"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:uriel-jones-wikipedia"],
+        "note": "First hired as a fill-in for Motown's principal drummer."
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Richard 'Pistol' Allen",
+        "kind": "drummer",
+        "id": "drummer:richard-pistol-allen"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:i-heard-it-through-the-grapevine-wikipedia"],
+        "note": "Both on Marvin Gaye's I Heard It Through the Grapevine, Allen on the toms."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "James Jamerson",
+        "kind": "musician"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:for-once-in-my-life-wikipedia", "src:funk-brothers-wikipedia"]
+      }
+    }
   ],
+  "pedagogy": {
+    "videos": [],
+    "philosophy": [
+      {
+        "idea": "The drummer is there to accompany the other musicians.",
+        "paraphrase_of_source_id": "src:uriel-jones-moderndrummer-2009"
+      },
+      {
+        "idea": "A great drummer lays back and listens for the groove.",
+        "paraphrase_of_source_id": "src:uriel-jones-moderndrummer-2009"
+      }
+    ]
+  },
   "legacy": {
     "contribution": {
-      "description": "Motown's funkiest drummer in arranger Paul Riser's words, with an open, laid-back sound, on \"I Heard It Through the Grapevine\", \"Ain't No Mountain High Enough\" and \"Cloud Nine\".",
+      "description": "Motown's funkiest drummer in arranger Paul Riser's words, with an open, laid-back sound, on \"Ain't Too Proud to Beg\", \"Ain't No Mountain High Enough\", \"For Once in My Life\", \"I Heard It Through the Grapevine\" and \"Cloud Nine\".",
       "evidence": {
         "confidence": "likely",
         "source_ids": ["src:uriel-jones-wikipedia"]
       }
-    }
+    },
+    "influence_score": 0.4,
+    "innovations": [],
+    "accolades": [
+      {
+        "award": "Grammy Legend Award (with the Funk Brothers)",
+        "year": 2004,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:funk-brothers-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": []
   },
   "beatbreaker": {
-    "group": "Soul and Motown drummers",
-    "build_priority": 2
-  }
+    "style_key": "urieljones",
+    "headline_pattern_ids": [
+      "pattern:uriel-jones-aint-too-proud-chorus",
+      "pattern:uriel-jones-for-once-verse"
+    ],
+    "default_kit_sound": "A 1960s Ludwig-style kit with a short, damped snare",
+    "generation_rules": [
+      "The snare on 2 and 4, or on every beat for a chorus.",
+      "Ghosts on the \"a\" of 2 and 4; the hat opened on the \"and\" of 1 after a crash.",
+      "A pickup of snare sixteenths from 3 into the next phrase, often every second bar.",
+      "The toms answering the band in eighths from 4."
+    ],
+    "avoid": ["Double bass", "Long solos", "Swing in these songs"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:benny-benjamin", "drummer:elvin-jones", "drummer:art-blakey"],
+      "primary_descendants": [],
+      "lineage_blurb": "Benny Benjamin's pickups and Elvin Jones's jazz, made open and laid back for the Temptations, Marvin Gaye and Stevie Wonder."
+    },
+    "tags": [
+      "motown",
+      "funk brothers",
+      "session",
+      "temptations",
+      "stevie wonder",
+      "marvin gaye",
+      "1960s"
+    ]
+  },
+  "key_recording_ids": [
+    "rec:the-temptations-aint-too-proud-to-beg-1966",
+    "rec:marvin-gaye-and-tammi-terrell-aint-no-mountain-high-enough-1967",
+    "rec:stevie-wonder-for-once-in-my-life-1968",
+    "rec:marvin-gaye-i-heard-it-through-the-grapevine-1968",
+    "rec:the-temptations-cloud-nine-1968",
+    "rec:edwin-starr-twenty-five-miles-1969",
+    "rec:stevie-wonder-signed-sealed-delivered-im-yours-1970"
+  ]
 }

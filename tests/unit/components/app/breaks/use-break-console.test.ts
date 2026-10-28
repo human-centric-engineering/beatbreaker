@@ -14,6 +14,7 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { DEFAULT_CREATIVITY } from '@/lib/app/breaks/creativity';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { stashPendingLink, takePendingLink } from '@/lib/app/breaks/pending-link';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
@@ -772,7 +773,7 @@ describe('tempo, style and meter', () => {
     expect(result.current.bpm).toBe(115);
   });
 
-  it('switches to a style’s meter and kit, and hands yours back when you leave it', async () => {
+  it('switches to a style’s meter and kit, and to the default kit when you leave it', async () => {
     const { result } = await mount();
     act(() => result.current.setKit('liveroom'));
     act(() => result.current.setStyle('jazzballad'));
@@ -781,11 +782,41 @@ describe('tempo, style and meter', () => {
     const [lo, hi] = STYLES.jazzballad.bpm;
     expect(result.current.bpm).toBe(Math.round((lo + hi) / 2));
 
-    // a style with no kit of its own
+    // a style with no kit of its own: the default, not the kit you had picked
     act(() => result.current.setStyle('reggae'));
     expect(STYLES.reggae.kit).toBeUndefined();
     expect(result.current.meter).toBe('4/4');
-    expect(result.current.kit).toBe('liveroom');
+    expect(result.current.kit).toBe(DEFAULT_STUDIO_SETTINGS.userKit);
+  });
+
+  it('starts another drummer from scratch: the kit untuned, the mix theirs, Faithful', async () => {
+    const { result } = await mount();
+    act(() => result.current.setStyle('reggae'));
+    const kit = result.current.kit;
+    act(() => result.current.setParam('master', 'room', 0.9));
+    act(() => result.current.setLaneMix('h', 0.123));
+    act(() => result.current.setCreativity(80));
+    expect(result.current.kitTuned).toBe(true);
+
+    act(() => result.current.setStyle('bossa'));
+    expect(result.current.kit).toBe(kit);
+    expect(result.current.kitTuned).toBe(false);
+    expect(result.current.mix.h).not.toBe(0.123);
+    expect(result.current.mixTouched).toEqual({});
+    expect(result.current.creativity).toBe(DEFAULT_CREATIVITY);
+  });
+
+  it('keeps what you set when the same drummer is picked again', async () => {
+    const { result } = await mount();
+    act(() => result.current.setStyle('reggae'));
+    act(() => result.current.setParam('master', 'room', 0.9));
+    act(() => result.current.setLaneMix('h', 0.123));
+    act(() => result.current.setCreativity(80));
+
+    act(() => result.current.setStyle('reggae'));
+    expect(result.current.kitTuned).toBe(true);
+    expect(result.current.mix.h).toBe(0.123);
+    expect(result.current.creativity).toBe(80);
   });
 
   it('keeps a locked tempo through a change of style', async () => {
@@ -797,8 +828,9 @@ describe('tempo, style and meter', () => {
     expect(result.current.locks.bpm).toBe(true);
   });
 
-  it('keeps a fader you moved through a change of style, until you hand it back', async () => {
+  it('keeps a fader you moved through a new break of the same style, until you hand it back', async () => {
     const { result } = await mount();
+    act(() => result.current.setStyle('bossa'));
     act(() => result.current.setLaneMix('h', 0.123));
     act(() => result.current.setStyle('bossa'));
     expect(result.current.mix.h).toBe(0.123);

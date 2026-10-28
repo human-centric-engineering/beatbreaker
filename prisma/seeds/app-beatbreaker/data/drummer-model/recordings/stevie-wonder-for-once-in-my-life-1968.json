@@ -1,0 +1,49 @@
+{
+  "id": "rec:stevie-wonder-for-once-in-my-life-1968",
+  "title": "For Once in My Life",
+  "artist": "Stevie Wonder",
+  "year": 1968,
+  "type": "studio_track",
+  "release": "Tamla",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:for-once-in-my-life-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:uriel-jones",
+      "name": "Uriel Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Jones under James Jamerson's most celebrated bass line, the record Berry Gordy held back for a year.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:for-once-in-my-life-wikipedia", "src:songsterr-54677"]
+      }
+    }
+  ],
+  "tracks": [
+    {
+      "title": "For Once in My Life",
+      "drummer_ids": ["drummer:uriel-jones"],
+      "drums": {
+        "description": "Eighths on the hat opened after the crash, ghosts on the \"a\" of 2 and 4, a fill on the snare and high tom every fourth bar; the snare and open hat on every beat in the chorus and outro. At 109.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:for-once-in-my-life-wikipedia", "src:songsterr-54677"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=l3qi3E40aWE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=54677",
+          "note": "Human tab, its drum track named for Jones"
+        }
+      ],
+      "style_key": "urieljones",
+      "song_key": "for-once-in-my-life"
+    }
+  ]
+}

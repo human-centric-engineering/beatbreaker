@@ -108,7 +108,12 @@ import {
 } from '@/lib/app/breaks/songs';
 import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
-import { type Twist, creativeBreak } from '@/lib/app/breaks/creativity';
+import {
+  DEFAULT_CREATIVITY,
+  type Twist,
+  creativeBand,
+  creativeBreak,
+} from '@/lib/app/breaks/creativity';
 import {
   alternateHands,
   barHands,
@@ -1320,6 +1325,34 @@ export function useBreakConsole(
     [catalogue.styles, followKit, applyStyleMix]
   );
 
+  /**
+   * Another drummer picked: the sound starts again from theirs. Their kit, or
+   * the default kit for a style with none (yours is not handed back), with no
+   * tuning on it or on a kit any of their songs plays, so the room and the
+   * effects are the kit's own; and the mix the style asks for, faders you moved
+   * included. What you set while studying one drummer is not carried to the
+   * next.
+   */
+  const resetSound = useCallback(
+    (styleKey: string) => {
+      const st = catalogue.styles[styleKey]?.params;
+      const named = st?.kit ? catalogue.kits[st.kit] : undefined;
+      // the default kit, or yours where the catalogue has lost it
+      const home = kitIsPlayable(catalogue.kits[DEFAULT_STUDIO_SETTINGS.userKit])
+        ? DEFAULT_STUDIO_SETTINGS.userKit
+        : userKit;
+      const wantKit = named && kitIsPlayable(named) ? named.key : home;
+      // and every kit a song of theirs plays, so a song on its own kit starts clean too
+      const played = [wantKit, ...(st?.songs ?? []).flatMap((sg) => sg.params.kit ?? [])];
+      const tuned = played.filter((k) => Object.keys(tuning[k] ?? {}).length > 0);
+      const sound = Object.fromEntries(tuned.map((k) => [k, {}]));
+      update({ kit: wantKit, userKit: home, sound });
+      setMixTouched({});
+      applyStyleMix(styleKey, {});
+    },
+    [catalogue.styles, catalogue.kits, userKit, tuning, update, applyStyleMix]
+  );
+
   const setLaneMix = useCallback((lane: string, v: number) => {
     setMix((prev) => ({ ...prev, [lane]: v }));
     setMixTouched((prev) => ({ ...prev, [lane]: true }));
@@ -2152,7 +2185,7 @@ export function useBreakConsole(
       const st = catalogue.styles[s]?.params;
       const nextMeter = st?.meter ?? userMeter;
       /* A style may name its own meter and its own kit — picking one switches
-         to both, and **leaving it hands yours back**. A jazz waltz in 4/4 is
+         to both, and **leaving it does not keep them**. A jazz waltz in 4/4 is
          not a jazz waltz, but neither is every style after it a waltz: without
          the second half of this, picking the waltz once strands medium swing
          in 3/4 and the ballad's brushes on everything afterwards. */
@@ -2161,22 +2194,33 @@ export function useBreakConsole(
         update({ startStyle: s, startMeter: nextMeter });
         chosen.current = { bars: chosen.current.bars };
       } else chosen.current = { ...chosen.current, style: s, meter: nextMeter };
-      followKit(st);
+      /* Another drummer starts from scratch: their kit and mix, and Faithful.
+         The same one picked again is only a new break, and keeps yours. */
+      const another = s !== style;
+      if (another) {
+        resetSound(s);
+        if (creativeBand(creativity).id !== 'faithful') setCreativity(DEFAULT_CREATIVITY);
+      } else followKit(st);
       if (st && !locks.bpm) setBpm(Math.round((st.bpm[0] + st.bpm[1]) / 2));
       /* On a new pattern the style is the one on the stage, so its swing goes on
          the slider. On a saved one it is only what the next New is written in:
          the saved pattern keeps its swing, and that New rolls the style's. */
       if (settingUpNew()) swingFromStyle(s, nextMeter);
-      setMixTouched((touched) => {
-        applyStyleMix(s, touched);
-        return touched;
-      });
+      if (!another)
+        setMixTouched((touched) => {
+          applyStyleMix(s, touched);
+          return touched;
+        });
       // a song held in another drummer's style is not this drummer's: let it go
       setNextSong((held) => (held && held.style !== s ? null : held));
     },
     [
       catalogue,
       userMeter,
+      style,
+      resetSound,
+      creativity,
+      setCreativity,
       followKit,
       settingUpNew,
       update,

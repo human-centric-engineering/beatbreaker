@@ -37,7 +37,8 @@ export function CreativitySlider() {
           displaced ride, three against four, toms for hats. <b>Experimental</b> borrows the hands
           or the feet of a drummer from somewhere else entirely and plays it another way on top.
           Whatever it does, the kick or the snare of the original is kept, and the stage says what
-          was changed and what was kept. Undo takes a New back.
+          was changed and what was kept. Undo takes a New back. Picking another drummer puts it back
+          to Faithful.
         </StudioHelp>
         <span className="creativity-band">{band.label}</span>
         <span className="creativity-num mono">{c.creativity}</span>

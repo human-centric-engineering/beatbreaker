@@ -13,10 +13,14 @@
       "name": "Benny Benjamin",
       "drummer_role": "sole_drummer",
       "significance": 0.65,
-      "why_it_matters": "'A prominent rhythm provided by Motown drummer Benny Benjamin'; no human drum transcription was found, so no pattern.",
+      "why_it_matters": "'A prominent rhythm provided by Motown drummer Benny Benjamin': the snare on every beat in the chorus, a pickup into every second bar, the stops on the crash.",
       "evidence": {
         "confidence": "verified",
-        "source_ids": ["src:get-ready-wikipedia", "src:benny-benjamin-wikipedia"]
+        "source_ids": [
+          "src:get-ready-wikipedia",
+          "src:benny-benjamin-wikipedia",
+          "src:songsterr-7584060"
+        ]
       }
     }
   ],
@@ -25,17 +29,19 @@
       "title": "Get Ready",
       "drummer_ids": ["drummer:benny-benjamin"],
       "drums": {
-        "description": "An up-tempo, crisp backbeat with snare pickups into each section.",
+        "description": "Eighths on the hat and the backbeat, the snare on every beat in the chorus with a pickup of sixteenths into every second bar, the band's stops on the crash.",
         "evidence": {
           "confidence": "likely",
-          "source_ids": ["src:get-ready-wikipedia"]
+          "source_ids": ["src:songsterr-7584060", "src:get-ready-wikipedia"]
         }
       },
+      "style_key": "bennybenjamin",
+      "song_key": "get-ready",
       "youtube": "https://www.youtube.com/watch?v=mhsYOzdJjI0",
       "transcriptions": [
         {
           "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=259088"
+          "url": "https://www.songsterr.com/a/wa/song?id=7584060"
         }
       ]
     }
