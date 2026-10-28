@@ -529,7 +529,15 @@ const SEAM_DEFAULTS: SeamDefault[] = [
   {
     seam: 'lib/app/credential-paths.ts',
     risk: 'a stray pattern would blank a route word out of every install’s logs and analytics',
-    assert: () => expect(appCredentialPaths).toEqual([]),
+    // FORK (BeatBreaker): re-pointed, not deleted. The four addresses a
+    // link-only pattern or practice session is opened by, and nothing else.
+    assert: () =>
+      expect(appCredentialPaths).toEqual([
+        '/p/[slug]',
+        '/s/[slug]',
+        '/api/v1/public/patterns/[slug]',
+        '/api/v1/public/practice-sessions/[slug]',
+      ]),
   },
   {
     seam: 'lib/app/env.ts',

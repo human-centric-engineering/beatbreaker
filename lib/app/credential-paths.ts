@@ -37,4 +37,14 @@
  * ];
  * ```
  */
-export const appCredentialPaths: readonly string[] = [];
+// FORK (BeatBreaker): a pattern shared by link (`/p/<slug>`) and a shared
+// practice session (`/s/<slug>`) are opened by holding the address, and their
+// slugs are 10 characters — under the 20-character guess — so without these
+// they reach every log and analytics row in full. A published pattern's slug
+// is collapsed too; that only costs a log line which pattern it was.
+export const appCredentialPaths: readonly string[] = [
+  '/p/[slug]',
+  '/s/[slug]',
+  '/api/v1/public/patterns/[slug]',
+  '/api/v1/public/practice-sessions/[slug]',
+];
