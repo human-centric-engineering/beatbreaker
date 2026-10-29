@@ -197081,9 +197081,8 @@ export const STYLES: Record<string, Style> = {
                 [{ h: '3...3...3...3...', s: '....2..1....2...', k: '1.......1.1.1...' }, 1],
               ],
               fills: [
-                // bar 13, from 3: back to the stamp, the snare on the "and" of 4
-                [{ s: '......2.', t3: '1.1.1...', k: '1.1.1...', hf: '1.......' }, 1],
-                // bar 17, from 3: the stamp, and a ghost and the snare round 4
+                // bars 13 and 17, from 3: back to the stamp, the snare on the "and" of 4 (bar 17's
+                // ghost on the "a" of 2 falls before the fill)
                 [{ s: '......2.', t3: '1.1.1...', k: '1.1.1...', hf: '1.......' }, 1],
               ],
             },
@@ -197140,9 +197139,9 @@ export const STYLES: Record<string, Style> = {
                 ],
               ],
               fills: [
-                // bar 25: crashes on 1, 2 and 3 with the snare (and the snare on 4), the kick in sixteenths to the "e" of 4
+                // bar 25: crashes on 1, 2 and 3 with the snare (and the snare on 4), the kick in sixteenths to 4, then its "and"
                 [{ c: '2...2...2.......', s: '2...2...2...2...', k: '1111111111111.1.' }, 1],
-                // bar 45: crashes on every beat and the "and" of 4 with the snare (and on 4), the kick in sixteenths
+                // bar 45: crashes on every beat and the "and" of 4 with the snare (and on 4), the kick in sixteenths to 4, then its "and"
                 [{ c: '2...2...2...2.2.', s: '2...2...2...2...', k: '1111111111111.1.' }, 1],
               ],
             },
@@ -197197,7 +197196,7 @@ export const STYLES: Record<string, Style> = {
                 [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1],
               ],
               fills: [
-                // bar 73: the snare on 1 (and on 2 and 4) under the ride, the kick in sixteenths to the "a" of 4
+                // bar 73: the snare on 1 (and on 2 and 4) under the ride, the kick in sixteenths to the "and" of 4
                 [{ r: '1.1.1.1.1.1.1.1.', s: '2...2.......2...', k: '111111111111111.' }, 1],
               ],
             },
@@ -197358,7 +197357,7 @@ export const STYLES: Record<string, Style> = {
             bars: 7,
             params: {
               backbeats: [12],
-              // bars 39-44, 86-91: quarters on the open hat, the kick on 1, its "and", 2, its "and", 3 and the "a" of 4; then the snare on 1, the "and" of 2 and 4 with a crash on the "and" of 2
+              // bars 39-44, 86-91: quarters on the open hat, the kick on 1, its "and", the "and" of 2, 3, its "and" and the "a" of 4; then the snare on 1, the "and" of 2 and 4 with a crash on the "and" of 2
               figures: [
                 [
                   {
@@ -197566,7 +197565,7 @@ export const STYLES: Record<string, Style> = {
             params: {
               fillChance: 0,
               figures: [
-                // bars 23-24, 35-36: a crash on 1 and the "and" of 2, the open hat on the "and"s of 3 and 4, the snare on 1 and the "and" of 3, the kick on the "and" of 2, 4 and its "and"; then the open hat on the "and"s, the snare on 1 and 3, the kick on the "and" of 1, 2, its "and", the "and" of 3, 4 and its "and"
+                // bars 23-24: a crash on 1 and the "and" of 2, the open hat on the "and" of 3, the snare on 1 and the "and" of 3, the kick on the "and" of 2, 4 and its "and"; then the open hat on the beat, the snare on 1 and 3, the kick on the "and" of 1, 2, its "and", the "and" of 3, 4 and its "and"
                 [
                   {
                     c: '2.....1.........................',
@@ -197575,9 +197574,9 @@ export const STYLES: Record<string, Style> = {
                     k: '......1.....1.1...1.1.1...1.1.1.',
                     hf: '............1...................',
                   },
-                  1.2,
+                  1,
                 ],
-                // bars 27-28: as 23-24, the open hat on the "and" of 4 too; then the open hat on the "and"s, the snare on 1 and 3
+                // bars 27-28, 35-36: as 23-24, the open hat on the "and" of 4 too; then the open hat on the "and"s, the snare on 1 and 3
                 [
                   {
                     c: '2.....1.........................',
@@ -197586,7 +197585,7 @@ export const STYLES: Record<string, Style> = {
                     k: '......1.....1.1...1.1.1...1.1.1.',
                     hf: '............1...................',
                   },
-                  1,
+                  1.2,
                 ],
                 // bars 31-32: the snare on 1, 4 and its "and"; then the open hat on the "and"s of 1 and 2 and on 4, the snare on 2 and 4
                 [
@@ -197803,7 +197802,7 @@ export const STYLES: Record<string, Style> = {
             params: {
               backbeats: [],
               phraseMark: { crash: false },
-              // bars 5-6, 9-10, 15-16, 40-41, 50-51: the kick alone on 1, 2, 3, its "and" and 4; then the open hat on the "and"s of 1 and 2, the foot on 2 and 3, the kick on their "and"s and the "and" of 3
+              // bars 5-6, 9-10, 15-16, 40-41, 50-51: the kick alone on 1, 2, 3, its "and" and the "and" of 4; then the open hat on the "and"s of 1 and 2, the foot on 2 and 3, the kick on the "and"s of 1 and 2 and on 4
               figures: [
                 [
                   {
@@ -198008,7 +198007,7 @@ export const STYLES: Record<string, Style> = {
            Houdini).  The bars follow Songsterr 472129, a human tab (revision 7285482, June 2026,
            aiGenerated false; none of its five revisions is machine-made), drum track "Dale Crover":
            164 bars at 140, 4:41 against the record's 4:41. The record (an upload of the album
-           track; the library's link is a 2007 concert) beat-tracks at 141. Its markers give the
+           track, which the library now links) beat-tracks at 141. Its markers give the
            form: intro without drums (1-15), pre-verse (16-23), verse (24-47), bridge (48-55),
            chorus (56-63), post-chorus (64-71), verse (72-95), bridge (96-103), chorus (104-111),
            bridge (112-119), outro (120-128), a break (129-136), outro (137-164).  His part: half
@@ -198610,7 +198609,7 @@ export const STYLES: Record<string, Style> = {
             bars: 4,
             params: {
               backbeats: [],
-              // bars 113-121: the snare on 1, its "a", the "a" of 3 and 4; then on 2, the "a" of 3 and its "and"
+              // bars 113-121: the snare on 1, its "a", the "a" of 3 and the "and" of 4; then on 2, the "a" of 3 and 4
               figures: [
                 [
                   {
@@ -198696,8 +198695,8 @@ export const STYLES: Record<string, Style> = {
                 [{ h: '1.111.111.111.11', s: '....2.......2...', k: '1.11..11...1....' }, 1],
               ],
               fills: [
-                // bars 152-153, from 3: the snare on 3 and its "and", the kick on the "a" of 4
-                [{ h: '1.1.....', s: '..2..2.2', k: '.......1' }, 1],
+                // bar 152, from 3: eighths on the hat, the snare on the "a" of 3 and the "and" of 4, the kick on the "a" of 4
+                [{ h: '1.1.1.1.', s: '...2..2.', k: '.......1' }, 1],
               ],
             },
           },
@@ -198714,7 +198713,7 @@ export const STYLES: Record<string, Style> = {
                 [{ h: '113.113.113.113.', s: '....2..2....2...' }, 1],
               ],
               fills: [
-                // bar 167, from 3: the tom and the kick together on 3, its "and" and "a", the snare on the "a" of 4
+                // bar 167, from 3: the tom and the kick together on 3, its "and" and "a", the snare on the "and" and "a" of 4
                 [{ s: '......22', t2: '1.11....', k: '1.11....' }, 1],
               ],
             },
