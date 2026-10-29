@@ -1843,7 +1843,8 @@ function locks(
   tip: number,
   mat: THREE.Material
 ): THREE.Object3D {
-  const parts = paths.map((pts) => lockGeometry(pts, root, tip));
+  // enough rings down each lock to follow its curve: a long wavy one would otherwise kink
+  const parts = paths.map((pts) => lockGeometry(pts, root, tip, 6, Math.max(12, 3 * pts.length)));
   const merged = mergeGeometries(parts);
   if (!merged) {
     const group = new THREE.Group();
@@ -2005,8 +2006,21 @@ function onScalpToward(d: THREE.Vector3, out: number): THREE.Vector3 {
  * the front of the parting frame the face, those off its back fall behind
  * the ears. Each falls to `to` (head-frame height), a little ragged and wavy,
  * seeded so the same player has the same hair.
+ *
+ * `wave`: how far (metres) the lengths wave from side to side as they fall,
+ * growing toward the ends; `flare`: how far out the ends flick, as a share of
+ * the head's width. `swept`: no parting, the locks rooted all over the top of
+ * the head and combed straight back off the brow, falling behind the ears.
  */
-function parted(count: number, to: number, seed: number): THREE.Vector3[][] {
+/** The lowest the locks beside the face fall (head frame): the collarbone, clear of the chest. */
+const CHEST_LOCK = -0.13;
+
+function parted(
+  count: number,
+  to: number,
+  seed: number,
+  { wave = 0.012, flare = 0.08, swept = false } = {}
+): THREE.Vector3[][] {
   const rnd = makeRng(seed);
   // the parting, from the front hairline over the top to the crown, and the crown itself
   const brow = scalpDir(Math.PI, 0.78);
@@ -2018,7 +2032,16 @@ function parted(count: number, to: number, seed: number): THREE.Vector3[][] {
     const fromCrown = rnd() < 0.3;
     let root: THREE.Vector3;
     let falls: number;
-    if (fromCrown) {
+    if (swept) {
+      // anywhere over the top, from the brow back to the crown, and straight back from there:
+      // the middle down the back, the sides behind the ears, none in front of them
+      const t = rnd();
+      const across = side * rnd() ** 0.8;
+      root = along.copy(brow).lerp(crown, t).normalize().clone();
+      root.x += across * 0.55;
+      root.normalize();
+      falls = across * (0.25 + 1.3 * Math.abs(across)) + (rnd() - 0.5) * 0.1;
+    } else if (fromCrown) {
       // a whorl: out from the crown in every direction behind it
       root = crown.clone();
       root.x += side * 0.04 * rnd();
@@ -2048,17 +2071,24 @@ function parted(count: number, to: number, seed: number): THREE.Vector3[][] {
     }
     // then hanging from the widest of the head, out a little toward the ends, and wavy
     const last = path[path.length - 1];
-    const end = to - 0.04 * rnd();
+    /* the locks beside the face stop at the collarbone, where they would lie on the chest
+       rather than hang straight down through it; behind the ears, the full length */
+    const front = THREE.MathUtils.smoothstep(Math.abs(falls), 1.5, 2.1);
+    const end = Math.max(to, to + (CHEST_LOCK - to) * front) - 0.04 * rnd();
     const phase = rnd() * Math.PI * 2;
-    const wave = 0.024 * (rnd() - 0.5);
-    for (let k = 1; k <= 3; k++) {
-      const u = k / 3;
-      const flick = 1 + 0.08 * u * u;
+    const sway = 2 * wave * (rnd() - 0.5);
+    // a point every 6 cm or so down the length, so long waves stay round
+    const steps = Math.max(3, Math.round((last.y - end) / 0.06));
+    for (let k = 1; k <= steps; k++) {
+      const u = k / steps;
+      const flick = 1 + flare * u * u;
+      // the waves grow down the length: combed close at the top, loose at the ends
+      const w = sway * Math.sin(phase + 5 * u) * (0.4 + 0.6 * u);
       path.push(
         new THREE.Vector3(
-          last.x * flick + wave * Math.sin(phase + 5 * u) * Math.cos(falls),
+          last.x * flick + w * Math.cos(falls),
           last.y + (end - last.y) * u,
-          last.z * flick - wave * Math.sin(phase + 5 * u) * Math.sin(falls)
+          last.z * flick - w * Math.sin(falls)
         )
       );
     }
@@ -2117,11 +2147,12 @@ function crowned(count: number, to: number, seed: number): THREE.Vector3[][] {
     // layered: each its own length, a few much shorter
     const end = to + 0.1 * rnd() * rnd() + 0.05 * front;
     const phase = rnd() * Math.PI * 2;
-    const wave = 0.018 + 0.018 * rnd();
+    // gently: stronger, the short locks cross one another like sticks
+    const wave = 0.009 + 0.009 * rnd();
     for (let k = 1; k <= 5; k++) {
       const u = k / 5;
       // waving side to side and in and out as it falls, the ends flipping out
-      const out = 1 + 0.06 * u + 0.16 * u ** 3;
+      const out = 1 + 0.06 * u + 0.1 * u ** 3;
       const sway = wave * Math.sin(phase + 5 * u) * u;
       const lift = 0.5 * wave * Math.cos(phase * 1.7 + 4 * u) * u;
       path.push(
@@ -2371,13 +2402,18 @@ function hairFor(style: HairStyle, m: Materials, coily = false): THREE.Object3D[
       return [swinging([0, 0.1, 0.03], 0.35, [fro, ...afroFuzz(fro, m, coils, 4, 0.012)])];
     }
     case 'long': {
+      // matt, as the curtains' are: thin glossy locks each catch the light and read as wire
+      const matt = beardMaterial(m);
+      matt.vertexColors = false;
       // a mass behind, so the locks over it never show the neck through them
-      const back = mesh(new THREE.CapsuleGeometry(0.08, 0.2, 6, 18), m.hair);
-      back.scale.set(1, 1, 0.5);
-      back.position.set(0, 0.03, 0.05);
-      const hangs = locks(fall(34, 1.85, -0.16, 0x1f2e3d), 0.014, 0.004, m.hair);
-      // all of it from the crown
-      return [hairCap(m), swinging([0, 0.16, 0.03], 1, [back, hangs], HANG_HINGE)];
+      const back = mesh(new THREE.CapsuleGeometry(0.075, 0.16, 6, 18), matt);
+      back.scale.set(1.15, 1, 0.5);
+      back.position.set(0, 0.0, 0.065);
+      // parted and combed flat on top, matt as the lengths are; a hood leaves it off, as a cap
+      const top = combedTop(m, (d) => hairline(d, 0.6, -0.3, -0.75), 'hair cap');
+      // every lock grown from the parting or the crown, not hung in a ring round the head
+      const hangs = locks(parted(110, -0.16, 0x1f2e3d), 0.013, 0.003, matt);
+      return [top, swinging([0, 0.16, 0.03], 1, [back, hangs], HANG_HINGE)];
     }
     case 'bun': {
       const bun = ball(0.048, m.hair, 16);
@@ -2616,7 +2652,7 @@ function hairFor(style: HairStyle, m: Materials, coily = false): THREE.Object3D[
       back.scale.set(1.15, 1, 0.55);
       back.position.set(0, 0.03, 0.06);
       // every lock from the crown, in layers: the fringe over the brow, the rest to the collarbone
-      const hangs = locks(crowned(170, -0.12, 0x3b0b), 0.016, 0.007, matt);
+      const hangs = locks(crowned(240, -0.12, 0x3b0b), 0.014, 0.003, matt);
       return [mass, swinging([0, 0.16, 0.03], 0.8, [back, hangs], HANG_HINGE)];
     }
     case 'curtains': {
@@ -2643,7 +2679,7 @@ function hairFor(style: HairStyle, m: Materials, coily = false): THREE.Object3D[
       back.scale.set(1.15, 1, 0.5);
       back.position.set(0, -0.02, 0.065);
       // every lock grown from the parting or the crown, combed away from it and falling
-      const hangs = locks(parted(150, -0.2, 0x2c7a), 0.012, 0.006, matt);
+      const hangs = locks(parted(150, -0.2, 0x2c7a), 0.013, 0.003, matt);
       return [mass, swinging([0, 0.16, 0.03], 1, [back, hangs], HANG_HINGE)];
     }
     case 'backswept': {
@@ -2657,8 +2693,8 @@ function hairFor(style: HairStyle, m: Materials, coily = false): THREE.Object3D[
       const back = mesh(new THREE.CapsuleGeometry(0.075, 0.18, 6, 18), matt);
       back.scale.set(1.15, 1, 0.5);
       back.position.set(0, -0.01, 0.065);
-      // from behind the ears round the back, none in front of them
-      const hangs = locks(wavy(48, 1.7, -0.19, 0.01, 0x5e1a, 0.07), 0.022, 0.01, matt);
+      // every lock grown over the top and combed straight back, falling behind the ears
+      const hangs = locks(parted(140, -0.19, 0x5e1a, { swept: true }), 0.014, 0.003, matt);
       return [mass, swinging([0, 0.16, 0.03], 1, [back, hangs], HANG_HINGE)];
     }
     case 'flowing': {
@@ -2669,15 +2705,18 @@ function hairFor(style: HairStyle, m: Materials, coily = false): THREE.Object3D[
       const mass = combedTop(m, line, 'flowing', 0.012);
       const matt = beardMaterial(m);
       matt.vertexColors = false;
-      const back = mesh(new THREE.CapsuleGeometry(0.085, 0.2, 6, 18), matt);
-      back.scale.set(1.3, 1, 0.6);
-      back.position.set(0, -0.04, 0.07);
-      // locks rooted along the parting and the crown, combed away from it to about the ears...
-      const combed = locks(parted(110, 0.0, 0xf10e), 0.013, 0.006, matt);
-      // ...and the lengths in waves from behind the ears, clear of the face and the earrings
-      const waves = locks(wavy(80, 1.35, -0.27, 0.065, 0xe5e1a, 0.08), 0.028, 0.01, matt);
-      waves.scale.set(1.08, 1, 1.06);
-      return [mass, swinging([0, 0.16, 0.03], 1, [back, combed, waves], HANG_HINGE)];
+      const back = mesh(new THREE.CapsuleGeometry(0.075, 0.26, 6, 18), matt);
+      back.scale.set(1.15, 1, 0.5);
+      back.position.set(0, -0.05, 0.065);
+      /* every lock grown from the parting or the crown and combed away from it, then falling
+         in loose waves that grow toward the ends, which flick out */
+      const hangs = locks(
+        parted(170, -0.27, 0xf10e, { wave: 0.045, flare: 0.22 }),
+        0.015,
+        0.003,
+        matt
+      );
+      return [mass, swinging([0, 0.16, 0.03], 1, [back, hangs], HANG_HINGE)];
     }
     case 'frizz': {
       /* Mike Portnoy's now: long, light brown and curly, out in a big frizz at the sides and

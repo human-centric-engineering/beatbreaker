@@ -28,8 +28,12 @@ describe('buildDrummer() — locks that will not merge', () => {
       if (o instanceof THREE.Mesh && !(o.geometry instanceof THREE.CapsuleGeometry))
         strands.push(o);
     });
-    // 34 locks, one mesh each, none of them empty
-    expect(strands).toHaveLength(34);
-    for (const s of strands) expect(s.geometry.getAttribute('position').count).toBe(13 * 7);
+    // 110 locks, one mesh each, none of them empty: rings of 7 down each, at least 13 of them
+    expect(strands).toHaveLength(110);
+    for (const s of strands) {
+      const n = s.geometry.getAttribute('position').count;
+      expect(n % 7).toBe(0);
+      expect(n).toBeGreaterThanOrEqual(13 * 7);
+    }
   });
 });
