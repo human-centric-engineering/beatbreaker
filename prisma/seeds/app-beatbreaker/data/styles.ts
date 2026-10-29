@@ -191382,8 +191382,17 @@ export const STYLES: Record<string, Style> = {
                 ],
               ],
               fills: [
-                // Verse 2 bar 9: the crash on 1, the ride on the "and" of 3, its "a" and 4
-                [{ c: '1.......', r: '..111...', h: '1.......', s: '....2...', k: '1.......' }, 1],
+                // Verse 2 bar 9: the crash on 1, the ride on the "and" of 3, its "a" and 4 (the hat on 4 left out)
+                [
+                  {
+                    c: '1...............',
+                    r: '..........111...',
+                    h: '1...1...1.......',
+                    s: '....2.......2...',
+                    k: '1...1.1.1.......',
+                  },
+                  1,
+                ],
               ],
             },
           },
@@ -192570,7 +192579,7 @@ export const STYLES: Record<string, Style> = {
                 [{ t2: '....1.1.', k: '1...1...' }, 1],
                 // Intro bar 8: the kick out on 4
                 [{ k: '1.......' }, 0.6],
-                // Verse 2 bar 12: both rack toms on 4, its "e" and "and"
+                // Verse 2 bar 12: the second rack tom and the floor tom together on 4, its "e" and "and"
                 [{ t2: '....111.', t3: '....111.', k: '1...1...' }, 0.6],
               ],
             },
@@ -192938,7 +192947,7 @@ export const STYLES: Record<string, Style> = {
               bpm: [264, 274],
               backbeats: [],
               figures: [
-                // Break bars 4-8: the snare on 1 and its second triplet, the low tom in triplets, the high tom on 3's second
+                // Break bars 4-8: the snare on 1 and its second triplet, the low tom in triplets, the high tom on 2's third
                 [
                   { s: '2.2...............', t1: '..........1.......', t2: '....1.1.1...1.1.1.' },
                   3,
@@ -193332,7 +193341,7 @@ export const STYLES: Record<string, Style> = {
                 [{ r: '1.111.1.1.111.1.', s: '....2.......2...', k: '1..1....1.11.1..' }, 1],
               ],
               fills: [
-                // Guitar Solo bar 4: the ride to the "and" of 2, the snare on its "a" and 3, the middle tom to the "a" of 3, the floor tom on 4's "and" and "a"
+                // Guitar Solo bar 4: the ride to the "and" of 2, the snare on 2 and on the "e" and "and" of 3, the middle tom from the "and" of 3 to its "a", the floor tom on 4's "and" and "a"
                 [
                   {
                     c: '2.......1.......',
@@ -193345,7 +193354,7 @@ export const STYLES: Record<string, Style> = {
                   },
                   1,
                 ],
-                // Guitar Solo 2 bar 4: the ride to 3, then the accents of the tab's run of sixteenths on the snare, the "and" of 3, 4 and its "and" (the notes between left out)
+                // Guitar Solo 2 bar 4: the china on 1, the ride to 3, then the accents of the tab's run of sixteenths on the snare, the "and" of 3, 4 and its "and" (the notes between left out)
                 [
                   {
                     c: '3...............',
@@ -193412,7 +193421,7 @@ export const STYLES: Record<string, Style> = {
               figures: [
                 // Outro bars 1-3 and 9: the crash and the kick on every beat over the hat foot in eighths
                 [{ c: '1...1...1...1...', k: '1...1...1...1...', hf: '1.1.1.1.1.1.1.1.' }, 1.4],
-                // Outro bar 6: the snare on every beat under the open hat, the kick on the "e"s and the "and" of 3
+                // Outro bar 6: the snare on every beat under the open hat, the crash on 2 and the china on 4, the kick on the "e"s and the "and" of 3
                 [
                   {
                     c: '....2.......3...',
@@ -193787,8 +193796,8 @@ export const STYLES: Record<string, Style> = {
                 [{ r: '2.2.2.2.', s: '..2...22', k: '11111111' }, 1],
               ],
               fills: [
-                // Chorus bar 8, from 3: the snare in eighths, accented on the "and" (the last "and" left out: four in a row at 226 is a run)
-                [{ s: '232.', k: '1111' }, 1],
+                // Chorus bar 8, from 3: the snare in eighths, accented on the "and"s
+                [{ s: '2323', k: '1111' }, 1],
               ],
             },
           },
@@ -194027,7 +194036,7 @@ export const STYLES: Record<string, Style> = {
               backbeats: [4, 12, 16],
               fillChance: 0,
               figures: [
-                // Pre-Chorus I bars 1-2 (4/4 and 2/4): the crash in eighths, the snare on 2, 4 and 5, the kick on 1, its "and", the "and" of 2, 3 and the "and"s of 5 and 6
+                // Pre-Chorus I bars 1-2 (4/4 and 2/4): the crash in eighths, the snare on 2, 4 and 5, the kick on 1, its "and", the "and" of 2, of 3, of 5 and of 6
                 [
                   {
                     c: '1.1.1.1.1.1.1.1.1.1.1.1.',
@@ -194106,7 +194115,7 @@ export const STYLES: Record<string, Style> = {
               backbeats: [4, 12, 16],
               fillChance: 0,
               figures: [
-                // Guitar Solo bars 1-2 (4/4 and 2/4): the hat opened on the "and" of 2 and of 4 and on the riff's accents, the hat foot on 5's "and"
+                // Guitar Solo bars 1-2 (4/4 and 2/4): the hat opened on the "and" of 2 and of 4 and on the riff's accents, the hat foot on 6
                 [
                   {
                     c: '2.......................',
@@ -194161,7 +194170,7 @@ export const STYLES: Record<string, Style> = {
             },
           },
         ],
-        // Intro, Verse I, Pre-Chorus I, Chorus I, Verse II, Pre-Chorus II, Chorus II, Guitar Solo, Chorus III, Bridge, Chorus IV, Outro
+        // Intro, Verse I, Pre-Chorus I, Chorus I, Verse II, Pre-Chorus II, Chorus II, Guitar Solo, Chorus III, Bridge, Chorus IV, Outro (the crash in eighths, as the chorus)
         arrangement: [
           'A',
           'A',
@@ -194179,7 +194188,7 @@ export const STYLES: Record<string, Style> = {
           'D',
           'E',
           'H',
-          'A',
+          'E',
           'E',
         ],
       },
@@ -194821,7 +194830,7 @@ export const STYLES: Record<string, Style> = {
     weight: 0.7,
     bpm: [76, 150],
     swing: 0,
-    // the tabs write no ghost notes; a few on the "e"s and "a"s for the second-line lilt
+    // the tabs write no ghost notes; a few on the "a"s for the second-line lilt
     ghostBias: 0.12,
     ghostWeights: { 3: 0.3, 7: 0.3, 11: 0.3, 15: 0.3 },
     opens: 1,
@@ -195758,8 +195767,8 @@ export const STYLES: Record<string, Style> = {
            more in the solo and the breakdown are cut to doubles, and bar 40's kick on the "a" of 2
            and on 3 and its snare on the "and" of 3 are left out for air: "I try to do a lot of
            double kicks and put them in odd places" on one pedal (1988). The four bars before the
-           drums, bar 20's 2/4 and bar 43 are left out; the snare section (44-49) plays as four
-           bars, the solo as six and the breakdown as six; the other sections follow the tab's
+           drums, bar 20's 2/4 and bar 43 are left out; the snare section (44-49) plays in full,
+           the solo and the breakdown as four bars each; the other sections follow the tab's
            commonest bars by four-bar phrase. */
         key: 'fat-man-in-the-bathtub',
         title: 'Fat Man in the Bathtub',
