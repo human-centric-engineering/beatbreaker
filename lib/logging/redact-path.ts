@@ -215,10 +215,19 @@ function collapseSegments(pathname: string, applyDeclarations: boolean): string 
   }
   return segments
     .map((segment, index) =>
-      declared[index] || isSensitiveSegment(segment) ? PLACEHOLDER : segment
+      (declared[index] && !ROUTE_PLACEHOLDER.test(segment)) || isSensitiveSegment(segment)
+        ? PLACEHOLDER
+        : segment
     )
     .join('/');
 }
+
+/**
+ * A segment that is already a route's placeholder (`[slug]`, `[...rest]`,
+ * `[[...rest]]`), as in a parameterised transaction name (`GET /s/[slug]`).
+ * It names the route rather than carrying a value, so a declaration leaves it.
+ */
+const ROUTE_PLACEHOLDER = /^\[\[?(?:\.\.\.)?[^[\]/]+\]?\]$/;
 
 /**
  * `collapseDynamicSegments` for a path that may be absent — the shape of
@@ -307,7 +316,14 @@ const LINE_COLUMN = /(?::\d+){1,2}$/;
  */
 export function scrubUrlsInText(text: string): string {
   return text.replace(URL_IN_TEXT, (found) => {
-    const punctuation = TRAILING_PUNCTUATION.exec(found)?.[0] ?? '';
+    const stripped = TRAILING_PUNCTUATION.exec(found)?.[0] ?? '';
+    // A `]` that closes a `[` in the last segment is the end of a route
+    // placeholder (`GET /s/[slug]`), not punctuation, so it stays on the URL.
+    const body = found.slice(0, found.length - stripped.length);
+    const lastSegment = body.slice(body.lastIndexOf('/'));
+    const unclosed = lastSegment.split('[').length - lastSegment.split(']').length;
+    const closed = Math.max(0, Math.min(unclosed, /^\]*/.exec(stripped)?.[0].length ?? 0));
+    const punctuation = stripped.slice(closed);
     const url = found.slice(0, found.length - punctuation.length);
     const lineColumn = LINE_COLUMN.exec(url)?.[0] ?? '';
     return scrubUrl(url.slice(0, url.length - lineColumn.length)) + lineColumn + punctuation;
