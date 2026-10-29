@@ -68,10 +68,10 @@ import { registerAppOwnerClassification } from '@/lib/db/owner-classification';
  * and public drummer pages the product exists to show. Its `because` names
  * who else reads it and what the routes check instead.
  *
- * Every user column in `prisma/schema/app.prisma` is marked `/// FK to User.id`
- * where it has no `@relation`, and `tests/unit/lib/app/owner-classification.test.ts`
- * fails naming any model so marked that is not classified here — core's guard
- * only knows core's column names.
+ * Every user column in `prisma/schema/app.prisma` with no `@relation` is marked
+ * `/// owner-classification: user-id`, so core's guard
+ * (`tests/unit/lib/db/owner-classification.test.ts`) fails naming any model so
+ * marked that is not classified here.
  */
 export function initAppOwnerClassification(): void {
   const mine = { kind: 'personal', owner: { column: 'userId' } } as const;
