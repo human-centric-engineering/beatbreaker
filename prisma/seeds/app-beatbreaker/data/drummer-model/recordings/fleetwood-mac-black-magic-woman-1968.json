@@ -1,0 +1,44 @@
+{
+  "id": "rec:fleetwood-mac-black-magic-woman-1968",
+  "title": "Black Magic Woman",
+  "artist": "Fleetwood Mac",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:blues-rock"],
+  "producer": "Mike Vernon",
+  "studio_context": "CBS Studios, London, 14 February 1968, take 7; more work on 22 February. Single, Blue Horizon, 29 March 1968 (UK).",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-fleetwood",
+      "name": "Mick Fleetwood",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Black Magic Woman",
+      "drummer_ids": ["drummer:mick-fleetwood"],
+      "drums": {
+        "description": "A minor blues on a Latin rhythm: the toms answering the kick under the hat on 2 and 4 and their \"and\"s, the band stopping at the end of each verse.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:black-magic-woman-wikipedia", "src:songsterr-35322"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Gw5nh3_rq6g",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=35322"
+        }
+      ],
+      "style_key": "fleetwood",
+      "song_key": "black-magic-woman-fm"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:black-magic-woman-wikipedia"],
+    "note": "Green on guitars and vocals, John McVie on bass, Mick Fleetwood on drums; Jeremy Spencer is not on it."
+  }
+}

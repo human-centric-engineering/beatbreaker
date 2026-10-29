@@ -210,6 +210,55 @@ Motown drummers.
    since the earlier refusal left out his best-known records. Upgrade the
    record to schema 1.6.0; his likeness stays unless better photographs turn up.
 
+## Batch 2, next three (claimed 2026-10-29)
+
+The top three of the re-ranked long list (`rank.py`, 2026-10-29), all 15-a
+candidates: keep the record ids. Each files into a group that exists.
+
+| Fork | Drummer        | Record                   | Style key      | Likeness         | Research | Drummers-tab group                  | Copy from                          |
+| ---- | -------------- | ------------------------ | -------------- | ---------------- | -------- | ----------------------------------- | ---------------------------------- |
+| 1    | Alex Van Halen | `drummer:alex-van-halen` | `alexvanhalen` | `ALEX_VAN_HALEN` | DY       | Hard rock drummers                  | `bonham`, `paice`, `rogertaylor`   |
+| 2    | Mick Fleetwood | `drummer:mick-fleetwood` | `fleetwood`    | `MICK_FLEETWOOD` | DZ       | Blues and psychedelic rock drummers | `mitchell`, `baker`, `kenneyjones` |
+| 3    | Richie Hayward | `drummer:richie-hayward` | `hayward`      | `RICHIE_HAYWARD` | EA       | Heartland and roots rock drummers   | `levonhelm`, `zigaboo`, `purdie`   |
+
+**What each fork should watch for:**
+
+1. **Alex Van Halen.** Van Halen with David Lee Roth, 1978–84: the swing in
+   the shuffle, the big open toms, and the double-bass gallop of "Hot for
+   Teacher". On _1984_ check what he played on "Jump" (a drum machine or
+   Simmons pads would allow an electronic kit for that song alone, per the
+   sampled-kit rule) and on "Panama". "You Really Got Me" is the Kinks' song:
+   score his part, not Mick Avory's.
+2. **Mick Fleetwood.** Two bands under one name: the Peter Green blues band
+   ("Oh Well", "Albatross") and the _Rumours_ era. "Go Your Own Way"'s
+   tom-led verse, "Dreams", "The Chain" and "Tusk" are the parts players
+   learn. Check each _Rumours_ and _Tusk_ credit and how each part was made
+   (loops, overdubs, the USC band) before scoring it as one drummer's part.
+3. **Richie Hayward.** Little Feat's New Orleans-inflected groove on a rock
+   kit: "Dixie Chicken", "Fat Man in the Bathtub", "Spanish Moon", "Two
+   Trains". Confirm from the sleeves that he plays on each track you score;
+   Little Feat used other drummers and percussionists on some sessions.
+
+What came of it (built 2026-10-29):
+
+- **Songs.** Van Halen eight (1978–84), Fleetwood seven (1968–79), Hayward
+  six (1972–78), all from human tabs bar Hayward's Rock and Roll Doctor, a
+  machine tab checked against the record for tempo and form, which says so.
+  Albatross (timpani mallets), Oh Well (empty tabs), You Really Got Me (the
+  Kinks' part), and Two Trains (machine tab only, its tempo off the record)
+  are left out.
+- **Tape loops of his own playing.** Fleetwood's Dreams and Tusk were built
+  on loops of him; scored as his parts, the loops named in each comment.
+- **Hot for Teacher's intro** is Simmons pads and rototoms, so it is left
+  out and every Van Halen song keeps a sampled kit; nothing places a drum
+  machine on Jump.
+- **Library corrections.** Seven Little Feat tracks listed machine-made
+  Songsterr tabs as `transcriptions`; they are off, and Dixie Chicken's human
+  tab (2920774) is in. Spanish Moon stays Hayward's: three Discogs sleeves
+  credit him alone, against Wikipedia's uncited Fred White.
+- **No second bass drum.** Van Halen has `doubleKick`, but the 3D kit draws
+  one bass drum for every drummer.
+
 ## The brief each fork gets
 
 Paste this to each fork, with its row from the batch table and `S`, the

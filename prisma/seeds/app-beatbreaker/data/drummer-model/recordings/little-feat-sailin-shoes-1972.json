@@ -23,13 +23,7 @@
           "source_ids": ["src:richie-hayward-wikipedia", "src:sailin-shoes-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=jHKFkLhr4_I",
-      "transcriptions": [
-        {
-          "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=1059614"
-        }
-      ]
+      "youtube": "https://www.youtube.com/watch?v=jHKFkLhr4_I"
     },
     {
       "title": "Tripe Face Boogie",
@@ -41,13 +35,31 @@
           "source_ids": ["src:richie-hayward-wikipedia", "src:sailin-shoes-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=nVuAOS6mU6k",
+      "youtube": "https://www.youtube.com/watch?v=nVuAOS6mU6k"
+    },
+    {
+      "title": "Cold, Cold, Cold",
+      "drummer_ids": ["drummer:richie-hayward"],
+      "drums": {
+        "description": "His drums overdubbed on Lowell George's drum machine, which plays alone for four bars: the snare on the \"and\" of 2 and on 4, the beat turned round where the tape was cut, bars of 2/4 and 3/4. At 83.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:richie-hayward-moderndrummer-1988",
+            "src:discogs-sailin-shoes",
+            "src:songsterr-4005502"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=H29UNZCYQbg",
       "transcriptions": [
         {
           "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=2564313"
+          "url": "https://www.songsterr.com/a/wa/song?id=4005502"
         }
-      ]
+      ],
+      "style_key": "hayward",
+      "song_key": "cold-cold-cold"
     }
   ],
   "evidence": {

@@ -28,6 +28,26 @@
           "url": "https://www.songsterr.com/a/wa/song?id=1163936"
         }
       ]
+    },
+    {
+      "title": "Rhiannon",
+      "drummer_ids": ["drummer:mick-fleetwood"],
+      "drums": {
+        "description": "A turn of bars with the kick on 1, 2, its \"and\" and 3, the snare on 2 alone every other bar, then the hat on the beat with the ride's pickups through the long chorus.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:rhiannon-song-wikipedia", "src:songsterr-7426"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=qQU5nS8G7K8",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=7426"
+        }
+      ],
+      "style_key": "fleetwood",
+      "song_key": "rhiannon"
     }
   ]
 }

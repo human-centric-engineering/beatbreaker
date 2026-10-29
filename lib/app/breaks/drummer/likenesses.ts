@@ -3915,6 +3915,96 @@ const URIEL_JONES: Persona = {
   kit: { shell: '#2c4a8c', finish: 'sparkle', hardware: 'chrome', rug: '#2a2420' },
 };
 
+/**
+ * Mick Fleetwood in Fleetwood Mac's video for Go Your Own Way, the 1977 single from Rumours, at
+ * twenty-nine (the band's official upload, ozl3L9fhKtE; frames at the kit, 0:55-1:13 and
+ * 3:08-3:24): very tall and lean, dark brown hair swept back to the shoulders, a full dark beard
+ * and moustache; a loose white shirt open down the chest, a red neckerchief knotted at the
+ * throat (not drawn: no persona field holds one; the accent is its red). His kit is a white
+ * Ludwig with chrome hardware and a white front head carrying Ludwig's name (BeatBreaker's own
+ * is kept), a big gong behind him. Trousers and shoes are out of shot behind the kit: dark ones,
+ * a guess. No headphones: a stage.
+ */
+const MICK_FLEETWOOD: Persona = {
+  id: 'fleetwood',
+  name: 'Mick Fleetwood',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e9bf9e',
+  hair: '#2e1e14',
+  hairStyle: 'flowing',
+  beard: 'full',
+  top: 'button-up',
+  neckwear: 'open',
+  shirt: '#efebe2',
+  trousers: '#2a2a30',
+  shoes: '#1e1a18',
+  accent: '#c0241c',
+  headphones: false,
+  kit: { shell: '#ede6e2', finish: 'gloss', hardware: 'chrome', rug: '#2a2220' },
+};
+
+/**
+ * Alex Van Halen at the kit in the band's 1978 promotional film of Runnin'
+ * with the Devil (the official video, filmed on stage in the year of the first
+ * album): his dark brown hair a big mass of curls past the ears, clean-shaven;
+ * a black sleeveless vest, the arms bare. The silver sparkle Ludwig with two
+ * bass drums, white front heads, chrome (Van Halen Gear Timeline has the 1970
+ * Pro Beat in silver sparkle, grown to two bass drums). Trousers and shoes are
+ * behind the kit: dark, a guess.
+ */
+const ALEX_VAN_HALEN: Persona = {
+  id: 'alexvanhalen',
+  name: 'Alex Van Halen',
+  figure: 'male',
+  build: 'average',
+  skin: '#d9a77f',
+  hair: '#2e1c12',
+  hairStyle: 'frizz',
+  beard: 'none',
+  top: 'vest',
+  shirt: '#16161a',
+  trousers: '#1c1c22',
+  shoes: '#141414',
+  accent: '#16161a',
+  headphones: false,
+  kit: { shell: '#b8bcc2', finish: 'sparkle', hardware: 'chrome', rug: '#2a2422' },
+};
+
+/**
+ * Richie Hayward with Little Feat outdoors in the summer of 1976, playing "Fat Man in the Bathtub"
+ * (Reelin' In The Years Archive, YouTube uRhMgIztVpc, at the kit from 1:40 to 1:43; frames at 1:40
+ * and 1:42), the year before the Waiting for Columbus shows: thirty, average build, brown hair
+ * waved over his ears to the collar, a full moustache and the chin bare, a white T-shirt with a dark
+ * blue ringer collar and sleeve bands, a fine chain at the neck, a brown belt over pale trousers,
+ * singing as he plays. A black kit with chrome lugs and hoops. The BBC's Old Grey Whistle Test of
+ * 1975 (YouTube V3cbdUJPPe0) shows the same hair and moustache. His shoes are behind the kit, a
+ * guess; the ringer trim is drawn in the accent colour.
+ */
+const RICHIE_HAYWARD: Persona = {
+  id: 'hayward',
+  name: 'Richie Hayward',
+  figure: 'male',
+  build: 'average',
+  skin: '#e2b493',
+  hair: '#5a3b26',
+  // parted and waved over the ears to the collar: curtains is the nearest shape
+  hairStyle: 'curtains',
+  beard: 'moustache',
+  beardColour: '#4e3322',
+  top: 'tee',
+  shirt: '#f1efe8',
+  neckwear: 'tee',
+  chain: true,
+  trousers: '#ddd6c6',
+  shoes: '#4a3424',
+  footwear: 'shoes',
+  // the T-shirt's dark blue ringer collar and sleeve bands
+  accent: '#1f2b4e',
+  headphones: false,
+  kit: { shell: '#111114', finish: 'gloss', hardware: 'chrome', rug: '#3a2e26' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -4035,6 +4125,9 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   stevejordan: STEVE_JORDAN,
   pistolallen: PISTOL_ALLEN,
   urieljones: URIEL_JONES,
+  fleetwood: MICK_FLEETWOOD,
+  alexvanhalen: ALEX_VAN_HALEN,
+  hayward: RICHIE_HAYWARD,
 };
 
 /**

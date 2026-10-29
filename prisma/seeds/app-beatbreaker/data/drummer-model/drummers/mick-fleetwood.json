@@ -2,46 +2,668 @@
   "meta": {
     "id": "drummer:mick-fleetwood",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
-    "completeness": 0.15,
+    "record_status": "draft",
+    "completeness": 0.3,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-29",
+    "authors": ["claude"],
+    "open_questions": [
+      "Black Magic Woman's coda: the tab leaves its 19 bars unwritten; the app plays the verse's groove there, which is a reconstruction, not a transcription.",
+      "Tusk's toms: the tab puts the loop's kick rhythm on a high tom (GM 48) and the backbeat on the low ones (45, 47). Which drums the loop really holds was not checked against the isolated record.",
+      "Albatross (1968), played with timpani mallets on the kit with cymbals overdubbed, and Oh Well (1969) are not scored: the app has no mallets, and Oh Well's three tabs leave most of its bars empty. World Turning (1975) has only a machine tab.",
+      "His studio kit on Rumours and Tusk: Wikipedia says Sonor in the studio and Ludwig on stage; the tabs name Ludwig kits. Neither is confirmed per record."
+    ]
   },
   "identity": {
     "name": "Mick Fleetwood",
     "full_name": "Michael John Kells Fleetwood",
     "born": {
-      "date": "1947",
+      "date": "1947-06-24",
+      "place": "Redruth, Cornwall",
       "evidence": {
-        "confidence": "widely_reported",
+        "confidence": "verified",
         "source_ids": ["src:mick-fleetwood-wikipedia"]
       }
     },
     "nationality": ["British"],
+    "home_scenes": ["London blues boom, late 1960s", "Los Angeles, 1970s"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "percussion"],
     "active": {
       "from": 1963,
       "ongoing": true
     },
-    "summary": "Drummer, co-founder and leader of Fleetwood Mac."
+    "roles": ["band_member", "bandleader", "session"],
+    "summary": "Drummer, co-founder and leader of Fleetwood Mac, the only member on every album. Self-taught on a toy kit, schooled in the blues behind Peter Green and Sonny Boy Williamson, he played the Latin blues of Black Magic Woman and, with Buckingham and Nicks, the records of the 1970s: Rhiannon, the toms across Go Your Own Way, the kick alone in The Chain, and the tape loops of his own playing under Dreams and Tusk. He hit everything hard but the kick, rarely played a figure the same way twice, and says he plays \"like blues players, really\"."
   },
-  "style_profile": {
-    "genres": [
+  "formation": {
+    "traditions": [
       {
-        "style_id": "style:blues-rock",
-        "weight": 0.6,
-        "authority": 0.4
+        "tradition": "British blues (Peter Green, John Mayall, Sonny Boy Williamson)",
+        "impact": "\"John and I play like blues players, really\": learned \"in the trenches\" behind Sonny Boy Williamson; Green helped him through his \"rhythmic dyslexia\" and taught him to follow the lead guitar.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mick-fleetwood-modern-drummer-2009", "src:mick-fleetwood-wikipedia"]
+        }
       },
       {
-        "style_id": "style:rock",
-        "weight": 0.8
+        "tradition": "British beat and the Shadows (Tony Meehan)",
+        "impact": "His first years were \"heavily influenced by Tony Meehan and The Everly Brothers\".",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mick-fleetwood-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Self-taught: his parents bought him a toy \"Gigster\" kit at thirteen and a Rogers kit at fifteen; \"training on the job\".",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mick-fleetwood-wikipedia", "src:mick-fleetwood-modern-drummer-2009"]
+        }
       },
       {
-        "style_id": "style:pop-rock-session",
-        "weight": 0.5
+        "year": 1963,
+        "event": "His first gig, in Peter Bardens's band the Cheynes, in London.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mick-fleetwood-wikipedia"]
+        }
+      },
+      {
+        "year": 1967,
+        "event": "In John Mayall's Bluesbreakers with Peter Green and John McVie, then dismissed; founded Fleetwood Mac with Green that summer.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mick-fleetwood-wikipedia"]
+        }
+      },
+      {
+        "year": 1975,
+        "event": "Brought in Lindsey Buckingham and Stevie Nicks; Fleetwood Mac (1975) with Keith Olsen, then Rumours (1977) and Tusk (1979).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mick-fleetwood-wikipedia"]
+        }
       }
     ]
   },
+  "eras": [
+    {
+      "id": "era:mick-fleetwood-peter-green",
+      "label": "The Peter Green blues band",
+      "years": {
+        "from": 1967,
+        "to": 1970
+      },
+      "context": "Chicago-style blues and Green's own songs for Blue Horizon and Reprise: Black Magic Woman, Albatross, Oh Well, Then Play On.",
+      "defining_traits": ["blues shuffles", "Latin blues", "mallets on Albatross"],
+      "key_recording_ids": [
+        "rec:fleetwood-mac-black-magic-woman-1968",
+        "rec:fleetwood-mac-albatross-1968",
+        "rec:fleetwood-mac-oh-well-1969"
+      ]
+    },
+    {
+      "id": "era:mick-fleetwood-transition",
+      "label": "Kiln House to Heroes Are Hard to Find",
+      "years": {
+        "from": 1970,
+        "to": 1974
+      },
+      "context": "Line-ups changing round Fleetwood and the McVies: Danny Kirwan, Bob Welch, Christine McVie; the band moved to Los Angeles in 1974.",
+      "defining_traits": ["soft rock", "holding the band together"],
+      "key_recording_ids": []
+    },
+    {
+      "id": "era:mick-fleetwood-buckingham-nicks",
+      "label": "Buckingham and Nicks",
+      "years": {
+        "from": 1975,
+        "to": 1987
+      },
+      "context": "Fleetwood Mac (1975), Rumours (1977) and Tusk (1979): Olsen's and Caillat's records, the toms carrying Go Your Own Way, and drum loops cut from his own playing under Dreams and Tusk.",
+      "defining_traits": [
+        "tom-led grooves",
+        "tape loops of his playing",
+        "accents where you least expect them"
+      ],
+      "key_recording_ids": [
+        "rec:fleetwood-mac-fleetwood-mac-1975",
+        "rec:fleetwood-mac-rumours-1977",
+        "rec:fleetwood-mac-tusk-1979"
+      ]
+    },
+    {
+      "id": "era:mick-fleetwood-later",
+      "label": "Later Fleetwood Mac",
+      "years": {
+        "from": 1987,
+        "ongoing": true
+      },
+      "context": "Tango in the Night to the reunions of 1997 and 2014, with solo and session records between.",
+      "defining_traits": ["the band's leader"],
+      "key_recording_ids": []
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock",
+        "name": "Rock",
+        "weight": 0.8,
+        "authority": 0.5,
+        "notes": "Fleetwood Mac from 1975: Rhiannon, Go Your Own Way, The Chain, Tusk."
+      },
+      {
+        "style_id": "style:blues-rock",
+        "name": "Blues rock",
+        "weight": 0.6,
+        "authority": 0.4,
+        "notes": "The Peter Green band, 1967-70; \"John and I play like blues players\"."
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "name": "Pop rock",
+        "weight": 0.6,
+        "notes": "Dreams and Don't Stop."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.15,
+    "role_tendency": "accompanist",
+    "descriptors": ["hypnotic", "instinctive", "tom-led", "blues-based", "unorthodox"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:go-your-own-way-isolated-drums-far-out-2022",
+          "src:mick-fleetwood-modern-drummer-2009"
+        ],
+        "note": "\"Stays on the beat the entire way\" (Far Out, on Go Your Own Way's isolated drums); \"I pride myself on time\"."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight eighths in every song scored here; Dreams' and Don't Stop's fills in triplets."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "f",
+      "ghost_note_level": 30,
+      "accent_level": 115,
+      "balance": "\"He hit his drums very hard, except for his kick drum ... he played it so softly that we could hear his mouth noises through his kick mic\" (Ken Caillat)."
+    },
+    "density": {
+      "groove_notes_per_bar": [4, 24],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.6,
+    "tempo_comfort_bpm": [76, 182],
+    "timekeeping_context": ["free", "live_loops"],
+    "interaction": "Follows and predicts the lead guitar, as Peter Green taught him, and locks with John McVie without thinking (\"he doesn't think about me\").",
+    "descriptors": ["hypnotic", "steady", "physical"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "The toms as the groove",
+        "description": "Go Your Own Way's verse across the toms with the snare on 2 alone; Tusk's loop on two toms; Black Magic Woman's Latin toms.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:go-your-own-way-wikipedia",
+            "src:go-your-own-way-isolated-drums-far-out-2022",
+            "src:songsterr-7365",
+            "src:songsterr-35328"
+          ]
+        }
+      },
+      {
+        "name": "Accents where you least expect them",
+        "description": "A figure rarely played the same way twice when a section comes round: \"with me, it's back-to-front sometimes\".",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:mick-fleetwood-modern-drummer-2009",
+            "src:go-your-own-way-isolated-drums-far-out-2022"
+          ]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "A soft, steady kick",
+        "description": "Perfect time with the kick, played so softly the mic caught his breathing; The Chain's verses are the kick alone on every beat.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mick-fleetwood-wikipedia", "src:the-chain-wikipedia"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.3,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.1,
+      "foot_ostinato_usage": 0.3,
+      "double_bass": 0.0,
+      "notes": "Hypnotic ostinatos, two of them loops of his own playing; triplet snare rolls in Don't Stop and sextuplet fills in Dreams. Tusk's break, in triplets, is written in 3/4 by its tab: the section's meter, not a figure across the bar.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-29",
+        "searched": [
+          "Songsterr 35322 (Black Magic Woman), 7426 (Rhiannon), 23726 (Dreams), 388613 (Don't Stop), 7365 (Go Your Own Way), 7881 (The Chain), 35328 (Tusk)",
+          "Modern Drummer (2009), Far Out (2022), Wikipedia (him and every song scored)"
+        ],
+        "note": "No cross-rhythm, grouping, polymeter or metric modulation is named or written in any song scored."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths in Dreams and Don't Stop, quarters in Rhiannon, opened on the \"and\"s in Go Your Own Way's choruses; \"when he played his hi-hat, it distracted him\" (Caillat).",
+      "snare": "On 2 and 4, or on 2 alone under the toms; with the floor tom on every beat in The Chain's choruses; rolls in triplets.",
+      "kick": "Soft and steady: every beat in The Chain's verses and Go Your Own Way, 1 and 3 in Dreams.",
+      "toms": "The groove itself in Go Your Own Way and Tusk; racked \"mid, high, low\" (Caillat), not high to low.",
+      "cymbals": "Paiste from the late 1960s; crashes on the turns, a splash on 2 in Don't Stop, the ride with the backbeat in The Chain's outro; a gong behind the kit on stage."
+    },
+    "implements": {
+      "sticks": 0.95,
+      "brushes": 0.03,
+      "mallets": 0.02,
+      "notes": "Sticks in every song scored here; timpani mallets on Albatross, brushes on Sara (neither scored)."
+    },
+    "reading": "none"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "Ludwig on stage, Sonor in the studio, for their oversized kicks and toms, until Tama from the Tusk tour",
+      "Paiste cymbals from the late 1960s to the early 1990s",
+      "A kick with a calf head on Fleetwood Mac (1975); an open, live drum sound off plywood walls on Go Your Own Way"
+    ],
+    "cymbal_character": "Paiste, bright and expressive by his account (Wikipedia); a 40\" gong later.",
+    "sample_hints": {
+      "rock": "An even studio kit with a Paiste ride and crash; a big room for Tusk.",
+      "blues_rock": "A 1960s Ludwig for the Peter Green records.",
+      "pop_rock_session": "A damped, dry kit for Dreams."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:mick-fleetwood-wikipedia", "src:go-your-own-way-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:mick-fleetwood-toms-across",
+      "label": "The groove on the toms",
+      "category": "groove",
+      "description": "Go Your Own Way's verses across the toms, the kick on every beat and the snare on 2 alone, his own take on the part Buckingham showed him; Tusk's loop on two toms.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:mick-fleetwood-go-your-own-way-verse",
+        "pattern:mick-fleetwood-tusk-loop"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:fleetwood-mac-rumours-1977"
+        },
+        {
+          "recording_id": "rec:fleetwood-mac-tusk-1979"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:go-your-own-way-wikipedia",
+          "src:tusk-song-wikipedia",
+          "src:go-your-own-way-isolated-drums-far-out-2022"
+        ]
+      }
+    },
+    {
+      "id": "trait:mick-fleetwood-hypnotic",
+      "label": "Hypnotic, looped grooves",
+      "category": "groove",
+      "description": "Dreams and Tusk were cut over tape loops of his own playing; The Chain's verses are the kick alone on every beat.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:mick-fleetwood-dreams-verse",
+        "pattern:mick-fleetwood-tusk-loop",
+        "pattern:mick-fleetwood-the-chain-chorus"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:fleetwood-mac-rumours-1977"
+        },
+        {
+          "recording_id": "rec:fleetwood-mac-tusk-1979"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:dreams-fleetwood-mac-song-wikipedia",
+          "src:tusk-song-wikipedia",
+          "src:the-chain-wikipedia",
+          "src:mick-fleetwood-modern-drummer-2009"
+        ]
+      }
+    },
+    {
+      "id": "trait:mick-fleetwood-unexpected-accents",
+      "label": "Accents where you least expect them",
+      "category": "musical_approach",
+      "description": "A figure rarely the same when a section comes round, accents off the expected beats: drummers who play his parts find them \"stiff and weird\".",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": [],
+      "heard_on": [
+        {
+          "recording_id": "rec:fleetwood-mac-rumours-1977"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mick-fleetwood-modern-drummer-2009",
+          "src:go-your-own-way-isolated-drums-far-out-2022"
+        ]
+      }
+    },
+    {
+      "id": "trait:mick-fleetwood-soft-kick",
+      "label": "Hard hands, a soft kick",
+      "category": "sound",
+      "description": "\"He hit his drums very hard, except for his kick drum\" (Ken Caillat).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": [],
+      "heard_on": [
+        {
+          "recording_id": "rec:fleetwood-mac-rumours-1977"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mick-fleetwood-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:mick-fleetwood-go-your-own-way-verse",
+        "name": "Go Your Own Way, the verse",
+        "type": "groove",
+        "function": "His own variation on a \"Street Fighting Man\" feel: across the toms, the floor tom in eighths, the rack tom on 1 and the \"and\"s of 3 and 4, the snare on 2 alone, the kick on every beat.",
+        "style_ids": ["style:rock", "style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7365"]
+        },
+        "source": {
+          "recording_id": "rec:fleetwood-mac-rumours-1977",
+          "transcription_source_id": "src:songsterr-7365"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 138,
+          "playable_range_bpm": [134, 142]
+        },
+        "lanes": {
+          "snare": "....x...........",
+          "tom_1": "x.........x...x.",
+          "floor_tom_1": "x.x...x.x.x.x.x.",
+          "kick": "x...x...x...x..."
+        },
+        "tags": ["1977", "toms", "rumours"]
+      },
+      {
+        "id": "pattern:mick-fleetwood-dreams-verse",
+        "name": "Dreams, the verse",
+        "type": "groove",
+        "function": "The steady pulse of Dreams: the hat in eighths, the kick on 1 and 3, the snare on 2 and 4 (an eight-bar loop of his playing on the record).",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23726"]
+        },
+        "source": {
+          "recording_id": "rec:fleetwood-mac-rumours-1977",
+          "transcription_source_id": "src:songsterr-23726"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 119,
+          "playable_range_bpm": [115, 123]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "tags": ["1977", "tape loop", "rumours"]
+      },
+      {
+        "id": "pattern:mick-fleetwood-rhiannon-verse",
+        "name": "Rhiannon, the verse",
+        "type": "groove",
+        "function": "A two-bar turn: the hat and snare together on 2 and 4 over the kick on 1, 2, its \"and\" and 3; then the snare on 2 alone, the floor tom on the \"and\" of 4 and the hat's foot on 4.",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7426"]
+        },
+        "source": {
+          "recording_id": "rec:fleetwood-mac-fleetwood-mac-1975",
+          "transcription_source_id": "src:songsterr-7426"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [126, 134]
+        },
+        "lanes": {
+          "hihat": "....x.......x...|....x.......x...",
+          "snare": "....x.......x...|....x...........",
+          "floor_tom_1": "................|..............x.",
+          "kick": "x...x.x.x.......|x.....x.x.......",
+          "hihat_pedal": "................|............k..."
+        },
+        "tags": ["1975"]
+      },
+      {
+        "id": "pattern:mick-fleetwood-the-chain-chorus",
+        "name": "The Chain, the chorus",
+        "type": "groove",
+        "function": "The snare and floor tom together on every beat over the kick in eighths, at 76.",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7881"]
+        },
+        "source": {
+          "recording_id": "rec:fleetwood-mac-rumours-1977",
+          "transcription_source_id": "src:songsterr-7881"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 76,
+          "playable_range_bpm": [74, 78]
+        },
+        "lanes": {
+          "snare": "x...x...x...x...",
+          "floor_tom_1": "x...x...x...x...",
+          "kick": "x.x.x.x.x.x.x.x."
+        },
+        "tags": ["1977", "rumours"]
+      },
+      {
+        "id": "pattern:mick-fleetwood-tusk-loop",
+        "name": "Tusk, the loop",
+        "type": "groove",
+        "function": "The tape loop under Tusk: one tom on 1, 3, its \"and\" and the \"and\" of 4, another on 2 and 4, no kick or cymbal.",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-35328"]
+        },
+        "source": {
+          "recording_id": "rec:fleetwood-mac-tusk-1979",
+          "transcription_source_id": "src:songsterr-35328"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 180,
+          "playable_range_bpm": [175, 185]
+        },
+        "lanes": {
+          "tom_1": "x.......x.x...x.",
+          "tom_2": "....x.......x..."
+        },
+        "tags": ["1979", "tape loop", "toms"]
+      },
+      {
+        "id": "pattern:mick-fleetwood-black-magic-woman",
+        "name": "Black Magic Woman, the groove",
+        "type": "groove",
+        "function": "A minor blues on a Latin rhythm: the hat on 2 and 4 and their \"and\"s, the toms answering the kick on 1, the \"and\" of 2 and the \"and\" of 3.",
+        "style_ids": ["style:blues-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-35322"]
+        },
+        "source": {
+          "recording_id": "rec:fleetwood-mac-black-magic-woman-1968",
+          "transcription_source_id": "src:songsterr-35322"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [126, 134]
+        },
+        "lanes": {
+          "hihat": "....x.x.....x.x.",
+          "snare": "....x.......x...",
+          "tom_1": "x.....x.........",
+          "floor_tom_1": "x.........x.....",
+          "kick": "x.....x...x....."
+        },
+        "tags": ["1968", "latin", "blues"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:mick-fleetwood-ludwig-sonor",
+      "label": "Ludwig on stage, Sonor in the studio (1970s)",
+      "years": {
+        "from": 1970,
+        "to": 1979
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "snare",
+          "brand": "Ludwig",
+          "model": "eight inches deep, early in the Go Your Own Way sessions (Wikipedia gives it as \"an eight-inch Ludwig snare\")"
+        }
+      ],
+      "cymbals": [
+        {
+          "type": "various",
+          "brand": "Paiste"
+        }
+      ],
+      "layout_notes": "Rack toms \"mid, high, low\" from left to right rather than high to low (Caillat); a gong behind the kit in the Go Your Own Way video. Oversized kicks and toms were why he chose Ludwig; Tama from the Tusk tour, DW from the 1990s.",
+      "endorsements": ["Ludwig", "Paiste", "Tama", "DW"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mick-fleetwood-wikipedia", "src:go-your-own-way-wikipedia"]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "John Mayall & the Bluesbreakers",
@@ -61,30 +683,13 @@
       "years": {
         "from": 1967
       },
+      "notes": "Co-founder with Peter Green, and the only member on every album.",
       "evidence": {
-        "confidence": "widely_reported",
+        "confidence": "verified",
         "source_ids": ["src:mick-fleetwood-wikipedia"]
       }
     }
   ],
-  "key_recording_ids": [
-    "rec:fleetwood-mac-oh-well-1969",
-    "rec:fleetwood-mac-rumours-1977",
-    "rec:fleetwood-mac-tusk-1979"
-  ],
-  "legacy": {
-    "contribution": {
-      "description": "An instinctive drummer whose hooky fills and tom counterpoint (\"Dreams\", \"Go Your Own Way\") carry Rumours, and whose cowbell break on \"Oh Well\" marks the band's blues years; inspired to drum by Tony Meehan.",
-      "evidence": {
-        "confidence": "widely_reported",
-        "source_ids": ["src:mick-fleetwood-wikipedia", "src:rollingstone-100-drummers-2016"]
-      }
-    }
-  },
-  "beatbreaker": {
-    "group": "Blues and psychedelic rock drummers",
-    "build_priority": 1
-  },
   "relationships": [
     {
       "type": "influenced_by",
@@ -93,9 +698,12 @@
         "kind": "drummer",
         "id": "drummer:tony-meehan"
       },
+      "strength": 0.5,
+      "aspects": ["his first years on the kit"],
       "evidence": {
-        "confidence": "likely",
-        "source_ids": ["src:mick-fleetwood-wikipedia"]
+        "confidence": "widely_reported",
+        "source_ids": ["src:mick-fleetwood-wikipedia"],
+        "note": "\"His first years were heavily influenced by Tony Meehan and The Everly Brothers.\""
       },
       "scope": "individual"
     },
@@ -112,6 +720,116 @@
         "note": "In John Mayall's Bluesbreakers, 1967."
       },
       "scope": "individual"
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Micky Waller",
+        "kind": "drummer",
+        "id": "drummer:micky-waller"
+      },
+      "strength": 0.3,
+      "aspects": ["feel"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mick-fleetwood-modern-drummer-2009"],
+        "note": "\"Great feel drummer, one of the dudes.\""
+      },
+      "scope": "individual"
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Phil Seamen",
+        "kind": "drummer",
+        "id": "drummer:phil-seamen"
+      },
+      "strength": 0.2,
+      "aspects": ["the London jazz drummer the blues boom looked up to"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mick-fleetwood-modern-drummer-2009"],
+        "note": "Named in Modern Drummer (2009): \"Ginger used to worship him.\""
+      },
+      "scope": "individual"
     }
+  ],
+  "pedagogy": {
+    "videos": [],
+    "philosophy": [
+      {
+        "idea": "Time first: if a part is \"digging a hole or not swinging\", it is not being played well.",
+        "paraphrase_of_source_id": "src:mick-fleetwood-modern-drummer-2009"
+      },
+      {
+        "idea": "Lock with the bass player by feel, not by thinking about what he plays.",
+        "paraphrase_of_source_id": "src:mick-fleetwood-modern-drummer-2009"
+      },
+      {
+        "idea": "Follow and anticipate the lead guitar, as Peter Green taught him.",
+        "paraphrase_of_source_id": "src:mick-fleetwood-wikipedia"
+      }
+    ]
+  },
+  "legacy": {
+    "contribution": {
+      "description": "An instinctive drummer whose tom counterpoint and hooky, unrepeated fills carry Rumours (\"Go Your Own Way\", \"Dreams\", \"The Chain\"), whose own playing, looped on tape, became the beat of Dreams and Tusk, and whose Latin blues on \"Black Magic Woman\" marks the band's Peter Green years; inspired to drum by Tony Meehan.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:mick-fleetwood-wikipedia",
+          "src:go-your-own-way-wikipedia",
+          "src:dreams-fleetwood-mac-song-wikipedia",
+          "src:tusk-song-wikipedia",
+          "src:rollingstone-100-drummers-2016"
+        ]
+      }
+    },
+    "influence_score": 0.5,
+    "innovations": [
+      "Drum parts built from tape loops of his own playing on hit records (Dreams, 1977; Tusk, 1979)"
+    ],
+    "accolades": [
+      {
+        "award": "Rock and Roll Hall of Fame (with Fleetwood Mac)",
+        "year": 1998,
+        "for": "Fleetwood Mac",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mick-fleetwood-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That Dreams' groove is a live take of the rhythm section: Ken Caillat made an eight-bar loop of Fleetwood's drumming for it (\"they're talking about a drum loop\"; Wikipedia, the song)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "fleetwood",
+    "headline_pattern_ids": [
+      "pattern:mick-fleetwood-go-your-own-way-verse",
+      "pattern:mick-fleetwood-dreams-verse"
+    ],
+    "default_kit_sound": "An even studio kit with a Paiste ride and crash; a 1960s Ludwig for 1968, a damped kit for Dreams, a big room for Tusk",
+    "generation_rules": [
+      "Hypnotic grooves: one figure, varied rather than repeated exactly.",
+      "The toms carrying the groove where another drummer would ride the hat.",
+      "Hard hands, a soft kick; straight, on the beat.",
+      "Few ghost notes; fills short, on the snare and rack toms."
+    ],
+    "avoid": ["Swing", "Ghost-note funk", "Double bass", "Long chops-heavy fills"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:tony-meehan"],
+      "primary_descendants": [],
+      "lineage_blurb": "From the London blues boom to Rumours: a self-taught blues drummer whose toms and loops carry Fleetwood Mac."
+    },
+    "tags": ["fleetwood mac", "rumours", "blues", "soft rock", "1970s", "toms"]
+  },
+  "key_recording_ids": [
+    "rec:fleetwood-mac-oh-well-1969",
+    "rec:fleetwood-mac-rumours-1977",
+    "rec:fleetwood-mac-tusk-1979",
+    "rec:fleetwood-mac-black-magic-woman-1968",
+    "rec:fleetwood-mac-fleetwood-mac-1975"
   ]
 }

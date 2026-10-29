@@ -27,9 +27,11 @@
       "transcriptions": [
         {
           "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=3678194"
+          "url": "https://www.songsterr.com/a/wa/song?id=2920774"
         }
-      ]
+      ],
+      "style_key": "hayward",
+      "song_key": "dixie-chicken"
     },
     {
       "title": "Fat Man in the Bathtub",
@@ -41,13 +43,7 @@
           "source_ids": ["src:richie-hayward-wikipedia", "src:dixie-chicken-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=dAOCw72yzII",
-      "transcriptions": [
-        {
-          "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=213635"
-        }
-      ]
+      "youtube": "https://www.youtube.com/watch?v=dAOCw72yzII"
     },
     {
       "title": "Two Trains",
@@ -59,13 +55,7 @@
           "source_ids": ["src:richie-hayward-wikipedia", "src:dixie-chicken-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=b1pQ7UhgH3A",
-      "transcriptions": [
-        {
-          "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=1350877"
-        }
-      ]
+      "youtube": "https://www.youtube.com/watch?v=b1pQ7UhgH3A"
     }
   ],
   "evidence": {

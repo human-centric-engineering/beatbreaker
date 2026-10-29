@@ -2,60 +2,131 @@
   "meta": {
     "id": "drummer:richie-hayward",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
-    "completeness": 0.15,
+    "record_status": "draft",
+    "completeness": 0.35,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-29",
+    "authors": ["claude"],
+    "open_questions": [
+      "Spanish Moon (Feats Don't Fail Me Now, 1974): Wikipedia's personnel name Fred White on drums for it; the sleeve (Discogs BS 2784, the 2016 reissue and the 2024 deluxe edition's credits) names Hayward alone and no Fred White. The band had fired Hayward and called him back for this album (1988), which may be where the story comes from. The studio track stays his by the sleeve; the song scored is the live take on Waiting for Columbus, which is his without doubt.",
+      "Fat Man in the Bathtub's intro and solo: the tab writes the snare on every sixteenth over the kick. Whether he played a single-stroke stream or traded the snare with the kick (his left hand and right foot) is not settled by any source; the song plays the trade, thinned.",
+      "Rock and Roll Doctor is rebuilt from a machine tab: its tempo, form and bars of 2/4 agree with the record, its hits within the bar are not verified.",
+      "Mercenary Territory: the tab writes the 10/4s as four, four and two and the eighteen as four, four, four, four and two; Hayward counts three bars of six. The bars are kept as written.",
+      "Two Trains (Dixie Chicken, 1973) is his (the sleeve), but its only tab is machine-made, at 92 where the record runs at 95.5, its bars a plain backbeat that could not be confirmed. Not scored. The Fan, his proudest, has no transcription."
+    ]
   },
   "identity": {
     "name": "Richie Hayward",
     "full_name": "Richard Hayward",
     "born": {
-      "date": "1946",
+      "date": "1946-02-06",
+      "place": "Ames, Iowa",
       "evidence": {
         "confidence": "widely_reported",
-        "source_ids": ["src:richie-hayward-wikipedia"]
+        "source_ids": ["src:richie-hayward-wikipedia", "src:richie-hayward-moderndrummer-1988"],
+        "note": "Ames from the 1988 interview (\"I was in Ames [Iowa]\")."
       }
     },
     "died": {
-      "date": "2010"
+      "date": "2010-08-12",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:richie-hayward-wikipedia", "src:little-feat-wikipedia"],
+        "note": "Pneumonia and complications from lung disease, after liver cancer, on Vancouver Island."
+      }
     },
     "nationality": ["American"],
     "active": {
       "from": 1966,
-      "to": 2010
+      "to": 2010,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richie-hayward-moderndrummer-1988", "src:little-feat-wikipedia"],
+        "note": "The Factory from 1966; Little Feat 1969-1979 and 1987-2010; he played his last show in July 2010."
+      }
     },
-    "summary": "Founding drummer of Little Feat."
+    "summary": "Little Feat's drummer from its founding in 1969 to 2010, Lowell George's partner from the Factory: half-time New Orleans grooves on a rock kit, fills between the left hand and right foot so the hat never stopped, odd meters taught him by George. Dixie Chicken, Fat Man in the Bathtub, Rock and Roll Doctor, Waiting for Columbus; sessions with Robert Plant, Joan Armatrading, Warren Zevon and many more.",
+    "home_scenes": ["Los Angeles"],
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "roles": ["band_member", "session"]
   },
   "style_profile": {
     "genres": [
       {
         "style_id": "style:americana",
+        "name": "Americana and roots rock",
         "weight": 0.8,
-        "authority": 0.5
+        "authority": 0.6
       },
       {
         "style_id": "style:new-orleans-funk",
-        "weight": 0.5
+        "name": "New Orleans funk",
+        "weight": 0.7,
+        "notes": "Second line on a rock kit: Dixie Chicken, Fat Man in the Bathtub."
       },
       {
         "style_id": "style:rock",
+        "name": "Rock",
         "weight": 0.6
       }
-    ]
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.4,
+    "role_tendency": "accompanist",
+    "descriptors": ["second line", "half time", "loose", "busy", "odd meters", "singing drummer"]
   },
   "affiliations": [
     {
-      "name": "Little Feat",
+      "name": "The Factory",
+      "type": "band_member",
+      "years": {
+        "from": 1966,
+        "to": 1968
+      },
+      "notes": "Lowell George's band; played the Bedbugs on F Troop (1967).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richie-hayward-moderndrummer-1988", "src:richie-hayward-wikipedia"]
+      }
+    },
+    {
+      "name": "Fraternity of Man",
       "type": "band_member",
       "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richie-hayward-moderndrummer-1988", "src:richie-hayward-wikipedia"]
+      }
+    },
+    {
+      "name": "Little Feat",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 2010
+      },
+      "notes": "Founding drummer; out 1979-1987 when the band broke up after George's death.",
+      "evidence": {
         "confidence": "widely_reported",
-        "source_ids": ["src:richie-hayward-wikipedia"]
+        "source_ids": ["src:little-feat-wikipedia", "src:richie-hayward-wikipedia"]
+      }
+    },
+    {
+      "name": "Robert Plant",
+      "type": "band_member",
+      "notes": "Shaken 'n' Stirred (1985) and its tours.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richie-hayward-moderndrummer-1988", "src:little-feat-wikipedia"]
       }
     }
   ],
-  "key_recording_ids": ["rec:little-feat-sailin-shoes-1972", "rec:little-feat-dixie-chicken-1973"],
+  "key_recording_ids": [
+    "rec:little-feat-sailin-shoes-1972",
+    "rec:little-feat-dixie-chicken-1973",
+    "rec:little-feat-feats-don-t-fail-me-now-1974",
+    "rec:little-feat-waiting-for-columbus-1978"
+  ],
   "legacy": {
     "contribution": {
       "description": "Played over, under and around the beat in Little Feat, phrasing with the lyrics and bringing a swampy New Orleans swing to their prog-boogie roots rock; Jon Fishman of Phish singles out his phrasing.",
@@ -63,10 +134,728 @@
         "confidence": "widely_reported",
         "source_ids": ["src:richie-hayward-wikipedia", "src:rollingstone-100-drummers-2016"]
       }
-    }
+    },
+    "influence_score": 0.5,
+    "innovations": [],
+    "accolades": [
+      {
+        "award": "Rolling Stone, 100 Greatest Drummers of All Time (2016)",
+        "year": 2016,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:rollingstone-100-drummers-2016"]
+        }
+      }
+    ],
+    "common_misconceptions": []
   },
   "beatbreaker": {
-    "group": "Heartland and roots rock drummers",
-    "build_priority": 1
+    "style_key": "hayward",
+    "headline_pattern_ids": [
+      "pattern:richie-hayward-dixie-chicken-groove",
+      "pattern:richie-hayward-fat-man-second-line"
+    ],
+    "default_kit_sound": "A dry, damped 1970s studio kit with a short snare",
+    "generation_rules": [
+      "Half time with the snare on 3, or the snare pulled off the beat.",
+      "The hat in eighths, dropped to quarters for a phrase.",
+      "Kick doubles in odd places, on one pedal.",
+      "Fills between the left hand and the kick, the hat kept going."
+    ],
+    "avoid": ["Double bass", "Swing", "Long tom fills that stop the groove"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:zigaboo-modeliste",
+        "drummer:sonny-payne",
+        "drummer:jim-keltner"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Zigaboo Modeliste's second line and the blues and jazz drummers of his youth, played on a rock kit for Lowell George."
+    },
+    "tags": ["little feat", "second line", "new orleans", "roots rock", "1970s", "singing drummer"]
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Big-band and jazz drumming",
+        "impact": "Sonny Payne with Count Basie \"turned my head\"; Jack Sperling \"really knocked me out\"; later Tony Williams, Elvin Jones, Max Roach and Art Blakey.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:richie-hayward-moderndrummer-1988",
+            "src:richie-hayward-moderndrummer-1995"
+          ]
+        }
+      },
+      {
+        "tradition": "Chicago blues",
+        "impact": "The \"almost anonymous blues drummers\" behind Muddy Waters and Howlin' Wolf; Ray Charles's records from 1949 on.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:richie-hayward-moderndrummer-1988",
+            "src:richie-hayward-moderndrummer-1995"
+          ]
+        }
+      },
+      {
+        "tradition": "New Orleans second line",
+        "impact": "\"I always loved the Meters, Clifton Chenier, and Professor Longhair\"; \"I discovered New Orleans along the way, and that made a big difference; it loosened me up.\"",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:richie-hayward-moderndrummer-1988",
+            "src:richie-hayward-moderndrummer-1995"
+          ]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1957,
+        "event": "A $150 Montgomery Ward kit at eleven, bought with money from mowing lawns; a few lessons from Jerry Malone, otherwise by ear from records.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:richie-hayward-moderndrummer-1988"]
+        }
+      },
+      {
+        "year": 1966,
+        "event": "Answered \"Drummer wanted. Must be freaky\" in the Free Press: Lowell George's band the Factory.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:richie-hayward-moderndrummer-1988"]
+        }
+      },
+      {
+        "year": 1969,
+        "event": "Founded Little Feat with George, Bill Payne and Roy Estrada.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:little-feat-wikipedia", "src:richie-hayward-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:richie-hayward-little-feat",
+      "label": "Little Feat with Lowell George",
+      "years": {
+        "from": 1969,
+        "to": 1979
+      },
+      "context": "From the debut to Down on the Farm: the sextet from 1972 with Kenny Gradney and Sam Clayton, the turn to New Orleans funk on Dixie Chicken (1973), Waiting for Columbus (1978). Fired and called back in 1974; motorcycle accidents before The Last Record Album and in 1979.",
+      "defining_traits": [
+        "half-time grooves with the snare off the beat",
+        "the hat dropped to quarters and back",
+        "fills between the left hand and the right foot",
+        "odd meters"
+      ],
+      "key_recording_ids": [
+        "rec:little-feat-sailin-shoes-1972",
+        "rec:little-feat-dixie-chicken-1973",
+        "rec:little-feat-feats-don-t-fail-me-now-1974",
+        "rec:little-feat-waiting-for-columbus-1978"
+      ]
+    },
+    {
+      "id": "era:richie-hayward-later",
+      "label": "Sessions, Robert Plant and the re-formed Little Feat",
+      "years": {
+        "from": 1980,
+        "to": 2010
+      },
+      "context": "Joan Armatrading's tour, Robert Plant's Shaken 'n' Stirred (1985) with Simmons pads beside his toms, Warren Zevon; Little Feat again from 1987 (Let It Roll) until his illness in 2009.",
+      "defining_traits": ["electronics added beside the kit", "a second hi-hat and splashes"],
+      "key_recording_ids": []
+    }
+  ],
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:richie-hayward-wikipedia", "src:richie-hayward-moderndrummer-1995"],
+        "note": "\"Over, under and around the beat\" (the record's legacy note); \"I like to mess around\" over a bass and percussion that \"play it really down the middle\"."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight eighths and sixteenths in every song scored here; the second-line lilt is in the placement of the snare, not a swing ratio."
+    },
+    "dynamics": {
+      "range": 0.7,
+      "default_level": "mf",
+      "accent_level": 115,
+      "balance": "\"As much as I like the subtleties of jazz, I also love to bash.\""
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 26],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.7,
+    "tempo_comfort_bpm": [76, 150],
+    "timekeeping_context": ["free"],
+    "interaction": "Plays off Lowell George's vocals and kicks with the soloist (\"I got a lot of that from Mitch Mitchell\"); \"we never played it exactly the same twice\".",
+    "descriptors": ["loose", "laid back", "second line"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Fills between the left hand and the right foot",
+        "description": "Fills played by the left hand and the kick while the right hand keeps the hat, \"because Lowell kept telling me not to do fills\": the groove never breaks. Paradiddles and groupings of ones, twos and threes between the two.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:richie-hayward-moderndrummer-1988",
+            "src:richie-hayward-moderndrummer-1995"
+          ]
+        }
+      },
+      {
+        "name": "The snare off the beat",
+        "description": "Dixie Chicken's snare on the \"and\" of 2 in verse 1 and on 3 after; Fat Man's second line on the \"a\" of 1 and the \"and\" of 2.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2920774", "src:songsterr-2737808"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Double kicks on one pedal",
+        "description": "\"I try to do a lot of double kicks and put them in odd places\", never a double pedal: \"I never wanted to take my foot off\" the hat.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:richie-hayward-moderndrummer-1988"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.7,
+      "linear_playing": 0.5,
+      "odd_meter_fluency": 0.8,
+      "double_bass": 0.0,
+      "devices": [
+        {
+          "kind": "grouping",
+          "where": ["groove"],
+          "description": "The snare on every third sixteenth for three bars of Fat Man in the Bathtub on Waiting for Columbus, over a kick in 4/4: a grouping of three in the groove. He describes his odd-meter playing as \"cut into twos and threes\" with \"little groupings of one or two or three\".",
+          "examples": ["Fat Man in the Bathtub (Waiting for Columbus)"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-2737808", "src:richie-hayward-moderndrummer-1988"]
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-29",
+        "searched": [
+          "Songsterr 2920774 (Dixie Chicken), 2737808 (Fat Man in the Bathtub, Waiting for Columbus), 1350880 (Rock and Roll Doctor), 2974184 (Mercenary Territory, Waiting for Columbus), 4005502 (Cold, Cold, Cold), 5956305 (Spanish Moon, Waiting for Columbus), 1350877 (Two Trains)",
+          "Modern Drummer, March 1988 and October 1995; Wikipedia"
+        ],
+        "note": "Odd meters are his (The Fan in 7/8 and others, Mercenary Territory's 10/4 and eighteen, Day at the Dog Races in six), but a change of meter is not a device here: Mercenary Territory's phrases and the bars of 2/4 and 3/4 in Cold, Cold, Cold and Rock and Roll Doctor are written meter. Cold, Cold, Cold's beat turned around is the tape edits of a drum machine he copied, not a displacement he chose. The only device in a scored song is Fat Man's grouping of three."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths, dropped to quarters for half a verse and back (Dixie Chicken); sixteenths for a chorus; on the foot in eighths or sixteenths under the snare (Fat Man); \"I've always had such an affinity for the sounds and innuendos you can play with the hi-hat\".",
+      "snare": "Off the beat: on the \"and\" of 2, on 3 in half time, the \"a\" of 1 for the second line; the backbeat with the \"a\" of 2 before it (Rock and Roll Doctor).",
+      "kick": "A part of the instrument, not only time: \"I like the way it feels to use the bass drum as a tom\"; doubles in odd places.",
+      "toms": "Runs down the snare and tom into a chorus; Fat Man's toms in pairs.",
+      "cymbals": "Clamped so they stay put; splashes to mark a change \"without making a great announcement\"; the crash on the offbeats in Fat Man's chorus."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks in every song scored here."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "The dry, damped Los Angeles studio drums of the 1970s",
+      "\"Fourteen or fifteen snare drums\" at a Little Feat session, one for each song",
+      "Sitting low; cymbals clamped"
+    ],
+    "cymbal_character": "Clamped rides; splashes added for colour; a second hi-hat later.",
+    "sample_hints": {
+      "little_feat_studio": "A damped, dead kit with a short snare.",
+      "waiting_for_columbus": "A fuller live kit with a short, fat snare."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:richie-hayward-moderndrummer-1995",
+        "src:reelin-in-the-years-little-feat-1976"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:richie-hayward-left-hand-right-foot",
+      "label": "Left hand and right foot",
+      "category": "technique",
+      "description": "Fills and flurries between the left hand and the kick while the right hand keeps time, so the groove does not stop for a fill.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:richie-hayward-fat-man-intro"],
+      "heard_on": [
+        {
+          "recording_id": "rec:little-feat-waiting-for-columbus-1978"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:richie-hayward-moderndrummer-1988",
+          "src:richie-hayward-moderndrummer-1995"
+        ]
+      }
+    },
+    {
+      "id": "trait:richie-hayward-half-time",
+      "label": "Half time with the snare moved",
+      "category": "groove",
+      "description": "Dixie Chicken's half-time groove: the snare on 3, or pulled to the \"and\" of 2, eighths or quarters on the hat.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:richie-hayward-dixie-chicken-groove",
+        "pattern:richie-hayward-dixie-chicken-verse"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:little-feat-dixie-chicken-1973"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-2920774", "src:richie-hayward-moderndrummer-1988"]
+      }
+    },
+    {
+      "id": "trait:richie-hayward-odd-meters",
+      "label": "Odd meters under a backbeat",
+      "category": "musical_approach",
+      "description": "Phrases of 10/4 and eighteen with the left hand on the backbeat throughout (Mercenary Territory); bars of 2/4 and 3/4 left by Lowell George's tape edits (Cold, Cold, Cold). George taught him to count them: \"It's cut into twos and threes.\"",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:little-feat-waiting-for-columbus-1978"
+        },
+        {
+          "recording_id": "rec:little-feat-sailin-shoes-1972"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:richie-hayward-moderndrummer-1995",
+          "src:richie-hayward-moderndrummer-1988",
+          "src:songsterr-2974184",
+          "src:songsterr-4005502"
+        ]
+      }
+    },
+    {
+      "id": "trait:richie-hayward-feels-at-one-tempo",
+      "label": "Six feels at one tempo",
+      "category": "musical_approach",
+      "description": "Fat Man in the Bathtub \"changes feel about six times. They're all at the same tempo, but they feel completely different.\"",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:richie-hayward-fat-man-second-line"],
+      "heard_on": [
+        {
+          "recording_id": "rec:little-feat-waiting-for-columbus-1978"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richie-hayward-moderndrummer-1995", "src:songsterr-2737808"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:richie-hayward-dixie-chicken-groove",
+        "name": "Dixie Chicken, the groove",
+        "type": "groove",
+        "function": "Half time: eighths on the hat, the snare on 3, the kick on 1 and the \"and\" of 4.",
+        "style_ids": ["style:new-orleans-funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2920774"]
+        },
+        "source": {
+          "recording_id": "rec:little-feat-dixie-chicken-1973",
+          "transcription_source_id": "src:songsterr-2920774"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 150,
+          "playable_range_bpm": [146, 150]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "........X.......",
+          "kick": "x.............x."
+        },
+        "tags": ["1973", "half time"]
+      },
+      {
+        "id": "pattern:richie-hayward-dixie-chicken-verse",
+        "name": "Dixie Chicken, verse 1",
+        "type": "groove_variation",
+        "function": "The snare pulled to the \"and\" of 2.",
+        "style_ids": ["style:new-orleans-funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2920774"]
+        },
+        "source": {
+          "recording_id": "rec:little-feat-dixie-chicken-1973",
+          "transcription_source_id": "src:songsterr-2920774"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 150,
+          "playable_range_bpm": [146, 150]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "......X.........",
+          "kick": "x.............x."
+        },
+        "tags": ["1973", "second line"]
+      },
+      {
+        "id": "pattern:richie-hayward-fat-man-intro",
+        "name": "Fat Man in the Bathtub, the intro",
+        "type": "groove",
+        "function": "The Bo Diddley beat traded between the snare and the kick, no hat (thinned from the tab's sixteenths).",
+        "style_ids": ["style:new-orleans-funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2737808"]
+        },
+        "source": {
+          "recording_id": "rec:little-feat-waiting-for-columbus-1978",
+          "transcription_source_id": "src:songsterr-2737808"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 87,
+          "playable_range_bpm": [84, 90]
+        },
+        "lanes": {
+          "snare": "..x.x...x.x...x.",
+          "kick": "x..x..xx.x.xx..."
+        },
+        "tags": ["1977", "Bo Diddley", "left hand and right foot"]
+      },
+      {
+        "id": "pattern:richie-hayward-fat-man-second-line",
+        "name": "Fat Man in the Bathtub, the second line",
+        "type": "groove_variation",
+        "function": "The snare on the \"a\" of 1, the \"and\" of 2 and 4; the kick on 1, 2, its \"e\", the \"and\" of 3 and the \"a\" of 4.",
+        "style_ids": ["style:new-orleans-funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2737808"]
+        },
+        "source": {
+          "recording_id": "rec:little-feat-waiting-for-columbus-1978",
+          "transcription_source_id": "src:songsterr-2737808"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 87,
+          "playable_range_bpm": [84, 90]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "...x..x.....X...",
+          "kick": "x...xx...x.x...x"
+        },
+        "tags": ["1977", "second line"]
+      },
+      {
+        "id": "pattern:richie-hayward-rock-and-roll-doctor",
+        "name": "Rock and Roll Doctor, the chorus",
+        "type": "groove",
+        "function": "The backbeat with the snare on the \"a\" of 2; the kick on 1, 3 and its \"e\" and \"a\".",
+        "style_ids": ["style:new-orleans-funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1350880"]
+        },
+        "source": {
+          "recording_id": "rec:little-feat-feats-don-t-fail-me-now-1974",
+          "transcription_source_id": "src:songsterr-1350880"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 76,
+          "playable_range_bpm": [73, 79]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....X..x....X...",
+          "kick": "x.......xx.x...."
+        },
+        "tags": ["1974"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:richie-hayward-1976",
+      "label": "Little Feat on stage, 1976",
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1"
+        }
+      ],
+      "layout_notes": "Black shells with chrome hardware, seen in the 1976 footage; the makes are not legible. He sat low and clamped his cymbals (1995).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:reelin-in-the-years-little-feat-1976",
+          "src:richie-hayward-moderndrummer-1995"
+        ]
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Zigaboo Modeliste",
+        "kind": "drummer",
+        "id": "drummer:zigaboo-modeliste"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:richie-hayward-moderndrummer-1988",
+          "src:richie-hayward-moderndrummer-1995"
+        ],
+        "note": "\"Listen to Ziggy. He's one of my all-time heroes.\""
+      },
+      "strength": 0.9,
+      "aspects": ["second line"]
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Sonny Payne",
+        "kind": "drummer",
+        "id": "drummer:sonny-payne"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richie-hayward-moderndrummer-1995"],
+        "note": "\"The first drummer who turned my head.\""
+      },
+      "strength": 0.6,
+      "aspects": ["passion for the instrument"]
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jim Keltner",
+        "kind": "drummer",
+        "id": "drummer:jim-keltner"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richie-hayward-moderndrummer-1995"]
+      },
+      "strength": 0.5
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jeff Porcaro",
+        "kind": "drummer",
+        "id": "drummer:jeff-porcaro"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richie-hayward-moderndrummer-1995"]
+      },
+      "strength": 0.5,
+      "aspects": ["sitting low"]
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richie-hayward-moderndrummer-1995"]
+      },
+      "strength": 0.5,
+      "aspects": ["going out with the soloist"]
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richie-hayward-moderndrummer-1995"]
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richie-hayward-moderndrummer-1995"]
+      },
+      "strength": 0.4
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richie-hayward-moderndrummer-1995"]
+      },
+      "strength": 0.3
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richie-hayward-moderndrummer-1995"]
+      },
+      "strength": 0.3
+    }
+  ],
+  "pedagogy": {
+    "videos": [],
+    "philosophy": [
+      {
+        "idea": "Keep the groove going: fill with the left hand and right foot rather than stopping the hat.",
+        "paraphrase_of_source_id": "src:richie-hayward-moderndrummer-1995"
+      },
+      {
+        "idea": "Play one of every three or four ideas: be creative without overplaying.",
+        "paraphrase_of_source_id": "src:richie-hayward-moderndrummer-1995"
+      },
+      {
+        "idea": "Learn from every drummer you see, good or bad.",
+        "paraphrase_of_source_id": "src:richie-hayward-moderndrummer-1988"
+      }
+    ]
   }
 }

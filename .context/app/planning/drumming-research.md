@@ -23059,3 +23059,412 @@ Read 2026-10-27.
 - https://drummerszone.com/artists/richard-pistol-allen/12327/profile/
 - https://www.songsterr.com/a/wa/song?id=4298372 ; 884899 ; 461356 ; 35742 (human, scored); 461160 , 2569868 , 7722 (human, not scored); 259076 , 6663040 , 217209 , 186702 (machine)
 - Records: bjPKcbKBT2s (Heat Wave), Jt_31gR18NA (Where Did Our Love Go), B4pDCLEkUVw (Baby Love), AUZ3INx3-KA (Reach Out I'll Be There), 6_0v7Dnua4U (The Way You Do the Things You Do), OhbQVA7hPuQ (How Sweet It Is)
+
+## DY. Alex Van Halen (2026-10-29)
+
+The `alexvanhalen` style plays **songs** the way `clemburke` (DU) does: each New
+picks one of his records, and its tempo, kit, sections and grooves come with
+it, in the record's order. He was a 15-a candidate (Hard rock drummers,
+priority 1), first in the re-ranked long list of 2026-10-29, and is filed with
+the **Hard rock drummers** beside Bonham, Paice and Roger Taylor. His record,
+`drummer-model/drummers/alex-van-halen.json`, keeps the candidate's id,
+`drummer:alex-van-halen`, now at `draft` (schema 1.6.0). One recording is new,
+Women and Children First (1980), for Everybody Wants Some!!; I'm the One is a
+new track on the first album; the other six songs are tracks 15-b put on _Van
+Halen_, _Fair Warning_ and _1984_, linked by `track-links.json`. His new sources
+are in `sources/alex-van-halen.json`. No genre is new: `style:hard-rock` and
+`style:rock` (rock).
+
+**Who he is.** Alexander Arthur Van Halen, born in Amsterdam on 8 May 1953, to
+Jan van Halen, a jazz saxophonist and clarinettist, and Eugenia van Beers; the
+family moved to Pasadena in 1962 (Wikipedia). He and Eddie were trained as
+classical pianists; Alex started on guitar, practised on Eddie's drums while
+Eddie delivered papers, and played them better, so Eddie took the guitar. He
+studied theory, scoring and arranging at Pasadena City College, where he met
+Michael Anthony and David Lee Roth. Mammoth (1972), renamed Van Halen in 1974;
+the brothers were its only constant members to the end, a month after Eddie's
+death in October 2020. He coined "brown sound", usually said of Eddie's guitar,
+for his snare. Knighted in the Order of the Netherlands Lion in 2026
+(Wikipedia).
+
+**His influences.** "Billy Cobham, Ginger Baker, Keith Moon and John Bonham",
+Buddy Rich "an early and lifelong impact", and Budgie's Ray Phillips
+(Wikipedia); Mitch Mitchell, Moon, Baker and Bonham (Modern Drummer, 2012):
+"Ginger Baker's drums sounded like Ginger Baker's drums." Each is a
+`cites_as_influence` edge; Ray Phillips has no record and draws as a stub.
+Mike Portnoy, Taylor Hawkins, Travis Barker, Tommy Lee, Vinnie Paul and Gwar's
+Jizmak Da Gusha already name him.
+
+**His kit and sound.** A 1970 Ludwig Pro Beat in silver sparkle (14x24 kick,
+9x13 and 10x14 toms, 16x16 and 16x18 floors, a Supraphonic), grown to a
+seven-piece double-bass kit, the second kick a 14x26 from 1975, the front heads
+off and the bass drums muffled with felt, foam and tape; a 6.5x14 Super
+Sensitive his main snare into the early 1980s; Zildjians; used on the first two
+albums, cut at Sunset Sound (Van Halen Gear Timeline, a fan history). "Alex
+added a second bass drum to his kit, creating a double bass tower" (Consequence,
+2008). Modern Drummer (2012) hears "throaty, conga-esque snare sounds" and
+"blanketing crash-ride hiss". In the 1978 promotional film of Runnin' with the
+Devil the kit is the silver sparkle Ludwig with two bass drums, white front
+heads with the Ludwig badge. No free samples of his own exist. The 1978 to 1981
+songs play `bigRoom` (Big Rusty played hard, big crashes); _1984_, made over
+three months at Eddie's 5150 home studio (Wikipedia), plays `studioRock`,
+tighter and closer.
+
+**Time.** "I'm the first to admit that I push the beat. The idea of trying to
+create strict metronomic time is nonsense" (Modern Drummer, 2012). The feel is
+"Pushing the beat": the kick, snare and hat a few milliseconds early, a little
+scatter. The records hold their tempo on a beat track (Runnin' with the Devil
+94 to 97.5 against the tab's jump to 99 in its solos).
+
+**Two bass drums.** `doubleKick` is set on the style: he had two from 1977, and
+I'm the One and Hot for Teacher play both on every swung eighth, "the
+hard-driving double bass shuffle from hell that opens 'Hot for Teacher'"
+(Modern Drummer); "the song features Alex Van Halen's double bass drum
+performance" (Wikipedia, the song).
+
+**Electronics.** Hot for Teacher's intro begins with rudiments on a Simmons pad,
+with triggered double bass and rototoms added (Drumeo's breakdown, as Wikipedia
+gives it; Ted Templeman likened it to a "Lamborghini exhaust"). That part is
+left out, so no song needs an electronic kit; the rest of the intro, the double
+bass under the rack tom on the lead-kit track, is played on the sampled kit.
+Jump's drums are his acoustic kit: the tab names a Ludwig Vistalite, and no
+source read puts a machine or pads on it (the brief's question). Modern
+Drummer says he added "electronic drum pads" in the slicker 1980s.
+
+**Devices.** None: a dated `devices_search`. Jump's pre-chorus groups kick,
+snare and open hat a dotted quarter apart across two bars, with the band's
+riff; Unchained's 6/4 and 7/4 bars are the song changing meter. Both are the
+songs' own figures.
+
+**The songs.** _Van Halen_, _Women and Children First_, _Fair Warning_ and
+_1984_ credit Alex Van Halen alone with the drums (Wikipedia, each album's
+personnel). You Really Got Me, on the candidate's list, is the Kinks' song;
+its tab is a plain straight beat, and it is not scored.
+
+| Song                     | Year | Meter                 | Tempo          | What defines it                                                                                               | Source of the bars                                  |
+| ------------------------ | ---- | --------------------- | -------------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| Runnin' with the Devil   | 1978 | 4/4                   | 96 (measured)  | the hat half-opened on 2, the kick on the "and" and "a" of 2, a tom fill over the hat foot every fourth bar   | Songsterr 23728 (human), by its markers             |
+| Ain't Talkin' 'bout Love | 1978 | 4/4                   | 139 (measured) | the hat open in eighths under the riff, the ride bell in the chorus, a two-bar figure in the chants           | Songsterr 210 (human), by its markers               |
+| I'm the One              | 1978 | 4/4 in eighths, swung | 226 (measured) | the shuffle on both bass drums, the hat opened on every beat; the second solo in half time; a swing breakdown | Songsterr 21640 (human, triplet feel), by markers   |
+| Everybody Wants Some!!   | 1980 | 4/4                   | 144 (measured) | the tom groove over four on the floor, no snare; the open hat in the chorus; the snare on every beat after it | Songsterr 21657 (human), by its markers             |
+| Unchained                | 1981 | 4/4, 6/4 and 7/4      | 140 (measured) | the kick in eighths, the crash ridden in the chorus; the pre-chorus and solo in bars of six and seven         | Songsterr 57561 (human), by its markers             |
+| Jump                     | 1984 | 4/4                   | 130 (measured) | the hat in eighths; the pre-chorus in dotted quarters across the bar line, then the bell pushing the "and"s   | Songsterr 21889 (human), by its markers             |
+| Panama                   | 1984 | 4/4                   | 141 (measured) | the toms over four on the floor in the intro, the half-open hat in the verse, the crash on the "and" of 4     | Songsterr 18645 (human); intro disputed by 865271   |
+| Hot for Teacher          | 1984 | 4/4 in eighths, swung | 257 (measured) | the double-bass shuffle on every swung eighth, the hat opened on every beat, the ride bell in the solo        | Songsterr 19632 (human, lead-kit track), by markers |
+
+Every tempo is the record's, by autocorrelation from 60 to 150 s and a beat
+track (the official videos' audio, or the 2015 remasters): Runnin' with the
+Devil 95.7, Ain't Talkin' 'bout Love 138.9, I'm the One 226.1, Everybody Wants
+Some!! 144.5, Unchained 139.9, Jump 130.6 (Wikipedia: 129), Panama 140.7
+(Wikipedia: the score at 144), Hot for Teacher 257.7.
+
+**The shuffles.** I'm the One's and Hot for Teacher's tabs are written in
+eighths with Songsterr's triplet feel on. Sextuplet 4/4 (`4/4-6`) would hold
+their triplets exactly, but it tops out at 190 and these are at 226 and 257, so
+both are written in eighths (`4/4-8`, the grid fast swing is written in, to 380) with the swing at 100, a full triplet. The record decides it: I'm the
+One's kick band autocorrelates positively at a third and two thirds of the beat
+and negatively at a half. In eighths the ride's triplet figure in Hot for
+Teacher (the bell on 1 and its second triplet, then 2) is played as the bell on
+every beat, and the fills' triplets fall on the nearest eighth; each song says
+so.
+
+**Hot for Teacher's tempo.** The tab is marked 128, and the record
+autocorrelates at both 128.8 and 257.7. 293 bars of four beats is the record's
+4:44 at 257 and twice that at 128, so the tab's beat is half the record's. The
+song plays at 252-260.
+
+**Unchained's odd bars.** The tab's pre-chorus is a bar of 4/4 and one of 2/4,
+then twice 4/4 and 3/4, then two of 4/4. Each pair is one bar here, 6/4 then
+two of 7/4, each section stating its own backbeats (2, 4 and 5; 2, 3, 5 and
+6), and the guitar solo over the same bars on the hat.
+
+**Panama's intro.** D...'s tab (followed) writes the middle tom in eighths
+under rack-tom accents over the kick and the hat foot on every beat; Ghost's
+two tabs (865271 and 1318689, 2025) the floor tom on every beat. The record's
+intro is under a car's engine, and a beat track did not settle it. An open
+question in the record.
+
+**What the app changes.** A song holds 32 bars, so long sections are rounded
+(I'm the One's verses of sixteen as four, Unchained's bridge of fourteen as
+four, Hot for Teacher's solo of thirty-three as four), and parts where the
+drums stop are left out (intros before the band, Everybody Wants Some!!'s
+spoken breakdown, Hot for Teacher's interludes, Jump's bridge). Bars with no
+backbeat that are not grooves on the toms are left out (Unchained's and
+Panama's band hits, Hot for Teacher's ending), or played from 3. Runs of four
+sixteenths on the snare lose a note; at 226 four swung eighths on the snare are
+a run too, so I'm the One's chorus fill drops its last. A ghosted backbeat
+(Ain't Talkin' 'bout Love's bridge, I'm the One's breakdown) is a hit.
+
+**Left out.** You Really Got Me (a Kinks cover), Dance the Night Away, Mean
+Street, Atomic Punk, And the Cradle Will Rock... and the Sammy Hagar records,
+all with human tabs, were not scored.
+
+**Library contradictions.** None found. Every credit read agrees with the
+recordings' `sole_drummer`.
+
+**The likeness.** The 1978 promotional film of Runnin' with the Devil (the
+official upload, i5txwFv-zYM, frames at the kit at 1:34-1:41): a big mass of
+dark brown curls past the ears, clean-shaven, a black sleeveless vest, the arms
+bare; the silver sparkle Ludwig with two bass drums and chrome. `hairStyle:
+'frizz'` (tried `curly` and `mane`). Trousers and shoes are behind the kit:
+dark, a guess.
+
+### Sources (DY)
+
+Read 2026-10-29.
+
+- https://en.wikipedia.org/wiki/Alex_Van_Halen ; Van_Halen_(album) ; Women_and_Children_First ; Fair_Warning_(Van_Halen_album) ; 1984_(Van_Halen_album) ; Runnin'_with_the_Devil ; Ain't_Talkin'_'bout_Love ; I'm_the_One_(Van_Halen_song) ; Everybody_Wants_Some!!_(song) ; Jump_(Van_Halen_song) ; Panama_(Van_Halen_song) ; Hot_for_Teacher (API)
+- https://www.moderndrummer.com/2012/02/alex-van-halen-hard-rock-archetype/ (2 February 2012; read through a summarising fetch)
+- https://consequence.net/2008/10/icons-of-rock-alex-van-halen (Alex Young, 18 October 2008; read through a summarising fetch)
+- https://vanhalengear.com/avh-silver-sparkle/ (Van Halen Gear Timeline, undated fan history; read through a summarising fetch)
+- https://www.songsterr.com/a/wa/song?id=23728 ; 210 ; 21640 ; 21657 ; 57561 ; 21889 ; 18645 ; 19632 (human) ; 865271 , 1318689 (human, Panama's intro compared) ; 2976653 (a learner's intro, not used) ; 209 , 29682 , 23882 , 20863 (not used)
+- Records: i5txwFv-zYM (Runnin' with the Devil, the official video), qtwBFz6lfrY (Ain't Talkin' 'bout Love, 2015 remaster), EllEztdbBhg (I'm the One, 2015 remaster), 4EI8JN-fSLo (Everybody Wants Some!!, 2015 remaster), ojNrj-sWfpk (Unchained, the official video), SwYN7mTi6HM (Jump, the official video), fuKDBPw8wQA (Panama, the official video), 6M4_Ommfvv0 (Hot for Teacher, the official video)
+
+## DZ. Mick Fleetwood (2026-10-29)
+
+The `fleetwood` style plays **songs** the way `clemburke` (DU) does: each New
+picks one of his records, and its tempo, kit, sections and grooves come with
+it, in the record's order. He was a 15-a candidate (Blues and psychedelic rock
+drummers, priority 1), second in the re-ranked long list of 2026-10-29, and is
+filed with the **Blues and psychedelic rock drummers** beside Mitch Mitchell
+and Ginger Baker. His record, `drummer-model/drummers/mick-fleetwood.json`,
+keeps the candidate's id, `drummer:mick-fleetwood`, now at `draft` (schema
+1.6.0). One recording is new: `rec:fleetwood-mac-black-magic-woman-1968`, the
+1968 single. Rhiannon is a new track on `rec:fleetwood-mac-fleetwood-mac-1975`;
+the other five songs are tracks 15-b put on Rumours and Tusk, linked by
+`track-links.json`. His new sources are in `sources/mick-fleetwood.json`. No
+genre is new: `style:rock`, `style:blues-rock` and `style:pop-rock-session`
+(all rock).
+
+**Who he is.** Michael John Kells Fleetwood, born in Redruth, Cornwall, on 24
+June 1947 (Wikipedia). His parents bought him a toy "Gigster" kit at thirteen
+and a Rogers kit at fifteen; he never had lessons, "training on the job"
+(Modern Drummer, 2009). Peter Bardens gave him his first gig, in the Cheynes
+(1963); he was in John Mayall's Bluesbreakers in 1967 with Peter Green and John
+McVie, was dismissed, and founded Fleetwood Mac with Green that summer. He and
+McVie are on every album; he brought in Buckingham and Nicks in 1975 and kept
+the band self-managed (Wikipedia). Rock and Roll Hall of Fame with Fleetwood
+Mac, 1998.
+
+**His playing.** "His first years were heavily influenced by Tony Meehan and
+The Everly Brothers"; Green helped him through bouts of "rhythmic dyslexia"
+on stage and taught him to follow and predict the lead guitar (Wikipedia). "John
+and I play like blues players, really ... learned in the trenches playing with
+Sonny Boy Williamson"; "I pride myself on time"; "I play very physically";
+"With me, it's back-to-front sometimes"; he rarely repeats a figure when a
+section returns, and drummers who play his parts find them "stiff and weird"
+(Modern Drummer). Ken Caillat: "He had his rack of tom drums arranged back to
+front ... mid, high, low ... He hit his drums very hard, except for his kick
+drum ... when he played his high hat, it distracted him. He would keep perfect
+beat with his kick, but he played it so softly that we could hear his mouth
+noises through his kick mic" (Wikipedia). So the style is hard on the snare
+and toms with `mix: { k: 0.8 }`, a straight, on-the-beat feel ("stays on the
+beat the entire way": Far Out, 2022), few ghost notes, the toms carrying
+grooves, and `midFills` for the accents that come where you least expect them.
+`weight` 0.8: a hard-hitting, physical player of "large frame" (Wikipedia, his equipment).
+
+**Influences.** The candidate's `influenced_by` Tony Meehan and `replaced`
+Aynsley Dunbar (the Bluesbreakers, 1967) stay. He names Micky Waller ("great
+feel drummer, one of the dudes") and Phil Seamen (whom "Ginger used to
+worship") in Modern Drummer, as drummers he admires rather than as teachers:
+two `admired` edges.
+
+**His kit and sound.** Ludwig on stage and Sonor in the studio through the
+1970s, for their oversized kicks and toms, then Tama from the Tusk tour and DW
+from the 1990s; Paiste cymbals from the late 1960s to the early 1990s; a 40"
+gong (Wikipedia). Keith Olsen had him put a calf head on the kick for
+Fleetwood Mac (1975); on Go Your Own Way, an eight-inch Ludwig snare and an
+open sound off plywood walls (Wikipedia). No free samples of his kit exist.
+The style plays the DRS kit (a studio kit with a Paiste ride and crash);
+Black Magic Woman the Sixties Ludwig; Dreams the damped kit ("a dry, damped
+snare": the library's line for it); Tusk the big room.
+
+**Loops.** Two of the songs are loops of his playing. Dreams: "Producer Ken
+Caillat made an eight bar drum loop of Fleetwood's drumming" ("when people
+talk about the classic rhythm section ... they're talking about a drum
+loop"), with his tom accents overdubbed in the pre-chorus. Tusk: "a circular
+loop of two-inch tape that went across the room", taken from a slower song and
+sped up; the drum solo was recorded at another tempo (Wikipedia, both songs).
+Both are still his drumming, and are scored as it, with the loops named in the
+comments and the hint.
+
+**Devices.** None: a dated `devices_search`. Tusk's break, in triplets, is a
+section in its own meter.
+
+**The songs.** Each song's personnel credits Fleetwood with the drums
+(Wikipedia); Black Magic Woman's says Jeremy Spencer is not on it. The Chain
+was spliced from takes, its ending the only part kept from the first one.
+
+| Song              | Year | Meter                         | Tempo                 | What defines it                                                                                 | Source of the bars                              |
+| ----------------- | ---- | ----------------------------- | --------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| Black Magic Woman | 1968 | 4/4                           | 130 (measured)        | a minor blues on Latin toms, the kick on 1 and the "and"s of 2 and 3; the band stops each verse | Songsterr 35322 (human); the coda reconstructed |
+| Rhiannon          | 1975 | 4/4                           | 130 (measured)        | the kick on 1, 2, its "and" and 3; a bar with the snare on 2 alone; the hat on the beat         | Songsterr 7426 (human), by its markers          |
+| Dreams            | 1977 | 4/4 in sextuplets             | 119 (measured)        | a loop of his playing: the hat in eighths, the kick on 1 and 3; sextuplet fills                 | Songsterr 23726 (human), by its markers         |
+| Don't Stop        | 1977 | 4/4 in sextuplets             | 119 (measured)        | a shuffle on the hat over four on the floor; snare rolls in eighth-note triplets                | Songsterr 388613 (human), by its markers        |
+| Go Your Own Way   | 1977 | 4/4                           | 138 (measured)        | across the toms in the verses, the kick on every beat, the snare on 2 alone                     | Songsterr 7365 (human), by its markers          |
+| The Chain         | 1977 | 4/4, the outro at ×2          | 76 and 153 (measured) | the kick alone on every beat; snare and floor tom on every beat; the bass line's eighths        | Songsterr 7881 (human), by its markers          |
+| Tusk              | 1979 | 4/4; the break in 9/8 at ×3/2 | 180 (measured)        | a tape loop of two toms; the kit on the turns; a break in triplets                              | Songsterr 35328 (human), by its markers         |
+
+Every tempo is the record's, beat-tracked end to end and checked by
+autocorrelation: Black Magic Woman 129.5 (the English Rose master and a 1968
+45 agree; the tab's 120-125 is slow), Rhiannon 129.6, Dreams 119.1, Don't Stop
+118.9, Go Your Own Way 137.9, The Chain 152.9 (its first half felt at 76),
+Tusk 180.5.
+
+**What the app changes.** A song holds 32 bars, so long sections are rounded,
+and tacet bars (the stops in Black Magic Woman, the guitar intros, a bar of
+rest in The Chain) are left out. Where a tab writes three hands, one part
+goes: Black Magic Woman's first rack tom on the "and" of 2 and floor tom on 4,
+Rhiannon's hat under the ride, Dreams' hat under the overdubbed pre-chorus
+toms, a ride under The Chain's outro fill. Runs of four sixteenths hold a song
+to 150 and four sextuplets to 100 (RUN_RATE), so Go Your Own Way's snare runs
+(four and six) and Dreams' sextuplet runs are cut to three; The Chain's
+sixteenths, at 76, are kept. Dreams' one straight-sixteenth fill and Don't
+Stop's two bars of sixteenth hats do not fit sextuplets: the fill is left out,
+the hats play eighths. Tusk's break is written in 9/8 at ×3/2, the same notes
+at the same speed as the tab's 3/4 of triplets; its reversed cymbal plays
+forward. Black Magic Woman's coda (19 bars) is unwritten in the tab and plays
+the verse's groove: a reconstruction, said in the song's comment and the
+record.
+
+**Left out.** Albatross (1968): played "with timpani mallets", cymbals
+overdubbed (Wikipedia), and the app has no mallets. Oh Well (1969): its three
+tabs (5406988, 4996157 machine, 3672087 machine) leave most bars empty and
+write no cowbell. World Turning (1975): only a machine tab (1163936). Sara,
+Gold Dust Woman, Little Lies and the rest were not scored.
+
+**Don't Stop's shuffle.** The tab writes the hat's eighths straight. On the
+record they fall on the triplets: the hat band's autocorrelation peaks at a
+third and two thirds of a beat (0.25, 0.28) and dips at the half (-0.13),
+where Dreams', Go Your Own Way's and Rhiannon's peak at the half. The library
+calls it a "shuffle-feel pop groove", which the record bears out; the song is
+written in sextuplets, the hat on the beat and its last triplet, the tab's
+triplet rolls as they are.
+
+**Library contradictions.** None found.
+
+**The likeness.** Fleetwood Mac's video for Go Your Own Way (1977; the
+official upload ozl3L9fhKtE, frames at the kit at 0:55-1:13 and 3:08-3:24):
+very tall and lean, dark brown hair swept back to the shoulders, a full beard,
+a loose white shirt open down the chest with a red neckerchief (not drawn), a
+white Ludwig with chrome hardware, a gong behind. Trousers and shoes are
+behind the kit: dark, a guess.
+
+### Sources (DZ)
+
+Read 2026-10-29.
+
+- https://en.wikipedia.org/wiki/Mick_Fleetwood ; Rumours_(album) ; Tusk_(album) ; Tusk_(song) ; Go_Your_Own_Way ; Dreams_(Fleetwood_Mac_song) ; The_Chain_(Fleetwood_Mac_song) ; Don't_Stop_(Fleetwood_Mac_song) ; Rhiannon_(song) ; Black_Magic_Woman ; Albatross_(instrumental) ; Fleetwood_Mac_(1975_album) ; Then_Play_On (API)
+- https://www.moderndrummer.com/?p=1763 (Patrick Berkery, 23 April 2009; read through a summarising fetch)
+- https://faroutmagazine.co.uk/isolated-drums-fleetwood-mac-go-your-own-way/ (Tyler Golsen, 9 April 2022)
+- https://www.songsterr.com/a/wa/song?id=35322 ; 7426 ; 23726 ; 388613 ; 7365 ; 7881 ; 35328 (human) ; 7430 , 5406988 , 7799 (human, not used) ; 4996157 , 3672087 , 1163936 (machine, not used)
+- Records: Gw5nh3_rq6g (Black Magic Woman, the English Rose master) and 7eANGHVQS9Q (a 1968 45); qQU5nS8G7K8 (Rhiannon, 2017 remaster); Y3ywicffOj4 (Dreams); 0hGhl7ki3HM (Don't Stop, 2004 remaster); ozl3L9fhKtE (Go Your Own Way); kBYHwH1Vb-c (The Chain); ATMR5ettHz8 (Tusk); T69Vzl4Cnl8 (Albatross)
+
+## EA. Richie Hayward (2026-10-29)
+
+The `hayward` style plays **songs** the way `levonhelm` and `maxweinberg` do:
+each New picks one of his records, and its tempo and grooves come with it. His
+record (`drummer-model/drummers/richie-hayward.json`) was a 15-a candidate and
+is now a draft at schema 1.6.0, with Waiting for Columbus as a new recording
+and `sources/richie-hayward.json`. He files with the Heartland and roots rock
+drummers.
+
+**Who he was.** Richard Hayward was born on 6 February 1946 and grew up in Ames,
+Iowa, where he bought a $150 Montgomery Ward kit at eleven and learned from
+records (Wikipedia; Modern Drummer, March 1988). In Los Angeles in 1966 he
+answered an advert, "Drummer wanted. Must be freaky": Lowell George's band the
+Factory. After the Fraternity of Man, he and George founded Little Feat in
+1969 with Bill Payne and Roy Estrada; Kenny Gradney, Paul Barrere and Sam
+Clayton made it a sextet in 1972. The band fired him in 1974 and called him
+back for Feats Don't Fail Me Now (1988 interview). A motorcycle accident put
+him in hospital before The Last Record Album (1975), whose sleeve carried his
+bills, and another had him in traction when George died in 1979. Afterwards
+Joan Armatrading's tour, Robert Plant's Shaken 'n' Stirred (1985), Warren
+Zevon, and Little Feat again from 1987 until liver disease stopped him in 2009.
+He died on 12 August 2010 (Wikipedia, Little Feat; Guardian obituary, in
+Wikipedia).
+
+**What he did.** "Real American with second-line and jazz overtones. As much
+as I like the subtleties of jazz, I also love to bash" (1988). His heroes were
+Sonny Payne, Jack Sperling, the blues drummers behind Muddy Waters and Howlin'
+Wolf, Tony Williams, Elvin Jones, Max Roach, Art Blakey, then Zigaboo
+Modeliste ("one of my all-time heroes"), Jim Keltner and Jeff Porcaro, and
+Mitch Mitchell for going out with the soloist (1988, 1995). Lowell George kept
+telling him not to fill, so he filled with the left hand and the right foot
+while the right hand kept the hat: "the groove didn't get completely broken"
+(1995). He never used a double pedal, "I try to do a lot of double kicks and
+put them in odd places", and used the bass drum "as a tom". George, who had
+studied with Ravi Shankar, taught him odd meters: The Fan, Mercenary
+Territory's solo in 10/4, Day at the Dog Races in six. He sat low and clamped
+his cymbals, and brought "fourteen or fifteen snare drums" to a session.
+
+**Which records are his.** The sleeves (Discogs) credit him as the only
+drummer on Sailin' Shoes (with Milt Holland's percussion on two tracks),
+Dixie Chicken (Sam Clayton's congas, Holland's tabla) and Feats Don't Fail Me
+Now; Wikipedia lists him on Waiting for Columbus. The one doubt is "Spanish
+Moon" on Feats Don't Fail Me Now: Wikipedia's personnel name Fred White of
+Earth, Wind & Fire on its drums, but neither the 1974 sleeve (BS 2784) nor the
+2016 reissue nor the 2024 deluxe edition, whose credits are detailed track by
+track, names Fred White or anyone but Hayward. The band had fired him and
+called him back for that album (1988), which may be where the story starts.
+The studio track stays his by the sleeve; the song scored is the live take on
+Waiting for Columbus, which is his without doubt.
+
+**The songs.** He named his three: The Fan, and Rock and Roll Doctor or Fat Man
+in the Bathtub, "important stepping stones ... different ways to enjoy a
+backbeat" (1995), and singled out Mercenary Territory's 10/4 solo. The Fan
+has no transcription.
+
+| Song                   | Year | Tempo (record)    | Bars from                                                         | Sections                                                                           |
+| ---------------------- | ---- | ----------------- | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Cold, Cold, Cold       | 1972 | 82 (83.1)         | Songsterr 4005502, human (Michael Dybala)                         | his entry over the machine, verses, the beat turned round, 2/4 and 3/4, the bridge |
+| Dixie Chicken          | 1973 | 150 (150.1-150.7) | Songsterr 2920774, human (Michael Dybala)                         | the kick alone, the hat in quarters, verse 1, the hat-less bars, chorus, half time |
+| Rock and Roll Doctor   | 1974 | 76 (75.7)         | Songsterr 1350880, machine, checked against the record            | snare and floor tom, hits, verse, chorus, bars of 2/4, the last chorus, the ride   |
+| Fat Man in the Bathtub | 1978 | 87 (85-89, live)  | Songsterr 2737808, human (Michael Dybala), Waiting for Columbus   | Bo Diddley intro, verses, offbeat crashes, sixteenths, second line, solo, toms     |
+| Mercenary Territory    | 1978 | 103 (103.1-103.4) | Songsterr 2974184, human (Michael Dybala), Waiting for Columbus   | intro of fourteen beats, verses, the 10/4s, the bridge on the ride, the eighteen   |
+| Spanish Moon           | 1978 | 85 (85.5)         | Songsterr 5956305 (Dean, aiGenerated false), Waiting for Columbus | intro, the stop, verses, the chorus four on the floor, the ride, the outro         |
+
+What the app changes, song by song, is in each song's comment. The ones that
+matter: Fat Man's intro, snare section and solo are written with the snare on
+every sixteenth over the kick; the critic stops runs of four and asks a
+quarter of each bar open, so the snare here leaves the kick's steps (the trade
+between the left hand and the right foot he describes) and is thinned. The
+long songs are cut to 32 bars by leaving out repeated bars, and each comment
+names the bars left out. Cold, Cold, Cold's first four bars are Lowell
+George's drum machine alone ("On the first part you can hear the machine"):
+not written, as with Andy Newmark's Fresh songs; Hayward's overdub copies the
+machine's pattern, "turned around a couple of times" by the tape edits, and
+those turns are his part. Mercenary Territory keeps the tab's barring, four,
+four and two for each 10/4 and four, four, four, four and two for the
+eighteen he counts as three of six.
+
+**Not scored.** Two Trains (Dixie Chicken) is his by the sleeve, but its only
+tab (1350877) is machine-made, at 92 where the record runs at 95.5, its bars a
+plain backbeat that could not be confirmed against the record. Oh Atlanta,
+Tripe Face Boogie and Easy to Slip have machine tabs only. The Fan has none.
+
+**The kit.** No samples of his kit are free to use. The studio songs use
+`teatowel` (the damped, dead 1970s studio kit); the three Waiting for Columbus
+songs use `funkSoul`, a short, fat snare for the live record. Weight 0.7.
+
+**The likeness.** An outdoor Little Feat show in the summer of 1976 playing
+Fat Man in the Bathtub (Reelin' In The Years Archive): brown hair to the
+collar, a moustache, a white ringer T-shirt, a chain, a black kit with chrome
+hardware; the 1975 Old Grey Whistle Test agrees.
+
+**Sources.**
+
+- Modern Drummer, "Richie Hayward: The MD Interviews", Part 1 (March 1988) and
+  Part 2 (October 1995), Robyn Flans, posted 2010.
+- Wikipedia: Richie Hayward; Little Feat; Dixie Chicken; Feats Don't Fail Me
+  Now; Waiting for Columbus; The Last Record Album; Sailin' Shoes.
+- Songsterr 4005502, 2920774, 1350880, 2737808, 2974184, 5956305 (and 1350877,
+  machine, not scored).
+- Discogs: Sailin' Shoes (BS 2600), Dixie Chicken (BS 2686), Feats Don't Fail Me
+  Now (BS 2784, and the 2016 and 2024 reissues).
+- Reelin' In The Years Archive, Little Feat, "Fat Man in the Bathtub", 1976
+  (YouTube uRhMgIztVpc); BBC, Old Grey Whistle Test, 1975 (YouTube V3cbdUJPPe0).
+- The records: YouTube x90eGLFYbEA (Cold, Cold, Cold), yaHEfJApEVM (Dixie
+  Chicken), z3LNhZ7msI4 (Rock and Roll Doctor), PtPepcfs22Y, Lbna-zQ50mQ and
+  CLagFzj6rdI (Fat Man, Mercenary Territory and Spanish Moon, live), b1pQ7UhgH3A
+  (Two Trains); timed lyrics from lrclib.
