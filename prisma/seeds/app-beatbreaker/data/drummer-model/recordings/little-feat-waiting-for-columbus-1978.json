@@ -1,0 +1,91 @@
+{
+  "id": "rec:little-feat-waiting-for-columbus-1978",
+  "title": "Waiting for Columbus",
+  "artist": "Little Feat",
+  "year": 1978,
+  "type": "album",
+  "release": "Warner Bros.",
+  "style_ids": ["style:americana", "style:new-orleans-funk", "style:rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:waiting-for-columbus-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:richie-hayward",
+      "name": "Richie Hayward",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "\"My favorite because it shows what we did live with the stuff from the studio records\" (Hayward, 1988).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:waiting-for-columbus-wikipedia",
+          "src:richie-hayward-moderndrummer-1988"
+        ]
+      }
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Fat Man in the Bathtub",
+      "drummer_ids": ["drummer:richie-hayward"],
+      "drums": {
+        "description": "Six feels at 87: a Bo Diddley beat traded between the snare and the kick, a verse with the kick doubled, cymbals on the offbeats, sixteenths on the hat, a second-line groove, the foot's hat in sixteenths and the snare in dotted eighths.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:songsterr-2737808", "src:richie-hayward-moderndrummer-1995"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=PtPepcfs22Y",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2737808"
+        }
+      ],
+      "style_key": "hayward",
+      "song_key": "fat-man-in-the-bathtub"
+    },
+    {
+      "title": "Mercenary Territory",
+      "drummer_ids": ["drummer:richie-hayward"],
+      "drums": {
+        "description": "The backbeat through phrases of 10/4 (four, four and two) and an eighteen he counts as three of six, the kick moving under the band; the bridge on the ride with the toms. At 103.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:songsterr-2974184", "src:richie-hayward-moderndrummer-1995"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=Lbna-zQ50mQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2974184"
+        }
+      ],
+      "style_key": "hayward",
+      "song_key": "mercenary-territory"
+    },
+    {
+      "title": "Spanish Moon",
+      "drummer_ids": ["drummer:richie-hayward"],
+      "drums": {
+        "description": "Funk with the horns: the kick on 1, its \"and\", the \"a\" of 2 and 3, sixteenths on the hat and four on the floor for the chorus, the ride for the horns. At 85.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:waiting-for-columbus-wikipedia", "src:songsterr-5956305"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=CLagFzj6rdI",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=5956305"
+        }
+      ],
+      "style_key": "hayward",
+      "song_key": "spanish-moon"
+    }
+  ]
+}

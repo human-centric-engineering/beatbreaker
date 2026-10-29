@@ -239,6 +239,26 @@ candidates: keep the record ids. Each files into a group that exists.
    Trains". Confirm from the sleeves that he plays on each track you score;
    Little Feat used other drummers and percussionists on some sessions.
 
+What came of it (built 2026-10-29):
+
+- **Songs.** Van Halen eight (1978–84), Fleetwood seven (1968–79), Hayward
+  six (1972–78), all from human tabs bar Hayward's Rock and Roll Doctor, a
+  machine tab checked against the record for tempo and form, which says so.
+  Albatross (timpani mallets), Oh Well (empty tabs), You Really Got Me (the
+  Kinks' part), and Two Trains (machine tab only, its tempo off the record)
+  are left out.
+- **Tape loops of his own playing.** Fleetwood's Dreams and Tusk were built
+  on loops of him; scored as his parts, the loops named in each comment.
+- **Hot for Teacher's intro** is Simmons pads and rototoms, so it is left
+  out and every Van Halen song keeps a sampled kit; nothing places a drum
+  machine on Jump.
+- **Library corrections.** Seven Little Feat tracks listed machine-made
+  Songsterr tabs as `transcriptions`; they are off, and Dixie Chicken's human
+  tab (2920774) is in. Spanish Moon stays Hayward's: three Discogs sleeves
+  credit him alone, against Wikipedia's uncited Fred White.
+- **No second bass drum.** Van Halen has `doubleKick`, but the 3D kit draws
+  one bass drum for every drummer.
+
 ## The brief each fork gets
 
 Paste this to each fork, with its row from the batch table and `S`, the

@@ -29,7 +29,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=19632"
         }
-      ]
+      ],
+      "style_key": "alexvanhalen",
+      "song_key": "hot-for-teacher"
     },
     {
       "title": "Panama",
@@ -47,7 +49,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=18645"
         }
-      ]
+      ],
+      "style_key": "alexvanhalen",
+      "song_key": "panama"
     },
     {
       "title": "Jump",
@@ -65,7 +69,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=21889"
         }
-      ]
+      ],
+      "style_key": "alexvanhalen",
+      "song_key": "jump"
     }
   ],
   "evidence": {

@@ -1,0 +1,41 @@
+{
+  "id": "rec:van-halen-women-and-children-first-1980",
+  "title": "Women and Children First",
+  "artist": "Van Halen",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alex-van-halen",
+      "name": "Alex Van Halen",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:women-and-children-first-wikipedia"]
+  },
+  "tracks": [
+    {
+      "title": "Everybody Wants Some!!",
+      "drummer_ids": ["drummer:alex-van-halen"],
+      "drums": {
+        "description": "The tom groove over four on the floor under the intro and verses; the open hat over four on the floor in the chorus.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:everybody-wants-some-song-wikipedia", "src:songsterr-21657"]
+        }
+      },
+      "style_key": "alexvanhalen",
+      "song_key": "everybody-wants-some",
+      "youtube": "https://www.youtube.com/watch?v=4EI8JN-fSLo",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=21657"
+        }
+      ]
+    }
+  ]
+}

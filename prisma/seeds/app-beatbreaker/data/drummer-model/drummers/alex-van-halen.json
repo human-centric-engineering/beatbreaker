@@ -2,38 +2,766 @@
   "meta": {
     "id": "drummer:alex-van-halen",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
-    "completeness": 0.15,
+    "record_status": "draft",
+    "completeness": 0.3,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-29",
+    "authors": ["claude"],
+    "open_questions": [
+      "Panama's intro: D...'s tab (18645), followed here, puts the middle tom in eighths under rack-tom accents; Ghost's two tabs (865271, 1318689) put the floor tom on every beat. The record's intro is under a car's engine and was not settled by a beat track.",
+      "Hot for Teacher's intro: the Simmons pad and the triggered rototoms and bass drums of its first bars (Drumeo, as Wikipedia gives it) are left out; which parts of the rest of the intro are triggered is not settled.",
+      "The kit on 1984: the tabs name a Ludwig Vistalite; no source read names the kit or the snare used at 5150, nor the cymbals on any record.",
+      "Not scored: You Really Got Me (a Kinks cover), Dance the Night Away, Mean Street, Atomic Punk and the Sammy Hagar years (5150 to Balance), all with human tabs."
+    ]
   },
   "identity": {
     "name": "Alex Van Halen",
     "full_name": "Alexander Arthur Van Halen",
     "born": {
-      "date": "1953",
+      "date": "1953-05-08",
+      "place": "Amsterdam, Netherlands",
       "evidence": {
-        "confidence": "widely_reported",
+        "confidence": "verified",
         "source_ids": ["src:alex-van-halen-wikipedia"]
       }
     },
     "nationality": ["American"],
+    "home_scenes": ["Pasadena and the Los Angeles clubs, 1972-1977"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
     "active": {
       "from": 1972,
       "to": 2020
     },
-    "summary": "Drummer and co-founder of Van Halen with his brother Eddie."
+    "roles": ["band_member"],
+    "summary": "Van Halen's drummer from Mammoth in 1972 to his brother Eddie's death in 2020. Born in Amsterdam to a jazz saxophonist, raised in Pasadena, trained with Eddie as a classical pianist, he took up the drums on Eddie's kit and played them better. A big Ludwig kit with two bass drums, a snare he called the brown sound, the hat washing open in eighths, and a feel he said pushed the beat: Runnin' with the Devil and I'm the One's shuffle on both bass drums (1978), Everybody Wants Some!!'s tom groove (1980), Unchained (1981), and Jump, Panama and the double-bass shuffle of Hot for Teacher (1984)."
   },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Classical piano",
+        "impact": "Both brothers were trained as classical pianists as children; he studied music theory, scoring and arranging at Pasadena City College.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:alex-van-halen-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Jazz at home",
+        "impact": "His father Jan van Halen was a jazz saxophonist and clarinettist; he names Buddy Rich as an early and lifelong influence, and Billy Cobham.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:alex-van-halen-wikipedia"]
+        }
+      },
+      {
+        "tradition": "British blues and hard rock drumming",
+        "impact": "Ginger Baker, Keith Moon, Mitch Mitchell and John Bonham; Budgie's Ray Phillips.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:alex-van-halen-wikipedia", "src:alex-van-halen-moderndrummer-2012"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:alex-van-halen-clubs",
+      "label": "Mammoth and the clubs",
+      "years": {
+        "from": 1972,
+        "to": 1977
+      },
+      "context": "Mammoth, renamed Van Halen in 1974: backyard parties and Hollywood clubs, a demo produced by Gene Simmons, a Ludwig kit grown to two bass drums.",
+      "defining_traits": ["two bass drums", "covers and originals in the clubs"]
+    },
+    {
+      "id": "era:alex-van-halen-roth",
+      "label": "The David Lee Roth records",
+      "years": {
+        "from": 1978,
+        "to": 1984
+      },
+      "context": "Six albums with Ted Templeman, five cut quickly at Sunset Sound, 1984 at 5150: hard rock with a shuffle under it.",
+      "defining_traits": [
+        "the hat washing open in eighths",
+        "double-bass shuffles",
+        "tom grooves",
+        "pushing the beat"
+      ],
+      "kit_setup_id": "kit:alex-van-halen-ludwig-silver-sparkle",
+      "key_recording_ids": [
+        "rec:van-halen-van-halen-1978",
+        "rec:van-halen-women-and-children-first-1980",
+        "rec:van-halen-fair-warning-1981",
+        "rec:van-halen-1984-1984"
+      ]
+    },
+    {
+      "id": "era:alex-van-halen-later",
+      "label": "Sammy Hagar and after",
+      "years": {
+        "from": 1985,
+        "to": 2020
+      },
+      "context": "5150 (1986) to Balance (1995) with Hagar, III with Gary Cherone, A Different Kind of Truth (2012) with Roth again; electronic pads added to the kit in the 1980s.",
+      "defining_traits": ["slicker production", "electronic pads beside the kit"]
+    }
+  ],
   "style_profile": {
     "genres": [
       {
         "style_id": "style:hard-rock",
+        "name": "Hard rock",
         "weight": 1.0,
-        "authority": 0.8
+        "authority": 0.8,
+        "notes": "Every song scored here."
+      },
+      {
+        "style_id": "style:rock",
+        "name": "Rock",
+        "weight": 0.4,
+        "notes": "Jump: a pop single on a rock kit."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "driver",
+    "descriptors": ["powerful", "pushing", "double bass", "shuffle", "open hats"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "ahead",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alex-van-halen-moderndrummer-2012"],
+        "note": "\"I'm the first to admit that I push the beat. The idea of trying to create strict metronomic time is nonsense.\""
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight eighths in most songs; I'm the One and Hot for Teacher are shuffles at a full triplet (the record's kick, and the tabs' triplet feel). Modern Drummer hears his hat sixteenths as \"sometimes slightly swung\"."
+    },
+    "dynamics": {
+      "range": 0.4,
+      "default_level": "ff",
+      "ghost_note_level": 40,
+      "accent_level": 125,
+      "balance": "Loud throughout: the hat open, the crash ridden, a big snare; the tabs write almost no ghost notes."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 28],
+      "fill_frequency": "every_4_bars",
+      "space_usage": 0.2
+    },
+    "consistency": 0.6,
+    "tempo_comfort_bpm": [93, 260],
+    "timekeeping_context": ["free"],
+    "interaction": "Locked to Eddie's riffs: the snare and the kick placed with the guitar's accents in Unchained's pre-chorus and Jump's, the band's hits played with him.",
+    "descriptors": ["pushing", "loud", "driving"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "The hat open in eighths",
+        "description": "Ain't Talkin' 'bout Love's riff and verses, Panama's choruses: the hat washing open on every eighth.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-210",
+            "src:songsterr-18645",
+            "src:alex-van-halen-moderndrummer-2012"
+          ]
+        }
+      },
+      {
+        "name": "The crash ridden in eighths",
+        "description": "Unchained's choruses and pre-chorus: the crash in eighths over the kick in eighths.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-57561"]
+        }
+      },
+      {
+        "name": "Tom grooves",
+        "description": "Everybody Wants Some!! and the intro of Panama: the toms in place of the hat and snare, over four on the floor.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-21657",
+            "src:songsterr-18645",
+            "src:everybody-wants-some-song-wikipedia"
+          ]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The double-bass shuffle",
+        "description": "Both bass drums on every swung eighth: I'm the One at 226 and Hot for Teacher at 257.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:hot-for-teacher-wikipedia",
+            "src:alex-van-halen-moderndrummer-2012",
+            "src:alex-van-halen-consequence-2008",
+            "src:songsterr-21640",
+            "src:songsterr-19632"
+          ]
+        }
+      },
+      {
+        "name": "The kick in eighths",
+        "description": "Unchained's verses and choruses: the kick on every eighth under the hat or the crash.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-57561"]
+        }
+      },
+      {
+        "name": "The hat foot under the tom fills",
+        "description": "Runnin' with the Devil: the left foot on the hat under the fills round the toms.",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23728"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.5,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.4,
+      "foot_ostinato_usage": 0.6,
+      "double_bass": 0.8,
+      "notes": "Two bass drums from 1977: every swung eighth of I'm the One and Hot for Teacher. The odd bars scored are Unchained's pre-chorus, where the song itself changes meter.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-29",
+        "searched": [
+          "Songsterr 23728, 210, 21640, 21657, 57561, 21889, 18645, 865271 and 19632",
+          "Modern Drummer (2012), Consequence (2008), Van Halen Gear Timeline, Wikipedia (him, the albums, the songs)"
+        ],
+        "note": "No cross-rhythm, grouping, polymeter or metric modulation is named or written. Jump's pre-chorus groups the kick, snare and hat in dotted quarters for two bars with the band's riff, a figure of the song; Unchained's bars of 6/4 and 7/4 are the song's meter."
+      }
+    },
+    "voice_language": {
+      "hihat": "Half-opened on 2 in Runnin' with the Devil, open in eighths in Ain't Talkin' 'bout Love, half open over four on the floor in Panama's verses, opened on every beat in the shuffles.",
+      "snare": "On 2 and 4; on 2, 3, 5 and 6 in Unchained's 7/4 bars; a dotted quarter apart in Jump's pre-chorus; the brown sound, his word for its tone.",
+      "kick": "Pushing the \"and\"s in the straight songs, on every swung eighth on two bass drums in the shuffles, four on the floor in Panama and Everybody Wants Some!!.",
+      "toms": "Fills down the toms over the hat foot; grooves on the toms in Everybody Wants Some!! and Panama's intro.",
+      "cymbals": "The crash ridden in eighths, the ride bell in quarters and eighths in the choruses and solos, a china now and then."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks in every song scored here."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "A Ludwig with two bass drums, a 24\" and a 26\", their front heads off and muffled with felt, foam and tape",
+      "\"Throaty, conga-esque snare sounds\" and \"the unmistakable pop of his snare\"; \"brown sound\" was his word for his snare's tone",
+      "\"Blanketing crash-ride hiss\""
+    ],
+    "cymbal_character": "Zildjians in the early days; crashes ridden in eighths and a ride bell, a china now and then.",
+    "sample_hints": {
+      "hard_rock": "A big kit played hard in a room for the Sunset Sound records; tighter and closer for 1984 at 5150."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": [
+        "src:van-halen-gear-silver-sparkle",
+        "src:alex-van-halen-moderndrummer-2012",
+        "src:alex-van-halen-wikipedia"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:alex-van-halen-double-bass-shuffle",
+      "label": "The double-bass shuffle",
+      "category": "groove",
+      "description": "Both bass drums on every swung eighth under the hat opened on every beat: I'm the One (1978) at 226, Hot for Teacher (1984) at 257, \"the hard-driving double bass shuffle from hell\".",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:alex-van-halen-im-the-one-shuffle",
+        "pattern:alex-van-halen-hot-for-teacher-shuffle"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:van-halen-van-halen-1978"
+        },
+        {
+          "recording_id": "rec:van-halen-1984-1984"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:hot-for-teacher-wikipedia",
+          "src:alex-van-halen-moderndrummer-2012",
+          "src:songsterr-21640",
+          "src:songsterr-19632"
+        ]
+      }
+    },
+    {
+      "id": "trait:alex-van-halen-washing-hat",
+      "label": "The hat washing open",
+      "category": "sound",
+      "description": "The hat open in eighths under the riff (Ain't Talkin' 'bout Love), half open over four on the floor (Panama), half-opened on the backbeat (Runnin' with the Devil): the cymbal hiss Modern Drummer hears in his records.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:alex-van-halen-aint-talkin-riff",
+        "pattern:alex-van-halen-panama-verse",
+        "pattern:alex-van-halen-devil-intro"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:van-halen-van-halen-1978"
+        },
+        {
+          "recording_id": "rec:van-halen-1984-1984"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:alex-van-halen-moderndrummer-2012",
+          "src:songsterr-210",
+          "src:songsterr-18645",
+          "src:songsterr-23728"
+        ]
+      }
+    },
+    {
+      "id": "trait:alex-van-halen-tom-groove",
+      "label": "The tom groove",
+      "category": "groove",
+      "description": "Everybody Wants Some!!'s \"jungle\" drums: the toms over four on the floor with no snare, later the way into Panama on stage.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "pattern_ids": ["pattern:alex-van-halen-everybody-toms"],
+      "heard_on": [
+        {
+          "recording_id": "rec:van-halen-women-and-children-first-1980"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:everybody-wants-some-song-wikipedia", "src:songsterr-21657"]
+      }
+    },
+    {
+      "id": "trait:alex-van-halen-riff-figures",
+      "label": "Parts that follow the riff",
+      "category": "musical_approach",
+      "description": "The snare and kick placed with Eddie's riff where it turns: Unchained's pre-chorus in bars of six and seven, Jump's pre-chorus in dotted quarters across the bar line.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": [
+        "pattern:alex-van-halen-unchained-prechorus",
+        "pattern:alex-van-halen-jump-prechorus"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:van-halen-fair-warning-1981"
+        },
+        {
+          "recording_id": "rec:van-halen-1984-1984"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-57561", "src:songsterr-21889"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:alex-van-halen-devil-intro",
+        "name": "Runnin' with the Devil, the intro",
+        "type": "groove",
+        "function": "The hat half-opened on 2, the second crash on 4, the kick on 1 and the \"and\" and \"a\" of 2 and the \"and\" of 3.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23728"]
+        },
+        "source": {
+          "recording_id": "rec:van-halen-van-halen-1978",
+          "transcription_source_id": "src:songsterr-23728"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 96,
+          "playable_range_bpm": [93, 99]
+        },
+        "lanes": {
+          "hihat": "x.x.h.x.x.x...x.",
+          "crash_2": "............x...",
+          "snare": "....x.......x...",
+          "kick": "x......xx.x....."
+        },
+        "tags": ["1978"]
+      },
+      {
+        "id": "pattern:alex-van-halen-aint-talkin-riff",
+        "name": "Ain't Talkin' 'bout Love, the riff",
+        "type": "groove",
+        "function": "The hat open in eighths, washing, the kick on 1, its \"and\", the \"and\" of 2, 3, its \"and\" and the \"and\" of 4.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-210"]
+        },
+        "source": {
+          "recording_id": "rec:van-halen-van-halen-1978",
+          "transcription_source_id": "src:songsterr-210"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 139,
+          "playable_range_bpm": [136, 142]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.",
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x.x...x."
+        },
+        "tags": ["1978"]
+      },
+      {
+        "id": "pattern:alex-van-halen-im-the-one-shuffle",
+        "name": "I'm the One, the verse",
+        "type": "groove",
+        "function": "A shuffle at 226 on both bass drums: the kick on every swung eighth, the hat opened on every beat, the snare on 2 and 4.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-21640"]
+        },
+        "source": {
+          "recording_id": "rec:van-halen-van-halen-1978",
+          "transcription_source_id": "src:songsterr-21640"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 226,
+          "playable_range_bpm": [222, 230]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.",
+          "snare": "..x...x.",
+          "kick": "xxxxxxxx"
+        },
+        "tags": ["1978", "double bass", "shuffle"]
+      },
+      {
+        "id": "pattern:alex-van-halen-everybody-toms",
+        "name": "Everybody Wants Some!!, the tom groove",
+        "type": "groove",
+        "function": "The kick and the floor tom on every beat, the floor tom on the \"and\" of 1, the rack tom on 2, its \"and\" and 4, the middle tom on the \"and\" of 3 and of 4: no snare.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-21657"]
+        },
+        "source": {
+          "recording_id": "rec:van-halen-women-and-children-first-1980",
+          "transcription_source_id": "src:songsterr-21657"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 144,
+          "playable_range_bpm": [141, 147]
+        },
+        "lanes": {
+          "tom_1": "....x.x.....x...",
+          "tom_2": "..........x...x.",
+          "floor_tom_1": "x.x.x...x...x...",
+          "kick": "x...x...x...x..."
+        },
+        "tags": ["1980", "toms"]
+      },
+      {
+        "id": "pattern:alex-van-halen-unchained-prechorus",
+        "name": "Unchained, the pre-chorus",
+        "type": "groove_variation",
+        "function": "A bar of 7/4 (the tab's 4/4 and 3/4): the crash in eighths, the snare on 2, 3, 5 and 6, the kick off the beat around it.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-57561"]
+        },
+        "source": {
+          "recording_id": "rec:van-halen-fair-warning-1981",
+          "transcription_source_id": "src:songsterr-57561"
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [137, 142]
+        },
+        "lanes": {
+          "crash_1": "x.x.x.x.x.x.x.x.x.x.x.x.x...",
+          "crash_2": "..........................x.",
+          "snare": "....x...x.......x...x.......",
+          "kick": "..x.......x...x.......x...x."
+        },
+        "tags": ["1981", "odd bars"]
+      },
+      {
+        "id": "pattern:alex-van-halen-jump-prechorus",
+        "name": "Jump, the pre-chorus",
+        "type": "groove_variation",
+        "function": "The kick, the snare and the open hat each a dotted quarter apart, across the bar line, over the ride bell.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-21889"]
+        },
+        "source": {
+          "recording_id": "rec:van-halen-1984-1984",
+          "transcription_source_id": "src:songsterr-21889"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [127, 133]
+        },
+        "lanes": {
+          "ride": "......B.....B...|..B.....B.B.....",
+          "hihat": "..o.....o.....o.|....o...........",
+          "snare": "....x.....x.....|x.....x.....x...",
+          "kick": "x.....x.....x...|..x.....x.x...x.",
+          "hihat_pedal": "....k.....k.....|k.....k........."
+        },
+        "tags": ["1984", "dotted quarters"]
+      },
+      {
+        "id": "pattern:alex-van-halen-panama-verse",
+        "name": "Panama, the verse",
+        "type": "groove",
+        "function": "The hat half-open in eighths over four on the floor.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18645"]
+        },
+        "source": {
+          "recording_id": "rec:van-halen-1984-1984",
+          "transcription_source_id": "src:songsterr-18645"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 141,
+          "playable_range_bpm": [138, 144]
+        },
+        "lanes": {
+          "hihat": "h.h.h.h.h.h.h.h.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "tags": ["1984"]
+      },
+      {
+        "id": "pattern:alex-van-halen-hot-for-teacher-shuffle",
+        "name": "Hot for Teacher, the verse",
+        "type": "groove",
+        "function": "The double-bass shuffle at 257: the kick on every swung eighth, the hat opened on every beat, the snare on 2 and 4.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19632"]
+        },
+        "source": {
+          "recording_id": "rec:van-halen-1984-1984",
+          "transcription_source_id": "src:songsterr-19632"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 257,
+          "playable_range_bpm": [252, 260]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.",
+          "snare": "..x...x.",
+          "kick": "xxxxxxxx"
+        },
+        "tags": ["1984", "double bass", "shuffle"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:alex-van-halen-ludwig-silver-sparkle",
+      "label": "Ludwig Pro Beat, silver sparkle, two bass drums (1970-1979)",
+      "years": {
+        "from": 1970,
+        "to": 1979
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Ludwig",
+          "size": "14x24",
+          "muffling": "front head off; felt strips, foam and tape"
+        },
+        {
+          "instrument": "kick_2",
+          "brand": "Ludwig",
+          "size": "14x26",
+          "muffling": "front head off; felt strips, foam and tape"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Ludwig",
+          "model": "Super Sensitive",
+          "size": "14x6.5"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Ludwig",
+          "size": "9x13"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Ludwig",
+          "size": "10x14"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Ludwig",
+          "size": "16x16"
+        },
+        {
+          "instrument": "floor_tom_2",
+          "brand": "Ludwig",
+          "size": "16x18"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "crash_1",
+          "brand": "Zildjian"
+        }
+      ],
+      "layout_notes": "A 1970 Pro Beat with a Supraphonic snare, grown to a seven-piece double-bass kit; the 26\" bass drum from 1975. Used on the first two albums at Sunset Sound, then retired. A fan history, not his own account.",
+      "endorsements": ["Ludwig"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:van-halen-gear-silver-sparkle", "src:alex-van-halen-consequence-2008"]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "Van Halen",
@@ -42,13 +770,137 @@
         "from": 1972,
         "to": 2020
       },
+      "notes": "Formed as Mammoth with Eddie in 1972, Van Halen from 1974; the brothers the only two constant members; disbanded a month after Eddie's death in October 2020.",
       "evidence": {
-        "confidence": "widely_reported",
+        "confidence": "verified",
         "source_ids": ["src:alex-van-halen-wikipedia"]
       }
     }
   ],
-  "key_recording_ids": ["rec:van-halen-van-halen-1978", "rec:van-halen-1984-1984"],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.7,
+      "aspects": ["a drummer with his own sound", "two bass drums"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:alex-van-halen-wikipedia",
+          "src:alex-van-halen-moderndrummer-2012",
+          "src:alex-van-halen-consequence-2008"
+        ],
+        "note": "\"Ginger Baker's drums sounded like Ginger Baker's drums.\" (Modern Drummer, 2012)"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.6,
+      "aspects": ["the drummer as a front man", "energy"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:alex-van-halen-wikipedia",
+          "src:alex-van-halen-moderndrummer-2012",
+          "src:alex-van-halen-consequence-2008"
+        ]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.6,
+      "aspects": ["a huge kick", "power"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alex-van-halen-wikipedia", "src:alex-van-halen-moderndrummer-2012"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "strength": 0.5,
+      "aspects": ["double bass"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alex-van-halen-wikipedia", "src:hot-for-teacher-wikipedia"],
+        "note": "Hot for Teacher's intro is \"reminiscent of drummer Billy Cobham's tune 'Quadrant 4'\" (Wikipedia, the song)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.5,
+      "aspects": ["jazz technique"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alex-van-halen-wikipedia"],
+        "note": "\"An early and lifelong impact\" (Wikipedia)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.4,
+      "aspects": ["jazz drumming in rock"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alex-van-halen-moderndrummer-2012"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Ray Phillips",
+        "kind": "drummer"
+      },
+      "strength": 0.3,
+      "aspects": ["hard rock drumming"],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alex-van-halen-wikipedia"],
+        "note": "Budgie's drummer (Wikipedia: \"Alex was influenced by Budgie drummer Ray Phillips\")."
+      }
+    }
+  ],
+  "pedagogy": {
+    "videos": [],
+    "philosophy": [
+      {
+        "idea": "Push the beat: strict metronomic time is not the aim; a loud, lively feel makes the music breathe.",
+        "paraphrase_of_source_id": "src:alex-van-halen-moderndrummer-2012"
+      },
+      {
+        "idea": "The instrument is a second voice, the way a drummer communicates; a drummer's drums should sound like that drummer.",
+        "paraphrase_of_source_id": "src:alex-van-halen-moderndrummer-2012"
+      }
+    ]
+  },
   "legacy": {
     "contribution": {
       "description": "Brought jazz-influenced nimbleness, galloping swing and skip-stone tom work (\"Hot for Teacher\") to arena hard rock; widely regarded as one of the greatest drummers and named as an influence by Mike Portnoy, Taylor Hawkins and Travis Barker.",
@@ -61,10 +913,51 @@
           "src:travis-barker-wikipedia"
         ]
       }
-    }
+    },
+    "influence_score": 0.7,
+    "innovations": [
+      "The double-bass shuffle as a hard rock groove (I'm the One, 1978; Hot for Teacher, 1984)"
+    ],
+    "accolades": [
+      {
+        "award": "Knight of the Order of the Netherlands Lion",
+        "year": 2026,
+        "for": "His contribution to music",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:alex-van-halen-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "\"Brown sound\" is usually said of Eddie's guitar; Alex coined it, for the sound of his snare (Wikipedia)."
+    ]
   },
   "beatbreaker": {
-    "group": "Hard rock drummers",
-    "build_priority": 1
-  }
+    "style_key": "alexvanhalen",
+    "headline_pattern_ids": [
+      "pattern:alex-van-halen-hot-for-teacher-shuffle",
+      "pattern:alex-van-halen-aint-talkin-riff"
+    ],
+    "default_kit_sound": "A big kit played hard in a room; tighter and closer for 1984",
+    "generation_rules": [
+      "Hard rock: the hat half-opened on 2 or open in eighths, the kick pushing the \"and\"s.",
+      "Shuffles on both bass drums, every swung eighth.",
+      "Fills down the toms over the hat foot, into a crash on 3 or on 1.",
+      "Straight, loud, a little ahead of the beat."
+    ],
+    "avoid": ["Ghost-note funk", "Brushes"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:ginger-baker", "drummer:keith-moon", "drummer:john-bonham"],
+      "primary_descendants": ["drummer:mike-portnoy", "drummer:taylor-hawkins"],
+      "lineage_blurb": "Ginger Baker, Keith Moon and Bonham, with Buddy Rich and Cobham underneath: Van Halen's drummer, and a model for Portnoy, Hawkins and Travis Barker."
+    },
+    "tags": ["van halen", "hard rock", "double bass", "shuffle", "1970s", "1980s"]
+  },
+  "key_recording_ids": [
+    "rec:van-halen-van-halen-1978",
+    "rec:van-halen-women-and-children-first-1980",
+    "rec:van-halen-fair-warning-1981",
+    "rec:van-halen-1984-1984"
+  ]
 }
