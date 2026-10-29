@@ -23468,3 +23468,222 @@ hardware; the 1975 Old Grey Whistle Test agrees.
   Chicken), z3LNhZ7msI4 (Rock and Roll Doctor), PtPepcfs22Y, Lbna-zQ50mQ and
   CLagFzj6rdI (Fat Man, Mercenary Territory and Spanish Moon, live), b1pQ7UhgH3A
   (Two Trains); timed lyrics from lrclib.
+
+## EB. Peter Erskine (2026-10-29)
+
+The `erskine` style plays **songs** the way `hayward` and `maxweinberg` do:
+each New picks one of his performances, and its tempo and grooves come with
+it. His record (`drummer-model/drummers/peter-erskine.json`) was a 15-a
+candidate and is now a draft at schema 1.6.0, with the Offenbach concert of
+1978 as a new recording and `sources/peter-erskine.json`. He files with the
+Fusion drummers.
+
+**Who he is.** Peter Clark Erskine was born on 5 June 1954 in Somers Point, New
+Jersey, and began on the drums at four, with lessons from a local drummer,
+Johnny Civera. Every summer he went to the Stan Kenton jazz camps, where he
+studied with Alan Dawson, Ed Soph, Louis Hayes and Charlie Perry; he went on to
+Interlochen and Indiana University, with occasional lessons from George Gaber,
+and left IU in 1972 for Kenton's orchestra. Four years with Kenton and two with
+Maynard Ferguson followed (PAS Hall of Fame; Wikipedia). In 1978 Jaco
+Pastorius recommended him to Weather Report: he played on two tracks of Mr.
+Gone and joined for the tour, staying to 1982, when Pastorius's Word of Mouth
+and Steps Ahead took him and Omar Hakim came in (Wikipedia, Weather Report and
+Mr. Gone). Five years with Steps Ahead followed, then the ECM trios, the
+studios (the principal drummer on La La Land's score) and the University of
+Southern California. 8:30 won him his first Grammy; Modern Drummer's readers
+voted him Best Jazz Drummer ten times, and its Hall of Fame took him in 2017.
+
+**What he did.** "I had been listening a lot to Miles Davis, the Mahavishnu
+Orchestra, and Weather Report" before he joined, and "it was as natural to
+embrace Count Basie as to embrace James Brown" (1983, quoted by PAS). The PAS
+citation: "He can hit hard and aggressively, and he can play softly and with
+sensitivity." In 1978-79 Weather Report was a quartet without a percussionist,
+all four doubling on percussion live (Wikipedia), so the kit carried the band:
+in the three performances here he works the hat (closed on the beat and its
+"e" and opened on the "and" in Teen Town, sixteenths in Black Market, the
+foot on the eighths under the stick), puts the kick with Pastorius's lines,
+and plays Birdland as a shuffle. That was his own idea: when he joined he
+"played it like Alex [Acuña] did on Heavy Weather", then "I came up with the
+shuffle idea, though I wasn't convinced that it was such a great idea"
+(weatherreportdiscography.org, 8:30).
+
+**Which records are his.** On Mr. Gone he drums on The Pursuit of the Woman
+with the Feathered Hat and Pinocchio only: Tony Williams plays Mr. Gone and
+Punk Jazz, Steve Gadd Young and Fine and And Then, Pastorius the kit on two
+tracks (Wikipedia). On 8:30 the live sides are his, mostly from the Terrace
+Theater, Long Beach, in November 1978; the studio side's "8:30" and "Brown
+Street" are Pastorius on drums. Heavy Weather (1977) is not his: Alex Acuña
+plays "Birdland" and Pastorius "Teen Town". The library had confused these
+(see the hand-over): its 8:30 tracks for Birdland and Teen Town linked the
+Heavy Weather recordings and tabs of Acuña's and Pastorius's parts.
+
+**The songs.** No human transcription of his Weather Report playing is free to
+read; the published ones, with his own analysis, are in Hal Leonard's Modern Drummer
+Legends: Peter Erskine (2021). Each song is rebuilt from a machine Songsterr
+tab of the performance it names, checked against the record: its tempo
+measured by autocorrelation, its swing from where the cymbals fall in the
+beat, and its form from the tab's bar count against the record's length (and,
+for Black Market, a bar-by-bar alignment whose cymbal, snare and kick counts
+follow the record's bands). The bars within the beat are the tabs'. Each
+song's comment, its hint and its record say so.
+
+| Song         | Year | Tempo (record)               | Bars from                                     | Sections                                                                                     |
+| ------------ | ---- | ---------------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| Birdland     | 1978 | 167 (165-168), triplet swing | Songsterr 7390292, machine, Offenbach         | the riff with the snare on the "and"s, the hits, his shuffle, the ride in quarters, open hat |
+| Teen Town    | 1978 | 135, then 145 (133-148)      | Songsterr 7390176, machine, Offenbach         | the head on the open "and", the build in six-bar steps, sixteenths, the eighth-note vamp     |
+| Black Market | 1978 | 125 (125-126)                | Songsterr 6476915, machine, 8:30 (Long Beach) | the toms on the beat, the gallop under sixteenths, the bell, his snare figure, the solos     |
+
+What the app changes, song by song, is in each song's comment. The ones that
+matter: Birdland's tab is written straight at 172, but the record's cymbals
+fall on the third triplet of each beat at 167, as his shuffle would, so the
+song is in swung eighths (`4/4-8`). Its tab writes the kick under every note of
+Pastorius's line, which leaves no eighth free and which the record's mix cannot
+tell from the bass; the tab's lighter bar (43-49: 1, 3, its "and" and the
+"and" of 4) plays throughout. Black Market's snare figure is written at one
+level in the tab; the record's snare band is loudest on 2 and 4, so the other
+strokes are ghosts. Teen Town's vamp, which the tab fills with Black Market's
+snare figure, plays as eighths on the hat. Each song is cut to 32 bars.
+
+**Not scored.** His jazz time on the ride: Night Passage and Rockin' in Rhythm
+(Night Passage, 1980) have no usable tab (738270 is one bar repeated), and the
+ECM trios none. Scarlet Woman (8:30) has a machine tab (7403972) whose tempo map
+(120, then 95) does not match the record's (about 90 and 180). The Pursuit of
+the Woman with the Feathered Hat, Volcano for Hire and Steps Ahead's Pools have
+machine tabs or none.
+
+**The kit.** No samples of his kit are free to use. All three songs use `drs`,
+the clear studio kit with a Paiste ride that Omar Hakim and Vinnie Colaiuta
+play. Weight 0.45: firmer than his trio records in the loud quartet, lighter
+than Billy Cobham, beside Hakim.
+
+**The likeness.** Birdland at Offenbach, September 1978 (the Rockpalast film,
+1:33:06 to 1:33:46): twenty-four, slim, dark hair thick and waved to the
+collar, a full moustache, a sleeveless patterned top, singing into a boom
+microphone; pale shells under red light. Rendered with `shaggy` hair.
+
+**Sources.**
+
+- Percussive Arts Society, Hall of Fame: Peter Erskine.
+- weatherreportdiscography.org: 8:30; Night Passage.
+- Wikipedia: Peter Erskine; Weather Report; Mr. Gone; 8:30; Night Passage;
+  Weather Report (1982); Steps Ahead; Magnetic.
+- Songsterr 7390292, 7390176, 6476915 (machine); 20757 and 21920 (human, of the
+  Heavy Weather parts: Acuña's and Pastorius's); 738270, 738265, 7403972
+  (machine, not scored).
+- Weather Report, Rockpalast, Stadthalle Offenbach, 1978 (YouTube M9IvpzGN8jY);
+  MIG 80090, Rockpalast Offenbach 1978 (2016).
+- The records: YouTube UyrQRJq1oiA (Black Market), x9B-dSkvqB4 (Birdland),
+  BZo2xbEi0xE (Teen Town), CFXBYCfBV10 (Scarlet Woman), all 8:30.
+
+## EC. Dale Crover (2026-10-29)
+
+The `crover` style plays **songs** the way `mattcameron` and `grohl` do: each
+New picks one of his records, and its tempo and grooves come with it. His
+record (`drummer-model/drummers/dale-crover.json`) was a 15-a candidate and is
+now a draft at schema 1.6.0, with Bullhead as a new recording and
+`sources/dale-crover.json`. He files with the Grunge drummers, beside Matt
+Cameron.
+
+**Who he is.** Dale Crover was born on 23 October 1967 and grew up in Aberdeen,
+Washington. He learned "from listening to Kiss Alive! and playing along with
+that record", played in the junior high band, and had three years of private
+lessons from Bob Neisinger, a jazz drummer at Grays Harbor College: rudiments
+from the Haskell W. Harr method, "Three Camps", and then a Carmine Appice book
+because he wanted to play rock (Modern Drummer, May 2011). His listening was
+the new wave of British heavy metal (Seattle Weekly, 2009), and the Melvins
+took him from an Iron Maiden cover band in 1984, when Mike Dillard left, while
+he was still at school; the band rehearsed at his parents' house (Wikipedia,
+Dale Crover; Melvins). With Buzz Osborne he is the band's one constant member,
+on every studio album. In 1985-86 he played with Kurt Cobain in Fecal Matter,
+and on 23 January 1988 he drummed Nirvana's ten-song demo at Reciprocal with
+Jack Endino, "jacked up on coffee", tracked live and mixed in a day, then
+played a show in Tacoma that night (Seattle Weekly, 2009). He filled in on
+Nirvana's August 1990 tour. Coady Willis joined the Melvins as a second
+drummer in 2006. Rolling Stone placed him 69th of the 100 greatest drummers
+(2016).
+
+**What he does.** Rolling Stone (2016): "equal parts earthquake machine,
+hard-sticking showman and ad hoc mathematician following the ebb and flow of
+Buzz Osborne's Beefheart-ian riffs. Fueled by his love for Kiss and Zeppelin,
+Crover's distinct sound comes from tom-toms that explode like cannons, metal
+slats that sizzle, double kick that sputters". Dave Grohl, in the same entry:
+"you can tell when Dale is playing in Nirvana because he's the best drummer in
+the world." Osborne says the Houdini songs were built "around distinctive drum
+patterns developed with Crover", the drums tracked first and the rest
+overdubbed (Wikipedia, Houdini). Live he played huge drums, a 26" bass drum, a
+16" rack tom and a 20" floor tom, with "the big sticks"; for records from the
+mid-1990s a 1948 Gretsch kit (MD, 2011).
+
+**Which records are his.** Wikipedia's Bleach article and his own name the
+three demo songs on the album, Floyd the Barber, Paper Cuts and Downer; the
+band failed to re-record them with Chad Channing and kept Crover's takes.
+Bullhead and Houdini list him as the drummer; on Houdini Osborne says "this
+album is mostly just me and Dale Crover", Kurt Cobain's credit as co-producer
+notwithstanding, and Cobain's only playing is guitar on Sky Pup and
+percussion on Spread Eagle Beagle, neither scored.
+
+**The songs.**
+
+| Song             | Year | Tempo (record) | Bars from                                        | Sections                                                                                                       |
+| ---------------- | ---- | -------------- | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| Floyd the Barber | 1988 | 137 (136.7)    | Songsterr 11404, human, drum track "Dale Crover" | the toms and kick alone, the stamp, verse, chorus, the ride and kick run, solo, last chorus on the ride, outro |
+| Paper Cuts       | 1988 | 102 (102)      | Songsterr 14263, human                           | intro, verse (toms with the kick), ride, the snare with the riff, chorus, post-chorus, end                     |
+| Boris            | 1991 | 63 (62.6)      | Songsterr 73509, human                           | intro, the two-bar riff, between riffs, half time                                                              |
+| Hooch            | 1993 | 104 (104.2)    | Songsterr 73507, human                           | intro, verse (kick alone, then the hat), verse end, chorus in four-bar turns                                   |
+| Night Goat       | 1993 | 141 (141.1)    | Songsterr 472129, human                          | toms and kick, verse in half time, bridge, chorus on the crashes, outro                                        |
+
+Every tab was checked for machine origin at every revision (none), and its
+length against the record: Hooch and Night Goat match to the second, Floyd
+the Barber and Paper Cuts within four seconds. Floyd and Paper Cuts are on
+Bleach (1989) but dated 1988, when they were played.
+
+What the app changes, song by song, is in each song's comment. The ones that
+matter: Floyd the Barber's three bars of kick in sixteenths under crashes (25,
+45, 73) are kept on the double pedal, and take a snare on 4 (and on 2 in 73)
+that the tab leaves to the kick and cymbals, because every bar needs its
+backbeat. Paper Cuts and Night Goat are cut to 32 bars by playing repeated
+phrases as one section; Night Goat's bridge plays as two of its eight bars,
+and its break (129-136, scattered hits) is left out. Boris's record runs about
+two and a half minutes past the tab's last bar of drums, and that end is not
+scored; its riff, never the same two bars running, plays six of its pairs in
+the order the generator draws, and its tom triplets after 1 are written as
+sixteenths. Hooch's verse bars of kick alone, its chorus bars with the snare
+on 1 and 3, and Paper Cuts' second pre-chorus and chorus carry the backbeat
+the riff gives them, not 2 and 4.
+
+**Not scored.** Honey Bucket (Houdini): its intro runs at about 121 and the
+song at about 176 (the record's autocorrelation), not a ratio one song can
+hold; its body alone is a plain rock beat. Revolve (Stoner Witch, 1994): the
+human tab (43136) writes the cowbell and the open hat on every eighth with the
+snare on the backbeat, which needs three hands; an overdub would explain it,
+but nothing says so. Eye Flys (Gluey Porch Treatments, 1987): the only tab
+(7361339) is machine-made. Downer runs at about 200; Aero Zeppelin speeds up
+from 96 to 123 ("faster and faster and almost falls apart", Crover). Lizzy
+(Houdini) was read and set aside for Hooch and Night Goat. Nothing after 1994
+is scored.
+
+**The kit.** No samples of his kit are free to use. `bigrusty` (a damped 24"
+kick played hard, a big wash of cymbal) for the Bleach songs and the base;
+`bigRoom` (the same kit in a big room) for the Melvins songs. Weight 1:
+"You're still playing pretty hard." "Yeah, I try." (MD, 2011).
+
+**The likeness.** The Melvins' video for Honey Bucket (1993, directed by Steve
+Payne), filmed in a barn: shirtless, long wavy ginger-blond hair over his face,
+white shorts and tube socks, a black Tama kit with chrome hardware and white
+heads, straw on the floor.
+
+**Sources.**
+
+- Modern Drummer, "Dale Crover: The Melvins' Thunder King" (May 2011 cover
+  story, web post March 2011).
+- Seattle Weekly, "Bleach: Krist Novoselic Interviews Dale Crover", 27 October 2009.
+- Rolling Stone, "100 Greatest Drummers of All Time", 31 March 2016, no. 69.
+- Wikipedia: Dale Crover; Melvins; Bleach (Nirvana album); Houdini (album);
+  Bullhead (album); Gluey Porch Treatments; Stoner Witch.
+- Songsterr 11404, 14263, 73509, 73507, 472129 (and 43132, 43136, 1055436,
+  read and not scored; 7361339, machine).
+- Melvins, "Honey Bucket" video, 1993 (YouTube 3RMmIJn_4FA).
+- The records: YouTube cBm-XeOVIeY (Floyd the Barber, remastered),
+  Md4icxT6K60 (Paper Cuts, remastered), sPBbWVYuNLQ (Boris), ogbBbXt7MdQ
+  (Hooch), gd7XmmjaXH0 (Night Goat), p2sez21Cyyo (Honey Bucket), 19y8V_WCtTI
+  (Revolve), rAeanjCnUmI (Downer), hijOfL4JVDE (Eye Flys).

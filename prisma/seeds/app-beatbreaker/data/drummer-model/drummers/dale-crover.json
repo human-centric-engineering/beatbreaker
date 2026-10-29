@@ -2,14 +2,22 @@
   "meta": {
     "id": "drummer:dale-crover",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
-    "completeness": 0.15,
+    "record_status": "draft",
+    "completeness": 0.35,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-29",
+    "authors": ["claude"],
+    "open_questions": [
+      "Whether the January 1988 demo was played on one bass drum or two: the Floyd the Barber tab writes the kick in sixteenths for most of three bars, and Rolling Stone (2016) names his double kick, but no source describes the 1988 kit.",
+      "Revolve (Stoner Witch, 1994) and Honey Bucket (Houdini) are not scored: Revolve's tab writes the cowbell and the open hat on every eighth over the snare, three hands, which an overdub would explain but no source confirms; Honey Bucket's intro runs at about 121 and the song at about 176, which one song in the app cannot hold.",
+      "Eye Flys (Gluey Porch Treatments, 1987) has only a machine-made tab (Songsterr 7361339).",
+      "Boris's last two and a half minutes on the record are not in the tab and are not scored.",
+      "Nothing of his playing after 1994 is scored, nor the two-drummer Melvins with Coady Willis from 2006."
+    ]
   },
   "identity": {
     "name": "Dale Crover",
+    "full_name": "Dale Crover",
     "born": {
       "date": "1967-10-23",
       "evidence": {
@@ -18,34 +26,50 @@
       }
     },
     "nationality": ["American"],
-    "home_scenes": ["Aberdeen and Seattle, 1980s"],
+    "home_scenes": ["Aberdeen and Seattle, 1980s", "San Francisco, from 1988"],
     "active": {
       "from": 1984,
-      "ongoing": true
+      "ongoing": true,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dale-crover-wikipedia", "src:melvins-wikipedia"],
+        "note": "Joined the Melvins in 1984 from an Iron Maiden cover band, still at school; the band's drummer since."
+      }
     },
-    "summary": "The Melvins' drummer since 1984."
+    "summary": "The Melvins' drummer since 1984, with Buzz Osborne the band's one constant; the drummer on Nirvana's first demo (January 1988), three songs of which are on Bleach.",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum_kit"],
+    "roles": ["band_member", "session"]
   },
   "style_profile": {
     "genres": [
       {
         "style_id": "style:grunge",
+        "name": "Grunge",
         "weight": 1.0,
         "authority": 0.6
       },
       {
         "style_id": "style:drone-doom",
-        "weight": 0.6,
-        "authority": 0.4
+        "name": "Sludge and doom",
+        "weight": 0.7,
+        "authority": 0.6
       },
       {
         "style_id": "style:metal",
+        "name": "Metal",
         "weight": 0.5
       },
       {
         "style_id": "style:punk",
+        "name": "Punk",
         "weight": 0.4
       }
-    ]
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "driver",
+    "descriptors": ["heavy", "loud", "slow", "riff-driven", "tom-heavy", "crash-ridden"]
   },
   "affiliations": [
     {
@@ -54,9 +78,10 @@
       "years": {
         "from": 1984
       },
+      "notes": "Replaced Mike Dillard in 1984; plays bass in the 1983 line-up with Dillard (2013, 2021); Coady Willis a second drummer from 2006.",
       "evidence": {
         "confidence": "verified",
-        "source_ids": ["src:dale-crover-wikipedia"]
+        "source_ids": ["src:dale-crover-wikipedia", "src:melvins-wikipedia"]
       }
     },
     {
@@ -64,31 +89,637 @@
       "type": "session_regular",
       "years": {
         "from": 1988,
-        "to": 1988
+        "to": 1990
       },
+      "notes": "The ten-song demo of 23 January 1988 at Reciprocal and that night's show in Tacoma; a west-coast tour with Sonic Youth in August 1990.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dale-crover-wikipedia", "src:dale-crover-seattleweekly-2009"]
+      }
+    },
+    {
+      "name": "Fecal Matter",
+      "type": "band_member",
+      "years": {
+        "from": 1985,
+        "to": 1986
+      },
+      "notes": "With Kurt Cobain; bass and drums on the 1986 demo Illiteracy Will Prevail.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dale-crover-wikipedia"]
+      }
+    },
+    {
+      "name": "Altamont",
+      "type": "band_member",
+      "years": {
+        "from": 1994
+      },
+      "notes": "Guitar and vocals.",
       "evidence": {
         "confidence": "verified",
         "source_ids": ["src:dale-crover-wikipedia"]
       }
     }
   ],
-  "legacy": {
-    "contribution": {
-      "description": "With Buzz Osborne the only constant Melvins member since 1984; he drummed Nirvana's first demo, three songs of which are on Bleach. Rolling Stone's 69th greatest drummer.",
-      "evidence": {
-        "confidence": "verified",
-        "source_ids": ["src:dale-crover-wikipedia"]
-      }
-    }
-  },
-  "beatbreaker": {
-    "group": "Grunge drummers",
-    "build_priority": 1
-  },
   "key_recording_ids": [
     "rec:melvins-gluey-porch-treatments-1987",
-    "rec:melvins-houdini-1993",
-    "rec:nirvana-bleach-1989"
+    "rec:nirvana-bleach-1989",
+    "rec:melvins-bullhead-1991",
+    "rec:melvins-houdini-1993"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "With Buzz Osborne the only constant Melvins member since 1984, the heavy, slow drumming at the root of sludge metal and grunge; he drummed Nirvana's first demo, three songs of which are on Bleach. Rolling Stone's 69th greatest drummer: \"tom-toms that explode like cannons\".",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:dale-crover-wikipedia",
+          "src:melvins-wikipedia",
+          "src:rollingstone-100-drummers-2016"
+        ]
+      }
+    },
+    "influence_score": 0.6,
+    "innovations": [],
+    "accolades": [
+      {
+        "award": "Rolling Stone, 100 Greatest Drummers of All Time (2016), no. 69",
+        "year": 2016,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:rollingstone-100-drummers-2016", "src:dale-crover-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That Chad Channing or Dave Grohl plays all of Bleach: Floyd the Barber, Paper Cuts and Downer are Crover's, from the January 1988 demo."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "crover",
+    "headline_pattern_ids": [
+      "pattern:dale-crover-floyd-stamp",
+      "pattern:dale-crover-hooch-chorus-slide"
+    ],
+    "default_kit_sound": "A big, damped kick hit hard, open toms and a wash of crashes, in a big room",
+    "generation_rules": [
+      "The kick plays the riff; the floor tom stamps with it.",
+      "A crash on the 1, open hats on the beat or the \"and\"s.",
+      "Half time with the snare on 3 at the slow and fast tempos alike.",
+      "Let the backbeat move where the riff moves it."
+    ],
+    "avoid": ["Ghost-note funk", "Swing", "Busy linear fills over a held groove"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:peter-criss", "drummer:john-bonham", "drummer:carmine-appice"],
+      "primary_descendants": ["drummer:dave-grohl", "drummer:gabe-serbian"],
+      "lineage_blurb": "Kiss Alive! and Zeppelin, a jazz teacher's rudiments and a Carmine Appice book, slowed to a crawl for the Melvins."
+    },
+    "tags": ["melvins", "nirvana", "sludge", "grunge", "heavy", "1980s", "1990s"]
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Hard rock and Kiss",
+        "impact": "\"I learned how to play drums from listening to Kiss Alive! and playing along with that record.\"",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dale-crover-moderndrummer-2011"]
+        }
+      },
+      {
+        "tradition": "The new wave of British heavy metal",
+        "impact": "His listening in Aberdeen before the Melvins, \"fast and aggressive\"; he joined from an Iron Maiden cover band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dale-crover-seattleweekly-2009", "src:dale-crover-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Rudimental drumming",
+        "impact": "Three years of lessons from Bob Neisinger, a jazz drummer: the Haskell W. Harr Drum Method, \"Three Camps\", competition pieces; he still warms up on rudiments.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dale-crover-moderndrummer-2011"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1984,
+        "event": "Joins the Melvins after Mike Dillard leaves, still at school; rehearsals move to his parents' house in Aberdeen.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:melvins-wikipedia", "src:dale-crover-seattleweekly-2009"]
+        }
+      },
+      {
+        "year": 1988,
+        "event": "Drums on Nirvana's ten-song demo at Reciprocal, 23 January, tracked live in a day.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dale-crover-wikipedia", "src:dale-crover-seattleweekly-2009"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:dale-crover-melvins-sludge",
+      "label": "The Melvins and Nirvana's demo, 1984-1994",
+      "years": {
+        "from": 1984,
+        "to": 1994
+      },
+      "context": "Aberdeen, then San Francisco: Gluey Porch Treatments, Ozma, Bullhead, Lysol, then Atlantic (Houdini, Stoner Witch); the Nirvana demo of 1988.",
+      "defining_traits": [
+        "Slow, heavy riff-following grooves",
+        "The floor tom with the kick",
+        "Crashes on the 1",
+        "Half time"
+      ],
+      "key_recording_ids": [
+        "rec:melvins-gluey-porch-treatments-1987",
+        "rec:nirvana-bleach-1989",
+        "rec:melvins-bullhead-1991",
+        "rec:melvins-houdini-1993"
+      ]
+    },
+    {
+      "id": "era:dale-crover-later-melvins",
+      "label": "The later Melvins, from 1995",
+      "years": {
+        "from": 1995
+      },
+      "context": "Thirty albums and more; two drummers with Coady Willis from 2006; the 1983 line-up with Crover on bass.",
+      "style_shift": "Recording on a small 1948 Gretsch kit, live on huge drums; with Willis, parts written as mirror images."
+    }
+  ],
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-11404", "src:songsterr-73507"],
+        "note": "The tabs and records give no sign of playing behind the beat; heavy, but on it."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight in every song scored here."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "ff",
+      "accent_level": 120,
+      "balance": "\"You're still playing pretty hard.\" \"Yeah, I try.\" (MD, 2011)"
+    },
+    "density": {
+      "groove_notes_per_bar": [3, 20],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.7,
+    "tempo_comfort_bpm": [60, 145],
+    "timekeeping_context": ["free"],
+    "interaction": "Follows Buzz Osborne's riffs note for note on the kick and toms; Osborne describes the songs as built \"around distinctive drum patterns developed with Crover\".",
+    "descriptors": ["heavy", "loud", "riff-locked"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Rudimental warm-up",
+        "description": "Rudiments learned from a jazz teacher, still his warm-up.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dale-crover-moderndrummer-2011"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick on the riff",
+        "description": "The kick plays the guitar riff, alone for whole bars in Hooch's verse, in sixteenths under crashes in Floyd the Barber.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-73507", "src:songsterr-11404"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.5,
+      "linear_playing": 0.3,
+      "odd_meter_fluency": 0.6,
+      "double_bass": 0.3,
+      "devices": [
+        {
+          "kind": "displacement",
+          "where": ["groove"],
+          "description": "In Hooch's chorus the snare falls on 2 and 4 in one bar and on 1 and 3 in the next, so the backbeat shifts by a beat with the riff over two bars of 4/4.",
+          "examples": ["Hooch (Houdini)"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-73507"]
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-29",
+        "searched": [
+          "Songsterr 11404 (Floyd the Barber), 14263 (Paper Cuts), 73509 (Boris), 73507 (Hooch), 472129 (Night Goat), 43132 (Honey Bucket), 43136 (Revolve), 1055436 (Lizzy), 5857988 (Queen)",
+          "Modern Drummer, May 2011; Seattle Weekly, 27 October 2009; Wikipedia (Dale Crover, Melvins, Houdini, Bullhead)"
+        ],
+        "note": "Revolve's 6/4 and 8/4 bars and Honey Bucket's bar of 6/4 are written meter, not devices. Boris's tom triplets are fills of a bar's fraction, not a cross-rhythm."
+      }
+    },
+    "voice_language": {
+      "hihat": "Open, on the beat or on the \"and\"s; the foot on the beat under the crash.",
+      "snare": "Hard backbeats, or half time on 3, or moved where the riff puts it (Hooch, Paper Cuts' second pre-chorus).",
+      "kick": "Plays the riff; in sixteenths under crashes into a solo (Floyd the Barber).",
+      "toms": "The floor tom stamping with the kick; both toms in unison with it (Paper Cuts); \"tom-toms that explode like cannons\".",
+      "cymbals": "A crash on 1 of nearly every bar; choruses ridden on the crash."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "\"The big sticks\" in the 1990s (MD, 2011)."
+    },
+    "reading": "basic"
+  },
+  "sound_profile": {
+    "aesthetic": ["huge", "boomy", "loud", "big room"],
+    "cymbal_character": "Big crashes ridden through choruses; a ride for the quieter parts.",
+    "sample_hints": {
+      "bleach_demo": "Jack Endino's Reciprocal, 1988: a dry, thick kit hit hard.",
+      "houdini": "A big room, the crashes washing over the toms."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:dale-crover-moderndrummer-2011",
+        "src:bleach-nirvana-album-wikipedia",
+        "src:houdini-album-wikipedia"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:dale-crover-kick-on-the-riff",
+      "label": "The kick on the riff",
+      "category": "groove",
+      "description": "The kick follows the guitar riff, with or without the snare: bars of kick alone in Hooch's verse, the floor tom stamping with it in Floyd the Barber.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:dale-crover-floyd-stamp"],
+      "heard_on": [
+        {
+          "recording_id": "rec:nirvana-bleach-1989"
+        },
+        {
+          "recording_id": "rec:melvins-houdini-1993"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-11404", "src:songsterr-73507", "src:houdini-album-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:dale-crover-cannon-toms",
+      "label": "Toms like cannons",
+      "category": "sound",
+      "description": "Big open toms in unison with the kick (Paper Cuts) and as the stamp of a riff.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:dale-crover-paper-cuts-toms"],
+      "heard_on": [
+        {
+          "recording_id": "rec:nirvana-bleach-1989"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:rollingstone-100-drummers-2016", "src:songsterr-14263"]
+      }
+    },
+    {
+      "id": "trait:dale-crover-slow-half-time",
+      "label": "Slow and half time",
+      "category": "feel",
+      "description": "Sludge tempos (Boris at 63) and half time with the snare on 3 (Night Goat).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:dale-crover-night-goat-half-time", "pattern:dale-crover-boris-riff"],
+      "heard_on": [
+        {
+          "recording_id": "rec:melvins-bullhead-1991"
+        },
+        {
+          "recording_id": "rec:melvins-houdini-1993"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-73509", "src:songsterr-472129", "src:melvins-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:dale-crover-floyd-stamp",
+        "name": "Floyd the Barber, the stamp",
+        "type": "groove",
+        "function": "A crash and the kick on 1, the open hat and the snare on 2, the floor tom and the kick together on 3, its \"and\" and 4.",
+        "style_ids": ["style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-11404"]
+        },
+        "source": {
+          "recording_id": "rec:nirvana-bleach-1989",
+          "transcription_source_id": "src:songsterr-11404"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 137,
+          "playable_range_bpm": [134, 140]
+        },
+        "lanes": {
+          "crash_1": "X...............",
+          "hihat": "....o...........",
+          "snare": "....X...........",
+          "floor_tom_1": "........x.x.x...",
+          "kick": "x.......x.x.x...",
+          "hihat_pedal": "........x......."
+        },
+        "tags": ["1988", "nirvana", "floor tom"]
+      },
+      {
+        "id": "pattern:dale-crover-paper-cuts-toms",
+        "name": "Paper Cuts, the toms with the kick",
+        "type": "groove",
+        "function": "The tom, the floor tom and the kick together on 1, its \"and\", the \"and\" of 2, 3, its \"and\" and the \"and\" of 4, the snare on 2 and 4.",
+        "style_ids": ["style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-14263"]
+        },
+        "source": {
+          "recording_id": "rec:nirvana-bleach-1989",
+          "transcription_source_id": "src:songsterr-14263"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 102,
+          "playable_range_bpm": [100, 105]
+        },
+        "lanes": {
+          "snare": "....x.......x...",
+          "tom_1": "x.x...x.x.x...x.",
+          "floor_tom_1": "x.x...x.x.x...x.",
+          "kick": "x.x...x.x.x...x."
+        },
+        "tags": ["1988", "nirvana", "toms"]
+      },
+      {
+        "id": "pattern:dale-crover-hooch-chorus-slide",
+        "name": "Hooch, the chorus",
+        "type": "groove",
+        "function": "Two bars: the open hat on the \"and\"s of 2, 3 and 4 with the snare on 2 and 4, then the hat on 1 and 2 with the snare on 1 and 3: the backbeat slides with the riff.",
+        "style_ids": ["style:grunge", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-73507"]
+        },
+        "source": {
+          "recording_id": "rec:melvins-houdini-1993",
+          "transcription_source_id": "src:songsterr-73507"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 104,
+          "playable_range_bpm": [102, 106]
+        },
+        "lanes": {
+          "crash_1": "X...............|..............X.",
+          "hihat": "......o...o.o.o.|o...o...........",
+          "snare": "....x.......x...|x.......x.......",
+          "tom_1": "................|..........x.....",
+          "floor_tom_1": "................|..........x.....",
+          "kick": "x.....x...x...x.|....x.......x.x.",
+          "hihat_pedal": "........x.......|......x........."
+        },
+        "tags": ["1993", "melvins", "displacement"]
+      },
+      {
+        "id": "pattern:dale-crover-night-goat-half-time",
+        "name": "Night Goat, the verse",
+        "type": "groove",
+        "function": "Half time: quarters on the open hat, the snare on 3 alone, the kick in eighths.",
+        "style_ids": ["style:drone-doom", "style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-472129"]
+        },
+        "source": {
+          "recording_id": "rec:melvins-houdini-1993",
+          "transcription_source_id": "src:songsterr-472129"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 141,
+          "playable_range_bpm": [138, 143]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...",
+          "snare": "........x.......",
+          "kick": "x.x.x.x.x.x.x.x."
+        },
+        "tags": ["1993", "melvins", "half time"]
+      },
+      {
+        "id": "pattern:dale-crover-boris-riff",
+        "name": "Boris, the riff",
+        "type": "groove",
+        "function": "Sludge at 63, two bars: crashes on 1 and the \"and\" of 2, the snare on 1 and the \"and\" of 3; then the open hat on the \"and\"s, the snare on 1 and 3.",
+        "style_ids": ["style:drone-doom", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-73509"]
+        },
+        "source": {
+          "recording_id": "rec:melvins-bullhead-1991",
+          "transcription_source_id": "src:songsterr-73509"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 63,
+          "playable_range_bpm": [61, 65]
+        },
+        "lanes": {
+          "crash_1": "X.....x.........|................",
+          "hihat": "..........o.....|..o...o...o...o.",
+          "snare": "x.........x.....|x.......x.......",
+          "kick": "......x.....x.x.|..x.x.x...x.x.x.",
+          "hihat_pedal": "............x...|................"
+        },
+        "tags": ["1991", "melvins", "sludge"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:dale-crover-1993",
+      "label": "The Honey Bucket video, 1993",
+      "years": {
+        "from": 1993,
+        "to": 1993
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Tama"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "crash_1"
+        },
+        {
+          "instrument": "ride"
+        }
+      ],
+      "layout_notes": "Black shells with chrome hardware and white coated heads, Tama on the kick head.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:melvins-honey-bucket-video-1993"]
+      }
+    },
+    {
+      "id": "kit:dale-crover-live-artstar",
+      "label": "The big live kit, 1990s-2000s",
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Tama",
+          "model": "Artstar Custom",
+          "size": "26"
+        },
+        {
+          "instrument": "tom_1",
+          "size": "16"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "size": "20"
+        }
+      ],
+      "sticks": "Big sticks",
+      "layout_notes": "A 20\" gong bass drum besides; \"the loudest kit I ever had\".",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dale-crover-moderndrummer-2011"]
+      }
+    },
+    {
+      "id": "kit:dale-crover-gretsch-1948",
+      "label": "The 1948 Gretsch recording kit, from the mid-1990s",
+      "context": "studio",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Gretsch",
+          "size": "24"
+        },
+        {
+          "instrument": "tom_1",
+          "size": "13"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "size": "16"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dale-crover-moderndrummer-2011"]
+      }
+    }
   ],
   "relationships": [
     {
@@ -100,9 +731,118 @@
       },
       "strength": 0.4,
       "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bleach-nirvana-album-wikipedia", "src:dale-crover-wikipedia"],
+        "note": "Bleach: Crover on three songs from the January 1988 demo, Channing on the rest."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Peter Criss",
+        "kind": "drummer",
+        "id": "drummer:peter-criss"
+      },
+      "strength": 0.8,
+      "aspects": ["learning by playing along"],
+      "scope": "individual",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dale-crover-moderndrummer-2011"],
+        "note": "\"I learned how to play drums from listening to Kiss Alive! and playing along with that record.\""
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.6,
+      "scope": "individual",
+      "evidence": {
         "confidence": "likely",
-        "source_ids": ["src:dale-crover-wikipedia"]
+        "source_ids": ["src:rollingstone-100-drummers-2016"],
+        "note": "\"Fueled by his love for Kiss and Zeppelin\" (Rolling Stone, 2016): Led Zeppelin as a band; Bonham its drummer."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Carmine Appice",
+        "kind": "drummer",
+        "id": "drummer:carmine-appice"
+      },
+      "strength": 0.4,
+      "aspects": ["a rock drumming method book"],
+      "scope": "individual",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dale-crover-moderndrummer-2011"],
+        "note": "His teacher \"got me a Carmine Appice book\" because he wanted to play rock."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Bob Neisinger",
+        "kind": "teacher"
+      },
+      "strength": 0.6,
+      "aspects": ["rudiments", "reading"],
+      "years": {
+        "from": 1980,
+        "to": 1983
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dale-crover-moderndrummer-2011"],
+        "note": "Three years of private lessons in junior high; the years are inferred from his age."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Mike Dillard",
+        "kind": "drummer",
+        "id": "drummer:mike-dillard"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:melvins-wikipedia", "src:dale-crover-seattleweekly-2009"]
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Coady Willis",
+        "kind": "drummer",
+        "id": "drummer:coady-willis"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 2006
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:melvins-wikipedia", "src:dale-crover-moderndrummer-2011"],
+        "note": "Two drummers in the Melvins from 2006, \"mirror image\" (Willis is left-handed)."
       }
     }
-  ]
+  ],
+  "pedagogy": {
+    "videos": [],
+    "philosophy": [
+      {
+        "idea": "Learn by playing along with records you love.",
+        "paraphrase_of_source_id": "src:dale-crover-moderndrummer-2011"
+      },
+      {
+        "idea": "Keep the rudiments up: warm up on them before a show.",
+        "paraphrase_of_source_id": "src:dale-crover-moderndrummer-2011"
+      }
+    ]
+  }
 }

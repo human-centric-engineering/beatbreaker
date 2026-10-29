@@ -4005,6 +4005,70 @@ const RICHIE_HAYWARD: Persona = {
   kit: { shell: '#111114', finish: 'gloss', hardware: 'chrome', rug: '#3a2e26' },
 };
 
+/**
+ * Dale Crover at the kit in the Melvins' video for "Honey Bucket" (Houdini, 1993; directed by Steve
+ * Payne; YouTube 3RMmIJn_4FA, the band's channel, at the kit at 0:07-0:08, 0:26-0:29 and 1:18-1:20,
+ * frames at 0:27 and 1:19), filmed in a barn among sheep and hay: twenty-five, slim, shirtless,
+ * long wavy ginger-blond hair past the shoulders and over the face as he plays, white shorts and
+ * white tube socks. A black Tama kit with chrome hardware and white coated heads, the floor deep in
+ * straw. His face is mostly behind the hair in these shots; no beard is seen. His shoes are out of
+ * shot: white trainers, a guess.
+ */
+const DALE_CROVER: Persona = {
+  id: 'crover',
+  name: 'Dale Crover',
+  figure: 'male',
+  build: 'slim',
+  skin: '#ecc6a6',
+  hair: '#a8703f',
+  // long, wavy, past the shoulders and thrown about: flowing is the nearest shape
+  hairStyle: 'flowing',
+  beard: 'none',
+  top: 'bare',
+  shirt: '#ecc6a6',
+  // white shorts over the tube socks
+  legs: 'shorts',
+  trousers: '#ecebe4',
+  shoes: '#e6e4dc',
+  footwear: 'trainers',
+  accent: '#b02a2a',
+  headphones: false,
+  // the straw on the barn floor for the mat
+  kit: { shell: '#121214', finish: 'gloss', hardware: 'chrome', rug: '#a58c58' },
+};
+
+/**
+ * Peter Erskine with Weather Report at the Stadthalle Offenbach for Rockpalast, September 1978,
+ * playing "Birdland" (the concert film, YouTube M9IvpzGN8jY, Birdland from 1:32:16; frames at
+ * 1:33:06, 1:33:20 and 1:33:46), the year he joined the band: twenty-four, slim, dark brown hair
+ * thick and waved to the collar, a full dark moustache and the chin bare, a sleeveless patterned top,
+ * singing into a boom microphone as he plays. Pale shells under the red stage light and a large
+ * cymbal over his left hand. The shells' true colour is a guess from the lit frames, as are his
+ * trousers and shoes, which the kit hides; the top's pattern is drawn as a fleck.
+ */
+const PETER_ERSKINE: Persona = {
+  id: 'erskine',
+  name: 'Peter Erskine',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e3b896',
+  hair: '#21160f',
+  // thick and waved to the collar: shaggy is the nearest shape
+  hairStyle: 'shaggy',
+  beard: 'moustache',
+  beardColour: '#1c130d',
+  top: 'vest',
+  shirt: '#3b2b25',
+  // the top's light pattern on the dark cloth
+  fleck: '#b88d6a',
+  trousers: '#2b2622',
+  shoes: '#2a1e16',
+  footwear: 'shoes',
+  accent: '#b88d6a',
+  headphones: false,
+  kit: { shell: '#ebe4d6', finish: 'gloss', hardware: 'chrome', rug: '#3a2e26' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -4128,6 +4192,8 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   fleetwood: MICK_FLEETWOOD,
   alexvanhalen: ALEX_VAN_HALEN,
   hayward: RICHIE_HAYWARD,
+  crover: DALE_CROVER,
+  erskine: PETER_ERSKINE,
 };
 
 /**

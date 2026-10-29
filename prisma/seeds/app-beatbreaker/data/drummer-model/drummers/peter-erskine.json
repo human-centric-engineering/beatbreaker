@@ -2,10 +2,17 @@
   "meta": {
     "id": "drummer:peter-erskine",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
+    "record_status": "draft",
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-29",
+    "authors": ["claude"],
+    "completeness": 0.35,
+    "open_questions": [
+      "No human transcription of his Weather Report parts is free to read (the published ones are in Modern Drummer Legends: Peter Erskine, Hal Leonard 2021). All three songs are rebuilt from machine Songsterr tabs: their tempo, swing and form are checked against the records; their bars within the beat are not.",
+      "Birdland's kick: the tab writes it under every note of Pastorius's line (the \"and\"s of 1 and 2 as well); the record's mix cannot separate the two, and the song plays the tab's lighter bar (43-49).",
+      "Teen Town's vamp (Offenbach bars 232-236, 243-248, 261-266): the tab puts Black Market's snare figure under it; left out until a source or a clearer recording settles it.",
+      "Swing on the ride, his jazz playing (Night Passage, Rockin' in Rhythm, the ECM trios), is not scored: no transcription of it was found."
+    ]
   },
   "identity": {
     "name": "Peter Erskine",
@@ -23,9 +30,16 @@
     "primary_instruments": ["drum kit"],
     "active": {
       "from": 1972,
-      "ongoing": true
+      "ongoing": true,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peter-erskine-wikipedia", "src:pas-hall-of-fame-peter-erskine"],
+        "note": "Stan Kenton from 1972; still recording and teaching at USC."
+      }
     },
-    "summary": "Weather Report's drummer beside Jaco Pastorius, then Steps Ahead, the ECM trios and the studios."
+    "summary": "Weather Report's drummer from 1978 to 1982 beside Jaco Pastorius, after Stan Kenton and Maynard Ferguson; then Steps Ahead, the ECM trios, the studios and teaching.",
+    "setup_type": "drum_kit",
+    "roles": ["band_member", "session", "educator"]
   },
   "style_profile": {
     "genres": [
@@ -44,7 +58,11 @@
         "weight": 0.4,
         "authority": 0.3
       }
-    ]
+    ],
+    "versatility": 0.9,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "accompanist",
+    "descriptors": ["big band", "fusion", "touch", "hi-hat work", "shuffle", "jazz time"]
   },
   "affiliations": [
     {
@@ -94,9 +112,26 @@
         "confidence": "widely_reported",
         "source_ids": ["src:peter-erskine-wikipedia"]
       }
+    },
+    {
+      "name": "Jaco Pastorius's Word of Mouth",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:peter-erskine-wikipedia", "src:weather-report-wikipedia"]
+      }
     }
   ],
-  "key_recording_ids": ["rec:weather-report-8-30-1979", "rec:weather-report-night-passage-1980"],
+  "key_recording_ids": [
+    "rec:weather-report-8-30-1979",
+    "rec:weather-report-live-in-offenbach-1978",
+    "rec:weather-report-night-passage-1980",
+    "rec:steps-ahead-steps-ahead-1983"
+  ],
   "legacy": {
     "contribution": {
       "description": "Joined Weather Report in 1978, in the rhythm section with Jaco Pastorius, for four years and five albums, then Steps Ahead; since then a teacher at USC and a principal drummer on film scores such as La La Land.",
@@ -104,10 +139,642 @@
         "confidence": "verified",
         "source_ids": ["src:peter-erskine-wikipedia"]
       }
-    }
+    },
+    "influence_score": 0.6,
+    "innovations": [],
+    "accolades": [
+      {
+        "award": "Grammy Award for Best Jazz Fusion Performance (8:30, with Weather Report)",
+        "year": 1980,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:8-30-wikipedia", "src:pas-hall-of-fame-peter-erskine"]
+        }
+      },
+      {
+        "award": "Modern Drummer Hall of Fame",
+        "year": 2017,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-hall-of-fame-peter-erskine"]
+        }
+      },
+      {
+        "award": "Honorary Doctorate of Music, Berklee College of Music",
+        "year": 1992,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:peter-erskine-wikipedia", "src:pas-hall-of-fame-peter-erskine"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he plays on Heavy Weather's \"Birdland\" and \"Teen Town\": Alex Acuña and Jaco Pastorius do; Erskine's are the live versions from 1978 on."
+    ]
   },
   "beatbreaker": {
-    "group": "Fusion drummers",
-    "build_priority": 1
+    "style_key": "erskine",
+    "headline_pattern_ids": [
+      "pattern:peter-erskine-teen-town-head",
+      "pattern:peter-erskine-black-market-gallop",
+      "pattern:peter-erskine-birdland-shuffle"
+    ],
+    "default_kit_sound": "A clear, even studio kit with a ride to ride on",
+    "generation_rules": [
+      "Work the hat: closed on the beat and its \"e\", open on the \"and\"; sixteenths; the foot on the eighths.",
+      "A snare figure round the backbeat, the strokes off 2 and 4 soft.",
+      "The kick with the bass line.",
+      "Shuffle where the tune allows it."
+    ],
+    "avoid": ["Double bass", "Heavy rock weight"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:elvin-jones", "drummer:mel-lewis", "drummer:alan-dawson"],
+      "primary_descendants": ["drummer:omar-hakim"],
+      "lineage_blurb": "The Kenton camps' teachers and Elvin Jones, carried from the big bands into Weather Report beside Jaco Pastorius."
+    },
+    "tags": ["weather report", "fusion", "big band", "jaco pastorius", "1970s", "jazz"]
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Big-band drumming",
+        "impact": "The Stan Kenton summer camps every summer of his youth, then Kenton's orchestra from 1972 and Maynard Ferguson's from 1976.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-hall-of-fame-peter-erskine", "src:peter-erskine-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Electric jazz",
+        "impact": "\"I had been listening a lot to Miles Davis, the Mahavishnu Orchestra, and Weather Report\" before joining the band; \"it was as natural to embrace Count Basie as to embrace James Brown.\"",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-hall-of-fame-peter-erskine"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1958,
+        "event": "Began on the drums at four, with lessons from a local drummer, Johnny Civera.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-hall-of-fame-peter-erskine", "src:peter-erskine-wikipedia"]
+        }
+      },
+      {
+        "year": 1972,
+        "event": "Left Indiana University for the Stan Kenton Orchestra.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-hall-of-fame-peter-erskine", "src:peter-erskine-wikipedia"]
+        }
+      },
+      {
+        "year": 1978,
+        "event": "Recommended to Weather Report by Jaco Pastorius; played on two tracks of Mr. Gone and joined for the tour.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:pas-hall-of-fame-peter-erskine",
+            "src:weather-report-wikipedia",
+            "src:mr-gone-wikipedia"
+          ]
+        }
+      }
+    ],
+    "teachers": [
+      {
+        "name": "Johnny Civera",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-hall-of-fame-peter-erskine"]
+        }
+      },
+      {
+        "name": "Ed Soph",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-hall-of-fame-peter-erskine"]
+        }
+      },
+      {
+        "name": "Alan Dawson",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-hall-of-fame-peter-erskine"]
+        }
+      },
+      {
+        "name": "Louis Hayes",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-hall-of-fame-peter-erskine"]
+        }
+      },
+      {
+        "name": "Charlie Perry",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-hall-of-fame-peter-erskine"]
+        }
+      },
+      {
+        "name": "George Gaber",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-hall-of-fame-peter-erskine"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:peter-erskine-big-bands",
+      "label": "Kenton and Ferguson",
+      "years": {
+        "from": 1972,
+        "to": 1978
+      },
+      "context": "Four years with the Stan Kenton Orchestra and two with Maynard Ferguson's band.",
+      "defining_traits": ["Big-band section playing and kicks"],
+      "key_recording_ids": []
+    },
+    {
+      "id": "era:peter-erskine-weather-report",
+      "label": "Weather Report with Jaco Pastorius",
+      "years": {
+        "from": 1978,
+        "to": 1982
+      },
+      "context": "Mr. Gone to Weather Report (1982): the quartet without a percussionist in 1978-79, then Robert Thomas Jr. on percussion; 8:30 won a Grammy.",
+      "defining_traits": [
+        "The hat worked in sixteenths and opened on the \"and\" (Teen Town)",
+        "The kick with Pastorius's line (Black Market)",
+        "Birdland played as a shuffle"
+      ],
+      "style_shift": "From the big bands to an electric quartet: the time on the hat and the kick rather than the ride.",
+      "key_recording_ids": [
+        "rec:weather-report-8-30-1979",
+        "rec:weather-report-live-in-offenbach-1978",
+        "rec:weather-report-night-passage-1980",
+        "rec:weather-report-weather-report-1982"
+      ]
+    },
+    {
+      "id": "era:peter-erskine-steps-ahead",
+      "label": "Steps Ahead and after",
+      "years": {
+        "from": 1983
+      },
+      "context": "Steps Ahead with Michael Brecker, then the ECM trios, the studios (La La Land) and teaching at USC.",
+      "defining_traits": [],
+      "key_recording_ids": ["rec:steps-ahead-steps-ahead-1983"]
+    }
+  ],
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:weather-report-offenbach-1978-film"],
+        "note": "The live records push: Teen Town from 135 to 145 at Offenbach; \"it keeps going faster\", Zawinul said of Night Passage's take."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.05,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight sixteenths in Teen Town and Black Market; Birdland's shuffle a full triplet (the record's cymbals on the third triplet), his own idea (the 8:30 discography)."
+    },
+    "dynamics": {
+      "range": 0.8,
+      "default_level": "mf",
+      "accent_level": 110,
+      "balance": "\"He can hit hard and aggressively, and he can play softly and with sensitivity\" (PAS)."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 28],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [120, 170],
+    "timekeeping_context": ["free"],
+    "interaction": "Locks the kick to Pastorius's lines and follows Zawinul's arrangements section by section.",
+    "descriptors": ["crisp", "buoyant", "controlled"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "The hat opened on the \"and\"",
+        "description": "Teen Town's head: the hat closed on the beat and its \"e\" and open on the \"and\", 2 and 4 on the snare; a stretch with the hat closed on the beat and open on the \"and\" alone.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7390176", "src:weather-report-offenbach-1978-film"]
+        }
+      },
+      {
+        "name": "A snare figure round the backbeat",
+        "description": "Black Market: the snare on the \"e\" of 1, 2, its \"e\" and \"a\", the \"e\" of 3, 4 ..., the strokes off 2 and 4 softer on the record.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6476915"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick with the bass",
+        "description": "Black Market's gallop under the bass line (1, the \"a\" of 1, 2, the \"a\" of 2 ...); the foot's hat on the eighths under the stick on the \"e\"s and \"a\"s.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6476915"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.8,
+      "linear_playing": 0.4,
+      "odd_meter_fluency": 0.6,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-29",
+        "searched": [
+          "Songsterr 7390292 (Birdland, Offenbach), 7390176 (Teen Town, Offenbach), 6476915 (Black Market, 8:30)",
+          "weatherreportdiscography.org, 8:30 and Night Passage",
+          "PAS Hall of Fame biography"
+        ],
+        "note": "No polyrhythmic device is sourced: the machine tabs show none and no interview found names one. His published books (Essential Drum Fills, The Drum Perspective) were not read."
+      }
+    },
+    "voice_language": {
+      "hihat": "Closed on the beat and its \"e\", open on the \"and\" (Teen Town); sixteenths; the foot on the eighths under the stick.",
+      "snare": "2 and 4, and a figure round them on the \"e\"s and \"a\"s (Black Market); on every \"and\" under Birdland's riff.",
+      "kick": "With the bass line: Black Market's gallop; Birdland's kick on 1, 3, its \"and\" and the \"and\" of 4.",
+      "toms": "Seldom in the grooves: Black Market's entry on the beat, short runs into a section.",
+      "cymbals": "The ride for Birdland's shuffle and Black Market's later choruses, its bell on the \"and\"s; crashes on the \"and\"s for the band's hits."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks in every song scored here."
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "A clear, open live kit under the quartet",
+      "Pale shells and a large cymbal at his left in the Offenbach film"
+    ],
+    "cymbal_character": "A ride to carry a shuffle; crashes for the band's hits.",
+    "sample_hints": {
+      "weather_report_live": "An even, clear kit with a ride worth riding on."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:weather-report-offenbach-1978-film"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:peter-erskine-teen-town-hat",
+      "label": "The hat in Teen Town",
+      "category": "groove",
+      "description": "The hat closed on the beat and its \"e\" and open on the \"and\" under 2 and 4, the kick seldom.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:peter-erskine-teen-town-head"],
+      "heard_on": [
+        {
+          "recording_id": "rec:weather-report-live-in-offenbach-1978"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-7390176", "src:weather-report-offenbach-1978-film"]
+      }
+    },
+    {
+      "id": "trait:peter-erskine-birdland-shuffle",
+      "label": "Birdland as a shuffle",
+      "category": "groove",
+      "description": "Birdland, straight on Heavy Weather, played live as a shuffle: his idea.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "pattern_ids": ["pattern:peter-erskine-birdland-shuffle"],
+      "heard_on": [
+        {
+          "recording_id": "rec:weather-report-live-in-offenbach-1978"
+        },
+        {
+          "recording_id": "rec:weather-report-8-30-1979"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:weatherreportdiscography-8-30"]
+      }
+    },
+    {
+      "id": "trait:peter-erskine-black-market-gallop",
+      "label": "The gallop under Black Market",
+      "category": "groove",
+      "description": "The kick on 1, the \"a\" of 1, 2, the \"a\" of 2 ... under sixteenths on the hat, then a snare figure round the backbeat.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:peter-erskine-black-market-gallop"],
+      "heard_on": [
+        {
+          "recording_id": "rec:weather-report-8-30-1979"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-6476915"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:peter-erskine-teen-town-head",
+        "name": "Teen Town, the head",
+        "type": "groove",
+        "function": "The hat closed on 1 and its \"e\", open on the \"and\"; 2 and 4.",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7390176"],
+          "note": "A machine Songsterr tab, checked against the record for tempo, swing and form."
+        },
+        "source": {
+          "recording_id": "rec:weather-report-live-in-offenbach-1978",
+          "transcription_source_id": "src:songsterr-7390176"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [134, 146]
+        },
+        "lanes": {
+          "hihat": "xxo.xxo.xxo.xxo.",
+          "snare": "....X.......X...",
+          "kick": "................"
+        },
+        "tags": ["1978", "open hat"]
+      },
+      {
+        "id": "pattern:peter-erskine-black-market-gallop",
+        "name": "Black Market, the gallop",
+        "type": "groove",
+        "function": "Sixteenths on the hat over the kick's gallop, 2 and 4.",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6476915"],
+          "note": "A machine Songsterr tab, checked against the record for tempo, swing and form."
+        },
+        "source": {
+          "recording_id": "rec:weather-report-8-30-1979",
+          "transcription_source_id": "src:songsterr-6476915"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 125,
+          "playable_range_bpm": [122, 128]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx",
+          "snare": "....X.......X...",
+          "kick": "x..xx..xx..xx..x"
+        },
+        "tags": ["1978"]
+      },
+      {
+        "id": "pattern:peter-erskine-birdland-shuffle",
+        "name": "Birdland, the shuffle",
+        "type": "groove",
+        "function": "The ride swung, 2 and 4, the kick on 1, 3, its \"and\" and the \"and\" of 4.",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7390292"],
+          "note": "A machine Songsterr tab, checked against the record for tempo, swing and form."
+        },
+        "source": {
+          "recording_id": "rec:weather-report-live-in-offenbach-1978",
+          "transcription_source_id": "src:songsterr-7390292"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 167,
+          "playable_range_bpm": [164, 170]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "....X.......X...",
+          "kick": "x.......x.x...x."
+        },
+        "tags": ["1978", "shuffle"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:peter-erskine-1978",
+      "label": "Weather Report at Offenbach, 1978",
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1"
+        }
+      ],
+      "layout_notes": "Pale shells under red light and a large cymbal over his left hand, a boom microphone for his singing; the makes are not legible in the film, and the toms are counted only as far as the frames show.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:weather-report-offenbach-1978-film"]
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Alan Dawson",
+        "kind": "drummer",
+        "id": "drummer:alan-dawson"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-hall-of-fame-peter-erskine"],
+        "note": "At the Stan Kenton summer camps."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Louis Hayes",
+        "kind": "drummer",
+        "id": "drummer:louis-hayes"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-hall-of-fame-peter-erskine"],
+        "note": "At the Stan Kenton summer camps."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Ed Soph",
+        "kind": "teacher"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-hall-of-fame-peter-erskine"],
+        "note": "At the Stan Kenton summer camps."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Charlie Perry",
+        "kind": "teacher"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-hall-of-fame-peter-erskine"],
+        "note": "At the Stan Kenton summer camps."
+      }
+    },
+    {
+      "type": "mentored_by",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:aaj-elvin"],
+        "note": "Named among Elvin Jones's drumming protégés."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Alex Acuña",
+        "kind": "drummer",
+        "id": "drummer:alex-acuna"
+      },
+      "years": {
+        "from": 1978
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mr-gone-wikipedia", "src:weather-report-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Omar Hakim",
+        "kind": "drummer",
+        "id": "drummer:omar-hakim"
+      },
+      "years": {
+        "from": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:weather-report-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Jaco Pastorius",
+        "kind": "musician"
+      },
+      "years": {
+        "from": 1978,
+        "to": 1982
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peter-erskine-wikipedia", "src:weather-report-wikipedia"],
+        "note": "Pastorius recommended him for the band."
+      }
+    }
+  ],
+  "pedagogy": {
+    "videos": [],
+    "books": [],
+    "philosophy": []
   }
 }
