@@ -259,6 +259,32 @@ What came of it (built 2026-10-29):
 - **No second bass drum.** Van Halen has `doubleKick`, but the 3D kit draws
   one bass drum for every drummer.
 
+## Batch 2, next two (claimed 2026-10-29)
+
+The top two of the re-ranked long list (`rank.py`, 2026-10-29), both 15-a
+candidates: keep the record ids. Each files into a group that exists.
+
+| Fork | Drummer       | Record                  | Style key | Likeness        | Research | Drummers-tab group | Copy from                          |
+| ---- | ------------- | ----------------------- | --------- | --------------- | -------- | ------------------ | ---------------------------------- |
+| 1    | Peter Erskine | `drummer:peter-erskine` | `erskine` | `PETER_ERSKINE` | EB       | Fusion drummers    | `hakim`, `gadd`, `dejohnette`      |
+| 2    | Dale Crover   | `drummer:dale-crover`   | `crover`  | `DALE_CROVER`   | EC       | Grunge drummers    | `mattcameron`, `billward`, `grohl` |
+
+**What each fork should watch for:**
+
+1. **Peter Erskine.** Weather Report, 1978–82 (_Mr. Gone_ in part, _8:30_,
+   _Night Passage_, _Weather Report_ 1982), then Steps Ahead, and the big
+   bands before them (Stan Kenton, Maynard Ferguson). Much of his playing is
+   swing on the ride: score it as swing, with its own feel, not as a straight
+   fusion groove. "Birdland" is Alex Acuña's and "Teen Town" is Jaco
+   Pastorius on drums: check every _Heavy Weather_ and _Mr. Gone_ credit
+   (Tony Williams and Steve Gadd play on parts of _Mr. Gone_).
+2. **Dale Crover.** The Melvins from 1984: the slow, heavy sludge and the
+   big tom work of _Gluey Porch Treatments_, _Bullhead_, _Houdini_ and
+   _Stoner Witch_. He also drums on Nirvana's January 1988 demo, and
+   "Floyd the Barber" and "Paper Cuts" on _Bleach_ come from it: confirm
+   each credit (Chad Channing plays the rest of _Bleach_). Check meter on
+   each Melvins song; some shift or stretch bars.
+
 ## The brief each fork gets
 
 Paste this to each fork, with its row from the batch table and `S`, the
