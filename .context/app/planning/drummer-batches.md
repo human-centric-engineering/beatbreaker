@@ -285,6 +285,28 @@ candidates: keep the record ids. Each files into a group that exists.
    each credit (Chad Channing plays the rest of _Bleach_). Check meter on
    each Melvins song; some shift or stretch bars.
 
+What came of it (built 2026-10-29):
+
+- **Songs.** Erskine three (1978), Crover five (1988–93). Erskine's are the
+  live Birdland and Teen Town from Offenbach and Black Market from _8:30_:
+  his takes of the two _Heavy Weather_ songs, not Acuña's or Pastorius's.
+  No human transcription of his parts is free (the published ones are Hal
+  Leonard's), so each is rebuilt from a machine tab aligned to the record,
+  and says so. Crover's are all from human tabs.
+- **No swing tune for Erskine yet.** Night Passage's tab is one bar repeated
+  and Rockin' in Rhythm has none; it is an open question in his record.
+- **One figure per section is too few.** Crover's first build held one bar
+  per section and gave five distinct breaks in twelve presses of New. The
+  fork put back the tab's own variations (Boris's riff never repeats two
+  bars running) and the test passes with no `HELD` entry. Only Paper Cuts
+  truly holds its grooves.
+- **Library corrections.** _8:30_'s Birdland and Teen Town linked the
+  _Heavy Weather_ takes and listed human tabs of Acuña's and Pastorius's
+  studio parts (removed); Floyd the Barber linked a 1991 Grohl concert and
+  Night Goat a 2007 one; Eye Flys listed a machine-made tab (removed). Each
+  machine tab a song is built from is cited in its track's evidence, not
+  listed as a transcription, as for Hayward.
+
 ## The brief each fork gets
 
 Paste this to each fork, with its row from the batch table and `S`, the
