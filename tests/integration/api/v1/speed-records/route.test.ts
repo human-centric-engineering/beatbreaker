@@ -132,7 +132,7 @@ describe('POST /api/v1/speed-records', () => {
 
   it.each([
     ['bpm under the floor', { breakId: BREAK_ID, level: 3, bpm: 39 }],
-    ['bpm over the ceiling', { breakId: BREAK_ID, level: 3, bpm: 301 }],
+    ['bpm over the ceiling', { breakId: BREAK_ID, level: 3, bpm: 381 }],
     ['level 0', { breakId: BREAK_ID, level: 0, bpm: 120 }],
     ['level 6', { breakId: BREAK_ID, level: 6, bpm: 120 }],
     ['both targets', { breakId: BREAK_ID, libraryEntryId: ENTRY_ID, level: 3, bpm: 120 }],

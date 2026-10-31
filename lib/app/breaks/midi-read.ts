@@ -1,4 +1,4 @@
-import { type ImportResult, capBars } from '@/lib/app/breaks/import';
+import { type ImportResult, MAX_IMPORT_BARS, capBars } from '@/lib/app/breaks/import';
 import {
   BUZZ,
   CHINA,
@@ -423,9 +423,9 @@ export function readMidi(bytes: Uint8Array): ImportResult {
      at its first step. A change that falls inside a bar takes effect at the
      next. Bounded by the notes the file really has, so a note at tick 2^28
      costs one empty bar per bar's worth of steps, not a claimed length — and
-     capBars trims it after. */
+     capBars trims it after, counting up to twice what it keeps. */
   const layout: { start: number; meter: string; steps: number }[] = [];
-  for (let start = 0, c = 0; start <= lastStep && layout.length < 64;) {
+  for (let start = 0, c = 0; start <= lastStep && layout.length < 2 * MAX_IMPORT_BARS;) {
     while (c + 1 < changes.length && changes[c + 1].tick <= start * stepTicks + stepTicks / 2) c++;
     const m = changes[c]?.meter ?? readMeter;
     const n = stepsOf(meterOf(m));

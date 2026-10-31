@@ -226,6 +226,7 @@ function study(pat: Pattern, spec: CrossRhythmSpec, steps: number): CrossRhythmR
     poly: polyOf(spec),
   };
   delete out.polySpans;
+  delete out.fills;
   delete out.fixed;
   // the notes are the exercise's now, not a song's
   delete out.song;

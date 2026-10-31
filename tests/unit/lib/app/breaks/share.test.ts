@@ -107,7 +107,7 @@ describe('encodeBreak / decodeBreak', () => {
   });
 
   it('writes a break of A and B as v5, so its code does not change (11-e-ii)', () => {
-    expect(SHARE_VERSION).toBe(8);
+    expect(SHARE_VERSION).toBe(9);
     expect(SHARE_VERSION_AB).toBe(5);
     const raw: unknown = JSON.parse(atob(encodeBreak(docFor('funk'))));
     expect(sharePayloadSchema.parse(raw).ver).toBe(SHARE_VERSION_AB);
@@ -185,7 +185,7 @@ describe('encodeBreak / decodeBreak', () => {
     ['not base64', '%%%not-base64%%%'],
     ['base64 of something that is not JSON', btoa('hello')],
     ['JSON of the wrong shape', b64({ ver: 3, A: {}, B: {} })],
-    ['a version from the future', b64({ ver: 9, A: { b: ['0'] }, B: { b: ['0'] } })],
+    ['a version from the future', b64({ ver: 10, A: { b: ['0'] }, B: { b: ['0'] } })],
     ['too many bars', b64({ ver: 3, A: { b: Array(9).fill('0') }, B: { b: ['0'] } })],
     ['a tempo out of range', b64({ ver: 3, bpm: 4000, A: { b: ['0'] }, B: { b: ['0'] } })],
   ])('refuses %s', (_label, code) => {

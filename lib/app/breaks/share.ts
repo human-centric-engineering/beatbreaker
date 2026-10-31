@@ -15,12 +15,14 @@ import {
   type Sections,
   hasExtraSections,
   hasModulations,
+  hasRecordRatios,
   hasTempoRatios,
   patternsOf,
 } from '@/lib/app/breaks/sections';
 import { spanFits } from '@/lib/app/breaks/poly-fill';
 import { clearUnderTuplets, keepTuplets, tupletLanes, tupletsOf } from '@/lib/app/breaks/tuplets';
 import type {
+  FillSpan,
   LaneKey,
   Pattern,
   PercLaneKey,
@@ -32,6 +34,11 @@ import type {
 /**
  * Share codes: a whole break — every section, the tempo, the swing and the
  * style — as one base64 string you can paste to anyone.
+ *
+ * **Version 9** lets a section play at a record's own tempo against the
+ * break's — ×16/15, where a passage goes from 150 to 160 — not only at the
+ * ratios the Studio offers. Written only where a section has one: a v8
+ * reader would refuse the ratio, so it must refuse the code.
  *
  * **Version 8** (12-d) adds tuplet spans (`tu`) and the metric modulations'
  * tempo ratios (×2/3, ×3/4, ×4/3, ×3/2). Written only where a section has one:
@@ -73,8 +80,11 @@ import type {
  * something has actually checked.
  */
 
-/** The newest version this app writes — for a break with a tuplet or a metric modulation. */
-export const SHARE_VERSION = 8;
+/** The newest version this app writes — for a break with a section at a record's own tempo ratio. */
+export const SHARE_VERSION = 9;
+
+/** The version a break with a tuplet or a metric modulation, and nothing newer, is written as. */
+export const SHARE_VERSION_MODULATIONS = 8;
 
 /** The version a break with a section at ×½ or ×2, and nothing newer, is written as. */
 export const SHARE_VERSION_RATIOS = 7;
@@ -190,6 +200,7 @@ export function packPattern(p: Pattern): PackedPattern {
           })),
         }
       : {}),
+    ...(p.fills?.length ? { fl: p.fills.map((f) => [f.bar, f.from] as [number, number]) } : {}),
     b: p.bars.map((bar) => LANES.map((L) => bar[L].join('')).join('|')),
   };
 }
@@ -202,13 +213,15 @@ export function breakPayload(doc: BreakDoc): SharePayload {
   const extra = hasExtraSections(doc) || doc.arrangement.some((L) => L !== 'A' && L !== 'B');
   const v8 = hasModulations(doc) || patternsOf(doc).some((p) => tupletsOf(p).length > 0);
   const out: SharePayload = {
-    ver: v8
+    ver: hasRecordRatios(doc)
       ? SHARE_VERSION
-      : hasTempoRatios(doc)
-        ? SHARE_VERSION_RATIOS
-        : extra
-          ? SHARE_VERSION_SECTIONS
-          : SHARE_VERSION_AB,
+      : v8
+        ? SHARE_VERSION_MODULATIONS
+        : hasTempoRatios(doc)
+          ? SHARE_VERSION_RATIOS
+          : extra
+            ? SHARE_VERSION_SECTIONS
+            : SHARE_VERSION_AB,
     bpm: doc.bpm,
     sw: doc.swing,
     lv: doc.level,
@@ -310,6 +323,7 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
     ...(p.fx ? { fixed: true } : {}),
     ...(p.py ? { poly: clonePoly(p.py) } : {}),
     ...polySpansOf(p.ps, n, p.b.length),
+    ...fillsOf(p.fl, n, p.b.length),
     ...(p.tu?.length
       ? {
           tuplets: p.tu.map((t) => ({
@@ -339,6 +353,14 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
   keepTuplets(pat);
   clearUnderTuplets(pat);
   return pat;
+}
+
+/** A code's written fills, each inside the pattern it came with. */
+function fillsOf(fl: PackedPattern['fl'], n: number, bars: number): { fills?: FillSpan[] } {
+  const fills = (fl ?? [])
+    .filter(([bar, from]) => bar < bars && from < n)
+    .map(([bar, from]) => ({ bar, from }));
+  return fills.length ? { fills } : {};
 }
 
 /**

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { maxBpmOf, minBpmOf } from '@/lib/app/breaks/audio/transport';
+import { TEMPO_FLOOR, TEMPO_TOP, maxBpmOf, minBpmOf } from '@/lib/app/breaks/audio/transport';
 import { type EditData, editWorkspace } from '@/lib/app/breaks/buddy/edit';
 import { FULL_LAYER, patternLayerName } from '@/lib/app/breaks/layers';
 import {
@@ -11,7 +11,7 @@ import {
   ratioLabel,
   TEMPO_RATIOS,
   type TempoRatio,
-  isTempoRatio,
+  isOfferedRatio,
 } from '@/lib/app/breaks/sections';
 import type { BreakDoc } from '@/lib/app/breaks/share';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
@@ -31,10 +31,10 @@ import type {
  * it would reach past the document every other tool edits.
  */
 
-/* The Studio's own tempo floor. The ceiling depends on the meter
-   (`maxBpm`), so it is checked against the pattern, not the schema. */
-const MIN_BPM = 50;
-const MAX_BPM = 300;
+/* The Studio's own tempo floor and top. A section at a tempo ratio moves
+   both (`maxBpmOf`, `minBpmOf`), so they are checked against the pattern too. */
+const MIN_BPM = TEMPO_FLOOR;
+const MAX_BPM = TEMPO_TOP;
 
 const schema = z
   .object({
@@ -43,7 +43,7 @@ const schema = z
     layer: z.number().int().min(1).max(FULL_LAYER).optional(),
     section: z.enum(SECTION_LETTERS).optional(),
     tempoRatio: z
-      .custom<TempoRatio | 1>((v) => v === 1 || isTempoRatio(v), 'a tempo ratio')
+      .custom<TempoRatio>((v) => v === 1 || isOfferedRatio(v), 'a tempo ratio the Studio offers')
       .optional(),
   })
   .refine(
@@ -67,7 +67,7 @@ export class SetPlaybackCapability extends BaseCapability<Args, EditData> {
 
   readonly functionDefinition: CapabilityFunctionDefinition = {
     name: 'set_playback',
-    description: `Change how the open pattern plays, not its notes: the tempo (${MIN_BPM}–190 bpm, or up to ${MAX_BPM} in compound meters like 6/8 and 12/8), the swing (0 straight to 100 full triplet), and the layer showing (1 Skeleton, 2 Groove, 3 Sixteenths, 4 Ghosted, 5 Full break — lower layers are simplified views for practising). To play one section at half or double the tempo (a half-time break, a double-time chorus), give section and tempoRatio (0.5, 2, or 1 for the tempo itself). A metric modulation — the old triplet becoming the new beat — is 1.5; the old dotted eighth becoming the new beat is 4/3 (1.3333333333333333); 2/3 and 0.75 are the way back. Give only what should change.`,
+    description: `Change how the open pattern plays, not its notes: the tempo (${MIN_BPM}–${MAX_BPM} bpm), the swing (0 straight to 100 full triplet), and the layer showing (1 Skeleton, 2 Groove, 3 Sixteenths, 4 Ghosted, 5 Full break — lower layers are simplified views for practising). To play one section at half or double the tempo (a half-time break, a double-time chorus), give section and tempoRatio (0.5, 2, or 1 for the tempo itself). A metric modulation — the old triplet becoming the new beat — is 1.5; the old dotted eighth becoming the new beat is 4/3 (1.3333333333333333); 2/3 and 0.75 are the way back. Give only what should change.`,
     parameters: {
       type: 'object',
       properties: {
@@ -103,18 +103,13 @@ export class SetPlaybackCapability extends BaseCapability<Args, EditData> {
         };
       }
       const doc = paced;
-      const meterKeys = [...new Set(patternsOf(doc).map((p) => p.meter))];
       const top = maxBpmOf(patternsOf(doc));
       if (args.bpm !== undefined && args.bpm > top) {
-        const meters =
-          meterKeys.length > 1
-            ? `${meterKeys.slice(0, -1).join(', ')} and ${meterKeys[meterKeys.length - 1]}`
-            : meterKeys[0];
         // a section at double time holds the break to half its ceiling: say so
         const doubled = hasTempoRatios(doc) ? ', with every section at its tempo ratio' : '';
         return {
           ok: false,
-          message: `The Studio plays ${meters} up to ${top} bpm${doubled}`,
+          message: `The Studio plays up to ${top} bpm${doubled}`,
           code: 'tempo_out_of_range',
         };
       }
@@ -166,7 +161,7 @@ export class SetPlaybackCapability extends BaseCapability<Args, EditData> {
 }
 
 /** The document with one section at a ratio (1 takes it off), or null when the section is not there. */
-function withRatio(doc: BreakDoc, letter: SectionLetter, r: TempoRatio | 1): BreakDoc | null {
+function withRatio(doc: BreakDoc, letter: SectionLetter, r: TempoRatio): BreakDoc | null {
   const pat = doc[letter];
   if (!pat) return null;
   const { tempoRatio: _was, ...rest } = pat;

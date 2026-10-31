@@ -397,7 +397,12 @@ scratchpad the batch runs from.
 > 40 seeds: soft 0/40, served-not-hard 0/40, playable), run from the repo
 > with `npx tsx --tsconfig ./tsconfig.json <OUT>/work/check.ts`, and your
 > `work/record-check.ts` over a copy of the model with your files laid on it
-> (Ajv, `checkCorpus`, `buildLineage`, `checkGraph`): 0 bad. Last, run the
+> (Ajv, `checkCorpus`, `buildLineage`, `checkGraph`): 0 bad. **Never add,
+> move or drop a note, or lower a tempo, to pass the critic.** It holds a
+> song only to two hands and two feet at its tempo (`physical.ts`); a bar
+> that fails that is a misreading of the tab or a tab error, so read the bar
+> again, and if the tab really asks for it, put the bar, the check and the
+> tab's notes in `notes.md` for the parent. Last, run the
 > merge's own checks, which write nothing:
 > `python3 -I scripts/lineage/batch/merge.py --check . $S/drummers <key> <CONST> '<group>'`
 > from the repo. It fails unless every song in your style has exactly one

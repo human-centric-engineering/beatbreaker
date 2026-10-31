@@ -21,7 +21,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
 import { Stage } from '@/components/app/studio/stage';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
-import type { SectionLetter } from '@/lib/app/breaks/sections';
+import { MAX_ARRANGEMENT, type SectionLetter } from '@/lib/app/breaks/sections';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 import { pickStyle } from '@/tests/helpers/style-picker';
 
@@ -443,20 +443,20 @@ describe('Stage, with sections past B (11-e-ii)', () => {
     const add = () => screen.getByRole('button', { name: '+ Section' });
     expect(add()).toBeEnabled();
 
-    // 2-bar sections: A and B are 4 bars, so 14 more sections fill the 32
-    for (let i = 0; i < 14; i++) await user.click(add());
-    expect(studio!.letters).toHaveLength(16);
+    // 2-bar sections run out of letters long before bars: 24 more is A to Z
+    for (let i = 0; i < 24; i++) await user.click(add());
+    expect(studio!.letters).toHaveLength(26);
     expect(add()).toBeDisabled();
-    expect(add().getAttribute('title')).toMatch(/32 bars/);
+    expect(add().getAttribute('title')).toMatch(/26 sections/);
   });
 
-  it('disables Add a slot at 32 slots', async () => {
+  it(`disables Add a slot at ${MAX_ARRANGEMENT} slots`, async () => {
     const user = userEvent.setup();
     renderStage();
     await screen.findAllByRole('img', { name: /Drum notation/ });
     const addSlot = screen.getByRole('button', { name: 'Add a slot' });
-    for (let i = 4; i < 32; i++) await user.click(addSlot);
-    expect(document.querySelectorAll('.arr button').length).toBe(32);
+    for (let i = 4; i < MAX_ARRANGEMENT; i++) await user.click(addSlot);
+    expect(document.querySelectorAll('.arr button').length).toBe(MAX_ARRANGEMENT);
     expect(addSlot).toBeDisabled();
   });
 });
@@ -470,6 +470,21 @@ describe('Stage, a section at a tempo ratio (11-e-ii-g)', () => {
       </StudioProvider>
     );
   const picker = () => within(screen.getByRole('radiogroup', { name: 'Section' }));
+
+  it("shows a record's own ratio among the Studio's, checked", async () => {
+    const user = userEvent.setup();
+    renderWithProbe();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    act(() => {
+      studio!.setSectionTempo('B', 16 / 15);
+    });
+    await user.click(picker().getByRole('radio', { name: 'B' }));
+    const tempo = within(screen.getByRole('radiogroup', { name: "Section B's tempo" }));
+    expect(tempo.getByRole('radio', { name: '×16/15' })).toHaveAttribute('aria-checked', 'true');
+    // in its place among the others: after ×1, before ×4/3
+    const faces = tempo.getAllByRole('radio').map((r) => r.textContent);
+    expect(faces.indexOf('×16/15')).toBe(faces.indexOf('×1') + 1);
+  });
 
   it("picks the tempo of the section on show, and names it beside the section's letter", async () => {
     const user = userEvent.setup();

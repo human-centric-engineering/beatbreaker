@@ -126,12 +126,12 @@ describe('createSessionSchema — items', () => {
     expect(result.success).toBe(false);
   });
 
-  it.each([39, 301])('refuses a goalBpm of %s, outside 40–300', (goalBpm) => {
+  it.each([39, 381])('refuses a goalBpm of %s, outside 40–380', (goalBpm) => {
     const result = createSessionSchema.safeParse(session({ items: [item({ goalBpm })] }));
     expect(result.success).toBe(false);
   });
 
-  it.each([40, 300])('accepts a goalBpm of %s, the boundary of 40–300', (goalBpm) => {
+  it.each([40, 380])('accepts a goalBpm of %s, the boundary of 40–380', (goalBpm) => {
     const result = createSessionSchema.safeParse(session({ items: [item({ goalBpm })] }));
     expect(result.success).toBe(true);
   });
@@ -250,7 +250,7 @@ describe('createRunSchema', () => {
     expect(result.success).toBe(true);
   });
 
-  it.each([39, 301])('refuses a slot targetBpm of %s, outside 40–300', (targetBpm) => {
+  it.each([39, 381])('refuses a slot targetBpm of %s, outside 40–380', (targetBpm) => {
     const result = createRunSchema.safeParse({
       startedAt: '2026-09-30T12:00:00.000Z',
       items: [{ ...slot, targetBpm }],
@@ -258,7 +258,7 @@ describe('createRunSchema', () => {
     expect(result.success).toBe(false);
   });
 
-  it.each([39, 301])('refuses a slot reachedBpm of %s, outside 40–300', (reachedBpm) => {
+  it.each([39, 381])('refuses a slot reachedBpm of %s, outside 40–380', (reachedBpm) => {
     const result = createRunSchema.safeParse({
       startedAt: '2026-09-30T12:00:00.000Z',
       items: [{ ...slot, reachedBpm }],
@@ -266,7 +266,7 @@ describe('createRunSchema', () => {
     expect(result.success).toBe(false);
   });
 
-  it.each([40, 300])('accepts a slot bpm of %s, the boundary of 40–300', (bpm) => {
+  it.each([40, 380])('accepts a slot bpm of %s, the boundary of 40–380', (bpm) => {
     const result = createRunSchema.safeParse({
       startedAt: '2026-09-30T12:00:00.000Z',
       items: [{ ...slot, targetBpm: bpm, reachedBpm: bpm }],

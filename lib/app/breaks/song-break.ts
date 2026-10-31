@@ -1,8 +1,7 @@
 import { type GeneratedBreak, generateGood } from '@/lib/app/breaks/critic';
-import { SONG_SALT, deriveB, generatePattern } from '@/lib/app/breaks/generate';
+import { deriveB, generatePattern, songStream } from '@/lib/app/breaks/generate';
 import { DEFAULT_METER } from '@/lib/app/breaks/meter';
 import { resolveLanes, type CustomLanes } from '@/lib/app/breaks/pattern';
-import { makeRng } from '@/lib/app/breaks/rng';
 import {
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
@@ -10,7 +9,7 @@ import {
   type Sections,
   type TempoRatio,
 } from '@/lib/app/breaks/sections';
-import { partKey, pickSong, songMeter, songOf, withSong } from '@/lib/app/breaks/songs';
+import { partKey, pickSong, songMeter, songOf, songPartOf, withSong } from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
 import type { Pattern, ResolvedStyle, SongSection, Style, StyleSong } from '@/lib/app/breaks/types';
 
@@ -62,15 +61,18 @@ export interface SongBreak {
 const SECTION_SALT = 0x2545f491;
 
 /**
- * Bars for each section: its own, else the length asked for, brought down
- * (the longest first) until the break fits {@link MAX_BREAK_BARS}.
+ * Bars for each section: its written bars, else its own, else the length
+ * asked for — and only those last brought down (the longest first) until the
+ * break fits {@link MAX_BREAK_BARS}. A length the song names is the record's,
+ * and the schema has already held those to the limit.
  */
 function sectionBars(sections: SongSection[], bars: number): number[] {
-  const out = sections.map((x) => x.bars ?? bars);
+  const out = sections.map((x) => x.written?.length ?? x.bars ?? bars);
+  const free = sections.map((x) => !x.written && x.bars === undefined);
   let total = out.reduce((n, b) => n + b, 0);
   while (total > MAX_BREAK_BARS) {
-    const at = out.indexOf(Math.max(...out));
-    if (out[at] <= 1) break;
+    const at = out.reduce((best, b, i) => (free[i] && (best < 0 || b > out[best]) ? i : best), -1);
+    if (at < 0 || out[at] <= 1) break;
     out[at]--;
     total--;
   }
@@ -87,7 +89,7 @@ export function songForSeed(
   seed: number,
   meter: string = DEFAULT_METER
 ): StyleSong | undefined {
-  return params.songs ? pickSong(params, makeRng((seed ^ SONG_SALT) >>> 0), meter) : undefined;
+  return params.songs ? pickSong(params, songStream(seed), meter) : undefined;
 }
 
 /** What {@link writePart} writes one section with. */
@@ -107,7 +109,7 @@ export interface PartOptions {
    * of a song takes its own ratio (`hell-awaits:B`), anything else plays at
    * ×1; 1 is ×1 whatever the section says.
    */
-  tempoRatio?: TempoRatio | 1;
+  tempoRatio?: TempoRatio;
   /** One candidate from the seed, rather than the best of sixteen (`generateGood`). */
   exact?: boolean;
   /** The Studio's own lanes, where you have set them. */
@@ -121,6 +123,8 @@ export interface PartOptions {
  */
 export function writePart(opts: PartOptions): GeneratedBreak {
   const st = styleIn(withSong(opts.style.params, opts.song), opts.meter);
+  // a written section is its bars, whatever the seed: one candidate is all of them
+  const written = !!songPartOf(opts.style.params, opts.song)?.section?.written;
   const roster = resolveLanes(st, opts.custom ?? null);
   const gen = {
     style: opts.style,
@@ -134,7 +138,7 @@ export function writePart(opts: PartOptions): GeneratedBreak {
     seed: opts.seed,
     tempoRatio: opts.tempoRatio,
   };
-  return opts.exact
+  return opts.exact || written
     ? { pattern: generatePattern(gen), tries: 1, rejected: 0 }
     : generateGood(gen, opts.bpm);
 }

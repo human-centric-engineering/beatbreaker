@@ -54,22 +54,24 @@ export const EXTRA_LETTERS = SECTION_LETTERS.slice(2) as ExtraLetter[];
  * The most bars a whole break holds, every section counted once (not once per
  * time the arrangement plays it).
  *
- * Measured against the share code, which is the break: a bar of 4/4 with every
- * lane written is about 310 characters of link, a bar of 15/8 about 520. A
- * break with A and B at eight bars each — the most there was before sections —
- * is up to 8 KB; this doubles it, to 16 KB at the very worst, which a link's
- * fragment carries (it is never sent to a server) and a paste box takes. It is
- * four sections of eight bars, or sixteen of two: enough for a song's intro,
- * verse, chorus and bridge, not for the whole song bar by bar.
+ * Set by the records: a song is written as the drummer played it, every
+ * passage that differs a section of its own, so a long song with a written
+ * intro, solos and an outro needs a hundred-odd distinct bars (26 sections of
+ * eight would be 208). The share code is the break, and a bar of 4/4 with
+ * every lane written is about 310 characters of link: 128 such bars is about
+ * 40 KB at the very worst, which a link's fragment carries (it is never sent
+ * to a server) and a paste box takes. Real bars are mostly rests, and far
+ * shorter.
  */
-export const MAX_BREAK_BARS = 32;
+export const MAX_BREAK_BARS = 128;
 
 /**
  * The most slots an arrangement has: enough to play a record's sections in
- * its order, intro to outro (a five-minute song is twenty-odd). A slot is one
- * letter on the wire, so this costs a link a few dozen characters, not bars.
+ * its order, intro to outro, where a six-minute song in two-bar sections is
+ * ninety-odd. A slot is one letter on the wire, so this costs a link a few
+ * hundred characters at most, not bars.
  */
-export const MAX_ARRANGEMENT = 32;
+export const MAX_ARRANGEMENT = 128;
 
 /** Every section a break has, keyed by letter. A and B are always among them. */
 export type Sections<P = Pattern> = { A: P; B: P } & Partial<Record<ExtraLetter, P>>;
@@ -129,28 +131,64 @@ export function cycleLetter(sections: MaybeSections, letter: SectionLetter): Sec
  * Landlord's fast section plays at twice its slow one. ×1 is not written: a
  * pattern without a ratio plays at the break's tempo, as every pattern did.
  *
+ * Those are the ratios the Studio offers ({@link TEMPO_RATIOS}). A record's
+ * own tempo map is not held to them: a passage that goes from 150 to 160 is
+ * ×16/15, and a song in sections names it so. Any ratio from
+ * {@link MIN_TEMPO_RATIO} to {@link MAX_TEMPO_RATIO} is one; a share code
+ * carries one off the list from version 9.
+ *
  * The thirds are written as the doubles JavaScript makes of `2 / 3` and
- * `4 / 3` — the same numbers, `===` them — spelled out so the type is a union
- * of literals. JSON carries them exactly, so a ratio read back off the wire is
- * the number the list holds.
+ * `4 / 3` — the same numbers, `===` them. JSON carries any double exactly, so
+ * a ratio read back off the wire is the number written.
  */
 export const TWO_THIRDS = 0.6666666666666666;
 export const FOUR_THIRDS = 1.3333333333333333;
 export const TEMPO_RATIOS = [0.5, TWO_THIRDS, 0.75, FOUR_THIRDS, 1.5, 2] as const;
 
-/** One of {@link TEMPO_RATIOS}; every way in (the wire, the catalogue, BeatBuddy) checks with {@link isTempoRatio}. */
-export type TempoRatio = (typeof TEMPO_RATIOS)[number];
+/** The slowest and the fastest a section plays against the break: two octaves of tempo. */
+export const MIN_TEMPO_RATIO = 0.25;
+export const MAX_TEMPO_RATIO = 4;
+
+/** A section's ratio to the break's tempo; every way in (the wire, the catalogue, BeatBuddy) checks with {@link isTempoRatio}. */
+export type TempoRatio = number;
 
 /** The ratios a v7 code could carry: half and double. The rest need v8 (12-d). */
 export const V7_TEMPO_RATIOS: readonly number[] = [0.5, 2];
 
-/** Whether a number is one of {@link TEMPO_RATIOS}. */
+/** Whether a number is a tempo ratio: within the range, and not ×1, which is written as none. */
 export function isTempoRatio(r: unknown): r is TempoRatio {
+  return (
+    typeof r === 'number' &&
+    Number.isFinite(r) &&
+    r !== 1 &&
+    r >= MIN_TEMPO_RATIO &&
+    r <= MAX_TEMPO_RATIO
+  );
+}
+
+/**
+ * The widest a break's ratios spread, fastest over slowest, with the break's
+ * own tempo (×1) counted in: two octaves. Every section plays between the
+ * Studio's floor and top (50 and 380), so a spread past 380 / 50 leaves no
+ * tempo at all — a section at ×¼ beside one at ×2 would need 200 or more and
+ * 190 or less. At four or under there is always one: the slowest section is
+ * never held above 200, nor the fastest below 95.
+ */
+export const MAX_RATIO_SPREAD = 4;
+
+/** Whether sections at these ratios leave the break a tempo ({@link MAX_RATIO_SPREAD}); absent is ×1. */
+export function ratiosFit(ratios: readonly (TempoRatio | undefined)[]): boolean {
+  const all = [1, ...ratios.map((r) => r ?? 1)];
+  return Math.max(...all) / Math.min(...all) <= MAX_RATIO_SPREAD;
+}
+
+/** Whether a ratio is one the Studio offers ({@link TEMPO_RATIOS}), which a v8 code carries. */
+export function isOfferedRatio(r: unknown): boolean {
   return typeof r === 'number' && (TEMPO_RATIOS as readonly number[]).includes(r);
 }
 
 /** A section's ratio: its own, else 1. */
-export function ratioOf(p: { tempoRatio?: TempoRatio } | null | undefined): TempoRatio | 1 {
+export function ratioOf(p: { tempoRatio?: TempoRatio } | null | undefined): TempoRatio {
   return p?.tempoRatio ?? 1;
 }
 
@@ -171,6 +209,11 @@ export function hasModulations(sections: MaybeSections): boolean {
   );
 }
 
+/** Whether any section plays at a ratio the Studio does not offer — a record's own — which needs wire v9. */
+export function hasRecordRatios(sections: MaybeSections): boolean {
+  return patternsOf(sections).some((p) => !!p.tempoRatio && !isOfferedRatio(p.tempoRatio));
+}
+
 /** How a ratio reads as a fraction: `½`, `2/3`, `3/2`. */
 const RATIO_FACES: Record<string, string> = {
   [String(0.5)]: '½',
@@ -180,7 +223,16 @@ const RATIO_FACES: Record<string, string> = {
   [String(1.5)]: '3/2',
 };
 
-/** How a ratio reads beside a section's letter: `×2`, `×½`, `×3/2`. */
+/** A ratio as the smallest fraction it is, up to a denominator of 32, else to two places. */
+function fractionOf(r: number): string {
+  for (let q = 1; q <= 32; q++) {
+    const p = Math.round(r * q);
+    if (Math.abs(p / q - r) < 1e-9) return q === 1 ? String(p) : `${p}/${q}`;
+  }
+  return String(Math.round(r * 100) / 100);
+}
+
+/** How a ratio reads beside a section's letter: `×2`, `×½`, `×3/2`, `×16/15`. */
 export function ratioLabel(r: number): string {
-  return `×${RATIO_FACES[String(r)] ?? r}`;
+  return `×${RATIO_FACES[String(r)] ?? fractionOf(r)}`;
 }

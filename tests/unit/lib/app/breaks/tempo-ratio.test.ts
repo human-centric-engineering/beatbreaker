@@ -68,15 +68,15 @@ describe('the ratio itself', () => {
 
 describe('the top tempo', () => {
   it("is each section's ceiling over its ratio", () => {
-    // 4/4 tops out at 190: at ×2 the break may go to 95, at ×½ to 380
-    expect(maxBpmOf(['4/4', { meter: '4/4', tempoRatio: 2 }])).toBe(95);
-    expect(maxBpmOf(['4/4-8', { meter: '4/4', tempoRatio: 0.5 }])).toBe(380);
+    // every meter tops out at the top: at ×2 the break may go to half it
+    expect(maxBpmOf(['4/4', { meter: '4/4', tempoRatio: 2 }])).toBe(TEMPO_TOP / 2);
+    expect(maxBpmOf(['4/4-8', { meter: '4/4', tempoRatio: 0.5 }])).toBe(TEMPO_TOP);
     // a bare key and an object without a ratio are the same section
     expect(maxBpmOf([{ meter: '12/8' }])).toBe(maxBpmOf(['12/8']));
   });
 
   it('never goes past the fastest any meter goes, so every section at ×½ still saves', () => {
-    // 12/8 tops out at 300: two sections at ×½ would otherwise let the break to 600
+    // two sections at ×½ would otherwise let the break to twice the top
     const half = { meter: '12/8', tempoRatio: 0.5 as const };
     expect(maxBpmOf([half, half])).toBe(TEMPO_TOP);
     expect(TEMPO_TOP).toBeLessThanOrEqual(400);
@@ -91,7 +91,7 @@ describe('the top tempo', () => {
   it("is read off a saved break's document, ratios and all", () => {
     const doc = abDoc();
     doc.B = withRatio(doc.B, 2);
-    expect(breakTopBpm('4/4', breakPayload(doc))).toBe(95);
+    expect(breakTopBpm('4/4', breakPayload(doc))).toBe(TEMPO_TOP / 2);
   });
 });
 

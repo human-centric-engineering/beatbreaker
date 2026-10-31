@@ -84,10 +84,10 @@ describe('readGrooveScribeUrl', () => {
   });
 
   it('keeps the bars a break holds of a longer groove and says how many there were', () => {
-    const p = read(`Div=16&Measures=40&K=${'|o---------------'.repeat(40)}|`);
-    expect(p.bars).toHaveLength(32);
-    expect(p.bars[31].k[0]).toBe(1);
-    expect(p.notes[0]).toBe('Only the first 32 of 40 bars were kept — a pattern holds 32.');
+    const p = read(`Div=16&Measures=140&K=${'|o---------------'.repeat(140)}|`);
+    expect(p.bars).toHaveLength(128);
+    expect(p.bars[127].k[0]).toBe(1);
+    expect(p.notes[0]).toBe('Only the first 128 of 140 bars were kept — a pattern holds 128.');
   });
 
   it('falls back to Groove Scribe defaults for a missing or silly tempo and swing', () => {

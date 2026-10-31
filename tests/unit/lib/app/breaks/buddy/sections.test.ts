@@ -9,7 +9,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 import type { SharePayload } from '@/lib/app/breaks/schema';
-import { SECTION_LETTERS } from '@/lib/app/breaks/sections';
+import { MAX_ARRANGEMENT, SECTION_LETTERS } from '@/lib/app/breaks/sections';
 import { type BreakDoc, breakDocFromPayload, breakPayload } from '@/lib/app/breaks/share';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { clonePattern, resolveLanes } from '@/lib/app/breaks/pattern';
@@ -56,7 +56,7 @@ function abcPayload(): SharePayload {
   return breakPayload({ ...doc, C: clonePattern(doc.A), arrangement: ['A', 'A', 'B', 'A', 'C'] });
 }
 
-/** A, B, C and D of eight bars each: 32 bars, the most a break holds. */
+/** A to P, eight bars each: 128 bars, the most a break holds. */
 function fullPayload(): SharePayload {
   const funk = testStyle('funk');
   const roster = resolveLanes(styleIn(funk.params, '4/4'), null);
@@ -70,15 +70,15 @@ function fullPayload(): SharePayload {
     lanes: roster.lanes,
     perc: roster.perc,
   });
+  const letters = SECTION_LETTERS.slice(0, 16);
   return breakPayload({
     bpm: 94,
     swing: 0,
     level: 5,
-    arrangement: ['A', 'B', 'C', 'D'],
+    arrangement: [...letters],
     A,
     B: deriveB(A, funk.params),
-    C: clonePattern(A),
-    D: clonePattern(A),
+    ...Object.fromEntries(letters.slice(2).map((L) => [L, clonePattern(A)])),
   });
 }
 
@@ -329,15 +329,15 @@ describe('write_bars adding a section', () => {
     expect(data.changes).toEqual([{ section: 'C', bars: [2] }]);
   });
 
-  it('refuses a section that would take the break past 32 bars, and writes nothing', async () => {
+  it('refuses a section that would take the break past 128 bars, and writes nothing', async () => {
     seed(fullPayload());
     const result = await runCap(new WriteBarsCapability(), {
-      section: 'E',
+      section: 'Q',
       whole: true,
       text: `bar 1${PLAIN}`,
     });
     expect(result).toMatchObject({ success: false, error: { code: 'too_many_bars' } });
-    expect(result.error?.message).toContain('33');
+    expect(result.error?.message).toContain('129');
     expect(fake.rows.get('user-1')).toMatchObject({ doc: fullPayload(), rev: 2 });
   });
 
@@ -360,7 +360,7 @@ describe('write_bars adding a section', () => {
     expect(fake.rows.get('user-1')).toMatchObject({ doc: funkPayload(), rev: 2 });
   });
 
-  it('brings the tempo down to the ceiling of a slower meter it adds, and says so', async () => {
+  it('keeps a fast tempo when it adds a section in another meter: every meter goes to the top', async () => {
     const funk = testStyle('funk');
     const A = generatePattern({
       style: funk,
@@ -370,7 +370,7 @@ describe('write_bars adding a section', () => {
       ghosts: 0,
       seed: 3,
     });
-    // 12/8 runs to 300; a section in 4/4 holds the break to 190
+    // sixteenths at 280 in 4/4 are the limbs' question, not the meter's
     seed(
       breakPayload({ bpm: 280, swing: 0, level: 5, arrangement: ['A', 'B'], A, B: clonePattern(A) })
     );
@@ -382,9 +382,9 @@ describe('write_bars adding a section', () => {
         text: `bar 1${PLAIN}`,
       })
     );
-    expect(data.doc.bpm).toBe(190);
+    expect(data.doc.bpm).toBe(280);
     expect(decoded(data.doc).C!.meter).toBe('4/4');
-    expect(data.summary).toBe('Added section C: 1 bar; tempo down to 190 bpm, the top of 4/4');
+    expect(data.summary).toBe('Added section C: 1 bar');
   });
 
   it('leaves a tempo the new section can play at alone', async () => {
@@ -404,9 +404,14 @@ describe('write_bars adding a section', () => {
     expect(data.summary).toBe('Added section C: 1 bar');
   });
 
-  it('does not grow an arrangement that is already 32 slots', async () => {
+  it(`does not grow an arrangement that is already ${MAX_ARRANGEMENT} slots`, async () => {
     const doc = decoded(funkPayload());
-    seed(breakPayload({ ...doc, arrangement: Array.from({ length: 32 }, () => 'A' as const) }));
+    seed(
+      breakPayload({
+        ...doc,
+        arrangement: Array.from({ length: MAX_ARRANGEMENT }, () => 'A' as const),
+      })
+    );
     const data = dataOf(
       await runCap(new WriteBarsCapability(), {
         section: 'C',
@@ -414,7 +419,7 @@ describe('write_bars adding a section', () => {
         text: `bar 1${PLAIN}`,
       })
     );
-    expect(data.doc.arr).toHaveLength(32);
+    expect(data.doc.arr).toHaveLength(MAX_ARRANGEMENT);
     expect(decoded(data.doc).C).toBeDefined();
   });
 });
@@ -482,8 +487,8 @@ describe('a section at a tempo ratio (11-e-ii-g)', () => {
   });
 
   it("write_bars holds the tempo to a ratio's ceiling, and names the ratio", async () => {
-    // B at ×2 in 4/4 holds the break to 95, rewritten whole or bar by bar
-    seed(ratioPayload(95, 2));
+    // B at ×2 holds the break to half the top, rewritten whole or bar by bar
+    seed(ratioPayload(190, 2));
     const data = dataOf(
       await runCap(new WriteBarsCapability(), {
         section: 'B',
@@ -492,23 +497,23 @@ describe('a section at a tempo ratio (11-e-ii-g)', () => {
         text: `bar 1${PLAIN}`,
       })
     );
-    expect(data.doc.bpm).toBe(95);
-    seed(ratioPayload(150, 2));
+    expect(data.doc.bpm).toBe(190);
+    seed(ratioPayload(300, 2));
     const slowed = dataOf(
       await runCap(new WriteBarsCapability(), { section: 'B', text: `bar 1${PLAIN}` })
     );
-    expect(slowed.doc.bpm).toBe(95);
-    expect(slowed.summary).toContain('tempo down to 95 bpm, the top of 4/4 at ×2');
+    expect(slowed.doc.bpm).toBe(190);
+    expect(slowed.summary).toContain('tempo down to 190 bpm, the top with B at ×2');
   });
 
   it('set_playback plays a section at a ratio, bringing the tempo into its range', async () => {
-    seed(ratioPayload(120, 0.5));
+    seed(ratioPayload(300, 0.5));
     const data = dataOf(await runCap(new SetPlaybackCapability(), { section: 'A', tempoRatio: 2 }));
     const after = decoded(data.doc);
     expect(after.A.tempoRatio).toBe(2);
-    // A at ×2 in 4/4 holds the break to 95
-    expect(after.bpm).toBe(95);
-    expect(data.summary).toBe('Playback: section A at ×2, 95 bpm');
+    // A at ×2 holds the break to half the top
+    expect(after.bpm).toBe(190);
+    expect(data.summary).toBe('Playback: section A at ×2, 190 bpm');
 
     const back = dataOf(await runCap(new SetPlaybackCapability(), { section: 'A', tempoRatio: 1 }));
     expect(decoded(back.doc).A).not.toHaveProperty('tempoRatio');

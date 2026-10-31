@@ -2,10 +2,11 @@ import { z } from 'zod';
 
 import { maxBpmOf } from '@/lib/app/breaks/audio/transport';
 import { type EditData, describeEdit, editWorkspace } from '@/lib/app/breaks/buddy/edit';
-import { playability } from '@/lib/app/breaks/critic';
+import { HANDS_CHECK, playability } from '@/lib/app/breaks/critic';
 import { DEFAULT_PERC, LANES, PERC_LANES } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, remapList } from '@/lib/app/breaks/meter';
 import { clonePattern, tidySticking } from '@/lib/app/breaks/pattern';
+import { type LimbProblem, limbProblems } from '@/lib/app/breaks/physical';
 import { keepPolySpans } from '@/lib/app/breaks/poly-fill';
 import { MAX_TUPLETS, cloneTuplet, keepTuplets } from '@/lib/app/breaks/tuplets';
 import {
@@ -36,9 +37,11 @@ import type {
  * transcribing a photo of notation.
  *
  * **Nothing unplayable gets through.** Each written bar is checked on its
- * own, before anything is written: the critic's hard playability rules, plus
- * the two physical ones `tidy()` knows that the critic does not check — no
- * more than two hands on one step, no foot chick closing an open hat. A bar
+ * own, before anything is written: whether two hands and two feet can play
+ * it at the tempo (the critic's body checks), plus the physical ones `tidy()`
+ * knows — no more than two hands on one step, no foot chick closing an open
+ * hat. A groove rule (a backbeat to find, air) is not a reason to refuse: a
+ * transcription is what was played. A bar
  * that fails is refused with the bar, the beat and the rule named, so the
  * model can fix it and try again.
  *
@@ -74,9 +77,21 @@ const MAX_PROBLEMS = 6;
 /**
  * Why each written bar cannot be played, or an empty list. `pat` is the
  * section as it will be — its backbeat is what each bar is checked against.
+ * What happens on a step is checked bar by bar; how fast the limbs must go is
+ * checked over the section in its order, looped as it plays, so a bar is
+ * judged against the bar it really follows, and each problem names its step.
+ * Bars written into a section (`before`) are refused only for trouble they
+ * bring: a seam the section already could not play is not theirs to fix.
  */
-function problemsOf(pat: Pattern, written: TextBar[], bpm: number): string[] {
+function problemsOf(pat: Pattern, written: TextBar[], bpm: number, before?: Pattern): string[] {
   const problems: string[] = [];
+  const numbers = new Set(written.map((w) => w.number));
+  const at = (p: LimbProblem) => `${p.limbs} ${p.bar} ${p.step}`;
+  const had = new Set(before ? limbProblems(before, bpm).map(at) : []);
+  for (const p of limbProblems(pat, bpm)) {
+    if (numbers.has(p.bar + 1) && !had.has(at(p)))
+      problems.push(`bar ${p.bar + 1}, step ${p.step + 1}: ${p.why}`);
+  }
   for (const { number, bar, tuplets } of written) {
     // the bar with its own tuplets (13-c), which the critic reads as the figures they are
     const alone: Pattern = {
@@ -94,23 +109,17 @@ function problemsOf(pat: Pattern, written: TextBar[], bpm: number): string[] {
     }
     const checks = playability(alone, bpm);
     if (checks.hard) continue;
-    checks.checks.forEach((check, i) => {
-      if (!check.ok && HARD_CHECKS.has(i)) problems.push(`bar ${number}: fails "${check.label}"`);
-    });
+    for (const check of checks.checks) {
+      // the hands check is tidy's to name, with the beat; the speed checks are named above
+      if (!check.ok && check.kind === 'body' && check.label !== HANDS_CHECK && !check.limbs)
+        problems.push(`bar ${number}: fails "${check.label}"`);
+    }
   }
   return problems;
 }
 
-/** The tidy rules that are physics rather than taste. */
-const PHYSICAL = new Set<TidyRule>(['ride-clash', 'hands', 'open-hat-foot']);
-
-/**
- * Which of `playability()`'s checks are hard, by position: kick run, snare
- * run, backbeat, air. The first (hat and ride) is reported by tidy with its
- * beat named; the last (kick doubles at speed) is advice, not a rule.
- * `write-bars.test.ts` pins this against the critic's labels.
- */
-export const HARD_CHECKS = new Set([1, 2, 3, 4]);
+/** The tidy rules that are physics rather than taste: a hat with a ride is two hands, and playable. */
+const PHYSICAL = new Set<TidyRule>(['hands', 'open-hat-foot']);
 
 /**
  * Where the backbeat is in freshly written bars: the steps a snare hit or
@@ -145,6 +154,7 @@ function blankSection(a: Pattern, letter: SectionLetter): Pattern {
   delete out.fixed;
   delete out.poly;
   delete out.polySpans;
+  delete out.fills;
   return out;
 }
 
@@ -207,6 +217,7 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
     // new bars are not the polyrhythm's two streams; a bar or two rewritten keeps them
     delete next.poly;
     delete next.polySpans;
+    delete next.fills;
     delete next.tuplets;
     next.tuplets = written;
     keepTuplets(next);
@@ -227,6 +238,10 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
     const rewritten = new Set(read.bars.map((b) => b.number - 1));
     next.tuplets = [...(next.tuplets ?? []).filter((t) => !rewritten.has(t.bar)), ...written];
     keepTuplets(next);
+    // a bar rewritten is not the written fill it was
+    const fills = next.fills?.filter((f) => !rewritten.has(f.bar));
+    if (fills?.length) next.fills = fills;
+    else delete next.fills;
     next.sticking = tidySticking(next.sticking);
     // a poly fill is kept while the bars rewritten leave its accents as they were (12-c)
     keepPolySpans(pat, next);
@@ -249,7 +264,7 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
     };
   }
 
-  const problems = problemsOf(next, read.bars, bpm);
+  const problems = problemsOf(next, read.bars, bpm, args.whole ? undefined : pat);
   if (problems.length) {
     const shown = problems.slice(0, MAX_PROBLEMS);
     const more = problems.length - shown.length;
@@ -269,7 +284,7 @@ export class WriteBarsCapability extends BaseCapability<Args, EditData> {
 
   readonly functionDefinition: CapabilityFunctionDefinition = {
     name: 'write_bars',
-    description: `Write bars yourself, in the same text notation get_pattern returns, replacing bars of a section — or adding a section: name the next letter the pattern does not have yet (C on a break of A and B) with whole: true, and it is added in the meter you give and played once at the end of the arrangement. A break holds ${MAX_BREAK_BARS} bars across all its sections. Use it for a genre no style covers, for transcribing notation from an image, or for a specific change no doctor move makes. Start each bar with "bar N", then one line per lane: a lane name and one character per 16th step (a bar of 4/4 is 16 steps; spaces and | are ignored, "." is a rest). Lanes and their characters: ${notationKey()}. Flams, drags, buzzes, rimshots, the half-open hat and the crash lane's other cymbals are for when the user asks for them or the notation shows them. A lane you leave out is empty in that bar. A tuplet — notes the 16th grid cannot hold, such as five against four or a quintuplet — goes under its bar as a line "tuplet N over steps A-B" (N even notes over steps A to B of the bar, counted from 1, inside the bar) and then one line per lane it plays, "› snare Sssss", one character per note; leave those steps "." on that lane's grid row, since the tuplet plays them. For a whole cross-rhythm by its ratio, make_cross_rhythm is simpler. By default each bar replaces that bar number (or adds it if it is one past the end). With whole: true the bars become the whole section and meter may change. Every bar is checked before anything is written: no hi-hat and ride together, at most two hands on one step (a flam or drag is both hands), no triple 16ths on the kick, no four 16ths running on the snare, a backbeat in every bar, and a quarter of each bar left as air. A refused bar comes back with the reason; fix it and try again.`,
+    description: `Write bars yourself, in the same text notation get_pattern returns, replacing bars of a section — or adding a section: name the next letter the pattern does not have yet (C on a break of A and B) with whole: true, and it is added in the meter you give and played once at the end of the arrangement. A break holds ${MAX_BREAK_BARS} bars across all its sections. Use it for a genre no style covers, for transcribing notation from an image, or for a specific change no doctor move makes. Start each bar with "bar N", then one line per lane: a lane name and one character per 16th step (a bar of 4/4 is 16 steps; spaces and | are ignored, "." is a rest). Lanes and their characters: ${notationKey()}. Flams, drags, buzzes, rimshots, the half-open hat and the crash lane's other cymbals are for when the user asks for them or the notation shows them. A lane you leave out is empty in that bar. A tuplet — notes the 16th grid cannot hold, such as five against four or a quintuplet — goes under its bar as a line "tuplet N over steps A-B" (N even notes over steps A to B of the bar, counted from 1, inside the bar) and then one line per lane it plays, "› snare Sssss", one character per note; leave those steps "." on that lane's grid row, since the tuplet plays them. For a whole cross-rhythm by its ratio, make_cross_rhythm is simpler. By default each bar replaces that bar number (or adds it if it is one past the end). With whole: true the bars become the whole section and meter may change. Every bar is checked before anything is written, for what two hands and two feet can play at the tempo: a flam or drag is both hands, each hand and foot can only strike so fast, and a hand needs time to travel between drums. A refused bar comes back with the reason; fix it and try again. Taste (a backbeat, air, ride with hat) is not refused: write what the music plays.`,
     parameters: {
       type: 'object',
       properties: {
@@ -370,10 +385,10 @@ export class WriteBarsCapability extends BaseCapability<Args, EditData> {
             ? `Wrote ${args.section}: no bars changed`
             : `Wrote ${args.section} bar${bars.length > 1 ? 's' : ''} ${bars.join(', ')}`) +
         (outcome.extra.slowed
-          ? `; tempo down to ${outcome.after.bpm} bpm, the top of ${outcome.after[args.section]?.meter}${
+          ? `; tempo down to ${outcome.after.bpm} bpm, ${
               outcome.after[args.section]?.tempoRatio
-                ? ` at ${ratioLabel(ratioOf(outcome.after[args.section]))}`
-                : ''
+                ? `the top with ${args.section} at ${ratioLabel(ratioOf(outcome.after[args.section]))}`
+                : "the top the break's sections allow at their ratios"
             }`
           : ''),
       ...described,

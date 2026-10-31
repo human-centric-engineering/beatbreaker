@@ -2,13 +2,15 @@ import { z } from 'zod';
 
 import { LANES, LANE_VALUES, PERC_KEYS } from '@/lib/app/breaks/lanes';
 import type { LaneKey } from '@/lib/app/breaks/types';
-import { METER_KEYS } from '@/lib/app/breaks/meter';
+import { DEFAULT_METER, METERS, METER_KEYS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import {
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
+  MAX_RATIO_SPREAD,
   SECTION_LETTERS,
   type TempoRatio,
   isTempoRatio,
+  ratiosFit,
 } from '@/lib/app/breaks/sections';
 import { layeredSwing } from '@/lib/app/breaks/songs';
 import { cellLength, polyFillSpan } from '@/lib/app/breaks/poly-fill';
@@ -293,16 +295,43 @@ const songKey = z
 /**
  * One part of a song written in sections: its letter, a label, and the params
  * laid over the song's. Its aliases are the keys it had as a song of its own.
+ *
+ * A **written** section is the record's bars, in order, one figure a bar: New
+ * writes them as they are, so it takes no grooves or fills to draw from, and
+ * its length is the bars written.
  */
-const songSectionSchema = z.object({
-  letter: z.enum(SECTION_LETTERS),
-  label: z.string().min(1).max(60),
-  bars: z.number().int().min(1).max(8).optional(),
-  /** how fast it plays against the song's tempo (11-e-ii-g); absent, ×1 */
-  tempoRatio: z.custom<TempoRatio>(isTempoRatio, 'a tempo ratio').optional(),
-  aliases: z.array(songKey).min(1).max(8).optional(),
-  params: songParams,
-});
+const songSectionSchema = z
+  .object({
+    letter: z.enum(SECTION_LETTERS),
+    label: z.string().min(1).max(60),
+    bars: z.number().int().min(1).max(8).optional(),
+    /** how fast it plays against the song's tempo (11-e-ii-g), ×¼ to ×4; absent, ×1 */
+    tempoRatio: z.custom<TempoRatio>(isTempoRatio, 'a tempo ratio from ×¼ to ×4').optional(),
+    aliases: z.array(songKey).min(1).max(8).optional(),
+    written: z.array(figureSchema).min(1).max(8).optional(),
+    params: songParams,
+  })
+  .superRefine((x, ctx) => {
+    if (!x.written) return;
+    if (x.bars !== undefined)
+      ctx.addIssue({
+        code: 'custom',
+        message: 'a written section is as long as its bars',
+        path: ['bars'],
+      });
+    for (const field of ['figures', 'fills'] as const)
+      if (x.params[field])
+        ctx.addIssue({
+          code: 'custom',
+          message: `a written section plays its bars, and draws on no ${field}`,
+          path: ['params', field],
+        });
+  });
+
+/** How many bars a section writes: its written bars, else what it names. */
+/* A section that names no length is sized by the picker, and takes at least
+   a bar of the break (`sectionBars` in `song-break.ts`). */
+const sectionBars = (x: { bars?: number; written?: unknown[] }) => x.written?.length ?? x.bars ?? 1;
 
 const styleSongSchema = z
   .object({
@@ -346,11 +375,17 @@ const styleSongSchema = z
           path: ['sections', i, 'letter'],
         });
     });
-    const bars = sections.reduce((n, x) => n + (x.bars ?? 0), 0);
+    const bars = sections.reduce((n, x) => n + sectionBars(x), 0);
     if (bars > MAX_BREAK_BARS)
       ctx.addIssue({
         code: 'custom',
         message: `a song's sections hold ${MAX_BREAK_BARS} bars at most`,
+        path: ['sections'],
+      });
+    if (!ratiosFit(sections.map((x) => x.tempoRatio)))
+      ctx.addIssue({
+        code: 'custom',
+        message: `a song's sections play within ×${MAX_RATIO_SPREAD} of each other and of its tempo, or no tempo plays them all`,
         path: ['sections'],
       });
     const letters = new Set(sections.map((x) => x.letter));
@@ -414,6 +449,17 @@ export const styleParamsSchema = styleFields
             message: 'a section’s swing sits inside its swing range',
             path: ['songs', i, 'sections', j, 'params', 'swingRange'],
           });
+        // a written bar is one bar of the meter the section plays in
+        const meter = x.params.meter ?? song.params.meter ?? p.meter ?? DEFAULT_METER;
+        const n = METERS[meter] ? stepsOf(meterOf(meter)) : 0;
+        x.written?.forEach((bar, k) => {
+          if (n && Object.values(bar).some((row) => row?.length !== n))
+            ctx.addIssue({
+              code: 'custom',
+              message: `a written bar in ${meter} is ${n} steps`,
+              path: ['songs', i, 'sections', j, 'written', k],
+            });
+        });
       });
     });
   });
@@ -579,7 +625,7 @@ export const libraryEntrySchema = z.object({
   title: z.string().min(1).max(160),
   artist: z.string().max(200),
   note: z.string().max(600).nullable().optional(),
-  bpm: z.number().int().min(30).max(300),
+  bpm: z.number().int().min(30).max(380),
   styleKey: z.string().max(40),
   meter: z.string().refine((s) => METER_KEYS.includes(s), 'unknown meter'),
 });

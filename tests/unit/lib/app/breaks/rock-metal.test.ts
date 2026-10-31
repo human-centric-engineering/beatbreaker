@@ -6,9 +6,8 @@
  * goes, and the ones counted in eighths keep the kick off the record's
  * sixteenths; Klek's record still keeps the persona's identity private.
  *
- * `song-tempo.test.ts` holds every drummer's merged range to `playableBpm`,
- * but the merge has already cut it down, so a range written wider than its
- * runs allow passes there. Here the range as written must need no cutting.
+ * `song-tempo.test.ts` holds every drummer's written bars to two hands and
+ * two feet at the top of the song's range.
  * Bar lengths for every drummer are held in `songs.test.ts`.
  */
 
@@ -22,14 +21,7 @@ import { meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import { makeRng } from '@/lib/app/breaks/rng';
 import { songBreak } from '@/lib/app/breaks/song-break';
-import {
-  partKey,
-  playableBpm,
-  songMeter,
-  songParts,
-  songTempo,
-  withSong,
-} from '@/lib/app/breaks/songs';
+import { partKey, songMeter, songParts, songTempo, withSong } from '@/lib/app/breaks/songs';
 import type { LaneKey } from '@/lib/app/breaks/types';
 import { STYLES, STYLE_GROUPS } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { DRUMMER_MODEL_DIR, readCorpus } from '@/scripts/lineage/read-corpus';
@@ -75,12 +67,11 @@ describe.each(Object.keys(FAMILIES))('%s', (key) => {
     expect(songs.length).toBeGreaterThan(0);
   });
 
-  it('gives every song a tempo range its runs allow and the Studio can set', () => {
+  it('gives every song a tempo range the Studio can set', () => {
     // each part as written: a song in one part, or each section laid over its song
     for (const { song, section } of songParts(st)) {
       const key = partKey(song, section);
       const asWritten = { ...st, ...song.params, ...section?.params };
-      expect(playableBpm(asWritten), key).toEqual(asWritten.bpm);
       expect(asWritten.bpm[0], key).toBeGreaterThanOrEqual(STUDIO_FLOOR);
       expect(asWritten.bpm[1], key).toBeLessThanOrEqual(maxBpm(songMeter(st, song, section)));
     }

@@ -42,7 +42,7 @@ const PAPER_PAD = 10;
 /** No smaller than this to fit a phone: below it the notes are too small to read, so the line scrolls. */
 const PHONE_MIN_SCALE = 0.55;
 
-const TEMPO_CHOICES: Segment<TempoRatio | 1>[] = [
+const TEMPO_CHOICES: Segment<TempoRatio>[] = [
   { value: 0.5, face: ratioLabel(0.5), title: "Half the break's tempo" },
   { value: TWO_THIRDS, face: ratioLabel(TWO_THIRDS), title: 'Two thirds: back from the triplet' },
   { value: 0.75, face: ratioLabel(0.75), title: 'Three quarters: back from the dotted eighth' },
@@ -55,6 +55,21 @@ const TEMPO_CHOICES: Segment<TempoRatio | 1>[] = [
   { value: 1.5, face: ratioLabel(1.5), title: 'The old triplet is the new beat' },
   { value: 2, face: ratioLabel(2), title: "Double the break's tempo" },
 ];
+
+/**
+ * The choices for a section at `r`: the Studio's, and, where a song plays the
+ * section at its record's own ratio (×16/15), that one too, in its place, so
+ * the picker says what it plays at.
+ */
+function tempoChoices(r: TempoRatio): Segment<TempoRatio>[] {
+  if (TEMPO_CHOICES.some((c) => c.value === r)) return TEMPO_CHOICES;
+  const own = {
+    value: r,
+    face: ratioLabel(r),
+    title: "The record's own tempo against the break's",
+  };
+  return [...TEMPO_CHOICES, own].sort((a, b) => a.value - b.value);
+}
 
 /**
  * The chart and the step editor: what the Studio is actually for.
@@ -521,10 +536,10 @@ export function Stage() {
           {/* How fast the section on show plays against the break's tempo
               (11-e-ii-g): Landlord's fast section at double its slow one. */}
           {single && c.patterns[single] ? (
-            <Segmented<TempoRatio | 1>
+            <Segmented<TempoRatio>
               small
               label={`Section ${single}'s tempo`}
-              options={TEMPO_CHOICES}
+              options={tempoChoices(ratioOf(c.patterns[single]))}
               value={ratioOf(c.patterns[single])}
               onChange={(r) => c.setSectionTempo(single, r)}
             />

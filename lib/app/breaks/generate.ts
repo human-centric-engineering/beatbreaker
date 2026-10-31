@@ -5,6 +5,7 @@ import {
   FLAM,
   FOOT_LANE,
   HALF_OPEN,
+  LANES,
   RIMSHOT,
   TOM_LANES,
   PERC_LANES,
@@ -36,6 +37,8 @@ import {
   emptyBar,
   meterOfPat,
   styleAttrs,
+  fillsOf,
+  keepFills,
   markFill,
   keepsKickRuns,
   writePerc,
@@ -654,7 +657,7 @@ function figuresFor(style: Style, n: number, density: number): Array<[Figure, nu
  * — a groove whose second bar answers its first (I Feel Fine, Birthday), which
  * the phrase then plays in turn.
  */
-function figureBars(f: Figure, n: number): Bar[] {
+export function figureBars(f: Figure, n: number): Bar[] {
   if (figureLength(f) !== 2 * n) return [figureBar(f, n)];
   const half = (from: number): Figure =>
     Object.fromEntries(Object.entries(f).map(([lane, row]) => [lane, row?.slice(from, from + n)]));
@@ -724,6 +727,10 @@ function varyFigureBar(rng: Rng, bar: Bar, style: Style, m: Meter): Bar {
          between the triplets. Checked after the draw, so the stream is the
          same for every style that bans nothing there, or has its cymbal. */
       if ((style.noKick ?? []).includes(i) || style.cymbalAccent === false) return b;
+      /* Nor where both hands are down on the next step: the hand that took
+         the accent has to be at a drum straight after it, and in a fast
+         triplet meter a crash is too far away for that. */
+      if (i + 1 < n && handsAt(b, i + 1, handLanes()) >= 2) return b;
       b.c[i] = china && rng() < 0.55 ? CHINA : 1;
       b.h[i] = 0;
       b.r[i] = 0;
@@ -903,7 +910,7 @@ export interface GenerateOptions {
    * a section of a song takes its own ratio, and anything else none; 1 is
    * none, whatever the section says.
    */
-  tempoRatio?: TempoRatio | 1;
+  tempoRatio?: TempoRatio;
   voice?: 'hat' | 'ride';
   lanes?: LaneKey[];
   perc?: Partial<Record<PercLaneKey, string>>;
@@ -978,12 +985,31 @@ function cellPhrase(
    stream, and with it every style without songs, is untouched by it. */
 export const SONG_SALT = 0x5f356495;
 
+/**
+ * The stream a seed draws its song and section from. The seed is mixed first
+ * (a multiply and a fold, as a hash does): xorshift's first draw hardly moves
+ * between seeds that differ in their low bits alone, so seeds 1 to 12 — what a
+ * caller naming its own seed is likely to pass — would all pick one song.
+ */
+export function songStream(seed: number): Rng {
+  let x = (seed ^ SONG_SALT) >>> 0;
+  x = Math.imul(x ^ (x >>> 16), 0x45d9f3b) >>> 0;
+  x = Math.imul(x ^ (x >>> 16), 0x45d9f3b) >>> 0;
+  return makeRng((x ^ (x >>> 16)) >>> 0);
+}
+
 export function generatePattern(opts: GenerateOptions): Pattern {
   const params = opts.style.params;
   const named = songPartOf(params, opts.song);
+  /* A written section is the record's bars in its own meter, whatever meter
+     the caller is in: its rows are that meter's length. */
   const meterKey =
-    opts.meter ?? (named ? songMeter(params, named.song, named.section) : DEFAULT_METER);
-  const songRng = makeRng((opts.seed ^ SONG_SALT) >>> 0);
+    named?.section?.written || !opts.meter
+      ? named
+        ? songMeter(params, named.song, named.section)
+        : DEFAULT_METER
+      : opts.meter;
+  const songRng = songStream(opts.seed);
   const picked = named ? undefined : params.songs ? pickSong(params, songRng, meterKey) : undefined;
   /* A song in sections picked here writes one of its sections in this meter,
      by the weight of its grooves. A whole break of it is `songBreak`'s. */
@@ -1000,6 +1026,18 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   const lanes = opts.lanes ?? laneRoster(style);
   const perc = opts.perc ?? percRoster(style);
   const rng = makeRng(opts.seed);
+  if (part?.section?.written) {
+    return writtenPattern(opts, part.section.written, {
+      style,
+      base,
+      songKey,
+      meterKey,
+      ratio,
+      lanes,
+      perc,
+      rng,
+    });
+  }
   const written = style.figures ? figurePhrase(rng, style, opts, m, lanes) : null;
   const backbeats = written?.backbeats ?? (style.backbeats ?? []).slice();
   const bars: Bar[] = written?.bars ?? cellPhrase(rng, style, opts, m, lanes, backbeats);
@@ -1012,6 +1050,7 @@ export function generatePattern(opts: GenerateOptions): Pattern {
     polyFillContext(style, m, lanes, backbeats),
     tuplets
   );
+  const fills = fillsOf(bars);
 
   const pat: Pattern = {
     name: '',
@@ -1038,6 +1077,7 @@ export function generatePattern(opts: GenerateOptions): Pattern {
     pins: null,
     ...(polySpans.length ? { polySpans } : {}),
     ...(tuplets.length ? { tuplets } : {}),
+    ...(fills.length ? { fills } : {}),
     bars,
   };
 
@@ -1048,6 +1088,66 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   // what was written after the tuplets is the grid's, and their cells are theirs (12-d)
   clearUnderTuplets(pat);
   fitHands(pat, heldLanes(style));
+  return pat;
+}
+
+/**
+ * A written section (`SongSection.written`): the record's bars in order, as
+ * they are. Nothing is drawn — no groove, fill, variation, accent,
+ * articulation or ride for the hats — so the seed names the break and
+ * nothing else, and every lane the bars play is on the roster, so no note of
+ * the record goes unshown or unheard. A percussion part the style names (a
+ * cowbell's timeline) is laid in a lane the bars leave empty: it is the
+ * record's too, written once for the song — but not on a step where the
+ * record already has both hands down.
+ */
+function writtenPattern(
+  opts: GenerateOptions,
+  figures: Figure[],
+  ctx: {
+    style: Style;
+    base: Style;
+    songKey: string | undefined;
+    meterKey: string;
+    ratio: TempoRatio | undefined;
+    lanes: LaneKey[];
+    perc: Partial<Record<PercLaneKey, string>>;
+    rng: Rng;
+  }
+): Pattern {
+  const n = stepsOf(meterOf(ctx.meterKey));
+  const bars = figures.map((f) => figureBar(f, n));
+  const played = LANES.filter((L) => bars.some((b) => b[L].some(Boolean)));
+  const lanes = [...ctx.lanes, ...played.filter((L) => !ctx.lanes.includes(L))];
+  const pat: Pattern = {
+    name: nameBreak(ctx.rng),
+    style: opts.style.key,
+    styleVersionId: opts.style.versionId,
+    attrs: styleAttrs(ctx.base),
+    ...(ctx.songKey ? { song: ctx.songKey } : {}),
+    meter: ctx.meterKey,
+    ...(ctx.ratio && ctx.ratio !== 1 ? { tempoRatio: ctx.ratio } : {}),
+    // the bars say which cymbal keeps time; the voice only names it
+    voice: ctx.style.ride ? 'ride' : 'hat',
+    lanes,
+    perc: { ...ctx.perc },
+    bbLane: bbLaneOf(ctx.style),
+    hasRide: !!ctx.style.ride,
+    hasHat: !!ctx.style.hat,
+    seed: opts.seed,
+    backbeats: (ctx.style.backbeats ?? []).slice(),
+    pins: null,
+    bars,
+  };
+  // no rng: a part's `drop` is the generator's variation, not the record's
+  const laid = PERC_LANES.filter((L) => lanes.includes(L) && !played.includes(L));
+  writePerc({ ...pat, lanes: lanes.filter((L) => !played.includes(L)) }, ctx.style);
+  // where the record has both hands down, the part waits: a bell on the kit takes a hand too
+  const hands = handLanes(pat.perc);
+  for (const b of pat.bars)
+    for (let i = 0; i < n; i++)
+      for (const L of laid)
+        if (b[L][i] && hands.includes(L) && handsAt(b, i, hands) > 2) b[L][i] = 0;
   return pat;
 }
 
@@ -1256,8 +1356,9 @@ export function deriveB(patA: Pattern, style0: Style): Pattern {
   const kept = keptSticking(patA, p);
   if (kept) p.sticking = kept;
   else delete p.sticking;
-  // a poly fill the variations left standing is still the figure (12-c)
+  // a poly fill the variations left standing is still the figure (12-c), as is a written fill
   keepPolySpans(patA, p);
+  keepFills(patA, p);
   return p;
 }
 

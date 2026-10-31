@@ -8,8 +8,11 @@ import {
   type ExtraLetter,
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
+  MAX_RATIO_SPREAD,
   SECTION_LETTERS,
-  TEMPO_RATIOS,
+  isOfferedRatio,
+  isTempoRatio,
+  ratiosFit,
   type TempoRatio,
   V7_TEMPO_RATIOS,
 } from '@/lib/app/breaks/sections';
@@ -204,6 +207,12 @@ function laneValuesOk(rows: Partial<Record<LaneKey, ArrayLike<number | string>>>
   );
 }
 
+/** Where a written fill starts in a bar ({@link Pattern.fills}). */
+export const fillSpanSchema = z.object({
+  bar: z.number().int().min(0).max(7),
+  from: z.number().int().min(0).max(63),
+});
+
 /**
  * Where a poly fill was written (12-c, {@link PolySpan}). Its plain rows are
  * what the low layers play, so they are held to each lane's own values, as a
@@ -316,11 +325,8 @@ const packedTupletSchema = z
 
 const packedTuplets = z.array(packedTupletSchema).max(MAX_TUPLETS);
 
-/** A section's tempo ratio on the wire: one of `TEMPO_RATIOS`, never ×1. */
-const tempoRatioSchema = z.custom<TempoRatio>(
-  (v) => typeof v === 'number' && (TEMPO_RATIOS as readonly number[]).includes(v),
-  'a tempo ratio is ×½, ×2/3, ×3/4, ×4/3, ×3/2 or ×2'
-);
+/** A section's tempo ratio on the wire: ×¼ to ×4, never ×1 (see `isTempoRatio`); a v8 code holds it to `TEMPO_RATIOS`. */
+const tempoRatioSchema = z.custom<TempoRatio>(isTempoRatio, 'a tempo ratio is from ×¼ to ×4');
 
 export const patternSchema = z.object({
   name: z.string().max(120),
@@ -346,6 +352,7 @@ export const patternSchema = z.object({
   poly: polySchema.optional(),
   polySpans: z.array(polySpanSchema).max(8).optional(),
   tuplets: z.array(tupletSpanSchema).max(MAX_TUPLETS).optional(),
+  fills: z.array(fillSpanSchema).max(8).optional(),
   bars: z.array(barSchema).min(1).max(8),
 });
 
@@ -509,6 +516,14 @@ const packedPatternBase = z.object({
   ps: packedSpans.optional(),
   /** tuplet spans — v8 (12-d); see {@link packedTupletSchema} */
   tu: packedTuplets.optional(),
+  /**
+   * Where a written fill starts, as `[bar, step]` — optional and additive, as
+   * `ps` is: an older reader drops it and judges the fill as a groove bar.
+   */
+  fl: z
+    .array(z.tuple([z.number().int().min(0).max(7), z.number().int().min(0).max(63)]))
+    .max(8)
+    .optional(),
   /** bars, each one every lane's row joined by `|` */
   b: z.array(packedBar).min(1).max(8),
 });
@@ -537,14 +552,16 @@ const extraSections = Object.fromEntries(
  * does with a v5 code — it refuses the version outright — so neither side
  * ever plays a value it does not know as something else. The same holds for
  * sections: a section past B, or an arrangement naming one, needs version 6,
- * and a section at a tempo ratio needs version 7.
+ * a section at a tempo ratio needs version 7, and one at a ratio the Studio
+ * does not offer, version 9.
  *
  * **An arrangement names sections the code has**, and the code's bars, every
- * section counted once, stay within {@link MAX_BREAK_BARS}.
+ * section counted once, stay within {@link MAX_BREAK_BARS}. Its sections'
+ * ratios stay within {@link MAX_RATIO_SPREAD}, so some tempo plays them all.
  */
 export const sharePayloadSchema = z
   .object({
-    ver: z.number().int().min(1).max(8),
+    ver: z.number().int().min(1).max(9),
     bpm: z.number().min(20).max(400).default(94),
     sw: z.number().min(0).max(100).default(0),
     lv: z.number().int().min(1).max(5).optional(),
@@ -562,6 +579,17 @@ export const sharePayloadSchema = z
         path: [L, 'th'],
         message: "a share code has its sections as letters, not a library entry's next section",
       });
+    }
+    if (payload.ver < 9) {
+      for (const L of letters) {
+        const tr = payload[L]?.tr;
+        if (tr === undefined || isOfferedRatio(tr)) continue;
+        ctx.addIssue({
+          code: 'custom',
+          path: [L, 'tr'],
+          message: `a version ${payload.ver} code plays a section at ×½, ×2/3, ×3/4, ×4/3, ×3/2 or ×2; a record's own ratio needs version 9`,
+        });
+      }
     }
     if (payload.ver < 8) {
       for (const L of letters) {
@@ -611,6 +639,13 @@ export const sharePayloadSchema = z
         });
       }
     });
+    if (!ratiosFit(letters.map((L) => payload[L]?.tr))) {
+      ctx.addIssue({
+        code: 'custom',
+        path: [],
+        message: `a break's sections play within ×${MAX_RATIO_SPREAD} of each other and of its tempo, or no tempo plays them all`,
+      });
+    }
     const bars = letters.reduce((n, L) => n + (payload[L]?.b.length ?? 0), 0);
     if (bars > MAX_BREAK_BARS) {
       ctx.addIssue({

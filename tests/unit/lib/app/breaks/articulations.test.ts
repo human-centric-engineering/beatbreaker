@@ -472,7 +472,7 @@ describe('the rest of the app knows them (9.14)', () => {
 
   it('shows no new check on a pattern without a flam or drag', () => {
     const plain = barWith('s', 3);
-    expect(playability(pattern([plain]), 100).checks).toHaveLength(6);
+    expect(playability(pattern([plain]), 100).checks).toHaveLength(7);
   });
 
   it('tidies a hat off a flam, a ghost off a rimshot, and a foot chick off a half-open hat', () => {

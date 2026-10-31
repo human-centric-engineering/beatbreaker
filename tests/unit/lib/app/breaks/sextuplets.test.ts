@@ -127,12 +127,14 @@ describe('the critic', () => {
       return b;
     };
     const label = (p: ReturnType<typeof playability>) =>
-      p.checks.find((c) => c.label.startsWith('Kick doubles'))?.ok;
-    // at 100 bpm: sixteenth doubles are fine, sextuplet doubles are 150 in sixteenths
+      p.checks.find((c) => c.label.startsWith('The feet keep up'))?.ok;
+    // at 250 bpm a sixteenth double is 60 ms apart, a sextuplet one 40: quicker than a foot doubles
     const four = pattern([doubles(16, [0, 1, 8, 9]), doubles(16, [0, 1, 8, 9])], '4/4');
     const six = pattern([doubles(24, [0, 1, 12, 13]), doubles(24, [0, 1, 12, 13])]);
-    expect(label(playability(four, 100))).toBe(true);
-    expect(label(playability(six, 100))).toBe(false);
+    expect(label(playability(four, 250))).toBe(true);
+    expect(label(playability(six, 250))).toBe(false);
+    // and at 100 both are easy
+    expect(label(playability(six, 100))).toBe(true);
   });
 });
 

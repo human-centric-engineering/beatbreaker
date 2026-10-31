@@ -2,15 +2,7 @@ import type { BreakAudio } from '@/lib/app/breaks/audio/engine';
 import type { MidiSink } from '@/lib/app/breaks/audio/midi-out';
 import { leftLedFills } from '@/lib/app/breaks/drummer/fill-lead';
 import { Humaniser } from '@/lib/app/breaks/humanise';
-import {
-  M44,
-  groupAt,
-  isGroupStart,
-  isEighths,
-  meterOf,
-  pulseInfo,
-  stepSeconds,
-} from '@/lib/app/breaks/meter';
+import { M44, groupAt, isGroupStart, stepSeconds } from '@/lib/app/breaks/meter';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
 import {
   type MaybeSections,
@@ -235,24 +227,21 @@ export const TICK_MS = 25;
 /** The slowest tempo the Studio plays anything at. */
 export const TEMPO_FLOOR = 50;
 
-/** The fastest any meter goes: eighths, counted at their real tempo. */
+/**
+ * The fastest the Studio plays: fast swing counted at its real tempo (Tony
+ * Williams at 360), and the fastest thrash and grind records, in any meter.
+ */
 export const TEMPO_TOP = 380;
 
 /**
- * The clock counts sixteenths. In a compound meter the pulse you feel is a
- * dotted quarter — six of those sixteenths — so the clock has to run half again
- * as fast to put the music at the same speed. Swing at a quarter of 160 is 240
- * on this slider, which is why the ceiling moves with the meter rather than
- * being one number for everything. A meter written in eighths has half as many
- * steps to the beat again, which is how fast swing (Tony Williams at 360) is
- * counted at its real tempo.
+ * The top tempo of a meter: {@link TEMPO_TOP} for every one. Whether a bar can
+ * be played that fast is a question for two hands and two feet
+ * (`limbProblems`), not for the meter: a bar of sixteenths on one hat is
+ * played at 220 on records, and a bar of every lane at once is not played at
+ * 120. The clock schedules any of them.
  */
-export function maxBpm(meterKey: string): number {
-  const m = meterOf(meterKey);
-  // eighth-note steps: fast swing, at the tempo it is counted in
-  if (isEighths(m)) return TEMPO_TOP;
-  const pi = pulseInfo(m);
-  return pi?.steps === 6 ? 300 : 190;
+export function maxBpm(_meterKey: string): number {
+  return TEMPO_TOP;
 }
 
 /**
@@ -262,19 +251,18 @@ export function maxBpm(meterKey: string): number {
 export type SectionPace = string | { meter: string; tempoRatio?: TempoRatio };
 
 /**
- * The top tempo of a break whose sections may be in different meters, or play
- * at a ratio of its tempo: the lowest of their ceilings, each over its ratio.
- * The tempo is one for the whole break and always counts quarters, so a 4/4 B
- * holds a fast-swing A in eighths to 4/4's ceiling, and a B at ×2 holds the
- * break to half of B's. No sections is 4/4's.
+ * The top tempo of a break whose sections may play at a ratio of its tempo:
+ * the lowest of their ceilings, each over its ratio. The tempo is one for the
+ * whole break, so a B at ×2 holds the break to half of B's. No sections is
+ * 4/4's.
  */
 export function maxBpmOf(sections: readonly (SectionPace | null | undefined)[]): number {
   const tops = sections.flatMap((x) => {
     if (!x) return [];
     if (typeof x === 'string') return [maxBpm(x)];
     /* A section at ×½ doubles its meter's ceiling, but never past the
-       fastest any meter goes: every section at ×½ in 12/8 would otherwise let
-       the break to 600, past what a share code or a save takes. */
+       fastest the Studio goes: every section at ×½ would otherwise let the
+       break to 760, past what a share code or a save takes. */
     return [Math.min(Math.floor(maxBpm(x.meter) / ratioOf(x)), TEMPO_TOP)];
   });
   return tops.length ? Math.min(...tops) : maxBpm(M44.label);
@@ -283,14 +271,16 @@ export function maxBpmOf(sections: readonly (SectionPace | null | undefined)[]):
 /**
  * The bottom tempo of a break: {@link TEMPO_FLOOR}, raised so no section plays
  * under it — a section at ×½ holds the break to 100 or more, as one at ×2
- * holds it to half its ceiling.
+ * holds it to half its ceiling. Never over {@link maxBpmOf}: sections whose
+ * ratios spread past `MAX_RATIO_SPREAD` (which every way in refuses) would
+ * otherwise leave the slider no tempo at all.
  */
 export function minBpmOf(sections: readonly (SectionPace | null | undefined)[]): number {
   const slowest = Math.min(
     1,
     ...sections.map((x) => (x && typeof x !== 'string' ? ratioOf(x) : 1))
   );
-  return Math.ceil(TEMPO_FLOOR / slowest);
+  return Math.min(Math.ceil(TEMPO_FLOOR / slowest), maxBpmOf(sections));
 }
 
 /**

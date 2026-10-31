@@ -163,6 +163,20 @@ few words of `feel`, a `weight`, and `params`: any style field except
   9/8…"). The Style panel lists the songs a New can pick. A song's title
   finds its drummer in the picker search. The picker card shows every meter
   and the full tempo span.
+- **A song's bars are what the drummer played.** They follow the tab, the
+  record and its tempo, and are never thinned, padded or slowed to pass a
+  rule. The critic holds them only to the body (`lib/app/breaks/physical.ts`):
+  two hands, two feet, reach, and how fast each limb can go at the song's
+  tempo. Its groove rules (a backbeat in every bar, air, no snare run of
+  four, no ride with a hat) are the generator's gate for grooves it invents,
+  and only advice on a written section, which is served as it is. A section
+  of figures is varied (a crash, a kick, a fill in place of a bar), so
+  `generateGood` serves the seed's first candidate that is a groove too, and
+  the first two hands and two feet can play only where none is. A written
+  fill (`Pattern.fills`) is judged as a fill while its notes are as written:
+  an edit, a doctor's move or Build B's variation in it drops the span
+  (`keepFills`). `song-tempo.test.ts` plays every song's figures and fills at the top
+  of its range.
 - **Without a song named**, `generatePattern` picks one from the seed among
   the songs in the meter it was given. That draw uses a salted stream of its
   own, so the goldens of every style without songs do not move.
@@ -253,7 +267,9 @@ few words of `feel`, a `weight`, and `params`: any style field except
     pedal, heel and toe and the swivel. The generator keeps them (under the
     backbeat too) and the critic passes them, as with `doubleKick`;
     `keepsKickRuns` is the one test for both. Unlike a double pedal, one foot
-    has a top speed: the critic warns past `RUN_RATE`, 150 in 16ths. The 3D
+    has a top speed: the critic's feet check (`physical.ts`) holds it to
+    `FOOT_RATE_RUNS`, sixteenths at 225, where another foot keeps to 187
+    (`FOOT_RATE`). The 3D
     drummer plays them with one foot. El Estepario Siberiano's exercises and
     Godzilla.
   - `exercise` (a `StyleAttrs` field): a written lesson, played as taught.
@@ -273,16 +289,22 @@ few words of `feel`, a `weight`, and `params`: any style field except
     held to every section's playable top, and the ceiling is the lowest of
     the sections' meters. Sherpa's triplet section is 12/8 at the song's 180:
     the eighth is the same speed either side of the change.
-  - **A section may play at half or double the song's tempo** (11-e-ii-g):
-    `tempoRatio: 0.5 | 2` on the section, which the pattern it writes
-    carries. Its own `bpm` is the record's, at the speed it plays, and
+  - **A section may play at a ratio of the song's tempo** (11-e-ii-g):
+    `tempoRatio` on the section, which the pattern it writes carries — the
+    Studio's ×½, ×2/3, ×3/4, ×4/3, ×3/2 or ×2, or the record's own, anything
+    from ×¼ to ×4 (`isTempoRatio`): a passage that goes from 150 to 160 is
+    `16 / 15`, never the nearest ratio offered. A break with one is a v9
+    share code. A song's or a break's ratios, with ×1 counted in, spread no
+    wider than `MAX_RATIO_SPREAD` (4, two octaves), so some tempo between 50
+    and 380 plays every section (`ratiosFit`, checked by the song schema and
+    the share code). Its own `bpm` is the record's, at the speed it plays, and
     `songBpm` divides it by the ratio before taking the range every section
     shares; the ceiling is each section's meter's over its ratio
     (`songPaces`). Angel of Death's break plays at ×½ of the skank; Landlord's
     fast section at ×2 of its slow one, written in eighths (`4/4-8`, with
     Copeland's sixteenth-position backbeats, open slots and anticipation
     restated for that grid), so the song plays at the record's 100 and the
-    fast section at 200. In sixteenths 4/4's 190 had held it to 95. A
+    fast section at 200. A
     section in another grid must restate any style field that names a step.
     Llegué llegué was never split: Moore's opening at 59 is the Guararey
     tumbao with the hats in sixteenths, the same notes at the same speed.
@@ -290,9 +312,25 @@ few words of `feel`, a `weight`, and `params`: any style field except
     split in two at a crash (always, with `build`); an odd one splits short
     half first, five bars as two and three (only `generate.test.ts` writes
     one: no song's section is five bars or seven).
-  - **An arrangement has 32 slots**, enough to play a record's sections in
-    its order, intro to outro; a slot is a letter on the wire. Brian
-    Downey's songs (§AQ) are written that way, section by section from the
+  - **A written section is the record's bars, in order** (`written`, one
+    figure a bar, up to eight). New writes them as they are — no groove
+    drawn, no fill added, nothing varied, no articulation, percussion part
+    or crash of the generator's — so the section plays as the drummer
+    played it, whatever the seed (`writtenPattern` in `generate.ts`); every
+    lane its bars play is on the roster. It names no `bars`, and draws on
+    no `figures` or `fills`; each bar is one bar of the section's meter (the
+    schema checks all three). Use one wherever a passage's bars are not a
+    groove repeating — an intro, a verse whose last bar answers its first,
+    a solo, an ending — and a longer passage as consecutive sections in the
+    arrangement. A section of figures is a pool drawn at random; its order
+    is not the record's.
+  - **A song holds 128 bars across its sections and 128 arrangement slots**,
+    enough to write a record passage by passage and play it in its order,
+    intro to outro; a song is never shortened to fit. A section that names
+    no length — the picker sizes it — counts as one bar against the limit,
+    and only those give way where a break would run over (`sectionBars` in
+    `song-break.ts`). A slot is a letter on
+    the wire. Brian Downey's songs (§AQ) are written that way, section by section from the
     tabs' own markers.
   - **Old keys still read.** A section's `aliases` are the keys it had as a
     song of its own (`sherpa-triplets`, `lucy-verse`); a bare key of a song

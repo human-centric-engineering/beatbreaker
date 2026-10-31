@@ -81,14 +81,18 @@ describe('the famous-breaks library', () => {
     }
   });
 
-  it('passes the hard playability filter except for the four that are right to fail', () => {
-    const failing = ENTRIES.filter(({ item, pat }) => !playability(pat, item.bpm).hard).map(
+  it('passes the body check in every entry, and the groove rules except for the four that break them', () => {
+    // every entry is a record: two hands and two feet played it at its tempo
+    const unplayable = ENTRIES.filter(({ item, pat }) => !playability(pat, item.bpm).hard);
+    expect(unplayable.map(({ item }) => item.title)).toEqual([]);
+    const offGroove = ENTRIES.filter(({ item, pat }) => !playability(pat, item.bpm).groove).map(
       ({ item }) => item.title
     );
     // Recorded in 2dfe42d6: Amen's backbeat really does walk late, and Good
-    // Times Bad Times really is kick triplets at 140. A change to this list is
-    // either a transcription edit or a critic change — either way, look.
-    expect(failing).toEqual([
+    // Times Bad Times really is kick triplets at 140 — what the generator may
+    // not invent, and the drummers played. A change to this list is either a
+    // transcription edit or a critic change — either way, look.
+    expect(offGroove).toEqual([
       'Amen, Brother',
       'Come Together',
       'Good Times Bad Times',

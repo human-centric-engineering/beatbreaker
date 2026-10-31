@@ -137,7 +137,7 @@ describe('the Studio', () => {
     expect(Number.isNaN(n)).toBe(false);
 
     // and the playability checks are listed, passing or failing
-    expect(document.querySelectorAll('.check').length).toBe(6);
+    expect(document.querySelectorAll('.check').length).toBe(7);
   });
 
   it('draws a grid cell for every step of every lane it carries', async () => {

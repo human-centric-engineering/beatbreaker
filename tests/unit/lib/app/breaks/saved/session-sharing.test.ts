@@ -347,9 +347,9 @@ describe('getPublicSession', () => {
     expect(json.toLowerCase()).not.toContain('userid');
   });
 
-  it('targets the goal first, clamped to the meter ceiling', async () => {
+  it('targets the goal first, clamped to the Studio’s top', async () => {
     vi.mocked(prisma.practiceSession.findFirst).mockResolvedValue(
-      sourceRow({ items: [itemRow({ goalBpm: 300 })] }) as never // 4/4 ceiling is 190
+      sourceRow({ items: [itemRow({ goalBpm: 400 })] }) as never // the top is 380
     );
 
     const result = await getPublicSession(SLUG);
@@ -357,7 +357,7 @@ describe('getPublicSession', () => {
     assertDefined(item);
 
     expect(item.available).toBe(true);
-    if (item.available) expect(item.targetBpm).toBe(190);
+    if (item.available) expect(item.targetBpm).toBe(380);
   });
 
   it('falls back to the owner’s own best when there is no goal', async () => {

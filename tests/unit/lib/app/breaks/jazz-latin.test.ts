@@ -7,9 +7,8 @@
  * two hands with its percussion under it, and Elvin's compound-time songs stay
  * on the triplet grid his record asks for.
  *
- * `song-tempo.test.ts` holds every drummer's merged range to `playableBpm`,
- * but the merge has already cut it down, so a range written wider than its
- * runs allow passes there. Here the range as written must need no cutting.
+ * `song-tempo.test.ts` holds every drummer's written bars to two hands and
+ * two feet at the top of the song's range.
  * Bar lengths for every drummer are held in `songs.test.ts`.
  */
 
@@ -21,7 +20,7 @@ import { PERC_LANES, handLanes, handsAt, percRoster } from '@/lib/app/breaks/lan
 import { meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import { makeRng } from '@/lib/app/breaks/rng';
-import { playableBpm, songMeter, songTempo, withSong } from '@/lib/app/breaks/songs';
+import { songMeter, songTempo, withSong } from '@/lib/app/breaks/songs';
 import type { Figure, LaneKey, Pattern } from '@/lib/app/breaks/types';
 import { STYLES, STYLE_GROUPS } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { testStyle } from '@/tests/helpers/catalogue';
@@ -119,13 +118,6 @@ describe.each(Object.keys(FAMILIES))('%s', (key) => {
     const group = STYLE_GROUPS.find(([, keys]) => keys.includes(key));
     expect(group?.[0]).toBe(FAMILIES[key]);
     expect(songs.length).toBeGreaterThan(0);
-  });
-
-  it('gives every song a tempo range its runs allow, so none is cut down', () => {
-    for (const song of songs) {
-      const asWritten = { ...st, ...song.params };
-      expect(playableBpm(asWritten), song.key).toEqual(asWritten.bpm);
-    }
   });
 
   /* `fitHands` would quietly drop a note from a bar that asks for three hands,

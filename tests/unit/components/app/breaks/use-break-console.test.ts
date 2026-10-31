@@ -20,7 +20,13 @@ import { stashPendingLink, takePendingLink } from '@/lib/app/breaks/pending-link
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { clearScratch, readScratch, writeScratch } from '@/lib/app/breaks/scratch';
 import { breakPayload, encodeBreak } from '@/lib/app/breaks/share';
-import type { SectionLetter } from '@/lib/app/breaks/sections';
+import {
+  MAX_BREAK_BARS,
+  SECTION_LETTERS,
+  type SectionLetter,
+  type TempoRatio,
+  totalBars,
+} from '@/lib/app/breaks/sections';
 import { songOf } from '@/lib/app/breaks/songs';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
@@ -139,7 +145,7 @@ import {
   useBreakConsole,
 } from '@/components/app/breaks/use-break-console';
 import { AUTOSAVE_MS } from '@/components/app/studio/use-pattern-document';
-import { type ScheduledStep, Transport } from '@/lib/app/breaks/audio/transport';
+import { type ScheduledStep, TEMPO_TOP, Transport } from '@/lib/app/breaks/audio/transport';
 import { apiClient } from '@/lib/api/client';
 import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
 
@@ -752,12 +758,13 @@ describe('tempo, style and meter', () => {
     act(() => result.current.setBpm(10));
     expect(result.current.bpm).toBe(50);
     act(() => result.current.setBpm(999));
-    expect(result.current.bpm).toBe(190);
+    expect(result.current.bpm).toBe(TEMPO_TOP);
+    // a meter is no ceiling of its own: sixteenths and eighths alike go to the top
     act(() => result.current.setMeter('6/8'));
     act(() => result.current.setBpm(999));
-    expect(result.current.bpm).toBe(300);
+    expect(result.current.bpm).toBe(TEMPO_TOP);
     act(() => result.current.setMeter('4/4'));
-    expect(result.current.bpm).toBe(190);
+    expect(result.current.bpm).toBe(TEMPO_TOP);
   });
 
   it('matches the tempo to the layer against the break’s own tempo, and gives it back at L5', async () => {
@@ -858,7 +865,7 @@ describe('tempo, style and meter', () => {
 });
 
 describe('sections in different meters (11-e-ii-a)', () => {
-  function mixedCode(aMeter: string, bpm: number, bMeter = '4/4') {
+  function mixedCode(aMeter: string, bpm: number, bMeter = '4/4', bRatio?: TempoRatio) {
     const funk = catalogue.styles.funk;
     const at = (meter: string, seed: number, bars: number) =>
       generatePattern({ style: funk, meter, seed, bars, density: 50, ghosts: 50 });
@@ -868,7 +875,7 @@ describe('sections in different meters (11-e-ii-a)', () => {
       level: 5,
       arrangement: ['A', 'B'],
       A: at(aMeter, 5, 2),
-      B: at(bMeter, 6, 1),
+      B: { ...at(bMeter, 6, 1), ...(bRatio ? { tempoRatio: bRatio } : {}) },
     });
   }
 
@@ -932,52 +939,35 @@ describe('sections in different meters (11-e-ii-a)', () => {
     expect(result.current.style).toBe('funk');
   });
 
-  it('gives a locked tempo back when the meters match again', async () => {
+  it('gives a locked tempo back when the ceiling lifts again', async () => {
     const { result } = await mount();
-    act(() => result.current.setViewMode('B'));
     act(() => {
-      result.current.loadCode(mixedCode('4/4-8', 300, '4/4-8'));
+      result.current.loadCode(mixedCode('4/4', 300));
     });
     act(() => result.current.toggleLock('bpm'));
     expect(result.current.bpm).toBe(300);
-    // a New B in 4/4 holds the break to 190 ...
-    act(() => result.current.setMeter('4/4'));
+    // B at double time holds the break to half the top ...
     act(() => {
-      result.current.newBreak('B');
+      result.current.setSectionTempo('B', 2);
     });
-    expect(result.current.bpm).toBe(190);
+    expect(result.current.bpm).toBe(TEMPO_TOP / 2);
     // ... and taking it back brings the 300 back
     act(() => result.current.undo());
-    expect(result.current.patterns.B?.meter).toBe('4/4-8');
+    expect(result.current.patterns.B?.tempoRatio).toBeUndefined();
     expect(result.current.bpm).toBe(300);
-  });
-
-  it('keeps a tempo you set yourself while the break was held down', async () => {
-    const { result } = await mount();
-    act(() => result.current.setViewMode('B'));
-    act(() => {
-      result.current.loadCode(mixedCode('4/4-8', 300, '4/4-8'));
-    });
-    act(() => result.current.setMeter('4/4'));
-    act(() => {
-      result.current.newBreak('B');
-    });
-    act(() => result.current.setBpm(150));
-    act(() => result.current.undo());
-    expect(result.current.bpm).toBe(150);
   });
 
   it('holds the tempo to the lowest of the sections’ ceilings', async () => {
     const { result } = await mount();
-    // A in eighths goes to 380 on its own; a B in 4/4 holds the break to 190
+    // A goes to the top on its own; a B at double time holds the break to half it
     act(() => {
-      result.current.loadCode(mixedCode('4/4-8', 300));
+      result.current.loadCode(mixedCode('4/4-8', 300, '4/4', 2));
     });
-    expect(result.current.bpmCeiling).toBe(190);
-    expect(result.current.bpm).toBe(190);
+    expect(result.current.bpmCeiling).toBe(TEMPO_TOP / 2);
+    expect(result.current.bpm).toBe(TEMPO_TOP / 2);
     act(() => result.current.setViewMode('A'));
     act(() => result.current.setBpm(999));
-    expect(result.current.bpm).toBe(190);
+    expect(result.current.bpm).toBe(TEMPO_TOP / 2);
   });
 });
 
@@ -2080,9 +2070,9 @@ describe('sections past B (11-e-ii)', () => {
         'Room'
       );
     });
-    // 2 + 1, then three of 8 and one of 5: 32, the most a break holds
+    // 2 + 1, then fifteen of 8 and one of 5: 128, the most a break holds
     act(() => result.current.setBars(8));
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 15; i++) {
       act(() => {
         result.current.addSection();
       });
@@ -2091,7 +2081,8 @@ describe('sections past B (11-e-ii)', () => {
     act(() => {
       result.current.addSection();
     });
-    expect(result.current.letters).toEqual(['A', 'B', 'C', 'D', 'E', 'F']);
+    expect(result.current.letters).toEqual(SECTION_LETTERS.slice(0, 18));
+    expect(totalBars(result.current.patterns)).toBe(MAX_BREAK_BARS);
     act(() => result.current.setViewMode('A'));
     act(() => result.current.setBars(8));
     act(() => {
@@ -2238,7 +2229,7 @@ describe('sections past B (11-e-ii)', () => {
     expect(result.current.arrangement).toEqual(['A']);
   });
 
-  it('blocks a section that would take the break past 32 bars, and adds nothing', async () => {
+  it(`blocks a section that would take the break past ${MAX_BREAK_BARS} bars, and adds nothing`, async () => {
     const { result } = await mount();
     act(() => result.current.setBars(8));
     act(() => {
@@ -2247,27 +2238,27 @@ describe('sections past B (11-e-ii)', () => {
     expect(result.current.patterns.A?.bars).toHaveLength(8);
     expect(result.current.addSectionBlocked).toBeNull();
 
-    // 8 + 8 + 8 = 24, then 32
-    act(() => {
-      result.current.addSection();
-    });
-    act(() => {
-      result.current.addSection();
-    });
-    expect(result.current.letters).toEqual(['A', 'B', 'C', 'D']);
+    // sixteen sections of eight: 128
+    for (let i = 0; i < 14; i++) {
+      act(() => {
+        result.current.addSection();
+      });
+    }
+    const sixteen = SECTION_LETTERS.slice(0, 16);
+    expect(result.current.letters).toEqual(sixteen);
 
-    // 32 bars in, another 8 would make 40
-    expect(result.current.addSectionBlocked).toMatch(/32 bars/);
+    // 128 bars in, another 8 would make 136
+    expect(result.current.addSectionBlocked).toMatch(/128 bars/);
     let ok = true;
     act(() => {
       ok = result.current.addSection();
     });
     expect(ok).toBe(false);
-    expect(result.current.letters).toEqual(['A', 'B', 'C', 'D']);
+    expect(result.current.letters).toEqual(sixteen);
 
-    // back to 24 bars, an 8-bar section lands exactly on the cap and is allowed
+    // back to 120 bars, an 8-bar section lands exactly on the cap and is allowed
     act(() => {
-      result.current.deleteSection('D');
+      result.current.deleteSection('P');
     });
     act(() => result.current.setBars(8));
     expect(result.current.addSectionBlocked).toBeNull();
@@ -2411,9 +2402,9 @@ describe('a section at a tempo ratio (11-e-ii-g)', () => {
   it('plays B at double time, bringing the tempo down to the new ceiling; one Undo puts both back', async () => {
     const { result } = await mount();
     act(() => {
-      result.current.loadCode(abCode(120));
+      result.current.loadCode(abCode(300));
     });
-    expect(result.current.bpmCeiling).toBe(190);
+    expect(result.current.bpmCeiling).toBe(TEMPO_TOP);
     let ok = false;
     act(() => {
       ok = result.current.setSectionTempo('B', 2);
@@ -2421,12 +2412,12 @@ describe('a section at a tempo ratio (11-e-ii-g)', () => {
     expect(ok).toBe(true);
     expect(result.current.patterns.B?.tempoRatio).toBe(2);
     expect(result.current.patterns.A?.tempoRatio).toBeUndefined();
-    // 4/4 tops out at 190, so B at ×2 holds the break to 95
-    expect(result.current.bpmCeiling).toBe(95);
-    expect(result.current.bpm).toBe(95);
+    // B at ×2 holds the break to half the top
+    expect(result.current.bpmCeiling).toBe(TEMPO_TOP / 2);
+    expect(result.current.bpm).toBe(TEMPO_TOP / 2);
     act(() => result.current.undo());
     expect(result.current.patterns.B?.tempoRatio).toBeUndefined();
-    expect(result.current.bpm).toBe(120);
+    expect(result.current.bpm).toBe(300);
   });
 
   it('takes a ratio off again at ×1, and refuses one it already plays at or a section it has not got', async () => {

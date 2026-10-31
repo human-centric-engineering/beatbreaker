@@ -16,7 +16,7 @@ import { engrave } from '@/lib/app/breaks/engrave';
 import { deriveB, fitHands, generatePattern } from '@/lib/app/breaks/generate';
 import { LANES, LANE_VALUES, handLanes, handsAt } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
-import { withSong } from '@/lib/app/breaks/songs';
+import { songBpm, songPartOf, withSong } from '@/lib/app/breaks/songs';
 import { TEST_STYLE_KEYS, testStyles } from '@/tests/helpers/catalogue';
 import type { Bar, Figure, Pattern, ResolvedStyle, Style } from '@/lib/app/breaks/types';
 import { styleParamsSchema } from '@/lib/app/breaks/catalogue/schemas';
@@ -36,7 +36,9 @@ function gen(style: string, meter: string, seed = 12345, bars = 2): Pattern {
 
 function expectBarsFit(pat: Pattern, bars: number): void {
   const n = stepsOf(meterOf(pat.meter));
-  expect(pat.bars).toHaveLength(bars);
+  // a written section of a song is as long as its bars, whatever was asked
+  const written = songPartOf(STYLES[pat.style]?.params, pat.song)?.section?.written;
+  expect(pat.bars).toHaveLength(written?.length ?? bars);
   for (const bar of pat.bars) {
     for (const L of LANES) expect(bar[L]).toHaveLength(n);
   }
@@ -258,7 +260,9 @@ describe('generateGood', () => {
         { style: STYLES[style], meter, seed: 4242, bars: 2, density: 50, ghosts: 50 },
         100
       );
-      expect(res.tries).toBe(CANDIDATES);
+      // a song is served the first part two hands and two feet can play; a groove is the best of all
+      if (res.pattern.song) expect(res.tries).toBe(res.rejected + 1);
+      else expect(res.tries).toBe(CANDIDATES);
       expect(res.rejected).toBeGreaterThanOrEqual(0);
       expect(res.rejected).toBeLessThanOrEqual(CANDIDATES);
       if (res.rejected < CANDIDATES) expect(playability(res.pattern, 100).hard).toBe(true);
@@ -266,12 +270,14 @@ describe('generateGood', () => {
     }
   });
 
-  it('keeps a findable backbeat in every style in every meter', () => {
+  it('keeps a findable backbeat in every style in every meter, where it makes the groove up', () => {
     for (const { style, meter } of COMBOS) {
       const { pattern } = generateGood(
         { style: STYLES[style], meter, seed: 31, bars: 2, density: 50, ghosts: 50 },
         100
       );
+      // a song's part has the backbeat the record has, or none
+      if (pattern.song) continue;
       const backbeat = playability(pattern, 100).checks[3];
       expect(backbeat.label).toMatch(/backbeat|2 and 4/);
       expect({ style, meter, ok: backbeat.ok }).toEqual({ style, meter, ok: true });
@@ -333,6 +339,31 @@ describe('two hands', () => {
           });
         }
       }
+    }
+  });
+
+  it('puts no cymbal accent of its own just before a step that takes both hands', () => {
+    // Big Swing Face writes the ride and the snare together on the triplets, at 188
+    const song = 'big-swing-face';
+    const written = withSong(STYLES.buddyrich.params, song).figures ?? [];
+    const writtenCrash = new Set(
+      written.flatMap(([f]) => [...(f.c ?? '')].flatMap((v, i) => (v === '.' ? [] : [i])))
+    );
+    for (let seed = 1; seed <= 40; seed++) {
+      const p = generatePattern({
+        style: STYLES.buddyrich,
+        song,
+        seed,
+        bars: 4,
+        density: 50,
+        ghosts: 50,
+      });
+      const lanes = handLanes(p.perc);
+      p.bars.forEach((b) => {
+        for (let i = 0; i + 1 < b.k.length; i++)
+          if (b.c[i] && !writtenCrash.has(i))
+            expect(handsAt(b, i + 1, lanes), `seed ${seed}, step ${i}`).toBeLessThan(2);
+      });
     }
   });
 
@@ -422,17 +453,35 @@ describe('double kick', () => {
 
   it('passes the playability check on a double pedal, and fails the same notes without one', () => {
     const pat = gen('doublekick', '4/4', 7, 4);
-    const ok = playability(pat, 150);
+    // sixteenths at 190: quicker than one foot keeps up, not two
+    const ok = playability(pat, 190);
     expect(ok.hard).toBe(true);
-    expect(ok.checks[1]).toEqual({ ok: true, label: 'Kick runs go to the double pedal' });
-    // not too fast for the doubles, either: that is what the second pedal is for
-    expect(ok.checks[5].ok).toBe(true);
+    expect(ok.checks[1]).toEqual({
+      ok: true,
+      kind: 'groove',
+      label: 'Kick runs go to the double pedal',
+    });
+    expect(ok.checks[5]).toEqual({
+      ok: true,
+      kind: 'body',
+      limbs: 'feet',
+      label: 'Two feet keep up with the kick at 190 BPM',
+    });
 
-    const single = playability({ ...pat, attrs: { ...pat.attrs, doubleKick: false } }, 150);
+    const single = playability({ ...pat, attrs: { ...pat.attrs, doubleKick: false } }, 190);
     expect(single.hard).toBe(false);
-    expect(single.checks[1]).toEqual({ ok: false, label: 'No triple 16ths on the kick' });
+    expect(single.checks[1]).toEqual({
+      ok: false,
+      kind: 'groove',
+      label: 'No triple 16ths on the kick',
+    });
     expect(single.checks[4].ok).toBe(false);
-    expect(single.checks[5].ok).toBe(false);
+    expect(single.checks[5]).toEqual({
+      ok: false,
+      kind: 'body',
+      limbs: 'feet',
+      label: 'The feet keep up at 190 BPM',
+    });
   });
 
   it('keeps the gallop a gallop: an 8th and two 16ths, beat after beat', () => {
@@ -741,6 +790,8 @@ describe('the rock, jazz and blues styles', () => {
      and stacks in Polyphia's scores */
   const CHINA_PLAYERS = [
     'yussefdayes',
+    // Clive Burr's chinas in the Phantom of the Opera tab (GM 52)
+    'burr',
     'lombardo',
     'cobham',
     'haake',
@@ -798,14 +849,19 @@ describe('the rock, jazz and blues styles', () => {
       for (const { song, merged } of runs) {
         const meter = merged.meter;
         const n = stepsOf(meterOf(meter ?? '4/4'));
-        for (const [f] of [...(merged.figures ?? []), ...(merged.fills ?? [])])
+        // a written section plays its bars, which the schema holds to its meter, and draws on nothing
+        const written = songPartOf(params, song?.key)?.section?.written;
+        const drawn = written ? [] : [...(merged.figures ?? []), ...(merged.fills ?? [])];
+        for (const [f] of [...drawn, ...(written ?? []).map((w): [Figure, number] => [w, 1])])
           if (!china) expect(f.c ?? '').not.toMatch(/3/);
-        for (const [f] of merged.fills ?? [])
+        for (const [f] of written ? [] : (merged.fills ?? []))
           for (const r of Object.values(f)) expect(r?.length ?? 0).toBeLessThanOrEqual(n);
         // a figure is a bar, or two bars that play in turn
-        for (const [f] of merged.figures ?? [])
+        for (const [f] of written ? [] : (merged.figures ?? []))
           for (const r of Object.values(f)) expect([n, 2 * n]).toContain(r?.length);
-        const bpm = (merged.bpm[0] + merged.bpm[1]) / 2;
+        // the break's tempo: a section at a ratio names its range at the speed it plays
+        const [lo, hi] = song ? songBpm(params, song) : merged.bpm;
+        const bpm = (lo + hi) / 2;
         let soft = 0;
         for (let seed = 1; seed <= 40; seed++) {
           const opts = {
@@ -872,8 +928,13 @@ describe('the rock, jazz and blues styles', () => {
        brushed bossa holds its groove, his hat never opens, and his accents
        land on the crash, which this does not compare. El Estepario
        Siberiano's exercises are written out bar by bar, and an exercise plays
-       as it is taught, so two presses on one of its steps are the same bar. */
-    const STILL = ['davies', 'agbekor', 'miltonbanana', 'estepario'];
+       as it is taught, so two presses on one of its steps are the same bar.
+       Everybody Wants Some's chorus is two figures, one most of the time, and
+       its tab's fill: since the critic judges a written fill as a fill it is
+       served whole, and often, so two presses may be the same chorus. Keep It
+       Greasey is one groove Colaiuta hardly moves off, and most presses land
+       on it. */
+    const STILL = ['davies', 'agbekor', 'miltonbanana', 'estepario', 'alexvanhalen', 'colaiuta'];
     /* The Glamorous Life's intro is Prince's Linn, one bar held, and low seeds
        land on it. Santa Davis's Bush Doctor holds one figure through each
        section, as its tab does (the verse x15, the chorus x38), so a whole
@@ -890,6 +951,7 @@ describe('the rock, jazz and blues styles', () => {
     for (const key of ROCK) {
       const params = STYLES[key].params;
       const breaks = new Set<string>();
+      const writtenSeen = new Set<string>();
       let held = 0;
       for (let seed = 1; seed <= 12; seed++) {
         const { pattern } = generateGood(
@@ -902,6 +964,15 @@ describe('the rock, jazz and blues styles', () => {
           held++;
           continue;
         }
+        /* A written section is the record's bars, the same on every press: a
+           second press on one counts as held, as the record would play it. */
+        if (songPartOf(params, pattern.song)?.section?.written) {
+          if (writtenSeen.has(pattern.song!)) {
+            held++;
+            continue;
+          }
+          writtenSeen.add(pattern.song!);
+        }
         // the toms too: agbekor's bars differ in the lead drum's calls round them
         breaks.add(
           pattern.bars
@@ -909,7 +980,7 @@ describe('the rock, jazz and blues styles', () => {
             .join('/')
         );
       }
-      const want = held ? 12 - held - 1 : STILL.includes(key) ? 9 : 10;
+      const want = (held ? 12 - held - 1 : 10) - (STILL.includes(key) ? 2 : 0);
       expect({ key, distinct: breaks.size >= want }).toEqual({ key, distinct: true });
     }
   });

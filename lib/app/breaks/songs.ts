@@ -1,14 +1,8 @@
-import { DEFAULT_METER, meterOf, stepsPerQuarter } from '@/lib/app/breaks/meter';
+import { DEFAULT_METER, meterOf } from '@/lib/app/breaks/meter';
 import { polyFillsIn } from '@/lib/app/breaks/poly-fill';
 import { wpick, type Rng } from '@/lib/app/breaks/rng';
 import type { TempoRatio } from '@/lib/app/breaks/sections';
-import type {
-  Figure,
-  SongSection,
-  Style,
-  StyleSong,
-  StyleSongParams,
-} from '@/lib/app/breaks/types';
+import type { SongSection, Style, StyleSong, StyleSongParams } from '@/lib/app/breaks/types';
 
 /**
  * A style's songs ({@link Style.songs}): picking one, and laying it over the
@@ -125,7 +119,9 @@ export function pickSong(st: Style, rng: Rng, meterKey?: string): StyleSong | un
  * One section of a song in sections, for a pattern written alone from a song a
  * seed picked: among the sections in the meter (the first's, which is how the
  * song was picked), by the weight of their figures — the share each groove had
- * when the song was one pool. Undefined for a song in one part.
+ * when the song was one pool — or, for a written section, the bars the record
+ * spends in it: its bars, every time the arrangement plays it. Undefined for a
+ * song in one part.
  */
 export function pickSection(
   st: Style,
@@ -136,7 +132,10 @@ export function pickSection(
   const inMeter = (song.sections ?? []).filter((x) => songMeter(st, song, x) === meterKey);
   if (!inMeter.length) return song.sections?.[0];
   const share = (x: SongSection) =>
-    (x.params.figures ?? song.params.figures ?? []).reduce((n, [, w]) => n + w, 0) || 1;
+    x.written
+      ? x.written.length *
+        Math.max(1, (song.arrangement ?? []).filter((L) => L === x.letter).length)
+      : (x.params.figures ?? song.params.figures ?? []).reduce((n, [, w]) => n + w, 0) || 1;
   return wpick(
     rng,
     inMeter.map((x): [SongSection, number] => [x, share(x)])
@@ -144,9 +143,8 @@ export function pickSection(
 }
 
 /**
- * A tempo in the song's range, or the style's where the song names none — held
- * where its written bars stay playable (see {@link playableBpm}). Whole bpm,
- * because that is what the tempo control shows.
+ * A tempo in the song's range ({@link songBpm}), or the style's where the song
+ * names none. Whole bpm, because that is what the tempo control shows.
  */
 export function songTempo(st: Style, song: StyleSong | undefined, rng: Rng): number {
   const [lo, hi] = songBpm(st, song);
@@ -155,11 +153,11 @@ export function songTempo(st: Style, song: StyleSong | undefined, rng: Rng): num
 
 /**
  * A song's tempo range. A break has one tempo, so for a song in sections it is
- * the range every section can play at: the song's, held to the slowest
- * section's playable top (a section of sixteenths runs out of hands before a
- * section of quarters does). A section at a tempo ratio names its range at the
- * speed it plays, so it is divided by its ratio first: Angel of Death's break
- * at 100–110, at ×½, is 200–220 of the song's tempo.
+ * the range every section can play at: where the sections' own ranges
+ * overlap, or the lowest of their tops where they do not. A section at a
+ * tempo ratio names its range at the speed it plays, so it is divided by its
+ * ratio first: Angel of Death's break at 100–110, at ×½, is 200–220 of the
+ * song's tempo.
  */
 export function songBpm(st: Style, song: StyleSong | undefined): [number, number] {
   if (!song?.sections?.length) return withSong(st, song?.key).bpm;
@@ -171,51 +169,6 @@ export function songBpm(st: Style, song: StyleSong | undefined): [number, number
   const hi = Math.min(...ranges.map((r) => r[1]));
   const lo = Math.min(hi, Math.max(...ranges.map((r) => r[0])));
   return [lo, hi];
-}
-
-/**
- * How fast an unbroken run of notes may go, in notes a second: ten is a run of
- * sixteenths at 150, of sextuplets at 100, of eighths at 300. A record's own
- * tempo is often faster than that under its fills, and a pattern to practise
- * is not the record.
- */
-export const RUN_RATE = 10;
-/** How many notes on consecutive steps make a run rather than a double or a drag. */
-export const RUN_LENGTH = 4;
-
-/** The longest stretch of consecutive steps a figure or fill has a note on, every lane together. */
-export function longestRun(f: Figure): number {
-  const rows = Object.values(f).filter((r): r is string => !!r);
-  const len = Math.max(0, ...rows.map((r) => r.length));
-  let best = 0;
-  let run = 0;
-  for (let i = 0; i < len; i++) {
-    // a fill shorter than its longest row is written to the end, as `applyFigureFill` puts it
-    const hit = rows.some((r) => {
-      const ch = r[i - (len - r.length)];
-      return ch !== undefined && ch !== '.';
-    });
-    run = hit ? run + 1 : 0;
-    best = Math.max(best, run);
-  }
-  return best;
-}
-
-/**
- * A song's tempo range, held where its written bars stay playable: a song whose
- * figures or fills run {@link RUN_LENGTH} notes or more without a gap goes no
- * faster than {@link RUN_RATE} notes a second along that run. The low end
- * comes down with the top if it has to.
- */
-export function playableBpm(st: Style): [number, number] {
-  const [lo, hi] = st.bpm;
-  const run = Math.max(
-    0,
-    ...[...(st.figures ?? []), ...(st.fills ?? [])].map(([f]) => longestRun(f))
-  );
-  if (run < RUN_LENGTH) return [lo, hi];
-  const top = Math.floor((60 * RUN_RATE) / stepsPerQuarter(meterOf(st.meter)));
-  return [Math.min(lo, top), Math.min(hi, top)];
 }
 
 /** A swing and its range, as a style, a song or a section names them. */
@@ -298,7 +251,6 @@ export function withSong(st: Style, key: string | undefined): Style {
   const swung = layeredSwing([st, song.params, ...(section ? [section.params] : [])]);
   if (swung.swingRange) out.swingRange = swung.swingRange;
   else delete out.swingRange;
-  out.bpm = playableBpm(out);
   carryPolyFills(out, [st, song.params, ...(section ? [section.params] : [])]);
   if (!byKey) {
     byKey = new Map();

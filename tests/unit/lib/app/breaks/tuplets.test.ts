@@ -23,7 +23,7 @@ import { performStep } from '@/lib/app/breaks/perform';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { FOUR_THIRDS, ratioLabel } from '@/lib/app/breaks/sections';
 import {
-  SHARE_VERSION,
+  SHARE_VERSION_MODULATIONS,
   SHARE_VERSION_AB,
   SHARE_VERSION_RATIOS,
   type BreakDoc,
@@ -262,8 +262,8 @@ describe('the layers and the critic', () => {
 describe('wire v8', () => {
   it('writes a code with a tuplet as v8, and reads the span back', () => {
     const pat = fiveFour();
-    expect(breakPayload(doc(pat)).ver).toBe(SHARE_VERSION);
-    expect(SHARE_VERSION).toBe(8);
+    expect(breakPayload(doc(pat)).ver).toBe(SHARE_VERSION_MODULATIONS);
+    expect(SHARE_VERSION_MODULATIONS).toBe(8);
     expect(decodeBreak(encodeBreak(doc(pat))).A.tuplets).toEqual(pat.tuplets);
   });
 
@@ -290,7 +290,7 @@ describe('wire v8', () => {
     const a = pattern();
     expect(breakPayload(doc(a, { ...a, tempoRatio: 2 })).ver).toBe(SHARE_VERSION_RATIOS);
     const mod = breakPayload(doc(a, { ...a, tempoRatio: 1.5 }));
-    expect(mod.ver).toBe(SHARE_VERSION);
+    expect(mod.ver).toBe(SHARE_VERSION_MODULATIONS);
     expect(sharePayloadSchema.safeParse({ ...mod, ver: 7 }).success).toBe(false);
     expect(decodeBreak(encodeBreak(doc(a, { ...a, tempoRatio: FOUR_THIRDS }))).B.tempoRatio).toBe(
       4 / 3

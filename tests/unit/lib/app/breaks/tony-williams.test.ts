@@ -6,7 +6,7 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { maxBpm } from '@/lib/app/breaks/audio/transport';
+import { TEMPO_TOP, maxBpm } from '@/lib/app/breaks/audio/transport';
 import { playability } from '@/lib/app/breaks/critic';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { generatePattern } from '@/lib/app/breaks/generate';
@@ -30,7 +30,7 @@ const TONY = testStyle('tonywilliams');
 const E8 = meterOf('4/4-8');
 
 describe('4/4 in eighths', () => {
-  it('is eight steps of an eighth, the quarter its pulse, up to 380', () => {
+  it('is eight steps of an eighth, the quarter its pulse, up to the top', () => {
     expect(METERS['4/4-8']).toBeDefined();
     expect(stepsOf(E8)).toBe(8);
     expect(stepsPerQuarter(E8)).toBe(2);
@@ -38,10 +38,9 @@ describe('4/4 in eighths', () => {
     expect(isEighths(meterOf('6/8'))).toBe(false);
     expect(pulseInfo(E8)).toBeNull();
     expect(stepSeconds(E8, 300)).toBeCloseTo(0.1);
-    expect(maxBpm('4/4-8')).toBe(380);
-    // the others keep their ceilings
-    expect(maxBpm('4/4')).toBe(190);
-    expect(maxBpm('12/8')).toBe(300);
+    // one top for every meter: how fast the notes go is the limbs' question
+    expect(maxBpm('4/4-8')).toBe(TEMPO_TOP);
+    expect(maxBpm('4/4')).toBe(TEMPO_TOP);
   });
 
   it('carries a 4/4 beat and its "and" over, and drops the "e" and the "a"', () => {

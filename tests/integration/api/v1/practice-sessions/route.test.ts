@@ -174,7 +174,7 @@ describe('POST /api/v1/practice-sessions', () => {
       {
         name: 'Warm-up',
         totalMinutes: 20,
-        items: [{ breakId: BREAK_ID, level: 3, goalBpm: 301 }],
+        items: [{ breakId: BREAK_ID, level: 3, goalBpm: 381 }],
       },
     ],
   ])('400s on %s, before calling createSession', async (_, body) => {

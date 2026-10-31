@@ -12,7 +12,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { PracticePanel } from '@/components/app/studio/panels/practice-panel';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { HOLD_DELAY_MS, HOLD_EVERY_MS, TempoControl } from '@/components/app/studio/tempo-control';
-import { maxBpm } from '@/lib/app/breaks/audio/transport';
+import { TEMPO_TOP, maxBpm } from '@/lib/app/breaks/audio/transport';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 
 beforeEach(() => {
@@ -75,11 +75,11 @@ describe('TempoControl', () => {
     );
   });
 
-  it('takes a typed tempo on Enter, and clamps 300 to the meter’s ceiling', async () => {
+  it('takes a typed tempo on Enter, and clamps 500 to the ceiling', async () => {
     const user = userEvent.setup();
     await mount();
     const { meter } = probe();
-    expect(maxBpm(meter)).toBe(190);
+    expect(maxBpm(meter)).toBe(TEMPO_TOP);
 
     await user.click(field());
     await user.keyboard('{Control>}a{/Control}112{Enter}');
@@ -87,10 +87,12 @@ describe('TempoControl', () => {
     expect(field().value).toBe('112');
 
     await user.click(field());
-    await user.keyboard('{Control>}a{/Control}300{Enter}');
-    expect(probe().bpm).toBe(190);
-    expect(field().value).toBe('190');
-    expect(screen.getByRole<HTMLInputElement>('slider', { name: 'Tempo' }).max).toBe('190');
+    await user.keyboard('{Control>}a{/Control}500{Enter}');
+    expect(probe().bpm).toBe(TEMPO_TOP);
+    expect(field().value).toBe(String(TEMPO_TOP));
+    expect(screen.getByRole<HTMLInputElement>('slider', { name: 'Tempo' }).max).toBe(
+      String(TEMPO_TOP)
+    );
   });
 
   it('keeps digits only, and Escape leaves the tempo as it was', async () => {
@@ -146,12 +148,12 @@ describe('TempoControl', () => {
 
     /* Held at the ceiling it stops there, and one − comes straight back off it. */
     fireEvent.pointerDown(plus, { button: 0 });
-    await act(() => vi.advanceTimersByTimeAsync(HOLD_DELAY_MS + HOLD_EVERY_MS * 200));
+    await act(() => vi.advanceTimersByTimeAsync(HOLD_DELAY_MS + HOLD_EVERY_MS * 400));
     fireEvent.pointerUp(plus);
-    expect(probe().bpm).toBe(190);
+    expect(probe().bpm).toBe(TEMPO_TOP);
     fireEvent.pointerDown(screen.getByRole('button', { name: 'Slower' }), { button: 0 });
     fireEvent.pointerUp(screen.getByRole('button', { name: 'Slower' }));
-    expect(probe().bpm).toBe(189);
+    expect(probe().bpm).toBe(TEMPO_TOP - 1);
   });
 });
 

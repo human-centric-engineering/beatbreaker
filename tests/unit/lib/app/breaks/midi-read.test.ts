@@ -181,12 +181,12 @@ describe('readMidi — what other software writes', () => {
     const r = readMidi(
       smf([
         [0, ...ON(9, 36, 100)],
-        [480 * 4 * 39, ...ON(9, 36, 100)],
+        [480 * 4 * 139, ...ON(9, 36, 100)],
       ])
     );
-    expect(r.ok && r.pattern.bars).toHaveLength(32);
+    expect(r.ok && r.pattern.bars).toHaveLength(128);
     expect(r.ok && r.pattern.notes).toContain(
-      'Only the first 32 of 40 bars were kept — a pattern holds 32, 8 to a section.'
+      'Only the first 128 of 140 bars were kept — a pattern holds 128, 8 to a section.'
     );
   });
 
