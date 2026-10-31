@@ -1,0 +1,40 @@
+{
+  "id": "rec:buddy-holly-rave-on-1958",
+  "title": "Rave On",
+  "artist": "Buddy Holly",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jerry-allison",
+      "name": "Jerry Allison"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Rave On",
+      "drummer_ids": ["drummer:jerry-allison"],
+      "drums": {
+        "description": "Straight eighths with the hat in quarters; in the chorus the band's hits on 1 and the \"and\" of 2, the snare filling the rest of the bar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:rave-on-wikipedia",
+            "src:buddy-holly-album-wikipedia",
+            "src:songsterr-9350"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=TEzsrbxjyQU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=9350"
+        }
+      ],
+      "style_key": "jerryallison",
+      "song_key": "rave-on"
+    }
+  ]
+}

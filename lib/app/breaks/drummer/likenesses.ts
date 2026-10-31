@@ -4069,6 +4069,134 @@ const PETER_ERSKINE: Persona = {
   kit: { shell: '#ebe4d6', finish: 'gloss', hardware: 'chrome', rug: '#3a2e26' },
 };
 
+/**
+ * Jerry Allison at eighteen behind Buddy Holly and the Crickets on The Ed
+ * Sullivan Show, December 1957, playing Peggy Sue (YouTube _qQzuvfvBdE, the
+ * show's own channel: at the kit in close-up at 0:05 and 0:56–1:05). Slim,
+ * clean-shaven, short dark hair combed back off the brow; the band's dress
+ * for the show, Holly's and Joe B. Mauldin's too, a black dinner jacket with
+ * satin lapels over a white shirt and a black bow tie. A small kit in white
+ * pearl with chrome hardware: bass drum, one tom on it, a floor tom and the
+ * snare, two cymbals and the hats. The broadcast is black and white: the
+ * hair's brown-black, the trousers and the shoes are a guess.
+ */
+const JERRY_ALLISON: Persona = {
+  id: 'jerryallison',
+  name: 'Jerry Allison',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e8b896',
+  hair: '#241912',
+  // short, combed back off the brow
+  hairStyle: 'slick',
+  beard: 'none',
+  top: 'jacket',
+  shirt: '#17171b',
+  under: '#f2f0ea',
+  neckwear: 'bow',
+  tie: '#101012',
+  trousers: '#17171b',
+  shoes: '#121212',
+  footwear: 'shoes',
+  accent: '#101012',
+  headphones: false,
+  kit: { shell: '#ece8de', finish: 'gloss', hardware: 'chrome', rug: '#2a2626' },
+};
+
+/**
+ * Tommy Ramone at the Rainbow Theatre, London, on 31 December 1977, the show filmed for It's Alive
+ * and recorded for the live album (the band's upload "Ramones - Live At The Rainbow - December 31,
+ * 1977", YouTube Sp3zaeOyL7Q, at the kit at 1:24-1:30), four months before he left the band:
+ * twenty-eight, slim, thick dark brown hair cut in the band's bowl to the jaw, its fringe over the
+ * brows, clean-shaven, a black sleeveless vest, under blue stage light. A white kit with chrome
+ * hardware, the Rogers "Big R" in New England White bought after the band's gear was stolen in
+ * Chicago that October (Wikipedia, Tommy Ramone). His legs are behind the kit in these shots: the
+ * band's blue jeans and dark trainers are a guess.
+ */
+const TOMMY_RAMONE: Persona = {
+  id: 'tommyramone',
+  name: 'Tommy Ramone',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e6c3a5',
+  hair: '#2a1d16',
+  // the Ramones' bowl, to the jaw, the fringe over the brows
+  hairStyle: 'mop',
+  beard: 'none',
+  top: 'vest',
+  shirt: '#151517',
+  trousers: '#34405a',
+  shoes: '#1c1c1e',
+  footwear: 'trainers',
+  accent: '#c8c8c8',
+  headphones: false,
+  kit: { shell: '#eceeea', finish: 'gloss', hardware: 'chrome', rug: '#2a2422' },
+};
+
+/**
+ * Earl Hudson behind Bad Brains at CBGB, New York, December 1982, filmed for
+ * the club's hardcore matinées (YouTube XGzA8KXW3WI, "Banned in DC - CBGB
+ * 1982", Hardcore Worldwide's official upload: at the kit in close-up at
+ * 0:04-0:13). Average build, a moustache and a short beard,
+ * his hair up inside a knitted Rasta tam striped red, gold and green (drawn in
+ * its red); a golden-yellow T-shirt with a dark lion print on the chest. A
+ * kit with shells like chrome and chrome hardware, two cymbals over it. No
+ * headphones. The trousers and shoes are not seen: a guess.
+ */
+const EARL_HUDSON: Persona = {
+  id: 'earlhudson',
+  name: 'Earl Hudson',
+  figure: 'male',
+  build: 'average',
+  skin: '#5a3624',
+  hair: '#140e0a',
+  // his hair is up inside the tam
+  hairStyle: 'bald',
+  beard: 'short',
+  hat: 'tam',
+  top: 'tee',
+  shirt: '#e39a1c',
+  trousers: '#2b2a30',
+  shoes: '#1c1c1c',
+  accent: '#b3302a',
+  headphones: false,
+  kit: { shell: '#b8bcc2', finish: 'metal', hardware: 'chrome', rug: '#2a2626' },
+};
+
+/**
+ * Roger Hawkins at twenty-seven behind Traffic on Radio Bremen's Musikladen,
+ * 1973, on the tour he, David Hood and Barry Beckett made with the band
+ * (YouTube Ckzk2ky__g4, "Jammin'", the show's own footage: at the kit in
+ * close-up at 1:17-1:20 and 8:36). Wavy mid-brown hair to the shoulders,
+ * parted in the middle; thin round wire glasses; a light moustache over a
+ * short beard; a long-collared shirt in a big floral print, cream and brown
+ * on brick red, its sleeves to the wrist. A kit in black oyster pearl with
+ * chrome hardware, the Ludwig he named as his own ("most of the time it was
+ * Ludwig", Modern Drummer, 2017). No headphones. Trousers and shoes are
+ * behind the kit: dark, a guess.
+ */
+const ROGER_HAWKINS: Persona = {
+  id: 'rogerhawkins',
+  name: 'Roger Hawkins',
+  figure: 'male',
+  build: 'average',
+  skin: '#e2b392',
+  hair: '#5a3e28',
+  hairStyle: 'long',
+  beard: 'short',
+  beardColour: '#7a5a3e',
+  glasses: { shape: 'round', frame: '#b89a5a' },
+  top: 'button-up',
+  shirt: '#9a3a2c',
+  collar: 'spear',
+  motifs: ['#e6d6b8', '#5a3020'],
+  trousers: '#22202a',
+  shoes: '#1c1612',
+  accent: '#9a3a2c',
+  headphones: false,
+  kit: { shell: '#17171d', finish: 'oyster', hardware: 'chrome', rug: '#2a2220' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -4194,6 +4322,10 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   hayward: RICHIE_HAYWARD,
   crover: DALE_CROVER,
   erskine: PETER_ERSKINE,
+  jerryallison: JERRY_ALLISON,
+  tommyramone: TOMMY_RAMONE,
+  earlhudson: EARL_HUDSON,
+  rogerhawkins: ROGER_HAWKINS,
 };
 
 /**

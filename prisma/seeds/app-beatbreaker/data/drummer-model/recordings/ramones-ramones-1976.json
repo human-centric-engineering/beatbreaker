@@ -28,13 +28,15 @@
           "source_ids": ["src:blitzkrieg-bop-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=268C3N2dDYk",
+      "youtube": "https://www.youtube.com/watch?v=skdE0KAFCEA",
       "transcriptions": [
         {
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=212"
         }
-      ]
+      ],
+      "style_key": "tommyramone",
+      "song_key": "blitzkrieg-bop"
     },
     {
       "title": "Judy Is a Punk",
@@ -70,7 +72,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=18624"
         }
-      ]
+      ],
+      "style_key": "tommyramone",
+      "song_key": "beat-on-the-brat"
     }
   ]
 }

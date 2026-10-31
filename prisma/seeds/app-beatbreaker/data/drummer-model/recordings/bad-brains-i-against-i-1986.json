@@ -28,7 +28,7 @@
           "source_ids": ["src:earl-hudson-wikipedia", "src:i-against-i-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=rrXPkkIgLYM",
+      "youtube": "https://www.youtube.com/watch?v=peGbcaFIDVw",
       "transcriptions": [
         {
           "site": "songsterr",
@@ -46,13 +46,7 @@
           "source_ids": ["src:earl-hudson-wikipedia", "src:i-against-i-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=B3qJMjV-Oog",
-      "transcriptions": [
-        {
-          "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=860809"
-        }
-      ]
+      "youtube": "https://www.youtube.com/watch?v=B3qJMjV-Oog"
     }
   ]
 }

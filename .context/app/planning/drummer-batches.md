@@ -350,6 +350,37 @@ Hawkins.
    from a sleeve or the session logs, and say which songs he shares with
    another drummer.
 
+What came of it (built 2026-10-31):
+
+- **Songs.** Ramone seven (1976–77), Allison four (1957–58), Hudson five
+  (all from the ROIR cassette, 1982), Hawkins six (1966–78). All from human
+  tabs, bar Hudson's Sailin' On and Big Takeover: machine tabs since corrected
+  by hand, which their comments say.
+- **Left out.** Not Fade Away (a cardboard box, a tab that writes a hi-hat),
+  Everyday (knee slaps), I Wanna Be Your Boyfriend (two bars repeated),
+  Hudson's reggae (machine tabs only, and drums that cannot be heard apart
+  from the bass on the record), and five Hawkins songs whose only tabs are
+  machine drafts. Natural Woman is Gene Chrisman's.
+- **Three hand notes at once.** Some Hawkins tabs write the crash with the
+  ride, or a hat under a fill. Each is read as a drummer plays it (the crash
+  takes the note, the hat goes to the foot), and one tom under a crash and
+  snare in I Never Loved a Man is dropped; every bar is listed in his fork's
+  notes.
+- **Peggy Sue holds one bar for 89 bars**, as both human tabs write it, so it
+  has a `HELD` entry in the distinct-breaks test.
+- **Library corrections.** Machine-made tabs listed as transcriptions on four
+  Crickets songs, House of Suffering, I Luv I Jah and Respect Yourself are
+  off; the scored human tabs are on. Two Wikipedia sources pointed at
+  disambiguation pages (Oh, Boy! and Roger Hawkins). Five links were the wrong
+  take: Blitzkrieg Bop's video edit, Not Fade Away's undubbed upload, Banned
+  in D.C.'s and Big Takeover's _Rock for Light_ re-recordings, and I Against
+  I's _Omega Sessions_ take. Peggy Sue had no link.
+- **The link check fails Big Takeover** because the band's ROIR upload spells
+  it "Big Take Over". The link is right and stays.
+- **`merge.py` places research before DW's `## Sources`**, not at the end of
+  the file, and adds a style to a group the parent has already written. Each
+  section was moved to the end, and the doubled group entry taken out.
+
 ## The brief each fork gets
 
 Paste this to each fork, with its row from the batch table and `S`, the

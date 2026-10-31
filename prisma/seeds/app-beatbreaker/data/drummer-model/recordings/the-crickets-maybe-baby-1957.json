@@ -21,13 +21,7 @@
           "source_ids": ["src:maybe-baby-song-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=TLpH4spNo9U",
-      "transcriptions": [
-        {
-          "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=706750"
-        }
-      ]
+      "youtube": "https://www.youtube.com/watch?v=TLpH4spNo9U"
     }
   ]
 }

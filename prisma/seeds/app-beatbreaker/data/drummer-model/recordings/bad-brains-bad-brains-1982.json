@@ -51,7 +51,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=924143"
         }
-      ]
+      ],
+      "style_key": "earlhudson",
+      "song_key": "sailin-on"
     },
     {
       "title": "Banned in D.C.",
@@ -63,13 +65,15 @@
           "source_ids": ["src:earl-hudson-wikipedia", "src:bad-brains-album-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=hAin8VxqN7g",
+      "youtube": "https://www.youtube.com/watch?v=_xz2kr4ovZs",
       "transcriptions": [
         {
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=31699"
         }
-      ]
+      ],
+      "style_key": "earlhudson",
+      "song_key": "banned-in-dc"
     },
     {
       "title": "Big Takeover",
@@ -81,13 +85,15 @@
           "source_ids": ["src:earl-hudson-wikipedia", "src:bad-brains-album-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=KPuJhCbvUsw",
+      "youtube": "https://www.youtube.com/watch?v=np13ijRwBr0",
       "transcriptions": [
         {
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=5471033"
         }
-      ]
+      ],
+      "style_key": "earlhudson",
+      "song_key": "big-takeover"
     },
     {
       "title": "I Luv I Jah",
@@ -99,13 +105,47 @@
           "source_ids": ["src:earl-hudson-wikipedia", "src:bad-brains-album-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=2O9GIFXXGko",
+      "youtube": "https://www.youtube.com/watch?v=2O9GIFXXGko"
+    },
+    {
+      "title": "Attitude",
+      "drummer_ids": ["drummer:earl-hudson"],
+      "drums": {
+        "description": "Hardcore at 165: the kick on every beat and the snare on every \"and\" under the open hat, a chorus on the toms over the kick in eighths, and the kick pushed onto the \"a\" of 3 in the second verse.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bad-brains-album-wikipedia", "src:songsterr-5268405"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=ul4bMqAbLJs",
       "transcriptions": [
         {
           "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=2656007"
+          "url": "https://www.songsterr.com/a/wa/song?id=5268405"
         }
-      ]
+      ],
+      "style_key": "earlhudson",
+      "song_key": "attitude"
+    },
+    {
+      "title": "F.V.K. (Fearless Vampire Killers)",
+      "drummer_ids": ["drummer:earl-hudson"],
+      "drums": {
+        "description": "A tom intro, then hardcore at 167: the snare on every \"and\", the kick doubled on the \"and\" of 1 and 3, a bar of 3/4, and dotted eighths on the crash in the bridge.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bad-brains-album-wikipedia", "src:songsterr-31702"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=W83Xkg40_HY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=31702"
+        }
+      ],
+      "style_key": "earlhudson",
+      "song_key": "fvk"
     }
   ]
 }

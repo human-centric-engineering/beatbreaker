@@ -2,56 +2,728 @@
   "meta": {
     "id": "drummer:jerry-allison",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
+    "record_status": "draft",
+    "completeness": 0.45,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-31",
+    "authors": ["claude"],
+    "open_questions": [
+      "Not Fade Away (1957): the one human tab (Songsterr 5613545) writes the Bo Diddley beat on the snare and kick for 16 bars, then a hi-hat in eighths; the record is his cardboard box. Transcribe it from the record.",
+      "Peggy Sue's subdivision: two human tabs write sixteenths at 151-158, but the record's onsets repeat most strongly at the eighth (0.197 s at 149), perhaps because Petty's echo smears the sixteenths. Listen on headphones.",
+      "Oh, Boy!: the human tab's repeat and the record's form disagree; the song is set in the record's order, with the solo's 24 bars drawn from the tab's 14. A transcription of the whole solo is wanted.",
+      "His kit in 1957: the Ed Sullivan Show film shows a small white pearl kit; the make is not in the sources read. Gary James's interview has Premier drums from England in 1958.",
+      "Everyday and Well... All Right (knee slaps; cymbals only) are not scored: the one is a single bar held, the other has no tab.",
+      "His work after Holly: the Crickets with Sonny Curtis, the Liberty sessions with Bobby Vee and Johnny Burnette, the Everly Brothers' (Till) I Kissed You."
+    ]
   },
   "identity": {
     "name": "Jerry Allison",
     "full_name": "Jerry Ivan Allison",
     "born": {
       "date": "1939-08-31",
+      "place": "Hillsboro, Texas, US",
       "evidence": {
-        "confidence": "likely",
-        "source_ids": ["src:jerry-allison-wikipedia"]
+        "confidence": "verified",
+        "source_ids": ["src:jerry-allison-wikipedia", "src:jerry-allison-ap-obituary-2022"]
       }
     },
     "died": {
-      "date": "2022-08-22"
+      "date": "2022-08-22",
+      "place": "Lyles, Tennessee, US",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jerry-allison-wikipedia", "src:jerry-allison-ap-obituary-2022"],
+        "note": "Of cancer, at his farm, aged 82."
+      }
     },
     "nationality": ["American"],
-    "home_scenes": ["Lubbock, Texas", "Norman Petty Studios, Clovis"],
+    "home_scenes": ["Lubbock, Texas", "Norman Petty Studios, Clovis, New Mexico"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
     "active": {
       "from": 1956,
-      "to": 2022
+      "to": 2016,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jerry-allison-wikipedia", "src:jerry-allison-ap-obituary-2022"],
+        "note": "Practising and playing with Holly from junior high; on record from 1956 (Hal Goodson and the Raiders); the Crickets' farewell concert at the Surf Ballroom, Clear Lake, in 2016."
+      }
     },
-    "summary": "Drummer and only constant member of the Crickets, co-writer of \"That'll Be the Day\" and \"Peggy Sue\"."
+    "roles": ["band_member", "session", "composer"],
+    "summary": "Buddy Holly's schoolfriend and drummer, the Crickets' one constant member, and co-writer of That'll Be the Day and Peggy Sue. From a guitar-and-drums duo in Lubbock to the Clovis records of 1957 and 1958: a light shuffle in the ride rhythm on the hat, the hat and snare rolled together into the chorus, stop-time with the band, and a part found for each song: paradiddles on the toms through Peggy Sue, knee slaps on Everyday, a cardboard box on Not Fade Away, the cymbals alone on Well... All Right. 'We always tried to keep everything relatively simple.' Rock and Roll Hall of Fame with the Crickets, 2012."
   },
+  "formation": {
+    "first_instrument": "drums",
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Early rock and roll and New Orleans",
+        "impact": "'The kind of music I liked was like Little Richard and Fats Domino'; he 'tried to play like Little Richard's drummer, Earl Palmer'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jerry-allison-skf-1982"]
+        }
+      },
+      {
+        "tradition": "Swing drummers",
+        "impact": "Gene Krupa: 'I was flipped out with him'; he took lessons and learned to read music.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jerry-allison-skf-1982"]
+        }
+      },
+      {
+        "tradition": "Bo Diddley",
+        "impact": "'We use to play the shit out of Bo Diddley at dances'; the beat of Not Fade Away.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jerry-allison-skf-1982", "src:not-fade-away-song-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "At the Lubbock Youth Center his drums were the only accompaniment to Holly's voice and guitar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jerry-allison-wikipedia"]
+        }
+      },
+      {
+        "year": 1957,
+        "event": "25 February 1957: That'll Be the Day recorded at Norman Petty's studio in Clovis, live and without overdubs.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:thatll-be-the-day-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:jerry-allison-crickets-holly",
+      "label": "The Crickets with Buddy Holly, 1957-1958",
+      "years": {
+        "from": 1956,
+        "to": 1958
+      },
+      "context": "Lubbock, then Norman Petty's studio in Clovis and Bell Sound in New York: the Crickets' records on Brunswick and Holly's on Coral, the tours of 1957 and 1958, The Ed Sullivan Show.",
+      "defining_traits": [
+        "the ride rhythm on the hat in a shuffle",
+        "the hat and snare rolled together in triplets",
+        "stop-time with the band",
+        "a part found for each song"
+      ],
+      "kit_setup_id": "kit:jerry-allison-1957",
+      "key_recording_ids": [
+        "rec:the-crickets-thatll-be-the-day-1957",
+        "rec:buddy-holly-peggy-sue-1957",
+        "rec:the-crickets-oh-boy-1957",
+        "rec:the-crickets-not-fade-away-1957",
+        "rec:buddy-holly-everyday-1957",
+        "rec:buddy-holly-rave-on-1958"
+      ]
+    },
+    {
+      "id": "era:jerry-allison-after-holly",
+      "label": "The Crickets after Holly, from 1959",
+      "years": {
+        "from": 1959,
+        "to": 2016
+      },
+      "context": "He kept the Crickets' name, with Joe B. Mauldin and Sonny Curtis (I Fought the Law, More Than I Can Say); Liberty's house band in Los Angeles with Curtis and Tommy Allsup, behind Bobby Vee and Johnny Burnette; later tours with Waylon Jennings and records with Nanci Griffith.",
+      "style_shift": "From the band that made the records to session work and the keeper of the Crickets."
+    }
+  ],
   "style_profile": {
     "genres": [
       {
         "style_id": "style:rock-and-roll",
         "weight": 1.0,
-        "authority": 0.6
+        "authority": 0.7
+      }
+    ],
+    "versatility": 0.45,
+    "groove_vs_chops": 0.2,
+    "role_tendency": "accompanist",
+    "descriptors": ["shuffle", "stop-time", "simple", "found sounds", "tom paradiddles"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-8722", "src:songsterr-9295"],
+        "note": "No source read says where he sits on the beat."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.5,
+      "notes": "That'll Be the Day and Oh, Boy! are shuffles (both tabs in triplet feel); Rave On and Peggy Sue are straight."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "mf",
+      "balance": "Light time under Holly's guitar; a firm backbeat on the rockers."
+    },
+    "density": {
+      "groove_notes_per_bar": [4, 18],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.6
+    },
+    "consistency": 0.8,
+    "tempo_comfort_bpm": [120, 205],
+    "timekeeping_context": ["free"],
+    "interaction": "A duo with Holly first: 'He and I used to practice all the time'; on the records he played with the band, the stops and pickups together.",
+    "descriptors": ["light", "steady", "inventive"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Paradiddles on the toms",
+        "description": "Peggy Sue: 'basically, that was just paradiddles. Just a basic old rudiment', in sixteenths on the toms right through the song, accented on each beat in the tabs.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:jerry-allison-skf-1982",
+            "src:peggy-sue-wikipedia",
+            "src:jerry-allison-ap-obituary-2022",
+            "src:songsterr-716922"
+          ]
+        }
+      },
+      {
+        "name": "The hat and snare rolled together",
+        "description": "Eighth-note triplets on the hat and snare at once, two bars at the end of each verse of That'll Be the Day; the snare alone in triplets into Oh, Boy!'s verses.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8722", "src:songsterr-9295"]
+        }
+      },
+      {
+        "name": "Knee slaps and a cardboard box",
+        "description": "No kit at all on Everyday, his hands on his knees; Not Fade Away pounded on a cardboard box.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:everyday-buddy-holly-song-wikipedia",
+            "src:not-fade-away-song-wikipedia",
+            "src:jerry-allison-ap-obituary-2022"
+          ]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick on 1 and 3",
+        "description": "The kick on 1 and 3 under the shuffle, with the shuffled 'and' of 4 (That'll Be the Day's verse) or of 2 (its last chorus).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8722"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Paradiddle",
+        "usage": ["groove"],
+        "weight": 0.8
+      },
+      {
+        "name": "Triplets",
+        "usage": ["fill"],
+        "weight": 0.6
+      }
+    ],
+    "coordination": {
+      "independence": 0.3,
+      "linear_playing": 0.05,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.0,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-31",
+        "searched": [
+          "Songsterr human drum tabs read bar by bar: That'll Be the Day 8722, Peggy Sue 716922 and 290079, Oh, Boy! 9295, Rave On 9350, Not Fade Away 5613545, Everyday 4703832; machine tabs 707751 and 706742 for the records' form",
+          "Scott K Fish's interview (21 March 1982); Gary James's interview (Classic Bands); the AP obituary (2022)",
+          "Wikipedia: Jerry Allison and the songs' articles"
+        ],
+        "note": "None found. His parts are a shuffle, triplet rolls, stop-time with the band and a paradiddle held as an ostinato; the paradiddle is a sticking, not a cross-rhythm."
+      }
+    }
+  },
+  "sound_profile": {
+    "aesthetic": ["a small kit in one room", "the Clovis echo", "found sounds"],
+    "cymbal_character": "The hat carries the ride rhythm; two small cymbals on the Ed Sullivan Show.",
+    "by_era": [
+      {
+        "era_id": "era:jerry-allison-crickets-holly",
+        "description": "Petty's studio in Clovis, the band live in the room; on Peggy Sue the drums 'rhythmically fading in and out as a result of real-time engineering techniques'."
+      }
+    ],
+    "sample_hints": {
+      "50s": "A small 1950s kit in a small room, the toms open, the echo ridden by the engineer."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:peggy-sue-wikipedia",
+        "src:thatll-be-the-day-wikipedia",
+        "src:crickets-ed-sullivan-1957-video"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:jerry-allison-peggy-sue",
+      "label": "Peggy Sue's paradiddles",
+      "category": "groove",
+      "description": "'One of rock's most celebrated drum parts — a rolling pattern called paradiddles' (AP), on the toms from first bar to last; Allison changed the beat from Holly's cha-cha.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:buddy-holly-peggy-sue-1957"
+        }
+      ],
+      "pattern_ids": ["pattern:allison-peggy-sue"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:jerry-allison-ap-obituary-2022",
+          "src:jerry-allison-skf-1982",
+          "src:jerry-allison-classicbands",
+          "src:peggy-sue-wikipedia"
+        ]
+      }
+    },
+    {
+      "id": "trait:jerry-allison-found-sounds",
+      "label": "A part found for each song",
+      "category": "orchestration",
+      "description": "Knee slaps on Everyday, a cardboard box on Not Fade Away, cymbals only on Well... All Right, toms only on Holly's softer songs.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:jerry-allison-wikipedia",
+          "src:jerry-allison-ap-obituary-2022",
+          "src:everyday-buddy-holly-song-wikipedia",
+          "src:not-fade-away-song-wikipedia"
+        ]
+      }
+    },
+    {
+      "id": "trait:jerry-allison-triplet-roll",
+      "label": "The hat and snare in triplets",
+      "category": "fill",
+      "description": "Two bars of eighth-note triplets on the hat and snare together at the end of each verse of That'll Be the Day.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:the-crickets-thatll-be-the-day-1957"
+        }
+      ],
+      "pattern_ids": ["pattern:allison-thatll-be-the-day-roll"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-8722"]
+      }
+    },
+    {
+      "id": "trait:jerry-allison-simple",
+      "label": "Relatively simple",
+      "category": "musical_approach",
+      "description": "'We always tried to keep everything relatively simple. That was part of the plan'; 'I never did like drum solos'.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jerry-allison-skf-1982"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:allison-peggy-sue",
+        "name": "Peggy Sue: paradiddles on the tom",
+        "type": "groove",
+        "function": "The whole song: sixteenths on the tom, accented on each beat, the kick on 1 and 3.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-716922", "src:jerry-allison-skf-1982"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 149,
+          "playable_range_bpm": [147, 152]
+        },
+        "lanes": {
+          "tom_2": "XxxxXxxxXxxxXxxx",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:buddy-holly-peggy-sue-1957",
+          "transcription_source_id": "src:songsterr-716922"
+        },
+        "tags": ["1957", "paradiddle"]
+      },
+      {
+        "id": "pattern:allison-thatll-be-the-day-verse",
+        "name": "That'll Be the Day: the ride rhythm on the hat",
+        "type": "groove",
+        "function": "The verse: the hat on 1, 2, its shuffled 'and', 3, 4 and its 'and', the snare on 2 and 4, the kick on 1, 3 and the 'and' of 4.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8722"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 127,
+          "playable_range_bpm": [124, 130]
+        },
+        "lanes": {
+          "hihat": "x.....x...x.x.....x...x.",
+          "snare": "......x...........x.....",
+          "kick": "x...........x.........x."
+        },
+        "source": {
+          "recording_id": "rec:the-crickets-thatll-be-the-day-1957",
+          "transcription_source_id": "src:songsterr-8722"
+        },
+        "tags": ["1957", "shuffle"]
+      },
+      {
+        "id": "pattern:allison-thatll-be-the-day-roll",
+        "name": "That'll Be the Day: the verse's triplet roll",
+        "type": "fill",
+        "function": "The last two bars of each verse: the hat and snare together in eighth-note triplets, no kick.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8722"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 127,
+          "playable_range_bpm": [124, 130]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.x.x.x.x.",
+          "snare": "x.x.x.x.x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:the-crickets-thatll-be-the-day-1957",
+          "transcription_source_id": "src:songsterr-8722"
+        },
+        "tags": ["1957", "roll"]
+      },
+      {
+        "id": "pattern:allison-oh-boy-stop-time",
+        "name": "Oh, Boy!: stop-time",
+        "type": "groove",
+        "function": "The opening verse: the tom and kick with the band on 1, the snare's pickup in triplets from the last triplet of 3.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-9295"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 200,
+          "playable_range_bpm": [196, 204]
+        },
+        "lanes": {
+          "snare": "................x.x.x.x.",
+          "tom_2": "x.......................",
+          "kick": "x......................."
+        },
+        "source": {
+          "recording_id": "rec:the-crickets-oh-boy-1957",
+          "transcription_source_id": "src:songsterr-9295"
+        },
+        "tags": ["1957", "stop-time"]
+      },
+      {
+        "id": "pattern:allison-rave-on-hits",
+        "name": "Rave On: the hits in the chorus",
+        "type": "groove",
+        "function": "Every other bar of the chorus: the band on 1 and the 'and' of 2 with the hat open, then the snare on the 'and' of 3, its 'a', 4 and its 'and'.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-9350"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 162,
+          "playable_range_bpm": [158, 166]
+        },
+        "lanes": {
+          "hihat": "o.....o.........",
+          "snare": "x.....x...xxx.x.",
+          "kick": "x.....x........."
+        },
+        "source": {
+          "recording_id": "rec:buddy-holly-rave-on-1958",
+          "transcription_source_id": "src:songsterr-9350"
+        },
+        "tags": ["1958", "stop-time"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:jerry-allison-1957",
+      "label": "A small white pearl kit, 1957",
+      "era_ids": ["era:jerry-allison-crickets-holly"],
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1"
+        }
+      ],
+      "layout_notes": "As seen on The Ed Sullivan Show, December 1957: a four-piece in white pearl with chrome hardware, one tom on the bass drum, two cymbals and the hats. The make is not in the sources read; he bought Premier drums in England in 1958, a set made for him (Gary James's interview).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:crickets-ed-sullivan-1957-video", "src:jerry-allison-classicbands"]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "The Crickets",
       "type": "band_member",
       "years": {
         "from": 1957,
-        "to": 2022
+        "to": 2016
+      },
+      "bandmates": [
+        {
+          "name": "Buddy Holly"
+        },
+        {
+          "name": "Joe B. Mauldin"
+        },
+        {
+          "name": "Niki Sullivan"
+        },
+        {
+          "name": "Sonny Curtis"
+        }
+      ],
+      "notes": "The only constant member; with Holly until late 1958, then with Mauldin and Curtis; the farewell concert at the Surf Ballroom in 2016.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jerry-allison-wikipedia", "src:jerry-allison-ap-obituary-2022"]
+      }
+    },
+    {
+      "name": "Liberty Records house band",
+      "type": "session_regular",
+      "years": {
+        "from": 1960,
+        "to": 1962
+      },
+      "notes": "With Sonny Curtis and Tommy Allsup, behind Bobby Vee and Johnny Burnette, in Los Angeles; the years are approximate.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jerry-allison-wikipedia"]
       }
     }
   ],
-  "key_recording_ids": [
-    "rec:the-crickets-thatll-be-the-day-1957",
-    "rec:buddy-holly-peggy-sue-1957"
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Earl Palmer",
+        "kind": "drummer",
+        "id": "drummer:earl-palmer"
+      },
+      "strength": 0.7,
+      "scope": "individual",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jerry-allison-skf-1982"],
+        "note": "He 'tried to play like Little Richard's drummer, Earl Palmer'."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "strength": 0.5,
+      "scope": "individual",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jerry-allison-skf-1982"],
+        "note": "'I was flipped out with him.'"
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Buddy Holly",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jerry-allison-wikipedia", "src:thatll-be-the-day-wikipedia"],
+        "note": "Schoolfriends from junior high and co-writers."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Joe B. Mauldin",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peggy-sue-wikipedia", "src:not-fade-away-song-wikipedia"]
+      }
+    }
   ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Keep everything relatively simple; that was part of the plan.",
+        "paraphrase_of_source_id": "src:jerry-allison-skf-1982"
+      },
+      {
+        "idea": "Nobody asked for a part: the band just went ahead and did it, the paradiddle a basic old rudiment.",
+        "paraphrase_of_source_id": "src:jerry-allison-skf-1982"
+      }
+    ]
+  },
   "legacy": {
+    "influence_score": 0.6,
+    "innovations": [
+      "Peggy Sue's tom paradiddles, a rudiment held as a rock groove",
+      "Found sounds as the song's percussion: knee slaps, a cardboard box"
+    ],
+    "accolades": [
+      {
+        "award": "Rock and Roll Hall of Fame, with the Crickets",
+        "year": 2012,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jerry-allison-wikipedia", "src:jerry-allison-ap-obituary-2022"]
+        }
+      },
+      {
+        "award": "Musicians Hall of Fame and Museum, with the Crickets",
+        "year": 2007,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jerry-allison-wikipedia"]
+        }
+      },
+      {
+        "award": "Rolling Stone, 100 Greatest Drummers of All Time (2016), no. 44",
+        "year": 2016,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:rollingstone-100-drummers-2016"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he sang on the Crickets' records with Holly: despite the label's 'vocal group', he did not."
+    ],
     "contribution": {
       "description": "Buddy Holly's drummer, whose parts on the Crickets' records, from knee-slaps and handclaps to the rolling drums of \"Peggy Sue\", gave them much of their distinctiveness and influenced later generations of rock and roll drummers.",
       "evidence": {
@@ -61,7 +733,39 @@
     }
   },
   "beatbreaker": {
-    "group": "Rock and roll and roots drummers",
-    "build_priority": 1
-  }
+    "style_key": "jerryallison",
+    "headline_pattern_ids": [
+      "pattern:allison-peggy-sue",
+      "pattern:allison-thatll-be-the-day-roll",
+      "pattern:allison-oh-boy-stop-time",
+      "pattern:allison-rave-on-hits"
+    ],
+    "default_kit_sound": "A small 1950s kit in one room, light hands, the toms open",
+    "generation_rules": [
+      "The ride rhythm on the hat, shuffled, the snare on 2 and 4, the kick on 1 and 3.",
+      "Fills are the hat and snare together in triplets or eighths.",
+      "Stop-time with the band: the hits on 1 and a pickup.",
+      "A part written for each song, held through it."
+    ],
+    "avoid": [
+      "Tom fills round the kit",
+      "Crashes on every bar",
+      "Ghosted sixteenths",
+      "Drum solos"
+    ],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:earl-palmer", "drummer:gene-krupa"],
+      "primary_descendants": [],
+      "lineage_blurb": "Little Richard's and Fats Domino's records, Earl Palmer's backbeat and Gene Krupa, and the Bo Diddley beat at Lubbock dances."
+    },
+    "tags": ["rock and roll", "50s", "buddy holly", "crickets", "paradiddle", "shuffle"]
+  },
+  "key_recording_ids": [
+    "rec:the-crickets-thatll-be-the-day-1957",
+    "rec:buddy-holly-peggy-sue-1957",
+    "rec:the-crickets-oh-boy-1957",
+    "rec:buddy-holly-rave-on-1958",
+    "rec:the-crickets-not-fade-away-1957",
+    "rec:buddy-holly-everyday-1957"
+  ]
 }

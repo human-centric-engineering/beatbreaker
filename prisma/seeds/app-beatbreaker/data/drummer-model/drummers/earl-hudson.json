@@ -2,11 +2,19 @@
   "meta": {
     "id": "drummer:earl-hudson",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
-    "completeness": 0.15,
+    "record_status": "draft",
+    "completeness": 0.4,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-31",
+    "authors": ["claude"],
+    "open_questions": [
+      "His reggae is not played: the only tabs of I Luv I Jah (Songsterr 2656007) and Leaving Babylon (2041902) are machine-made and contradict themselves bar to bar (I Luv I Jah's kick on 1 alone, then on 1 and 3; its snare on every beat, then on 2 and 4), and the record's drum bands, folded at 64, do not separate from the bass and the guitar's skank. Transcribe a reggae song from the record.",
+      "I Against I (1986): the human tab (Songsterr 549702) does not fit the record. The record runs about 27 bars at 237, 26 at 146 and then speeds from 211 to about 235 over its last 95 s; the tab has 34 bars at 260 and a slow section of 35 bars with its repeats.",
+      "Pay to Cum: the human tab (31701) writes a cowbell (GM 56) on the beat's first two sixteenths in every other bar, which no source or record heard confirms; read with its repeats as total plays it is 57 bars to the record's 58 or so. The single (June 1980, Dots Studios) and ROIR's take (May 1981, 171-A, live) are different recordings: name which is scored.",
+      "Right Brigade: the human tab (506787) fits the record's length and tempi (141, 215, 140) but not its hat-less passage, which runs about 32 s on the record against 14 s in the tab.",
+      "His kit: the CBGB film of 1982 shows shells like chrome and chrome hardware; the make is not in the sources read. Yamaha lists him as an artist; its page was not readable.",
+      "His years after 1987: Quickness (1989) and God of Love (1995), and H.R.'s reggae bands."
+    ]
   },
   "identity": {
     "name": "Earl Hudson",
@@ -19,13 +27,93 @@
       "place": "Alabama"
     },
     "nationality": ["American"],
-    "home_scenes": ["Washington, D.C. hardcore"],
+    "home_scenes": ["Washington, D.C. hardcore", "New York hardcore", "171-A Studios, New York"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
     "active": {
-      "from": 1977,
-      "ongoing": true
+      "from": 1976,
+      "ongoing": true,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:earl-hudson-wikipedia", "src:bad-brains-wikipedia"],
+        "note": "With the band from its start as the jazz-fusion group Mind Power in 1976 (renamed Bad Brains in 1977); out of the band in 1987 and 1990, back in 1989 and 1994; the band has not played live since 2017 but announced no break-up."
+      }
     },
-    "summary": "Bad Brains' drummer."
+    "roles": ["band_member"],
+    "summary": "Bad Brains' drummer and the younger brother of their singer H.R. The band began in Washington in 1976 as a jazz-fusion group, Mind Power, learning Weather Report and Lonnie Liston Smith, and turned to punk in 1977: on the ROIR cassette (1982) he plays hardcore at 165 and more, the kick on the beat and the snare between under an open hat, with stops and changes of tempo taken with the band, and reggae beside it. Dave Grohl would 'learn all of [his] licks verbatim' (Rolling Stone, 2016) and still uses 'little fills here and there that I took from Earl'. Rolling Stone's 100 Greatest Drummers (2016), no. 75."
   },
+  "formation": {
+    "first_instrument": "drums",
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Jazz fusion",
+        "impact": "Mind Power, 1976: a band 'in the mold of' Return to Forever and the Mahavishnu Orchestra, learning songs by Weather Report and Lonnie Liston Smith.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bad-brains-wikipedia", "src:bad-brains-andscape-2017"]
+        }
+      },
+      {
+        "tradition": "Punk rock",
+        "impact": "In 1977 their singer Sid McCray introduced them to punk; the band took its name from the Ramones' 'Bad Brain'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bad-brains-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Reggae and Rastafari",
+        "impact": "After seeing Bob Marley in concert the band took up reggae and the Rastafari movement; reggae songs sit between the hardcore on every early record.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bad-brains-wikipedia", "src:bad-brains-album-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1981,
+        "event": "May 1981: Jerry Williams recorded a Bad Brains gig at his 171-A Studios in New York; the band came back to record there from August to October, the sessions that became the ROIR cassette.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bad-brains-album-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:earl-hudson-roir",
+      "label": "Hardcore and reggae: the ROIR cassette and Rock for Light, 1979-1983",
+      "years": {
+        "from": 1979,
+        "to": 1983
+      },
+      "context": "Washington, then New York from about 1980: the single Pay to Cum (1980), the ROIR cassette cut at 171-A (1982) and Rock for Light (1983), whose re-recordings of the cassette's songs are faster and shorter.",
+      "defining_traits": [
+        "the snare on every \"and\" under an open hat at 160 and more",
+        "the kick moving under it from song to song",
+        "stops and changes of tempo with the band",
+        "reggae beside the hardcore"
+      ],
+      "kit_setup_id": "kit:earl-hudson-1982",
+      "key_recording_ids": ["rec:bad-brains-bad-brains-1982", "rec:bad-brains-rock-for-light-1983"]
+    },
+    {
+      "id": "era:earl-hudson-i-against-i",
+      "label": "I Against I, 1986",
+      "years": {
+        "from": 1986,
+        "to": 1987
+      },
+      "context": "SST: hardcore with heavy metal and funk in it; he and H.R. left in 1987 to play reggae.",
+      "style_shift": "From the cassette's blur to a heavier, funkier rock beat.",
+      "key_recording_ids": ["rec:bad-brains-i-against-i-1986"]
+    }
+  ],
   "style_profile": {
     "genres": [
       {
@@ -41,22 +129,457 @@
         "style_id": "style:punk",
         "weight": 0.6
       }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.4,
+    "role_tendency": "driver",
+    "descriptors": ["hardcore", "fast", "open hat", "tempo changes", "reggae"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-924143"],
+        "note": "No source read says where he sits on the beat; Sailin' On's record pushes from 161.5 to 165.8 over its course."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "The hardcore is straight."
+    },
+    "dynamics": {
+      "range": 0.3,
+      "default_level": "ff",
+      "balance": "Loud and flat out: 'a quick-fire half hour of chaotic drums' (the ROIR album's article)."
+    },
+    "density": {
+      "groove_notes_per_bar": [12, 20],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.15
+    },
+    "consistency": 0.75,
+    "tempo_comfort_bpm": [130, 215],
+    "timekeeping_context": ["free"],
+    "interaction": "Stops, hits and changes of tempo with the band: Banned in D.C. drops from 167 to 153 for its second half, Big Takeover's intro runs at 135 before the song at 210.",
+    "descriptors": ["fast", "driving", "loose"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "The snare on every \"and\"",
+        "description": "The hardcore beat of the ROIR songs: the snare on the \"and\" of each beat (in sixteenths at 160 to 170, as the tabs write it), the open hat in eighths over it.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-5268405",
+            "src:songsterr-924143",
+            "src:songsterr-31699",
+            "src:songsterr-31702"
+          ]
+        }
+      },
+      {
+        "name": "Single-stroke snare rolls",
+        "description": "Sixteenths on the snare into the next phrase (Sailin' On's verse ends), and Banned in D.C.'s intro roll at 191.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-924143", "src:songsterr-31699"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick moving under the snare",
+        "description": "On the beat (Attitude), on 1, the \"e\" of 2, 3 and the \"e\" of 4 (Sailin' On), doubled on the \"and\" of 1 and 3 (F.V.K.), round a doubled snare (Banned in D.C.); in eighths under Big Takeover's intro.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-5268405",
+            "src:songsterr-924143",
+            "src:songsterr-31702",
+            "src:songsterr-31699",
+            "src:songsterr-681467"
+          ]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "weight": 0.6
+      }
+    ],
+    "coordination": {
+      "independence": 0.3,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.2,
+      "double_bass": 0.0,
+      "devices": [
+        {
+          "kind": "grouping",
+          "where": ["fills"],
+          "description": "Dotted eighths on the crash, kick and snare against the 4/4, grouped 3+3+3+3+4 sixteenths: the end of Attitude and the hits of F.V.K.'s bridge.",
+          "examples": ["Attitude", "F.V.K. (Fearless Vampire Killers)"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-5268405", "src:songsterr-31702"]
+          }
+        }
+      ]
+    }
+  },
+  "sound_profile": {
+    "aesthetic": ["lo-fi", "a live room", "the open hat washing over the beat"],
+    "cymbal_character": "The hat open in eighths through most bars; the crash on the phrase.",
+    "by_era": [
+      {
+        "era_id": "era:earl-hudson-roir",
+        "description": "171-A, a sixty-foot room with a stage at one end, recorded to tape by Jerry Williams; 'a quick-fire half hour of chaotic drums and scratchy, blown-out guitars'."
+      }
+    ],
+    "sample_hints": {
+      "80s": "A damped kit in a live room on a cassette: tight high snare, trashy crashes, a little distortion."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:bad-brains-album-wikipedia", "src:bad-brains-cbgb-1982-video"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:earl-hudson-hardcore-beat",
+      "label": "Hardcore with the snare between the beats",
+      "category": "groove",
+      "description": "The kick on the beat and the snare on its \"and\" under an open hat, at 160 to 170, the kick moving song by song.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:bad-brains-bad-brains-1982"
+        }
+      ],
+      "pattern_ids": ["pattern:hudson-attitude-verse", "pattern:hudson-sailin-on-verse"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:songsterr-5268405",
+          "src:songsterr-924143",
+          "src:bad-brains-album-wikipedia"
+        ]
+      }
+    },
+    {
+      "id": "trait:earl-hudson-tempo-changes",
+      "label": "Changes of tempo with the band",
+      "category": "musical_approach",
+      "description": "Banned in D.C. drops from 167 to 153 into a backbeat; Big Takeover's intro is 135, the song 210; Sailin' On slows from 164 to 100 into its last hit.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:bad-brains-bad-brains-1982"
+        }
+      ],
+      "pattern_ids": ["pattern:hudson-big-takeover-chorus"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-31699", "src:songsterr-681467", "src:songsterr-924143"]
+      }
+    },
+    {
+      "id": "trait:earl-hudson-two-feels",
+      "label": "Hardcore and reggae",
+      "category": "musical_approach",
+      "description": "Reggae songs between the hardcore on the cassette and on Rock for Light; he and H.R. left the band in 1987 to play reggae.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bad-brains-wikipedia", "src:bad-brains-album-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:hudson-attitude-verse",
+        "name": "Attitude: the snare between the beats",
+        "type": "groove",
+        "function": "The verse: the hat open in eighths, the kick on every beat, the snare on every \"and\".",
+        "style_ids": ["style:hardcore-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5268405"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 165,
+          "playable_range_bpm": [161, 169]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.",
+          "snare": "..x...x...x...x.",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:bad-brains-bad-brains-1982",
+          "transcription_source_id": "src:songsterr-5268405"
+        },
+        "tags": ["1982", "hardcore"]
+      },
+      {
+        "id": "pattern:hudson-sailin-on-verse",
+        "name": "Sailin' On: the kick on 1, the \"e\" of 2, 3 and the \"e\" of 4",
+        "type": "groove",
+        "function": "The verse: the hat open in eighths, the snare on every \"and\", the kick on 1, the \"e\" of 2, 3 and the \"e\" of 4.",
+        "style_ids": ["style:hardcore-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-924143"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 164,
+          "playable_range_bpm": [160, 168]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.",
+          "snare": "..x...x...x...x.",
+          "kick": "x....x..x....x.."
+        },
+        "source": {
+          "recording_id": "rec:bad-brains-bad-brains-1982",
+          "transcription_source_id": "src:songsterr-924143"
+        },
+        "tags": ["1982", "hardcore"]
+      },
+      {
+        "id": "pattern:hudson-big-takeover-chorus",
+        "name": "Big Takeover: the backbeat at 210",
+        "type": "groove",
+        "function": "The chorus: the hat open in eighths, the snare on 2 and 4, the kick on 1, its \"and\", 3 and its \"and\".",
+        "style_ids": ["style:hardcore-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-681467"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 210,
+          "playable_range_bpm": [206, 214]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.",
+          "snare": "....x.......x...",
+          "kick": "x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:bad-brains-bad-brains-1982",
+          "transcription_source_id": "src:songsterr-681467"
+        },
+        "tags": ["1982", "backbeat"]
+      },
+      {
+        "id": "pattern:hudson-attitude-toms",
+        "name": "Attitude: the chorus on the toms",
+        "type": "groove",
+        "function": "The chorus: the high and mid toms over the kick in eighths, no hat.",
+        "style_ids": ["style:hardcore-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5268405"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 165,
+          "playable_range_bpm": [161, 169]
+        },
+        "lanes": {
+          "tom_1": "..x...x...xx....",
+          "tom_2": "xx..xx..xx..xxxx",
+          "kick": "x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:bad-brains-bad-brains-1982",
+          "transcription_source_id": "src:songsterr-5268405"
+        },
+        "tags": ["1982", "toms"]
+      }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:earl-hudson-1982",
+      "label": "A chrome kit, 1982",
+      "era_ids": ["era:earl-hudson-roir"],
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "tom_2"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "crash_1"
+        },
+        {
+          "instrument": "crash_2"
+        }
+      ],
+      "layout_notes": "As seen at CBGB in 1982: shells like chrome, chrome hardware, two toms on the bass drum, a floor tom, the hats and two cymbals over the kit. The make is not in the sources read.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bad-brains-cbgb-1982-video"]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "Bad Brains",
       "type": "band_member",
       "years": {
-        "from": 1977
+        "from": 1976
       },
+      "bandmates": [
+        {
+          "name": "H.R. (Paul Hudson)"
+        },
+        {
+          "name": "Dr. Know (Gary Miller)"
+        },
+        {
+          "name": "Darryl Jenifer"
+        }
+      ],
+      "notes": "From Mind Power (1976); out in 1987 and 1990, back in 1989 and 1994; the classic line-up reunited periodically, as Soul Brains from 1998 to 2001.",
       "evidence": {
         "confidence": "verified",
         "source_ids": ["src:earl-hudson-wikipedia", "src:bad-brains-wikipedia"]
       }
     }
   ],
+  "relationships": [
+    {
+      "type": "family",
+      "target": {
+        "name": "H.R.",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:earl-hudson-wikipedia", "src:bad-brains-wikipedia"],
+        "note": "His elder brother, Bad Brains' singer."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Darryl Jenifer",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bad-brains-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Mackie Jayson",
+        "kind": "drummer"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bad-brains-wikipedia"],
+        "note": "Touring for I Against I was completed with Jayson after the Hudson brothers left in 1987; Jayson again from 1990."
+      }
+    }
+  ],
   "legacy": {
+    "influence_score": 0.7,
+    "innovations": [
+      "Hardcore at speed beside reggae in one band and one drummer",
+      "The snare between the beats under an open hat, the early hardcore beat as Washington and New York heard it"
+    ],
+    "accolades": [
+      {
+        "award": "Rolling Stone, 100 Greatest Drummers of All Time (2016), no. 75",
+        "year": 2016,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:rollingstone-100-drummers-2016"]
+        }
+      }
+    ],
     "contribution": {
       "description": "Drove Bad Brains between breakneck hardcore and reggae: a band Rolling Stone called 'the mother of all black hard-rock bands', cited as seminal to hardcore and to thrash, alternative and funk metal.",
       "evidence": {
@@ -66,8 +589,19 @@
     }
   },
   "beatbreaker": {
-    "group": "Hardcore punk drummers",
-    "build_priority": 1
+    "style_key": "earlhudson",
+    "headline_pattern_ids": [
+      "pattern:hudson-attitude-verse",
+      "pattern:hudson-sailin-on-verse",
+      "pattern:hudson-big-takeover-chorus",
+      "pattern:hudson-attitude-toms"
+    ],
+    "default_kit_sound": "A damped kit in a live room on cassette: a tight, high snare and trashy crashes",
+    "generation_rules": [
+      "The snare on every \"and\" under an open hat in eighths, the kick on the beat or moving round it.",
+      "Crash on the phrase's 1; sixteenths on the snare into the next phrase.",
+      "Stops and changes of tempo with the band."
+    ]
   },
   "key_recording_ids": [
     "rec:bad-brains-bad-brains-1982",
