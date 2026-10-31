@@ -381,6 +381,36 @@ What came of it (built 2026-10-31):
   the file, and adds a style to a group the parent has already written. Each
   section was moved to the end, and the doubled group entry taken out.
 
+## Batch 2, next two (claimed 2026-10-31)
+
+The top two of the re-ranked long list (`rank.py`, 2026-10-31), both 15-a
+candidates: keep the record ids. One is rock and one jazz, inside the family
+rule, and each files into a group that exists. The owner asked for one fork at
+a time, so Cozy Powell runs first, then Steve Smith.
+
+| Fork | Drummer     | Record                | Style key    | Likeness      | Research | Drummers-tab group | Copy from                         |
+| ---- | ----------- | --------------------- | ------------ | ------------- | -------- | ------------------ | --------------------------------- |
+| 1    | Cozy Powell | `drummer:cozy-powell` | `cozypowell` | `COZY_POWELL` | EH       | Hard rock drummers | `bonham`, `paice`, `alexvanhalen` |
+| 2    | Steve Smith | `drummer:steve-smith` | `stevesmith` | `STEVE_SMITH` | EI       | Fusion drummers    | `gadd`, `colaiuta`, `erskine`     |
+
+**What each fork should watch for:**
+
+1. **Cozy Powell.** Rainbow, 1975–80 (_Rising_, _Long Live Rock 'n' Roll_,
+   _Down to Earth_): "Stargazer", "Tarot Woman", "A Light in the Black",
+   "Since You Been Gone", "All Night Long". Before that the Jeff Beck Group
+   (1971–72) and his own hit "Dance with the Devil" (1973); after it MSG,
+   Whitesnake's _Slide It In_ (1984), Emerson, Lake & Powell and Black
+   Sabbath's _Headless Cross_ (1989). Whitesnake's 1987 album is Aynsley
+   Dunbar's, not his: check each credit. Check meter and feel on "Stargazer"
+   and the long Rainbow songs from the record; the double bass is his, but
+   the 3D kit draws one bass drum.
+2. **Steve Smith.** Journey, 1978–85 (_Evolution_ to _Frontiers_): "Any Way
+   You Want It", "Don't Stop Believin'", "Who's Crying Now", "Separate Ways",
+   "Faithfully". He files as fusion, so look for Vital Information and Steps
+   Ahead tunes with human tabs and a link to add to the Journey songs. Larrie
+   Londin plays most of _Raised on Radio_ (1986): check every credit. Score
+   any swing or shuffle as such, not straightened.
+
 ## The brief each fork gets
 
 Paste this to each fork, with its row from the batch table and `S`, the
