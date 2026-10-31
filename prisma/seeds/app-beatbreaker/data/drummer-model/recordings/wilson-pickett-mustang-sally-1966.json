@@ -1,0 +1,36 @@
+{
+  "id": "rec:wilson-pickett-mustang-sally-1966",
+  "title": "Mustang Sally",
+  "artist": "Wilson Pickett",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-hawkins",
+      "name": "Roger Hawkins"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Mustang Sally",
+      "drummer_ids": ["drummer:roger-hawkins"],
+      "drums": {
+        "description": "Eighths on the hat with the \"and\" of 3 open, the kick on 1 and the \"and\"s of 3 and 4; the band stops on the 1 before each chorus and a snare and tom figure brings it back.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mustang-sally-song-wikipedia", "src:songsterr-42555"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7WaS7wPe6zs",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=42555"
+        }
+      ],
+      "style_key": "rogerhawkins",
+      "song_key": "mustang-sally"
+    }
+  ]
+}

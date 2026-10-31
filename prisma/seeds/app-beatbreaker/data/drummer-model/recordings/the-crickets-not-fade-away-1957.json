@@ -5,6 +5,10 @@
   "year": 1957,
   "type": "studio_track",
   "style_ids": ["style:rock-and-roll"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:chirping-crickets-discogs-1957"]
+  },
   "drum_performances": [
     {
       "drummer_id": "drummer:jerry-allison"
@@ -21,11 +25,11 @@
           "source_ids": ["src:not-fade-away-song-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=NChUN0Thf24",
+      "youtube": "https://www.youtube.com/watch?v=8GFcEvNs44U",
       "transcriptions": [
         {
           "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=706746"
+          "url": "https://www.songsterr.com/a/wa/song?id=5613545"
         }
       ]
     }

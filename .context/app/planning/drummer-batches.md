@@ -307,6 +307,80 @@ What came of it (built 2026-10-29):
   machine tab a song is built from is cited in its track's evidence, not
   listed as a transcription, as for Hayward.
 
+## Batch 2, next four (claimed 2026-10-31)
+
+The top four of the re-ranked long list (`rank.py`, 2026-10-31), all 15-a
+candidates: keep the record ids. Three are rock and one funk and soul, inside
+the family rule. Earl Hudson starts a new group, Hardcore punk drummers, filed
+after Punk drummers. The owner asked for two forks at a time, so they run in
+two rounds: Tommy Ramone and Jerry Allison, then Earl Hudson and Roger
+Hawkins.
+
+| Fork | Drummer       | Record                  | Style key      | Likeness        | Research | Drummers-tab group               | Copy from                                   |
+| ---- | ------------- | ----------------------- | -------------- | --------------- | -------- | -------------------------------- | ------------------------------------------- |
+| 1    | Tommy Ramone  | `drummer:tommy-ramone`  | `tommyramone`  | `TOMMY_RAMONE`  | ED       | Punk drummers                    | `paulcook`, `headon`, `ringo`               |
+| 2    | Jerry Allison | `drummer:jerry-allison` | `jerryallison` | `JERRY_ALLISON` | EE       | Rock and roll and roots drummers | `djfontana`, `earlpalmer`, `fredbelow`      |
+| 3    | Earl Hudson   | `drummer:earl-hudson`   | `earlhudson`   | `EARL_HUDSON`   | EF       | Hardcore punk drummers (new)     | `barker`, `headon`, `carltonbarrett`        |
+| 4    | Roger Hawkins | `drummer:roger-hawkins` | `rogerhawkins` | `ROGER_HAWKINS` | EG       | Soul and Motown drummers         | `aljackson`, `bennybenjamin`, `stevejordan` |
+
+**What each fork should watch for:**
+
+1. **Tommy Ramone.** The Ramones' first three albums, 1976–77 (_Ramones_,
+   _Leave Home_, _Rocket to Russia_): straight eighths at speed, no fills to
+   speak of, the hi-hat or ride driving every bar. Marky Ramone drums from
+   _Road to Ruin_ (1978) on, so "I Wanna Be Sedated" is his, not Tommy's:
+   check every credit. Score the evenness, not added variation the record
+   does not have; if a song truly holds one groove, say so.
+2. **Jerry Allison.** Buddy Holly and the Crickets, 1957–59: the tom-tom
+   paradiddles of "Peggy Sue", "That'll Be the Day", "Not Fade Away" (played
+   on a cardboard box: a sampled kit that comes close, said so) and
+   "Everyday" (knee slaps). Check each Holly credit: some sides were cut in
+   New York or Clovis with other drummers or none. Swing or shuffle feel per
+   song from the record.
+3. **Earl Hudson.** Bad Brains, from 1979: hardcore at extreme tempos ("Pay
+   to Cum", "Banned in D.C.", "Sailin' On", "Big Takeover") and the reggae
+   songs ("I Luv I Jah", "Leaving Babylon"), two feels one drummer. Tempos
+   from the record, not the tab, and checked against two hands and two feet;
+   the ROIR cassette (1982) and _Rock for Light_ (1983) have different takes
+   of some songs: name which one is scored.
+4. **Roger Hawkins.** FAME and the Muscle Shoals Rhythm Section: Percy
+   Sledge's "When a Man Loves a Woman", Wilson Pickett, Aretha Franklin's
+   1967 Atlantic sessions, the Staple Singers' "I'll Take You There", Paul
+   Simon, Bob Seger. Session credits are thin and often wrong: confirm each
+   from a sleeve or the session logs, and say which songs he shares with
+   another drummer.
+
+What came of it (built 2026-10-31):
+
+- **Songs.** Ramone seven (1976–77), Allison four (1957–58), Hudson five
+  (all from the ROIR cassette, 1982), Hawkins six (1966–78). All from human
+  tabs, bar Hudson's Sailin' On and Big Takeover: machine tabs since corrected
+  by hand, which their comments say.
+- **Left out.** Not Fade Away (a cardboard box, a tab that writes a hi-hat),
+  Everyday (knee slaps), I Wanna Be Your Boyfriend (two bars repeated),
+  Hudson's reggae (machine tabs only, and drums that cannot be heard apart
+  from the bass on the record), and five Hawkins songs whose only tabs are
+  machine drafts. Natural Woman is Gene Chrisman's.
+- **Three hand notes at once.** Some Hawkins tabs write the crash with the
+  ride, or a hat under a fill. Each is read as a drummer plays it (the crash
+  takes the note, the hat goes to the foot), and one tom under a crash and
+  snare in I Never Loved a Man is dropped; every bar is listed in his fork's
+  notes.
+- **Peggy Sue holds one bar for 89 bars**, as both human tabs write it, so it
+  has a `HELD` entry in the distinct-breaks test.
+- **Library corrections.** Machine-made tabs listed as transcriptions on four
+  Crickets songs, House of Suffering, I Luv I Jah and Respect Yourself are
+  off; the scored human tabs are on. Two Wikipedia sources pointed at
+  disambiguation pages (Oh, Boy! and Roger Hawkins). Five links were the wrong
+  take: Blitzkrieg Bop's video edit, Not Fade Away's undubbed upload, Banned
+  in D.C.'s and Big Takeover's _Rock for Light_ re-recordings, and I Against
+  I's _Omega Sessions_ take. Peggy Sue had no link.
+- **The link check fails Big Takeover** because the band's ROIR upload spells
+  it "Big Take Over". The link is right and stays.
+- **`merge.py` places research before DW's `## Sources`**, not at the end of
+  the file, and adds a style to a group the parent has already written. Each
+  section was moved to the end, and the doubled group entry taken out.
+
 ## The brief each fork gets
 
 Paste this to each fork, with its row from the batch table and `S`, the

@@ -2,32 +2,149 @@
   "meta": {
     "id": "drummer:roger-hawkins",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
+    "record_status": "draft",
+    "completeness": 0.45,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-31",
+    "authors": ["claude"],
+    "open_questions": [
+      "Respect's \"sock it to me\" (record bars 57-58): the one human tab leaves both bars empty; the record's drums play through them, and they are written as the vamp's groove. Transcribe them from the record.",
+      "When a Man Loves a Woman's bridge: the tab writes the ride in dotted eighths, but the record's cymbals repeat on the triplet; checked by autocorrelation only. Listen on headphones.",
+      "I Never Loved a Man: the tab writes a 3/4 shuffle and its rolls as ten notes to a bar; set here as 9/8 with nine triplets to the roll. Is the record in three, or a 12/8 the tab misbarred?",
+      "Land of 1000 Dances, Think, Tell Mama, Respect Yourself and I'll Take You There have only machine-made or machine-drafted drum tabs; Kodachrome's human tab changes meter and runs short of the record. Each wants a human transcription.",
+      "His kit at FAME beyond \"most of the time it was Ludwig\": sizes, cymbals and the snare are not in the sources read."
+    ]
   },
   "identity": {
     "name": "Roger Hawkins",
     "full_name": "Roger G. Hawkins",
     "born": {
       "date": "1945-10-16",
+      "place": "Mishawaka, Indiana, US",
       "evidence": {
-        "confidence": "likely",
-        "source_ids": ["src:roger-hawkins-wikipedia"]
+        "confidence": "verified",
+        "source_ids": [
+          "src:roger-hawkins-encyclopedia-of-alabama",
+          "src:roger-hawkins-drummer-wikipedia"
+        ]
       }
     },
     "died": {
-      "date": "2021-05-20"
+      "date": "2021-05-20",
+      "place": "Sheffield, Alabama, US",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:roger-hawkins-encyclopedia-of-alabama",
+          "src:roger-hawkins-drummer-wikipedia"
+        ],
+        "note": "After a long illness, at home, aged 75."
+      }
     },
     "nationality": ["American"],
     "home_scenes": ["Muscle Shoals, Alabama", "FAME Studios", "Muscle Shoals Sound Studio"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
     "active": {
-      "from": 1966,
-      "to": 2021
+      "from": 1964,
+      "to": 1985,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:muscle-shoals-rhythm-section-wikipedia",
+          "src:roger-hawkins-encyclopedia-of-alabama"
+        ],
+        "note": "Hired at FAME in 1964 (Muscle Shoals Rhythm Section article); the first well-documented session, Land of a Thousand Dances, May 1966; Muscle Shoals Sound from April 1969, sold in 1985, after which he worked on as a session player, the end year approximate."
+      }
     },
-    "summary": "Drummer of the Muscle Shoals Rhythm Section (the Swampers), on hits for Percy Sledge, Aretha Franklin and Wilson Pickett."
+    "roles": ["session", "producer"],
+    "summary": "The drummer of FAME Studios from the mid-1960s and of the Muscle Shoals Rhythm Section, the Swampers, who founded Muscle Shoals Sound in 1969: Percy Sledge's When a Man Loves a Woman, Wilson Pickett's Mustang Sally and Land of 1000 Dances, Aretha Franklin's first Atlantic records, the Staple Singers, Paul Simon, Bob Seger. A deep, unhurried pocket: the hat with one note opened, a dynamic snare, the kick moving with the bass, the drums tuned and taped to the song, and no tom fills under the singer. \"I was always a better listener than I was a drummer.\""
   },
+  "formation": {
+    "first_instrument": "drums",
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Memphis soul",
+        "impact": "\"Al Jackson was a big influence. I listened to him a lot.\"",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roger-hawkins-md-2017"]
+        }
+      },
+      {
+        "tradition": "Jazz and New Orleans R&B",
+        "impact": "Studied Dave Brubeck's Take Five and Ernie K-Doe's Mother-in-Law; jazz technique from Mike Shepherd.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:roger-hawkins-encyclopedia-of-alabama"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1964,
+        "event": "Hired by Rick Hall at FAME Studios, Muscle Shoals.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:muscle-shoals-rhythm-section-wikipedia"]
+        }
+      },
+      {
+        "year": 1969,
+        "event": "April 1969: founded Muscle Shoals Sound at 3614 Jackson Highway, Sheffield, with Jimmy Johnson, Barry Beckett and David Hood.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:roger-hawkins-encyclopedia-of-alabama",
+            "src:muscle-shoals-rhythm-section-wikipedia"
+          ]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:roger-hawkins-fame",
+      "label": "FAME and Quinvy, 1966-1969",
+      "years": {
+        "from": 1966,
+        "to": 1969
+      },
+      "context": "Rick Hall's FAME Studios and Quin Ivy's Norala studio: Percy Sledge, Wilson Pickett, Etta James, Clarence Carter, and Aretha Franklin's first Atlantic session in January 1967, followed to New York.",
+      "defining_traits": [
+        "the hat with one note opened",
+        "the kick under the bass",
+        "the band's stops and hits",
+        "no tom fills under the singer"
+      ],
+      "kit_setup_id": "kit:roger-hawkins-fame",
+      "key_recording_ids": [
+        "rec:percy-sledge-when-a-man-loves-a-woman-1966",
+        "rec:wilson-pickett-mustang-sally-1966",
+        "rec:aretha-franklin-i-never-loved-a-man-the-way-i-love-you-1967",
+        "rec:aretha-franklin-respect-1967",
+        "rec:aretha-franklin-chain-of-fools-1967"
+      ]
+    },
+    {
+      "id": "era:roger-hawkins-msss",
+      "label": "Muscle Shoals Sound, 1969-1985",
+      "years": {
+        "from": 1969,
+        "to": 1985
+      },
+      "context": "The Swampers' own studio at 3614 Jackson Highway, then 1000 Alabama Avenue from 1979: the Staple Singers, Paul Simon, Bob Seger, Rod Stewart, Bob Dylan; Traffic on the road in 1973.",
+      "style_shift": "From the house band to owners and producers; drums tuned to each song and taped down, a dry 1970s sound.",
+      "key_recording_ids": [
+        "rec:the-staple-singers-be-altitude-respect-yourself-1972",
+        "rec:paul-simon-there-goes-rhymin-simon-1973",
+        "rec:bob-seger-stranger-in-town-1978"
+      ]
+    }
+  ],
   "style_profile": {
     "genres": [
       {
@@ -43,33 +160,611 @@
         "style_id": "style:rock",
         "weight": 0.4
       }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.15,
+    "role_tendency": "accompanist",
+    "descriptors": ["pocket", "southern soul", "session", "backbeat", "arrangement first"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:roger-hawkins-md-2017"],
+        "note": "Modern Drummer's \"unshakable time, southern-infused deep pocket\"; no source measures it."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "notes": "Straight on the uptempo records; the ballad in 12/8 and I Never Loved a Man a shuffle in three."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "mf",
+      "balance": "A cracking snare over a quiet hat; the kick with the bass."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 18],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [60, 130],
+    "timekeeping_context": ["free"],
+    "interaction": "Four players who knew each other's moves: \"when the four of us sit down to play, it's almost like a burden has been lifted\"; the arrangement built in the room.",
+    "descriptors": ["deep", "steady", "tasteful"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "The hat with one note opened",
+        "description": "Eighths on the hat with the \"and\" of 3 (Mustang Sally, Old Time Rock and Roll) or of 4 (Respect) opened in every bar; the Encyclopedia of Alabama's \"high-hat inflections\".",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:roger-hawkins-encyclopedia-of-alabama",
+            "src:songsterr-42555",
+            "src:songsterr-25745",
+            "src:songsterr-553002"
+          ]
+        }
+      },
+      {
+        "name": "Snare rolls into the section",
+        "description": "A roll in sixteenth triplets on the last pulse into each verse of When a Man Loves a Woman; sixteenths on the snare over the kick into Old Time Rock and Roll's choruses.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-78190", "src:songsterr-553002"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick with the bass",
+        "description": "The kick on 1, the \"and\" of 3 and the \"and\" of 4 (Mustang Sally), on 1, 3 and its \"and\" (Respect, Chain of Fools), on every beat (Old Time Rock and Roll): \"syncopated bass drum work\".",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:roger-hawkins-encyclopedia-of-alabama",
+            "src:songsterr-42555",
+            "src:songsterr-25744"
+          ]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single-stroke roll",
+        "usage": ["fill"],
+        "weight": 0.5
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.05,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.1,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-31",
+        "searched": [
+          "Songsterr human drum tabs read bar by bar: When a Man Loves a Woman 78190, Mustang Sally 42555, I Never Loved a Man 503143, Respect 25745 (rev 2912408), Chain of Fools 25744, Old Time Rock and Roll 553002, Kodachrome 50190",
+          "Jeff Potter, Modern Drummer (2017); the Encyclopedia of Alabama (2020)",
+          "Wikipedia: Roger Hawkins (drummer), Muscle Shoals Rhythm Section and the songs' articles"
+        ],
+        "note": "None found. His parts are grooves held with the band, the ballad in 12/8 and a shuffle in three; no cross-rhythm, metric modulation or displacement in the tabs or sources read."
+      }
+    }
+  },
+  "sound_profile": {
+    "aesthetic": ["a dry studio kit", "tuned to the song", "taped down"],
+    "cymbal_character": "The hat carries the songs; a crash on a section's 1; the ride for solos and vamps.",
+    "by_era": [
+      {
+        "era_id": "era:roger-hawkins-fame",
+        "description": "A Ludwig at FAME, tuned to the singer and taped where his finger found the ring."
+      },
+      {
+        "era_id": "era:roger-hawkins-msss",
+        "description": "The dry, damped 1970s sound of Muscle Shoals Sound; Kodachrome's \"loping\" part on a box stuffed with newspaper, played with vibes mallets."
+      }
+    ],
+    "sample_hints": {
+      "60s": "A 1960s Ludwig, the snare cracking, taped down, the room small.",
+      "70s": "Dry and close, the toms damped."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:roger-hawkins-md-2017"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:roger-hawkins-no-fills-under-singer",
+      "label": "No tom fills under the singer",
+      "category": "musical_approach",
+      "description": "\"Don't be doing tom-tom fills when the singer's singing\": the fills fall in the gaps, a snare roll or a bar of tom into the chorus, and the groove holds through the verse.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-hawkins-md-2017", "src:songsterr-25744"]
+      }
+    },
+    {
+      "id": "trait:roger-hawkins-arrangement",
+      "label": "The arrangement first",
+      "category": "musical_approach",
+      "description": "\"His adherence to the arrangement of the song\": the band's stops and hits played with them, as in Mustang Sally's stop before each chorus and Respect's refrain hits.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:wilson-pickett-mustang-sally-1966"
+        },
+        {
+          "recording_id": "rec:aretha-franklin-respect-1967"
+        }
+      ],
+      "pattern_ids": ["pattern:hawkins-mustang-sally", "pattern:hawkins-respect-verse"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:roger-hawkins-encyclopedia-of-alabama",
+          "src:songsterr-42555",
+          "src:songsterr-25745"
+        ]
+      }
+    },
+    {
+      "id": "trait:roger-hawkins-tuned-to-song",
+      "label": "Drums tuned to the song",
+      "category": "sound",
+      "description": "\"I tried to tune them to the song—whatever would fit in with the song and the way the singer was singing\"; tape where the ring was.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-hawkins-md-2017"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:hawkins-mustang-sally",
+        "name": "Mustang Sally: the groove",
+        "type": "groove",
+        "function": "The verse and chorus: eighths on the hat with the \"and\" of 3 open, the snare on 2 and 4, the kick on 1, the \"and\" of 3 and the \"and\" of 4.",
+        "style_ids": ["style:southern-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-42555"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 110,
+          "playable_range_bpm": [108, 112]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.o.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.........x...x."
+        },
+        "source": {
+          "recording_id": "rec:wilson-pickett-mustang-sally-1966",
+          "transcription_source_id": "src:songsterr-42555"
+        },
+        "tags": ["1966", "fame"]
+      },
+      {
+        "id": "pattern:hawkins-respect-verse",
+        "name": "Respect: the verse",
+        "type": "groove",
+        "function": "Eighths on the hat with the \"and\" of 4 open, the snare on 2 and 4, the kick on 1, 3 and its \"and\".",
+        "style_ids": ["style:southern-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-25745"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [113, 117]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.o.",
+          "snare": "....x.......x...",
+          "kick": "x.......x.x....."
+        },
+        "source": {
+          "recording_id": "rec:aretha-franklin-respect-1967",
+          "transcription_source_id": "src:songsterr-25745"
+        },
+        "tags": ["1967"]
+      },
+      {
+        "id": "pattern:hawkins-chain-of-fools",
+        "name": "Chain of Fools: quarters on the hat",
+        "type": "groove",
+        "function": "Seventy bars unchanged: quarter notes on the hat, the snare on 2 and 4, the kick on 1, 3, its \"and\" and the \"and\" of 4.",
+        "style_ids": ["style:southern-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-25744"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 117,
+          "playable_range_bpm": [115, 119]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "x.......x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:aretha-franklin-chain-of-fools-1967",
+          "transcription_source_id": "src:songsterr-25744"
+        },
+        "tags": ["1967"]
+      },
+      {
+        "id": "pattern:hawkins-chain-of-fools-tom",
+        "name": "Chain of Fools: the tom into the chorus",
+        "type": "fill",
+        "function": "Sixteenths on the high tom on 3 and 4, the backbeat kept, into each chorus.",
+        "style_ids": ["style:southern-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-25744"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 117,
+          "playable_range_bpm": [115, 119]
+        },
+        "lanes": {
+          "hihat": "x...x...x.....o.",
+          "snare": "....x.......x...",
+          "tom_1": "........xxx.xxx.",
+          "kick": "x.......x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:aretha-franklin-chain-of-fools-1967",
+          "transcription_source_id": "src:songsterr-25744"
+        },
+        "tags": ["1967", "fill"]
+      },
+      {
+        "id": "pattern:hawkins-when-a-man-loves-a-woman",
+        "name": "When a Man Loves a Woman: the 12/8 ride",
+        "type": "groove",
+        "function": "The verse: the ride in triplets, the snare on pulses 2 and 4, the kick on eighths 1, 6, 7 and 12.",
+        "style_ids": ["style:southern-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-78190"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 97,
+          "playable_range_bpm": [95, 100]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.x.x.x.x.",
+          "snare": "......x...........x.....",
+          "kick": "x.........x.x.........x."
+        },
+        "source": {
+          "recording_id": "rec:percy-sledge-when-a-man-loves-a-woman-1966",
+          "transcription_source_id": "src:songsterr-78190"
+        },
+        "tags": ["1966", "ballad"]
+      },
+      {
+        "id": "pattern:hawkins-i-never-loved-a-man",
+        "name": "I Never Loved a Man: the shuffle in three",
+        "type": "groove",
+        "function": "The hat on each beat and its last triplet, the snare on 3, the kick on 1 and the last triplet of 2.",
+        "style_ids": ["style:southern-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-503143"]
+        },
+        "time_signature": {
+          "numerator": 9,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [133, 137]
+        },
+        "lanes": {
+          "hihat": "x...x.x...x.x...x.",
+          "snare": "............x.....",
+          "kick": "x.........x......."
+        },
+        "source": {
+          "recording_id": "rec:aretha-franklin-i-never-loved-a-man-the-way-i-love-you-1967",
+          "transcription_source_id": "src:songsterr-503143"
+        },
+        "tags": ["1967", "fame"]
+      }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:roger-hawkins-fame",
+      "label": "Ludwig, the house kit",
+      "era_ids": ["era:roger-hawkins-fame", "era:roger-hawkins-msss"],
+      "context": "studio",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1"
+        }
+      ],
+      "layout_notes": "\"Most of the time it was Ludwig\" (Modern Drummer, 2017); on Traffic's 1973 Musikladen set a black oyster pearl kit with chrome hardware. Sizes and cymbals are not in the sources read.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:roger-hawkins-md-2017", "src:musikladen-traffic-1973-video"]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "Muscle Shoals Rhythm Section",
       "type": "house_band",
       "years": {
-        "from": 1966
+        "from": 1966,
+        "to": 1985
+      },
+      "bandmates": [
+        {
+          "name": "Jimmy Johnson"
+        },
+        {
+          "name": "David Hood"
+        },
+        {
+          "name": "Barry Beckett"
+        }
+      ],
+      "notes": "FAME's second house band, then owners of Muscle Shoals Sound from 1969; sold in 1985.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:muscle-shoals-rhythm-section-wikipedia",
+          "src:roger-hawkins-encyclopedia-of-alabama"
+        ]
+      }
+    },
+    {
+      "name": "Traffic",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1973,
+        "to": 1973
+      },
+      "notes": "With Hood and Beckett on the 1973 tour and Shoot Out at the Fantasy Factory.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:musikladen-traffic-1973-video", "src:roger-hawkins-drummer-wikipedia"]
       }
     }
   ],
-  "key_recording_ids": [
-    "rec:percy-sledge-when-a-man-loves-a-woman-1966",
-    "rec:aretha-franklin-i-never-loved-a-man-the-way-i-love-you-1967",
-    "rec:aretha-franklin-respect-1967"
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Al Jackson Jr.",
+        "kind": "drummer",
+        "id": "drummer:al-jackson-jr"
+      },
+      "strength": 0.8,
+      "scope": "individual",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-hawkins-md-2017"],
+        "note": "\"Al Jackson was a big influence. I listened to him a lot.\""
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "David Hood",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:muscle-shoals-rhythm-section-wikipedia",
+          "src:roger-hawkins-encyclopedia-of-alabama"
+        ]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Jimmy Johnson",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:muscle-shoals-rhythm-section-wikipedia",
+          "src:roger-hawkins-encyclopedia-of-alabama"
+        ]
+      }
+    }
   ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Be a listener first: he was a better listener than a drummer.",
+        "paraphrase_of_source_id": "src:roger-hawkins-md-2017"
+      },
+      {
+        "idea": "No tom fills while the singer sings.",
+        "paraphrase_of_source_id": "src:roger-hawkins-md-2017"
+      },
+      {
+        "idea": "Tune the drums to the song and the singer.",
+        "paraphrase_of_source_id": "src:roger-hawkins-md-2017"
+      }
+    ]
+  },
   "legacy": {
+    "influence_score": 0.6,
+    "innovations": [
+      "The Muscle Shoals soul backbeat, on hits for Sledge, Pickett and Franklin",
+      "Players owning their studio: Muscle Shoals Sound, 1969"
+    ],
+    "accolades": [
+      {
+        "award": "Rolling Stone, 100 Greatest Drummers of All Time (2016), no. 31",
+        "year": 2016,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:rollingstone-100-drummers-2016",
+            "src:roger-hawkins-drummer-wikipedia"
+          ]
+        }
+      }
+    ],
     "contribution": {
       "description": "The Swampers' drummer, whose deep, unhurried feel is on \"When a Man Loves a Woman\", \"Respect\" and \"Mustang Sally\"; Rolling Stone ranked him 31st among the greatest drummers.",
       "evidence": {
         "confidence": "widely_reported",
-        "source_ids": ["src:roger-hawkins-wikipedia"]
+        "source_ids": ["src:roger-hawkins-drummer-wikipedia"]
       }
     }
   },
   "beatbreaker": {
-    "group": "Soul and Motown drummers",
-    "build_priority": 1
-  }
+    "style_key": "rogerhawkins",
+    "headline_pattern_ids": [
+      "pattern:hawkins-mustang-sally",
+      "pattern:hawkins-respect-verse",
+      "pattern:hawkins-chain-of-fools",
+      "pattern:hawkins-when-a-man-loves-a-woman"
+    ],
+    "default_kit_sound": "A 1960s Ludwig, the snare cracking, taped down",
+    "generation_rules": [
+      "Eighths on the hat with one note opened, the snare on 2 and 4, the kick with the bass.",
+      "Fills in the gaps only: a snare roll or a bar of tom into the chorus.",
+      "Stops and hits with the band."
+    ],
+    "avoid": [
+      "Tom fills under the vocal",
+      "Ghosted sixteenths",
+      "Crashes in every bar",
+      "Drum solos"
+    ],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:al-jackson-jr"],
+      "primary_descendants": [],
+      "lineage_blurb": "Al Jackson Jr.'s Stax backbeat, heard and studied, carried to FAME and Muscle Shoals."
+    },
+    "tags": ["soul", "southern soul", "60s", "muscle shoals", "fame", "session", "aretha franklin"]
+  },
+  "key_recording_ids": [
+    "rec:percy-sledge-when-a-man-loves-a-woman-1966",
+    "rec:wilson-pickett-mustang-sally-1966",
+    "rec:aretha-franklin-i-never-loved-a-man-the-way-i-love-you-1967",
+    "rec:aretha-franklin-respect-1967",
+    "rec:aretha-franklin-chain-of-fools-1967",
+    "rec:bob-seger-stranger-in-town-1978"
+  ]
 }

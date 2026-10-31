@@ -2,11 +2,17 @@
   "meta": {
     "id": "drummer:tommy-ramone",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
-    "completeness": 0.15,
+    "record_status": "draft",
+    "completeness": 0.35,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-10-31",
+    "authors": ["claude"],
+    "open_questions": [
+      "No interview found in which he names a drummer he learned from: he says he had never played drums before the Ramones and played what he heard the band needed (Wikipedia; Guitar World, 2024).",
+      "The tabs write his hat as fully open (GM 46) in most songs; on the records it is a loose, washing hat that may be half open. The songs keep the tabs' open hat.",
+      "Pinhead's chant at the end runs about eight bars longer on the record than the tab's eleven repeats, to the fade; the song plays the tab's.",
+      "Not scored: Judy Is a Punk and Commando (the same groove as Blitzkrieg Bop's and Beat on the Brat's), I Wanna Be Your Boyfriend (its tab is two bars repeated), Gimme Gimme Shock Treatment (its tab, from 2020, writes splashes on every backbeat), and the It's Alive concert (31 December 1977)."
+    ]
   },
   "identity": {
     "name": "Tommy Ramone",
@@ -20,15 +26,28 @@
       "place": "Budapest, Hungary"
     },
     "died": {
-      "date": "2014-07-11"
+      "date": "2014-07-11",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tommy-ramone-wikipedia"]
+      },
+      "place": "Ridgewood, Queens, New York"
     },
     "nationality": ["American", "Hungarian"],
     "home_scenes": ["New York, CBGB"],
     "active": {
       "from": 1974,
-      "to": 1978
+      "to": 1978,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tommy-ramone-wikipedia"],
+        "note": "Drummer from the band's start in 1974 to his last show, CBGB, 4 May 1978; producer after."
+      }
     },
-    "summary": "The Ramones' first drummer and producer."
+    "summary": "The Ramones' first drummer, 1974-1978, and co-producer of their first three albums: eighths on the hat at the band's speed, locked to Johnny Ramone's downstrokes; he wrote most of Blitzkrieg Bop.",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum_kit"],
+    "roles": ["band_member", "producer", "composer"]
   },
   "style_profile": {
     "genres": [
@@ -41,7 +60,11 @@
         "style_id": "style:rock-and-roll",
         "weight": 0.4
       }
-    ]
+    ],
+    "versatility": 0.2,
+    "groove_vs_chops": 0.05,
+    "role_tendency": "driver",
+    "descriptors": ["fast", "even", "minimal", "eighth-note", "no fills", "floor tom"]
   },
   "affiliations": [
     {
@@ -51,24 +74,63 @@
         "from": 1974,
         "to": 1978
       },
+      "notes": "Meant to manage the band; took the drums when Joey Ramone moved to the microphone. Producer of Road to Ruin (1978) and Too Tough to Die (1984).",
       "evidence": {
-        "confidence": "widely_reported",
+        "confidence": "verified",
         "source_ids": ["src:tommy-ramone-wikipedia"]
       }
     }
   ],
   "legacy": {
     "contribution": {
-      "description": "Took the Ramones' drum stool because nobody else would and played and co-produced their first three albums, the records that set the sound of punk.",
+      "description": "Took the Ramones' drum stool because no drummer they tried could lock in with Johnny Ramone's guitar, and played and co-produced their first three albums: even eighths at speed with hardly a fill, the beat punk drummers took from them. Rolling Stone's 70th greatest drummer: \"furiously metronomic eighth notes and tribal floor-tom bombs\".",
       "evidence": {
-        "confidence": "widely_reported",
-        "source_ids": ["src:tommy-ramone-wikipedia"]
+        "confidence": "verified",
+        "source_ids": [
+          "src:tommy-ramone-wikipedia",
+          "src:rollingstone-100-drummers-2016",
+          "src:tommy-ramone-guitarworld-2024"
+        ]
       }
-    }
+    },
+    "influence_score": 0.7,
+    "innovations": [
+      "The punk eighth-note beat: eighths on the hat at 160 to 190, the kick on 1, 3 and the \"and\" of 3, a crash on the 1 of every other bar, the floor tom for the hat in the loud parts, and the rolls and toms of Bonham and Appice left out (Rolling Stone, 2016; Guitar World, 2024)."
+    ],
+    "accolades": [
+      {
+        "award": "Rolling Stone, 100 Greatest Drummers of All Time (2016), no. 70",
+        "year": 2016,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:rollingstone-100-drummers-2016"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he drums on I Wanna Be Sedated: it is on Road to Ruin (1978), Marky Ramone's first album; Tommy produced it."
+    ]
   },
   "beatbreaker": {
-    "group": "Punk drummers",
-    "build_priority": 1
+    "style_key": "tommyramone",
+    "headline_pattern_ids": [
+      "pattern:tommy-ramone-open-eighths",
+      "pattern:tommy-ramone-cretin-hop"
+    ],
+    "default_kit_sound": "A 1960s kit, loose hats washing over a dry snare and a thudding kick; small and dry on the debut",
+    "generation_rules": [
+      "Eighths on the hat, open or closed, the kick on 1, 3 and the \"and\" of 3, the snare on 2 and 4.",
+      "A crash on the 1 of every other bar.",
+      "The floor tom in eighths for the hat in the loud parts.",
+      "Hardly a fill: change the cymbal, not the beat."
+    ],
+    "avoid": ["Tom rolls and long fills", "Ghost notes", "Swing", "Busy kick patterns"],
+    "lineage_display": {
+      "primary_ancestors": [],
+      "primary_descendants": ["drummer:marky-ramone"],
+      "lineage_blurb": "No drummer behind him by his own account: a guitarist and engineer who sat down at the kit to play what the band needed, and whose eighths every punk drummer after learned."
+    },
+    "tags": ["ramones", "punk", "new york", "cbgb", "1970s", "eighth notes"]
   },
   "key_recording_ids": [
     "rec:ramones-ramones-1976",
@@ -83,11 +145,611 @@
         "kind": "drummer",
         "id": "drummer:marky-ramone"
       },
+      "strength": 0.8,
+      "years": {
+        "from": 1978
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tommy-ramone-wikipedia", "src:marky-ramone-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Marky Ramone",
+        "kind": "drummer",
+        "id": "drummer:marky-ramone"
+      },
+      "strength": 0.7,
+      "aspects": ["the eighth-note hat", "the floor tom"],
+      "scope": "individual",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ramones-villagevoice-2004"],
+        "note": "Marky learned the parts from tapes of the records and the live show; \"the eighth-note high hat playing and the cymbal and floor tom playing created a wall of sound\"."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Joey Ramone",
+        "kind": "musician"
+      },
       "strength": 0.4,
       "evidence": {
-        "confidence": "likely",
-        "source_ids": ["src:tommy-ramone-wikipedia"]
+        "confidence": "verified",
+        "source_ids": ["src:tommy-ramone-wikipedia", "src:ramones-villagevoice-2004"],
+        "note": "Joey Ramone was the band's first drummer, \"a very choppy sound, sort of like a jagged rockabilly\"."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Dee Dee Ramone",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1974,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tommy-ramone-guitarworld-2024"],
+        "note": "\"I locked in with Johnny, and Dee Dee's bass was the underpinning of it all.\""
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "New York Dolls",
+        "kind": "ensemble"
+      },
+      "strength": 0.4,
+      "scope": "band",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tommy-ramone-wikipedia"],
+        "note": "The band \"had been heavily influenced\" by the New York Dolls, Lou Reed and Andy Warhol (BBC, 2007): an influence on the band, not on his drumming."
       }
     }
-  ]
+  ],
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "1960s garage rock",
+        "impact": "Played guitar, not drums, in the Tangerine Puppets with Johnny Ramone at school.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tommy-ramone-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Studio engineering",
+        "impact": "Assistant engineer at the Record Plant (Band of Gypsys, 1970); co-produced the Ramones' first albums.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tommy-ramone-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1974,
+        "event": "Takes the Ramones' drums, never having played them, when Joey Ramone moves to the microphone: \"I became the drummer because I couldn't explain to drummers what they needed.\"",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tommy-ramone-wikipedia", "src:tommy-ramone-guitarworld-2024"]
+        }
+      },
+      {
+        "year": 1978,
+        "event": "Leaves the drums after the CBGB show of 4 May; Marky Ramone takes over, and Tommy produces Road to Ruin.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tommy-ramone-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:tommy-ramone-ramones",
+      "label": "The Ramones' drummer, 1974-1978",
+      "years": {
+        "from": 1974,
+        "to": 1978
+      },
+      "context": "CBGB, then three albums in two years (Ramones, Leave Home, Rocket to Russia) and the It's Alive concert.",
+      "defining_traits": [
+        "Even eighths on the hat at 155 to 190",
+        "The kick on 1, 3 and the \"and\" of 3",
+        "A crash every other bar",
+        "The floor tom for the hat",
+        "No fills to speak of"
+      ],
+      "key_recording_ids": [
+        "rec:ramones-ramones-1976",
+        "rec:ramones-leave-home-1977",
+        "rec:ramones-rocket-to-russia-1977"
+      ]
+    },
+    {
+      "id": "era:tommy-ramone-producer",
+      "label": "Producer, from 1978",
+      "years": {
+        "from": 1978
+      },
+      "context": "Road to Ruin (1978), Too Tough to Die (1984), the Replacements' Tim; bluegrass with Uncle Monk.",
+      "style_shift": "Off the drums: producing, and mandolin and guitar in Uncle Monk."
+    }
+  ],
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:tommy-ramone-guitarworld-2024", "src:ramones-villagevoice-2004"],
+        "note": "\"A forward momentum\", \"a propulsive kind of straight-ahead feel\": nothing measured of his timing."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight in every song scored here."
+    },
+    "dynamics": {
+      "range": 0.2,
+      "default_level": "f",
+      "accent_level": 110,
+      "balance": "Even and loud throughout; the sections change by the cymbal, not the level."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 14],
+      "fill_frequency": "rare",
+      "space_usage": 0.2
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [155, 190],
+    "timekeeping_context": ["free"],
+    "interaction": "Locked to Johnny Ramone's downstrokes, Dee Dee's bass \"the underpinning of it all\" (Guitar World, 2024).",
+    "descriptors": ["even", "fast", "driving", "metronomic"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Eighths on the hat at speed",
+        "description": "Eighth notes on the hat, open or closed, held through whole songs at 155 to 190.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:rollingstone-100-drummers-2016",
+            "src:ramones-villagevoice-2004",
+            "src:songsterr-212"
+          ]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick on 1, 3 and the \"and\" of 3",
+        "description": "The same kick in nearly every bar of every song scored here.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-212", "src:songsterr-20564", "src:songsterr-20563"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.2,
+      "linear_playing": 0.0,
+      "odd_meter_fluency": 0.3,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-31",
+        "searched": [
+          "Songsterr 212 (Blitzkrieg Bop), 18624 (Beat on the Brat), 16284 (Pinhead), 20564 and 4789873 (Sheena Is a Punk Rocker), 20563 (Rockaway Beach), 22732 (Teenage Lobotomy), 16256 (Cretin Hop), 23058 (Judy Is a Punk), 16395 (I Wanna Be Your Boyfriend), 22521 (Commando), 70617 (Gimme Gimme Shock Treatment)",
+          "Wikipedia (Tommy Ramone, Ramones, Leave Home, Rocket to Russia); Guitar World, 24 April 2024; The Village Voice, 12 October 2004; Rolling Stone, 2016; Spin, 12 July 2014"
+        ],
+        "note": "None found. Teenage Lobotomy's and Rockaway Beach's bars of 6/4 are written meter, following the song's phrases, not a device."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths, open and washing or closed; quarters on the open hat for intros (Sheena, Pinhead).",
+      "snare": "2 and 4, nearly without exception; a second snare on the \"a\" of 2 in Beat on the Brat's verse.",
+      "kick": "1, 3 and the \"and\" of 3.",
+      "toms": "The floor tom in eighths for the hat in loud parts; the rack and floor toms with the kick on every beat for a march (Pinhead, Teenage Lobotomy).",
+      "cymbals": "A crash on the 1 of every other bar; the ride in quarters, or the bell in quarters, for bridges."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "none"
+  },
+  "sound_profile": {
+    "aesthetic": ["dry", "loud", "washy hats"],
+    "cymbal_character": "Paiste 2002 crashes on the 1 and a hat left loose to wash.",
+    "sample_hints": {
+      "ramones_1976": "Plaza Sound, a week for $6,400: drums in the middle of the stereo, small and dry.",
+      "rocket_to_russia": "Mediasound, a former church, mostly first takes: fuller."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:tommy-ramone-wikipedia",
+        "src:ramones-album-wikipedia",
+        "src:rocket-to-russia-wikipedia"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:tommy-ramone-even-eighths",
+      "label": "Even eighths at speed",
+      "category": "groove",
+      "description": "Eighths on the hat held through whole songs at 155 to 190, the kick on 1, 3 and the \"and\" of 3: Rolling Stone's \"furiously metronomic eighth notes\".",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:tommy-ramone-open-eighths"],
+      "heard_on": [
+        {
+          "recording_id": "rec:ramones-ramones-1976"
+        },
+        {
+          "recording_id": "rec:ramones-rocket-to-russia-1977"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:rollingstone-100-drummers-2016",
+          "src:ramones-villagevoice-2004",
+          "src:songsterr-212"
+        ]
+      }
+    },
+    {
+      "id": "trait:tommy-ramone-floor-tom",
+      "label": "The floor tom for the hat",
+      "category": "orchestration",
+      "description": "In the loud parts the floor tom takes the hat's eighths: Blitzkrieg Bop's chant and outro, Rockaway Beach's chorus, Cretin Hop; Rolling Stone's \"tribal floor-tom bombs\".",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:tommy-ramone-floor-tom-eighths", "pattern:tommy-ramone-cretin-hop"],
+      "heard_on": [
+        {
+          "recording_id": "rec:ramones-ramones-1976"
+        },
+        {
+          "recording_id": "rec:ramones-rocket-to-russia-1977"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:rollingstone-100-drummers-2016",
+          "src:ramones-villagevoice-2004",
+          "src:songsterr-20563"
+        ]
+      }
+    },
+    {
+      "id": "trait:tommy-ramone-no-fills",
+      "label": "Hardly a fill",
+      "category": "musical_approach",
+      "description": "Sections change by the cymbal (hat, open hat, ride, bell, floor tom), not by fills: he left out the \"tom-toms and rolls\" of Bonham and Appice, which \"just didn't fit\".",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": [],
+      "heard_on": [
+        {
+          "recording_id": "rec:ramones-ramones-1976"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:tommy-ramone-guitarworld-2024",
+          "src:songsterr-212",
+          "src:songsterr-20564"
+        ]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:tommy-ramone-open-eighths",
+        "name": "Blitzkrieg Bop, the verse",
+        "type": "groove",
+        "function": "Eighths on the open hat, the snare on 2 and 4, the kick on 1, 3 and the \"and\" of 3, a crash on 1 of every other bar.",
+        "style_ids": ["style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-212"]
+        },
+        "source": {
+          "recording_id": "rec:ramones-ramones-1976",
+          "transcription_source_id": "src:songsterr-212"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 176,
+          "playable_range_bpm": [174, 178]
+        },
+        "lanes": {
+          "crash_1": "X...............|................",
+          "hihat": "....o.o.o.o.o.o.|o.o.o.o.o.o.o.o.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.......x.x.....|x.......x.x....."
+        },
+        "tags": ["1976", "ramones", "eighths"]
+      },
+      {
+        "id": "pattern:tommy-ramone-floor-tom-eighths",
+        "name": "Rockaway Beach, the chorus",
+        "type": "groove",
+        "function": "The floor tom in eighths in place of the hat, the snare on 2 and 4, the kick on 1, 3 and the \"and\" of 3.",
+        "style_ids": ["style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-20563"]
+        },
+        "source": {
+          "recording_id": "rec:ramones-rocket-to-russia-1977",
+          "transcription_source_id": "src:songsterr-20563"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 188,
+          "playable_range_bpm": [186, 190]
+        },
+        "lanes": {
+          "snare": "....x.......x...",
+          "floor_tom_1": "x.x.x.x.x.x.x.x.",
+          "kick": "x.......x.x....."
+        },
+        "tags": ["1977", "ramones", "floor tom"]
+      },
+      {
+        "id": "pattern:tommy-ramone-cretin-hop",
+        "name": "Cretin Hop, the hop",
+        "type": "groove",
+        "function": "The snare and the floor tom together on every beat, the kick on the \"and\"s between.",
+        "style_ids": ["style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-16256"]
+        },
+        "source": {
+          "recording_id": "rec:ramones-rocket-to-russia-1977",
+          "transcription_source_id": "src:songsterr-16256"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 185,
+          "playable_range_bpm": [183, 187]
+        },
+        "lanes": {
+          "snare": "x...x...x...x...",
+          "floor_tom_1": "x...x...x...x...",
+          "kick": "..x...x...x...x."
+        },
+        "tags": ["1977", "ramones", "floor tom"]
+      },
+      {
+        "id": "pattern:tommy-ramone-brat-verse",
+        "name": "Beat on the Brat, the verse",
+        "type": "groove",
+        "function": "Eighths on the closed hat, the snare on 2, the \"a\" of 2 and 4, the kick on 1, 3 and the \"and\" of 3.",
+        "style_ids": ["style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18624"]
+        },
+        "source": {
+          "recording_id": "rec:ramones-ramones-1976",
+          "transcription_source_id": "src:songsterr-18624"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 157,
+          "playable_range_bpm": [155, 159]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x..x....x...",
+          "kick": "x.......x.x....."
+        },
+        "tags": ["1976", "ramones"]
+      },
+      {
+        "id": "pattern:tommy-ramone-lobotomy-march",
+        "name": "Teenage Lobotomy, the march",
+        "type": "groove",
+        "function": "A bar of 6/4: the floor tom on 1 and in eighths from 3, the rack tom on 2, the snare on 1, 2, 4 and 6, the kick on 1, 2, 3, its \"and\", 5 and its \"and\".",
+        "style_ids": ["style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22732"]
+        },
+        "source": {
+          "recording_id": "rec:ramones-rocket-to-russia-1977",
+          "transcription_source_id": "src:songsterr-22732"
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 187,
+          "playable_range_bpm": [185, 189]
+        },
+        "lanes": {
+          "snare": "x...x.......x.......x...",
+          "tom_1": "....x...................",
+          "floor_tom_1": "x.......x.x.x.x.x.x.x.x.",
+          "kick": "x...x...x.x.....x.x....."
+        },
+        "tags": ["1977", "ramones", "6/4"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:tommy-ramone-rogers-1975",
+      "label": "The Rogers kit in New England White, 1975-1977",
+      "years": {
+        "from": 1975,
+        "to": 1977
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Rogers",
+          "size": "22"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Slingerland"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Rogers",
+          "size": "9x13"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Rogers",
+          "size": "16x16"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Paiste",
+          "model": "2002"
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Paiste",
+          "model": "2002"
+        },
+        {
+          "instrument": "ride",
+          "brand": "Paiste",
+          "model": "2002"
+        }
+      ],
+      "layout_notes": "Bought once Danny Fields managed the band, replacing an older dark-wood Rogers set; Ludwig drums in some photos.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tommy-ramone-wikipedia"]
+      }
+    },
+    {
+      "id": "kit:tommy-ramone-big-r-1977",
+      "label": "The Rogers \"Big R\", from October 1977",
+      "years": {
+        "from": 1977,
+        "to": 1978
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Rogers",
+          "model": "Big R",
+          "size": "24"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Rogers",
+          "size": "12x15"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Rogers",
+          "size": "18x16"
+        }
+      ],
+      "layout_notes": "New England White, bought after the band's gear was stolen in Chicago on 22 October 1977; on It's Alive and Road to Ruin, then Marky Ramone's.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tommy-ramone-wikipedia", "src:ramones-rainbow-1977-film"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "videos": [],
+    "philosophy": [
+      {
+        "idea": "Lock in with the guitar and keep a forward momentum; leave out the rolls and toms that do not fit the band.",
+        "paraphrase_of_source_id": "src:tommy-ramone-guitarworld-2024"
+      },
+      {
+        "idea": "Play what the music needs, even if you have never played before.",
+        "paraphrase_of_source_id": "src:tommy-ramone-readjunk-1998"
+      }
+    ]
+  }
 }

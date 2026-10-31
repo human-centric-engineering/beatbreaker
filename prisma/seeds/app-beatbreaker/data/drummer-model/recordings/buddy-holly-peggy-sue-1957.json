@@ -25,9 +25,16 @@
       "transcriptions": [
         {
           "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=716922"
+        },
+        {
+          "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=290079"
         }
-      ]
+      ],
+      "style_key": "jerryallison",
+      "song_key": "peggy-sue",
+      "youtube": "https://www.youtube.com/watch?v=Zpni8tmIzaM"
     }
   ]
 }

@@ -54,7 +54,7 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 64 styles and 123 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 64 styles and 127 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(64);
     expect([...drummers].sort()).toEqual([
@@ -95,6 +95,7 @@ describe('the style table', () => {
       'djfontana',
       'djjohnson',
       'downey',
+      'earlhudson',
       'earlpalmer',
       'elvinjones',
       'errico',
@@ -118,6 +119,7 @@ describe('the style table', () => {
       'hoenig',
       'horaciohernandez',
       'jabostarks',
+      'jerryallison',
       'jimmycobb',
       'jizmak',
       'jordison',
@@ -155,6 +157,7 @@ describe('the style table', () => {
       'reni',
       'ringo',
       'roach',
+      'rogerhawkins',
       'rogertaylor',
       'rogertaylorduran',
       'rowntree',
@@ -172,6 +175,7 @@ describe('the style table', () => {
       'stevejordan',
       'stubblefield',
       'taylorhawkins',
+      'tommyramone',
       'tonyallen',
       'tonythompson',
       'tonywilliams',
@@ -185,7 +189,7 @@ describe('the style table', () => {
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(2805);
+    expect(COMBOS).toHaveLength(2865);
   });
 });
 
@@ -947,6 +951,8 @@ describe('the rock, jazz and blues styles', () => {
       sanchez: 'you',
       // Where Did Our Love Go's chorus is one groove, as its tab writes it (x18)
       pistolallen: 'where-did-our-love-go:D',
+      // Peggy Sue is one tom paradiddle bar for 89 bars, as both human tabs write it
+      jerryallison: 'peggy-sue',
     };
     for (const key of ROCK) {
       const params = STYLES[key].params;

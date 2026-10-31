@@ -1,0 +1,65 @@
+[
+  {
+    "id": "src:songsterr-5268405",
+    "type": "transcription",
+    "title": "Songsterr 5268405: Bad Brains, Attitude (Official) (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=5268405",
+    "reliability": 0.6,
+    "accessed": "2026-10-31",
+    "notes": "aiGenerated false (meta API), revision 6890878, Mason Pond, 18 May 2026, its only revision; 52 bars at 160; the drum track named 'Earl Hudson | Drumset'."
+  },
+  {
+    "id": "src:songsterr-924143",
+    "type": "transcription",
+    "title": "Songsterr 924143: Bad Brains, Sailin' On (drum track, machine tab corrected by hand)",
+    "url": "https://www.songsterr.com/a/wa/song?id=924143",
+    "reliability": 0.5,
+    "accessed": "2026-10-31",
+    "notes": "First revision 1218164 (Stuart, January 2025) aiGenerated true; corrected by Soudipop (May 2025), Evan Taylor (revision 6509730, April 2026: tempo, a bar removed, drum notes added, removed and moved) and Darr (revision 6524014, 28 April 2026, aiGenerated false); 77 bars at 166, slowing over the last eight; the drum track named 'Earl Hudson'."
+  },
+  {
+    "id": "src:songsterr-31699",
+    "type": "transcription",
+    "title": "Songsterr 31699: Bad Brains, Banned In D.C. (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=31699",
+    "reliability": 0.6,
+    "accessed": "2026-10-31",
+    "notes": "aiGenerated false (meta API) at every revision; Leonard's 2016 tab, the drums made 'most of it the official drum tabs' by jesus J (March 2025), then Blake Klipstein, Teddy Murray and Darr (revision 6164521, April 2026); 86 bars, tempo map 142, 190, 170, 153; the drum track named 'Earl Hudson'."
+  },
+  {
+    "id": "src:songsterr-681467",
+    "type": "transcription",
+    "title": "Songsterr 681467: Bad Brains, Big Take Over (drum track, machine tab corrected by hand)",
+    "url": "https://www.songsterr.com/a/wa/song?id=681467",
+    "reliability": 0.5,
+    "accessed": "2026-10-31",
+    "notes": "First revision 830190 (R4jny, July 2024) aiGenerated true; machine-regenerated August 2026; then corrected by hand in all five tracks by dinkman84 ('Fixed inconsistencies and inaccuracies made by ai ... Added sections, labels, accents, dynamics', revision 8997369, 10 September 2026, aiGenerated false); 142 bars, 22 at 135 then 200."
+  },
+  {
+    "id": "src:songsterr-31702",
+    "type": "transcription",
+    "title": "Songsterr 31702: Bad Brains, Fearless Vampire Killers (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=31702",
+    "reliability": 0.6,
+    "accessed": "2026-10-31",
+    "notes": "aiGenerated false (meta API); Leonard's 2016 tab, its drums rewritten by hand in revision 3664312 (2 November 2025: notes added and removed, note values and grace notes adjusted); 45 bars at 170, the first played four times, bar 20 in 3/4."
+  },
+  {
+    "id": "src:bad-brains-andscape-2017",
+    "type": "magazine",
+    "title": "Bad Brains: the band that added some much-needed color to the American rock scene (Bruce Britt, Andscape, 7 February 2017)",
+    "url": "https://andscape.com/features/bad-brains-the-band-that-added-some-much-needed-color-to-the-american-rock-scene/",
+    "reliability": 0.7,
+    "accessed": "2026-10-31",
+    "notes": "'A black band that cut its teeth learning jazz fusion songs by Weather Report and Lonnie Liston Smith'; 'They had Mahavishnu Orchestra/Return to Forever kind of chops'; Dave Grohl 'has confessed that the drum volley that opens Nirvana's revolutionary 1991 \"Smells Like Teen Spirit\" was inspired by Earl Hudson'."
+  },
+  {
+    "id": "src:bad-brains-cbgb-1982-video",
+    "type": "recording",
+    "title": "Bad Brains - Banned in DC - CBGB 1982 (Hardcore Worldwide, official version, YouTube)",
+    "url": "https://www.youtube.com/watch?v=XGzA8KXW3WI",
+    "reliability": 0.75,
+    "accessed": "2026-10-31",
+    "notes": "Colour film of the band at CBGB in 1982: Hudson at the kit in close-up at the start, in a knitted red, gold and green Rasta tam and a golden-yellow T-shirt with a dark lion print, a moustache and short beard, a kit with chrome-like shells and chrome hardware."
+  }
+]

@@ -22,7 +22,15 @@
           "source_ids": ["src:when-a-man-loves-a-woman-song-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=KwPxhWU1koE"
+      "youtube": "https://www.youtube.com/watch?v=KwPxhWU1koE",
+      "style_key": "rogerhawkins",
+      "song_key": "when-a-man-loves-a-woman",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=78190"
+        }
+      ]
     }
   ]
 }

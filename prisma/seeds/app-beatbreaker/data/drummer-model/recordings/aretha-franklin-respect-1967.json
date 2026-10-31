@@ -22,7 +22,15 @@
           "source_ids": ["src:respect-song-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=A134hShx_gw"
+      "youtube": "https://www.youtube.com/watch?v=A134hShx_gw",
+      "style_key": "rogerhawkins",
+      "song_key": "respect",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=25745"
+        }
+      ]
     }
   ]
 }

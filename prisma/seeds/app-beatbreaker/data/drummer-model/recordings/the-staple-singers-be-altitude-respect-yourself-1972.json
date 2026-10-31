@@ -34,13 +34,7 @@
           "source_ids": ["src:respect-yourself-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=10Rw7tf3QzM",
-      "transcriptions": [
-        {
-          "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=847496"
-        }
-      ]
+      "youtube": "https://www.youtube.com/watch?v=10Rw7tf3QzM"
     }
   ]
 }

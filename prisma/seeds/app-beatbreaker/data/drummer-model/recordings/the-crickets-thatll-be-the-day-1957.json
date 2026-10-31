@@ -5,6 +5,10 @@
   "year": 1957,
   "type": "studio_track",
   "style_ids": ["style:rock-and-roll"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:chirping-crickets-discogs-1957"]
+  },
   "drum_performances": [
     {
       "drummer_id": "drummer:jerry-allison",
@@ -26,9 +30,11 @@
       "transcriptions": [
         {
           "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=707751"
+          "url": "https://www.songsterr.com/a/wa/song?id=8722"
         }
-      ]
+      ],
+      "style_key": "jerryallison",
+      "song_key": "thatll-be-the-day"
     }
   ]
 }

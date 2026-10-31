@@ -23687,3 +23687,475 @@ heads, straw on the floor.
   Md4icxT6K60 (Paper Cuts, remastered), sPBbWVYuNLQ (Boris), ogbBbXt7MdQ
   (Hooch), gd7XmmjaXH0 (Night Goat), p2sez21Cyyo (Honey Bucket), 19y8V_WCtTI
   (Revolve), rAeanjCnUmI (Downer), hijOfL4JVDE (Eye Flys).
+
+## ED. Tommy Ramone (2026-10-31)
+
+The `tommyramone` style plays **songs** the way `paulcook` and `crover` do:
+each New picks one of his records, and its tempo and grooves come with it. His
+record (`drummer-model/drummers/tommy-ramone.json`) was a 15-a candidate and is
+now a draft at schema 1.6.0, with Cretin Hop as a new track on Rocket to
+Russia and `sources/tommy-ramone.json`. He files with the Punk drummers,
+beside Paul Cook.
+
+**Who he is.** Tamás Erdélyi was born in Budapest on 29 January 1949; his
+family left Hungary in 1956 and settled in Forest Hills, Queens, where at
+school he played guitar in the Tangerine Puppets with John Cummings, the
+future Johnny Ramone. He worked as an assistant engineer at the Record Plant
+(Band of Gypsys, 1970). He was meant to manage the Ramones, but when Joey
+Ramone, their first drummer, moved to the microphone, he took the drums,
+"even though he never played drums before"; Dee Dee: he "had to sit down
+behind the drums, because nobody else wanted to" (Wikipedia, Tommy Ramone).
+In his own words, "I became the drummer because I couldn't explain to
+drummers what they needed" (READ Magazine, 1998). He played on and
+co-produced Ramones (1976), Leave Home and Rocket to Russia (1977) and the It's
+Alive concert (31 December 1977), left the drums after the CBGB show of 4 May
+1978, and produced Road to Ruin with Marky Ramone in his place. He died on
+11 July 2014. Rolling Stone placed him 70th of the 100 greatest drummers
+(2016).
+
+**What he does.** Rolling Stone (2016): "With his furiously metronomic eighth
+notes and tribal floor-tom bombs, he provided the speed-freak beat on the
+Ramones' groundbreaking first three albums, matching tempos with Johnny
+Ramone's buzzsaw guitar." His own account is of leaving things out: the
+drummers they tried "just didn't click in with Johnny's guitar style. ... Most
+people were playing like John Bonham or Carmine Appice; they were incredible
+drummers, but their use of tom-toms and rolls just didn't fit"; "I wanted to
+lock in with the guitar and try and get a forward momentum going. ... I locked
+in with Johnny, and Dee Dee's bass was the underpinning of it all" (Guitar
+World, 2024). Of Joey's drumming before him: "a very choppy sound, sort of
+like a jagged rockabilly ... the major change was smoothing it out, giving it a
+flowing feel, more of a propulsive kind of straight-ahead feel." Marky Ramone,
+who learned the parts from the records' tapes: "the eighth-note high hat
+playing and the cymbal and floor tom playing created a wall of sound" (both
+in the Village Voice, 2004). His 1975 band biography: "Tommy is the drummer
+whose pulsating playing launches the throbbing sound of the band"; "Their
+sound is not unlike a fast drill on a rear molar" (Spin, 2014). His kit from
+1975 was a Rogers in New England White, a 22" bass drum with 9x13 and 16x16
+toms, a Slingerland snare and Paiste 2002 cymbals; after the band's gear was
+stolen in Chicago in October 1977, a Rogers "Big R" with a 24" bass drum
+(Wikipedia).
+
+**Which records are his.** The credits of all three albums put him on drums
+(Wikipedia: Ramones, Leave Home, Rocket to Russia). Marky Ramone drums from
+Road to Ruin (1978), so I Wanna Be Sedated is not his. Sheena Is a Punk
+Rocker was a single in July 1977, remixed for Rocket to Russia.
+
+**The songs.**
+
+| Song                    | Year | Tempo (record) | Bars from                                       | Sections                                                                     |
+| ----------------------- | ---- | -------------- | ----------------------------------------------- | ---------------------------------------------------------------------------- |
+| Blitzkrieg Bop          | 1976 | 176 (175.8)    | Songsterr 212, human, drum track "Tommy Ramone" | intro, the floor tom, verse, chorus on the ride, outro on the floor tom      |
+| Beat on the Brat        | 1976 | 157 (157.2)    | Songsterr 18624, human                          | intro, verse (snare on the "a" of 2), ride, chorus, bridge on the bell, end  |
+| Pinhead                 | 1977 | 179 (179.2)    | Songsterr 16284, human                          | the march, bell, verse on the hat, its end, the chant on the ride, bridge    |
+| Sheena Is a Punk Rocker | 1977 | 177 (177.2)    | Songsterr 20564, human                          | open quarters, verse on the closed hat, chorus, bridge on the ride           |
+| Rockaway Beach          | 1977 | 188 (188.2)    | Songsterr 20563, human                          | intro, verse, chorus on the floor tom, a turn in 6/4, bridge, break, end     |
+| Teenage Lobotomy        | 1977 | 187 (186.8)    | Songsterr 22732, human                          | the march in 6/4, open eighths, the turns in 6/4, chorus and verse, end      |
+| Cretin Hop              | 1977 | 185 (185.2)    | Songsterr 16256, human                          | pickup, the floor tom, verse on the closed and open hat, chorus with the hop |
+
+Every tab was checked for machine origin at every revision (none) and
+expanded with its repeats and second endings before its length was set
+against the record: all within three seconds, except Pinhead, whose chant at
+the end runs about eight bars longer on the record, to the fade. Tempos are
+the records' own (onset autocorrelation over two windows); the tabs say 158 to
+186, within three of each.
+
+What the app changes, song by song, is in each song's comment. The songs are
+written whole, intro to outro, from the tabs' bars: repeating grooves as
+sections of figures, where the crash on the 1 of every other bar is a two-bar
+figure, and intros, breaks, turns and endings as written bars. Teenage
+Lobotomy and Rockaway Beach move between 4/4 and 6/4 sections as the records
+do; Teenage Lobotomy opens in 6/4, so a seeded 4/4 New from the API never
+picks it. Beat on the Brat's chorus crashes fall as the figures draw them,
+not as the tab places them. Silent bars before the drums come in and after
+they stop are left out.
+
+**Not scored.** Judy Is a Punk and Commando: the same grooves as Blitzkrieg
+Bop's and Beat on the Brat's, with less in them. I Wanna Be Your Boyfriend,
+the slowest song on the debut (125): its tab is two bars repeated. Gimme Gimme
+Shock Treatment: its tab (70617, 2020) writes splashes on every backbeat that
+the record does not have. A second tab of Sheena (4789873, "single version")
+does the same and was not followed.
+
+**The kit.** No samples of his kits are free to use. `sixties` (SM Drums'
+1960s Ludwig, loose hats, crashes left to wash) for his 1960s Rogers and the
+base; `london` (small and dry, as if on two mics) for the two 1976 songs, the
+debut cut at Plaza Sound in a week for $6,400 with the drums in the middle of
+the mix. Weight 0.7: hard and from the arm at speed, never metal.
+
+**The likeness.** The Rainbow Theatre, London, 31 December 1977, the It's
+Alive concert film: slim, the band's dark bowl cut to the jaw, clean-shaven, a
+black sleeveless vest, the white Rogers "Big R" with chrome hardware.
+
+**Sources.**
+
+- Rolling Stone, "100 Greatest Drummers of All Time", 31 March 2016, no. 70.
+- Janelle Borg, "Tommy Ramone on why Johnny Ramone's playing forced him to
+  switch from managing to drumming", Guitar World, 24 April 2024.
+- John Piccarella, "Last Ramones Standing", The Village Voice, 12 October 2004.
+- Colin Joyce, "Here's the Ramones' 1975 Band Bio, Written by Tommy Ramone",
+  Spin, 12 July 2014.
+- READ Magazine, interview with Tommy Ramone, 30 November 1998 (ReadJunk).
+- Wikipedia: Tommy Ramone; Ramones (album); Leave Home; Rocket to Russia;
+  Blitzkrieg Bop; Sheena Is a Punk Rocker; Rockaway Beach (song); Marky Ramone.
+- Songsterr 212, 18624, 16284, 20564, 20563, 22732, 16256 (and 23058, 16395,
+  22521, 70617, 4789873, read and not scored).
+- Ramones, "Live At The Rainbow - December 31, 1977" (YouTube Sp3zaeOyL7Q).
+- The records: YouTube skdE0KAFCEA (Blitzkrieg Bop, 2016 remaster),
+  yVDP5M0eTcM (Beat on the Brat), whIMah7Yi_4 (Pinhead, 2017 remaster),
+  yCW7Aw8ugOI (Sheena Is a Punk Rocker), NaHgb6RJITw (Rockaway Beach),
+  4gjYqcwaklo (Teenage Lobotomy), JY3duDtPOTw (Cretin Hop, 1999 remaster).
+
+## EE. Jerry Allison (2026-10-31)
+
+The `jerryallison` style plays **songs** the way `djfontana` and `earlpalmer`
+do: each New picks one of his records, and its tempo and grooves come with it.
+His record (`drummer-model/drummers/jerry-allison.json`) was a 15-a candidate
+and is now a draft at schema 1.6.0, with Rave On as a new recording and
+`sources/jerry-allison.json`. He files with the Rock and roll and roots
+drummers, beside D. J. Fontana.
+
+**Who he is.** Jerry Ivan Allison was born on 31 August 1939 in Hillsboro,
+Texas, and died at his farm in Lyles, Tennessee, on 22 August 2022 (Wikipedia;
+AP, 2022). He met Buddy Holly in junior high in Lubbock, and "he and I used to
+practice all the time" (Gary James's interview); at the Lubbock Youth Center
+his drums were the only accompaniment to Holly's voice and guitar. "The kind of
+music I liked was like Little Richard and Fats Domino"; he "tried to play like
+Little Richard's drummer, Earl Palmer", was "flipped out" with Gene Krupa,
+took lessons and learned to read, and "we use to play the shit out of Bo
+Diddley at dances" (Scott K Fish's phone interview, 21 March 1982). He
+co-wrote That'll Be the Day and Peggy Sue, named for his girlfriend Peggy Sue
+Gerron, whom he married in 1958. After Holly he kept the Crickets' name, with
+Joe B. Mauldin and Sonny Curtis, played in Liberty's house band behind Bobby
+Vee and Johnny Burnette, and on the Everly Brothers' (Till) I Kissed You. The
+Crickets entered the Rock and Roll Hall of Fame in 2012; Rolling Stone placed
+him 44th of the 100 greatest drummers (2016).
+
+**What he does.** "We always tried to keep everything relatively simple. That
+was part of the plan" (1982). His Wikipedia article: his "rhythm backup ranged
+from slapping his hands on his knees or clapping his hands to a modal
+plainness of cymbal drumming", and on the records under Holly's name "Allison
+played only tom-toms". Peggy Sue: "basically, that was just paradiddles. Just
+a basic old rudiment ... Nobody ever asked. We just went ahead and did it"
+(1982); Holly had written it "as a cha-cha or a rumba", and Allison said
+"let's change the beat" (Gary James). The AP called it "one of rock's most
+celebrated drum parts". On Everyday he slapped his knees; on Not Fade Away he
+"pounded out the beat on a cardboard box"; on Well... All Right he played the
+cymbals alone (the songs' Wikipedia articles; AP).
+
+**Which records are his.** The "Chirping" Crickets (Brunswick BL 54038, 1957)
+credits him with the drums (Discogs), for That'll Be the Day and Oh, Boy!;
+That'll Be the Day's article lists him on drums for the Clovis take of 25
+February 1957, "with everyone performing and without additional overdubs", not
+the 1956 Decca take with the Three Tunes. Peggy Sue's article names him on the
+recording although the label names Holly alone. Rave On was "recorded with
+Holly's group the Crickets at Bell Sound Studios in New York City" (its
+article), and the Buddy Holly album's personnel list Allison on drums, with
+session guitarists and singers added on that track.
+
+**The songs.**
+
+| Song               | Year | Tempo (record) | Bars from               | Sections                                                                                                             |
+| ------------------ | ---- | -------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| That'll Be the Day | 1957 | 127 (126.8)    | Songsterr 8722, human   | pickup, chorus, the stop, verse with its triplet roll, the solo (hat in quarters, then the tom), last chorus, ending |
+| Peggy Sue          | 1957 | 149 (149.2)    | Songsterr 716922, human | intro on the high tom, the paradiddles through verses and solo, the last bar                                         |
+| Oh, Boy!           | 1957 | 200 (200.2)    | Songsterr 9295, human   | pickup, stop-time, verse, the roll, second verse, bridge, solo, ending                                               |
+| Rave On            | 1958 | 162 (161.7)    | Songsterr 9350, human   | verse with the hat in quarters, turnarounds, the chorus's hits, the solo's hits, the tag                             |
+
+Every tab was checked at every revision for machine origin: 8722, 9295 and
+9350 are human from their first revision; 716922 began as a machine draft and
+was rewritten by hand (Lilo Jeera, then Pablo Cruz). Every song's bars are set
+in the record's order, intro to outro, and the arrangement checked against it
+bar by bar (the fork's `gen2.py`). That'll Be the Day's and Rave On's tabs use
+repeats and alternate endings; unrolled they come to the records' 71 and 73
+bars, and an alignment of the record's beat-tracked bars against the tab puts
+That'll Be the Day's triplet rolls and four stops where the tab has them. The
+shuffles are written on the triplet grid (4/4-6). Oh, Boy!'s tab holds one
+second verse and bridge in a repeat that does not fit the record's form; the
+record's stop-time and stops (found in its bands, and where a machine tab of
+the record, 706742, puts them) give that form: the opening verse, a verse, the
+bridge, 24 bars of guitar solo, the stop-time verse, a verse, the bridge, the
+last verse. The tab's 14 solo bars are the pool the solo's 24 are drawn from.
+
+Peggy Sue has one bar for 89 bars: the toms in sixteenths, accented on each
+beat, the kick on 1 and 3, as two human tabs write it (one on the snare over
+the floor tom, 290079; the toms follow his Wikipedia article). The record's
+onsets repeat most strongly at the eighth, perhaps because Petty's echo
+smears the sixteenths; that is an open question in his record. The fading in
+and out is the engineer's and is not written.
+
+**Not scored.** Not Fade Away: its one human tab (5613545) writes the Bo
+Diddley beat on the snare and kick for 16 bars, then a hi-hat in eighths, on a
+record played on a cardboard box. Everyday: knee slaps, one bar held under the
+celesta (4703832), with nothing on the kit to play them. Maybe Baby: only a
+machine tab. Well... All Right: no tab.
+
+**The style.** A light shuffle base on the Jazz kit (Virtuosity), the closest
+pack kit to a small 1950s kit in one room, with its own toms for Peggy Sue;
+weight 0.55; the slider swings from straight (Rave On) to the shuffle. The
+likeness is The Ed Sullivan Show, December 1957: a dinner jacket and bow tie,
+short dark hair combed back, a small white pearl kit.
+
+### Sources (EE)
+
+- Scott K Fish, "Jerry Allison: Keep Everything Relatively Simple" (phone
+  interview, 21 March 1982; posted 2015):
+  https://scottkfish.com/2015/12/29/jerry-allison-keep-everything-relatively-simple/
+- Gary James, interview with Jerry Allison (Classic Bands):
+  https://classicbands.com/JerryAllisonInterview.html
+- Kristin M. Hall, "Jerry Allison, drummer for Buddy Holly, dead at 82"
+  (Associated Press, 24 August 2022):
+  https://www.ky3.com/2022/08/24/jerry-allison-drummer-buddy-holly-dead-82/
+- The "Chirping" Crickets (Brunswick BL 54038, 1957), Discogs release 2152809
+- Wikipedia: Jerry Allison; That'll Be the Day; Peggy Sue; Oh, Boy! (The
+  Crickets song); Rave On; Buddy Holly (album); Not Fade Away (song); Everyday
+  (Buddy Holly song)
+- Rolling Stone, "100 Greatest Drummers of All Time" (2016)
+- The Ed Sullivan Show, Peggy Sue (1957): YouTube _qQzuvfvBdE
+- Songsterr 8722, 716922, 290079, 9295, 9350 (human); 5613545, 4703832
+  (read, not scored); 706742 and 707751 (machine, read for the records' form)
+- The records: 5SiORNkR2nE, Zpni8tmIzaM, pRD_Yp_lkEI, TEzsrbxjyQU (YouTube,
+  the artists' channels), beat-tracked
+
+## EF. Earl Hudson (2026-10-31)
+
+The `earlhudson` style plays **songs** the way `crover` and `hayward` do: each
+New picks one of his records, and its tempo and grooves come with it. His
+record (`drummer-model/drummers/earl-hudson.json`) was a 15-a candidate and is
+now a draft at schema 1.6.0, with two new tracks on the ROIR cassette's
+recording (Attitude and F.V.K.) and `sources/earl-hudson.json`. He starts a
+new Drummers-tab group, Hardcore punk drummers, filed after Punk drummers.
+
+**Who he is.** Earl Hudson was born on 17 December 1957 in Alabama, the younger
+brother of Bad Brains' singer H.R. (Wikipedia). The band began in Washington in
+1976 as a jazz-fusion group, Mind Power, "in the mold of" Return to Forever and
+the Mahavishnu Orchestra, with Dr. Know on guitar, Darryl Jenifer on bass, H.R.
+on rhythm guitar and Hudson on drums; it "cut its teeth learning jazz fusion
+songs by Weather Report and Lonnie Liston Smith" (Andscape, 2017). In 1977 its
+singer Sid McCray brought them punk, and they took their name from the Ramones'
+"Bad Brain"; after seeing Bob Marley they took up reggae and Rastafari. Banned
+from Washington's clubs in 1979, they moved to New York about 1980. The classic
+line-up held until 1987, when H.R. and Earl left to play reggae (Mackie Jayson
+finished the I Against I tour); the brothers came back for Quickness (1989) and
+God of Love (1995). Rolling Stone placed him 75th of the 100 greatest drummers
+(2016), quoting Dave Grohl: "I would learn all of [his] licks verbatim"; in
+Bad Brains: A Band in D.C. (2012) Grohl kept "little fills here and there that
+I took from Earl" (both in Okayplayer, 2021). Grohl's record already carries
+that edge.
+
+**The records.** The ROIR cassette, Bad Brains (5 February 1982), was cut at
+Jerry Williams's 171-A Studios in Alphabet City, a sixty-foot room with a stage
+at one end: Williams taped a gig there in May 1981, and the band came back to
+record from August to October. Twelve of its fifteen tracks are from those
+sessions; Jah Calling, Pay to Cum and I Luv I Jah are from the May tape. Rock
+for Light (1983) re-recorded most of its songs, faster and shorter, so a song's
+take matters: the model's YouTube links for Banned in D.C. and Big Takeover
+were Rock for Light's, on the cassette's recording (corrected in the hand-over).
+
+**The songs.** All five are from the cassette, in its order. Each follows a
+Songsterr tab, read against the ROIR take for tempo, length and landmarks
+(beat-tracked, and the hats' and kick's energy bar by bar), and plays the tab's
+bars in the record's order. Three tabs are human; two began as machine tabs and
+were corrected by hand (Sailin' On by three people, Big Takeover by dinkman84
+in all five tracks), and their comments say so.
+
+| Song           | Year | Tempo (record)               | Bars from                          | Sections                                                                                     |
+| -------------- | ---- | ---------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------- |
+| Sailin' On     | 1982 | 164 (163.8)                  | Songsterr 924143, machine, by hand | intro, verse, chorus on three crashes, bridge, last chorus, outro, the ending slowing to 100 |
+| Attitude       | 1982 | 165 (165.2)                  | Songsterr 5268405, human           | verse, chorus on the toms, the pushed verse, eight bars, ending in dotted eighths            |
+| Banned in D.C. | 1982 | 167, then 153 (167.4, 153.2) | Songsterr 31699, human             | intro and snare roll, verse, the stop and crash roll, interlude, solo, outro                 |
+| F.V.K.         | 1982 | 167 (166.8)                  | Songsterr 31702, human             | tom intro, verse, a bar of 3/4, chorus, bridge in dotted eighths                             |
+| Big Takeover   | 1982 | 135, then 210 (135.3, 209.8) | Songsterr 681467, machine, by hand | intro on the kick alone, chorus, verse, interlude, solo, chorus, ending                      |
+
+- **Sailin' On.** 77 tab bars against the record's 78 at 164; the record
+  pushes from 161.5 to 165.8. The four silent bars of the tab's ending are left
+  out: it slows from 140 to 100 over three bars (×6/7, ×11/15, ×8/13) and stops
+  on the last hit.
+- **Attitude.** 52 bars at 165 against the record's 79 s; the record's hats
+  fall away in bars 9 to 12, where the tab plays the toms.
+- **Banned in D.C.** Laid at the record's tempi (bar 1 at 142, the roll at
+  191, the verse at 167, the rest at 153, ×11/12) the tab ends at 128.2 s, the
+  record at 128, and its stop falls at 47 to 50 s, where the record's kick
+  drops. The crash roll of bars 36 and 37 is in thirty-seconds, which no meter
+  here has, so it is written in sixteenths at twice the tempo (×11/6); bar 36
+  (1/4) and the rest of bar 37 (3/4) keep their own bars. Bar 1's triplet is on
+  the triplet grid.
+- **F.V.K.** 48 bars at 167 against the record's 68 s; the hats come in after
+  the tom intro and stop for one bar where the tab rests.
+- **Big Takeover.** The record's 22-bar intro at 135 (×9/14) and 120 fast bars
+  at 210 are the tab's; its hats come in at bar 21, where the tab adds the
+  snare. Teddy Murray's human tab (5471033) is two bars of the intro only.
+
+**Left out, and why.** Each is an open question in his record.
+
+- **His reggae.** I Luv I Jah (2656007) and Leaving Babylon (2041902) have
+  only machine tabs, and I Luv I Jah's contradicts itself bar to bar. Folded at
+  64, the record's drum bands do not separate from the bass and the skank, so a
+  reconstruction would be a guess. The style plays hardcore only for now, and
+  its hint says so.
+- **I Against I** (1986). Joshua's human tab (549702) has 34 bars at 260 where
+  the record has about 27 at 237, and a slow section of 35 bars with its repeats
+  where the record has about 26 at 146; the record then speeds from 211 to about
+  235 over its last 95 s.
+- **Pay to Cum.** Its human tab (31701) writes a cowbell in every other bar
+  that nothing confirms, and the cassette's take and the 1980 single are
+  different recordings; the Topic uploads are age-restricted.
+- **Right Brigade.** Its tab (506787) fits the record's length and tempi
+  (141, 215, 140) but not its hat-less passage: about 32 s on the record, 14 s
+  in the tab.
+
+**The style.** `drummer: true`, Bad Brains, the Small and dry kit (Gogodze's
+damped lo-fi drums, the snare tight and high, a little distortion) for a
+cassette cut live in one room; weight 0.85; straight, on top of the beat; base
+figures from the five songs' verses and Attitude's tom chorus, fills from their
+snare and tom runs. Twelve presses of New give ten distinct breaks, the two
+repeats written sections served again, so no `HELD` entry is needed. The
+likeness is CBGB, December 1982: a knitted Rasta tam, a short beard, a
+golden-yellow T-shirt with a lion print, a chrome kit.
+
+### Sources (EF)
+
+- Wikipedia: Earl Hudson; Bad Brains; Bad Brains (album); Rock for Light; I
+  Against I; Pay to Cum
+- Bruce Britt, "Bad Brains: the band that added some much-needed color to the
+  American rock scene" (Andscape, 7 February 2017):
+  https://andscape.com/features/bad-brains-the-band-that-added-some-much-needed-color-to-the-american-rock-scene/
+- Rolling Stone, "100 Greatest Drummers of All Time" (2016)
+- Elijah C. Watson, "How Black Drummers Influenced Nirvana's 'Smells Like Teen
+  Spirit'" (Okayplayer, 2021)
+- Bad Brains, Banned in DC, CBGB 1982 (Hardcore Worldwide): YouTube XGzA8KXW3WI
+- Songsterr 924143, 681467 (machine tabs corrected by hand); 5268405, 31699,
+  31702 (human); 549702, 31701, 506787, 5471033 (human, read, not scored);
+  2656007, 2041902 (machine, read)
+- The records: z1HHXoeWi7I, ul4bMqAbLJs, W83Xkg40_HY (Bad Brains - Topic);
+  _xz2kr4ovZs, np13ijRwBr0, peGbcaFIDVw (the ROIR and SST takes, a Bad Brains
+  channel); FIsEzfNBT-Y; 2O9GIFXXGko; Y7hovFF6xog; beat-tracked
+
+## EG. Roger Hawkins (2026-10-31)
+
+The `rogerhawkins` style plays **songs** the way `aljackson` and
+`bennybenjamin` do: each New picks one of his records, and its tempo and
+grooves come with it. His record (`drummer-model/drummers/roger-hawkins.json`)
+was a 15-a candidate and is now a draft at schema 1.6.0, with Mustang Sally and
+Chain of Fools as new recordings and `sources/roger-hawkins.json`. He files
+with the Soul and Motown drummers, beside Al Jackson Jr., whom he named as an
+influence.
+
+**Who he is.** Roger Hawkins was born on 16 October 1945 in Mishawaka,
+Indiana, grew up in the Shoals, and died at home in Sheffield, Alabama, on 20
+May 2021 (Encyclopedia of Alabama; Wikipedia). Rick Hall hired him at FAME
+Studios in 1964; with Jimmy Johnson, David Hood and Barry Beckett he was the
+"Second FAME Gang", the Swampers, and in April 1969 the four founded Muscle
+Shoals Sound at 3614 Jackson Highway, Sheffield, moving to 1000 Alabama Avenue
+in 1979 and selling in 1985 (Muscle Shoals Rhythm Section, Wikipedia;
+Encyclopedia of Alabama). He studied Take Five and Mother-in-Law and took jazz
+lessons from Mike Shepherd; "Al Jackson was a big influence. I listened to him
+a lot" (Modern Drummer, 2017). Rolling Stone placed him 31st of the 100
+greatest drummers (2016). In 1973 he toured with Traffic, with Hood and
+Beckett.
+
+**What he does.** The Encyclopedia of Alabama: "known for his high-hat
+inflections, syncopated bass drum work, dynamic snare drum style, and
+importantly his adherence to the arrangement of the song". In his own words
+(Jeff Potter, Modern Drummer, 26 April 2017): "don't be doing tom-tom fills
+when the singer's singing"; "I tried to tune them to the song—whatever would
+fit in with the song and the way the singer was singing", running a finger
+round the snare to find where to tape it; "most of the time it was Ludwig";
+Kodachrome was "a loping feel", played with hard vibes mallets on a box with
+newspaper in it; and "I was always a better listener than I was a drummer".
+The tabs agree: eighths on the hat with one note opened in every bar, the
+kick moving with the bass, the band's stops and hits, the fills in the gaps.
+
+**Which records are his.** Each song's Wikipedia personnel names him: When a
+Man Loves a Woman (Norala Sound, Sheffield, 1966: "Roger Hawkins on drums");
+Mustang Sally (FAME, 1966; personnel from The Muscle Shoals Sound: 3614
+Jackson Highway); I Never Loved a Man (FAME, January 1967, the one track
+finished before the session broke up); Respect (New York, 14 February 1967,
+with the FAME players; the song's personnel for Franklin's version); Chain of
+Fools (1967; the song's and Lady Soul's personnel); Old Time Rock and Roll
+(Muscle Shoals Sound, 1978: "drums, percussion"). (You Make Me Feel Like) A
+Natural Woman, from the same Atlantic run, is Gene Chrisman's.
+
+**The songs.**
+
+| Song                     | Year | Tempo (record)        | Meter | Bars from               | Sections                                                                                     |
+| ------------------------ | ---- | --------------------- | ----- | ----------------------- | -------------------------------------------------------------------------------------------- |
+| When a Man Loves a Woman | 1966 | 97 (dotted q. 64.9)   | 12/8  | Songsterr 78190, human  | intro on the hat, four verses on the ride with a roll into each, bridge, outro               |
+| Mustang Sally            | 1966 | 110 (110.0)           | 4/4   | Songsterr 42555, human  | three verse-and-chorus forms of 24, each chorus stopping before its end, the vamp            |
+| I Never Loved a Man      | 1967 | 135 (dotted q. 90.05) | 9/8   | Songsterr 503143, human | verses, the stops, the ride, the triplet roll, the last choruses with a crash every bar      |
+| Respect                  | 1967 | 115 (115.0)           | 4/4   | Songsterr 25745, human  | intro, three verses with the refrain's hits, sax solo, fourth verse, R-E-S-P-E-C-T, the vamp |
+| Chain of Fools           | 1967 | 117 (116.8)           | 4/4   | Songsterr 25744, human  | the hat alone, chorus, verses, a bar's break, "one of these mornings", choruses, outro       |
+| Old Time Rock and Roll   | 1978 | 124 (124.2)           | 4/4   | Songsterr 553002, human | piano intro, verses, choruses, guitar and sax solos, the a cappella chorus, outro            |
+
+Every tab was checked at every revision for machine origin. Respect's newest
+revision (7854541) has every track renamed "(regenerated)", a machine pass,
+so the song follows Ben Zepman's revision 2912408, whose drums are Leonard's
+of 2009. Every song plays the tab's bars in the record's order, intro to
+outro, checked bar by bar; parts of a section that repeat exactly share a
+letter. The forms were placed with the records' synced lyrics (LRCLIB) where
+the tabs have no markers: Respect's three verses of ten, sax solo, fourth
+verse, R-E-S-P-E-C-T, "sock it to me" and vamp match the tab's repeats and
+endings unrolled with its vamp three times, 70 bars; Chain of Fools' and I
+Never Loved a Man's sections fall on the tabs' own stops and fills. Mustang
+Sally's stops come every 24 bars, the song's form.
+
+Two songs are in compound meters, written with the triplet in the grid and the
+tempo counted in quarters. When a Man Loves a Woman's tab writes 4/4 at 65
+with every beat in triplets: 12/8 at a dotted quarter of 65, a quarter of 97.
+I Never Loved a Man's tab writes a 3/4 shuffle at 90, each beat's last eighth
+a sixty-fourth short of the triplet: 9/8 at a dotted quarter of 90, a quarter
+of 135; the record's kick repeats every three beats (autocorrelation 0.19,
+against 0.09 at two), which is the tab's bar. Its rolls, ten notes to a bar on
+the same short grid, are set as the bar's nine triplets.
+
+**Readings against the records.** When a Man Loves a Woman's bridge (tab bars
+21-24) puts the ride in dotted eighths; the record's cymbals there repeat on
+the triplet as in the verses (0.44 at a third of a beat, 0.02 at a half), so
+the ride stays in triplets. Respect's "sock it to me" (tab bars 38-39) is
+empty in the tab, but the record's drums play on at the level of the bars
+either side, so the two bars are the vamp's groove, labelled a
+reconstruction. Old Time Rock and Roll's a cappella chorus writes its
+quarter notes on the woodblock line; the record's low band hits every beat
+there, so they are the kick. Chain of Fools' tambourine lane is a
+percussionist's overdub and is left out.
+
+**Two hands.** Where a tab writes three things for the sticks at once, the
+crash takes the ride's note (nine bars of Respect where the tab writes both), the hat under a fill
+or under the ride goes to the foot (Chain of Fools' tom bars, Old Time Rock
+and Roll bars 27, 28, 36, I Never Loved a Man's ride bars 61-68 and the last
+choruses, 71-87), and a tom under a crash and the snare goes (I Never Loved a Man
+bar 78's first triplet). No note was moved and no tempo changed.
+
+**Not scored.** Land of 1000 Dances (his first well-documented FAME session,
+with the solo drum break), Think, Tell Mama, Respect Yourself and I'll Take
+You There: their drum tabs are machine-made or began as machine drafts.
+Kodachrome (1973): its human tab (50190, drums added by notjnw in 2024) runs
+110 bars, with 3/4 and 2/4 bars, against about 120 on the record, so its
+sections can't be placed; he played it on a box with vibes mallets, which no
+kit lane holds. Loves Me Like a Rock and Main Street wait for a later pass.
+
+**The style.** SM Drums, a 1960s Ludwig like the FAME house kit, for the
+1960s songs; Funk & soul for Old Time Rock and Roll; weight 0.95, the snare a
+hair behind ("his unshakable time, southern-infused deep pocket", Modern
+Drummer); fillChance low, by his rule against fills under the singer. The
+likeness is Traffic on Radio Bremen's Musikladen, 1973: shoulder-length hair,
+round wire glasses, a floral shirt, a black oyster pearl kit.
+
+### Sources (EG)
+
+- Jeff Potter, "Roger Hawkins: The Pulse of Muscle Shoals" (Modern Drummer,
+  26 April 2017):
+  https://www.moderndrummer.com/2017/04/roger-hawkins-pulse-muscle-shoals/
+- Peter B. Olson, "Roger Hawkins" (Encyclopedia of Alabama, 2020, updated
+  2025): https://encyclopediaofalabama.org/article/roger-hawkins/
+- Wikipedia: Roger Hawkins (drummer); Muscle Shoals Rhythm Section; When a Man
+  Loves a Woman (song); Mustang Sally (song); I Never Loved a Man (The Way I
+  Love You) (song); Respect (song); Chain of Fools; Lady Soul; Old Time Rock
+  and Roll; (You Make Me Feel Like) A Natural Woman
+- Rolling Stone, "100 Greatest Drummers of All Time" (2016)
+- Traffic, "Jammin'" (Musikladen, Radio Bremen, 1973): YouTube Ckzk2ky__g4
+- LRCLIB synced lyrics: Respect, Chain of Fools, I Never Loved a Man
+- Songsterr 78190, 42555, 503143, 25745 (rev 2912408), 25744, 553002
+  (human); 50190 (human, not scored); 1162767, 1174730, 4037046, 732596,
+  847496, 2369522 (machine or machine-drafted, read)
+- The records: KwPxhWU1koE, 7WaS7wPe6zs (beat-tracked on 16u6w0cjjrU),
+  dzIUgS3Imu0, A134hShx_gw, 5C4FnlftQt4, N9G-lvqaBfM (YouTube), beat-tracked
