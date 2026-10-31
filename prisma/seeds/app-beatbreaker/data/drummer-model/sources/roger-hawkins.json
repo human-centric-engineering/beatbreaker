@@ -72,15 +72,6 @@
     "accessed": "2026-10-31"
   },
   {
-    "id": "src:lrclib-synced-lyrics",
-    "type": "analysis",
-    "title": "LRCLIB synced lyrics (Respect, Chain of Fools, I Never Loved a Man)",
-    "url": "https://lrclib.net/",
-    "reliability": 0.6,
-    "notes": "Line timings used to place each record's sections against its beat-tracked bars.",
-    "accessed": "2026-10-31"
-  },
-  {
     "id": "src:songsterr-78190",
     "type": "transcription",
     "title": "Percy Sledge - When a Man Loves a Woman (Songsterr 78190)",

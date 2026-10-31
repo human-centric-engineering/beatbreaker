@@ -601,7 +601,14 @@
       "The snare on every \"and\" under an open hat in eighths, the kick on the beat or moving round it.",
       "Crash on the phrase's 1; sixteenths on the snare into the next phrase.",
       "Stops and changes of tempo with the band."
-    ]
+    ],
+    "avoid": ["Swing and ghosted sixteenths", "Double-kick runs", "Drum solos"],
+    "lineage_display": {
+      "primary_ancestors": [],
+      "primary_descendants": ["drummer:dave-grohl"],
+      "lineage_blurb": "Jazz fusion turned to D.C. hardcore and reggae; Dave Grohl learned his licks verbatim."
+    },
+    "tags": ["hardcore", "punk", "reggae", "80s", "washington dc", "bad brains", "fast"]
   },
   "key_recording_ids": [
     "rec:bad-brains-bad-brains-1982",

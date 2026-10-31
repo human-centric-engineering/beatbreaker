@@ -214224,7 +214224,7 @@ export const STYLES: Record<string, Style> = {
     swingRange: [0, 65],
     swingUnit: 8,
     // the tabs write no ghost notes
-    ghostBias: 0.03,
+    ghostBias: 0,
     ghostWeights: {},
     opens: 1,
     backbeats: [4, 12],
@@ -215313,13 +215313,13 @@ export const STYLES: Record<string, Style> = {
       ['1010', 4],
       ['1000', 2],
     ],
-    /* His bars, from the songs below: the open eighths of Blitzkrieg Bop and every chorus, the
+    /* His bars, from the songs below: the open eighths of Blitzkrieg Bop's verse and most songs, the
        kick on 1, 3 and the "and" of 3; Sheena's and Cretin Hop's closed eighths; the floor tom in
        eighths for the hat (Blitzkrieg Bop, Rockaway Beach, Cretin Hop); Sheena's open hat in
        quarters; Pinhead's ride in quarters; Beat on the Brat's bell in quarters and its verse,
        the snare on the "a" of 2. */
     figures: [
-      // Blitzkrieg Bop (1976) and nearly every chorus: open eighths
+      // Blitzkrieg Bop (1976), the intro and verse, and most of his songs: open eighths
       [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1.......1.1.....' }, 3],
       // Sheena Is a Punk Rocker (1977), the verse: closed eighths
       [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1.....' }, 2],
@@ -218699,7 +218699,7 @@ export const STYLES: Record<string, Style> = {
     bpm: [104, 128],
     swing: 0,
     // the tabs write no ghost notes
-    ghostBias: 0.05,
+    ghostBias: 0,
     ghostWeights: {},
     opens: 1,
     backbeats: [4, 12],

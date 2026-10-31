@@ -7,7 +7,7 @@
   "style_ids": ["style:punk"],
   "evidence": {
     "confidence": "widely_reported",
-    "source_ids": ["src:tommy-ramone-wikipedia"]
+    "source_ids": ["src:tommy-ramone-wikipedia", "src:ramones-bio-1975-spin-2014"]
   },
   "drum_performances": [
     {

@@ -5,6 +5,10 @@
   "year": 1957,
   "type": "studio_track",
   "style_ids": ["style:rock-and-roll"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:chirping-crickets-discogs-1957"]
+  },
   "drum_performances": [
     {
       "drummer_id": "drummer:jerry-allison"
@@ -18,7 +22,11 @@
         "description": "A fast, driving beat with a strong backbeat.",
         "evidence": {
           "confidence": "widely_reported",
-          "source_ids": ["src:oh-boy-crickets-song-wikipedia", "src:songsterr-706742"]
+          "source_ids": [
+            "src:oh-boy-crickets-song-wikipedia",
+            "src:songsterr-9295",
+            "src:songsterr-706742"
+          ]
         }
       },
       "youtube": "https://www.youtube.com/watch?v=pRD_Yp_lkEI",

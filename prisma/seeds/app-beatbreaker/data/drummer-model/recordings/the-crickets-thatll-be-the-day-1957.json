@@ -5,6 +5,10 @@
   "year": 1957,
   "type": "studio_track",
   "style_ids": ["style:rock-and-roll"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:chirping-crickets-discogs-1957"]
+  },
   "drum_performances": [
     {
       "drummer_id": "drummer:jerry-allison",

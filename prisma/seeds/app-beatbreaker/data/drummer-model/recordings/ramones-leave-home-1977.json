@@ -25,7 +25,7 @@
         "description": "A steady, fast punk beat behind the \"gabba gabba hey\" chant.",
         "evidence": {
           "confidence": "likely",
-          "source_ids": ["src:leave-home-wikipedia"]
+          "source_ids": ["src:leave-home-wikipedia", "src:songsterr-16284"]
         }
       },
       "youtube": "https://www.youtube.com/watch?v=whIMah7Yi_4",
