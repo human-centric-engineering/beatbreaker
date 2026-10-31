@@ -33,7 +33,7 @@ vi.mock('@/lib/app/breaks/catalogue/data', async (importOriginal) => ({
   listStyles: vi.fn(),
 }));
 
-import { HARD_CHECKS, WriteBarsCapability } from '@/lib/app/breaks/buddy/write-bars';
+import { WriteBarsCapability } from '@/lib/app/breaks/buddy/write-bars';
 import { listStyles } from '@/lib/app/breaks/catalogue/data';
 
 const DOC = funkPayload();
@@ -123,7 +123,7 @@ describe('write_bars', () => {
     unchanged();
   });
 
-  it('refuses a kick that plays three 16ths in a row, naming the bar and the rule, and writes nothing', async () => {
+  it('writes a kick that plays three 16ths in a row: a groove rule, not beyond the feet', async () => {
     const result = await run({
       section: 'A',
       text: `bar 1
@@ -132,12 +132,10 @@ describe('write_bars', () => {
         kick   XXX.....X.......`,
     });
 
-    expect(result).toMatchObject({ success: false, error: { code: 'unplayable' } });
-    expect(result.error?.message).toContain('bar 1: fails "No triple 16ths on the kick"');
-    unchanged();
+    expect(result.success).toBe(true);
   });
 
-  it('refuses a hi-hat and ride on the same step, naming the beat', async () => {
+  it('writes a hi-hat and ride on the same step, one in each hand', async () => {
     const result = await run({
       section: 'A',
       text: `bar 2
@@ -147,9 +145,7 @@ describe('write_bars', () => {
         kick   X.......X.......`,
     });
 
-    expect(result).toMatchObject({ success: false, error: { code: 'unplayable' } });
-    expect(result.error?.message).toMatch(/bar 2, beat 1: removed the (closed hat|ride)/);
-    unchanged();
+    expect(result.success).toBe(true);
   });
 
   it('refuses three hands on one step, including a lane the section did not carry before', async () => {
@@ -219,7 +215,7 @@ describe('write_bars', () => {
     unchanged();
   });
 
-  it('refuses a bar with no backbeat', async () => {
+  it('writes a bar with no backbeat: a transcription is what was played', async () => {
     const result = await run({
       section: 'A',
       text: `bar 1
@@ -227,8 +223,7 @@ describe('write_bars', () => {
         kick   X.......X.......`,
     });
 
-    expect(result.error?.message).toContain('fails "Every bar has a findable backbeat"');
-    unchanged();
+    expect(result.success).toBe(true);
   });
 
   it("passes fromText's reason through for notation it cannot read", async () => {
@@ -317,13 +312,30 @@ describe('write_bars', () => {
     unchanged();
   });
 
-  it("HARD_CHECKS points at the critic's hard rules other than hat-and-ride", () => {
-    const labels = playability(decoded(DOC).A, 94).checks.map((c) => c.label);
-    expect([...HARD_CHECKS].map((i) => labels[i])).toEqual([
-      'No triple 16ths on the kick',
-      'Snare never runs four 16ths without a break',
-      'Every bar has a findable backbeat',
-      'At least a quarter of every bar is air',
+  it('names the bar and step where a limb runs out, and why', async () => {
+    const doc = decoded(DOC);
+    fake.rows.set('user-1', { userId: 'user-1', doc: breakPayload({ ...doc, bpm: 220 }), rev: 2 });
+
+    // one pedal on every sixteenth at 220: past what a foot keeps up
+    const result = await run({
+      section: 'A',
+      whole: true,
+      text: `bar 1
+        hat    x.x.x.x.x.x.x.x.
+        snare  ....S.......S...
+        kick   XXXXXXXXXXXXXXXX`,
+    });
+
+    expect(result).toMatchObject({ success: false, error: { code: 'unplayable' } });
+    expect(result.error?.message).toMatch(/bar 1, step \d+: a foot playing faster than a foot can/);
+    expect(result.error?.message).not.toContain('fails "The feet keep up');
+  });
+
+  it("refuses only on the critic's body checks: the groove's are taste", () => {
+    const kinds = playability(decoded(DOC).A, 94).checks.map((c) => [c.label, c.kind]);
+    expect(kinds.filter(([, k]) => k === 'body').map(([l]) => l)).toEqual([
+      'The feet keep up at 94 BPM',
+      'Each hand gets where it is going at 94 BPM',
     ]);
   });
 });

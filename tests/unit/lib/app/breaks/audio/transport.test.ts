@@ -18,6 +18,7 @@ import {
   isClickStep,
   laneGain,
   soloInPlay,
+  TEMPO_TOP,
   maxBpm,
   maxBpmOf,
   playableSlots,
@@ -240,24 +241,26 @@ describe('Transport', () => {
 });
 
 describe('maxBpm', () => {
-  it('lets a compound meter run faster, since its clock counts sixteenths of a dotted pulse', () => {
-    expect(maxBpm('6/8')).toBe(300);
-    expect(maxBpm('4/4')).toBe(190);
-    expect(maxBpm('7/8')).toBe(190);
+  it('is the Studio’s top in every meter: what a bar can be played at is the limbs’ question', () => {
+    // sixteenths at 220 are on records (thrash, grind); the meter does not stop them
+    for (const m of ['4/4', '7/8', '6/8', '4/4-8', '4/4-6']) expect(maxBpm(m)).toBe(TEMPO_TOP);
+    expect(TEMPO_TOP).toBeGreaterThanOrEqual(360);
   });
 });
 
 describe('maxBpmOf (11-e-ii-a)', () => {
-  it('is the lowest of the sections’ ceilings: one tempo plays every section', () => {
-    // fast swing in eighths goes to 380 alone, and to 4/4's 190 beside a 4/4 B
-    expect(maxBpmOf(['4/4-8', '4/4'])).toBe(190);
-    expect(maxBpmOf(['12/8', '4/4-8'])).toBe(300);
-    expect(maxBpmOf(['7/8', '7/8'])).toBe(190);
+  it('is the top in any mix of meters, and half of it beside a section at ×2', () => {
+    expect(maxBpmOf(['4/4-8', '4/4'])).toBe(TEMPO_TOP);
+    expect(maxBpmOf(['12/8', { meter: '4/4', tempoRatio: 2 }])).toBe(TEMPO_TOP / 2);
   });
 
-  it('skips a missing section, and is 4/4’s with none', () => {
-    expect(maxBpmOf([undefined, '6/8'])).toBe(300);
-    expect(maxBpmOf([])).toBe(190);
+  it('never passes the top for a section at ×½', () => {
+    expect(maxBpmOf([{ meter: '4/4', tempoRatio: 0.5 }])).toBe(TEMPO_TOP);
+  });
+
+  it('skips a missing section, and is the top with none', () => {
+    expect(maxBpmOf([undefined, '6/8'])).toBe(TEMPO_TOP);
+    expect(maxBpmOf([])).toBe(TEMPO_TOP);
   });
 });
 

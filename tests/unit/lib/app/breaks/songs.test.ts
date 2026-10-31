@@ -10,6 +10,7 @@ import { styleParamsSchema } from '@/lib/app/breaks/catalogue/schemas';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { makeRng } from '@/lib/app/breaks/rng';
+import { MAX_BREAK_BARS, SECTION_LETTERS } from '@/lib/app/breaks/sections';
 import { packPattern, patternFromPacked } from '@/lib/app/breaks/share';
 import {
   partKey,
@@ -47,10 +48,10 @@ describe('withSong', () => {
     expect(st.label).toBe('Mitch Mitchell');
   });
 
-  it('holds a song to the tempo its unbroken runs stay playable at (`playableBpm`)', () => {
-    // In from the Storm: the record's 140–160, its runs held to 150
+  it("plays a song at its own tempo range, the record's, uncut", () => {
+    // In from the Storm: the record's 140–160
     expect(song('in-from-the-storm').params.bpm).toEqual([140, 160]);
-    expect(withSong(MITCH.params, 'in-from-the-storm').bpm).toEqual([140, 150]);
+    expect(withSong(MITCH.params, 'in-from-the-storm').bpm).toEqual([140, 160]);
   });
 
   it("drops the style's swing range for a song that names one swing and no range", () => {
@@ -236,8 +237,15 @@ describe('the song schema', () => {
     });
 
     it('refuses sections holding more bars than a break', () => {
-      const long = ['A', 'B', 'C', 'D', 'E'].map((L) => section(L, {}, { bars: 7 }));
-      expect(parses([inSections(long)])).toBe(false);
+      // eight bars a section, so the break's limit is that many sections and one more is over
+      const full = SECTION_LETTERS.slice(0, MAX_BREAK_BARS / 8).map((L) =>
+        section(L, {}, { bars: 8 })
+      );
+      expect(parses([inSections(full)])).toBe(true);
+      const over = SECTION_LETTERS.slice(0, MAX_BREAK_BARS / 8 + 1).map((L) =>
+        section(L, {}, { bars: 8 })
+      );
+      expect(parses([inSections(over)])).toBe(false);
     });
 
     it('refuses a key too long to carry its letter in a pattern', () => {
@@ -281,7 +289,7 @@ describe("a drummer's songs", () => {
       for (const { song, section } of songParts(st)) {
         const steps = stepsOf(meterOf(songMeter(st, song, section)));
         const merged = withSong(st, partKey(song, section));
-        for (const [figure] of merged.figures ?? []) {
+        for (const [figure] of section?.written ? [] : (merged.figures ?? [])) {
           const rows = Object.entries(figure);
           const len = rows[0]?.[1].length;
           expect([steps, 2 * steps], `${key}/${song.key} figure`).toContain(len);
@@ -289,7 +297,9 @@ describe("a drummer's songs", () => {
             expect(row, `${key}/${song.key} figure, ${lane}`).toHaveLength(len);
           }
         }
-        for (const [fill] of merged.fills ?? []) {
+        // a written section plays its bars and draws on no fill, nor does one that never fills
+        const fills = section?.written || merged.fillChance === 0 ? [] : (merged.fills ?? []);
+        for (const [fill] of fills) {
           for (const [lane, row] of Object.entries(fill)) {
             expect(row.length, `${key}/${song.key} fill, ${lane}`).toBeLessThanOrEqual(steps);
           }

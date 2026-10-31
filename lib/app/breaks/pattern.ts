@@ -14,6 +14,7 @@ import type { Rng } from '@/lib/app/breaks/rng';
 import { cloneTuplet } from '@/lib/app/breaks/tuplets';
 import type {
   Bar,
+  FillSpan,
   LaneKey,
   Meter,
   Pattern,
@@ -120,6 +121,7 @@ export function clonePattern(p: Pattern): Pattern {
     ...(p.poly ? { poly: clonePoly(p.poly) } : {}),
     ...(p.polySpans?.length ? { polySpans: p.polySpans.map(clonePolySpan) } : {}),
     ...(p.tuplets?.length ? { tuplets: p.tuplets.map(cloneTuplet) } : {}),
+    ...(p.fills?.length ? { fills: p.fills.map((f) => ({ ...f })) } : {}),
     backbeats: p.backbeats.slice(),
     bars: p.bars.map(cloneBar),
   };
@@ -300,6 +302,42 @@ const FILL_FROM = new WeakMap<Bar, number>();
 export function markFill(bar: Bar, from: number): void {
   const was = FILL_FROM.get(bar);
   FILL_FROM.set(bar, was === undefined ? from : Math.min(was, from));
+}
+
+/** Where each bar's written fill starts, for the pattern to keep ({@link Pattern.fills}). */
+export function fillsOf(bars: Bar[]): FillSpan[] {
+  const out: FillSpan[] = [];
+  bars.forEach((b, bar) => {
+    const from = FILL_FROM.get(b);
+    if (from !== undefined) out.push({ bar, from });
+  });
+  return out;
+}
+
+/**
+ * Keep on `after`, in place, the written fills of `before` it still plays: a
+ * bar's fill holds while every kit lane from its first step on is as it was.
+ * An edit there, a doctor's move or a variation makes it something else, which
+ * the critic judges as a groove again. Percussion is the style's part, laid
+ * round the fill and rewritten with the roster, so it does not count.
+ */
+export function keepFills(before: Pattern, after: Pattern): void {
+  const kept = (before.fills ?? []).filter((f) => {
+    const was = before.bars[f.bar];
+    const now = after.bars[f.bar];
+    if (!was || !now) return false;
+    return [...BASE_LANES, ...TOM_LANES, FOOT_LANE].every((L) => {
+      for (let i = f.from; i < was[L].length; i++) if (was[L][i] !== now[L][i]) return false;
+      return true;
+    });
+  });
+  if (kept.length) after.fills = kept.map((f) => ({ ...f }));
+  else delete after.fills;
+}
+
+/** The step bar `bi`'s written fill starts on, if it has one. */
+export function fillFromIn(pat: Pick<Pattern, 'fills'>, bi: number): number | undefined {
+  return pat.fills?.find((f) => f.bar === bi)?.from;
 }
 
 /** A copy of a bar that keeps where its written fill starts, if it has one. */

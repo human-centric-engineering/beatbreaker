@@ -52,6 +52,7 @@ vi.mock('@/lib/app/breaks/community/profile', () => ({ usernameOf: vi.fn() }));
 
 import { APIError, NotFoundError, ValidationError } from '@/lib/api/errors';
 import { generatePattern } from '@/lib/app/breaks/generate';
+import type { TempoRatio } from '@/lib/app/breaks/sections';
 import { breakPayload } from '@/lib/app/breaks/share';
 import { testStyle } from '@/tests/helpers/catalogue';
 import { usernameOf } from '@/lib/app/breaks/community/profile';
@@ -108,7 +109,7 @@ function itemRow(over: Record<string, unknown> = {}) {
 }
 
 /** A saved break's document with A and B in two meters (11-e-ii-a). */
-function mixedDoc(aMeter: string, bMeter: string) {
+function mixedDoc(aMeter: string, bMeter: string, bRatio?: TempoRatio) {
   const at = (meter: string) =>
     generatePattern({ style: testStyle('funk'), meter, seed: 4, bars: 1, density: 50, ghosts: 50 });
   return breakPayload({
@@ -117,7 +118,7 @@ function mixedDoc(aMeter: string, bMeter: string) {
     level: 5,
     arrangement: ['A', 'B'],
     A: at(aMeter),
-    B: at(bMeter),
+    B: bRatio ? { ...at(bMeter), tempoRatio: bRatio } : at(bMeter),
   });
 }
 
@@ -204,8 +205,9 @@ describe('toView (via readSession) — target defaults', () => {
 
   it.each([
     { meter: '4/4', bpm: 30, expected: 40 },
-    { meter: '4/4', bpm: 350, expected: 190 },
-    { meter: '6/8', bpm: 350, expected: 300 },
+    { meter: '4/4', bpm: 220, expected: 220 },
+    { meter: '4/4', bpm: 400, expected: 380 },
+    { meter: '6/8', bpm: 400, expected: 380 },
   ])(
     'holds a $bpm bpm $meter pattern to $expected, a target a run can log',
     async ({ meter, bpm, expected }) => {
@@ -230,16 +232,16 @@ describe('toView (via readSession) — target defaults', () => {
     }
   );
 
-  it('holds your best to the meter ceiling too', async () => {
+  it('holds your best to the Studio’s top too', async () => {
     vi.mocked(prisma.practiceSession.findFirst).mockResolvedValue(
       sessionRow({ items: [itemRow({ goalBpm: null })] }) as never
     );
-    vi.mocked(yourBests).mockResolvedValue(new Map([[bestKey({ breakId: BREAK_ID }, 3), 250]]));
+    vi.mocked(yourBests).mockResolvedValue(new Map([[bestKey({ breakId: BREAK_ID }, 3), 390]]));
 
     const result = await readSession(USER_ID, SESSION_ID);
 
-    expect(result?.items[0].targetBpm).toBe(190); // 4/4 ceiling
-    expect(result?.items[0].bestBpm).toBe(250);
+    expect(result?.items[0].targetBpm).toBe(380); // the Studio's top
+    expect(result?.items[0].bestBpm).toBe(390);
   });
 
   it('starts startPct below the target, the session setting by default', async () => {
@@ -511,10 +513,10 @@ describe('createSession', () => {
     expect(prisma.practiceSession.create).not.toHaveBeenCalled(); // test-review:accept no_arg_called — refused before any write
   });
 
-  it('holds a break in two meters to the lower ceiling in its target and its goal (11-e-ii-a)', async () => {
-    // the column says 12/8 (300); the 4/4 B holds the break to 190
+  it('holds a break with a section at ×2 to half the top in its target and its goal (11-e-ii-a)', async () => {
+    // the column says 12/8; the B at ×2 holds the break to 190
     const row = itemRow({ goalBpm: null });
-    const doc = mixedDoc('12/8', '4/4');
+    const doc = mixedDoc('12/8', '4/4', 2);
     vi.mocked(prisma.practiceSession.findFirst).mockResolvedValue(
       sessionRow({
         items: [{ ...row, breakRef: { ...row.breakRef, meter: '12/8', bpm: 250, doc } }],
@@ -540,7 +542,7 @@ describe('createSession', () => {
     expect((error as ValidationError).message).toBe('A goal is at most 190 bpm for this pattern');
   });
 
-  it("400s a goal over the target's own meter ceiling (4/4 -> 190)", async () => {
+  it('400s a goal over the Studio’s top', async () => {
     vi.mocked(prisma.break.findMany).mockResolvedValue([
       { id: BREAK_ID, title: 'Cold Carpet', meter: '4/4' },
     ] as never);
@@ -554,11 +556,10 @@ describe('createSession', () => {
       climbShape: 'steady',
       climbSteps: 4,
       countIn: 1,
-      items: [itemInput({ target: { breakId: BREAK_ID }, goalBpm: 191 })],
+      items: [itemInput({ target: { breakId: BREAK_ID }, goalBpm: 381 })],
     }).catch((e: unknown) => e);
 
     expect(error).toBeInstanceOf(ValidationError);
-    expect((error as ValidationError).message).toBe('A goal is at most 190 bpm for this pattern');
     expect(prisma.practiceSession.create).not.toHaveBeenCalled(); // test-review:accept no_arg_called — refused before any write
   });
 

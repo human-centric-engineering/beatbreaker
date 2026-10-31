@@ -16,7 +16,8 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
   changes how long a step lasts. The transport, swing, the MIDI writer and the
   engraver all rely on this.
 - **A break has one tempo; a section may play at a ratio of it** (11-e-ii-g):
-  `Pattern.tempoRatio` is `0.5` or `2`, absent for ×1. The slider, the trainer's
+  `Pattern.tempoRatio` is the Studio's ×½, ×2/3, ×3/4, ×4/3, ×3/2 or ×2, or a
+  record's own ratio from ×¼ to ×4 (`isTempoRatio`), absent for ×1. The slider, the trainer's
   ramp, speed records and session targets are the break's tempo; anything that
   turns a tempo into seconds reads `sectionBpm(bpm, pattern)` — the transport
   (and its count-in, at the first section's ratio), `performStep`'s Humanise,
@@ -85,7 +86,7 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
 | `tuplets.ts`       | Tuplet spans (12-d, D53): `tupletsOf` (the spans that fit, one lane's steps in one span), `tupletPos`, `gridPart` and `clearUnderTuplets` (a span owns its cells), `tupletNotesAt`, `tupletValue` (the note value and whether it needs a bracket), `tupletHands` (the lane's named hand; else, on a span two to a step — a double, `twoAStep` — the hand written on its step for both notes, 13-a; else hand to hand), `tupletStrokes` (what the drummer reads ahead), and the hand edits `addTuplet`, `addDouble` (a step's note into two, the second without its ornament, 13-a), `joinDoubles` (doubles side by side in a pulse group are one span of up to eight notes, so a closed roll does not spend the 64-span budget a step at a time), `removeTuplet` (a double undone is its note again, one step of a run at a time), `setTupletNote`. |
 | `rng.ts`           | `makeRng`, `wpick` (weighted pick), `clamp`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `generate.ts`      | `generatePattern` (one candidate: from a style's kick cells, or, where it lists `figures` that fit the meter, from those written-out bars — one for the groove, often a second for the back half of the phrase, each pass varied — ending on one of its written `fills`), `deriveB` (the B section from an A), `toRide`, fills, `nameBreak`, and `fitHands` — run last on both, so a generated step never asks the drummer's hands for more than two notes (a tom fill lifts the hand off the hats or ride; where a bell on the kit keeps the time the hand hats go first; then the quietest; never the backbeat).                                                                                                                                                                                                                                  |
-| `critic.ts`        | `playability` is a pass/fail gate ("can four limbs play this?"), including a two-hands check shown only when it fails (`HANDS_CHECK`). `critique` is a 0–100 opinion. `generateGood` draws 16 candidates and keeps one of the best — any playable one within `NEAR_BEST` (10) of the top score, picked from the seed, so each press of New is not the same shape — and an unplayable one wins only if nothing passes.                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `critic.ts`        | `playability` is a pass/fail gate ("can four limbs play this?"), including a two-hands check shown only when it fails (`HANDS_CHECK`). `critique` is a 0–100 opinion. `generateGood` draws 16 candidates and keeps one of the best — any playable one within `NEAR_BEST` (10) of the top score, picked from the seed, so each press of New is not the same shape — and an unplayable one wins only if nothing passes. A song's part is not chosen by taste: the first candidate that plays is served, so every part of the record comes up, not the one the score likes — a written section held to the body alone, a section of figures, which is varied, to the groove rules too where any candidate passes them. A seed picks its song and section on `songStream`, which mixes the seed first so that seeds 1, 2, 3 do not all pick one song.   |
 | `layers.ts`        | `reduceBar` / `reducePattern` for L1–L5, `LAYER_NAMES`, and `LAYER_V1_TO_V2` for codes saved before the layers were renumbered.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `engrave.ts`       | Notation as an `SvgNode` tree plus a playhead `map` with one anchor per step. It builds no DOM, so it runs on the server.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `cross-rhythm.ts`  | "Make this a 3:2" (13-b): `crossRhythm(pattern, spec)` writes `cross` even notes against `pulse` over a cycle (a bar, half a bar, a beat: `cycleChoices`), the pulse on the grid and the cross-rhythm on it where the cycle holds it, else a tuplet span. As a **study** the whole section becomes the exercise with `poly` set, so it is learnt like a Polyrhythms entry; as a **fill** it takes the last cycle of a bar, the hands leaving it, marked as a poly span so the layers play it from 4. `crossRhythmProblem` says why a spec cannot be written.                                                                                                                                                                                                                                                                                        |
@@ -139,7 +140,7 @@ pushed:
   Picked from _Inspired by_ under the title, or in the New break panel, every
   New writes that song in that drummer's style until _Any song_.
 
-## The wire format (share code, versions 5 to 8)
+## The wire format (share code, versions 5 to 9)
 
 A break travels as a `BreakDoc` (`{ bpm, swing, level, arrangement, A, B, C?…Z? }`)
 packed into a `SharePayload`. As a share code or a `#b=` link, the payload is
@@ -148,11 +149,11 @@ itself. All three are checked by the same schema.
 
 ```jsonc
 {
-  "ver": 5,            // 1–8 accepted; 5 for A and B alone, 6 with a section past B, 7 with a ×½/×2 section, 8 with a tuplet or a modulation
+  "ver": 5,            // 1–9 accepted; 5 for A and B alone, 6 with a section past B, 7 with a ×½/×2 section, 8 with a tuplet or a modulation, 9 with a record's own ratio
   "bpm": 94,           // 20–400
   "sw": 0,             // swing, 0–100
   "lv": 5,             // layer 1–5 (v1 numbers are remapped)
-  "arr": ["A","A","B","A"],   // ≤32 slots, each a section the code has
+  "arr": ["A","A","B","A"],   // ≤128 slots, each a section the code has
   "A": {
     "n": "Name",       // ≤120 chars
     "st": "funk",      // kept as written — v4 does NOT substitute a default
@@ -163,7 +164,7 @@ itself. All three are checked by the same schema.
     "sd": 12345,       // seed, uint32
     "bb": [4, 12],     // backbeat steps, 0–63
     "mt": "4/4",       // absent in v2 → 4/4; unknown → 4/4
-    "tr": 2,           // tempo ratio, 0.5 or 2 — v7; 2/3, 0.75, 4/3, 1.5 — v8; absent is ×1
+    "tr": 2,           // tempo ratio, 0.5 or 2 — v7; 2/3, 0.75, 4/3, 1.5 — v8; any from 0.25 to 4 — v9; absent is ×1
     "tu": [{ "b": 0, "a": 0, "s": 16, "n": 5, "x": { "s": "32222" } }],   // tuplets — v8 (12-d)
     "ln": ["k","s","h","r","c"],   // absent in v2 → the five base lanes
     "pc": { "p1": "tamb", "p2": "shaker" },   // keys p1/p2, values PERC_KEYS
@@ -178,6 +179,13 @@ itself. All three are checked by the same schema.
   "C": { … }           // v6: C to Z, each optional, each a packed pattern in its own meter
 }
 ```
+
+**Version 9 adds a record's own tempo ratio.** `tr` may be any number from
+0.25 to 4 but 1 (`isTempoRatio`), where a song's section plays at the
+record's tempo against the break's (×16/15, from 150 to 160) rather than one
+the Studio offers. Written only where a section has one: a v8 reader would
+refuse the ratio. A ratio off `TEMPO_RATIOS` under a v8-or-older header is
+refused.
 
 **Version 8 (12-d) adds tuplet spans (`tu`) and the metric modulations'
 tempo ratios.** `tu` is a list of `{ b, a, s, n, x }`: the bar, the step a
@@ -204,9 +212,10 @@ required. `breakPayload` writes v6 only when a break has a section past B or an
 arrangement names one, so a break of A and B is still a v5 code byte for byte,
 with the same `gridHash` (`sections.test.ts` pins both). A v5-or-older header
 carrying C is refused. An arrangement may only name sections the code has, and
-a break holds `MAX_BREAK_BARS` (32) across its sections, each counted once —
-measured against the link: a bar of 4/4 is about 310 characters, a bar of 15/8
-about 520. Letters are kept, not renumbered: deleting C from `ABCD` leaves
+a break holds `MAX_BREAK_BARS` (128) across its sections, each counted once —
+enough for a long record written passage by passage. A bar of 4/4 with every
+lane written is about 310 characters of link, so 128 is about 40 KB at the very
+worst, which a fragment carries. Letters are kept, not renumbered: deleting C from `ABCD` leaves
 `ABD`. `lib/app/breaks/sections.ts` holds the letters and the helpers
 (`lettersOf`, `patternsOf`, `totalBars`, `nextLetter`, `cycleLetter`).
 

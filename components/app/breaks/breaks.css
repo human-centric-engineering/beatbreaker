@@ -1628,6 +1628,10 @@
 .bb .check.no {
   color: var(--ink-soft);
 }
+/* a groove rule a song breaks: advice, not a fault (the drummer played it) */
+.bb .check.soft i {
+  color: var(--muted);
+}
 
 /* lists */
 .bb .list {

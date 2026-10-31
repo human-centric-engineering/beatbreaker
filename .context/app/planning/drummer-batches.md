@@ -259,6 +259,54 @@ What came of it (built 2026-10-29):
 - **No second bass drum.** Van Halen has `doubleKick`, but the 3D kit draws
   one bass drum for every drummer.
 
+## Batch 2, next two (claimed 2026-10-29)
+
+The top two of the re-ranked long list (`rank.py`, 2026-10-29), both 15-a
+candidates: keep the record ids. Each files into a group that exists.
+
+| Fork | Drummer       | Record                  | Style key | Likeness        | Research | Drummers-tab group | Copy from                          |
+| ---- | ------------- | ----------------------- | --------- | --------------- | -------- | ------------------ | ---------------------------------- |
+| 1    | Peter Erskine | `drummer:peter-erskine` | `erskine` | `PETER_ERSKINE` | EB       | Fusion drummers    | `hakim`, `gadd`, `dejohnette`      |
+| 2    | Dale Crover   | `drummer:dale-crover`   | `crover`  | `DALE_CROVER`   | EC       | Grunge drummers    | `mattcameron`, `billward`, `grohl` |
+
+**What each fork should watch for:**
+
+1. **Peter Erskine.** Weather Report, 1978–82 (_Mr. Gone_ in part, _8:30_,
+   _Night Passage_, _Weather Report_ 1982), then Steps Ahead, and the big
+   bands before them (Stan Kenton, Maynard Ferguson). Much of his playing is
+   swing on the ride: score it as swing, with its own feel, not as a straight
+   fusion groove. "Birdland" is Alex Acuña's and "Teen Town" is Jaco
+   Pastorius on drums: check every _Heavy Weather_ and _Mr. Gone_ credit
+   (Tony Williams and Steve Gadd play on parts of _Mr. Gone_).
+2. **Dale Crover.** The Melvins from 1984: the slow, heavy sludge and the
+   big tom work of _Gluey Porch Treatments_, _Bullhead_, _Houdini_ and
+   _Stoner Witch_. He also drums on Nirvana's January 1988 demo, and
+   "Floyd the Barber" and "Paper Cuts" on _Bleach_ come from it: confirm
+   each credit (Chad Channing plays the rest of _Bleach_). Check meter on
+   each Melvins song; some shift or stretch bars.
+
+What came of it (built 2026-10-29):
+
+- **Songs.** Erskine three (1978), Crover five (1988–93). Erskine's are the
+  live Birdland and Teen Town from Offenbach and Black Market from _8:30_:
+  his takes of the two _Heavy Weather_ songs, not Acuña's or Pastorius's.
+  No human transcription of his parts is free (the published ones are Hal
+  Leonard's), so each is rebuilt from a machine tab aligned to the record,
+  and says so. Crover's are all from human tabs.
+- **No swing tune for Erskine yet.** Night Passage's tab is one bar repeated
+  and Rockin' in Rhythm has none; it is an open question in his record.
+- **One figure per section is too few.** Crover's first build held one bar
+  per section and gave five distinct breaks in twelve presses of New. The
+  fork put back the tab's own variations (Boris's riff never repeats two
+  bars running) and the test passes with no `HELD` entry. Only Paper Cuts
+  truly holds its grooves.
+- **Library corrections.** _8:30_'s Birdland and Teen Town linked the
+  _Heavy Weather_ takes and listed human tabs of Acuña's and Pastorius's
+  studio parts (removed); Floyd the Barber linked a 1991 Grohl concert and
+  Night Goat a 2007 one; Eye Flys listed a machine-made tab (removed). Each
+  machine tab a song is built from is cited in its track's evidence, not
+  listed as a transcription, as for Hayward.
+
 ## The brief each fork gets
 
 Paste this to each fork, with its row from the batch table and `S`, the
@@ -349,7 +397,12 @@ scratchpad the batch runs from.
 > 40 seeds: soft 0/40, served-not-hard 0/40, playable), run from the repo
 > with `npx tsx --tsconfig ./tsconfig.json <OUT>/work/check.ts`, and your
 > `work/record-check.ts` over a copy of the model with your files laid on it
-> (Ajv, `checkCorpus`, `buildLineage`, `checkGraph`): 0 bad. Last, run the
+> (Ajv, `checkCorpus`, `buildLineage`, `checkGraph`): 0 bad. **Never add,
+> move or drop a note, or lower a tempo, to pass the critic.** It holds a
+> song only to two hands and two feet at its tempo (`physical.ts`); a bar
+> that fails that is a misreading of the tab or a tab error, so read the bar
+> again, and if the tab really asks for it, put the bar, the check and the
+> tab's notes in `notes.md` for the parent. Last, run the
 > merge's own checks, which write nothing:
 > `python3 -I scripts/lineage/batch/merge.py --check . $S/drummers <key> <CONST> '<group>'`
 > from the repo. It fails unless every song in your style has exactly one

@@ -1,0 +1,83 @@
+[
+  {
+    "id": "src:weatherreportdiscography-8-30",
+    "type": "analysis",
+    "title": "Weather Report Annotated Discography: 8:30 (1979)",
+    "url": "https://weatherreportdiscography.org/eight-thirty/",
+    "reliability": 0.75,
+    "accessed": "2026-10-29",
+    "notes": "The live sides mostly from the Terrace Theater, Long Beach, November 1978 (the page gives the 24th and the 28th); side four in the studio, Pastorius on drums for \"8:30\" and \"Brown Street\". Erskine quoted: Black Market \"is not edited to the best of my knowledge\"; on Birdland, he first \"played it like Alex [Acuña] did on Heavy Weather\", then \"I came up with the shuffle idea, though I wasn't convinced that it was such a great idea.\""
+  },
+  {
+    "id": "src:pas-hall-of-fame-peter-erskine",
+    "type": "biography",
+    "title": "Peter Erskine, Percussive Arts Society Hall of Fame",
+    "url": "https://pas.org/?p=5760",
+    "reliability": 0.85,
+    "accessed": "2026-10-29",
+    "notes": "Began at four, lessons from Johnny Civera; at the Stan Kenton summer camps studied with Louis Hayes, Charlie Perry, Ed Soph and Alan Dawson; occasional lessons with George Gaber at Indiana University; left IU for Kenton, then in 1976 for Maynard Ferguson; Pastorius recommended him for Weather Report; his first Grammy for 8:30; five years with Steps Ahead. \"I had been listening a lot to Miles Davis, the Mahavishnu Orchestra, and Weather Report\" (1983); \"it was as natural to embrace Count Basie as to embrace James Brown\"; \"He can hit hard and aggressively, and he can play softly and with sensitivity.\" Modern Drummer readers' Best Jazz Drummer ten times, its Hall of Fame 2017; Berklee honorary doctorate 1992."
+  },
+  {
+    "id": "src:weather-report-wikipedia",
+    "type": "encyclopedia",
+    "title": "Weather Report - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Weather_Report",
+    "reliability": 0.65,
+    "accessed": "2026-10-29",
+    "notes": "Pastorius helped recruit Erskine in 1978; a quartet without a percussionist in 1978-79, all four doubling on percussion live; Erskine a full member from the Mr. Gone tour to 1982, when Word of Mouth and Steps Ahead took him and Omar Hakim came in; Erskine back on This Is This! (1986) and in Weather Update."
+  },
+  {
+    "id": "src:mr-gone-wikipedia",
+    "type": "encyclopedia",
+    "title": "Mr. Gone (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mr._Gone_(album)",
+    "reliability": 0.65,
+    "accessed": "2026-10-29",
+    "notes": "Personnel: Erskine drums on tracks 1 and 7 (The Pursuit of the Woman with the Feathered Hat, Pinocchio) and hi-hat on 3; Pastorius drums on 1-2; Tony Williams on 5-6 (Mr. Gone, Punk Jazz); Steve Gadd on 3 and 8. Erskine \"would become Acuña's replacement\"."
+  },
+  {
+    "id": "src:weather-report-offenbach-1978-film",
+    "type": "recording",
+    "title": "Weather Report, Rockpalast, Stadthalle Offenbach, September 1978 (concert film)",
+    "url": "https://www.youtube.com/watch?v=M9IvpzGN8jY",
+    "reliability": 0.8,
+    "accessed": "2026-10-29",
+    "notes": "The full concert for WDR's Rockpalast, Zawinul, Shorter, Pastorius and Erskine. Set and times as uploaded: Black Market 0:00, Scarlet Woman 11:03, ... Teen Town 1:15:19 (8:08), Birdland 1:32:16 (6:59), Erskine's solo \"Fred & Jack\" 1:40:52. The upload says 29 September; a retailer's notes say the 28th. Watched for the likeness (Birdland, 1:33:06 to 1:33:46)."
+  },
+  {
+    "id": "src:mig-live-in-offenbach-1978",
+    "type": "recording",
+    "title": "Weather Report: Rockpalast Offenbach 1978 (MIG 80090, 2CD and DVD, 2016)",
+    "url": "https://www.forcedexposure.com/Catalog/weather-report-rockpalast-offenbach-1978-2cd-dvd/MIG.80090CD.html",
+    "reliability": 0.7,
+    "accessed": "2026-10-29",
+    "notes": "The Offenbach concert issued on CD and DVD by MIG in May 2016; the DVD first in the Forecast: Tomorrow box (Columbia/Legacy, 2006)."
+  },
+  {
+    "id": "src:songsterr-7390292",
+    "type": "transcription",
+    "title": "Weather Report - Birdland (Live at Rockpalast), Songsterr 7390292",
+    "url": "https://www.songsterr.com/a/wa/song?id=7390292",
+    "reliability": 0.35,
+    "accessed": "2026-10-29",
+    "notes": "DimebagDarrell1966, one revision (9645784, 2026-10-10), aiGenerated true: a machine draft. 273 bars of 4/4 written straight at 172; the record shuffles at 167."
+  },
+  {
+    "id": "src:songsterr-7390176",
+    "type": "transcription",
+    "title": "Weather Report - Teen Town (Live), Songsterr 7390176",
+    "url": "https://www.songsterr.com/a/wa/song?id=7390176",
+    "reliability": 0.35,
+    "accessed": "2026-10-29",
+    "notes": "DimebagDarrell1966, one revision (9645642, 2026-10-10), aiGenerated true. 271 bars at 132, the Offenbach performance (8:08); the record runs 133-137, then 141-148."
+  },
+  {
+    "id": "src:songsterr-6476915",
+    "type": "transcription",
+    "title": "Weather Report - Black Market 8:30, Songsterr 6476915",
+    "url": "https://www.songsterr.com/a/wa/song?id=6476915",
+    "reliability": 0.4,
+    "accessed": "2026-10-29",
+    "notes": "Miguel Batista, one revision (8457603, 2026-08-13), aiGenerated true. 310 bars; aligned to the 8:30 record bar by bar its cymbal, snare and kick counts follow the record's bands (0.52 a band); 125-126 after the rubato opening."
+  }
+]

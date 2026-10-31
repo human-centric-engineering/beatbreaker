@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 
 import { BreakAudio, SourceStack } from '@/lib/app/breaks/audio/engine';
 import { MidiOut } from '@/lib/app/breaks/audio/midi-out';
@@ -80,6 +80,7 @@ import {
   type CustomLanes,
   type WrittenHand,
   clonePattern,
+  keepFills,
   meterOfPat,
   resolveLanes,
   stickingAt,
@@ -103,6 +104,7 @@ import {
   songMeter,
   songPaces,
   songOf,
+  songPartOf,
   songTempo,
   withSong,
 } from '@/lib/app/breaks/songs';
@@ -604,7 +606,7 @@ export interface BreakConsole {
    * brings the tempo down to it. False, and nothing done, when the section is
    * not there or already plays at that ratio.
    */
-  setSectionTempo: (letter: SectionLetter, ratio: TempoRatio | 1) => boolean;
+  setSectionTempo: (letter: SectionLetter, ratio: TempoRatio) => boolean;
   /** False, and nothing done, when the section's style is not in the catalogue. */
   applyDoctor: (move: DoctorMove) => boolean;
   /**
@@ -825,7 +827,7 @@ interface Setup {
   /** Which of the style's songs, where it has them. */
   song?: string;
   /** The section's tempo ratio; absent, a song section's own (11-e-ii-g). */
-  tempoRatio?: TempoRatio | 1;
+  tempoRatio?: TempoRatio;
   /** A whole New's creativity, 0–100: the twist laid over the break once it is written. */
   creativity?: number;
 }
@@ -1076,8 +1078,7 @@ export function useBreakConsole(
   /* The top tempo is the meter picker's, as it always was — a style picked
      for the next New brings its tempo with it, past what the pattern still on
      the stage would take. A break whose sections are in different meters is
-     held to the lowest of theirs instead: one tempo plays them all, so a B in
-     4/4 holds an A in eighths to 190. */
+     held to the lowest of theirs instead: one tempo plays them all. */
   const sectionMeters = [...new Set(patternsOf(patterns).map((p) => p.meter))];
   /* A section at a tempo ratio holds it the same way: a B at ×2 holds the
      break to half B's ceiling (11-e-ii-g). */
@@ -1268,8 +1269,15 @@ export function useBreakConsole(
     [catalogue.styles, style]
   );
 
-  const report = useMemo(() => (view.A ? critique(view.A, bpm) : null), [view.A, bpm]);
-  const checks = useMemo(() => (view.A ? playability(view.A, bpm) : null), [view.A, bpm]);
+  /* The critic follows the tempo at a lower priority than the slider: the
+     limb check is a search over every stroke, and dragging the tempo would
+     otherwise run it for each value the slider passes on the way. */
+  const criticBpm = useDeferredValue(bpm);
+  const report = useMemo(() => (view.A ? critique(view.A, criticBpm) : null), [view.A, criticBpm]);
+  const checks = useMemo(
+    () => (view.A ? playability(view.A, criticBpm) : null),
+    [view.A, criticBpm]
+  );
 
   /* ---- the style's opinions, applied when it changes ------------------ */
 
@@ -1727,28 +1735,43 @@ export function useBreakConsole(
 
   /* ---- sections past B (11-e-ii) --------------------------------------- */
 
+  /* What a new section writes: the same song as the section on the stage,
+     when it is in the same style. A written part is the record's bars, so
+     it comes in its own length and meter, not the Studio's. */
+  const nextSection = useMemo(() => {
+    const stage = patterns[editing];
+    const song = stage?.style === style ? stage.song : undefined;
+    const params = catalogue.styles[style]?.params;
+    const part = songPartOf(params, song);
+    const written = params && part?.section?.written;
+    return {
+      stage,
+      song,
+      bars: written ? written.length : bars,
+      meter: written ? songMeter(params, part.song, part.section) : meter,
+    };
+  }, [patterns, editing, style, catalogue.styles, bars, meter]);
+
   const addSectionBlocked = useMemo((): string | null => {
     if (!nextLetter(patterns)) return 'A break has 26 sections at most';
-    if (totalBars(patterns) + bars > MAX_BREAK_BARS) {
+    if (totalBars(patterns) + nextSection.bars > MAX_BREAK_BARS) {
       return `A break holds ${MAX_BREAK_BARS} bars across its sections — shorten one, or add a shorter one`;
     }
     if (!catalogue.styles[style]) return 'Pick a style to write the new section in';
     return null;
-  }, [patterns, bars, catalogue.styles, style]);
+  }, [patterns, nextSection, catalogue.styles, style]);
 
   const addSection = useCallback((): boolean => {
     const letter = nextLetter(patterns);
     if (!letter || addSectionBlocked) return false;
     // the arrangement changes too, so one Undo takes both back
     pushHistory(true);
-    // the same song as the section on the stage, when it is in the same style
-    const stage = patterns[editing];
-    const song = stage?.style === style ? stage.song : undefined;
+    const { stage, song, meter: paceMeter } = nextSection;
     /* At the pace the stage's section plays, where it is that song's part;
        at the break's tempo otherwise — never a ratio from the catalogue you
        took off the stage (11-e-ii-g). */
     const tempoRatio = song ? ratioOf(stage) : 1;
-    const pace = tempoRatio === 1 ? meter : { meter, tempoRatio };
+    const pace = tempoRatio === 1 ? paceMeter : { meter: paceMeter, tempoRatio };
     const at = Math.min(bpm, maxBpmOf([pace, ...patternsOf(patterns)]));
     pickedForNext.current = false;
     generate(letter, { style, meter, bars, bpm: at, song, tempoRatio });
@@ -1760,7 +1783,7 @@ export function useBreakConsole(
     patterns,
     addSectionBlocked,
     pushHistory,
-    editing,
+    nextSection,
     style,
     meter,
     bars,
@@ -1788,7 +1811,7 @@ export function useBreakConsole(
   );
 
   const setSectionTempo = useCallback(
-    (letter: SectionLetter, ratio: TempoRatio | 1): boolean => {
+    (letter: SectionLetter, ratio: TempoRatio): boolean => {
       const pat = patterns[letter];
       if (!pat || ratioOf(pat) === ratio) return false;
       // the tempo may come down to a new ceiling, so one Undo takes both back
@@ -1870,6 +1893,7 @@ export function useBreakConsole(
       keepHands(next, bar);
       // a poly fill whose accent you changed is not the drummer's figure any more (12-c)
       keepPolySpans(pat, next);
+      keepFills(pat, next);
       // below 4 a poly fill's span plays its plain rows, and a note cleared there is cleared from them
       if (!v && level <= 3) clearPlainAt(next, bar, lane, step);
       setPatterns((prev) => ({ ...prev, [letter]: next }));
@@ -1909,6 +1933,7 @@ export function useBreakConsole(
         keepHands(next, bar);
         // a poly fill whose accent you changed is not the drummer's figure any more (12-c)
         keepPolySpans(pat, next);
+        keepFills(pat, next);
         if (!value && level <= 3) clearPlainAt(next, bar, lane, step);
         return { ...prev, [letter]: next };
       });
@@ -1953,6 +1978,7 @@ export function useBreakConsole(
         keepHands(next, bar);
       }
       keepPolySpans(pat, next);
+      keepFills(pat, next);
       // a figure's tuplet made or unmade is not that figure, whatever its accents say
       if (edit.kind !== 'note') dropPolySpansAt(next, bar, step);
       setPatterns((prev) => ({ ...prev, [letter]: next }));
@@ -2007,6 +2033,7 @@ export function useBreakConsole(
     delete next.poly;
     delete next.polySpans;
     delete next.tuplets;
+    delete next.fills;
     setPatterns((prev) => ({ ...prev, [editing]: next }));
   }, [patterns, editing, pushHistory]);
 
@@ -2042,6 +2069,7 @@ export function useBreakConsole(
           writePerc(next, st, makeRng(pat.seed ^ 0x2545f491));
           // a poly fill on the toms just emptied is not there to play any more
           keepPolySpans(pat, next);
+          keepFills(pat, next);
           // nor is a tuplet on a lane the roster dropped (12-d)
           for (const t of next.tuplets ?? []) {
             for (const L of Object.keys(t.notes) as LaneKey[]) {

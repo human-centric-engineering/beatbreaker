@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { maxBpm, maxBpmOf } from '@/lib/app/breaks/audio/transport';
+import { TEMPO_TOP, maxBpm, maxBpmOf } from '@/lib/app/breaks/audio/transport';
 import { type EditData, describeEdit, editWorkspace } from '@/lib/app/breaks/buddy/edit';
 import { DEFAULT_METER, METER_KEYS } from '@/lib/app/breaks/meter';
 import { lettersOf } from '@/lib/app/breaks/sections';
@@ -36,7 +36,7 @@ const schema = z.object({
   density: z.number().min(0).max(100).default(55),
   ghosts: z.number().min(0).max(100).default(60),
   swing: z.number().int().min(0).max(100).optional(),
-  bpm: z.number().int().min(50).max(300).optional(),
+  bpm: z.number().int().min(50).max(TEMPO_TOP).optional(),
   seed: z.number().int().min(0).max(0xffffffff).optional(),
 });
 
@@ -86,7 +86,7 @@ export class GeneratePatternCapability extends BaseCapability<Args, EditData> {
         bpm: {
           type: 'integer',
           minimum: 50,
-          maximum: 300,
+          maximum: TEMPO_TOP,
           description: 'Tempo, if it should change.',
         },
         seed: {

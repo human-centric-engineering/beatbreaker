@@ -18,8 +18,8 @@ import { oneTarget, targetFields } from '@/lib/validations/pins';
 
 /** The slowest tempo a record may claim. The meter's `maxBpm` is the fastest. */
 export const SPEED_BPM_MIN = 40;
-/** The widest `maxBpm` any meter has; the data layer holds each record to its own meter's. */
-export const SPEED_BPM_MAX = 300;
+/** The Studio's top tempo (`TEMPO_TOP`); the data layer holds each record to its own break's. */
+export const SPEED_BPM_MAX = 380;
 /** How long the note on a record may be. */
 export const SPEED_NOTE_MAX = 280;
 

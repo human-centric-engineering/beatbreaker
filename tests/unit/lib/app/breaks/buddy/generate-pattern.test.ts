@@ -35,7 +35,6 @@ import { listStyles } from '@/lib/app/breaks/catalogue/data';
 import { critique, generateGood, playability } from '@/lib/app/breaks/critic';
 import { deriveB } from '@/lib/app/breaks/generate';
 import { resolveLanes } from '@/lib/app/breaks/pattern';
-import { maxBpm } from '@/lib/app/breaks/audio/transport';
 import { lettersOf } from '@/lib/app/breaks/sections';
 import { songForSeed } from '@/lib/app/breaks/song-break';
 import { styleIn } from '@/lib/app/breaks/styles';
@@ -98,7 +97,7 @@ describe('generate_pattern', () => {
     expect(critique(after.A, after.bpm).score).toBeGreaterThan(0);
   });
 
-  it('writes every section of a song in sections, its arrangement, and a tempo the slowest meter allows', async () => {
+  it('writes every section of a song in sections, its arrangement, and the tempo asked for', async () => {
     const klek = testStyle('klek');
     // the first seed that picks a song in sections whose meters differ: Sherpa, in 12/8 and 4/4
     let seed = 0;
@@ -111,8 +110,8 @@ describe('generate_pattern', () => {
     expect([after.A.meter, after.B.meter, after.C?.meter]).toEqual(['12/8', '4/4', '4/4']);
     expect(after.C?.song).toBe('sherpa:C');
     expect(after.arrangement).toEqual(['A', 'A', 'B', 'B', 'C', 'B']);
-    // 250 suits 12/8, but not the 4/4 sections beside it
-    expect(after.bpm).toBe(maxBpm('4/4'));
+    // a meter sets no ceiling of its own: 250 suits the 4/4 sections as well as the 12/8
+    expect(after.bpm).toBe(250);
     expect(dataOf(result).changes.map((c) => c.section)).toEqual(['A', 'B', 'C']);
   });
 

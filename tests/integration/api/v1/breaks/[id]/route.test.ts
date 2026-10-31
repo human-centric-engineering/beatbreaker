@@ -151,7 +151,7 @@ describe('GET /api/v1/breaks/:id', () => {
     }>(res);
     expect(data.mine).toBe(true);
     expect(data.seed).toBe('9');
-    expect(data.critique.checks).toHaveLength(6);
+    expect(data.critique.checks).toHaveLength(7);
     expect(typeof data.critique.playable).toBe('boolean');
   });
 

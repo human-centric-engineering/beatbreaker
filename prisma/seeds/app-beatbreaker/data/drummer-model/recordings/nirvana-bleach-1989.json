@@ -118,13 +118,15 @@
           "source_ids": ["src:bleach-nirvana-album-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=qofd8l27ieY",
+      "youtube": "https://www.youtube.com/watch?v=cBm-XeOVIeY",
       "transcriptions": [
         {
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=11404"
         }
-      ]
+      ],
+      "style_key": "crover",
+      "song_key": "floyd-the-barber"
     },
     {
       "title": "Paper Cuts",
@@ -142,7 +144,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=14263"
         }
-      ]
+      ],
+      "style_key": "crover",
+      "song_key": "paper-cuts"
     }
   ]
 }

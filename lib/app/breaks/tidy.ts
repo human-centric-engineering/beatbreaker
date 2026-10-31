@@ -21,8 +21,9 @@ import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
  *
  * 1. **lane** — notes in a lane the pattern does not carry are dropped. They
  *    cannot be seen on the chart or heard in the mixer, so they are noise.
- * 2. **ride-clash** — a hi-hat and a ride on the same step, which the
- *    playability check fails. The quieter goes; on a tie, the cymbal that is
+ * 2. **ride-clash** — a hi-hat and a ride on the same step, which the groove
+ *    check fails (two hands can play both; a groove keeps one time-keeper).
+ *    The quieter goes; on a tie, the cymbal that is
  *    not the pattern's time-keeper (`voice`).
  * 3. **hands** — more than two hand notes on one step. Two hands is physics.
  *    The quietest go first; on a tie the time-keeping cymbal goes before a

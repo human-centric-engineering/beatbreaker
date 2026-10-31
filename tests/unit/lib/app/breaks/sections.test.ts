@@ -9,10 +9,11 @@ import { describe, expect, it } from 'vitest';
 import { gridHash } from '@/lib/app/breaks/community/grid';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { humaniseSeed } from '@/lib/app/breaks/humanise';
-import { setPin } from '@/lib/app/breaks/pattern';
+import { clonePattern, setPin } from '@/lib/app/breaks/pattern';
 import { sharePayloadSchema, storedPayloadSchema } from '@/lib/app/breaks/schema';
 import {
   MAX_BREAK_BARS,
+  SECTION_LETTERS,
   cycleLetter,
   hasExtraSections,
   lettersOf,
@@ -153,19 +154,21 @@ describe('share code v6', () => {
   });
 
   it(`refuses more than ${MAX_BREAK_BARS} bars across the sections`, () => {
-    const eight = (seed: number) => section('4/4', seed, 8);
+    // sixteen sections of eight bars: a long record written passage by passage
+    const eight = section('4/4', 1, 8);
+    const letters = SECTION_LETTERS.slice(0, 16);
     const doc: BreakDoc = {
       ...songDoc(),
-      A: eight(1),
-      B: eight(2),
-      C: eight(3),
-      D: eight(4),
+      ...Object.fromEntries(letters.map((L) => [L, clonePattern(eight)])),
+      A: clonePattern(eight),
+      B: clonePattern(eight),
+      arrangement: [...letters],
     };
     expect(sharePayloadSchema.safeParse(breakPayload(doc)).success).toBe(true);
-    const over = breakPayload({ ...doc, E: section('4/4', 5, 1), arrangement: ['A', 'E'] });
+    const over = breakPayload({ ...doc, Q: section('4/4', 5, 1), arrangement: ['A', 'Q'] });
     const parsed = sharePayloadSchema.safeParse(over);
     expect(parsed.success).toBe(false);
-    expect(parsed.error?.issues[0].message).toMatch(/up to 32 bars across its sections/);
+    expect(parsed.error?.issues[0].message).toMatch(/up to 128 bars across its sections/);
   });
 
   it('repairs a stored section past B as it repairs A and B', () => {

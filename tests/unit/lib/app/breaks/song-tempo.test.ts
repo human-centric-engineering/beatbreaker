@@ -1,83 +1,81 @@
 /**
- * A song's tempo is held where its written bars stay playable: a run of four or
- * more notes without a gap goes no faster than ten notes a second.
+ * A song plays at the record's tempo, and what it writes can be played there
+ * by two hands and two feet. There is no cap on how fast a run may go beyond
+ * what a body can do (`limbProblems`): a song held below its record to keep a
+ * run under a number was not the record.
  */
 
 import { describe, expect, it } from 'vitest';
 
-import {
-  RUN_RATE,
-  longestRun,
-  partKey,
-  playableBpm,
-  songParts,
-  songTempo,
-  withSong,
-} from '@/lib/app/breaks/songs';
+import { applyFigureFill, figureBars, generatePattern } from '@/lib/app/breaks/generate';
+import { stepsOf, meterOf } from '@/lib/app/breaks/meter';
+import { limbProblems } from '@/lib/app/breaks/physical';
+import { partKey, songBpm, songParts, songTempo, withSong } from '@/lib/app/breaks/songs';
 import { makeRng } from '@/lib/app/breaks/rng';
-import type { Style } from '@/lib/app/breaks/types';
+import type { Bar, Pattern } from '@/lib/app/breaks/types';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { testStyle } from '@/tests/helpers/catalogue';
 
-const BASE = testStyle('rock').params;
-const style = (over: Partial<Style>): Style => ({ ...BASE, figures: [], fills: [], ...over });
-
-describe('longestRun', () => {
-  it('counts consecutive steps with a note in any lane', () => {
-    expect(longestRun({ h: '1.1.1.1.', k: '.1......' })).toBe(3);
-    expect(longestRun({ s: '22.22.', k: '..1..1' })).toBe(6);
-    expect(longestRun({ s: '2.2.3.' })).toBe(1);
-  });
-
-  it('reads a shorter row of a fill as written to the end', () => {
-    // the kick lands on the last step, after the gap, not on the first
-    expect(longestRun({ s: '2..', k: '1' })).toBe(1);
-    expect(longestRun({ s: '22.', k: '1' })).toBe(3);
-  });
-});
-
-describe('playableBpm', () => {
-  it('leaves a song without a run alone, however fast', () => {
-    const st = style({ bpm: [170, 178], fills: [[{ s: '3.3.3.3.' }, 1]] });
-    expect(playableBpm(st)).toEqual([170, 178]);
-  });
-
-  it('holds a run of sixteenths to 150 and of sextuplets to 100', () => {
-    const run = [[{ s: '2222' }, 1]] as Style['fills'];
-    expect(playableBpm(style({ bpm: [140, 170], fills: run }))).toEqual([140, 150]);
-    expect(playableBpm(style({ meter: '4/4-6', bpm: [166, 174], fills: run }))).toEqual([100, 100]);
-    expect((150 * 4) / 60).toBe(RUN_RATE);
-  });
-
-  it('brings the low end down with the top', () => {
-    const st = style({ meter: '4/4-6', bpm: [120, 130], figures: [[{ k: '1111' }, 1]] });
-    expect(playableBpm(st)).toEqual([100, 100]);
-  });
-});
-
 describe('a song’s tempo', () => {
-  it('is drawn from the playable range, and the merged style says so', () => {
+  it('is drawn from the song’s range, as the record has it', () => {
     const bonham = testStyle('bonham').params;
-    const rnr = withSong(bonham, 'rock-and-roll');
-    expect(rnr.bpm).toEqual([168, 174]);
-    // its fills leave a gap between every note
-    for (const [f] of rnr.fills ?? []) expect(longestRun(f)).toBeLessThan(4);
-    const rng = makeRng(1);
     const song = bonham.songs!.find((s) => s.key === 'rock-and-roll');
+    const [lo, hi] = withSong(bonham, 'rock-and-roll').bpm;
+    const rng = makeRng(1);
     for (let i = 0; i < 50; i++) {
       const bpm = songTempo(bonham, song, rng);
-      expect(bpm).toBeGreaterThanOrEqual(168);
-      expect(bpm).toBeLessThanOrEqual(174);
+      expect(bpm).toBeGreaterThanOrEqual(lo);
+      expect(bpm).toBeLessThanOrEqual(hi);
     }
   });
 
-  it('never asks any drummer’s song for a run faster than ten notes a second', () => {
+  it('asks nothing of any drummer’s song that two hands and two feet cannot play at its top tempo', () => {
+    const seen = new Set<string>();
+    const failures: string[] = [];
     for (const key of Object.keys(STYLES).filter((k) => STYLES[k].drummer)) {
-      const st = testStyle(key).params;
-      for (const { song, section } of songParts(st)) {
-        const merged = withSong(st, partKey(song, section));
-        expect(merged.bpm).toEqual(playableBpm(merged));
+      const style = testStyle(key);
+      for (const { song, section } of songParts(style.params)) {
+        const part = partKey(song, section);
+        const merged = withSong(style.params, part);
+        const n = stepsOf(meterOf(merged.meter));
+        const bpm = songBpm(style.params, song)[1];
+        // the pattern's lanes, kit and feel, from the song itself
+        const shell = generatePattern({
+          style,
+          song: part,
+          seed: 1,
+          bars: 1,
+          density: 50,
+          ghosts: 50,
+        });
+        // a written section is its bars, in order, played round
+        const loops: Bar[][] = section?.written ? [shell.bars] : [];
+        for (const [f] of section?.written ? [] : (merged.figures ?? [])) {
+          const bars = figureBars(f, n);
+          loops.push(bars);
+          // each fill over the last bar of each groove, the groove coming round after it
+          for (const [fill] of merged.fills ?? [])
+            loops.push([...bars.slice(0, -1), applyFigureFill(bars[bars.length - 1], fill)]);
+        }
+        for (const bars of loops) {
+          const pat: Pattern = {
+            ...shell,
+            bars,
+            fills: undefined,
+            tuplets: undefined,
+            polySpans: undefined,
+          };
+          const id = `${JSON.stringify(bars)}|${bpm}|${pat.tempoRatio ?? 1}|${JSON.stringify(pat.attrs)}`;
+          if (seen.has(id)) continue;
+          seen.add(id);
+          const problems = limbProblems(pat, bpm);
+          if (problems.length)
+            failures.push(
+              `${key} ${part} at ${bpm}: ${problems.map((p) => `${p.limbs}, ${p.why}`).join('; ')}`
+            );
+        }
       }
     }
-  });
+    expect(failures).toEqual([]);
+  }, 300_000);
 });

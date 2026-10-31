@@ -60,15 +60,14 @@ describe('set_playback', () => {
     expect(fake.rows.get('user-1')?.rev).toBe(3);
   });
 
-  it("refuses a tempo above what the Studio plays in the pattern's meter", async () => {
+  it('plays sixteenths in 4/4 at a thrash tempo, past the old 190', async () => {
     const result = await run({ bpm: 250 });
 
-    expect(result).toMatchObject({ success: false, error: { code: 'tempo_out_of_range' } });
-    expect(result.error?.message).toBe('The Studio plays 4/4 up to 190 bpm');
-    expect(fake.rows.get('user-1')).toMatchObject({ doc: DOC, rev: 2 });
+    expect(result.success).toBe(true);
+    expect(fake.rows.get('user-1')?.doc).toMatchObject({ bpm: 250 });
   });
 
-  it('holds a break in two meters to the lower of their ceilings (11-e-ii-a)', async () => {
+  it('holds a break with a section at ×2 to half the top (11-e-ii-a)', async () => {
     const at = (meter: string) =>
       generatePattern({
         style: testStyle('funk'),
@@ -78,14 +77,14 @@ describe('set_playback', () => {
         density: 50,
         ghosts: 50,
       });
-    // 12/8 alone goes to 300; beside a 4/4 B the break stops at 190
+    // the top is 380; a B at double time holds the break to 190
     const mixed = breakPayload({
       bpm: 120,
       swing: 0,
       level: 5,
       arrangement: ['A', 'B'],
       A: at('12/8'),
-      B: at('4/4'),
+      B: { ...at('4/4'), tempoRatio: 2 },
     });
     fake = fakeWorkspaceTable([{ userId: 'user-1', doc: mixed, rev: 2 }]);
     table.current = fake;
@@ -93,7 +92,9 @@ describe('set_playback', () => {
     const result = await run({ bpm: 250 });
 
     expect(result).toMatchObject({ success: false, error: { code: 'tempo_out_of_range' } });
-    expect(result.error?.message).toBe('The Studio plays 12/8 and 4/4 up to 190 bpm');
+    expect(result.error?.message).toBe(
+      'The Studio plays up to 190 bpm, with every section at its tempo ratio'
+    );
   });
 
   it('rejects a call that names nothing to change, and a layer that does not exist', () => {

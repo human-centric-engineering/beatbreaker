@@ -289,7 +289,7 @@ describe('PATCH', () => {
 
   it.each([
     ['a starting tempo under 50', { startBpm: 49 }, 'startBpm'],
-    ['a starting tempo over 300', { startBpm: 301 }, 'startBpm'],
+    ['a starting tempo over 380', { startBpm: 381 }, 'startBpm'],
     ['a fractional tempo', { startBpm: 94.5 }, 'startBpm'],
     ['a count-in of 3', { countIn: 3 }, 'countIn'],
     ['five bars', { startBars: 5 }, 'startBars'],

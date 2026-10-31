@@ -34,7 +34,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=73507"
         }
-      ]
+      ],
+      "style_key": "crover",
+      "song_key": "hooch"
     },
     {
       "title": "Night Goat",
@@ -46,13 +48,15 @@
           "source_ids": ["src:houdini-album-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=UduaIdeabvE",
+      "youtube": "https://www.youtube.com/watch?v=gd7XmmjaXH0",
       "transcriptions": [
         {
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=472129"
         }
-      ]
+      ],
+      "style_key": "crover",
+      "song_key": "night-goat"
     },
     {
       "title": "Honey Bucket",

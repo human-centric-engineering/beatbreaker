@@ -2,7 +2,13 @@ import { LANES, bbValue, snareKept } from '@/lib/app/breaks/lanes';
 import { M44, groupsOf, remapList } from '@/lib/app/breaks/meter';
 import { applyCompFill, applyFill, fitHands } from '@/lib/app/breaks/generate';
 import { reduceBar } from '@/lib/app/breaks/layers';
-import { clonePattern, keptSticking, meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
+import {
+  clonePattern,
+  keepFills,
+  keptSticking,
+  meterOfPat,
+  patSteps,
+} from '@/lib/app/breaks/pattern';
 import {
   keptPolySpans,
   overlaps,
@@ -244,6 +250,8 @@ export function doctor(
   const spans = [...(keptPolySpans(input, pat) ?? []).filter(unlike), ...(span ? [span] : [])];
   if (spans.length) pat.polySpans = spans;
   else delete pat.polySpans;
+  // and a written fill the move left alone is still the drummer's
+  keepFills(input, pat);
   /* A tuplet the new figure was written over goes with the figure it was
      (12-d); a tuplet fill's own spans own their cells. */
   if (span) {

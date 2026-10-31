@@ -10,21 +10,26 @@ import {
 import { STEPS, isGroupStart, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { generatePattern, type GenerateOptions } from '@/lib/app/breaks/generate';
 import { leftLedFills } from '@/lib/app/breaks/drummer/fill-lead';
-import { keepsKickRuns, meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
-import { RUN_RATE } from '@/lib/app/breaks/songs';
+import { fillFromIn, keepsKickRuns, meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
 import { spanStepsIn, withPlainSpans } from '@/lib/app/breaks/poly-fill';
 import { clamp, makeRng } from '@/lib/app/breaks/rng';
 import { sectionBpm } from '@/lib/app/breaks/sections';
+import { songPartOf } from '@/lib/app/breaks/songs';
 import { tupletLanes, tupletNotesAt, tupletsIn } from '@/lib/app/breaks/tuplets';
+import { limbProblems, type LimbProblem } from '@/lib/app/breaks/physical';
 import type { Bar, LaneKey, Pattern } from '@/lib/app/breaks/types';
 
 /**
- * The hard playability filter and the 0–100 score.
+ * The playability checks and the 0–100 score.
  *
- * Two different questions, deliberately kept apart. **Playability** asks
- * whether a human with four limbs can play this at all; it is a pass/fail gate.
- * **Critique** asks whether it is any good; it is an opinion, and a low score is
- * a suggestion rather than a rejection.
+ * Three questions, deliberately kept apart. **Playability** asks whether a
+ * human with two hands and two feet can play this at the tempo
+ * ({@link limbProblems}); it is a pass/fail gate, and the only one a song's
+ * bars, which a drummer played, are held to. **Groove** asks whether a bar
+ * the generator invented is a groove: a backbeat to find, air, no snare
+ * running on; it is the generator's gate for what it makes up, and advice on
+ * anything else. **Critique** asks whether it is any good; it is an opinion,
+ * and a low score is a suggestion rather than a rejection.
  *
  * Both run the same on the server as in the browser — no DOM, no audio — which
  * is what lets a model-authored grid patch be checked before it is ever shown
@@ -34,12 +39,20 @@ import type { Bar, LaneKey, Pattern } from '@/lib/app/breaks/types';
 export interface Check {
   ok: boolean;
   label: string;
+  /** `body`: two hands and two feet cannot play it. `groove`: a generated groove's taste. */
+  kind: 'body' | 'groove';
+  /** On the two speed checks: whose limbs run out ({@link Playability.problems} says where). */
+  limbs?: 'hands' | 'feet';
 }
 
 export interface Playability {
   checks: Check[];
-  /** False if the pattern fails a rule no tempo or taste can excuse. */
+  /** False if two hands and two feet cannot play it at the tempo. */
   hard: boolean;
+  /** False if it fails a groove rule: what the generator asks of a groove it invents. */
+  groove: boolean;
+  /** Where the limbs run out, for a reader that wants the bar and step. */
+  problems: LimbProblem[];
 }
 
 /**
@@ -53,15 +66,14 @@ export function playability(pat: Pattern, bpm0: number): Playability {
   let kickRun = false;
   let snareRun = false;
   let noBackbeat = false;
-  let doubleStrain = 0;
   let airless = false;
   let graceClash = false;
   let threeHands = false;
   const hands = handLanes(pat.perc);
   /* Where kick runs are kept (`keepsKickRuns`) no run is too long, and the
      kick is not the air: on a double pedal because a run is two feet's, with
-     `singlePedalRuns` because the drummer plays it on one. Only the second
-     still has a top speed (below). */
+     `singlePedalRuns` because the drummer plays it on one. How fast either
+     can go is the feet's check ({@link limbProblems}). */
   const doubleKick = !!pat.attrs?.doubleKick;
   const pedalRuns = keepsKickRuns(pat.attrs);
   // heel and toe: three 16ths on one foot, and the fourth is the run
@@ -108,7 +120,10 @@ export function playability(pat: Pattern, bpm0: number): Playability {
        in. */
     const tuplets = tupletsIn(pat, bi);
     const inTuplet = (i: number) => tuplets.some((t) => i >= t.start && i < t.start + t.span);
-    const inFill = (i: number) => !!span?.has(i) || inTuplet(i);
+    /* A written fill (a style's or a song's) is a fill too: a transcription
+       that leaves out the backbeat, or runs the snare, is what was played. */
+    const fillFrom = fillFromIn(pat, bi) ?? Infinity;
+    const inFill = (i: number) => !!span?.has(i) || inTuplet(i) || i >= fillFrom;
     for (let i = 0; i < nSteps; i++) {
       if (b.h[i] && b.r[i]) rideClash = true;
       if (i < nSteps - 2 && b.k[i] && b.k[i + 1] && b.k[i + 2] && (!heelToe || b.k[i + 3]))
@@ -123,7 +138,6 @@ export function playability(pat: Pattern, bpm0: number): Playability {
         !(inFill(i) || inFill(i + 1) || inFill(i + 2) || inFill(i + 3))
       )
         snareRun = true;
-      if (i < nSteps - 1 && b.k[i] && b.k[i + 1]) doubleStrain++;
       // a flam's step is the grace check's to report, not this one's twice over —
       // that step only, so a three-hand step elsewhere is still named
       if (graceTooMany(b, i, hands)) graceClash = true;
@@ -179,19 +193,15 @@ export function playability(pat: Pattern, bpm0: number): Playability {
   }
 
   if (pedalRuns) kickRun = false;
-  /* The tempo a double is played at, in sixteenths: a sextuplet double is half
-     again as quick as a sixteenth one at the same quarter. */
-  const doubleBpm = (bpm * stepsPerQuarter(meterOfPat(pat))) / 4;
-  /* One foot: doubles past 132 strain it, unless the style plays runs on one
-     pedal, whose run may go as fast as any run the app plays (RUN_RATE notes
-     a second) and no faster. Two feet have no such limit here. */
-  const footTop = pedalRuns ? (60 * RUN_RATE) / 4 : 132;
-  const fastDoubles =
-    !doubleKick && doubleStrain > 0 && doubleBpm > footTop && doubleStrain > pat.bars.length;
+  // how fast each limb can go, and where it can reach, is the body's question
+  const problems = limbProblems(pat, bpm0);
+  const feetSlow = problems.some((p) => p.limbs === 'feet');
+  const handsSlow = problems.some((p) => p.limbs === 'hands');
 
   const checks: Check[] = [
-    { ok: !rideClash, label: 'One cymbal at a time — no ride under a hi-hat' },
+    { ok: !rideClash, kind: 'groove', label: 'One cymbal at a time — no ride under a hi-hat' },
     {
+      kind: 'groove',
       ok: !kickRun,
       label: pedalRuns
         ? doubleKick
@@ -201,8 +211,9 @@ export function playability(pat: Pattern, bpm0: number): Playability {
           ? 'No four 16ths in a row on the kick'
           : 'No triple 16ths on the kick',
     },
-    { ok: !snareRun, label: 'Snare never runs four 16ths without a break' },
+    { ok: !snareRun, kind: 'groove', label: 'Snare never runs four 16ths without a break' },
     {
+      kind: 'groove',
       ok: !noBackbeat,
       label:
         pat.bbLane === FOOT_LANE
@@ -210,27 +221,37 @@ export function playability(pat: Pattern, bpm0: number): Playability {
           : 'Every bar has a findable backbeat',
     },
     {
+      kind: 'groove',
       ok: !airless,
       label: pedalRuns
         ? 'At least a quarter of every bar is air above the kick'
         : 'At least a quarter of every bar is air',
     },
     {
-      ok: !fastDoubles,
-      label:
-        pedalRuns && !doubleKick
-          ? `Kick runs on one pedal are sane for ${Math.round(bpm)} BPM`
-          : `Kick doubles are sane for ${Math.round(bpm)} BPM`,
+      kind: 'body',
+      limbs: 'feet',
+      ok: !feetSlow,
+      label: doubleKick
+        ? `Two feet keep up with the kick at ${Math.round(bpm)} BPM`
+        : `The feet keep up at ${Math.round(bpm)} BPM`,
+    },
+    {
+      kind: 'body',
+      limbs: 'hands',
+      ok: !handsSlow,
+      label: `Each hand gets where it is going at ${Math.round(bpm)} BPM`,
     },
   ];
   /* Only shown where it can fail: every pattern written before 9-iv passes it,
      and a list that grows a line nobody can trip is noise. */
-  if (graceClash) checks.push({ ok: false, label: GRACE_CHECK });
-  if (threeHands) checks.push({ ok: false, label: HANDS_CHECK });
+  if (graceClash) checks.push({ ok: false, kind: 'body', label: GRACE_CHECK });
+  if (threeHands) checks.push({ ok: false, kind: 'body', label: HANDS_CHECK });
 
   return {
     checks,
-    hard: !(rideClash || kickRun || snareRun || noBackbeat || airless || graceClash || threeHands),
+    hard: !(graceClash || threeHands || feetSlow || handsSlow),
+    groove: !(rideClash || kickRun || snareRun || noBackbeat || airless),
+    problems,
   };
 }
 
@@ -457,18 +478,36 @@ export const NEAR_BEST = 10;
  * unplayable candidate still wins when they all fail. Among what is left, any
  * candidate within {@link NEAR_BEST} of the top score may be the one kept,
  * chosen from the seed, so the same seed still gives the same break.
+ *
+ * **A song is not chosen by taste.** Its bars are the record's, so the score
+ * has no say in which part is served: the seed's own candidate is, the first
+ * that plays. Ranked, the part the score likes best would win every press,
+ * and the rest of the record would never come up. A written section
+ * (`SongSection.written`) is the record as it is, held to the body alone. A
+ * section of figures is varied — a crash, a kick, a fill in place of a bar —
+ * so the first candidate that is a groove too is served; only where none is
+ * (the record's own figures break a groove rule) is the first two hands and
+ * two feet can play.
  */
 export function generateGood(opts: GenerateOptions, bpm: number): GeneratedBreak {
   const drawn: Array<{ pattern: Pattern; eff: number; hard: boolean }> = [];
   let rejected = 0;
+  let bodyOnly: Pattern | undefined;
 
   for (let n = 0; n < CANDIDATES; n++) {
     const p = generatePattern({ ...opts, seed: (opts.seed + n * 2654435761) >>> 0 });
     const checks = playability(p, bpm);
     const c = critique(p, bpm);
-    if (!checks.hard) rejected++;
-    drawn.push({ pattern: p, eff: checks.hard ? c.score : c.score - 45, hard: checks.hard });
+    const written = !!songPartOf(opts.style.params, p.song)?.section?.written;
+    /* A written section is a drummer's bars, held to the body alone; anything
+       the generator drew or varied must be a groove too. */
+    const ok = checks.hard && (written || checks.groove);
+    if (!ok) rejected++;
+    if (ok && p.song) return { pattern: p, tries: n + 1, rejected };
+    if (p.song && checks.hard && !bodyOnly) bodyOnly = p;
+    drawn.push({ pattern: p, eff: ok ? c.score : c.score - 45, hard: ok });
   }
+  if (bodyOnly) return { pattern: bodyOnly, tries: CANDIDATES, rejected };
 
   // only the playable ones, if any are
   const eligible = drawn.some((d) => d.hard) ? drawn.filter((d) => d.hard) : drawn;

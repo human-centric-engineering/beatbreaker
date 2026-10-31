@@ -311,7 +311,20 @@ export interface Pattern {
   polySpans?: PolySpan[];
   /** Its tuplets (12-d), each owning its cells. Absent on a pattern with none, which is almost all of them. */
   tuplets?: TupletSpan[];
+  /**
+   * Where a written fill (a style's or a song's `fills`) starts in a bar. The
+   * critic judges those steps as a fill, as it does a poly fill's: a
+   * transcribed fill that leaves out the backbeat is what the drummer played.
+   * Absent on a pattern with none.
+   */
+  fills?: FillSpan[];
   bars: Bar[];
+}
+
+/** A written fill: from step `from` of bar `bar` to the end of that bar. */
+export interface FillSpan {
+  bar: number;
+  from: number;
 }
 
 /** A meter, in terms the grid understands. */
@@ -487,9 +500,9 @@ export interface StyleAttrs {
    * Runs of 16ths on one pedal, heel and toe and the swivel, at the speed
    * others need two for: El Estepario Siberiano, who gave up the double
    * pedal. The generator keeps a run, under the backbeat too, and the critic
-   * passes it, as with `doubleKick` (see `keepsKickRuns`), but asks that one
-   * foot's run go no faster than `RUN_RATE`. The 3D drummer plays it with one
-   * foot.
+   * passes it, as with `doubleKick` (see `keepsKickRuns`), and lets the foot
+   * run faster than most (`FOOT_RATE_RUNS` in `physical.ts`). The 3D drummer
+   * plays it with one foot.
    */
   singlePedalRuns?: boolean;
   /**
@@ -744,6 +757,12 @@ export interface SongSection {
    * grooves over its style.
    */
   aliases?: string[];
+  /**
+   * The record's bars, in order, one figure a bar: New writes these as they
+   * are — no groove drawn, no fill added, nothing varied — so a passage plays
+   * as the drummer played it. Its length is the bars written.
+   */
+  written?: Figure[];
   params: StyleSongParams;
 }
 

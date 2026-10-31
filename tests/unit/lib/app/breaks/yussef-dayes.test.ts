@@ -42,9 +42,9 @@ describe('heelToe', () => {
   });
 
   it('passes three on the critic, and still calls four a run', () => {
-    expect(playability(kicks([8, 9, 10], true), 95).hard).toBe(true);
-    expect(playability(kicks([8, 9, 10], false), 95).hard).toBe(false);
-    expect(playability(kicks([8, 9, 10, 11], true), 95).hard).toBe(false);
+    expect(playability(kicks([8, 9, 10], true), 95).groove).toBe(true);
+    expect(playability(kicks([8, 9, 10], false), 95).groove).toBe(false);
+    expect(playability(kicks([8, 9, 10, 11], true), 95).groove).toBe(false);
   });
 
   it('travels with the pattern', () => {

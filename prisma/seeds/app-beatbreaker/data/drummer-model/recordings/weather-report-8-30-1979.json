@@ -29,13 +29,7 @@
           "source_ids": ["src:8-30-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=rI87xvv-OJE",
-      "transcriptions": [
-        {
-          "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=20757"
-        }
-      ]
+      "youtube": "https://www.youtube.com/watch?v=x9B-dSkvqB4"
     },
     {
       "title": "Teen Town",
@@ -47,13 +41,26 @@
           "source_ids": ["src:8-30-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=a3113eNj4IA",
-      "transcriptions": [
-        {
-          "site": "songsterr",
-          "url": "https://www.songsterr.com/a/wa/song?id=21920"
+      "youtube": "https://www.youtube.com/watch?v=BZo2xbEi0xE"
+    },
+    {
+      "title": "Black Market",
+      "drummer_ids": ["drummer:peter-erskine"],
+      "drums": {
+        "description": "Sixteenths on the hat over a kick that gallops under the bass (1, the \"a\" of 1, 2, the \"a\" of 2 ...), the foot's hat on the eighths, then a snare figure round 2 and 4 on the hat and the ride. At 125.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:8-30-wikipedia",
+            "src:weatherreportdiscography-8-30",
+            "src:songsterr-6476915"
+          ],
+          "note": "The bars from a machine tab aligned to the record."
         }
-      ]
+      },
+      "youtube": "https://www.youtube.com/watch?v=UyrQRJq1oiA",
+      "style_key": "erskine",
+      "song_key": "black-market"
     }
   ],
   "evidence": {

@@ -268,7 +268,11 @@ describe('the critic', () => {
     const pat = threesPattern();
     pat.bars[1].h[5] = 1;
     pat.bars[1].c[5] = 1;
-    expect(playability(pat, 100).checks).toContainEqual({ ok: false, label: HANDS_CHECK });
+    expect(playability(pat, 100).checks).toContainEqual({
+      ok: false,
+      kind: 'body',
+      label: HANDS_CHECK,
+    });
   });
 
   it('scores it as the plain fill it took the place of', () => {

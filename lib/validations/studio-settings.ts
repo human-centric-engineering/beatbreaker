@@ -30,7 +30,7 @@ import { DEFAULT_METER, METERS } from '@/lib/app/breaks/meter';
 
 /** The tempo range a setting may hold. The meter's own `maxBpm` clamps it where it is used. */
 export const SETTINGS_BPM_MIN = 50;
-export const SETTINGS_BPM_MAX = 300;
+export const SETTINGS_BPM_MAX = 380;
 
 /** How many kits may carry a tuning override. There are 13 system kits; this is headroom, not a target. */
 export const MAX_TUNED_KITS = 64;

@@ -51,7 +51,7 @@ describe('ScoreCard', () => {
     );
     expect(document.querySelector('.verdict')?.textContent).toBe(report.verdict);
     const checks = document.querySelectorAll('.check');
-    expect(checks.length).toBe(6);
+    expect(checks.length).toBe(7);
     for (const check of checks) expect(check.querySelector('i')?.textContent).toMatch(/^[✓✕]$/);
   });
 });

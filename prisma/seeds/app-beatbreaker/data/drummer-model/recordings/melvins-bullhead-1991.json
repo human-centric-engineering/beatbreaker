@@ -1,0 +1,47 @@
+{
+  "id": "rec:melvins-bullhead-1991",
+  "title": "Bullhead",
+  "artist": "Melvins",
+  "year": 1991,
+  "type": "album",
+  "release": "Boner Records",
+  "style_ids": ["style:grunge", "style:drone-doom", "style:metal"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:bullhead-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dale-crover",
+      "name": "Dale Crover",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bullhead-wikipedia"]
+      }
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Boris",
+      "drummer_ids": ["drummer:dale-crover"],
+      "drums": {
+        "description": "Sludge at 63: a two-bar riff with crashes on 1 and the \"and\" of 2, the snare on 1 and the \"and\" of 3 and then on 1 and 3, the kick on the \"and\"s round the beat, no two pairs alike; tom triplets after 1, bars of crashes between riffs, one bar of half time.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:songsterr-73509", "src:bullhead-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=sPBbWVYuNLQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=73509"
+        }
+      ],
+      "style_key": "crover",
+      "song_key": "boris"
+    }
+  ]
+}

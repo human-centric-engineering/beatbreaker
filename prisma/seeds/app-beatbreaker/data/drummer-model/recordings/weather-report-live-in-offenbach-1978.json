@@ -1,0 +1,63 @@
+{
+  "id": "rec:weather-report-live-in-offenbach-1978",
+  "title": "Live in Offenbach 1978",
+  "artist": "Weather Report",
+  "year": 1978,
+  "type": "video",
+  "release": "WDR Rockpalast; the Forecast: Tomorrow DVD (Columbia/Legacy, 2006); MIG 80090 (2016)",
+  "style_ids": ["style:jazz-fusion"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:weather-report-offenbach-1978-film", "src:mig-live-in-offenbach-1978"],
+    "note": "September 1978: the 29th by the upload, the 28th by a retailer."
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:peter-erskine",
+      "name": "Peter Erskine",
+      "drummer_role": "sole_drummer",
+      "significance": 0.75,
+      "why_it_matters": "The quartet with Pastorius filmed whole in his first year, the band without a percussionist.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:weather-report-offenbach-1978-film", "src:weather-report-wikipedia"]
+      }
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Birdland",
+      "drummer_ids": ["drummer:peter-erskine"],
+      "drums": {
+        "description": "His shuffle at 167: the ride swung, 2 and 4, the kick on 1, 3, its \"and\" and the \"and\" of 4; the snare on every \"and\" under the riff, the band's hits on the \"and\"s, the ride in quarters, the open hat on the beat. In the film from 1:32:16.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:weather-report-offenbach-1978-film",
+            "src:weatherreportdiscography-8-30",
+            "src:songsterr-7390292"
+          ],
+          "note": "The bars from a machine tab; the tempo and the shuffle from the record and Erskine's own account."
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=YBkHgdB6Qw8",
+      "style_key": "erskine",
+      "song_key": "birdland"
+    },
+    {
+      "title": "Teen Town",
+      "drummer_ids": ["drummer:peter-erskine"],
+      "drums": {
+        "description": "The hat closed on 1 and its \"e\" and open on the \"and\", 2 and 4; a build in six-bar steps, each adding to the kick and the hat; sixteenths on the hat. At 135, pushing to 145. In the film from 1:15:19.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:weather-report-offenbach-1978-film", "src:songsterr-7390176"],
+          "note": "The bars from a machine tab of this performance."
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=I63bOi477cA",
+      "style_key": "erskine",
+      "song_key": "teen-town"
+    }
+  ]
+}

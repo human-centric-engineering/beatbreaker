@@ -66,7 +66,8 @@ describe('explain_difficulty', () => {
     const result = await run({ section: 'A' }, 'user-1', breakPayload(doc));
 
     const [section] = dataOf(result).sections;
-    expect(section.playable).toBe(false);
+    // a triple is a groove rule, not beyond the body: playable, and still named
+    expect(section.playable).toBe(true);
     expect(section.bars[0].failing).not.toContain('No triple 16ths on the kick');
     expect(section.bars[1].failing).toContain('No triple 16ths on the kick');
     expect(section.bars[1].doubles).toEqual(

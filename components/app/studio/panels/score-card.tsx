@@ -6,7 +6,8 @@ import { cn } from '@/lib/utils';
 
 /**
  * The critic's read of the break: the score, what it is made of, and the
- * playability checks.
+ * playability checks — the body's (✕ where it cannot be played) and the
+ * groove's (– where a bar is no generated groove, which a song's may not be).
  *
  * In Generate, beside what it judges, and in Edit, because every musical edit
  * re-runs it and the point of a move is whether the number went up. Only one
@@ -53,8 +54,16 @@ export function ScoreCard() {
         <div className="verdict">{c.report?.verdict}</div>
         <div className="checks">
           {c.checks?.checks.map((k) => (
-            <div key={k.label} className={cn('check', k.ok ? 'ok' : 'no')}>
-              <i>{k.ok ? '✓' : '✕'}</i>
+            <div
+              key={k.label}
+              className={cn('check', k.ok ? 'ok' : k.kind === 'groove' ? 'soft' : 'no')}
+              title={
+                !k.ok && k.kind === 'groove'
+                  ? 'A groove rule, not a limit of the body: playable as written'
+                  : undefined
+              }
+            >
+              <i>{k.ok ? '✓' : k.kind === 'groove' ? '–' : '✕'}</i>
               <span>{k.label}</span>
             </div>
           ))}

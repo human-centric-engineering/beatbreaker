@@ -38,7 +38,9 @@ vi.mock('@/lib/app/breaks/saved/settings', () => ({
 }));
 
 import { APIError, NotFoundError, ValidationError } from '@/lib/api/errors';
+import { TEMPO_TOP } from '@/lib/app/breaks/audio/transport';
 import { generatePattern } from '@/lib/app/breaks/generate';
+import type { TempoRatio } from '@/lib/app/breaks/sections';
 import { breakPayload } from '@/lib/app/breaks/share';
 import { testStyle } from '@/tests/helpers/catalogue';
 import { PUBLIC } from '@/lib/app/breaks/catalogue/data';
@@ -75,7 +77,7 @@ function breakRow(over: Record<string, unknown> = {}) {
 }
 
 /** A saved break's document with A and B in two meters (11-e-ii-a). */
-function mixedDoc(aMeter: string, bMeter: string) {
+function mixedDoc(aMeter: string, bMeter: string, bRatio?: TempoRatio) {
   const at = (meter: string) =>
     generatePattern({ style: testStyle('funk'), meter, seed: 4, bars: 1, density: 50, ghosts: 50 });
   return breakPayload({
@@ -84,7 +86,7 @@ function mixedDoc(aMeter: string, bMeter: string) {
     level: 5,
     arrangement: ['A', 'B'],
     A: at(aMeter),
-    B: at(bMeter),
+    B: bRatio ? { ...at(bMeter), tempoRatio: bRatio } : at(bMeter),
   });
 }
 
@@ -162,40 +164,37 @@ describe('recordSpeed — the tempo ceiling', () => {
 
     const error = await recordSpeed(USER_ID, input({ bpm: 39 }), NOW).catch((e: unknown) => e);
     expect(error).toBeInstanceOf(ValidationError);
-    expect((error as ValidationError).message).toBe('A speed is between 40 and 190 bpm');
+    expect((error as ValidationError).message).toBe(`A speed is between 40 and ${TEMPO_TOP} bpm`);
   });
 
-  it("refuses a bpm above the meter's own ceiling, in a simple meter (4/4 -> 190)", async () => {
+  it('accepts sixteenths at a thrash tempo in 4/4, which the old 190 ceiling refused', async () => {
     vi.mocked(prisma.break.findFirst).mockResolvedValue(breakRow({ meter: '4/4' }) as never);
 
-    const error = await recordSpeed(USER_ID, input({ bpm: 191 }), NOW).catch((e: unknown) => e);
-    expect(error).toBeInstanceOf(ValidationError);
-    expect((error as ValidationError).message).toBe('A speed is between 40 and 190 bpm');
+    await expect(recordSpeed(USER_ID, input({ bpm: 220 }), NOW)).resolves.toBeDefined();
   });
 
-  it("refuses a bpm above the meter's own ceiling, in a compound meter (6/8 -> 300)", async () => {
+  it('refuses a bpm above the Studio’s top', async () => {
     vi.mocked(prisma.break.findFirst).mockResolvedValue(breakRow({ meter: '6/8' }) as never);
 
-    const error = await recordSpeed(USER_ID, input({ bpm: 301 }), NOW).catch((e: unknown) => e);
+    const error = await recordSpeed(USER_ID, input({ bpm: TEMPO_TOP + 1 }), NOW).catch(
+      (e: unknown) => e
+    );
     expect(error).toBeInstanceOf(ValidationError);
-    expect((error as ValidationError).message).toBe('A speed is between 40 and 300 bpm');
+    expect((error as ValidationError).message).toBe(`A speed is between 40 and ${TEMPO_TOP} bpm`);
   });
 
-  it('accepts a bpm right at a compound meter ceiling (12/8 -> 300)', async () => {
-    vi.mocked(prisma.break.findFirst).mockResolvedValue(breakRow({ meter: '12/8' }) as never);
-
-    await expect(recordSpeed(USER_ID, input({ bpm: 300 }), NOW)).resolves.toBeDefined();
-  });
-
-  it('holds a break in two meters to the lower ceiling, though its meter column is A’s (11-e-ii-a)', async () => {
-    // the column says 12/8 (300); the 4/4 B holds the Studio, and so the record, to 190
+  it('holds a break with a section at ×2 to half the top, though its meter column is A’s (11-e-ii-a)', async () => {
     vi.mocked(prisma.break.findFirst).mockResolvedValue(
-      breakRow({ meter: '12/8', doc: mixedDoc('12/8', '4/4') }) as never
+      breakRow({ meter: '12/8', doc: mixedDoc('12/8', '4/4', 2) }) as never
     );
 
-    const error = await recordSpeed(USER_ID, input({ bpm: 250 }), NOW).catch((e: unknown) => e);
+    const error = await recordSpeed(USER_ID, input({ bpm: TEMPO_TOP / 2 + 1 }), NOW).catch(
+      (e: unknown) => e
+    );
     expect(error).toBeInstanceOf(ValidationError);
-    expect((error as ValidationError).message).toBe('A speed is between 40 and 190 bpm');
+    expect((error as ValidationError).message).toBe(
+      `A speed is between 40 and ${TEMPO_TOP / 2} bpm`
+    );
   });
 });
 

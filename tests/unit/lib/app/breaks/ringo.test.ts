@@ -6,7 +6,6 @@
 
 import { describe, expect, it } from 'vitest';
 
-import { maxBpm } from '@/lib/app/breaks/audio/transport';
 import { applyFill, generatePattern } from '@/lib/app/breaks/generate';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import { meterOf, pulseInfo, stepsOf } from '@/lib/app/breaks/meter';
@@ -88,7 +87,6 @@ describe('11/8', () => {
     const m = meterOf('11/8');
     expect(stepsOf(m)).toBe(22);
     expect(pulseInfo(m)).toBeNull();
-    expect(maxBpm('11/8')).toBe(190);
     expect(
       songMeter(
         RINGO.params,

@@ -1,7 +1,8 @@
 /**
  * `singlePedalRuns`: kick runs on one pedal at a double pedal's speed (El
  * Estepario Siberiano). Kept by the generator and passed by the critic as a
- * double pedal's are, without claiming a second pedal, up to the run rate.
+ * double pedal's are, without claiming a second pedal, as fast as one foot
+ * heel and toe keeps up.
  * And `exercise`: a lesson's bars, of which the critic asks no air.
  */
 
@@ -50,8 +51,11 @@ describe('singlePedalRuns', () => {
 
   it('passes the run on the critic, which calls it a run without the flag', () => {
     const steps = [0, 1, 2, 3, 6, 7, 8, 9, 10, 11, 13, 14, 15];
-    expect(playability(kicks(steps, { singlePedalRuns: true }), 100).hard).toBe(true);
-    expect(playability(kicks(steps, {}), 100).hard).toBe(false);
+    const one = playability(kicks(steps, { singlePedalRuns: true }), 100);
+    expect([one.hard, one.groove]).toEqual([true, true]);
+    // a run is a groove rule: the body can play it, a generated groove may not
+    const plain = playability(kicks(steps, {}), 100);
+    expect([plain.hard, plain.groove]).toEqual([true, false]);
   });
 
   it('names one pedal, not a double pedal, in the kick check', () => {
@@ -90,17 +94,30 @@ describe('one foot has a top speed', () => {
   const label = (pat: Pattern, bpm: number) =>
     playability(pat, bpm).checks.find((c) => c.label.startsWith('Kick'))!;
   const speed = (pat: Pattern, bpm: number) =>
-    playability(pat, bpm).checks.find((c) => / are sane for /.test(c.label))!;
+    playability(pat, bpm).checks.find((c) => / keep up /.test(c.label))!;
 
-  it('passes one-pedal runs up to the run rate, 150 in 16ths, and warns past it', () => {
-    expect(speed(fast({ singlePedalRuns: true }), 150).ok).toBe(true);
-    const past = speed(fast({ singlePedalRuns: true }), 200);
-    expect(past).toEqual({ ok: false, label: 'Kick runs on one pedal are sane for 200 BPM' });
+  it('passes one-pedal runs as fast as a foot heel and toe keeps up, and warns past it', () => {
+    // FOOT_RATE_RUNS: four strokes in 0.2 s, sixteenths at 225
+    expect(speed(fast({ singlePedalRuns: true }), 220).ok).toBe(true);
+    const past = speed(fast({ singlePedalRuns: true }), 240);
+    expect(past).toEqual({
+      ok: false,
+      kind: 'body',
+      limbs: 'feet',
+      label: 'The feet keep up at 240 BPM',
+    });
+    // a foot that does not play runs heel and toe tops out sooner
+    expect(speed(fast({}), 200).ok).toBe(false);
   });
 
-  it('sets no top speed for two feet', () => {
-    expect(speed(fast({ doubleKick: true }), 200).ok).toBe(true);
-    expect(label(fast({ doubleKick: true }), 200).label).toBe('Kick runs go to the double pedal');
+  it('shares the run between two feet on a double pedal', () => {
+    expect(speed(fast({ doubleKick: true }), 240)).toEqual({
+      ok: true,
+      kind: 'body',
+      limbs: 'feet',
+      label: 'Two feet keep up with the kick at 240 BPM',
+    });
+    expect(label(fast({ doubleKick: true }), 240).label).toBe('Kick runs go to the double pedal');
   });
 });
 
@@ -113,9 +130,9 @@ describe('exercise', () => {
   };
 
   it('asks no air of a lesson bar, and still asks it of the same bar as a groove', () => {
-    expect(playability(threes({ exercise: true }), 101).hard).toBe(true);
+    expect(playability(threes({ exercise: true }), 101).groove).toBe(true);
     const groove = playability(threes({}), 101);
-    expect(groove.hard).toBe(false);
+    expect(groove.groove).toBe(false);
     expect(
       groove.checks.find((c) => c.label === 'At least a quarter of every bar is air')?.ok
     ).toBe(false);

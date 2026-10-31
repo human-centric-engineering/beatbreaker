@@ -12,6 +12,7 @@ import { generateGood } from '@/lib/app/breaks/critic';
 import { deriveB } from '@/lib/app/breaks/generate';
 import {
   MAX_BREAK_BARS,
+  SECTION_LETTERS,
   type SectionLetter,
   lettersOf,
   totalBars,
@@ -252,8 +253,10 @@ describe('songBreak', () => {
     }
   });
 
-  it('writes every section of every song in sections, each in its own meter, in the song’s order', () => {
-    for (const key of Object.keys(STYLES).filter((k) => STYLES[k].drummer)) {
+  // one test a drummer: songs are written whole now, and the catalogue at once outgrows any one test's time
+  it.each(Object.keys(STYLES).filter((k) => STYLES[k].drummer))(
+    'writes every section of every song in sections for %s, each in its own meter, in the song’s order',
+    (key) => {
       const style = testStyle(key);
       for (const song of style.params.songs ?? []) {
         if (!song.sections) continue;
@@ -264,16 +267,18 @@ describe('songBreak', () => {
           const pat = made.sections[section.letter];
           expect(pat?.song, label).toBe(partKey(song, section));
           expect(pat?.meter, label).toBe(songMeter(style.params, song, section));
-          expect(pat?.bars, label).toHaveLength(section.bars ?? opts.bars);
+          expect(pat?.bars, label).toHaveLength(
+            section.written?.length ?? section.bars ?? opts.bars
+          );
         }
         expect(made.arrangement, label).toEqual(
           song.arrangement ?? song.sections.map((x) => x.letter)
         );
         expect(made.meter, label).toBe(songMeter(style.params, song));
       }
-    }
-    // a hundred and more songs in sections now, each written whole
-  }, 180_000);
+    },
+    60_000
+  );
 
   it('is the A and the B it always was for a song in one part, and for a style without songs', () => {
     for (const [key, song] of [
@@ -329,7 +334,8 @@ describe('songBreak', () => {
 
   it('brings the longest sections down until the break fits its bars', () => {
     const st = styleWith({
-      sections: (['A', 'B', 'C', 'D', 'E'] as const).map((letter) => ({
+      // seventeen sections of eight: past what a break holds
+      sections: SECTION_LETTERS.slice(0, 17).map((letter) => ({
         letter,
         label: letter,
         params: {},
@@ -343,7 +349,7 @@ describe('songBreak', () => {
       bars: 8,
       exact: true,
     });
-    expect(lettersOf(made.sections)).toHaveLength(5);
+    expect(lettersOf(made.sections)).toHaveLength(17);
     expect(totalBars(made.sections)).toBe(MAX_BREAK_BARS);
   });
 });

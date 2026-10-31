@@ -148,7 +148,7 @@ describe('PatternPlayer', () => {
     expect(screen.queryByLabelText(/tempo: 96 bpm/i)).toBeNull();
   });
 
-  it('starts a break in two meters saved past its ceiling at the ceiling (11-e-ii-a)', () => {
+  it('starts a break saved past its ceiling at the ceiling (11-e-ii-g)', () => {
     const at = (meter: string) =>
       generatePattern({
         style: testStyle('funk'),
@@ -158,14 +158,14 @@ describe('PatternPlayer', () => {
         density: 50,
         ghosts: 50,
       });
-    // 12/8 alone goes to 300; beside a 4/4 B the break plays at 190 at most
+    // A alone goes to the top; beside a B at double time the break plays at half it
     const mixed = breakPayload({
       bpm: 280,
       swing: 0,
       level: 5,
       arrangement: ['A', 'B'],
       A: at('12/8'),
-      B: at('4/4'),
+      B: { ...at('4/4'), tempoRatio: 2 },
     });
     render(<PatternPlayer payload={mixed} kits={testKits()} />);
     expect(screen.getByLabelText(/tempo: 190 bpm/i)).toHaveAttribute('max', '190');

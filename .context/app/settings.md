@@ -35,7 +35,7 @@ section.
 | `panView`                                           | Whose side the kit is panned from: `drummer` (the stool) or `audience` (out front). Phase 9                                                                                                   | `'drummer'`                      |
 | `humanise`                                          | `{ mode: off·subtle·loose, amount 0–100, take }`. Off plays the grid; the take is what 🎲 _New take_ counts up. Phase 9, D38                                                                  | `{ 'subtle', 35, 0 }`            |
 | `countIn`                                           | Bars of count-in, 0–2                                                                                                                                                                         | `1`                              |
-| `ceiling`                                           | Where the tempo ramp stops, 50–300                                                                                                                                                            | `130`                            |
+| `ceiling`                                           | Where the tempo ramp stops, 50–380                                                                                                                                                            | `130`                            |
 | `matchTempo`                                        | Tempo follows the layer                                                                                                                                                                       | `false`                          |
 | `density`, `ghosts`                                 | Generator dials, 0–100                                                                                                                                                                        | `55`, `60`                       |
 | `hats`, `feel`                                      | Generator dials, 0–150                                                                                                                                                                        | `100`                            |
@@ -49,8 +49,8 @@ The schema is `studioSettingsSchema` in `lib/validations/studio-settings.ts`;
 the defaults are `DEFAULT_STUDIO_SETTINGS` beside it. The data layer is
 `lib/app/breaks/saved/settings.ts` (server-only).
 
-**Every field is bounded.** Tempos are 50–300 and clamped to the meter's
-`maxBpm` where they are used. Each tuning parameter is held to the widest range
+**Every field is bounded.** Tempos are 50–380 and clamped to the break's
+`maxBpmOf` where they are used. Each tuning parameter is held to the widest range
 any engine gives it (`TUNING_RANGES`), and `withTuning` takes only the keys the
 kit's own engine has. `kit`, `userKit` and `startStyle` must name a playable
 kit or a style the catalogue has — or, for the two kit fields, one of your own

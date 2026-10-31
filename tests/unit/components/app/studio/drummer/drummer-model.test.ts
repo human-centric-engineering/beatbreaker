@@ -356,12 +356,18 @@ describe('buildDrummer() — hair that swishes', () => {
       .filter((o): o is THREE.Mesh => o instanceof THREE.Mesh)
       .map((o) => o.geometry)
       .find((g) => !(g instanceof THREE.CapsuleGeometry))!;
-    // 34 locks of 13 rings of 7
-    expect(geo.getAttribute('position').count).toBe(34 * 13 * 7);
-    // the strands run along v, root (0) to tip (1)
+    // the strands run along v, root (0) to tip (1): a ring of 7 at each lock's root and tip
     const v = geo.getAttribute('uv');
+    let roots = 0;
+    let tips = 0;
+    for (let i = 0; i < v.count; i++) {
+      if (v.getY(i) === 0) roots++;
+      if (v.getY(i) === 1) tips++;
+    }
+    // 110 locks, each grown from the parting or the crown
+    expect(roots).toBe(110 * 7);
+    expect(tips).toBe(110 * 7);
     expect(v.getY(0)).toBe(0);
-    expect(v.getY(13 * 7 - 1)).toBe(1);
   });
 
   it('swishes long hair on a strong turn of the head, and lets it settle', () => {
