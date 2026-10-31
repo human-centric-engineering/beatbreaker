@@ -307,6 +307,49 @@ What came of it (built 2026-10-29):
   machine tab a song is built from is cited in its track's evidence, not
   listed as a transcription, as for Hayward.
 
+## Batch 2, next four (claimed 2026-10-31)
+
+The top four of the re-ranked long list (`rank.py`, 2026-10-31), all 15-a
+candidates: keep the record ids. Three are rock and one funk and soul, inside
+the family rule. Earl Hudson starts a new group, Hardcore punk drummers, filed
+after Punk drummers. The owner asked for two forks at a time, so they run in
+two rounds: Tommy Ramone and Jerry Allison, then Earl Hudson and Roger
+Hawkins.
+
+| Fork | Drummer       | Record                  | Style key      | Likeness        | Research | Drummers-tab group               | Copy from                                   |
+| ---- | ------------- | ----------------------- | -------------- | --------------- | -------- | -------------------------------- | ------------------------------------------- |
+| 1    | Tommy Ramone  | `drummer:tommy-ramone`  | `tommyramone`  | `TOMMY_RAMONE`  | ED       | Punk drummers                    | `paulcook`, `headon`, `ringo`               |
+| 2    | Jerry Allison | `drummer:jerry-allison` | `jerryallison` | `JERRY_ALLISON` | EE       | Rock and roll and roots drummers | `djfontana`, `earlpalmer`, `fredbelow`      |
+| 3    | Earl Hudson   | `drummer:earl-hudson`   | `earlhudson`   | `EARL_HUDSON`   | EF       | Hardcore punk drummers (new)     | `barker`, `headon`, `carltonbarrett`        |
+| 4    | Roger Hawkins | `drummer:roger-hawkins` | `rogerhawkins` | `ROGER_HAWKINS` | EG       | Soul and Motown drummers         | `aljackson`, `bennybenjamin`, `stevejordan` |
+
+**What each fork should watch for:**
+
+1. **Tommy Ramone.** The Ramones' first three albums, 1976–77 (_Ramones_,
+   _Leave Home_, _Rocket to Russia_): straight eighths at speed, no fills to
+   speak of, the hi-hat or ride driving every bar. Marky Ramone drums from
+   _Road to Ruin_ (1978) on, so "I Wanna Be Sedated" is his, not Tommy's:
+   check every credit. Score the evenness, not added variation the record
+   does not have; if a song truly holds one groove, say so.
+2. **Jerry Allison.** Buddy Holly and the Crickets, 1957–59: the tom-tom
+   paradiddles of "Peggy Sue", "That'll Be the Day", "Not Fade Away" (played
+   on a cardboard box: a sampled kit that comes close, said so) and
+   "Everyday" (knee slaps). Check each Holly credit: some sides were cut in
+   New York or Clovis with other drummers or none. Swing or shuffle feel per
+   song from the record.
+3. **Earl Hudson.** Bad Brains, from 1979: hardcore at extreme tempos ("Pay
+   to Cum", "Banned in D.C.", "Sailin' On", "Big Takeover") and the reggae
+   songs ("I Luv I Jah", "Leaving Babylon"), two feels one drummer. Tempos
+   from the record, not the tab, and checked against two hands and two feet;
+   the ROIR cassette (1982) and _Rock for Light_ (1983) have different takes
+   of some songs: name which one is scored.
+4. **Roger Hawkins.** FAME and the Muscle Shoals Rhythm Section: Percy
+   Sledge's "When a Man Loves a Woman", Wilson Pickett, Aretha Franklin's
+   1967 Atlantic sessions, the Staple Singers' "I'll Take You There", Paul
+   Simon, Bob Seger. Session credits are thin and often wrong: confirm each
+   from a sleeve or the session logs, and say which songs he shares with
+   another drummer.
+
 ## The brief each fork gets
 
 Paste this to each fork, with its row from the batch table and `S`, the
