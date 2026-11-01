@@ -70,7 +70,7 @@
       "priority": 1,
       "drummer": "bruford",
       "key": null,
-      "proposedKey": null,
+      "proposedKey": "heart-of-the-sunrise",
       "title": "Heart of the Sunrise",
       "kind": "to-build",
       "limits": ["left-out", "meter-split", "bars-cut"],
@@ -81,7 +81,7 @@
       "blockedBy": ["D76", "D77"],
       "missingBars": 372,
       "added": null,
-      "notes": "proposed key heart-of-the-sunrise"
+      "notes": null
     },
     {
       "id": 5,
@@ -91,7 +91,7 @@
       "key": "achilles-last-stand",
       "proposedKey": null,
       "title": "Achilles Last Stand",
-      "kind": "to-build",
+      "kind": "to-rebuild",
       "limits": ["left-out", "tempo-bent"],
       "what": "left as a generated break: 360 bars, 140 distinct, with 5/4 sections at 97 against 145, 'a ratio a section's tempoRatio of 1/2 or 2 cannot hold'",
       "evidence": ["drumming-research.md F (Full songs, 2026-10-23)"],
@@ -195,7 +195,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77", "other-limit"],
       "missingBars": 230,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "the three keys (metropolis, -instrumental, -breakdown) should become one song; the tab runs to bar ~300"
     },
     {
@@ -241,7 +241,7 @@
       "needs": ["D76", "D79"],
       "blockedBy": ["D76", "D79"],
       "missingBars": 200,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": "the solos' time is the tab's own bars, so a rebuild can write them; bar 17's cross-sticks left out with no reason given"
     },
     {
@@ -398,7 +398,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77", "other-limit"],
       "missingBars": 168,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "other-limit: a figure row's 32 steps; the Rosanna shuffle is among the most studied grooves in drumming"
     },
     {
@@ -566,7 +566,7 @@
       "priority": 1,
       "drummer": "moon",
       "key": null,
-      "proposedKey": null,
+      "proposedKey": "i-can-see-for-miles",
       "title": "I Can See for Miles",
       "kind": "to-build",
       "limits": ["left-out", "rule-run", "bars-cut"],
@@ -577,7 +577,7 @@
       "blockedBy": ["D76"],
       "missingBars": 140,
       "added": null,
-      "notes": "proposed key i-can-see-for-miles; overdubbed percussion lanes in the tab to separate"
+      "notes": "overdubbed percussion lanes in the tab to separate"
     },
     {
       "id": 27,
@@ -734,7 +734,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 120,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": "his showcase opener (half time, the beat, double time and punk time); every bar is a figure on the wrong grid"
     },
     {
@@ -759,7 +759,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 120,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": ""
     },
     {
@@ -1099,7 +1099,7 @@
       "key": "every-little-thing",
       "proposedKey": null,
       "title": "Every Little Thing She Does Is Magic",
-      "kind": "to-build",
+      "kind": "to-rebuild",
       "limits": ["left-out", "meter-split", "grid-rounded"],
       "what": "left as a single break: '81 distinct bars in 91, a bar of 2/4 and off-grid notes: too varied to lay out in 32 bars without losing what it is'",
       "evidence": ["drumming-research.md J2"],
@@ -1386,7 +1386,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 70,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "the floor-tom build to the last chorus is the part drummers learn"
     },
     {
@@ -1858,7 +1858,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 51,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": ""
     },
     {
@@ -2073,7 +2073,7 @@
       "needs": ["D76"],
       "blockedBy": ["D76"],
       "missingBars": 49,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "Hawkins named it as his own best playing on the album"
     },
     {
@@ -2280,7 +2280,7 @@
       "needs": ["D76"],
       "blockedBy": ["D76"],
       "missingBars": 43,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": ""
     },
     {
@@ -3198,7 +3198,7 @@
       "needs": ["D76"],
       "blockedBy": ["D76"],
       "missingBars": 28,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "Grammy-winning single; the verse's ghost-and-rimshot groove is much learned"
     },
     {
@@ -3457,7 +3457,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 25,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "the vamp is one of the most transcribed funk grooves"
     },
     {
@@ -3858,7 +3858,7 @@
       "needs": ["D77"],
       "blockedBy": ["D77"],
       "missingBars": 16,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": "the marching-snare breakdown is the part drummers learn; at 26 sections it is one of D78's test cases (with D77 its sextuplet sections merge back)"
     },
     {
@@ -4389,7 +4389,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 3,
-      "added": "2026-10-09",
+      "added": "2026-10-10",
       "notes": ""
     },
     {
@@ -4790,7 +4790,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77", "other-limit"],
       "missingBars": null,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "the record is 13 minutes; the rebuild doubles it at least"
     },
     {
@@ -4813,7 +4813,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77", "other-limit"],
       "missingBars": null,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "a famous showcase of meter changes; nearly all of it is missing"
     },
     {
@@ -4832,7 +4832,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": null,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "the drum break is the part drummers learn"
     },
     {
@@ -4841,7 +4841,7 @@
       "priority": 1,
       "drummer": "portnoy",
       "key": null,
-      "proposedKey": null,
+      "proposedKey": "the-glass-prison",
       "title": "The Glass Prison",
       "kind": "to-build",
       "limits": ["rule-run", "left-out"],
@@ -4852,7 +4852,7 @@
       "blockedBy": ["D76"],
       "missingBars": null,
       "added": null,
-      "notes": "proposed key the-glass-prison; Six Degrees of Inner Turbulence (2002); find a human tab"
+      "notes": "Six Degrees of Inner Turbulence (2002); find a human tab"
     },
     {
       "id": 229,
@@ -4860,7 +4860,7 @@
       "priority": 1,
       "drummer": "mcbrain",
       "key": null,
-      "proposedKey": null,
+      "proposedKey": "caught-somewhere-in-time",
       "title": "Caught Somewhere in Time",
       "kind": "to-build",
       "limits": ["rule-run", "left-out"],
@@ -4873,7 +4873,7 @@
       "blockedBy": ["D76"],
       "missingBars": null,
       "added": null,
-      "notes": "proposed key caught-somewhere-in-time; he played it on one pedal"
+      "notes": "he played it on one pedal"
     },
     {
       "id": 230,
@@ -4881,7 +4881,7 @@
       "priority": 1,
       "drummer": "mcbrain",
       "key": null,
-      "proposedKey": null,
+      "proposedKey": "seventh-son-of-a-seventh-son",
       "title": "Seventh Son of a Seventh Son",
       "kind": "to-build",
       "limits": ["rule-run", "rule-backbeat", "other-limit", "left-out"],
@@ -4894,7 +4894,7 @@
       "blockedBy": ["D76", "D77", "other-limit"],
       "missingBars": null,
       "added": null,
-      "notes": "proposed key seventh-son-of-a-seventh-son; 13/8 and 11/8 need meters"
+      "notes": "13/8 and 11/8 need meters"
     },
     {
       "id": 231,
@@ -4902,7 +4902,7 @@
       "priority": 1,
       "drummer": "mcbrain",
       "key": null,
-      "proposedKey": null,
+      "proposedKey": "the-evil-that-men-do",
       "title": "The Evil That Men Do",
       "kind": "to-build",
       "limits": ["rule-run", "left-out"],
@@ -4913,7 +4913,7 @@
       "blockedBy": ["D76"],
       "missingBars": null,
       "added": null,
-      "notes": "proposed key the-evil-that-men-do"
+      "notes": null
     },
     {
       "id": 232,
@@ -5098,7 +5098,7 @@
       "key": "hot-pants",
       "proposedKey": null,
       "title": "Hot Pants",
-      "kind": "to-build",
+      "kind": "to-rebuild",
       "limits": ["left-out"],
       "what": "left as a break: the tab (s1889573) has no snare in 67 of its 168 bars, 'so too much of it cannot be written'",
       "evidence": ["drumming-research.md M (Left as breaks)"],
@@ -5144,7 +5144,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 104,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": ""
     },
     {
@@ -5167,7 +5167,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 100,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": ""
     },
     {
@@ -5309,7 +5309,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 60,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": ""
     },
     {
@@ -5652,7 +5652,7 @@
       "needs": ["D76"],
       "blockedBy": ["D76"],
       "missingBars": 35,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": ""
     },
     {
@@ -5923,7 +5923,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 28,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": ""
     },
     {
@@ -6095,7 +6095,7 @@
       "needs": ["D76"],
       "blockedBy": ["D76"],
       "missingBars": 24,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": "unflagged by the scan; the sax solo is blank in the tab, played as the verse's last four bars (a tab gap, not a limit)"
     },
     {
@@ -6453,7 +6453,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 19,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": ""
     },
     {
@@ -6807,7 +6807,7 @@
       "needs": ["D76"],
       "blockedBy": ["D76"],
       "missingBars": 16,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "the synth intro is Jackson's LinnDrum; the overdub ride bell would be a third hand; exactly 32 distinct bars"
     },
     {
@@ -7062,7 +7062,7 @@
       "needs": ["D76"],
       "blockedBy": ["D76"],
       "missingBars": 14,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "the tambourine on the third bridge is not the kit: not a cut"
     },
     {
@@ -7398,7 +7398,7 @@
       "needs": ["D77"],
       "blockedBy": ["D77", "other-limit"],
       "missingBars": 12,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": "other-limit: no flam on the ride"
     },
     {
@@ -7944,7 +7944,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77", "other-limit"],
       "missingBars": 10,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "the bars of rest are drumless"
     },
     {
@@ -7967,7 +7967,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 10,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "the bridge's first 8 bars (a crash then silence) are near-drumless: not a cut"
     },
     {
@@ -8587,7 +8587,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 8,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": ""
     },
     {
@@ -8612,7 +8612,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 8,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "the verse stops' cause is not stated; likely the backbeat rule"
     },
     {
@@ -8631,7 +8631,7 @@
       "needs": ["D76"],
       "blockedBy": ["D76"],
       "missingBars": 8,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": ""
     },
     {
@@ -8866,7 +8866,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 7,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": "the tab's empty last ten bars (the kit plays on, quieter, on the record) are the tab's gap, not a limit; the tambourine beside the kit is not drums"
     },
     {
@@ -9085,7 +9085,7 @@
       "needs": ["D77"],
       "blockedBy": ["D77"],
       "missingBars": 5,
-      "added": "2026-10-09",
+      "added": "2026-10-10",
       "notes": "the sextuplet meter's tempo ceiling may be the real cause: a tuplet span inside a 16th bar may serve"
     },
     {
@@ -9517,7 +9517,7 @@
       "needs": ["D77"],
       "blockedBy": ["D77"],
       "missingBars": 3,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "the cowbell overdub would be a third hand (physical), the percussion track is Castro's; the loop is the record's"
     },
     {
@@ -9612,7 +9612,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 2,
-      "added": "2026-10-09",
+      "added": "2026-10-10",
       "notes": ""
     },
     {
@@ -9718,7 +9718,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77", "other-limit"],
       "missingBars": 2,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": ""
     },
     {
@@ -9998,7 +9998,7 @@
       "key": "home-at-last",
       "proposedKey": null,
       "title": "Home at Last",
-      "kind": "to-build",
+      "kind": "to-rebuild",
       "limits": ["left-out", "repeats-collapsed"],
       "what": "left as weighted figures: its kick changes every few bars and stops for whole bars, 'more than an arrangement of 32 slots can follow'",
       "evidence": ["drumming-research.md L (Considered and left)"],
@@ -10626,7 +10626,7 @@
       "priority": 2,
       "drummer": "paice",
       "key": null,
-      "proposedKey": null,
+      "proposedKey": "pictures-of-home",
       "title": "Pictures of Home",
       "kind": "to-build",
       "limits": ["left-out", "grid-rounded"],
@@ -10637,7 +10637,7 @@
       "blockedBy": ["D77"],
       "missingBars": null,
       "added": null,
-      "notes": "proposed key pictures-of-home; read the tab's grid first: the drum intro was cut from the original release"
+      "notes": "read the tab's grid first: the drum intro was cut from the original release"
     },
     {
       "id": 519,
@@ -10645,7 +10645,7 @@
       "priority": 2,
       "drummer": "bruford",
       "key": null,
-      "proposedKey": null,
+      "proposedKey": "frame-by-frame",
       "title": "Frame by Frame",
       "kind": "to-build",
       "limits": ["left-out", "rule-run"],
@@ -10656,7 +10656,7 @@
       "blockedBy": ["D77"],
       "missingBars": null,
       "added": null,
-      "notes": "proposed key frame-by-frame; needs rule-run ruled on, and the 7/8-against-13/8 polymeter (13/8 meter)"
+      "notes": "needs rule-run ruled on, and the 7/8-against-13/8 polymeter (13/8 meter)"
     },
     {
       "id": 520,
@@ -10716,7 +10716,7 @@
       "needs": ["D77"],
       "blockedBy": ["D77"],
       "missingBars": null,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": "from Bishop's transcription; the solos in four are a reconstruction (out of scope); the pitch bends with the snares off are the kit's"
     },
     {
@@ -10735,7 +10735,7 @@
       "needs": ["D77"],
       "blockedBy": ["D77"],
       "missingBars": null,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": "the shuffle grid is Palmer's own account, kept; the sixteenth run inside it needs a grid per bar or a tuplet span"
     },
     {
@@ -10754,7 +10754,7 @@
       "needs": ["D77"],
       "blockedBy": ["D77"],
       "missingBars": null,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": "the intro left out with no reason given"
     },
     {
@@ -10763,7 +10763,7 @@
       "priority": 2,
       "drummer": "earlpalmer",
       "key": null,
-      "proposedKey": null,
+      "proposedKey": "ooh-my-head",
       "title": "Ooh! My Head",
       "kind": "to-build",
       "limits": ["left-out", "rule-run"],
@@ -10774,7 +10774,7 @@
       "blockedBy": ["D77"],
       "missingBars": null,
       "added": null,
-      "notes": "proposed key ooh-my-head; the research names its tab without an id"
+      "notes": "the research names its tab without an id"
     },
     {
       "id": 526,
@@ -10912,7 +10912,7 @@
       "priority": 2,
       "drummer": "krupa",
       "key": null,
-      "proposedKey": null,
+      "proposedKey": "caravan",
       "title": "Caravan (1960s quartet)",
       "kind": "to-build",
       "limits": ["rule-run", "left-out"],
@@ -10923,7 +10923,7 @@
       "blockedBy": ["D76"],
       "missingBars": null,
       "added": null,
-      "notes": "proposed key caravan; source Kevin Dorn's lesson and the 1967 Dial M for Music film; needs a transcription"
+      "notes": "source Kevin Dorn's lesson and the 1967 Dial M for Music film; needs a transcription"
     },
     {
       "id": 533,
@@ -10931,7 +10931,7 @@
       "priority": 2,
       "drummer": "mcbrain",
       "key": null,
-      "proposedKey": null,
+      "proposedKey": "dance-of-death",
       "title": "Dance of Death",
       "kind": "to-build",
       "limits": ["rule-run", "left-out"],
@@ -10942,7 +10942,7 @@
       "blockedBy": ["D76"],
       "missingBars": null,
       "added": null,
-      "notes": "proposed key dance-of-death"
+      "notes": null
     },
     {
       "id": 534,
@@ -11604,7 +11604,7 @@
       "needs": ["D76"],
       "blockedBy": ["D76"],
       "missingBars": 12,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": "the kit part is the record's LM-1 drum machine, her own part is the percussion; section E (the timbale break) is a reconstruction from the album version, not the tab"
     },
     {
@@ -11684,7 +11684,7 @@
       "needs": ["D76"],
       "blockedBy": ["D76"],
       "missingBars": 10,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "the percussion track is not the kit"
     },
     {
@@ -11973,7 +11973,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 8,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "the opening and stops' causes are not stated; likely rule-first-bar and rule-backbeat"
     },
     {
@@ -12205,7 +12205,7 @@
       "needs": ["D76"],
       "blockedBy": ["D76"],
       "missingBars": 6,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "the congas, bongos and claves are Castro's; the stops' cause is not stated"
     },
     {
@@ -12365,7 +12365,7 @@
       "needs": ["D77"],
       "blockedBy": ["D77"],
       "missingBars": 5,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "the record past the tab's 77 bars is no tab: not a cut"
     },
     {
@@ -13003,7 +13003,7 @@
       "needs": ["D77"],
       "blockedBy": ["D77"],
       "missingBars": 3,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": ""
     },
     {
@@ -13060,7 +13060,7 @@
       "needs": ["D76"],
       "blockedBy": ["D76"],
       "missingBars": 3,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": ""
     },
     {
@@ -13557,7 +13557,7 @@
       "needs": ["D76"],
       "blockedBy": ["D76"],
       "missingBars": 2,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": "from Bishop's transcription; the head and solos are a reconstruction"
     },
     {
@@ -14154,7 +14154,7 @@
       "needs": ["D77"],
       "blockedBy": ["D77"],
       "missingBars": 1,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": ""
     },
     {
@@ -15255,7 +15255,7 @@
       "priority": 3,
       "drummer": "moon",
       "key": null,
-      "proposedKey": null,
+      "proposedKey": "substitute",
       "title": "Substitute",
       "kind": "to-build",
       "limits": ["left-out", "meter-split"],
@@ -15266,7 +15266,7 @@
       "blockedBy": ["D77"],
       "missingBars": null,
       "added": null,
-      "notes": "proposed key substitute; the tambourine is a tab problem, the 2/4 bars the limit's"
+      "notes": "the tambourine is a tab problem, the 2/4 bars the limit's"
     },
     {
       "id": 758,
@@ -15274,7 +15274,7 @@
       "priority": 3,
       "drummer": "headon",
       "key": null,
-      "proposedKey": null,
+      "proposedKey": "clash-city-rockers",
       "title": "Clash City Rockers",
       "kind": "to-build",
       "limits": ["left-out", "grid-rounded"],
@@ -15285,7 +15285,7 @@
       "blockedBy": ["D77"],
       "missingBars": null,
       "added": null,
-      "notes": "proposed key clash-city-rockers; its verse has no hats, which is the record, not a reason"
+      "notes": "its verse has no hats, which is the record, not a reason"
     },
     {
       "id": 759,
@@ -15360,7 +15360,7 @@
       "needs": ["D77"],
       "blockedBy": ["D77"],
       "missingBars": null,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": "no tab: built from Bishop's description, so its length is a reconstruction, out of Phase 16 scope"
     },
     {
@@ -15379,7 +15379,7 @@
       "needs": ["D77"],
       "blockedBy": ["D77"],
       "missingBars": null,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": "no tab; the swing sections are a reconstruction"
     },
     {
@@ -15402,7 +15402,7 @@
       "needs": ["D77"],
       "blockedBy": ["D77"],
       "missingBars": null,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": ""
     },
     {
@@ -15421,7 +15421,7 @@
       "needs": ["D77"],
       "blockedBy": ["D77"],
       "missingBars": null,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": "unflagged by the scan"
     },
     {
@@ -15440,7 +15440,7 @@
       "needs": ["D77"],
       "blockedBy": ["D77"],
       "missingBars": null,
-      "added": "2026-10-18",
+      "added": "2026-10-19",
       "notes": ""
     },
     {
@@ -15478,7 +15478,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 0,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "research \"Left out\" (stops, 11/8, after chorus 1) is stale: the song now has them. At 26 sections it bears on D78: with D76 its passages fit well under 26"
     },
     {
@@ -15497,7 +15497,7 @@
       "needs": ["D76", "D77"],
       "blockedBy": ["D76", "D77"],
       "missingBars": 0,
-      "added": "2026-10-19",
+      "added": "2026-10-20",
       "notes": "research \"Left out\" (verse 2, solos) is stale"
     },
     {
@@ -15795,7 +15795,7 @@
       "priority": 3,
       "drummer": "rowntree",
       "key": null,
-      "proposedKey": null,
+      "proposedKey": "tender",
       "title": "Tender",
       "kind": "to-build",
       "limits": ["other-limit"],
@@ -15806,7 +15806,7 @@
       "blockedBy": ["D77", "other-limit"],
       "missingBars": null,
       "added": null,
-      "notes": "proposed key tender; D77 helps only if a per-bar grid can carry the lilt (swung sixteenths or a 24-step bar); no tab id in the notes"
+      "notes": "D77 helps only if a per-bar grid can carry the lilt (swung sixteenths or a 24-step bar); no tab id in the notes"
     },
     {
       "id": 786,

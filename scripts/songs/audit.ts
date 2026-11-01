@@ -22,7 +22,6 @@ import { execFileSync } from 'child_process';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
-import { meterOf } from '@/lib/app/breaks/meter';
 import type { SongSection, StyleSong } from '@/lib/app/breaks/types';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 
@@ -76,8 +75,9 @@ interface SongFacts {
   hints: Array<{ line: number; text: string }>;
 }
 
+/** Its bars as the engine counts them (`sectionBars` in song-break.ts): written, else declared; null plays the length asked for. */
 function sectionFacts(song: StyleSong, sec: SongSection): SectionFacts {
-  const bars = sec.bars ?? sec.written?.length ?? null;
+  const bars = sec.written?.length ?? sec.bars ?? null;
   return {
     letter: sec.letter,
     label: sec.label,
@@ -104,9 +104,8 @@ function stem(label: string): string {
 
 /** The grid a meter key holds the bar on, and the bar's own meter: '4/4-6' is 4/4 in sextuplets. */
 function gridOf(meter: string): { base: string; grid: string } {
-  const m = meterOf(meter);
   const [base, grid] = meter.split('-');
-  return { base: m ? base : meter, grid: grid ?? '' };
+  return { base, grid: grid ?? '' };
 }
 
 function flagsOf(
@@ -120,6 +119,8 @@ function flagsOf(
   if (playedBars !== null && playedBars >= 110) flags.push(`${playedBars} bars played`);
   const eights = sections.filter((s) => s.bars === 8).length;
   if (eights >= 3) flags.push(`${eights} sections of exactly 8 bars`);
+  const unsized = sections.filter((s) => s.bars === null).length;
+  if (unsized) flags.push(`${unsized} sections at the length asked for: bars unknown`);
   for (let i = 1; i < sections.length; i++) {
     const a = sections[i - 1];
     const b = sections[i];
@@ -132,18 +133,15 @@ function flagsOf(
       flags.push(
         `${a.letter}→${b.letter}: same meter ${ga.base}, grid ${ga.grid || '16'}→${gb.grid || '16'}`
       );
-    } else if (a.meter !== b.meter && (b.bars ?? 0) <= 2) {
+    } else if (a.meter !== b.meter && b.bars !== null && b.bars <= 2) {
       flags.push(`${b.letter}: a ${b.bars}-bar section in ${b.meter} between ${a.meter} parts`);
     }
   }
   if (distinct === 32) flags.push('exactly 32 distinct bars: the old cap');
-  if (song.arrangement?.length === 32 || song.arrangement?.length === 16) {
-    flags.push(`exactly ${song.arrangement.length} slots: the old cap`);
-  }
+  const slots = song.arrangement?.length ?? 0;
+  if (slots === 32 || slots === 16) flags.push(`exactly ${slots} slots: the old cap`);
   if (sections.some((s) => s.aliases)) flags.push('aliases from a split song');
-  if (sections.length && song.arrangement && song.arrangement.length >= 30) {
-    flags.push(`${song.arrangement.length} arrangement slots`);
-  }
+  if (sections.length && slots >= 30 && slots !== 32) flags.push(`${slots} arrangement slots`);
   return flags;
 }
 
@@ -167,6 +165,7 @@ function songRanges(lines: string[]): Map<string, { range: [number, number]; key
       while (top > 0 && !lines[top].includes('/*')) top--;
       start = top + 1;
     }
+    while (start > 1 && lines[start - 2].trim().startsWith('//')) start--;
     keys.push({ key: `${style}/${m[1]}`, start: start - 1, keyLine: i + 1, style });
   });
   keys.forEach((k, n) => {
@@ -177,13 +176,17 @@ function songRanges(lines: string[]): Map<string, { range: [number, number]; key
   return out;
 }
 
-/** The newest commit date over each line, from one blame of the file. */
+/**
+ * The day each line was written, from one blame of the file: author time in
+ * the author's own zone, as the caps' days are, and kept through a rebase.
+ */
 function lineDates(): string[] {
   const raw = execFileSync('git', ['blame', '-M', '-w', '--porcelain', SOURCE], {
     maxBuffer: 1 << 30,
     encoding: 'utf8',
   });
   const times = new Map<string, number>();
+  const zones = new Map<string, number>();
   const dates: string[] = [];
   let sha = '';
   let final = 0;
@@ -194,10 +197,14 @@ function lineDates(): string[] {
       final = Number(head[2]);
       continue;
     }
-    if (l.startsWith('committer-time ')) times.set(sha, Number(l.slice(15)));
-    else if (l.startsWith('\t')) {
+    if (l.startsWith('author-time ')) times.set(sha, Number(l.slice(12)));
+    else if (l.startsWith('author-tz ')) {
+      const z = /([+-])(\d\d)(\d\d)/.exec(l);
+      if (z) zones.set(sha, (z[1] === '-' ? -1 : 1) * (Number(z[2]) * 3600 + Number(z[3]) * 60));
+    } else if (l.startsWith('\t')) {
       const t = times.get(sha);
-      dates[final - 1] = t ? new Date(t * 1000).toISOString().slice(0, 10) : '';
+      const local = t ? t + (zones.get(sha) ?? 0) : 0;
+      dates[final - 1] = t ? new Date(local * 1000).toISOString().slice(0, 10) : '';
     }
   }
   return dates;
@@ -211,6 +218,7 @@ function capOn(date: string | null): string | null {
 function main(): void {
   const at = process.argv.indexOf('--out');
   const out = at > 0 ? process.argv[at + 1] : DEFAULT_OUT;
+  if (!out || out.startsWith('--')) throw new Error('--out needs a file path');
   const lines = readFileSync(join(process.cwd(), SOURCE), 'utf8').split('\n');
   const ranges = songRanges(lines);
   const dates = lineDates();
