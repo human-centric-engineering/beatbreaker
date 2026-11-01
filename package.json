@@ -49,6 +49,7 @@
     "db:seed": "tsx prisma/seed.ts",
     "kits:build": "tsx scripts/kits/build.ts",
     "lineage:check-links": "tsx scripts/lineage/check-song-links.ts",
+    "songs:audit": "tsx scripts/songs/audit.ts",
     "db:seed:embeddings": "tsx scripts/seed-embeddings.ts",
     "embeddings:reset": "tsx scripts/embeddings-reset.ts",
     "db:migrate:single-doc": "tsx --env-file=.env.local scripts/migrate-knowledge-to-single-doc.ts",
