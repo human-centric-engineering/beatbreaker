@@ -29,6 +29,25 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
   plays under 50. `clonePattern` carries the ratio; a section built from
   another (Build B, BeatBuddy's new section) takes its ratio as it takes its
   meter.
+- **A section may change speed inside** (16-b-ii, D82): `Pattern.tempo` is
+  its tempo map (`tempo-map.ts`), points in bar order, each against the
+  section's own tempo, so the slider still moves the whole song. A point holds
+  its `ratio` from its bar's first step; with `to` it ramps instead, a step at
+  a time, from `ratio` on its first step to `to` on the last before the next
+  point or the section's end (rit. then _a tempo_ is two points). Before the
+  first point the section plays at ×1. Wherever bar and step are known, time
+  comes from `tempoAt(bpm, pattern, bar, step)`, not `sectionBpm`: the
+  transport's step lengths (the count-in at the first bar's), Humanise, the
+  MIDI writer (a tempo event wherever a step's tempo differs, so every step of
+  a ramp), `limbProblems` (each note at the time its steps add up to,
+  `stepClock`) and the community grid's density. `maxBpmOf` and `minBpmOf`
+  hold the slider to the fastest and slowest a map reaches (`paceRange`), and
+  `rangesFit` holds a break's sections to `MAX_RATIO_SPREAD` with maps counted
+  in. `fitTempoMap` keeps the points a section written again at another length
+  still has; a cut ramp still reaches its `to`. The chart prints the marks over
+  the staff (`tempoMarks`): `♩ = N` where a point steps, accel. or rit. and a
+  dashed line over a ramp, the tempo it reaches at its end; ratios, and
+  _a tempo_ for ×1, where the caller passes no `bpm`.
 - **Every bar carries every lane, full length**, even lanes the pattern does not
   use (`pattern.lanes` says which it does). Turning a lane on never reshapes a
   bar.
@@ -97,10 +116,10 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
 | `schema.ts`        | Zod schemas for everything from outside: `sharePayloadSchema`, `packedPatternSchema`, `styleAttrsSchema`, `feelSchema`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `catalogue/*`      | The data layer, the row schemas and the admin write shapes. Server-side. See `catalogue.md`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `perform.ts`       | `performStep`: **the one place a written note becomes a sound** — GM note, 0–1 velocity, swing-and-feel offset. The speakers, the live MIDI port and the MIDI file all voice from it. Also `LEVELS`, the cymbal bands, `midiVelocity` and `valueForVelocity` (what `readMidi` reads by). See _One performance_ below.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| `midi.ts`          | `buildMidi`: a format-0 Standard MIDI File, GM drum map on channel 10. Every note's velocity and position come from `performStep`, so the file is the performance you hear. A time signature heads the file and is written again at each bar whose meter changes it (A in 7/8, B in 4/4); a change of grid alone (4/4 to `4/4-6`) writes none. A tempo does the same at each change of a section's tempo ratio, the ticks unchanged.                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `midi.ts`          | `buildMidi`: a format-0 Standard MIDI File, GM drum map on channel 10. Every note's velocity and position come from `performStep`, so the file is the performance you hear. A time signature heads the file and is written again at each bar whose meter changes it (A in 7/8, B in 4/4); a change of grid alone (4/4 to `4/4-6`) writes none. A tempo does the same at each change of a section's tempo ratio, the ticks unchanged, and at every step a tempo map changes (16-b-ii).                                                                                                                                                                                                                                                                                                                                                               |
 | `text.ts`          | `toText` / `fromText`: a pattern as one line per lane per bar, in the library's characters plus the percussion lanes. How BeatBuddy reads and writes a pattern, its tuplets included (13-c). `fromText` is strict and names the bar, lane and step it refuses. See _The text notation_ below.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `tidy.ts`          | `tidy`: the deterministic clean-up behind "tidy up notes" — six rules, every change reported, never adds a note, idempotent.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `midi-read.ts`     | `readMidi`: the inverse of `buildMidi`. GM map to lanes, quantised to sixteenths, meter and tempo from the file. A 4/4 file in triplets is read in `4/4-6`; a beat whose notes sit on five, six or seven to the beat (within `TUPLET_TOLERANCE`) is read as a tuplet span, not rounded (12-d, D55); two notes in one step, on it and halfway through it, are a double (13-a), joined into runs; a beat of 32nds with lone halves is read whole as eight in the beat. Bounds-checked; a bad file is an error, not an exception.                                                                                                                                                                                                                                                                                                                      |
+| `midi-read.ts`     | `readMidi`: the inverse of `buildMidi`. GM map to lanes, quantised to sixteenths, meter and tempo from the file. A 4/4 file in triplets is read in `4/4-6`; a beat whose notes sit on five, six or seven to the beat (within `TUPLET_TOLERANCE`) is read as a tuplet span, not rounded (12-d, D55); two notes in one step, on it and halfway through it, are a double (13-a), joined into runs; a beat of 32nds with lone halves is read whole as eight in the beat. Bounds-checked; a bad file is an error, not an exception. A file that changes tempo gives each section a tempo map against its first tempo (`tempoMapOf` over each step's tempo), so a file BeatBreaker wrote reads back with its ramps.                                                                                                                                       |
 | `groove-scribe.ts` | `readGrooveScribeUrl`: a Groove Scribe link read from its query string, nothing fetched. Groove Scribe's own two sites only (`GROOVE_SCRIBE_HOSTS`).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | `import.ts`        | `ImportedPattern` (what both readers produce) and `importedDoc`, which makes it a document: bars 1–8 are A, 9–16 are B.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `read-import.ts`   | `readImport`: code, `#b=` link, Groove Scribe link or MIDI file in; a `BreakDoc` out. The one entry point behind the import endpoint.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
@@ -149,7 +168,7 @@ itself. All three are checked by the same schema.
 
 ```jsonc
 {
-  "ver": 5,            // 1–9 accepted; 5 for A and B alone, 6 with a section past B, 7 with a ×½/×2 section, 8 with a tuplet or a modulation, 9 with a record's own ratio
+  "ver": 5,            // 1–10 accepted; 5 for A and B alone, 6 with a section past B, 7 with a ×½/×2 section, 8 with a tuplet or a modulation, 9 with a record's own ratio, 10 with a tempo map
   "bpm": 94,           // 20–400
   "sw": 0,             // swing, 0–100
   "lv": 5,             // layer 1–5 (v1 numbers are remapped)
@@ -165,6 +184,7 @@ itself. All three are checked by the same schema.
     "bb": [4, 12],     // backbeat steps, 0–63
     "mt": "4/4",       // absent in v2 → 4/4; unknown → 4/4
     "tr": 2,           // tempo ratio, 0.5 or 2 — v7; 2/3, 0.75, 4/3, 1.5 — v8; any from 0.25 to 4 — v9; absent is ×1
+    "tm": [[4, 1, 0.5], [6, 1]],   // tempo map — v10: [bar, ratio] holds, [bar, ratio, to] ramps
     "tu": [{ "b": 0, "a": 0, "s": 16, "n": 5, "x": { "s": "32222" } }],   // tuplets — v8 (12-d)
     "ln": ["k","s","h","r","c"],   // absent in v2 → the five base lanes
     "pc": { "p1": "tamb", "p2": "shaker" },   // keys p1/p2, values PERC_KEYS
@@ -179,6 +199,14 @@ itself. All three are checked by the same schema.
   "C": { … }           // v6: C to Z, each optional, each a packed pattern in its own meter
 }
 ```
+
+**Version 10 (16-b-ii) adds a section's tempo map** (`tm`): a list of
+`[bar, ratio]` for a point that holds and `[bar, ratio, to]` for a ramp, each
+ratio from ×¼ to ×4 of the section's tempo, the bars in order and inside the
+section (`tempoMapProblem`). Written only where a section has one: a v9
+reader would drop it and play the section at one tempo, so it must refuse the
+code. A `tm` under a v9-or-older header is refused, and the sections' spread
+counts the maps' points (`rangesFit`).
 
 **Version 9 adds a record's own tempo ratio.** `tr` may be any number from
 0.25 to 4 but 1 (`isTempoRatio`), where a song's section plays at the

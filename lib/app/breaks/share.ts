@@ -8,7 +8,12 @@ import {
   styleAttrs,
   tidySticking,
 } from '@/lib/app/breaks/pattern';
-import { type PackedPattern, type SharePayload, sharePayloadSchema } from '@/lib/app/breaks/schema';
+import {
+  type PackedPattern,
+  type PackedTempoPoint,
+  type SharePayload,
+  sharePayloadSchema,
+} from '@/lib/app/breaks/schema';
 import {
   EXTRA_LETTERS,
   type SectionLetter,
@@ -20,6 +25,7 @@ import {
   patternsOf,
 } from '@/lib/app/breaks/sections';
 import { spanFits } from '@/lib/app/breaks/poly-fill';
+import { type TempoPoint, hasTempoMaps } from '@/lib/app/breaks/tempo-map';
 import { clearUnderTuplets, keepTuplets, tupletLanes, tupletsOf } from '@/lib/app/breaks/tuplets';
 import type {
   FillSpan,
@@ -34,6 +40,11 @@ import type {
 /**
  * Share codes: a whole break — every section, the tempo, the swing and the
  * style — as one base64 string you can paste to anyone.
+ *
+ * **Version 10** (16-b-ii) adds a section's tempo map (`tm`): the bars
+ * where the record steps to a new tempo, and the runs where it speeds up or
+ * slows down. Written only where a section has one: a v9 reader would drop
+ * it and play the whole section at one tempo, so it must refuse the code.
  *
  * **Version 9** lets a section play at a record's own tempo against the
  * break's — ×16/15, where a passage goes from 150 to 160 — not only at the
@@ -80,8 +91,11 @@ import type {
  * something has actually checked.
  */
 
-/** The newest version this app writes — for a break with a section at a record's own tempo ratio. */
-export const SHARE_VERSION = 9;
+/** The newest version this app writes — for a break with a section that has a tempo map. */
+export const SHARE_VERSION = 10;
+
+/** The version a break with a section at a record's own tempo ratio, and nothing newer, is written as. */
+export const SHARE_VERSION_RECORD_RATIOS = 9;
 
 /** The version a break with a tuplet or a metric modulation, and nothing newer, is written as. */
 export const SHARE_VERSION_MODULATIONS = 8;
@@ -147,6 +161,7 @@ export function packPattern(p: Pattern): PackedPattern {
     sa: p.attrs ?? {},
     ...(p.song ? { sg: p.song } : {}),
     ...(p.tempoRatio ? { tr: p.tempoRatio } : {}),
+    ...(p.tempo?.length ? { tm: packTempoMap(p.tempo) } : {}),
     v: p.voice,
     sd: p.seed,
     bb: p.backbeats,
@@ -213,15 +228,17 @@ export function breakPayload(doc: BreakDoc): SharePayload {
   const extra = hasExtraSections(doc) || doc.arrangement.some((L) => L !== 'A' && L !== 'B');
   const v8 = hasModulations(doc) || patternsOf(doc).some((p) => tupletsOf(p).length > 0);
   const out: SharePayload = {
-    ver: hasRecordRatios(doc)
+    ver: hasTempoMaps(doc)
       ? SHARE_VERSION
-      : v8
-        ? SHARE_VERSION_MODULATIONS
-        : hasTempoRatios(doc)
-          ? SHARE_VERSION_RATIOS
-          : extra
-            ? SHARE_VERSION_SECTIONS
-            : SHARE_VERSION_AB,
+      : hasRecordRatios(doc)
+        ? SHARE_VERSION_RECORD_RATIOS
+        : v8
+          ? SHARE_VERSION_MODULATIONS
+          : hasTempoRatios(doc)
+            ? SHARE_VERSION_RATIOS
+            : extra
+              ? SHARE_VERSION_SECTIONS
+              : SHARE_VERSION_AB,
     bpm: doc.bpm,
     sw: doc.swing,
     lv: doc.level,
@@ -309,6 +326,7 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
     attrs,
     ...(p.sg ? { song: p.sg } : {}),
     ...(p.tr ? { tempoRatio: p.tr } : {}),
+    ...(p.tm?.length ? { tempo: unpackTempoMap(p.tm) } : {}),
     meter: mk,
     seed: p.sd >>> 0,
     voice: p.v,
@@ -353,6 +371,15 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
   keepTuplets(pat);
   clearUnderTuplets(pat);
   return pat;
+}
+
+/** A tempo map on the wire: `[bar, ratio]` for a point that holds, `[bar, ratio, to]` for a ramp. */
+function packTempoMap(map: readonly TempoPoint[]): PackedTempoPoint[] {
+  return map.map((p) => (p.to === undefined ? [p.bar, p.ratio] : [p.bar, p.ratio, p.to]));
+}
+
+function unpackTempoMap(tm: readonly PackedTempoPoint[]): TempoPoint[] {
+  return tm.map(([bar, ratio, to]) => (to === undefined ? { bar, ratio } : { bar, ratio, to }));
 }
 
 /** A code's written fills, each inside the pattern it came with. */

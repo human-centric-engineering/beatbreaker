@@ -2,7 +2,7 @@ import { Humaniser } from '@/lib/app/breaks/humanise';
 import { stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { MIDI_MAP, midiVelocity, performStep } from '@/lib/app/breaks/perform';
-import { sectionBpm } from '@/lib/app/breaks/sections';
+import { tempoAt } from '@/lib/app/breaks/tempo-map';
 import type { Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -94,7 +94,9 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
   /* A tempo at the top, and again at the bar where a section at a tempo
      ratio starts or ends (11-e-ii-g): the ticks are quarters whatever the
      speed, so a section at ×2 is its notes where they always were, under a
-     tempo twice the break's. */
+     tempo twice the break's. A section's tempo map (16-b-ii) writes one
+     wherever a step's tempo differs from the last: at a bar that steps, and
+     at every step of a ramp. */
   const tempos: Array<{ t: number; bpm: number }> = [];
 
   for (const pos of seq) {
@@ -106,13 +108,13 @@ export function buildMidi(seq: SequencedBar[], opts: MidiOptions): MidiFile {
     const was = sigs[sigs.length - 1];
     if (!was || was.num !== m.num || was.den !== m.den)
       sigs.push({ t: tick, num: m.num, den: m.den });
-    const bpm = sectionBpm(opts.bpm, pat);
-    if (tempos[tempos.length - 1]?.bpm !== bpm) tempos.push({ t: tick, bpm });
-
     const nSteps = bar.k.length;
     // ticks a step: a sixteenth's 120, or a sextuplet's 80 in 4/4-6
     const ST = PPQ / stepsPerQuarter(m);
     for (let i = 0; i < nSteps; i++) {
+      const bpm = tempoAt(opts.bpm, pat, pos.barIdx, i);
+      const at = tick + i * ST;
+      if (tempos[tempos.length - 1]?.bpm !== bpm) tempos.push({ t: at, bpm });
       const voices = performStep(pat, bar, i, {
         swing: opts.swing,
         feel: opts.feel,

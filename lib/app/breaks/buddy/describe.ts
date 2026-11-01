@@ -54,6 +54,12 @@ export interface SectionView {
    * at the break's tempo. Its header's bpm is the speed it plays at.
    */
   tempoRatio?: number;
+  /**
+   * Where it changes speed inside (16-b-ii): each point's bar (from 1), the
+   * tempo from there and, on a ramp, the tempo it reaches, in bpm at the
+   * break's tempo. Absent on a section that keeps one tempo.
+   */
+  tempo?: Array<{ bar: number; bpm: number; to?: number }>;
   bars: number;
   /** `toText()` — a header line, then a count row and one row per lane, per bar. */
   text: string;
@@ -86,6 +92,18 @@ export function viewSection(
     style: pat.style,
     meter: pat.meter,
     ...(pat.tempoRatio ? { tempoRatio: pat.tempoRatio } : {}),
+    ...(pat.tempo?.length
+      ? {
+          tempo: pat.tempo.map((p) => {
+            const at = (r: number) => Math.round(sectionBpm(bpm, pat) * r * 10) / 10;
+            return {
+              bar: p.bar + 1,
+              bpm: at(p.ratio),
+              ...(p.to !== undefined ? { to: at(p.to) } : {}),
+            };
+          }),
+        }
+      : {}),
     bars: pat.bars.length,
     text: toText(pat, { section, bpm: sectionBpm(bpm, pat), swing }),
     critic: {

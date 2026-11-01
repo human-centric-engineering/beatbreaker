@@ -4,6 +4,7 @@ import { cloneBar } from '@/lib/app/breaks/pattern';
 import { MAX_ARRANGEMENT, MAX_BREAK_BARS, SECTION_LETTERS } from '@/lib/app/breaks/sections';
 
 import type { BreakDoc } from '@/lib/app/breaks/share';
+import { tempoMapOf, tempoMapProblem } from '@/lib/app/breaks/tempo-map';
 import { cloneTuplet, keepTuplets } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneKey, Pattern, PercLaneKey, TupletSpan } from '@/lib/app/breaks/types';
 
@@ -48,6 +49,12 @@ export interface ImportedPattern {
    */
   tuplets?: TupletSpan[];
   /**
+   * The tempo each step starts at, a row a bar, where the source changes
+   * tempo (16-b-ii): each section's tempo map is read from its bars' rows,
+   * against {@link bpm}. Absent where the source keeps one tempo.
+   */
+  tempos?: number[][];
+  /**
    * What the reader dropped or bent to fit, one plain sentence each — shown to
    * the user and handed to BeatBuddy, so neither is told the import was exact
    * when it was not.
@@ -81,6 +88,7 @@ export function capBars(pattern: ImportedPattern): ImportedPattern {
     bars: pattern.bars.slice(0, keep),
     ...(pattern.meters ? { meters: pattern.meters.slice(0, keep) } : {}),
     ...(pattern.tuplets ? { tuplets: pattern.tuplets.filter((t) => t.bar < keep) } : {}),
+    ...(pattern.tempos ? { tempos: pattern.tempos.slice(0, keep) } : {}),
   };
 }
 
@@ -116,6 +124,9 @@ function sectionOf(
     if (hits * 2 >= bars.length && hits > 0) backbeats.push(i);
   }
 
+  // the source's tempo in these bars, as a map against the import's tempo (16-b-ii)
+  const tempo = imp.tempos ? tempoMapOf(imp.tempos.slice(from, from + bars.length), imp.bpm) : [];
+
   const hatNotes = bars.reduce((t, b) => t + b.h.filter((v) => v).length, 0);
   const rideNotes = bars.reduce((t, b) => t + b.r.filter((v) => v).length, 0);
 
@@ -127,6 +138,7 @@ function sectionOf(
     styleVersionId: null,
     attrs: {},
     meter,
+    ...(tempo.length && !tempoMapProblem(tempo, bars.length) ? { tempo } : {}),
     seed: 0,
     voice: rideNotes > hatNotes ? 'ride' : 'hat',
     lanes,

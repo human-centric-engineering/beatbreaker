@@ -22,8 +22,12 @@ import type { Bar, LaneKey, PercLaneKey, TupletSpan } from '@/lib/app/breaks/typ
  *
  * GM drum map to lanes, every hit quantised to the nearest sixteenth, each
  * bar in the time signature in force where it starts (a change of signature
- * starts a new section, 11-e-ii) and the tempo from the first tempo event. Drums are read from channel 10; a file with nothing there is read
- * from every channel, since some exporters put a drum track on channel 1.
+ * starts a new section, 11-e-ii) and the tempo from the first tempo event.
+ * A file that changes tempo gives each section a tempo map against that
+ * first tempo (16-b-ii, `tempoMapOf`), so a file BeatBreaker wrote reads
+ * back with its ramps. Drums are read from channel 10; a file with nothing
+ * there is read from every channel, since some exporters put a drum track
+ * on channel 1.
  *
  * **Velocity decides accents and ghosts**, read against the levels the
  * speakers play (`valueForVelocity` in `perform.ts`): each velocity is the
@@ -135,6 +139,8 @@ interface Parsed {
   division: number;
   notes: NoteOn[];
   tempo?: { tick: number; mpqn: number };
+  /** Every tempo event, in the order the file has them. */
+  tempos: Array<{ tick: number; mpqn: number }>;
   timeSigs: Array<{ tick: number; num: number; den: number }>;
   name: string;
 }
@@ -156,7 +162,7 @@ function parse(bytes: Uint8Array): Parsed {
     );
   if (division === 0) throw new MidiError('that is not a MIDI file');
 
-  const out: Parsed = { division, notes: [], timeSigs: [], name: '' };
+  const out: Parsed = { division, notes: [], tempos: [], timeSigs: [], name: '' };
 
   for (let t = 0; t < tracks && r.pos < bytes.length; t++) {
     // skip any chunk that is not a track, as the spec asks
@@ -189,8 +195,9 @@ function parse(bytes: Uint8Array): Parsed {
         tr.need(n);
         const at = tr.pos;
         const mpqn = (bytes[at] << 16) | (bytes[at + 1] << 8) | bytes[at + 2];
-        if (type === 0x51 && n === 3 && mpqn > 0 && (!out.tempo || tick < out.tempo.tick)) {
-          out.tempo = { tick, mpqn };
+        if (type === 0x51 && n === 3 && mpqn > 0) {
+          if (!out.tempo || tick < out.tempo.tick) out.tempo = { tick, mpqn };
+          out.tempos.push({ tick, mpqn });
         } else if (type === 0x58 && n >= 2) {
           out.timeSigs.push({ tick, num: bytes[at], den: 2 ** bytes[at + 1] });
         } else if (type === 0x03 && !out.name && n > 0) {
@@ -350,6 +357,33 @@ function louder(lane: LaneKey, a: number, b: number): number {
   const rank = RANK[lane];
   if (!rank) return Math.max(a, b);
   return rank[a] >= rank[b] ? a : b;
+}
+
+/**
+ * The tempo each step of each bar starts at (16-b-ii), from a file that
+ * changes tempo: an event takes effect at the step nearest it, and a later
+ * one on the same tick wins. Null for a file with one tempo, or none, which
+ * reads as it always did.
+ */
+function stepTempos(
+  events: Parsed['tempos'],
+  layout: readonly { start: number; steps: number }[],
+  stepTicks: number
+): number[][] | null {
+  const sorted = [...events].sort((a, b) => a.tick - b.tick);
+  if (new Set(sorted.map((e) => e.mpqn)).size < 2) return null;
+  let at = 0;
+  let mpqn = sorted[0].mpqn;
+  return layout.map((bar) =>
+    Array.from({ length: bar.steps }, (_, i) => {
+      const step = bar.start + i;
+      while (at < sorted.length && Math.round(sorted[at].tick / stepTicks) <= step) {
+        mpqn = sorted[at].mpqn;
+        at++;
+      }
+      return 60_000_000 / mpqn;
+    })
+  );
 }
 
 export function readMidi(bytes: Uint8Array): ImportResult {
@@ -666,6 +700,8 @@ export function readMidi(bytes: Uint8Array): ImportResult {
     ? Math.min(400, Math.max(20, Math.round(60_000_000 / parsed.tempo.mpqn)))
     : 120;
   if (!parsed.tempo) notes.push('The file has no tempo, so it was read at 120 bpm.');
+  const tempos = stepTempos(parsed.tempos, layout, stepTicks);
+  if (tempos) notes.push("The file changes tempo, so each section plays the file's tempo map.");
 
   return {
     ok: true,
@@ -678,6 +714,7 @@ export function readMidi(bytes: Uint8Array): ImportResult {
       // only where the meter changes: one meter throughout is the import it always was
       ...(layout.some((b) => b.meter !== readMeter) ? { meters: layout.map((b) => b.meter) } : {}),
       ...(tuplets.length ? { tuplets } : {}),
+      ...(tempos ? { tempos } : {}),
       perc,
       notes,
     }),

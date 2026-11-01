@@ -339,3 +339,41 @@ describe('write_bars', () => {
     ]);
   });
 });
+
+describe('write_bars: a tempo map (16-b-ii)', () => {
+  it('sets where the section changes speed, in bpm at the break’s tempo, kept as ratios of the section’s', async () => {
+    const bpm = decoded(DOC).bpm;
+    const result = await run({
+      section: 'A',
+      text: `bar 2${PLAIN}`,
+      tempo: [{ bar: 2, bpm, to: bpm / 2 }],
+    });
+    const after = decoded(dataOf(result).doc);
+    expect(after.A.tempo).toEqual([{ bar: 1, ratio: 1, to: 0.5 }]);
+    expect(after.B.tempo).toBeUndefined();
+  });
+
+  it('keeps the map when none is given, and takes it away with an empty one', async () => {
+    const bpm = decoded(DOC).bpm;
+    await run({ section: 'A', text: `bar 2${PLAIN}`, tempo: [{ bar: 1, bpm: bpm * 1.25 }] });
+    const kept = await run({ section: 'A', text: `bar 1${PLAIN}` });
+    expect(decoded(dataOf(kept).doc).A.tempo).toEqual([{ bar: 0, ratio: 1.25 }]);
+    const gone = await run({ section: 'A', text: `bar 1${PLAIN}`, tempo: [] });
+    expect(decoded(dataOf(gone).doc).A.tempo).toBeUndefined();
+  });
+
+  it('drops the points a whole rewrite leaves no bar for', async () => {
+    const bpm = decoded(DOC).bpm;
+    await run({ section: 'A', text: `bar 2${PLAIN}`, tempo: [{ bar: 2, bpm: bpm * 1.25 }] });
+    const result = await run({ section: 'A', text: `bar 1${PLAIN}`, whole: true });
+    expect(decoded(dataOf(result).doc).A.tempo).toBeUndefined();
+  });
+
+  it('refuses a point past the bars, and writes nothing', async () => {
+    const bpm = decoded(DOC).bpm;
+    const result = await run({ section: 'A', text: `bar 2${PLAIN}`, tempo: [{ bar: 3, bpm }] });
+    expect(result.success).toBe(false);
+    expect(result.error?.code).toBe('bad_tempo');
+    unchanged();
+  });
+});

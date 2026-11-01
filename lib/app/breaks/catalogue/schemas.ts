@@ -10,9 +10,15 @@ import {
   SECTION_LETTERS,
   type TempoRatio,
   isTempoRatio,
-  ratiosFit,
 } from '@/lib/app/breaks/sections';
 import { layeredSwing } from '@/lib/app/breaks/songs';
+import {
+  MAX_TEMPO_POINTS,
+  isPointRatio,
+  paceRange,
+  rangesFit,
+  tempoMapProblem,
+} from '@/lib/app/breaks/tempo-map';
 import { cellLength, polyFillSpan } from '@/lib/app/breaks/poly-fill';
 import { POLY_FILL_DEVICES, feelSchema, styleAttrsSchema } from '@/lib/app/breaks/schema';
 
@@ -292,6 +298,13 @@ const songKey = z
   .string()
   .regex(/^[a-z0-9-]{1,40}$/, 'a song key is a slug: lower-case letters, digits and hyphens');
 
+/** A point of a section's tempo map (16-b-ii); see `tempo-map.ts`. */
+const tempoPointSchema = z.object({
+  bar: z.number().int().min(0),
+  ratio: z.custom<number>(isPointRatio, 'a tempo point is from ×¼ to ×4'),
+  to: z.custom<number>(isPointRatio, 'a ramp gets to ×¼ to ×4').optional(),
+});
+
 /**
  * One part of a song written in sections: its letter, a label, and the params
  * laid over the song's. Its aliases are the keys it had as a song of its own.
@@ -307,11 +320,21 @@ const songSectionSchema = z
     bars: z.number().int().min(1).max(8).optional(),
     /** how fast it plays against the song's tempo (11-e-ii-g), ×¼ to ×4; absent, ×1 */
     tempoRatio: z.custom<TempoRatio>(isTempoRatio, 'a tempo ratio from ×¼ to ×4').optional(),
+    /** where the record speeds up or slows down inside it (16-b-ii), against its own tempo */
+    tempo: z.array(tempoPointSchema).min(1).max(MAX_TEMPO_POINTS).optional(),
     aliases: z.array(songKey).min(1).max(8).optional(),
     written: z.array(figureSchema).min(1).max(8).optional(),
     params: songParams,
   })
   .superRefine((x, ctx) => {
+    if (x.tempo) {
+      // a map's bars are the record's, so the section names how many it has
+      const problem =
+        x.written || x.bars !== undefined
+          ? tempoMapProblem(x.tempo, sectionBars(x))
+          : 'a section with a tempo map names its bars, or is written';
+      if (problem) ctx.addIssue({ code: 'custom', message: problem, path: ['tempo'] });
+    }
     if (!x.written) return;
     if (x.bars !== undefined)
       ctx.addIssue({
@@ -382,7 +405,7 @@ const styleSongSchema = z
         message: `a song's sections hold ${MAX_BREAK_BARS} bars at most`,
         path: ['sections'],
       });
-    if (!ratiosFit(sections.map((x) => x.tempoRatio)))
+    if (!rangesFit(sections.map((x) => paceRange(x))))
       ctx.addIssue({
         code: 'custom',
         message: `a song's sections play within ×${MAX_RATIO_SPREAD} of each other and of its tempo, or no tempo plays them all`,

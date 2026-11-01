@@ -1223,3 +1223,50 @@ describe('Transport — pause and resume', () => {
     expect(make().t.pausePoint()).toBeNull();
   });
 });
+
+describe('a section with a tempo map (16-b-ii)', () => {
+  it('plays each step as long as the tempo the map has reached there, and counts in at the first bar’s', () => {
+    // two bars at 120, the second stepping to ×2, then a third ramping back down to ×1
+    const pat = patternIn('4/4');
+    pat.bars = [emptyBar(16), emptyBar(16), emptyBar(16)];
+    pat.tempo = [
+      { bar: 1, ratio: 2 },
+      { bar: 2, ratio: 2, to: 1 },
+    ];
+    const onStep = vi.fn();
+    const snap = snapshot(pat, { countIn: 1, click: false, bpm: 120 });
+    const f = fakeAudio();
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep,
+    });
+    t.start();
+    while (f.ctx.currentTime < 9) {
+      f.ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    t.stop();
+
+    const all = onStep.mock.calls.map(([step]) => step as ScheduledStep);
+    const at120 = 60 / 120 / 4;
+    expect(all.filter((s) => s.count).every((s) => s.dur === at120)).toBe(true);
+    const played = all.filter((s) => !s.count).slice(0, 48);
+    expect(played.slice(0, 16).every((s) => s.dur === at120)).toBe(true);
+    expect(played.slice(16, 32).every((s) => s.dur === at120 / 2)).toBe(true);
+    // the ramp's first step at 240, its last at 120, each a little longer than the one before
+    const ramp = played.slice(32, 48).map((s) => s.dur);
+    expect(ramp[0]).toBeCloseTo(at120 / 2, 12);
+    expect(ramp[15]).toBeCloseTo(at120, 12);
+    expect(ramp.every((d, i) => i === 0 || d > ramp[i - 1])).toBe(true);
+    // and each step starts where the one before it ended
+    played.slice(1).forEach((s, i) => expect(s.t).toBeCloseTo(played[i].t + played[i].dur, 9));
+  });
+
+  it('holds the top tempo to the fastest point of a map', () => {
+    expect(maxBpmOf([{ meter: '4/4', tempo: [{ bar: 0, ratio: 1, to: 2 }] }])).toBe(TEMPO_TOP / 2);
+  });
+});

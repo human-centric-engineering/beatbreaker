@@ -53,6 +53,7 @@ import {
 import { clearUnderTuplets } from '@/lib/app/breaks/tuplets';
 import { clamp, makeRng, wpick, type Rng } from '@/lib/app/breaks/rng';
 import type { TempoRatio } from '@/lib/app/breaks/sections';
+import { fitTempoMap, type TempoPoint } from '@/lib/app/breaks/tempo-map';
 import {
   partKey,
   pickSection,
@@ -911,6 +912,11 @@ export interface GenerateOptions {
    * none, whatever the section says.
    */
   tempoRatio?: TempoRatio;
+  /**
+   * Its tempo map (16-b-ii), held to the bars written. Absent, a section of a
+   * song takes its own; empty is none, whatever the section says.
+   */
+  tempo?: TempoPoint[];
   voice?: 'hat' | 'ride';
   lanes?: LaneKey[];
   perc?: Partial<Record<PercLaneKey, string>>;
@@ -1020,6 +1026,7 @@ export function generatePattern(opts: GenerateOptions): Pattern {
       : undefined);
   const songKey = part ? partKey(part.song, part.section) : undefined;
   const ratio = opts.tempoRatio ?? part?.section?.tempoRatio;
+  const tempo = opts.tempo ?? part?.section?.tempo;
   const base = withSong(params, songKey);
   const m = meterOf(meterKey);
   const style = styleIn(base, meterKey);
@@ -1033,6 +1040,7 @@ export function generatePattern(opts: GenerateOptions): Pattern {
       songKey,
       meterKey,
       ratio,
+      tempo,
       lanes,
       perc,
       rng,
@@ -1066,6 +1074,7 @@ export function generatePattern(opts: GenerateOptions): Pattern {
     ...(songKey ? { song: songKey } : {}),
     meter: meterKey,
     ...(ratio && ratio !== 1 ? { tempoRatio: ratio } : {}),
+    ...tempoOf(tempo, bars.length),
     voice: style.ride ? 'ride' : (opts.voice ?? 'hat'),
     lanes: lanes.slice(),
     perc: { ...perc },
@@ -1091,6 +1100,12 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   return pat;
 }
 
+/** A section's tempo map held to its bars, where it has one: absent otherwise, so a pattern without stays the shape it was. */
+function tempoOf(map: TempoPoint[] | undefined, bars: number): { tempo?: TempoPoint[] } {
+  const tempo = fitTempoMap(map, bars);
+  return tempo.length ? { tempo } : {};
+}
+
 /**
  * A written section (`SongSection.written`): the record's bars in order, as
  * they are. Nothing is drawn — no groove, fill, variation, accent,
@@ -1110,6 +1125,7 @@ function writtenPattern(
     songKey: string | undefined;
     meterKey: string;
     ratio: TempoRatio | undefined;
+    tempo: TempoPoint[] | undefined;
     lanes: LaneKey[];
     perc: Partial<Record<PercLaneKey, string>>;
     rng: Rng;
@@ -1127,6 +1143,7 @@ function writtenPattern(
     ...(ctx.songKey ? { song: ctx.songKey } : {}),
     meter: ctx.meterKey,
     ...(ctx.ratio && ctx.ratio !== 1 ? { tempoRatio: ctx.ratio } : {}),
+    ...tempoOf(ctx.tempo, bars.length),
     // the bars say which cymbal keeps time; the voice only names it
     voice: ctx.style.ride ? 'ride' : 'hat',
     lanes,

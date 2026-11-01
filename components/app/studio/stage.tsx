@@ -26,8 +26,10 @@ import {
   TWO_THIRDS,
   ratioLabel,
   ratioOf,
+  sectionBpm,
 } from '@/lib/app/breaks/sections';
 import { engrave } from '@/lib/app/breaks/engrave';
+import { hasTempoMaps } from '@/lib/app/breaks/tempo-map';
 import { layerBlurbsFor, layerNamesFor, tupletShows } from '@/lib/app/breaks/layers';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import { cn } from '@/lib/utils';
@@ -106,6 +108,9 @@ export function Stage() {
     watch.observe(chartEl);
     return () => watch.disconnect();
   }, [chartEl, onPlayer]);
+  /* A tempo map's marks read in beats a minute at the break's tempo: only a
+     break with one is drawn again when the tempo moves. */
+  const markBpm = hasTempoMaps(c.patterns) ? c.bpm : 0;
   const engravings = useMemo(() => {
     const opts = {
       scale: c.size,
@@ -121,7 +126,9 @@ export function Stage() {
       const out: Partial<Record<SectionLetter, Engraving>> = {};
       for (const letter of c.letters) {
         const pat = c.view[letter];
-        if (pat) out[letter] = engrave(pat, peek?.[letter] ?? null, o);
+        if (!pat) continue;
+        const bpm = markBpm && pat.tempo?.length ? sectionBpm(markBpm, pat) : undefined;
+        out[letter] = engrave(pat, peek?.[letter] ?? null, { ...o, bpm });
       }
       return out;
     };
@@ -131,7 +138,7 @@ export function Stage() {
     const fit = (room - PAPER_PAD) / (widest / c.size);
     const scale = Math.max(PHONE_MIN_SCALE, Math.min(c.size, c.size * fit));
     return scale === c.size ? out : write({ ...opts, scale });
-  }, [c.letters, c.view, peek, c.guides, c.sticking, c.size, onPlayer, room]);
+  }, [c.letters, c.view, peek, c.guides, c.sticking, c.size, onPlayer, room, markBpm]);
 
   /* The playhead is driven imperatively — sixteen re-renders a bar to move one
      rectangle would re-render the whole staff with it. */
@@ -583,6 +590,10 @@ export function Stage() {
               onHands={
                 showHands ? (bar, step, edit) => c.editHands(c.editing, bar, step, edit) : undefined
               }
+              tempo={{
+                bpm: sectionBpm(c.bpm, editingStored),
+                onSet: (bar, point) => c.setTempoPoint(c.editing, bar, point),
+              }}
               zoom={gridSize}
               aside={
                 <div className="grid-foot">

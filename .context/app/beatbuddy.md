@@ -173,6 +173,14 @@ disagree.
   together, the tempo brought into the new range when none is named, as the
   Studio's picker does. A tempo under the floor (100 with a section at ×½) is
   `tempo_out_of_range`.
+- **A section's tempo map (16-b-ii)** is reported by `get_pattern` as
+  `tempo`: each point's bar (from 1), the bpm from there and, on a ramp, the
+  bpm it reaches (`to`), at the break's tempo. `write_bars` takes the same
+  shape as `tempo` and replaces the section's map with it (`[]` takes it
+  away; left out, the map stays, held to the bars a whole write leaves),
+  keeping it as ratios of the section's tempo, and checks the bars at the
+  tempo each plays. A point past the bars, out of ×¼ to ×4, or a spread past
+  two octaves is `bad_tempo`, and nothing is written.
 - **The drummer records (11-f) are read, not searched.** `find_drummers` lists
   every built drummer (first sentence of the summary, eight
   descriptors, the style key), or those where every word of a query starts a

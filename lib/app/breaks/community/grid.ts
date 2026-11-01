@@ -3,6 +3,7 @@ import { LANES } from '@/lib/app/breaks/lanes';
 import { stepSeconds } from '@/lib/app/breaks/meter';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
 import { EXTRA_LETTERS, type Sections, patternsOf, sectionBpm } from '@/lib/app/breaks/sections';
+import { stepClock } from '@/lib/app/breaks/tempo-map';
 import { tupletKey, tupletsOf } from '@/lib/app/breaks/tuplets';
 import type { Pattern } from '@/lib/app/breaks/types';
 
@@ -84,7 +85,11 @@ function hitsPerSecond(p: Pattern, bpm: number): number {
   }
   for (const t of tupletsOf(p))
     for (const row of Object.values(t.notes)) for (const v of row ?? []) if (v) hits++;
-  return hits / (steps * stepSeconds(meterOfPat(p), sectionBpm(bpm, p)));
+  // a section with a tempo map (16-b-ii) lasts as long as its steps at their tempos
+  const seconds = p.tempo?.length
+    ? stepClock(bpm, p).length
+    : steps * stepSeconds(meterOfPat(p), sectionBpm(bpm, p));
+  return hits / seconds;
 }
 
 /**

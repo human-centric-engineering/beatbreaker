@@ -4,13 +4,8 @@ import { leftLedFills } from '@/lib/app/breaks/drummer/fill-lead';
 import { Humaniser } from '@/lib/app/breaks/humanise';
 import { M44, groupAt, isGroupStart, stepSeconds } from '@/lib/app/breaks/meter';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
-import {
-  type MaybeSections,
-  type SectionLetter,
-  type TempoRatio,
-  ratioOf,
-  sectionBpm,
-} from '@/lib/app/breaks/sections';
+import { type MaybeSections, type SectionLetter, type TempoRatio } from '@/lib/app/breaks/sections';
+import { type TempoPoint, paceRange, tempoAt } from '@/lib/app/breaks/tempo-map';
 import { type Voice, performStep } from '@/lib/app/breaks/perform';
 import { type TupletStroke, tupletStrokes } from '@/lib/app/breaks/tuplets';
 import type { Bar, Meter, Pattern } from '@/lib/app/breaks/types';
@@ -245,16 +240,17 @@ export function maxBpm(_meterKey: string): number {
 }
 
 /**
- * A section as the top tempo sees it: its meter, and how fast it plays against
- * the break's tempo. A bare meter key is a section at ×1.
+ * A section as the top tempo sees it: its meter, how fast it plays against
+ * the break's tempo, and its tempo map (16-b-ii). A bare meter key is a
+ * section at ×1 throughout.
  */
-export type SectionPace = string | { meter: string; tempoRatio?: TempoRatio };
+export type SectionPace = string | { meter: string; tempoRatio?: TempoRatio; tempo?: TempoPoint[] };
 
 /**
  * The top tempo of a break whose sections may play at a ratio of its tempo:
- * the lowest of their ceilings, each over its ratio. The tempo is one for the
- * whole break, so a B at ×2 holds the break to half of B's. No sections is
- * 4/4's.
+ * the lowest of their ceilings, each over the fastest it plays (its ratio,
+ * and the fastest point of its map). The tempo is one for the whole break, so
+ * a B at ×2 holds the break to half of B's. No sections is 4/4's.
  */
 export function maxBpmOf(sections: readonly (SectionPace | null | undefined)[]): number {
   const tops = sections.flatMap((x) => {
@@ -263,7 +259,7 @@ export function maxBpmOf(sections: readonly (SectionPace | null | undefined)[]):
     /* A section at ×½ doubles its meter's ceiling, but never past the
        fastest the Studio goes: every section at ×½ would otherwise let the
        break to 760, past what a share code or a save takes. */
-    return [Math.min(Math.floor(maxBpm(x.meter) / ratioOf(x)), TEMPO_TOP)];
+    return [Math.min(Math.floor(maxBpm(x.meter) / paceRange(x)[1]), TEMPO_TOP)];
   });
   return tops.length ? Math.min(...tops) : maxBpm(M44.label);
 }
@@ -271,14 +267,14 @@ export function maxBpmOf(sections: readonly (SectionPace | null | undefined)[]):
 /**
  * The bottom tempo of a break: {@link TEMPO_FLOOR}, raised so no section plays
  * under it — a section at ×½ holds the break to 100 or more, as one at ×2
- * holds it to half its ceiling. Never over {@link maxBpmOf}: sections whose
+ * holds it to half its ceiling, and a ritardando to ×½ does the same. Never over {@link maxBpmOf}: sections whose
  * ratios spread past `MAX_RATIO_SPREAD` (which every way in refuses) would
  * otherwise leave the slider no tempo at all.
  */
 export function minBpmOf(sections: readonly (SectionPace | null | undefined)[]): number {
   const slowest = Math.min(
     1,
-    ...sections.map((x) => (x && typeof x !== 'string' ? ratioOf(x) : 1))
+    ...sections.map((x) => (x && typeof x !== 'string' ? paceRange(x)[0] : 1))
   );
   return Math.min(Math.ceil(TEMPO_FLOOR / slowest), maxBpmOf(sections));
 }
@@ -584,10 +580,25 @@ export class Transport {
     return (first && snap.patterns[first.letter]) || snap.patterns.A || null;
   }
 
-  /** How long a step of the pattern playing lasts: a sixteenth, or a sextuplet in 4/4-6. */
+  /**
+   * How long a step of the pattern playing lasts: a sixteenth, or a sextuplet
+   * in 4/4-6, at the tempo its section's map has reached there (16-b-ii). The
+   * count-in is at the tempo the first bar starts at.
+   */
   private stepDur(snap: TransportSnapshot): number {
-    const pat = this.countLeft > 0 ? this.countInPattern(snap) : this.livePattern(snap);
-    return stepSeconds(meterOfPat(pat), sectionBpm(snap.bpm, pat));
+    return stepSeconds(meterOfPat(this.stepPattern(snap)), this.stepBpm(snap));
+  }
+
+  private stepPattern(snap: TransportSnapshot): Pattern | null {
+    return this.countLeft > 0 ? this.countInPattern(snap) : this.livePattern(snap);
+  }
+
+  /** The tempo the step about to be scheduled plays at. */
+  private stepBpm(snap: TransportSnapshot): number {
+    const pat = this.stepPattern(snap);
+    const pos = this.seq[this.seqIndex];
+    if (this.countLeft > 0) return tempoAt(snap.bpm, pat, pos?.barIdx ?? 0, 0);
+    return tempoAt(snap.bpm, pat, pos?.barIdx ?? 0, this.step);
   }
 
   /** The section the playhead is in: the arrangement's, else A. */
@@ -666,9 +677,9 @@ export class Transport {
       humanise: {
         stream: this.human,
         amount: snap.humanise.amount,
-        bpm: sectionBpm(snap.bpm, livePat),
+        bpm: this.stepBpm(snap),
       },
-      bpm: sectionBpm(snap.bpm, livePat),
+      bpm: this.stepBpm(snap),
     });
     const whens = voices.map((v) => Math.max(floor, t + dur * v.offset));
     /* When each note's key is struck again: a flam's grace and its stroke, a

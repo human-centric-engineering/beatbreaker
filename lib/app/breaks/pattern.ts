@@ -11,6 +11,7 @@ import {
 } from '@/lib/app/breaks/lanes';
 import { DEFAULT_METER, STEPS, isGroupStart, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import type { Rng } from '@/lib/app/breaks/rng';
+import { cloneTempoMap } from '@/lib/app/breaks/tempo-map';
 import { cloneTuplet } from '@/lib/app/breaks/tuplets';
 import type {
   Bar,
@@ -110,6 +111,7 @@ export function clonePattern(p: Pattern): Pattern {
     seed: p.seed,
     meter: p.meter || DEFAULT_METER,
     ...(p.tempoRatio ? { tempoRatio: p.tempoRatio } : {}),
+    ...(p.tempo?.length ? { tempo: cloneTempoMap(p.tempo) } : {}),
     lanes: (p.lanes ?? BASE_LANES).slice(),
     perc: { ...p.perc },
     bbLane: p.bbLane || 's',

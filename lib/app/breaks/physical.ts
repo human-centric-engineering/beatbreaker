@@ -3,6 +3,7 @@ import { FOOT_LANE, gracesOf, handLanes } from '@/lib/app/breaks/lanes';
 import { stepSeconds } from '@/lib/app/breaks/meter';
 import { meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
 import { sectionBpm } from '@/lib/app/breaks/sections';
+import { stepClock } from '@/lib/app/breaks/tempo-map';
 import { tupletLanes, tupletPos, tupletsIn } from '@/lib/app/breaks/tuplets';
 import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
 
@@ -177,17 +178,27 @@ function notesOf(pat: Pattern, bpm0: number, lanes: readonly LaneKey[]): Note[] 
   const step = stepSeconds(m, sectionBpm(bpm0, pat));
   const n = pat.bars[0]?.k.length ?? 0;
   const barLen = n * step;
+  /* A section with a tempo map (16-b-ii) times each step at the tempo it
+     starts at; one without keeps the arithmetic it always had. */
+  const clock = pat.tempo?.length ? stepClock(bpm0, pat) : null;
+  const timeOf = (pass: number, bi: number, pos: number): number => {
+    if (!clock) return (pass * pat.bars.length + bi) * barLen + pos * step;
+    const i = Math.floor(pos);
+    const row = clock.at[bi];
+    const start = row[i] ?? clock.length;
+    const next = row[i + 1] ?? clock.at[bi + 1]?.[0] ?? clock.length;
+    return pass * clock.length + start + (pos - i) * (next - start);
+  };
   const out: Note[] = [];
   for (let pass = 0; pass < 2; pass++) {
     pat.bars.forEach((bar, bi) => {
-      const t0 = (pass * pat.bars.length + bi) * barLen;
       const tuplets = tupletsIn(pat, bi);
       const push = (pos: number, lane: LaneKey, v: number) => {
         if (!v || !lanes.includes(lane)) return;
         const at = Math.floor(pos);
         const w = stickingAt(pat.sticking, bi, at);
         const note: Note = {
-          t: t0 + pos * step,
+          t: timeOf(pass, bi, pos),
           // the first pass is the lead-in: its notes are not the pattern's to report
           bar: pass ? bi : -1,
           step: at,
@@ -387,7 +398,8 @@ function footOptions(rate: number, doubleKick: boolean) {
 
 /**
  * Where two hands and two feet cannot play `pat` at `bpm` (the break's tempo;
- * a section at a tempo ratio is played at its own), each place once. Empty
+ * a section at a tempo ratio is played at its own, each bar of a tempo map at
+ * the tempo it has reached), each place once. Empty
  * where they can.
  */
 export function limbProblems(pat: Pattern, bpm: number): LimbProblem[] {
