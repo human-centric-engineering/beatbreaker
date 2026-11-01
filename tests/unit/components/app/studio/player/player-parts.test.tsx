@@ -344,6 +344,34 @@ describe('the bar', () => {
     expect(bar.querySelector('.player-row .player-pick')).toBeNull();
   });
 
+  it('sizes each slot by how long it plays: one at ×2 half as long, one that slows down longer (16-b-ii)', async () => {
+    const { container } = mount(<PlayerBar variant="overlay" />);
+    await ready();
+    const grow = () =>
+      [...container.querySelectorAll<HTMLElement>('.chapters .chapter')].map((b) =>
+        Number(b.style.flexGrow)
+      );
+    const bars = (L: 'A' | 'B') => studio!.patterns[L]!.bars.length;
+    const before = grow();
+    const slotsOf = (L: 'A' | 'B') => studio!.arrangement.flatMap((l, i) => (l === L ? [i] : []));
+    const [a] = slotsOf('A');
+    const [b] = slotsOf('B');
+    expect(before[a]).toBe(bars('A'));
+
+    act(() => {
+      studio!.setSectionTempo('B', 2);
+    });
+    expect(grow()[b]).toBe(bars('B') / 2);
+
+    // A slows to half over its last bar: that bar lasts longer than one at ×1
+    const last = bars('A') - 1;
+    act(() => {
+      studio!.setTempoPoint('A', last, { ratio: 1, to: 0.5 });
+    });
+    expect(grow()[a]).toBeGreaterThan(bars('A'));
+    expect(grow()[a]).toBeLessThan(bars('A') + 1);
+  });
+
   it('says what an icon on the bar is, on hover, in place of the browser title', async () => {
     const user = userEvent.setup();
     mount(<PlayerBar variant="overlay" />);

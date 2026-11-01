@@ -1,5 +1,5 @@
 import { isGrooveScribeUrl, readGrooveScribeUrl } from '@/lib/app/breaks/groove-scribe';
-import { type ImportResult, importedDoc } from '@/lib/app/breaks/import';
+import { type ImportResult, importedDoc, tempoNote } from '@/lib/app/breaks/import';
 import { readMidi } from '@/lib/app/breaks/midi-read';
 import { type BreakDoc, type StyleLookup, decodeBreak } from '@/lib/app/breaks/share';
 
@@ -54,7 +54,10 @@ function fromImported(
   if (!result.ok) return result;
   const name = result.pattern.name || fallbackName || DEFAULT_IMPORT_NAME;
   const doc = importedDoc({ ...result.pattern, name }, IMPORT_STYLE);
-  return { ok: true, source, doc, notes: result.pattern.notes };
+  const notes = result.pattern.tempos
+    ? [...result.pattern.notes, tempoNote(doc, result.pattern.bpm)]
+    : result.pattern.notes;
+  return { ok: true, source, doc, notes };
 }
 
 export function readImport(input: ImportInput, styles?: StyleLookup): ReadImportResult {

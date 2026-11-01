@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { TEMPO_FLOOR, TEMPO_TOP, maxBpmOf, minBpmOf } from '@/lib/app/breaks/audio/transport';
 import { type EditData, editWorkspace } from '@/lib/app/breaks/buddy/edit';
 import { FULL_LAYER, patternLayerName } from '@/lib/app/breaks/layers';
+import { paceRange, rangesFit } from '@/lib/app/breaks/tempo-map';
 import {
   SECTION_LETTERS,
   type SectionLetter,
@@ -103,6 +104,14 @@ export class SetPlaybackCapability extends BaseCapability<Args, EditData> {
         };
       }
       const doc = paced;
+      // a section with a tempo map may already reach as far as the break goes (16-b-ii)
+      if (args.section && !rangesFit(patternsOf(doc).map(paceRange))) {
+        return {
+          ok: false,
+          message: `Section ${args.section} at that ratio, with the sections' tempo maps, would spread past ×4 of the break's tempo, so no tempo plays them all`,
+          code: 'tempo_out_of_range',
+        };
+      }
       const top = maxBpmOf(patternsOf(doc));
       if (args.bpm !== undefined && args.bpm > top) {
         // a section at double time holds the break to half its ceiling: say so

@@ -10,20 +10,24 @@ import { describe, expect, it } from 'vitest';
 
 import { maxBpmOf, minBpmOf } from '@/lib/app/breaks/audio/transport';
 import { playability } from '@/lib/app/breaks/critic';
+import { previewApart, withPreview } from '@/lib/app/breaks/drummer/corner-chart';
 import { engrave, tempoMarks } from '@/lib/app/breaks/engrave';
-import { generatePattern } from '@/lib/app/breaks/generate';
-import { importedDoc } from '@/lib/app/breaks/import';
+import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
+import { type ImportedPattern, importedDoc } from '@/lib/app/breaks/import';
 import { meterOf, stepSeconds } from '@/lib/app/breaks/meter';
 import { buildMidi } from '@/lib/app/breaks/midi';
 import { readMidi } from '@/lib/app/breaks/midi-read';
 import { clonePattern, emptyBar } from '@/lib/app/breaks/pattern';
 import { limbProblems } from '@/lib/app/breaks/physical';
+import { readImport } from '@/lib/app/breaks/read-import';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { type BreakDoc, breakPayload, decodeBreak, encodeBreak } from '@/lib/app/breaks/share';
 import {
   type TempoPoint,
+  barClock,
   fitTempoMap,
   mapRatioAt,
+  offsetSeconds,
   paceRange,
   rangesFit,
   stepClock,
@@ -209,6 +213,54 @@ describe('reading a map back from its steps (tempoMapOf)', () => {
   });
 });
 
+describe('how long a section lasts, and a note past its step', () => {
+  it("counts a section in bars at the break's tempo: one at ×2 is half as long, one slowing longer", () => {
+    expect(barClock(section(8)).length).toBe(8);
+    expect(barClock({ ...section(8), tempoRatio: 2 }).length).toBe(4);
+    const slowing = section(8, RITARDANDO);
+    const bar = 16 * stepSeconds(meterOf('4/4'), 120);
+    expect(barClock(slowing).length).toBeCloseTo(stepClock(120, slowing).length / bar, 9);
+    expect(barClock(slowing).length).toBeGreaterThan(9);
+    // and where each step starts, in the same bars
+    expect(barClock(slowing).at[4][0]).toBe(4);
+  });
+
+  it('times a note past its step a step at a time across a ramp, into the next bar', () => {
+    const m = meterOf('4/4');
+    const pat = section(8, RITARDANDO);
+    const len = (b: number, i: number) => stepSeconds(m, tempoAt(120, pat, b, i));
+    // two and a half steps on from the last step of bar 4
+    expect(offsetSeconds(m, 120, pat, 4, 15, 2.5)).toBeCloseTo(
+      len(4, 15) + len(5, 0) + 0.5 * len(5, 1),
+      12
+    );
+    // early, at the step's own length
+    expect(offsetSeconds(m, 120, pat, 6, 3, -0.2)).toBeCloseTo(-0.2 * len(6, 3), 12);
+    // and without a map, as it always was
+    const plain = section(8);
+    expect(offsetSeconds(m, 120, plain, 4, 15, 2.5)).toBeCloseTo(2.5 * stepSeconds(m, 120), 12);
+  });
+});
+
+describe('a section built from another', () => {
+  it("does not take A's map: Build B plays at A's pace, not where A's record slows", () => {
+    const A = generatePattern({
+      style: testStyle('funk'),
+      meter: '4/4',
+      seed: 3,
+      bars: 8,
+      density: 50,
+      ghosts: 50,
+    });
+    A.tempoRatio = 2;
+    A.tempo = RITARDANDO;
+    const B = deriveB(A, testStyle('funk').params);
+    expect(B.tempo).toBeUndefined();
+    expect(B.tempoRatio).toBe(2);
+    expect(A.tempo).toEqual(RITARDANDO);
+  });
+});
+
 describe('the clock and the limbs', () => {
   it('holds the slider to the fastest and slowest a map reaches', () => {
     const crescendo = { meter: '4/4', tempo: [{ bar: 0, ratio: 1, to: 2 }] };
@@ -244,11 +296,63 @@ describe('a MIDI file', () => {
     const read = readMidi(Uint8Array.from(midi.bytes));
     if (!read.ok) throw new Error(read.error);
     expect(read.pattern.bpm).toBe(bpm);
-    expect(read.pattern.notes).toContain(
+    const opened = readImport({ kind: 'midi', bytes: Uint8Array.from(midi.bytes) });
+    if (!opened.ok) throw new Error(opened.error);
+    expect(opened.notes).toContain(
       "The file changes tempo, so each section plays the file's tempo map."
     );
-    return importedDoc(read.pattern, 'rock').A;
+    return opened.doc.A;
   }
+
+  /** Sixteen bars read from a file at `bpm`, each bar at the tempo `at` gives it. */
+  function changing(bpm: number, at: (bar: number) => number): ImportedPattern {
+    const midi = buildMidi(
+      section(16).bars.map((_, barIdx) => ({ pattern: section(16), barIdx })),
+      { bpm, swing: 0, feel: 0, hats: 100 }
+    );
+    const read = readMidi(Uint8Array.from(midi.bytes));
+    if (!read.ok) throw new Error(read.error);
+    return {
+      ...read.pattern,
+      tempos: read.pattern.bars.map((bar, b) => bar.k.map(() => at(b))),
+    };
+  }
+
+  it('plays a file whose sections spread past ×4 of each other at its opening tempo, every section, and says so', () => {
+    // the first eight bars slow to 40, the next eight run at 200: ×⅖ and ×2 of 100, ×5 apart
+    const imp = changing(100, (b) => (b < 8 ? 100 - b * 8.5 : 200));
+    const opened = importedDoc(imp, 'rock');
+    expect(opened.A.tempo).toBeUndefined();
+    expect(opened.B.tempo).toBeUndefined();
+    expect(() => sharePayloadSchema.parse(breakPayload(opened))).not.toThrow();
+  });
+
+  it("plays none of a file's map where one section cannot hold its own, rather than half of it", () => {
+    // bar 9 jumps to ×5, past what a point may be; A's own change is fine on its own
+    const imp = changing(100, (b) => (b === 9 ? 500 : b < 8 ? 100 + b * 5 : 100));
+    const opened = importedDoc(imp, 'rock');
+    expect(opened.A.tempo).toBeUndefined();
+    expect(opened.B.tempo).toBeUndefined();
+  });
+
+  it("says a file's tempo was not kept, and the tempo it plays at instead", () => {
+    const pat = section(8, [{ bar: 4, ratio: 3.9 }]);
+    const fast = { ...section(8, [{ bar: 0, ratio: 0.25 }]) };
+    const midi = buildMidi(
+      [
+        ...pat.bars.map((_, barIdx) => ({ pattern: pat, barIdx })),
+        ...fast.bars.map((_, barIdx) => ({ pattern: fast, barIdx })),
+      ],
+      { bpm: 100, swing: 0, feel: 0, hats: 100 }
+    );
+    const opened = readImport({ kind: 'midi', bytes: Uint8Array.from(midi.bytes) });
+    if (!opened.ok) throw new Error(opened.error);
+    expect(opened.doc.A.tempo).toBeUndefined();
+    expect(opened.notes).not.toContain(
+      "The file changes tempo, so each section plays the file's tempo map."
+    );
+    expect(opened.notes.join(' ')).toContain('so it plays at 100 bpm throughout');
+  });
 
   it("writes Try a Little Tenderness's crescendo a step at a time, and reads it back the same", () => {
     const pat = section(8, CRESCENDO);
@@ -323,6 +427,38 @@ describe('the chart', () => {
     );
     expect(stepped[2]).toEqual({ text: '×5/4' });
     expect(stepped[4]).toEqual({ text: 'a tempo' });
+  });
+
+  it('prints a tempo to the tenth, as the Tempo row says it', () => {
+    expect(tempoMarks(section(4, [{ bar: 1, ratio: 0.975 }]), 100)[1]).toEqual({
+      text: '♩ = 97.5',
+    });
+  });
+
+  it("stops a section's marks where it ends, when the next section's first bars run on after it", () => {
+    const next = section(8, [{ bar: 0, ratio: 2 }]);
+    const line = withPreview(section(8, RITARDANDO), next);
+    expect(line.bars).toHaveLength(10);
+    const marks = tempoMarks(line, 120, 8);
+    expect(marks[7]).toEqual({ ramp: true, end: '♩ = 60' });
+    expect(marks.slice(8).filter(Boolean)).toEqual([]);
+    // and engrave hears it as an option
+    const texts = engrave(line, null, { scale: 1, perSystem: 10, bpm: 120, tempoBars: 8 })
+      .nodes.filter((n) => n.tag === 'text')
+      .map((n) => n.text);
+    expect(texts).toContain('♩ = 60');
+  });
+
+  it('prints no end on the first bars of a section whose ramp runs on past them', () => {
+    const next = section(8, [{ bar: 0, ratio: 1, to: 0.5 }]);
+    const apart = previewApart({ ...section(8), meter: '3/4' }, next);
+    if (!apart) throw new Error('no preview');
+    expect(apart.bars).toHaveLength(2);
+    const marks = tempoMarks(apart, 120, next.bars.length);
+    expect(marks[0]).toEqual({ word: 'rit.', ramp: true });
+    expect(marks[1]).toEqual({ ramp: true });
+    // drawn as the whole of itself, the cut ramp says it got there
+    expect(tempoMarks(apart, 120)[1]?.end).toBe('♩ = 60');
   });
 
   it('draws the marks over the staff, and nothing for a section without a map', () => {

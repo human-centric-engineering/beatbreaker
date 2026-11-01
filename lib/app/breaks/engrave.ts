@@ -82,6 +82,14 @@ export interface EngraveOptions {
    * read as ratios of the section's tempo, `×9/10`, and ×1 as _a tempo_.
    */
   bpm?: number;
+  /**
+   * The bars of the section the tempo map belongs to, where the chart is not
+   * all of them: the drummer's corner chart runs a section on into the first
+   * bars of the next, or shows only the first bars of the next. Its marks
+   * stop where the section does, and a ramp's end is printed only where the
+   * section reaches it. Default: the pattern's bars.
+   */
+  tempoBars?: number;
 }
 
 export interface Engraving {
@@ -109,25 +117,30 @@ export interface TempoMark {
 /**
  * The marks a section's tempo map prints, by bar (empty where it has none):
  * `♩ = N` at the section's tempo `bpm`, or without it a ratio of the
- * section's tempo, ×1 written _a tempo_.
+ * section's tempo, ×1 written _a tempo_. `bars` is the section's length,
+ * where the pattern drawn is not the whole of it ({@link EngraveOptions}).
  */
-export function tempoMarks(pat: Pattern, bpm?: number): TempoMark[] {
+export function tempoMarks(pat: Pattern, bpm?: number, bars = pat.bars.length): TempoMark[] {
   const map = pat.tempo ?? [];
   if (!map.length) return [];
+  const drawn = Math.min(bars, pat.bars.length);
   const say = (r: number): string =>
-    bpm ? `♩ = ${Math.round(bpm * r)}` : r === 1 ? 'a tempo' : ratioLabel(r);
+    // to a tenth, as the Tempo row, its picker and BeatBuddy say it; in quarters, as every tempo here counts
+    bpm ? `♩ = ${Math.round(bpm * r * 10) / 10}` : r === 1 ? 'a tempo' : ratioLabel(r);
   const out: TempoMark[] = [];
   let before = 1;
   map.forEach((p, i) => {
-    const end = Math.min(map[i + 1]?.bar ?? pat.bars.length, pat.bars.length);
-    if (p.bar >= end) return;
+    const end = Math.min(map[i + 1]?.bar ?? bars, bars);
+    if (p.bar >= Math.min(end, drawn)) return;
     const mark: TempoMark = {};
     if (p.ratio !== before) mark.text = say(p.ratio);
     const word = rampWord(p);
     if (word && p.to !== undefined) {
       mark.word = word;
-      for (let b = p.bar; b < end; b++) out[b] = { ...(b === p.bar ? mark : {}), ramp: true };
-      out[end - 1].end = say(p.to);
+      const last = Math.min(end, drawn);
+      for (let b = p.bar; b < last; b++) out[b] = { ...(b === p.bar ? mark : {}), ramp: true };
+      // a ramp that runs on past the bars drawn has not got there yet
+      if (end <= drawn) out[end - 1].end = say(p.to);
       before = p.to;
     } else {
       // a ramp to where it started holds
@@ -303,7 +316,7 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
   /* A section with a tempo map (16-b-ii) prints its marks in a row of their
      own over the staff: a tempo where it steps, accel. or rit. and a dashed
      line where it ramps, and the tempo the ramp gets to at its end. */
-  const marks = tempoMarks(pat, opts.bpm);
+  const marks = tempoMarks(pat, opts.bpm, opts.tempoBars);
   const tempoH = marks.length ? 16 * scale : 0;
   const percRowH = 2.5 * SP;
   const percH = percLanes.length * percRowH;

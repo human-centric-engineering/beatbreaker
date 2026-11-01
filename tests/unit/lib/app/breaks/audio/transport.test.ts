@@ -28,6 +28,7 @@ import {
 import { METER_KEYS, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { MIDI_MAP } from '@/lib/app/breaks/midi';
 import { emptyBar, styleAttrs } from '@/lib/app/breaks/pattern';
+import { offsetSeconds } from '@/lib/app/breaks/tempo-map';
 import type { Pattern, StyleAttrs } from '@/lib/app/breaks/types';
 import { testStyle } from '@/tests/helpers/catalogue';
 
@@ -738,7 +739,7 @@ describe('onStep (the 3D drummer handoff)', () => {
       onStep: (step) => seen.push({ step, now: f.ctx.currentTime }),
     });
     t.start();
-    while (f.ctx.currentTime < 1) {
+    while (f.ctx.currentTime < 2) {
       f.ctx.currentTime += 0.02;
       vi.advanceTimersByTime(25);
     }
@@ -1264,6 +1265,42 @@ describe('a section with a tempo map (16-b-ii)', () => {
     expect(ramp.every((d, i) => i === 0 || d > ramp[i - 1])).toBe(true);
     // and each step starts where the one before it ended
     played.slice(1).forEach((s, i) => expect(s.t).toBeCloseTo(played[i].t + played[i].dur, 9));
+  });
+
+  it('times an echo across a ramp a step at a time, each step as long as its own tempo', () => {
+    // one bar speeding from ×1 to ×2, a hat on its first step, echoed six steps later
+    const pat = patternIn('4/4');
+    pat.bars = [emptyBar(16)];
+    pat.bars[0].h[0] = 1;
+    pat.tempo = [{ bar: 0, ratio: 1, to: 2 }];
+    pat.attrs = { ...pat.attrs, echo: { lanes: ['h'], steps: 6, level: 0.5 } };
+    const onStep = vi.fn();
+    const snap = snapshot(pat, { click: false, bpm: 120 });
+    const f = fakeAudio();
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep,
+    });
+    t.start();
+    while (f.ctx.currentTime < 0.5) {
+      f.ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    t.stop();
+
+    const first = onStep.mock.calls.map(([step]) => step as ScheduledStep).find((s) => !s.count)!;
+    const [hit, echo] = f.audio.playIn.mock.calls
+      .filter(([lane]) => lane === 'h')
+      .map(([, , when]) => when);
+    const m = meterOf('4/4');
+    expect(hit).toBeCloseTo(first.t, 9);
+    // the six steps it waits are each shorter than the one before, not six of the first
+    expect(echo).toBeCloseTo(first.t + offsetSeconds(m, 120, pat, 0, 0, 6), 9);
+    expect(echo - hit).toBeLessThan(6 * first.dur - 1e-6);
   });
 
   it('holds the top tempo to the fastest point of a map', () => {

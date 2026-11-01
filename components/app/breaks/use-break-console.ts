@@ -63,6 +63,7 @@ import {
   lettersOf,
   nextLetter,
   patternsOf,
+  ratioLabel,
   ratioOf,
   totalBars,
 } from '@/lib/app/breaks/sections';
@@ -614,6 +615,12 @@ export interface BreakConsole {
    * not there or already plays at that ratio.
    */
   setSectionTempo: (letter: SectionLetter, ratio: TempoRatio) => boolean;
+  /**
+   * Why a section could not play at `ratio` (16-b-ii): its tempo map with the
+   * other sections' would spread past ×4, so no tempo plays them all. Null
+   * when it could, or when there is no such section.
+   */
+  sectionTempoProblem: (letter: SectionLetter, ratio: TempoRatio) => string | null;
   /**
    * Set where the record speeds up or slows down (16-b-ii, D82): the point of
    * the section's tempo map at `bar`, against the section's tempo, or null to
@@ -1799,7 +1806,8 @@ export function useBreakConsole(
        at the break's tempo otherwise — never a ratio from the catalogue you
        took off the stage (11-e-ii-g). */
     const tempoRatio = song ? ratioOf(stage) : 1;
-    // and changes speed where the stage's does (16-b-ii)
+    /* and changes speed where the stage's does (16-b-ii): it is a new take
+       of the stage's own part, so its map is that part's as you left it */
     const tempo = song ? (stage?.tempo ?? []) : [];
     const pace = { meter: paceMeter, tempoRatio, tempo };
     const at = Math.min(bpm, maxBpmOf([pace, ...patternsOf(patterns)]));
@@ -1867,15 +1875,25 @@ export function useBreakConsole(
     [patterns, pushHistory]
   );
 
-  const setSectionTempo = useCallback(
-    (letter: SectionLetter, ratio: TempoRatio): boolean => {
+  const sectionTempoProblem = useCallback(
+    (letter: SectionLetter, ratio: TempoRatio): string | null => {
       const pat = patterns[letter];
-      if (!pat || ratioOf(pat) === ratio) return false;
+      if (!pat) return null;
       // a section with a tempo map may already reach as far as the break goes (16-b-ii)
       const ranges = lettersOf(patterns).map((L) =>
         paceRange(L === letter ? { ...pat, tempoRatio: ratio } : patterns[L])
       );
-      if (!rangesFit(ranges)) return false;
+      if (rangesFit(ranges)) return null;
+      return `Section ${letter} at ${ratioLabel(ratio)}, where its tempo changes, would play more than ×4 from another section or the break's tempo, so no tempo plays them all`;
+    },
+    [patterns]
+  );
+
+  const setSectionTempo = useCallback(
+    (letter: SectionLetter, ratio: TempoRatio): boolean => {
+      const pat = patterns[letter];
+      if (!pat || ratioOf(pat) === ratio) return false;
+      if (sectionTempoProblem(letter, ratio)) return false;
       // the tempo may come down to a new ceiling, so one Undo takes both back
       pushHistory(true);
       setPatterns((prev) => {
@@ -1888,7 +1906,7 @@ export function useBreakConsole(
       });
       return true;
     },
-    [patterns, pushHistory]
+    [patterns, pushHistory, sectionTempoProblem]
   );
 
   /* ---- editing -------------------------------------------------------- */
@@ -2195,7 +2213,10 @@ export function useBreakConsole(
         ? patternFromPacked(entry.doc.th, (key) => catalogue.styles[key])
         : null;
       const b = then ?? (params ? deriveB(pat, params) : clonePattern(pat));
-      if (!then) b.name = `${entry.title} (B)`;
+      if (!then) {
+        b.name = `${entry.title} (B)`;
+        delete b.tempo;
+      }
       setPatterns({ A: pat, B: b });
       if (then) {
         /* only an arrangement of A and B is kept: one naming sections this
@@ -3255,6 +3276,7 @@ export function useBreakConsole(
     addSectionBlocked,
     deleteSection,
     setSectionTempo,
+    sectionTempoProblem,
     setTempoPoint,
     applyDoctor,
     writeCrossRhythm,

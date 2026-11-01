@@ -7,7 +7,7 @@ import {
   ratioOf,
 } from '@/lib/app/breaks/sections';
 import type { MaybeSections } from '@/lib/app/breaks/sections';
-import type { Pattern } from '@/lib/app/breaks/types';
+import type { Meter, Pattern } from '@/lib/app/breaks/types';
 
 /**
  * A section's tempo map (16-b-ii, D82): the record's own changes of speed
@@ -144,6 +144,33 @@ export function rangesFit(ranges: readonly (readonly [number, number] | undefine
 }
 
 /**
+ * How far `offset` steps from the start of a step is, in seconds: across a
+ * ramp each step is as long as its own tempo, so a note past its step (a
+ * tape echo's repeat) is timed a step at a time, running on into the next
+ * bar. An offset before the step (a note pushed early) is at the step's own
+ * length.
+ */
+export function offsetSeconds(
+  m: Meter,
+  bpm: number,
+  pat: Mapped,
+  bar: number,
+  step: number,
+  offset: number
+): number {
+  const here = stepSeconds(m, tempoAt(bpm, pat, bar, step));
+  if (offset <= 0 || !pat.tempo?.length) return here * offset;
+  let secs = 0;
+  let [b, i] = [bar, step];
+  for (let left = offset; left > 0; left -= 1) {
+    secs += Math.min(1, left) * stepSeconds(m, tempoAt(bpm, pat, b, i));
+    i++;
+    if (i >= (pat.bars[b]?.k.length ?? 0) && b + 1 < pat.bars.length) [b, i] = [b + 1, 0];
+  }
+  return secs;
+}
+
+/**
  * When each step of a section starts, in seconds from its first, a row a bar,
  * and how long the whole section lasts, under the break's `bpm`: each step as
  * long as the tempo it starts at. What the critic's limbs and a section's
@@ -162,6 +189,25 @@ export function stepClock(
       return start;
     })
   );
+  return { at, length: t };
+}
+
+/**
+ * When each step of a section starts, and how long it lasts, in bars at the
+ * break's tempo: a bar at ×1 is 1, at ×2 a half, and a bar slowing to ×½
+ * longer than 1. How long a section is against the others, whatever the
+ * tempo — what the player's arrangement strip sizes and fills its slots by.
+ */
+export function barClock(pat: Mapped): { at: number[][]; length: number } {
+  let t = 0;
+  const at = pat.bars.map((bar, bi) => {
+    const n = bar.k.length || 1;
+    return bar.k.map((_, i) => {
+      const start = t;
+      t += 1 / (n * tempoAt(1, pat, bi, i));
+      return start;
+    });
+  });
   return { at, length: t };
 }
 

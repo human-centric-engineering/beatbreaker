@@ -701,7 +701,7 @@ export function readMidi(bytes: Uint8Array): ImportResult {
     : 120;
   if (!parsed.tempo) notes.push('The file has no tempo, so it was read at 120 bpm.');
   const tempos = stepTempos(parsed.tempos, layout, stepTicks);
-  if (tempos) notes.push("The file changes tempo, so each section plays the file's tempo map.");
+  // what the file's changes of tempo become is importedDoc's to say (tempoNote)
 
   return {
     ok: true,

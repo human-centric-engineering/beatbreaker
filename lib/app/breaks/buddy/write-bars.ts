@@ -167,7 +167,9 @@ function blankSection(a: Pattern, letter: SectionLetter): Pattern {
   out.sticking = null;
   delete out.tuplets;
   /* A's tempo ratio stays, as its meter does: a section built from another
-     takes its pace, as Build B does. `set_playback` sets another. */
+     takes its pace, as Build B does. `set_playback` sets another. A's tempo
+     map does not: it is where A's record slows or speeds, bar by bar. */
+  delete out.tempo;
   delete out.fixed;
   delete out.poly;
   delete out.polySpans;

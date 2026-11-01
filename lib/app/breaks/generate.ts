@@ -1349,6 +1349,8 @@ export function deriveB(patA: Pattern, style0: Style): Pattern {
   const m = meterOfPat(p);
   const style = styleIn(withSong(style0, patA.song), p.meter);
   p.seed = (patA.seed ^ 0x9e3779b9) >>> 0;
+  // A's ratio is B's pace too, but A's tempo map is where A's own bars change speed
+  delete p.tempo;
 
   p.bars = p.bars.map((b, i) => {
     const n = b.k.length;

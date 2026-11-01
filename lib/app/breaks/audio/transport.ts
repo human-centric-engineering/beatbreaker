@@ -5,7 +5,7 @@ import { Humaniser } from '@/lib/app/breaks/humanise';
 import { M44, groupAt, isGroupStart, stepSeconds } from '@/lib/app/breaks/meter';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
 import { type MaybeSections, type SectionLetter, type TempoRatio } from '@/lib/app/breaks/sections';
-import { type TempoPoint, paceRange, tempoAt } from '@/lib/app/breaks/tempo-map';
+import { type TempoPoint, offsetSeconds, paceRange, tempoAt } from '@/lib/app/breaks/tempo-map';
 import { type Voice, performStep } from '@/lib/app/breaks/perform';
 import { type TupletStroke, tupletStrokes } from '@/lib/app/breaks/tuplets';
 import type { Bar, Meter, Pattern } from '@/lib/app/breaks/types';
@@ -681,7 +681,11 @@ export class Transport {
       },
       bpm: this.stepBpm(snap),
     });
-    const whens = voices.map((v) => Math.max(floor, t + dur * v.offset));
+    /* an echo, which sounds steps after its note, is timed a step at a
+       time across a ramp (16-b-ii), each as long as its own tempo */
+    const later = (offset: number) =>
+      t + offsetSeconds(m, snap.bpm, livePat, pos.barIdx, i, offset);
+    const whens = voices.map((v) => Math.max(floor, later(v.offset)));
     /* When each note's key is struck again: a flam's grace and its stroke, a
        buzz's repeats, are the same note a few milliseconds apart, and the port
        must release one before the next. An ornament is held no further than
@@ -711,7 +715,7 @@ export class Transport {
     if (snap.click) {
       const cross = snap.feelCross && livePat.poly ? crossClick(livePat, pos.barIdx, i) : null;
       if (cross) {
-        for (const c of cross) this.audio.click(t + dur * c.at, c.accent);
+        for (const c of cross) this.audio.click(later(c.at), c.accent);
       } else if (isClickStep(m, i, snap.clickSub)) this.audio.click(t, i === 0);
     }
 

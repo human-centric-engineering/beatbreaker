@@ -4,9 +4,22 @@ import { cloneBar } from '@/lib/app/breaks/pattern';
 import { MAX_ARRANGEMENT, MAX_BREAK_BARS, SECTION_LETTERS } from '@/lib/app/breaks/sections';
 
 import type { BreakDoc } from '@/lib/app/breaks/share';
-import { tempoMapOf, tempoMapProblem } from '@/lib/app/breaks/tempo-map';
+import {
+  hasTempoMaps,
+  paceRange,
+  rangesFit,
+  tempoMapOf,
+  tempoMapProblem,
+} from '@/lib/app/breaks/tempo-map';
 import { cloneTuplet, keepTuplets } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneKey, Pattern, PercLaneKey, TupletSpan } from '@/lib/app/breaks/types';
+
+/** What an import says about a file that changes tempo (16-b-ii), by whether its sections play it. */
+export function tempoNote(doc: BreakDoc, bpm: number): string {
+  return hasTempoMaps(doc)
+    ? "The file changes tempo, so each section plays the file's tempo map."
+    : `The file changes tempo further than a break plays (its sections within ×4 of each other, and a section's changes within ×¼ to ×4 of the file's opening tempo), so it plays at ${bpm} bpm throughout.`;
+}
 
 /** The most sections an import makes: one a letter, each played once by the arrangement. */
 const MAX_IMPORT_SECTIONS = Math.min(MAX_ARRANGEMENT, SECTION_LETTERS.length);
@@ -138,7 +151,8 @@ function sectionOf(
     styleVersionId: null,
     attrs: {},
     meter,
-    ...(tempo.length && !tempoMapProblem(tempo, bars.length) ? { tempo } : {}),
+    // held to what a break plays by importedDoc, across every section at once
+    ...(tempo.length ? { tempo } : {}),
     seed: 0,
     voice: rideNotes > hatNotes ? 'ride' : 'hat',
     lanes,
@@ -182,8 +196,17 @@ export function importedDoc(imp: ImportedPattern, style: string): BreakDoc {
   // capBars has already cut a reader's bars to this; the slice holds a caller that skipped it
   const runs = runsOf(imp).slice(0, MAX_IMPORT_SECTIONS);
   const sections = runs.map((run) => sectionOf(imp, run.bars, style, run.meter, run.from));
+  /* A file's tempo plays whole or not at all: a map a section cannot hold,
+     or sections spread too far apart for one tempo to play them, and every
+     section plays the file's opening tempo. Half a map is a tempo the file
+     never had. */
+  const fits =
+    sections.every((p) => !p.tempo || !tempoMapProblem(p.tempo, p.bars.length)) &&
+    rangesFit(sections.map(paceRange));
+  if (!fits) sections.forEach((p) => delete p.tempo);
   const A = sections[0] ?? sectionOf(imp, [], style);
   const B = sections[1] ?? sectionOf(imp, A.bars, style, A.meter);
+  if (!fits) delete B.tempo;
   const doc: BreakDoc = {
     bpm: imp.bpm,
     swing: imp.swing,

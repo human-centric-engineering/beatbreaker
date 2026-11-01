@@ -2532,6 +2532,27 @@ describe('a section with a tempo map (16-b-ii)', () => {
     expect(result.current.patterns.A).toBe(before);
   });
 
+  it('says why a section cannot take a ratio its map would carry past ×4, and refuses it', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadCode(abCode(100));
+    });
+    act(() => {
+      result.current.setTempoPoint('A', 0, { ratio: 1, to: 0.4 });
+    });
+    // B at ×½ is well within ×4 of A's ×0.4: it plays
+    expect(result.current.sectionTempoProblem('B', 0.5)).toBeNull();
+    // A at ×½ slows to ×⅕, past ×4 from the break's ×1
+    const why = result.current.sectionTempoProblem('A', 0.5);
+    expect(why).toMatch(/Section A at ×½.*no tempo plays them all/);
+    let ok = true;
+    act(() => {
+      ok = result.current.setSectionTempo('A', 0.5);
+    });
+    expect(ok).toBe(false);
+    expect(result.current.patterns.A?.tempoRatio).toBeUndefined();
+  });
+
   it('keeps the map through a new take of the section', async () => {
     const { result } = await mount();
     act(() => {

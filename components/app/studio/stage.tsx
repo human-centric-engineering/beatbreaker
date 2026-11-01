@@ -1,7 +1,7 @@
 'use client';
 
 import { Video } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from 'react';
 
 import { Stave, type StaveHandle } from '@/components/app/breaks/stave';
 import { StepEditor } from '@/components/app/breaks/step-editor';
@@ -92,6 +92,10 @@ export function Stage() {
   /* One stave per section on show, each reached by its letter. */
   const staveRefs = useRef<Partial<Record<SectionLetter, StaveHandle | null>>>({});
   const [showEditor, setShowEditor] = useState(true);
+  // why the section's tempo picker refused the last pick, and for which section
+  const [tempoRefused, setTempoRefused] = useState<{ letter: SectionLetter; why: string } | null>(
+    null
+  );
 
   /* The engraver takes the next layer as a second pattern and draws whatever
      it adds in faint ink. Handing it `null` is how the preview is turned off —
@@ -109,8 +113,9 @@ export function Stage() {
     return () => watch.disconnect();
   }, [chartEl, onPlayer]);
   /* A tempo map's marks read in beats a minute at the break's tempo: only a
-     break with one is drawn again when the tempo moves. */
-  const markBpm = hasTempoMaps(c.patterns) ? c.bpm : 0;
+     break with one is drawn again when the tempo moves, and then behind the
+     slider, so a drag is not held up drawing every value it passes. */
+  const markBpm = useDeferredValue(hasTempoMaps(c.patterns) ? c.bpm : 0);
   const engravings = useMemo(() => {
     const opts = {
       scale: c.size,
@@ -548,8 +553,18 @@ export function Stage() {
               label={`Section ${single}'s tempo`}
               options={tempoChoices(ratioOf(c.patterns[single]))}
               value={ratioOf(c.patterns[single])}
-              onChange={(r) => c.setSectionTempo(single, r)}
+              onChange={(r) => {
+                // a section with a tempo map may not reach every ratio (16-b-ii): say why
+                const why = c.sectionTempoProblem(single, r);
+                setTempoRefused(why ? { letter: single, why } : null);
+                if (!why) c.setSectionTempo(single, r);
+              }}
             />
+          ) : null}
+          {tempoRefused && tempoRefused.letter === single ? (
+            <span className="hint" role="status">
+              {tempoRefused.why}
+            </span>
           ) : null}
         </div>
       </div>

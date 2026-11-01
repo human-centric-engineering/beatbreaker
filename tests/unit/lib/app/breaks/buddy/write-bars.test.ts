@@ -369,6 +369,16 @@ describe('write_bars: a tempo map (16-b-ii)', () => {
     expect(decoded(dataOf(result).doc).A.tempo).toBeUndefined();
   });
 
+  it("writes a new section without A's map: it is where A's record slows, not the new one's", async () => {
+    const bpm = decoded(DOC).bpm;
+    await run({ section: 'A', text: `bar 2${PLAIN}`, tempo: [{ bar: 2, bpm, to: bpm / 2 }] });
+    const result = await run({ section: 'C', text: `bar 1${PLAIN}`, whole: true });
+    expect(result.success).toBe(true);
+    const after = decoded(dataOf(result).doc);
+    expect(after.C?.tempo).toBeUndefined();
+    expect(after.A.tempo).toEqual([{ bar: 1, ratio: 1, to: 0.5 }]);
+  });
+
   it('refuses a point past the bars, and writes nothing', async () => {
     const bpm = decoded(DOC).bpm;
     const result = await run({ section: 'A', text: `bar 2${PLAIN}`, tempo: [{ bar: 3, bpm }] });
