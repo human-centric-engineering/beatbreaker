@@ -1,7 +1,7 @@
 /**
  * The style table — seed data.
  *
- * 64 grooves and 127 famous drummers, each a set of tendencies or a handful of
+ * 64 grooves and 129 famous drummers, each a set of tendencies or a handful of
  * written-out bars, so the generator can write a different break in the same
  * idiom every time. A drummer is a style marked `drummer: true`, which the
  * picker files under Drummers.
@@ -220742,6 +220742,5760 @@ export const STYLES: Record<string, Style> = {
       },
     ],
   },
+  cozypowell: {
+    label: 'Cozy Powell',
+    drummer: true,
+    bands: ['Rainbow', 'Jeff Beck Group', 'Whitesnake', 'Black Sabbath'],
+    hint: "English hard rock's power drummer, with the Jeff Beck Group, Rainbow, Whitesnake, Emerson, Lake & Powell and Black Sabbath: two big bass drums, the backbeat from the shoulder, the hat or ride in quarters or eighths over a kick that keeps to 1 and the \"and\" of 3, a crash on each section's 1, the band's stops played with them. Each New plays one of his records, intro to outro: Long Live Rock 'n' Roll (1978), a shuffle on the ride bell; Since You Been Gone and All Night Long (1979), the riff on the floor tom over four on the floor; Love Ain't No Stranger (1984), the track he called his best. The stage names the song. The bars follow human Songsterr tabs, laid against the records. Approximations, not the records.",
+    toms: true,
+    /* No samples of his own kits are free to use. Big room: Big Rusty played hard in a big
+       room under Crocell's crashes, for the two 26" Ludwig bass drums with "extra thick shells
+       to give the thump" he played in Rainbow (Beat Instrumental, January 1976) */
+    kit: 'bigRoom',
+    hats: 8,
+    // "his explosive mixture of raw power (just look at the battering he gives those cymbals) and dead-eye precision" (MusicRadar, Career in Beats, 2010)
+    weight: 0.95,
+    bpm: [118, 142],
+    swing: 0,
+    // the tabs write no ghost notes
+    ghostBias: 0,
+    ghostWeights: {},
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 9,
+    hatDepth: 0.7,
+    forceKick: [0],
+    // two bass drums: "two massive 26" Ludwig bass drums" (Beat Instrumental, January 1976)
+    doubleKick: true,
+    // a crash on the 1 of nearly every section, and every other bar in Love Ain't No Stranger
+    phraseMark: { crash: 0.8 },
+    fillChance: 0.6,
+    midFills: 0.1,
+    kick1: [
+      ['1000', 6],
+      ['1010', 2],
+    ],
+    kick: [
+      ['0010', 3],
+      ['1010', 2],
+      ['0000', 1.5],
+      ['1111', 0.8],
+    ],
+    /* His bars, from the songs below: Since You Been Gone's quarters on the hat in the verse
+       and eighths in the chorus, the kick on 1 and the "and" of 3; All Night Long's riff on the
+       floor tom over four on the floor, and its verse on the half-open hat; Love Ain't No
+       Stranger's open hat in quarters over the kick on the "and"s, and its ride verse. */
+    figures: [
+      // Since You Been Gone, the verse: quarters on the hat, the kick on 1 and the "and" of 3
+      [{ h: '1...1...1...1...', s: '....2.......2...', k: '1.........1.....' }, 2],
+      // Since You Been Gone, the chorus: eighths on the hat
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' }, 2],
+      // All Night Long, the riff: the floor tom in eighths over the kick on every beat
+      [{ s: '....2.......2...', t3: '1.1.1.1.1.1.1.1.', k: '1...1...1...1...' }, 1.2],
+      // All Night Long, the verse: the hat half-open in eighths over four on the floor
+      [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1...1...1...1...' }, 1],
+      // Love Ain't No Stranger, the chorus: the open hat in quarters, the kick on the "and"s of 1 and 3
+      [{ h: '3...3...3...3...', s: '....2.......2...', k: '..1.......1.....' }, 1.2],
+      // Love Ain't No Stranger, the third verse: the ride on the beat, the kick on 1, the "and" of 2 and 3
+      [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.....1...1.....' }, 1],
+    ],
+    fills: [
+      // Since You Been Gone bar 84, back in after the stop: the snare and the floor tom
+      [{ s: '2..........22...', t3: '....1...1.......' }, 1],
+      // All Night Long bar 35, from 3: the snare on 3, its "and", 4 and four sixteenths
+      [{ s: '2.2.2222' }, 1.2],
+      // Love Ain't No Stranger bar 30, the band's stops: the snare on 1 and 4, two sixteenths on each tom
+      [
+        {
+          s: '2...........2...',
+          t2: '...11...........',
+          t3: '.......11.......',
+          k: '..........1.....',
+        },
+        1,
+      ],
+      // Since You Been Gone bar 58, from 4: the snare on the "and" and "a"
+      [{ s: '..22' }, 0.8],
+    ],
+    /* His records by date: Long Live Rock 'n' Roll (Rainbow, 1978); Since You Been Gone and All
+       Night Long (Rainbow, Down to Earth, 1979); Love Ain't No Stranger (Whitesnake, Slide It
+       In, 1984). Each follows a human Songsterr tab, its bars in the record's order from the
+       drums' entry, laid against the record bar by bar, at the record's tempo; the shuffle in
+       sextuplets; a bar the tab writes in 32nds as two bars of sixteenths at double time. Left
+       out because no song of 26 parts can play them as written: Stargazer and Tarot Woman
+       (Rising, 1976), Kill the King (1978) and Headless Cross (Black Sabbath, 1989), whose tabs
+       hold more distinct bars, or more bars in other grids, than 26 parts of eight bars carry;
+       A Light in the Black, whose tab runs about eleven bars short of the record; and Dance with
+       the Devil (1973), which has no drum tab. See planning/drumming-research.md, section EH. */
+    songs: [
+      {
+        /* Long Live Rock 'n' Roll, Rainbow (Long Live Rock 'n' Roll, Polydor, April 1978; the title
+           track and first single), Ritchie Blackmore and Ronnie James Dio's song, recorded at the
+           Château d'Hérouville with Cozy Powell on drums (Wikipedia, the album's personnel).
+           Songsterr 51393 (human: Mr Squash's revision 8478652, August 2026, "Added triplet time,
+           Fixed drum and bass tabs", over Tomi Kapanen's and Leonard's of 2010; no revision
+           machine-made), the drum track "Cozy Powell | Drums": 4/4 at 140 with an 8th triplet feel,
+           146 bars, marked Intro, Verse, Pre-Chorus, Chorus and Guitar Solo. The record
+           (u4lxo7Ia_rY, the band's channel, 4:22) beat-tracks at 140 to 144, 141.0 over the song;
+           the tab's bars line up with it from the intro to the last chorus (work/align.py). His
+           part: a shuffle, written here in sextuplets: the ride bell on the beat, the kick on 1,
+           the last triplet of each beat and the next, the snare on 2 and 4; the verses on the
+           half-open hat; the intro and the turnarounds on the snare in eighth-note triplets, the
+           crash with the snare on every beat; fills of snare and toms over the kick in triplets.
+           The record fades in its last chorus; the tab ends it on a hit, and so does the song. */
+        key: 'long-live-rock-n-roll',
+        title: "Long Live Rock 'n' Roll",
+        feel: 'Rainbow, 1978: a shuffle, the ride bell on the beat, the kick on 1 and the "a", the snare on 2 and 4 (record 141)',
+        weight: 1.2,
+        params: {
+          kit: 'bigRoom',
+          meter: '4/4-6',
+          bpm: [139, 143],
+          swing: 0,
+          backbeats: [6, 18],
+          ghostBias: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          anticipate: 0,
+          cymbalAccent: false,
+          phraseMark: { crash: false, kick: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the intro, bars 1-2',
+            written: [
+              // bar 1: the snare alone in eighth-note triplets
+              { s: '2.2.2.2.2.2.2.2.2.2.2.2.' },
+              // bar 2
+              {
+                c: '............2.....1.....',
+                s: '2.2.2.2.2.2.............',
+                k: '............1.....1.....',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'B',
+            label: 'the intro, bars 3-8',
+            written: [
+              // bar 3: the ride bell on the beat, the kick on 1, the shuffle's "a" and the next beat, the snare on 2 and 4
+              {
+                c: '2.......................',
+                r: '......2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 4
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 5
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 6
+              {
+                c: '..........2.............',
+                r: '2.....2...........2.....',
+                s: '......2...3.......2.....',
+                k: '1...1.1...1.....1.1...1.',
+              },
+              // bar 7
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 8
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'C',
+            label: 'the intro, bar 9',
+            written: [
+              // bar 9: the crash and the snare on every beat
+              {
+                c: '2.....2.....2.....2.....',
+                s: '2.....2.....2.....2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'D',
+            label: 'the intro, bar 10',
+            written: [
+              // bar 10
+              {
+                c: '2.....2.....1.....2.....',
+                s: '2.....2.................',
+                k: '1...1.1...1.1.....1.....',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'E',
+            label: 'the first verse',
+            written: [
+              // bar 11: the hat half-open on the beat
+              {
+                c: '1.......................',
+                h: '......4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 12
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 13
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 14
+              {
+                c: '..........1.............',
+                h: '4.....4...........4.....',
+                s: '......2...2.......2.....',
+                k: '1...1.1...1.....1.1...1.',
+              },
+              // bar 15
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 16
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 17
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 18
+              {
+                c: '......................1.',
+                h: '4.....4.....4...........',
+                s: '......2...1...1.2.2.....',
+                k: '1...1.1...1.1.........1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'F',
+            label: 'the first pre-chorus',
+            written: [
+              // bar 19: the kick and the crash on the "and"s with the guitar
+              {
+                c: '1.........1.............',
+                r: '....1.............1.....',
+                s: '......2...........2.....',
+                k: '....1.....1.....1.......',
+              },
+              // bar 20
+              {
+                c: '1.........1.............',
+                r: '....1...................',
+                s: '......2...........2.....',
+                k: '1...1.....1.....1.......',
+              },
+              // bar 21
+              {
+                c: '1.......................',
+                h: '......4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 22
+              {
+                c: '......................1.',
+                h: '4.....4.....4...........',
+                s: '......2...1...1.2.2.....',
+                k: '1...1.1...1.1.........1.',
+              },
+              // bar 23
+              {
+                c: '1.........2.............',
+                h: '....4.............4.....',
+                s: '......2...........2.....',
+                k: '....1.....1.....1.......',
+                hf: '......1.................',
+              },
+              // bar 24
+              {
+                c: '1.........1.............',
+                r: '....1.............1.....',
+                s: '......2...........2.....',
+                k: '1...1.....1.....1.......',
+              },
+              // bar 25
+              { s: '2.2.2.2.2.2.2.2.2.2.2.2.' },
+              // bar 26
+              {
+                c: '............1.....2.....',
+                s: '2.2.2.2.2.2.............',
+                k: '............1.....1.....',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'G',
+            label: 'the first chorus',
+            written: [
+              // bar 27
+              {
+                c: '2.......................',
+                r: '..................2.....',
+                h: '......4.....4...........',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 28
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 29
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 30
+              {
+                c: '..........2.............',
+                r: '2.....2...........2.....',
+                s: '......2...3.......2.....',
+                k: '1...1.1...1.....1.1...1.',
+              },
+              // bar 31
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 32
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 33
+              {
+                c: '2.....2.....2.....2.....',
+                s: '2.....2.....2.....2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 34
+              {
+                c: '2...........1.....2.....',
+                s: '2...2.2.2.2.............',
+                k: '1...........1.....1.....',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'H',
+            label: 'the second pre-chorus',
+            written: [
+              // bar 43
+              {
+                c: '1.........1.............',
+                r: '....1.............1.....',
+                s: '......2...........2.....',
+                k: '....1.....1.....1.......',
+              },
+              // bar 44
+              {
+                c: '1.........1.............',
+                r: '....1...................',
+                s: '......2...........2.....',
+                k: '1...1.....1.....1.......',
+              },
+              // bar 45
+              {
+                c: '1.......................',
+                h: '......4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 46
+              {
+                c: '......................1.',
+                h: '4.....4.....4...........',
+                s: '......2...1...1.2.2.....',
+                k: '1...1.1...1.1.........1.',
+              },
+              // bar 47
+              {
+                c: '1.........1.............',
+                r: '....1.............1.....',
+                s: '......2...........2.....',
+                k: '....1.....1.....1.......',
+              },
+              // bar 48
+              {
+                c: '1.........1.......2.....',
+                r: '....1...................',
+                s: '......2...........2.....',
+                k: '1...1.....1.....1.......',
+              },
+              // bar 49
+              { s: '2.2.2.2.2.2.2.2.2.2.2.2.' },
+              // bar 50
+              {
+                c: '............1.....2.....',
+                s: '2.2.2.2.2.2.............',
+                k: '............1.....1.....',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'I',
+            label: 'the solo, bars 1-7',
+            written: [
+              // bar 59
+              {
+                c: '1.......................',
+                h: '......4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 60
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 61
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 62
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 63
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 64
+              {
+                s: '2...2.2.........2.2.....',
+                t1: '........1.1.1...........',
+                t2: '....................1.1.',
+                k: '1.1.1.1.1.1.1.1.1.1.1.1.',
+              },
+              // bar 65
+              {
+                s: '2...2.2.........2.2.2.2.',
+                t1: '........1.1.............',
+                t2: '............1...........',
+                k: '1.1.1.1.1.1.1.1.........',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'J',
+            label: 'the solo, bars 8-15',
+            written: [
+              // bar 66
+              {
+                c: '1.......................',
+                h: '......4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 67
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 68
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 69
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 70
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 71
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 72
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 73
+              {
+                c: '......................1.',
+                h: '4.....4.....4...........',
+                s: '......2.......1.2.2.....',
+                k: '1...1.1...1.1.........1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'K',
+            label: 'the third chorus',
+            written: [
+              // bar 82
+              {
+                c: '2.......................',
+                r: '............2.....2.....',
+                h: '......4.................',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 83
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 84
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 85
+              {
+                c: '..........2.............',
+                r: '2.....2...........2.....',
+                s: '......2...3.......2.....',
+                k: '1...1.1...1.....1.1...1.',
+              },
+              // bar 86
+              {
+                c: '1.......................',
+                r: '......2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 87
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 88
+              {
+                c: '2.....2.....2.....2.....',
+                s: '2.....2.....2.....2...2.',
+                k: '1...1.1...1.1...1.1.....',
+              },
+              // bar 89
+              {
+                c: '............1.....2.....',
+                s: '....2.2.2.2.............',
+                k: '1...........1.....1.....',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'L',
+            label: 'the third verse',
+            written: [
+              // bar 90
+              {
+                c: '1.......................',
+                h: '......4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 91
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 92
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 93
+              {
+                c: '..........1.............',
+                h: '4.....4...........4.....',
+                s: '......2...2.......2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 94
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 95
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 96
+              {
+                h: '4.....4.....4.....4.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 97
+              {
+                c: '......................1.',
+                h: '4.....4.....4...........',
+                s: '......2...1...1.2.2.....',
+                k: '1...1.1...1.1.........1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'M',
+            label: 'the last chorus, bars 7-13',
+            written: [
+              // bar 112: the kick in triplets under the snare and the toms
+              {
+                s: '2...2.2.........2.2.....',
+                t1: '........1...............',
+                t2: '............1.......1.1.',
+                k: '1.1.1.1.1.1.1.1.1.1.1.1.',
+              },
+              // bar 113
+              {
+                s: '....2.2.....2...2...2...',
+                t2: '1.......1.1.............',
+                k: '1.1.1.1.1.1.1.1.1.1.1.1.',
+              },
+              // bar 114
+              {
+                c: '2.......................',
+                r: '......2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 115
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 116
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 117
+              {
+                c: '..........2.............',
+                r: '2.....2...........2.....',
+                s: '......2...3.......2.....',
+                k: '1...1.1...1.....1.1...1.',
+              },
+              // bar 118
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'N',
+            label: 'the last chorus, bars 14-21',
+            written: [
+              // bar 119
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2...1.',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 120
+              {
+                c: '1...1...1...1...1...1...',
+                s: '......2...........2.....',
+                k: '1...1...1...1...1...1...',
+              },
+              // bar 121
+              {
+                c: '1...1...1...2.....2.....',
+                s: '......2.................',
+                k: '1...1...1...1.....1.....',
+              },
+              // bar 122
+              {
+                c: '2.......................',
+                r: '......2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 123
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 124
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 125
+              {
+                c: '..........2.............',
+                r: '2.....2...........2.....',
+                s: '......2...3.......2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 126
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'O',
+            label: 'the last chorus, bars 22-29',
+            written: [
+              // bar 127
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 128
+              {
+                s: '2...2.2.........2.2.....',
+                t1: '........1.1.1...........',
+                k: '1.1.1.1.1.1.1.1.1.1.1.1.',
+              },
+              // bar 129
+              {
+                c: '............1.....2.....',
+                s: '....2.2.....2.....2.....',
+                t2: '1.......1.1.............',
+                k: '1.1.1.1.1.1.............',
+              },
+              // bar 130
+              {
+                c: '2.......................',
+                r: '......2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 131
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 132
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 133
+              {
+                c: '..........2.............',
+                r: '2.....2...........2.....',
+                s: '......2...3.......2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 134
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'P',
+            label: 'the last chorus, bars 38-41',
+            written: [
+              // bar 143
+              {
+                r: '2.....2.....2.....2.....',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.1...1.',
+              },
+              // bar 144
+              {
+                s: '2...2.2.........2.2.....',
+                t1: '........1.1.1...........',
+                t2: '....................1.1.',
+                k: '1.1.1.1.1.1.1.1.1.1.1.1.',
+              },
+              // bar 145
+              {
+                c: '............1.....2.....',
+                s: '....2.2.....2.....2.....',
+                t2: '1.......1.1.............',
+                k: '1.1.1.1.1.1.............',
+              },
+              // bar 146: the last hit
+              {
+                c: '1.......................',
+                s: '2........22.............',
+                k: '1..........11...........',
+              },
+            ],
+            params: {},
+          },
+        ],
+        arrangement: [
+          'A',
+          'B',
+          'C',
+          'D',
+          'E',
+          'F',
+          'G',
+          'E',
+          'H',
+          'B',
+          'C',
+          'C',
+          'I',
+          'J',
+          'H',
+          'K',
+          'L',
+          'H',
+          'B',
+          'M',
+          'N',
+          'O',
+          'N',
+          'P',
+        ],
+      },
+      {
+        /* Since You Been Gone, Rainbow (Down to Earth, Polydor, July 1979; its single, a UK number
+           6), Russ Ballard's song, with Graham Bonnet singing and Cozy Powell on drums (Wikipedia,
+           the album's personnel). Songsterr 51404 (human: d's revision 6717949, May 2026, over
+           Leonard's of 2010; no revision machine-made), the drum track "Cozy Powell - Drums": 4/4
+           at 120, 100 bars, one of 2/4. The record (UwhLqAoqj3I, the band's channel, 3:17)
+           beat-tracks at 120.2 from end to end, straight, and the tab's bars line up with it bar
+           for bar to the fade (aligned on the drums' onsets, work/align.py). His part: quarters on
+           the hat under the verse and eighths under the chorus, the kick on 1 and the "and" of 3
+           and nothing more, a crash on each section's 1; the bridge in half time, the snare on 3;
+           snare and tom pickups into each section. The three bars of guitar before the drums are
+           left out; the song starts on the pickup bar. Five fills the tab writes in 32nds (bars 4,
+           19, 22, 43, 46) are in a 32nd grid, their bars in 4/4-8. */
+        key: 'since-you-been-gone',
+        title: 'Since You Been Gone',
+        feel: 'Rainbow, 1979: quarters on the hat, eighths in the chorus, the kick on 1 and the "and" of 3 (record 120)',
+        weight: 1.2,
+        params: {
+          kit: 'studioRock',
+          meter: '4/4',
+          bpm: [119, 121],
+          swing: 0,
+          backbeats: [4, 12],
+          ghostBias: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          anticipate: 0,
+          cymbalAccent: false,
+          phraseMark: { crash: false, kick: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the intro, bar 1',
+            tempoRatio: 2,
+            written: [
+              // bar 4: the guitar riff alone, the snare picking up the band on the "and" of 4 (first half, in 32nds at double time)
+              { k: '................' },
+              // bar 4: the guitar riff alone, the snare picking up the band on the "and" of 4 (second half, in 32nds at double time)
+              { s: '.........2......' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'B',
+            label: 'the intro, bar 2',
+            written: [
+              // bar 5: a crash on 1; quarters on the hat, the kick on 1 and the "and" of 3
+              {
+                c: '1...............',
+                h: '....1...1...1...',
+                s: '....2.......2...',
+                k: '1.........1.....',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'C',
+            label: 'the intro, bar 3',
+            written: [
+              // bar 6
+              { h: '1...1...1...1...', s: '....2.......2...', k: '1.........1.....' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'D',
+            label: 'the intro, bar 5',
+            written: [
+              // bar 8: a bar of 2/4, the snare on the "and" of 1 and 2
+              { c: '......1.', h: '1.......', s: '..2.2...', k: '1.....1.' },
+            ],
+            params: {
+              meter: '2/4',
+              backbeats: [4],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the intro, bars 6-7',
+            written: [
+              // bar 9: the band out for a bar
+              {},
+              // bar 10
+              { s: '........2.......', t2: '............1...' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'F',
+            label: 'the first pre-chorus, bar 1',
+            tempoRatio: 2,
+            written: [
+              // bar 19 (first half, in 32nds at double time)
+              { s: '.2..............' },
+              // bar 19 (second half, in 32nds at double time)
+              { k: '................' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'G',
+            label: 'the first pre-chorus, bars 2-3',
+            written: [
+              // bar 20
+              { h: '............1...', s: '......2.2.2...2.' },
+              // bar 21
+              {
+                c: '1.............2.',
+                h: '........1.......',
+                s: '..........2.2...',
+                k: '1.............1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'H',
+            label: 'the first pre-chorus, bar 4',
+            tempoRatio: 2,
+            written: [
+              // bar 22 (first half, in 32nds at double time)
+              { c: '............1...', s: '....2...2.......', k: '............1...' },
+              // bar 22 (second half, in 32nds at double time)
+              { h: '....1...........', s: '.........2......' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'I',
+            label: 'the first chorus, bars 1-6',
+            written: [
+              // bar 23: eighths on the hat from here
+              {
+                c: '1...............',
+                h: '....1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '1.........1.....',
+              },
+              // bar 24
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 25
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 26
+              { h: '1.1.1.1.1.1.1...', s: '....2.......2...', k: '..1.......1.....' },
+              // bar 27
+              { h: '1...1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 28
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'J',
+            label: 'the first chorus, bars 7-12',
+            written: [
+              // bar 29
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1...1.' },
+              // bar 30
+              { h: '1.1.1.1.1.1.1...', s: '....2.......2...', k: '..1.......1.....' },
+              // bar 31
+              {
+                c: '1...............',
+                h: '....1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '1.........1.....',
+              },
+              // bar 32
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 33
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1...1.' },
+              // bar 34
+              { h: '1.1.1.1.1.1.1...', s: '....2.......2...', k: '..1.......1.....' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'K',
+            label: 'the second verse, bar 4',
+            written: [
+              // bar 38
+              { h: '1...1...1...1...', s: '....2.......2...', k: '1.....1...1.....' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'L',
+            label: 'the second pre-chorus, bars 2-3',
+            written: [
+              // bar 44
+              { c: '..........1.....', s: '......2.2.....2.', k: '..........1.....' },
+              // bar 45
+              {
+                c: '..............2.',
+                h: '4.......1.......',
+                s: '..........2.2...',
+                k: '1.............1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'M',
+            label: 'the second chorus, bars 7-12',
+            written: [
+              // bar 53
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 54
+              { h: '1.1.1.1.1.1.1...', s: '....2.......2...', k: '..1.......1.....' },
+              // bar 55
+              {
+                c: '1...............',
+                h: '....1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '1.........1.....',
+              },
+              // bar 56
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 57
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 58
+              { h: '1.1.1.1.1.1.1...', s: '....2.......2.22', k: '..1.....1.1.....' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'N',
+            label: 'the bridge, in half time, bars 1-5',
+            written: [
+              // bar 59: half time: the snare on 3, the kick on 1 and the "and" of 2
+              {
+                c: '1...............',
+                h: '....1.1.1.1.1.1.',
+                s: '........2.......',
+                k: '1.....1.........',
+              },
+              // bar 60
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.....1.........' },
+              // bar 61
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.....1.........' },
+              // bar 62
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.....1.........' },
+              // bar 63
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.....1.........' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'O',
+            label: 'the third chorus, bars 1-8',
+            written: [
+              // bar 69: into the chorus: the snare on 1, its "and", 2 and on 4 and its "and"
+              { s: '2.2.2.....2.2...' },
+              // bar 70
+              {
+                c: '1...............',
+                h: '....1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '1.........1.....',
+              },
+              // bar 71
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 72
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 73
+              { h: '1.1.1.1.1.1.1...', s: '....2.......2...', k: '1.........1.....' },
+              // bar 74
+              {
+                c: '1...............',
+                h: '....1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '1.........1.....',
+              },
+              // bar 75
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 76
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'P',
+            label: 'the third chorus, bars 9-14',
+            written: [
+              // bar 77
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '..1.......1.....' },
+              // bar 78
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 79
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 80
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 81
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 82
+              {
+                c: '..............1.',
+                h: '1.1.1.1.1.......',
+                s: '....2.....2.2...',
+                k: '1.......1.....1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'Q',
+            label: 'the stop',
+            written: [
+              // bar 83
+              {},
+              // bar 84: back in: the snare and the floor tom
+              { s: '2..........22...', t3: '....1...1.......' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'R',
+            label: 'the solo and the last chorus, bars 1-8',
+            written: [
+              // bar 85
+              {
+                c: '1...............',
+                h: '....1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '1.........1.....',
+              },
+              // bar 86
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 87
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 88
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1...1.....' },
+              // bar 89
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 90
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 91
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1...1.' },
+              // bar 92
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '..1.......1.....' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'S',
+            label: 'the solo and the last chorus, bars 9-16',
+            written: [
+              // bar 93
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 94
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 95
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 96
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 97
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 98
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 99
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' },
+              // bar 100
+              { c: '2...............', k: '1...............' },
+            ],
+            params: {},
+          },
+        ],
+        arrangement: [
+          'A',
+          'B',
+          'C',
+          'C',
+          'D',
+          'E',
+          'B',
+          'C',
+          'C',
+          'C',
+          'C',
+          'C',
+          'C',
+          'C',
+          'F',
+          'G',
+          'H',
+          'I',
+          'J',
+          'B',
+          'C',
+          'C',
+          'K',
+          'C',
+          'C',
+          'C',
+          'K',
+          'F',
+          'L',
+          'H',
+          'I',
+          'M',
+          'N',
+          'N',
+          'O',
+          'P',
+          'Q',
+          'R',
+          'S',
+        ],
+      },
+      {
+        /* All Night Long, Rainbow (Down to Earth, Polydor, July 1979; its single, a UK number 5 in
+           1980), Ritchie Blackmore and Roger Glover's song, with Graham Bonnet singing and Cozy
+           Powell on drums (Wikipedia, the album's and the song's personnel). Songsterr 23667
+           (human: Обиван Киноби's revision 7890876, July 2026, "Fixed All Tracks", over Leonard's
+           of 2009; no revision machine-made), the drum track "Cozy Powell | Drums (Yamaha Recording
+           Custom Drum Kit)": 4/4 at 128, 123 bars, marked Intro, Pre-Verse, Verse, Pre-Chorus,
+           Chorus, Guitar Solo and Fade Out. The record (g2XDORONuuY, the band's channel, 4:00)
+           beat-tracks at 126 to 129, 127.8 over the song, straight, and the tab's bars line up with
+           it bar for bar from the riff to the fade (work/align.py). His part: the riff on the floor
+           tom in eighths over the kick on every beat, the snare on 2 and 4; the verse on a
+           half-open hat in eighths over four on the floor, a crash every other bar; the pre-chorus
+           in half time; the chorus back on the floor tom; snare pickups in sixteenths at the ends
+           of phrases. Straight eighths, not a shuffle. In bar 67 the tab writes the crash, the
+           snare and the floor tom together on 2; the right hand plays the crash, so that one
+           floor-tom note is left out. The record's guitar-only opening, before the band's stabs, is
+           left out, as is the tab's empty first bar. */
+        key: 'all-night-long',
+        title: 'All Night Long',
+        feel: 'Rainbow, 1979: the riff on the floor tom over four on the floor, the hat half-open in the verse (record 128)',
+        weight: 1,
+        params: {
+          kit: 'studioRock',
+          meter: '4/4',
+          bpm: [127, 129],
+          swing: 0,
+          backbeats: [4, 12],
+          ghostBias: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          anticipate: 0,
+          cymbalAccent: false,
+          phraseMark: { crash: false, kick: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the intro',
+            written: [
+              // bar 2: the band's stabs: the snare on the "and" of 1 and on 3, the tom between, a crash on the "and" of 3
+              {
+                c: '..........2.....',
+                s: '..2.....2.......',
+                t2: '....1.1.........',
+                k: '..........1.....',
+              },
+              // bar 3
+              { c: '2...............', k: '1...............' },
+              // bar 4
+              {
+                c: '..........2.....',
+                s: '..2.....2.......',
+                t2: '....1.1.........',
+                k: '..........1.....',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'B',
+            label: 'the riff, on the floor tom, bar 1',
+            written: [
+              // bar 5: the floor tom in eighths over the kick on every beat, the snare on 2 and 4
+              {
+                c: '2...............',
+                s: '....2.......2...',
+                t3: '..1.1.1.1.1.1.1.',
+                k: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'C',
+            label: 'the riff, on the floor tom, bar 2',
+            written: [
+              // bar 6
+              { s: '....2.......2...', t3: '1.1.1.1.1.1.1.1.', k: '1...1...1...1...' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'D',
+            label: 'the riff, on the floor tom, bar 4',
+            written: [
+              // bar 8
+              { s: '....2.......2.22', t3: '1.1.1.1.1.1.1...', k: '1...1...1...1...' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'E',
+            label: 'the first verse, bars 1-6',
+            written: [
+              // bar 13: the hat half-open in eighths over four on the floor
+              {
+                c: '2...............',
+                h: '..3.3.3.3.3.3.3.',
+                s: '....2.......2...',
+                k: '1...1...1...1...',
+              },
+              // bar 14
+              { h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1...1...1...1...' },
+              // bar 15
+              {
+                c: '2...............',
+                h: '..3.3.3.3.3.3.3.',
+                s: '....2.......2...',
+                k: '1...1...1...1...',
+              },
+              // bar 16
+              { h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1...1...1...1...' },
+              // bar 17
+              {
+                c: '2...............',
+                h: '..3.3.3.3.3.3.3.',
+                s: '....2.......2...',
+                k: '1...1...1...1...',
+              },
+              // bar 18
+              { h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1...1...1...1...' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'F',
+            label: 'the first verse, bars 7-10',
+            written: [
+              // bar 19
+              {
+                c: '2...............',
+                h: '..3.3.3.3.3.3.3.',
+                s: '....2.......2...',
+                k: '1...1...1...1...',
+              },
+              // bar 20
+              { h: '3.3.3.3.3.3.3...', s: '....2.......2.22', k: '1...1...1...1...' },
+              // bar 21
+              {
+                c: '2...1...........',
+                h: '..3...3.3.3.3.3.',
+                s: '....2.......2...',
+                k: '1...1...1...1...',
+              },
+              // bar 22
+              { h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1...1...1...1...' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'G',
+            label: 'the first pre-chorus',
+            written: [
+              // bar 29: half time: the snare on 3, the kick on 1 and the "and" of 2
+              {
+                c: '2...............',
+                h: '..1.1.1.1.1.1.1.',
+                s: '........2.......',
+                k: '1.....1.........',
+              },
+              // bar 30
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.1...1.........' },
+              // bar 31
+              { h: '1.1.1.1.3...3...', s: '........2...2...', k: '1.1...1.........' },
+              // bar 32: quarters on the open hat, the kick in eighths
+              {
+                c: '2...............',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.1.1.1.1.1.1.1.',
+              },
+              // bar 33
+              { h: '3...3...3...3...', s: '....2.......2...', k: '1.1.1.1.1.1.1.1.' },
+              // bar 34
+              { h: '3...3...3...3...', s: '....2.......2...', k: '1.1.1.1.1.1.1.1.' },
+              // bar 35
+              { h: '3...3...........', s: '....2...2.2.2222', k: '1.1.1.1.........' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'H',
+            label: 'the first chorus, bars 4-8',
+            written: [
+              // bar 39
+              { s: '....2...2.2.2222', t3: '1.1.1.1.........', k: '1...1...1...1...' },
+              // bar 40
+              {
+                c: '2...............',
+                s: '....2.......2...',
+                t3: '..1.1.1.1.1.1.1.',
+                k: '1...1...1...1...',
+              },
+              // bar 41
+              { s: '....2.......2...', t3: '1.1.1.1.1.1.1.1.', k: '1...1...1...1...' },
+              // bar 42
+              {
+                c: '2...............',
+                s: '....2.......2...',
+                t3: '..1.1.1.1.1.1.1.',
+                k: '1...1...1...1...',
+              },
+              // bar 43
+              { s: '....2.2...2.2.22', t3: '1.1.1...........', k: '1...1...1...1...' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'I',
+            label: 'the second verse, bars 7-13',
+            written: [
+              // bar 50
+              { h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1...1...1...1...' },
+              // bar 51
+              {
+                h: '3.3.3.3.........',
+                s: '....2...2.2.222.',
+                k: '1...1...1...1...',
+                hf: '........1...1...',
+              },
+              // bar 52
+              {
+                c: '2...1...........',
+                h: '..3...3.3.3.3.3.',
+                s: '....2.......2...',
+                k: '1...1...1...1...',
+              },
+              // bar 53
+              { h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1...1...1...1...' },
+              // bar 54
+              {
+                c: '2...............',
+                h: '..3.3.3.3.3.3.3.',
+                s: '....2.......2...',
+                k: '1...1...1...1...',
+              },
+              // bar 55
+              { h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1...1...1...1...' },
+              // bar 56
+              {
+                c: '2...............',
+                h: '..3.3.3.3.3.3.3.',
+                s: '....2.......2...',
+                k: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'J',
+            label: 'the second verse, bars 14-16',
+            written: [
+              // bar 57
+              { h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1...1...1...1...' },
+              // bar 58
+              {
+                c: '2...............',
+                h: '..3.3.3.3.3.3.3.',
+                s: '....2.......2...',
+                k: '1...1...1...1...',
+              },
+              // bar 59
+              {
+                h: '3...............',
+                s: '..2..2..2..22.2.',
+                k: '1...1...1...1...',
+                hf: '....1.1.1.1.1.1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'K',
+            label: 'the second pre-chorus',
+            written: [
+              // bar 60
+              {
+                c: '2...............',
+                h: '..1.1.1.1.1.1.1.',
+                s: '........2.......',
+                k: '1.....1.........',
+              },
+              // bar 61
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.1...1.........' },
+              // bar 62
+              { h: '1.1.1.1.3...3...', s: '........2...2...', k: '1.1...1.........' },
+              // bar 63
+              {
+                c: '2...............',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.1.1.1.1.1.1.1.',
+              },
+              // bar 64
+              { h: '3...3...3...3...', s: '....2.......2...', k: '1.1.1.1.1.1.1.1.' },
+              // bar 65
+              { h: '3...3...3...3...', s: '....2.......2...', k: '1.1.1.1.1.1.1.1.' },
+              // bar 66
+              { c: '..1...1...1...1.', s: '22..22..22..22..', k: '..1...1...1...1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'L',
+            label: 'the second chorus, bar 1',
+            written: [
+              // bar 67: the crash on 2 with the snare: the right hand leaves the floor tom for it, so the tab's tom note there goes
+              {
+                c: '2...1...........',
+                s: '....2.......2...',
+                t3: '..1...1.1.1.1.1.',
+                k: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'M',
+            label: 'the solo, bars 1-2',
+            written: [
+              // bar 75
+              {
+                c: '2...............',
+                h: '..1.1.1.1.1.1.1.',
+                s: '........2.......',
+                k: '1.....1.........',
+              },
+              // bar 76
+              { h: '1.1.1.1.1.1.3...', s: '........2...2...', k: '1.1...1.........' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'N',
+            label: 'the solo, bars 3-10',
+            written: [
+              // bar 77
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.1...1.........' },
+              // bar 78
+              { h: '1.1.1.1.1.1.3...', s: '........2...2.22', k: '1.1...1.........' },
+              // bar 79
+              {
+                c: '2...............',
+                h: '..1.1.1.1.1.1.1.',
+                s: '........2.......',
+                k: '1.....1.........',
+              },
+              // bar 80
+              { h: '1.1.1.1.1.1.....', s: '........2...2.22', k: '1.1...1.........' },
+              // bar 81
+              {
+                c: '2...............',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.1.1.1.1.1.1...',
+              },
+              // bar 82
+              { h: '3...3...3...3...', s: '....2.......2...', k: '1.1.1...1.1.1...' },
+              // bar 83
+              { h: '3...3...3...3...', s: '....2.......2...', k: '1.1.1.1.1.1.1.1.' },
+              // bar 84
+              { h: '3...3...3...3...', s: '....2...2...2.22', k: '1.1...1...1.....' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'O',
+            label: 'the third verse, bars 7-8',
+            written: [
+              // bar 91
+              {
+                c: '2...............',
+                h: '..3.3.3.3.3.3.3.',
+                s: '....2.......2...',
+                k: '1...1...1...1...',
+              },
+              // bar 92: a bar of snare over the hat foot in eighths
+              { s: '..2..22.2.2.222.', k: '1...1...1...1...', hf: '1.1.1.1.1...1.1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'P',
+            label: 'the third verse, bars 15-16',
+            written: [
+              // bar 99
+              {
+                c: '2...............',
+                h: '..3.3.3.3.3.3.3.',
+                s: '....2.......2...',
+                k: '1...1...1...1...',
+              },
+              // bar 100
+              { s: '..2.2.222.2.2222', k: '1...1...1...1...', hf: '1.1.1.1.1.1.1.1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'Q',
+            label: 'the last chorus, to the fade, bar 4',
+            written: [
+              // bar 111
+              { s: '....2.....2.2222', t3: '1.1.1.1.1.......', k: '1...1...1...1...' },
+            ],
+            params: {},
+          },
+        ],
+        arrangement: [
+          'A',
+          'B',
+          'C',
+          'C',
+          'D',
+          'B',
+          'C',
+          'C',
+          'C',
+          'E',
+          'F',
+          'E',
+          'G',
+          'B',
+          'C',
+          'B',
+          'H',
+          'E',
+          'I',
+          'J',
+          'K',
+          'L',
+          'C',
+          'B',
+          'D',
+          'B',
+          'D',
+          'B',
+          'C',
+          'M',
+          'N',
+          'E',
+          'O',
+          'E',
+          'P',
+          'G',
+          'B',
+          'C',
+          'B',
+          'Q',
+          'B',
+          'C',
+          'B',
+          'D',
+          'B',
+          'C',
+          'B',
+          'C',
+          'B',
+          'C',
+          'B',
+          'C',
+        ],
+      },
+      {
+        /* Love Ain't No Stranger, Whitesnake (Slide It In, Liberty, January 1984; its US remix,
+           Geffen, April 1984; a single), David Coverdale and Mel Galley's song, cut at Musicland in
+           Munich with Cozy Powell on drums, who told Coverdale it was "the best track he'd ever
+           played drums on" (Wikipedia, the song's article, from the album's 25th-anniversary
+           booklet). His drum tracks are the same on both mixes, only clearer on the US one (the
+           album's article). Songsterr 22081 (human: Jimmy's revision 8944864, September 2026,
+           "added better drums", over Matt Scurfield's "Adjusted Grooves and Fills" of May 2026 and
+           ruvik's of 2009; no revision machine-made), the drum track "Cozy Powell | Yamaha 9000
+           Recording Series Drumkit": 4/4 at 112 for the ballad opening and the bridge and 124 for
+           the rest, 132 bars, three of them 2/4 or 6/4. The record (dlk-nHIO6xU, the band's
+           channel, 4:14; checked on a second upload, 1jwOjgCTagI) beat-tracks at 126 through the
+           rock part: 57 bars from the first crash to the bridge's in 108.6 s. The bridge, where
+           the drums sit out, takes 14.6 s for its 7 bars: about 115 (the tab says 112), so it
+           plays at 115/126 of the song. The tab's bars line up with the record from the band's
+           entry to the last stop (work/align.py). His part: the hat open in quarters over the
+           kick on the "and"s, a crash every other bar, the snare cracking on 2 and 4; the third
+           verse and the last chorus on the ride; the band's stops in the riff. The 23 bars of
+           the ballad opening, the voice and the keyboards without drums, are left out, as are
+           the 8 of the keyboard ending; the song starts on his pickup. */
+        key: 'love-aint-no-stranger',
+        title: "Love Ain't No Stranger",
+        feel: 'Whitesnake, 1984: the open hat in quarters over the kick on the "and"s, a crash every other bar (record 126)',
+        weight: 1.2,
+        params: {
+          kit: 'studioRock',
+          meter: '4/4',
+          bpm: [125, 127],
+          swing: 0,
+          backbeats: [4, 12],
+          ghostBias: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          anticipate: 0,
+          cymbalAccent: false,
+          phraseMark: { crash: false, kick: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the main riff, bar 1',
+            written: [
+              // bar 24: the snare's pickup on 4: the band in after the ballad verse
+              { s: '............3...' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'B',
+            label: 'the main riff, bars 2-4',
+            written: [
+              // bar 25: a crash on 1, the hat in eighths, the kick on 1 and the "and" of 3
+              {
+                c: '2...............',
+                h: '....1...1.1.1.1.',
+                s: '....2.......2...',
+                k: '1.........1.....',
+              },
+              // bar 26
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2..2', k: '1.1...1...1.....' },
+              // bar 27
+              {
+                c: '1.............1.',
+                h: '....1.1.1.3.1...',
+                s: '....2.......2...',
+                k: '1.1.......1...1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'C',
+            label: 'the main riff, bar 5',
+            written: [
+              // bar 28: a bar of 2/4
+              { c: '......1.', h: '..3.1...', s: '....2...', k: '..1...1.' },
+            ],
+            params: {
+              meter: '2/4',
+              backbeats: [4],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the main riff, bars 6-7',
+            written: [
+              // bar 29: the hat on 2 and 4 alone
+              { h: '....1.......1...' },
+              // bar 30: the band's stops: the snare on 1 and 4, two sixteenths on each tom
+              {
+                s: '2...........2...',
+                t2: '...11...........',
+                t3: '.......11.......',
+                k: '..........1.....',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'E',
+            label: 'the second verse',
+            written: [
+              // bar 31
+              {
+                c: '1...............',
+                h: '....1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '1.....1...1.....',
+              },
+              // bar 32
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '..1.......1.....' },
+              // bar 33
+              {
+                c: '1.......1.......',
+                h: '....3.1.....3...',
+                s: '....2.......2...',
+                k: '1.......1.......',
+              },
+              // bar 34
+              {
+                c: '1...............',
+                h: '....3.1.3.1.3.1.',
+                s: '....2.......2...',
+                k: '1.....1...1.....',
+              },
+              // bar 35: quarters on the open hat
+              { h: '3...3...3...3...', s: '....2.......2...', k: '1.1...1...1.....' },
+              // bar 36
+              {
+                h: '3...3...3.3.3...',
+                s: '....2.......2...',
+                k: '..1...1...1.....',
+                hf: '..............1.',
+              },
+              // bar 37
+              {
+                c: '1.......1.......',
+                h: '....3.......3...',
+                s: '....2.......2...',
+                k: '1.......1.......',
+              },
+              // bar 38
+              {
+                c: '1...............',
+                h: '....3...3...3...',
+                s: '....2.......2.22',
+                k: '1.1...1...1.....',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'F',
+            label: 'the first chorus',
+            written: [
+              // bar 39
+              {
+                c: '1.............1.',
+                h: '....3...3.3.....',
+                s: '....2.......2...',
+                k: '1.1.....1.1...1.',
+                hf: '............1...',
+              },
+              // bar 40
+              { h: '3...3...3...3...', s: '....2.......2...', k: '..1.......1.....' },
+              // bar 41
+              {
+                c: '1...............',
+                h: '....3...3.3.3.3.',
+                s: '....2.......2...',
+                k: '1.........1...1.',
+              },
+              // bar 42
+              { h: '3.3.3...3...3...', s: '....2.......2...', k: '..1.......1.....' },
+              // bar 43
+              {
+                c: '1...............',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.........1...1.',
+              },
+              // bar 44
+              { h: '3...3...3...3...', s: '....2.......2...', k: '..1.......1.....' },
+              // bar 45
+              {
+                c: '1...............',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.........1...1.',
+              },
+              // bar 46
+              { h: '3...3...3...3...', s: '....2.......2...', k: '..1.......1.....' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'G',
+            label: 'after the chorus, bars 1-3',
+            written: [
+              // bar 47
+              {
+                c: '1...............',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.....1...1.....',
+              },
+              // bar 48
+              { h: '3...3...3...3...', s: '....2.......2...', k: '..1...1...1.....' },
+              // bar 49
+              {
+                c: '..............1.',
+                h: '3...3...3...3...',
+                s: '....2.......2...',
+                k: '..1...1...1...1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'H',
+            label: 'after the chorus, bar 4',
+            written: [
+              // bar 50: a bar of 6/4
+              {
+                c: '......1.................',
+                h: '..3.....................',
+                s: '....2...............2...',
+                k: '..1...1.................',
+              },
+            ],
+            params: {
+              meter: '6/4',
+              backbeats: [4, 12, 20],
+            },
+          },
+          {
+            letter: 'I',
+            label: 'the third verse',
+            written: [
+              // bar 51
+              {
+                c: '1...............',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.........1.....',
+              },
+              // bar 52
+              { h: '3...3...3...3...', s: '....2.......2...', k: '..1.......1.....' },
+              // bar 53
+              {
+                c: '1.......1.......',
+                h: '....3.......3...',
+                s: '....2.......2...',
+                k: '1.......1.......',
+              },
+              // bar 54: the ride on the beat
+              {
+                c: '1...............',
+                r: '....1...1...1...',
+                s: '....2.......2..2',
+                k: '1.....1...1.....',
+              },
+              // bar 55
+              {
+                c: '1...............',
+                r: '....1...1...1...',
+                s: '....2.......2...',
+                k: '1.1...1...1.....',
+              },
+              // bar 56
+              { r: '1...1...1...1...', s: '....2.......2...', k: '..1...1...1.....' },
+              // bar 57
+              {
+                c: '1.......1.......',
+                r: '....1.......1...',
+                s: '....2.......2...',
+                k: '1.......1.......',
+              },
+              // bar 58
+              {
+                c: '1...............',
+                r: '....1...1...1...',
+                s: '....2.......2..2',
+                k: '1.....1...1.....',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'J',
+            label: 'the second chorus',
+            written: [
+              // bar 59
+              {
+                c: '1.............1.',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.1.......1...1.',
+              },
+              // bar 60
+              { h: '....3...3...3...', s: '....2.......2...', k: '..1.......1.....' },
+              // bar 61
+              {
+                c: '1...............',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.........1...1.',
+              },
+              // bar 62
+              { h: '3...3...3...3...', s: '....2.......2...', k: '..1.......1.....' },
+              // bar 63
+              {
+                c: '1...............',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.........1...1.',
+              },
+              // bar 64
+              { r: '1...1...1...1...', s: '....2.......2...', k: '..1.......1.....' },
+              // bar 65
+              {
+                c: '1...............',
+                r: '....1...1...1...',
+                s: '....2.......2...',
+                k: '1.....1...1.....',
+              },
+              // bar 66
+              { r: '1...1...1.......', s: '....2.......2...', k: '..1.......1.....' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'K',
+            label: 'the solo, bars 1-5',
+            written: [
+              // bar 67
+              {
+                c: '1...............',
+                r: '....1...1...1...',
+                s: '............2...',
+                k: '1.....1...1.....',
+              },
+              // bar 68
+              { r: '1...1...1...1...', s: '....2.......2...', k: '1.....1...1.....' },
+              // bar 69
+              { r: '1...1...1...1...', s: '....2.......2...', k: '1.1...1...1.....' },
+              // bar 70
+              { r: '1...1...1...1...', s: '....2.......2...', k: '1.....1...1.....' },
+              // bar 71
+              {
+                c: '1...............',
+                r: '....1...1...1...',
+                s: '....2.......2...',
+                k: '1.....1...1.....',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'L',
+            label: 'the solo, bars 6-9',
+            written: [
+              // bar 72
+              { r: '1...1...1...1...', s: '....2.......2...', k: '1.....1...1.....' },
+              // bar 73
+              { r: '1...1...1...1...', s: '....2.......2...', k: '..1...1...1.....' },
+              // bar 74
+              { r: '1...1...1...1...', s: '....2.......2...', k: '1.....1...1.....' },
+              // bar 75
+              {
+                c: '1...............',
+                r: '....1...1...1...',
+                s: '....2.......2...',
+                k: '1.....1...1.....',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'M',
+            label: 'the solo, bars 14-17',
+            written: [
+              // bar 80
+              { r: '1...1...1...1...', s: '....2.......2...', k: '1.....1...1.....' },
+              // bar 81
+              { c: '..1...1.......1.', s: '2...............', k: '..1...1.......1.' },
+              // bar 82
+              { c: '1...............', k: '1...............' },
+              // bar 83
+              { h: '....1...........' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'N',
+            label: 'the bridge, without drums',
+            tempoRatio: 0.9126984126984127,
+            written: [
+              // bar 84: the ballad again, slower (about 115), the drums out
+              {},
+              // bar 85
+              {},
+              // bar 86
+              {},
+              // bar 87
+              {},
+              // bar 88
+              {},
+              // bar 89
+              {},
+              // bar 90
+              {},
+            ],
+            params: {},
+          },
+          {
+            letter: 'O',
+            label: 'the main riff again, bars 2-9',
+            written: [
+              // bar 92
+              {
+                c: '1...........1...',
+                h: '....1.1.1.1.....',
+                s: '....2.......2...',
+                k: '1.....1....1....',
+              },
+              // bar 93
+              {
+                c: '............1...',
+                h: '3...3...3.......',
+                s: '....2.......2...',
+                k: '..1...1...11....',
+              },
+              // bar 94
+              {
+                c: '..............1.',
+                h: '3...3...3...3...',
+                s: '....2.......2...',
+                k: '..1...1...1...1.',
+              },
+              // bar 95
+              {
+                c: '......1.........',
+                h: '....3.......3...',
+                s: '....2.......2...',
+                k: '..1...1...1.....',
+              },
+              // bar 96
+              {
+                c: '1...........1...',
+                h: '....3...3.......',
+                s: '....2.......2...',
+                k: '1.....1...11....',
+              },
+              // bar 97
+              {
+                c: '............1...',
+                h: '3...3...3.......',
+                s: '....2.......2...',
+                k: '..1...1...11....',
+              },
+              // bar 98
+              {
+                c: '..............1.',
+                h: '3...3...3...3...',
+                s: '....2.......2...',
+                k: '..1...1...1...1.',
+              },
+              // bar 99
+              { c: '..........1.1.1.', s: '........2.......', k: '..........1.1.1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'P',
+            label: 'the main riff again, bar 10',
+            written: [
+              // bar 100: a bar of 2/4, the snare on 2 and its "and"
+              { s: '....2.22' },
+            ],
+            params: {
+              meter: '2/4',
+              backbeats: [4],
+            },
+          },
+          {
+            letter: 'Q',
+            label: 'the fourth verse',
+            written: [
+              // bar 101
+              {
+                c: '1...............',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.........1.....',
+              },
+              // bar 102
+              {
+                c: '1...............',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.........1.....',
+              },
+              // bar 103
+              {
+                c: '1.......1.......',
+                r: '....1.......1...',
+                s: '....2.......2...',
+                k: '1.......1.......',
+              },
+              // bar 104
+              {
+                c: '1...............',
+                r: '....1...1...1...',
+                s: '....2.......2...',
+                k: '1.1...1...1.....',
+              },
+              // bar 105
+              {
+                c: '1...............',
+                r: '....1...1...1...',
+                s: '....2.......2...',
+                k: '1.1...1...1.....',
+              },
+              // bar 106
+              {
+                c: '1...............',
+                r: '....1...1...1...',
+                s: '....2.......2...',
+                k: '1.1...1...1.....',
+              },
+              // bar 107
+              {
+                c: '1.......1.......',
+                r: '....1.......1...',
+                s: '....2.......2...',
+                k: '1.......1.......',
+              },
+              // bar 108
+              {
+                c: '1...............',
+                h: '....3...3...3...',
+                s: '....2.......2.22',
+                k: '1.1...1...1.....',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'R',
+            label: 'the last chorus',
+            written: [
+              // bar 109
+              {
+                c: '1.............1.',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.1.....1.1...1.',
+              },
+              // bar 110
+              { h: '....3...3...3...', s: '....2.......2...', k: '..1.......1.....' },
+              // bar 111
+              {
+                c: '1...............',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.........1...1.',
+              },
+              // bar 112
+              { h: '3...3...3...3...', s: '....2.......2...', k: '..1.......1.....' },
+              // bar 113
+              {
+                c: '1.............1.',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.........1...1.',
+              },
+              // bar 114
+              { h: '....3...3...3...', s: '....2.......2..2', k: '..1.......1.....' },
+              // bar 115
+              {
+                c: '1.............1.',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.1.......1...1.',
+              },
+              // bar 116
+              { h: '....3...........', s: '....2...2.2.2222', k: '..1.............' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'S',
+            label: 'the outro',
+            written: [
+              // bar 117
+              {
+                c: '1...............',
+                h: '....3...3...3...',
+                s: '....2.......2...',
+                k: '1.....1...1.....',
+              },
+              // bar 118
+              { r: '1...1...1...1...', s: '....2.......2...', k: '1.....1...1.....' },
+              // bar 119
+              { r: '1...1...1...1...', s: '....2.......2...', k: '..1...1...1.....' },
+              // bar 120
+              { r: '1...1...1...1...', s: '....2.......2...', k: '1.....1...1.....' },
+              // bar 121
+              {
+                c: '1...............',
+                r: '....1...1...1...',
+                s: '....2.......2...',
+                k: '1.....1...1.....',
+              },
+              // bar 122
+              { r: '1...1...1...1...', s: '....2.......2...', k: '1.....1...1.....' },
+              // bar 123: the stops: the crash and the kick on the "and" of 1 and 2, and the "and" of 4
+              { c: '..1...1.......1.', s: '2...............', k: '..1...1.......1.' },
+              // bar 124
+              { c: '..1...1.1.......', k: '..1...1.1.......' },
+            ],
+            params: {},
+          },
+        ],
+        arrangement: [
+          'A',
+          'B',
+          'C',
+          'D',
+          'E',
+          'F',
+          'G',
+          'H',
+          'I',
+          'J',
+          'K',
+          'L',
+          'L',
+          'M',
+          'N',
+          'A',
+          'O',
+          'P',
+          'Q',
+          'R',
+          'S',
+        ],
+      },
+    ],
+  },
+  stevesmith: {
+    label: 'Steve Smith',
+    drummer: true,
+    bands: ['Journey', 'Jean-Luc Ponty', 'Vital Information', 'Steps Ahead'],
+    hint: "The fusion drummer who played Journey's arena rock, 1978-85, and led Vital Information from 1983: a Berklee player under Alan Dawson and Gary Chaffee who brought what he called an R&B groove to rock, the kick pushed off the \"and\"s, the toms answering the backbeat, the hat foot keeping time under the ride. Each New plays one of his records, intro to outro: Mirage (Jean-Luc Ponty, 1977), half time at 189 over the hat foot; Lovin', Touchin', Squeezin' (1979), a slow 12/8; Any Way You Want It (1980); Don't Stop Believin' and Who's Crying Now (1981); Faithfully (1983). The stage names the song. The bars follow human Songsterr tabs, laid against the records. Approximations, not the records.",
+    toms: true,
+    /* No samples of his own kits are free to use. Studio rock: Big Rusty's damped kick under
+       the DRS kit's even snare and Crocell's cymbals, for the Sonor Phonic kit in natural oak he
+       recorded Departure, Escape and Frontiers on, two 24" bass drums and four toms (Donn
+       Bennett Drum Studio, the kit's sale, with Smith's notes) */
+    kit: 'studioRock',
+    hats: 8,
+    // "I love to hear drummers with a nice touch that are able to draw a beautiful sound from the instrument" (Jazz Weekly, 2018): an arena drummer who plays with control
+    weight: 0.7,
+    bpm: [116, 140],
+    swing: 0,
+    // the tabs write no ghost notes but one: the snare on the "a" of 2 in Any Way You Want It's chorus
+    ghostBias: 0,
+    ghostWeights: {},
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 9,
+    hatDepth: 0.7,
+    forceKick: [0],
+    // two bass drums with Journey: "two 24" bass drums" (Donn Bennett Drum Studio); Ponty "asked me to buy a big double-bass drum set" (Jazz Weekly, 2018)
+    doubleKick: true,
+    // a crash on the "and" of 4 into the next bar, or on the section's 1
+    phraseMark: { crash: 0.6 },
+    fillChance: 0.5,
+    midFills: 0.1,
+    kick1: [
+      ['1000', 6],
+      ['0010', 2],
+    ],
+    kick: [
+      ['1010', 3],
+      ['0010', 2],
+      ['1000', 2],
+      ['1111', 1],
+    ],
+    /* His bars, from the songs below: Don't Stop Believin's four on the floor with the snare on
+       2 alone and the toms on 3 and 4; Any Way You Want It's kick and hat pushed off the "and"s,
+       on the hat in the verse and the ride in the chorus; Who's Crying Now's kick on the "and" of
+       2; Faithfully's ride in quarters and its eighths; Mirage's half time over the hat foot. */
+    figures: [
+      // Don't Stop Believin', the chorus: four on the floor, the snare on 2, the rack tom on the "and" of 3 and the floor tom on the "and" of 4
+      [
+        {
+          h: '1.1.1.1.1.1.1.1.',
+          s: '....2...........',
+          t1: '..........1.....',
+          t3: '..............1.',
+          k: '1...1...1...1...',
+        },
+        2,
+      ],
+      // Any Way You Want It, the verse: the hat off the "and" of 1, the kick on the "and" of 1, 2, 3 and the "and" of 4, the hat open on the "and" of 4
+      [
+        {
+          h: '..1.1.1.1.1.1.3.',
+          s: '....2.......2...',
+          k: '..1.1...1...1.1.',
+          hf: '1...............',
+        },
+        2,
+      ],
+      // Any Way You Want It, the chorus: the ride in eighths, the hat foot in quarters
+      [
+        {
+          r: '1.1.1.1.1.1.1.1.',
+          s: '....2.......2...',
+          k: '..1.1...1...1.1.',
+          hf: '1...1...1...1...',
+        },
+        1.5,
+      ],
+      // Who's Crying Now, the chorus: eighths on the hat, the kick on the "and" of 2, 3 and the "and" of 4
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '......1.1.....1.' }, 1.2],
+      // Faithfully, the pre-chorus: eighths on the ride, the kick on 1 and 3
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 1],
+      // Faithfully, the second verse: the ride in quarters, the kick on 1, a cross-stick on 4
+      [{ r: '1...1...1...1...', s: '............4...', k: '1...............' }, 0.6],
+      // Mirage: half time, the hat foot in eighths, the snare on 3, the kick on 1 and the "a" of 4
+      [{ s: '........2.......', k: '1.............1.', hf: '1.1.1.1.1.1.1.1.' }, 0.8],
+    ],
+    fills: [
+      // Any Way You Want It bar 6, from 2: the snare, four sixteenths on the rack tom, the floor tom, the hat open on the "and" of 4
+      [
+        {
+          h: '..............3.',
+          s: '..2.2...........',
+          t1: '........1111....',
+          t2: '............1...',
+          k: '......1.......1.',
+        },
+        1.2,
+      ],
+      // Don't Stop Believin' bar 39: the snare, the floor tom and the kick together in eighths
+      [{ s: '2.2.2.2.2.2.2.2.', t3: '1.1.1.1.1.1.1.1.', k: '1.1.1.1.1.1.1.1.' }, 1],
+      // Mirage bar 200: the snare, then down the toms in eighths
+      [{ s: '2.2.............', t2: '....1.1.........', t3: '........1.1.1.1.' }, 1],
+      // Any Way You Want It bar 5: the snare and rack tom together, a crash on the "and" of 4
+      [
+        {
+          c: '..............1.',
+          s: '..2.2...2.....2.',
+          t1: '..1.1...1.......',
+          t2: '............1...',
+          k: '......1...1...1.',
+        },
+        0.8,
+      ],
+    ],
+    /* His records by date: Mirage (Jean-Luc Ponty, Enigmatic Ocean, 1977); Lovin', Touchin',
+       Squeezin' (Journey, Evolution, 1979); Any Way You Want It (Departure, 1980); Don't Stop
+       Believin' and Who's Crying Now (Escape, 1981); Faithfully (Frontiers, 1983). Each follows a
+       human Songsterr tab, its bars in the record's order from the drums' entry, laid against the
+       record bar by bar, at the record's tempo; a bar the tab writes in 32nds as two bars of
+       sixteenths at double time. Left out because no song of 26 parts can play them as written:
+       Separate Ways (Frontiers, 1983), whose tab holds 113 distinct bars, eight of them in
+       sextuplets, and needs 30 parts at best; and Stone in Love (Escape, 1981), whose outro puts a
+       bar of 2/4 after every five of 4/4 and needs 28. Escape's and Send Her My Love's tabs do not
+       line up with their records, and no human tab of a Vital Information or Steps Ahead tune he
+       plays on exists. See planning/drumming-research.md, section EI. */
+    songs: [
+      {
+        /* Mirage, Jean-Luc Ponty (Enigmatic Ocean, Atlantic, 1977; number 1 on Billboard's jazz
+           albums chart), Ponty's tune, with Allan Holdsworth and Daryl Stuermer on guitars, Allan
+           Zavod on keyboards, Ralphe Armstrong on bass and Steve Smith on drums; the solos are
+           Ponty's violin and Zavod's synthesizer (Wikipedia, the album's personnel and solo
+           credits). Smith: "My gateway into fusion was by Jean-Luc Ponty ... He was the one who
+           asked me to buy a big double-bass drum set" (Jazz Weekly, 2018). Songsterr 2172363
+           (human: Gyres's one revision, 2886245, August 2025, not machine-made), 4/4 at 185 and
+           180 from bar 201, 231 bars, no markers. The record (7UIrXIqQ1nQ, Ponty's channel, 4:54)
+           beat-tracks at 186.8 and runs faster than the tab: 230 bars from the drums' first bar
+           to the last in 292 s, about 189, which is the tempo here. The tab's bars line up with it
+           bar for bar from the drums' entry (41 s) to bar 97 and from bar 200 to the end; between
+           them, where the solos fill the mix, the onset match loses its place, but the half-time
+           groove of bars 132-142 sits where the tab puts it (166-180 s) and the two ends meet at
+           one bar to each bar (work/align.py). His part: half time at 189, the hat foot in
+           eighths, the snare on 3 and the kick on 1 and the "a" of 4, the hat opened on the "and"
+           of 3; the solos on the hat in eighths with the snare in eighths on 3; the hat foot in
+           quarters; down the toms into the band's last hit. The 31 bars before the drums come in
+           and the 21 after the hat foot stops are left out. */
+        key: 'mirage',
+        title: 'Mirage',
+        feel: 'Jean-Luc Ponty, 1977: half time at 189, the hat foot in eighths, the snare on 3 (record 189)',
+        weight: 1.1,
+        params: {
+          kit: 'drs',
+          meter: '4/4',
+          bpm: [188, 190],
+          swing: 0,
+          backbeats: [4, 12],
+          ghostBias: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          anticipate: 0,
+          cymbalAccent: false,
+          phraseMark: { crash: false, kick: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the drums in',
+            written: [
+              // bar 32: the pickup on the toms
+              { t2: '......1.1...1...', t3: '..............1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'B',
+            label: 'the theme, in half time, bar 1',
+            written: [
+              // bar 33: the hat foot in eighths, the kick on 1 and the "a" of 4, the snare on 3: half time
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.............1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'C',
+            label: 'the theme, in half time, bar 2',
+            written: [
+              // bar 34: the hat opened on the "and" of 3, the snare on the "and" of 2 and on 3
+              { h: '1.1.1.1.1.1.3...', s: '......2.2.......' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'D',
+            label: 'the theme, in half time, bars 4-11',
+            written: [
+              // bar 36
+              {
+                h: '............3...',
+                s: '........2.2.....',
+                k: '1...............',
+                hf: '1.1.1.1.1.1...1.',
+              },
+              // bar 37
+              { s: '........2.......', k: '1.............1.', hf: '1.1.1.1.1.1.1.1.' },
+              // bar 38
+              { h: '..........3.....', s: '......2.2.......', hf: '1.1.1.1.1...1.1.' },
+              // bar 39
+              { s: '........2.......', k: '1.............1.', hf: '1.1.1.1.1.1.1.1.' },
+              // bar 40
+              { h: '..........3.....', s: '......2.2.......', hf: '1.1.1.1.1...1.1.' },
+              // bar 41
+              { s: '........2.......', k: '1.............1.', hf: '1.1.1.1.1.1.1.1.' },
+              // bar 42
+              { h: '..........3.....', s: '......2.2.......', hf: '1.1.1.1.1...1.1.' },
+              // bar 43
+              { s: '........2.......', k: '1.............1.', hf: '1.1.1.1.1.1.1.1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'E',
+            label: 'the theme, in half time, bars 12-19',
+            written: [
+              // bar 44
+              {
+                h: '............3...',
+                s: '........2.2.....',
+                k: '1...............',
+                hf: '1.1.1.1.1.1...1.',
+              },
+              // bar 45
+              { s: '........2.......', k: '1.............1.', hf: '1.1.1.1.1.1.1.1.' },
+              // bar 46
+              {
+                h: '..........3.....',
+                s: '......2.2.......',
+                k: '1...............',
+                hf: '1.1.1.1.1...1.1.',
+              },
+              // bar 47
+              { s: '........2.......', k: '1.............1.', hf: '1.1.1.1.1.1.1.1.' },
+              // bar 48
+              {
+                h: '..........3.....',
+                s: '......2.2.......',
+                k: '1...............',
+                hf: '1.1.1.1.1...1.1.',
+              },
+              // bar 49
+              { s: '........2.......', k: '1.............1.', hf: '1.1.1.1.1.1.1.1.' },
+              // bar 50
+              {
+                h: '..........3.....',
+                s: '......2.2.......',
+                k: '1...............',
+                hf: '1.1.1.1.1...1.1.',
+              },
+              // bar 51
+              { s: '........2.......', k: '1.............1.', hf: '1.1.1.1.1.1.1.1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'F',
+            label: 'the theme, in half time, bars 28-35',
+            written: [
+              // bar 60
+              { s: '........2.2.....', k: '1...............', hf: '1.1.1.1.1.1.1.1.' },
+              // bar 61
+              { s: '........2.......', k: '1.............1.', hf: '1.1.1.1.1.1.1.1.' },
+              // bar 62
+              { s: '......2.2.......', k: '1...............', hf: '1.1.1.1.1.1.1.1.' },
+              // bar 63
+              { s: '........2.......', k: '1.............1.', hf: '1.1.1.1.1.1.1.1.' },
+              // bar 64
+              { s: '......2.2.......', k: '1...............', hf: '1.1.1.1.1.1.1.1.' },
+              // bar 65
+              { s: '........2.......', k: '1.............1.', hf: '1.1.1.1.1.1.1.1.' },
+              // bar 66
+              { s: '......2.2.......', k: '1...............', hf: '1.1.1.1.1.1.1.1.' },
+              // bar 67
+              { s: '........2.......', k: '1.............1.', hf: '1.1.1.1.1.1.1.1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'G',
+            label: 'the theme, in half time, bar 36',
+            written: [
+              // bar 68
+              { h: '1.1.1.1.1.1.3...', s: '......2.2.......', k: '1...............' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'H',
+            label: 'the theme, in half time, bars 60-64',
+            written: [
+              // bar 92
+              { h: '1.1.1.1.1.1.1.3.', s: '........2.2.....', k: '1...............' },
+              // bar 93
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.............1.' },
+              // bar 94
+              { h: '1.1.1.1.1.1.3...', s: '......2.2.......' },
+              // bar 95
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.............1.' },
+              // bar 96
+              { h: '1.1.1.1.1.1.1.1.', s: '....2...2.2.2.2.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'I',
+            label: 'the theme, in half time, bars 68-72',
+            written: [
+              // bar 100
+              { h: '1.1.1.1.1.1.3...', s: '........2.2.....', k: '1...............' },
+              // bar 101
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.............1.' },
+              // bar 102
+              { h: '1.1.1.1.1.1.3...', s: '......2.2.......' },
+              // bar 103
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.............1.' },
+              // bar 104
+              { h: '1.3.............', s: '....2.2.2.2.2.2.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'J',
+            label: 'the violin and synthesizer solos, bars 1-3',
+            written: [
+              // bar 105: a crash on 1, the hat in eighths, the snare in eighths on 3
+              {
+                c: '1.............1.',
+                h: '....1.1.1.1.1...',
+                s: '........2.2.2...',
+                k: '1.............1.',
+              },
+              // bar 106
+              { h: '..1.1.1.1.1.1.3.', s: '......2.2.2.2...' },
+              // bar 107
+              {
+                c: '1...............',
+                h: '....1.1.1.1.1.1.',
+                s: '........2.......',
+                k: '1...1.........1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'K',
+            label: 'the violin and synthesizer solos, bars 4-11',
+            written: [
+              // bar 108
+              {
+                h: '1.1.1.1.1.1.1.1.',
+                s: '......2.2.2.2...',
+                t2: '..............1.',
+                k: '1...............',
+              },
+              // bar 109
+              {
+                c: '..............1.',
+                h: '1.1.1.1.1.1.1...',
+                s: '........2.2.2...',
+                k: '1.............1.',
+              },
+              // bar 110
+              { h: '..........3.3...', s: '..2.2.2.2.......' },
+              // bar 111
+              {
+                h: '1.1.1.1.1.1.1.1.',
+                s: '........2.2.....',
+                t2: '............1.1.',
+                k: '1...............',
+              },
+              // bar 112
+              {
+                c: '..............1.',
+                h: '..3...3...3.....',
+                s: '2...............',
+                k: '..1...1...1...1.',
+                hf: '....1...1...1...',
+              },
+              // bar 113
+              {
+                c: '1.............1.',
+                h: '..1.1.1.1.1.1...',
+                s: '........2.2.2...',
+                k: '1.............1.',
+              },
+              // bar 114
+              { h: '..1.1.1.1.1.3...', s: '......2.2.......' },
+              // bar 115
+              {
+                c: '..............1.',
+                h: '1.1.1.1.1.1.1...',
+                s: '........2.......',
+                k: '1.............1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'L',
+            label: 'the violin and synthesizer solos, bars 12-19',
+            written: [
+              // bar 116
+              { h: '1.1.1.1.1.1.1.1.', s: '..........2.2.2.', k: '1.....1.........' },
+              // bar 117
+              {
+                c: '1...............',
+                h: '....1.1.1.1.1.1.',
+                s: '..........2.2.2.',
+                k: '1...............',
+              },
+              // bar 118
+              {
+                c: '1...............',
+                h: '....1.1.1.1.1.3.',
+                s: '........2.2.....',
+                k: '1...............',
+              },
+              // bar 119
+              {
+                h: '1.1.1.1.1.1.1.1.',
+                s: '........2.2.....',
+                t2: '............1.1.',
+                k: '1...............',
+              },
+              // bar 120
+              {
+                h: '1.3...3...3.....',
+                s: '2...............',
+                k: '..1...1...1...1.',
+                hf: '....1...1...1...',
+              },
+              // bar 121
+              {
+                c: '1.............1.',
+                h: '....1.1.1.1.1...',
+                s: '........2.2.2...',
+                k: '1.............1.',
+              },
+              // bar 122
+              { h: '....1.1.1.1.3...', s: '......2.2.......' },
+              // bar 123
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.............1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'M',
+            label: 'the violin and synthesizer solos, bars 20-27',
+            written: [
+              // bar 124
+              {
+                h: '1.1.1.1.1.......',
+                s: '............2.2.',
+                t2: '..........1.....',
+                k: '1.....1...1.....',
+              },
+              // bar 125
+              {
+                c: '1...............',
+                h: '....1.1.1.......',
+                s: '..........2.2.2.',
+                k: '1...............',
+              },
+              // bar 126
+              {
+                c: '1...............',
+                h: '....1.......3...',
+                s: '......2.2.2.....',
+                k: '1...............',
+              },
+              // bar 127
+              { h: '1.1.1.1.1.1.....', s: '........2...2.2.', k: '1...............' },
+              // bar 128
+              { s: '2.2.............', t2: '....1.1.1.1.....', t3: '............1.1.' },
+              // bar 129
+              {
+                c: '1...............',
+                h: '....1.1.1.1.1.1.',
+                s: '............2.2.',
+                k: '1...............',
+              },
+              // bar 130
+              { h: '1.1.1.1.1.1.1.1.', s: '..2.2.2...2.2.2.' },
+              // bar 131
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.....1.......1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'N',
+            label: 'the half-time groove again, bars 1-2',
+            written: [
+              // bar 132
+              { s: '........2.......', k: '1...............', hf: '1.1.1.1.1.1.1.1.' },
+              // bar 133
+              { s: '........2.......', k: '1...............', hf: '1.1.1.1.1.1.1.1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'O',
+            label: 'the half-time groove again, bars 9-10',
+            written: [
+              // bar 140
+              { s: '........2.......', k: '1.....1.........', hf: '1.1.1.1.1.1.1.1.' },
+              // bar 141
+              { s: '........2.......', k: '1.....1.......1.', hf: '1.1.1.1.1.1.1.1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'P',
+            label: 'the half-time groove again, bars 17-18',
+            written: [
+              // bar 148
+              { h: '1.1.1.1.1.1.1.1.', s: '..2.....2.2.....', k: '......1.........' },
+              // bar 149
+              { h: '1.1.1.1.1.1.1.1.', s: '..2.....2.2.....', k: '1.....1.......1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'Q',
+            label: 'the half-time groove again, bars 25-32',
+            written: [
+              // bar 156
+              { h: '1.1.1.1.1.....3.', s: '..2.....2...2...', k: '......1.........' },
+              // bar 157
+              { h: '1...1.1.1...1.1.', s: '........2.......', k: '1.....1.......1.' },
+              // bar 158
+              { h: '1.1.1.1.1...1.1.', s: '..2.....2.......', k: '......1.........' },
+              // bar 159
+              { h: '1...1.1.1...1.1.', s: '........2.......', k: '1.....1.......1.' },
+              // bar 160
+              { h: '1.1.1.1.1...1.1.', s: '..2.....2.......', k: '......1.........' },
+              // bar 161
+              { h: '1...1.1.1...1.1.', s: '........2.......', k: '1.....1.......1.' },
+              // bar 162
+              { h: '1.1.1.1.1...1.1.', s: '..2.....2.......', k: '......1.........' },
+              // bar 163
+              { h: '1...1.1.1...1.1.', s: '........2.......', k: '1.....1.......1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'R',
+            label: 'the half-time groove again, bars 33-34',
+            written: [
+              // bar 164
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '......1.........' },
+              // bar 165
+              { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.....1.......1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'S',
+            label: 'the hat foot in quarters, bars 1-7',
+            written: [
+              // bar 172: the hat foot in quarters, the kick on 1 and 2's "and"
+              { s: '..2.....2.......', k: '1.....1.........', hf: '1...1...1...1...' },
+              // bar 173
+              { s: '........2.......', k: '1.....1.......1.', hf: '1...1...1...1...' },
+              // bar 174
+              { s: '........2.......', k: '1.....1.........', hf: '1...1...1...1...' },
+              // bar 175
+              { s: '........2.......', k: '1.....1.......1.', hf: '1...1...1...1...' },
+              // bar 176
+              { s: '........2.......', k: '1.....1.........', hf: '1...1...1...1...' },
+              // bar 177
+              { s: '........2.......', k: '1.....1.......1.', hf: '1...1...1...1...' },
+              // bar 178
+              { s: '........2.......', k: '1.....1.........', hf: '1...1...1...1...' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'T',
+            label: 'the hat foot in quarters, bar 8',
+            written: [
+              // bar 179
+              { s: '........2.......', k: '1.....1.......1.', hf: '1...1...1...1...' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'U',
+            label: 'back on the hat, bars 1-7',
+            written: [
+              // bar 180
+              { h: '3...............', s: '....2.2.2.2.2.2.', k: '1...............' },
+              // bar 181
+              {
+                c: '1.............1.',
+                h: '....1.1.........',
+                s: '........2.2.2...',
+                k: '1.............1.',
+              },
+              // bar 182
+              { h: '..1.1.....1.3...', s: '......2.2.......' },
+              // bar 183
+              {
+                h: '1...1.1.........',
+                s: '........2.2.....',
+                t2: '............1.1.',
+                k: '1...............',
+              },
+              // bar 184
+              {
+                h: '..3...3...3.....',
+                s: '2...........2...',
+                k: '..1...1...1...1.',
+                hf: '....1...1...1...',
+              },
+              // bar 185
+              {
+                c: '1.............1.',
+                h: '....1.1.........',
+                s: '........2.2.2...',
+                k: '1.............1.',
+              },
+              // bar 186
+              { h: '..1.1.....1.3...', s: '......2.2.......' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'V',
+            label: 'back on the hat, bars 8-15',
+            written: [
+              // bar 187
+              { h: '1...1.1...1.1...', s: '........2.......', k: '1.............1.' },
+              // bar 188
+              {
+                c: '..............1.',
+                h: '1.1.3...........',
+                s: '........2.2.2...',
+                k: '....1.........1.',
+              },
+              // bar 189
+              {
+                c: '..............1.',
+                h: '..1.1.1.........',
+                s: '........2.2.2...',
+                k: '..............1.',
+              },
+              // bar 190
+              { h: '..1.1.....1.3...', s: '......2.2.......' },
+              // bar 191
+              {
+                h: '1.1.1.1.........',
+                s: '........2.2.....',
+                t2: '............1.1.',
+                k: '1...............',
+              },
+              // bar 192
+              {
+                h: '..3...3...3.....',
+                s: '2...............',
+                k: '..1...1...1...1.',
+                hf: '....1...1...1...',
+              },
+              // bar 193
+              { c: '1.............1.', s: '..2.2...2...2...', k: '1.....1.......1.' },
+              // bar 194
+              { h: '..1.1.......3...', s: '......2.2.2.....' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'W',
+            label: 'back on the hat, bars 16-21',
+            written: [
+              // bar 195
+              { h: '1.1.1.1.........', s: '........2.2.2.2.', k: '1...............' },
+              // bar 196
+              {
+                c: '..............1.',
+                s: '2...............',
+                t2: '..1.1.1.........',
+                t3: '........1.1.1...',
+                k: '..............1.',
+              },
+              // bar 197
+              { h: '........3.....3.', s: '..2.2...2...2...', k: '......1.......1.' },
+              // bar 198
+              { h: '......3.......3.', s: '..2.2.....2.2...', k: '......1.........' },
+              // bar 199
+              { h: '........3.......', s: '2.2.2...2.....22', k: '1.....1.....1...' },
+              // bar 200
+              { s: '2.2.............', t2: '....1.1.........', t3: '........1.1.1.1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'X',
+            label: 'the last hit',
+            written: [
+              // bar 201: the crash and the kick: the band's last hit
+              { c: '1...............', k: '1...............' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'Y',
+            label: 'the hat foot alone, bar 1',
+            written: [
+              // bar 202
+              {},
+            ],
+            params: {},
+          },
+          {
+            letter: 'Z',
+            label: 'the hat foot alone, bars 2-9',
+            written: [
+              // bar 203
+              {},
+              // bar 204
+              { hf: '1.1.1.1.1.1.1.1.' },
+              // bar 205
+              { hf: '1.1.1.1.1.1.1.1.' },
+              // bar 206
+              { hf: '1.1.1.1.1.1.1.1.' },
+              // bar 207
+              { hf: '1.1.1.1.1.1.1.1.' },
+              // bar 208
+              { hf: '1.1.1.1.1.1.1.1.' },
+              // bar 209
+              { hf: '1.1.1.1.1.1.1.1.' },
+              // bar 210
+              { hf: '1.1.1.1.1.1.1.1.' },
+            ],
+            params: {},
+          },
+        ],
+        arrangement: [
+          'A',
+          'B',
+          'C',
+          'B',
+          'D',
+          'E',
+          'D',
+          'F',
+          'G',
+          'B',
+          'C',
+          'B',
+          'C',
+          'B',
+          'C',
+          'B',
+          'D',
+          'G',
+          'B',
+          'C',
+          'B',
+          'G',
+          'B',
+          'C',
+          'B',
+          'H',
+          'B',
+          'C',
+          'B',
+          'I',
+          'J',
+          'K',
+          'L',
+          'M',
+          'N',
+          'N',
+          'N',
+          'N',
+          'O',
+          'O',
+          'O',
+          'O',
+          'P',
+          'P',
+          'P',
+          'P',
+          'Q',
+          'R',
+          'R',
+          'R',
+          'R',
+          'S',
+          'T',
+          'U',
+          'V',
+          'W',
+          'X',
+          'Y',
+          'Z',
+        ],
+      },
+      {
+        /* Lovin', Touchin', Squeezin', Journey (Evolution, Columbia, March 1979; its single, the
+           band's first top-20 hit, US number 16), Steve Perry's song after Sam Cooke's "Nothing
+           Can Change This Love", on the first Journey album with Steve Smith on drums (Wikipedia,
+           the album's article and personnel). Songsterr 10701 (human: Chaytondean's revision
+           3049415, September 2025, over six others, none machine-made), the drum track "Steve
+           Smith - Drums": 12/8 at 106 quarters (a dotted quarter at 70.7), 68 bars, markers. The
+           record (fTkHFQC3wow, the band's channel, the 1979 video on the album audio, 3:58)
+           beat-tracks at 105.5 quarters; the tab's bars line up with it by section, the
+           beat-tracking drifting a little within the verses, where a 12/8 shuffle gives it no
+           single beat to hold (work/align.py). His part: every eighth on the hat, the snare on the
+           second and fourth beats of the bar, the kick on 1 and pushing the third beat; the chorus
+           and the long outro on the ride with a crash on 1. */
+        key: 'lovin-touchin-squeezin',
+        title: "Lovin', Touchin', Squeezin'",
+        feel: 'Journey, 1979: a slow 12/8, every eighth on the hat, the snare on the second and fourth beats (record 106)',
+        weight: 1,
+        params: {
+          kit: 'studioRock',
+          meter: '12/8',
+          bpm: [105, 107],
+          swing: 0,
+          backbeats: [6, 18],
+          ghostBias: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          anticipate: 0,
+          cymbalAccent: false,
+          phraseMark: { crash: false, kick: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the intro, bar 1',
+            written: [
+              // bar 1: the hat on every eighth, the snare on the second and fourth beat, the kick pushing the third
+              {
+                h: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'B',
+            label: 'the first verse, bars 6-7',
+            written: [
+              // bar 10
+              {
+                h: '1.111.1.1.1.1.111.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 11
+              {
+                c: '1.......................',
+                h: '..1.1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'C',
+            label: 'the first verse, bars 13-15',
+            written: [
+              // bar 17
+              {
+                h: '1.111.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 18
+              {
+                h: '1.111.1.1.1.1.1.1.1.1.1.',
+                s: '......2........2.....2..',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 19
+              {
+                c: '1.......................',
+                h: '..1.1.1.................',
+                s: '......2.................',
+                t1: '............1...1.......',
+                t2: '....................1...',
+                k: '1...1.....1...1...1...1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'D',
+            label: 'the first chorus',
+            written: [
+              // bar 20: a crash on 1 and the ride in eighths
+              {
+                c: '1.......................',
+                r: '....1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 21
+              {
+                r: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '...2..2...........2.....',
+                k: '1...1.1...1.1...1.....1.',
+              },
+              // bar 22
+              {
+                r: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '......2........2..2.....',
+                k: '1...1.....1.1...1.1...1.',
+              },
+              // bar 23
+              {
+                r: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.1...1.1...1.....1.',
+              },
+              // bar 24
+              {
+                r: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '...2..2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 25
+              {
+                c: '1...........1...........',
+                r: '..1.1.1.1.1...1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1...1.1.',
+              },
+              // bar 26
+              {
+                c: '1.................1.1.1.',
+                r: '..1.1.1.1.1.............',
+                s: '......2.....2...........',
+                k: '1...1...1.1.......1.1.1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'E',
+            label: 'the second verse',
+            written: [
+              // bar 27
+              {
+                c: '1.......................',
+                h: '....1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 28
+              {
+                h: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 29
+              {
+                h: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 30
+              {
+                h: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 31
+              {
+                h: '1.1.1.3.....1.1.1.3.....',
+                s: '...2...........2........',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 32
+              {
+                c: '1.......................',
+                h: '....1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 33
+              {
+                c: '1.......................',
+                h: '....1.1.................',
+                s: '......2.................',
+                t1: '............1...1.......',
+                t2: '....................1...',
+                k: '1...1.....1.1...1.....1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'F',
+            label: 'the second chorus',
+            written: [
+              // bar 34
+              {
+                c: '1.......................',
+                r: '....1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 35
+              {
+                c: '1.......................',
+                r: '....1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 36
+              {
+                c: '1...........1...........',
+                r: '....1.1.1.1.....1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 37
+              {
+                c: '1.......................',
+                r: '....1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 38
+              {
+                c: '1...........1...........',
+                r: '....1.1.1.1.....1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 39
+              {
+                c: '1.......................',
+                r: '....1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1...1.1.',
+              },
+              // bar 40
+              {
+                c: '1.........1.1...........',
+                r: '....1.1.................',
+                s: '......2.................',
+                t3: '..................1.....',
+                k: '1...1.....1.1.....1.....',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'G',
+            label: 'the outro, bars 1-4',
+            written: [
+              // bar 41
+              {
+                c: '1.......................',
+                r: '....1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 42
+              {
+                r: '1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 43
+              {
+                c: '1.......................',
+                r: '....1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 44
+              {
+                c: '1.......................',
+                r: '....1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'H',
+            label: 'the outro, bars 5-12',
+            written: [
+              // bar 45
+              {
+                c: '1.......................',
+                r: '....1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 46
+              {
+                c: '1.......................',
+                r: '....1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 47
+              {
+                c: '1.......................',
+                r: '....1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 48
+              {
+                c: '1...........1...........',
+                r: '....1.1.1.1.....1.1.1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 49
+              {
+                c: '1.....1...........1.....',
+                r: '....1...1.1.1.1.1...1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 50
+              {
+                c: '......1...........1.....',
+                r: '1.1.1...1.1.1.1.1...1.1.',
+                s: '......2.................',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 51
+              {
+                c: '......1...........1.....',
+                r: '1...1...1.1.1.1.1...1.1.',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 52
+              {
+                c: '1.....1.....1.....1.....',
+                r: '..1.1...1.1...1.1...1.1.',
+                s: '......2...........2.....',
+                k: '1...1...1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'I',
+            label: 'the outro, bars 13-16',
+            written: [
+              // bar 53
+              {
+                c: '1.....1.....1.....1.....',
+                r: '..1.1...1.1...1.1...1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 54
+              {
+                c: '1.....1.....1.....1.....',
+                r: '..1.1...1.1...1.1...1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 55
+              {
+                c: '1.....1.....1.....1.....',
+                r: '..1.1...1.1...1.1...1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1.....1.',
+              },
+              // bar 56
+              {
+                c: '1.....1.....1.....1.....',
+                r: '..1.1...1.1...1.1...1.1.',
+                s: '......2...........2.....',
+                k: '1...1.....1.1...1...1.1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'J',
+            label: 'the outro, bars 21-28',
+            written: [
+              // bar 61
+              {
+                c: '1.....1.....1.....1.....',
+                r: '..1.1...1.1...1.1...1.1.',
+                s: '......2...........2.....',
+                k: '1.1..1....1.1...1.....1.',
+              },
+              // bar 62
+              {
+                c: '1.....1.....1.....1.....',
+                r: '..1.1...1.1...1.1...1.1.',
+                s: '......2...........2.....',
+                k: '1.1..1....1.1...1.....1.',
+              },
+              // bar 63
+              {
+                c: '1.....1.....1.....1.....',
+                r: '..1.1...1.1...1.1...1.1.',
+                s: '......2...........2.....',
+                k: '1.1..1....1.1...1.....1.',
+              },
+              // bar 64
+              {
+                c: '1.....1.....1.....1.....',
+                r: '..1.1...1.1...1.1...1.1.',
+                s: '......2...........2.....',
+                k: '1...1...1.1.1.1.1...1.1.',
+              },
+              // bar 65
+              {
+                c: '1.....1.....1.....1.....',
+                r: '..1.1...1.1...1.1...1.1.',
+                s: '......2...........2.....',
+                k: '1.1..1....1.1...1.....1.',
+              },
+              // bar 66
+              {
+                c: '1.....1.....1.....1.....',
+                r: '..1.1...1.1...1.1...1.1.',
+                s: '......2...........2.....',
+                k: '1.1..1....1.1...1.....1.',
+              },
+              // bar 67
+              {},
+              // bar 68
+              {},
+            ],
+            params: {},
+          },
+        ],
+        arrangement: [
+          'A',
+          'A',
+          'A',
+          'A',
+          'A',
+          'A',
+          'A',
+          'A',
+          'A',
+          'B',
+          'A',
+          'A',
+          'A',
+          'A',
+          'A',
+          'C',
+          'D',
+          'E',
+          'F',
+          'G',
+          'H',
+          'I',
+          'I',
+          'J',
+        ],
+      },
+      {
+        /* Any Way You Want It, Journey (Departure, Columbia, February 1980; its leadoff track and
+           first single, US number 23), Steve Perry and Neal Schon's song, cut "live in studio" at
+           the Automatt with Steve Smith on drums (Wikipedia, the album's personnel). Songsterr
+           10257 (human: its drum track is Ian Meyer's of May 2026, revision 7000638, "added gear
+           and completed whole song"; the current revision, XxXRafXxX's 9872113 of October 2026,
+           renames instruments; an October revision titled "ai did it", not marked machine-made,
+           added one tom note to bar 1 and the next one took it out), the drum track "Steve Smith |
+           1980 Sonor Oak Veneer Phonic 11-Piece Set": 4/4 at 138, 117 bars, markers. The record
+           (mmasR6_1lBo, the band's channel, 3:22) beat-tracks at 138.3 from end to end, straight,
+           and the tab's bars line up with it bar for bar to the fade (aligned on the drums'
+           onsets, work/align.py). His part: the hat and the kick pushed off the "and"s, the hat
+           opening on the "and" of 4 into a crash; the chorus and the solos on the ride over the
+           hat foot in quarters; the bridge on the ride bell; a china on 2 and 4 in the fade. */
+        key: 'any-way-you-want-it',
+        title: 'Any Way You Want It',
+        feel: 'Journey, 1980: the kick and the open hat pushed off the "and"s, a crash on the "and" of 4 (record 138)',
+        weight: 1.2,
+        params: {
+          kit: 'studioRock',
+          meter: '4/4',
+          bpm: [137, 139],
+          swing: 0,
+          backbeats: [4, 12],
+          ghostBias: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          anticipate: 0,
+          cymbalAccent: false,
+          phraseMark: { crash: false, kick: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the intro',
+            written: [
+              // bar 1: the band's hit on 1, then the a cappella "Any way you want it"
+              { h: '3...............', s: '2...............', k: '1...............' },
+              // bar 2: the stabs on the "and" of 3 and 4, the hat open over the kick and snare
+              {
+                h: '............3.3.',
+                s: '............2.2.',
+                k: '............1.1.',
+                hf: '1...............',
+              },
+              // bar 3
+              {
+                h: '..............3.',
+                s: '..............2.',
+                k: '..............1.',
+                hf: '1...............',
+              },
+              // bar 4
+              {
+                c: '..............1.',
+                s: '..............2.',
+                k: '..............1.',
+                hf: '1...............',
+              },
+              // bar 5: the band in: the snare and rack tom in sixteenths, a crash on the "and" of 4
+              {
+                c: '..............1.',
+                s: '..2.2...2.....2.',
+                t1: '..1.1...1.......',
+                t2: '............1...',
+                k: '......1...1...1.',
+              },
+              // bar 6
+              {
+                h: '..............3.',
+                s: '..2.2...........',
+                t1: '........1111....',
+                t2: '............1...',
+                k: '......1.......1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'B',
+            label: 'the first verse',
+            written: [
+              // bar 7: the hat pushed off the "and" of 1, the kick on the "and" of 1, 2, 3 and the "and" of 4
+              {
+                h: '..1.1.1.1.1.1.3.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 8
+              {
+                h: '..1.1.1.1.1.1.3.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 9
+              {
+                c: '..............1.',
+                h: '..1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 10
+              { h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '..1.1...1...1.1.' },
+              // bar 11
+              {
+                h: '..1.1.1.1.1.1.3.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 12
+              {
+                h: '..1.1.1.1.1.1.3.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 13
+              {
+                c: '..............1.',
+                h: '..1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 14
+              {
+                c: '..............1.',
+                h: '1.1.1.1.3.......',
+                s: '....2.....2.2...',
+                k: '..1.....1.....1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'C',
+            label: 'the first pre-chorus',
+            written: [
+              // bar 15
+              { h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '..1.1...1...1.1.' },
+              // bar 16
+              {
+                h: '..1.1.1.1.1.1.3.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 17
+              {
+                c: '..............1.',
+                h: '..1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 18
+              { h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '..1.1...1...1.1.' },
+              // bar 19
+              {
+                h: '..1.1.1.1.1.1.3.',
+                s: '....2.......2...',
+                k: '..1.1...1.....1.',
+                hf: '1...............',
+              },
+              // bar 20
+              {
+                h: '..1.1.1.1.1.1.3.',
+                s: '....2.......2...',
+                k: '..1.1...1.....1.',
+                hf: '1...............',
+              },
+              // bar 21
+              {
+                c: '..............1.',
+                h: '..1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1.....1.',
+                hf: '1...............',
+              },
+              // bar 22
+              {
+                c: '..............1.',
+                h: '1.1.3...3.......',
+                s: '....2.....2.2...',
+                k: '..1.....1.....1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'D',
+            label: 'the first chorus',
+            written: [
+              // bar 23: the ride in eighths, the hat foot in quarters
+              {
+                r: '..1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 24
+              {
+                r: '1.1.1.1.1.1.1.1.',
+                s: '....2..1....2...',
+                k: '..1.1...1.1...1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 25
+              {
+                c: '..............1.',
+                r: '1.1.1.1.1.1.1...',
+                s: '....2..1....2...',
+                k: '..1.1...1.....1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 26
+              {
+                c: '..............1.',
+                r: '..1.1.1.1.1.1...',
+                s: '....2..1....2...',
+                k: '..1.....1.1...1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 27
+              {
+                r: '..1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 28
+              {
+                r: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 29
+              {
+                c: '..............1.',
+                r: '1.1.1.1.1.1.1...',
+                s: '....2..1....2...',
+                k: '..1.1...1.1...1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 30
+              {
+                r: '..1.1.1.1.......',
+                h: '..............3.',
+                s: '....2.....2.2...',
+                k: '..1.....1.....1.',
+                hf: '1...1...1.......',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'E',
+            label: 'the second verse',
+            written: [
+              // bar 31
+              {
+                h: '..1.1.1.1.1.1.3.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 32
+              {
+                h: '..1.1.1.1.1.1.3.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 33
+              {
+                c: '..............1.',
+                h: '..1.1.1.1.1.1...',
+                s: '....2..1....2...',
+                k: '..1.1...1.1...1.',
+                hf: '1...............',
+              },
+              // bar 34
+              { h: '1.1.1.1.1.1.1.3.', s: '....2..1....2...', k: '..1.1...1...1.1.' },
+              // bar 35
+              {
+                h: '..1.1.1.1.1.1.3.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 36
+              {
+                h: '..1.1.1.1.1.1.3.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 37
+              {
+                c: '..............1.',
+                h: '..1.1.1.1.1.1...',
+                s: '....2..1....2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 38
+              {
+                c: '..............1.',
+                h: '1.1.1.1.3.3.....',
+                s: '....2..1....2...',
+                k: '..1.1...1.1...1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'F',
+            label: 'the second pre-chorus',
+            written: [
+              // bar 39
+              { h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '..1.1...1...1.1.' },
+              // bar 40
+              {
+                h: '..1.1.1.1.1.1.3.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 41
+              {
+                c: '..............1.',
+                h: '..1.1.1.1.1.1...',
+                s: '....2..1....2...',
+                k: '..1.1...1.1...1.',
+                hf: '1...............',
+              },
+              // bar 42
+              {
+                c: '..............1.',
+                h: '1.1.1.1.1.1.1...',
+                s: '....2..1....2...',
+                k: '..1.1...1.1...1.',
+              },
+              // bar 43
+              { h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '..1.1...1...1.1.' },
+              // bar 44
+              {
+                h: '..1.1.1.1.1.1.3.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 45
+              {
+                c: '..............1.',
+                h: '..1.1.1.1.1.1...',
+                s: '....2..1....2...',
+                k: '..1.1...1.1...1.',
+                hf: '1...............',
+              },
+              // bar 46
+              {
+                c: '..............1.',
+                h: '1.1.3...3.......',
+                s: '....2..1....2...',
+                k: '..1.1...1.1...1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'G',
+            label: 'the second chorus',
+            written: [
+              // bar 47
+              {
+                r: '..1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 48
+              {
+                r: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 49
+              {
+                c: '..............1.',
+                r: '1.1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 50
+              {
+                c: '..............1.',
+                r: '..1.1.1.1.1.1...',
+                s: '....2..2....2...',
+                k: '..1.1...1.1...1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 51
+              {
+                c: '..............2.',
+                r: '..1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 52
+              {
+                c: '..............1.',
+                r: '..1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 53
+              {
+                c: '..............1.',
+                r: '..1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 54
+              {
+                c: '..............1.',
+                r: '..1.1.1.1.......',
+                s: '....2....22222..',
+                k: '..1.1.1.1.....1.',
+                hf: '1...1...1.......',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'H',
+            label: 'the first solo',
+            written: [
+              // bar 55
+              {
+                r: '..1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 56
+              {
+                r: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 57
+              {
+                c: '..............1.',
+                r: '1.1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1.1...1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 58
+              {
+                c: '..............1.',
+                r: '1.1.1.1.1.1.1...',
+                s: '....2..1....2...',
+                k: '..1.1...1.1...1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 59
+              {
+                c: '..............1.',
+                r: '..1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 60
+              {
+                c: '..............1.',
+                r: '..1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 61
+              {
+                c: '..............1.',
+                r: '..1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1.1...1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 62
+              {
+                c: '..............1.',
+                r: '..1.1.1.........',
+                s: '....2...........',
+                t1: '........2...2...',
+                k: '..1...1...1...1.',
+                hf: '1...............',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'I',
+            label: 'the bridge, bars 1-7',
+            written: [
+              // bar 63: the ride bell in quarters
+              {
+                r: '....2...2...2...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 64
+              {
+                r: '2...2...2...2...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 65
+              {
+                r: '2...2...2.......',
+                h: '..............3.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 66
+              {
+                c: '..............1.',
+                h: '..3...3...3.....',
+                s: '....2.......2...',
+                k: '..1...1...1...1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 67
+              {
+                r: '....2...2...2...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 68
+              {
+                r: '2...2...2...2...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 69
+              {
+                c: '..............1.',
+                r: '2...2...2.......',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'J',
+            label: 'the bridge, bar 8',
+            written: [
+              // bar 70
+              {
+                c: '..3...3...3...1.',
+                s: '....2.......2...',
+                k: '..1...1...1.1.1.',
+                hf: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'K',
+            label: 'the second solo, bars 1-7',
+            written: [
+              // bar 71
+              {
+                r: '..1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 72
+              {
+                r: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 73
+              {
+                c: '..............1.',
+                r: '1.1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 74
+              {
+                c: '..........1.1.1.',
+                r: '..1.1.1.1.......',
+                s: '....2...........',
+                k: '..1.1.1.1.1.1.1.',
+                hf: '1...1...1.......',
+              },
+              // bar 75
+              {
+                r: '..1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 76
+              {
+                r: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 77
+              {
+                c: '..............1.',
+                r: '1.1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'L',
+            label: 'the last chorus, bars 1-7',
+            written: [
+              // bar 79
+              {
+                c: '..............1.',
+                r: '..1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 80
+              {
+                r: '..1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...............',
+              },
+              // bar 81
+              {
+                c: '..............1.',
+                r: '1.1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 82
+              {
+                c: '..........1...2.',
+                r: '..1.1.1.1.......',
+                s: '....2.......2...',
+                k: '..1.1...1.1...1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 83
+              {
+                r: '..1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 84
+              {
+                r: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 85
+              {
+                c: '..............1.',
+                r: '1.1.1.1.1.......',
+                s: '....2.....2222..',
+                k: '..1.1...1.....1.',
+                hf: '1...1...1.......',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'M',
+            label: 'the last chorus, bars 8-15',
+            written: [
+              // bar 86
+              {
+                c: '..2...1.......1.',
+                s: '....2.....2.2...',
+                k: '..1...1...1...1.',
+                hf: '1...1...1.......',
+              },
+              // bar 87
+              {
+                r: '..1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 88
+              {
+                r: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 89
+              {
+                c: '..............1.',
+                r: '1.1.1.1.1.1.1...',
+                s: '....2..1....2...',
+                k: '..1.1...1.1...1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 90
+              {
+                c: '....2.........1.',
+                r: '..1...1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1.1.1.1.1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 91
+              {
+                c: '..............1.',
+                r: '..1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 92
+              {
+                r: '..1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 93
+              {
+                c: '..............1.',
+                r: '1.1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1.1...1.',
+                hf: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'N',
+            label: 'the last chorus, bars 16-23',
+            written: [
+              // bar 94
+              {
+                c: '..1...1...1...1.',
+                s: '....2.......2...',
+                k: '..1...1...1.1.1.',
+                hf: '1...1...1.......',
+              },
+              // bar 95
+              {
+                c: '....3...........',
+                r: '..1...1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 96
+              {
+                c: '..............1.',
+                r: '1.1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 97
+              {
+                c: '..............1.',
+                r: '..1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '..1.1...1.1...1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 98
+              {
+                c: '............1.2.',
+                r: '..1.1.1.........',
+                s: '....2...2222....',
+                k: '..1.........1.1.',
+                hf: '1...1...........',
+              },
+              // bar 99
+              {
+                c: '....3...........',
+                r: '..1...1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 100
+              {
+                c: '....3...........',
+                r: '1.1...1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 101
+              {
+                c: '....1...........',
+                r: '1.1.....1.1.1...',
+                h: '..............3.',
+                s: '....2.......2...',
+                k: '..1.1...1.1...1.',
+                hf: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'O',
+            label: 'the last chorus, bar 24',
+            written: [
+              // bar 102
+              {
+                c: '..............1.',
+                h: '..3...3...3.....',
+                s: '....2.......2...',
+                k: '..1...1...1.1.1.',
+                hf: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'P',
+            label: 'the fade, bars 1-7',
+            written: [
+              // bar 103: the fade: a china on 2 and 4
+              {
+                c: '....3.......3.1.',
+                r: '..1...1.1.1.....',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 104
+              {
+                c: '....3.......3.1.',
+                r: '..1...1.1.1.....',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 105
+              {
+                c: '....3.......3.1.',
+                r: '..1...1.1.1.....',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 106
+              {
+                c: '....3.......3.1.',
+                r: '..1...1.1.1.....',
+                s: '....2.......2...',
+                k: '..1...1...1.1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 107
+              {
+                c: '....3.......3...',
+                r: '..1...1.1.1...1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 108
+              {
+                c: '....3.......3.1.',
+                r: '1.1...1.1.1.....',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 109
+              {
+                c: '....3.......3.1.',
+                r: '..1...1.1.1.....',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'Q',
+            label: 'the fade, bars 8-15',
+            written: [
+              // bar 110
+              {
+                c: '....3.......3.1.',
+                r: '..1...1.1.1.....',
+                s: '....2.......2...',
+                k: '..1...1...1.1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 111
+              {
+                c: '....3.......3...',
+                r: '..1...1.1.1...1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 112
+              {
+                c: '....3.......3...',
+                r: '1.1...1.1.1...1.',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 113
+              {
+                c: '....3.......3.1.',
+                r: '1.1...1.1.1.....',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 114
+              {
+                c: '....3.......3.1.',
+                r: '..1...1.1.1.....',
+                s: '....2.......2...',
+                k: '..1...1...1.1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 115
+              {
+                c: '....3.......3.1.',
+                r: '..1...1.1.1.....',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 116
+              {
+                c: '....3.......3.1.',
+                r: '..1...1.1.1.....',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+              // bar 117
+              {
+                c: '....3.......3.1.',
+                r: '..1...1.1.1.....',
+                s: '....2.......2...',
+                k: '..1.1...1...1.1.',
+                hf: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+        ],
+        arrangement: [
+          'A',
+          'B',
+          'C',
+          'D',
+          'E',
+          'F',
+          'G',
+          'H',
+          'I',
+          'J',
+          'K',
+          'J',
+          'L',
+          'M',
+          'N',
+          'O',
+          'P',
+          'Q',
+        ],
+      },
+      {
+        /* Don't Stop Believin', Journey (Escape, Columbia, July 1981; its single, US number 9),
+           Jonathan Cain, Steve Perry and Neal Schon's song, with Steve Smith on drums (Wikipedia,
+           the album's personnel). Songsterr 10681 (human: Aleksey's revision 9906961, October
+           2026, over 73 others since 2009, none machine-made), the drum track "Steve Smith | 1980
+           Sonor Phonic 11-Piece Set": 4/4 at 119, 124 bars, markers. The record (1k8craCGpgs, the
+           band's channel, "Official Audio", 4:10) beat-tracks at 119.7, straight, and the tab's
+           bars line up with it bar for bar to the outro (work/align.py); in the outro and the fade
+           the beat-tracking drifts as the band thins. His part: the drums out for the first two
+           verses, a build in eighths on the snare, the floor tom and the kick, then four on the
+           floor with the snare on 2 alone and the toms answering on the "and"s of 3 and 4, the
+           figure the song is known by; the ride bell between the hat's eighths in the third
+           verse. The song starts on the band's hits at the end of the first break (bar 32); the
+           31 bars of piano and voice before them are left out, and the six bars of the second
+           verse he sits out are kept as empty bars. */
+        key: 'dont-stop-believin',
+        title: "Don't Stop Believin'",
+        feel: 'Journey, 1981: four on the floor, the snare on 2 alone, the toms answering on 3 and 4 (record 119)',
+        weight: 1.3,
+        params: {
+          kit: 'studioRock',
+          meter: '4/4',
+          bpm: [118, 120],
+          swing: 0,
+          backbeats: [4, 12],
+          ghostBias: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          anticipate: 0,
+          cymbalAccent: false,
+          phraseMark: { crash: false, kick: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the break',
+            written: [
+              // bar 32: the band's hits on 4 and its "and", a crash and the kick
+              { c: '............1.2.', k: '............1.1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'B',
+            label: 'the second verse',
+            written: [
+              // bar 33: the drums out under the second verse
+              {},
+              // bar 34
+              {},
+              // bar 35
+              {},
+              // bar 36
+              {},
+              // bar 37
+              {},
+              // bar 38
+              {},
+              // bar 39: the build: the snare, the floor tom and the kick together in eighths
+              { s: '2.2.2.2.2.2.2.2.', t3: '1.1.1.1.1.1.1.1.', k: '1.1.1.1.1.1.1.1.' },
+              // bar 40
+              { s: '2.2.2.2.2.2.2.2.', t3: '1.1.1.1.1.1.1.1.', k: '1.1.1.1.1.1.1.1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'C',
+            label: 'the first chorus, bar 1',
+            written: [
+              // bar 41: a crash on 1, eighths on the hat, four on the floor, the snare on 2 alone and the tom on 4
+              {
+                c: '1...............',
+                h: '..1.1.1.1.1.1.1.',
+                s: '....2...........',
+                t2: '............2...',
+                k: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'D',
+            label: 'the first chorus, bars 2-3',
+            written: [
+              // bar 42: the rack tom on the "and" of 3 and the floor tom on the "and" of 4
+              {
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2...........',
+                t1: '..........1.....',
+                t3: '..............1.',
+                k: '1...1...1...1...',
+              },
+              // bar 43
+              {
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2...........',
+                t2: '............2...',
+                k: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'E',
+            label: 'the first chorus, bars 14-16',
+            written: [
+              // bar 54
+              {
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2...........',
+                t1: '..........1.....',
+                t3: '..............1.',
+                k: '1...1...1...1...',
+              },
+              // bar 55
+              { c: '1.....2.........', k: '1.....1.........' },
+              // bar 56
+              { c: '1...2.1.........', k: '1...1.1.........' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'F',
+            label: 'the break, bars 1-2',
+            written: [
+              // bar 57
+              {
+                c: '2...............',
+                r: '..........2.....',
+                h: '....4...1.1.1.1.',
+                s: '....2...........',
+                t2: '............1...',
+                k: '1...1...1...1...',
+              },
+              // bar 58
+              {
+                r: '........2.......',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2...........',
+                t1: '..........1.....',
+                t3: '..............1.',
+                k: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'G',
+            label: 'the break, bars 3-4',
+            written: [
+              // bar 59
+              {
+                r: '..........2.....',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2...........',
+                t2: '............1...',
+                k: '1...1...1...1...',
+              },
+              // bar 60
+              {
+                r: '........2.......',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2...........',
+                t1: '..........1.....',
+                t3: '..............1.',
+                k: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'H',
+            label: 'the fourth verse, bars 7-8',
+            written: [
+              // bar 75
+              {
+                r: '..........2.....',
+                h: '1.1.1.1.1.1.3...',
+                s: '....2...........',
+                t2: '............1...',
+                k: '1...1...1...1...',
+              },
+              // bar 76
+              { s: '2.2.2.2.2.2.2.2.', t3: '1.1.1.1.1.1.1.1.', k: '1.1.1.1.1.1.1.1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'I',
+            label: 'the second chorus, bar 1',
+            written: [
+              // bar 77
+              {
+                c: '2...............',
+                r: '..........2.....',
+                h: '....4.4.1.1.1.1.',
+                s: '....2...........',
+                t2: '............2...',
+                k: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'J',
+            label: 'the second chorus, bars 2-3',
+            written: [
+              // bar 78
+              {
+                r: '2.2.....2.......',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2...........',
+                t1: '..........1.....',
+                t3: '..............1.',
+                k: '1...1...1...1...',
+              },
+              // bar 79
+              {
+                r: '..........2.....',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2...........',
+                t2: '............2...',
+                k: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'K',
+            label: 'the second chorus, bars 14-16',
+            written: [
+              // bar 90
+              {
+                r: '2.2.....2.......',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2...........',
+                t1: '..........1.....',
+                t3: '..............1.',
+                k: '1...1...1...1...',
+              },
+              // bar 91
+              { c: '1.....2.........', k: '1.....1.........', hf: '....1.......1...' },
+              // bar 92
+              { c: '1...2.1.........', k: '1...1.1.........' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'L',
+            label: 'the solo, bars 1-4',
+            written: [
+              // bar 93
+              {
+                c: '2...............',
+                r: '..........2.....',
+                h: '....4.4.1.1.1.1.',
+                s: '....2...........',
+                t2: '............1...',
+                k: '1...1...1...1...',
+              },
+              // bar 94
+              {
+                r: '2.2.....2.......',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                t2: '..............1.',
+                k: '1...1...1...1...',
+              },
+              // bar 95
+              {
+                r: '..2.....2.......',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2...........',
+                t2: '............1...',
+                k: '1...1...1...1...',
+              },
+              // bar 96
+              {
+                r: '..2.....2.......',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                t1: '..........1.....',
+                t3: '..............1.',
+                k: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'M',
+            label: 'the solo, bars 5-8',
+            written: [
+              // bar 97
+              {
+                c: '1...............',
+                r: '..........2.....',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2...........',
+                t2: '............1...',
+                k: '1...1...1...1...',
+              },
+              // bar 98
+              {
+                r: '2.2.....2.......',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                t2: '..............1.',
+                k: '1...1...1...1...',
+              },
+              // bar 99
+              {
+                r: '..2.....2.......',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2...........',
+                t2: '............1...',
+                k: '1...1...1...1...',
+              },
+              // bar 100
+              {
+                r: '2.2.....2.......',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                t1: '..........1.....',
+                t3: '..............1.',
+                k: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'N',
+            label: 'the fade, bars 1-4',
+            written: [
+              // bar 117
+              {
+                c: '1...............',
+                r: '..........2.....',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2...........',
+                t2: '............1...',
+                k: '1...1...1...1...',
+              },
+              // bar 118
+              {
+                r: '2.2.....2.......',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                t2: '..............1.',
+                k: '1...1...1...1...',
+              },
+              // bar 119
+              {
+                r: '..2.....2.......',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2...........',
+                t2: '............1...',
+                k: '1...1...1...1...',
+              },
+              // bar 120
+              {
+                r: '2.2.....2.......',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                t2: '..............1.',
+                k: '1...1...1...1...',
+              },
+            ],
+            params: {},
+          },
+        ],
+        arrangement: [
+          'A',
+          'B',
+          'C',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'E',
+          'F',
+          'G',
+          'G',
+          'G',
+          'G',
+          'G',
+          'G',
+          'G',
+          'G',
+          'H',
+          'I',
+          'J',
+          'J',
+          'J',
+          'J',
+          'J',
+          'J',
+          'K',
+          'L',
+          'M',
+          'M',
+          'M',
+          'M',
+          'M',
+          'N',
+          'M',
+        ],
+      },
+      {
+        /* Who's Crying Now, Journey (Escape, Columbia, July 1981; its first single, US number 4),
+           Steve Perry and Jonathan Cain's song, with Steve Smith on drums (Wikipedia, the album's
+           personnel). Songsterr 10728 (human: XxXRafXxX's revision 10069291, October 2026, over
+           25 others, none machine-made), the drum track "Steve Smith | 1980 Sonor Oak Veneer
+           Phonic 11-Piece Set": 4/4 at 122, 155 bars, markers. The record (vlw5MqGI7xQ, the band's
+           channel, 5:16) beat-tracks at 121.4, straight, and the tab's bars line up with it bar
+           for bar to the end of the guitar solo (work/align.py). His part is the space he leaves:
+           the drums out under the verses and the bridge, then the chorus on the hat in eighths
+           with the kick on the "and" of 2, on 3 and on the "and" of 4, and the long guitar solo
+           on the ride with a crash on 2 every eight bars. Read for two hands (spec.fix): in seven
+           bars the tab writes the crash with the ride and the snare on 2, and the crash takes the
+           right hand's note; in bar 106 a hat under the snare and a tom goes to the foot. The
+           song starts on his tom pickup into the first chorus (bar 23); the 22 bars of piano and
+           voice before it are left out. */
+        key: 'whos-crying-now',
+        title: "Who's Crying Now",
+        feel: 'Journey, 1981: eighths on the hat, the kick on the "and" of 2, 3 and the "and" of 4 (record 122)',
+        weight: 1,
+        params: {
+          kit: 'studioRock',
+          meter: '4/4',
+          bpm: [121, 123],
+          swing: 0,
+          backbeats: [4, 12],
+          ghostBias: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          anticipate: 0,
+          cymbalAccent: false,
+          phraseMark: { crash: false, kick: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the first verse, its last two bars',
+            written: [
+              // bar 23: the rack tom on the "and" of 4: the pickup into the chorus
+              { t1: '..............1.' },
+              // bar 24
+              {
+                c: '..............1.',
+                h: '..............1.',
+                t2: '....1...1.......',
+                t3: '..........1.....',
+                k: '..1...........1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'B',
+            label: 'the first chorus, bars 1-6',
+            written: [
+              // bar 25: the hat in eighths, the snare on 2 and 4, the kick on the "and" of 2, 3 and the "and" of 4
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 26
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.....1.' },
+              // bar 27
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 28
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 29
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 30
+              {
+                c: '..............2.',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '......1.1.....1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'C',
+            label: 'the first chorus, bars 7-8',
+            written: [
+              // bar 31
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 32
+              {
+                c: '..............1.',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '1.....1.1.....1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'D',
+            label: 'the first chorus, bar 15',
+            written: [
+              // bar 39
+              {},
+            ],
+            params: {},
+          },
+          {
+            letter: 'E',
+            label: 'the second verse, without drums, bars 15-16',
+            written: [
+              // bar 55
+              { t1: '..........1...1.', t2: '..........1.....' },
+              // bar 56
+              {
+                c: '..............1.',
+                r: '..............2.',
+                t2: '1...1..11.......',
+                t3: '.........11.....',
+                k: '..............1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'F',
+            label: 'the second chorus, bars 15-16',
+            written: [
+              // bar 71
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 72
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '......1.1.....1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'G',
+            label: 'the bridge, without drums, bar 1',
+            written: [
+              // bar 73: a crash on 1, then the drums out
+              { c: '2...............', k: '1...............' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'H',
+            label: 'the third chorus, bars 6-8',
+            written: [
+              // bar 96
+              { c: '..............2.', r: '..............2.', k: '..............1.' },
+              // bar 97
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 98
+              {
+                c: '..............2.',
+                h: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                t2: '........1.1.....',
+                k: '......1.1.1...1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'I',
+            label: 'the third chorus, bars 15-16',
+            written: [
+              // bar 105
+              { h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 106
+              {
+                c: '..............1.',
+                h: '1.1.1.1.1.1...1.',
+                s: '....2.......2...',
+                t2: '........1.1.1...',
+                k: '......1.1.....1.',
+                hf: '............1...',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'J',
+            label: 'the guitar solo, bars 1-4',
+            written: [
+              // bar 107: the ride's bell in eighths, a crash on 2
+              {
+                c: '....2...........',
+                r: '2.2...2.2.2.2.2.',
+                s: '....2.......2...',
+                k: '..1...1.1.....1.',
+              },
+              // bar 108
+              { r: '2.2.2.2.2.2.2.2.', s: '....2.......2...', k: '1.....1.1.....1.' },
+              // bar 109
+              { r: '2.2.2.2.2.2.2.2.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 110
+              { r: '2.2.2.2.2.2.2.2.', s: '....2.......2...', k: '......1.1.....1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'K',
+            label: 'the guitar solo, bars 5-12',
+            written: [
+              // bar 111
+              { r: '2.2.2.2.2.2.2.2.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 112
+              {
+                c: '..............2.',
+                r: '2.2.2.2.2.2.2.2.',
+                s: '....2.......2...',
+                k: '......1.1.....1.',
+              },
+              // bar 113
+              { r: '2.2.2.2.2.2.2.2.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 114
+              {
+                c: '..............1.',
+                r: '2.2.2.2.2.2.2.2.',
+                s: '....2.......2...',
+                t2: '........1.1.....',
+                k: '1.....1.1.....1.',
+              },
+              // bar 115
+              {
+                c: '....2...........',
+                r: '2.2...2.2.2.2.2.',
+                s: '....2.......2...',
+                k: '......1.1.....1.',
+              },
+              // bar 116
+              { r: '2.2.2.2.2.2.2.2.', s: '....2.......2...', k: '1.....1.1.....1.' },
+              // bar 117
+              { r: '2.2.2.2.2.2.2.2.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 118
+              { r: '2.2.2.2.2.2.2.2.', s: '....2.......2...', k: '......1.1.....1.' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'L',
+            label: 'the guitar solo, bars 13-16',
+            written: [
+              // bar 119
+              { r: '2.2.2.2.2.2.2.2.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 120
+              {
+                c: '..............2.',
+                r: '2.2.2.2.2.2.2.2.',
+                s: '....2.......2...',
+                k: '......1.1.....1.',
+              },
+              // bar 121
+              { r: '2.2.2.2.2.2.2.2.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 122
+              {
+                c: '..............1.',
+                r: '2.2.2.2.2.2.2.2.',
+                s: '..2.2.......2...',
+                t2: '........1.1.....',
+                k: '......1.1.....1.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'M',
+            label: 'the guitar solo, bars 29-32',
+            written: [
+              // bar 135
+              { r: '2.2.2.2.2.2.2.2.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 136
+              {
+                c: '..............2.',
+                r: '2.2.2.2.2.2.2.2.',
+                s: '....2.......2...',
+                k: '......1.1.....1.',
+              },
+              // bar 137
+              { r: '2.2.2.2.2.2.2.2.', s: '....2.......2...', k: '......1.1.....1.' },
+              // bar 138
+              {
+                c: '..............1.',
+                r: '2.2.2.2.2.2.2.2.',
+                s: '....2.......2...',
+                k: '......1.1.....1.',
+              },
+            ],
+            params: {},
+          },
+        ],
+        arrangement: [
+          'A',
+          'B',
+          'C',
+          'B',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'E',
+          'B',
+          'C',
+          'B',
+          'F',
+          'G',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'H',
+          'B',
+          'I',
+          'J',
+          'K',
+          'L',
+          'J',
+          'K',
+          'M',
+          'J',
+          'K',
+          'M',
+          'D',
+        ],
+      },
+      {
+        /* Faithfully, Journey (Frontiers, Columbia, February 1983; its single, US number 12),
+           Jonathan Cain's song, with Steve Smith on drums and percussion (Wikipedia, the album's
+           personnel). Songsterr 22948 (human: XxXRafXxX's revision 9872076, October 2026, over
+           Igor Leiva's, Chang George's and Turtle's "tweaked drum part" of 2013; none
+           machine-made), the drum track "Steve Smith | 1980 Sonor Oak Veneer Phonic 11-Piece Set":
+           4/4 at 65, 72 bars, markers. The record (YalgKfrOdsI, the band's channel, the 2024
+           remaster, 4:27) beat-tracks at 64.8, straight, and the tab's bars line up with it bar
+           for bar, one record beat to each tab beat (work/align.py). His part: the drums out until
+           the first chorus, then the second verse on the ride in quarters with a cross-stick on
+           4, the pre-chorus on the ride in eighths with the backbeat, and the outro's ride and
+           crash; the fills the tab writes in 32nds (bars 24-26, 49, 50 and 54) are two bars of
+           sixteenths each, at double time. The 21 bars of piano and voice before the drums are
+           left out; the song starts on the first chorus, whose first two bars he sits out before
+           his fill on the floor tom. */
+        key: 'faithfully',
+        title: 'Faithfully',
+        feel: 'Journey, 1983: the ballad on the ride, a cross-stick on 4, then the backbeat (record 65)',
+        weight: 1,
+        params: {
+          kit: 'studioRock',
+          meter: '4/4',
+          bpm: [64, 66],
+          swing: 0,
+          backbeats: [4, 12],
+          ghostBias: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          anticipate: 0,
+          cymbalAccent: false,
+          phraseMark: { crash: false, kick: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the first chorus, bars 1-2',
+            written: [
+              // bar 22
+              {},
+              // bar 23
+              {},
+            ],
+            params: {},
+          },
+          {
+            letter: 'B',
+            label: 'the first chorus, bars 3-5',
+            tempoRatio: 2,
+            written: [
+              // bar 24 (first half, in 32nds at double time)
+              { k: '................' },
+              // bar 24 (second half, in 32nds at double time)
+              { t3: '........111.....' },
+              // bar 25 (first half, in 32nds at double time)
+              { k: '................' },
+              // bar 25 (second half, in 32nds at double time)
+              { t2: '11....11........', t3: '............1.1.' },
+              // bar 26 (first half, in 32nds at double time)
+              { t2: '...............1' },
+              // bar 26 (second half, in 32nds at double time)
+              { t2: '.1..1...........', t3: '..........1.1...' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'C',
+            label: 'the first chorus, bar 6',
+            written: [
+              // bar 27
+              { r: '1...............', h: '3...............', k: '1...............' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'D',
+            label: 'the second verse, bar 1',
+            written: [
+              // bar 28: the ride in quarters, the kick on 1, a cross-stick on 4
+              { r: '1...1...1...1...', s: '............4...', k: '1...............' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'E',
+            label: 'the second verse, bar 9',
+            written: [
+              // bar 36
+              {
+                r: '1..11.1.........',
+                t2: '.........1...1..',
+                t3: '..............1.',
+                k: '1.....1........1',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'F',
+            label: 'the second pre-chorus, bar 1',
+            written: [
+              // bar 37: eighths on the ride, the snare on 2 and 4, the kick on 1 and 3
+              {
+                c: '1...............',
+                r: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '1.......1.......',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'G',
+            label: 'the second pre-chorus, bar 2',
+            written: [
+              // bar 38
+              { r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'H',
+            label: 'the second chorus, bars 1-4',
+            written: [
+              // bar 45
+              {
+                c: '..............2.',
+                r: '1.1.1.1.1.1.1...',
+                s: '....2.......2...',
+                k: '1.......1.....1.',
+              },
+              // bar 46
+              { c: '1...............', r: '1...............', k: '1...............' },
+              // bar 47
+              { t2: '.............111' },
+              // bar 48
+              { t2: '........1.2.....', t3: '.............111' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'I',
+            label: 'the second chorus, bars 5-6',
+            tempoRatio: 2,
+            written: [
+              // bar 49 (first half, in 32nds at double time)
+              { k: '................' },
+              // bar 49 (second half, in 32nds at double time)
+              { t1: '1...............', t2: '1...2..11.......', t3: '..........1.1...' },
+              // bar 50 (first half, in 32nds at double time)
+              {
+                c: '3...............',
+                r: '1...............',
+                t1: '........2.......',
+                t2: '........2.....1.',
+                k: '1...............',
+              },
+              // bar 50 (second half, in 32nds at double time)
+              { t3: '..1.2..11.1.1...' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'J',
+            label: 'the outro, bar 4',
+            tempoRatio: 2,
+            written: [
+              // bar 54 (first half, in 32nds at double time)
+              {
+                c: '1...............',
+                r: '1...............',
+                t1: '....1...1.......',
+                t2: '........1...2...',
+                k: '1...............',
+              },
+              // bar 54 (second half, in 32nds at double time)
+              { t3: '..1.2..11.1.1...' },
+            ],
+            params: {},
+          },
+          {
+            letter: 'K',
+            label: 'the outro, bars 8-12',
+            written: [
+              // bar 58
+              {
+                c: '3...............',
+                r: '1.1.1.1.1.1..11.',
+                s: '....2..2....2..2',
+                k: '1........1.1.11.',
+              },
+              // bar 59
+              {
+                c: '1...............',
+                r: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '1.......1.......',
+              },
+              // bar 60
+              { r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' },
+              // bar 61
+              { r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' },
+              // bar 62
+              {
+                c: '1...............',
+                r: '1.1.1.1.1.1.11..',
+                s: '....2.......2..2',
+                k: '1......1.11..11.',
+              },
+            ],
+            params: {},
+          },
+          {
+            letter: 'L',
+            label: 'the outro, bars 16-20',
+            written: [
+              // bar 66
+              {
+                c: '1...............',
+                r: '1.1.1.1.........',
+                s: '....2...........',
+                t1: '.......1.2......',
+                t2: '..........1.1...',
+                t3: '.............111',
+                k: '1...............',
+              },
+              // bar 67
+              {
+                c: '1...............',
+                r: '1.1.1.1.1.1.1.1.',
+                s: '....2.......2...',
+                k: '1.......1.......',
+              },
+              // bar 68
+              { r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' },
+              // bar 69
+              {
+                r: '1.1.1.1.1.1.1...',
+                s: '....2.......2...',
+                t2: '.............1..',
+                t3: '..............1.',
+                k: '1.......1.......',
+              },
+              // bar 70
+              { c: '1...............', r: '1...............', k: '1...............' },
+            ],
+            params: {},
+          },
+        ],
+        arrangement: [
+          'A',
+          'B',
+          'C',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'E',
+          'F',
+          'G',
+          'G',
+          'G',
+          'G',
+          'G',
+          'G',
+          'G',
+          'H',
+          'I',
+          'F',
+          'G',
+          'G',
+          'J',
+          'F',
+          'G',
+          'G',
+          'K',
+          'F',
+          'G',
+          'G',
+          'L',
+          'A',
+        ],
+      },
+    ],
+  },
 };
 
 /**
@@ -220793,7 +226547,7 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Latin rock drummers', ['shrieve', 'cindyblackman']],
   [
     'Hard rock drummers',
-    ['bonham', 'paice', 'rogertaylor', 'downey', 'rudd', 'ghoul', 'alexvanhalen'],
+    ['bonham', 'paice', 'rogertaylor', 'downey', 'rudd', 'ghoul', 'alexvanhalen', 'cozypowell'],
   ],
   ['Glam and art rock drummers', ['woodmansey', 'dennisdavis']],
   [
@@ -220856,7 +226610,7 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Modern jazz drummers', ['brianblade', 'hoenig', 'sanchez', 'yussefdayes']],
   [
     'Fusion drummers',
-    ['cobham', 'lennywhite', 'gadd', 'hakim', 'colaiuta', 'simonphillips', 'erskine'],
+    ['cobham', 'lennywhite', 'gadd', 'hakim', 'colaiuta', 'simonphillips', 'erskine', 'stevesmith'],
   ],
   ['Afro-Cuban and Latin jazz drummers', ['puente', 'changuito', 'horaciohernandez', 'prieto']],
   ['Samba and Brazilian jazz drummers', ['miltonbanana']],

@@ -411,6 +411,30 @@ a time, so Cozy Powell runs first, then Steve Smith.
    Londin plays most of _Raised on Radio_ (1986): check every credit. Score
    any swing or shuffle as such, not straightened.
 
+What came of it (built 2026-11-01):
+
+- **Songs.** Powell four (1978–84), Smith six (1977–83), all from human tabs,
+  every tab lined up with its record bar for bar. Smith's Mirage is with
+  Jean-Luc Ponty (_Enigmatic Ocean_, 1977), the one fusion side with a human
+  tab: none exists for Vital Information or Steps Ahead.
+- **Left out for the song limits.** Stargazer, Tarot Woman, Kill the King,
+  Headless Cross, Separate Ways and Stone in Love each line up with their
+  records but need more than 26 sections of eight bars, one grid to a
+  section. None was bent to fit. The limits are up for review with the owner.
+- **Left out otherwise.** A Light in the Black's tab runs about 11 bars short
+  of the record; Escape and Send Her My Love's tabs do not match their
+  records' length; Dance with the Devil has no drum tab.
+- **Two hands.** All Night Long bar 67 drops a floor tom under crash and
+  snare; in seven bars of Who's Crying Now the crash takes the ride's note,
+  and one hat goes to the foot. Each is in the song's comment.
+- **Library corrections.** All Night Long is straight eighths, not a shuffle;
+  Since You Been Gone gains its tab (51404); Stargazer, Don't Stop Believin',
+  Who's Crying Now, Any Way You Want It and Separate Ways now link the album
+  takes, not a fan upload, live takes or video edits; Departure's drum credit
+  names Smith as sole drummer.
+- **`merge.py` again placed each research section before DW's `## Sources`**;
+  both were moved to the end.
+
 ## The brief each fork gets
 
 Paste this to each fork, with its row from the batch table and `S`, the

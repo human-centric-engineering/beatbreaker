@@ -1,0 +1,41 @@
+{
+  "id": "rec:jean-luc-ponty-enigmatic-ocean-1977",
+  "title": "Enigmatic Ocean",
+  "artist": "Jean-Luc Ponty",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-smith",
+      "name": "Steve Smith",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:enigmatic-ocean-wikipedia"]
+  },
+  "tracks": [
+    {
+      "title": "Mirage",
+      "drummer_ids": ["drummer:steve-smith"],
+      "drums": {
+        "description": "Half time at about 189: the hat foot in eighths, the snare on 3, the kick on 1 and the \"a\" of 4; the solos on the hat with the snare in eighths on 3.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:enigmatic-ocean-wikipedia", "src:songsterr-2172363"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=7UIrXIqQ1nQ",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=2172363"
+        }
+      ],
+      "style_key": "stevesmith",
+      "song_key": "mirage"
+    }
+  ]
+}

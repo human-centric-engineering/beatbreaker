@@ -24159,3 +24159,261 @@ round wire glasses, a floral shirt, a black oyster pearl kit.
   847496, 2369522 (machine or machine-drafted, read)
 - The records: KwPxhWU1koE, 7WaS7wPe6zs (beat-tracked on 16u6w0cjjrU),
   dzIUgS3Imu0, A134hShx_gw, 5C4FnlftQt4, N9G-lvqaBfM (YouTube), beat-tracked
+
+## EH. Cozy Powell (2026-11-01)
+
+The `cozypowell` style plays **songs** the way `alexvanhalen` and `paice` do:
+each New picks one of his records, and its tempo and grooves come with it. His
+record (`drummer-model/drummers/cozy-powell.json`) was a 15-a candidate and is
+now a draft at schema 1.6.0, with Long Live Rock 'n' Roll and Slide It In as
+new recordings and `sources/cozy-powell.json`. He files with the Hard rock
+drummers, beside John Bonham, whom Jeff Beck called his idol, and Ian Paice,
+whom he followed into Whitesnake.
+
+**Who he is.** Colin Trevor Flooks was born in Cirencester on 29 December 1947
+and died on the M4 near Bristol on 5 April 1998 (Wikipedia). He took "Cozy"
+from the jazz drummer Cozy Cole and never had a lesson (Louder, 2024). He
+played the German clubs with the Sorcerers from sixteen, joined the Jeff Beck
+Group in 1970 ("one double kit in red glitter ... he was my John Bonham",
+Beck to Classic Rock, via MusicRadar, 2024), had a UK number 3 with his own
+"Dance with the Devil" in 1973-74, and was Rainbow's drummer from 1975 to the
+first Monsters of Rock in August 1980; then the Michael Schenker Group,
+Whitesnake (1982-85), Emerson, Lake & Powell (1985-86), Black Sabbath
+(1988-91, 1994-95) and Brian May's band (Wikipedia). Rolling Stone placed him
+50th of the 100 greatest drummers (2016).
+
+**What he does.** A power player with a showman's solo, to the 1812 Overture
+with pyrotechnics in Rainbow (MusicRadar, Career in Beats, 2010: "his
+explosive mixture of raw power (just look at the battering he gives those
+cymbals) and dead-eye precision"). In January 1976 he played "two massive 26"
+Ludwig bass drums custom built for him by Ludwig with extra thick shells to
+give the thump", two 14 x 10" toms, two 16 x 16" floor toms, a metal snare
+and "a massive range of Paiste" (Beat Instrumental, January 1976). Of Rising:
+"It featured the drums fairly heavily ... 'A Light In The Black' was done in
+one take" (to Now Spinning, from a 1996 interview). The tabs agree on the
+grooves: the hat or ride in quarters or eighths, the kick on 1 and the "and"
+of 3 or four on the floor, a crash on each section's 1, the band's stops
+played with them, fills of snare sixteenths into the toms.
+
+**Which records are his.** Each album's Wikipedia personnel names him: Long
+Live Rock 'n' Roll (1978, "Cozy Powell – drums"), Down to Earth (1979), Slide
+It In (1984; "Cozy Powell's drum tracks are virtually not re-recorded" in the
+US remix, only clearer). Coverdale: Powell "once told the singer that 'Love
+Ain't No Stranger' was the best track he'd ever played drums on" (the song's
+article, from the 25th-anniversary booklet). Whitesnake's 1987 album is
+Aynsley Dunbar's, not his.
+
+**The songs.**
+
+| Song                    | Year | Tempo (record)   | Meter               | Bars from              | Sections                                                                                             |
+| ----------------------- | ---- | ---------------- | ------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------- |
+| Long Live Rock 'n' Roll | 1978 | 141 (141.0)      | 4/4 in sextuplets   | Songsterr 51393, human | the snare triplet intro, three verses, pre-choruses and choruses, the solo, the last chorus to a hit |
+| Since You Been Gone     | 1979 | 120 (120.2)      | 4/4, one bar of 2/4 | Songsterr 51404, human | intro, two verses with pre-choruses and choruses, the half-time bridge, chorus, stop, solo, chorus   |
+| All Night Long          | 1979 | 128 (127.8)      | 4/4                 | Songsterr 23667, human | the stabs, the floor-tom riff, three verses, half-time pre-choruses, choruses, solo, to the fade     |
+| Love Ain't No Stranger  | 1984 | 126, bridge ~115 | 4/4, 2/4, 6/4       | Songsterr 22081, human | his pickup, the riff, verses, choruses, solo, the drumless bridge, riff, verse, chorus, outro        |
+
+Every tab was checked at every revision for machine origin; none is. Every
+song plays the tab's bars in the record's order from the drums' entry to the
+end, laid against the record by a dynamic-time-warp of the drums' onsets on
+the record's beat-tracked grid (`work/align.py`): bar for bar, with no bar
+missing or extra. Parts repeat where the record's bars repeat exactly, note
+for note, so each song fits 26 parts of at most eight bars. Where a tab's
+fill is written in 32nds, the bar is two bars of sixteenths at double time
+(Since You Been Gone bars 4, 19, 22, 43 and 46), which plays it exactly.
+
+**Readings.** Long Live Rock 'n' Roll's tab carries an 8th triplet feel; it is
+read on a sextuplet grid (4/4-6), its kick on 1, the last triplet and the
+next beat. In All Night Long bar 67 the tab writes the crash, the snare and
+the floor tom together on 2; the right hand takes the crash and that one tom
+note is left out, the only note dropped in the four songs. Love Ain't No
+Stranger's tab sets the bridge at 112; the record takes 14.6 s for its 7
+drumless bars (about 115), so the bridge plays at 115/126 of the song. The
+library calls All Night Long "a swaggering mid-tempo shuffle-rock groove"; the
+tab and the record are straight eighths.
+
+**Left out, and why.** No song of 26 parts can play these as the tabs write
+them, and the bars are not bent to fit: Stargazer (127 distinct bars in 177),
+Tarot Woman (17 bars in sextuplets or 32nds among straight sixteenths: 40
+parts), Kill the King (27 parts in 4/4 alone, 31 with its 6/4 bar and 12/8
+ending) and Headless Cross (seven bars in other grids: 32 parts). Each tab is
+human, and each record lines up with it. A Light in the Black's tab runs
+about eleven bars short of the record (225 beat-tracked bars against 214), and
+the gap could not be placed. Dance with the Devil has no drum tab.
+
+**Open questions.** The four songs left out by the part limit: a change to
+the app's limits (more section letters, or a written section that can change
+grid bar by bar) would let them in as written. Whether All Night Long's bar 67 crash on
+2 sits over a floor-tom note on the record. A Light in the Black's missing
+bars. His kits after 1976: the 1978 film shows a chrome kit, sources unread.
+
+**The style.** Big room (the 26" Ludwigs and the room of Rising and Long Live
+Rock 'n' Roll) for the base and Long Live Rock 'n' Roll; Studio rock for
+Down to Earth and Slide It In. Weight 0.95; two bass drums (`doubleKick`);
+figures and fills from the songs; phraseMark crash 0.8. The likeness is
+Rainbow at the Olympiahalle, Munich, 20 October 1977 (Rockpalast; Live in
+Munich 1977): shoulder-length brown hair, clean-shaven, a black vest, studded
+wristbands, a red sparkle double kit.
+
+### Sources (EH)
+
+- Wikipedia: Cozy Powell; Rising (Rainbow album); Long Live Rock 'n' Roll;
+  Down to Earth (Rainbow album); Since You Been Gone; All Night Long (Rainbow
+  song); Slide It In; Love Ain't No Stranger; Stargazer (Rainbow song);
+  Headless Cross (album); Live in Munich 1977
+- "Stateside touring with Ritchie's Rainbow: Beat talks to Cozy Powell" (Beat
+  Instrumental, January 1976):
+  https://www.worldradiohistory.com/UK/Beat-Instrumental/Beat-Instrumental-1976-01-S-OCR.pdf
+- "Career In Beats: Cozy Powell" (MusicRadar, 29 June 2010):
+  https://musicradar.com/rhythm/career-in-beats-cozy-powell-257423
+- "Jeff Beck: Cozy Powell ... he was my John Bonham" (MusicRadar, 2 February
+  2024): https://www.musicradar.com/news/jeff-beck-cozy-powell-elp-rainbow-whitesnake-drum-hero
+- "I play the drums like I drive – crazy: the epic life and tragic death of
+  Cozy Powell" (Louder, 5 April 2024):
+  https://www.loudersound.com/features/cozy-powell-drummer-rainbow-whitesnake-black-sabbath
+- "Introduction to Cozy Powell" (Now Spinning):
+  https://nowspinning.co.uk/introduction-to-cozy-powell/
+- Rolling Stone, "100 Greatest Drummers of All Time" (2016)
+- Rainbow, Live in Munich 1977: YouTube zEaxow3PoO0, HDT_uqM1iqI; Long Live
+  Rock 'n' Roll film (1978): 9wfKAix0IQc
+- LRCLIB synced lyrics: Since You Been Gone
+- Songsterr 51393, 51404, 23667, 22081 (human, scored); 23663, 78710, 51382,
+  2874, 78711 (human, read, not scored); 1517302, 1147585, 1065949 (machine,
+  read)
+- The records: u4lxo7Ia_rY, UwhLqAoqj3I, g2XDORONuuY, dlk-nHIO6xU (checked on
+  1jwOjgCTagI); and rVXy1OhaERY, dDO-Kk9956g, OhfvzxYXlBU, NyLx55_W3KA,
+  KikLLLeyVOk for the songs left out (YouTube), beat-tracked
+
+## EI. Steve Smith (2026-11-01)
+
+The `stevesmith` style plays **songs** the way `cozypowell` and `erskine` do:
+each New picks one of his records, and its tempo and grooves come with it. His
+record (`drummer-model/drummers/steve-smith.json`) was a 15-a candidate and is
+now a draft at schema 1.6.0, with Evolution and Enigmatic Ocean as new
+recordings and `sources/steve-smith.json`. He files with the Fusion drummers,
+beside Billy Cobham, whom he names as the "paradigm shift" that took him from
+Buddy Rich to fusion, and Peter Erskine, his opposite number in Steps Ahead.
+
+**Who he is.** Steven Bruce Smith was born on 21 August 1954 in Whitman,
+Massachusetts (Wikipedia). He had lessons from 1963 with Bill Flanagan, a
+swing-era big band drummer; played two years in the Lin Biviano Big Band from
+nineteen; and studied at Berklee from 1972 to 1976, privately with Gary Chaffee
+and Alan Dawson (vitalinformation.com; Wikipedia, which adds Freddie Gruber). He
+recorded Enigmatic Ocean with Jean-Luc Ponty in 1977, toured with Ronnie
+Montrose, and replaced Aynsley Dunbar in Journey in 1978, for Evolution (1979),
+Departure (1980), Escape (1981) and Frontiers (1983). He left in 1985 "to pursue
+his original passion, jazz", and has led Vital Information since 1983 (the
+band's history; Wikipedia says 1977), with Steps Ahead from 1986 and Journey
+again in 1995-98 and 2015-20. Modern Drummer's readers voted him No. 1
+All-Around Drummer five years running; its Hall of Fame, 2002; the Rock and
+Roll Hall of Fame with Journey, 2017.
+
+**What he does.** In his own words (George W. Harris, Jazz Weekly, 1 January
+2018): "Buddy Rich, of course"; of Tony Williams, "there were certain phrases
+that he played that I wanted to learn, so I figured them out"; Billy Cobham's
+approach "was a paradigm shift"; "My gateway into fusion was by Jean-Luc Ponty
+... He was the one who asked me to buy a big double-bass drum set"; with
+Journey, "I could bring that to the rock drumming in the band to add that
+certain kind of groove", the R&B feel he would transcribe from Zigaboo
+Modeliste. And: "I love to hear drummers with a nice touch that are able to
+draw a beautiful sound from the instrument." The tabs agree: plain backbeats
+with the kick pushed off the "and"s, toms answering the snare, the ride over
+the hat foot, and whole verses left to the band.
+
+**Which records are his.** Each album's Wikipedia personnel names him: Evolution
+(drums, percussion; "the band's first album to feature drummer Steve Smith"),
+Departure (drums, percussion), Escape (drums), Frontiers (drums, percussion),
+and Enigmatic Ocean (drums and percussion; its solo credits give Mirage to
+Ponty's violin and Allan Zavod's synthesizer). The Sonor Phonic kit in natural
+oak that he first used on the 1980 Departure tour recorded Dream, After Dream,
+Escape and Frontiers (Donn Bennett Drum Studio, the kit's sale: two 24" bass
+drums, 12" and 13" rack toms, 16" and 18" floor toms, two more rack toms
+later). Raised on Radio (1986) is mostly Larrie Londin's; Smith plays three
+tracks.
+
+**The songs.**
+
+| Song                        | Year | Tempo (record)                | Meter | Bars from                | Sections                                                                    |
+| --------------------------- | ---- | ----------------------------- | ----- | ------------------------ | --------------------------------------------------------------------------- |
+| Mirage                      | 1977 | 189 (188.8; the tab says 185) | 4/4   | Songsterr 2172363, human | the drums in, the half-time theme, the solos, the theme again, the last hit |
+| Lovin', Touchin', Squeezin' | 1979 | 106 quarters (dotted q. 70.7) | 12/8  | Songsterr 10701, human   | intro, two verse-and-chorus forms, the long outro on the ride               |
+| Any Way You Want It         | 1980 | 138 (138.3)                   | 4/4   | Songsterr 10257, human   | intro, two verse/pre-chorus/chorus forms, two solos, bridge, chorus, fade   |
+| Don't Stop Believin'        | 1981 | 119 (119.7)                   | 4/4   | Songsterr 10681, human   | the band's hits, the verse he sits out, the build, choruses, solo, outro    |
+| Who's Crying Now            | 1981 | 122 (121.4)                   | 4/4   | Songsterr 10728, human   | three choruses, the verse and bridge without drums, the long guitar solo    |
+| Faithfully                  | 1983 | 65 (64.8)                     | 4/4   | Songsterr 22948, human   | first chorus, second verse, pre-chorus, chorus, outro                       |
+
+Every tab was checked at every revision for machine origin; none is, though
+Any Way You Want It has an October 2026 revision titled "ai did it" (not marked
+machine-made) that added one tom note to bar 1, taken out by the next
+revision, so its drums are Ian Meyer's of May 2026. Every song plays the tab's
+bars in the record's order from the drums' first note, checked against the
+record by beat-tracking and a dynamic time warp of the drum onsets
+(`work/align.py`); parts that repeat exactly share a letter. The drumless
+openings (Don't Stop Believin's 31 bars, Who's Crying Now's 22, Faithfully's
+21, Mirage's 31) are left out; drumless bars inside a song (Don't Stop
+Believin's second verse, Who's Crying Now's verses and bridge) are kept as
+empty bars, since sitting out is part of his part.
+
+**Readings against the records.** Mirage's tab writes 185, then 180 from bar
+201; the record runs 230 bars in 292 s, about 189, so the song plays at 189
+throughout. Its bars line up with the record from the drums' entry (41 s) to
+bar 97 and from bar 200 to the end; between them the solos fill the mix and
+the onset match loses its place, but the half-time groove of bars 132-142 sits
+at 166-180 s, where the tab puts it, and the two ends meet at one record bar
+to each tab bar. Lovin', Touchin', Squeezin' is in 12/8, its tempo counted in
+quarters: the tab's 60 bars from the verse to bar 65 take 203.8 s at 106 and
+203.6 s on the record, though the beat-tracker drifts within sections, as a
+12/8 shuffle gives it no one beat to hold. Faithfully's six fills in 32nds are
+each two bars of sixteenths at double time.
+
+**Two hands.** In seven bars of Who's Crying Now's guitar solo (107, 115, 123,
+131, 139, 147, and the bar before them, 106) the tab writes three things for
+the sticks at once: a crash with the ride and the snare on 2, where the crash
+takes the right hand's note, and in bar 106 a hat under the snare and a tom,
+which goes to the foot. No note was moved and no tempo changed.
+
+**Not scored.** Separate Ways (Worlds Apart) (Frontiers, 1983), the part he
+teaches on Drumeo and "put together" for arenas (Laughing Squid): its human tab
+(39975) lines up with the record at 131, but holds 113 distinct bars in 174,
+eight of them sextuplet fills and two in 32nds, and packs into 30 parts at
+best, four more than a song can have, even with the bars before each fill
+written on the sextuplet grid. Stone in Love (Escape, 1981): its outro puts a
+bar of 2/4 after every five of 4/4 (tab 10500), which needs 28 parts. Both
+specs are written and ready. Escape's tab (413742) runs about twelve bars long
+against the record from the drums' entry, and Send Her My Love's (704640),
+its repeats played out, about 21 short, so neither can be placed; Mother, Father's tempo map is rubato
+throughout, with fifty notes off any grid. No human tab of a Vital Information
+or Steps Ahead tune he plays on exists: Vital Information's "Sacred Treasure"
+and Steps Ahead's "Trains" and "Self Portrait" are machine drafts, and Magnetic
+(1986) is Peter Erskine's. His other Ponty tracks on Songsterr are machine
+drafts, some revised.
+
+**The style.** Studio rock, Big Rusty's damped kick under the DRS snare and
+Crocell's cymbals, for the big, clean Journey records; the DRS kit, even and
+clear with a Paiste ride, for Mirage. Weight 0.7: a hard hitter in an arena
+who talks about touch and balance. `doubleKick` for the two bass drums Ponty
+had him buy and Journey's two 24" kicks, though the tabs write one kick line.
+The likeness is the Escape tour at the Summit, Houston, 6 November 1981, filmed
+for MTV (Live in Houston 1981, the band's uploads): long straight brown hair
+from a centre parting, clean-shaven, a pale pink V-neck T-shirt, a white
+sweatband, a red lacquered touring kit.
+
+### Sources (EI)
+
+- George W. Harris, "Steve Smith steps ahead on his Journey with Vital
+  Information" (Jazz Weekly, 1 January 2018): https://jazzweekly.com/?p=18390
+- Steve Smith & Vital Information, history:
+  https://vitalinformation.com/history.htm
+- Donn Bennett Drum Studio, Steve Smith's Journey 1980 Sonor Phonic set (the
+  kit's sale, with his notes)
+- Laughing Squid, on his Drumeo lesson on Separate Ways
+- Wikipedia: Steve Smith (drummer); Evolution, Departure, Escape and Frontiers
+  (Journey albums); Enigmatic Ocean; Don't Stop Believin'; Who's Crying Now;
+  Lovin', Touchin', Squeezin'; Live in Houston 1981: The Escape Tour
+- Journey, Live in Houston 1981 (the Summit, 6 November 1981): YouTube
+  2q4RwTIkYk0, VcjzHMhBtf0
+- Songsterr 2172363, 10701, 10257, 10681, 10728, 22948 (human, scored); 39975,
+  10500, 413742, 704640, 413745 (human, read, not scored); 1300690, 5832467,
+  5827295 (machine drafts, read)
+- The records: 7UIrXIqQ1nQ, fTkHFQC3wow, mmasR6_1lBo, 1k8craCGpgs,
+  vlw5MqGI7xQ, YalgKfrOdsI; uH64qV71uUQ, 4fKOzeUBIMI, -GlUFI6iWdU,
+  kxVbQRZ_zm4 (YouTube), beat-tracked

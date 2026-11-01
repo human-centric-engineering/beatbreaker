@@ -4197,6 +4197,69 @@ const ROGER_HAWKINS: Persona = {
   kit: { shell: '#17171d', finish: 'oyster', hardware: 'chrome', rug: '#2a2220' },
 };
 
+/**
+ * Cozy Powell with Rainbow at the Olympiahalle, Munich, on 20 October 1977, playing "Kill the
+ * King" and "Long Live Rock 'n' Roll" (Rainbow, Live in Munich 1977; the concert's official
+ * uploads, YouTube zEaxow3PoO0 and HDT_uqM1iqI, at the kit at 0:21, 1:20 and 4:15 of the first and
+ * 1:15 and 2:00 of the second): twenty-nine, a muscular build, brown hair falling straight past
+ * his ears to the shoulders, the face clean-shaven, a black sleeveless vest, a dark studded
+ * wristband on each wrist. A red sparkle double kit with chrome hardware, the "double kit in red
+ * glitter" Jeff Beck saw at his audition in 1970 (Classic Rock, via MusicRadar, 2024). The
+ * Long Live Rock 'n' Roll film of 1978 (YouTube 9wfKAix0IQc) shows the same clean-shaven face
+ * under hair cut to the collar. His trousers and shoes are behind the kit, a guess; the studs on
+ * the wristbands are not drawn.
+ */
+const COZY_POWELL: Persona = {
+  id: 'cozypowell',
+  name: 'Cozy Powell',
+  figure: 'male',
+  build: 'muscular',
+  skin: '#e6b896',
+  hair: '#4a3021',
+  hairStyle: 'long',
+  beard: 'none',
+  top: 'vest',
+  shirt: '#151518',
+  trousers: '#1a1a1e',
+  shoes: '#141414',
+  footwear: 'boots',
+  accent: '#b3202a',
+  wristbands: '#1c1c1c',
+  headphones: false,
+  kit: { shell: '#b3202a', finish: 'sparkle', hardware: 'chrome', rug: '#2a2422' },
+};
+
+/**
+ * Steve Smith with Journey at the Summit, Houston, on 6 November 1981, on the Escape tour, filmed
+ * for MTV (Journey, Live in Houston 1981: The Escape Tour; the band's uploads of "Who's Crying
+ * Now", YouTube 2q4RwTIkYk0, at the kit at 2:02, 4:00, 4:41 and 5:06, and "Don't Stop
+ * Believin'", VcjzHMhBtf0): twenty-seven, slim, brown hair falling straight past the shoulders
+ * from a centre parting, the face clean-shaven, a pale pink V-neck T-shirt, a white sweatband on
+ * the wrist. A red lacquered kit with chrome hardware, many toms and a wall of cymbals; the
+ * Sonor Phonic in natural oak that made the records (Donn Bennett Drum Studio) is not the kit
+ * on this stage. His trousers and shoes are behind the kit, a guess; the V of the neck is drawn
+ * as a T-shirt's round one, and the second wristband is the type's, not the footage's.
+ */
+const STEVE_SMITH: Persona = {
+  id: 'stevesmith',
+  name: 'Steve Smith',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e8bf9f',
+  hair: '#5a3b25',
+  hairStyle: 'long',
+  beard: 'none',
+  top: 'tee',
+  shirt: '#ece2ea',
+  trousers: '#3a4a6a',
+  shoes: '#e6e6e6',
+  footwear: 'trainers',
+  accent: '#b3141c',
+  wristbands: '#f2f2f2',
+  headphones: false,
+  kit: { shell: '#b3141c', finish: 'gloss', hardware: 'chrome', rug: '#2a2422' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -4326,6 +4389,8 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   tommyramone: TOMMY_RAMONE,
   earlhudson: EARL_HUDSON,
   rogerhawkins: ROGER_HAWKINS,
+  cozypowell: COZY_POWELL,
+  stevesmith: STEVE_SMITH,
 };
 
 /**

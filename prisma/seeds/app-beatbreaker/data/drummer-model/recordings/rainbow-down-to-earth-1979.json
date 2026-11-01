@@ -21,16 +21,28 @@
           "source_ids": ["src:cozy-powell-wikipedia", "src:down-to-earth-rainbow-album-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=UwhLqAoqj3I"
+      "youtube": "https://www.youtube.com/watch?v=UwhLqAoqj3I",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=51404"
+        }
+      ],
+      "style_key": "cozypowell",
+      "song_key": "since-you-been-gone"
     },
     {
       "title": "All Night Long",
       "drummer_ids": ["drummer:cozy-powell"],
       "drums": {
-        "description": "A swaggering mid-tempo shuffle-rock groove with big crash accents.",
+        "description": "Straight eighths at about 128: the riff on the floor tom over four on the floor, with big crash accents.",
         "evidence": {
           "confidence": "likely",
-          "source_ids": ["src:cozy-powell-wikipedia", "src:down-to-earth-rainbow-album-wikipedia"]
+          "source_ids": [
+            "src:cozy-powell-wikipedia",
+            "src:down-to-earth-rainbow-album-wikipedia",
+            "src:songsterr-23667"
+          ]
         }
       },
       "youtube": "https://www.youtube.com/watch?v=g2XDORONuuY",
@@ -39,7 +51,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=23667"
         }
-      ]
+      ],
+      "style_key": "cozypowell",
+      "song_key": "all-night-long"
     }
   ]
 }

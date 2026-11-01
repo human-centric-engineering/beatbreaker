@@ -1,0 +1,45 @@
+{
+  "id": "rec:whitesnake-slide-it-in-1984",
+  "title": "Slide It In",
+  "artist": "Whitesnake",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cozy-powell",
+      "name": "Cozy Powell",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:slide-it-in-wikipedia"]
+  },
+  "tracks": [
+    {
+      "title": "Love Ain't No Stranger",
+      "drummer_ids": ["drummer:cozy-powell"],
+      "drums": {
+        "description": "The open hat in quarters over the kick on the \"and\"s, a crash every other bar; the third verse and last chorus on the ride; the band's stops in the riff. Powell called it the best track he ever played on.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:slide-it-in-wikipedia",
+            "src:love-aint-no-stranger-wikipedia",
+            "src:songsterr-22081"
+          ]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=dlk-nHIO6xU",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=22081"
+        }
+      ],
+      "style_key": "cozypowell",
+      "song_key": "love-aint-no-stranger"
+    }
+  ]
+}

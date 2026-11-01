@@ -1,0 +1,41 @@
+{
+  "id": "rec:rainbow-long-live-rock-n-roll-1978",
+  "title": "Long Live Rock 'n' Roll",
+  "artist": "Rainbow",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cozy-powell",
+      "name": "Cozy Powell",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:long-live-rock-n-roll-album-wikipedia"]
+  },
+  "tracks": [
+    {
+      "title": "Long Live Rock 'n' Roll",
+      "drummer_ids": ["drummer:cozy-powell"],
+      "drums": {
+        "description": "A shuffle on the ride bell, the kick on 1, the last triplet of each beat and the next, the snare on 2 and 4; the intro and turnarounds on the snare in eighth-note triplets.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:long-live-rock-n-roll-album-wikipedia", "src:songsterr-51393"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=u4lxo7Ia_rY",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=51393"
+        }
+      ],
+      "style_key": "cozypowell",
+      "song_key": "long-live-rock-n-roll"
+    }
+  ]
+}

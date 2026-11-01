@@ -27,13 +27,15 @@
           "source_ids": ["src:escape-journey-album-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=VcjzHMhBtf0",
+      "youtube": "https://www.youtube.com/watch?v=1k8craCGpgs",
       "transcriptions": [
         {
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=10681"
         }
-      ]
+      ],
+      "style_key": "stevesmith",
+      "song_key": "dont-stop-believin"
     },
     {
       "title": "Who's Crying Now",
@@ -45,13 +47,15 @@
           "source_ids": ["src:escape-journey-album-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=2q4RwTIkYk0",
+      "youtube": "https://www.youtube.com/watch?v=vlw5MqGI7xQ",
       "transcriptions": [
         {
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=10728"
         }
-      ]
+      ],
+      "style_key": "stevesmith",
+      "song_key": "whos-crying-now"
     }
   ]
 }

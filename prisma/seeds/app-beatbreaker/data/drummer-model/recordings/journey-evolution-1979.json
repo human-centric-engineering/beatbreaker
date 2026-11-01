@@ -1,0 +1,41 @@
+{
+  "id": "rec:journey-evolution-1979",
+  "title": "Evolution",
+  "artist": "Journey",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-smith",
+      "name": "Steve Smith",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:evolution-journey-album-wikipedia"]
+  },
+  "tracks": [
+    {
+      "title": "Lovin', Touchin', Squeezin'",
+      "drummer_ids": ["drummer:steve-smith"],
+      "drums": {
+        "description": "A slow 12/8: every eighth on the hat, the snare on the second and fourth beats, the kick on 1 and pushing the third; the chorus and outro on the ride.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:evolution-journey-album-wikipedia", "src:songsterr-10701"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=fTkHFQC3wow",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=10701"
+        }
+      ],
+      "style_key": "stevesmith",
+      "song_key": "lovin-touchin-squeezin"
+    }
+  ]
+}
