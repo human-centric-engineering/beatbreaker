@@ -24,16 +24,18 @@
         "description": "A drum entry that builds from eighths on the hat into a driving rock groove, the song’s lift carried by the drums.",
         "evidence": {
           "confidence": "widely_reported",
-          "source_ids": ["src:escape-journey-album-wikipedia"]
+          "source_ids": ["src:escape-journey-album-wikipedia", "src:songsterr-10681"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=VcjzHMhBtf0",
+      "youtube": "https://www.youtube.com/watch?v=1k8craCGpgs",
       "transcriptions": [
         {
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=10681"
         }
-      ]
+      ],
+      "style_key": "stevesmith",
+      "song_key": "dont-stop-believin"
     },
     {
       "title": "Who's Crying Now",
@@ -42,16 +44,18 @@
         "description": "A slow, steady rock ballad groove with tasteful fills.",
         "evidence": {
           "confidence": "widely_reported",
-          "source_ids": ["src:escape-journey-album-wikipedia"]
+          "source_ids": ["src:escape-journey-album-wikipedia", "src:songsterr-10728"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=2q4RwTIkYk0",
+      "youtube": "https://www.youtube.com/watch?v=vlw5MqGI7xQ",
       "transcriptions": [
         {
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=10728"
         }
-      ]
+      ],
+      "style_key": "stevesmith",
+      "song_key": "whos-crying-now"
     }
   ]
 }

@@ -381,6 +381,60 @@ What came of it (built 2026-10-31):
   the file, and adds a style to a group the parent has already written. Each
   section was moved to the end, and the doubled group entry taken out.
 
+## Batch 2, next two (claimed 2026-10-31)
+
+The top two of the re-ranked long list (`rank.py`, 2026-10-31), both 15-a
+candidates: keep the record ids. One is rock and one jazz, inside the family
+rule, and each files into a group that exists. The owner asked for one fork at
+a time, so Cozy Powell runs first, then Steve Smith.
+
+| Fork | Drummer     | Record                | Style key    | Likeness      | Research | Drummers-tab group | Copy from                         |
+| ---- | ----------- | --------------------- | ------------ | ------------- | -------- | ------------------ | --------------------------------- |
+| 1    | Cozy Powell | `drummer:cozy-powell` | `cozypowell` | `COZY_POWELL` | EH       | Hard rock drummers | `bonham`, `paice`, `alexvanhalen` |
+| 2    | Steve Smith | `drummer:steve-smith` | `stevesmith` | `STEVE_SMITH` | EI       | Fusion drummers    | `gadd`, `colaiuta`, `erskine`     |
+
+**What each fork should watch for:**
+
+1. **Cozy Powell.** Rainbow, 1975–80 (_Rising_, _Long Live Rock 'n' Roll_,
+   _Down to Earth_): "Stargazer", "Tarot Woman", "A Light in the Black",
+   "Since You Been Gone", "All Night Long". Before that the Jeff Beck Group
+   (1971–72) and his own hit "Dance with the Devil" (1973); after it MSG,
+   Whitesnake's _Slide It In_ (1984), Emerson, Lake & Powell and Black
+   Sabbath's _Headless Cross_ (1989). Whitesnake's 1987 album is Aynsley
+   Dunbar's, not his: check each credit. Check meter and feel on "Stargazer"
+   and the long Rainbow songs from the record; the double bass is his, but
+   the 3D kit draws one bass drum.
+2. **Steve Smith.** Journey, 1978–85 (_Evolution_ to _Frontiers_): "Any Way
+   You Want It", "Don't Stop Believin'", "Who's Crying Now", "Separate Ways",
+   "Faithfully". He files as fusion, so look for Vital Information and Steps
+   Ahead tunes with human tabs and a link to add to the Journey songs. Larrie
+   Londin plays most of _Raised on Radio_ (1986): check every credit. Score
+   any swing or shuffle as such, not straightened.
+
+What came of it (built 2026-11-01):
+
+- **Songs.** Powell four (1978–84), Smith six (1977–83), all from human tabs,
+  every tab lined up with its record bar for bar. Smith's Mirage is with
+  Jean-Luc Ponty (_Enigmatic Ocean_, 1977), the one fusion side with a human
+  tab: none exists for Vital Information or Steps Ahead.
+- **Left out for the song limits.** Stargazer, Tarot Woman, Kill the King,
+  Headless Cross, Separate Ways and Stone in Love each line up with their
+  records but need more than 26 sections of eight bars, one grid to a
+  section. None was bent to fit. The limits are up for review with the owner.
+- **Left out otherwise.** A Light in the Black's tab runs about 11 bars short
+  of the record; Escape and Send Her My Love's tabs do not match their
+  records' length; Dance with the Devil has no drum tab.
+- **Two hands.** All Night Long bar 67 drops a floor tom under crash and
+  snare; in seven bars of Who's Crying Now the crash takes the ride's note,
+  and one hat goes to the foot. Each is in the song's comment.
+- **Library corrections.** All Night Long is straight eighths, not a shuffle;
+  Since You Been Gone gains its tab (51404); Stargazer, Don't Stop Believin',
+  Who's Crying Now, Any Way You Want It and Separate Ways now link the album
+  takes, not a fan upload, live takes or video edits; Departure's drum credit
+  names Smith as sole drummer.
+- **`merge.py` again placed each research section before DW's `## Sources`**;
+  both were moved to the end.
+
 ## The brief each fork gets
 
 Paste this to each fork, with its row from the batch table and `S`, the

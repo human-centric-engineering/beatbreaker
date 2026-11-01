@@ -2,16 +2,22 @@
   "meta": {
     "id": "drummer:steve-smith",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
+    "record_status": "draft",
+    "completeness": 0.45,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-11-01",
+    "authors": ["claude"],
+    "open_questions": [
+      "Separate Ways (Frontiers, 1983), his best-known drum part, has a human tab that lines up with the record, but it holds 113 distinct bars, eight of them sextuplet fills, and packs into 30 parts at best; Stone in Love's outro puts a bar of 2/4 after every five of 4/4 and needs 28. More section letters, or a written section that can change grid or meter bar by bar, would let both in unbent.",
+      "No human transcription of a Vital Information, Steps Ahead or later fusion record of his is on Songsterr (Vital Information's \"Sacred Treasure\" and Steps Ahead's are machine drafts, and Steps Ahead's Magnetic is Peter Erskine's): his own band's playing is not yet modelled.",
+      "Mirage: the tab writes 185 and the record runs at about 189; between bars 97 and 200, where the solos fill the mix, the onset match is unsure, though both ends and the groove at bars 132-142 sit where the tab puts them.",
+      "Who's Crying Now: the tab writes a crash with the ride and the snare on 2 in seven bars of the guitar solo; read as the crash taking the right hand. Check the record.",
+      "Whether any Frontiers parts used electronic drums: no source read says so; the kit that recorded it is the acoustic Sonor Phonic."
+    ]
   },
   "identity": {
     "name": "Steve Smith",
     "full_name": "Steven Bruce Smith",
-    "nationality": ["American"],
-    "roles": ["band_member", "bandleader", "educator"],
     "born": {
       "date": "1954-08-21",
       "place": "Whitman, Massachusetts",
@@ -20,57 +26,879 @@
         "source_ids": ["src:steve-smith-wikipedia"]
       }
     },
-    "active": {
-      "from": 1974,
-      "ongoing": true
-    },
+    "nationality": ["American"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
     "primary_instruments": ["drum kit"],
-    "summary": "Journey's drummer on Escape and Frontiers, and leader of the fusion band Vital Information."
+    "active": {
+      "from": 1972,
+      "ongoing": true,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-smith-wikipedia", "src:vital-information-history"],
+        "note": "The Lin Biviano Big Band at 19 after high school (1972) and Berklee 1972-76; leading Vital Information since 1983 and recording to date."
+      }
+    },
+    "roles": ["band_member", "bandleader", "session", "educator"],
+    "summary": "American drummer of Journey (1978-85, and again 1995-98 and 2015-20) and leader of the fusion band Vital Information since 1983, after Jean-Luc Ponty's Enigmatic Ocean (1977). A Berklee-trained jazz player who brought an R&B groove to arena rock: the kick pushed off the \"and\"s, the toms answering the backbeat, the hat foot under the ride. Modern Drummer's readers' No. 1 All-Around Drummer five years running; its Hall of Fame, 2002."
   },
+  "formation": {
+    "first_instrument": "drums",
+    "institutions": [
+      {
+        "name": "Berklee College of Music",
+        "years": {
+          "from": 1972,
+          "to": 1976
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:vital-information-history", "src:steve-smith-wikipedia"]
+        }
+      }
+    ],
+    "teachers": [
+      {
+        "name": "Bill Flanagan",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:steve-smith-wikipedia"],
+          "note": "Lessons from 1963 with a Boston-area teacher who played in swing-era big bands."
+        }
+      },
+      {
+        "name": "Alan Dawson",
+        "id": "drummer:alan-dawson",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:vital-information-history", "src:steve-smith-wikipedia"]
+        }
+      },
+      {
+        "name": "Gary Chaffee",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:vital-information-history"]
+        }
+      },
+      {
+        "name": "Freddie Gruber",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:steve-smith-wikipedia"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Big band",
+        "impact": "The Lin Biviano Big Band for two years from 19, and the Bridgewater State big band before it; Buddy Rich \"of course\" as the first model.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:steve-smith-wikipedia", "src:jazzweekly-steve-smith-2018"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1977,
+        "event": "Joined Jean-Luc Ponty's band and recorded Enigmatic Ocean; Ponty had him buy a double-bass kit.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:enigmatic-ocean-wikipedia",
+            "src:jazzweekly-steve-smith-2018",
+            "src:vital-information-history"
+          ]
+        }
+      },
+      {
+        "year": 1978,
+        "event": "Joined Journey from Ronnie Montrose's band, replacing Aynsley Dunbar, for Evolution (1979).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:evolution-journey-album-wikipedia", "src:vital-information-history"]
+        }
+      },
+      {
+        "year": 1985,
+        "event": "Left Journey \"to pursue his original passion, jazz\".",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:vital-information-history", "src:steve-smith-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:steve-smith-ponty",
+      "label": "Jean-Luc Ponty, 1977-1978",
+      "years": {
+        "from": 1977,
+        "to": 1978
+      },
+      "context": "Ponty's fusion band with Allan Holdsworth and Daryl Stuermer: Enigmatic Ocean (1977), \"rock energy with jazz improvisation and odd time signatures\" (Jazz Weekly).",
+      "defining_traits": [
+        "half time at fast tempos",
+        "the hat foot keeping eighths",
+        "a double-bass kit"
+      ],
+      "key_recording_ids": ["rec:jean-luc-ponty-enigmatic-ocean-1977"]
+    },
+    {
+      "id": "era:steve-smith-journey",
+      "label": "Journey, 1978-1985",
+      "years": {
+        "from": 1978,
+        "to": 1985
+      },
+      "context": "Evolution (1979), Departure (1980), Escape (1981) and Frontiers (1983): arena rock with the groove of an R&B drummer, on the Sonor Phonic kit from 1980.",
+      "style_shift": "Fusion technique kept under rock songs: plain backbeats, the kick and hat pushed off the \"and\"s, toms as answers.",
+      "defining_traits": [
+        "four on the floor with the toms on 3 and 4",
+        "the kick on the \"and\"s",
+        "the ride over the hat foot",
+        "the drums sitting out a verse"
+      ],
+      "kit_setup_id": "kit:steve-smith-sonor-phonic-1980",
+      "key_recording_ids": [
+        "rec:journey-evolution-1979",
+        "rec:journey-departure-1980",
+        "rec:journey-escape-1981",
+        "rec:journey-frontiers-1983"
+      ]
+    },
+    {
+      "id": "era:steve-smith-vital-information",
+      "label": "Vital Information and jazz, 1983 on",
+      "years": {
+        "from": 1983
+      },
+      "context": "His own band from 1983 (the first three albums on the same Sonor kit), Steps Ahead, Buddy's Buddies and Steve Smith's Jazz Legacy; Journey again 1995-98 and 2015-20.",
+      "style_shift": "Back to jazz and fusion as a leader; not modelled here, for want of a human transcription."
+    }
+  ],
   "style_profile": {
     "genres": [
       {
         "style_id": "style:rock",
-        "weight": 0.7
+        "weight": 0.8,
+        "authority": 0.6
       },
       {
         "style_id": "style:jazz-fusion",
         "weight": 0.8,
-        "authority": 0.4
+        "authority": 0.5
+      }
+    ],
+    "versatility": 0.85,
+    "groove_vs_chops": 0.6,
+    "role_tendency": "hybrid",
+    "descriptors": ["fusion", "arena rock", "groove", "versatile", "controlled"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:steve-smith-record-alignment"],
+        "note": "The Journey records beat-track steadily (Any Way You Want It at 138.3, Faithfully at 64.8, end to end); no source measures his placement."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Straight eighths in the Journey songs scored; Lovin', Touchin', Squeezin' in 12/8."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "f",
+      "balance": "The snare and kick in proportion: \"Balance your limbs so that you're playing the snare drum in relation to the volume\" (Jazz Weekly)."
+    },
+    "density": {
+      "groove_notes_per_bar": [4, 16],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.6
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [60, 200],
+    "timekeeping_context": ["free"],
+    "descriptors": ["steady", "in the pocket", "controlled"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Toms answering the backbeat",
+        "description": "In Don't Stop Believin' the snare plays 2 alone and the rack and floor toms the \"and\"s of 3 and 4 in turn; in Separate Ways' verse both rack toms fall on 4 over four on the floor.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10681", "src:songsterr-39975"]
+        }
+      },
+      {
+        "name": "The ride over the hat foot",
+        "description": "Choruses and solos on the ride in eighths while the hat foot keeps quarters (Any Way You Want It), or keeps eighths alone under a half-time snare (Mirage).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10257", "src:songsterr-2172363"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick off the \"and\"s",
+        "description": "The kick on the \"and\" of 1, 2, 3 and the \"and\" of 4 (Any Way You Want It), or the \"and\" of 2 and the \"and\" of 4 (Who's Crying Now), against a plain backbeat.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10257", "src:songsterr-10728"]
+        }
+      },
+      {
+        "name": "Two bass drums",
+        "description": "A double-bass kit from Ponty's band on; two 24\" bass drums with Journey. The tabs scored write one kick line.",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:jazzweekly-steve-smith-2018",
+            "src:donn-bennett-steve-smith-sonor-phonic"
+          ]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single-stroke roll",
+        "usage": ["fill"],
+        "weight": 0.4
+      }
+    ],
+    "coordination": {
+      "independence": 0.7,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.2,
+      "odd_meter_fluency": 0.7,
+      "double_bass": 0.4,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-11-01",
+        "searched": [
+          "Songsterr human drum tabs read bar by bar: Any Way You Want It 10257, Don't Stop Believin' 10681, Who's Crying Now 10728, Faithfully 22948, Lovin', Touchin', Squeezin' 10701, Mirage 2172363, Separate Ways 39975, Stone in Love 10500, Escape 413742, Send Her My Love 704640",
+          "Jazz Weekly (2018); vitalinformation.com; Donn Bennett Drum Studio; Laughing Squid on his Separate Ways lesson",
+          "Wikipedia: Steve Smith and the Journey and Ponty albums' articles"
+        ],
+        "note": "None found in the six scored songs: grooves held with the band, half time, a 12/8. His fusion work (odd meters with Ponty and Vital Information) would be where to look, once a human transcription of it exists."
+      }
+    }
+  },
+  "sound_profile": {
+    "aesthetic": ["clear", "tight", "big toms", "polished"],
+    "cymbal_character": "A crash on the \"and\" of 4 into the next bar; the ride in eighths for choruses and solos, its bell for a bridge; a china in a fade.",
+    "by_era": [
+      {
+        "era_id": "era:steve-smith-ponty",
+        "description": "A dry 1970s studio kit under electric violin and guitars."
+      },
+      {
+        "era_id": "era:steve-smith-journey",
+        "description": "The Sonor Phonic in natural oak, beech shells, two 24\" bass drums, in Mike Stone and Kevin Elson's big, clean early-1980s productions."
+      }
+    ],
+    "sample_hints": {
+      "70s": "A tight, dry fusion kit, a crisp snare.",
+      "80s": "Big clean toms, a cracking snare, a deep kick, arena reverb."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": [
+        "src:donn-bennett-steve-smith-sonor-phonic",
+        "src:escape-journey-album-wikipedia",
+        "src:frontiers-journey-album-wikipedia"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:steve-smith-toms-on-the-ands",
+      "label": "Don't Stop Believin's toms",
+      "category": "groove",
+      "description": "Four on the floor with the snare on 2 alone and the toms answering on the \"and\"s of 3 and 4: the figure the song is known by.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:journey-escape-1981"
+        }
+      ],
+      "pattern_ids": ["pattern:steve-smith-dsb-chorus"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-10681", "src:steve-smith-record-alignment"]
+      }
+    },
+    {
+      "id": "trait:steve-smith-kick-off-the-ands",
+      "label": "The kick pushed off the \"and\"s",
+      "category": "groove",
+      "description": "A plain backbeat with the kick placed on the \"and\"s around it: the R&B groove he says he brought to Journey.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:journey-departure-1980"
+        },
+        {
+          "recording_id": "rec:journey-escape-1981"
+        }
+      ],
+      "pattern_ids": ["pattern:steve-smith-awywi-verse", "pattern:steve-smith-wcn-chorus"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:jazzweekly-steve-smith-2018",
+          "src:songsterr-10257",
+          "src:songsterr-10728"
+        ]
+      }
+    },
+    {
+      "id": "trait:steve-smith-sits-out",
+      "label": "Out for the verse",
+      "category": "musical_approach",
+      "description": "The drums out under whole verses (Don't Stop Believin', Who's Crying Now) or until the first chorus (Faithfully), so their entry lifts the song.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:journey-escape-1981"
+        },
+        {
+          "recording_id": "rec:journey-frontiers-1983"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-10681", "src:songsterr-10728", "src:songsterr-22948"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:steve-smith-dsb-chorus",
+        "name": "Don't Stop Believin': the chorus",
+        "type": "groove",
+        "function": "Eighths on the hat, four on the floor, the snare on 2 alone, the rack tom on the \"and\" of 3 and the floor tom on the \"and\" of 4.",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10681", "src:steve-smith-record-alignment"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 119,
+          "playable_range_bpm": [118, 120]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x...........",
+          "tom_1": "..........x.....",
+          "floor_tom_1": "..............x.",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:journey-escape-1981",
+          "transcription_source_id": "src:songsterr-10681"
+        },
+        "tags": ["1981", "journey"]
+      },
+      {
+        "id": "pattern:steve-smith-awywi-verse",
+        "name": "Any Way You Want It: the verse",
+        "type": "groove",
+        "function": "The hat off the \"and\" of 1, the kick on the \"and\" of 1, 2, 3 and the \"and\" of 4, the hat open on the \"and\" of 4, the snare on 2 and 4.",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10257", "src:steve-smith-record-alignment"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 138,
+          "playable_range_bpm": [137, 139]
+        },
+        "lanes": {
+          "hihat": "..x.x.x.x.x.x.o.",
+          "hihat_pedal": "k...............",
+          "snare": "....x.......x...",
+          "kick": "..x.x...x...x.x."
+        },
+        "source": {
+          "recording_id": "rec:journey-departure-1980",
+          "transcription_source_id": "src:songsterr-10257"
+        },
+        "tags": ["1980", "journey"]
+      },
+      {
+        "id": "pattern:steve-smith-awywi-chorus",
+        "name": "Any Way You Want It: the chorus",
+        "type": "groove_variation",
+        "function": "The ride in eighths over the hat foot in quarters, the same kick pushed off the \"and\"s.",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10257", "src:steve-smith-record-alignment"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 138,
+          "playable_range_bpm": [137, 139]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "hihat_pedal": "k...k...k...k...",
+          "snare": "....x.......x...",
+          "kick": "..x.x...x...x.x."
+        },
+        "source": {
+          "recording_id": "rec:journey-departure-1980",
+          "transcription_source_id": "src:songsterr-10257"
+        },
+        "tags": ["1980", "journey"]
+      },
+      {
+        "id": "pattern:steve-smith-wcn-chorus",
+        "name": "Who's Crying Now: the chorus",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the kick on the \"and\" of 2, 3 and the \"and\" of 4.",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10728", "src:steve-smith-record-alignment"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 122,
+          "playable_range_bpm": [121, 123]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "......x.x.....x."
+        },
+        "source": {
+          "recording_id": "rec:journey-escape-1981",
+          "transcription_source_id": "src:songsterr-10728"
+        },
+        "tags": ["1981", "journey"]
+      },
+      {
+        "id": "pattern:steve-smith-faithfully-verse",
+        "name": "Faithfully: the second verse",
+        "type": "groove",
+        "function": "The ride in quarters, the kick on 1, a cross-stick on 4.",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22948", "src:steve-smith-record-alignment"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 65,
+          "playable_range_bpm": [64, 66]
+        },
+        "lanes": {
+          "ride": "x...x...x...x...",
+          "snare": "............c...",
+          "kick": "x..............."
+        },
+        "source": {
+          "recording_id": "rec:journey-frontiers-1983",
+          "transcription_source_id": "src:songsterr-22948"
+        },
+        "tags": ["1983", "journey", "ballad"]
+      },
+      {
+        "id": "pattern:steve-smith-lts-verse",
+        "name": "Lovin', Touchin', Squeezin': the verse",
+        "type": "groove",
+        "function": "A slow 12/8: every eighth on the hat, the snare on the second and fourth beats, the kick on 1 and pushing the third.",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10701", "src:steve-smith-record-alignment"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 106,
+          "playable_range_bpm": [105, 107]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.x.x.x.x.",
+          "snare": "......x...........x.....",
+          "kick": "x...x.....x.x...x.....x."
+        },
+        "source": {
+          "recording_id": "rec:journey-evolution-1979",
+          "transcription_source_id": "src:songsterr-10701"
+        },
+        "tags": ["1979", "journey", "12/8"]
+      },
+      {
+        "id": "pattern:steve-smith-mirage-theme",
+        "name": "Mirage: the half-time groove",
+        "type": "groove",
+        "function": "Half time at 189: the hat foot in eighths, the snare on 3, the kick on 1 and the \"and\" of 4.",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2172363", "src:steve-smith-record-alignment"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 189,
+          "playable_range_bpm": [188, 190]
+        },
+        "lanes": {
+          "hihat_pedal": "k.k.k.k.k.k.k.k.",
+          "snare": "........x.......",
+          "kick": "x.............x."
+        },
+        "source": {
+          "recording_id": "rec:jean-luc-ponty-enigmatic-ocean-1977",
+          "transcription_source_id": "src:songsterr-2172363"
+        },
+        "tags": ["1977", "ponty", "fusion", "half time"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:steve-smith-sonor-phonic-1980",
+      "label": "Sonor Phonic, natural oak, 1980",
+      "era_ids": ["era:steve-smith-journey"],
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "size": "24x14\""
+        },
+        {
+          "instrument": "kick_2",
+          "size": "24x14\""
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1",
+          "size": "12x8\""
+        },
+        {
+          "instrument": "tom_2",
+          "size": "13x8\""
+        },
+        {
+          "instrument": "floor_tom_1",
+          "size": "16x16\""
+        },
+        {
+          "instrument": "floor_tom_2",
+          "size": "18x16\""
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1"
+        },
+        {
+          "instrument": "crash_2"
+        },
+        {
+          "instrument": "china"
+        }
+      ],
+      "layout_notes": "First used on the 1980 Departure tour; recorded Dream, After Dream, Escape and Frontiers. Two 24\" bass drums, 12\" and 13\" rack toms, 16\" and 18\" floor toms, 8\" and 10\" rack toms added later; 9-ply beech in natural oak veneer (Donn Bennett Drum Studio). The china is the tabs'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:donn-bennett-steve-smith-sonor-phonic"]
+      }
+    }
+  ],
   "affiliations": [
-    {
-      "name": "Journey",
-      "type": "band_member",
-      "years": {
-        "from": 1978,
-        "to": 1985
-      }
-    },
-    {
-      "name": "Vital Information",
-      "type": "bandleader",
-      "years": {
-        "from": 1977
-      }
-    },
-    {
-      "name": "Steps Ahead",
-      "type": "band_member"
-    },
     {
       "name": "Jean-Luc Ponty",
       "type": "band_member",
       "years": {
         "from": 1977,
         "to": 1978
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-smith-wikipedia", "src:enigmatic-ocean-wikipedia"]
+      }
+    },
+    {
+      "name": "Journey",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1985
+      },
+      "notes": "Again 1995-98 and 2015-20.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-smith-wikipedia"]
+      }
+    },
+    {
+      "name": "Vital Information",
+      "type": "bandleader",
+      "years": {
+        "from": 1983
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:vital-information-history", "src:steve-smith-wikipedia"],
+        "note": "Wikipedia says \"since 1977\"; the band's own history and first album say 1983."
+      }
+    },
+    {
+      "name": "Steps Ahead",
+      "type": "band_member",
+      "years": {
+        "from": 1986
+      },
+      "notes": "Live in Tokyo 1986, N.Y.C. (1989), Yin-Yang (1992).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:steve-smith-wikipedia"]
+      }
+    },
+    {
+      "name": "Lin Biviano Big Band",
+      "type": "big_band",
+      "years": {
+        "from": 1973,
+        "to": 1975
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steve-smith-wikipedia"]
       }
     }
   ],
-  "key_recording_ids": ["rec:journey-escape-1981", "rec:journey-frontiers-1983"],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Alan Dawson",
+        "kind": "drummer",
+        "id": "drummer:alan-dawson"
+      },
+      "strength": 0.7,
+      "scope": "individual",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:vital-information-history", "src:steve-smith-wikipedia"],
+        "note": "Private lessons at Berklee, 1972-76."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.7,
+      "scope": "individual",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzweekly-steve-smith-2018", "src:steve-smith-wikipedia"],
+        "note": "\"Buddy Rich, of course\"; Rich \"inspired\" him (Wikipedia, on Burning for Buddy)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.6,
+      "scope": "individual",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzweekly-steve-smith-2018"],
+        "note": "\"there were certain phrases that he played that I wanted to learn, so I figured them out.\""
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "strength": 0.6,
+      "scope": "individual",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzweekly-steve-smith-2018"],
+        "note": "\"his approach was a paradigm shift from my wanting to play the more Buddy Rich approach.\""
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Zigaboo Modeliste",
+        "kind": "drummer",
+        "id": "drummer:zigaboo-modeliste"
+      },
+      "strength": 0.4,
+      "scope": "individual",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzweekly-steve-smith-2018"],
+        "note": "\"if I hear something that Zigaboo Modeliste plays for The Meters and I like it, I'll transcribe it and learn it.\""
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Aynsley Dunbar",
+        "kind": "drummer",
+        "id": "drummer:aynsley-dunbar"
+      },
+      "strength": 0.4,
+      "scope": "band",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:evolution-journey-album-wikipedia"],
+        "note": "Journey, 1978: \"drummer Aynsley Dunbar was replaced with Smith\"."
+      }
+    }
+  ],
   "legacy": {
+    "influence_score": 0.6,
+    "innovations": [
+      "A jazz-trained drummer on the biggest arena rock records of the early 1980s",
+      "Teaching the history of American drumming on record and film (History of the U.S. Beat, 2003)"
+    ],
+    "accolades": [
+      {
+        "award": "Modern Drummer Hall of Fame",
+        "year": 2002,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:steve-smith-wikipedia"]
+        }
+      },
+      {
+        "award": "Modern Drummer readers' No. 1 All-Around Drummer, five years running",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:steve-smith-wikipedia"]
+        }
+      },
+      {
+        "award": "Rock and Roll Hall of Fame, as a member of Journey",
+        "year": 2017,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:steve-smith-wikipedia"]
+        }
+      }
+    ],
     "contribution": {
       "description": "Played arena rock with Journey and fusion with his own Vital Information at the same time, and was voted Modern Drummer's No. 1 All-Around Drummer five years running; Hall of Fame, 2002.",
       "evidence": {
@@ -80,7 +908,36 @@
     }
   },
   "beatbreaker": {
-    "group": "Fusion drummers",
-    "build_priority": 2
-  }
+    "style_key": "stevesmith",
+    "headline_pattern_ids": [
+      "pattern:steve-smith-dsb-chorus",
+      "pattern:steve-smith-awywi-verse",
+      "pattern:steve-smith-wcn-chorus",
+      "pattern:steve-smith-mirage-theme"
+    ],
+    "default_kit_sound": "A big, clean early-1980s rock kit: deep twin kicks, a cracking snare, open toms",
+    "generation_rules": [
+      "A plain backbeat with the kick pushed off the \"and\"s.",
+      "Toms answering the snare, or a crash on the \"and\" of 4 into the next bar.",
+      "The ride in eighths over the hat foot for a chorus."
+    ],
+    "avoid": [
+      "Ghost-note clutter",
+      "Fills in every bar",
+      "Double-bass runs (the scored records write one kick)"
+    ],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:buddy-rich", "drummer:tony-williams", "drummer:billy-cobham"],
+      "primary_descendants": [],
+      "lineage_blurb": "A Berklee student of Alan Dawson who grew up on Buddy Rich, learned Tony Williams's phrases and Billy Cobham's fusion, and carried them into Journey's arena rock."
+    },
+    "tags": ["fusion", "arena rock", "70s", "80s", "journey", "ponty", "vital information"]
+  },
+  "key_recording_ids": [
+    "rec:jean-luc-ponty-enigmatic-ocean-1977",
+    "rec:journey-evolution-1979",
+    "rec:journey-departure-1980",
+    "rec:journey-escape-1981",
+    "rec:journey-frontiers-1983"
+  ]
 }

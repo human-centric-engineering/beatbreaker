@@ -2,21 +2,125 @@
   "meta": {
     "id": "drummer:cozy-powell",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
-    "completeness": 0.15,
+    "record_status": "draft",
+    "completeness": 0.45,
     "created": "2026-10-22",
-    "updated": "2026-10-22",
-    "authors": ["claude"]
+    "updated": "2026-11-01",
+    "authors": ["claude"],
+    "open_questions": [
+      "Stargazer, Tarot Woman, Kill the King and Headless Cross have human tabs that line up with their records, but none fits a song of 26 parts of eight bars as written (Stargazer: 127 distinct bars in 177; the others: bars in sextuplets, 32nds, 6/4 or 12/8 among the 4/4, each needing a part of its own). More section letters, or a written section that can change grid bar by bar, would let them in unbent.",
+      "A Light in the Black: the human tab (Songsterr 78711) runs 214 bars against about 225 on the record; where the missing bars fall was not found.",
+      "All Night Long bar 67: the tab writes the crash, the snare and the floor tom together on 2; read as the crash taking the right hand. Check the record.",
+      "His kits after 1976: the 1978 Long Live Rock 'n' Roll film shows a chrome-shelled kit and the tabs name Yamaha kits for 1979 and 1984, but no source read says when he moved to Yamaha.",
+      "Dance with the Devil (1973), his hit, has no drum transcription."
+    ]
   },
   "identity": {
     "name": "Cozy Powell",
-    "nationality": ["British"],
-    "active": {
-      "from": 1965,
-      "to": 1998
+    "full_name": "Colin Trevor Flooks",
+    "born": {
+      "date": "1947-12-29",
+      "place": "Cirencester, Gloucestershire, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cozy-powell-wikipedia"]
+      }
     },
-    "summary": "English hard rock drummer of the Jeff Beck Group, Rainbow, Whitesnake, Emerson, Lake & Powell and Black Sabbath."
+    "died": {
+      "date": "1998-04-05",
+      "place": "M4 motorway near Bristol, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cozy-powell-wikipedia"],
+        "note": "A car crash; declared dead at Frenchay Hospital."
+      }
+    },
+    "nationality": ["British"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1963,
+      "to": 1998,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cozy-powell-wikipedia", "src:louder-cozy-powell-2024"],
+        "note": "Semi-professional at sixteen and in the German clubs with the Sorcerers from the mid-1960s (Wikipedia; Louder); recording until his death in April 1998."
+      }
+    },
+    "roles": ["band_member", "session", "bandleader", "producer"],
+    "summary": "English hard rock drummer of the Jeff Beck Group, Rainbow, Whitesnake, Emerson, Lake & Powell and Black Sabbath. A power player with two big bass drums and a showman's solo; on record the groove stays plain, the hat or ride in quarters or eighths over a kick on 1 and the \"and\" of 3, a crash on each section's 1 and the band's stops played with them."
   },
+  "formation": {
+    "first_instrument": "drums",
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "British beat and club bands",
+        "impact": "Self-taught (\"never took a single drum lesson\"); six hours a night in the German clubs: \"If you can learn to entertain G.I.'s ... you can learn to entertain anybody.\"",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:louder-cozy-powell-2024", "src:beat-instrumental-1976-01-cozy-powell"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1970,
+        "event": "Joined the Jeff Beck Group after an audition on a red-glitter double kit.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:musicradar-jeff-beck-cozy-powell-2024", "src:cozy-powell-wikipedia"]
+        }
+      },
+      {
+        "year": 1975,
+        "event": "Joined Ritchie Blackmore's Rainbow.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:cozy-powell-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:cozy-powell-rainbow",
+      "label": "Rainbow, 1975-1980",
+      "years": {
+        "from": 1975,
+        "to": 1980
+      },
+      "context": "Ritchie Blackmore's Rainbow with Ronnie James Dio, then Graham Bonnet: Rising (Munich, 1976), Long Live Rock 'n' Roll (1978), Down to Earth (1979); headlining the first Monsters of Rock, August 1980.",
+      "defining_traits": [
+        "two 26\" bass drums",
+        "the riff doubled on the kick and the floor tom",
+        "a crash on each section's 1",
+        "the drum solo to the 1812 Overture"
+      ],
+      "kit_setup_id": "kit:cozy-powell-rainbow-1976",
+      "key_recording_ids": [
+        "rec:rainbow-rising-1976",
+        "rec:rainbow-long-live-rock-n-roll-1978",
+        "rec:rainbow-down-to-earth-1979"
+      ]
+    },
+    {
+      "id": "era:cozy-powell-1980s",
+      "label": "Whitesnake, ELP and Black Sabbath, 1982-1991",
+      "years": {
+        "from": 1982,
+        "to": 1991
+      },
+      "context": "The Michael Schenker Group, Whitesnake (Slide It In, 1984), Emerson, Lake & Powell (1986) and Black Sabbath (Headless Cross, 1989, which he co-produced).",
+      "style_shift": "The same plain power in bigger 1980s productions; the solo moved to Holst's Mars with ELP.",
+      "key_recording_ids": [
+        "rec:whitesnake-slide-it-in-1984",
+        "rec:black-sabbath-headless-cross-1989"
+      ]
+    }
+  ],
   "style_profile": {
     "genres": [
       {
@@ -28,8 +132,460 @@
         "style_id": "style:metal",
         "weight": 0.6
       }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.35,
+    "role_tendency": "driver",
+    "descriptors": ["power", "hard rock", "big kit", "showman", "plain grooves"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": [
+          "src:musicradar-career-in-beats-cozy-powell-2010",
+          "src:cozy-powell-record-alignment"
+        ],
+        "note": "MusicRadar's \"dead-eye precision\"; the records beat-track steadily (Since You Been Gone at 120.2 throughout); no source measures his placement."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Straight eighths on Since You Been Gone, All Night Long and Love Ain't No Stranger; Long Live Rock 'n' Roll a shuffle."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "ff",
+      "balance": "A loud backbeat and crashes over a plain hat; the kick big."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 16],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [85, 240],
+    "timekeeping_context": ["free"],
+    "descriptors": ["powerful", "steady", "heavy"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Snare sixteenths into the section",
+        "description": "A run of snare sixteenths over the last beats of a phrase, often into the toms (All Night Long bars 35 and 107, Love Ain't No Stranger bar 116).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23667", "src:songsterr-22081"]
+        }
+      },
+      {
+        "name": "The riff on the floor tom",
+        "description": "The right hand on the floor tom in eighths instead of the hat, over four on the floor (All Night Long's riff and choruses).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23667", "src:cozy-powell-record-alignment"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Two bass drums",
+        "description": "Two 26\" Ludwig bass drums in 1976; in Long Live Rock 'n' Roll's fills the kick runs in triplets under the snare and toms.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:beat-instrumental-1976-01-cozy-powell", "src:songsterr-51393"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single-stroke roll",
+        "usage": ["fill"],
+        "weight": 0.5
+      }
+    ],
+    "coordination": {
+      "independence": 0.3,
+      "linear_playing": 0.05,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.2,
+      "double_bass": 0.6,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-11-01",
+        "searched": [
+          "Songsterr human drum tabs read bar by bar: Long Live Rock 'n' Roll 51393, Since You Been Gone 51404, All Night Long 23667, Love Ain't No Stranger 22081, Stargazer 23663, Tarot Woman 78710, Kill the King 51382, Headless Cross 2874, A Light in the Black 78711",
+          "Beat Instrumental (January 1976); MusicRadar (2010, 2024); Louder (2024); Now Spinning",
+          "Wikipedia: Cozy Powell and the albums' and songs' articles"
+        ],
+        "note": "None found in the four scored songs: grooves held with the band, a shuffle, a half-time bridge. Tarot Woman (not scored) repeats a figure of snare, two toms and two kicks in sixteenth-note triplets, a dotted quarter long, over the bar line (bars 55-56, 151-152): a grouping worth modelling when that song can be built."
+      }
+    }
+  },
+  "sound_profile": {
+    "aesthetic": ["big", "loud", "thick bass drums", "cymbals hit hard"],
+    "cymbal_character": "A crash on each section's 1, often every other bar; the ride bell for a shuffle; the hat open in quarters for a chorus.",
+    "by_era": [
+      {
+        "era_id": "era:cozy-powell-rainbow",
+        "description": "Two 26\" Ludwig bass drums with extra-thick shells, a metal snare and Paiste cymbals (1976), in Musicland's room for Rising."
+      },
+      {
+        "era_id": "era:cozy-powell-1980s",
+        "description": "Bigger and brighter in the 1980s mixes; the US remix of Slide It In brings his drums up."
+      }
+    ],
+    "sample_hints": {
+      "70s": "Big Ludwig bass drums with the thump, a metal snare, Paiste crashes, a large room.",
+      "80s": "Close and bright, the snare cracking, a big reverb."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:beat-instrumental-1976-01-cozy-powell", "src:slide-it-in-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:cozy-powell-two-big-kicks",
+      "label": "Two big bass drums",
+      "category": "setup",
+      "description": "\"Two massive 26\" Ludwig bass drums custom built for him by Ludwig with extra thick shells to give the thump\" (1976); a double kit since 1970.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:beat-instrumental-1976-01-cozy-powell",
+          "src:musicradar-jeff-beck-cozy-powell-2024"
+        ]
+      }
+    },
+    {
+      "id": "trait:cozy-powell-crash-on-one",
+      "label": "A crash on the section's 1",
+      "category": "groove",
+      "description": "A crash on the first beat of each section, and every other bar in Love Ain't No Stranger's choruses.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:rainbow-down-to-earth-1979"
+        },
+        {
+          "recording_id": "rec:whitesnake-slide-it-in-1984"
+        }
+      ],
+      "pattern_ids": ["pattern:cozy-powell-lains-chorus"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-51404", "src:songsterr-22081"]
+      }
+    },
+    {
+      "id": "trait:cozy-powell-showman-solo",
+      "label": "The orchestral drum solo",
+      "category": "performance_persona",
+      "description": "The live solo to Tchaikovsky's 1812 Overture with lights and pyrotechnics in Rainbow, later 633 Squadron and Holst's Mars.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:musicradar-jeff-beck-cozy-powell-2024",
+          "src:musicradar-career-in-beats-cozy-powell-2010",
+          "src:louder-cozy-powell-2024"
+        ]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:cozy-powell-llrr-shuffle",
+        "name": "Long Live Rock 'n' Roll: the shuffle on the ride bell",
+        "type": "groove",
+        "function": "The verse and chorus: the ride bell on the beat, the kick on 1, the last triplet of each beat and the next, the snare on 2 and 4.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-51393", "src:cozy-powell-record-alignment"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 141,
+          "playable_range_bpm": [139, 143]
+        },
+        "lanes": {
+          "ride": "B.....B.....B.....B.....",
+          "snare": "......x...........x.....",
+          "kick": "x...x.x...x.x...x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:rainbow-long-live-rock-n-roll-1978",
+          "transcription_source_id": "src:songsterr-51393"
+        },
+        "tags": ["1978", "rainbow"]
+      },
+      {
+        "id": "pattern:cozy-powell-llrr-intro",
+        "name": "Long Live Rock 'n' Roll: the snare triplets",
+        "type": "intro",
+        "function": "The opening bar: the snare alone in eighth-note triplets.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-51393", "src:cozy-powell-record-alignment"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 141,
+          "playable_range_bpm": [139, 143]
+        },
+        "lanes": {
+          "snare": "x.x.x.x.x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:rainbow-long-live-rock-n-roll-1978",
+          "transcription_source_id": "src:songsterr-51393"
+        },
+        "tags": ["1978", "rainbow"]
+      },
+      {
+        "id": "pattern:cozy-powell-sybg-verse",
+        "name": "Since You Been Gone: the verse",
+        "type": "groove",
+        "function": "Quarters on the hat, the snare on 2 and 4, the kick on 1 and the \"and\" of 3.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-51404", "src:cozy-powell-record-alignment"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [119, 121]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "x.........x....."
+        },
+        "source": {
+          "recording_id": "rec:rainbow-down-to-earth-1979",
+          "transcription_source_id": "src:songsterr-51404"
+        },
+        "tags": ["1979", "rainbow"]
+      },
+      {
+        "id": "pattern:cozy-powell-sybg-bridge",
+        "name": "Since You Been Gone: the half-time bridge",
+        "type": "groove_variation",
+        "function": "Eighths on the hat, the snare on 3, the kick on 1 and the \"and\" of 2.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-51404", "src:cozy-powell-record-alignment"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [119, 121]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "........x.......",
+          "kick": "x.....x........."
+        },
+        "source": {
+          "recording_id": "rec:rainbow-down-to-earth-1979",
+          "transcription_source_id": "src:songsterr-51404"
+        },
+        "tags": ["1979", "half time"]
+      },
+      {
+        "id": "pattern:cozy-powell-anl-riff",
+        "name": "All Night Long: the riff on the floor tom",
+        "type": "groove",
+        "function": "The floor tom in eighths over the kick on every beat, the snare on 2 and 4.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23667", "src:cozy-powell-record-alignment"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [127, 129]
+        },
+        "lanes": {
+          "floor_tom_1": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:rainbow-down-to-earth-1979",
+          "transcription_source_id": "src:songsterr-23667"
+        },
+        "tags": ["1979", "rainbow"]
+      },
+      {
+        "id": "pattern:cozy-powell-lains-chorus",
+        "name": "Love Ain't No Stranger: the chorus",
+        "type": "groove",
+        "function": "The open hat in quarters, the snare on 2 and 4, the kick on the \"and\" of 1 and of 3; a crash every other bar.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22081", "src:cozy-powell-record-alignment"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 126,
+          "playable_range_bpm": [125, 127]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...",
+          "snare": "....x.......x...",
+          "kick": "..x.......x....."
+        },
+        "source": {
+          "recording_id": "rec:whitesnake-slide-it-in-1984",
+          "transcription_source_id": "src:songsterr-22081"
+        },
+        "tags": ["1984", "whitesnake"]
+      }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:cozy-powell-rainbow-1976",
+      "label": "Ludwig double kit, 1976",
+      "era_ids": ["era:cozy-powell-rainbow"],
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "size": "26\""
+        },
+        {
+          "instrument": "kick_2",
+          "size": "26\""
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1",
+          "size": "14x10"
+        },
+        {
+          "instrument": "tom_2",
+          "size": "14x10"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "size": "16x16"
+        },
+        {
+          "instrument": "floor_tom_2",
+          "size": "16x16"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1"
+        },
+        {
+          "instrument": "crash_2"
+        }
+      ],
+      "layout_notes": "Beat Instrumental (January 1976): two 26\" Ludwig bass drums with extra-thick shells, two 14 x 10\" toms, two 16 x 16\" floor toms, a metal military snare, \"a massive range of Paiste\". Red sparkle at Munich, October 1977 (Rockpalast footage).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:beat-instrumental-1976-01-cozy-powell",
+          "src:rainbow-live-in-munich-1977-video"
+        ]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "The Jeff Beck Group",
@@ -90,22 +646,20 @@
         "confidence": "widely_reported",
         "source_ids": ["src:cozy-powell-wikipedia"]
       }
-    }
-  ],
-  "key_recording_ids": ["rec:cozy-powell-dance-with-the-devil-1973", "rec:rainbow-rising-1976"],
-  "legacy": {
-    "contribution": {
-      "description": "A hard-hitting power player 'vital to the development of English hard rock and heavy metal', on Rainbow's Rising and his own hit \"Dance with the Devil\"; many rock drummers cite him as a major influence.",
+    },
+    {
+      "name": "Emerson, Lake & Powell",
+      "type": "band_member",
+      "years": {
+        "from": 1985,
+        "to": 1986
+      },
       "evidence": {
-        "confidence": "widely_reported",
-        "source_ids": ["src:cozy-powell-wikipedia", "src:rollingstone-100-drummers-2016"]
+        "confidence": "verified",
+        "source_ids": ["src:cozy-powell-wikipedia"]
       }
     }
-  },
-  "beatbreaker": {
-    "group": "Hard rock drummers",
-    "build_priority": 1
-  },
+  ],
   "relationships": [
     {
       "type": "influenced_by",
@@ -119,6 +673,99 @@
         "source_ids": ["src:cozy-powell-wikipedia"]
       },
       "scope": "individual"
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.6,
+      "scope": "individual",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:musicradar-jeff-beck-cozy-powell-2024"],
+        "note": "Jeff Beck: \"His idol was John Bonham, and I guess he was my John Bonham.\" The two came up together in Birmingham (Louder)."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Ian Paice",
+        "kind": "drummer",
+        "id": "drummer:ian-paice"
+      },
+      "strength": 0.4,
+      "scope": "band",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cozy-powell-wikipedia"],
+        "note": "Joined Whitesnake in late 1982 \"to replace Ian Paice\"."
+      }
     }
+  ],
+  "legacy": {
+    "influence_score": 0.65,
+    "innovations": [
+      "The hard rock drummer as a star: a top-three hit led by the drums (Dance with the Devil, 1973)",
+      "The staged orchestral drum solo, to the 1812 Overture"
+    ],
+    "accolades": [
+      {
+        "award": "Rolling Stone, 100 Greatest Drummers of All Time (2016), no. 50",
+        "year": 2016,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:rollingstone-100-drummers-2016"]
+        }
+      }
+    ],
+    "contribution": {
+      "description": "A hard-hitting power player 'vital to the development of English hard rock and heavy metal', on Rainbow's Rising and his own hit \"Dance with the Devil\"; many rock drummers cite him as a major influence.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:cozy-powell-wikipedia", "src:rollingstone-100-drummers-2016"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "style_key": "cozypowell",
+    "headline_pattern_ids": [
+      "pattern:cozy-powell-llrr-shuffle",
+      "pattern:cozy-powell-sybg-verse",
+      "pattern:cozy-powell-anl-riff",
+      "pattern:cozy-powell-lains-chorus"
+    ],
+    "default_kit_sound": "Two big Ludwig bass drums, a metal snare and Paiste crashes in a big room",
+    "generation_rules": [
+      "The hat or ride in quarters or eighths, the snare hard on 2 and 4, the kick on 1 and the \"and\" of 3, or four on the floor.",
+      "A crash on the section's 1.",
+      "Fills of snare sixteenths into the toms at phrase ends; stops with the band."
+    ],
+    "avoid": ["Ghost notes", "Busy linear grooves", "Soft dynamics", "Fills in every bar"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:john-bonham"],
+      "primary_descendants": [],
+      "lineage_blurb": "A Birmingham contemporary of John Bonham, his idol by Jeff Beck's account, carrying the big-kit power of British hard rock into Rainbow and heavy metal."
+    },
+    "tags": [
+      "hard rock",
+      "heavy metal",
+      "70s",
+      "80s",
+      "rainbow",
+      "whitesnake",
+      "double bass",
+      "power"
+    ]
+  },
+  "key_recording_ids": [
+    "rec:cozy-powell-dance-with-the-devil-1973",
+    "rec:rainbow-rising-1976",
+    "rec:rainbow-long-live-rock-n-roll-1978",
+    "rec:rainbow-down-to-earth-1979",
+    "rec:whitesnake-slide-it-in-1984",
+    "rec:black-sabbath-headless-cross-1989"
   ]
 }

@@ -7,7 +7,9 @@
   "style_ids": ["style:rock"],
   "drum_performances": [
     {
-      "drummer_id": "drummer:steve-smith"
+      "drummer_id": "drummer:steve-smith",
+      "name": "Steve Smith",
+      "drummer_role": "sole_drummer"
     }
   ],
   "tracks": [
@@ -18,16 +20,18 @@
         "description": "A stomping rock groove with big tom fills.",
         "evidence": {
           "confidence": "widely_reported",
-          "source_ids": ["src:departure-journey-album-wikipedia"]
+          "source_ids": ["src:departure-journey-album-wikipedia", "src:songsterr-10257"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=atxUuldUcfI",
+      "youtube": "https://www.youtube.com/watch?v=mmasR6_1lBo",
       "transcriptions": [
         {
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=10257"
         }
-      ]
+      ],
+      "style_key": "stevesmith",
+      "song_key": "any-way-you-want-it"
     }
   ]
 }
