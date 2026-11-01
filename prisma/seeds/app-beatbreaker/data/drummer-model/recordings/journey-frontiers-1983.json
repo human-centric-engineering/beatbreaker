@@ -42,10 +42,10 @@
         "description": "A ballad groove that builds into a full rock pattern.",
         "evidence": {
           "confidence": "widely_reported",
-          "source_ids": ["src:frontiers-journey-album-wikipedia"]
+          "source_ids": ["src:frontiers-journey-album-wikipedia", "src:songsterr-22948"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=OMD8hBsA-RI",
+      "youtube": "https://www.youtube.com/watch?v=YalgKfrOdsI",
       "transcriptions": [
         {
           "site": "songsterr",

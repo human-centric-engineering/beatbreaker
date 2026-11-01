@@ -220783,7 +220783,7 @@ export const STYLES: Record<string, Style> = {
     ],
     /* His bars, from the songs below: Since You Been Gone's quarters on the hat in the verse
        and eighths in the chorus, the kick on 1 and the "and" of 3; All Night Long's riff on the
-       floor tom over four on the floor, and its verse on the half-open hat; Love Ain't No
+       floor tom over four on the floor, and its verse on the open hat; Love Ain't No
        Stranger's open hat in quarters over the kick on the "and"s, and its ride verse. */
     figures: [
       // Since You Been Gone, the verse: quarters on the hat, the kick on 1 and the "and" of 3
@@ -220792,7 +220792,7 @@ export const STYLES: Record<string, Style> = {
       [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' }, 2],
       // All Night Long, the riff: the floor tom in eighths over the kick on every beat
       [{ s: '....2.......2...', t3: '1.1.1.1.1.1.1.1.', k: '1...1...1...1...' }, 1.2],
-      // All Night Long, the verse: the hat half-open in eighths over four on the floor
+      // All Night Long, the verse: the hat open in eighths over four on the floor
       [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1...1...1...1...' }, 1],
       // Love Ain't No Stranger, the chorus: the open hat in quarters, the kick on the "and"s of 1 and 3
       [{ h: '3...3...3...3...', s: '....2.......2...', k: '..1.......1.....' }, 1.2],
@@ -220802,7 +220802,7 @@ export const STYLES: Record<string, Style> = {
     fills: [
       // Since You Been Gone bar 84, back in after the stop: the snare and the floor tom
       [{ s: '2..........22...', t3: '....1...1.......' }, 1],
-      // All Night Long bar 35, from 3: the snare on 3, its "and", 4 and four sixteenths
+      // All Night Long bar 35, from 3: the snare on 3 and its "and", then four sixteenths from 4
       [{ s: '2.2.2222' }, 1.2],
       // Love Ain't No Stranger bar 30, the band's stops: the snare on 1 and 4, two sixteenths on each tom
       [
@@ -222054,8 +222054,8 @@ export const STYLES: Record<string, Style> = {
            Chorus, Guitar Solo and Fade Out. The record (g2XDORONuuY, the band's channel, 4:00)
            beat-tracks at 126 to 129, 127.8 over the song, straight, and the tab's bars line up with
            it bar for bar from the riff to the fade (work/align.py). His part: the riff on the floor
-           tom in eighths over the kick on every beat, the snare on 2 and 4; the verse on a
-           half-open hat in eighths over four on the floor, a crash every other bar; the pre-chorus
+           tom in eighths over the kick on every beat, the snare on 2 and 4; the verse on an
+           open hat in eighths over four on the floor, a crash every other bar; the pre-chorus
            in half time; the chorus back on the floor tom; snare pickups in sixteenths at the ends
            of phrases. Straight eighths, not a shuffle. In bar 67 the tab writes the crash, the
            snare and the floor tom together on 2; the right hand plays the crash, so that one
@@ -222063,7 +222063,7 @@ export const STYLES: Record<string, Style> = {
            left out, as is the tab's empty first bar. */
         key: 'all-night-long',
         title: 'All Night Long',
-        feel: 'Rainbow, 1979: the riff on the floor tom over four on the floor, the hat half-open in the verse (record 128)',
+        feel: 'Rainbow, 1979: the riff on the floor tom over four on the floor, the hat open in the verse (record 128)',
         weight: 1,
         params: {
           kit: 'studioRock',
@@ -222139,7 +222139,7 @@ export const STYLES: Record<string, Style> = {
             letter: 'E',
             label: 'the first verse, bars 1-6',
             written: [
-              // bar 13: the hat half-open in eighths over four on the floor
+              // bar 13: the hat open in eighths over four on the floor
               {
                 c: '2...............',
                 h: '..3.3.3.3.3.3.3.',
@@ -223215,7 +223215,7 @@ export const STYLES: Record<string, Style> = {
         },
         2,
       ],
-      // Any Way You Want It, the verse: the hat off the "and" of 1, the kick on the "and" of 1, 2, 3 and the "and" of 4, the hat open on the "and" of 4
+      // Any Way You Want It, the verse: the hat off the "and" of 1, the kick on the "and" of 1, 2, 3, 4 and its "and", the hat open on the "and" of 4
       [
         {
           h: '..1.1.1.1.1.1.3.',
@@ -223241,7 +223241,7 @@ export const STYLES: Record<string, Style> = {
       [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 1],
       // Faithfully, the second verse: the ride in quarters, the kick on 1, a cross-stick on 4
       [{ r: '1...1...1...1...', s: '............4...', k: '1...............' }, 0.6],
-      // Mirage: half time, the hat foot in eighths, the snare on 3, the kick on 1 and the "a" of 4
+      // Mirage: half time, the hat foot in eighths, the snare on 3, the kick on 1 and the "and" of 4
       [{ s: '........2.......', k: '1.............1.', hf: '1.1.1.1.1.1.1.1.' }, 0.8],
     ],
     fills: [
@@ -223299,7 +223299,7 @@ export const STYLES: Record<string, Style> = {
            them, where the solos fill the mix, the onset match loses its place, but the half-time
            groove of bars 132-142 sits where the tab puts it (166-180 s) and the two ends meet at
            one bar to each bar (work/align.py). His part: half time at 189, the hat foot in
-           eighths, the snare on 3 and the kick on 1 and the "a" of 4, the hat opened on the "and"
+           eighths, the snare on 3 and the kick on 1 and the "and" of 4, the hat opened on the "and"
            of 3; the solos on the hat in eighths with the snare in eighths on 3; the hat foot in
            quarters; down the toms into the band's last hit. The 31 bars before the drums come in
            and the 21 after the hat foot stops are left out. */
@@ -223335,7 +223335,7 @@ export const STYLES: Record<string, Style> = {
             letter: 'B',
             label: 'the theme, in half time, bar 1',
             written: [
-              // bar 33: the hat foot in eighths, the kick on 1 and the "a" of 4, the snare on 3: half time
+              // bar 33: the hat in eighths, the kick on 1 and the "and" of 4, the snare on 3: half time
               { h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1.............1.' },
             ],
             params: {},
@@ -223344,7 +223344,7 @@ export const STYLES: Record<string, Style> = {
             letter: 'C',
             label: 'the theme, in half time, bar 2',
             written: [
-              // bar 34: the hat opened on the "and" of 3, the snare on the "and" of 2 and on 3
+              // bar 34: the hat opened on 4, the snare on the "and" of 2 and on 3
               { h: '1.1.1.1.1.1.3...', s: '......2.2.......' },
             ],
             params: {},
