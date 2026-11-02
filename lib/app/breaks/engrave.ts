@@ -240,7 +240,9 @@ const CRASH_HEAD: Record<number, Pick<Head, 'step' | 'label'>> = {
  * eighth so the playhead and the editor still count the pattern's own steps.
  */
 export function engrave(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptions): Engraving {
-  if (!isEighths(meterOfPat(pat))) return engraveSteps(pat, ghostPat, opts);
+  const m = meterOfPat(pat);
+  // a bar too long to hold as sixteenths is drawn on its own eighths
+  if (!isEighths(m) || !meterKey(m.num, m.den)) return engraveSteps(pat, ghostPat, opts);
   const e = engraveSteps(asSixteenths(pat), ghostPat && asSixteenths(ghostPat), opts);
   return { ...e, map: e.map.filter((_, i) => i % 2 === 0), steps: e.steps / 2 };
 }
@@ -274,7 +276,7 @@ function asSixteenths(p: Pattern): Pattern {
   return {
     ...p,
     // the same bar in sixteenths: 4/4-8 is 4/4
-    meter: meterKey(m.num, m.den) ?? '4/4',
+    meter: meterKey(m.num, m.den) ?? p.meter,
     backbeats: p.backbeats.map((x) => x * 2),
     bars: p.bars.map(bar),
     sticking: p.sticking
@@ -1691,8 +1693,8 @@ function drawRest(
 ): void {
   const g = new GroupSink();
 
-  // a pulse of six sixteenths is a dotted quarter of silence, not a quarter
-  if (dur === 6 || dur === 12)
+  // a pulse of six sixteenths is a dotted quarter of silence, not a quarter; three a dotted eighth
+  if (dur === 1.5 || dur === 3 || dur === 6 || dur === 12)
     g.add('circle', { cx: 1.25 * SP, cy: 0, r: 0.19 * SP, fill: color, stroke: 'none' });
 
   if (dur >= 8) {
@@ -1730,7 +1732,7 @@ function drawRest(
       g.add('circle', { cx: 0.02 * s, cy: oy - 0.42 * s, r: 0.3 * s, fill: color, stroke: 'none' });
     };
     hook(-1.1 * s);
-    if (dur <= 1) hook(-0.05 * s);
+    if (dur < 2) hook(-0.05 * s);
     if (dur < 1) hook(1 * s);
   }
 

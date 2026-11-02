@@ -222,8 +222,9 @@ function buildMeter(key: string): Meter | null {
   if (!sub || num * sub > MAX_STEPS) return null;
   // one spelling to a meter: a grid is named only when it is not the default
   if (grid && sub === subOf(den, undefined)) return null;
-  const group = groupOf(num, den);
   const base = `${num}/${den}`;
+  // the same time signature on another grid keeps its pulses: 7/8 in 32nds is still 2+2+3
+  const group = Object.hasOwn(METERS, base) ? METERS[base].group : groupOf(num, den);
   const grouped =
     group.length > 1 && group.some((g) => g !== 1) ? `, grouped ${group.join('+')}` : '';
   return {
@@ -251,7 +252,6 @@ export function isMeterKey(key: unknown): key is string {
  */
 export function meterKey(num: number, den: number, grid?: '6' | '8' | '16' | '32'): string | null {
   const plain = `${num}/${den}`;
-  if (!isMeterKey(plain)) return null;
   const key = grid && subOf(den, grid) !== subOf(den, undefined) ? `${plain}-${grid}` : plain;
   return isMeterKey(key) ? key : null;
 }
@@ -284,6 +284,14 @@ export function stepSeconds(m: Meter, bpm: number): number {
 /** Whether a meter's steps are sixteenth-note triplets: six to the quarter. */
 export function isSextuplet(m: Meter): boolean {
   return stepsPerQuarter(m) === 6;
+}
+
+/**
+ * Whether a meter's pulse is eighths on a grid of sixteenths, two steps to an
+ * eighth, so a triplet groove's places are every other step: 6/8, 12/8, 13/8.
+ */
+export function isCompound(m: Meter): boolean {
+  return m.sub === 2 && stepsPerQuarter(m) === 4;
 }
 
 /** Whether a meter's steps are eighth notes: two to the quarter. */
@@ -339,11 +347,19 @@ export function pulseInfo(m: Meter): { steps: number; label: string } | null {
   const steps = g[0] * m.sub;
   // the pulse already is the quarter, however many steps it is split into
   if (steps === stepsPerQuarter(m)) return null;
-  return {
-    steps,
-    label: steps === 6 ? 'dotted quarter' : steps === 2 ? 'eighth' : `${steps}-sixteenth pulse`,
-  };
+  return { steps, label: PULSE_NAMES[steps / stepsPerQuarter(m)] ?? `${steps}-step pulse` };
 }
+
+/** A pulse's name by its length in quarters. */
+const PULSE_NAMES: Record<number, string> = {
+  0.25: 'sixteenth',
+  0.375: 'dotted sixteenth',
+  0.5: 'eighth',
+  0.75: 'dotted eighth',
+  1.5: 'dotted quarter',
+  2: 'half note',
+  3: 'dotted half',
+};
 
 /** `1 e + a 2 e + a …` — what each step is called when you count the bar out loud. */
 export function countLabelsOf(m: Meter): string[] {
@@ -352,15 +368,38 @@ export function countLabelsOf(m: Meter): string[] {
   const out: string[] = [];
   for (let b = 0; b < m.num; b++) {
     const n = String(b + 1);
-    if (m.sub === 4) out.push(n, 'e', '+', 'a');
+    const spq = stepsPerQuarter(m);
+    if (m.sub === 4 && spq === 4) out.push(n, 'e', '+', 'a');
     else if (m.sub === 6) out.push(n, 'la', 'li', '+', 'la', 'li');
-    else if (m.sub === 2) out.push(n, '+');
-    // 32nds to a quarter: the sixteenths are named, the 32nds between them not
-    else if (m.sub === 8 && m.den === 4) out.push(n, '', 'e', '', '+', '', 'a', '');
-    else out.push(n, ...new Array<string>(m.sub - 1).fill(''));
+    else if (m.sub === 2 && spq !== 8) out.push(n, '+');
+    else out.push(n, ...partsOfBeat(m));
   }
   countCache.set(m, out);
   return out;
+}
+
+/**
+ * The names of the steps inside one beat after its first, by where each falls
+ * in sixteenths: `e + a` in a quarter, `+` in an eighth or at the middle of a
+ * half note; a step between sixteenths (a 32nd) has none.
+ */
+function partsOfBeat(m: Meter): string[] {
+  const perSixteenth = stepsPerQuarter(m) / 4;
+  const sixteenths = 16 / m.den;
+  const out: string[] = [];
+  for (let j = 1; j < m.sub; j++) {
+    const at = j / perSixteenth;
+    if (!Number.isInteger(at)) out.push('');
+    else if (sixteenths === 4) out.push(['', 'e', '+', 'a'][at] ?? '');
+    else if (sixteenths === 2 || sixteenths === 8) out.push(at === sixteenths / 2 ? '+' : '');
+    else out.push('');
+  }
+  return out;
+}
+
+/** Whether a meter is one of the named ones, whose carrying rules are fixed. */
+function isNamed(m: Meter): boolean {
+  return Object.values(METERS).includes(m);
 }
 
 /**
@@ -385,24 +424,24 @@ export function remapStep(step: number, from: Meter, to: Meter): number {
      their places, and an "e" or an "a" goes to the triplet partial nearest it
      (the way a swung sixteenth does). From sextuplets, each step goes to the
      sixteenth nearest it. */
-  if (to.sub === 6 && from.sub === 4) off = [0, 2, 3, 4][off] ?? -1;
-  else if (to.sub === 4 && from.sub === 6) off = [0, 1, 1, 2, 3, 3][off] ?? -1;
+  const fq = stepsPerQuarter(from);
+  const tq = stepsPerQuarter(to);
+  if (to.sub === 6 && from.sub === 4 && fq === 4) off = [0, 2, 3, 4][off] ?? -1;
+  else if (to.sub === 4 && tq === 4 && from.sub === 6) off = [0, 1, 1, 2, 3, 3][off] ?? -1;
   /* Into eighths, the beat and its "and" keep their places and the "e" and
      the "a" have nowhere to go; out of them, each eighth is two sixteenths. */
-  else if (isEighths(to) && from.sub === 4) off = [0, -1, 1, -1][off] ?? -1;
+  else if (isEighths(to) && from.sub === 4 && fq === 4) off = [0, -1, 1, -1][off] ?? -1;
   else if (isEighths(to) && from.sub === 6) off = [0, -1, -1, 1, -1, -1][off] ?? -1;
-  else if (isEighths(from) && to.sub === 4) off *= 2;
+  else if (isEighths(from) && to.sub === 4 && tq === 4) off *= 2;
   else if (isEighths(from) && to.sub === 6) off *= 3;
-  /* Into 32nds or out of them (D85): each step to the one nearest it in time. */
-  else if (
-    stepsPerQuarter(to) !== stepsPerQuarter(from) &&
-    (stepsPerQuarter(to) === 8 || stepsPerQuarter(from) === 8)
-  )
-    off = Math.round((off * stepsPerQuarter(to)) / stepsPerQuarter(from));
+  /* Any other change of grid (D85) — into 32nds or out of them, or to or from
+     a meter without a name — each step to the one nearest it in time. */
+  else if (tq !== fq && (tq === 8 || fq === 8 || !isNamed(to) || !isNamed(from)))
+    off = Math.round((off * tq) / fq);
   /* A compound pulse is three eighths, not four sixteenths — the odd steps
      between them are not places a triplet groove has. Anything landing there is
      pulled to the nearest partial rather than left off the grid. */
-  if (to.sub === 2 && !isEighths(to) && !isEighths(from))
+  if (to.sub === 2 && tq === 4 && !isEighths(from))
     off = Math.min(tg[gi].size - 2, Math.round(off / 2) * 2);
   if (off >= tg[gi].size || off < 0) return -1;
   return tg[gi].start + off;

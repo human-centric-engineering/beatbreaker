@@ -19,7 +19,7 @@ import { SelectMenu } from '@/components/app/ui/select-menu';
 import { pickerSections } from '@/lib/app/breaks/catalogue/picker';
 import { noStyleReason } from '@/lib/app/breaks/library';
 import { BASE_LANES, PERC_INSTS, PERC_KEYS, PERC_LANES, laneName } from '@/lib/app/breaks/lanes';
-import { meterOf, pulseInfo } from '@/lib/app/breaks/meter';
+import { meterOf, pulseInfo, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { type CustomLanes, resolveLanes } from '@/lib/app/breaks/pattern';
 import { songOf } from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
@@ -110,7 +110,7 @@ export function GeneratePanel({
                 <>
                   {' '}
                   At {c.bpm} on the slider that is a {pulse.label} of{' '}
-                  <b>{Math.round((c.bpm * 4) / pulse.steps)}</b>.
+                  <b>{Math.round((c.bpm * stepsPerQuarter(meter)) / pulse.steps)}</b>.
                 </>
               ) : null}
             </div>

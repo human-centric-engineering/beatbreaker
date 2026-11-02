@@ -45,6 +45,16 @@ export function MeterField({
   const listed = METER_KEYS.includes(value);
   const [other, setOther] = useState(!listed);
   const [problem, setProblem] = useState<string | null>(null);
+  /* The key this field last wrote. A meter that arrives from elsewhere (a
+     pattern loaded, a style's song) shows as it is: a named one in the menu,
+     with the builder put away. One the builder wrote keeps it open, even when
+     it builds a named meter. */
+  const [wrote, setWrote] = useState(value);
+  if (value !== wrote) {
+    setWrote(value);
+    setOther(!listed);
+    setProblem(null);
+  }
   const showOther = other || !listed;
   const m = meterOf(value);
 
@@ -56,6 +66,7 @@ export function MeterField({
       return;
     }
     setProblem(null);
+    setWrote(key);
     onChange(key);
   };
 
@@ -68,6 +79,7 @@ export function MeterField({
           if (v === OTHER) return setOther(true);
           setOther(false);
           setProblem(null);
+          setWrote(v);
           onChange(v);
         }}
         options={[

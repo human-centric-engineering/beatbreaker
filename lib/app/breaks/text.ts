@@ -196,8 +196,14 @@ export function describeStep(m: Meter, step: number): string {
   const label = labels[step];
   if (label == null) return `step ${step + 1}`;
   if (/^\d+$/.test(label)) return `beat ${label}`;
-  // a step the count has no name for (a 32nd, a sixteenth of a half note): the one it follows
-  if (!label) return `just after ${describeStep(m, step - 1)}`;
+  /* A step the count has no name for (a 32nd, a sixteenth of a half note):
+     how far it is after the last step that has one. */
+  if (!label) {
+    let named = step - 1;
+    while (named > 0 && !labels[named]) named--;
+    const gap = step - named;
+    return `${gap === 1 ? 'a step' : `${gap} steps`} after ${describeStep(m, named)}`;
+  }
   return `the '${label}' of ${beat}`;
 }
 

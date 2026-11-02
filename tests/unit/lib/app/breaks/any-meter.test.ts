@@ -9,6 +9,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { isClickStep } from '@/lib/app/breaks/audio/transport';
+import { isSwung } from '@/lib/app/breaks/feel';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import {
@@ -17,11 +18,14 @@ import {
   MAX_STEPS,
   countLabelsOf,
   groupsOf,
+  isCompound,
   isMeterKey,
   meterKey,
   meterOf,
   parseMeter,
+  pulseInfo,
   remapList,
+  remapStep,
   stepSeconds,
   stepsOf,
   stepsPerQuarter,
@@ -109,7 +113,7 @@ describe('a meter key', () => {
     expect(stepsOf(m)).toBe(56);
     expect(m.label).toBe('7/4 in 32nds');
     expect(countLabelsOf(m).slice(0, 8)).toEqual(['1', '', 'e', '', '+', '', 'a', '']);
-    expect(describeStep(m, 3)).toBe("just after the 'e' of 1");
+    expect(describeStep(m, 3)).toBe("a step after the 'e' of 1");
   });
 
   it('has one spelling for each meter', () => {
@@ -272,5 +276,102 @@ describe('the click in 32nds', () => {
     );
     expect(steps).toHaveLength(14);
     expect(steps.every((s) => s % 4 === 0)).toBe(true);
+  });
+});
+
+describe('the same time signature on another grid', () => {
+  it('keeps its pulses: 7/8 is 2+2+3 in sixteenths, eighths and 32nds', () => {
+    for (const key of ['7/8', '7/8-8', '7/8-32'])
+      expect(meterOf(key).group, key).toEqual([2, 2, 3]);
+  });
+
+  it('names its pulse by its note value, whatever the grid', () => {
+    expect(pulseInfo(meterOf('6/8'))?.label).toBe('dotted quarter');
+    expect(pulseInfo(meterOf('6/8-32'))?.label).toBe('dotted quarter');
+    expect(pulseInfo(meterOf('6/8-8'))?.label).toBe('dotted quarter');
+    expect(pulseInfo(meterOf('2/2'))?.label).toBe('half note');
+  });
+});
+
+describe('the count', () => {
+  it('names the sixteenths of an eighth-note beat in 32nds, not its 32nds', () => {
+    expect(countLabelsOf(meterOf('7/8-32')).slice(0, 4)).toEqual(['1', '', '+', '']);
+    expect(countLabelsOf(meterOf('13/16-32')).slice(0, 4)).toEqual(['1', '', '2', '']);
+  });
+
+  it('names the middle of a half-note beat, and says how far a step without a name is from one', () => {
+    const m = meterOf('2/2');
+    expect(countLabelsOf(m).slice(0, 8)).toEqual(['1', '', '', '', '+', '', '', '']);
+    expect(describeStep(m, 5)).toBe("a step after the '+' of 1");
+    expect(describeStep(m, 7)).toBe("3 steps after the '+' of 1");
+  });
+});
+
+describe('carrying positions onto a grid of 32nds', () => {
+  it('reads 32nds over an eighth beat as 32nds, not sixteenths', () => {
+    // the second sixteenth of 7/8 in 32nds is step 2, the sextuplet nearest it 2 (of 6)
+    expect(remapStep(2, meterOf('7/8-32'), meterOf('4/4-6'))).toBe(2);
+    expect(remapStep(4, meterOf('7/8-32'), meterOf('4/4-6'))).toBe(3);
+  });
+
+  it('does not snap 32nds to the eighths of a compound pulse', () => {
+    expect(remapList([0, 1, 2, 3], meterOf('4/4'), meterOf('13/16-32'))).toEqual([0, 2, 4]);
+    expect(isCompound(meterOf('13/16-32'))).toBe(false);
+    expect(isCompound(meterOf('13/8'))).toBe(true);
+    expect(isCompound(meterOf('6/8'))).toBe(true);
+  });
+});
+
+describe('swing in 32nds', () => {
+  const swung = (key: string, unit?: 8 | 16) =>
+    Array.from({ length: 16 }, (_, i) => i).filter((i) =>
+      isSwung(i, meterOf(key), unit ? { swingUnit: unit } : undefined)
+    );
+
+  it('pushes the off-sixteenth, two 32nds in, or the off-eighth, four', () => {
+    expect(swung('4/4-32')).toEqual([2, 6, 10, 14]);
+    expect(swung('4/4-32', 8)).toEqual([4, 12]);
+    expect(swung('7/8-32', 8)).toEqual([4, 12]);
+  });
+
+  it('swings the eighths of a bar in sixteenths over a half or a sixteenth beat', () => {
+    expect(swung('2/2', 8)).toEqual([2, 6, 10, 14]);
+    expect(swung('17/16', 8)).toEqual([2, 6, 10, 14]);
+    // as it always did
+    expect(swung('4/4', 8)).toEqual([2, 6, 10, 14]);
+    expect(swung('6/8', 8)).toEqual([1, 3, 5, 7, 9, 11, 13, 15]);
+  });
+});
+
+describe('rests', () => {
+  const dots = (p: Pattern): number => {
+    let n = 0;
+    const walk = (
+      nodes: { tag: string; attrs?: Record<string, unknown>; children?: unknown[] }[]
+    ) => {
+      for (const node of nodes) {
+        if (node.tag === 'circle' && node.attrs?.r === 0.19 * 10) n++;
+        if (node.children) walk(node.children as typeof nodes);
+      }
+    };
+    walk(engrave(p, null, { scale: 1, perSystem: 1 }).nodes);
+    return n;
+  };
+
+  it('dots a silent pulse of three sixteenths, and of three 32nds', () => {
+    // 3+3+3+2+2: three dotted rests a voice, two voices
+    expect(dots(pattern([emptyBar(13)], '13/16'))).toBe(6);
+    expect(dots(pattern([emptyBar(13)], '13/32'))).toBe(6);
+    expect(dots(pattern([emptyBar(16)], '4/4'))).toBe(0);
+  });
+});
+
+describe('a long bar in eighths', () => {
+  it('has a key though its sixteenths would not fit, and engraves on its own eighths', () => {
+    expect(meterKey(17, 2, '8')).toBe('17/2-8');
+    expect(isMeterKey('40/4')).toBe(false);
+    const e = engrave(pattern([busyBar('40/4-8')], '40/4-8'), null, { scale: 1, perSystem: 1 });
+    expect(e.steps).toBe(80);
+    expect(e.map).toHaveLength(80);
   });
 });

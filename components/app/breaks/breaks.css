@@ -1341,6 +1341,13 @@
 }
 .bb .field > label,
 .bb .fieldhead > label,
+.bb .field > .fieldlab {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
 /* Another time signature (D83): beats / beat value, then the grid, on one line */
 .bb .meterbuild {
   display: flex;
@@ -1353,13 +1360,6 @@
   width: 4.5em;
 }
 
-.bb .field > .fieldlab {
-  font-family: var(--f-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
 .bb .field .row {
   display: flex;
   align-items: center;
