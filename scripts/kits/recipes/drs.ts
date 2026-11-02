@@ -59,10 +59,15 @@ export const drsSticks: Recipe = {
       slots: {
         h: closed,
         hOpen: drs('Hihat_open', HAT, 3, 2),
-        hFoot: foot,
         hHalf: half,
       },
     },
+    /* The foot hat levelled on its own recording, as the brushes kit's is.
+       Matched on the closed hat, it kept DRSKit's own balance: its loudest
+       layer peaked 16.5 dB under the closed hat's, where every other pack's
+       foot is within 6 dB of its hat, so Mirage's hat foot in eighths, with
+       no hand on the hat, could not be heard. */
+    { role: 'hat', slots: { hFoot: foot }, level: -3 },
     {
       role: 'ride',
       slots: { r: drs('Ride_tip', RIDE, 3, 3), rBell: drs('Ride_shank_bell', RIDE, 1, 3) },
