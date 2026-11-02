@@ -735,6 +735,26 @@ describe('generating and editing', () => {
     );
   });
 
+  it('puts a whole beat on a grid of its own, and gives it back (D84)', async () => {
+    const { result } = await mount();
+    const lanes = result.current.patterns.A?.lanes ?? [];
+    let ok = false;
+    act(() => {
+      ok = result.current.editTuplet('A', 0, 'h', 9, { kind: 'beat', n: 5 });
+    });
+    expect(ok).toBe(true);
+    const grid = result.current.patterns.A?.tuplets?.find((t) => t.start === 8);
+    expect(grid).toMatchObject({ bar: 0, start: 8, span: 4, n: 5 });
+    expect(Object.keys(grid?.notes ?? {}).sort()).toEqual([...lanes].sort());
+    act(() => {
+      ok = result.current.editTuplet('A', 0, 'k', 8, { kind: 'unbeat' });
+    });
+    expect(ok).toBe(true);
+    expect(result.current.patterns.A?.tuplets?.some((t) => t.start === 8) ?? false).toBe(false);
+    act(() => result.current.undo());
+    expect(result.current.patterns.A?.tuplets?.some((t) => t.start === 8 && t.n === 5)).toBe(true);
+  });
+
   it('turns the toms on and off without throwing the kit lanes away', async () => {
     const { result } = await mount();
     const kick = result.current.patterns.A?.bars[0].k.slice();

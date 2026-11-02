@@ -9,7 +9,7 @@ import { countLabelsOf, groupAt, groupsOf, isGroupStart } from '@/lib/app/breaks
 import { type WrittenHand, meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
 import type { SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { type TempoPoint, mapRatioAt } from '@/lib/app/breaks/tempo-map';
-import { ownedBy, tupletChoices, tupletsIn, twoAStep } from '@/lib/app/breaks/tuplets';
+import { beatGridAt, ownedBy, tupletChoices, tupletsIn, twoAStep } from '@/lib/app/breaks/tuplets';
 import type { LaneKey, Pattern, TupletSpan } from '@/lib/app/breaks/types';
 import type { HandEdit, TupletEdit } from '@/components/app/breaks/use-break-console';
 import { TempoPicker, type TempoPickerAt } from '@/components/app/breaks/tempo-picker';
@@ -452,6 +452,11 @@ export function StepEditor({
     const g = groupsOf(m)[groupAt(m, c.step)];
     return g ? tupletChoices(g.size) : [];
   };
+  /** The grids the whole of a cell's beat may be put on (D84): its tuplets, but not doubles. */
+  const beatChoicesAt = (c: CellAt): number[] => {
+    const g = groupsOf(m)[groupAt(m, c.step)];
+    return g ? choicesAt(c).filter((n) => n !== 2 * g.size) : [];
+  };
   const closePicker = () => {
     setPicker(null);
     opener.current?.focus();
@@ -863,6 +868,12 @@ export function StepEditor({
               closePicker();
             }}
             tuplets={picker.tuplet ? [] : choicesAt(picker)}
+            beatGrids={picker.tuplet ? [] : beatChoicesAt(picker)}
+            inBeatGrid={
+              picker.tuplet && beatGridAt(view, picker.bar, picker.step)
+                ? picker.tuplet.span.n
+                : undefined
+            }
             canDouble={!picker.tuplet && !!onTuplet && !!canTuplet?.(picker.lane)}
             inTuplet={picker.tuplet ? picker.tuplet.span.n : undefined}
             inDouble={!!picker.tuplet && twoAStep(picker.tuplet.span)}
@@ -982,8 +993,10 @@ function CellPicker({
   current,
   onChoose,
   tuplets = [],
+  beatGrids = [],
   canDouble = false,
   inTuplet,
+  inBeatGrid,
   inDouble = false,
   onTuplet,
   onClose,
@@ -994,6 +1007,10 @@ function CellPicker({
   onChoose: (value: number) => void;
   /** The tuplets the cell's beat may be cut into (12-d). */
   tuplets?: number[];
+  /** The grids the whole beat, every lane, may be put on (D84). */
+  beatGrids?: number[];
+  /** The note count of the beat grid the cell is in, if it is in one. */
+  inBeatGrid?: number;
   /** Whether the cell may be made a double: two 32nds in its step (13-a). */
   canDouble?: boolean;
   /** The note count of the tuplet the cell is in, if it is in one. */
@@ -1063,6 +1080,27 @@ function CellPicker({
           ))}
         </div>
       ) : null}
+      {beatGrids.length ? (
+        <div
+          className="tupletpick"
+          role="group"
+          aria-label="Put the whole beat, every lane, on a grid of its own"
+        >
+          <span className="lbl">Whole beat</span>
+          {beatGrids.map((n) => (
+            <button
+              key={n}
+              type="button"
+              role="menuitem"
+              aria-label={`Whole beat in ${n}`}
+              title={`The whole beat in ${n} even steps, on every lane: its notes go to the steps nearest them`}
+              onClick={() => onTuplet?.({ kind: 'beat', n })}
+            >
+              {n}
+            </button>
+          ))}
+        </div>
+      ) : null}
       {canDouble ? (
         <button
           type="button"
@@ -1072,6 +1110,12 @@ function CellPicker({
         >
           <i aria-hidden="true" />
           <span className="lbl">Double (two in this step)</span>
+        </button>
+      ) : null}
+      {inBeatGrid ? (
+        <button type="button" role="menuitem" onClick={() => onTuplet?.({ kind: 'unbeat' })}>
+          <i aria-hidden="true" />
+          <span className="lbl">{`Whole beat back to the grid (from ${inBeatGrid})`}</span>
         </button>
       ) : null}
       {inTuplet ? (

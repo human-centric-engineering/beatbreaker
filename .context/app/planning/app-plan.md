@@ -5135,6 +5135,26 @@ list the named meters only. The share code writes the key as it is, under v10;
 beams and rests and half rests; the click counts eighths four steps apart in
 32nds.
 
+**16-b-iv built (2026-11-02, branch `phase-16b-iv-beat-grids`):** D84 and D87,
+with one call made in the building. **A beat grid is a tuplet span, not a
+second kind of step.** A beat put on a grid of its own (triplets beside
+sixteenths, a quintuplet) is a 12-d span over the whole pulse group on every
+lane of the roster. Spans already played, engraved, read and wrote MIDI,
+went through the critic, the drummer, the text and BeatBuddy, and took 2 to
+9 notes (the grids of 5, 7 and 9 D87 asks for), so the bar's steps stay one
+length and nothing that turns steps into time changes. A bar of two beats of
+sixteenths, a beat of triplets and a quintuplet plays, engraves, round-trips
+MIDI and edits in the Studio (`beat-grids.test.ts`). What is new: the
+Studio's cell picker offers **Whole beat in n** and **Whole beat back to the
+grid**, carrying each note to the step nearest it and back where it lands
+on the grid; the chart beams a span on the voice's own beam where the grid
+has nothing under it, so the beat reads as written rather than as a figure
+over rests; the MIDI reader lets a lane with one or two notes on a beat's
+tuplet join it (the quintuplet's lone snare was rounded to a sixteenth); a
+written section carries `tuplets`, each row as digits; and a pattern holds
+`TUPLETS_A_BAR` (32) spans a bar, not 64 in all. A beat grid needs no wire
+change: a v8 code carries spans already.
+
 **Urgent: the six limits the audit found (asked for by the owner on
 2026-11-01).** The owner's call: the app is adapted to all six, as urgent
 fixes, not ruled out. They land with 16-b and before 16-e reaches their rows

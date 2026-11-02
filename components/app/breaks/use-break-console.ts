@@ -134,10 +134,12 @@ import {
 } from '@/lib/app/breaks/hands';
 import { clearPlainAt, dropPolySpansAt, keepPolySpans, plainAt } from '@/lib/app/breaks/poly-fill';
 import {
+  addBeatGrid,
   addDouble,
   addTuplet,
   keepTuplets,
   ownedBy,
+  removeBeatGrid,
   removeTuplet,
   setTupletNote,
   tupletsIn,
@@ -808,6 +810,9 @@ export type HandEdit =
 /** A hand edit of a tuplet (12-d): see `editTuplet`. */
 export type TupletEdit =
   | { kind: 'make'; n: number }
+  /** the whole beat, every lane, on a grid of its own (D84) */
+  | { kind: 'beat'; n: number }
+  | { kind: 'unbeat' }
   | { kind: 'double' }
   | { kind: 'unmake'; j?: number }
   | { kind: 'note'; j: number; value: number };
@@ -2033,6 +2038,14 @@ export function useBreakConsole(
         const m = meterOfPat(pat);
         const g = groupsOf(m)[groupAt(m, step)];
         done = !!g && addTuplet(next, bar, lane, g.start, g.size, edit.n);
+        if (g) beat = { start: g.start, span: g.size };
+      } else if (edit.kind === 'beat' || edit.kind === 'unbeat') {
+        const m = meterOfPat(pat);
+        const g = groupsOf(m)[groupAt(m, step)];
+        done =
+          edit.kind === 'beat'
+            ? addBeatGrid(next, bar, step, edit.n)
+            : removeBeatGrid(next, bar, step);
         if (g) beat = { start: g.start, span: g.size };
       } else if (edit.kind === 'double') {
         done = addDouble(next, bar, lane, step);

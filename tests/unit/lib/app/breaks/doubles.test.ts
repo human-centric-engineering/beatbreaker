@@ -273,14 +273,10 @@ describe('MIDI', () => {
   });
 
   it('rounds the pairs past the most a pattern holds, and says so', () => {
-    // 65 steps of doubles a step apart in their beats: 65 spans, one past the cap
-    const bars = Array.from({ length: 17 }, () => emptyBar(16));
-    const pat = pattern({}, bars);
+    // a double on every other step of a bar of 32/4: 64 spans, past the 32 a bar holds
+    const pat = pattern({ meter: '32/4' }, [emptyBar(128)]);
     const tuplets: TupletSpan[] = [];
-    for (let k = 0; k < 65; k++) {
-      const bi = Math.floor(k / 4);
-      tuplets.push({ ...double((k % 4) * 4), bar: bi });
-    }
+    for (let k = 0; k < 64; k++) tuplets.push(double(2 * k));
     pat.tuplets = tuplets;
     const bytes = buildMidi(
       pat.bars.map((_, barIdx) => ({ pattern: pat, barIdx })),

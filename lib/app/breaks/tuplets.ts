@@ -1,6 +1,14 @@
 import { FLAM, FOOT_LANE, LANES, LANE_VALUES, TOM_FLAM, handLanes } from '@/lib/app/breaks/lanes';
-import { groupsOf, meterOf } from '@/lib/app/breaks/meter';
-import type { Bar, Group, LaneHand, LaneKey, Pattern, TupletSpan } from '@/lib/app/breaks/types';
+import { groupAt, groupsOf, meterOf } from '@/lib/app/breaks/meter';
+import type {
+  Bar,
+  Group,
+  LaneHand,
+  LaneKey,
+  Pattern,
+  SectionTuplet,
+  TupletSpan,
+} from '@/lib/app/breaks/types';
 
 /**
  * Tuplet spans (Phase 12-d, D53): five even notes in the time of four, a
@@ -23,15 +31,35 @@ export const MIN_TUPLET = 2;
 export const MAX_TUPLET = 9;
 
 /**
- * The most spans a pattern holds: a quintuplet on every beat of eight bars of
- * 4/4, and the feet's under them. The schemas refuse more, so the writers
- * ({@link addTuplet}, the MIDI reader) stop here too.
+ * The most spans a bar holds (D87): a beat grid or a figure on every beat of a
+ * long bar, the feet's under them, and runs of doubles between.
  */
-export const MAX_TUPLETS = 64;
+export const TUPLETS_A_BAR = 32;
+
+/**
+ * The most spans a pattern of `bars` bars holds: so many a bar, so a longer
+ * pattern holds more. The schemas refuse more, so the writers
+ * ({@link addTuplet}, the MIDI reader, BeatBuddy) stop here too.
+ */
+export function maxTuplets(bars: number): number {
+  return bars * TUPLETS_A_BAR;
+}
+
+/** The most spans any pattern holds: one of eight bars, the most a pattern has. */
+export const MAX_TUPLETS = maxTuplets(8);
 
 /** Where note `j` of a span falls, in grid steps from the start of its bar. */
 export function tupletPos(s: Pick<TupletSpan, 'start' | 'span' | 'n'>, j: number): number {
   return s.start + (j * s.span) / s.n;
+}
+
+/** A written section's tuplet (D87) as a span: each row's digits as values, `.` as 0. */
+export function fromSectionTuplet(t: SectionTuplet): TupletSpan {
+  const notes: Partial<Record<LaneKey, number[]>> = {};
+  for (const [L, row] of Object.entries(t.notes) as [LaneKey, string | undefined][]) {
+    if (row) notes[L] = [...row].map((ch) => (ch === '.' ? 0 : Number(ch)));
+  }
+  return { bar: t.bar, start: t.start, span: t.span, n: t.n, notes };
 }
 
 /** A copy of a span: its rows are arrays. */
@@ -325,7 +353,7 @@ export function addTuplet(
   );
   const fresh: TupletSpan = { bar, start, span, n, notes: { [lane]: Array<number>(n).fill(0) } };
   if (!same && !tupletFits(fresh, steps, pat.bars.length)) return false;
-  if (!same && spans.length >= MAX_TUPLETS) return false;
+  if (!same && spans.length >= maxTuplets(pat.bars.length)) return false;
   for (const s of spans) {
     if (s.bar === bar && s.notes[lane] && overlap(s, fresh)) return false;
   }
@@ -335,6 +363,95 @@ export function addTuplet(
   else next.push(fresh);
   pat.tuplets = next;
   for (let i = start; i < start + span; i++) pat.bars[bar][lane][i] = 0;
+  return true;
+}
+
+/**
+ * The beat a step is in: its pulse group, in grid steps.
+ */
+function beatOf(pat: Pattern, step: number): Group | undefined {
+  const m = meterOf(pat.meter);
+  return groupsOf(m)[groupAt(m, step)];
+}
+
+/**
+ * The beat grid over a step (D84): the span that covers the whole of its
+ * beat on every lane of the pattern's roster, so the beat is on a grid of its
+ * own — triplets beside sixteenths, a quintuplet — rather than a figure laid
+ * over the bar's grid.
+ */
+export function beatGridAt(pat: Pattern, bar: number, step: number): TupletSpan | undefined {
+  const g = beatOf(pat, step);
+  if (!g) return undefined;
+  return tupletsIn(pat, bar).find(
+    (s) =>
+      s.start === g.start &&
+      s.span === g.size &&
+      !twoAStep(s) &&
+      pat.lanes.every((L) => !!s.notes[L])
+  );
+}
+
+/**
+ * Put a beat on a grid of its own (D84, D87), in place: `n` even steps over
+ * the beat holding `step`, on every lane of the roster that no other span
+ * holds there. Each note the beat had goes to the new step nearest it, where
+ * that step is free. False, changing nothing, where `n` is a division the
+ * beat's grid already has or no lane could join.
+ */
+export function addBeatGrid(pat: Pattern, bar: number, step: number, n: number): boolean {
+  const g = beatOf(pat, step);
+  if (!g || !pat.bars[bar] || !tupletChoices(g.size).includes(n)) return false;
+  const before = pat.bars[bar];
+  const held = (L: LaneKey) =>
+    tupletsIn(pat, bar).some(
+      (s) => !!s.notes[L] && s.start < g.start + g.size && g.start < s.start + s.span
+    );
+  const was: Partial<Record<LaneKey, number[]>> = {};
+  let joined = 0;
+  for (const L of pat.lanes) {
+    if (held(L)) continue;
+    was[L] = before[L].slice(g.start, g.start + g.size);
+    if (addTuplet(pat, bar, L, g.start, g.size, n)) joined++;
+    else delete was[L];
+  }
+  if (!joined) return false;
+  const span = tupletsIn(pat, bar).find(
+    (s) => s.start === g.start && s.span === g.size && s.n === n
+  );
+  if (span) {
+    const next = (pat.tuplets ?? []).map(cloneTuplet);
+    const mine = next.find(
+      (s) => s.bar === bar && s.start === span.start && s.span === span.span && s.n === n
+    );
+    for (const [L, cells] of Object.entries(was) as [LaneKey, number[]][]) {
+      const row = mine?.notes[L];
+      if (!row) continue;
+      cells.forEach((v, k) => {
+        const j = Math.round((k * n) / g.size);
+        if (v && j < n && !row[j]) row[j] = v;
+      });
+    }
+    pat.tuplets = next;
+  }
+  return true;
+}
+
+/**
+ * Give a beat grid back to the bar's grid, in place: every lane comes out of
+ * it, and each note that falls on a step of the bar's grid goes back there.
+ */
+export function removeBeatGrid(pat: Pattern, bar: number, step: number): boolean {
+  const span = beatGridAt(pat, bar, step);
+  if (!span) return false;
+  for (const L of tupletLanes(span)) {
+    const row = span.notes[L] ?? [];
+    removeTuplet(pat, bar, L, span.start);
+    row.forEach((v, j) => {
+      const pos = tupletPos(span, j);
+      if (v && Number.isInteger(pos)) pat.bars[bar][L][pos] = v;
+    });
+  }
   return true;
 }
 

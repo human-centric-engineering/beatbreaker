@@ -999,13 +999,16 @@ function withDoubles(grid: Bar, doubles: TupletSpan[]): Bar {
  * are quarters or longer and so have no beam to carry it, a bracket. An
  * empty note is a rest of that value.
  */
-function drawTuplet(ctx: VoiceCtx, t: TupletSpan): void {
+function drawTuplet(ctx: VoiceCtx, t: TupletSpan, inline: boolean): void {
   const { out, up, y, SP, scale, ink, beamY, slotW, x0, unit } = ctx;
   const { steps, bracket } = tupletValue(t);
   // the note value in sixteenths, whatever the grid's step is
   const value = steps * unit;
   const xAt = (j: number) => x0 + tupletPos(t, j) * slotW + slotW / 2;
-  const tBeam = up ? beamY - 1.5 * SP : beamY + 1.5 * SP;
+  /* Alone in its steps, a span is beamed where the grid's notes are, as the
+     beat is written (D84): a beat of triplets beside beats of sixteenths. Over
+     notes of the grid, it takes a beam of its own beyond theirs. */
+  const tBeam = inline ? beamY : up ? beamY - 1.5 * SP : beamY + 1.5 * SP;
   const stemDx = up ? 0.62 * SP : -0.62 * SP;
   const notes: { j: number; heads: Head[] }[] = [];
   for (let j = 0; j < t.n; j++) {
@@ -1130,7 +1133,13 @@ function drawVoice(ctx: VoiceCtx): void {
     }))
     .filter((t) => tupletLanes(t).length);
   const covered = (i: number) => mine.some((t) => i >= t.start && i < t.start + t.span);
-  for (const t of mine) drawTuplet(ctx, t);
+  // whether the grid has no note of this voice under a span: it is then the beat's own
+  const voiceLanes = (Object.keys(bar) as LaneKey[]).filter(
+    (L) => !LANE_DEFS[L].perc && UPPER_LANES.includes(L) === up
+  );
+  const alone = (t: TupletSpan) =>
+    voiceLanes.every((L) => !bar[L].slice(t.start, t.start + t.span).some(Boolean));
+  for (const t of mine) drawTuplet(ctx, t, alone(t));
   const slashed = new Set<number>();
   for (const t of ctx.doubles) {
     if (!tupletLanes(t).every((L) => UPPER_LANES.includes(L) === up)) continue;

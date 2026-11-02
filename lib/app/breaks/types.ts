@@ -384,6 +384,20 @@ export type KickCell = string;
 export type Figure = Partial<Record<LaneKey, string>>;
 
 /**
+ * A tuplet in a written section (D87): a figure laid over its bar's grid, or a
+ * beat on a grid of its own when every lane the bar plays has a row (D84).
+ * `bar` counts the section's written bars from 0; each row is `n` notes, one
+ * digit a note and `.` for none, as a figure's are.
+ */
+export interface SectionTuplet {
+  bar: number;
+  start: number;
+  span: number;
+  n: number;
+  notes: Partial<Record<LaneKey, string>>;
+}
+
+/**
  * How far off the grid one lane sits, as a fraction of a 16th. Positive is
  * late. A pair alternates by step parity, which is how hats lean one way on the
  * beats and the other way between them.
@@ -777,6 +791,8 @@ export interface SongSection {
    * as the drummer played it. Its length is the bars written.
    */
   written?: Figure[];
+  /** Its written bars' tuplets and beat grids (D84, D87). Only with `written`. */
+  tuplets?: SectionTuplet[];
   params: StyleSongParams;
 }
 
