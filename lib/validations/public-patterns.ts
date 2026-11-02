@@ -5,7 +5,7 @@ import {
   PUBLIC_PAGE_MAX,
   TEMPO_BANDS,
 } from '@/lib/app/breaks/community/public';
-import { METER_KEYS } from '@/lib/app/breaks/meter';
+import { isMeterKey } from '@/lib/app/breaks/meter';
 
 /**
  * `GET /api/v1/public/patterns` and `/explore`'s search params — one schema,
@@ -14,10 +14,7 @@ import { METER_KEYS } from '@/lib/app/breaks/meter';
  */
 export const publicListQuerySchema = z.object({
   style: z.string().trim().max(40).optional(),
-  meter: z
-    .string()
-    .refine((s) => METER_KEYS.includes(s), 'unknown meter')
-    .optional(),
+  meter: z.string().refine(isMeterKey, 'unknown meter').optional(),
   tempo: z.enum(Object.keys(TEMPO_BANDS) as [keyof typeof TEMPO_BANDS]).optional(),
   difficulty: z.coerce
     .number()

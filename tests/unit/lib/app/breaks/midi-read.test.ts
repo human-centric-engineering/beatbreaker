@@ -202,13 +202,13 @@ describe('readMidi — what other software writes', () => {
     expect(
       readMidi(
         smf([
-          [0, 0xff, 0x58, 4, 13, 3, 24, 8],
+          [0, 0xff, 0x58, 4, 13, 6, 24, 8], // 13/64
           [0, ...ON(9, 36, 100)],
         ])
       )
     ).toMatchObject({
       ok: false,
-      error: expect.stringContaining('the file is in 13/8'),
+      error: expect.stringContaining('the file is in 13/64'),
     });
     expect(readMidi(smf([]))).toEqual({ ok: false, error: 'there are no notes in that file' });
     const whole = smf([[0, ...ON(9, 36, 100)]]);
@@ -269,7 +269,7 @@ describe('importedDoc', () => {
       smf([
         [0, 0xff, 0x58, 4, 4, 2, 24, 8], // 4/4
         [0, ...ON(9, 36, 100)],
-        [480 * 4, 0xff, 0x58, 4, 11, 4, 24, 8], // 11/16
+        [480 * 4, 0xff, 0x58, 4, 11, 6, 24, 8], // 11/64
         [0, ...ON(9, 38, 100)],
       ])
     );
@@ -277,7 +277,7 @@ describe('importedDoc', () => {
     expect(r.pattern.meters).toBeUndefined();
     expect(r.pattern.bars.map((b) => b.k.length)).toEqual([16, 16]);
     expect(r.pattern.notes).toContain(
-      'BeatBreaker has no 11/16, so those bars were read in the time signature before them.'
+      'BeatBreaker has no 11/64, so those bars were read in the time signature before them.'
     );
   });
 

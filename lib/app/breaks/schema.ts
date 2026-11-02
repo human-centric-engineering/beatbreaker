@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { LANES, LANE_VALUES, PERC_KEYS } from '@/lib/app/breaks/lanes';
 import type { LaneKey } from '@/lib/app/breaks/types';
-import { METER_KEYS } from '@/lib/app/breaks/meter';
+import { MAX_STEPS, isMeterKey } from '@/lib/app/breaks/meter';
 import {
   EXTRA_LETTERS,
   type ExtraLetter,
@@ -154,10 +154,13 @@ export const styleAttrsSchema = z.object({
 /** A row of written sticking: a hand or `.` a step (D44). */
 const STICKING_ROW = /^[.RLrl]*$/;
 
-/* Bounds on a packed bar. The longest meter (15/8) is 30 steps, and a bar is
-   every lane's row joined by `|`; the caps leave room without letting a pasted
-   code carry a megabyte of digits into the database. */
-const MAX_ROW = 32;
+/* Bounds on a packed bar: no row longer than the longest bar a meter may make
+   (D85; that a row is its own bar's length is the reader's to check), and a bar
+   is every lane's row joined by `|`. The caps keep a pasted code from carrying
+   a megabyte of digits into the database. */
+const MAX_ROW = MAX_STEPS;
+/** The last step of the longest bar: where a step index may point. */
+const MAX_STEP = MAX_STEPS - 1;
 
 const typedLane = z.enum(LANES as [LaneKey, ...LaneKey[]]);
 
@@ -216,7 +219,7 @@ function laneValuesOk(rows: Partial<Record<LaneKey, ArrayLike<number | string>>>
 /** Where a written fill starts in a bar ({@link Pattern.fills}). */
 export const fillSpanSchema = z.object({
   bar: z.number().int().min(0).max(7),
-  from: z.number().int().min(0).max(63),
+  from: z.number().int().min(0).max(MAX_STEP),
 });
 
 /**
@@ -353,7 +356,7 @@ export const patternSchema = z.object({
   styleVersionId: z.string().max(40).nullable(),
   attrs: styleAttrsSchema.default({}),
   song: z.string().max(40).optional(),
-  meter: z.string().refine((s) => METER_KEYS.includes(s), 'unknown meter'),
+  meter: z.string().refine(isMeterKey, 'unknown meter'),
   seed: z.number().int().min(0).max(0xffffffff),
   voice: z.enum(['hat', 'ride']),
   lanes: z.array(laneKey).min(1),
@@ -361,12 +364,16 @@ export const patternSchema = z.object({
     z.enum(['p1', 'p2']),
     z.string().refine((s) => PERC_KEYS.includes(s))
   ),
-  backbeats: z.array(z.number().int().min(0).max(63)),
+  backbeats: z.array(z.number().int().min(0).max(MAX_STEP)),
   bbLane: laneKey,
   hasRide: z.boolean(),
   hasHat: z.boolean(),
   pins: z.array(z.record(laneKey, z.array(z.number().int().min(0).max(5))).nullable()).nullable(),
-  sticking: z.array(z.string().max(32).regex(STICKING_ROW).nullable()).max(8).nullable().optional(),
+  sticking: z
+    .array(z.string().max(MAX_ROW).regex(STICKING_ROW).nullable())
+    .max(8)
+    .nullable()
+    .optional(),
   fixed: z.boolean().optional(),
   poly: polySchema.optional(),
   polySpans: z.array(polySpanSchema).max(8).optional(),
@@ -479,7 +486,7 @@ const packedPatternBase = z.object({
   /** seed */
   sd: z.number().int().min(0).max(0xffffffff).default(0),
   /** backbeats */
-  bb: z.array(z.number().int().min(0).max(63)).max(MAX_ROW).default([]),
+  bb: z.array(z.number().int().min(0).max(MAX_STEP)).max(MAX_ROW).default([]),
   /** meter — absent in a v2 code */
   mt: z.string().optional(),
   /** lane roster — absent in a v2 code */
@@ -546,7 +553,7 @@ const packedPatternBase = z.object({
    * `ps` is: an older reader drops it and judges the fill as a groove bar.
    */
   fl: z
-    .array(z.tuple([z.number().int().min(0).max(7), z.number().int().min(0).max(63)]))
+    .array(z.tuple([z.number().int().min(0).max(7), z.number().int().min(0).max(MAX_STEP)]))
     .max(8)
     .optional(),
   /** bars, each one every lane's row joined by `|` */
@@ -769,7 +776,7 @@ function repairPacked(p: unknown, v5: boolean): unknown {
   if (typeof p.sd === 'number' && Number.isInteger(p.sd)) out.sd = p.sd >>> 0;
   if (Array.isArray(p.bb)) {
     out.bb = p.bb
-      .filter((x): x is number => Number.isInteger(x) && x >= 0 && x <= 63)
+      .filter((x): x is number => Number.isInteger(x) && x >= 0 && x <= MAX_STEP)
       .slice(0, MAX_ROW);
   }
   if (isObject(p.pc)) {

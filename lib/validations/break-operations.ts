@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { METER_KEYS } from '@/lib/app/breaks/meter';
+import { isMeterKey } from '@/lib/app/breaks/meter';
 import { packedPatternSchema, sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { DOCTOR_MOVES } from '@/lib/app/breaks/doctor';
 
@@ -31,10 +31,7 @@ const styleRef = z.object({
   styleVersion: z.number().int().min(1).max(100000).optional(),
 });
 
-const meter = z
-  .string()
-  .refine((s) => METER_KEYS.includes(s), 'unknown meter')
-  .default('4/4');
+const meter = z.string().refine(isMeterKey, 'unknown meter').default('4/4');
 
 export const generateBreakSchema = styleRef.extend({
   meter,

@@ -12,7 +12,16 @@ import {
   laneName,
   percInst,
 } from '@/lib/app/breaks/lanes';
-import { countLabelsOf, groupsOf, isEighths, isGroupStart, stepsOf } from '@/lib/app/breaks/meter';
+import {
+  countLabelsOf,
+  groupsOf,
+  isEighths,
+  isGroupStart,
+  isSextuplet,
+  meterKey,
+  stepsOf,
+  stepsPerQuarter,
+} from '@/lib/app/breaks/meter';
 import { leftLedFills } from '@/lib/app/breaks/drummer/fill-lead';
 import { meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
 import {
@@ -231,7 +240,9 @@ const CRASH_HEAD: Record<number, Pick<Head, 'step' | 'label'>> = {
  * eighth so the playhead and the editor still count the pattern's own steps.
  */
 export function engrave(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptions): Engraving {
-  if (!isEighths(meterOfPat(pat))) return engraveSteps(pat, ghostPat, opts);
+  const m = meterOfPat(pat);
+  // a bar too long to hold as sixteenths is drawn on its own eighths
+  if (!isEighths(m) || !meterKey(m.num, m.den)) return engraveSteps(pat, ghostPat, opts);
   const e = engraveSteps(asSixteenths(pat), ghostPat && asSixteenths(ghostPat), opts);
   return { ...e, map: e.map.filter((_, i) => i % 2 === 0), steps: e.steps / 2 };
 }
@@ -261,9 +272,11 @@ function asSixteenths(p: Pattern): Pattern {
     }
     return out;
   };
+  const m = meterOfPat(p);
   return {
     ...p,
-    meter: '4/4',
+    // the same bar in sixteenths: 4/4-8 is 4/4
+    meter: meterKey(m.num, m.den) ?? p.meter,
     backbeats: p.backbeats.map((x) => x * 2),
     bars: p.bars.map(bar),
     sticking: p.sticking
@@ -290,6 +303,7 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
   const m = meterOfPat(pat);
   const nSteps = pat.bars[0] ? pat.bars[0].k.length : stepsOf(m);
   const groups = groupsOf(m);
+  const unit = isSextuplet(m) ? 1 : 4 / stepsPerQuarter(m);
   const labels = countLabelsOf(m);
   const lanes = activeLanes(pat.lanes);
   const tomLanes = lanes.filter((k) => LANE_DEFS[k].tom);
@@ -664,6 +678,7 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
         staffBottom,
         opts,
         meter: m,
+        unit,
         nSteps,
         groups,
         toms: tomLanes,
@@ -843,6 +858,8 @@ interface VoiceCtx {
   staffBottom: number;
   opts: EngraveOptions;
   meter: Meter;
+  /** Sixteenths to a grid step: ½ in a bar of 32nds, 1 otherwise (sextuplets are drawn as sixteenths). */
+  unit: number;
   nSteps: number;
   groups: Group[];
   toms: LaneKey[];
@@ -983,8 +1000,10 @@ function withDoubles(grid: Bar, doubles: TupletSpan[]): Bar {
  * empty note is a rest of that value.
  */
 function drawTuplet(ctx: VoiceCtx, t: TupletSpan): void {
-  const { out, up, y, SP, scale, ink, beamY, slotW, x0 } = ctx;
-  const { steps: value, bracket } = tupletValue(t);
+  const { out, up, y, SP, scale, ink, beamY, slotW, x0, unit } = ctx;
+  const { steps, bracket } = tupletValue(t);
+  // the note value in sixteenths, whatever the grid's step is
+  const value = steps * unit;
   const xAt = (j: number) => x0 + tupletPos(t, j) * slotW + slotW / 2;
   const tBeam = up ? beamY - 1.5 * SP : beamY + 1.5 * SP;
   const stemDx = up ? 0.62 * SP : -0.62 * SP;
@@ -993,7 +1012,7 @@ function drawTuplet(ctx: VoiceCtx, t: TupletSpan): void {
     const heads = tupletHeads(t, j, up, value >= 8);
     if (heads.length) notes.push({ j, heads });
     else if (ctx.opts.rests !== false)
-      drawRest(out, xAt(j), up ? y(6) : y(2), SP, scale, Math.min(4, Math.max(1, value)), ink);
+      drawRest(out, xAt(j), up ? y(6) : y(2), SP, scale, Math.min(4, Math.max(unit, value)), ink);
   }
   if (!notes.length) return;
 
@@ -1095,7 +1114,7 @@ function drawTuplet(ctx: VoiceCtx, t: TupletSpan): void {
 
 /** Draws one voice of one bar: durations, beams, rests, noteheads. */
 function drawVoice(ctx: VoiceCtx): void {
-  const { out, bar, gbar, up, xs, y, SP, scale, ink, beamY, nSteps, groups, toms } = ctx;
+  const { out, bar, gbar, up, xs, y, SP, scale, ink, beamY, nSteps, groups, toms, unit } = ctx;
 
   /* The voice's part of each tuplet span, and the steps it covers: the grid
      leaves its rests out there, since the figure fills them. */
@@ -1221,7 +1240,7 @@ function drawVoice(ctx: VoiceCtx): void {
     // rests before the first note of the pulse
     if (!slots.length) {
       if (ctx.opts.rests === false || underTuplet) continue;
-      drawRest(out, xs(gStart + (gSize - 1) / 2), up ? y(6) : y(2), SP, scale, gSize, ink);
+      drawRest(out, xs(gStart + (gSize - 1) / 2), up ? y(6) : y(2), SP, scale, gSize * unit, ink);
       continue;
     }
     if (slots[0] > gStart && ctx.opts.rests !== false && !underTuplet) {
@@ -1235,7 +1254,8 @@ function drawVoice(ctx: VoiceCtx): void {
         scale,
         ink,
         gStart,
-        gSize
+        gSize,
+        unit
       );
     }
 
@@ -1264,8 +1284,12 @@ function drawVoice(ctx: VoiceCtx): void {
       else if (slashed.has(s)) drawSlash(out, stemX, (from + beamY) / 2, SP, ink);
     }
 
-    // beams
-    const beamed = slots.filter((_s, idx) => durs[idx] < 4);
+    // beams: one an eighth, two a sixteenth, three a 32nd
+    const levels = durs.map((d) => {
+      const v = d * unit;
+      return v >= 4 ? 0 : v >= 2 ? 1 : v >= 1 ? 2 : 3;
+    });
+    const beamed = slots.filter((_s, idx) => levels[idx] > 0);
     if (beamed.length) {
       const first = xs(beamed[0]) + (up ? 0.62 * SP : -0.62 * SP);
       const last = xs(beamed[beamed.length - 1]) + (up ? 0.62 * SP : -0.62 * SP);
@@ -1285,30 +1309,34 @@ function drawVoice(ctx: VoiceCtx): void {
         out.add('rect', { x: first, y: primaryY, width: 2.6 * SP * 0.45, height: bh, fill: ink });
       }
 
-      // secondary beam for 16ths
-      const secY = up ? beamY + bh * 1.6 : beamY - bh * 2.6;
-      slots.forEach((s, idx) => {
-        if (durs[idx] !== 1) return;
-        const sx = xs(s) + (up ? 0.62 * SP : -0.62 * SP);
-        const nextIdx = idx + 1;
-        if (nextIdx < slots.length && slots[nextIdx] === s + 1 && durs[nextIdx] === 1) {
-          const nx = xs(slots[nextIdx]) + (up ? 0.62 * SP : -0.62 * SP);
-          out.add('rect', {
-            x: Math.min(sx, nx) - 0.62 * scale,
-            y: secY,
-            width: Math.abs(nx - sx) + 1.24 * scale,
-            height: bh,
-            fill: ink,
-          });
-        } else if (!(idx > 0 && slots[idx - 1] === s - 1 && durs[idx - 1] === 1)) {
-          const stub = 0.9 * SP;
-          const sx2 = idx > 0 ? sx - stub : sx;
-          out.add('rect', { x: sx2, y: secY, width: stub, height: bh, fill: ink });
-        } else {
-          const stub = 0.9 * SP;
-          out.add('rect', { x: sx - stub, y: secY, width: stub, height: bh, fill: ink });
-        }
-      });
+      // a beam more for each halving: 16ths, then 32nds
+      for (let level = 2; level <= 3; level++) {
+        const secY = up ? beamY + bh * 1.6 * (level - 1) : beamY - bh * (1 + 1.6 * (level - 1));
+        const joins = (a: number, b: number): boolean =>
+          levels[a] >= level && levels[b] >= level && slots[a] + durs[a] === slots[b];
+        slots.forEach((s, idx) => {
+          if (levels[idx] < level) return;
+          const sx = xs(s) + (up ? 0.62 * SP : -0.62 * SP);
+          const nextIdx = idx + 1;
+          if (nextIdx < slots.length && joins(idx, nextIdx)) {
+            const nx = xs(slots[nextIdx]) + (up ? 0.62 * SP : -0.62 * SP);
+            out.add('rect', {
+              x: Math.min(sx, nx) - 0.62 * scale,
+              y: secY,
+              width: Math.abs(nx - sx) + 1.24 * scale,
+              height: bh,
+              fill: ink,
+            });
+          } else if (!(idx > 0 && joins(idx - 1, idx))) {
+            const stub = 0.9 * SP;
+            const sx2 = idx > 0 ? sx - stub : sx;
+            out.add('rect', { x: sx2, y: secY, width: stub, height: bh, fill: ink });
+          } else {
+            const stub = 0.9 * SP;
+            out.add('rect', { x: sx - stub, y: secY, width: stub, height: bh, fill: ink });
+          }
+        });
+      }
     }
 
     /* Sextuplet 4/4: each beat is six sixteenths in the time of four, beamed
@@ -1316,7 +1344,7 @@ function drawVoice(ctx: VoiceCtx): void {
        every note is on an eighth-note triplet, and nothing over a lone note,
        which is not a tuplet of anything. */
     const tuplet =
-      ctx.meter.sub === 6 && slots.length > 1
+      isSextuplet(ctx.meter) && slots.length > 1
         ? slots.every((s) => (s - gStart) % 2 === 0)
           ? '3'
           : '6'
@@ -1638,7 +1666,8 @@ function drawRestRun(
   scale: number,
   color: string,
   gStart: number,
-  gSize: number
+  gSize: number,
+  unit: number
 ): void {
   let i = start;
   let remaining = len;
@@ -1647,7 +1676,7 @@ function drawRestRun(
     if (remaining >= gSize && i === gStart) take = gSize;
     else if (remaining >= 2 && (i - gStart) % 2 === 0) take = 2;
     else take = 1;
-    drawRest(out, xs(i) + ((take - 1) * (xs(1) - xs(0))) / 2, yy, SP, scale, take, color);
+    drawRest(out, xs(i) + ((take - 1) * (xs(1) - xs(0))) / 2, yy, SP, scale, take * unit, color);
     i += take;
     remaining -= take;
   }
@@ -1664,11 +1693,14 @@ function drawRest(
 ): void {
   const g = new GroupSink();
 
-  // a pulse of six sixteenths is a dotted quarter of silence, not a quarter
-  if (dur === 6)
+  // a pulse of six sixteenths is a dotted quarter of silence, not a quarter; three a dotted eighth
+  if (dur === 1.5 || dur === 3 || dur === 6 || dur === 12)
     g.add('circle', { cx: 1.25 * SP, cy: 0, r: 0.19 * SP, fill: color, stroke: 'none' });
 
-  if (dur >= 4) {
+  if (dur >= 8) {
+    // half rest: a block sitting on the middle line
+    g.add('rect', { x: -0.55 * SP, y: -0.5 * SP, width: 1.1 * SP, height: 0.5 * SP, fill: color });
+  } else if (dur >= 4) {
     // quarter rest — stylised zigzag
     g.add('path', {
       d: 'M -0.25,-1.35 L 0.42,-0.45 L -0.2,0.15 L 0.5,1.1 L -0.05,0.75 C -0.6,0.55 -0.45,1.25 0.1,1.5',
@@ -1700,7 +1732,8 @@ function drawRest(
       g.add('circle', { cx: 0.02 * s, cy: oy - 0.42 * s, r: 0.3 * s, fill: color, stroke: 'none' });
     };
     hook(-1.1 * s);
-    if (dur === 1) hook(-0.05 * s);
+    if (dur < 2) hook(-0.05 * s);
+    if (dur < 1) hook(1 * s);
   }
 
   out.nodes.push({

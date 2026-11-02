@@ -1,5 +1,5 @@
 import { BASE_LANES, FOOT_LANE, TOM_LANES, percRoster } from '@/lib/app/breaks/lanes';
-import { DEFAULT_METER, METERS, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
+import { DEFAULT_METER, isMeterKey, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import {
   type BarSpec,
   clonePoly,
@@ -215,7 +215,7 @@ export function patternFromLibrary(
   index: number,
   style?: ResolvedStyle
 ): Pattern {
-  const meter = item.meter && METERS[item.meter] ? item.meter : DEFAULT_METER;
+  const meter = isMeterKey(item.meter) ? item.meter : DEFAULT_METER;
   const steps = stepsOf(meterOf(meter));
   const params = style?.params;
 

@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { LANES, LANE_VALUES, PERC_KEYS } from '@/lib/app/breaks/lanes';
 import type { LaneKey } from '@/lib/app/breaks/types';
-import { DEFAULT_METER, METERS, METER_KEYS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
+import { DEFAULT_METER, MAX_STEPS, isMeterKey, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import {
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
@@ -43,11 +43,17 @@ import { POLY_FILL_DEVICES, feelSchema, styleAttrsSchema } from '@/lib/app/break
  * bar, and allow anything musical, including things no shipped style does.
  */
 
-/* Every step index a bar can hold. The longest meter, 15/8, is 30 steps; 63 is
-   the same ceiling the wire format uses, so a style and a pattern agree about
-   what a step number is. */
-const stepIndex = z.number().int().min(0).max(63);
-const stepList = z.array(stepIndex).max(64);
+/* Every step index a bar can hold: the longest bar a meter may make (D85), the
+   same ceiling the wire format uses, so a style and a pattern agree about what
+   a step number is. */
+const stepIndex = z
+  .number()
+  .int()
+  .min(0)
+  .max(MAX_STEPS - 1);
+const stepList = z.array(stepIndex).max(MAX_STEPS);
+/** Two bars of the longest meter: a figure that plays in turn, a poly fill's span. */
+const TWO_BARS = 2 * MAX_STEPS;
 
 /* A weight is a relative preference, so the scale is arbitrary and only the
    ratios matter. What it must not be is negative, infinite or NaN: `wpick`
@@ -65,11 +71,18 @@ const kickCells = z
 /* A written-out bar's rows: lane → step values, `.` for none, each no higher
    than the lane has values for — the same bound the wire format holds a bar
    to — no longer than two bars of the longest meter (a figure is a bar, or
-   two that play in turn: two of 4/4-6 are 48 steps), and all one length: a
+   two that play in turn: two of 7/4-32 are 112 steps), and all one length: a
    row a step short would leave the generator skipping the figure without a
    word. */
 const figureSchema = z
-  .partialRecord(z.enum(LANES as [LaneKey, ...LaneKey[]]), z.string().regex(/^[0-8.]{1,64}$/))
+  .partialRecord(
+    z.enum(LANES as [LaneKey, ...LaneKey[]]),
+    z
+      .string()
+      .min(1)
+      .max(TWO_BARS)
+      .regex(/^[0-8.]+$/)
+  )
   .refine(
     (f) =>
       LANES.every((lane) =>
@@ -98,7 +111,7 @@ export const percSpecSchema = z.object({
     .optional(),
   steps: stepList.optional(),
   /** An ostinato every n steps. Zero or a fraction would never advance. */
-  every: z.number().int().min(1).max(64).optional(),
+  every: z.number().int().min(1).max(TWO_BARS).optional(),
   from: stepIndex.optional(),
   follow: z.enum(['backbeats', 'snare']).optional(),
   accents: stepList.optional(),
@@ -140,7 +153,16 @@ const styleFields = styleAttrsSchema.extend({
 
   ghostBias: z.number().min(0).max(4),
   /** Step → weight. Keys are step indices, so they arrive as numeric strings. */
-  ghostWeights: z.record(z.coerce.number().int().min(0).max(63), weight).optional(),
+  ghostWeights: z
+    .record(
+      z.coerce
+        .number()
+        .int()
+        .min(0)
+        .max(MAX_STEPS - 1),
+      weight
+    )
+    .optional(),
   ghostHit: z.number().min(0).max(1).optional(),
   snareGhosts: stepList.optional(),
 
@@ -158,10 +180,7 @@ const styleFields = styleAttrsSchema.extend({
   foot: stepList.optional(),
   perc: z.array(percSpecSchema).max(2).optional(),
 
-  meter: z
-    .string()
-    .refine((s) => METER_KEYS.includes(s), 'unknown meter')
-    .optional(),
+  meter: z.string().refine(isMeterKey, 'unknown meter').optional(),
   /** A kit the style asks for. Not checked against the kit table: a style may
       legitimately name a kit this installation does not have, and the picker
       falls back rather than the style failing to load. */
@@ -208,7 +227,7 @@ const styleFields = styleAttrsSchema.extend({
     .array(
       z.tuple([
         z.object({
-          every: z.number().int().min(2).max(64),
+          every: z.number().int().min(2).max(TWO_BARS),
           lanes: z.partialRecord(laneKey, z.number().int().min(0).max(8)),
           bars: z.number().int().min(1).max(8).optional(),
         }),
@@ -241,10 +260,10 @@ const styleFields = styleAttrsSchema.extend({
             time: z.boolean().optional(),
             kick: z.literal('pulse').optional(),
             /* a tuplet fill's cell is its notes, over this many steps (12-d) */
-            tupletSteps: z.number().int().min(1).max(32).optional(),
+            tupletSteps: z.number().int().min(1).max(MAX_STEPS).optional(),
           })
           .refine(
-            (pf) => polyFillSpan(pf) <= 64,
+            (pf) => polyFillSpan(pf) <= TWO_BARS,
             'a poly fill longer than two bars of the longest meter'
           )
           .refine(
@@ -474,7 +493,7 @@ export const styleParamsSchema = styleFields
           });
         // a written bar is one bar of the meter the section plays in
         const meter = x.params.meter ?? song.params.meter ?? p.meter ?? DEFAULT_METER;
-        const n = METERS[meter] ? stepsOf(meterOf(meter)) : 0;
+        const n = isMeterKey(meter) ? stepsOf(meterOf(meter)) : 0;
         x.written?.forEach((bar, k) => {
           if (n && Object.values(bar).some((row) => row?.length !== n))
             ctx.addIssue({
@@ -650,7 +669,7 @@ export const libraryEntrySchema = z.object({
   note: z.string().max(600).nullable().optional(),
   bpm: z.number().int().min(30).max(380),
   styleKey: z.string().max(40),
-  meter: z.string().refine((s) => METER_KEYS.includes(s), 'unknown meter'),
+  meter: z.string().refine(isMeterKey, 'unknown meter'),
 });
 
 /** The three states a catalogue row can be in. Only `system` exists until D16. */

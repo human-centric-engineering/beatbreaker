@@ -1,6 +1,6 @@
 import { type ImportResult, MAX_IMPORT_BARS } from '@/lib/app/breaks/import';
 import { BUZZ, DRAG, FLAM } from '@/lib/app/breaks/lanes';
-import { METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
+import { meterOf, parseMeter, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import type { Bar, LaneKey, PercLaneKey } from '@/lib/app/breaks/types';
 
@@ -138,10 +138,10 @@ export function readGrooveScribeUrl(input: string): ImportResult {
   if (!search) return { ok: false, error: 'that Groove Scribe link has no groove in it' };
 
   const timeSig = decode(queryValue(search, 'TimeSig')) ?? '4/4';
-  if (!METERS[timeSig]) {
+  if (!parseMeter(timeSig)) {
     return {
       ok: false,
-      error: `the groove is in ${timeSig}, and BeatBreaker has ${Object.keys(METERS).join(', ')}`,
+      error: `the groove is in ${timeSig}, and BeatBreaker reads n/d with d of 2, 4, 8, 16 or 32`,
     };
   }
   const [num, den] = timeSig.split('/').map(Number);

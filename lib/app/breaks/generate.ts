@@ -22,7 +22,7 @@ import {
   DEFAULT_METER,
   M44,
   groupsOf,
-  isEighths,
+  isCompound,
   isGroupStart,
   meterOf,
   remapList,
@@ -339,7 +339,7 @@ export function varyBar(rng: Rng, bar: Bar, amount: number, style: Style, m: Met
       for (let i = 0; i < steps; i++) if (b.k[i] && i > 0 && canTake(i)) ks.push(i);
       if (ks.length) {
         const i = ks[Math.floor(rng() * ks.length)];
-        const nudge = m.sub === 2 && !isEighths(m) ? 2 : 1;
+        const nudge = isCompound(m) ? 2 : 1;
         const j = clamp(i + (rng() < 0.5 ? -nudge : nudge), 1, steps - 1);
         if (!b.k[j] && !snareKept(b.s[j]) && canPut(j)) {
           b.k[i] = 0;
@@ -416,7 +416,7 @@ export function applyFill(
      triplet partials in compound. A fill written on the sixteenths of a 12/8
      bar is a fill in the wrong subdivision. */
   const pos: number[] = [];
-  for (let o = 0; o < size; o += m.sub === 2 && !isEighths(m) ? 2 : 1) pos.push(o);
+  for (let o = 0; o < size; o += isCompound(m) ? 2 : 1) pos.push(o);
   const P = (k: number): number => pos[clamp(k, 0, pos.length - 1)];
   const set = (lane: LaneKey, off: number, v: number): void => {
     const i = at + off;

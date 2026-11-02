@@ -1,4 +1,4 @@
-import { M44, groupAt, groupsOf } from '@/lib/app/breaks/meter';
+import { M44, groupAt, groupsOf, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import type { Feel, LaneKey, Meter, StyleAttrs } from '@/lib/app/breaks/types';
 
 /**
@@ -116,6 +116,10 @@ export function swingUnitOf(style: StyleAttrs | undefined): number {
 export function isSwung(step: number, m: Meter, style: StyleAttrs | undefined): boolean {
   // sextuplets are triplets already: there is nothing left for the slider to swing
   if (m.sub === 6) return false;
-  if (swingUnitOf(style) === 8 && m.sub === 4) return step % 4 === 2;
+  const eighths = swingUnitOf(style) === 8;
+  // a bar of 32nds: the off-sixteenth is the 32nd two steps in, the off-eighth four
+  if (stepsPerQuarter(m) === 8) return eighths ? step % 8 === 4 : step % 4 === 2;
+  // sixteenths over a quarter, a half or a sixteenth beat; a compound eighth's sixteenths swing as they did
+  if (eighths && stepsPerQuarter(m) === 4 && m.den !== 8) return step % 4 === 2;
   return step % 2 === 1;
 }

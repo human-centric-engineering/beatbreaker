@@ -2,7 +2,7 @@ import type { BreakAudio } from '@/lib/app/breaks/audio/engine';
 import type { MidiSink } from '@/lib/app/breaks/audio/midi-out';
 import { leftLedFills } from '@/lib/app/breaks/drummer/fill-lead';
 import { Humaniser } from '@/lib/app/breaks/humanise';
-import { M44, groupAt, isGroupStart, stepSeconds } from '@/lib/app/breaks/meter';
+import { M44, groupAt, isGroupStart, stepSeconds, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
 import { type MaybeSections, type SectionLetter, type TempoRatio } from '@/lib/app/breaks/sections';
 import { type TempoPoint, offsetSeconds, paceRange, tempoAt } from '@/lib/app/breaks/tempo-map';
@@ -846,12 +846,14 @@ export class Transport {
  * "Quarters" clicks the pulse you count, which is what `groupsOf` already
  * computes: every quarter in 3/4 or 5/4, the dotted quarter in 6/8 and 12/8, and
  * the uneven 2+2+3 in 7/8. "Eighths" clicks every eighth, which is every other
- * step because a step is a sixteenth in every meter. Dividing the bar into
+ * step where a step is a sixteenth, and every fourth in a bar of 32nds. Dividing the bar into
  * `clickSub` equal parts only worked in 4/4: it put 3/4's clicks three
  * sixteenths apart and 6/8's on sixteenths no eighth sits on (H3).
  */
 export function isClickStep(m: Meter, step: number, clickSub: number): boolean {
-  return clickSub >= 8 ? step % 2 === 0 : isGroupStart(m, step);
+  // in a bar of 32nds an eighth is four steps
+  const eighth = stepsPerQuarter(m) === 8 ? 4 : 2;
+  return clickSub >= 8 ? step % eighth === 0 : isGroupStart(m, step);
 }
 
 /**

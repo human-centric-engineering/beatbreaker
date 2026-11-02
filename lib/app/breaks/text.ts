@@ -117,7 +117,7 @@ const BAR_WIDTH = 8;
  */
 function countRow(m: Meter): string {
   return countLabelsOf(m)
-    .map((l) => l.slice(-1))
+    .map((l) => l.slice(-1) || '.')
     .join('');
 }
 
@@ -196,6 +196,14 @@ export function describeStep(m: Meter, step: number): string {
   const label = labels[step];
   if (label == null) return `step ${step + 1}`;
   if (/^\d+$/.test(label)) return `beat ${label}`;
+  /* A step the count has no name for (a 32nd, a sixteenth of a half note):
+     how far it is after the last step that has one. */
+  if (!label) {
+    let named = step - 1;
+    while (named > 0 && !labels[named]) named--;
+    const gap = step - named;
+    return `${gap === 1 ? 'a step' : `${gap} steps`} after ${describeStep(m, named)}`;
+  }
   return `the '${label}' of ${beat}`;
 }
 

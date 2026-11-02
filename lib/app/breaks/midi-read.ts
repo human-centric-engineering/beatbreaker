@@ -12,7 +12,16 @@ import {
   TOM_FLAM,
 } from '@/lib/app/breaks/lanes';
 import { GRACE_MAX, openHatValue, valueForVelocity } from '@/lib/app/breaks/perform';
-import { DEFAULT_METER, METERS, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
+import {
+  DEFAULT_METER,
+  groupsOf,
+  isMeterKey,
+  parseMeter,
+  meterKey,
+  meterOf,
+  stepsOf,
+  stepsPerQuarter,
+} from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import { MAX_TUPLETS, joinDoubles, tupletChoices } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneKey, PercLaneKey, TupletSpan } from '@/lib/app/breaks/types';
@@ -402,10 +411,10 @@ export function readMidi(bytes: Uint8Array): ImportResult {
      changes there. Within a 32nd of the top is the top. */
   const first = sigs[0] && sigs[0].tick <= parsed.division / 8 ? sigs[0] : undefined;
   const meter = first ? `${first.num}/${first.den}` : DEFAULT_METER;
-  if (!METERS[meter]) {
+  if (!parseMeter(meter)) {
     return {
       ok: false,
-      error: `the file is in ${meter}, and BeatBreaker has ${Object.keys(METERS).join(', ')}`,
+      error: `the file is in ${meter}, and BeatBreaker reads n/d with d of 2, 4, 8, 16 or 32`,
     };
   }
   /* A later signature this app has no meter for is read in the one before it,
@@ -414,7 +423,7 @@ export function readMidi(bytes: Uint8Array): ImportResult {
   const unread = new Set<string>();
   for (const s of sigs) {
     const key = `${s.num}/${s.den}`;
-    if (METERS[key]) changes.push({ tick: s.tick, meter: key });
+    if (isMeterKey(key)) changes.push({ tick: s.tick, meter: key });
     else unread.add(key);
   }
   if (unread.size) {
@@ -438,16 +447,28 @@ export function readMidi(bytes: Uint8Array): ImportResult {
   const sextuplets =
     meter === DEFAULT_METER &&
     changes.every((c) => c.meter === meter) &&
-    !!METERS['4/4-6'] &&
     offSixteenths >= MIN_TUPLET_NOTES &&
     worst(onTicks, 0, parsed.division / 6) <= tol;
-  const readMeter = sextuplets ? '4/4-6' : meter;
+  /* A file with a bar in 32nds (31/32) is read in 32nds throughout, so every
+     bar's step is one length: its 4/4 is 4/4 in 32nds (D85). */
+  const fine = changes.some((c) => stepsPerQuarter(meterOf(c.meter)) === 8);
+  const inGrid = (key: string): string | null => {
+    if (!fine || stepsPerQuarter(meterOf(key)) === 8) return key;
+    const m = meterOf(key);
+    return meterKey(m.num, m.den, '32');
+  };
+  for (const c of changes) {
+    const key = inGrid(c.meter);
+    if (!key) return { ok: false, error: `a bar of ${c.meter} is too long to read in 32nds` };
+    c.meter = key;
+  }
+  const readMeter = sextuplets ? '4/4-6' : (inGrid(meter) ?? meter);
   if (sextuplets) {
     changes.splice(0, changes.length, { tick: 0, meter: readMeter });
     notes.push('The notes are triplets, so it was read in sextuplet 4/4 (six to the beat).');
   }
 
-  const stepTicks = parsed.division / (sextuplets ? 6 : 4);
+  const stepTicks = parsed.division / stepsPerQuarter(meterOf(readMeter));
   const ornaments = readOrnaments(hits, parsed.division / 4);
   // a buzz's repeats run past its step, and must not add a bar of their own
   const lastStep = Math.max(

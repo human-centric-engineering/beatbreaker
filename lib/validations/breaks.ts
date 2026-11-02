@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 import { LINK_RULE, MAX_LINKS, parseReferenceLink } from '@/lib/app/breaks/links';
-import { METER_KEYS } from '@/lib/app/breaks/meter';
+import { isMeterKey } from '@/lib/app/breaks/meter';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 
 /**
@@ -86,10 +86,7 @@ export const listBreaksSchema = z.object({
      not an error — it is an empty page, which is the honest answer. What the
      value is still held to is the column width it is compared against. */
   style: z.string().max(40).optional(),
-  meter: z
-    .string()
-    .refine((s) => METER_KEYS.includes(s), 'unknown meter')
-    .optional(),
+  meter: z.string().refine(isMeterKey, 'unknown meter').optional(),
   /** Only rows at this visibility — Home's _Published_ reads `published`. */
   visibility: z.enum(['private', 'link', 'published']).optional(),
   /** Title search, case-insensitive. */

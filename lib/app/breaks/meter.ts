@@ -134,13 +134,130 @@ export const METERS: Record<string, Meter> = {
   },
 };
 
+/** The meters offered by name: the Studio's picker, the filters, the generator's tests. */
 export const METER_KEYS = Object.keys(METERS);
 export const DEFAULT_METER = '4/4';
 /** Steps in a bar of 4/4 — the length every style is written at. */
 export const STEPS = 16;
 
+/**
+ * The longest bar any meter may make, in grid steps (D85). Not a meter's
+ * length: a row is as long as its own bar's meter makes it. This bounds what
+ * a pasted code or a request can carry; 15/8 in 32nds is 60 steps, and the
+ * longest bar the records need now (7/4 in 32nds) is 56.
+ */
+export const MAX_STEPS = 128;
+/** The most beats a bar may have: 31/32 is the longest numerator a record needs. */
+const MAX_NUM = 64;
+
+/**
+ * A meter key (D83): `n/d`, with d of 2, 4, 8, 16 or 32, and a grid after a
+ * dash when the bar is not in the default one — `-8` eighths, `-32` 32nds,
+ * `-6` sextuplets (six to the quarter, quarter-note beats only).
+ * The default grid is sixteenths, or 32nds in a meter of 32nds. Every key in
+ * {@link METERS} is one of these and reads as it always has; a key is held to
+ * eight characters, the width of the column it is stored in.
+ */
+const METER_KEY = /^([1-9]\d?)\/(2|4|8|16|32)(?:-(6|8|16|32))?$/;
+
+/** Grid steps to a notated beat: the bar's grid divided into its beat. */
+function subOf(den: number, grid: string | undefined): number {
+  if (grid === '6') return den === 4 ? 6 : 0;
+  const value = grid ? Number(grid) : Math.max(16, den);
+  return value % den === 0 ? value / den : 0;
+}
+
+/**
+ * Pulse grouping from the numerator: in quarters and halves each beat is a
+ * pulse; in eighths and shorter, threes, with the two or two twos the
+ * numerator leaves at the end — 10/8 as 3+3+2+2, 13/8 as 3+3+3+2+2.
+ */
+function groupOf(num: number, den: number): number[] {
+  if (den <= 4) return new Array<number>(num).fill(1);
+  if (num <= 3) return [num];
+  const twos = num % 3 === 0 ? 0 : num % 3 === 2 ? 1 : 2;
+  return [...new Array<number>((num - 2 * twos) / 3).fill(3), ...new Array<number>(twos).fill(2)];
+}
+
+const NOTE_NAMES: Record<number, string> = {
+  2: 'half note',
+  4: 'quarter',
+  8: 'eighth',
+  16: 'sixteenth',
+  32: '32nd',
+};
+
+const GRID_LABELS: Record<string, string> = {
+  '6': 'sextuplets',
+  '8': 'in eighths',
+  '16': 'in sixteenths',
+  '32': 'in 32nds',
+};
+
+const parsed = new Map<string, Meter | null>();
+
+/**
+ * The meter a key names, or `null` if it names none. A key in {@link METERS}
+ * is that meter; any other is built from its numerator, denominator and grid,
+ * once, so the same key is always the same object.
+ */
+export function parseMeter(key: string): Meter | null {
+  if (Object.hasOwn(METERS, key)) return METERS[key];
+  const hit = parsed.get(key);
+  if (hit !== undefined) return hit;
+  const m = buildMeter(key);
+  // only real meters are kept, and there are few enough of them to keep them all
+  if (m) parsed.set(key, m);
+  return m;
+}
+
+function buildMeter(key: string): Meter | null {
+  const match = METER_KEY.exec(key);
+  if (!match) return null;
+  const num = Number(match[1]);
+  const den = Number(match[2]);
+  const grid = match[3];
+  if (num > MAX_NUM) return null;
+  const sub = subOf(den, grid);
+  if (!sub || num * sub > MAX_STEPS) return null;
+  // one spelling to a meter: a grid is named only when it is not the default
+  if (grid && sub === subOf(den, undefined)) return null;
+  const base = `${num}/${den}`;
+  // the same time signature on another grid keeps its pulses: 7/8 in 32nds is still 2+2+3
+  const group = Object.hasOwn(METERS, base) ? METERS[base].group : groupOf(num, den);
+  const grouped =
+    group.length > 1 && group.some((g) => g !== 1) ? `, grouped ${group.join('+')}` : '';
+  return {
+    label: grid ? `${base} ${GRID_LABELS[grid]}` : base,
+    num,
+    den,
+    sub,
+    group,
+    hint: `${num} ${NOTE_NAMES[den]}${num === 1 ? '' : 's'} to the bar${grouped}.`,
+  };
+}
+
+/** How a meter key is written, for a tool's description of its `meter` field. */
+export const METER_KEY_HELP =
+  'A time signature n/d, d being 2, 4, 8, 16 or 32 (4/4, 13/8, 17/16, 31/32). A bar not in sixteenths names its grid after a dash: 4/4-8 in eighths, 7/4-32 in 32nds, 4/4-6 in sextuplets.';
+
+/** Whether a key names a meter ({@link parseMeter}). */
+export function isMeterKey(key: unknown): key is string {
+  return typeof key === 'string' && parseMeter(key) !== null;
+}
+
+/**
+ * The key for a meter's numerator, denominator and grid, in its one spelling:
+ * the grid is dropped when it is the default. `null` if they make no meter.
+ */
+export function meterKey(num: number, den: number, grid?: '6' | '8' | '16' | '32'): string | null {
+  const plain = `${num}/${den}`;
+  const key = grid && subOf(den, grid) !== subOf(den, undefined) ? `${plain}-${grid}` : plain;
+  return isMeterKey(key) ? key : null;
+}
+
 export function meterOf(key: string | undefined): Meter {
-  return METERS[key ?? ''] ?? METERS[DEFAULT_METER];
+  return (key && parseMeter(key)) || METERS[DEFAULT_METER];
 }
 
 /** The meter every style in the table is written in. */
@@ -167,6 +284,14 @@ export function stepSeconds(m: Meter, bpm: number): number {
 /** Whether a meter's steps are sixteenth-note triplets: six to the quarter. */
 export function isSextuplet(m: Meter): boolean {
   return stepsPerQuarter(m) === 6;
+}
+
+/**
+ * Whether a meter's pulse is eighths on a grid of sixteenths, two steps to an
+ * eighth, so a triplet groove's places are every other step: 6/8, 12/8, 13/8.
+ */
+export function isCompound(m: Meter): boolean {
+  return m.sub === 2 && stepsPerQuarter(m) === 4;
 }
 
 /** Whether a meter's steps are eighth notes: two to the quarter. */
@@ -222,11 +347,19 @@ export function pulseInfo(m: Meter): { steps: number; label: string } | null {
   const steps = g[0] * m.sub;
   // the pulse already is the quarter, however many steps it is split into
   if (steps === stepsPerQuarter(m)) return null;
-  return {
-    steps,
-    label: steps === 6 ? 'dotted quarter' : steps === 2 ? 'eighth' : `${steps}-sixteenth pulse`,
-  };
+  return { steps, label: PULSE_NAMES[steps / stepsPerQuarter(m)] ?? `${steps}-step pulse` };
 }
+
+/** A pulse's name by its length in quarters. */
+const PULSE_NAMES: Record<number, string> = {
+  0.25: 'sixteenth',
+  0.375: 'dotted sixteenth',
+  0.5: 'eighth',
+  0.75: 'dotted eighth',
+  1.5: 'dotted quarter',
+  2: 'half note',
+  3: 'dotted half',
+};
 
 /** `1 e + a 2 e + a …` — what each step is called when you count the bar out loud. */
 export function countLabelsOf(m: Meter): string[] {
@@ -235,13 +368,38 @@ export function countLabelsOf(m: Meter): string[] {
   const out: string[] = [];
   for (let b = 0; b < m.num; b++) {
     const n = String(b + 1);
-    if (m.sub === 4) out.push(n, 'e', '+', 'a');
+    const spq = stepsPerQuarter(m);
+    if (m.sub === 4 && spq === 4) out.push(n, 'e', '+', 'a');
     else if (m.sub === 6) out.push(n, 'la', 'li', '+', 'la', 'li');
-    else if (m.sub === 2) out.push(n, '+');
-    else out.push(n);
+    else if (m.sub === 2 && spq !== 8) out.push(n, '+');
+    else out.push(n, ...partsOfBeat(m));
   }
   countCache.set(m, out);
   return out;
+}
+
+/**
+ * The names of the steps inside one beat after its first, by where each falls
+ * in sixteenths: `e + a` in a quarter, `+` in an eighth or at the middle of a
+ * half note; a step between sixteenths (a 32nd) has none.
+ */
+function partsOfBeat(m: Meter): string[] {
+  const perSixteenth = stepsPerQuarter(m) / 4;
+  const sixteenths = 16 / m.den;
+  const out: string[] = [];
+  for (let j = 1; j < m.sub; j++) {
+    const at = j / perSixteenth;
+    if (!Number.isInteger(at)) out.push('');
+    else if (sixteenths === 4) out.push(['', 'e', '+', 'a'][at] ?? '');
+    else if (sixteenths === 2 || sixteenths === 8) out.push(at === sixteenths / 2 ? '+' : '');
+    else out.push('');
+  }
+  return out;
+}
+
+/** Whether a meter is one of the named ones, whose carrying rules are fixed. */
+function isNamed(m: Meter): boolean {
+  return Object.values(METERS).includes(m);
 }
 
 /**
@@ -266,18 +424,24 @@ export function remapStep(step: number, from: Meter, to: Meter): number {
      their places, and an "e" or an "a" goes to the triplet partial nearest it
      (the way a swung sixteenth does). From sextuplets, each step goes to the
      sixteenth nearest it. */
-  if (to.sub === 6 && from.sub === 4) off = [0, 2, 3, 4][off] ?? -1;
-  else if (to.sub === 4 && from.sub === 6) off = [0, 1, 1, 2, 3, 3][off] ?? -1;
+  const fq = stepsPerQuarter(from);
+  const tq = stepsPerQuarter(to);
+  if (to.sub === 6 && from.sub === 4 && fq === 4) off = [0, 2, 3, 4][off] ?? -1;
+  else if (to.sub === 4 && tq === 4 && from.sub === 6) off = [0, 1, 1, 2, 3, 3][off] ?? -1;
   /* Into eighths, the beat and its "and" keep their places and the "e" and
      the "a" have nowhere to go; out of them, each eighth is two sixteenths. */
-  else if (isEighths(to) && from.sub === 4) off = [0, -1, 1, -1][off] ?? -1;
+  else if (isEighths(to) && from.sub === 4 && fq === 4) off = [0, -1, 1, -1][off] ?? -1;
   else if (isEighths(to) && from.sub === 6) off = [0, -1, -1, 1, -1, -1][off] ?? -1;
-  else if (isEighths(from) && to.sub === 4) off *= 2;
+  else if (isEighths(from) && to.sub === 4 && tq === 4) off *= 2;
   else if (isEighths(from) && to.sub === 6) off *= 3;
+  /* Any other change of grid (D85) — into 32nds or out of them, or to or from
+     a meter without a name — each step to the one nearest it in time. */
+  else if (tq !== fq && (tq === 8 || fq === 8 || !isNamed(to) || !isNamed(from)))
+    off = Math.round((off * tq) / fq);
   /* A compound pulse is three eighths, not four sixteenths — the odd steps
      between them are not places a triplet groove has. Anything landing there is
      pulled to the nearest partial rather than left off the grid. */
-  if (to.sub === 2 && !isEighths(to) && !isEighths(from))
+  if (to.sub === 2 && tq === 4 && !isEighths(from))
     off = Math.min(tg[gi].size - 2, Math.round(off / 2) * 2);
   if (off >= tg[gi].size || off < 0) return -1;
   return tg[gi].start + off;
