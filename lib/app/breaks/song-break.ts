@@ -11,6 +11,7 @@ import {
 } from '@/lib/app/breaks/sections';
 import { partKey, pickSong, songMeter, songOf, songPartOf, withSong } from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
+import type { TempoPoint } from '@/lib/app/breaks/tempo-map';
 import type { Pattern, ResolvedStyle, SongSection, Style, StyleSong } from '@/lib/app/breaks/types';
 
 /**
@@ -110,6 +111,11 @@ export interface PartOptions {
    * ×1; 1 is ×1 whatever the section says.
    */
   tempoRatio?: TempoRatio;
+  /**
+   * Its tempo map (16-b-ii). Absent, a section of a song takes its own; empty
+   * is none, whatever the section says.
+   */
+  tempo?: TempoPoint[];
   /** One candidate from the seed, rather than the best of sixteen (`generateGood`). */
   exact?: boolean;
   /** The Studio's own lanes, where you have set them. */
@@ -137,6 +143,7 @@ export function writePart(opts: PartOptions): GeneratedBreak {
     perc: roster.perc,
     seed: opts.seed,
     tempoRatio: opts.tempoRatio,
+    tempo: opts.tempo,
   };
   return opts.exact || written
     ? { pattern: generatePattern(gen), tries: 1, rejected: 0 }

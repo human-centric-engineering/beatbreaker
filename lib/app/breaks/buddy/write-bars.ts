@@ -1,6 +1,13 @@
 import { z } from 'zod';
 
 import { maxBpmOf } from '@/lib/app/breaks/audio/transport';
+import {
+  MAX_TEMPO_POINTS,
+  fitTempoMap,
+  paceRange,
+  rangesFit,
+  tempoMapProblem,
+} from '@/lib/app/breaks/tempo-map';
 import { type EditData, describeEdit, editWorkspace } from '@/lib/app/breaks/buddy/edit';
 import { HANDS_CHECK, playability } from '@/lib/app/breaks/critic';
 import { DEFAULT_PERC, LANES, PERC_LANES } from '@/lib/app/breaks/lanes';
@@ -66,6 +73,16 @@ const schema = z.object({
   meter: z
     .string()
     .refine((m) => METER_KEYS.includes(m), 'unknown meter')
+    .optional(),
+  tempo: z
+    .array(
+      z.object({
+        bar: z.number().int().min(1).max(MAX_BREAK_BARS),
+        bpm: z.number().min(5).max(2000),
+        to: z.number().min(5).max(2000).optional(),
+      })
+    )
+    .max(MAX_TEMPO_POINTS)
     .optional(),
 });
 
@@ -150,7 +167,9 @@ function blankSection(a: Pattern, letter: SectionLetter): Pattern {
   out.sticking = null;
   delete out.tuplets;
   /* A's tempo ratio stays, as its meter does: a section built from another
-     takes its pace, as Build B does. `set_playback` sets another. */
+     takes its pace, as Build B does. `set_playback` sets another. A's tempo
+     map does not: it is where A's record slows or speeds, bar by bar. */
+  delete out.tempo;
   delete out.fixed;
   delete out.poly;
   delete out.polySpans;
@@ -308,6 +327,20 @@ export class WriteBarsCapability extends BaseCapability<Args, EditData> {
           description:
             "Time signature of the bars written. Only with whole: true; defaults to the section's.",
         },
+        tempo: {
+          type: 'array',
+          description:
+            "Where the record changes speed inside this section, replacing its tempo map ([] takes it away; leave it out to keep the one it has). Each point: the bar it starts at (counted from 1), the tempo from there in bpm at the break's tempo as it is now, and, for an accelerando or a ritardando, `to`: the tempo it reaches on the last step before the next point or the section's end. Without `to` the tempo holds. Before the first point the section plays at its own tempo. Kept as shares of the section's tempo, so moving the break's tempo moves them all.",
+          items: {
+            type: 'object',
+            properties: {
+              bar: { type: 'integer', minimum: 1 },
+              bpm: { type: 'number' },
+              to: { type: 'number' },
+            },
+            required: ['bar', 'bpm'],
+          },
+        },
       },
       required: ['section', 'text'],
     },
@@ -339,7 +372,20 @@ export class WriteBarsCapability extends BaseCapability<Args, EditData> {
           code: 'not_next_section',
         };
       }
-      const base = current ?? blankSection(doc.A, args.section);
+      const blank = current ?? blankSection(doc.A, args.section);
+      /* The tempo map asked for (16-b-ii), in beats a minute at the break's
+         tempo as it is now, kept as ratios of the section's: the slider moves
+         the whole song. It replaces the section's map; absent, the map stays,
+         held to the bars a whole write leaves. */
+      const own = doc.bpm * ratioOf(blank);
+      const map = args.tempo
+        ?.map((p) => ({
+          bar: p.bar - 1,
+          ratio: p.bpm / own,
+          ...(p.to !== undefined ? { to: p.to / own } : {}),
+        }))
+        .sort((a, b) => a.bar - b.bar);
+      const base = map ? { ...blank, tempo: map } : blank;
       /* One tempo plays every section, held to the lowest of their meters'
          ceilings, each over its tempo ratio. A section written in a slower
          meter (C in 4/4 beside an A in 12/8 at 280) brings the tempo down to
@@ -355,11 +401,31 @@ export class WriteBarsCapability extends BaseCapability<Args, EditData> {
           {
             meter: args.meter ?? base.meter,
             ...(base.tempoRatio ? { tempoRatio: base.tempoRatio } : {}),
+            ...(base.tempo?.length ? { tempo: base.tempo } : {}),
           },
         ])
       );
       const built = build(base, args, bpm);
       if (!built.ok) return built;
+      const fitted = fitTempoMap(built.pattern.tempo, built.pattern.bars.length);
+      if (map) {
+        const problem = tempoMapProblem(map, built.pattern.bars.length);
+        if (problem) return { ok: false, message: `The tempo map: ${problem}`, code: 'bad_tempo' };
+      }
+      if (fitted.length) built.pattern.tempo = fitted;
+      else delete built.pattern.tempo;
+      const ranges = lettersOf(doc).map((L) =>
+        paceRange(L === args.section ? built.pattern : doc[L])
+      );
+      if (!current) ranges.push(paceRange(built.pattern));
+      if (!rangesFit(ranges)) {
+        return {
+          ok: false,
+          message:
+            "A break's sections play within ×4 of each other and of its tempo, or no tempo plays them all",
+          code: 'bad_tempo',
+        };
+      }
       const after = { ...withSection(doc, args.section, built.pattern), bpm };
       const bars = totalBars(after);
       if (bars > MAX_BREAK_BARS) {

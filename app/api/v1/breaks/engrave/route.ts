@@ -24,6 +24,7 @@ import { validateRequestBody } from '@/lib/api/validation';
 import { withAuth } from '@/lib/auth/guards';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { reducePattern } from '@/lib/app/breaks/layers';
+import { sectionBpm } from '@/lib/app/breaks/sections';
 import { patternFromPacked } from '@/lib/app/breaks/share';
 import { engraveBreakSchema } from '@/lib/validations/break-operations';
 
@@ -44,6 +45,7 @@ export const POST = withAuth(
       perSystem: input.perSystem,
       guides: input.guides,
       sticking: input.sticking,
+      ...(input.bpm ? { bpm: sectionBpm(input.bpm, full) } : {}),
     });
 
     log.info('Break engraved', {

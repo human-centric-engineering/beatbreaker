@@ -12,10 +12,16 @@ import {
   SECTION_LETTERS,
   isOfferedRatio,
   isTempoRatio,
-  ratiosFit,
   type TempoRatio,
   V7_TEMPO_RATIOS,
 } from '@/lib/app/breaks/sections';
+import {
+  MAX_TEMPO_POINTS,
+  isPointRatio,
+  paceRange,
+  rangesFit,
+  tempoMapProblem,
+} from '@/lib/app/breaks/tempo-map';
 import { MAX_TUPLET, MAX_TUPLETS, MIN_TUPLET } from '@/lib/app/breaks/tuplets';
 
 /**
@@ -325,6 +331,19 @@ const packedTupletSchema = z
 
 const packedTuplets = z.array(packedTupletSchema).max(MAX_TUPLETS);
 
+const pointRatio = z.custom<number>(isPointRatio, 'a tempo point is from ×¼ to ×4');
+const pointBar = z
+  .number()
+  .int()
+  .min(0)
+  .max(MAX_BREAK_BARS - 1);
+/** A point of a section's tempo map on the wire (v10, 16-b-ii); see `tempo-map.ts`. */
+const packedTempoPoint = z.union([
+  z.tuple([pointBar, pointRatio]),
+  z.tuple([pointBar, pointRatio, pointRatio]),
+]);
+export type PackedTempoPoint = z.infer<typeof packedTempoPoint>;
+
 /** A section's tempo ratio on the wire: ×¼ to ×4, never ×1 (see `isTempoRatio`); a v8 code holds it to `TEMPO_RATIOS`. */
 const tempoRatioSchema = z.custom<TempoRatio>(isTempoRatio, 'a tempo ratio is from ×¼ to ×4');
 
@@ -449,6 +468,12 @@ const packedPatternBase = z.object({
    * is ×1.
    */
   tr: tempoRatioSchema.optional(),
+  /**
+   * the section's tempo map — v10 (16-b-ii): `[bar, ratio]` for a point that
+   * holds, `[bar, ratio, to]` for a ramp, each against the section's tempo.
+   * Held to the section's bars by {@link sharePayloadSchema}.
+   */
+  tm: z.array(packedTempoPoint).min(1).max(MAX_TEMPO_POINTS).optional(),
   /** voice */
   v: z.enum(['hat', 'ride']).default('hat'),
   /** seed */
@@ -561,7 +586,7 @@ const extraSections = Object.fromEntries(
  */
 export const sharePayloadSchema = z
   .object({
-    ver: z.number().int().min(1).max(9),
+    ver: z.number().int().min(1).max(10),
     bpm: z.number().min(20).max(400).default(94),
     sw: z.number().min(0).max(100).default(0),
     lv: z.number().int().min(1).max(5).optional(),
@@ -579,6 +604,23 @@ export const sharePayloadSchema = z
         path: [L, 'th'],
         message: "a share code has its sections as letters, not a library entry's next section",
       });
+    }
+    for (const L of letters) {
+      const tm = payload[L]?.tm;
+      if (!tm) continue;
+      if (payload.ver < 10) {
+        ctx.addIssue({
+          code: 'custom',
+          path: [L, 'tm'],
+          message: `a version ${payload.ver} code plays each section at one tempo; a tempo map needs version 10`,
+        });
+        continue;
+      }
+      const problem = tempoMapProblem(
+        tm.map(([bar, ratio]) => ({ bar, ratio })),
+        payload[L]?.b.length ?? 0
+      );
+      if (problem) ctx.addIssue({ code: 'custom', path: [L, 'tm'], message: problem });
     }
     if (payload.ver < 9) {
       for (const L of letters) {
@@ -639,7 +681,7 @@ export const sharePayloadSchema = z
         });
       }
     });
-    if (!ratiosFit(letters.map((L) => payload[L]?.tr))) {
+    if (!rangesFit(letters.map((L) => packedRange(payload[L])))) {
       ctx.addIssue({
         code: 'custom',
         path: [],
@@ -668,6 +710,16 @@ export const sharePayloadSchema = z
       });
     }
   });
+
+/** How slow and fast a packed section plays against the break: its ratio and its map's points. */
+function packedRange(p: { tr?: number; tm?: PackedTempoPoint[] } | undefined): [number, number] {
+  return paceRange({
+    tempoRatio: p?.tr,
+    tempo: p?.tm?.map(([bar, ratio, to]) =>
+      to === undefined ? { bar, ratio } : { bar, ratio, to }
+    ),
+  });
+}
 
 export type PackedPattern = z.infer<typeof packedPatternSchema>;
 export type SharePayload = z.infer<typeof sharePayloadSchema>;

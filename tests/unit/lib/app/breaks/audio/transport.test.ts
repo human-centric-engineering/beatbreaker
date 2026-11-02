@@ -28,6 +28,7 @@ import {
 import { METER_KEYS, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { MIDI_MAP } from '@/lib/app/breaks/midi';
 import { emptyBar, styleAttrs } from '@/lib/app/breaks/pattern';
+import { offsetSeconds } from '@/lib/app/breaks/tempo-map';
 import type { Pattern, StyleAttrs } from '@/lib/app/breaks/types';
 import { testStyle } from '@/tests/helpers/catalogue';
 
@@ -738,7 +739,7 @@ describe('onStep (the 3D drummer handoff)', () => {
       onStep: (step) => seen.push({ step, now: f.ctx.currentTime }),
     });
     t.start();
-    while (f.ctx.currentTime < 1) {
+    while (f.ctx.currentTime < 2) {
       f.ctx.currentTime += 0.02;
       vi.advanceTimersByTime(25);
     }
@@ -1221,5 +1222,88 @@ describe('Transport — pause and resume', () => {
 
   it('has no pause point while stopped', () => {
     expect(make().t.pausePoint()).toBeNull();
+  });
+});
+
+describe('a section with a tempo map (16-b-ii)', () => {
+  it('plays each step as long as the tempo the map has reached there, and counts in at the first bar’s', () => {
+    // two bars at 120, the second stepping to ×2, then a third ramping back down to ×1
+    const pat = patternIn('4/4');
+    pat.bars = [emptyBar(16), emptyBar(16), emptyBar(16)];
+    pat.tempo = [
+      { bar: 1, ratio: 2 },
+      { bar: 2, ratio: 2, to: 1 },
+    ];
+    const onStep = vi.fn();
+    const snap = snapshot(pat, { countIn: 1, click: false, bpm: 120 });
+    const f = fakeAudio();
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep,
+    });
+    t.start();
+    while (f.ctx.currentTime < 9) {
+      f.ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    t.stop();
+
+    const all = onStep.mock.calls.map(([step]) => step as ScheduledStep);
+    const at120 = 60 / 120 / 4;
+    expect(all.filter((s) => s.count).every((s) => s.dur === at120)).toBe(true);
+    const played = all.filter((s) => !s.count).slice(0, 48);
+    expect(played.slice(0, 16).every((s) => s.dur === at120)).toBe(true);
+    expect(played.slice(16, 32).every((s) => s.dur === at120 / 2)).toBe(true);
+    // the ramp's first step at 240, its last at 120, each a little longer than the one before
+    const ramp = played.slice(32, 48).map((s) => s.dur);
+    expect(ramp[0]).toBeCloseTo(at120 / 2, 12);
+    expect(ramp[15]).toBeCloseTo(at120, 12);
+    expect(ramp.every((d, i) => i === 0 || d > ramp[i - 1])).toBe(true);
+    // and each step starts where the one before it ended
+    played.slice(1).forEach((s, i) => expect(s.t).toBeCloseTo(played[i].t + played[i].dur, 9));
+  });
+
+  it('times an echo across a ramp a step at a time, each step as long as its own tempo', () => {
+    // one bar speeding from ×1 to ×2, a hat on its first step, echoed six steps later
+    const pat = patternIn('4/4');
+    pat.bars = [emptyBar(16)];
+    pat.bars[0].h[0] = 1;
+    pat.tempo = [{ bar: 0, ratio: 1, to: 2 }];
+    pat.attrs = { ...pat.attrs, echo: { lanes: ['h'], steps: 6, level: 0.5 } };
+    const onStep = vi.fn();
+    const snap = snapshot(pat, { click: false, bpm: 120 });
+    const f = fakeAudio();
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep,
+    });
+    t.start();
+    while (f.ctx.currentTime < 0.5) {
+      f.ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    t.stop();
+
+    const first = onStep.mock.calls.map(([step]) => step as ScheduledStep).find((s) => !s.count)!;
+    const [hit, echo] = f.audio.playIn.mock.calls
+      .filter(([lane]) => lane === 'h')
+      .map(([, , when]) => when);
+    const m = meterOf('4/4');
+    expect(hit).toBeCloseTo(first.t, 9);
+    // the six steps it waits are each shorter than the one before, not six of the first
+    expect(echo).toBeCloseTo(first.t + offsetSeconds(m, 120, pat, 0, 0, 6), 9);
+    expect(echo - hit).toBeLessThan(6 * first.dur - 1e-6);
+  });
+
+  it('holds the top tempo to the fastest point of a map', () => {
+    expect(maxBpmOf([{ meter: '4/4', tempo: [{ bar: 0, ratio: 1, to: 2 }] }])).toBe(TEMPO_TOP / 2);
   });
 });

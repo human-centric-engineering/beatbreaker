@@ -25,6 +25,8 @@ import {
   tupletsOf,
   twoAStep,
 } from '@/lib/app/breaks/tuplets';
+import { ratioLabel } from '@/lib/app/breaks/sections';
+import { rampWord } from '@/lib/app/breaks/tempo-map';
 import type { Bar, Group, LaneKey, Meter, Pattern, TupletSpan } from '@/lib/app/breaks/types';
 
 /**
@@ -74,6 +76,20 @@ export interface EngraveOptions {
    * in it would draw a rest through every note of the other.
    */
   rests?: boolean;
+  /**
+   * The tempo the section plays at (the break's, times its ratio), where the
+   * caller knows it: a tempo map's marks then read `♩ = 120`. Without it they
+   * read as ratios of the section's tempo, `×9/10`, and ×1 as _a tempo_.
+   */
+  bpm?: number;
+  /**
+   * The bars of the section the tempo map belongs to, where the chart is not
+   * all of them: the drummer's corner chart runs a section on into the first
+   * bars of the next, or shows only the first bars of the next. Its marks
+   * stop where the section does, and a ramp's end is printed only where the
+   * section reaches it. Default: the pattern's bars.
+   */
+  tempoBars?: number;
 }
 
 export interface Engraving {
@@ -84,6 +100,55 @@ export interface Engraving {
   height: number;
   steps: number;
   label: string;
+}
+
+/** What the chart prints over one bar of a tempo map (16-b-ii). */
+export interface TempoMark {
+  /** The tempo a point starts at, where it is not the tempo just before it. */
+  text?: string;
+  /** accel. or rit., on a ramp's first bar. */
+  word?: string;
+  /** The bar is inside a ramp: a dashed line runs over it. */
+  ramp?: boolean;
+  /** The tempo a ramp gets to, on its last bar. */
+  end?: string;
+}
+
+/**
+ * The marks a section's tempo map prints, by bar (empty where it has none):
+ * `♩ = N` at the section's tempo `bpm`, or without it a ratio of the
+ * section's tempo, ×1 written _a tempo_. `bars` is the section's length,
+ * where the pattern drawn is not the whole of it ({@link EngraveOptions}).
+ */
+export function tempoMarks(pat: Pattern, bpm?: number, bars = pat.bars.length): TempoMark[] {
+  const map = pat.tempo ?? [];
+  if (!map.length) return [];
+  const drawn = Math.min(bars, pat.bars.length);
+  const say = (r: number): string =>
+    // to a tenth, as the Tempo row, its picker and BeatBuddy say it; in quarters, as every tempo here counts
+    bpm ? `♩ = ${Math.round(bpm * r * 10) / 10}` : r === 1 ? 'a tempo' : ratioLabel(r);
+  const out: TempoMark[] = [];
+  let before = 1;
+  map.forEach((p, i) => {
+    const end = Math.min(map[i + 1]?.bar ?? bars, bars);
+    if (p.bar >= Math.min(end, drawn)) return;
+    const mark: TempoMark = {};
+    if (p.ratio !== before) mark.text = say(p.ratio);
+    const word = rampWord(p);
+    if (word && p.to !== undefined) {
+      mark.word = word;
+      const last = Math.min(end, drawn);
+      for (let b = p.bar; b < last; b++) out[b] = { ...(b === p.bar ? mark : {}), ramp: true };
+      // a ramp that runs on past the bars drawn has not got there yet
+      if (end <= drawn) out[end - 1].end = say(p.to);
+      before = p.to;
+    } else {
+      // a ramp to where it started holds
+      if (mark.text) out[p.bar] = mark;
+      before = p.ratio;
+    }
+  });
+  return out;
 }
 
 /** Collects nodes in draw order. */
@@ -248,13 +313,18 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
   /* Auxiliary percussion is not kit notation and does not belong on the kit
      staff. It gets its own one-line staff per instrument, above the drums, the
      way an added percussion part is written on a chart. */
+  /* A section with a tempo map (16-b-ii) prints its marks in a row of their
+     own over the staff: a tempo where it steps, accel. or rit. and a dashed
+     line where it ramps, and the tempo the ramp gets to at its end. */
+  const marks = tempoMarks(pat, opts.bpm, opts.tempoBars);
+  const tempoH = marks.length ? 16 * scale : 0;
   const percRowH = 2.5 * SP;
   const percH = percLanes.length * percRowH;
   const upper = 6.6 * SP; // beams and accents live up here
   const hasFoot = lanes.includes(FOOT_LANE);
   const showSticking = !!opts.sticking || !!pat.sticking?.some(Boolean);
   const lower = (showSticking ? (STICK_Y + 0.8) * SP : 4.5 * SP) + (hasFoot ? 0.6 * SP : 0);
-  const sysH = guideH + polyH + percH + upper + 4 * SP + lower;
+  const sysH = guideH + polyH + tempoH + percH + upper + 4 * SP + lower;
 
   const systems = Math.ceil(pat.bars.length / perSystem);
   const widest = Math.min(perSystem, pat.bars.length);
@@ -267,7 +337,8 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
 
   for (let sys = 0; sys < systems; sys++) {
     const sysOrigin = sys * sysH;
-    const percTop = sysOrigin + guideH + polyH;
+    const tempoTop = sysOrigin + guideH + polyH;
+    const percTop = tempoTop + tempoH;
     const staffTop = percTop + percH + upper;
     const staffBottom = staffTop + 4 * SP;
     const y = (step: number): number => staffBottom - step * (SP / 2);
@@ -487,6 +558,53 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
               'stroke-width': Math.max(1, scale),
               'stroke-dasharray': `${3 * scale} ${3 * scale}`,
             });
+          }
+        }
+      }
+
+      // the tempo map's marks over this bar
+      const mark = marks[barIndex];
+      if (mark) {
+        const yy = tempoTop + 11 * scale;
+        const font = {
+          fill: ink,
+          'font-size': `${9.5 * scale}px`,
+          'font-family': 'var(--f-body)',
+        };
+        let from = x0 + 2 * scale;
+        if (mark.text) {
+          out.add('text', { ...font, x: from, y: yy, 'font-weight': '600' }, mark.text);
+          from += (mark.text.length * 5.6 + 6) * scale;
+        }
+        if (mark.word) {
+          out.add('text', { ...font, x: from, y: yy, 'font-style': 'italic' }, mark.word);
+          from += (mark.word.length * 5.4 + 6) * scale;
+        }
+        if (mark.ramp) {
+          const to = mark.end ? x0 + barW - (mark.end.length * 5.6 + 6) * scale : x0 + barW;
+          if (to > from) {
+            out.add('line', {
+              x1: from,
+              x2: to,
+              y1: yy - 3 * scale,
+              y2: yy - 3 * scale,
+              stroke: ink,
+              'stroke-width': Math.max(1, 0.9 * scale),
+              'stroke-dasharray': `${3 * scale} ${3 * scale}`,
+            });
+          }
+          if (mark.end) {
+            out.add(
+              'text',
+              {
+                ...font,
+                x: x0 + barW - 2 * scale,
+                y: yy,
+                'text-anchor': 'end',
+                'font-weight': '600',
+              },
+              mark.end
+            );
           }
         }
       }

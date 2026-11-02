@@ -13,7 +13,7 @@ import { leftLedFills } from '@/lib/app/breaks/drummer/fill-lead';
 import { fillFromIn, keepsKickRuns, meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
 import { spanStepsIn, withPlainSpans } from '@/lib/app/breaks/poly-fill';
 import { clamp, makeRng } from '@/lib/app/breaks/rng';
-import { sectionBpm } from '@/lib/app/breaks/sections';
+import { paceRange } from '@/lib/app/breaks/tempo-map';
 import { songPartOf } from '@/lib/app/breaks/songs';
 import { tupletLanes, tupletNotesAt, tupletsIn } from '@/lib/app/breaks/tuplets';
 import { limbProblems, type LimbProblem } from '@/lib/app/breaks/physical';
@@ -58,10 +58,13 @@ export interface Playability {
 /**
  * Whether a pattern can be played, at the break's tempo `bpm0`. A section at a
  * tempo ratio is judged at the speed it plays (11-e-ii-g): a B at ×2 under a
- * break at 100 is a B at 200.
+ * break at 100 is a B at 200. A section with a tempo map is judged a step at
+ * a time, at the tempo each step plays (16-b-ii).
  */
 export function playability(pat: Pattern, bpm0: number): Playability {
-  const bpm = sectionBpm(bpm0, pat);
+  // a section with a tempo map (16-b-ii) is named at the fastest it goes
+  const bpm = bpm0 * paceRange(pat)[1];
+  const at = pat.tempo?.length ? 'at up to' : 'at';
   let rideClash = false;
   let kickRun = false;
   let snareRun = false;
@@ -232,14 +235,14 @@ export function playability(pat: Pattern, bpm0: number): Playability {
       limbs: 'feet',
       ok: !feetSlow,
       label: doubleKick
-        ? `Two feet keep up with the kick at ${Math.round(bpm)} BPM`
-        : `The feet keep up at ${Math.round(bpm)} BPM`,
+        ? `Two feet keep up with the kick ${at} ${Math.round(bpm)} BPM`
+        : `The feet keep up ${at} ${Math.round(bpm)} BPM`,
     },
     {
       kind: 'body',
       limbs: 'hands',
       ok: !handsSlow,
-      label: `Each hand gets where it is going at ${Math.round(bpm)} BPM`,
+      label: `Each hand gets where it is going ${at} ${Math.round(bpm)} BPM`,
     },
   ];
   /* Only shown where it can fail: every pattern written before 9-iv passes it,

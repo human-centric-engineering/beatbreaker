@@ -506,6 +506,29 @@ describe('Stage, a section at a tempo ratio (11-e-ii-g)', () => {
     // with every section on show, there is no one section to pick a tempo for
     expect(screen.queryByRole('radiogroup', { name: /tempo/ })).toBeNull();
   });
+
+  it('says why a section with a tempo map cannot take a ratio, and leaves it where it was (16-b-ii)', async () => {
+    const user = userEvent.setup();
+    renderWithProbe();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    act(() => {
+      studio!.setTempoPoint('B', 0, { ratio: 1, to: 0.4 });
+    });
+    await user.click(picker().getByRole('radio', { name: 'B' }));
+    const tempo = within(screen.getByRole('radiogroup', { name: "Section B's tempo" }));
+
+    await user.click(tempo.getByRole('radio', { name: '×½' }));
+
+    expect(studio!.patterns.B?.tempoRatio).toBeUndefined();
+    expect(tempo.getByRole('radio', { name: '×1' })).toHaveAttribute('aria-checked', 'true');
+    expect(screen.getByRole('status')).toHaveTextContent(
+      /Section B at ×½.*no tempo plays them all/
+    );
+    // a pick that plays clears it
+    await user.click(tempo.getByRole('radio', { name: '×2' }));
+    expect(studio!.patterns.B?.tempoRatio).toBe(2);
+    expect(screen.queryByText(/no tempo plays them all/)).toBeNull();
+  });
 });
 
 describe('Stage, playing a song written in sections', () => {

@@ -97,6 +97,36 @@ describe('set_playback', () => {
     );
   });
 
+  it('refuses a ratio that, with a tempo map, spreads the sections past ×4, and says so (16-b-ii)', async () => {
+    const A = generatePattern({
+      style: testStyle('funk'),
+      meter: '4/4',
+      seed: 4,
+      bars: 2,
+      density: 50,
+      ghosts: 50,
+    });
+    // A slows to half over its second bar
+    const mapped = breakPayload({
+      bpm: 120,
+      swing: 0,
+      level: 5,
+      arrangement: ['A', 'B'],
+      A: { ...A, tempo: [{ bar: 1, ratio: 1, to: 0.5 }] },
+      B: { ...A, name: 'B' },
+    });
+    fake = fakeWorkspaceTable([{ userId: 'user-1', doc: mapped, rev: 2 }]);
+    table.current = fake;
+
+    // ×2 against A's ×½ is ×4 apart, and the break's ×1 in between: it plays
+    expect((await run({ section: 'B', tempoRatio: 2 })).success).toBe(true);
+    // but A at ×½ slows to ×¼ while B plays at ×2: ×8 apart
+    const result = await run({ section: 'A', tempoRatio: 0.5 });
+    expect(result).toMatchObject({ success: false, error: { code: 'tempo_out_of_range' } });
+    expect(result.error?.message).toContain("would spread past ×4 of the break's tempo");
+    expect(fake.rows.get('user-1')?.rev).toBe(3);
+  });
+
   it('rejects a call that names nothing to change, and a layer that does not exist', () => {
     const cap = new SetPlaybackCapability();
     expect(() => cap.validate({})).toThrow();

@@ -294,7 +294,12 @@ few words of `feel`, a `weight`, and `params`: any style field except
     Studio's ×½, ×2/3, ×3/4, ×4/3, ×3/2 or ×2, or the record's own, anything
     from ×¼ to ×4 (`isTempoRatio`): a passage that goes from 150 to 160 is
     `16 / 15`, never the nearest ratio offered. A break with one is a v9
-    share code. A song's or a break's ratios, with ×1 counted in, spread no
+    share code. Where the record speeds up or slows down inside the
+    section, `tempo` is its map (16-b-ii, `tempo-map.ts`): points
+    `{ bar, ratio, to? }` against the section's own tempo, a ritardando
+    `{ bar: 4, ratio: 1, to: 0.5 }`. A section with one names its length
+    (`written` or `bars`), so its bars are the record's; the pattern it
+    writes carries the map, and the break is a v10 code. A song's or a break's ratios, with ×1 counted in, spread no
     wider than `MAX_RATIO_SPREAD` (4, two octaves), so some tempo between 50
     and 380 plays every section (`ratiosFit`, checked by the song schema and
     the share code). Its own `bpm` is the record's, at the speed it plays, and

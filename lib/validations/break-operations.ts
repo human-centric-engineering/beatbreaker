@@ -98,6 +98,11 @@ export const engraveBreakSchema = z.object({
   perSystem: z.number().int().min(1).max(8).default(2),
   guides: z.boolean().default(false),
   sticking: z.boolean().default(false),
+  /**
+   * The break's tempo, where a section's tempo map should print its marks in
+   * beats a minute (16-b-ii); without it they print as ratios.
+   */
+  bpm: z.number().min(20).max(400).optional(),
 });
 
 export const midiBreakSchema = z.object({

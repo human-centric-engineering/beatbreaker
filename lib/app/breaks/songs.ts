@@ -2,6 +2,7 @@ import { DEFAULT_METER, meterOf } from '@/lib/app/breaks/meter';
 import { polyFillsIn } from '@/lib/app/breaks/poly-fill';
 import { wpick, type Rng } from '@/lib/app/breaks/rng';
 import type { TempoRatio } from '@/lib/app/breaks/sections';
+import type { TempoPoint } from '@/lib/app/breaks/tempo-map';
 import type { SongSection, Style, StyleSong, StyleSongParams } from '@/lib/app/breaks/types';
 
 /**
@@ -84,17 +85,18 @@ export function songMeter(st: Style, song: StyleSong | undefined, section?: Song
 }
 
 /**
- * Each section of a song as the top tempo sees it: its meter and its tempo
- * ratio — what `maxBpmOf` holds the break's tempo to.
+ * Each section of a song as the top tempo sees it: its meter, its tempo
+ * ratio and its map — what `maxBpmOf` holds the break's tempo to.
  */
 export function songPaces(
   st: Style,
   song: StyleSong
-): Array<{ meter: string; tempoRatio?: TempoRatio }> {
+): Array<{ meter: string; tempoRatio?: TempoRatio; tempo?: TempoPoint[] }> {
   return song.sections?.length
     ? song.sections.map((x) => ({
         meter: songMeter(st, song, x),
         ...(x.tempoRatio ? { tempoRatio: x.tempoRatio } : {}),
+        ...(x.tempo?.length ? { tempo: x.tempo } : {}),
       }))
     : [{ meter: songMeter(st, song) }];
 }

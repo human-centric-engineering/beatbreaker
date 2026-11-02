@@ -19,6 +19,7 @@
  */
 
 import type { SectionLetter, TempoRatio } from '@/lib/app/breaks/sections';
+import type { TempoPoint } from '@/lib/app/breaks/tempo-map';
 
 /** Lanes every style gets. */
 export type BaseLaneKey = 'k' | 's' | 'h' | 'r' | 'c';
@@ -263,6 +264,13 @@ export interface Pattern {
    * before sections could differ.
    */
   tempoRatio?: TempoRatio;
+  /**
+   * The record's changes of speed inside the section (16-b-ii, D82): a bar
+   * that steps to a new tempo, a run of bars that speeds up or slows down,
+   * each against the section's own tempo (see `tempo-map.ts`). Absent on a
+   * section that keeps one tempo, which is almost all of them.
+   */
+  tempo?: TempoPoint[];
   /** Seed the generator ran from — what makes a break reproducible. */
   seed: number;
   /** Which cymbal carries the ostinato. */
@@ -737,7 +745,7 @@ export type StyleSongParams = Partial<Omit<Style, 'label' | 'hint' | 'drummer' |
  * section in another meter. Its params are laid over the song's, which are
  * laid over the style's, so a section says only what changes — its meter, its
  * figures, the forced kick an intro has not got. The tempo is the song's: a
- * break has one.
+ * break has one, and a section plays at a ratio of it and its own map.
  */
 export interface SongSection {
   /** The section of the break it writes: A first, then B, C… in order. */
@@ -751,6 +759,12 @@ export interface SongSection {
    * break at ×½. Its own `bpm` is the record's, at the speed it plays.
    */
   tempoRatio?: TempoRatio;
+  /**
+   * Its tempo map (16-b-ii, D82): where the record speeds up or slows down
+   * inside it, against its own tempo. A section with one needs its length
+   * named, as `written` or `bars`, for the map's bars to mean the record's.
+   */
+  tempo?: TempoPoint[];
   /**
    * The song keys this section was before the song was written in sections
    * ('sherpa-triplets'), so a pattern saved under one still lays the same

@@ -98,6 +98,7 @@ async function loadLibrary(id: string): Promise<Loaded> {
   const params = lookup(entry.styleKey)?.params;
   const B = params ? deriveB(A, params) : clonePattern(A);
   B.name = `${entry.title} (B)`;
+  delete B.tempo;
   return {
     ok: true,
     // a famous break is an A and a B: the sections past B the open pattern had go

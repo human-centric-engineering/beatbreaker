@@ -8,9 +8,11 @@ import { LANE_DEFS, LANE_VALUES, activeLanes, laneName } from '@/lib/app/breaks/
 import { countLabelsOf, groupAt, groupsOf, isGroupStart } from '@/lib/app/breaks/meter';
 import { type WrittenHand, meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
 import type { SectionLetter } from '@/lib/app/breaks/audio/transport';
+import { type TempoPoint, mapRatioAt } from '@/lib/app/breaks/tempo-map';
 import { ownedBy, tupletChoices, tupletsIn, twoAStep } from '@/lib/app/breaks/tuplets';
 import type { LaneKey, Pattern, TupletSpan } from '@/lib/app/breaks/types';
 import type { HandEdit, TupletEdit } from '@/components/app/breaks/use-break-console';
+import { TempoPicker, type TempoPickerAt } from '@/components/app/breaks/tempo-picker';
 import { Segmented } from '@/components/app/studio/segmented';
 import { cn } from '@/lib/utils';
 
@@ -136,8 +138,27 @@ interface StepEditorProps {
   canTuplet?: (lane: LaneKey) => boolean;
   /** Write the hands under the notes (Phase 14). Absent, the Sticking row is not drawn. */
   onHands?: (bar: number, step: number, edit: HandEdit) => void;
+  /**
+   * The section's tempo map, a cell a bar (16-b-ii). `bpm` is the section's
+   * tempo at ×1 of its map, which the row reads ratios as; `onSet` sets or
+   * takes away a bar's point, and says why not where it cannot. Absent, the
+   * Tempo row is not drawn.
+   */
+  tempo?: {
+    bpm: number;
+    onSet: (bar: number, point: Omit<TempoPoint, 'bar'> | null) => string | null;
+  };
   /** Set in the key's header, opposite its title: the grid's help. */
   aside?: React.ReactNode;
+}
+
+/** What a bar's Tempo cell says: its point's tempo, where a ramp takes it, or that a ramp runs through. */
+function tempoCell(map: readonly TempoPoint[] | undefined, bar: number, bpm: number): string {
+  const at = (r: number) => String(Math.round(bpm * r * 10) / 10);
+  const p = map?.find((x) => x.bar === bar);
+  if (p) return p.to === undefined ? at(p.ratio) : `${at(p.ratio)}→${at(p.to)}`;
+  const lead = map?.filter((x) => x.bar < bar).pop();
+  return lead?.to !== undefined ? '→' : '';
 }
 
 /** What a tap on a Hands cell writes next: R, L, then the drummer's choice again. */
@@ -204,9 +225,11 @@ export function StepEditor({
   onTuplet,
   canTuplet,
   onHands,
+  tempo,
   aside,
 }: StepEditorProps) {
   const m = meterOfPat(view);
+  const [tempoPicker, setTempoPicker] = useState<TempoPickerAt | null>(null);
   const [handPicker, setHandPicker] = useState<{
     bar: number;
     step: number;
@@ -456,6 +479,23 @@ export function StepEditor({
   };
   const closeHandPicker = () => {
     setHandPicker(null);
+    opener.current?.focus();
+  };
+  const openTempoPicker = (bar: number, el: HTMLElement) => {
+    if (!tempo) return;
+    const r = el.getBoundingClientRect();
+    opener.current = el;
+    setTempoPicker({
+      bar,
+      x: r.left,
+      y: r.bottom + 4,
+      bpm: tempo.bpm,
+      point: stored.tempo?.find((p) => p.bar === bar) ?? null,
+      before: mapRatioAt(stored, bar, 0),
+    });
+  };
+  const closeTempoPicker = () => {
+    setTempoPicker(null);
     opener.current?.focus();
   };
   const handEdit = (bar: number, step: number, edit: HandEdit) => {
@@ -750,7 +790,53 @@ export function StepEditor({
               </div>
             </div>
           ) : null}
+
+          {/* The Tempo row (16-b-ii): a cell a bar, where the record steps to a
+              new tempo or speeds up or slows down. Its own class, as the
+              Sticking row's, so the lanes' drag never reaches it. */}
+          {tempo ? (
+            <div className="gridrow temporow">
+              <div className="gridlabel">
+                <span>Tempo</span>
+              </div>
+              <div className="cells">
+                {barIdx.map((b) => {
+                  const text = tempoCell(stored.tempo, b, tempo.bpm);
+                  const point = stored.tempo?.some((p) => p.bar === b);
+                  const span: React.CSSProperties & { '--span': number } = { '--span': steps };
+                  return (
+                    <Fragment key={b}>
+                      <button
+                        type="button"
+                        className={cn('tempocell', point && 'written', text === '→' && 'ramp')}
+                        style={span}
+                        aria-label={`Tempo, bar ${b + 1}: ${
+                          point
+                            ? text.replace('→', ' speeding or slowing to ')
+                            : text
+                              ? 'inside a change of tempo'
+                              : 'as before it'
+                        }`}
+                        onClick={(e) => openTempoPicker(b, e.currentTarget)}
+                      >
+                        {text}
+                      </button>
+                      {b < bars - 1 ? <div className="gap" /> : null}
+                    </Fragment>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
         </div>
+
+        {tempoPicker && tempo ? (
+          <TempoPicker
+            at={tempoPicker}
+            onSet={(point) => tempo.onSet(tempoPicker.bar, point)}
+            onClose={closeTempoPicker}
+          />
+        ) : null}
 
         {handPicker ? (
           <HandPicker

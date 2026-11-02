@@ -4,8 +4,22 @@ import { cloneBar } from '@/lib/app/breaks/pattern';
 import { MAX_ARRANGEMENT, MAX_BREAK_BARS, SECTION_LETTERS } from '@/lib/app/breaks/sections';
 
 import type { BreakDoc } from '@/lib/app/breaks/share';
+import {
+  hasTempoMaps,
+  paceRange,
+  rangesFit,
+  tempoMapOf,
+  tempoMapProblem,
+} from '@/lib/app/breaks/tempo-map';
 import { cloneTuplet, keepTuplets } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneKey, Pattern, PercLaneKey, TupletSpan } from '@/lib/app/breaks/types';
+
+/** What an import says about a file that changes tempo (16-b-ii), by whether its sections play it. */
+export function tempoNote(doc: BreakDoc, bpm: number): string {
+  return hasTempoMaps(doc)
+    ? "The file changes tempo, so each section plays the file's tempo map."
+    : `The file changes tempo further than a break plays (its sections within ×4 of each other, and a section's changes within ×¼ to ×4 of the file's opening tempo), so it plays at ${bpm} bpm throughout.`;
+}
 
 /** The most sections an import makes: one a letter, each played once by the arrangement. */
 const MAX_IMPORT_SECTIONS = Math.min(MAX_ARRANGEMENT, SECTION_LETTERS.length);
@@ -48,6 +62,12 @@ export interface ImportedPattern {
    */
   tuplets?: TupletSpan[];
   /**
+   * The tempo each step starts at, a row a bar, where the source changes
+   * tempo (16-b-ii): each section's tempo map is read from its bars' rows,
+   * against {@link bpm}. Absent where the source keeps one tempo.
+   */
+  tempos?: number[][];
+  /**
    * What the reader dropped or bent to fit, one plain sentence each — shown to
    * the user and handed to BeatBuddy, so neither is told the import was exact
    * when it was not.
@@ -81,6 +101,7 @@ export function capBars(pattern: ImportedPattern): ImportedPattern {
     bars: pattern.bars.slice(0, keep),
     ...(pattern.meters ? { meters: pattern.meters.slice(0, keep) } : {}),
     ...(pattern.tuplets ? { tuplets: pattern.tuplets.filter((t) => t.bar < keep) } : {}),
+    ...(pattern.tempos ? { tempos: pattern.tempos.slice(0, keep) } : {}),
   };
 }
 
@@ -116,6 +137,9 @@ function sectionOf(
     if (hits * 2 >= bars.length && hits > 0) backbeats.push(i);
   }
 
+  // the source's tempo in these bars, as a map against the import's tempo (16-b-ii)
+  const tempo = imp.tempos ? tempoMapOf(imp.tempos.slice(from, from + bars.length), imp.bpm) : [];
+
   const hatNotes = bars.reduce((t, b) => t + b.h.filter((v) => v).length, 0);
   const rideNotes = bars.reduce((t, b) => t + b.r.filter((v) => v).length, 0);
 
@@ -127,6 +151,8 @@ function sectionOf(
     styleVersionId: null,
     attrs: {},
     meter,
+    // held to what a break plays by importedDoc, across every section at once
+    ...(tempo.length ? { tempo } : {}),
     seed: 0,
     voice: rideNotes > hatNotes ? 'ride' : 'hat',
     lanes,
@@ -170,8 +196,17 @@ export function importedDoc(imp: ImportedPattern, style: string): BreakDoc {
   // capBars has already cut a reader's bars to this; the slice holds a caller that skipped it
   const runs = runsOf(imp).slice(0, MAX_IMPORT_SECTIONS);
   const sections = runs.map((run) => sectionOf(imp, run.bars, style, run.meter, run.from));
+  /* A file's tempo plays whole or not at all: a map a section cannot hold,
+     or sections spread too far apart for one tempo to play them, and every
+     section plays the file's opening tempo. Half a map is a tempo the file
+     never had. */
+  const fits =
+    sections.every((p) => !p.tempo || !tempoMapProblem(p.tempo, p.bars.length)) &&
+    rangesFit(sections.map(paceRange));
+  if (!fits) sections.forEach((p) => delete p.tempo);
   const A = sections[0] ?? sectionOf(imp, [], style);
   const B = sections[1] ?? sectionOf(imp, A.bars, style, A.meter);
+  if (!fits) delete B.tempo;
   const doc: BreakDoc = {
     bpm: imp.bpm,
     swing: imp.swing,

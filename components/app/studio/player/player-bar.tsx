@@ -15,9 +15,18 @@ import { TempoControl } from '@/components/app/studio/tempo-control';
 import { Toggle } from '@/components/app/studio/toggle';
 import { beatOf, playableSlots } from '@/lib/app/breaks/audio/transport';
 import { layerNamesFor } from '@/lib/app/breaks/layers';
-import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
-import { ratioOf } from '@/lib/app/breaks/sections';
+import { meterOfPat } from '@/lib/app/breaks/pattern';
+import { barClock } from '@/lib/app/breaks/tempo-map';
+import type { Pattern } from '@/lib/app/breaks/types';
 import { cn } from '@/lib/utils';
+
+/** Each section's {@link barClock}, worked out once for as long as the pattern lives. */
+const clocks = new WeakMap<Pattern, ReturnType<typeof barClock>>();
+function clockOf(pat: Pattern): ReturnType<typeof barClock> {
+  let clock = clocks.get(pat);
+  if (!clock) clocks.set(pat, (clock = barClock(pat)));
+  return clock;
+}
 
 /**
  * The arrangement as a video's chapters: one segment per slot, as long as it
@@ -51,12 +60,16 @@ function Chapters() {
       {c.arrangement.map((letter, i) => {
         const pat = c.view[letter];
         const bars = pat?.bars.length ?? 1;
-        // as long as it lasts: a section at double speed takes half the time
-        const weight = bars / ratioOf(c.patterns[letter]);
+        /* as long as it lasts: a section at double speed takes half the time,
+           and one that slows down (16-b-ii) longer, its fill slowing with it */
+        const timed = c.patterns[letter] ?? pat;
+        const clock = timed ? clockOf(timed) : null;
+        const weight = clock?.length || bars;
         let fill = 0;
-        if (i === at && into && pat) {
-          const steps = patSteps(pat) || 16;
-          fill = (into.barIdx + into.done / steps) / bars;
+        if (i === at && into && clock?.length) {
+          const done =
+            clock.at[into.barIdx]?.[into.done] ?? clock.at[into.barIdx + 1]?.[0] ?? clock.length;
+          fill = done / clock.length;
         } else if (here >= 0 && (rank.get(i) ?? here) < here) fill = 1;
         const cued = !c.playing && c.cue === i;
         return (

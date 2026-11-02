@@ -2482,6 +2482,93 @@ describe('a section at a tempo ratio (11-e-ii-g)', () => {
   });
 });
 
+describe('a section with a tempo map (16-b-ii)', () => {
+  function abCode(bpm: number) {
+    const funk = catalogue.styles.funk;
+    const at = (seed: number) =>
+      generatePattern({ style: funk, meter: '4/4', seed, bars: 1, density: 50, ghosts: 50 });
+    return encodeBreak({ bpm, swing: 0, level: 5, arrangement: ['A', 'B'], A: at(5), B: at(6) });
+  }
+
+  it('sets a bar’s point and takes it away, each one Undo', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadCode(abCode(100));
+    });
+    let why: string | null = 'unset';
+    act(() => {
+      why = result.current.setTempoPoint('A', 0, { ratio: 1, to: 0.5 });
+    });
+    expect(why).toBeNull();
+    expect(result.current.patterns.A?.tempo).toEqual([{ bar: 0, ratio: 1, to: 0.5 }]);
+    // a ritardando to ×½ under 100 would play at 50: the floor follows it
+    expect(result.current.bpmFloor).toBe(100);
+    act(() => {
+      result.current.setTempoPoint('A', 0, null);
+    });
+    expect(result.current.patterns.A).not.toHaveProperty('tempo');
+    act(() => result.current.undo());
+    expect(result.current.patterns.A?.tempo).toEqual([{ bar: 0, ratio: 1, to: 0.5 }]);
+    act(() => result.current.undo());
+    expect(result.current.patterns.A).not.toHaveProperty('tempo');
+  });
+
+  it('refuses a point past the bars or past two octaves of the other sections, and changes nothing', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadCode(abCode(100));
+    });
+    act(() => {
+      result.current.setSectionTempo('B', 2);
+    });
+    const before = result.current.patterns.A;
+    const out: Array<string | null> = [];
+    act(() => {
+      out.push(result.current.setTempoPoint('A', 99, { ratio: 1 }));
+      out.push(result.current.setTempoPoint('A', 0, { ratio: 0.4 }));
+    });
+    expect(out[0]).toMatch(/not in the section/);
+    expect(out[1]).toMatch(/within ×4/);
+    expect(result.current.patterns.A).toBe(before);
+  });
+
+  it('says why a section cannot take a ratio its map would carry past ×4, and refuses it', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadCode(abCode(100));
+    });
+    act(() => {
+      result.current.setTempoPoint('A', 0, { ratio: 1, to: 0.4 });
+    });
+    // B at ×½ is well within ×4 of A's ×0.4: it plays
+    expect(result.current.sectionTempoProblem('B', 0.5)).toBeNull();
+    // A at ×½ slows to ×⅕, past ×4 from the break's ×1
+    const why = result.current.sectionTempoProblem('A', 0.5);
+    expect(why).toMatch(/Section A at ×½.*no tempo plays them all/);
+    let ok = true;
+    act(() => {
+      ok = result.current.setSectionTempo('A', 0.5);
+    });
+    expect(ok).toBe(false);
+    expect(result.current.patterns.A?.tempoRatio).toBeUndefined();
+  });
+
+  it('keeps the map through a new take of the section', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadCode(abCode(100));
+    });
+    act(() => {
+      result.current.setTempoPoint('B', 0, { ratio: 1.25 });
+    });
+    act(() => result.current.setViewMode('B'));
+    act(() => {
+      result.current.regenerate();
+    });
+    expect(result.current.patterns.B?.tempo).toEqual([{ bar: 0, ratio: 1.25 }]);
+  });
+});
+
 describe('arrangementForNew', () => {
   const pat = generatePattern({
     style: catalogue.styles.funk,

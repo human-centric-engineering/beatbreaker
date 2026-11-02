@@ -62,6 +62,8 @@ function lineOf(current: Pattern, following: Pattern | null): Engraving {
     perSystem: Math.max(1, pat.bars.length),
     guides: false,
     sticking: false,
+    // the section's tempo marks stop where it does, not in the preview after it
+    tempoBars: current.bars.length,
   });
   if (following) byNext?.set(following, out);
   else drawnAlone.set(current, out);
@@ -86,6 +88,8 @@ function apartOf(current: Pattern, following: Pattern | null): Engraving | null 
     perSystem: Math.max(1, pat.bars.length),
     guides: false,
     sticking: false,
+    // the first bars of a section whose ramps may run on past them
+    tempoBars: following.bars.length,
   });
   drawnApart.set(following, out);
   return out;
