@@ -309,7 +309,7 @@ the rest are sequential because each stands on the one before.
 
 15 Every drummer, every band, every song  (15-a long list ─► 15-b songs ─► 15-c index ─► 15-d batches)
 
-16 Songs as the records play them  (16-a audit ✓ ─► 16-b shape ─► 16-b-ii…v the six limits, URGENT ─► 16-c share code ─► 16-d tests ─► 16-e the worklist)
+16 Songs as the records play them  (16-a audit ✓ ─► 16-b shape ─► 16-b-ii…v the six limits ✓ ─► 16-c share code ─► 16-d tests ─► 16-e the worklist)
 ```
 
 ### Phase 0 — Groundwork · S
@@ -5160,6 +5160,34 @@ same; telling one from the other is a guess); a written section carries
 `TUPLETS_A_BAR` (32) spans a bar, never fewer than the 64 any pattern held
 before, so a short break saved then still reads. The wire carries `grid` as
 `g` in a v8 span, optional and additive.
+
+**16-b-v built (2026-11-02, branch `phase-16b-v-section-kits`):** D86 as
+proposed, with three calls made in the building. (1) **A section's kit is its
+`params.kit`**, which the catalogue already took and no section used: a
+section says only what changes, as with its meter. Its pattern carries it as
+`Pattern.kit`, and the break's own kit is the song's (`breakKit`), not the
+first section's that `withSong` lays over the bare song key, so So What opens
+on the sticks kit with its theme on brushes. (2) **The engine still plays one
+kit.** The transport calls `onKit` as it schedules a section on another kit,
+a lookahead ahead, and the Studio sets the engine's kit there with its room
+and tone timed to the section's first note; every kit the break plays on is
+decoded ahead and kept beside the two the picker keeps. A kit of yours that
+has not loaded plays synthesised for its first bars, as a kit picked
+mid-play does. (3) **Brushes are judged as brushes** where the caller knows
+the kit's row: a brush does not rebound, so its double on one drum is two
+wrist strokes (`BRUSH_DOUBLE`, a sixteenth at 210), where a stick's is a
+32nd at 214. The Studio's critic and New judge the kit each section plays
+on; the API routes and BeatBuddy, which have no kit, judge on sticks. Measured
+on the 16 songs whose break or section is on a brush kit, 40 seeds each, no
+break moved. Not asked for, and built because a drummer reading the chart
+needs it: the chart prints _Brushes_ or _Sticks_ over each section's first
+bar where the break changes between them, and the drummer holds brushes
+while a brushed section plays. The Studio picks a section's kit beside its
+tempo. So What and All Blues play their themes on the jazz brushes and their
+solos on sticks (rows 775 and 776 rebuilt). The wire carries the kit as `kt`,
+optional and additive as `sg` is, so a saved or shared break keeps it; 16-c's
+v11 makes it a field an older reader refuses. A section on another kit
+exports MIDI as before: a file has no kit.
 
 **Urgent: the six limits the audit found (asked for by the owner on
 2026-11-01).** The owner's call: the app is adapted to all six, as urgent

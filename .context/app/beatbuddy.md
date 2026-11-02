@@ -181,6 +181,10 @@ disagree.
   keeping it as ratios of the section's tempo, and checks the bars at the
   tempo each plays. A point past the bars, out of ×¼ to ×4, or a spread past
   two octaves is `bad_tempo`, and nothing is written.
+- **A section's own kit (16-b-v, D86)** is reported by `get_pattern` as
+  `kit`, a kit key, where the section does not play the break's (So What's
+  theme on `jazzBrushes`). BeatBuddy reads it; no tool sets it yet, and its
+  checks judge the hands on sticks.
 - **The drummer records (11-f) are read, not searched.** `find_drummers` lists
   every built drummer (first sentence of the summary, eight
   descriptors, the style key), or those where every word of a query starts a

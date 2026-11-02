@@ -60,6 +60,8 @@ export interface SectionView {
    * break's tempo. Absent on a section that keeps one tempo.
    */
   tempo?: Array<{ bar: number; bpm: number; to?: number }>;
+  /** The kit it plays on, by key, where it is not the break's (D86): brushes for a theme. */
+  kit?: string;
   bars: number;
   /** `toText()` — a header line, then a count row and one row per lane, per bar. */
   text: string;
@@ -104,6 +106,7 @@ export function viewSection(
           }),
         }
       : {}),
+    ...(pat.kit ? { kit: pat.kit } : {}),
     bars: pat.bars.length,
     text: toText(pat, { section, bpm: sectionBpm(bpm, pat), swing }),
     critic: {

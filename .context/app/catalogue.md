@@ -299,7 +299,12 @@ few words of `feel`, a `weight`, and `params`: any style field except
     `{ bar, ratio, to? }` against the section's own tempo, a ritardando
     `{ bar: 4, ratio: 1, to: 0.5 }`. A section with one names its length
     (`written` or `bars`), so its bars are the record's; the pattern it
-    writes carries the map, and the break is a v10 code. A song's or a break's ratios, with ×1 counted in, spread no
+    writes carries the map, and the break is a v10 code. A section's own
+    `params.kit` (16-b-v, D86) is that section's kit, not the break's: the
+    pattern it writes carries it, the transport changes to it at the
+    section's first bar, and the rest of the break plays the song's (So
+    What's and All Blues' themes on `jazzBrushes`, their solos on sticks).
+    A song's `params.kit` is the whole break's. A song's or a break's ratios, with ×1 counted in, spread no
     wider than `MAX_RATIO_SPREAD` (4, two octaves), so some tempo between 50
     and 380 plays every section (`ratiosFit`, checked by the song schema and
     the share code). Its own `bpm` is the record's, at the speed it plays, and

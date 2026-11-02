@@ -16,6 +16,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { DEFAULT_CREATIVITY } from '@/lib/app/breaks/creativity';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
+import { emptyBar } from '@/lib/app/breaks/pattern';
 import { stashPendingLink, takePendingLink } from '@/lib/app/breaks/pending-link';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { clearScratch, readScratch, writeScratch } from '@/lib/app/breaks/scratch';
@@ -28,6 +29,7 @@ import {
   totalBars,
 } from '@/lib/app/breaks/sections';
 import { songOf } from '@/lib/app/breaks/songs';
+import type { LaneKey } from '@/lib/app/breaks/types';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 import { withYourKits } from '@/lib/app/breaks/samples/your-kit';
@@ -45,6 +47,7 @@ const fakes = vi.hoisted(() => {
     ctx: typeof ctx | null = null;
     samples: unknown = null;
     setKit = vi.fn();
+    prepareKits = vi.fn();
     setPanView = vi.fn();
     // the lane channel (Phase 9): plays the voice, as the engine does
     playIn = vi.fn((_lane: string, _level: number, _t: number, play: () => void) => play());
@@ -2896,5 +2899,124 @@ describe('creativity and the song a New writes', () => {
     });
     expect(result.current.view.A?.style).toBe('tonyallen');
     expect(result.current.nextSong).toBeNull();
+  });
+});
+
+describe('a section on a kit of its own (16-b-v, D86)', () => {
+  function abCode() {
+    const funk = catalogue.styles.funk;
+    const at = (seed: number) =>
+      generatePattern({ style: funk, meter: '4/4', seed, bars: 1, density: 50, ghosts: 50 });
+    return encodeBreak({
+      bpm: 100,
+      swing: 0,
+      level: 5,
+      arrangement: ['A', 'B'],
+      A: at(5),
+      B: at(6),
+    });
+  }
+
+  it('puts a section on brushes, has the kit decoded ahead, and one Undo takes it off', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadCode(abCode());
+    });
+    const audio = fakes.made.audio.at(-1)!;
+    let ok = false;
+    act(() => {
+      ok = result.current.setSectionKit('A', 'jazzBrushes');
+    });
+    expect(ok).toBe(true);
+    expect(result.current.patterns.A?.kit).toBe('jazzBrushes');
+    expect(result.current.patterns.B).not.toHaveProperty('kit');
+    expect(audio.prepareKits).toHaveBeenLastCalledWith([catalogue.kits.jazzBrushes]);
+    act(() => result.current.undo());
+    expect(result.current.patterns.A).not.toHaveProperty('kit');
+  });
+
+  it('refuses a kit it has not got, a section it has not got, and the kit a section already plays', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadCode(abCode());
+    });
+    const out: boolean[] = [];
+    act(() => {
+      out.push(result.current.setSectionKit('A', 'nope'));
+      out.push(result.current.setSectionKit('C', 'jazzBrushes'));
+      out.push(result.current.setSectionKit('A', null));
+    });
+    expect(out).toEqual([false, false, false]);
+    act(() => {
+      result.current.setSectionKit('A', 'jazzBrushes');
+    });
+    act(() => {
+      result.current.setSectionKit('A', null);
+    });
+    expect(result.current.patterns.A).not.toHaveProperty('kit');
+  });
+
+  it('plays the section on its kit, and the break’s kit again on Stop', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadCode(abCode());
+    });
+    act(() => result.current.setCountIn(0));
+    act(() => {
+      result.current.setSectionKit('A', 'jazzBrushes');
+    });
+    const audio = fakes.made.audio.at(-1)!;
+    const breakKit = result.current.kit;
+    act(() => result.current.togglePlay());
+    expect(result.current.kitPlaying).toBe('jazzBrushes');
+    expect(audio.setKit).toHaveBeenLastCalledWith(
+      catalogue.kits.jazzBrushes,
+      expect.any(Object),
+      expect.any(Number)
+    );
+    act(() => result.current.togglePlay());
+    expect(result.current.kitPlaying).toBe(breakKit);
+    expect(audio.setKit.mock.lastCall?.[0]).toBe(catalogue.kits[breakKit]);
+  });
+
+  it('judges a section on brushes as brushes', async () => {
+    // two 16ths on the ride a beat apart, nothing else: a stick's double at 280, not a brush's
+    const funk = catalogue.styles.funk;
+    const A = generatePattern({
+      style: funk,
+      meter: '4/4',
+      seed: 5,
+      bars: 1,
+      density: 50,
+      ghosts: 50,
+    });
+    const bar = emptyBar(16);
+    bar.r = Array.from({ length: 16 }, (_, i) => (i % 4 < 2 ? 1 : 0));
+    const pairs = {
+      ...A,
+      lanes: ['k', 's', 'h', 'r'] as LaneKey[],
+      sticking: undefined,
+      bars: [bar],
+    };
+    const code = encodeBreak({
+      bpm: 280,
+      swing: 0,
+      level: 5,
+      arrangement: ['A', 'B'],
+      A: pairs,
+      B: pairs,
+    });
+    const { result } = await mount();
+    act(() => {
+      result.current.loadCode(code);
+    });
+    expect(result.current.bpm).toBe(280);
+    expect(result.current.checks?.problems).toEqual([]);
+    act(() => {
+      result.current.setSectionKit('A', 'jazzBrushes');
+    });
+    expect(result.current.checks?.problems).toContainEqual(
+      expect.objectContaining({ limbs: 'hands', why: expect.stringMatching(/brush/) })
+    );
   });
 });

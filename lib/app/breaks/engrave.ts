@@ -34,7 +34,7 @@ import {
   tupletsOf,
   twoAStep,
 } from '@/lib/app/breaks/tuplets';
-import { ratioLabel } from '@/lib/app/breaks/sections';
+import { type SectionLetter, ratioLabel } from '@/lib/app/breaks/sections';
 import { rampWord } from '@/lib/app/breaks/tempo-map';
 import type { Bar, Group, LaneKey, Meter, Pattern, TupletSpan } from '@/lib/app/breaks/types';
 
@@ -99,6 +99,12 @@ export interface EngraveOptions {
    * section reaches it. Default: the pattern's bars.
    */
   tempoBars?: number;
+  /**
+   * What the section is played with, printed over its first bar (D86):
+   * _Brushes_ or _Sticks_, where a break changes between them
+   * ({@link playedWith}). Absent, nothing is printed.
+   */
+  played?: string;
 }
 
 export interface Engraving {
@@ -121,6 +127,32 @@ export interface TempoMark {
   ramp?: boolean;
   /** The tempo a ramp gets to, on its last bar. */
   end?: string;
+  /** What the section is played with, on its first bar (D86): Brushes, Sticks. */
+  played?: string;
+}
+
+/**
+ * What each section is played with, for its chart (D86): _Brushes_ or
+ * _Sticks_, by whether the kit it plays on (its own, else the break's) is a
+ * brush kit. Empty where the break plays on one or the other throughout:
+ * the chart says so only where it changes.
+ */
+export function playedWith(
+  sections: Partial<Record<SectionLetter, Pattern | null>>,
+  brushes: (kit: string | undefined) => boolean
+): Partial<Record<SectionLetter, string>> {
+  const out: Partial<Record<SectionLetter, string>> = {};
+  for (const [L, pat] of Object.entries(sections) as Array<[SectionLetter, Pattern | null]>)
+    if (pat) out[L] = brushes(pat.kit) ? 'Brushes' : 'Sticks';
+  return new Set(Object.values(out)).size > 1 ? out : {};
+}
+
+/** The tempo marks with what the section is played with on its first bar, where it says. */
+function withPlayed(marks: TempoMark[], played: string | undefined): TempoMark[] {
+  if (!played) return marks;
+  const out = marks.slice();
+  out[0] = { ...out[0], played };
+  return out;
 }
 
 /**
@@ -330,7 +362,7 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
   /* A section with a tempo map (16-b-ii) prints its marks in a row of their
      own over the staff: a tempo where it steps, accel. or rit. and a dashed
      line where it ramps, and the tempo the ramp gets to at its end. */
-  const marks = tempoMarks(pat, opts.bpm, opts.tempoBars);
+  const marks = withPlayed(tempoMarks(pat, opts.bpm, opts.tempoBars), opts.played);
   const tempoH = marks.length ? 16 * scale : 0;
   const percRowH = 2.5 * SP;
   const percH = percLanes.length * percRowH;
@@ -586,6 +618,10 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
           'font-family': 'var(--f-body)',
         };
         let from = x0 + 2 * scale;
+        if (mark.played) {
+          out.add('text', { ...font, x: from, y: yy, 'font-style': 'italic' }, mark.played);
+          from += (mark.played.length * 5.4 + 8) * scale;
+        }
         if (mark.text) {
           out.add('text', { ...font, x: from, y: yy, 'font-weight': '600' }, mark.text);
           from += (mark.text.length * 5.6 + 6) * scale;

@@ -51,6 +51,12 @@ export interface SampleSource {
   percHit?(engine: BreakAudio, t: number, inst: string, vel: number, accent: boolean): boolean;
   /** Called when the kit or its knobs change. */
   refresh?(engine: BreakAudio): void;
+  /**
+   * Have these kits ready to play and keep them so: a break's sections on
+   * kits of their own (D86), which the transport changes to at a bar line,
+   * with no time there to decode.
+   */
+  prepare?(engine: BreakAudio, kits: ResolvedKit[]): void;
   /** Called when the engine closes: stop anything still on its way. */
   dispose?(): void;
 }
@@ -79,6 +85,10 @@ export class SourceStack implements SampleSource {
 
   refresh(engine: BreakAudio): void {
     for (const s of this.sources) s.refresh?.(engine);
+  }
+
+  prepare(engine: BreakAudio, kits: ResolvedKit[]): void {
+    for (const s of this.sources) s.prepare?.(engine, kits);
   }
 
   dispose(): void {
@@ -352,15 +362,25 @@ export class BreakAudio {
     this.samples?.dispose?.();
   }
 
-  setKit(kit: ResolvedKit | null, sound: Record<string, VoiceParams> | null): void {
+  /**
+   * Play `kit`, with your tuning `sound`. `at` is when its room and tone take
+   * over, on the audio clock: a section's first note, where the transport
+   * changes kit at a bar line (D86); absent, now.
+   */
+  setKit(kit: ResolvedKit | null, sound: Record<string, VoiceParams> | null, at?: number): void {
     this.kit = kit;
     this.sound = sound;
     // a kit of yours may pan its lanes its own way (9-v)
     this.applyPans();
     if (this.ctx) {
-      this.applyKit();
+      this.applyKit(at);
       this.samples?.refresh?.(this);
     }
+  }
+
+  /** Have a break's other kits decoded before their sections play (D86). */
+  prepareKits(kits: ResolvedKit[]): void {
+    if (this.ctx) this.samples?.prepare?.(this, kits);
   }
 
   /* ---- parameters ---- */
@@ -446,18 +466,19 @@ export class BreakAudio {
     this.driveAt = amount;
   }
 
-  applyKit(): void {
+  applyKit(at?: number): void {
     const ctx = this.ctx;
     if (!ctx || !this.lp || !this.wet || !this.convolver) return;
+    const when = Math.max(ctx.currentTime, at ?? 0);
     /* `?? SYNTH_FALLBACK.master`, where this used to index the kit table
        unguarded. With kits as rows the key can legitimately name nothing —
        a deleted kit, a catalogue that has not arrived — and the old form threw
        on the first `applyKit()` rather than playing through the default. */
     const m = this.sound?.master ?? this.kit?.master ?? SYNTH_FALLBACK.master;
-    this.lp.frequency.setTargetAtTime(m.lp ?? 16000, ctx.currentTime, 0.01);
+    this.lp.frequency.setTargetAtTime(m.lp ?? 16000, when, 0.01);
     this.setDrive(m.drive ?? 1);
     const room = m.room ?? 0;
-    this.wet.gain.setTargetAtTime(room, ctx.currentTime, 0.02);
+    this.wet.gain.setTargetAtTime(room, when, 0.02);
     const want = Math.round(room * 100);
     if (want !== this.irRoom) {
       this.convolver.buffer = this.makeIR(room);

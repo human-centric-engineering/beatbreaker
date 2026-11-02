@@ -1028,6 +1028,8 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   const songKey = part ? partKey(part.song, part.section) : undefined;
   const ratio = opts.tempoRatio ?? part?.section?.tempoRatio;
   const tempo = opts.tempo ?? part?.section?.tempo;
+  // a section on a kit of its own (D86): brushes for the head, sticks for the solos
+  const kit = part?.section?.params.kit;
   const base = withSong(params, songKey);
   const m = meterOf(meterKey);
   const style = styleIn(base, meterKey);
@@ -1042,6 +1044,7 @@ export function generatePattern(opts: GenerateOptions): Pattern {
       meterKey,
       ratio,
       tempo,
+      kit,
       lanes,
       perc,
       rng,
@@ -1076,6 +1079,7 @@ export function generatePattern(opts: GenerateOptions): Pattern {
     meter: meterKey,
     ...(ratio && ratio !== 1 ? { tempoRatio: ratio } : {}),
     ...tempoOf(tempo, bars.length),
+    ...(kit ? { kit } : {}),
     voice: style.ride ? 'ride' : (opts.voice ?? 'hat'),
     lanes: lanes.slice(),
     perc: { ...perc },
@@ -1128,6 +1132,7 @@ function writtenPattern(
     meterKey: string;
     ratio: TempoRatio | undefined;
     tempo: TempoPoint[] | undefined;
+    kit: string | undefined;
     lanes: LaneKey[];
     perc: Partial<Record<PercLaneKey, string>>;
     rng: Rng;
@@ -1149,6 +1154,7 @@ function writtenPattern(
     meter: ctx.meterKey,
     ...(ctx.ratio && ctx.ratio !== 1 ? { tempoRatio: ctx.ratio } : {}),
     ...tempoOf(ctx.tempo, bars.length),
+    ...(ctx.kit ? { kit: ctx.kit } : {}),
     // the bars say which cymbal keeps time; the voice only names it
     voice: ctx.style.ride ? 'ride' : 'hat',
     lanes,

@@ -28,7 +28,9 @@ import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
  *   keeps up {@link FOOT_RATE} strokes a second over four, faster for a drummer
  *   who plays runs heel and toe; on a double pedal the hat foot takes kicks
  *   too, with {@link FOOT_SWITCH} to move between its pedals;
- * - **a flam or a drag** takes both hands, the grace a moment before.
+ * - **a flam or a drag** takes both hands, the grace a moment before;
+ * - **a brush** (a section played on a brush kit, D86) does not rebound, so
+ *   its double on one drum is no faster than {@link BRUSH_DOUBLE}.
  *
  * The figures are a working drummer's, not a record holder's: a pattern this
  * passes can be played by a good player at the tempo; one it fails cannot be
@@ -39,6 +41,12 @@ import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
 export const HAND_DOUBLE = 0.035;
 /** One hand's strokes a second, held over three: sixteenths at 210 in one hand. */
 export const HAND_RATE = 14;
+/**
+ * A hand on one drum twice with a brush (D86), which does not rebound: its
+ * double is two strokes of the wrist, so no closer than one hand's single
+ * strokes go, sixteenths at 210.
+ */
+export const BRUSH_DOUBLE = 1 / HAND_RATE;
 /** What leaving one piece for another costs a hand before the travel, seconds. */
 export const HAND_LIFT = 0.015;
 /**
@@ -155,11 +163,12 @@ function reaches(side: Side, piece: PieceId): boolean {
   return true;
 }
 
-/** Why a limb cannot make a stroke on `piece` at `t`, or null. */
-function handTooSlow(limb: Limb, piece: PieceId, t: number): string | null {
+/** Why a limb cannot make a stroke on `piece` at `t`, or null: with sticks, or with brushes. */
+function handTooSlow(limb: Limb, piece: PieceId, t: number, brushes: boolean): string | null {
   if (limb.piece === null) return null;
   const gap = t - limb.t1;
   if (piece === limb.piece) {
+    if (brushes && gap < BRUSH_DOUBLE) return 'one brush twice on a drum faster than a wrist can';
     if (gap < HAND_DOUBLE) return 'one hand twice on a drum faster than a double';
   } else if (gap < HAND_LIFT + distance(limb.piece, piece) / HAND_SPEED) {
     return `no time for a hand to get from the ${limb.piece} to the ${piece}`;
@@ -306,8 +315,8 @@ function listOf(p: Problems | null, limbs: LimbProblem['limbs']): LimbProblem[] 
   return out.reverse();
 }
 
-/** Each way two hands can share a step's notes, and what each costs them. */
-function handOptions(slot: Slot, hands: Record<Side, Limb>) {
+/** Each way two hands can share a step's notes, and what each costs them: with sticks, or with brushes. */
+const handOptions = (brushes: boolean) => (slot: Slot, hands: Record<Side, Limb>) => {
   const notes = slot.notes;
   const out: Array<{ limbs: Record<Side, Limb>; why: string | null; travel: number }> = [];
   const graced = notes.find((n) => n.grace);
@@ -333,14 +342,14 @@ function handOptions(slot: Slot, hands: Record<Side, Limb>) {
          them, and whichever it names, one hand is that hand. */
       if (note.written && note.written !== side && playing.length === 1)
         why ??= 'not the hand the sticking writes';
-      why ??= handTooSlow(hands[side], note.piece, note.t);
+      why ??= handTooSlow(hands[side], note.piece, note.t, brushes);
       if (hands[side].piece) travel += distance(hands[side].piece, note.piece);
       limbs[side] = struck(hands[side], note.piece, note.t);
     });
     if (graced) {
       // the grace is the other hand's, on the same drum, a moment before
       const side: Side = order[0] === 'lead' ? 'other' : 'lead';
-      why ??= handTooSlow(hands[side], graced.piece, graced.t);
+      why ??= handTooSlow(hands[side], graced.piece, graced.t, brushes);
       limbs[side] = struck(hands[side], graced.piece, graced.t);
     } else if (playing.length === 2) {
       const lead = playing[order.indexOf('lead')].piece;
@@ -352,7 +361,7 @@ function handOptions(slot: Slot, hands: Record<Side, Limb>) {
     out.push({ limbs, why, travel });
   }
   return out;
-}
+};
 
 type FootSide = 'kickFoot' | 'hatFoot';
 
@@ -396,13 +405,23 @@ function footOptions(rate: number, doubleKick: boolean) {
   };
 }
 
+/** How a pattern is played, where the pattern itself cannot say. */
+export interface LimbOptions {
+  /**
+   * On a brush kit (D86): the kit is the Studio's or the section's, and
+   * whether it is brushes is the kit's row, so the caller who has it says.
+   * Absent, sticks.
+   */
+  brushes?: boolean;
+}
+
 /**
  * Where two hands and two feet cannot play `pat` at `bpm` (the break's tempo;
  * a section at a tempo ratio is played at its own, each bar of a tempo map at
  * the tempo it has reached), each place once. Empty
  * where they can.
  */
-export function limbProblems(pat: Pattern, bpm: number): LimbProblem[] {
+export function limbProblems(pat: Pattern, bpm: number, opts: LimbOptions = {}): LimbProblem[] {
   if (!pat.bars.length) return [];
   const hands = handLanes(pat.perc);
   const handSlots = slotsOf(notesOf(pat, bpm, hands));
@@ -415,9 +434,10 @@ export function limbProblems(pat: Pattern, bpm: number): LimbProblem[] {
   const farthest = Math.max(0, ...pieces.flatMap((a) => pieces.map((b) => distance(a, b))));
   // a hand may strike at every instant, so two instants apart is its pair of strokes
   const handGap = Math.max(HAND_DOUBLE, 1 / HAND_RATE, HAND_LIFT + farthest / HAND_SPEED);
-  const handTrouble = roomy<Side>(handSlots, handGap, { lead: FREE, other: FREE }, handOptions)
+  const hand = handOptions(!!opts.brushes);
+  const handTrouble = roomy<Side>(handSlots, handGap, { lead: FREE, other: FREE }, hand)
     ? null
-    : searchWide<Side>(handSlots, restingHands(), handOptions);
+    : searchWide<Side>(handSlots, restingHands(), hand);
   const footStart: Record<FootSide, Limb> = {
     kickFoot: { ...FREE, piece: 'kick' },
     hatFoot: { ...FREE, piece: 'hat' },

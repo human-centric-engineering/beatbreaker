@@ -23,6 +23,7 @@ import { Stage } from '@/components/app/studio/stage';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { MAX_ARRANGEMENT, type SectionLetter } from '@/lib/app/breaks/sections';
 import { testCatalogue } from '@/tests/helpers/catalogue';
+import { pickOption } from '@/tests/helpers/select-menu';
 import { pickStyle } from '@/tests/helpers/style-picker';
 
 /** A's and B's bars at the layer on show, and the section the grid is editing. */
@@ -528,6 +529,32 @@ describe('Stage, a section at a tempo ratio (11-e-ii-g)', () => {
     await user.click(tempo.getByRole('radio', { name: '×2' }));
     expect(studio!.patterns.B?.tempoRatio).toBe(2);
     expect(screen.queryByText(/no tempo plays them all/)).toBeNull();
+  });
+
+  it('puts the section on show on brushes, says so on the chart, and back on the break’s kit (D86)', async () => {
+    const user = userEvent.setup();
+    renderWithProbe();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    await user.click(picker().getByRole('radio', { name: 'B' }));
+    const kit = screen.getByRole('combobox', { name: "Section B's kit" });
+    expect(kit).toHaveTextContent(/The break’s kit/);
+
+    await pickOption(user, kit, 'jazzBrushes');
+
+    expect(studio!.patterns.B?.kit).toBe('jazzBrushes');
+    expect(studio!.patterns.A).not.toHaveProperty('kit');
+    // the kit menu's own groups may say Brushes too: these are the chart's words
+    const chart = () => [...document.querySelectorAll('svg text')].map((t) => t.textContent);
+    expect(chart()).toContain('Brushes');
+    await user.click(picker().getByRole('radio', { name: 'All' }));
+    expect(chart()).toEqual(expect.arrayContaining(['Sticks', 'Brushes']));
+    // with every section on show, there is no one section to pick a kit for
+    expect(screen.queryByRole('combobox', { name: /kit/ })).toBeNull();
+
+    await user.click(picker().getByRole('radio', { name: 'B' }));
+    await pickOption(user, screen.getByRole('combobox', { name: "Section B's kit" }), ' break');
+    expect(studio!.patterns.B).not.toHaveProperty('kit');
+    expect(chart()).not.toContain('Brushes');
   });
 });
 

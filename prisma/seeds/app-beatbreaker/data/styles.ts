@@ -157752,9 +157752,9 @@ export const STYLES: Record<string, Style> = {
          drum together on 3 and the "and" of 4 with the band's two notes; and the crash on 1 of
          Davis's solo (bar 46). The tab writes the ride rhythm on an open hi-hat; on the record
          the theme is a cymbal played with brushes (Vintage Drum Forum) and the solos are on
-         sticks, so here it is the ride. The tab's 2/4 bars in the bass-and-piano introduction,
-         with the drums out, are left out. The record (Columbia's upload, 9:24) beat-tracks at
-         136 to 139. */
+         sticks, so here it is the ride: the theme on the jazz brushes, the solo on sticks. The
+         tab's 2/4 bars in the bass-and-piano introduction, with the drums out, are left out.
+         The record (Columbia's upload, 9:24) beat-tracks at 136 to 139. */
         key: 'so-what',
         title: 'So What',
         feel: "Kind of Blue, 1959: the ride, the band's two notes on snare and bass drum, the crash into Miles's solo (record 137)",
@@ -157766,7 +157766,7 @@ export const STYLES: Record<string, Style> = {
         sections: [
           {
             letter: 'A',
-            label: "the theme (brushes on the record): the band's two notes",
+            label: "the theme on brushes: the band's two notes",
             // bars 14-45: the two-bar figure; the tab leaves the cymbal's 1 out of the second bar
             written: [
               {
@@ -157799,6 +157799,8 @@ export const STYLES: Record<string, Style> = {
               { r: '....1.1.1...1.1.', hf: '....1.......1...' },
             ],
             params: {
+              // Cobb's brushes behind the theme (D86); the solo is on the song's sticks kit
+              kit: 'jazzBrushes',
               phraseMark: { crash: false, kick: false },
               cymbalAccent: false,
             },
@@ -157924,9 +157926,11 @@ export const STYLES: Record<string, Style> = {
         sections: [
           {
             letter: 'A',
-            label: 'the theme: brushes on the record',
+            label: 'the theme on brushes',
             bars: 8,
             params: {
+              // Cobb's brushes behind the theme (D86); the solos are on the song's sticks kit
+              kit: 'jazzBrushes',
               ghostBias: 0,
               fillChance: 0.3,
               figures: [

@@ -77,6 +77,11 @@ export class YourSampleSource implements SampleSource {
     void this.load(engine, engine.kit);
   }
 
+  /** A break's sections on kits of yours (D86): their samples, ahead of their bars. */
+  prepare(engine: BreakAudio, kits: ResolvedKit[]): void {
+    for (const kit of kits) void this.load(engine, kit);
+  }
+
   /** Fetch and decode every sample `kit` names that is not in memory yet. */
   async load(engine: BreakAudio, kit: ResolvedKit | null | undefined): Promise<void> {
     const ctx = engine.ctx;

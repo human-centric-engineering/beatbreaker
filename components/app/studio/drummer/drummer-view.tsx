@@ -321,8 +321,9 @@ export function DrummerView({
                   setViewSeq((n) => n + 1);
                 }}
                 seeThrough={seeThrough}
-                brushes={!!c.catalogue?.kits[c.kit]?.brushes}
-                leather={!!c.catalogue?.kits[c.kit]?.leather}
+                // the kit sounding now: a section's own, where it has one (D86)
+                brushes={!!c.catalogue?.kits[c.kitPlaying]?.brushes}
+                leather={!!c.catalogue?.kits[c.kitPlaying]?.leather}
                 aside={chartShown}
                 style={c.style}
                 look={stagePat?.style === c.style ? part?.song.look : undefined}

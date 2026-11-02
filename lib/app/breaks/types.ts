@@ -277,6 +277,13 @@ export interface Pattern {
    * section that keeps one tempo, which is almost all of them.
    */
   tempo?: TempoPoint[];
+  /**
+   * The kit this section plays on, by key, where it is not the break's (D86):
+   * So What's theme on brushes, its solos on the Studio's kit. The transport
+   * changes to it at the section's first bar. Absent on a section that plays
+   * the Studio's kit, which is almost all of them.
+   */
+  kit?: string;
   /** Seed the generator ran from — what makes a break reproducible. */
   seed: number;
   /** Which cymbal carries the ostinato. */
@@ -801,6 +808,11 @@ export interface SongSection {
   written?: Figure[];
   /** Its written bars' tuplets and beat grids (D84, D87). Only with `written`. */
   tuplets?: SectionTuplet[];
+  /**
+   * What changes in this part. A `kit` here is the section's own (D86): the
+   * section plays on it and the rest of the break on the song's, rather than
+   * the whole break taking it.
+   */
   params: StyleSongParams;
 }
 
