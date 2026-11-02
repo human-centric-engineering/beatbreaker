@@ -190,4 +190,55 @@ describe('StepEditor tuplets', () => {
       vi.useRealTimers();
     }
   });
+  it('offers to put the whole beat, every lane, on a grid of its own (D84)', async () => {
+    const user = userEvent.setup();
+    const onTuplet = mount();
+    fireEvent.contextMenu(screen.getByRole('button', { name: /^Hi-hat, bar 1 step 9: empty/ }));
+    expect(screen.getByRole('group', { name: /whole beat/i })).toBeInTheDocument();
+    // not 8 over a beat of four: that is doubles, a step at a time
+    expect(screen.queryByRole('menuitem', { name: 'Whole beat in 8' })).toBeNull();
+    await user.click(screen.getByRole('menuitem', { name: 'Whole beat in 3' }));
+    expect(onTuplet).toHaveBeenLastCalledWith(0, 'h', 8, { kind: 'beat', n: 3 });
+  });
+
+  it('offers a beat grid back to the grid from any of its notes', async () => {
+    const user = userEvent.setup();
+    const onTuplet = vi.fn();
+    const pat = {
+      ...pattern(),
+      tuplets: [
+        {
+          bar: 0,
+          start: 8,
+          span: 4,
+          n: 3,
+          notes: { k: [1, 0, 0], h: [1, 1, 1] },
+          grid: true as const,
+        },
+      ],
+    };
+    render(
+      <StepEditor
+        view={pat}
+        stored={pat}
+        cursor={null}
+        onCycle={vi.fn()}
+        onSet={vi.fn()}
+        onTuplet={onTuplet}
+        canTuplet={() => true}
+        section="A"
+      />
+    );
+    // every lane draws the beat as three, the snare resting in it too
+    expect(document.querySelectorAll('.tuplet[data-n="3"]')).toHaveLength(3);
+    fireEvent.contextMenu(
+      screen.getByRole('button', { name: /Snare, bar 1, 3 in the beat, note 2/ })
+    );
+    // a beat grid goes back whole, not a lane at a time
+    expect(screen.queryByRole('menuitem', { name: /remove the 3/ })).toBeNull();
+    await user.click(
+      screen.getByRole('menuitem', { name: 'Whole beat back to the grid (from 3)' })
+    );
+    expect(onTuplet).toHaveBeenLastCalledWith(0, 's', 8, { kind: 'unbeat' });
+  });
 });

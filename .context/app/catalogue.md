@@ -329,6 +329,16 @@ few words of `feel`, a `weight`, and `params`: any style field except
     a solo, an ending — and a longer passage as consecutive sections in the
     arrangement. A section of figures is a pool drawn at random; its order
     is not the record's.
+  - **A written section's tuplets and beat grids** (`tuplets`, D84 and D87)
+    are spans over its written bars: `bar` (from 0), `start` and `span` in
+    steps, `n` notes, and each lane's row `n` digits long, `.` for none. A
+    figure laid over the grid names the lanes it plays; a beat on a grid of
+    its own — a beat of triplets in a sixteenth-note bar, a quintuplet — is
+    marked `grid: true`, covers the whole beat, and names the lanes that play
+    in it (the rest rest); the grid's cells under either are left `.`. The
+    schema holds each inside its bar, off the grid (four over a beat of four
+    is sixteenths), each value one its lane has, one lane in one at a time,
+    and 32 a bar.
   - **A song holds 128 bars across its sections and 128 arrangement slots**,
     enough to write a record passage by passage and play it in its order,
     intro to outro; a song is never shortened to fit. A section that names

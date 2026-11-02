@@ -221,6 +221,12 @@ export interface TupletSpan {
   n: number;
   /** Per lane, `n` values in the lane's own values (as {@link Bar}'s). */
   notes: Partial<Record<LaneKey, number[]>>;
+  /**
+   * The beat's own grid (D84): the span is its whole beat on every lane, a
+   * lane without a row resting there, rather than a figure over the bar's
+   * grid on the lanes it names.
+   */
+  grid?: true;
 }
 
 export interface Pattern {
@@ -382,6 +388,22 @@ export type KickCell = string;
  * steps of the bar, right-aligned to its end.
  */
 export type Figure = Partial<Record<LaneKey, string>>;
+
+/**
+ * A tuplet in a written section (D87): a figure laid over its bar's grid, or,
+ * with `grid`, a beat on a grid of its own (D84).
+ * `bar` counts the section's written bars from 0; each row is `n` notes, one
+ * digit a note and `.` for none, as a figure's are.
+ */
+export interface SectionTuplet {
+  bar: number;
+  start: number;
+  span: number;
+  n: number;
+  notes: Partial<Record<LaneKey, string>>;
+  /** The beat's own grid, every lane (D84): {@link TupletSpan.grid}. */
+  grid?: true;
+}
 
 /**
  * How far off the grid one lane sits, as a fraction of a 16th. Positive is
@@ -777,6 +799,8 @@ export interface SongSection {
    * as the drummer played it. Its length is the bars written.
    */
   written?: Figure[];
+  /** Its written bars' tuplets and beat grids (D84, D87). Only with `written`. */
+  tuplets?: SectionTuplet[];
   params: StyleSongParams;
 }
 

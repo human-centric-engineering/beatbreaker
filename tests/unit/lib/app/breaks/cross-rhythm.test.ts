@@ -16,7 +16,7 @@ import {
 } from '@/lib/app/breaks/cross-rhythm';
 import { reducePattern } from '@/lib/app/breaks/layers';
 import { patternFromLibrary } from '@/lib/app/breaks/library';
-import { meterOf } from '@/lib/app/breaks/meter';
+import { meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import { type BreakDoc, decodeBreak, encodeBreak } from '@/lib/app/breaks/share';
 import { POLYRHYTHM_STYLE } from '@/lib/app/breaks/style-keys';
@@ -25,7 +25,7 @@ import type { Bar, Pattern } from '@/lib/app/breaks/types';
 import { POLYRHYTHMS } from '@/prisma/seeds/app-beatbreaker/data/polyrhythms';
 
 function pattern(meter = '4/4', bars = 2): Pattern {
-  const steps = meter === '4/4-6' ? 24 : 16;
+  const steps = stepsOf(meterOf(meter));
   return {
     name: 'xr',
     style: 'funk',
@@ -350,9 +350,14 @@ describe('what it refuses, and says why', () => {
   });
 
   it('a study whose spans would pass the most a pattern holds', () => {
-    // three over every eighth for nine bars: 72 spans
-    const r = crossRhythm(pattern('4/4', 9), { ...threeTwo, cycle: 2 });
-    expect(r).toEqual({ ok: false, reason: expect.stringMatching(/past the 64/) });
+    // three over every two steps of two bars of 16/4 in 32nds: 128 spans, past the 64 they hold
+    const r = crossRhythm(pattern('16/4-32', 2), { ...threeTwo, cycle: 2 });
+    expect(r).toEqual({
+      ok: false,
+      reason: expect.stringMatching(/past the 64 a pattern of 2 bars holds/),
+    });
+    // nine bars of 4/4, three over every eighth, are well inside
+    expect(crossRhythm(pattern('4/4', 9), { ...threeTwo, cycle: 2 }).ok).toBe(true);
   });
 });
 

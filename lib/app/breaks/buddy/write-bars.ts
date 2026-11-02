@@ -15,7 +15,7 @@ import { METER_KEY_HELP, isMeterKey, meterOf, remapList } from '@/lib/app/breaks
 import { clonePattern, tidySticking } from '@/lib/app/breaks/pattern';
 import { type LimbProblem, limbProblems } from '@/lib/app/breaks/physical';
 import { keepPolySpans } from '@/lib/app/breaks/poly-fill';
-import { MAX_TUPLETS, cloneTuplet, keepTuplets } from '@/lib/app/breaks/tuplets';
+import { cloneTuplet, keepTuplets, maxTuplets } from '@/lib/app/breaks/tuplets';
 import {
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
@@ -272,10 +272,10 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
     if (next.lanes.includes(L) && !next.perc[L]) next.perc = { ...next.perc, [L]: DEFAULT_PERC[i] };
   });
 
-  if ((next.tuplets?.length ?? 0) > MAX_TUPLETS) {
+  if ((next.tuplets?.length ?? 0) > maxTuplets(next.bars.length)) {
     return {
       ok: false,
-      message: `A pattern holds at most ${MAX_TUPLETS} tuplets; this would make ${next.tuplets?.length}`,
+      message: `A pattern of ${next.bars.length} bars holds at most ${maxTuplets(next.bars.length)} tuplets; this would make ${next.tuplets?.length}`,
       code: 'too_many_tuplets',
     };
   }

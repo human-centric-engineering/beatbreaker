@@ -999,13 +999,16 @@ function withDoubles(grid: Bar, doubles: TupletSpan[]): Bar {
  * are quarters or longer and so have no beam to carry it, a bracket. An
  * empty note is a rest of that value.
  */
-function drawTuplet(ctx: VoiceCtx, t: TupletSpan): void {
+function drawTuplet(ctx: VoiceCtx, t: TupletSpan, inline: boolean): void {
   const { out, up, y, SP, scale, ink, beamY, slotW, x0, unit } = ctx;
   const { steps, bracket } = tupletValue(t);
   // the note value in sixteenths, whatever the grid's step is
   const value = steps * unit;
   const xAt = (j: number) => x0 + tupletPos(t, j) * slotW + slotW / 2;
-  const tBeam = up ? beamY - 1.5 * SP : beamY + 1.5 * SP;
+  /* Alone in its steps, a span is beamed where the grid's notes are, as the
+     beat is written (D84): a beat of triplets beside beats of sixteenths. Over
+     notes of the grid, it takes a beam of its own beyond theirs. */
+  const tBeam = inline ? beamY : up ? beamY - 1.5 * SP : beamY + 1.5 * SP;
   const stemDx = up ? 0.62 * SP : -0.62 * SP;
   const notes: { j: number; heads: Head[] }[] = [];
   for (let j = 0; j < t.n; j++) {
@@ -1130,7 +1133,19 @@ function drawVoice(ctx: VoiceCtx): void {
     }))
     .filter((t) => tupletLanes(t).length);
   const covered = (i: number) => mine.some((t) => i >= t.start && i < t.start + t.span);
-  for (const t of mine) drawTuplet(ctx, t);
+  /* Whether nothing else of this voice is drawn in a span's steps — no note
+     of the grid's, no ghost a layer up, no other span — so it is the beat's
+     own and takes the voice's beam. */
+  const voiceLanes = (Object.keys(bar) as LaneKey[]).filter(
+    (L) => !LANE_DEFS[L].perc && UPPER_LANES.includes(L) === up
+  );
+  const empty = (b: Bar | null, t: TupletSpan) =>
+    !b || voiceLanes.every((L) => !b[L]?.slice(t.start, t.start + t.span).some(Boolean));
+  const alone = (t: TupletSpan) =>
+    empty(bar, t) &&
+    empty(gbar, t) &&
+    !mine.some((o) => o !== t && o.start < t.start + t.span && t.start < o.start + o.span);
+  for (const t of mine) drawTuplet(ctx, t, alone(t));
   const slashed = new Set<number>();
   for (const t of ctx.doubles) {
     if (!tupletLanes(t).every((L) => UPPER_LANES.includes(L) === up)) continue;

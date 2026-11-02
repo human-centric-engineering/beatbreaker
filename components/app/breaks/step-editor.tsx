@@ -9,7 +9,7 @@ import { countLabelsOf, groupAt, groupsOf, isGroupStart } from '@/lib/app/breaks
 import { type WrittenHand, meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
 import type { SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { type TempoPoint, mapRatioAt } from '@/lib/app/breaks/tempo-map';
-import { ownedBy, tupletChoices, tupletsIn, twoAStep } from '@/lib/app/breaks/tuplets';
+import { beatGridAt, ownedBy, tupletChoices, tupletsIn, twoAStep } from '@/lib/app/breaks/tuplets';
 import type { LaneKey, Pattern, TupletSpan } from '@/lib/app/breaks/types';
 import type { HandEdit, TupletEdit } from '@/components/app/breaks/use-break-console';
 import { TempoPicker, type TempoPickerAt } from '@/components/app/breaks/tempo-picker';
@@ -452,6 +452,18 @@ export function StepEditor({
     const g = groupsOf(m)[groupAt(m, c.step)];
     return g ? tupletChoices(g.size) : [];
   };
+  /**
+   * The grids the whole of a cell's beat may be put on (D84): its tuplets but
+   * not doubles, where the layer shows a tuplet on every lane the beat holds.
+   */
+  const beatChoicesAt = (c: CellAt): number[] => {
+    const g = groupsOf(m)[groupAt(m, c.step)];
+    if (!g || !onTuplet || !view.lanes.every((L) => canTuplet?.(L))) return [];
+    return tupletChoices(g.size).filter((n) => n !== 2 * g.size);
+  };
+  /** The beat grid a picker's note is in, as stored (the pattern an edit changes), where it may be given back. */
+  const beatGridOf = (c: CellAt): TupletSpan | undefined =>
+    onTuplet && canTuplet?.(c.lane) ? beatGridAt(stored, c.bar, c.step) : undefined;
   const closePicker = () => {
     setPicker(null);
     opener.current?.focus();
@@ -863,8 +875,10 @@ export function StepEditor({
               closePicker();
             }}
             tuplets={picker.tuplet ? [] : choicesAt(picker)}
+            beatGrids={picker.tuplet ? [] : beatChoicesAt(picker)}
+            inBeatGrid={picker.tuplet ? beatGridOf(picker)?.n : undefined}
             canDouble={!picker.tuplet && !!onTuplet && !!canTuplet?.(picker.lane)}
-            inTuplet={picker.tuplet ? picker.tuplet.span.n : undefined}
+            inTuplet={picker.tuplet && !picker.tuplet.span.grid ? picker.tuplet.span.n : undefined}
             inDouble={!!picker.tuplet && twoAStep(picker.tuplet.span)}
             onTuplet={(edit) => {
               // a double gives back the step of the note the picker is on (13-a)
@@ -982,8 +996,10 @@ function CellPicker({
   current,
   onChoose,
   tuplets = [],
+  beatGrids = [],
   canDouble = false,
   inTuplet,
+  inBeatGrid,
   inDouble = false,
   onTuplet,
   onClose,
@@ -994,6 +1010,10 @@ function CellPicker({
   onChoose: (value: number) => void;
   /** The tuplets the cell's beat may be cut into (12-d). */
   tuplets?: number[];
+  /** The grids the whole beat, every lane, may be put on (D84). */
+  beatGrids?: number[];
+  /** The note count of the beat grid the cell is in, if it is in one. */
+  inBeatGrid?: number;
   /** Whether the cell may be made a double: two 32nds in its step (13-a). */
   canDouble?: boolean;
   /** The note count of the tuplet the cell is in, if it is in one. */
@@ -1063,6 +1083,27 @@ function CellPicker({
           ))}
         </div>
       ) : null}
+      {beatGrids.length ? (
+        <div
+          className="tupletpick"
+          role="group"
+          aria-label="Put the whole beat, every lane, on a grid of its own"
+        >
+          <span className="lbl">Whole beat</span>
+          {beatGrids.map((n) => (
+            <button
+              key={n}
+              type="button"
+              role="menuitem"
+              aria-label={`Whole beat in ${n}`}
+              title={`The whole beat in ${n} even steps, on every lane: its notes go to the steps nearest them`}
+              onClick={() => onTuplet?.({ kind: 'beat', n })}
+            >
+              {n}
+            </button>
+          ))}
+        </div>
+      ) : null}
       {canDouble ? (
         <button
           type="button"
@@ -1072,6 +1113,12 @@ function CellPicker({
         >
           <i aria-hidden="true" />
           <span className="lbl">Double (two in this step)</span>
+        </button>
+      ) : null}
+      {inBeatGrid ? (
+        <button type="button" role="menuitem" onClick={() => onTuplet?.({ kind: 'unbeat' })}>
+          <i aria-hidden="true" />
+          <span className="lbl">{`Whole beat back to the grid (from ${inBeatGrid})`}</span>
         </button>
       ) : null}
       {inTuplet ? (
@@ -1211,7 +1258,8 @@ function TupletCells({
   onTap: (j: number, value: number) => void;
   onPick: (j: number, el: HTMLElement) => void;
 }) {
-  const row = span.notes[lane] ?? [];
+  // a lane resting in a beat grid (D84) has its cells, empty, and no row yet
+  const row = span.notes[lane] ?? Array<number>(span.n).fill(0);
   const width: React.CSSProperties & { '--span'?: number } = { '--span': span.span };
   /* Held, a note opens its picker as a grid cell's does: a touch screen has
      no right click, and the picker is the way back to the grid. */

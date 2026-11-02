@@ -22,7 +22,7 @@ import {
   rangesFit,
   tempoMapProblem,
 } from '@/lib/app/breaks/tempo-map';
-import { MAX_TUPLET, MAX_TUPLETS, MIN_TUPLET } from '@/lib/app/breaks/tuplets';
+import { MAX_TUPLET, MAX_TUPLETS, MIN_TUPLET, maxTuplets } from '@/lib/app/breaks/tuplets';
 
 /**
  * Zod schemas for everything that arrives from outside: a pasted share code, a
@@ -297,10 +297,12 @@ export const tupletSpanSchema = z
     span: z.number().int().min(1).max(MAX_ROW),
     n: z.number().int().min(MIN_TUPLET).max(MAX_TUPLET),
     notes: z.partialRecord(typedLane, tupletRow),
+    /** the beat's own grid (D84): it may rest on every lane */
+    grid: z.literal(true).optional(),
   })
   .refine((s) => s.start + s.span <= MAX_ROW, 'a span past the end of any bar')
   .refine((s) => Object.values(s.notes).every((row) => row?.length === s.n), 'a row of n notes')
-  .refine((s) => Object.keys(s.notes).length > 0, 'a span plays at least one lane')
+  .refine((s) => s.grid || Object.keys(s.notes).length > 0, 'a span plays at least one lane')
   .refine((s) => laneValuesOk(s.notes), 'a step value that lane does not have');
 
 /**
@@ -326,10 +328,16 @@ const packedTupletSchema = z
         .max(MAX_TUPLET)
         .regex(/^[0-8]*$/)
     ),
+    /**
+     * the beat's own grid (16-b-iv, D84): optional and additive, as `sk` is —
+     * an older reader plays the same notes as a figure over the grid (a beat grid
+     * resting on every lane, with no row to play, it refuses)
+     */
+    g: z.literal(1).optional(),
   })
   .refine((t) => t.a + t.s <= MAX_ROW, 'a span past the end of any bar')
   .refine((t) => Object.values(t.x).every((row) => row?.length === t.n), 'a row of n notes')
-  .refine((t) => Object.keys(t.x).length > 0, 'a span plays at least one lane')
+  .refine((t) => t.g === 1 || Object.keys(t.x).length > 0, 'a span plays at least one lane')
   .refine((t) => laneValuesOk(t.x), 'a step value that lane does not have');
 
 const packedTuplets = z.array(packedTupletSchema).max(MAX_TUPLETS);
@@ -350,37 +358,43 @@ export type PackedTempoPoint = z.infer<typeof packedTempoPoint>;
 /** A section's tempo ratio on the wire: ×¼ to ×4, never ×1 (see `isTempoRatio`); a v8 code holds it to `TEMPO_RATIOS`. */
 const tempoRatioSchema = z.custom<TempoRatio>(isTempoRatio, 'a tempo ratio is from ×¼ to ×4');
 
-export const patternSchema = z.object({
-  name: z.string().max(120),
-  style: styleKey,
-  styleVersionId: z.string().max(40).nullable(),
-  attrs: styleAttrsSchema.default({}),
-  song: z.string().max(40).optional(),
-  meter: z.string().refine(isMeterKey, 'unknown meter'),
-  seed: z.number().int().min(0).max(0xffffffff),
-  voice: z.enum(['hat', 'ride']),
-  lanes: z.array(laneKey).min(1),
-  perc: z.record(
-    z.enum(['p1', 'p2']),
-    z.string().refine((s) => PERC_KEYS.includes(s))
-  ),
-  backbeats: z.array(z.number().int().min(0).max(MAX_STEP)),
-  bbLane: laneKey,
-  hasRide: z.boolean(),
-  hasHat: z.boolean(),
-  pins: z.array(z.record(laneKey, z.array(z.number().int().min(0).max(5))).nullable()).nullable(),
-  sticking: z
-    .array(z.string().max(MAX_ROW).regex(STICKING_ROW).nullable())
-    .max(8)
-    .nullable()
-    .optional(),
-  fixed: z.boolean().optional(),
-  poly: polySchema.optional(),
-  polySpans: z.array(polySpanSchema).max(8).optional(),
-  tuplets: z.array(tupletSpanSchema).max(MAX_TUPLETS).optional(),
-  fills: z.array(fillSpanSchema).max(8).optional(),
-  bars: z.array(barSchema).min(1).max(8),
-});
+export const patternSchema = z
+  .object({
+    name: z.string().max(120),
+    style: styleKey,
+    styleVersionId: z.string().max(40).nullable(),
+    attrs: styleAttrsSchema.default({}),
+    song: z.string().max(40).optional(),
+    meter: z.string().refine(isMeterKey, 'unknown meter'),
+    seed: z.number().int().min(0).max(0xffffffff),
+    voice: z.enum(['hat', 'ride']),
+    lanes: z.array(laneKey).min(1),
+    perc: z.record(
+      z.enum(['p1', 'p2']),
+      z.string().refine((s) => PERC_KEYS.includes(s))
+    ),
+    backbeats: z.array(z.number().int().min(0).max(MAX_STEP)),
+    bbLane: laneKey,
+    hasRide: z.boolean(),
+    hasHat: z.boolean(),
+    pins: z.array(z.record(laneKey, z.array(z.number().int().min(0).max(5))).nullable()).nullable(),
+    sticking: z
+      .array(z.string().max(MAX_ROW).regex(STICKING_ROW).nullable())
+      .max(8)
+      .nullable()
+      .optional(),
+    fixed: z.boolean().optional(),
+    poly: polySchema.optional(),
+    polySpans: z.array(polySpanSchema).max(8).optional(),
+    tuplets: z.array(tupletSpanSchema).max(MAX_TUPLETS).optional(),
+    fills: z.array(fillSpanSchema).max(8).optional(),
+    bars: z.array(barSchema).min(1).max(8),
+  })
+  // so many tuplets a bar (D87): a longer pattern holds more
+  .refine((p) => (p.tuplets?.length ?? 0) <= maxTuplets(p.bars.length), {
+    message: 'more tuplets than its bars hold',
+    path: ['tuplets'],
+  });
 
 const MAX_BAR_STRING = LANES.length * (MAX_ROW + 1);
 
@@ -693,6 +707,15 @@ export const sharePayloadSchema = z
         code: 'custom',
         path: [],
         message: `a break's sections play within ×${MAX_RATIO_SPREAD} of each other and of its tempo, or no tempo plays them all`,
+      });
+    }
+    for (const L of letters) {
+      const p = payload[L];
+      if (!p?.tu || p.tu.length <= maxTuplets(p.b.length)) continue;
+      ctx.addIssue({
+        code: 'custom',
+        path: [L, 'tu'],
+        message: `a section of ${p.b.length} bars holds ${maxTuplets(p.b.length)} tuplets at most`,
       });
     }
     const bars = letters.reduce((n, L) => n + (payload[L]?.b.length ?? 0), 0);

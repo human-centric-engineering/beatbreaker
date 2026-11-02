@@ -10,6 +10,7 @@ import {
   RIMSHOT,
   SPLASH,
   TOM_FLAM,
+  louderValue,
 } from '@/lib/app/breaks/lanes';
 import { GRACE_MAX, openHatValue, valueForVelocity } from '@/lib/app/breaks/perform';
 import {
@@ -23,7 +24,7 @@ import {
   stepsPerQuarter,
 } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
-import { MAX_TUPLETS, joinDoubles, tupletChoices } from '@/lib/app/breaks/tuplets';
+import { TUPLETS_A_BAR, joinDoubles, tupletChoices } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneKey, PercLaneKey, TupletSpan } from '@/lib/app/breaks/types';
 
 /**
@@ -242,16 +243,6 @@ for (const [key, inst] of Object.entries(PERC_INSTS)) {
     PERC_BY_NOTE.set(inst.hi, { inst: key, value: 2 });
 }
 
-/**
- * Two notes on one step of one lane: the louder value wins, as the ear would
- * have it. Ranks by value: on the snare a ghost, cross-stick, hit, buzz,
- * accent, rimshot, flam, drag; on the hat closed, half-open, open, accent.
- */
-const RANK: Partial<Record<LaneKey, number[]>> = {
-  s: [0, 1, 3, 5, 2, 6, 7, 8, 4],
-  h: [0, 1, 4, 3, 2],
-};
-
 /** How far ahead of its note a grace may be, in steps — the furthest `performStep` puts one, and a little. */
 const GRACE_WINDOW = 0.4;
 /** How far after its note a buzz's repeats may run, in steps: inside the step, short of the next one. */
@@ -362,11 +353,7 @@ function worst(ticks: readonly number[], from: number, every: number): number {
   return out;
 }
 
-function louder(lane: LaneKey, a: number, b: number): number {
-  const rank = RANK[lane];
-  if (!rank) return Math.max(a, b);
-  return rank[a] >= rank[b] ? a : b;
-}
+const louder = louderValue;
 
 /**
  * The tempo each step of each bar starts at (16-b-ii), from a file that
@@ -560,6 +547,8 @@ export function readMidi(bytes: Uint8Array): ImportResult {
       (x) => !taken.has(x.h) && x.h.tick >= from - tol && x.h.tick < from + ticks - tol
     );
     const byN = new Map<number, Map<LaneKey, Read[]>>();
+    /** Lanes with too few notes off the grid to name a tuplet by themselves. */
+    const few: { lane: LaneKey; mine: Read[]; t: number[] }[] = [];
     for (const lane of new Set(inSpan.map((x) => x.lane))) {
       const mine = inSpan.filter((x) => x.lane === lane);
       // one lane's steps are in one span
@@ -568,7 +557,11 @@ export function readMidi(bytes: Uint8Array): ImportResult {
       );
       if (held) continue;
       const t = mine.map((x) => x.h.tick);
-      if (mine.length < MIN_TUPLET_NOTES || worst(t, from, stepTicks) <= tol) continue;
+      if (worst(t, from, stepTicks) <= tol) continue;
+      if (mine.length < MIN_TUPLET_NOTES) {
+        few.push({ lane, mine, t });
+        continue;
+      }
       let best = 0;
       let err = Infinity;
       /* two to a step are doubles, read a step at a time below (13-a) — where
@@ -591,10 +584,23 @@ export function readMidi(bytes: Uint8Array): ImportResult {
       lanes.set(lane, mine);
       byN.set(best, lanes);
     }
+    /* A beat another lane has put on a grid of its own (D84) holds a lone
+       note of the same division too: the snare's one stroke in a quintuplet
+       is the quintuplet's, not a loose sixteenth. */
+    for (const { lane, mine, t } of few) {
+      const n = [...byN.keys()].find((k) => worst(t, from, ticks / k) <= tol);
+      if (n) byN.get(n)?.set(lane, mine);
+    }
     for (const [n, lanes] of byN) {
       // past the most a pattern holds, the notes go to the grid as they would without
-      if (tuplets.length >= MAX_TUPLETS) break;
-      const span: TupletSpan = { bar: bi, start, span: size, n, notes: {} };
+      if (tuplets.filter((t) => t.bar === bi).length >= TUPLETS_A_BAR) break;
+      const span: TupletSpan = {
+        bar: bi,
+        start,
+        span: size,
+        n,
+        notes: {},
+      };
       for (const [lane, mine] of lanes) {
         const row = Array<number>(n).fill(0);
         for (const x of mine) {
@@ -653,9 +659,16 @@ export function readMidi(bytes: Uint8Array): ImportResult {
     units.push({ bi, i, lane, reads: [...first, ...second] });
   }
   // side by side in a beat they are one span; past the most a pattern holds, rounded as before
-  const room = Math.max(0, MAX_TUPLETS - tuplets.length);
   const joined = joinDoubles(doubles, (bi) => groupsOf(meterOf(layout[bi].meter)));
-  const kept = joined.slice(0, room);
+  // past the most a bar holds, the rest of its doubles are rounded as before
+  const inBar = new Map<number, number>();
+  for (const t of tuplets) inBar.set(t.bar, (inBar.get(t.bar) ?? 0) + 1);
+  const kept = joined.filter((t) => {
+    const n = inBar.get(t.bar) ?? 0;
+    if (n >= TUPLETS_A_BAR) return false;
+    inBar.set(t.bar, n + 1);
+    return true;
+  });
   tuplets.push(...kept);
   let unkept = 0;
   for (const u of units) {
@@ -667,7 +680,7 @@ export function readMidi(bytes: Uint8Array): ImportResult {
   }
   if (unkept) {
     notes.push(
-      `${unkept} more ${unkept === 1 ? 'pair' : 'pairs'} of 32nds ${unkept === 1 ? 'was' : 'were'} rounded into one note each: a pattern holds ${MAX_TUPLETS} tuplets at most.`
+      `${unkept} more ${unkept === 1 ? 'pair' : 'pairs'} of 32nds ${unkept === 1 ? 'was' : 'were'} rounded into one note each: a bar holds ${TUPLETS_A_BAR} tuplets at most.`
     );
   }
 

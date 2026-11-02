@@ -50,7 +50,7 @@ import {
   polyFillContext,
   spanRow,
 } from '@/lib/app/breaks/poly-fill';
-import { clearUnderTuplets } from '@/lib/app/breaks/tuplets';
+import { clearUnderTuplets, fromSectionTuplet, keepTuplets } from '@/lib/app/breaks/tuplets';
 import { clamp, makeRng, wpick, type Rng } from '@/lib/app/breaks/rng';
 import type { TempoRatio } from '@/lib/app/breaks/sections';
 import { fitTempoMap, type TempoPoint } from '@/lib/app/breaks/tempo-map';
@@ -71,6 +71,7 @@ import type {
   Pattern,
   PercLaneKey,
   ResolvedStyle,
+  SectionTuplet,
   Style,
   TupletSpan,
 } from '@/lib/app/breaks/types';
@@ -1034,7 +1035,7 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   const perc = opts.perc ?? percRoster(style);
   const rng = makeRng(opts.seed);
   if (part?.section?.written) {
-    return writtenPattern(opts, part.section.written, {
+    return writtenPattern(opts, part.section.written, part.section.tuplets, {
       style,
       base,
       songKey,
@@ -1119,6 +1120,7 @@ function tempoOf(map: TempoPoint[] | undefined, bars: number): { tempo?: TempoPo
 function writtenPattern(
   opts: GenerateOptions,
   figures: Figure[],
+  written: SectionTuplet[] | undefined,
   ctx: {
     style: Style;
     base: Style;
@@ -1133,7 +1135,10 @@ function writtenPattern(
 ): Pattern {
   const n = stepsOf(meterOf(ctx.meterKey));
   const bars = figures.map((f) => figureBar(f, n));
-  const played = LANES.filter((L) => bars.some((b) => b[L].some(Boolean)));
+  // a lane the record plays, in the grid or in a tuplet, is one the chart shows
+  const inTuplets = (L: LaneKey) =>
+    !!written?.some((t) => [...(t.notes[L] ?? '')].some((ch) => ch !== '.' && ch !== '0'));
+  const played = LANES.filter((L) => bars.some((b) => b[L].some(Boolean)) || inTuplets(L));
   const lanes = [...ctx.lanes, ...played.filter((L) => !ctx.lanes.includes(L))];
   const pat: Pattern = {
     name: nameBreak(ctx.rng),
@@ -1156,6 +1161,13 @@ function writtenPattern(
     pins: null,
     bars,
   };
+  /* its tuplets and beat grids (D84, D87), the record's as the bars are: each
+     owns its cells, so a note written under one by mistake is not played twice */
+  if (written?.length) {
+    pat.tuplets = written.map(fromSectionTuplet);
+    keepTuplets(pat);
+    clearUnderTuplets(pat);
+  }
   // no rng: a part's `drop` is the generator's variation, not the record's
   const laid = PERC_LANES.filter((L) => lanes.includes(L) && !played.includes(L));
   writePerc({ ...pat, lanes: lanes.filter((L) => !played.includes(L)) }, ctx.style);

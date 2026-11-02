@@ -2,7 +2,14 @@ import { z } from 'zod';
 
 import { LANES, LANE_VALUES, PERC_KEYS } from '@/lib/app/breaks/lanes';
 import type { LaneKey } from '@/lib/app/breaks/types';
-import { DEFAULT_METER, MAX_STEPS, isMeterKey, meterOf, stepsOf } from '@/lib/app/breaks/meter';
+import {
+  DEFAULT_METER,
+  MAX_STEPS,
+  groupsOf,
+  isMeterKey,
+  meterOf,
+  stepsOf,
+} from '@/lib/app/breaks/meter';
 import {
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
@@ -11,7 +18,17 @@ import {
   type TempoRatio,
   isTempoRatio,
 } from '@/lib/app/breaks/sections';
+import { emptyBar } from '@/lib/app/breaks/pattern';
 import { layeredSwing } from '@/lib/app/breaks/songs';
+import {
+  MAX_TUPLET,
+  MAX_TUPLETS,
+  MIN_TUPLET,
+  fromSectionTuplet,
+  maxTuplets,
+  tupletFits,
+  tupletsOf,
+} from '@/lib/app/breaks/tuplets';
 import {
   MAX_TEMPO_POINTS,
   isPointRatio,
@@ -324,6 +341,23 @@ const tempoPointSchema = z.object({
   to: z.custom<number>(isPointRatio, 'a ramp gets to ×¼ to ×4').optional(),
 });
 
+/** A tuplet or beat grid in a written section (D84, D87); held to its bar by the style's check. */
+const sectionTupletSchema = z
+  .object({
+    bar: z.number().int().min(0).max(7),
+    start: z
+      .number()
+      .int()
+      .min(0)
+      .max(MAX_STEPS - 1),
+    span: z.number().int().min(1).max(MAX_STEPS),
+    n: z.number().int().min(MIN_TUPLET).max(MAX_TUPLET),
+    notes: z.partialRecord(z.enum(LANES as [LaneKey, ...LaneKey[]]), z.string().regex(/^[0-8.]+$/)),
+    /** the beat's own grid, every lane (D84); its values are held to its lanes by `tupletFits` */
+    grid: z.literal(true).optional(),
+  })
+  .refine((t) => Object.values(t.notes).every((row) => row?.length === t.n), 'a row of n notes');
+
 /**
  * One part of a song written in sections: its letter, a label, and the params
  * laid over the song's. Its aliases are the keys it had as a song of its own.
@@ -343,6 +377,7 @@ const songSectionSchema = z
     tempo: z.array(tempoPointSchema).min(1).max(MAX_TEMPO_POINTS).optional(),
     aliases: z.array(songKey).min(1).max(8).optional(),
     written: z.array(figureSchema).min(1).max(8).optional(),
+    tuplets: z.array(sectionTupletSchema).min(1).max(MAX_TUPLETS).optional(),
     params: songParams,
   })
   .superRefine((x, ctx) => {
@@ -354,7 +389,19 @@ const songSectionSchema = z
           : 'a section with a tempo map names its bars, or is written';
       if (problem) ctx.addIssue({ code: 'custom', message: problem, path: ['tempo'] });
     }
+    if (x.tuplets && !x.written)
+      ctx.addIssue({
+        code: 'custom',
+        message: 'a section’s tuplets are in its written bars',
+        path: ['tuplets'],
+      });
     if (!x.written) return;
+    if (x.tuplets && x.tuplets.length > maxTuplets(x.written.length))
+      ctx.addIssue({
+        code: 'custom',
+        message: `${x.written.length} written bars hold ${maxTuplets(x.written.length)} tuplets at most`,
+        path: ['tuplets'],
+      });
     if (x.bars !== undefined)
       ctx.addIssue({
         code: 'custom',
@@ -502,6 +549,35 @@ export const styleParamsSchema = styleFields
               path: ['songs', i, 'sections', j, 'written', k],
             });
         });
+        // each tuplet inside its bar, and no lane in two at once
+        const spans = (x.tuplets ?? []).map(fromSectionTuplet);
+        const bars = x.written?.length ?? 0;
+        spans.forEach((t, k) => {
+          if (n && !tupletFits(t, n, bars))
+            ctx.addIssue({
+              code: 'custom',
+              message: `a tuplet inside one of the ${bars} written bars of ${n} steps, off the grid, each value one its lane has`,
+              path: ['songs', i, 'sections', j, 'tuplets', k],
+            });
+        });
+        const beats = isMeterKey(meter) ? groupsOf(meterOf(meter)) : [];
+        spans.forEach((t, k) => {
+          if (t.grid && !beats.some((g) => g.start === t.start && g.size === t.span))
+            ctx.addIssue({
+              code: 'custom',
+              message: `a beat's own grid covers one whole beat of ${meter}`,
+              path: ['songs', i, 'sections', j, 'tuplets', k],
+            });
+        });
+        // among those that fit: one that does not is said above, not again here
+        const fit = n ? spans.filter((t) => tupletFits(t, n, bars)) : [];
+        const shape = x.written?.map(() => emptyBar(n)) ?? [];
+        if (tupletsOf({ tuplets: fit, bars: shape }).length < fit.length)
+          ctx.addIssue({
+            code: 'custom',
+            message: 'a lane is in one tuplet at a time',
+            path: ['songs', i, 'sections', j, 'tuplets'],
+          });
       });
     });
   });

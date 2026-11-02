@@ -435,3 +435,20 @@ export function bbValue(lane: LaneKey, style: Style | undefined): number {
   if (lane !== 's') return 1;
   return style?.crossStick ? 4 : 3;
 }
+
+/**
+ * Two notes on one step of one lane: the louder value wins, as the ear would
+ * have it. Ranks by value: on the snare a ghost, cross-stick, hit, buzz,
+ * accent, rimshot, flam, drag; on the hat closed, half-open, open, accent.
+ */
+const RANK: Partial<Record<LaneKey, number[]>> = {
+  s: [0, 1, 3, 5, 2, 6, 7, 8, 4],
+  h: [0, 1, 4, 3, 2],
+};
+
+/** The louder of two values on one lane ({@link RANK}; elsewhere the higher). */
+export function louderValue(lane: LaneKey, a: number, b: number): number {
+  const rank = RANK[lane];
+  if (!rank) return Math.max(a, b);
+  return rank[a] >= rank[b] ? a : b;
+}

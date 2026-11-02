@@ -13,7 +13,7 @@ import { overlaps, spansOf } from '@/lib/app/breaks/poly-fill';
 import { POLYRHYTHM_STYLE } from '@/lib/app/breaks/style-keys';
 import {
   MAX_TUPLET,
-  MAX_TUPLETS,
+  maxTuplets,
   MIN_TUPLET,
   cloneTuplet,
   tupletLanes,
@@ -203,10 +203,10 @@ function study(pat: Pattern, spec: CrossRhythmSpec, steps: number): CrossRhythmR
     }
     return bar;
   });
-  if (tuplets.length > MAX_TUPLETS)
+  if (tuplets.length > maxTuplets(pat.bars.length))
     return {
       ok: false,
-      reason: `that is ${tuplets.length} tuplets, past the ${MAX_TUPLETS} a pattern holds: try a longer cycle or fewer bars`,
+      reason: `that is ${tuplets.length} tuplets, past the ${maxTuplets(pat.bars.length)} a pattern of ${pat.bars.length} bar${pat.bars.length === 1 ? '' : 's'} holds: try a longer cycle or fewer bars`,
     };
   const hands = spec.hands;
   const sticking = hands
@@ -314,8 +314,8 @@ function fill(
   }
   const span = writeCycle(bar, bi, from, spec);
   if (span) kept.push(span);
-  if (kept.length > MAX_TUPLETS)
-    return no(`the pattern already holds the ${MAX_TUPLETS} tuplets it may`);
+  if (kept.length > maxTuplets(out.bars.length))
+    return no(`the pattern already holds the ${maxTuplets(out.bars.length)} tuplets it may`);
   if (kept.length) out.tuplets = kept;
   else delete out.tuplets;
 
