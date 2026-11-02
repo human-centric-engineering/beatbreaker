@@ -11,7 +11,7 @@ import {
 } from '@/lib/app/breaks/kit';
 import { HUMANISE_MODES } from '@/lib/app/breaks/humanise';
 import { PAN_VIEWS, PERC_KEYS } from '@/lib/app/breaks/lanes';
-import { DEFAULT_METER, METERS } from '@/lib/app/breaks/meter';
+import { DEFAULT_METER, isMeterKey } from '@/lib/app/breaks/meter';
 
 /**
  * Your Studio settings (D19) — `/api/v1/studio-settings` and the
@@ -37,9 +37,7 @@ export const MAX_TUNED_KITS = 64;
 
 const catalogueKeySchema = z.string().min(1).max(40);
 
-const meterKeySchema = z
-  .string()
-  .refine((k) => Object.hasOwn(METERS, k), { message: 'Not a meter the Studio has' });
+const meterKeySchema = z.string().refine(isMeterKey, { message: 'Not a meter the Studio has' });
 
 const percKeySchema = z
   .string()

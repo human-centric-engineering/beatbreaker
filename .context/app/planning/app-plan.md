@@ -5112,6 +5112,29 @@ Limelight's outro, where its ritardando is, was never written. Both go to
 bars, a ritardando to half over the last four), through play, the chart and a
 MIDI file read back.
 
+**16-b-iii built (2026-11-02, branch `phase-16b-iii-meters`):** D83 and D85
+as proposed, with three calls made in the building. (1) **The key.** A meter
+is parsed from `n/d` (d of 2, 4, 8, 16 or 32, n up to 64) with its grid after
+a dash where it is not the default: `-8` eighths, `-32` 32nds, `-6`
+sextuplets (quarter-note beats only). One spelling a
+meter (`4/4-16` is refused, `4/4` is the key), so keys still compare as
+strings, and every key in `METERS` is the same object it was. A bar holds
+`num × sub` steps up to `MAX_STEPS` (128), which replaces `MAX_ROW`'s 32, the
+sticking row's 32 and the step indexes' 63 in the schemas and the catalogue.
+(2) **Grouping from the numerator only.** Threes with the twos at the end;
+"unless the song says otherwise" is **not built**: a key is held to eight
+characters, the `meter` columns' width, and a grouping in the key would not
+fit. It goes with 16-b's per-bar meter, as a field of the bar's, if a song in
+16-e needs one (7/8 keeps its 2+2+3). (3) **MIDI.** A file with a bar of
+32nds (31/32) is read in 32nds throughout, its 4/4 as `4/4-32`, so every bar's
+step is one length; a run of 32nds in a sixteenth-note file is still read as
+doubles and tuplet spans (13-a), as before. The Studio's time signature menu
+gains _Another…_ (beats, beat value, grid); the explore and Patterns filters
+list the named meters only. The share code writes the key as it is, under v10;
+16-c's v11 makes that a version an older reader refuses. Engraving draws 32nd
+beams and rests and half rests; the click counts eighths four steps apart in
+32nds.
+
 **Urgent: the six limits the audit found (asked for by the owner on
 2026-11-01).** The owner's call: the app is adapted to all six, as urgent
 fixes, not ruled out. They land with 16-b and before 16-e reaches their rows

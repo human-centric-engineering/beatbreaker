@@ -1341,6 +1341,18 @@
 }
 .bb .field > label,
 .bb .fieldhead > label,
+/* Another time signature (D83): beats / beat value, then the grid, on one line */
+.bb .meterbuild {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+.bb .meterbuild input {
+  width: 4.5em;
+}
+
 .bb .field > .fieldlab {
   font-family: var(--f-mono);
   font-size: 10px;

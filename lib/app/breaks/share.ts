@@ -1,5 +1,5 @@
 import { BASE_LANES, LANES, percRoster } from '@/lib/app/breaks/lanes';
-import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
+import { DEFAULT_METER, isMeterKey, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { LAYER_V1_TO_V2 } from '@/lib/app/breaks/layers';
 import {
   clonePoly,
@@ -277,7 +277,7 @@ export function withoutExtraSections(doc: BreakDoc): BreakDoc {
  * pasted code goes through.
  */
 export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Pattern {
-  const mk = p.mt && METERS[p.mt] ? p.mt : DEFAULT_METER;
+  const mk = isMeterKey(p.mt) ? p.mt : DEFAULT_METER;
   const n = stepsOf(meterOf(mk));
 
   /* The style key is kept as written. v3 and earlier substituted `'funk'` for a

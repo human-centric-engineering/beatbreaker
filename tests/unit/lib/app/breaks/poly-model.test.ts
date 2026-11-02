@@ -106,7 +106,7 @@ describe('on the wire', () => {
     );
     expect(sharePayloadSchema.safeParse(bad({ ...THREE_TWO, beat: 0 })).success).toBe(false);
     expect(sharePayloadSchema.safeParse(bad({ ...THREE_TWO, count: 1 })).success).toBe(false);
-    expect(sharePayloadSchema.safeParse(bad({ ...THREE_TWO, beat: 32, count: 16 })).success).toBe(
+    expect(sharePayloadSchema.safeParse(bad({ ...THREE_TWO, beat: 128, count: 16 })).success).toBe(
       false
     ); // a cycle longer than eight bars of the longest meter
     expect(

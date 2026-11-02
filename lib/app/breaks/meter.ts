@@ -134,13 +134,130 @@ export const METERS: Record<string, Meter> = {
   },
 };
 
+/** The meters offered by name: the Studio's picker, the filters, the generator's tests. */
 export const METER_KEYS = Object.keys(METERS);
 export const DEFAULT_METER = '4/4';
 /** Steps in a bar of 4/4 — the length every style is written at. */
 export const STEPS = 16;
 
+/**
+ * The longest bar any meter may make, in grid steps (D85). Not a meter's
+ * length: a row is as long as its own bar's meter makes it. This bounds what
+ * a pasted code or a request can carry; 15/8 in 32nds is 60 steps, and the
+ * longest bar the records need now (7/4 in 32nds) is 56.
+ */
+export const MAX_STEPS = 128;
+/** The most beats a bar may have: 31/32 is the longest numerator a record needs. */
+const MAX_NUM = 64;
+
+/**
+ * A meter key (D83): `n/d`, with d of 2, 4, 8, 16 or 32, and a grid after a
+ * dash when the bar is not in the default one — `-8` eighths, `-32` 32nds,
+ * `-6` sextuplets (six to the quarter, quarter-note beats only).
+ * The default grid is sixteenths, or 32nds in a meter of 32nds. Every key in
+ * {@link METERS} is one of these and reads as it always has; a key is held to
+ * eight characters, the width of the column it is stored in.
+ */
+const METER_KEY = /^([1-9]\d?)\/(2|4|8|16|32)(?:-(6|8|16|32))?$/;
+
+/** Grid steps to a notated beat: the bar's grid divided into its beat. */
+function subOf(den: number, grid: string | undefined): number {
+  if (grid === '6') return den === 4 ? 6 : 0;
+  const value = grid ? Number(grid) : Math.max(16, den);
+  return value % den === 0 ? value / den : 0;
+}
+
+/**
+ * Pulse grouping from the numerator: in quarters and halves each beat is a
+ * pulse; in eighths and shorter, threes, with the two or two twos the
+ * numerator leaves at the end — 10/8 as 3+3+2+2, 13/8 as 3+3+3+2+2.
+ */
+function groupOf(num: number, den: number): number[] {
+  if (den <= 4) return new Array<number>(num).fill(1);
+  if (num <= 3) return [num];
+  const twos = num % 3 === 0 ? 0 : num % 3 === 2 ? 1 : 2;
+  return [...new Array<number>((num - 2 * twos) / 3).fill(3), ...new Array<number>(twos).fill(2)];
+}
+
+const NOTE_NAMES: Record<number, string> = {
+  2: 'half note',
+  4: 'quarter',
+  8: 'eighth',
+  16: 'sixteenth',
+  32: '32nd',
+};
+
+const GRID_LABELS: Record<string, string> = {
+  '6': 'sextuplets',
+  '8': 'in eighths',
+  '16': 'in sixteenths',
+  '32': 'in 32nds',
+};
+
+const parsed = new Map<string, Meter | null>();
+
+/**
+ * The meter a key names, or `null` if it names none. A key in {@link METERS}
+ * is that meter; any other is built from its numerator, denominator and grid,
+ * once, so the same key is always the same object.
+ */
+export function parseMeter(key: string): Meter | null {
+  if (Object.hasOwn(METERS, key)) return METERS[key];
+  const hit = parsed.get(key);
+  if (hit !== undefined) return hit;
+  const m = buildMeter(key);
+  // only real meters are kept, and there are few enough of them to keep them all
+  if (m) parsed.set(key, m);
+  return m;
+}
+
+function buildMeter(key: string): Meter | null {
+  const match = METER_KEY.exec(key);
+  if (!match) return null;
+  const num = Number(match[1]);
+  const den = Number(match[2]);
+  const grid = match[3];
+  if (num > MAX_NUM) return null;
+  const sub = subOf(den, grid);
+  if (!sub || num * sub > MAX_STEPS) return null;
+  // one spelling to a meter: a grid is named only when it is not the default
+  if (grid && sub === subOf(den, undefined)) return null;
+  const group = groupOf(num, den);
+  const base = `${num}/${den}`;
+  const grouped =
+    group.length > 1 && group.some((g) => g !== 1) ? `, grouped ${group.join('+')}` : '';
+  return {
+    label: grid ? `${base} ${GRID_LABELS[grid]}` : base,
+    num,
+    den,
+    sub,
+    group,
+    hint: `${num} ${NOTE_NAMES[den]}${num === 1 ? '' : 's'} to the bar${grouped}.`,
+  };
+}
+
+/** How a meter key is written, for a tool's description of its `meter` field. */
+export const METER_KEY_HELP =
+  'A time signature n/d, d being 2, 4, 8, 16 or 32 (4/4, 13/8, 17/16, 31/32). A bar not in sixteenths names its grid after a dash: 4/4-8 in eighths, 7/4-32 in 32nds, 4/4-6 in sextuplets.';
+
+/** Whether a key names a meter ({@link parseMeter}). */
+export function isMeterKey(key: unknown): key is string {
+  return typeof key === 'string' && parseMeter(key) !== null;
+}
+
+/**
+ * The key for a meter's numerator, denominator and grid, in its one spelling:
+ * the grid is dropped when it is the default. `null` if they make no meter.
+ */
+export function meterKey(num: number, den: number, grid?: '6' | '8' | '16' | '32'): string | null {
+  const plain = `${num}/${den}`;
+  if (!isMeterKey(plain)) return null;
+  const key = grid && subOf(den, grid) !== subOf(den, undefined) ? `${plain}-${grid}` : plain;
+  return isMeterKey(key) ? key : null;
+}
+
 export function meterOf(key: string | undefined): Meter {
-  return METERS[key ?? ''] ?? METERS[DEFAULT_METER];
+  return (key && parseMeter(key)) || METERS[DEFAULT_METER];
 }
 
 /** The meter every style in the table is written in. */
@@ -238,7 +355,9 @@ export function countLabelsOf(m: Meter): string[] {
     if (m.sub === 4) out.push(n, 'e', '+', 'a');
     else if (m.sub === 6) out.push(n, 'la', 'li', '+', 'la', 'li');
     else if (m.sub === 2) out.push(n, '+');
-    else out.push(n);
+    // 32nds to a quarter: the sixteenths are named, the 32nds between them not
+    else if (m.sub === 8 && m.den === 4) out.push(n, '', 'e', '', '+', '', 'a', '');
+    else out.push(n, ...new Array<string>(m.sub - 1).fill(''));
   }
   countCache.set(m, out);
   return out;
@@ -274,6 +393,12 @@ export function remapStep(step: number, from: Meter, to: Meter): number {
   else if (isEighths(to) && from.sub === 6) off = [0, -1, -1, 1, -1, -1][off] ?? -1;
   else if (isEighths(from) && to.sub === 4) off *= 2;
   else if (isEighths(from) && to.sub === 6) off *= 3;
+  /* Into 32nds or out of them (D85): each step to the one nearest it in time. */
+  else if (
+    stepsPerQuarter(to) !== stepsPerQuarter(from) &&
+    (stepsPerQuarter(to) === 8 || stepsPerQuarter(from) === 8)
+  )
+    off = Math.round((off * stepsPerQuarter(to)) / stepsPerQuarter(from));
   /* A compound pulse is three eighths, not four sixteenths — the odd steps
      between them are not places a triplet groove has. Anything landing there is
      pulled to the nearest partial rather than left off the grid. */

@@ -145,27 +145,31 @@ new control). Give it a `<StudioHelp>` if it needs more than its name, and
 
 ## Generate
 
-| role     | name                 | where                                                                    | help              | shortcut        | target      |
-| -------- | -------------------- | ------------------------------------------------------------------------ | ----------------- | --------------- | ----------- |
-| button   | `Style <style>`      | Generate, opens the style picker                                         | the style's blurb | —               | 62px sleeve |
-| combobox | `Search the styles`  | Style picker, when open; ↑ ↓ move through the cards, Enter picks         | —                 | ↑ ↓, Enter, Esc | 44px        |
-| tab      | `Styles <n>`         | Style picker, when open                                                  | —                 | —               | 44px        |
-| tab      | `Drummers <n>`       | Style picker, when open; its search is `Search the drummers`             | —                 | —               | 44px        |
-| combobox | `Time signature`     | Generate                                                                 | —                 | —               | 36px menu   |
-| radio    | `<1\|2\|3\|4>`       | Generate, bars                                                           | —                 | —               | `Segmented` |
-| slider   | `Kick density`       | New break panel, when it is open                                         | —                 | —               | 24px        |
-| slider   | `Ghost notes`        | New break panel, when it is open                                         | —                 | —               | 24px        |
-| slider   | `Hi-hat dynamics`    | Feel on the player bar, when it is open; Generate's Feel card on a phone | —                 | —               | 24px        |
-| slider   | `Swing (16ths)`      | Feel on the player bar, when it is open; Generate's Feel card on a phone | —                 | —               | 24px        |
-| button   | `Lock <what>`        | Generate (Kick, Snare, Hats, Tempo)                                      | —                 | —               | `.mini`     |
-| button   | `New <section> only` | Generate                                                                 | —                 | —               | `.mini`     |
-| button   | `Build B from A`     | Generate                                                                 | —                 | —               | `.mini`     |
-| radio    | `The style's`        | Generate, kit lanes                                                      | ⓘ _Kit lanes_     | —               | `Segmented` |
-| radio    | `My own`             | Generate, kit lanes                                                      | ⓘ _Kit lanes_     | —               | `Segmented` |
-| checkbox | `Toms`               | Generate, kit lanes (My own)                                             | —                 | —               | 24px        |
-| combobox | `Perc <n>`           | Generate, kit lanes (My own)                                             | —                 | —               | 36px menu   |
-| button   | `About Kit lanes`    | Generate                                                                 | ⓘ                 | —               | 24px        |
-| button   | `Change it in Sound` | Generate, under the style's kit                                          | —                 | —               | 24px link   |
+| role       | name                           | where                                                                    | help              | shortcut        | target      |
+| ---------- | ------------------------------ | ------------------------------------------------------------------------ | ----------------- | --------------- | ----------- |
+| button     | `Style <style>`                | Generate, opens the style picker                                         | the style's blurb | —               | 62px sleeve |
+| combobox   | `Search the styles`            | Style picker, when open; ↑ ↓ move through the cards, Enter picks         | —                 | ↑ ↓, Enter, Esc | 44px        |
+| tab        | `Styles <n>`                   | Style picker, when open                                                  | —                 | —               | 44px        |
+| tab        | `Drummers <n>`                 | Style picker, when open; its search is `Search the drummers`             | —                 | —               | 44px        |
+| combobox   | `Time signature`               | Generate                                                                 | —                 | —               | 36px menu   |
+| spinbutton | `Beats`                        | Generate, when the time signature is Another…                            | —                 | —               | 36px        |
+| combobox   | `Beat value`                   | Generate, when the time signature is Another…                            | —                 | —               | 36px menu   |
+| combobox   | `Grid`                         | Generate, when the time signature is Another…                            | —                 | —               | 36px menu   |
+| button     | `About Another time signature` | Generate, when the time signature is Another…                            | ⓘ                 | —               | 24px        |
+| radio      | `<1\|2\|3\|4>`                 | Generate, bars                                                           | —                 | —               | `Segmented` |
+| slider     | `Kick density`                 | New break panel, when it is open                                         | —                 | —               | 24px        |
+| slider     | `Ghost notes`                  | New break panel, when it is open                                         | —                 | —               | 24px        |
+| slider     | `Hi-hat dynamics`              | Feel on the player bar, when it is open; Generate's Feel card on a phone | —                 | —               | 24px        |
+| slider     | `Swing (16ths)`                | Feel on the player bar, when it is open; Generate's Feel card on a phone | —                 | —               | 24px        |
+| button     | `Lock <what>`                  | Generate (Kick, Snare, Hats, Tempo)                                      | —                 | —               | `.mini`     |
+| button     | `New <section> only`           | Generate                                                                 | —                 | —               | `.mini`     |
+| button     | `Build B from A`               | Generate                                                                 | —                 | —               | `.mini`     |
+| radio      | `The style's`                  | Generate, kit lanes                                                      | ⓘ _Kit lanes_     | —               | `Segmented` |
+| radio      | `My own`                       | Generate, kit lanes                                                      | ⓘ _Kit lanes_     | —               | `Segmented` |
+| checkbox   | `Toms`                         | Generate, kit lanes (My own)                                             | —                 | —               | 24px        |
+| combobox   | `Perc <n>`                     | Generate, kit lanes (My own)                                             | —                 | —               | 36px menu   |
+| button     | `About Kit lanes`              | Generate                                                                 | ⓘ                 | —               | 24px        |
+| button     | `Change it in Sound`           | Generate, under the style's kit                                          | —                 | —               | 24px link   |
 
 ## Edit
 

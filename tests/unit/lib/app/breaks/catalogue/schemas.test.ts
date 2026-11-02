@@ -77,7 +77,7 @@ describe('styleParamsSchema', () => {
     ['a negative weight', { kick1: [['1000', -1]] }],
     ['a non-finite weight', { kick1: [['1000', Number.POSITIVE_INFINITY]] }],
     ['a kick cell that is not four bits', { kick1: [['10', 1]] }],
-    ['a step index off the end of any bar', { backbeats: [64] }],
+    ['a step index off the end of any bar', { backbeats: [128] }],
     ['a tempo range the wrong way round', { bpm: [160, 90] }],
     ['a hat subdivision that is neither 8 nor 16', { hats: 12 }],
     ['an ostinato that never advances', { perc: [{ every: 0 }] }],

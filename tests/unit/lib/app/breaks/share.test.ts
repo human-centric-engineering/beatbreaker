@@ -8,6 +8,7 @@ import { describe, expect, it } from 'vitest';
 
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { LANES } from '@/lib/app/breaks/lanes';
+import { MAX_STEPS } from '@/lib/app/breaks/meter';
 import { setPin, styleAttrs } from '@/lib/app/breaks/pattern';
 import { patternSchema, sharePayloadSchema, storedPayloadSchema } from '@/lib/app/breaks/schema';
 import {
@@ -268,12 +269,12 @@ describe('sharePayloadSchema is strict about what is present (H6)', () => {
     ['a value the lane does not have (a crash of 3)', { b: ['0|0|0|0|3000'] }],
     ['a foot chick accented', { b: ['0|0|0|0|0|0|0|0|2000'] }],
     ['more lanes than there are', { b: [Array(12).fill('0').join('|')] }],
-    ['a lane longer than any meter', { b: ['0'.repeat(33)] }],
+    ['a lane longer than any meter', { b: ['0'.repeat(MAX_STEPS + 1)] }],
     ['an unknown percussion instrument', { pc: { p1: 'kazoo' } }],
     ['a percussion slot that does not exist', { pc: { p3: 'cowbell' } }],
     ['a negative seed', { sd: -1 }],
     ['a seed wider than 32 bits', { sd: 2 ** 33 }],
-    ['a backbeat off the end of any bar', { bb: [4, 99] }],
+    ['a backbeat off the end of any bar', { bb: [4, MAX_STEPS] }],
     ['a pin that is not a layer', { pn: [{ s: '0090' }] }],
   ])('refuses %s', (_label, A) => {
     expect(ok(A)).toBe(false);
@@ -346,10 +347,16 @@ describe('storedPayloadSchema', () => {
   });
 
   it('trims extra lanes and over-long rows', () => {
-    const [b] = stored({ b: [Array(13).fill('0'.repeat(40)).join('|')] }).b;
+    const [b] = stored({
+      b: [
+        Array(13)
+          .fill('0'.repeat(MAX_STEPS + 8))
+          .join('|'),
+      ],
+    }).b;
     const rows = b.split('|');
     expect(rows).toHaveLength(11);
-    expect(rows.every((r) => r.length === 32)).toBe(true);
+    expect(rows.every((r) => r.length === MAX_STEPS)).toBe(true);
   });
 
   it('keeps known instruments, drops the rest, and wraps the seed to 32 bits', () => {
@@ -360,7 +367,7 @@ describe('storedPayloadSchema', () => {
 
   it('drops backbeats, lanes and pins it cannot use', () => {
     const A = stored({
-      bb: [4, -1, 99, 12, 1.5],
+      bb: [4, -1, MAX_STEPS, 12, 1.5],
       ln: ['k', 'zz', 's', 7],
       pn: [{ s: '0090' }, 'x'],
     });

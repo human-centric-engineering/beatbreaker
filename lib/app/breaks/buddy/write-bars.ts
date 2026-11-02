@@ -11,7 +11,7 @@ import {
 import { type EditData, describeEdit, editWorkspace } from '@/lib/app/breaks/buddy/edit';
 import { HANDS_CHECK, playability } from '@/lib/app/breaks/critic';
 import { DEFAULT_PERC, LANES, PERC_LANES } from '@/lib/app/breaks/lanes';
-import { METER_KEYS, meterOf, remapList } from '@/lib/app/breaks/meter';
+import { METER_KEY_HELP, isMeterKey, meterOf, remapList } from '@/lib/app/breaks/meter';
 import { clonePattern, tidySticking } from '@/lib/app/breaks/pattern';
 import { type LimbProblem, limbProblems } from '@/lib/app/breaks/physical';
 import { keepPolySpans } from '@/lib/app/breaks/poly-fill';
@@ -70,10 +70,7 @@ const schema = z.object({
   section: z.enum(SECTION_LETTERS),
   text: z.string().min(1).max(8000),
   whole: z.boolean().default(false),
-  meter: z
-    .string()
-    .refine((m) => METER_KEYS.includes(m), 'unknown meter')
-    .optional(),
+  meter: z.string().refine(isMeterKey, 'unknown meter').optional(),
   tempo: z
     .array(
       z.object({
@@ -323,9 +320,7 @@ export class WriteBarsCapability extends BaseCapability<Args, EditData> {
         },
         meter: {
           type: 'string',
-          enum: METER_KEYS,
-          description:
-            "Time signature of the bars written. Only with whole: true; defaults to the section's.",
+          description: `${METER_KEY_HELP} The meter of the bars written. Only with whole: true; defaults to the section's.`,
         },
         tempo: {
           type: 'array',

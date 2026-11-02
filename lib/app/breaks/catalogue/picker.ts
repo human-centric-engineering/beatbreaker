@@ -1,4 +1,4 @@
-import { METERS, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
+import { DEFAULT_METER, parseMeter, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
 import { YOUR_STYLES_GROUP } from '@/lib/app/breaks/catalogue/prefer';
 import { partKey, songBpm, songParts, withSong } from '@/lib/app/breaks/songs';
 import type { CatalogueKit, CatalogueStyle } from '@/lib/app/breaks/catalogue/types';
@@ -58,7 +58,7 @@ export function feelLabel(st: Style): string {
 }
 
 function meterLabel(st: Style): string {
-  return METERS[st.meter ?? '4/4']?.label ?? st.meter ?? '4/4';
+  return parseMeter(st.meter ?? DEFAULT_METER)?.label ?? st.meter ?? DEFAULT_METER;
 }
 
 /**

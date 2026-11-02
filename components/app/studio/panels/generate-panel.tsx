@@ -6,6 +6,7 @@ import type { Tool } from '@/components/app/shell/tool-rail';
 import { PolyrhythmsCard } from '@/components/app/studio/panels/polyrhythms-card';
 import { RudimentsCard } from '@/components/app/studio/panels/rudiments-card';
 import { ScoreCard } from '@/components/app/studio/panels/score-card';
+import { MeterField } from '@/components/app/studio/meter-field';
 import { FeelDeck } from '@/components/app/studio/player/feel-deck';
 import { PLAYER_WIDE, useMedia } from '@/components/app/studio/player/use-media';
 import { Segmented } from '@/components/app/studio/segmented';
@@ -18,7 +19,7 @@ import { SelectMenu } from '@/components/app/ui/select-menu';
 import { pickerSections } from '@/lib/app/breaks/catalogue/picker';
 import { noStyleReason } from '@/lib/app/breaks/library';
 import { BASE_LANES, PERC_INSTS, PERC_KEYS, PERC_LANES, laneName } from '@/lib/app/breaks/lanes';
-import { METERS, METER_KEYS, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
+import { meterOf, pulseInfo } from '@/lib/app/breaks/meter';
 import { type CustomLanes, resolveLanes } from '@/lib/app/breaks/pattern';
 import { songOf } from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
@@ -102,12 +103,7 @@ export function GeneratePanel({
 
           <div className="field">
             <label htmlFor="bb-meter">Time signature</label>
-            <SelectMenu
-              id="bb-meter"
-              value={c.meter}
-              onValueChange={c.setMeter}
-              options={METER_KEYS.map((k) => ({ value: k, label: METERS[k].label }))}
-            />
+            <MeterField value={c.meter} onChange={c.setMeter} />
             <div className="hint">
               {meter.hint}
               {pulse ? (

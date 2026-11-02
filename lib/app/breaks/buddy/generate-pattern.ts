@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { TEMPO_TOP, maxBpm, maxBpmOf } from '@/lib/app/breaks/audio/transport';
 import { type EditData, describeEdit, editWorkspace } from '@/lib/app/breaks/buddy/edit';
-import { DEFAULT_METER, METER_KEYS } from '@/lib/app/breaks/meter';
+import { DEFAULT_METER, METER_KEY_HELP, isMeterKey } from '@/lib/app/breaks/meter';
 import { lettersOf } from '@/lib/app/breaks/sections';
 import { withoutExtraSections } from '@/lib/app/breaks/share';
 import { songBreak, songForSeed } from '@/lib/app/breaks/song-break';
@@ -28,10 +28,7 @@ import type {
 
 const schema = z.object({
   style: z.string().min(1).max(40),
-  meter: z
-    .string()
-    .refine((m) => METER_KEYS.includes(m), 'unknown meter')
-    .optional(),
+  meter: z.string().refine(isMeterKey, 'unknown meter').optional(),
   bars: z.number().int().min(1).max(8).default(2),
   density: z.number().min(0).max(100).default(55),
   ghosts: z.number().min(0).max(100).default(60),
@@ -56,8 +53,7 @@ export class GeneratePatternCapability extends BaseCapability<Args, EditData> {
         style: { type: 'string', description: 'A style key from list_styles.' },
         meter: {
           type: 'string',
-          enum: METER_KEYS,
-          description: "Time signature. Defaults to the style's own.",
+          description: `${METER_KEY_HELP} Defaults to the style's own.`,
         },
         bars: {
           type: 'integer',
