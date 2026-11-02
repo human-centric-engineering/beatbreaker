@@ -207,7 +207,14 @@ describe('StepEditor tuplets', () => {
     const pat = {
       ...pattern(),
       tuplets: [
-        { bar: 0, start: 8, span: 4, n: 3, notes: { k: [1, 0, 0], s: [0, 0, 0], h: [1, 1, 1] } },
+        {
+          bar: 0,
+          start: 8,
+          span: 4,
+          n: 3,
+          notes: { k: [1, 0, 0], h: [1, 1, 1] },
+          grid: true as const,
+        },
       ],
     };
     render(
@@ -222,11 +229,13 @@ describe('StepEditor tuplets', () => {
         section="A"
       />
     );
-    // every lane draws the beat as three
+    // every lane draws the beat as three, the snare resting in it too
     expect(document.querySelectorAll('.tuplet[data-n="3"]')).toHaveLength(3);
     fireEvent.contextMenu(
       screen.getByRole('button', { name: /Snare, bar 1, 3 in the beat, note 2/ })
     );
+    // a beat grid goes back whole, not a lane at a time
+    expect(screen.queryByRole('menuitem', { name: /remove the 3/ })).toBeNull();
     await user.click(
       screen.getByRole('menuitem', { name: 'Whole beat back to the grid (from 3)' })
     );

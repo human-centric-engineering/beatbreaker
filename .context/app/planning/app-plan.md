@@ -5138,22 +5138,28 @@ beams and rests and half rests; the click counts eighths four steps apart in
 **16-b-iv built (2026-11-02, branch `phase-16b-iv-beat-grids`):** D84 and D87,
 with one call made in the building. **A beat grid is a tuplet span, not a
 second kind of step.** A beat put on a grid of its own (triplets beside
-sixteenths, a quintuplet) is a 12-d span over the whole pulse group on every
-lane of the roster. Spans already played, engraved, read and wrote MIDI,
-went through the critic, the drummer, the text and BeatBuddy, and took 2 to
-9 notes (the grids of 5, 7 and 9 D87 asks for), so the bar's steps stay one
-length and nothing that turns steps into time changes. A bar of two beats of
-sixteenths, a beat of triplets and a quintuplet plays, engraves, round-trips
-MIDI and edits in the Studio (`beat-grids.test.ts`). What is new: the
-Studio's cell picker offers **Whole beat in n** and **Whole beat back to the
-grid**, carrying each note to the step nearest it and back where it lands
-on the grid; the chart beams a span on the voice's own beam where the grid
-has nothing under it, so the beat reads as written rather than as a figure
-over rests; the MIDI reader lets a lane with one or two notes on a beat's
-tuplet join it (the quintuplet's lone snare was rounded to a sixteenth); a
-written section carries `tuplets`, each row as digits; and a pattern holds
-`TUPLETS_A_BAR` (32) spans a bar, not 64 in all. A beat grid needs no wire
-change: a v8 code carries spans already.
+sixteenths, a quintuplet) is a 12-d span over its whole pulse group marked
+`grid`: it holds every lane of those steps, a lane with no row resting there,
+so a lane added later or a written section's rows for the lanes it plays
+still make it the beat's grid. Spans already played, engraved, read and wrote
+MIDI, went through the critic, the drummer, the text and BeatBuddy, and took
+2 to 9 notes (the grids of 5, 7 and 9 D87 asks for), so the bar's steps stay
+one length and nothing that turns steps into time changes. A bar of two beats
+of sixteenths, a beat of triplets and a quintuplet plays, engraves, round-trips
+MIDI and edits in the Studio (`beat-grids.test.ts`). What is new: the Studio's
+cell picker offers **Whole beat in n** where the layer shows a tuplet on every
+lane, and **Whole beat back to the grid**, carrying each note — the grid's,
+and any figure's inside the beat — to the step nearest it and back, two that
+want one step sharing the step either side before the louder keeps it; the
+chart beams a span on the voice's own beam where nothing else of the voice is
+drawn in its steps; the MIDI reader lets a lane with one or two notes on a
+beat's tuplet join it (the quintuplet's lone snare was rounded to a
+sixteenth), but reads a beat back as figures, not as a grid (they sound the
+same; telling one from the other is a guess); a written section carries
+`tuplets`, each row as digits, `grid` for a beat's own; and a pattern holds
+`TUPLETS_A_BAR` (32) spans a bar, never fewer than the 64 any pattern held
+before, so a short break saved then still reads. The wire carries `grid` as
+`g` in a v8 span, optional and additive.
 
 **Urgent: the six limits the audit found (asked for by the owner on
 2026-11-01).** The owner's call: the app is adapted to all six, as urgent

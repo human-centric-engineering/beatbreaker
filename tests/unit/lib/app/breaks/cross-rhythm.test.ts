@@ -350,11 +350,11 @@ describe('what it refuses, and says why', () => {
   });
 
   it('a study whose spans would pass the most a pattern holds', () => {
-    // three over every two steps of a bar of 16/4 in 32nds: 64 spans, past the 32 a bar holds
-    const r = crossRhythm(pattern('16/4-32', 1), { ...threeTwo, cycle: 2 });
+    // three over every two steps of two bars of 16/4 in 32nds: 128 spans, past the 64 they hold
+    const r = crossRhythm(pattern('16/4-32', 2), { ...threeTwo, cycle: 2 });
     expect(r).toEqual({
       ok: false,
-      reason: expect.stringMatching(/past the 32 a pattern of 1 bar holds/),
+      reason: expect.stringMatching(/past the 64 a pattern of 2 bars holds/),
     });
     // nine bars of 4/4, three over every eighth, are well inside
     expect(crossRhythm(pattern('4/4', 9), { ...threeTwo, cycle: 2 }).ok).toBe(true);

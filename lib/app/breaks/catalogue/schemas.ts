@@ -2,7 +2,14 @@ import { z } from 'zod';
 
 import { LANES, LANE_VALUES, PERC_KEYS } from '@/lib/app/breaks/lanes';
 import type { LaneKey } from '@/lib/app/breaks/types';
-import { DEFAULT_METER, MAX_STEPS, isMeterKey, meterOf, stepsOf } from '@/lib/app/breaks/meter';
+import {
+  DEFAULT_METER,
+  MAX_STEPS,
+  groupsOf,
+  isMeterKey,
+  meterOf,
+  stepsOf,
+} from '@/lib/app/breaks/meter';
 import {
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
@@ -334,14 +341,6 @@ const tempoPointSchema = z.object({
   to: z.custom<number>(isPointRatio, 'a ramp gets to ×¼ to ×4').optional(),
 });
 
-/**
- * One part of a song written in sections: its letter, a label, and the params
- * laid over the song's. Its aliases are the keys it had as a song of its own.
- *
- * A **written** section is the record's bars, in order, one figure a bar: New
- * writes them as they are, so it takes no grooves or fills to draw from, and
- * its length is the bars written.
- */
 /** A tuplet or beat grid in a written section (D84, D87); held to its bar by the style's check. */
 const sectionTupletSchema = z
   .object({
@@ -354,16 +353,19 @@ const sectionTupletSchema = z
     span: z.number().int().min(1).max(MAX_STEPS),
     n: z.number().int().min(MIN_TUPLET).max(MAX_TUPLET),
     notes: z.partialRecord(z.enum(LANES as [LaneKey, ...LaneKey[]]), z.string().regex(/^[0-8.]+$/)),
+    /** the beat's own grid, every lane (D84); its values are held to its lanes by `tupletFits` */
+    grid: z.literal(true).optional(),
   })
-  .refine((t) => Object.values(t.notes).every((row) => row?.length === t.n), 'a row of n notes')
-  .refine(
-    (t) =>
-      (Object.entries(t.notes) as [LaneKey, string][]).every(([L, row]) =>
-        [...row].every((ch) => ch === '.' || Number(ch) <= LANE_VALUES[L].length)
-      ),
-    'a step value that lane does not have'
-  );
+  .refine((t) => Object.values(t.notes).every((row) => row?.length === t.n), 'a row of n notes');
 
+/**
+ * One part of a song written in sections: its letter, a label, and the params
+ * laid over the song's. Its aliases are the keys it had as a song of its own.
+ *
+ * A **written** section is the record's bars, in order, one figure a bar: New
+ * writes them as they are, so it takes no grooves or fills to draw from, and
+ * its length is the bars written.
+ */
 const songSectionSchema = z
   .object({
     letter: z.enum(SECTION_LETTERS),
@@ -554,15 +556,23 @@ export const styleParamsSchema = styleFields
           if (n && !tupletFits(t, n, bars))
             ctx.addIssue({
               code: 'custom',
-              message: `a tuplet inside one of the ${bars} written bars of ${n} steps, off the grid`,
+              message: `a tuplet inside one of the ${bars} written bars of ${n} steps, off the grid, each value one its lane has`,
               path: ['songs', i, 'sections', j, 'tuplets', k],
             });
         });
-        if (
-          n &&
-          tupletsOf({ tuplets: spans, bars: x.written?.map(() => emptyBar(n)) ?? [] }).length <
-            spans.length
-        )
+        const beats = isMeterKey(meter) ? groupsOf(meterOf(meter)) : [];
+        spans.forEach((t, k) => {
+          if (t.grid && !beats.some((g) => g.start === t.start && g.size === t.span))
+            ctx.addIssue({
+              code: 'custom',
+              message: `a beat's own grid covers one whole beat of ${meter}`,
+              path: ['songs', i, 'sections', j, 'tuplets', k],
+            });
+        });
+        // among those that fit: one that does not is said above, not again here
+        const fit = n ? spans.filter((t) => tupletFits(t, n, bars)) : [];
+        const shape = x.written?.map(() => emptyBar(n)) ?? [];
+        if (tupletsOf({ tuplets: fit, bars: shape }).length < fit.length)
           ctx.addIssue({
             code: 'custom',
             message: 'a lane is in one tuplet at a time',

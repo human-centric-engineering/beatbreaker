@@ -297,10 +297,12 @@ export const tupletSpanSchema = z
     span: z.number().int().min(1).max(MAX_ROW),
     n: z.number().int().min(MIN_TUPLET).max(MAX_TUPLET),
     notes: z.partialRecord(typedLane, tupletRow),
+    /** the beat's own grid (D84): it may rest on every lane */
+    grid: z.literal(true).optional(),
   })
   .refine((s) => s.start + s.span <= MAX_ROW, 'a span past the end of any bar')
   .refine((s) => Object.values(s.notes).every((row) => row?.length === s.n), 'a row of n notes')
-  .refine((s) => Object.keys(s.notes).length > 0, 'a span plays at least one lane')
+  .refine((s) => s.grid || Object.keys(s.notes).length > 0, 'a span plays at least one lane')
   .refine((s) => laneValuesOk(s.notes), 'a step value that lane does not have');
 
 /**
@@ -326,10 +328,16 @@ const packedTupletSchema = z
         .max(MAX_TUPLET)
         .regex(/^[0-8]*$/)
     ),
+    /**
+     * the beat's own grid (16-b-iv, D84): optional and additive, as `sk` is —
+     * an older reader plays the same notes as a figure over the grid (a beat grid
+     * resting on every lane, with no row to play, it refuses)
+     */
+    g: z.literal(1).optional(),
   })
   .refine((t) => t.a + t.s <= MAX_ROW, 'a span past the end of any bar')
   .refine((t) => Object.values(t.x).every((row) => row?.length === t.n), 'a row of n notes')
-  .refine((t) => Object.keys(t.x).length > 0, 'a span plays at least one lane')
+  .refine((t) => t.g === 1 || Object.keys(t.x).length > 0, 'a span plays at least one lane')
   .refine((t) => laneValuesOk(t.x), 'a step value that lane does not have');
 
 const packedTuplets = z.array(packedTupletSchema).max(MAX_TUPLETS);

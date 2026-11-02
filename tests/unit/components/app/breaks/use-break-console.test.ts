@@ -744,8 +744,10 @@ describe('generating and editing', () => {
     });
     expect(ok).toBe(true);
     const grid = result.current.patterns.A?.tuplets?.find((t) => t.start === 8);
-    expect(grid).toMatchObject({ bar: 0, start: 8, span: 4, n: 5 });
-    expect(Object.keys(grid?.notes ?? {}).sort()).toEqual([...lanes].sort());
+    expect(grid).toMatchObject({ bar: 0, start: 8, span: 4, n: 5, grid: true });
+    // the beat's cells are the five's on every lane
+    for (const L of lanes)
+      expect(result.current.patterns.A?.bars[0][L].slice(8, 12)).toEqual([0, 0, 0, 0]);
     act(() => {
       ok = result.current.editTuplet('A', 0, 'k', 8, { kind: 'unbeat' });
     });

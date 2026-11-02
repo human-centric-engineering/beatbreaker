@@ -481,19 +481,22 @@ describe('the limits a writer keeps', () => {
   it('refuses a span past the most a pattern holds, so many a bar, and joins one still', () => {
     const pat = pattern({}, [emptyBar(16)]);
     let made = 0;
-    // a three, a five and a seven in every step of one bar, a lane each: 48 spans asked for
-    const counts = { s: 3, k: 5, t1: 7 } as const;
-    for (const L of ['s', 'k', 't1'] as const)
+    // a different count in every step of one bar on five lanes: 80 spans asked for
+    const counts = { s: 3, k: 5, t1: 7, t2: 9, t3: 6 } as const;
+    for (const L of ['s', 'k', 't1', 't2', 't3'] as const)
       for (let start = 0; start < 16; start++)
         if (addTuplet(pat, 0, L, start, 1, counts[L])) made++;
-    expect(made).toBe(TUPLETS_A_BAR);
+    // a bar or two hold what any pattern could before; longer ones, 32 a bar
+    expect(maxTuplets(1)).toBe(64);
+    expect(maxTuplets(3)).toBe(3 * TUPLETS_A_BAR);
+    expect(made).toBe(maxTuplets(1));
     expect(tupletsOf(pat)).toHaveLength(maxTuplets(1));
     // joining a span there already is no new span
     const first = tupletsOf(pat)[0];
-    expect(addTuplet(pat, first.bar, 't2', first.start, first.span, first.n)).toBe(true);
-    expect(tupletsOf(pat)).toHaveLength(TUPLETS_A_BAR);
-    // a second bar holds as many again
-    pat.bars.push(emptyBar(16));
+    expect(addTuplet(pat, first.bar, 'h', first.start, first.span, first.n)).toBe(true);
+    expect(tupletsOf(pat)).toHaveLength(maxTuplets(1));
+    // a third bar holds more
+    pat.bars.push(emptyBar(16), emptyBar(16));
     expect(addTuplet(pat, 1, 's', 0, 4, 5)).toBe(true);
   });
 

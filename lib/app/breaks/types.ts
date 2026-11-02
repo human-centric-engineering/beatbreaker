@@ -221,6 +221,12 @@ export interface TupletSpan {
   n: number;
   /** Per lane, `n` values in the lane's own values (as {@link Bar}'s). */
   notes: Partial<Record<LaneKey, number[]>>;
+  /**
+   * The beat's own grid (D84): the span is its whole beat on every lane, a
+   * lane without a row resting there, rather than a figure over the bar's
+   * grid on the lanes it names.
+   */
+  grid?: true;
 }
 
 export interface Pattern {
@@ -384,8 +390,8 @@ export type KickCell = string;
 export type Figure = Partial<Record<LaneKey, string>>;
 
 /**
- * A tuplet in a written section (D87): a figure laid over its bar's grid, or a
- * beat on a grid of its own when every lane the bar plays has a row (D84).
+ * A tuplet in a written section (D87): a figure laid over its bar's grid, or,
+ * with `grid`, a beat on a grid of its own (D84).
  * `bar` counts the section's written bars from 0; each row is `n` notes, one
  * digit a note and `.` for none, as a figure's are.
  */
@@ -395,6 +401,8 @@ export interface SectionTuplet {
   span: number;
   n: number;
   notes: Partial<Record<LaneKey, string>>;
+  /** The beat's own grid, every lane (D84): {@link TupletSpan.grid}. */
+  grid?: true;
 }
 
 /**

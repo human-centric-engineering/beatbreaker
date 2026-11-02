@@ -1133,12 +1133,18 @@ function drawVoice(ctx: VoiceCtx): void {
     }))
     .filter((t) => tupletLanes(t).length);
   const covered = (i: number) => mine.some((t) => i >= t.start && i < t.start + t.span);
-  // whether the grid has no note of this voice under a span: it is then the beat's own
+  /* Whether nothing else of this voice is drawn in a span's steps — no note
+     of the grid's, no ghost a layer up, no other span — so it is the beat's
+     own and takes the voice's beam. */
   const voiceLanes = (Object.keys(bar) as LaneKey[]).filter(
     (L) => !LANE_DEFS[L].perc && UPPER_LANES.includes(L) === up
   );
+  const empty = (b: Bar | null, t: TupletSpan) =>
+    !b || voiceLanes.every((L) => !b[L]?.slice(t.start, t.start + t.span).some(Boolean));
   const alone = (t: TupletSpan) =>
-    voiceLanes.every((L) => !bar[L].slice(t.start, t.start + t.span).some(Boolean));
+    empty(bar, t) &&
+    empty(gbar, t) &&
+    !mine.some((o) => o !== t && o.start < t.start + t.span && t.start < o.start + o.span);
   for (const t of mine) drawTuplet(ctx, t, alone(t));
   const slashed = new Set<number>();
   for (const t of ctx.doubles) {

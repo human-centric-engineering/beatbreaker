@@ -198,6 +198,7 @@ export function packPattern(p: Pattern): PackedPattern {
             s: t.span,
             n: t.n,
             x: Object.fromEntries(tupletLanes(t).map((L) => [L, t.notes[L]?.join('')])),
+            ...(t.grid ? { g: 1 as const } : {}),
           })),
         }
       : {}),
@@ -352,6 +353,7 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
             notes: Object.fromEntries(
               Object.entries(t.x).map(([L, row]) => [L, [...(row ?? '')].map(Number)])
             ),
+            ...(t.g ? { grid: true as const } : {}),
           })),
         }
       : {}),

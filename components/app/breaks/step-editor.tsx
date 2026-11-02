@@ -452,11 +452,18 @@ export function StepEditor({
     const g = groupsOf(m)[groupAt(m, c.step)];
     return g ? tupletChoices(g.size) : [];
   };
-  /** The grids the whole of a cell's beat may be put on (D84): its tuplets, but not doubles. */
+  /**
+   * The grids the whole of a cell's beat may be put on (D84): its tuplets but
+   * not doubles, where the layer shows a tuplet on every lane the beat holds.
+   */
   const beatChoicesAt = (c: CellAt): number[] => {
     const g = groupsOf(m)[groupAt(m, c.step)];
-    return g ? choicesAt(c).filter((n) => n !== 2 * g.size) : [];
+    if (!g || !onTuplet || !view.lanes.every((L) => canTuplet?.(L))) return [];
+    return tupletChoices(g.size).filter((n) => n !== 2 * g.size);
   };
+  /** The beat grid a picker's note is in, as stored (the pattern an edit changes), where it may be given back. */
+  const beatGridOf = (c: CellAt): TupletSpan | undefined =>
+    onTuplet && canTuplet?.(c.lane) ? beatGridAt(stored, c.bar, c.step) : undefined;
   const closePicker = () => {
     setPicker(null);
     opener.current?.focus();
@@ -869,13 +876,9 @@ export function StepEditor({
             }}
             tuplets={picker.tuplet ? [] : choicesAt(picker)}
             beatGrids={picker.tuplet ? [] : beatChoicesAt(picker)}
-            inBeatGrid={
-              picker.tuplet && beatGridAt(view, picker.bar, picker.step)
-                ? picker.tuplet.span.n
-                : undefined
-            }
+            inBeatGrid={picker.tuplet ? beatGridOf(picker)?.n : undefined}
             canDouble={!picker.tuplet && !!onTuplet && !!canTuplet?.(picker.lane)}
-            inTuplet={picker.tuplet ? picker.tuplet.span.n : undefined}
+            inTuplet={picker.tuplet && !picker.tuplet.span.grid ? picker.tuplet.span.n : undefined}
             inDouble={!!picker.tuplet && twoAStep(picker.tuplet.span)}
             onTuplet={(edit) => {
               // a double gives back the step of the note the picker is on (13-a)
@@ -1255,7 +1258,8 @@ function TupletCells({
   onTap: (j: number, value: number) => void;
   onPick: (j: number, el: HTMLElement) => void;
 }) {
-  const row = span.notes[lane] ?? [];
+  // a lane resting in a beat grid (D84) has its cells, empty, and no row yet
+  const row = span.notes[lane] ?? Array<number>(span.n).fill(0);
   const width: React.CSSProperties & { '--span'?: number } = { '--span': span.span };
   /* Held, a note opens its picker as a grid cell's does: a touch screen has
      no right click, and the picker is the way back to the grid. */
