@@ -1,6 +1,6 @@
 import type { StepAnchor } from '@/lib/app/breaks/engrave';
 import type { MaybeSections, SectionLetter } from '@/lib/app/breaks/sections';
-import { ordinal } from '@/lib/app/ordinal';
+import { ordinal } from '@/lib/app/breaks/ordinal';
 
 /**
  * A loop over a range of bars (16-b-vi): from bar `from` of arrangement slot

@@ -11,7 +11,7 @@ import {
   VIDEO_RULE,
 } from '@/lib/app/breaks/community/video-links';
 import { layerNameIn, layerNamesFor, recordedLevel } from '@/lib/app/breaks/layers';
-import { ordinal } from '@/lib/app/ordinal';
+import { ordinal } from '@/lib/app/breaks/ordinal';
 import type { PinTarget } from '@/lib/validations/pins';
 import { SPEED_NOTE_MAX, type SpeedRecordView } from '@/lib/validations/speeds';
 

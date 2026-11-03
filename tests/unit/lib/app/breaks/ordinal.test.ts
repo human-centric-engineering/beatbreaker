@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { ordinal } from '@/lib/app/ordinal';
+import { ordinal } from '@/lib/app/breaks/ordinal';
 
 describe('ordinal', () => {
   it('names a count as a place, the teens all th', () => {
