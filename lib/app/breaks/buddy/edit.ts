@@ -5,6 +5,7 @@ import {
   viewSection,
 } from '@/lib/app/breaks/buddy/describe';
 import { readWorkspace, writeWorkspace } from '@/lib/app/breaks/buddy/workspace';
+import type { BrushedSection } from '@/lib/app/breaks/catalogue/brushes';
 import { listStyles, styleLookup } from '@/lib/app/breaks/catalogue/data';
 import type { CatalogueStyle } from '@/lib/app/breaks/catalogue/types';
 import { type SharePayload, sharePayloadSchema } from '@/lib/app/breaks/schema';
@@ -120,7 +121,9 @@ export async function editWorkspace<T>(
 export function describeEdit(
   before: BreakDoc,
   after: BreakDoc,
-  sections: readonly Section[]
+  sections: readonly Section[],
+  // which sections play on brushes (D86), to judge their hands as brushes
+  brushed?: BrushedSection
 ): { changes: SectionChange[]; sections: SectionView[] } {
   /* A section the edit took away has nothing to read back. */
   const kept = sections.flatMap((s) => {
@@ -129,7 +132,9 @@ export function describeEdit(
   });
   return {
     changes: kept.map(({ s, pat }) => ({ section: s, bars: changedBars(before[s], pat) })),
-    sections: kept.map(({ s, pat }) => viewSection(pat, s, after.bpm, after.swing)),
+    sections: kept.map(({ s, pat }) =>
+      viewSection(pat, s, after.bpm, after.swing, !!brushed?.(pat))
+    ),
   };
 }
 

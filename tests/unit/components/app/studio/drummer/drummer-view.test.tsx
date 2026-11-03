@@ -222,8 +222,8 @@ describe('DrummerView, with WebGL available', () => {
     stubWebGL(true);
     const DrummerView = await loadDrummerView();
     const kits = { drs: { label: 'DRS kit' }, brush: { label: 'Brush kit', brushes: true } };
-    const withKit = (kit: string) =>
-      ({ ...fakeStudio, kit, catalogue: { styles: {}, kits } }) as unknown as Studio;
+    const withKit = (kit: string, kitPlaying = kit) =>
+      ({ ...fakeStudio, kit, kitPlaying, catalogue: { styles: {}, kits } }) as unknown as Studio;
     fakeStudio = withKit('drs');
     const { rerender } = render(<DrummerView />);
     await screen.findByTestId('drummer-canvas-stub');
@@ -231,6 +231,13 @@ describe('DrummerView, with WebGL available', () => {
     fakeStudio = withKit('brush');
     rerender(<DrummerView />);
     expect(capturedCanvasProps?.brushes).toBe(true);
+    // a section on brushes in a break on sticks (D86): the kit sounding is the one held
+    fakeStudio = withKit('drs', 'brush');
+    rerender(<DrummerView />);
+    expect(capturedCanvasProps?.brushes).toBe(true);
+    fakeStudio = withKit('brush', 'drs');
+    rerender(<DrummerView />);
+    expect(capturedCanvasProps?.brushes).toBe(false);
   });
 
   it('remembers a stored left-handed setting across a remount', async () => {

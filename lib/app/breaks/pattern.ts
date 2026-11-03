@@ -112,6 +112,7 @@ export function clonePattern(p: Pattern): Pattern {
     meter: p.meter || DEFAULT_METER,
     ...(p.tempoRatio ? { tempoRatio: p.tempoRatio } : {}),
     ...(p.tempo?.length ? { tempo: cloneTempoMap(p.tempo) } : {}),
+    ...(p.kit ? { kit: p.kit } : {}),
     lanes: (p.lanes ?? BASE_LANES).slice(),
     perc: { ...p.perc },
     bbLane: p.bbLane || 's',

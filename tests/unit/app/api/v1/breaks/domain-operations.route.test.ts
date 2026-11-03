@@ -44,6 +44,7 @@ vi.mock('@/lib/auth/config', () => ({ auth: { api: { getSession: vi.fn() } } }))
 vi.mock('@/lib/app/breaks/catalogue/data', () => ({
   getStyle: vi.fn(),
   listStyles: vi.fn(),
+  listKits: vi.fn(async () => []),
   styleLookup: vi.fn(() => () => undefined),
 }));
 

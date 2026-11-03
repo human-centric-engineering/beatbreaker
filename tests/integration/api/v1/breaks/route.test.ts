@@ -27,6 +27,10 @@ vi.mock('@/lib/db/client', () => ({
     $transaction: vi.fn((ops: Array<Promise<unknown>>) => Promise.all(ops)),
   },
 }));
+// no kit on brushes: the catalogue is not this route's to read
+vi.mock('@/lib/app/breaks/catalogue/brushes', () => ({
+  loadBrushed: vi.fn(async () => () => false),
+}));
 
 import { auth } from '@/lib/auth/config';
 import { prisma } from '@/lib/db/client';

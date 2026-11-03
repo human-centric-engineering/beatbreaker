@@ -51,6 +51,12 @@ export interface SampleSource {
   percHit?(engine: BreakAudio, t: number, inst: string, vel: number, accent: boolean): boolean;
   /** Called when the kit or its knobs change. */
   refresh?(engine: BreakAudio): void;
+  /**
+   * Have these kits ready to play and keep them so: a break's sections on
+   * kits of their own (D86), which the transport changes to at a bar line,
+   * with no time there to decode.
+   */
+  prepare?(engine: BreakAudio, kits: ResolvedKit[]): void;
   /** Called when the engine closes: stop anything still on its way. */
   dispose?(): void;
 }
@@ -79,6 +85,10 @@ export class SourceStack implements SampleSource {
 
   refresh(engine: BreakAudio): void {
     for (const s of this.sources) s.refresh?.(engine);
+  }
+
+  prepare(engine: BreakAudio, kits: ResolvedKit[]): void {
+    for (const s of this.sources) s.prepare?.(engine, kits);
   }
 
   dispose(): void {
@@ -204,6 +214,8 @@ export class BreakAudio {
   private panView: PanView = 'drummer';
   private irRoom = -1;
   private driveAt = -1;
+  /** A kit change's drive and room, waiting for its section's first note (D86). */
+  private kitTimer: ReturnType<typeof setTimeout> | null = null;
   /** Recordings heard on their own, by URL, each fetched and decoded once ({@link preview}). */
   private previews = new Map<string, Promise<AudioBuffer | null>>();
 
@@ -327,6 +339,8 @@ export class BreakAudio {
   close(): void {
     const ctx = this.ctx;
     this.ctx = null;
+    if (this.kitTimer) clearTimeout(this.kitTimer);
+    this.kitTimer = null;
     this.bus = null;
     this.master = null;
     this.shaper = null;
@@ -352,15 +366,25 @@ export class BreakAudio {
     this.samples?.dispose?.();
   }
 
-  setKit(kit: ResolvedKit | null, sound: Record<string, VoiceParams> | null): void {
+  /**
+   * Play `kit`, with your tuning `sound`. `at` is when its room and tone take
+   * over, on the audio clock: a section's first note, where the transport
+   * changes kit at a bar line (D86); absent, now.
+   */
+  setKit(kit: ResolvedKit | null, sound: Record<string, VoiceParams> | null, at?: number): void {
     this.kit = kit;
     this.sound = sound;
     // a kit of yours may pan its lanes its own way (9-v)
-    this.applyPans();
+    this.applyPans(at);
     if (this.ctx) {
-      this.applyKit();
+      this.applyKit(at);
       this.samples?.refresh?.(this);
     }
+  }
+
+  /** Have a break's other kits decoded before their sections play (D86). */
+  prepareKits(kits: ResolvedKit[]): void {
+    if (this.ctx) this.samples?.prepare?.(this, kits);
   }
 
   /* ---- parameters ---- */
@@ -446,23 +470,37 @@ export class BreakAudio {
     this.driveAt = amount;
   }
 
-  applyKit(): void {
+  applyKit(at?: number): void {
     const ctx = this.ctx;
     if (!ctx || !this.lp || !this.wet || !this.convolver) return;
+    const when = Math.max(ctx.currentTime, at ?? 0);
     /* `?? SYNTH_FALLBACK.master`, where this used to index the kit table
        unguarded. With kits as rows the key can legitimately name nothing —
        a deleted kit, a catalogue that has not arrived — and the old form threw
        on the first `applyKit()` rather than playing through the default. */
     const m = this.sound?.master ?? this.kit?.master ?? SYNTH_FALLBACK.master;
-    this.lp.frequency.setTargetAtTime(m.lp ?? 16000, ctx.currentTime, 0.01);
-    this.setDrive(m.drive ?? 1);
+    this.lp.frequency.setTargetAtTime(m.lp ?? 16000, when, 0.01);
     const room = m.room ?? 0;
-    this.wet.gain.setTargetAtTime(room, ctx.currentTime, 0.02);
-    const want = Math.round(room * 100);
-    if (want !== this.irRoom) {
-      this.convolver.buffer = this.makeIR(room);
-      this.irRoom = want;
-    }
+    this.wet.gain.setTargetAtTime(room, when, 0.02);
+    /* The drive and the room's shape cannot be scheduled on the audio clock:
+       a new shaper and a new IR take over the moment they are set. A kit
+       change at a section's first note (D86) sets them then, on a timer, so
+       the outgoing section's last notes keep their own kit's drive and room. */
+    if (this.kitTimer) clearTimeout(this.kitTimer);
+    this.kitTimer = null;
+    const swap = () => {
+      this.kitTimer = null;
+      if (!this.convolver) return;
+      this.setDrive(m.drive ?? 1);
+      const want = Math.round(room * 100);
+      if (want !== this.irRoom) {
+        this.convolver.buffer = this.makeIR(room);
+        this.irRoom = want;
+      }
+    };
+    const wait = when - ctx.currentTime;
+    if (wait > 0.005) this.kitTimer = setTimeout(swap, wait * 1000);
+    else swap();
   }
 
   /** A synthesised room: noise under a power-law decay, with a short pre-delay. */
@@ -592,13 +630,16 @@ export class BreakAudio {
     this.applyPans();
   }
 
-  /** Move every lane built so far to its pan: the kit's own, from the side it is heard. */
-  private applyPans(): void {
+  /**
+   * Move every lane built so far to its pan: the kit's own, from the side it
+   * is heard. `at` is when, as {@link setKit}'s; absent, now.
+   */
+  private applyPans(at?: number): void {
     const ctx = this.ctx;
     for (const [lane, ch] of this.channels) {
       if (!ch.pan) continue;
       const to = panFor(lane, this.panView, this.kit?.samples.pan);
-      if (ctx) ch.pan.pan.setTargetAtTime(to, ctx.currentTime, 0.02);
+      if (ctx) ch.pan.pan.setTargetAtTime(to, Math.max(ctx.currentTime, at ?? 0), 0.02);
       else ch.pan.pan.value = to;
     }
   }

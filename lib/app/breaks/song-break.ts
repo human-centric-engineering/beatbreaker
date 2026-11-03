@@ -44,6 +44,8 @@ export interface SongBreakOptions {
   exact?: boolean;
   /** The Studio's own lanes, where you have set them. */
   custom?: CustomLanes | null;
+  /** Which kits are played with brushes; see {@link PartOptions.brushes}. */
+  brushes?: (kit: string | undefined) => boolean;
 }
 
 export interface SongBreak {
@@ -120,6 +122,13 @@ export interface PartOptions {
   exact?: boolean;
   /** The Studio's own lanes, where you have set them. */
   custom?: CustomLanes | null;
+  /**
+   * Whether a kit is played with brushes, by key; undefined is the break's
+   * own kit. A section on brushes has its candidates judged as brushes (D86).
+   * Absent, every section is judged on sticks: whether a kit is brushes is
+   * its catalogue row, which the caller has and the domain does not.
+   */
+  brushes?: (kit: string | undefined) => boolean;
 }
 
 /**
@@ -129,8 +138,9 @@ export interface PartOptions {
  */
 export function writePart(opts: PartOptions): GeneratedBreak {
   const st = styleIn(withSong(opts.style.params, opts.song), opts.meter);
+  const section = songPartOf(opts.style.params, opts.song)?.section;
   // a written section is its bars, whatever the seed: one candidate is all of them
-  const written = !!songPartOf(opts.style.params, opts.song)?.section?.written;
+  const written = !!section?.written;
   const roster = resolveLanes(st, opts.custom ?? null);
   const gen = {
     style: opts.style,
@@ -147,7 +157,7 @@ export function writePart(opts: PartOptions): GeneratedBreak {
   };
   return opts.exact || written
     ? { pattern: generatePattern(gen), tries: 1, rejected: 0 }
-    : generateGood(gen, opts.bpm);
+    : generateGood(gen, opts.bpm, { brushes: !!opts.brushes?.(section?.params.kit) });
 }
 
 export function songBreak(opts: SongBreakOptions): SongBreak {

@@ -1307,3 +1307,67 @@ describe('a section with a tempo map (16-b-ii)', () => {
     expect(maxBpmOf([{ meter: '4/4', tempo: [{ bar: 0, ratio: 1, to: 2 }] }])).toBe(TEMPO_TOP / 2);
   });
 });
+
+describe('a section on a kit of its own (D86)', () => {
+  it('changes kit before the section’s first note, back after it, and back again on Stop', () => {
+    const A = patternIn('4/4');
+    A.kit = 'jazzBrushes';
+    A.bars[0].k[0] = 1;
+    const B = patternIn('4/4');
+    B.bars[0].k[0] = 1;
+    const f = fakeAudio();
+    let kitNow: string | null = null;
+    const changes: Array<{ kit: string | null; at: number }> = [];
+    const heard: Array<string | null> = [];
+    f.audio.kick.mockImplementation(() => heard.push(kitNow));
+    const t = new Transport(f.engine, {
+      getSnapshot: () =>
+        snapshot(A, { patterns: { A, B }, arrangement: ['A', 'B', 'A'], click: false }),
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onKit: (kit, at) => {
+        kitNow = kit;
+        changes.push({ kit, at });
+      },
+    });
+    t.start();
+    // three bars at 120 are six seconds: the theme, the solo, the theme
+    while (f.ctx.currentTime < 5.9) {
+      f.ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    expect(heard).toEqual(['jazzBrushes', null, 'jazzBrushes']);
+    // each change is timed at the bar line it is for, two seconds apart
+    const [first, second, third] = changes;
+    expect(changes.map((c) => c.kit)).toEqual(['jazzBrushes', null, 'jazzBrushes']);
+    expect(second.at - first.at).toBeCloseTo(2);
+    expect(third.at - second.at).toBeCloseTo(2);
+    t.stop();
+    expect(changes.at(-1)?.kit).toBeNull();
+  });
+
+  it('never calls for a kit in a break whose sections name none', () => {
+    const onKit = vi.fn();
+    const pat = twoBarPattern();
+    const snap = snapshot(pat, { click: false });
+    const { audio, ctx, engine } = fakeAudio();
+    const t = new Transport(engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onKit,
+    });
+    t.start();
+    while (ctx.currentTime < 4) {
+      ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    t.stop();
+    expect(audio.kick).toHaveBeenCalled();
+    expect(onKit).not.toHaveBeenCalled();
+  });
+});

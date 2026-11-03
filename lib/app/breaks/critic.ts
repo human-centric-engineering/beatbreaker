@@ -16,7 +16,7 @@ import { clamp, makeRng } from '@/lib/app/breaks/rng';
 import { paceRange } from '@/lib/app/breaks/tempo-map';
 import { songPartOf } from '@/lib/app/breaks/songs';
 import { tupletLanes, tupletNotesAt, tupletsIn } from '@/lib/app/breaks/tuplets';
-import { limbProblems, type LimbProblem } from '@/lib/app/breaks/physical';
+import { type LimbOptions, limbProblems, type LimbProblem } from '@/lib/app/breaks/physical';
 import type { Bar, LaneKey, Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -59,9 +59,10 @@ export interface Playability {
  * Whether a pattern can be played, at the break's tempo `bpm0`. A section at a
  * tempo ratio is judged at the speed it plays (11-e-ii-g): a B at ×2 under a
  * break at 100 is a B at 200. A section with a tempo map is judged a step at
- * a time, at the tempo each step plays (16-b-ii).
+ * a time, at the tempo each step plays (16-b-ii). One played on a brush kit
+ * (`opts.brushes`, D86) is judged as brushes.
  */
-export function playability(pat: Pattern, bpm0: number): Playability {
+export function playability(pat: Pattern, bpm0: number, opts: LimbOptions = {}): Playability {
   // a section with a tempo map (16-b-ii) is named at the fastest it goes
   const bpm = bpm0 * paceRange(pat)[1];
   const at = pat.tempo?.length ? 'at up to' : 'at';
@@ -197,7 +198,7 @@ export function playability(pat: Pattern, bpm0: number): Playability {
 
   if (pedalRuns) kickRun = false;
   // how fast each limb can go, and where it can reach, is the body's question
-  const problems = limbProblems(pat, bpm0);
+  const problems = limbProblems(pat, bpm0, opts);
   const feetSlow = problems.some((p) => p.limbs === 'feet');
   const handsSlow = problems.some((p) => p.limbs === 'hands');
 
@@ -492,14 +493,18 @@ export const NEAR_BEST = 10;
  * (the record's own figures break a groove rule) is the first two hands and
  * two feet can play.
  */
-export function generateGood(opts: GenerateOptions, bpm: number): GeneratedBreak {
+export function generateGood(
+  opts: GenerateOptions,
+  bpm: number,
+  limbs: LimbOptions = {}
+): GeneratedBreak {
   const drawn: Array<{ pattern: Pattern; eff: number; hard: boolean }> = [];
   let rejected = 0;
   let bodyOnly: Pattern | undefined;
 
   for (let n = 0; n < CANDIDATES; n++) {
     const p = generatePattern({ ...opts, seed: (opts.seed + n * 2654435761) >>> 0 });
-    const checks = playability(p, bpm);
+    const checks = playability(p, bpm, limbs);
     const c = critique(p, bpm);
     const written = !!songPartOf(opts.style.params, p.song)?.section?.written;
     /* A written section is a drummer's bars, held to the body alone; anything

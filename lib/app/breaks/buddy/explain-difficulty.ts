@@ -8,6 +8,7 @@ import {
   sectionsFor,
 } from '@/lib/app/breaks/buddy/describe';
 import { readWorkspace } from '@/lib/app/breaks/buddy/workspace';
+import { loadBrushed } from '@/lib/app/breaks/catalogue/brushes';
 import { critique, playability } from '@/lib/app/breaks/critic';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { describeStep } from '@/lib/app/breaks/text';
@@ -62,7 +63,7 @@ export interface ExplainDifficultyData {
   sections: SectionDifficulty[];
 }
 
-function readBar(pat: Pattern, index: number, bpm: number): BarReading {
+function readBar(pat: Pattern, index: number, bpm: number, brushes: boolean): BarReading {
   const bar = pat.bars[index];
   const m = meterOfPat(pat);
   const alone: Pattern = {
@@ -79,16 +80,22 @@ function readBar(pat: Pattern, index: number, bpm: number): BarReading {
   return {
     bar: index + 1,
     notes: bar.k.filter(Boolean).length + bar.s.filter(Boolean).length,
-    failing: playability(alone, bpm)
+    failing: playability(alone, bpm, { brushes })
       .checks.filter((c) => !c.ok)
       .map((c) => c.label),
     doubles,
   };
 }
 
-function explain(pat: Pattern, section: Section, bpm: number): SectionDifficulty {
+function explain(
+  pat: Pattern,
+  section: Section,
+  bpm: number,
+  // played on brushes (D86), its hands judged as brushes
+  brushes: boolean
+): SectionDifficulty {
   const score = critique(pat, bpm);
-  const checks = playability(pat, bpm);
+  const checks = playability(pat, bpm, { brushes });
   return {
     section,
     score: score.score,
@@ -99,7 +106,7 @@ function explain(pat: Pattern, section: Section, bpm: number): SectionDifficulty
       .map((d) => ({ name: d.key, value: Math.round(d.v * 100) / 100, reading: d.read })),
     playable: checks.hard,
     failing: checks.checks.filter((c) => !c.ok).map((c) => c.label),
-    bars: pat.bars.map((_, i) => readBar(pat, i, bpm)),
+    bars: pat.bars.map((_, i) => readBar(pat, i, bpm, brushes)),
   };
 }
 
@@ -137,11 +144,12 @@ export class ExplainDifficultyCapability extends BaseCapability<Args, ExplainDif
     const doc = await decodeWorkspace(workspace.doc);
     const targets = sectionsFor(doc, args.section);
     if (!targets.ok) return this.error(targets.message, targets.code);
+    const brushed = await loadBrushed();
     return this.success({
       bpm: doc.bpm,
       sections: targets.sections.flatMap((s) => {
         const pat = doc[s];
-        return pat ? [explain(pat, s, doc.bpm)] : [];
+        return pat ? [explain(pat, s, doc.bpm, brushed(pat))] : [];
       }),
     });
   }

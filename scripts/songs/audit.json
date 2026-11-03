@@ -15601,7 +15601,7 @@
     },
     {
       "id": 775,
-      "state": "open",
+      "state": "rebuilt",
       "priority": 3,
       "drummer": "jimmycobb",
       "key": "so-what",
@@ -15616,11 +15616,11 @@
       "blockedBy": ["other-limit"],
       "missingBars": 0,
       "added": "2026-10-21",
-      "notes": "the tab writes one two-bar figure for theme and solos; nothing else lost. A limit outside Phase 16's table"
+      "notes": "the tab writes one two-bar figure for theme and solos; nothing else lost. A limit outside Phase 16's table. Rebuilt in 16-b-v (2026-11-02): the theme on the jazz brushes, the solos on sticks (D86)"
     },
     {
       "id": 776,
-      "state": "open",
+      "state": "rebuilt",
       "priority": 3,
       "drummer": "jimmycobb",
       "key": "all-blues",
@@ -15635,7 +15635,7 @@
       "blockedBy": ["other-limit"],
       "missingBars": 0,
       "added": "2026-10-21",
-      "notes": "the tab is loose, so the song takes its recurring shapes (not a limit)"
+      "notes": "the tab is loose, so the song takes its recurring shapes (not a limit). Rebuilt in 16-b-v (2026-11-02): the theme on the jazz brushes, the solos on sticks (D86)"
     },
     {
       "id": 777,

@@ -7,6 +7,7 @@ import {
   describeEdit,
   editWorkspace,
 } from '@/lib/app/breaks/buddy/edit';
+import { loadBrushed } from '@/lib/app/breaks/catalogue/brushes';
 import { DOCTOR_MOVES, type DoctorMove, doctor } from '@/lib/app/breaks/doctor';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
@@ -89,7 +90,12 @@ export class ApplyDoctorMoveCapability extends BaseCapability<Args, EditData> {
     });
     if (!outcome.ok) return this.error(outcome.message, outcome.code);
 
-    const described = describeEdit(outcome.before, outcome.after, outcome.extra);
+    const described = describeEdit(
+      outcome.before,
+      outcome.after,
+      outcome.extra,
+      await loadBrushed()
+    );
     return this.success({
       doc: outcome.payload,
       rev: outcome.rev,

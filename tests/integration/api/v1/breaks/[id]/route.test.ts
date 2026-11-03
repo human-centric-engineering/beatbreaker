@@ -28,6 +28,10 @@ vi.mock('@/lib/db/client', () => ({
     drummerProfile: { findUnique: vi.fn() },
   },
 }));
+// no kit on brushes: the catalogue is not this route's to read
+vi.mock('@/lib/app/breaks/catalogue/brushes', () => ({
+  loadBrushed: vi.fn(async () => () => false),
+}));
 
 import { assertPublishable } from '@/lib/app/breaks/community/publish';
 import { APIError } from '@/lib/api/errors';

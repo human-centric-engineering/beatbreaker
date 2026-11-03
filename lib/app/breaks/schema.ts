@@ -495,6 +495,12 @@ const packedPatternBase = z.object({
    * Held to the section's bars by {@link sharePayloadSchema}.
    */
   tm: z.array(packedTempoPoint).min(1).max(MAX_TEMPO_POINTS).optional(),
+  /**
+   * the kit the section plays on where it is not the break's (D86), by key —
+   * optional and additive, as `sg` is: an older reader drops it and plays the
+   * section on the break's kit, which is a sound, not a wrong note.
+   */
+  kt: z.string().min(1).max(40).optional(),
   /** voice */
   v: z.enum(['hat', 'ride']).default('hat'),
   /** seed */

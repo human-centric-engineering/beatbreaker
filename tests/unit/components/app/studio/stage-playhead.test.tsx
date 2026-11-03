@@ -104,6 +104,8 @@ beforeEach(() => {
     position: null,
 
     kit: 'studio70',
+    // every section on the studio kit's sticks (D86)
+    onBrushes: () => false,
     setKit: vi.fn(),
     sound: {},
     voice: 'k',

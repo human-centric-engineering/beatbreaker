@@ -32,6 +32,8 @@ import { clamp } from '@/lib/app/breaks/rng';
  * synthesised voice plays it until it lands. **Two kits stay decoded** — the one playing and
  * the one before it, so switching back is instant — and the oldest beyond
  * that is let go, because iOS Safari kills a page for decoded-audio memory.
+ * The kits a break's sections play on (D86) are kept besides, however many:
+ * the transport changes to them at a bar line, with no time to decode.
  */
 
 /** One decoded recording, with the offset playback should start at. */
@@ -183,6 +185,8 @@ function whenIdle(fn: () => void): void {
 export class PackSource implements SampleSource {
   private readonly loaded = new Map<string, Record<string, Layer[]>>();
   private readonly loading = new Set<string>();
+  /** The decode keys of the kits the break's sections play on (D86), never let go. */
+  private kept = new Set<string>();
   /** The take each slot (or percussion stroke) played last, so the next one differs. */
   private readonly lastTake = new Map<string, number>();
 
@@ -224,9 +228,19 @@ export class PackSource implements SampleSource {
    */
   private evict(keep: string | undefined): void {
     for (const pack of [...this.loaded.keys()]) {
-      if (this.loaded.size <= DECODED_KITS) return;
-      if (pack !== keep) this.loaded.delete(pack);
+      if (this.loaded.size <= DECODED_KITS + this.kept.size) return;
+      if (pack !== keep && !this.kept.has(pack)) this.loaded.delete(pack);
     }
+  }
+
+  /**
+   * The kits a break's sections play on (D86): decoded now, and kept until
+   * the break changes, beside the two the picker keeps.
+   */
+  prepare(engine: BreakAudio, kits: ResolvedKit[]): void {
+    const played = kits.filter((kit) => Object.keys(packSlots(kit)).length);
+    this.kept = new Set(played.map(decodeKey));
+    for (const kit of played) void this.load(engine, kit);
   }
 
   /** How many of a kit's slots decoded, for the kit panel's status line. */

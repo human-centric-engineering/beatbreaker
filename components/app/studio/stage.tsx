@@ -15,6 +15,7 @@ import { type Segment, Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
+import { SelectMenu } from '@/components/app/ui/select-menu';
 import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { GRID_SIZE, GRID_SIZE_MAX, GRID_SIZE_MIN, STAGE_VIEW } from '@/lib/app/breaks/browser-keys';
 import { type Engraving } from '@/lib/app/breaks/engrave';
@@ -28,7 +29,8 @@ import {
   ratioOf,
   sectionBpm,
 } from '@/lib/app/breaks/sections';
-import { engrave } from '@/lib/app/breaks/engrave';
+import { engrave, playedWith } from '@/lib/app/breaks/engrave';
+import { kitIsPlayable } from '@/lib/app/breaks/kit';
 import { hasTempoMaps } from '@/lib/app/breaks/tempo-map';
 import { layerBlurbsFor, layerNamesFor, tupletShows } from '@/lib/app/breaks/layers';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
@@ -43,6 +45,8 @@ import { cn } from '@/lib/utils';
 const PAPER_PAD = 10;
 /** No smaller than this to fit a phone: below it the notes are too small to read, so the line scrolls. */
 const PHONE_MIN_SCALE = 0.55;
+/** The section kit menu's value for a section on the break's kit: no kit key is this. */
+const BREAK_KIT = ' break';
 
 const TEMPO_CHOICES: Segment<TempoRatio>[] = [
   { value: 0.5, face: ratioLabel(0.5), title: "Half the break's tempo" },
@@ -116,6 +120,9 @@ export function Stage() {
      break with one is drawn again when the tempo moves, and then behind the
      slider, so a drag is not held up drawing every value it passes. */
   const markBpm = useDeferredValue(hasTempoMaps(c.patterns) ? c.bpm : 0);
+  /* Brushes or Sticks over each section, where the break changes between
+     them (D86): on the kit each plays, its own or the break's. */
+  const played = useMemo(() => playedWith(c.patterns, c.onBrushes), [c.patterns, c.onBrushes]);
   const engravings = useMemo(() => {
     const opts = {
       scale: c.size,
@@ -133,7 +140,7 @@ export function Stage() {
         const pat = c.view[letter];
         if (!pat) continue;
         const bpm = markBpm && pat.tempo?.length ? sectionBpm(markBpm, pat) : undefined;
-        out[letter] = engrave(pat, peek?.[letter] ?? null, { ...o, bpm });
+        out[letter] = engrave(pat, peek?.[letter] ?? null, { ...o, bpm, played: played[letter] });
       }
       return out;
     };
@@ -143,7 +150,7 @@ export function Stage() {
     const fit = (room - PAPER_PAD) / (widest / c.size);
     const scale = Math.max(PHONE_MIN_SCALE, Math.min(c.size, c.size * fit));
     return scale === c.size ? out : write({ ...opts, scale });
-  }, [c.letters, c.view, peek, c.guides, c.sticking, c.size, onPlayer, room, markBpm]);
+  }, [c.letters, c.view, peek, c.guides, c.sticking, c.size, onPlayer, room, markBpm, played]);
 
   /* The playhead is driven imperatively — sixteen re-renders a bar to move one
      rectangle would re-render the whole staff with it. */
@@ -565,6 +572,35 @@ export function Stage() {
             <span className="hint" role="status">
               {tempoRefused.why}
             </span>
+          ) : null}
+          {/* The kit the section on show plays on (D86): the break's, or
+              one of its own — So What's theme on brushes, its solos on
+              sticks. The transport changes kit at its first bar. */}
+          {single && c.patterns[single] ? (
+            <SelectMenu
+              aria-label={`Section ${single}'s kit`}
+              value={c.patterns[single]?.kit ?? BREAK_KIT}
+              onValueChange={(v) => c.setSectionKit(single, v === BREAK_KIT ? null : v)}
+              groups={[
+                {
+                  label: 'The break’s',
+                  options: [
+                    {
+                      value: BREAK_KIT,
+                      label: `The break’s kit (${c.catalogue.kits[c.kit]?.label ?? c.kit})`,
+                    },
+                  ],
+                },
+                ...c.catalogue.kitGroups.map((group) => ({
+                  label: group.label,
+                  options: group.keys.map((k) => ({
+                    value: k,
+                    label: c.catalogue.kits[k].label,
+                    disabled: !kitIsPlayable(c.catalogue.kits[k]),
+                  })),
+                })),
+              ]}
+            />
           ) : null}
         </div>
       </div>

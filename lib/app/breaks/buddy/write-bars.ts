@@ -9,6 +9,7 @@ import {
   tempoMapProblem,
 } from '@/lib/app/breaks/tempo-map';
 import { type EditData, describeEdit, editWorkspace } from '@/lib/app/breaks/buddy/edit';
+import { loadBrushed } from '@/lib/app/breaks/catalogue/brushes';
 import { HANDS_CHECK, playability } from '@/lib/app/breaks/critic';
 import { DEFAULT_PERC, LANES, PERC_LANES } from '@/lib/app/breaks/lanes';
 import { METER_KEY_HELP, isMeterKey, meterOf, remapList } from '@/lib/app/breaks/meter';
@@ -97,12 +98,19 @@ const MAX_PROBLEMS = 6;
  * Bars written into a section (`before`) are refused only for trouble they
  * bring: a seam the section already could not play is not theirs to fix.
  */
-function problemsOf(pat: Pattern, written: TextBar[], bpm: number, before?: Pattern): string[] {
+function problemsOf(
+  pat: Pattern,
+  written: TextBar[],
+  bpm: number,
+  brushes: boolean,
+  before?: Pattern
+): string[] {
   const problems: string[] = [];
   const numbers = new Set(written.map((w) => w.number));
   const at = (p: LimbProblem) => `${p.limbs} ${p.bar} ${p.step}`;
-  const had = new Set(before ? limbProblems(before, bpm).map(at) : []);
-  for (const p of limbProblems(pat, bpm)) {
+  // on brushes (D86) the hands are judged as brushes
+  const had = new Set(before ? limbProblems(before, bpm, { brushes }).map(at) : []);
+  for (const p of limbProblems(pat, bpm, { brushes })) {
     if (numbers.has(p.bar + 1) && !had.has(at(p)))
       problems.push(`bar ${p.bar + 1}, step ${p.step + 1}: ${p.why}`);
   }
@@ -121,7 +129,7 @@ function problemsOf(pat: Pattern, written: TextBar[], bpm: number, before?: Patt
       if (PHYSICAL.has(change.rule))
         problems.push(change.note.replace(/^bar 1\b/, `bar ${number}`));
     }
-    const checks = playability(alone, bpm);
+    const checks = playability(alone, bpm, { brushes });
     if (checks.hard) continue;
     for (const check of checks.checks) {
       // the hands check is tidy's to name, with the beat; the speed checks are named above
@@ -185,7 +193,7 @@ function withSection(doc: BreakDoc, letter: SectionLetter, pattern: Pattern): Br
   return next;
 }
 
-function build(pat: Pattern, args: Args, bpm: number): Built {
+function build(pat: Pattern, args: Args, bpm: number, brushes: boolean): Built {
   const meterKey = args.meter ?? pat.meter;
   if (!args.whole && meterKey !== pat.meter) {
     return {
@@ -280,7 +288,7 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
     };
   }
 
-  const problems = problemsOf(next, read.bars, bpm, args.whole ? undefined : pat);
+  const problems = problemsOf(next, read.bars, bpm, brushes, args.whole ? undefined : pat);
   if (problems.length) {
     const shown = problems.slice(0, MAX_PROBLEMS);
     const more = problems.length - shown.length;
@@ -346,6 +354,7 @@ export class WriteBarsCapability extends BaseCapability<Args, EditData> {
   async execute(args: Args, context: CapabilityContext): Promise<CapabilityResult<EditData>> {
     if (!context.userId) return this.error('BeatBuddy needs a signed-in user', 'no_user');
 
+    const brushed = await loadBrushed();
     const outcome = await editWorkspace(context.userId, (doc) => {
       const current = doc[args.section];
       if (!current && !args.whole) {
@@ -400,7 +409,7 @@ export class WriteBarsCapability extends BaseCapability<Args, EditData> {
           },
         ])
       );
-      const built = build(base, args, bpm);
+      const built = build(base, args, bpm, brushed(base));
       if (!built.ok) return built;
       const fitted = fitTempoMap(built.pattern.tempo, built.pattern.bars.length);
       if (map) {
@@ -434,7 +443,7 @@ export class WriteBarsCapability extends BaseCapability<Args, EditData> {
     });
     if (!outcome.ok) return this.error(outcome.message, outcome.code);
 
-    const described = describeEdit(outcome.before, outcome.after, [args.section]);
+    const described = describeEdit(outcome.before, outcome.after, [args.section], brushed);
     const bars = described.changes[0]?.bars ?? [];
     return this.success({
       doc: outcome.payload,

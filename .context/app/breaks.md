@@ -61,6 +61,38 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
   break's tempo). A MIDI import keeps the file's tempo whole or not at all: a
   map one section cannot hold, or sections spread past `MAX_RATIO_SPREAD`, and
   every section plays the file's opening tempo, and the import says so.
+- **A section may play on a kit of its own** (16-b-v, D86): `Pattern.kit`,
+  a kit key, written where a song's section names `params.kit` (So What's
+  theme on the jazz brushes, its solo on the song's sticks kit) or picked in
+  the Studio beside the section's tempo. Absent, the section plays the
+  break's kit, the Studio's one: a section's kit is its own, so the break's
+  is `breakKit` (the song's, else the style's), never the first section's
+  that `withSong` would lay over the bare song key. The transport calls
+  `onKit(kit, at)` before voicing a section on another kit, and with null
+  where the break's comes back and on Stop; the Studio sets the engine's kit
+  there, `at` the section's first note, so its room and tone change at the
+  bar line (the filter and wet level ramp on the audio clock; the drive and
+  the room's impulse, which cannot be scheduled, swap on a timer then), and
+  holds back its own kit effect while a section's kit plays, but for your
+  tuning of that kit, heard as it changes. Every kit the break's sections
+  play on is decoded ahead (`BreakAudio.prepareKits`, keyed on the kits'
+  names, so an edit does not ask again) and kept beside the two the picker
+  keeps (`PackSource.prepare`); a break with none lets them go. The
+  community player plays a section's kit the same way, decoded on Play. A
+  section naming a kit the Studio cannot play plays, and is judged and
+  charted, on the break's. A hand on a brush kit (`brushes` on its row) is
+  judged as one: `limbProblems(pat, bpm, { brushes })` gives a brush's
+  double `BRUSH_DOUBLE`, a wrist's single stroke, for a stick's rebounded
+  `HAND_DOUBLE`. Whether a kit is brushes is its row's, so the caller says:
+  the Studio's critic on the kit A sounds on (`onBrushes`), and New's
+  candidates through `songBreak`'s `brushes(kit)`, on the kit the break will
+  play. The API routes and BeatBuddy have no Studio kit, so they judge on the
+  kit the catalogue asks for: the section's own, else the song's or the
+  style's (`loadBrushed` in `catalogue/brushes.ts`). The chart prints _Brushes_ or _Sticks_ over each section's first
+  bar where the break changes between them (`playedWith`), and the drummer
+  holds brushes while a brushed section plays (`kitPlaying`). `clonePattern`
+  carries the kit; `deriveB` keeps A's. MIDI has no kit, so a file carries
+  none.
 - **Every bar carries every lane, full length**, even lanes the pattern does not
   use (`pattern.lanes` says which it does). Turning a lane on never reshapes a
   bar.
@@ -266,6 +298,12 @@ version's values:** one that says `ver` 4 or lower may carry only what v4
 could (`V4_LANE_MAX`), so a rimshot under a v4 header is a 400, and a stored
 v4 row is repaired into v4's ranges, not v5's. A v4 code decodes to the bars
 it always held and re-encodes to the same bars as v5.
+
+**`kt` is a section's own kit (16-b-v, D86)**, by key: optional and
+additive, like `sg`, so it took no new version. An older reader strips it and
+plays the section on the break's kit, which is a sound, not a wrong note; a
+key the catalogue no longer has does the same. 16-c's v11 carries it as a
+field an older reader refuses.
 
 **`sk` is written sticking (Phase 10, D44)**, one character a step: `R` the
 lead hand, `L` the other, `.` nothing written, and `r`/`l` for a hand whose

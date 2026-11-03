@@ -12,6 +12,7 @@ import {
   describeEdit,
   editWorkspace,
 } from '@/lib/app/breaks/buddy/edit';
+import { loadBrushed } from '@/lib/app/breaks/catalogue/brushes';
 import { tidy } from '@/lib/app/breaks/tidy';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
@@ -82,7 +83,7 @@ export class TidyPatternCapability extends BaseCapability<Args, TidyPatternData>
     if (!outcome.ok) return this.error(outcome.message, outcome.code);
 
     const targets: readonly Section[] = outcome.extra.targets;
-    const described = describeEdit(outcome.before, outcome.after, targets);
+    const described = describeEdit(outcome.before, outcome.after, targets, await loadBrushed());
     const notes = outcome.extra.notes;
     return this.success({
       doc: outcome.payload,

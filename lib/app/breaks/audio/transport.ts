@@ -211,6 +211,13 @@ export interface TransportCallbacks {
   onPaint: (ev: PlayEvent, loops: number) => void;
   /** Every step, as it is scheduled — a lookahead ahead of the audio clock. */
   onStep?: (step: ScheduledStep) => void;
+  /**
+   * A section on another kit starts (D86): its kit by key, or null for the
+   * break's again, with `at` the audio-clock time of its first note. Called
+   * before that note is scheduled, so it sounds on the kit it names; and with
+   * null on Stop, so the Studio's kit is the one left playing.
+   */
+  onKit?: (kit: string | null, at: number) => void;
   onStop: () => void;
 }
 
@@ -368,6 +375,8 @@ export class Transport {
   private loops = 0;
   /** This performance's humaniser: made at Play, and again when a pass starts on a new seed. */
   private human = new Humaniser(0);
+  /** The section's own kit sounding now (D86), or null for the break's. */
+  private kitNow: string | null = null;
 
   playing = false;
 
@@ -442,6 +451,10 @@ export class Transport {
     }
     this.raf = null;
     this.queue = [];
+    if (this.kitNow !== null) {
+      this.kitNow = null;
+      this.cb.onKit?.(null, this.audio.ctx?.currentTime ?? 0);
+    }
     this.cb.onStop();
   }
 
@@ -662,6 +675,14 @@ export class Transport {
     const m = meterOfPat(livePat);
     const scheduledAt = (this.audio.ctx as AudioContext).currentTime;
     const floor = scheduledAt + 0.002;
+
+    /* A section on a kit of its own (D86) changes kit before its first note
+       is voiced, and back after it; a seek into its middle changes there. */
+    const kit = livePat.kit ?? null;
+    if (kit !== this.kitNow) {
+      this.kitNow = kit;
+      this.cb.onKit?.(kit, t);
+    }
 
     /* Every note is voiced by `performStep` — velocity, swing, feel and
        humanise — and

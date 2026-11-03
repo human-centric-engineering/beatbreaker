@@ -85,6 +85,15 @@ export function songMeter(st: Style, song: StyleSong | undefined, section?: Song
 }
 
 /**
+ * The kit a break of a song plays on (D86): the song's, else its style's. A
+ * section's own kit is that section's alone and is not the break's, though
+ * `withSong` lays it over a key that names the section.
+ */
+export function breakKit(st: Style, key: string | undefined): string | undefined {
+  return songOf(st, key)?.params.kit ?? st.kit;
+}
+
+/**
  * Each section of a song as the top tempo sees it: its meter, its tempo
  * ratio and its map — what `maxBpmOf` holds the break's tempo to.
  */

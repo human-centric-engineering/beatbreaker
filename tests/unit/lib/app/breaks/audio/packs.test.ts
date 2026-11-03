@@ -891,3 +891,38 @@ describe('a kit made of pieces (9-v)', () => {
     ).toBe(true);
   });
 });
+
+describe('a break’s kits (D86)', () => {
+  it('keeps every kit a section plays on decoded, past the two the picker keeps', async () => {
+    const source = new PackSource();
+    const slots = { k: { v: null, files: ['k.m4a'] } };
+    const kit = (pack: string) => packKit({ slots }, { pack });
+    engine.kit = kit('a');
+    await source.load(engine, kit('a'));
+    source.prepare(engine, [kit('brush'), kit('sticks')]);
+    await vi.waitFor(() => expect(source.isReady(kit('sticks'))).toBe(true));
+    // two more picked and left: the oldest of those goes, never a section's kit
+    for (const pack of ['b', 'c']) await source.load(engine, kit(pack));
+    expect(['a', 'brush', 'sticks', 'b', 'c'].map((p) => source.isReady(kit(p)))).toEqual([
+      true,
+      true,
+      true,
+      false,
+      true,
+    ]);
+  });
+
+  it('lets a kit go once the break no longer plays on it', async () => {
+    const source = new PackSource();
+    const slots = { k: { v: null, files: ['k.m4a'] } };
+    const kit = (pack: string) => packKit({ slots }, { pack });
+    engine.kit = kit('a');
+    await source.load(engine, kit('a'));
+    source.prepare(engine, [kit('brush')]);
+    await vi.waitFor(() => expect(source.isReady(kit('brush'))).toBe(true));
+    source.prepare(engine, []);
+    for (const pack of ['b', 'c']) await source.load(engine, kit(pack));
+    expect(source.isReady(kit('brush'))).toBe(false);
+    expect(source.isReady(kit('a'))).toBe(true);
+  });
+});

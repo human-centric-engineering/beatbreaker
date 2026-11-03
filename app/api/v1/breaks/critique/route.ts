@@ -20,6 +20,7 @@
 import { getRouteLogger } from '@/lib/api/context';
 import { successResponse } from '@/lib/api/responses';
 import { validateRequestBody } from '@/lib/api/validation';
+import { loadBrushed } from '@/lib/app/breaks/catalogue/brushes';
 import { withAuth } from '@/lib/auth/guards';
 import { critique, playability } from '@/lib/app/breaks/critic';
 import { patternFromPacked } from '@/lib/app/breaks/share';
@@ -32,7 +33,8 @@ export const POST = withAuth(
 
     const pattern = patternFromPacked(doc);
     const score = critique(pattern, bpm);
-    const checks = playability(pattern, bpm);
+    // the one catalogue read: whether the kit the section asks for is brushed (D86)
+    const checks = playability(pattern, bpm, { brushes: (await loadBrushed())(pattern) });
 
     log.info('Break critiqued', { score: score.score, playable: checks.hard, bpm });
     return successResponse({ critique: score, playability: checks });

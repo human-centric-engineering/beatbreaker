@@ -20,6 +20,7 @@ import { getRouteLogger } from '@/lib/api/context';
 import { ErrorCodes } from '@/lib/api/errors';
 import { errorResponse, successResponse } from '@/lib/api/responses';
 import { validateRequestBody } from '@/lib/api/validation';
+import { loadBrushed } from '@/lib/app/breaks/catalogue/brushes';
 import { withAuth } from '@/lib/auth/guards';
 import { getStyle, listStyles, styleLookup } from '@/lib/app/breaks/catalogue/data';
 import { critique, playability } from '@/lib/app/breaks/critic';
@@ -57,7 +58,8 @@ export const POST = withAuth(
     return successResponse({
       doc: packPattern(patched),
       critique: critique(patched, input.bpm),
-      playability: playability(patched, input.bpm),
+      // a brushed section judged on brushes (D86)
+      playability: playability(patched, input.bpm, { brushes: (await loadBrushed())(patched) }),
     });
   },
   {
