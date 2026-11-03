@@ -1,8 +1,9 @@
 'use client';
 
-import { forwardRef, memo, useImperativeHandle, useRef } from 'react';
+import { forwardRef, memo, useImperativeHandle, useMemo, useRef, useState } from 'react';
 
 import { renderSvgNode } from '@/components/app/breaks/svg-nodes';
+import { barAt, barBoxes } from '@/lib/app/breaks/bar-loop';
 import type { Engraving } from '@/lib/app/breaks/engrave';
 import { cn } from '@/lib/utils';
 
@@ -18,6 +19,12 @@ import { cn } from '@/lib/utils';
  * times a bar; putting it in React state would re-render the whole staff —
  * hundreds of nodes — on every step, to move one rectangle. The notes are
  * declarative, the playhead is not, and that is deliberate.
+ *
+ * **A loop over bars (16-b-vi)** is drawn as a band behind the bars it plays,
+ * and set here with a mouse or a pen: a drag across bars loops them, a drag
+ * inside one bar loops that bar. A click is not a drag, so reading the chart
+ * with the pointer loops nothing; under a finger a swipe scrolls, and a phone
+ * loops from the player's Loop.
  */
 
 export interface StaveHandle {
@@ -36,14 +43,73 @@ interface StaveProps {
   flash?: readonly number[];
   /** `Flash.seq`: a new value remounts the rects, so the same steps flash again. */
   flashSeq?: number;
+  /** The bars a loop plays, of this section, both counted from 0. */
+  loop?: { from: number; to: number } | null;
+  /** A drag across bars asks for them looped; absent, the chart takes no drag. */
+  onLoop?: (from: number, to: number) => void;
 }
+
+/** How far a press moves before it is a drag and not a click, in px. */
+const DRAG_PX = 6;
 
 export const Stave = memo(
   forwardRef<StaveHandle, StaveProps>(function Stave(
-    { engraving, label, playing, flash, flashSeq },
+    { engraving, label, playing, flash, flashSeq, loop, onLoop },
     ref
   ) {
     const head = useRef<SVGRectElement>(null);
+    const sheet = useRef<SVGSVGElement>(null);
+    const boxes = useMemo(
+      () =>
+        barBoxes(
+          engraving.map,
+          engraving.steps,
+          Math.ceil(engraving.map.length / Math.max(1, engraving.steps))
+        ),
+      [engraving]
+    );
+    /* A drag under way: the bar it began on, the bar it is over, and where the press was. */
+    const press = useRef<{ x: number; y: number; bar: number; moved: boolean } | null>(null);
+    const [dragged, setDragged] = useState<{ from: number; to: number } | null>(null);
+
+    /** The bar under a pointer: the sheet as drawn, scaled back to the engraving's own units. */
+    const barUnder = (e: React.PointerEvent): number => {
+      const at = sheet.current?.getBoundingClientRect();
+      if (!at?.width || !at.height) return -1;
+      const x = ((e.clientX - at.left) * engraving.width) / at.width;
+      const y = ((e.clientY - at.top) * engraving.height) / at.height;
+      return barAt(boxes, x, y);
+    };
+    const drag = onLoop
+      ? {
+          onPointerDown: (e: React.PointerEvent<SVGSVGElement>) => {
+            if (e.pointerType === 'touch' || e.button !== 0) return;
+            const bar = barUnder(e);
+            press.current = bar >= 0 ? { x: e.clientX, y: e.clientY, bar, moved: false } : null;
+          },
+          onPointerMove: (e: React.PointerEvent<SVGSVGElement>) => {
+            const p = press.current;
+            if (!p) return;
+            if (!p.moved && Math.hypot(e.clientX - p.x, e.clientY - p.y) < DRAG_PX) return;
+            if (!p.moved) e.currentTarget.setPointerCapture?.(e.pointerId);
+            p.moved = true;
+            const bar = barUnder(e);
+            const to = bar >= 0 ? bar : (dragged?.to ?? p.bar);
+            setDragged({ from: Math.min(p.bar, to), to: Math.max(p.bar, to) });
+          },
+          onPointerUp: () => {
+            const p = press.current;
+            press.current = null;
+            if (p?.moved && dragged) onLoop(dragged.from, dragged.to);
+            setDragged(null);
+          },
+          onPointerCancel: () => {
+            press.current = null;
+            setDragged(null);
+          },
+        }
+      : null;
+    const band = dragged ?? loop ?? null;
 
     useImperativeHandle(ref, () => ({
       moveTo(anchor) {
@@ -69,12 +135,14 @@ export const Stave = memo(
           <div className={cn('chart-section-label', playing && 'playing')}>{label}</div>
         ) : null}
         <svg
-          className="sheet"
+          ref={sheet}
+          className={cn('sheet', dragged && 'looping')}
           width={engraving.width}
           height={engraving.height}
           viewBox={`0 0 ${engraving.width} ${engraving.height}`}
           role="img"
           aria-label={engraving.label}
+          {...drag}
         >
           {/* First child, so it sits under the notes rather than over them.
               The band is painted with attributes rather than a stylesheet rule:
@@ -91,6 +159,26 @@ export const Stave = memo(
             fill="var(--brass)"
             opacity={0.17}
           />
+          {/* The looped bars, under the notes. Never printed:
+              a loop is where you are practising, not part of the part. */}
+          {band
+            ? boxes
+                .slice(band.from, band.to + 1)
+                .map((b, i) =>
+                  b ? (
+                    <rect
+                      key={band.from + i}
+                      className="loop-band"
+                      x={b.x}
+                      y={b.y}
+                      width={b.w}
+                      height={b.h}
+                      fill="var(--brass)"
+                      opacity={dragged ? 0.14 : 0.08}
+                    />
+                  ) : null
+                )
+            : null}
           {flash?.map((idx) => {
             const a = engraving.map[idx];
             return a ? (

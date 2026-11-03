@@ -1923,6 +1923,11 @@
   border-radius: 2px;
 }
 
+/* A drag across bars loops them (16-b-vi): no text is selected on the way. */
+.bb .sheet.looping {
+  user-select: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .bb * {
     transition-duration: 0.01ms !important;
@@ -1946,7 +1951,8 @@
   .bb .chart-hd .seg,
   .bb .chart-ft,
   .bb .chart-tools,
-  .bb .legend {
+  .bb .legend,
+  .bb .sheet .loop-band {
     display: none !important;
   }
   .bb .chartwrap {

@@ -1,5 +1,6 @@
 import type { BreakAudio } from '@/lib/app/breaks/audio/engine';
 import type { MidiSink } from '@/lib/app/breaks/audio/midi-out';
+import type { BarLoop } from '@/lib/app/breaks/bar-loop';
 import { leftLedFills } from '@/lib/app/breaks/drummer/fill-lead';
 import { Humaniser } from '@/lib/app/breaks/humanise';
 import { M44, groupAt, isGroupStart, stepSeconds, stepsPerQuarter } from '@/lib/app/breaks/meter';
@@ -71,6 +72,12 @@ export interface TransportSnapshot {
   arrangement: SectionLetter[];
   /** One section only: every other section's bars are skipped, not muted. */
   solo: SectionLetter | null;
+  /**
+   * A loop over a range of one slot's bars (16-b-vi): only those bars play,
+   * round and round, whatever the solo says. A loop past the slot's bars is
+   * held to them; one on a slot the arrangement has not got is none.
+   */
+  loop?: BarLoop | null;
   bpm: number;
   swing: number;
   /** Off-grid feel, 0–150. */
@@ -196,7 +203,7 @@ export interface TransportCallbacks {
   /** The tempo trainer moved the tempo. */
   onBpm: (bpm: number) => void;
   /**
-   * The arrangement came round for the `loops`-th time. `at` is the audio-clock
+   * The arrangement — or a loop over its bars — came round for the `loops`-th time. `at` is the audio-clock
    * time the next loop starts — the boundary itself, not when it was
    * scheduled, which runs ahead of it by the lookahead. A practice session
    * (7D) measures its slots from these, never from `setTimeout`.
@@ -371,6 +378,13 @@ export class Transport {
   /** A seek not yet heard: the slot asked for, and when its first step sounds. */
   private sought: { slot: number; at: number } | null = null;
   private seq: SeqEntry[] = [];
+  /** The loop the sequence was built for, as `slot:from:to`; empty when it is the arrangement. */
+  private loopKey = '';
+  /**
+   * A bar a new loop left out, playing on to its end before the loop's first
+   * bar: a loop set mid-bar comes in on a downbeat, not in the middle of one.
+   */
+  private carry: SeqEntry | null = null;
   private raf: number | null = null;
   private loops = 0;
   /** This performance's humaniser: made at Play, and again when a pass starts on a new seed. */
@@ -418,6 +432,7 @@ export class Transport {
     this.queue = [];
     this.heard = null;
     this.sought = null;
+    this.carry = null;
     this.loops = 0;
     let midway = false;
     const r = opts.resume;
@@ -475,7 +490,7 @@ export class Transport {
     }
     if (this.sought && now + 0.005 < this.sought.at) return { slot: this.sought.slot, barIdx: 0 };
     if (heard) return heard;
-    const pos = this.seq[this.seqIndex];
+    const pos = this.here();
     return pos ? { slot: pos.secIdx, barIdx: pos.barIdx } : null;
   }
 
@@ -488,7 +503,7 @@ export class Transport {
     const now = this.audio.ctx?.currentTime ?? 0;
     const counting = this.queue.some((ev) => ev.count && ev.t > now + 0.005);
     if (this.countLeft > 0 || counting) {
-      const pos = this.seq[this.seqIndex];
+      const pos = this.here();
       return pos ? { slot: pos.secIdx, barIdx: 0, step: 0, loops: this.loops } : null;
     }
     // the first step queued that the speakers have not reached
@@ -501,7 +516,7 @@ export class Transport {
         loops: next.loops ?? this.loops,
       };
     }
-    const pos = this.seq[this.seqIndex];
+    const pos = this.here();
     return pos
       ? { slot: pos.secIdx, barIdx: pos.barIdx, step: this.step, loops: this.loops }
       : null;
@@ -521,15 +536,28 @@ export class Transport {
     const cnWas = this.countLeft > 0 ? patSteps(this.countInPattern(snap)) : 0;
     this.seqIndex = at;
     this.step = 0;
+    this.carry = null;
     this.sought = { slot: this.seq[at].secIdx, at: this.nextTime };
-    /* During a count-in the count carries on and lands here, in this section's
-       meter: the bar it was in starts again at this section's length, so the
-       clicks fall on its beats and the last one leads into its downbeat. */
-    if (cnWas > 0) {
-      const barsDone = Math.floor((this.countBars * cnWas - this.countLeft) / cnWas);
-      this.countLeft = (this.countBars - barsDone) * patSteps(this.countInPattern(snap));
-    }
+    this.recount(snap, cnWas);
     return true;
+  }
+
+  /**
+   * During a count-in the count carries on and lands where the sequence now
+   * starts, in that section's meter: the bar it was in starts again at that
+   * section's length, so the clicks fall on its beats and the last one leads
+   * into its downbeat. `cnWas` is the count's bar before the move, 0 when
+   * there was no count.
+   */
+  private recount(snap: TransportSnapshot, cnWas: number): void {
+    if (cnWas <= 0) return;
+    const barsDone = Math.floor((this.countBars * cnWas - this.countLeft) / cnWas);
+    this.countLeft = (this.countBars - barsDone) * patSteps(this.countInPattern(snap));
+  }
+
+  /** The bar the playhead is in: a bar a new loop left out, playing to its end, else the sequence's. */
+  private here(): SeqEntry | undefined {
+    return this.carry ?? this.seq[this.seqIndex];
   }
 
   /** The first entry of the sequence at or after an arrangement slot, wrapping; -1 if there is none. */
@@ -547,6 +575,21 @@ export class Transport {
    */
   private buildSeq(snap: TransportSnapshot): void {
     this.seq = [];
+    this.loopKey = '';
+    /* A loop is its bars and nothing else: the solo is the Studio's to clear
+       (a loop on A under "B only" is no loop), not the sequence's to apply. */
+    const loop = snap.loop;
+    const looped = loop ? snap.arrangement[loop.slot] : undefined;
+    const loopPat = looped ? snap.patterns[looped] : undefined;
+    if (loop && looped && loopPat?.bars.length) {
+      const to = Math.max(0, Math.min(loop.to, loopPat.bars.length - 1));
+      const from = Math.max(0, Math.min(loop.from, to));
+      for (let bi = from; bi <= to; bi++) {
+        this.seq.push({ letter: looped, barIdx: bi, secIdx: loop.slot });
+      }
+      this.loopKey = `${loop.slot}:${from}:${to}`;
+      return;
+    }
     snap.arrangement.forEach((letter, si) => {
       if (snap.solo && letter !== snap.solo) return;
       const pat = snap.patterns[letter];
@@ -578,9 +621,37 @@ export class Transport {
     if (!this.playing) return;
     const snap = this.cb.getSnapshot();
     const wasIndex = this.seqIndex;
+    const was = this.here();
+    const wasLoop = this.loopKey;
+    const cnWas = this.countLeft > 0 ? patSteps(this.countInPattern(snap)) : 0;
     this.buildSeq(snap);
+    if (this.loopKey !== wasLoop) {
+      this.reloop(was);
+      this.recount(snap, cnWas);
+      return;
+    }
     if (this.seqIndex >= this.seq.length) this.seqIndex = Math.max(0, this.seq.length - 1);
     if (wasIndex !== this.seqIndex) this.step = Math.min(this.step, this.barSteps(snap) - 1);
+  }
+
+  /**
+   * A loop was set, moved or lifted under a running transport (16-b-vi). The
+   * bar playing goes on where the new sequence has it: lifting a loop plays
+   * on from the bar you were drilling, and a loop over the bar you are in
+   * keeps going. Where it has not got it, the bar plays to its end and the
+   * loop's first bar follows; a count-in leads straight into it.
+   */
+  private reloop(was: SeqEntry | undefined): void {
+    this.carry = null;
+    const at = was
+      ? this.seq.findIndex((e) => e.secIdx === was.secIdx && e.barIdx === was.barIdx)
+      : -1;
+    if (at >= 0) {
+      this.seqIndex = at;
+      return;
+    }
+    this.seqIndex = 0;
+    if (was && this.countLeft === 0) this.carry = was;
   }
 
   /**
@@ -589,7 +660,7 @@ export class Transport {
    * opens on B in 7/8 counts in a bar of 7/8, whatever A is in.
    */
   private countInPattern(snap: TransportSnapshot): Pattern | null {
-    const first = this.seq[this.seqIndex] ?? this.seq[0];
+    const first = this.here() ?? this.seq[0];
     return (first && snap.patterns[first.letter]) || snap.patterns.A || null;
   }
 
@@ -609,19 +680,19 @@ export class Transport {
   /** The tempo the step about to be scheduled plays at. */
   private stepBpm(snap: TransportSnapshot): number {
     const pat = this.stepPattern(snap);
-    const pos = this.seq[this.seqIndex];
+    const pos = this.here();
     if (this.countLeft > 0) return tempoAt(snap.bpm, pat, pos?.barIdx ?? 0, 0);
     return tempoAt(snap.bpm, pat, pos?.barIdx ?? 0, this.step);
   }
 
   /** The section the playhead is in: the arrangement's, else A. */
   private livePattern(snap: TransportSnapshot): Pattern | null {
-    const pos = this.seq[this.seqIndex];
+    const pos = this.here();
     return (pos && snap.patterns[pos.letter]) || snap.patterns.A || null;
   }
 
   private barSteps(snap: TransportSnapshot): number {
-    const pos = this.seq[this.seqIndex];
+    const pos = this.here();
     return patSteps((pos && snap.patterns[pos.letter]) || null);
   }
 
@@ -638,7 +709,7 @@ export class Transport {
 
   private schedule(t: number, snap: TransportSnapshot): void {
     const dur = this.stepDur(snap);
-    const pos = this.seq[this.seqIndex];
+    const pos = this.here();
     const livePat = (pos && snap.patterns[pos.letter]) || null;
     const cm = meterOfPat(livePat ?? snap.patterns.A ?? null);
 
@@ -741,7 +812,10 @@ export class Transport {
     }
 
     if (this.cb.onStep) {
-      const after = this.seq[(this.seqIndex + 1) % this.seq.length];
+      // after a bar a new loop left out, the loop's first bar
+      const after = this.carry
+        ? this.seq[this.seqIndex]
+        : this.seq[(this.seqIndex + 1) % this.seq.length];
       const afterPat = (after && snap.patterns[after.letter]) || null;
       this.cb.onStep({
         t,
@@ -819,6 +893,11 @@ export class Transport {
     if (this.step < this.barSteps(snap)) return;
 
     this.step = 0;
+    if (this.carry) {
+      // the bar a new loop left out is over: the loop's first bar is next
+      this.carry = null;
+      return;
+    }
     this.seqIndex++;
     if (this.seqIndex < this.seq.length) return;
 

@@ -370,6 +370,27 @@
   font-size: 9px;
 }
 
+/* A slot a loop over bars is in (16-b-vi). */
+.bb .chapter.looped .chapter-letter::before {
+  content: '⟲ ';
+  font-family: var(--f-mono);
+  font-size: 9px;
+}
+.bb .player-tool.loop.on {
+  color: var(--brass-bright);
+}
+.bb .player-tool.loop.on .player-tool-face {
+  color: var(--brass-bright);
+}
+.bb .loop-deck {
+  display: grid;
+  gap: 8px;
+  min-width: 220px;
+}
+.bb .loop-deck .player-chip {
+  justify-self: start;
+}
+
 /* ---- the row ------------------------------------------------------ */
 .bb .player-row {
   display: flex;

@@ -51,6 +51,13 @@ export const SHORTCUTS: Shortcut[] = [
     run: ({ studio }, e) => studio.skip(e.key.toLowerCase() === 'j' ? -1 : 1),
   },
   {
+    keys: 'R',
+    does: 'Loop the bar you are in, or stop looping',
+    aria: 'R',
+    match: letter('r'),
+    run: ({ studio }) => studio.toggleBarLoop(),
+  },
+  {
     keys: '[  ]',
     does: 'Tempo down or up by 2',
     aria: '[ ]',

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { countInLabel, useTapTempo } from '@/components/app/shell/studio-transport';
 import { FeelPop } from '@/components/app/studio/player/feel-deck';
+import { LoopPop } from '@/components/app/studio/player/loop-deck';
 import { MixerPop } from '@/components/app/studio/player/mixer-desk';
 import { PlayerPortal, PlayerTip, PlayerTips } from '@/components/app/studio/player/player-pop';
 import { SoundPop } from '@/components/app/studio/player/sound-deck';
@@ -14,6 +15,7 @@ import { useStudio } from '@/components/app/studio/studio-provider';
 import { TempoControl } from '@/components/app/studio/tempo-control';
 import { Toggle } from '@/components/app/studio/toggle';
 import { beatOf, playableSlots } from '@/lib/app/breaks/audio/transport';
+import { loopWords } from '@/lib/app/breaks/bar-loop';
 import { layerNamesFor } from '@/lib/app/breaks/layers';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { barClock } from '@/lib/app/breaks/tempo-map';
@@ -35,7 +37,8 @@ function clockOf(pat: Pattern): ReturnType<typeof barClock> {
  * and from there at the next Play if it is not.
  *
  * Under "A only" the slots that do not play are dimmed, not hidden: the
- * arrangement is still the arrangement, and skipping passes over them.
+ * arrangement is still the arrangement, and skipping passes over them. A loop
+ * over bars (16-b-vi) marks its slot; a chapter clicked leaves the loop.
  */
 function Chapters() {
   const c = useStudio();
@@ -72,15 +75,22 @@ function Chapters() {
           fill = done / clock.length;
         } else if (here >= 0 && (rank.get(i) ?? here) < here) fill = 1;
         const cued = !c.playing && c.cue === i;
+        const looped = c.barLoop?.slot === i;
         return (
           <button
             key={i}
             type="button"
-            className={cn('chapter', !rank.has(i) && 'skip', i === at && 'now', cued && 'cued')}
+            className={cn(
+              'chapter',
+              !rank.has(i) && 'skip',
+              i === at && 'now',
+              cued && 'cued',
+              looped && 'looped'
+            )}
             style={{ flexGrow: weight }}
             onClick={() => c.seekSlot(i)}
             aria-label={`Go to slot ${i + 1}: ${letter}, ${bars} bar${bars === 1 ? '' : 's'}`}
-            title={`${letter} · ${bars} bar${bars === 1 ? '' : 's'}${rank.has(i) ? '' : ' — not playing under this section'}`}
+            title={`${letter} · ${bars} bar${bars === 1 ? '' : 's'}${looped && c.barLoop ? ` — looping ${loopWords(c.barLoop).toLowerCase()}` : rank.has(i) ? '' : ' — not playing under this section'}`}
           >
             <span className="chapter-track">
               <span
@@ -117,6 +127,7 @@ function Readout() {
         <b>{pos.letter}</b> · bar {(pos.barIdx ?? 0) + 1}/{bars} · beat{' '}
         <b>{beatOf(pat, pos.slot)}</b>
         {pat ? <span className="player-meter"> {meterOfPat(pat).label}</span> : null}
+        {c.barLoop ? <span className="player-meter"> · looping</span> : null}
       </span>
     );
   }
@@ -382,6 +393,7 @@ export function PlayerBar({
         </div>
         <div className="player-tools">
           {extra}
+          <LoopPop />
           <FeelPop />
           <MixerPop />
           <SoundPop />
