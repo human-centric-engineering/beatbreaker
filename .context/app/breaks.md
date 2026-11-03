@@ -250,8 +250,12 @@ itself. All three are checked by the same schema.
 `ps`, `pn`, `sk`) past 7. A bar that repeats an earlier one of its section is
 written once and then as `=k`, k the index it was first written at, so a
 theme of two bars ×16 is two bars and thirty pointers; a pointer is held to
-a written bar before it. The break's bars against `MAX_BREAK_BARS` count the
-written ones, not the pointers (`totalBars`, `distinctBars`). Written only
+a written bar before it. The break's bars against `MAX_BREAK_BARS` are its
+distinct ones: a pointer is not counted, nor a bar another section has
+written too (`totalBars`). A code below v11 may carry nothing past eight
+bars: no bar index past 7 in `fl`, `ps` or `tu`, and no more than eight rows
+of `pn` or `sk` or spans in `ps` or `fl`. A stored row's repair keeps a
+pointer as it is and a section's pins and sticking to its bars. Written only
 where a section is past eight bars, or the break's bars pass 128 written out:
 a v10 reader would refuse the length or read a pointer as rests. A section
 past eight bars, or a pointer, under a v10-or-older header is refused, and a

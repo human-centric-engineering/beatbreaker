@@ -742,6 +742,14 @@ export const sharePayloadSchema = z
             message: `a version ${payload.ver} code writes every bar; a repeated one needs version 11`,
           });
         }
+        const past = pastV10(payload[L]);
+        if (past) {
+          ctx.addIssue({
+            code: 'custom',
+            path: [L, past],
+            message: `a version ${payload.ver} code holds ${V10_SECTION_BARS} bars a section; its ${past} past them needs version 11`,
+          });
+        }
         continue;
       }
       b.forEach((bar, i) => {
@@ -780,11 +788,9 @@ export const sharePayloadSchema = z
         message: `a section of ${p.b.length} bars holds ${maxTuplets(p.b.length)} tuplets at most`,
       });
     }
-    // a repeat is not a bar of its own: it is written once
-    const bars = letters.reduce(
-      (n, L) => n + (payload[L]?.b.filter((b) => !isBarRepeat(b)).length ?? 0),
-      0
-    );
+    // a bar is counted once, however often the break plays it: a repeat, or a bar another section has
+    const bars = new Set(letters.flatMap((L) => payload[L]?.b.filter((b) => !isBarRepeat(b)) ?? []))
+      .size;
     if (bars > MAX_BREAK_BARS) {
       ctx.addIssue({
         code: 'custom',
@@ -806,6 +812,22 @@ export const sharePayloadSchema = z
       });
     }
   });
+
+/**
+ * The first field of a packed section that reaches past the eight bars a v10
+ * code holds — a bar index past 7, or more rows or spans than eight bars had —
+ * or null. What a v10 reader would refuse, a v10 header may not carry.
+ */
+function pastV10(p: PackedPattern | undefined): string | null {
+  if (!p) return null;
+  const n = V10_SECTION_BARS;
+  if ((p.fl ?? []).length > n || (p.fl ?? []).some(([bar]) => bar >= n)) return 'fl';
+  if ((p.ps ?? []).length > n || (p.ps ?? []).some((x) => x.b >= n)) return 'ps';
+  if ((p.tu ?? []).some((t) => t.b >= n)) return 'tu';
+  if (Array.isArray(p.pn) && p.pn.length > n) return 'pn';
+  if ((p.sk ?? []).length > n) return 'sk';
+  return null;
+}
 
 /** How slow and fast a packed section plays against the break: its ratio and its map's points. */
 function packedRange(p: { tr?: number; tm?: PackedTempoPoint[] } | undefined): [number, number] {
@@ -841,7 +863,8 @@ function isObject(v: unknown): v is Record<string, unknown> {
  * something v4 could say rather than into a value its version refuses.
  */
 function repairBar(bar: unknown, v5: boolean): unknown {
-  if (typeof bar !== 'string') return bar;
+  // a repeat (v11) is a pointer, not a row: the schema holds it to a bar before it
+  if (typeof bar !== 'string' || isBarRepeat(bar)) return bar;
   return bar
     .split('|')
     .slice(0, LANES.length)
@@ -882,7 +905,7 @@ function repairPacked(p: unknown, v5: boolean): unknown {
       .slice(0, LANES.length);
   }
   if (Array.isArray(p.pn)) {
-    out.pn = p.pn.slice(0, 8).map((bar) => {
+    out.pn = p.pn.slice(0, MAX_SECTION_BARS).map((bar) => {
       if (!isObject(bar)) return 0;
       const o: Record<string, string> = {};
       for (const [k, v] of Object.entries(bar)) {
@@ -897,7 +920,7 @@ function repairPacked(p: unknown, v5: boolean): unknown {
   delete out.th;
   if (Array.isArray(p.sk)) {
     out.sk = p.sk
-      .slice(0, 8)
+      .slice(0, MAX_SECTION_BARS)
       .map((row) =>
         typeof row === 'string' ? row.slice(0, MAX_ROW).replace(/[^.RLrl]/g, '.') : 0
       );

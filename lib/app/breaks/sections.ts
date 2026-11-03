@@ -115,12 +115,13 @@ export function hasExtraSections(sections: MaybeSections): boolean {
 }
 
 /**
- * Bars across every section, each counted once: a section's bar that repeats
- * one before it in the same section is not counted again, since a share code
- * writes it once and points at it (16-b-i). A theme of two bars ×16 is two.
+ * The distinct bars across every section (16-b-i): a bar played again,
+ * in its own section or another, is counted once, as the share code counts
+ * it. A theme of two bars ×16 is two; an import's B, its A's first bar, is
+ * none.
  */
 export function totalBars(sections: MaybeSections): number {
-  return patternsOf(sections).reduce((n, p) => n + distinctBars(p.bars), 0);
+  return new Set(patternsOf(sections).flatMap((p) => p.bars.map(barKey))).size;
 }
 
 /** A section's bars with each that repeats an earlier one counted once. */

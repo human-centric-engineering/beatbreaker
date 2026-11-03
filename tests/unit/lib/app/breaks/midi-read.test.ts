@@ -14,7 +14,7 @@ import { patternFromLibrary } from '@/lib/app/breaks/library';
 import { buildMidi, vlq } from '@/lib/app/breaks/midi';
 import { readMidi } from '@/lib/app/breaks/midi-read';
 import { breakPayload, decodeBreak, encodeBreak, packPattern } from '@/lib/app/breaks/share';
-import { packedPatternSchema } from '@/lib/app/breaks/schema';
+import { packedPatternSchema, sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import type { Bar, Pattern } from '@/lib/app/breaks/types';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
@@ -334,6 +334,8 @@ describe('importedDoc', () => {
     const doc = importedDoc(r.pattern, 'rock');
     expect(doc.A.bars).toHaveLength(20);
     expect(doc.C).toBeUndefined();
+    // B, which nothing plays, is A's first bar, not a copy of A to double what the break holds
+    expect(doc.B.bars).toEqual(doc.A.bars.slice(0, 1));
     expect(doc.arrangement).toEqual(['A']);
     // and its code is v11, the eighteen empty bars written once and pointed at
     const payload = breakPayload(doc);
@@ -342,12 +344,28 @@ describe('importedDoc', () => {
     expect(decodeBreak(encodeBreak(doc)).A.bars).toEqual(doc.A.bars);
   });
 
+  it('saves a long import of one meter, every bar its own (16-b-i)', () => {
+    // 100 bars of 4/4, each its own: bar i's kick on step i % 16 and snare on step i / 16
+    const at: [number, number][] = [];
+    for (let i = 0; i < 100; i++) {
+      at.push([i * 1920 + 120 * (i % 16), 36]);
+      at.push([i * 1920 + 120 * Math.floor(i / 16), 38]);
+    }
+    at.sort((x, y) => x[0] - y[0]);
+    const events = at.map(([t, note], k): Ev => [t - (k ? at[k - 1][0] : 0), ...ON(9, note, 100)]);
+    const r = readMidi(smf(events));
+    if (!r.ok) throw new Error(r.error);
+    const doc = importedDoc(r.pattern, 'rock');
+    expect(doc.A.bars).toHaveLength(100);
+    expect(sharePayloadSchema.safeParse(breakPayload(doc)).success).toBe(true);
+  });
+
   it('plays one section on its own when the import is one run of one meter', () => {
     const r = readMidi(smf([[0, ...ON(9, 36, 100)]]));
     if (!r.ok) throw new Error(r.error);
     const doc = importedDoc(r.pattern, 'rock');
     expect(doc.arrangement).toEqual(['A']);
-    expect(doc.B.bars).toEqual(doc.A.bars);
+    expect(doc.B.bars).toEqual(doc.A.bars.slice(0, 1));
   });
 
   it('reads backbeats off the snare and the time-keeper off the cymbals', () => {

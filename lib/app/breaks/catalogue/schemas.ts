@@ -20,7 +20,13 @@ import {
   isTempoRatio,
 } from '@/lib/app/breaks/sections';
 import { emptyBar } from '@/lib/app/breaks/pattern';
-import { isWrittenRepeat, layeredSwing, playWritten, writtenLength } from '@/lib/app/breaks/songs';
+import {
+  isWrittenRepeat,
+  layeredSwing,
+  playWritten,
+  songBars,
+  writtenLength,
+} from '@/lib/app/breaks/songs';
 import {
   MAX_TUPLET,
   MAX_TUPLETS,
@@ -416,21 +422,9 @@ const songSectionSchema = z
         path: ['tuplets'],
       });
     if (!x.written) return;
-    // a repeat plays bars written before it, and the section stays within a section's length
-    let before = 0;
-    x.written.forEach((w, k) => {
-      if (!isWrittenRepeat(w)) {
-        before++;
-        return;
-      }
-      if (w.again > before)
-        ctx.addIssue({
-          code: 'custom',
-          message: `a repeat plays again the bars before it; there are ${before}`,
-          path: ['written', k, 'again'],
-        });
-      before += w.again * w.times;
-    });
+    // a repeat plays bars before it, and each tuplet is in a written bar (one walk: playWritten's)
+    const problem = playWritten(x)?.problem;
+    if (problem) ctx.addIssue({ code: 'custom', message: problem, path: ['written'] });
     const played = writtenLength(x.written);
     if (played > MAX_SECTION_BARS)
       ctx.addIssue({
@@ -465,12 +459,6 @@ const songSectionSchema = z
    a bar of the break (`sectionBars` in `song-break.ts`). */
 const sectionBars = (x: { bars?: number; written?: Parameters<typeof writtenLength>[0] }) =>
   x.written ? writtenLength(x.written) : (x.bars ?? 1);
-
-/** A section's bars with each it repeats counted once: a written one's distinct figures. */
-function distinctSectionBars(x: { bars?: number; written?: Parameters<typeof writtenLength>[0] }) {
-  if (!x.written) return sectionBars(x);
-  return new Set(x.written.filter((w) => !isWrittenRepeat(w)).map((w) => JSON.stringify(w))).size;
-}
 
 const styleSongSchema = z
   .object({
@@ -515,7 +503,7 @@ const styleSongSchema = z
         });
     });
     // a bar a section repeats is held once, as the share code writes it (16-b-i)
-    const bars = sections.reduce((n, x) => n + distinctSectionBars(x), 0);
+    const bars = songBars(sections.map((x) => ({ written: x.written, bars: sectionBars(x) })));
     if (bars > MAX_BREAK_BARS)
       ctx.addIssue({
         code: 'custom',

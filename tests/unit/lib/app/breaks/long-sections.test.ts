@@ -10,7 +10,7 @@ import { describe, expect, it } from 'vitest';
 import { styleParamsSchema } from '@/lib/app/breaks/catalogue/schemas';
 import { generatePattern } from '@/lib/app/breaks/generate';
 import { clonePattern, emptyBar } from '@/lib/app/breaks/pattern';
-import { patternSchema, sharePayloadSchema } from '@/lib/app/breaks/schema';
+import { patternSchema, sharePayloadSchema, storedPayloadSchema } from '@/lib/app/breaks/schema';
 import {
   MAX_BREAK_BARS,
   MAX_SECTION_BARS,
@@ -21,11 +21,12 @@ import {
   SHARE_VERSION,
   SHARE_VERSION_TEMPO_MAPS,
   type BreakDoc,
+  breakDocFromPayload,
   breakPayload,
   decodeBreak,
   encodeBreak,
 } from '@/lib/app/breaks/share';
-import { isWrittenRepeat, playWritten, writtenLength } from '@/lib/app/breaks/songs';
+import { isWrittenRepeat, playWritten, songBars, writtenLength } from '@/lib/app/breaks/songs';
 import type { Figure, Pattern, ResolvedStyle, Style, WrittenBar } from '@/lib/app/breaks/types';
 import { testStyle } from '@/tests/helpers/catalogue';
 
@@ -149,9 +150,9 @@ describe('a bar a section plays again', () => {
     const p = distinctSection(2);
     p.bars = Array.from({ length: 64 }, (_, i) => p.bars[i % 2]);
     expect(distinctBars(p.bars)).toBe(2);
-    // four such sections play 256 bars and hold 8
+    // four such sections play 256 bars and hold the same 2: a bar is counted once across the break
     const doc: BreakDoc = { ...docOf(p), C: clonePattern(p), D: clonePattern(p) };
-    expect(totalBars(doc)).toBe(8);
+    expect(totalBars(doc)).toBe(2);
     expect(sharePayloadSchema.safeParse(breakPayload(doc)).success).toBe(true);
   });
 
@@ -174,7 +175,10 @@ describe('a bar a section plays again', () => {
   });
 
   it('counts each distinct bar against what a break holds, the pointers not', () => {
-    const many = docOf(distinctSection(MAX_BREAK_BARS), distinctSection(1));
+    // B's one bar is one A has not got: a snare on 2
+    const other = distinctSection(1);
+    other.bars[0].s[4] = 2;
+    const many = docOf(distinctSection(MAX_BREAK_BARS), other);
     expect(sharePayloadSchema.safeParse(breakPayload(many)).success).toBe(false);
   });
 });
@@ -239,11 +243,70 @@ describe('a written section that repeats', () => {
     expect(styleParamsSchema.safeParse(params).success).toBe(true);
   });
 
-  it('places a tuplet past the eighth bar', () => {
-    const bars = [...THEME, { again: 2, times: 5 }];
-    const ok = styleParamsSchema.safeParse(songWith(bars, [{ ...QUINT, bar: 10 }]).params);
+  it('places a tuplet past the eighth bar, by its written bar', () => {
+    // ten written bars, each its own: a kick on step i of bar i
+    const ten: Figure[] = Array.from({ length: 10 }, (_, i) => ({
+      ...THEME[0],
+      k: [...'................'].map((ch, j) => (j === i ? '1' : ch)).join(''),
+    }));
+    const ok = styleParamsSchema.safeParse(songWith(ten, [{ ...QUINT, bar: 9 }]).params);
     expect(ok.success).toBe(true);
-    const past = styleParamsSchema.safeParse(songWith(bars, [{ ...QUINT, bar: 12 }]).params);
+    const past = styleParamsSchema.safeParse(songWith(ten, [{ ...QUINT, bar: 10 }]).params);
     expect(past.success).toBe(false);
+  });
+
+  it('counts a tuplet by the written bar, so a repeat’s copy never takes one of its own', () => {
+    // bar 0, bar 0 again, then the theme's second bar: written bars 0 and 1, played 0, 1 and 2
+    const written: WrittenBar[] = [THEME[0], { again: 1, times: 1 }, THEME[1]];
+    const played = playWritten({ written, tuplets: [{ ...QUINT, bar: 1 }] });
+    expect(played?.tuplets.map((t) => t.bar)).toEqual([2]);
+    expect(played?.problem).toBeUndefined();
+    // a tuplet past the written bars is the schema's to refuse, and playWritten names it
+    const past = playWritten({ written, tuplets: [{ ...QUINT, bar: 2 }] });
+    expect(past?.tuplets).toEqual([]);
+    expect(past?.problem).toMatch(/2 written bars/);
+  });
+
+  it('names a repeat reaching past the first bar, and plays what there is', () => {
+    const played = playWritten({ written: [THEME[0], { again: 3, times: 1 }] });
+    expect(played?.bars).toHaveLength(2);
+    expect(played?.problem).toMatch(/there are 1/);
+  });
+});
+
+describe('the distinct bars a song holds', () => {
+  it('counts a figure once across its sections, and two that sound alike as one', () => {
+    const quiet: Figure = { ...THEME[0], t1: '................' };
+    expect(
+      songBars([
+        { written: [...THEME, { again: 2, times: 3 }], bars: 8 },
+        { written: [THEME[1], quiet], bars: 2 },
+        { bars: 4 },
+      ])
+    ).toBe(2 + 4);
+  });
+});
+
+describe('a break past v10 on the wire', () => {
+  it('refuses a v10 code carrying more than eight bars of data', () => {
+    const payload = breakPayload(docOf(distinctSection(8)));
+    const ten = (A: object) => sharePayloadSchema.safeParse({ ...payload, ver: 10, A }).success;
+    expect(ten(payload.A)).toBe(true);
+    expect(ten({ ...payload.A, fl: [[9, 0]] })).toBe(false);
+    expect(ten({ ...payload.A, sk: Array(9).fill(0) })).toBe(false);
+    expect(ten({ ...payload.A, pn: Array(9).fill(0) })).toBe(false);
+    expect(ten({ ...payload.A, tu: [{ b: 8, a: 0, s: 4, n: 3, x: { k: '111' } }] })).toBe(false);
+  });
+
+  it('keeps a stored break’s pointers, pins and sticking past bar 8', () => {
+    const p = distinctSection(2);
+    p.bars = Array.from({ length: 12 }, (_, i) => p.bars[i % 2]);
+    p.sticking = Array.from({ length: 12 }, (_, i) => (i === 10 ? 'R...............' : null));
+    p.pins = Array.from({ length: 12 }, (_, i) => (i === 11 ? { k: [0, 0, 3] } : {}));
+    const stored = storedPayloadSchema.parse(breakPayload(docOf(p)));
+    const back = breakDocFromPayload(stored);
+    expect(back.A.bars).toEqual(p.bars);
+    expect(back.A.sticking?.[10]).toMatch(/^R/);
+    expect(back.A.pins?.[11]?.k?.[2]).toBe(3);
   });
 });

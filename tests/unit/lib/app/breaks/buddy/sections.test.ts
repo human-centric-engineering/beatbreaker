@@ -74,11 +74,11 @@ function fullPayload(): SharePayload {
     lanes: roster.lanes,
     perc: roster.perc,
   });
-  // every bar its own (a crash row spelling its number), so none is a repeat held once (16-b-i)
-  const own = (p: Pattern): Pattern => {
+  // every bar its own across the break (a crash row spelling its number), so none is held once (16-b-i)
+  const own = (p: Pattern, s: number): Pattern => {
     const out = clonePattern(p);
     out.bars.forEach((bar, i) => {
-      bar.c = bar.c.map((_, j) => (i >> j) & 1);
+      bar.c = bar.c.map((_, j) => ((8 * s + i) >> j) & 1);
     });
     return out;
   };
@@ -88,9 +88,9 @@ function fullPayload(): SharePayload {
     swing: 0,
     level: 5,
     arrangement: [...letters],
-    A: own(A),
-    B: own(deriveB(A, funk.params)),
-    ...Object.fromEntries(letters.slice(2).map((L) => [L, own(A)])),
+    A: own(A, 0),
+    B: own(deriveB(A, funk.params), 1),
+    ...Object.fromEntries(letters.slice(2).map((L, i) => [L, own(A, i + 2)])),
   });
 }
 

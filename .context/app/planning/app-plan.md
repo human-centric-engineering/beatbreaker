@@ -5209,15 +5209,26 @@ catalogue's and the wire's, not the pattern's.** A pattern holds its bars
 played out, so the transport, the critic, MIDI, the tempo map and the loop to
 come read bars as ever; the catalogue writes `{ again, times }` and the share
 code `=k`, and a break counts a section's bars once however often they
-repeat (`distinctBars`). A song's 128 is distinct bars, so a record longer
-than 128 bars fits where its parts repeat. (2) **An import is a section a run
+repeat, in its own section or another (`totalBars`, `songBars`). A song's
+128 is distinct bars, so a record longer than 128 bars fits where its parts
+repeat. A written section's tuplets count its written bars, not a repeat's
+copies, which carry them. (2) **An import is a section a run
 of one meter**, not cut every eight bars: a file says nothing of where its
-parts begin, and a cut at eight was the wire's limit, not the music's. (3)
+parts begin, and a cut at eight was the wire's limit, not the music's. Its
+unplayed B is A's first bar, not a copy of A. (3)
 **Generated grooves keep their lengths:** the picker and `generate_pattern`
 still write up to eight bars; D76 is about the record's parts. Not built: the
 chart's repeat signs over bars a section plays again (they are engraved as
 written); the step editor draws a long section as one row, which at 128 bars
-is many cells, for 16-b-vi to look at with the loop.
+is many cells, for 16-b-vi to look at with the loop. Counting a break's
+distinct bars takes about 36 ms at the largest break there could be (26
+sections of 128 bars) and a few at a long song's size, once an edit; it is
+not cached, since a cache keyed on bars would go stale under an edit made in
+place.
+
+**An idea of the owner's for after Phase 16 (2026-11-03):** an import that
+finds a transcription's common and telling grooves and builds its sections
+from them, as a study of the part rather than a copy of every bar.
 
 **Urgent: the six limits the audit found (asked for by the owner on
 2026-11-01).** The owner's call: the app is adapted to all six, as urgent

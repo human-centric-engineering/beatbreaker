@@ -198,8 +198,10 @@ function runsOf(imp: ImportedPattern): { meter: string; bars: Bar[]; from: numbe
  * An import as a document: sections from A, in the order the source plays
  * them — a new one at every change of meter (11-e-ii) —
  * and an arrangement that plays each once. One section plays on its own, so
- * B is then a copy of A that the arrangement never reaches: the Studio
- * always has a B to edit.
+ * B is then A's first bar, which the arrangement never reaches: the Studio
+ * always has a B to edit. One bar, not a copy of A (16-b-i): A is now as long
+ * as the file's run of one meter, and a copy of it would double what the
+ * break holds for bars that never play.
  */
 export function importedDoc(imp: ImportedPattern, style: string): BreakDoc {
   // capBars has already cut a reader's bars to this; the slice holds a caller that skipped it
@@ -214,7 +216,7 @@ export function importedDoc(imp: ImportedPattern, style: string): BreakDoc {
     rangesFit(sections.map(paceRange));
   if (!fits) sections.forEach((p) => delete p.tempo);
   const A = sections[0] ?? sectionOf(imp, [], style);
-  const B = sections[1] ?? sectionOf(imp, A.bars, style, A.meter);
+  const B = sections[1] ?? sectionOf(imp, A.bars.slice(0, 1), style, A.meter);
   if (!fits) delete B.tempo;
   const doc: BreakDoc = {
     bpm: imp.bpm,

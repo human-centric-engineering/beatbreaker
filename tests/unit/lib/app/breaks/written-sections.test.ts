@@ -35,14 +35,16 @@ const RECORD: Figure[] = [
 ];
 
 /**
- * Eight bars of the record that all differ (16-b-i): a bar repeated is held
- * once, so a test of the bar budget needs bars that are not. Bar i adds a kick
- * on step 2i + 1.
+ * Eight bars of the record that differ from each other and from every other
+ * section's (16-b-i): a bar played again is held once, so a test of the bar
+ * budget needs bars that are not. Section s's bar i adds a crash row spelling
+ * 8s + i.
  */
-const EIGHT: Figure[] = Array.from({ length: 8 }, (_, i) => ({
-  ...RECORD[0],
-  k: [...'1...............'].map((ch, j) => (j === 2 * i + 1 ? '1' : ch)).join(''),
-}));
+const eightOf = (s: number): Figure[] =>
+  Array.from({ length: 8 }, (_, i) => ({
+    ...RECORD[0],
+    c: [...'................'].map((_, j) => (((8 * s + i) >> j) & 1 ? '1' : '.')).join(''),
+  }));
 
 function songStyle(
   song: Partial<StyleSong>,
@@ -133,12 +135,11 @@ describe('a written section', () => {
 
   it('is never shortened to fit a break; only a section the picker sizes is', () => {
     // fifteen written sections of eight, and two the picker sizes at eight: 136, over the limit
-    const eight = EIGHT;
     const sections = 'ABCDEFGHIJKLMNOPQ'
       .split('')
       .map((L, i) =>
         i < 15
-          ? { letter: L, label: `part ${L}`, params: {}, written: eight }
+          ? { letter: L, label: `part ${L}`, params: {}, written: eightOf(i) }
           : { letter: L, label: `part ${L}`, params: {} }
       );
     const style = songStyle({ sections, arrangement: undefined } as Partial<StyleSong>);
@@ -182,12 +183,11 @@ describe('the schema', () => {
   });
 
   it('counts written bars against the break', () => {
-    const eight = EIGHT;
-    const sections = 'ABCDEFGHIJKLMNOPQ'.split('').map((L) => ({
+    const sections = 'ABCDEFGHIJKLMNOPQ'.split('').map((L, i) => ({
       letter: L,
       label: `part ${L}`,
       params: {},
-      written: eight,
+      written: eightOf(i),
     }));
     // seventeen of eight is 136
     expect(parses(songStyle({ sections, arrangement: undefined } as Partial<StyleSong>))).toBe(
@@ -246,16 +246,17 @@ describe('serving a song', () => {
 
 describe('the bar budget', () => {
   it('counts a section the picker sizes as a bar, as the break gives it one', () => {
-    const eight = EIGHT;
-    const seven = eight.slice(0, 7);
     // fifteen of eight and one of seven is 127, and two the picker sizes make 129
-    const sections = 'ABCDEFGHIJKLMNOPQR'
-      .split('')
-      .map((L, i) =>
-        i < 16
-          ? { letter: L, label: `part ${L}`, params: {}, written: i < 15 ? eight : seven }
-          : { letter: L, label: `part ${L}`, params: {} }
-      );
+    const sections = 'ABCDEFGHIJKLMNOPQR'.split('').map((L, i) =>
+      i < 16
+        ? {
+            letter: L,
+            label: `part ${L}`,
+            params: {},
+            written: i < 15 ? eightOf(i) : eightOf(i).slice(0, 7),
+          }
+        : { letter: L, label: `part ${L}`, params: {} }
+    );
     const style = songStyle({ sections, arrangement: undefined } as Partial<StyleSong>);
     expect(styleParamsSchema.safeParse(style.params).success).toBe(false);
     const fits = songStyle({

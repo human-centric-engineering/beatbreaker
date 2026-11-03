@@ -356,9 +356,7 @@ describe('a written section', () => {
   it('refuses a tuplet past its bars, off them, or on a lane already in one', () => {
     const issues = (tuplets: unknown) =>
       (styleParamsSchema.safeParse(withSection(tuplets)).error?.issues ?? []).map((i) => i.message);
-    expect(issues([{ ...grids[0], bar: 1 }])).toContain(
-      'a tuplet inside one of the 1 written bars of 16 steps, off the grid, each value one its lane has'
-    );
+    expect(issues([{ ...grids[0], bar: 1 }])).toContain('a tuplet is in one of the 1 written bars');
     expect(issues([{ ...grids[0], n: 4, notes: { h: '1111' } }])).toContain(
       'a tuplet inside one of the 1 written bars of 16 steps, off the grid, each value one its lane has'
     );

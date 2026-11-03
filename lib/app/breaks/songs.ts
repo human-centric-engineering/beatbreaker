@@ -1,3 +1,4 @@
+import { LANES } from '@/lib/app/breaks/lanes';
 import { DEFAULT_METER, meterOf } from '@/lib/app/breaks/meter';
 import { polyFillsIn } from '@/lib/app/breaks/poly-fill';
 import { wpick, type Rng } from '@/lib/app/breaks/rng';
@@ -294,29 +295,73 @@ export function writtenLength(written: readonly WrittenBar[]): number {
 
 /**
  * A written section's bars as the record plays them (16-b-i): each repeat
- * played out, its bars' tuplets with it. Undefined for a section not written.
- * A repeat reaching back past the first bar takes what there is: the
- * catalogue's schema refuses one, so only a hand-built section meets it.
+ * played out, with the tuplets of the bars it repeats. A tuplet's `bar` counts
+ * the written bars, not a repeat's copies, so a repeat's bars always carry
+ * their tuplets and a copy never takes one of its own. Undefined for a section
+ * not written. `problem` names the first repeat reaching back past the first
+ * bar, or tuplet past the last written one: the catalogue's schema refuses
+ * both, so only a hand-built section plays one, as far back as there are bars.
  */
-export function playWritten(
-  x: Pick<SongSection, 'written' | 'tuplets'>
-): { bars: Figure[]; tuplets: SectionTuplet[] } | undefined {
+export function playWritten(x: Pick<SongSection, 'written' | 'tuplets'>):
+  | {
+      bars: Figure[];
+      tuplets: SectionTuplet[];
+      problem?: string;
+    }
+  | undefined {
   if (!x.written) return undefined;
   const bars: Figure[] = [];
-  const tuplets = [...(x.tuplets ?? [])];
-  for (const w of x.written) {
+  const tuplets: SectionTuplet[] = [];
+  const own = x.tuplets ?? [];
+  let figures = 0;
+  let problem: string | undefined;
+  x.written.forEach((w, k) => {
     if (!isWrittenRepeat(w)) {
+      const at = bars.length;
       bars.push(w);
-      continue;
+      for (const t of own) if (t.bar === figures) tuplets.push({ ...t, bar: at });
+      figures++;
+      return;
     }
+    if (w.again > bars.length)
+      problem ??= `entry ${k + 1} plays again the ${w.again} bars before it; there are ${bars.length}`;
     const from = Math.max(0, bars.length - w.again);
     const run = bars.slice(from);
-    const inRun = tuplets.filter((t) => t.bar >= from && t.bar < from + run.length);
-    for (let k = 0; k < w.times; k++) {
+    const inRun = tuplets.filter((t) => t.bar >= from);
+    for (let n = 0; n < w.times; n++) {
       const at = bars.length;
       bars.push(...run);
       for (const t of inRun) tuplets.push({ ...t, bar: t.bar - from + at });
     }
+  });
+  if (own.some((t) => t.bar >= figures))
+    problem ??= `a tuplet is in one of the ${figures} written bars`;
+  return { bars, tuplets, ...(problem ? { problem } : {}) };
+}
+
+/**
+ * The distinct bars a song's sections hold (16-b-i), as `totalBars` counts
+ * the break they make: a written figure once however often it plays, in its
+ * section or another — two that sound alike, a lane written as rests or left
+ * out, are one — and a section not written its own bars.
+ */
+export function songBars(
+  sections: readonly { written?: readonly WrittenBar[]; bars: number }[]
+): number {
+  const figures = new Set<string>();
+  let free = 0;
+  for (const x of sections) {
+    if (!x.written) free += x.bars;
+    else for (const w of x.written) if (!isWrittenRepeat(w)) figures.add(figureKey(w));
   }
-  return { bars, tuplets };
+  return figures.size + free;
+}
+
+/** A figure as the bar it makes: every lane's row in `LANES` order, a rest as 0, a silent row as none. */
+function figureKey(f: WrittenBar): string {
+  if (isWrittenRepeat(f)) return '';
+  return LANES.map((L) => {
+    const row = (f[L] ?? '').replace(/\./g, '0');
+    return /[1-9]/.test(row) ? row : '';
+  }).join('|');
 }

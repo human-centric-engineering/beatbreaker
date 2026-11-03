@@ -342,10 +342,12 @@ few words of `feel`, a `weight`, and `params`: any style field except
     alternates two bars is the two and `{ again: 2, times: 15 }`, not thirty
     bars written out nor a section a bar. The bars and their tuplets repeat
     together; `playWritten` (`songs.ts`) plays them out, and every reader of
-    a written section's bars goes through it. The schema holds a repeat to
-    bars before it and the section, played out, to 128 bars.
+    a written section's bars goes through it. It also names a repeat
+    reaching past the first bar, or a tuplet past the last written one,
+    which the schema refuses; the section, played out, is held to 128 bars.
   - **A written section's tuplets and beat grids** (`tuplets`, D84 and D87)
-    are spans over its bars as played: `bar` (from 0, repeats played out), `start` and `span` in
+    are spans over its written bars: `bar` (from 0, counting the bars written,
+    not a repeat's copies, which carry their bars' tuplets), `start` and `span` in
     steps, `n` notes, and each lane's row `n` digits long, `.` for none. A
     figure laid over the grid names the lanes it plays; a beat on a grid of
     its own — a beat of triplets in a sixteenth-note bar, a quintuplet — is
@@ -355,7 +357,8 @@ few words of `feel`, a `weight`, and `params`: any style field except
     is sixteenths), each value one its lane has, one lane in one at a time,
     and 32 a bar.
   - **A song holds 128 distinct bars across its sections and 128 arrangement slots**
-    (a bar a section repeats counted once),
+    (a bar counted once however often it plays, in its section or another,
+    and two figures that sound alike as one: `songBars`),
     enough to write a record passage by passage and play it in its order,
     intro to outro; a song is never shortened to fit. A section that names
     no length — the picker sizes it — counts as one bar against the limit,
