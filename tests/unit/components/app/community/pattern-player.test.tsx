@@ -29,6 +29,7 @@ const fakes = vi.hoisted(() => {
     samples: unknown = null;
     percussion: unknown = null;
     setKit = vi.fn();
+    prepareKits = vi.fn();
     setPanView = vi.fn();
     // the lane channel (Phase 9): plays the voice, as the engine does
     playIn = vi.fn((_lane: string, _level: number, _t: number, play: () => void) => play());
@@ -69,7 +70,7 @@ import { breakPayload } from '@/lib/app/breaks/share';
 import { testKits, testStyle } from '@/tests/helpers/catalogue';
 import { pickOption } from '@/tests/helpers/select-menu';
 
-function payload() {
+function payload(kitA?: string) {
   const funk = testStyle('funk');
   const A = generatePattern({
     style: funk,
@@ -84,14 +85,14 @@ function payload() {
     swing: 10,
     level: 5,
     arrangement: ['A', 'B'],
-    A,
+    A: kitA ? { ...A, kit: kitA } : A,
     B: deriveB(A, funk.params),
   });
 }
 
 /** Render, then wait for the engine the player imports after its first render. */
-async function renderReady(kits = testKits()) {
-  const view = render(<PatternPlayer payload={payload()} kits={kits} />);
+async function renderReady(kits = testKits(), doc = payload()) {
+  const view = render(<PatternPlayer payload={doc} kits={kits} />);
   await waitFor(() => expect(fakes.made.audio).toHaveLength(1));
   return view;
 }
@@ -225,6 +226,34 @@ describe('PatternPlayer', () => {
     await renderReady(withoutDefault);
 
     expect(fakes.made.audio[0].setKit).toHaveBeenCalledWith(expectedFallback, expect.anything());
+  });
+
+  it('plays a section on its own kit from its first note, has it decoded on Play, and the default again on Stop (D86)', async () => {
+    const user = userEvent.setup();
+    const kits = testKits();
+    await renderReady(kits, payload('jazzBrushes'));
+    const engine = fakes.made.audio[0];
+
+    await user.click(screen.getByRole('button', { name: /^play$/i }));
+    expect(engine.prepareKits).toHaveBeenCalledWith([kits.jazzBrushes]);
+    expect(engine.setKit).toHaveBeenCalledWith(
+      kits.jazzBrushes,
+      expect.anything(),
+      expect.any(Number)
+    );
+
+    await user.click(screen.getByRole('button', { name: /^stop$/i }));
+    expect(engine.setKit.mock.lastCall?.[0]).toBe(kits.studio70);
+  });
+
+  it('plays a section naming a kit the page has not got on the default kit', async () => {
+    const user = userEvent.setup();
+    const kits = testKits();
+    await renderReady(kits, payload('nope'));
+    const engine = fakes.made.audio[0];
+    await user.click(screen.getByRole('button', { name: /^play$/i }));
+    expect(engine.prepareKits).toHaveBeenCalledWith([]);
+    expect(engine.setKit.mock.calls.every(([kit]) => kit === kits.studio70)).toBe(true);
   });
 
   it('sets no kit at all, rather than crashing, when the catalogue has none', async () => {

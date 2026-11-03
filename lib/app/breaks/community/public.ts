@@ -1,5 +1,6 @@
 import type { Prisma } from '@prisma/client';
 
+import { loadBrushed } from '@/lib/app/breaks/catalogue/brushes';
 import { critique, playability } from '@/lib/app/breaks/critic';
 import { type PublicAbout, publicAbout } from '@/lib/app/breaks/community/about';
 import { lineageOf, type BasedOn } from '@/lib/app/breaks/community/sharing';
@@ -267,7 +268,7 @@ export async function getPublicPattern(slug: string): Promise<PublicPattern | nu
   const payload = storedPayloadSchema.parse(row.doc);
   const doc = breakDocFromPayload(payload);
   const report = critique(doc.A, doc.bpm);
-  const checks = playability(doc.A, doc.bpm);
+  const checks = playability(doc.A, doc.bpm, { brushes: (await loadBrushed())(doc.A) });
   const [authors, basedOn] = await Promise.all([
     usernamesOf([row.userId]),
     lineageOf(row.parentId ?? row.ownParentId),

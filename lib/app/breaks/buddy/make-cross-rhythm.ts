@@ -13,6 +13,7 @@ import {
   cycleChoices,
   handsFor,
 } from '@/lib/app/breaks/cross-rhythm';
+import { loadBrushed } from '@/lib/app/breaks/catalogue/brushes';
 import { bbValue } from '@/lib/app/breaks/lanes';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { SECTION_LETTERS } from '@/lib/app/breaks/sections';
@@ -173,7 +174,12 @@ export class MakeCrossRhythmCapability extends BaseCapability<Args, EditData> {
     });
     if (!outcome.ok) return this.error(outcome.message, outcome.code);
 
-    const described = describeEdit(outcome.before, outcome.after, outcome.extra);
+    const described = describeEdit(
+      outcome.before,
+      outcome.after,
+      outcome.extra,
+      await loadBrushed()
+    );
     return this.success({
       doc: outcome.payload,
       rev: outcome.rev,

@@ -71,16 +71,24 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
   `onKit(kit, at)` before voicing a section on another kit, and with null
   where the break's comes back and on Stop; the Studio sets the engine's kit
   there, `at` the section's first note, so its room and tone change at the
-  bar line, and holds back its own kit effect while a section's kit plays.
-  Every kit the break's sections play on is decoded ahead
-  (`BreakAudio.prepareKits`) and kept beside the two the picker keeps
-  (`PackSource.prepare`). A hand on a brush kit (`brushes` on its row) is
+  bar line (the filter and wet level ramp on the audio clock; the drive and
+  the room's impulse, which cannot be scheduled, swap on a timer then), and
+  holds back its own kit effect while a section's kit plays, but for your
+  tuning of that kit, heard as it changes. Every kit the break's sections
+  play on is decoded ahead (`BreakAudio.prepareKits`, keyed on the kits'
+  names, so an edit does not ask again) and kept beside the two the picker
+  keeps (`PackSource.prepare`); a break with none lets them go. The
+  community player plays a section's kit the same way, decoded on Play. A
+  section naming a kit the Studio cannot play plays, and is judged and
+  charted, on the break's. A hand on a brush kit (`brushes` on its row) is
   judged as one: `limbProblems(pat, bpm, { brushes })` gives a brush's
   double `BRUSH_DOUBLE`, a wrist's single stroke, for a stick's rebounded
   `HAND_DOUBLE`. Whether a kit is brushes is its row's, so the caller says:
-  the Studio's critic on the kit A plays, and New's candidates through
-  `songBreak`'s `brushes(kit)`; the API routes and BeatBuddy judge on
-  sticks. The chart prints _Brushes_ or _Sticks_ over each section's first
+  the Studio's critic on the kit A sounds on (`onBrushes`), and New's
+  candidates through `songBreak`'s `brushes(kit)`, on the kit the break will
+  play. The API routes and BeatBuddy have no Studio kit, so they judge on the
+  kit the catalogue asks for: the section's own, else the song's or the
+  style's (`loadBrushed` in `catalogue/brushes.ts`). The chart prints _Brushes_ or _Sticks_ over each section's first
   bar where the break changes between them (`playedWith`), and the drummer
   holds brushes while a brushed section plays (`kitPlaying`). `clonePattern`
   carries the kit; `deriveB` keeps A's. MIDI has no kit, so a file carries

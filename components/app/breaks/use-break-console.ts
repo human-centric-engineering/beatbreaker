@@ -494,6 +494,12 @@ export interface BreakConsole {
    */
   kitPlaying: string;
   /**
+   * Whether a section on its own kit `own` (D86) plays with brushes: that
+   * kit where the Studio can play it, else {@link kit}, as the transport
+   * plays it. The chart and the critic both read it.
+   */
+  onBrushes: (own: string | undefined) => boolean;
+  /**
    * The live voice parameters — the kit's own numbers with your tuning on top.
    * This is what the engine is playing, not what the table ships.
    */
@@ -1322,20 +1328,24 @@ export function useBreakConsole(
      otherwise run it for each value the slider passes on the way. */
   const criticBpm = useDeferredValue(bpm);
   const report = useMemo(() => (view.A ? critique(view.A, criticBpm) : null), [view.A, criticBpm]);
-  // on the kit A plays on: its own, else the break's, judged as brushes where it is (D86)
-  const brushesA = !!catalogue.kits[view.A?.kit ?? kit]?.brushes;
+  /**
+   * Whether a section on `own` plays with brushes, in a break on `breakKey`
+   * (D86): its own kit where the Studio can play it, else the break's, as
+   * the transport plays it.
+   */
+  const brushesIn = useCallback(
+    (breakKey: string) => (own: string | undefined) => {
+      const row = own ? catalogue.kits[own] : undefined;
+      return !!(row && kitIsPlayable(row) ? row : catalogue.kits[breakKey])?.brushes;
+    },
+    [catalogue.kits]
+  );
+  const onBrushes = useMemo(() => brushesIn(kit), [brushesIn, kit]);
+  // on the kit A plays on, judged as brushes where it is (D86)
+  const brushesA = onBrushes(view.A?.kit);
   const checks = useMemo(
     () => (view.A ? playability(view.A, criticBpm, { brushes: brushesA }) : null),
     [view.A, criticBpm, brushesA]
-  );
-  /**
-   * Which kits a break of `row`'s song plays with brushes, for New to judge
-   * its sections on (D86): a section's own kit, else the song's, else yours.
-   */
-  const brushesIn = useCallback(
-    (row: ResolvedStyle, song: string | undefined) => (k: string | undefined) =>
-      !!catalogue.kits[k ?? breakKit(row.params, song) ?? kit]?.brushes,
-    [catalogue.kits, kit]
   );
 
   /* ---- the style's opinions, applied when it changes ------------------ */
@@ -1366,15 +1376,22 @@ export function useBreakConsole(
    * and back to yours when it asks for none: picking the waltz once must not
    * leave every style after it on brushes, and neither must one song.
    */
-  const followKit = useCallback(
+  const kitFor = useCallback(
     (asked: string | undefined) => {
       /* `named.key` rather than `asked`: the same string, read off the row
          that was actually found, so there is nothing to assert non-null. */
       const named = asked ? catalogue.kits[asked] : undefined;
       const wantKit = named && kitIsPlayable(named) ? named.key : userKit;
-      if (wantKit !== kit && kitIsPlayable(catalogue.kits[wantKit])) update({ kit: wantKit });
+      return kitIsPlayable(catalogue.kits[wantKit]) ? wantKit : kit;
     },
-    [catalogue.kits, userKit, kit, update]
+    [catalogue.kits, userKit, kit]
+  );
+  const followKit = useCallback(
+    (asked: string | undefined) => {
+      const wantKit = kitFor(asked);
+      if (wantKit !== kit) update({ kit: wantKit });
+    },
+    [kitFor, kit, update]
   );
 
   /**
@@ -1410,15 +1427,24 @@ export function useBreakConsole(
         ? DEFAULT_STUDIO_SETTINGS.userKit
         : userKit;
       const wantKit = named && kitIsPlayable(named) ? named.key : home;
-      // and every kit a song of theirs plays, so a song on its own kit starts clean too
-      const played = [wantKit, ...(st?.songs ?? []).flatMap((sg) => sg.params.kit ?? [])];
+      /* and every kit a song of theirs plays, so a song on its own kit starts
+         clean too, and every kit a section plays (D86): a song's, or one you
+         picked for a section on the stage */
+      const played = [
+        wantKit,
+        ...(st?.songs ?? []).flatMap((sg) => [
+          ...(sg.params.kit ? [sg.params.kit] : []),
+          ...(sg.sections ?? []).flatMap((sec) => sec.params.kit ?? []),
+        ]),
+        ...Object.values(patterns).flatMap((p) => p?.kit ?? []),
+      ];
       const tuned = played.filter((k) => Object.keys(tuning[k] ?? {}).length > 0);
       const sound = Object.fromEntries(tuned.map((k) => [k, {}]));
       update({ kit: wantKit, userKit: home, sound });
       setMixTouched({});
       applyStyleMix(styleKey, {});
     },
-    [catalogue.styles, catalogue.kits, userKit, tuning, update, applyStyleMix]
+    [catalogue.styles, catalogue.kits, userKit, tuning, patterns, update, applyStyleMix]
   );
 
   const setLaneMix = useCallback((lane: string, v: number) => {
@@ -1555,7 +1581,8 @@ export function useBreakConsole(
           seed: Math.floor(Math.random() * 0xffffffff),
           bpm: setup.bpm,
           custom: lanesMode === 'custom' ? customLanes : null,
-          brushes: brushesIn(row, setup.song),
+          // on the kit followSound has just asked for, which `kit` does not hold yet
+          brushes: brushesIn(kitFor(breakKit(row.params, setup.song))),
         });
         setTries({ tries: made.tries, rejected: made.rejected });
         const twisted = setup.creativity
@@ -1599,7 +1626,8 @@ export function useBreakConsole(
           tempoRatio: setup.tempoRatio,
           tempo: setup.tempo,
           custom: lanesMode === 'custom' ? customLanes : null,
-          brushes: brushesIn(row, setup.song),
+          // a section of the break on the stage, which plays on the Studio's kit
+          brushes: brushesIn(kit),
         });
       /* A regenerate has to come out different: a style of a few written
          figures can roll the same bars again, so it rolls again (a few times,
@@ -1621,6 +1649,8 @@ export function useBreakConsole(
       arrangement,
       stageSongArrangement,
       brushesIn,
+      kitFor,
+      kit,
     ]
   );
 
@@ -2587,6 +2617,8 @@ export function useBreakConsole(
   /** A section's own kit (D86) sounding now, or null for the break's. */
   const [sectionKit, setSectionKitNow] = useState<string | null>(null);
   const sectionKitNow = useRef<string | null>(null);
+  /** Your tuning of that kit as it was when the engine was handed it. */
+  const sectionTuned = useRef<Record<string, VoiceParams> | undefined>(undefined);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -2596,10 +2628,18 @@ export function useBreakConsole(
        would arrive synthesised while the decode caught up behind it. */
     audio.percussion = percussion;
     if (kitEngine(kitRow) !== 'synth') audio.init();
-    // a section on its own kit (D86) is playing: the break's comes back when it ends
+    /* A section on its own kit (D86) is playing: the break's comes back when
+       it ends. Your tuning of the section's kit is heard as you change it. */
+    const own = sectionKitNow.current ? catalogue.kits[sectionKitNow.current] : undefined;
+    if (own) {
+      if (tuning[own.key] === sectionTuned.current) return;
+      sectionTuned.current = tuning[own.key];
+      audio.setKit(own, withTuning(own, tuning[own.key]));
+      return;
+    }
     if (sectionKitNow.current) return;
     audio.setKit(kitRow ?? null, sound);
-  }, [kitRow, sound, percussion]);
+  }, [kitRow, sound, percussion, catalogue.kits, tuning]);
 
   /* ---- a section's own kit (D86) -------------------------------------- */
 
@@ -2614,6 +2654,7 @@ export function useBreakConsole(
       const row = k ? catalogue.kits[k] : undefined;
       const own = row && kitIsPlayable(row) ? row : null;
       sectionKitNow.current = own ? own.key : null;
+      sectionTuned.current = own ? tuning[own.key] : undefined;
       setSectionKitNow(sectionKitNow.current);
       if (!audio) return;
       if (own) audio.setKit(own, withTuning(own, tuning[own.key]), at);
@@ -2627,20 +2668,26 @@ export function useBreakConsole(
   }, [playSectionKit]);
 
   /* Every kit the break's sections play on, decoded now and kept: the change
-     comes at a bar line, with no time to decode there. */
-  const sectionKits = useMemo(() => {
-    const keys = new Set(
-      Object.values(patterns).flatMap((p) => (p?.kit && p.kit !== kit ? [p.kit] : []))
-    );
-    return [...keys].flatMap((k) => {
-      const row = catalogue.kits[k];
-      return row && kitIsPlayable(row) ? [row] : [];
-    });
-  }, [patterns, kit, catalogue.kits]);
+     comes at a bar line, with no time to decode there. Keyed on the kits'
+     names, so a note written into a section does not prepare them again. */
+  const sectionKitKeys = [
+    ...new Set(Object.values(patterns).flatMap((p) => (p?.kit && p.kit !== kit ? [p.kit] : []))),
+  ]
+    .sort()
+    .join('\n');
+  const sectionKits = useMemo(
+    () =>
+      (sectionKitKeys ? sectionKitKeys.split('\n') : []).flatMap((k) => {
+        const row = catalogue.kits[k];
+        return row && kitIsPlayable(row) ? [row] : [];
+      }),
+    [sectionKitKeys, catalogue.kits]
+  );
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio || !sectionKits.length) return;
-    audio.init();
+    if (!audio) return;
+    if (sectionKits.length) audio.init();
+    // none: the last break's are let go
     audio.prepareKits(sectionKits);
   }, [sectionKits]);
 
@@ -3085,7 +3132,7 @@ export function useBreakConsole(
       seed: Math.floor(Math.random() * 0xffffffff),
       bpm: atBpm,
       custom: lanesMode === 'custom' ? customLanes : null,
-      brushes: brushesIn(styleRow, song?.key),
+      brushes: brushesIn(kitFor(breakKit(styleRow.params, song?.key))),
     });
     setPatterns(made.sections);
     /* Every slot names a section the break has: a link or scratch pattern that
@@ -3336,6 +3383,7 @@ export function useBreakConsole(
     setKit,
     setSectionKit,
     kitPlaying: sectionKit ?? kit,
+    onBrushes,
     sound,
     voice,
     setVoice,

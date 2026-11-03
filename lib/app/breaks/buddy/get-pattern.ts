@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import { type SectionView, decodeWorkspace, viewSection } from '@/lib/app/breaks/buddy/describe';
 import { readWorkspace } from '@/lib/app/breaks/buddy/workspace';
+import { loadBrushed } from '@/lib/app/breaks/catalogue/brushes';
 import { patternLayerName } from '@/lib/app/breaks/layers';
 import { type SectionLetter, lettersOf } from '@/lib/app/breaks/sections';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
@@ -61,6 +62,7 @@ export class GetPatternCapability extends BaseCapability<Args, GetPatternData> {
     }
 
     const doc = await decodeWorkspace(workspace.doc);
+    const brushed = await loadBrushed();
     return this.success({
       rev: workspace.rev,
       bpm: doc.bpm,
@@ -70,7 +72,7 @@ export class GetPatternCapability extends BaseCapability<Args, GetPatternData> {
       arrangement: doc.arrangement,
       sections: lettersOf(doc).flatMap((s) => {
         const pat = doc[s];
-        return pat ? [viewSection(pat, s, doc.bpm, doc.swing)] : [];
+        return pat ? [viewSection(pat, s, doc.bpm, doc.swing, brushed(pat))] : [];
       }),
     });
   }

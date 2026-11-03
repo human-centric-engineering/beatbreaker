@@ -33,6 +33,7 @@ import { getRouteLogger } from '@/lib/api/context';
 import { APIError, NotFoundError, ValidationError } from '@/lib/api/errors';
 import { successResponse } from '@/lib/api/responses';
 import { validateRequestBody } from '@/lib/api/validation';
+import { loadBrushed } from '@/lib/app/breaks/catalogue/brushes';
 import { withAuth } from '@/lib/auth/guards';
 import { critique, playability } from '@/lib/app/breaks/critic';
 import { columnsFromDoc } from '@/lib/app/breaks/columns';
@@ -74,7 +75,7 @@ export const GET = withAuth<{ id: string }>(
        whose score was computed by a version of the critic nobody can identify,
        and the critic is cheap and pure — so it runs on the way out. */
     const doc = breakDocFromPayload(payload);
-    const checks = playability(doc.A, doc.bpm);
+    const checks = playability(doc.A, doc.bpm, { brushes: (await loadBrushed())(doc.A) });
     const report = critique(doc.A, doc.bpm);
 
     log.info('Break fetched', { breakId: id, mine });

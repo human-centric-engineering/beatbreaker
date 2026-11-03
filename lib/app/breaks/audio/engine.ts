@@ -214,6 +214,8 @@ export class BreakAudio {
   private panView: PanView = 'drummer';
   private irRoom = -1;
   private driveAt = -1;
+  /** A kit change's drive and room, waiting for its section's first note (D86). */
+  private kitTimer: ReturnType<typeof setTimeout> | null = null;
   /** Recordings heard on their own, by URL, each fetched and decoded once ({@link preview}). */
   private previews = new Map<string, Promise<AudioBuffer | null>>();
 
@@ -337,6 +339,8 @@ export class BreakAudio {
   close(): void {
     const ctx = this.ctx;
     this.ctx = null;
+    if (this.kitTimer) clearTimeout(this.kitTimer);
+    this.kitTimer = null;
     this.bus = null;
     this.master = null;
     this.shaper = null;
@@ -371,7 +375,7 @@ export class BreakAudio {
     this.kit = kit;
     this.sound = sound;
     // a kit of yours may pan its lanes its own way (9-v)
-    this.applyPans();
+    this.applyPans(at);
     if (this.ctx) {
       this.applyKit(at);
       this.samples?.refresh?.(this);
@@ -476,14 +480,27 @@ export class BreakAudio {
        on the first `applyKit()` rather than playing through the default. */
     const m = this.sound?.master ?? this.kit?.master ?? SYNTH_FALLBACK.master;
     this.lp.frequency.setTargetAtTime(m.lp ?? 16000, when, 0.01);
-    this.setDrive(m.drive ?? 1);
     const room = m.room ?? 0;
     this.wet.gain.setTargetAtTime(room, when, 0.02);
-    const want = Math.round(room * 100);
-    if (want !== this.irRoom) {
-      this.convolver.buffer = this.makeIR(room);
-      this.irRoom = want;
-    }
+    /* The drive and the room's shape cannot be scheduled on the audio clock:
+       a new shaper and a new IR take over the moment they are set. A kit
+       change at a section's first note (D86) sets them then, on a timer, so
+       the outgoing section's last notes keep their own kit's drive and room. */
+    if (this.kitTimer) clearTimeout(this.kitTimer);
+    this.kitTimer = null;
+    const swap = () => {
+      this.kitTimer = null;
+      if (!this.convolver) return;
+      this.setDrive(m.drive ?? 1);
+      const want = Math.round(room * 100);
+      if (want !== this.irRoom) {
+        this.convolver.buffer = this.makeIR(room);
+        this.irRoom = want;
+      }
+    };
+    const wait = when - ctx.currentTime;
+    if (wait > 0.005) this.kitTimer = setTimeout(swap, wait * 1000);
+    else swap();
   }
 
   /** A synthesised room: noise under a power-law decay, with a short pre-delay. */
@@ -613,13 +630,16 @@ export class BreakAudio {
     this.applyPans();
   }
 
-  /** Move every lane built so far to its pan: the kit's own, from the side it is heard. */
-  private applyPans(): void {
+  /**
+   * Move every lane built so far to its pan: the kit's own, from the side it
+   * is heard. `at` is when, as {@link setKit}'s; absent, now.
+   */
+  private applyPans(at?: number): void {
     const ctx = this.ctx;
     for (const [lane, ch] of this.channels) {
       if (!ch.pan) continue;
       const to = panFor(lane, this.panView, this.kit?.samples.pan);
-      if (ctx) ch.pan.pan.setTargetAtTime(to, ctx.currentTime, 0.02);
+      if (ctx) ch.pan.pan.setTargetAtTime(to, Math.max(ctx.currentTime, at ?? 0), 0.02);
       else ch.pan.pan.value = to;
     }
   }

@@ -5177,7 +5177,8 @@ mid-play does. (3) **Brushes are judged as brushes** where the caller knows
 the kit's row: a brush does not rebound, so its double on one drum is two
 wrist strokes (`BRUSH_DOUBLE`, a sixteenth at 210), where a stick's is a
 32nd at 214. The Studio's critic and New judge the kit each section plays
-on; the API routes and BeatBuddy, which have no kit, judge on sticks. Measured
+on; the API routes and BeatBuddy, which have no Studio kit, judge the kit the
+catalogue asks for (the section's, else the song's or the style's). Measured
 on the 16 songs whose break or section is on a brush kit, 40 seeds each, no
 break moved. Not asked for, and built because a drummer reading the chart
 needs it: the chart prints _Brushes_ or _Sticks_ over each section's first

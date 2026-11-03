@@ -122,10 +122,7 @@ export function Stage() {
   const markBpm = useDeferredValue(hasTempoMaps(c.patterns) ? c.bpm : 0);
   /* Brushes or Sticks over each section, where the break changes between
      them (D86): on the kit each plays, its own or the break's. */
-  const played = useMemo(
-    () => playedWith(c.patterns, (k) => !!c.catalogue.kits[k ?? c.kit]?.brushes),
-    [c.patterns, c.catalogue.kits, c.kit]
-  );
+  const played = useMemo(() => playedWith(c.patterns, c.onBrushes), [c.patterns, c.onBrushes]);
   const engravings = useMemo(() => {
     const opts = {
       scale: c.size,

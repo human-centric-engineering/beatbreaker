@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import { type EditData, describeEdit, editWorkspace } from '@/lib/app/breaks/buddy/edit';
 import { maxBpm } from '@/lib/app/breaks/audio/transport';
+import { loadBrushed } from '@/lib/app/breaks/catalogue/brushes';
 import { listLibraries, listStyles, styleLookup } from '@/lib/app/breaks/catalogue/data';
 import { openableIdForSlug } from '@/lib/app/breaks/community/public';
 import { slugSchema } from '@/lib/app/breaks/community/visibility';
@@ -167,7 +168,7 @@ export class OpenPatternCapability extends BaseCapability<Args, OpenPatternData>
       doc: outcome.payload,
       rev: outcome.rev,
       summary: `Opened ${opened.title}${opened.mine ? '' : ' (a copy)'}`,
-      ...describeEdit(outcome.before, outcome.after, lettersOf(outcome.after)),
+      ...describeEdit(outcome.before, outcome.after, lettersOf(outcome.after), await loadBrushed()),
       opened,
     });
   }

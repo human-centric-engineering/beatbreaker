@@ -10,7 +10,7 @@ import { Transport, type TransportSnapshot, maxBpmOf } from '@/lib/app/breaks/au
 import type { CatalogueKit } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
 import { humaniseAmount, humaniseSeed } from '@/lib/app/breaks/humanise';
-import { withTuning } from '@/lib/app/breaks/kit';
+import { type ResolvedKit, kitIsPlayable, withTuning } from '@/lib/app/breaks/kit';
 import { DEFAULT_MIX } from '@/lib/app/breaks/lanes';
 import { patternLayerName, reducePattern } from '@/lib/app/breaks/layers';
 import type { SharePayload } from '@/lib/app/breaks/schema';
@@ -31,7 +31,9 @@ const noop = (): void => {};
  * layer — the Studio's transport and engine, without the editor.
  *
  * The pattern's document carries no kit (the kit is a setting, D19), so it
- * plays the default system kit, as a new account's Studio does. **Your own
+ * plays the default system kit, as a new account's Studio does — except a
+ * section that names its own (D86), as So What's theme names the brushes,
+ * which plays that one from its first note. **Your own
  * samples are never involved**: nothing about publishing a pattern reaches
  * them (D20). It plays Humanise at its default, Subtle, on the first take, so
  * it is the performance a new account's Studio plays of the same notes.
@@ -105,6 +107,23 @@ export function PatternPlayer({
   }, [snapshot]);
 
   const transportRef = useRef<Transport | null>(null);
+  /** Has the sections' own kits decoded: once there is a context, on Play. */
+  const prepareRef = useRef<(() => void) | null>(null);
+
+  /* The kits the break's sections play on of their own (D86), where they
+     are a kit this page can play: a section naming any other plays the default. */
+  const sectionKits = useMemo(() => {
+    const out: Record<string, ResolvedKit> = {};
+    for (const k of new Set(patternsOf(doc).flatMap((p) => p.kit ?? []))) {
+      const row = kits[k];
+      if (row && kitIsPlayable(row)) out[k] = row;
+    }
+    return out;
+  }, [doc, kits]);
+  const sectionKitsRef = useRef(sectionKits);
+  useEffect(() => {
+    sectionKitsRef.current = sectionKits;
+  }, [sectionKits]);
 
   useEffect(() => {
     let cancelled = false;
@@ -124,16 +143,22 @@ export function PatternPlayer({
         audio.setKit(kit, withTuning(kit, undefined));
         const t = new Transport(audio, {
           getSnapshot: () => snapshotRef.current,
+          onKit: (k, at) => {
+            const row = (k ? sectionKitsRef.current[k] : undefined) ?? kit;
+            audio.setKit(row, withTuning(row, undefined), at);
+          },
           onBpm: noop,
           onLoop: noop,
           onPaint: noop,
           onStop: () => setPlaying(false),
         });
         transportRef.current = t;
+        prepareRef.current = () => audio.prepareKits(Object.values(sectionKitsRef.current));
         teardown = () => {
           t.stop();
           audio.close();
           transportRef.current = null;
+          prepareRef.current = null;
         };
       })
       .catch((error: unknown) => {
@@ -159,8 +184,10 @@ export function PatternPlayer({
       t.stop();
       return;
     }
-    if (t.start()) setPlaying(true);
-    else {
+    if (t.start()) {
+      setPlaying(true);
+      prepareRef.current?.();
+    } else {
       setUnsupported(true);
       logger.warn('BeatBreaker: no Web Audio in this browser — the chart still reads');
     }

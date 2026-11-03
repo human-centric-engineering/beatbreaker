@@ -85,9 +85,11 @@ export function viewSection(
   pat: Pattern,
   section: Section,
   bpm: number,
-  swing: number
+  swing: number,
+  // played on brushes (D86), its hands judged as brushes
+  brushes = false
 ): SectionView {
-  const checks = playability(pat, bpm);
+  const checks = playability(pat, bpm, { brushes });
   const score = critique(pat, bpm);
   return {
     section,

@@ -26,6 +26,9 @@ vi.mock('@/lib/db/client', () => ({
 vi.mock('@/lib/app/breaks/catalogue/data', async (importOriginal) => ({
   ...(await importOriginal<typeof import('@/lib/app/breaks/catalogue/data')>()),
   listStyles: vi.fn(),
+  listKits: vi.fn(async () =>
+    Object.values((await import('@/tests/helpers/catalogue')).testKits())
+  ),
 }));
 
 import { ExplainDifficultyCapability } from '@/lib/app/breaks/buddy/explain-difficulty';

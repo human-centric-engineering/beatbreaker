@@ -3019,4 +3019,51 @@ describe('a section on a kit of its own (16-b-v, D86)', () => {
       expect.objectContaining({ limbs: 'hands', why: expect.stringMatching(/brush/) })
     );
   });
+
+  it('prepares the kits once, not on every note, and lets them go for a break with none', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.loadCode(abCode());
+    });
+    act(() => {
+      result.current.setSectionKit('A', 'jazzBrushes');
+    });
+    const audio = fakes.made.audio.at(-1)!;
+    const prepared = audio.prepareKits.mock.calls.length;
+    act(() => result.current.setCell('B', 0, 'k', 3, 1));
+    expect(audio.prepareKits).toHaveBeenCalledTimes(prepared);
+    act(() => {
+      result.current.loadCode(abCode());
+    });
+    expect(audio.prepareKits).toHaveBeenLastCalledWith([]);
+  });
+
+  it('judges a section on the kit it sounds on: one the Studio cannot play is the break’s', async () => {
+    const { result } = await mount();
+    const breakKit = result.current.kit;
+    expect(result.current.onBrushes(undefined)).toBe(!!catalogue.kits[breakKit].brushes);
+    expect(result.current.onBrushes('jazzBrushes')).toBe(true);
+    expect(result.current.onBrushes('nope')).toBe(!!catalogue.kits[breakKit].brushes);
+  });
+
+  it('hears your tuning of the section’s kit as it changes, and another drummer clears it', async () => {
+    const { result } = await mount(undefined, {
+      settings: { ...DEFAULT_STUDIO_SETTINGS, sound: { jazzBrushes: { k: { rate: 1.2 } } } },
+    });
+    act(() => {
+      result.current.loadCode(abCode());
+    });
+    act(() => result.current.setCountIn(0));
+    act(() => {
+      result.current.setSectionKit('A', 'jazzBrushes');
+    });
+    const audio = fakes.made.audio.at(-1)!;
+    act(() => result.current.togglePlay());
+    expect(result.current.kitPlaying).toBe('jazzBrushes');
+    expect(audio.setKit.mock.lastCall?.[1]?.k?.rate).toBe(1.2);
+    // another drummer, on sticks: their sound from scratch, the kit a section of the stage plays included
+    act(() => result.current.setStyle('rock'));
+    expect(audio.setKit.mock.lastCall?.[0]).toBe(catalogue.kits.jazzBrushes);
+    expect(audio.setKit.mock.lastCall?.[1]?.k?.rate).toBe(catalogue.kits.jazzBrushes.k.rate);
+  });
 });

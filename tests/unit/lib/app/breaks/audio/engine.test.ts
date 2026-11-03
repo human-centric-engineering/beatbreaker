@@ -417,6 +417,54 @@ describe('setKit()', () => {
     expect(lp.frequency.events.at(-1)).toMatchObject({ value: MACHINE.master.lp });
     expect(refresh).toHaveBeenCalledWith(audio);
   });
+
+  it('changes kit at a section’s first note: drive and room then, not when it is scheduled (D86)', () => {
+    vi.useFakeTimers();
+    try {
+      const { audio, ctx } = initEngine();
+      const bus = audio.bus as unknown as FakeGainNode;
+      const convolver = pick<FakeConvolverNode>(ctx.nodes, 'convolver')[0];
+      const shaper = bus.outputs[0];
+      const room = convolver.buffer;
+      const tuned = withTuning(MACHINE, { master: { room: 0.6 } });
+
+      // scheduled 130 ms ahead, as the transport's lookahead does
+      audio.setKit(MACHINE, tuned, 0.13);
+      const lp = pick<FakeBiquadFilterNode>(ctx.nodes, 'biquad')[0];
+      expect(lp.frequency.events.at(-1)).toMatchObject({ time: 0.13 });
+      // the outgoing section's last notes keep their kit's drive and room
+      expect(bus.outputs[0]).toBe(shaper);
+      expect(convolver.buffer).toBe(room);
+
+      vi.advanceTimersByTime(130);
+      expect(bus.outputs[0]).not.toBe(shaper);
+      expect(convolver.buffer).not.toBe(room);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('lets a later change replace one still waiting, and drops it on close', () => {
+    vi.useFakeTimers();
+    try {
+      const { audio, ctx } = initEngine();
+      const bus = audio.bus as unknown as FakeGainNode;
+      audio.setKit(MACHINE, null, 0.13);
+      // back to the kit it had, now: the wait is over before it began
+      audio.setKit(STUDIO70, null);
+      const shaper = bus.outputs[0];
+      vi.advanceTimersByTime(200);
+      expect(bus.outputs[0]).toBe(shaper);
+
+      audio.setKit(MACHINE, null, 0.13);
+      const nodes = ctx.nodes.length;
+      audio.close();
+      vi.advanceTimersByTime(200);
+      expect(ctx.nodes).toHaveLength(nodes);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
 });
 
 /* ---------------------------------------------------------------------- */

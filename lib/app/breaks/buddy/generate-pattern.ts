@@ -2,11 +2,13 @@ import { z } from 'zod';
 
 import { TEMPO_TOP, maxBpm, maxBpmOf } from '@/lib/app/breaks/audio/transport';
 import { type EditData, describeEdit, editWorkspace } from '@/lib/app/breaks/buddy/edit';
+import { brushedIn, brushedKit } from '@/lib/app/breaks/catalogue/brushes';
+import { listKits, listStyles } from '@/lib/app/breaks/catalogue/data';
 import { DEFAULT_METER, METER_KEY_HELP, isMeterKey } from '@/lib/app/breaks/meter';
 import { lettersOf } from '@/lib/app/breaks/sections';
 import { withoutExtraSections } from '@/lib/app/breaks/share';
 import { songBreak, songForSeed } from '@/lib/app/breaks/song-break';
-import { songPaces } from '@/lib/app/breaks/songs';
+import { breakKit, songPaces } from '@/lib/app/breaks/songs';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
 import type {
   CapabilityContext,
@@ -102,6 +104,9 @@ export class GeneratePatternCapability extends BaseCapability<Args, EditData> {
 
     /* Drawn once, outside the edit, so a retried write writes the same pattern. */
     const seed = args.seed ?? Math.floor(Math.random() * 0xffffffff);
+    // judged on brushes where a section plays on them (D86), as the Studio's New does
+    const kits = await listKits();
+    const brushedKitOf = brushedKit(kits);
 
     const outcome = await editWorkspace(context.userId, (doc, { style: find }) => {
       const style = find(args.style);
@@ -132,6 +137,7 @@ export class GeneratePatternCapability extends BaseCapability<Args, EditData> {
         density: args.density,
         ghosts: args.ghosts,
         bpm,
+        brushes: (kit) => brushedKitOf(kit ?? breakKit(style.params, song?.key)),
       });
       // a brand-new pattern is an A and a B, as the Studio's New writes one, or a song's sections
       const kept = withoutExtraSections(doc);
@@ -154,7 +160,7 @@ export class GeneratePatternCapability extends BaseCapability<Args, EditData> {
       doc: outcome.payload,
       rev: outcome.rev,
       summary: `New ${outcome.extra} pattern: ${after.A.bars.length} bar${after.A.bars.length > 1 ? 's' : ''} of ${after.A.meter} at ${after.bpm} bpm`,
-      ...describeEdit(outcome.before, after, lettersOf(after)),
+      ...describeEdit(outcome.before, after, lettersOf(after), brushedIn(kits, await listStyles())),
     });
   }
 }

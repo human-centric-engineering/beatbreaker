@@ -21,12 +21,14 @@ import { ErrorCodes } from '@/lib/api/errors';
 import { errorResponse, successResponse } from '@/lib/api/responses';
 import { validateRequestBody } from '@/lib/api/validation';
 import { withAuth } from '@/lib/auth/guards';
-import { getStyle } from '@/lib/app/breaks/catalogue/data';
+import { brushedKit } from '@/lib/app/breaks/catalogue/brushes';
+import { getStyle, listKits } from '@/lib/app/breaks/catalogue/data';
 import { critique, playability } from '@/lib/app/breaks/critic';
 import { lettersOf } from '@/lib/app/breaks/sections';
 import { packPattern } from '@/lib/app/breaks/share';
 import { songBreak } from '@/lib/app/breaks/song-break';
-import { songOf } from '@/lib/app/breaks/songs';
+import { breakKit, songOf } from '@/lib/app/breaks/songs';
+import type { Pattern } from '@/lib/app/breaks/types';
 import { generateBreakSchema } from '@/lib/validations/break-operations';
 
 export const POST = withAuth(
@@ -51,6 +53,12 @@ export const POST = withAuth(
        would give a different pattern on every call — the opposite of what a
        seed is for. The lane roster is the one the style asks for in each
        section's meter, as the browser resolves it. */
+    /* A section on brushes is judged on brushes (D86): its own kit, else the
+       song's or the style's — the one the Studio would open it on. */
+    const brushed = brushedKit(await listKits());
+    const home = breakKit(style.params, input.song);
+    const brushes = (kit: string | undefined) => brushed(kit ?? home);
+    const onBrushes = (p: Pattern) => brushes(p.kit);
     const made = songBreak({
       style,
       song: input.song,
@@ -61,10 +69,11 @@ export const POST = withAuth(
       bpm: input.bpm,
       seed: input.seed ?? Math.floor(Math.random() * 0xffffffff),
       exact: input.seed !== undefined,
+      brushes,
     });
     const a = made.sections.A;
     const score = critique(a, input.bpm);
-    const checks = playability(a, input.bpm);
+    const checks = playability(a, input.bpm, { brushes: onBrushes(a) });
 
     log.info('Break generated', {
       style: style.key,

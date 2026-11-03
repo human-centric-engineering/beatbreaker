@@ -20,6 +20,11 @@ vi.mock('@/lib/db/client', () => ({
   },
 }));
 
+// no kit on brushes: the catalogue is not this module's to read
+vi.mock('@/lib/app/breaks/catalogue/brushes', () => ({
+  loadBrushed: vi.fn(async () => () => false),
+}));
+
 vi.mock('@/lib/app/breaks/community/about', () => ({
   publicAbout: vi.fn(),
 }));

@@ -27,6 +27,7 @@ import { z } from 'zod';
 import { getRouteLogger } from '@/lib/api/context';
 import { successResponse } from '@/lib/api/responses';
 import { validateRequestBody } from '@/lib/api/validation';
+import { loadBrushed } from '@/lib/app/breaks/catalogue/brushes';
 import { withAuth } from '@/lib/auth/guards';
 import { critique, playability } from '@/lib/app/breaks/critic';
 import { withFreshSlug } from '@/lib/app/breaks/community/sharing';
@@ -174,7 +175,9 @@ export const POST = withAuth(
        "which breaks came from version 3 of funk" has no answer, and the
        column's `ON DELETE SET NULL` never has anything to null. */
     const { decoded, withSlug } = await breakCreateData(session.user.id, input);
-    const checks = playability(decoded.A, decoded.bpm);
+    const checks = playability(decoded.A, decoded.bpm, {
+      brushes: (await loadBrushed())(decoded.A),
+    });
     const score = critique(decoded.A, decoded.bpm);
 
     const saved = await withFreshSlug(() =>
