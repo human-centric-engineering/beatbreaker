@@ -8,6 +8,7 @@ import {
   louderValue,
 } from '@/lib/app/breaks/lanes';
 import { groupAt, groupsOf, meterOf } from '@/lib/app/breaks/meter';
+import { MAX_SECTION_BARS } from '@/lib/app/breaks/sections';
 import type {
   Bar,
   Group,
@@ -57,8 +58,8 @@ export function maxTuplets(bars: number): number {
   return Math.max(TUPLETS_BEFORE, bars * TUPLETS_A_BAR);
 }
 
-/** The most spans any pattern holds: one of eight bars, the most a pattern has. */
-export const MAX_TUPLETS = maxTuplets(8);
+/** The most spans any pattern holds: one of the most bars a section has (16-b-i). */
+export const MAX_TUPLETS = maxTuplets(MAX_SECTION_BARS);
 
 /** Where note `j` of a span falls, in grid steps from the start of its bar. */
 export function tupletPos(s: Pick<TupletSpan, 'start' | 'span' | 'n'>, j: number): number {

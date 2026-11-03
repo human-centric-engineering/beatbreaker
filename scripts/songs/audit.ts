@@ -22,6 +22,7 @@ import { execFileSync } from 'child_process';
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
+import { writtenLength } from '@/lib/app/breaks/songs';
 import type { SongSection, StyleSong } from '@/lib/app/breaks/types';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 
@@ -77,7 +78,7 @@ interface SongFacts {
 
 /** Its bars as the engine counts them (`sectionBars` in song-break.ts): written, else declared; null plays the length asked for. */
 function sectionFacts(song: StyleSong, sec: SongSection): SectionFacts {
-  const bars = sec.written?.length ?? sec.bars ?? null;
+  const bars = sec.written ? writtenLength(sec.written) : (sec.bars ?? null);
   return {
     letter: sec.letter,
     label: sec.label,

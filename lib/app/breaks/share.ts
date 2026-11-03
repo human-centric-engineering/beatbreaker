@@ -12,10 +12,12 @@ import {
   type PackedPattern,
   type PackedTempoPoint,
   type SharePayload,
+  isBarRepeat,
   sharePayloadSchema,
 } from '@/lib/app/breaks/schema';
 import {
   EXTRA_LETTERS,
+  MAX_BREAK_BARS,
   type SectionLetter,
   type Sections,
   hasExtraSections,
@@ -23,6 +25,8 @@ import {
   hasRecordRatios,
   hasTempoRatios,
   patternsOf,
+  V10_SECTION_BARS,
+  barKey,
 } from '@/lib/app/breaks/sections';
 import { spanFits } from '@/lib/app/breaks/poly-fill';
 import { type TempoPoint, hasTempoMaps } from '@/lib/app/breaks/tempo-map';
@@ -40,6 +44,13 @@ import type {
 /**
  * Share codes: a whole break — every section, the tempo, the swing and the
  * style — as one base64 string you can paste to anyone.
+ *
+ * **Version 11** (16-b-i) lets a section run past eight bars, as long as the
+ * part of the record it is (D76), and writes a bar that repeats an earlier one
+ * of its section as a pointer to it (`=k`), so a theme of two bars ×16 is two
+ * bars long on the wire. Written only where a section is past eight bars or
+ * the break's bars pass {@link MAX_BREAK_BARS} written out: a v10 reader
+ * would refuse the length, or read a pointer as a bar of rests.
  *
  * **Version 10** (16-b-ii) adds a section's tempo map (`tm`): the bars
  * where the record steps to a new tempo, and the runs where it speeds up or
@@ -91,8 +102,10 @@ import type {
  * something has actually checked.
  */
 
-/** The newest version this app writes — for a break with a section that has a tempo map. */
-export const SHARE_VERSION = 10;
+/** The newest version this app writes — for a break with a section past eight bars. */
+export const SHARE_VERSION = 11;
+/** The version a break with a section that has a tempo map, and nothing newer, is written as. */
+export const SHARE_VERSION_TEMPO_MAPS = 10;
 
 /** The version a break with a section at a record's own tempo ratio, and nothing newer, is written as. */
 export const SHARE_VERSION_RECORD_RATIOS = 9;
@@ -153,7 +166,7 @@ function fromBase64(code: string): string {
  * a library entry's `doc` column is a packed pattern too, written by the seed.
  * One packer, so an entry and a code cannot drift apart.
  */
-export function packPattern(p: Pattern): PackedPattern {
+export function packPattern(p: Pattern, opts: { repeats?: boolean } = {}): PackedPattern {
   return {
     n: p.name,
     st: p.style,
@@ -218,8 +231,37 @@ export function packPattern(p: Pattern): PackedPattern {
         }
       : {}),
     ...(p.fills?.length ? { fl: p.fills.map((f) => [f.bar, f.from] as [number, number]) } : {}),
-    b: p.bars.map((bar) => LANES.map((L) => bar[L].join('')).join('|')),
+    b: packBars(p.bars, !!opts.repeats),
   };
+}
+
+/**
+ * A section's bars on the wire: each lane's row joined by `|`, and, where
+ * `repeats` (v11), a bar written before in the section as `=k`, k the first
+ * index it was written at.
+ */
+function packBars(bars: Pattern['bars'], repeats: boolean): string[] {
+  const first = new Map<string, number>();
+  return bars.map((bar, i) => {
+    const key = barKey(bar);
+    const at = first.get(key);
+    if (repeats && at !== undefined) return `=${at}`;
+    if (at === undefined) first.set(key, i);
+    return key;
+  });
+}
+
+/**
+ * Whether a break needs v11: a section past the eight bars a v10 code holds,
+ * or more bars written out than a break holds, which only its repeats bring
+ * back within it.
+ */
+function needsV11(doc: BreakDoc): boolean {
+  const ps = patternsOf(doc);
+  return (
+    ps.some((p) => p.bars.length > V10_SECTION_BARS) ||
+    ps.reduce((n, p) => n + p.bars.length, 0) > MAX_BREAK_BARS
+  );
 }
 
 /**
@@ -229,28 +271,31 @@ export function packPattern(p: Pattern): PackedPattern {
 export function breakPayload(doc: BreakDoc): SharePayload {
   const extra = hasExtraSections(doc) || doc.arrangement.some((L) => L !== 'A' && L !== 'B');
   const v8 = hasModulations(doc) || patternsOf(doc).some((p) => tupletsOf(p).length > 0);
+  const v11 = needsV11(doc);
   const out: SharePayload = {
-    ver: hasTempoMaps(doc)
+    ver: v11
       ? SHARE_VERSION
-      : hasRecordRatios(doc)
-        ? SHARE_VERSION_RECORD_RATIOS
-        : v8
-          ? SHARE_VERSION_MODULATIONS
-          : hasTempoRatios(doc)
-            ? SHARE_VERSION_RATIOS
-            : extra
-              ? SHARE_VERSION_SECTIONS
-              : SHARE_VERSION_AB,
+      : hasTempoMaps(doc)
+        ? SHARE_VERSION_TEMPO_MAPS
+        : hasRecordRatios(doc)
+          ? SHARE_VERSION_RECORD_RATIOS
+          : v8
+            ? SHARE_VERSION_MODULATIONS
+            : hasTempoRatios(doc)
+              ? SHARE_VERSION_RATIOS
+              : extra
+                ? SHARE_VERSION_SECTIONS
+                : SHARE_VERSION_AB,
     bpm: doc.bpm,
     sw: doc.swing,
     lv: doc.level,
     arr: doc.arrangement,
-    A: packPattern(doc.A),
-    B: packPattern(doc.B),
+    A: packPattern(doc.A, { repeats: v11 }),
+    B: packPattern(doc.B, { repeats: v11 }),
   };
   for (const L of EXTRA_LETTERS) {
     const p = doc[L];
-    if (p) out[L] = packPattern(p);
+    if (p) out[L] = packPattern(p, { repeats: v11 });
   }
   return out;
 }
@@ -359,7 +404,9 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
           })),
         }
       : {}),
-    bars: p.b.map((row) => {
+    bars: p.b.map((written) => {
+      // a repeat (v11) is the bar it points at, which the schema holds to one written before it
+      const row = isBarRepeat(written) ? (p.b[Number(written.slice(1))] ?? '') : written;
       const parts = row.split('|');
       const bar = emptyBar(n);
       LANES.forEach((L, i) => {

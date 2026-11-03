@@ -16,7 +16,7 @@ import { engrave } from '@/lib/app/breaks/engrave';
 import { deriveB, fitHands, generatePattern } from '@/lib/app/breaks/generate';
 import { LANES, LANE_VALUES, handLanes, handsAt } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
-import { songBpm, songPartOf, withSong } from '@/lib/app/breaks/songs';
+import { playWritten, songBpm, songPartOf, withSong } from '@/lib/app/breaks/songs';
 import { TEST_STYLE_KEYS, testStyles } from '@/tests/helpers/catalogue';
 import type { Bar, Figure, Pattern, ResolvedStyle, Style } from '@/lib/app/breaks/types';
 import { styleParamsSchema } from '@/lib/app/breaks/catalogue/schemas';
@@ -37,7 +37,8 @@ function gen(style: string, meter: string, seed = 12345, bars = 2): Pattern {
 function expectBarsFit(pat: Pattern, bars: number): void {
   const n = stepsOf(meterOf(pat.meter));
   // a written section of a song is as long as its bars, whatever was asked
-  const written = songPartOf(STYLES[pat.style]?.params, pat.song)?.section?.written;
+  const section = songPartOf(STYLES[pat.style]?.params, pat.song)?.section;
+  const written = section ? playWritten(section)?.bars : undefined;
   expect(pat.bars).toHaveLength(written?.length ?? bars);
   for (const bar of pat.bars) {
     for (const L of LANES) expect(bar[L]).toHaveLength(n);
@@ -856,7 +857,8 @@ describe('the rock, jazz and blues styles', () => {
         const meter = merged.meter;
         const n = stepsOf(meterOf(meter ?? '4/4'));
         // a written section plays its bars, which the schema holds to its meter, and draws on nothing
-        const written = songPartOf(params, song?.key)?.section?.written;
+        const section = songPartOf(params, song?.key)?.section;
+        const written = section ? playWritten(section)?.bars : undefined;
         const drawn = written ? [] : [...(merged.figures ?? []), ...(merged.fills ?? [])];
         for (const [f] of [...drawn, ...(written ?? []).map((w): [Figure, number] => [w, 1])])
           if (!china) expect(f.c ?? '').not.toMatch(/3/);

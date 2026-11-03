@@ -5203,6 +5203,22 @@ of a section's length and meter at once is too much to review. Four, in order:
 
 16-c keeps the measured link and the saved link for a break past it (D79); v11 is 16-b-i's.
 
+**16-b-i built (2026-11-03, branch `phase-16b-i-long-sections`):** D76 as
+decided, with three calls made in the building. (1) **A repeat is the
+catalogue's and the wire's, not the pattern's.** A pattern holds its bars
+played out, so the transport, the critic, MIDI, the tempo map and the loop to
+come read bars as ever; the catalogue writes `{ again, times }` and the share
+code `=k`, and a break counts a section's bars once however often they
+repeat (`distinctBars`). A song's 128 is distinct bars, so a record longer
+than 128 bars fits where its parts repeat. (2) **An import is a section a run
+of one meter**, not cut every eight bars: a file says nothing of where its
+parts begin, and a cut at eight was the wire's limit, not the music's. (3)
+**Generated grooves keep their lengths:** the picker and `generate_pattern`
+still write up to eight bars; D76 is about the record's parts. Not built: the
+chart's repeat signs over bars a section plays again (they are engraved as
+written); the step editor draws a long section as one row, which at 128 bars
+is many cells, for 16-b-vi to look at with the loop.
+
 **Urgent: the six limits the audit found (asked for by the owner on
 2026-11-01).** The owner's call: the app is adapted to all six, as urgent
 fixes, not ruled out. They land with 16-b and before 16-e reaches their rows

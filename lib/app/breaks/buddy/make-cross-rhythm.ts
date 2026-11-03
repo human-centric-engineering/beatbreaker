@@ -16,7 +16,7 @@ import {
 import { loadBrushed } from '@/lib/app/breaks/catalogue/brushes';
 import { bbValue } from '@/lib/app/breaks/lanes';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
-import { SECTION_LETTERS } from '@/lib/app/breaks/sections';
+import { MAX_SECTION_BARS, SECTION_LETTERS } from '@/lib/app/breaks/sections';
 import { TEXT_LANE_LABELS } from '@/lib/app/breaks/text';
 import type { LaneKey } from '@/lib/app/breaks/types';
 import { BaseCapability } from '@/lib/orchestration/capabilities/base-capability';
@@ -49,7 +49,7 @@ const schema = z.object({
   cycle: z.enum(['bar', 'half', 'beat']).default('bar'),
   hand: z.enum(['right', 'left', 'any']).default('any'),
   as: z.enum(['study', 'fill']),
-  bar: z.number().int().min(1).max(8).optional(),
+  bar: z.number().int().min(1).max(MAX_SECTION_BARS).optional(),
 });
 
 type Args = z.infer<typeof schema>;

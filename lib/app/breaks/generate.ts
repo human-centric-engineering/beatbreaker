@@ -59,6 +59,7 @@ import {
   pickSection,
   pickSong,
   songMeter,
+  playWritten,
   songPartOf,
   withSong,
 } from '@/lib/app/breaks/songs';
@@ -1036,8 +1037,9 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   const lanes = opts.lanes ?? laneRoster(style);
   const perc = opts.perc ?? percRoster(style);
   const rng = makeRng(opts.seed);
-  if (part?.section?.written) {
-    return writtenPattern(opts, part.section.written, part.section.tuplets, {
+  const played = part?.section ? playWritten(part.section) : undefined;
+  if (played) {
+    return writtenPattern(opts, played.bars, played.tuplets, {
       style,
       base,
       songKey,

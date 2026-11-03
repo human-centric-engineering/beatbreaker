@@ -3,7 +3,16 @@ import { polyFillsIn } from '@/lib/app/breaks/poly-fill';
 import { wpick, type Rng } from '@/lib/app/breaks/rng';
 import type { TempoRatio } from '@/lib/app/breaks/sections';
 import type { TempoPoint } from '@/lib/app/breaks/tempo-map';
-import type { SongSection, Style, StyleSong, StyleSongParams } from '@/lib/app/breaks/types';
+import type {
+  Figure,
+  SectionTuplet,
+  SongSection,
+  Style,
+  StyleSong,
+  StyleSongParams,
+  WrittenBar,
+  WrittenRepeat,
+} from '@/lib/app/breaks/types';
 
 /**
  * A style's songs ({@link Style.songs}): picking one, and laying it over the
@@ -144,7 +153,7 @@ export function pickSection(
   if (!inMeter.length) return song.sections?.[0];
   const share = (x: SongSection) =>
     x.written
-      ? x.written.length *
+      ? writtenLength(x.written) *
         Math.max(1, (song.arrangement ?? []).filter((L) => L === x.letter).length)
       : (x.params.figures ?? song.params.figures ?? []).reduce((n, [, w]) => n + w, 0) || 1;
   return wpick(
@@ -269,4 +278,45 @@ export function withSong(st: Style, key: string | undefined): Style {
   }
   byKey.set(at, out);
   return out;
+}
+
+/** Whether a written section's entry is a repeat of bars before it, not a bar. */
+export function isWrittenRepeat(w: WrittenBar): w is WrittenRepeat {
+  return 'again' in w;
+}
+
+/** How many bars a written section plays, its repeats played out. */
+export function writtenLength(written: readonly WrittenBar[]): number {
+  let n = 0;
+  for (const w of written) n += isWrittenRepeat(w) ? w.again * w.times : 1;
+  return n;
+}
+
+/**
+ * A written section's bars as the record plays them (16-b-i): each repeat
+ * played out, its bars' tuplets with it. Undefined for a section not written.
+ * A repeat reaching back past the first bar takes what there is: the
+ * catalogue's schema refuses one, so only a hand-built section meets it.
+ */
+export function playWritten(
+  x: Pick<SongSection, 'written' | 'tuplets'>
+): { bars: Figure[]; tuplets: SectionTuplet[] } | undefined {
+  if (!x.written) return undefined;
+  const bars: Figure[] = [];
+  const tuplets = [...(x.tuplets ?? [])];
+  for (const w of x.written) {
+    if (!isWrittenRepeat(w)) {
+      bars.push(w);
+      continue;
+    }
+    const from = Math.max(0, bars.length - w.again);
+    const run = bars.slice(from);
+    const inRun = tuplets.filter((t) => t.bar >= from && t.bar < from + run.length);
+    for (let k = 0; k < w.times; k++) {
+      const at = bars.length;
+      bars.push(...run);
+      for (const t of inRun) tuplets.push({ ...t, bar: t.bar - from + at });
+    }
+  }
+  return { bars, tuplets };
 }

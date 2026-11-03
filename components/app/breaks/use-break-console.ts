@@ -59,6 +59,7 @@ import {
   type MaybeSections,
   type Sections,
   type TempoRatio,
+  distinctBars,
   hasTempoRatios,
   lettersOf,
   nextLetter,
@@ -116,6 +117,7 @@ import {
   songPartOf,
   songTempo,
   withSong,
+  writtenLength,
 } from '@/lib/app/breaks/songs';
 import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
@@ -1687,7 +1689,8 @@ export function useBreakConsole(
            theirs, so a new section no longer than this keeps it within
            MAX_BREAK_BARS, which a save and a share code are held to. Never
            shorter than one bar — the section it replaces had at least that. */
-        const room = MAX_BREAK_BARS - (totalBars(patterns) - (patterns[which]?.bars.length ?? 0));
+        const room =
+          MAX_BREAK_BARS - (totalBars(patterns) - distinctBars(patterns[which]?.bars ?? []));
         // used up: the section they were picked for is this one
         pickedForNext.current = false;
         generate(which, {
@@ -1853,7 +1856,7 @@ export function useBreakConsole(
     return {
       stage,
       song,
-      bars: written ? written.length : bars,
+      bars: written ? writtenLength(written) : bars,
       meter: written ? songMeter(params, part.song, part.section) : meter,
     };
   }, [patterns, editing, style, catalogue.styles, bars, meter]);

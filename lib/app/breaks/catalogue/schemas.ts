@@ -14,12 +14,13 @@ import {
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
   MAX_RATIO_SPREAD,
+  MAX_SECTION_BARS,
   SECTION_LETTERS,
   type TempoRatio,
   isTempoRatio,
 } from '@/lib/app/breaks/sections';
 import { emptyBar } from '@/lib/app/breaks/pattern';
-import { layeredSwing } from '@/lib/app/breaks/songs';
+import { isWrittenRepeat, layeredSwing, playWritten, writtenLength } from '@/lib/app/breaks/songs';
 import {
   MAX_TUPLET,
   MAX_TUPLETS,
@@ -344,7 +345,11 @@ const tempoPointSchema = z.object({
 /** A tuplet or beat grid in a written section (D84, D87); held to its bar by the style's check. */
 const sectionTupletSchema = z
   .object({
-    bar: z.number().int().min(0).max(7),
+    bar: z
+      .number()
+      .int()
+      .min(0)
+      .max(MAX_SECTION_BARS - 1),
     start: z
       .number()
       .int()
@@ -359,6 +364,17 @@ const sectionTupletSchema = z
   .refine((t) => Object.values(t.notes).every((row) => row?.length === t.n), 'a row of n notes');
 
 /**
+ * Bars of a written section played again (16-b-i): the last `again` before it,
+ * `times` more. Strict, so a figure with a stray key is not taken for one.
+ */
+const writtenRepeatSchema = z
+  .object({
+    again: z.number().int().min(1).max(MAX_SECTION_BARS),
+    times: z.number().int().min(1).max(MAX_SECTION_BARS),
+  })
+  .strict();
+
+/**
  * One part of a song written in sections: its letter, a label, and the params
  * laid over the song's. Its aliases are the keys it had as a song of its own.
  *
@@ -370,13 +386,17 @@ const songSectionSchema = z
   .object({
     letter: z.enum(SECTION_LETTERS),
     label: z.string().min(1).max(60),
-    bars: z.number().int().min(1).max(8).optional(),
+    bars: z.number().int().min(1).max(MAX_SECTION_BARS).optional(),
     /** how fast it plays against the song's tempo (11-e-ii-g), ×¼ to ×4; absent, ×1 */
     tempoRatio: z.custom<TempoRatio>(isTempoRatio, 'a tempo ratio from ×¼ to ×4').optional(),
     /** where the record speeds up or slows down inside it (16-b-ii), against its own tempo */
     tempo: z.array(tempoPointSchema).min(1).max(MAX_TEMPO_POINTS).optional(),
     aliases: z.array(songKey).min(1).max(8).optional(),
-    written: z.array(figureSchema).min(1).max(8).optional(),
+    written: z
+      .array(z.union([writtenRepeatSchema, figureSchema]))
+      .min(1)
+      .max(MAX_SECTION_BARS)
+      .optional(),
     tuplets: z.array(sectionTupletSchema).min(1).max(MAX_TUPLETS).optional(),
     params: songParams,
   })
@@ -396,10 +416,33 @@ const songSectionSchema = z
         path: ['tuplets'],
       });
     if (!x.written) return;
-    if (x.tuplets && x.tuplets.length > maxTuplets(x.written.length))
+    // a repeat plays bars written before it, and the section stays within a section's length
+    let before = 0;
+    x.written.forEach((w, k) => {
+      if (!isWrittenRepeat(w)) {
+        before++;
+        return;
+      }
+      if (w.again > before)
+        ctx.addIssue({
+          code: 'custom',
+          message: `a repeat plays again the bars before it; there are ${before}`,
+          path: ['written', k, 'again'],
+        });
+      before += w.again * w.times;
+    });
+    const played = writtenLength(x.written);
+    if (played > MAX_SECTION_BARS)
       ctx.addIssue({
         code: 'custom',
-        message: `${x.written.length} written bars hold ${maxTuplets(x.written.length)} tuplets at most`,
+        message: `a section plays ${MAX_SECTION_BARS} bars at most, its repeats played out; this one plays ${played}`,
+        path: ['written'],
+      });
+    const tuplets = playWritten(x)?.tuplets.length ?? 0;
+    if (tuplets > maxTuplets(played))
+      ctx.addIssue({
+        code: 'custom',
+        message: `${played} written bars hold ${maxTuplets(played)} tuplets at most`,
         path: ['tuplets'],
       });
     if (x.bars !== undefined)
@@ -420,7 +463,14 @@ const songSectionSchema = z
 /** How many bars a section writes: its written bars, else what it names. */
 /* A section that names no length is sized by the picker, and takes at least
    a bar of the break (`sectionBars` in `song-break.ts`). */
-const sectionBars = (x: { bars?: number; written?: unknown[] }) => x.written?.length ?? x.bars ?? 1;
+const sectionBars = (x: { bars?: number; written?: Parameters<typeof writtenLength>[0] }) =>
+  x.written ? writtenLength(x.written) : (x.bars ?? 1);
+
+/** A section's bars with each it repeats counted once: a written one's distinct figures. */
+function distinctSectionBars(x: { bars?: number; written?: Parameters<typeof writtenLength>[0] }) {
+  if (!x.written) return sectionBars(x);
+  return new Set(x.written.filter((w) => !isWrittenRepeat(w)).map((w) => JSON.stringify(w))).size;
+}
 
 const styleSongSchema = z
   .object({
@@ -464,11 +514,12 @@ const styleSongSchema = z
           path: ['sections', i, 'letter'],
         });
     });
-    const bars = sections.reduce((n, x) => n + sectionBars(x), 0);
+    // a bar a section repeats is held once, as the share code writes it (16-b-i)
+    const bars = sections.reduce((n, x) => n + distinctSectionBars(x), 0);
     if (bars > MAX_BREAK_BARS)
       ctx.addIssue({
         code: 'custom',
-        message: `a song's sections hold ${MAX_BREAK_BARS} bars at most`,
+        message: `a song's sections hold ${MAX_BREAK_BARS} distinct bars at most`,
         path: ['sections'],
       });
     if (!rangesFit(sections.map((x) => paceRange(x))))
@@ -542,6 +593,7 @@ export const styleParamsSchema = styleFields
         const meter = x.params.meter ?? song.params.meter ?? p.meter ?? DEFAULT_METER;
         const n = isMeterKey(meter) ? stepsOf(meterOf(meter)) : 0;
         x.written?.forEach((bar, k) => {
+          if (isWrittenRepeat(bar)) return;
           if (n && Object.values(bar).some((row) => row?.length !== n))
             ctx.addIssue({
               code: 'custom',
@@ -549,9 +601,10 @@ export const styleParamsSchema = styleFields
               path: ['songs', i, 'sections', j, 'written', k],
             });
         });
-        // each tuplet inside its bar, and no lane in two at once
-        const spans = (x.tuplets ?? []).map(fromSectionTuplet);
-        const bars = x.written?.length ?? 0;
+        // each tuplet inside its bar, and no lane in two at once, its repeats played out
+        const played = playWritten(x);
+        const spans = (played?.tuplets ?? []).map(fromSectionTuplet);
+        const bars = played?.bars.length ?? 0;
         spans.forEach((t, k) => {
           if (n && !tupletFits(t, n, bars))
             ctx.addIssue({
@@ -571,7 +624,7 @@ export const styleParamsSchema = styleFields
         });
         // among those that fit: one that does not is said above, not again here
         const fit = n ? spans.filter((t) => tupletFits(t, n, bars)) : [];
-        const shape = x.written?.map(() => emptyBar(n)) ?? [];
+        const shape = played?.bars.map(() => emptyBar(n)) ?? [];
         if (tupletsOf({ tuplets: fit, bars: shape }).length < fit.length)
           ctx.addIssue({
             code: 'custom',

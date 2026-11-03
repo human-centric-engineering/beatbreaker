@@ -1,4 +1,5 @@
-import type { Pattern } from '@/lib/app/breaks/types';
+import { LANES } from '@/lib/app/breaks/lanes';
+import type { Bar, Pattern } from '@/lib/app/breaks/types';
 
 /**
  * A break's sections (11-e-ii): A to Z, each a pattern in its own meter.
@@ -66,6 +67,18 @@ export const EXTRA_LETTERS = SECTION_LETTERS.slice(2) as ExtraLetter[];
 export const MAX_BREAK_BARS = 128;
 
 /**
+ * The most bars one section holds, its repeats played out (16-b-i, D76). A
+ * section is a part of the record, as long as the record plays it — a chorus
+ * is one section however long it runs — so it is held to what a break holds,
+ * not to the eight bars it was a container of. A ceiling, not a target: a
+ * part runs as long as the record's.
+ */
+export const MAX_SECTION_BARS = MAX_BREAK_BARS;
+
+/** The most bars a section held before 16-b-i: what a v10 code carries. */
+export const V10_SECTION_BARS = 8;
+
+/**
  * The most slots an arrangement has: enough to play a record's sections in
  * its order, intro to outro, where a six-minute song in two-bar sections is
  * ninety-odd. A slot is one letter on the wire, so this costs a link a few
@@ -101,9 +114,23 @@ export function hasExtraSections(sections: MaybeSections): boolean {
   return EXTRA_LETTERS.some((L) => !!sections[L]);
 }
 
-/** Bars across every section, each counted once. */
+/**
+ * Bars across every section, each counted once: a section's bar that repeats
+ * one before it in the same section is not counted again, since a share code
+ * writes it once and points at it (16-b-i). A theme of two bars ×16 is two.
+ */
 export function totalBars(sections: MaybeSections): number {
-  return patternsOf(sections).reduce((n, p) => n + p.bars.length, 0);
+  return patternsOf(sections).reduce((n, p) => n + distinctBars(p.bars), 0);
+}
+
+/** A section's bars with each that repeats an earlier one counted once. */
+export function distinctBars(bars: readonly Bar[]): number {
+  return new Set(bars.map(barKey)).size;
+}
+
+/** A bar as the share code writes it: every lane's row, in `LANES` order, joined by `|`. */
+export function barKey(bar: Bar): string {
+  return LANES.map((L) => (bar[L] ?? []).join('')).join('|');
 }
 
 /** The first letter not yet used, or null when all 26 are. */

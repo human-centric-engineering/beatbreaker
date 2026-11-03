@@ -204,7 +204,7 @@ pushed:
   Picked from _Inspired by_ under the title, or in the New break panel, every
   New writes that song in that drummer's style until _Any song_.
 
-## The wire format (share code, versions 5 to 9)
+## The wire format (share code, versions 5 to 11)
 
 A break travels as a `BreakDoc` (`{ bpm, swing, level, arrangement, A, B, C?…Z? }`)
 packed into a `SharePayload`. As a share code or a `#b=` link, the payload is
@@ -213,7 +213,7 @@ itself. All three are checked by the same schema.
 
 ```jsonc
 {
-  "ver": 5,            // 1–10 accepted; 5 for A and B alone, 6 with a section past B, 7 with a ×½/×2 section, 8 with a tuplet or a modulation, 9 with a record's own ratio, 10 with a tempo map
+  "ver": 5,            // 1–11 accepted; 5 for A and B alone, 6 with a section past B, 7 with a ×½/×2 section, 8 with a tuplet or a modulation, 9 with a record's own ratio, 10 with a tempo map, 11 with a section past eight bars
   "bpm": 94,           // 20–400
   "sw": 0,             // swing, 0–100
   "lv": 5,             // layer 1–5 (v1 numbers are remapped)
@@ -238,12 +238,24 @@ itself. All three are checked by the same schema.
     "pn": [0, { "s": "0020…" }],   // pins per bar: layer digits 0–5, or 0
     "sk": ["RLRRLRLL…", 0],        // written sticking per bar, or 0 — optional (Phase 10)
     "fx": 1,                       // fixed: every layer plays it whole — optional (Phase 10)
-    "b": ["1000100010001000|0000100000001000|…"]   // 1–8 bars
+    "b": ["1000100010001000|0000100000001000|…", "=0"]   // 1–8 bars; from v11 up to 128, and "=k" is bar k again
   },
   "B": { … },
   "C": { … }           // v6: C to Z, each optional, each a packed pattern in its own meter
 }
 ```
+
+**Version 11 (16-b-i) lets a section be as long as its part of the record**
+(D76): up to `MAX_SECTION_BARS` (128) bars, its bar indexes (`fl`, `tu`,
+`ps`, `pn`, `sk`) past 7. A bar that repeats an earlier one of its section is
+written once and then as `=k`, k the index it was first written at, so a
+theme of two bars ×16 is two bars and thirty pointers; a pointer is held to
+a written bar before it. The break's bars against `MAX_BREAK_BARS` count the
+written ones, not the pointers (`totalBars`, `distinctBars`). Written only
+where a section is past eight bars, or the break's bars pass 128 written out:
+a v10 reader would refuse the length or read a pointer as rests. A section
+past eight bars, or a pointer, under a v10-or-older header is refused, and a
+break that fits v10 keeps its version, bytes and `gridHash`.
 
 **Version 10 (16-b-ii) adds a section's tempo map** (`tm`): a list of
 `[bar, ratio]` for a point that holds and `[bar, ratio, to]` for a ramp, each

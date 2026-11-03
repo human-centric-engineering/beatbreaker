@@ -35,6 +35,15 @@ function section(meter: string, seed: number, bars = 2): Pattern {
   return generatePattern({ style: testStyle('funk'), meter, seed, bars, density: 60, ghosts: 40 });
 }
 
+/** A section whose bars all differ: bar i's crash row spells i, so none repeats another (16-b-i). */
+function distinct(p: Pattern): Pattern {
+  const out = clonePattern(p);
+  out.bars.forEach((bar, i) => {
+    bar.c = bar.c.map((_, j) => (i >> j) & 1);
+  });
+  return out;
+}
+
 /** The break `share.test.ts` round-trips, built the same way. */
 function abDoc(): BreakDoc {
   // funk as it was when this break's code was pinned: before it said how heavily it is hit,
@@ -155,7 +164,8 @@ describe('share code v6', () => {
 
   it(`refuses more than ${MAX_BREAK_BARS} bars across the sections`, () => {
     // sixteen sections of eight bars: a long record written passage by passage
-    const eight = section('4/4', 1, 8);
+    // every bar its own, so none is a repeat the code writes once
+    const eight = distinct(section('4/4', 1, 8));
     const letters = SECTION_LETTERS.slice(0, 16);
     const doc: BreakDoc = {
       ...songDoc(),

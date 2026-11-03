@@ -17,6 +17,7 @@ import { buildMidi } from '@/lib/app/breaks/midi';
 import { readMidi } from '@/lib/app/breaks/midi-read';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import { patternSchema } from '@/lib/app/breaks/schema';
+import { MAX_SECTION_BARS } from '@/lib/app/breaks/sections';
 import { decodeBreak, encodeBreak } from '@/lib/app/breaks/share';
 import {
   MAX_TUPLETS,
@@ -281,7 +282,7 @@ describe('a bar of two beats of sixteenths, a beat of triplets and a quintuplet'
 describe('how many spans a pattern holds', () => {
   it('follows its bars, and never holds fewer than any pattern could before', () => {
     expect(maxTuplets(1)).toBe(64);
-    expect(maxTuplets(8)).toBe(MAX_TUPLETS);
+    expect(maxTuplets(MAX_SECTION_BARS)).toBe(MAX_TUPLETS);
     expect(maxTuplets(3)).toBe(3 * TUPLETS_A_BAR);
     const pat = pattern([emptyBar(16)]);
     pat.tuplets = Array.from({ length: 65 }, (_, i) => ({

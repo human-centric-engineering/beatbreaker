@@ -331,11 +331,21 @@ few words of `feel`, a `weight`, and `params`: any style field except
     no `figures` or `fills`; each bar is one bar of the section's meter (the
     schema checks all three). Use one wherever a passage's bars are not a
     groove repeating — an intro, a verse whose last bar answers its first,
-    a solo, an ending — and a longer passage as consecutive sections in the
-    arrangement. A section of figures is a pool drawn at random; its order
-    is not the record's.
+    a solo, an ending. A section is **a part of the record** (D76): the
+    intro, a verse, the chorus, the solo, as long as the record plays it, up
+    to 128 bars — a ceiling, not a target. At least two bars: one only where
+    the record makes a bar its own moment (a pickup into the song, a lone
+    last hit, a stop between parts). A section of figures is a pool drawn at
+    random; its order is not the record's.
+  - **A written section repeats with `{ again: n, times: m }`** (16-b-i):
+    the last `n` bars before it played `m` more times, so a theme that
+    alternates two bars is the two and `{ again: 2, times: 15 }`, not thirty
+    bars written out nor a section a bar. The bars and their tuplets repeat
+    together; `playWritten` (`songs.ts`) plays them out, and every reader of
+    a written section's bars goes through it. The schema holds a repeat to
+    bars before it and the section, played out, to 128 bars.
   - **A written section's tuplets and beat grids** (`tuplets`, D84 and D87)
-    are spans over its written bars: `bar` (from 0), `start` and `span` in
+    are spans over its bars as played: `bar` (from 0, repeats played out), `start` and `span` in
     steps, `n` notes, and each lane's row `n` digits long, `.` for none. A
     figure laid over the grid names the lanes it plays; a beat on a grid of
     its own — a beat of triplets in a sixteenth-note bar, a quintuplet — is
@@ -344,7 +354,8 @@ few words of `feel`, a `weight`, and `params`: any style field except
     schema holds each inside its bar, off the grid (four over a beat of four
     is sixteenths), each value one its lane has, one lane in one at a time,
     and 32 a bar.
-  - **A song holds 128 bars across its sections and 128 arrangement slots**,
+  - **A song holds 128 distinct bars across its sections and 128 arrangement slots**
+    (a bar a section repeats counted once),
     enough to write a record passage by passage and play it in its order,
     intro to outro; a song is never shortened to fit. A section that names
     no length — the picker sizes it — counts as one bar against the limit,
