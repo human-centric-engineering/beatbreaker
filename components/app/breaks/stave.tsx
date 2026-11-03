@@ -68,8 +68,12 @@ export const Stave = memo(
         ),
       [engraving]
     );
-    /* A drag under way: the bar it began on, the bar it is over, and where the press was. */
-    const press = useRef<{ x: number; y: number; bar: number; moved: boolean } | null>(null);
+    /* A drag under way: where the press was, the bar it began on and the bar
+       it is over now. Kept here, not in the state that draws the band, so a
+       release straight after a move reads the move and not the last render. */
+    const press = useRef<{ x: number; y: number; bar: number; to: number; moved: boolean } | null>(
+      null
+    );
     const [dragged, setDragged] = useState<{ from: number; to: number } | null>(null);
 
     /** The bar under a pointer: the sheet as drawn, scaled back to the engraving's own units. */
@@ -85,7 +89,10 @@ export const Stave = memo(
           onPointerDown: (e: React.PointerEvent<SVGSVGElement>) => {
             if (e.pointerType === 'touch' || e.button !== 0) return;
             const bar = barUnder(e);
-            press.current = bar >= 0 ? { x: e.clientX, y: e.clientY, bar, moved: false } : null;
+            press.current =
+              bar >= 0 ? { x: e.clientX, y: e.clientY, bar, to: bar, moved: false } : null;
+            // a drag over the chart is a loop, not a text selection
+            if (bar >= 0) e.preventDefault();
           },
           onPointerMove: (e: React.PointerEvent<SVGSVGElement>) => {
             const p = press.current;
@@ -94,13 +101,13 @@ export const Stave = memo(
             if (!p.moved) e.currentTarget.setPointerCapture?.(e.pointerId);
             p.moved = true;
             const bar = barUnder(e);
-            const to = bar >= 0 ? bar : (dragged?.to ?? p.bar);
-            setDragged({ from: Math.min(p.bar, to), to: Math.max(p.bar, to) });
+            if (bar >= 0) p.to = bar;
+            setDragged({ from: Math.min(p.bar, p.to), to: Math.max(p.bar, p.to) });
           },
           onPointerUp: () => {
             const p = press.current;
             press.current = null;
-            if (p?.moved && dragged) onLoop(dragged.from, dragged.to);
+            if (p?.moved) onLoop(Math.min(p.bar, p.to), Math.max(p.bar, p.to));
             setDragged(null);
           },
           onPointerCancel: () => {

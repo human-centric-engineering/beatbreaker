@@ -3130,6 +3130,27 @@ describe('a loop over a range of bars (16-b-vi)', () => {
     expect(result.current.cue).toBe(1);
   });
 
+  it('lifts a loop a solo has hidden for a skip, so it does not come back with All', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B']));
+    act(() => result.current.setBarLoop({ slot: 0, from: 0, to: 0 }));
+    act(() => result.current.setViewMode('B'));
+    act(() => result.current.skip(1));
+    act(() => result.current.setViewMode('both'));
+    expect(result.current.barLoop).toBeNull();
+  });
+
+  it('keeps one loop through an edit to its notes, so the transport is not rebuilt', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B']));
+    act(() => result.current.setBarLoop({ slot: 0, from: 0, to: 0 }));
+    const was = result.current.barLoop;
+    const view = result.current.view.A;
+    act(() => result.current.cycleCell('A', 0, 'k', 1, false));
+    expect(result.current.view.A).not.toBe(view);
+    expect(result.current.barLoop).toBe(was);
+  });
+
   it('keeps the loop through Stop, and forgets it with a new break', async () => {
     const { result } = await mount();
     act(() => result.current.setBarLoop({ slot: 0, from: 0, to: 0 }));

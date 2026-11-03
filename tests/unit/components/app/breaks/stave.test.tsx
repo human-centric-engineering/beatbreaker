@@ -139,6 +139,25 @@ describe('Stave — a loop over bars (16-b-vi)', () => {
     expect(onLoop).toHaveBeenCalledWith(1, 2);
   });
 
+  it('keeps the last bar a drag was over when it ends between bars', () => {
+    const onLoop = vi.fn();
+    const { svg, mid, boxes } = drawn(onLoop);
+    fireEvent.pointerDown(svg, { ...mouse, ...mid(0) });
+    fireEvent.pointerMove(svg, { ...mouse, ...mid(1) });
+    // off the bars, below the last line
+    fireEvent.pointerMove(svg, { ...mouse, clientX: 1, clientY: boxes[3]!.y + boxes[3]!.h + 40 });
+    fireEvent.pointerUp(svg, mouse);
+    expect(onLoop).toHaveBeenCalledWith(0, 1);
+  });
+
+  it('takes the press from the browser, so a drag selects no text', () => {
+    const { svg, mid } = drawn(vi.fn());
+    const press = new MouseEvent('pointerdown', { bubbles: true, cancelable: true, ...mid(0) });
+    Object.assign(press, { pointerType: 'mouse', button: 0, pointerId: 1 });
+    svg.dispatchEvent(press);
+    expect(press.defaultPrevented).toBe(true);
+  });
+
   it('loops one bar for a drag inside it, backwards as well as forwards', () => {
     const onLoop = vi.fn();
     const { svg, mid } = drawn(onLoop);

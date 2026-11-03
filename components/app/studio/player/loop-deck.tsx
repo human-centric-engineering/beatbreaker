@@ -18,7 +18,7 @@ import { cn } from '@/lib/utils';
  * The slot is the loop's, where one is on; else the one the playhead is in,
  * a Pause left or a skip cued, else the first that plays. While a loop is on
  * the bars move it as they are dragged; while it is off they say what
- * _Loop_ will loop, from the bar you are in. R loops the bar you are in from
+ * _Loop_ will loop: the bar you are in, as it plays, until they are moved. R loops the bar you are in from
  * anywhere, and on the chart a drag across bars loops them. `drawer` is the
  * phone's Practise drawer, on the paper rather than the player's dark bar.
  */
@@ -38,21 +38,15 @@ export function LoopDeck({ drawer }: { drawer?: boolean }) {
   const letter = spot ? c.arrangement[spot.slot] : undefined;
   const bars = (letter && c.view[letter]?.bars.length) || 0;
 
-  /* What Loop will loop while none is on: the bar you are in when the panel
-     opened, moved by the sliders; a new slot starts it again. */
-  const [draft, setDraft] = useState(() => ({
-    slot: spot?.slot ?? -1,
-    from: spot?.barIdx ?? 0,
-    to: spot?.barIdx ?? 0,
-  }));
-  if (spot && draft.slot !== spot.slot && !c.barLoop) {
-    setDraft({ slot: spot.slot, from: spot.barIdx, to: spot.barIdx });
-  }
+  /* What Loop will loop while none is on: the bar you are in, as R does,
+     until a slider is moved; then the bars moved to, in that slot only. */
+  const [draft, setDraft] = useState<{ slot: number; from: number; to: number } | null>(null);
 
   if (!spot || !letter || !bars) {
     return <p className="hint">Nothing is playing that has bars to loop.</p>;
   }
-  const range = c.barLoop ?? { slot: spot.slot, from: draft.from, to: draft.to };
+  const mine = draft && draft.slot === spot.slot ? draft : null;
+  const range = c.barLoop ?? mine ?? { slot: spot.slot, from: spot.barIdx, to: spot.barIdx };
   const from = Math.min(range.from, bars - 1);
   const to = Math.min(Math.max(range.to, from), bars - 1);
   const move = (a: number, b: number) => {

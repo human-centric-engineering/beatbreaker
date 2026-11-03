@@ -2555,6 +2555,21 @@ export function useBreakConsole(
     [humanise, patterns]
   );
 
+  /* The loop that still holds: its slot still plays its section, under a
+     solo that keeps it. One object for as long as its bars are the same, so
+     an edit to the notes under a loop does not rebuild the transport's bars. */
+  const loopNow = useMemo(
+    () => loopIn(loopHeld, arrangement, view, viewMode === 'both' ? null : viewMode),
+    [loopHeld, arrangement, view, viewMode]
+  );
+  const loopSlot = loopNow?.slot ?? -1;
+  const loopFrom = loopNow?.from ?? 0;
+  const loopTo = loopNow?.to ?? 0;
+  const barLoop = useMemo(
+    () => (loopSlot < 0 ? null : { slot: loopSlot, from: loopFrom, to: loopTo }),
+    [loopSlot, loopFrom, loopTo]
+  );
+
   /**
    * What the transport reads on every scheduled step.
    *
@@ -2564,11 +2579,6 @@ export function useBreakConsole(
    * on every keystroke either. A ref updated in an effect is exactly that, and
    * keeps the render itself pure.
    */
-  /* The loop that still holds: its slot still plays its section, under a solo that keeps it. */
-  const barLoop = useMemo(
-    () => loopIn(loopHeld, arrangement, view, viewMode === 'both' ? null : viewMode),
-    [loopHeld, arrangement, view, viewMode]
-  );
 
   const snapshot: TransportSnapshot = useMemo(
     () => ({
@@ -2919,18 +2929,16 @@ export function useBreakConsole(
   }, []);
 
   /**
-   * What a skip or a chapter does once a loop it lifted has left the
-   * transport: run after the sequence is the arrangement again, so it lands
-   * where the arrangement has it rather than in the loop.
+   * Lift the loop for a skip or a chapter — one a solo has hidden too, so it
+   * does not come back when the solo goes. A loop playing leaves the
+   * transport now, before the skip is worked out, so the skip lands where the
+   * arrangement has it rather than in the loop; the render after hands it
+   * the snapshot it reads, without the loop, and nothing moves.
    */
-  const afterLoop = useRef<(() => void) | null>(null);
-  /** Lift a loop for a skip or a chapter: true when `go` must wait for the transport to drop it. */
-  const leaveLoop = useCallback((go: () => void): boolean => {
-    if (!snapshotRef.current.loop) return false;
+  const leaveLoop = useCallback(() => {
     setLoopHeld(null);
-    if (!transportRef.current?.playing) return false;
-    afterLoop.current = go;
-    return true;
+    if (!snapshotRef.current.loop) return;
+    transportRef.current?.resync({ ...snapshotRef.current, loop: null });
   }, []);
 
   const setBarLoop = useCallback((loop: BarLoop | null) => {
@@ -2984,13 +2992,15 @@ export function useBreakConsole(
   /* A skip or a chapter leaves a loop over bars first, then goes where it says. */
   const skip = useCallback(
     (delta: 1 | -1) => {
-      if (!leaveLoop(() => skipNow(delta))) skipNow(delta);
+      leaveLoop();
+      skipNow(delta);
     },
     [leaveLoop, skipNow]
   );
   const seekSlot = useCallback(
     (slot: number) => {
-      if (!leaveLoop(() => seekNow(slot))) seekNow(slot);
+      leaveLoop();
+      seekNow(slot);
     },
     [leaveLoop, seekNow]
   );
@@ -3060,13 +3070,9 @@ export function useBreakConsole(
     };
   }, []);
 
-  /* the arrangement, the solo or the loop changed while playing — keep going,
-     new sequence; then a skip or a chapter that lifted the loop goes where it said */
+  // the arrangement, the solo or the loop changed while playing — keep going, new sequence
   useEffect(() => {
     transportRef.current?.resync();
-    const go = afterLoop.current;
-    afterLoop.current = null;
-    go?.();
   }, [arrangement, viewMode, barLoop]);
 
   const audition = useCallback((voice: string, variant?: string) => {

@@ -1504,6 +1504,21 @@ describe('a loop over a range of bars (16-b-vi)', () => {
     expect(last?.next).toBe(A.bars[3]);
   });
 
+  it('brings the loop in at once where an edit takes away the bar finishing before it', () => {
+    const { t, B, onStep, run, set, bars, stepsIn } = make();
+    t.start();
+    run(0.6); // a quarter into A0
+    set({ loop: { slot: 1, from: 0, to: 0 } });
+    // slot 0 is B now: the A0 that was finishing is no bar of the arrangement
+    set({ arrangement: ['B', 'B'] });
+    run(5);
+    t.stop();
+    expect(stepsIn('A0').length).toBeLessThan(16);
+    expect(bars()[1]).toBe('B0');
+    const firstB = onStep.mock.calls.map(([st]) => st).find((st) => st.bar === B.bars[0]);
+    expect(firstB?.slot).toBe(0);
+  });
+
   it('lifted while drilling, plays on from the bar it was in', () => {
     const { t, run, set, bars } = make({ loop: { slot: 0, from: 1, to: 2 } });
     t.start();

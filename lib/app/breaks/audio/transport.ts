@@ -616,10 +616,13 @@ export class Transport {
     this.audio.reseed(seed);
   }
 
-  /** The arrangement changed under a running transport — keep playing, new sequence. */
-  resync(): void {
+  /**
+   * The arrangement changed under a running transport — keep playing, new
+   * sequence. `snap` is what to build it from where the caller is ahead of
+   * the snapshot (a skip lifting a loop before the render that drops it).
+   */
+  resync(snap: TransportSnapshot = this.cb.getSnapshot()): void {
     if (!this.playing) return;
-    const snap = this.cb.getSnapshot();
     const wasIndex = this.seqIndex;
     const was = this.here();
     const wasLoop = this.loopKey;
@@ -629,6 +632,17 @@ export class Transport {
       this.reloop(was);
       this.recount(snap, cnWas);
       return;
+    }
+    /* A bar finishing before the loop comes in that an edit has since taken
+       away (its slot another section's, its section shorter): the loop's
+       first bar comes in now instead, from its top. */
+    const c = this.carry;
+    if (
+      c &&
+      (snap.arrangement[c.secIdx] !== c.letter || !snap.patterns[c.letter]?.bars[c.barIdx])
+    ) {
+      this.carry = null;
+      this.step = 0;
     }
     if (this.seqIndex >= this.seq.length) this.seqIndex = Math.max(0, this.seq.length - 1);
     if (wasIndex !== this.seqIndex) this.step = Math.min(this.step, this.barSteps(snap) - 1);
