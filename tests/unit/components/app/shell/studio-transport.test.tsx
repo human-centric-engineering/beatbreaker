@@ -191,6 +191,35 @@ describe("the player's bar", () => {
     expect(cued()).toBe(2);
   });
 
+  it('loops the slots to a chapter Shift-clicked, and marks them, where a plain click goes', async () => {
+    const user = userEvent.setup();
+    renderTransport(<PlayerBar variant="docked" />);
+    await waitForReady();
+    const chapters = () => [...document.querySelectorAll('.chapter')];
+    const looped = () => chapters().map((el) => el.classList.contains('looped'));
+    // the default arrangement is four slots: A A A B
+    await user.keyboard('{Shift>}');
+    await user.click(screen.getByRole('button', { name: /^Go to slot 3:/ }));
+    await user.keyboard('{/Shift}');
+    expect(looped()).toEqual([true, true, true, false]);
+    // bracketed together on the strip, with what is looping written over them
+    const bracket = document.querySelector('.chapters-loop');
+    expect(bracket?.querySelectorAll('.chapter')).toHaveLength(3);
+    expect(bracket?.textContent).toMatch(/^Looping A \(1st\) bar 1 → A \(3rd\) bar/);
+    expect(screen.getByRole('button', { name: 'Loop bars' }).textContent).toContain(
+      'A (1st) bar 1 → A (3rd) bar'
+    );
+    // its title says what a Shift-click does there: nothing on the loop's last slot
+    const titles = chapters().map((el) => el.getAttribute('title') ?? '');
+    expect(titles[0]).toContain('Shift-click to end the loop here');
+    expect(titles[2]).not.toContain('Shift-click');
+    expect(titles[3]).toContain('Shift-click to loop to here');
+    // a plain click on a chapter is a place to go, and leaves the loop
+    await user.click(screen.getByRole('button', { name: /^Go to slot 4:/ }));
+    expect(looped()).toEqual([false, false, false, false]);
+    expect(document.querySelector('.chapters-loop')).toBeNull();
+  });
+
   it('brings the section and the layer up under the chart as the pointer comes down to the bar', async () => {
     renderTransport(<PlayerBar variant="docked" />);
     await waitForReady();

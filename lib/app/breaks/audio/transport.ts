@@ -1,6 +1,6 @@
 import type { BreakAudio } from '@/lib/app/breaks/audio/engine';
 import type { MidiSink } from '@/lib/app/breaks/audio/midi-out';
-import type { BarLoop } from '@/lib/app/breaks/bar-loop';
+import { type BarLoop, loopBars } from '@/lib/app/breaks/bar-loop';
 import { leftLedFills } from '@/lib/app/breaks/drummer/fill-lead';
 import { Humaniser } from '@/lib/app/breaks/humanise';
 import { M44, groupAt, isGroupStart, stepSeconds, stepsPerQuarter } from '@/lib/app/breaks/meter';
@@ -73,9 +73,10 @@ export interface TransportSnapshot {
   /** One section only: every other section's bars are skipped, not muted. */
   solo: SectionLetter | null;
   /**
-   * A loop over a range of one slot's bars (16-b-vi): only those bars play,
-   * round and round, whatever the solo says. A loop past the slot's bars is
-   * held to them; one on a slot the arrangement has not got is none.
+   * A loop over a range of bars (16-b-vi), within a slot or from one slot to
+   * a later one: only those bars play, round and round, whatever the solo
+   * says. A loop past a section's bars is held to them; one on slots the
+   * arrangement has not got is none.
    */
   loop?: BarLoop | null;
   bpm: number;
@@ -378,7 +379,7 @@ export class Transport {
   /** A seek not yet heard: the slot asked for, and when its first step sounds. */
   private sought: { slot: number; at: number } | null = null;
   private seq: SeqEntry[] = [];
-  /** The loop the sequence was built for, as `slot:from:to`; empty when it is the arrangement. */
+  /** The loop the sequence was built for, as its first and last bars; empty when it is the arrangement. */
   private loopKey = '';
   /**
    * A bar a new loop left out, playing on to its end before the loop's first
@@ -579,15 +580,12 @@ export class Transport {
     /* A loop is its bars and nothing else: the solo is the Studio's to clear
        (a loop on A under "B only" is no loop), not the sequence's to apply. */
     const loop = snap.loop;
-    const looped = loop ? snap.arrangement[loop.slot] : undefined;
-    const loopPat = looped ? snap.patterns[looped] : undefined;
-    if (loop && looped && loopPat?.bars.length) {
-      const to = Math.max(0, Math.min(loop.to, loopPat.bars.length - 1));
-      const from = Math.max(0, Math.min(loop.from, to));
-      for (let bi = from; bi <= to; bi++) {
-        this.seq.push({ letter: looped, barIdx: bi, secIdx: loop.slot });
-      }
-      this.loopKey = `${loop.slot}:${from}:${to}`;
+    const looped = loop ? loopBars(loop, snap.arrangement, snap.patterns) : [];
+    if (loop && looped.length) {
+      for (const b of looped) this.seq.push({ letter: b.letter, barIdx: b.barIdx, secIdx: b.slot });
+      const first = looped[0];
+      const last = looped[looped.length - 1];
+      this.loopKey = `${first.slot}:${first.barIdx}:${last.slot}:${last.barIdx}`;
       return;
     }
     snap.arrangement.forEach((letter, si) => {

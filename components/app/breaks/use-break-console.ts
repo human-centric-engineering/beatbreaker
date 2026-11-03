@@ -22,7 +22,14 @@ import {
   skipSlot,
   soloInPlay,
 } from '@/lib/app/breaks/audio/transport';
-import { type BarLoop, type HeldLoop, loopIn, loopSpot } from '@/lib/app/breaks/bar-loop';
+import {
+  type BarLoop,
+  type HeldLoop,
+  lastSlot,
+  loopIn,
+  loopSpot,
+  loopTo,
+} from '@/lib/app/breaks/bar-loop';
 import {
   type Critique,
   type Playability,
@@ -452,6 +459,13 @@ export interface BreakConsole {
   setBarLoop: (loop: BarLoop | null) => void;
   /** Loop the bar the playhead is in — playing, paused or cued — or lift the loop there is (R). */
   toggleBarLoop: () => void;
+  /**
+   * Stretch the loop to take in a whole slot, as a Shift-click on its chapter
+   * asks, or bring its end in to a slot inside it; with no loop, loop the
+   * slots from the one you are in to it, whole. Under a solo it runs only as
+   * far as the slots the solo plays.
+   */
+  loopToSlot: (slot: number) => void;
   loops: number;
   position: PlayEvent | null;
 
@@ -2564,10 +2578,16 @@ export function useBreakConsole(
   );
   const loopSlot = loopNow?.slot ?? -1;
   const loopFrom = loopNow?.from ?? 0;
-  const loopTo = loopNow?.to ?? 0;
+  const loopToBar = loopNow?.to ?? 0;
+  const loopEnd = loopNow?.toSlot;
   const barLoop = useMemo(
-    () => (loopSlot < 0 ? null : { slot: loopSlot, from: loopFrom, to: loopTo }),
-    [loopSlot, loopFrom, loopTo]
+    () =>
+      loopSlot < 0
+        ? null
+        : loopEnd === undefined
+          ? { slot: loopSlot, from: loopFrom, to: loopToBar }
+          : { slot: loopSlot, from: loopFrom, to: loopToBar, toSlot: loopEnd },
+    [loopSlot, loopFrom, loopToBar, loopEnd]
   );
 
   /**
@@ -2942,8 +2962,11 @@ export function useBreakConsole(
   }, []);
 
   const setBarLoop = useCallback((loop: BarLoop | null) => {
-    const letter = loop ? snapshotRef.current.arrangement[loop.slot] : undefined;
-    setLoopHeld(loop && letter ? { ...loop, letter } : null);
+    const letters = loop
+      ? snapshotRef.current.arrangement.slice(loop.slot, lastSlot(loop) + 1)
+      : [];
+    const whole = !!loop && loop.slot >= 0 && letters.length === lastSlot(loop) - loop.slot + 1;
+    setLoopHeld(loop && whole ? { ...loop, letters } : null);
   }, []);
 
   const toggleBarLoop = useCallback(() => {
@@ -2958,9 +2981,31 @@ export function useBreakConsole(
     const spot = loopSpot(at, cue, playableSlots(snap.arrangement, snap.patterns, snap.solo));
     const letter = spot ? snap.arrangement[spot.slot] : undefined;
     if (spot && letter) {
-      setLoopHeld({ slot: spot.slot, from: spot.barIdx, to: spot.barIdx, letter });
+      setLoopHeld({ slot: spot.slot, from: spot.barIdx, to: spot.barIdx, letters: [letter] });
     }
   }, [cue, pausedAt]);
+
+  const loopToSlot = useCallback(
+    (slot: number) => {
+      const snap = snapshotRef.current;
+      const at =
+        transportRef.current?.cursor() ??
+        (pausedAt ? { slot: pausedAt.slot, barIdx: pausedAt.barIdx } : null);
+      const spot = loopSpot(at, cue, playableSlots(snap.arrangement, snap.patterns, snap.solo));
+      const lastBar = (sl: number) =>
+        Math.max(0, (snap.patterns[snap.arrangement[sl]]?.bars.length ?? 1) - 1);
+      if (slot < 0 || slot >= snap.arrangement.length) return;
+      // a loop is unbroken, so under a solo it runs only over the slots that play
+      const plays = (sl: number) => {
+        const letter = snap.arrangement[sl];
+        return !!snap.patterns[letter] && (!snap.solo || letter === snap.solo);
+      };
+      const loop = snap.loop ?? null;
+      const next = loopTo(loop, spot?.slot ?? slot, slot, lastBar, plays);
+      if (next !== loop) setBarLoop(next);
+    },
+    [cue, pausedAt, setBarLoop]
+  );
 
   const skipNow = useCallback((delta: 1 | -1) => {
     const t = transportRef.current;
@@ -3459,6 +3504,7 @@ export function useBreakConsole(
     barLoop,
     setBarLoop,
     toggleBarLoop,
+    loopToSlot,
     loops,
     position,
     play,

@@ -1442,6 +1442,14 @@ describe('a loop over a range of bars (16-b-vi)', () => {
     expect(onLoop.mock.calls[0][1]).toBeCloseTo(4.08, 6);
   });
 
+  it('runs on from one slot into the next, and round', () => {
+    const { t, run, bars } = make({ loop: { slot: 0, from: 3, to: 0, toSlot: 1 } });
+    t.start();
+    run(8);
+    t.stop();
+    expect(bars().slice(0, 4)).toEqual(['A3', 'B0', 'A3', 'B0']);
+  });
+
   it('holds a loop past the section’s end to the bars it has', () => {
     const { t, run, bars } = make({ loop: { slot: 0, from: 2, to: 9 } });
     t.start();

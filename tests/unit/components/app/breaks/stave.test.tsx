@@ -106,7 +106,7 @@ describe('Stave — a loop over bars (16-b-vi)', () => {
     return engrave(A, null, { scale: 1, perSystem: 2 });
   }
 
-  function drawn(onLoop?: (from: number, to: number) => void, loop?: { from: number; to: number }) {
+  function drawn(onLoop?: (from: number, to: number) => void, loop?: number[]) {
     const eng = fourBars();
     const view = render(<Stave engraving={eng} onLoop={onLoop} loop={loop} />);
     const svg = view.container.querySelector('svg') as SVGSVGElement;
@@ -124,10 +124,12 @@ describe('Stave — a loop over bars (16-b-vi)', () => {
 
   const mouse = { pointerType: 'mouse', button: 0, pointerId: 1 };
 
-  it('draws a band behind each bar a loop plays', () => {
-    const { bands, boxes } = drawn(undefined, { from: 1, to: 2 });
-    expect(bands()).toHaveLength(2);
-    expect(bands()[0].getAttribute('x')).toBe(String(boxes[1]!.x));
+  it('draws a band behind each bar a loop plays, and none behind the bars between', () => {
+    const { bands, boxes } = drawn(undefined, [0, 2, 3]);
+    expect(bands()).toHaveLength(3);
+    expect([...bands()].map((b) => b.getAttribute('x'))).toEqual(
+      [0, 2, 3].map((b) => String(boxes[b]!.x))
+    );
   });
 
   it('loops the bars a mouse drags across, onto the next line', () => {
