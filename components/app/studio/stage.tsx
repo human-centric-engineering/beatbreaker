@@ -18,7 +18,7 @@ import { Toggle } from '@/components/app/studio/toggle';
 import { SelectMenu } from '@/components/app/ui/select-menu';
 import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { GRID_SIZE, GRID_SIZE_MAX, GRID_SIZE_MIN, STAGE_VIEW } from '@/lib/app/breaks/browser-keys';
-import { loopOver } from '@/lib/app/breaks/bar-loop';
+import { loopOver, loopedBarsOf } from '@/lib/app/breaks/bar-loop';
 import { type Engraving } from '@/lib/app/breaks/engrave';
 import {
   MAX_ARRANGEMENT,
@@ -253,14 +253,24 @@ export function Stage() {
     return out;
   }, [c.letters, setBarLoop]);
 
+  /* The bars of each section the loop plays, banded on its stave: one object
+     per section for as long as the loop and the bars stay, so the playhead
+     moving does not draw the staves again. */
+  const loopBands = useMemo(() => {
+    const out: Partial<Record<SectionLetter, { from: number; to: number } | null>> = {};
+    for (const letter of c.letters) {
+      out[letter] = loopedBarsOf(c.barLoop, c.arrangement, c.view, letter);
+    }
+    return out;
+  }, [c.barLoop, c.arrangement, c.view, c.letters]);
+
   /** The chart's staves. `live` ones follow the playhead; the drummer view's
       print copy does not, so it costs nothing while the drummer plays. */
   const staves = (live: boolean) =>
     shown.map((letter) => {
       const eng = engravings[letter];
       if (!eng) return null;
-      const looped =
-        live && c.barLoop && c.arrangement[c.barLoop.slot] === letter ? c.barLoop : null;
+      const looped = live ? (loopBands[letter] ?? null) : null;
       return (
         <Stave
           key={letter}

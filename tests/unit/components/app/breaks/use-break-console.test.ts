@@ -3151,6 +3151,25 @@ describe('a loop over a range of bars (16-b-vi)', () => {
     expect(result.current.barLoop).toBe(was);
   });
 
+  it('loops the slots to one Shift-clicked, whole, and stretches a loop there is', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B', 'A']));
+    const aBars = result.current.view.A?.bars.length ?? 0;
+    const bBars = result.current.view.B?.bars.length ?? 0;
+    act(() => result.current.loopToSlot(1));
+    expect(result.current.barLoop).toEqual({ slot: 0, from: 0, to: bBars - 1, toSlot: 1 });
+    act(() => result.current.loopToSlot(2));
+    expect(result.current.barLoop).toEqual({ slot: 0, from: 0, to: aBars - 1, toSlot: 2 });
+  });
+
+  it('is no loop across slots once one of them plays another section', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B', 'A']));
+    act(() => result.current.loopToSlot(2));
+    act(() => result.current.setArrangement(['A', 'A', 'A']));
+    expect(result.current.barLoop).toBeNull();
+  });
+
   it('keeps the loop through Stop, and forgets it with a new break', async () => {
     const { result } = await mount();
     act(() => result.current.setBarLoop({ slot: 0, from: 0, to: 0 }));

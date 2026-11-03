@@ -15,7 +15,7 @@ import { useStudio } from '@/components/app/studio/studio-provider';
 import { TempoControl } from '@/components/app/studio/tempo-control';
 import { Toggle } from '@/components/app/studio/toggle';
 import { beatOf, playableSlots } from '@/lib/app/breaks/audio/transport';
-import { loopWords } from '@/lib/app/breaks/bar-loop';
+import { loopHas, loopWords } from '@/lib/app/breaks/bar-loop';
 import { layerNamesFor } from '@/lib/app/breaks/layers';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { barClock } from '@/lib/app/breaks/tempo-map';
@@ -38,7 +38,9 @@ function clockOf(pat: Pattern): ReturnType<typeof barClock> {
  *
  * Under "A only" the slots that do not play are dimmed, not hidden: the
  * arrangement is still the arrangement, and skipping passes over them. A loop
- * over bars (16-b-vi) marks its slot; a chapter clicked leaves the loop.
+ * over bars (16-b-vi) marks the slots it plays; a chapter clicked leaves the
+ * loop, and one Shift-clicked stretches it to take that slot in — or, with no
+ * loop, loops the slots from the one you are in to it.
  */
 function Chapters() {
   const c = useStudio();
@@ -75,7 +77,7 @@ function Chapters() {
           fill = done / clock.length;
         } else if (here >= 0 && (rank.get(i) ?? here) < here) fill = 1;
         const cued = !c.playing && c.cue === i;
-        const looped = c.barLoop?.slot === i;
+        const looped = loopHas(c.barLoop, i);
         return (
           <button
             key={i}
@@ -88,9 +90,9 @@ function Chapters() {
               looped && 'looped'
             )}
             style={{ flexGrow: weight }}
-            onClick={() => c.seekSlot(i)}
+            onClick={(e) => (e.shiftKey ? c.loopToSlot(i) : c.seekSlot(i))}
             aria-label={`Go to slot ${i + 1}: ${letter}, ${bars} bar${bars === 1 ? '' : 's'}`}
-            title={`${letter} · ${bars} bar${bars === 1 ? '' : 's'}${looped && c.barLoop ? ` — looping ${loopWords(c.barLoop).toLowerCase()}` : rank.has(i) ? '' : ' — not playing under this section'}`}
+            title={`${letter} · ${bars} bar${bars === 1 ? '' : 's'}${looped && c.barLoop ? ` — looping ${loopWords(c.barLoop).toLowerCase()}` : rank.has(i) ? '' : ' — not playing under this section'} · Shift-click to loop to here`}
           >
             <span className="chapter-track">
               <span

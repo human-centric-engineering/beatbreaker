@@ -5244,6 +5244,15 @@ it; a phone loops from the drawer), and the step editor still draws a long
 section as one row — it follows the playhead into the looped bars, which
 was what 16-b-i left for here, so it stays.
 
+**16-b-vi, a loop across slots (2026-11-03, branch `phase-16b-vi-slot-loop`,
+asked for by the owner on seeing the bar loop):** a loop runs from a bar of
+one slot to a bar of a later one (`toSlot`), the slots between whole. A
+Shift-click on a chapter stretches the loop to that slot, or with none loops
+the slots from the one you are in to it; the Loop bars panel has _To slot_.
+A drag on the chart stays within one section's stave: the chart draws each
+section once, not each slot, so a drag from one stave to another could not
+say which slots it meant.
+
 **An idea of the owner's for after Phase 16 (2026-11-03):** an import that
 finds a transcription's common and telling grooves and builds its sections
 from them, as a study of the part rather than a copy of every bar.

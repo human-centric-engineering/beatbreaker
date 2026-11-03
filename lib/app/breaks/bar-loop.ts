@@ -2,14 +2,17 @@ import type { StepAnchor } from '@/lib/app/breaks/engrave';
 import type { MaybeSections, SectionLetter } from '@/lib/app/breaks/sections';
 
 /**
- * A loop over a range of bars (16-b-vi): one arrangement slot's bars `from`
- * to `to`, counted from 0 and both played, round and round — so a drummer can
- * drill two bars of a 32-bar verse rather than the whole break.
+ * A loop over a range of bars (16-b-vi): from bar `from` of arrangement slot
+ * `slot` to bar `to` of slot `toSlot` — the same slot where it is absent —
+ * counted from 0 and both played, round and round. So a drummer can drill
+ * two bars of a 32-bar verse, or the bridge into the chorus, rather than the
+ * whole break. The slots between play whole.
  *
- * **It is a slot's, not a section's.** A section the arrangement calls twice
- * is looped where you asked for it, so the chapters and the readout say
- * where you are. The bars are the section as it plays, a repeat's bars
- * played out (16-b-i), so bar 9 of a theme of two bars ×8 is bar 9.
+ * **It is the arrangement's, not a section's.** A section the arrangement
+ * calls twice is looped where you asked for it, so the chapters and the
+ * readout say where you are. The bars are the section as it plays, a
+ * repeat's bars played out (16-b-i), so bar 9 of a theme of two bars ×8 is
+ * bar 9.
  *
  * Nothing saves it: it is where you are practising, as a cue is, and goes
  * with the break it was set on.
@@ -18,17 +21,61 @@ export interface BarLoop {
   slot: number;
   from: number;
   to: number;
+  /** The slot it ends in, after `slot`; absent, it ends in `slot`. */
+  toSlot?: number;
 }
 
-/** A loop as the Studio keeps it: with the section it was set on, so a slot that has since become another is no loop. */
+/** A loop as the Studio keeps it: with the sections its slots played when it was set, so slots that have since become others are no loop. */
 export interface HeldLoop extends BarLoop {
+  letters: SectionLetter[];
+}
+
+/** The slot a loop ends in. */
+export function lastSlot(loop: BarLoop): number {
+  return loop.toSlot ?? loop.slot;
+}
+
+/** Whether a loop plays any of an arrangement slot. */
+export function loopHas(loop: BarLoop | null, slot: number): boolean {
+  return !!loop && slot >= loop.slot && slot <= lastSlot(loop);
+}
+
+/** One bar a loop plays: the slot, its section and the bar of it. */
+export interface LoopBar {
+  slot: number;
   letter: SectionLetter;
+  barIdx: number;
 }
 
 /**
- * The loop that holds, where it still does: its slot still plays its section,
- * the section is not one another section's solo leaves out, and its bars are
- * held to the bars the section has. Null where it no longer holds.
+ * The bars a loop plays, in order: from its first bar to the end of its
+ * first slot, the slots between whole, and its last slot to its last bar.
+ * Bars past a section's end are held to it, and a slot with no bars is
+ * passed over. The transport plays exactly these.
+ */
+export function loopBars(
+  loop: BarLoop,
+  arrangement: readonly SectionLetter[],
+  patterns: MaybeSections
+): LoopBar[] {
+  const out: LoopBar[] = [];
+  const end = lastSlot(loop);
+  for (let slot = Math.max(0, loop.slot); slot <= end && slot < arrangement.length; slot++) {
+    const letter = arrangement[slot];
+    const n = patterns[letter]?.bars.length ?? 0;
+    if (!n) continue;
+    const last = slot === end ? Math.max(0, Math.min(loop.to, n - 1)) : n - 1;
+    let first = slot === loop.slot ? Math.max(0, Math.min(loop.from, n - 1)) : 0;
+    if (slot === loop.slot && slot === end) first = Math.min(first, last);
+    for (let barIdx = first; barIdx <= last; barIdx++) out.push({ slot, letter, barIdx });
+  }
+  return out;
+}
+
+/**
+ * The loop that holds, where it still does: its slots still play the
+ * sections they did, none of them one a solo leaves out, and its bars are
+ * held to the bars the sections have. Null where it no longer holds.
  */
 export function loopIn(
   loop: HeldLoop | null,
@@ -36,18 +83,78 @@ export function loopIn(
   patterns: MaybeSections,
   solo: SectionLetter | null
 ): BarLoop | null {
-  if (!loop || arrangement[loop.slot] !== loop.letter) return null;
-  if (solo && solo !== loop.letter) return null;
-  const bars = patterns[loop.letter]?.bars.length ?? 0;
-  if (!bars) return null;
-  const to = Math.max(0, Math.min(loop.to, bars - 1));
-  const from = Math.max(0, Math.min(loop.from, to));
-  return { slot: loop.slot, from, to };
+  if (!loop) return null;
+  const end = lastSlot(loop);
+  const now = arrangement.slice(loop.slot, end + 1);
+  if (loop.slot < 0 || end < loop.slot || now.length !== loop.letters.length) return null;
+  if (now.some((letter, i) => letter !== loop.letters[i])) return null;
+  if (solo && now.some((letter) => letter !== solo)) return null;
+  const firstBars = patterns[now[0]]?.bars.length ?? 0;
+  const lastBars = patterns[now[now.length - 1]]?.bars.length ?? 0;
+  if (!firstBars || !lastBars) return null;
+  const to = Math.max(0, Math.min(loop.to, lastBars - 1));
+  let from = Math.max(0, Math.min(loop.from, firstBars - 1));
+  if (end === loop.slot) {
+    from = Math.min(from, to);
+    return { slot: loop.slot, from, to };
+  }
+  return { slot: loop.slot, from, to, toSlot: end };
 }
 
 /** Two bars, in either order, as a loop of the slot: the first of them to the last. */
 export function loopOver(slot: number, a: number, b: number): BarLoop {
   return { slot, from: Math.min(a, b), to: Math.max(a, b) };
+}
+
+/** Two places in the arrangement, in either order, as a loop from the first to the last. */
+export function loopSpan(
+  a: { slot: number; barIdx: number },
+  b: { slot: number; barIdx: number }
+): BarLoop {
+  const [p, q] = a.slot < b.slot || (a.slot === b.slot && a.barIdx <= b.barIdx) ? [a, b] : [b, a];
+  if (p.slot === q.slot) return { slot: p.slot, from: p.barIdx, to: q.barIdx };
+  return { slot: p.slot, from: p.barIdx, to: q.barIdx, toSlot: q.slot };
+}
+
+/**
+ * A loop stretched to take in a whole slot, as a Shift-click on its chapter
+ * asks: past the loop's end, to that slot's last bar; before its start,
+ * from that slot's first. Without a loop, the slots from `anchor` to it,
+ * whole. `lastBar` is a slot's last bar.
+ */
+export function loopTo(
+  loop: BarLoop | null,
+  anchor: number,
+  slot: number,
+  lastBar: (slot: number) => number
+): BarLoop {
+  if (!loop) {
+    const [a, b] = anchor <= slot ? [anchor, slot] : [slot, anchor];
+    return loopSpan({ slot: a, barIdx: 0 }, { slot: b, barIdx: lastBar(b) });
+  }
+  const end = lastSlot(loop);
+  if (slot > end)
+    return loopSpan({ slot: loop.slot, barIdx: loop.from }, { slot, barIdx: lastBar(slot) });
+  if (slot < loop.slot) return loopSpan({ slot, barIdx: 0 }, { slot: end, barIdx: loop.to });
+  return loop;
+}
+
+/**
+ * The bars of one section a loop plays, first to last, for the chart to
+ * band: a section looped in two slots bands every bar either plays. Null
+ * where the loop plays none of it.
+ */
+export function loopedBarsOf(
+  loop: BarLoop | null,
+  arrangement: readonly SectionLetter[],
+  patterns: MaybeSections,
+  letter: SectionLetter
+): { from: number; to: number } | null {
+  if (!loop) return null;
+  const mine = loopBars(loop, arrangement, patterns).filter((b) => b.letter === letter);
+  if (!mine.length) return null;
+  const at = mine.map((b) => b.barIdx);
+  return { from: Math.min(...at), to: Math.max(...at) };
 }
 
 /**
@@ -66,8 +173,10 @@ export function loopSpot(
   return slots.length ? { slot: slots[0], barIdx: 0 } : null;
 }
 
-/** What a loop says on the player: `Bar 5` or `Bars 5–6`. */
+/** What a loop says on the player: `Bar 5`, `Bars 5–6`, or across slots `Slots 2–4`. */
 export function loopWords(loop: BarLoop): string {
+  const end = lastSlot(loop);
+  if (end !== loop.slot) return `Slots ${loop.slot + 1}–${end + 1}`;
   return loop.from === loop.to ? `Bar ${loop.from + 1}` : `Bars ${loop.from + 1}–${loop.to + 1}`;
 }
 
