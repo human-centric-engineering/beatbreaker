@@ -9,6 +9,7 @@ import { StudioHelp } from '@/components/app/studio/studio-help';
 import { TempoControl } from '@/components/app/studio/tempo-control';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
+import { LoopDeck } from '@/components/app/studio/player/loop-deck';
 import { MixerDesk } from '@/components/app/studio/player/mixer-desk';
 import { PLAYER_WIDE, useMedia } from '@/components/app/studio/player/use-media';
 
@@ -34,6 +35,18 @@ export function PracticePanel() {
           </div>
         </div>
       ) : null}
+      {/* The loop over bars is on the player's bar from its width up; a
+          phone has no bar, and a finger on the chart scrolls it (16-b-vi). */}
+      {onPlayer ? null : (
+        <div className="card">
+          <div className="card-hd">
+            <h3>Loop bars</h3>
+          </div>
+          <div className="card-bd">
+            <LoopDeck drawer />
+          </div>
+        </div>
+      )}
       <div className="card">
         <div className="card-hd">
           <h3>Click and tempo</h3>

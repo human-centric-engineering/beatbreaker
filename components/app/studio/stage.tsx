@@ -18,6 +18,7 @@ import { Toggle } from '@/components/app/studio/toggle';
 import { SelectMenu } from '@/components/app/ui/select-menu';
 import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { GRID_SIZE, GRID_SIZE_MAX, GRID_SIZE_MIN, STAGE_VIEW } from '@/lib/app/breaks/browser-keys';
+import { loopOver } from '@/lib/app/breaks/bar-loop';
 import { type Engraving } from '@/lib/app/breaks/engrave';
 import {
   MAX_ARRANGEMENT,
@@ -225,12 +226,41 @@ export function Stage() {
       ? c.position.barIdx * (engravings[c.editing]?.steps ?? 16) + c.position.slot
       : null;
 
+  /* The slot a drag over a section's bars loops (16-b-vi): the loop's, where
+     it is on that section; the slot playing it; else the first that plays it.
+     A section the arrangement never calls has no slot to loop. */
+  const loopSlot = (letter: SectionLetter): number => {
+    if (c.barLoop && c.arrangement[c.barLoop.slot] === letter) return c.barLoop.slot;
+    const at = c.position && !c.position.count ? c.position : null;
+    if (at?.letter === letter && at.secIdx !== undefined && at.secIdx >= 0) return at.secIdx;
+    return c.arrangement.indexOf(letter);
+  };
+  /* Read when the drag ends, so the staves' handlers stay the same between
+     renders and the playhead's sixteen a bar do not draw the staff again. */
+  const loopSlotRef = useRef(loopSlot);
+  useEffect(() => {
+    loopSlotRef.current = loopSlot;
+  });
+  const setBarLoop = c.setBarLoop;
+  const loopTo = useMemo(() => {
+    const out: Partial<Record<SectionLetter, (from: number, to: number) => void>> = {};
+    for (const letter of c.letters) {
+      out[letter] = (from, to) => {
+        const slot = loopSlotRef.current(letter);
+        if (slot >= 0) setBarLoop(loopOver(slot, from, to));
+      };
+    }
+    return out;
+  }, [c.letters, setBarLoop]);
+
   /** The chart's staves. `live` ones follow the playhead; the drummer view's
       print copy does not, so it costs nothing while the drummer plays. */
   const staves = (live: boolean) =>
     shown.map((letter) => {
       const eng = engravings[letter];
       if (!eng) return null;
+      const looped =
+        live && c.barLoop && c.arrangement[c.barLoop.slot] === letter ? c.barLoop : null;
       return (
         <Stave
           key={letter}
@@ -246,6 +276,8 @@ export function Stage() {
           playing={live && c.position?.letter === letter}
           flash={live ? flashSteps[letter] : undefined}
           flashSeq={live ? c.flash?.seq : undefined}
+          loop={looped}
+          onLoop={live && c.arrangement.includes(letter) ? loopTo[letter] : undefined}
         />
       );
     });

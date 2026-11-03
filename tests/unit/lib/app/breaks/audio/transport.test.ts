@@ -1371,3 +1371,175 @@ describe('a section on a kit of its own (D86)', () => {
     expect(onKit).not.toHaveBeenCalled();
   });
 });
+
+describe('a loop over a range of bars (16-b-vi)', () => {
+  /** A of four bars of 4/4, each told apart by where its kick is, and a B of one. */
+  function make(over: Partial<TransportSnapshot> = {}) {
+    const A = patternIn('4/4');
+    A.bars = [0, 1, 2, 3].map((b) => {
+      const bar = emptyBar(16);
+      bar.k[b] = 1;
+      return bar;
+    });
+    const B = patternIn('4/4');
+    B.bars[0].s[4] = 2;
+    const f = fakeAudio();
+    const onStep = vi.fn<(step: ScheduledStep) => void>();
+    const onLoop = vi.fn<(loops: number, at: number) => void>();
+    let snap = snapshot(A, {
+      patterns: { A, B },
+      arrangement: ['A', 'B'],
+      click: false,
+      ...over,
+    });
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop,
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep,
+    });
+    const run = (until: number) => {
+      while (f.ctx.currentTime < until) {
+        f.ctx.currentTime += 0.02;
+        vi.advanceTimersByTime(25);
+      }
+    };
+    /** Change what the transport reads, as a render does, and tell it. */
+    const set = (more: Partial<TransportSnapshot>) => {
+      snap = { ...snap, ...more };
+      t.resync();
+    };
+    /** The bars scheduled, in order, one name a bar: `A1` is A's second bar. */
+    const bars = () =>
+      onStep.mock.calls
+        .map(([st]) => st)
+        .filter((st) => !st.count && st.slot === 0)
+        .map((st) =>
+          st.bar === B.bars[0] ? 'B0' : `A${A.bars.findIndex((bar) => bar === st.bar)}`
+        );
+    /** Every step scheduled while the bar playing was `name`, in order. */
+    const stepsIn = (name: string) =>
+      onStep.mock.calls
+        .map(([st]) => st)
+        .filter((st) => !st.count && st.bar === A.bars[Number(name.slice(1))])
+        .map((st) => st.slot);
+    return { t, A, B, onStep, onLoop, run, set, bars, stepsIn };
+  }
+
+  // a bar of 4/4 at 120 is 2s, from 0.08s
+
+  it('plays only the bars it names, round and round, and comes round as a loop does', () => {
+    const { t, onLoop, run, bars } = make({ loop: { slot: 0, from: 1, to: 2 } });
+    t.start();
+    run(8);
+    t.stop();
+    expect(bars().slice(0, 4)).toEqual(['A1', 'A2', 'A1', 'A2']);
+    expect(bars()).not.toContain('B0');
+    // round once after two bars: at 4.08s, the top of the third bar played
+    expect(onLoop.mock.calls[0][0]).toBe(1);
+    expect(onLoop.mock.calls[0][1]).toBeCloseTo(4.08, 6);
+  });
+
+  it('holds a loop past the section’s end to the bars it has', () => {
+    const { t, run, bars } = make({ loop: { slot: 0, from: 2, to: 9 } });
+    t.start();
+    run(8);
+    t.stop();
+    expect(bars().slice(0, 4)).toEqual(['A2', 'A3', 'A2', 'A3']);
+  });
+
+  it('plays the arrangement where the loop names a slot it has not got', () => {
+    const { t, run, bars } = make({ loop: { slot: 5, from: 0, to: 0 } });
+    t.start();
+    run(9);
+    t.stop();
+    expect(bars().slice(0, 5)).toEqual(['A0', 'A1', 'A2', 'A3', 'B0']);
+  });
+
+  it('loops a slot of another section, whatever the solo', () => {
+    const { t, run, bars } = make({ loop: { slot: 1, from: 0, to: 0 }, solo: 'A' });
+    t.start();
+    run(5);
+    t.stop();
+    expect(bars().slice(0, 2)).toEqual(['B0', 'B0']);
+  });
+
+  it('counts in to the loop’s first bar', () => {
+    const { t, A, onStep, run, bars } = make({ countIn: 1, loop: { slot: 0, from: 2, to: 2 } });
+    t.start();
+    run(5);
+    t.stop();
+    const first = onStep.mock.calls.map(([st]) => st).find((st) => st.count);
+    expect(first?.next).toBe(A.bars[2]);
+    expect(bars()[0]).toBe('A2');
+  });
+
+  it('set over the bar playing, plays on in it without a break', () => {
+    const { t, run, set, bars, stepsIn } = make();
+    t.start();
+    run(3); // a second into A1
+    set({ loop: { slot: 0, from: 1, to: 1 } });
+    run(9);
+    t.stop();
+    expect(bars().slice(0, 5)).toEqual(['A0', 'A1', 'A1', 'A1', 'A1']);
+    // A1's first pass is every step of it once, in order: nothing restarted
+    expect(stepsIn('A1').slice(0, 16)).toEqual(Array.from({ length: 16 }, (_, i) => i));
+  });
+
+  it('set elsewhere, lets the bar playing finish and comes in on the loop’s first bar', () => {
+    const { t, A, onStep, run, set, bars, stepsIn } = make();
+    t.start();
+    run(0.6); // a quarter into A0
+    set({ loop: { slot: 0, from: 3, to: 3 } });
+    run(7);
+    t.stop();
+    expect(bars().slice(0, 4)).toEqual(['A0', 'A3', 'A3', 'A3']);
+    expect(stepsIn('A0')).toEqual(Array.from({ length: 16 }, (_, i) => i));
+    // the drummer is shown the loop's bar coming, not the bar the arrangement had next
+    const last = onStep.mock.calls
+      .map(([st]) => st)
+      .find((st) => st.bar === A.bars[0] && st.slot === 15);
+    expect(last?.next).toBe(A.bars[3]);
+  });
+
+  it('brings the loop in at once where an edit takes away the bar finishing before it', () => {
+    const { t, B, onStep, run, set, bars, stepsIn } = make();
+    t.start();
+    run(0.6); // a quarter into A0
+    set({ loop: { slot: 1, from: 0, to: 0 } });
+    // slot 0 is B now: the A0 that was finishing is no bar of the arrangement
+    set({ arrangement: ['B', 'B'] });
+    run(5);
+    t.stop();
+    expect(stepsIn('A0').length).toBeLessThan(16);
+    expect(bars()[1]).toBe('B0');
+    const firstB = onStep.mock.calls.map(([st]) => st).find((st) => st.bar === B.bars[0]);
+    expect(firstB?.slot).toBe(0);
+  });
+
+  it('lifted while drilling, plays on from the bar it was in', () => {
+    const { t, run, set, bars } = make({ loop: { slot: 0, from: 1, to: 2 } });
+    t.start();
+    run(3); // a second into A2 — the loop's second bar
+    set({ loop: null });
+    run(9);
+    t.stop();
+    expect(bars().slice(0, 4)).toEqual(['A1', 'A2', 'A3', 'B0']);
+  });
+
+  it('resumes inside the loop where a Pause stopped', () => {
+    const { t, run, bars, onStep } = make({ loop: { slot: 0, from: 1, to: 2 } });
+    t.start();
+    run(3);
+    const at = t.pausePoint();
+    t.stop();
+    expect(at).toMatchObject({ slot: 0, barIdx: 2 });
+    onStep.mockClear();
+    t.start({ resume: at ?? undefined });
+    run(10);
+    t.stop();
+    expect(bars().slice(0, 2)).toEqual(['A1', 'A2']);
+  });
+});

@@ -5226,6 +5226,24 @@ sections of 128 bars) and a few at a long song's size, once an edit; it is
 not cached, since a cache keyed on bars would go stale under an edit made in
 place.
 
+**16-b-vi built (2026-11-03, branch `phase-16b-vi-bar-loop`):** a loop over
+a range of one arrangement slot's bars, in the transport (`snapshot.loop`),
+the player bar (Loop bars, with From bar and To bar, and on a phone the
+Practise drawer), the R key (the bar you are in) and the chart (a mouse drag
+across bars; a band behind the bars looped, never printed). Calls made in
+the building: (1) **a loop is a slot's**, not a section's, so the chapters
+and the readout say where you are; (2) **set mid-play it comes in on a
+downbeat**: the bar playing finishes, then the loop's first bar; a loop over
+the bar playing plays straight on, and lifting one plays on from where you
+were; (3) **a skip or a chapter lifts it**, then goes where it says, while
+Stop keeps it and a new break forgets it; (4) **it wins over the solo in the
+transport**, and the Studio lets it go under another section's solo; (5) it
+counts as the arrangement coming round, so the tempo trainer ramps each pass
+of the bars drilled. Not built: a finger drag on the chart (a swipe scrolls
+it; a phone loops from the drawer), and the step editor still draws a long
+section as one row — it follows the playhead into the looped bars, which
+was what 16-b-i left for here, so it stays.
+
 **An idea of the owner's for after Phase 16 (2026-11-03):** an import that
 finds a transcription's common and telling grooves and builds its sections
 from them, as a study of the part rather than a copy of every bar.

@@ -22,6 +22,7 @@ import {
   skipSlot,
   soloInPlay,
 } from '@/lib/app/breaks/audio/transport';
+import { type BarLoop, type HeldLoop, loopIn, loopSpot } from '@/lib/app/breaks/bar-loop';
 import {
   type Critique,
   type Playability,
@@ -438,6 +439,19 @@ export interface BreakConsole {
   skip: (delta: 1 | -1) => void;
   /** Go to the top of an arrangement slot: now, while playing, or for the next Play. */
   seekSlot: (slot: number) => void;
+  /**
+   * A loop over a range of one slot's bars (16-b-vi), where one holds: only
+   * those bars play, round and round. Null plays the arrangement.
+   */
+  barLoop: BarLoop | null;
+  /**
+   * Loop a slot's bars, or null to play the arrangement again. While playing
+   * the bar playing goes on to its end and the loop comes in after it. A skip
+   * or a chapter lifts the loop, as does a new break; Stop keeps it.
+   */
+  setBarLoop: (loop: BarLoop | null) => void;
+  /** Loop the bar the playhead is in — playing, paused or cued — or lift the loop there is (R). */
+  toggleBarLoop: () => void;
   loops: number;
   position: PlayEvent | null;
 
@@ -1106,9 +1120,12 @@ export function useBreakConsole(
   /* A cue is a place in this break: a new one (a new seed on A) goes back to
      the top, and a slot the arrangement has lost since is no place at all. */
   const [cueSeed, setCueSeed] = useState(patterns.A?.seed);
+  /* A loop over bars is a place in this break too, kept with the section it is on. */
+  const [loopHeld, setLoopHeld] = useState<HeldLoop | null>(null);
   if (cueSeed !== patterns.A?.seed) {
     setCueSeed(patterns.A?.seed);
     setCue(null);
+    setLoopHeld(null);
   }
   const cue = cueAt !== null && cueAt < arrangement.length ? cueAt : null;
   const pausedAt = cue !== null ? resumeAt : null;
@@ -2538,6 +2555,21 @@ export function useBreakConsole(
     [humanise, patterns]
   );
 
+  /* The loop that still holds: its slot still plays its section, under a
+     solo that keeps it. One object for as long as its bars are the same, so
+     an edit to the notes under a loop does not rebuild the transport's bars. */
+  const loopNow = useMemo(
+    () => loopIn(loopHeld, arrangement, view, viewMode === 'both' ? null : viewMode),
+    [loopHeld, arrangement, view, viewMode]
+  );
+  const loopSlot = loopNow?.slot ?? -1;
+  const loopFrom = loopNow?.from ?? 0;
+  const loopTo = loopNow?.to ?? 0;
+  const barLoop = useMemo(
+    () => (loopSlot < 0 ? null : { slot: loopSlot, from: loopFrom, to: loopTo }),
+    [loopSlot, loopFrom, loopTo]
+  );
+
   /**
    * What the transport reads on every scheduled step.
    *
@@ -2547,11 +2579,13 @@ export function useBreakConsole(
    * on every keystroke either. A ref updated in an effect is exactly that, and
    * keeps the render itself pure.
    */
+
   const snapshot: TransportSnapshot = useMemo(
     () => ({
       patterns: view,
       arrangement,
       solo: viewMode === 'both' ? null : viewMode,
+      loop: barLoop,
       bpm,
       swing,
       feel,
@@ -2571,6 +2605,7 @@ export function useBreakConsole(
       view,
       arrangement,
       viewMode,
+      barLoop,
       bpm,
       swing,
       feel,
@@ -2893,7 +2928,41 @@ export function useBreakConsole(
     setResumeAt(null);
   }, []);
 
-  const skip = useCallback((delta: 1 | -1) => {
+  /**
+   * Lift the loop for a skip or a chapter — one a solo has hidden too, so it
+   * does not come back when the solo goes. A loop playing leaves the
+   * transport now, before the skip is worked out, so the skip lands where the
+   * arrangement has it rather than in the loop; the render after hands it
+   * the snapshot it reads, without the loop, and nothing moves.
+   */
+  const leaveLoop = useCallback(() => {
+    setLoopHeld(null);
+    if (!snapshotRef.current.loop) return;
+    transportRef.current?.resync({ ...snapshotRef.current, loop: null });
+  }, []);
+
+  const setBarLoop = useCallback((loop: BarLoop | null) => {
+    const letter = loop ? snapshotRef.current.arrangement[loop.slot] : undefined;
+    setLoopHeld(loop && letter ? { ...loop, letter } : null);
+  }, []);
+
+  const toggleBarLoop = useCallback(() => {
+    const snap = snapshotRef.current;
+    if (snap.loop) {
+      setLoopHeld(null);
+      return;
+    }
+    const at =
+      transportRef.current?.cursor() ??
+      (pausedAt ? { slot: pausedAt.slot, barIdx: pausedAt.barIdx } : null);
+    const spot = loopSpot(at, cue, playableSlots(snap.arrangement, snap.patterns, snap.solo));
+    const letter = spot ? snap.arrangement[spot.slot] : undefined;
+    if (spot && letter) {
+      setLoopHeld({ slot: spot.slot, from: spot.barIdx, to: spot.barIdx, letter });
+    }
+  }, [cue, pausedAt]);
+
+  const skipNow = useCallback((delta: 1 | -1) => {
     const t = transportRef.current;
     const snap = snapshotRef.current;
     const slots = playableSlots(snap.arrangement, snap.patterns, snap.solo);
@@ -2908,7 +2977,7 @@ export function useBreakConsole(
     setResumeAt(null);
   }, []);
 
-  const seekSlot = useCallback((slot: number) => {
+  const seekNow = useCallback((slot: number) => {
     const t = transportRef.current;
     if (t?.playing) {
       t.seekSlot(slot);
@@ -2919,6 +2988,22 @@ export function useBreakConsole(
     setCue(playableFrom(playableSlots(snap.arrangement, snap.patterns, snap.solo), slot));
     setResumeAt(null);
   }, []);
+
+  /* A skip or a chapter leaves a loop over bars first, then goes where it says. */
+  const skip = useCallback(
+    (delta: 1 | -1) => {
+      leaveLoop();
+      skipNow(delta);
+    },
+    [leaveLoop, skipNow]
+  );
+  const seekSlot = useCallback(
+    (slot: number) => {
+      leaveLoop();
+      seekNow(slot);
+    },
+    [leaveLoop, seekNow]
+  );
 
   /* ---- what a practice session drives (7D) ----------------------------- */
 
@@ -2985,10 +3070,10 @@ export function useBreakConsole(
     };
   }, []);
 
-  // the arrangement or the solo changed while playing — keep going, new sequence
+  // the arrangement, the solo or the loop changed while playing — keep going, new sequence
   useEffect(() => {
     transportRef.current?.resync();
-  }, [arrangement, viewMode]);
+  }, [arrangement, viewMode, barLoop]);
 
   const audition = useCallback((voice: string, variant?: string) => {
     audioRef.current?.hit(voice, variant);
@@ -3371,6 +3456,9 @@ export function useBreakConsole(
     pausedAt,
     skip,
     seekSlot,
+    barLoop,
+    setBarLoop,
+    toggleBarLoop,
     loops,
     position,
     play,

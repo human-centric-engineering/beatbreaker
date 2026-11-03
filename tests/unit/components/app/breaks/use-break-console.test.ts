@@ -3059,3 +3059,106 @@ describe('a section on a kit of its own (16-b-v, D86)', () => {
     expect(audio.setKit.mock.lastCall?.[1]?.k?.rate).toBe(catalogue.kits.jazzBrushes.k.rate);
   });
 });
+
+describe('a loop over a range of bars (16-b-vi)', () => {
+  it('loops the bar Play would start on, and lifts the loop on a second R', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B']));
+    act(() => result.current.toggleBarLoop());
+    expect(result.current.barLoop).toEqual({ slot: 0, from: 0, to: 0 });
+    act(() => result.current.toggleBarLoop());
+    expect(result.current.barLoop).toBeNull();
+  });
+
+  it('loops from the top of a cued slot', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B']));
+    act(() => result.current.seekSlot(1));
+    act(() => result.current.toggleBarLoop());
+    expect(result.current.barLoop).toEqual({ slot: 1, from: 0, to: 0 });
+  });
+
+  it('holds a loop to its section’s bars, and lets it go under another section’s solo', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B']));
+    const bars = result.current.view.A?.bars.length ?? 0;
+    act(() => result.current.setBarLoop({ slot: 0, from: 0, to: 99 }));
+    expect(result.current.barLoop).toEqual({ slot: 0, from: 0, to: bars - 1 });
+    act(() => result.current.setViewMode('B'));
+    expect(result.current.barLoop).toBeNull();
+  });
+
+  it('is no loop once its slot plays another section', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B']));
+    act(() => result.current.setBarLoop({ slot: 1, from: 0, to: 0 }));
+    act(() => result.current.setArrangement(['A', 'A']));
+    expect(result.current.barLoop).toBeNull();
+  });
+
+  it('hands the transport the loop while it plays', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B']));
+    act(() => result.current.togglePlay());
+    const resync = vi.spyOn(Transport.prototype, 'resync');
+    act(() => result.current.setBarLoop({ slot: 1, from: 0, to: 0 }));
+    expect(resync).toHaveBeenCalled();
+    resync.mockRestore();
+    act(() => result.current.togglePlay());
+  });
+
+  it('lifts the loop for a skip, which lands where the arrangement has it', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B']));
+    act(() => result.current.togglePlay());
+    act(() => result.current.setBarLoop({ slot: 0, from: 0, to: 0 }));
+    const seek = vi.spyOn(Transport.prototype, 'seekSlot');
+    act(() => result.current.skip(1));
+    expect(result.current.barLoop).toBeNull();
+    // sought once the transport has dropped the loop, on the arrangement's next slot
+    expect(seek).toHaveBeenCalledWith(1);
+    seek.mockRestore();
+    act(() => result.current.togglePlay());
+  });
+
+  it('lifts the loop for a chapter while stopped, and cues it', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B']));
+    act(() => result.current.setBarLoop({ slot: 0, from: 0, to: 0 }));
+    act(() => result.current.seekSlot(1));
+    expect(result.current.barLoop).toBeNull();
+    expect(result.current.cue).toBe(1);
+  });
+
+  it('lifts a loop a solo has hidden for a skip, so it does not come back with All', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B']));
+    act(() => result.current.setBarLoop({ slot: 0, from: 0, to: 0 }));
+    act(() => result.current.setViewMode('B'));
+    act(() => result.current.skip(1));
+    act(() => result.current.setViewMode('both'));
+    expect(result.current.barLoop).toBeNull();
+  });
+
+  it('keeps one loop through an edit to its notes, so the transport is not rebuilt', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B']));
+    act(() => result.current.setBarLoop({ slot: 0, from: 0, to: 0 }));
+    const was = result.current.barLoop;
+    const view = result.current.view.A;
+    act(() => result.current.cycleCell('A', 0, 'k', 1, false));
+    expect(result.current.view.A).not.toBe(view);
+    expect(result.current.barLoop).toBe(was);
+  });
+
+  it('keeps the loop through Stop, and forgets it with a new break', async () => {
+    const { result } = await mount();
+    act(() => result.current.setBarLoop({ slot: 0, from: 0, to: 0 }));
+    act(() => result.current.stopToTop());
+    expect(result.current.barLoop).not.toBeNull();
+    act(() => {
+      result.current.newBreak();
+    });
+    expect(result.current.barLoop).toBeNull();
+  });
+});
