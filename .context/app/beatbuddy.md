@@ -158,8 +158,8 @@ disagree.
   every section. `write_bars` to the next unused letter with `whole: true` is
   the add-section move: the section is written in A's style and lanes, in the
   meter given, and played once at the end of the arrangement. Any other unused
-  letter is refused (`not_next_section`), as is going past 128 bars across the
-  sections (`too_many_bars`). A write in a slower meter brings the tempo down
+  letter is refused (`not_next_section`), as is a section past 128 bars or
+  a break past 128 distinct bars across its sections (`too_many_bars`). A write in a slower meter brings the tempo down
   to that meter's ceiling, checks its bars there, and says so. `generate_pattern` and opening a
   famous break write an A and a B, so the sections past B go, with their slots;
   a song written in sections writes every one of its sections instead, with its

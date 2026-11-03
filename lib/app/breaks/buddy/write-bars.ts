@@ -20,6 +20,7 @@ import { cloneTuplet, keepTuplets, maxTuplets } from '@/lib/app/breaks/tuplets';
 import {
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
+  MAX_SECTION_BARS,
   SECTION_LETTERS,
   type SectionLetter,
   lettersOf,
@@ -64,12 +65,13 @@ import type {
  * unless the bars use others, and played once at the end of the arrangement.
  */
 
-/** A section's bar limit, from the wire format. */
-const MAX_BARS = 8;
+/** A section's bar limit (16-b-i): as long as the part of the record it is. */
+const MAX_BARS = MAX_SECTION_BARS;
 
 const schema = z.object({
   section: z.enum(SECTION_LETTERS),
-  text: z.string().min(1).max(8000),
+  // a long part goes in several calls, bars added past the end each time
+  text: z.string().min(1).max(32000),
   whole: z.boolean().default(false),
   meter: z.string().refine(isMeterKey, 'unknown meter').optional(),
   tempo: z

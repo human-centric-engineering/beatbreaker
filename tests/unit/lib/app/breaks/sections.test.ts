@@ -35,6 +35,19 @@ function section(meter: string, seed: number, bars = 2): Pattern {
   return generatePattern({ style: testStyle('funk'), meter, seed, bars, density: 60, ghosts: 40 });
 }
 
+/**
+ * A section whose bars differ from each other and from every other section's:
+ * bar i's crash row spells `from + i`, so none is a bar the break holds once
+ * (16-b-i).
+ */
+function distinct(p: Pattern, from = 0): Pattern {
+  const out = clonePattern(p);
+  out.bars.forEach((bar, i) => {
+    bar.c = bar.c.map((_, j) => ((from + i) >> j) & 1);
+  });
+  return out;
+}
+
 /** The break `share.test.ts` round-trips, built the same way. */
 function abDoc(): BreakDoc {
   // funk as it was when this break's code was pinned: before it said how heavily it is hit,
@@ -155,13 +168,12 @@ describe('share code v6', () => {
 
   it(`refuses more than ${MAX_BREAK_BARS} bars across the sections`, () => {
     // sixteen sections of eight bars: a long record written passage by passage
+    // every bar its own, so none is a repeat the code writes once
     const eight = section('4/4', 1, 8);
     const letters = SECTION_LETTERS.slice(0, 16);
     const doc: BreakDoc = {
       ...songDoc(),
-      ...Object.fromEntries(letters.map((L) => [L, clonePattern(eight)])),
-      A: clonePattern(eight),
-      B: clonePattern(eight),
+      ...Object.fromEntries(letters.map((L, s) => [L, distinct(eight, 8 * s)])),
       arrangement: [...letters],
     };
     expect(sharePayloadSchema.safeParse(breakPayload(doc)).success).toBe(true);

@@ -9,10 +9,12 @@ import {
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
   MAX_RATIO_SPREAD,
+  MAX_SECTION_BARS,
   SECTION_LETTERS,
   isOfferedRatio,
   isTempoRatio,
   type TempoRatio,
+  V10_SECTION_BARS,
   V7_TEMPO_RATIOS,
 } from '@/lib/app/breaks/sections';
 import {
@@ -162,6 +164,13 @@ const MAX_ROW = MAX_STEPS;
 /** The last step of the longest bar: where a step index may point. */
 const MAX_STEP = MAX_STEPS - 1;
 
+/** Where a bar index may point: the last bar of the longest section (16-b-i). */
+const barIndex = z
+  .number()
+  .int()
+  .min(0)
+  .max(MAX_SECTION_BARS - 1);
+
 const typedLane = z.enum(LANES as [LaneKey, ...LaneKey[]]);
 
 /** The devices a polyrhythm entry may name (plan §3). */
@@ -218,7 +227,7 @@ function laneValuesOk(rows: Partial<Record<LaneKey, ArrayLike<number | string>>>
 
 /** Where a written fill starts in a bar ({@link Pattern.fills}). */
 export const fillSpanSchema = z.object({
-  bar: z.number().int().min(0).max(7),
+  bar: barIndex,
   from: z.number().int().min(0).max(MAX_STEP),
 });
 
@@ -229,7 +238,7 @@ export const fillSpanSchema = z.object({
  */
 export const polySpanSchema = z
   .object({
-    bar: z.number().int().min(0).max(7),
+    bar: barIndex,
     at: z
       .number()
       .int()
@@ -252,7 +261,7 @@ export const polySpanSchema = z
  */
 const packedSpanSchema = z
   .object({
-    b: z.number().int().min(0).max(7),
+    b: barIndex,
     a: z
       .number()
       .int()
@@ -275,7 +284,7 @@ const packedSpanSchema = z
   .refine((s) => s.n % s.e === 0, 'a span is a whole number of cells')
   .refine((s) => laneValuesOk(s.p), 'a step value that lane does not have');
 
-const packedSpans = z.array(packedSpanSchema).max(8);
+const packedSpans = z.array(packedSpanSchema).max(MAX_SECTION_BARS);
 
 /** A lane's notes in a span: one value a note, each one the lane has. */
 const tupletRow = z.array(z.number().int().min(0).max(8)).min(MIN_TUPLET).max(MAX_TUPLET);
@@ -288,7 +297,7 @@ const tupletRow = z.array(z.number().int().min(0).max(8)).min(MIN_TUPLET).max(MA
  */
 export const tupletSpanSchema = z
   .object({
-    bar: z.number().int().min(0).max(7),
+    bar: barIndex,
     start: z
       .number()
       .int()
@@ -312,7 +321,7 @@ export const tupletSpanSchema = z
  */
 const packedTupletSchema = z
   .object({
-    b: z.number().int().min(0).max(7),
+    b: barIndex,
     a: z
       .number()
       .int()
@@ -380,15 +389,15 @@ export const patternSchema = z
     pins: z.array(z.record(laneKey, z.array(z.number().int().min(0).max(5))).nullable()).nullable(),
     sticking: z
       .array(z.string().max(MAX_ROW).regex(STICKING_ROW).nullable())
-      .max(8)
+      .max(MAX_SECTION_BARS)
       .nullable()
       .optional(),
     fixed: z.boolean().optional(),
     poly: polySchema.optional(),
-    polySpans: z.array(polySpanSchema).max(8).optional(),
+    polySpans: z.array(polySpanSchema).max(MAX_SECTION_BARS).optional(),
     tuplets: z.array(tupletSpanSchema).max(MAX_TUPLETS).optional(),
-    fills: z.array(fillSpanSchema).max(8).optional(),
-    bars: z.array(barSchema).min(1).max(8),
+    fills: z.array(fillSpanSchema).max(MAX_SECTION_BARS).optional(),
+    bars: z.array(barSchema).min(1).max(MAX_SECTION_BARS),
   })
   // so many tuplets a bar (D87): a longer pattern holds more
   .refine((p) => (p.tuplets?.length ?? 0) <= maxTuplets(p.bars.length), {
@@ -423,6 +432,14 @@ const packedBar = z
       }),
     'a step value that lane does not have'
   );
+
+/** A bar that repeats an earlier one of its section, on the wire (v11): `=k`, k its index. */
+const barRepeat = z.string().regex(/^=\d{1,3}$/, 'a repeat is = and a bar number');
+
+/** Whether a packed bar is a pointer to an earlier one ({@link barRepeat}). */
+export function isBarRepeat(b: string): boolean {
+  return b.startsWith('=');
+}
 
 /**
  * The highest value each lane had before wire version 5 — the snare's
@@ -544,7 +561,7 @@ const packedPatternBase = z.object({
             ),
           ])
         )
-        .max(8),
+        .max(MAX_SECTION_BARS),
     ])
     .optional(),
   /**
@@ -554,7 +571,7 @@ const packedPatternBase = z.object({
    */
   sk: z
     .array(z.union([z.literal(0), z.string().max(MAX_ROW).regex(STICKING_ROW)]))
-    .max(8)
+    .max(MAX_SECTION_BARS)
     .optional(),
   /** fixed: every layer plays it whole (D45) — optional and additive, as `sk` is */
   fx: z.literal(1).optional(),
@@ -573,11 +590,19 @@ const packedPatternBase = z.object({
    * `ps` is: an older reader drops it and judges the fill as a groove bar.
    */
   fl: z
-    .array(z.tuple([z.number().int().min(0).max(7), z.number().int().min(0).max(MAX_STEP)]))
-    .max(8)
+    .array(z.tuple([barIndex, z.number().int().min(0).max(MAX_STEP)]))
+    .max(MAX_SECTION_BARS)
     .optional(),
-  /** bars, each one every lane's row joined by `|` */
-  b: z.array(packedBar).min(1).max(8),
+  /**
+   * bars, each one every lane's row joined by `|` — or, from v11 (16-b-i),
+   * `=k`: bar k of this section again, so a theme of two bars ×16 carries two
+   * bars and thirty pointers. Held to an earlier bar that is itself written
+   * by {@link sharePayloadSchema}.
+   */
+  b: z
+    .array(z.union([packedBar, barRepeat]))
+    .min(1)
+    .max(MAX_SECTION_BARS),
 });
 
 /**
@@ -608,12 +633,13 @@ const extraSections = Object.fromEntries(
  * does not offer, version 9.
  *
  * **An arrangement names sections the code has**, and the code's bars, every
- * section counted once, stay within {@link MAX_BREAK_BARS}. Its sections'
+ * section counted once and a repeated bar not counted again, stay within
+ * {@link MAX_BREAK_BARS}. Its sections'
  * ratios stay within {@link MAX_RATIO_SPREAD}, so some tempo plays them all.
  */
 export const sharePayloadSchema = z
   .object({
-    ver: z.number().int().min(1).max(10),
+    ver: z.number().int().min(1).max(11),
     bpm: z.number().min(20).max(400).default(94),
     sw: z.number().min(0).max(100).default(0),
     lv: z.number().int().min(1).max(5).optional(),
@@ -699,6 +725,44 @@ export const sharePayloadSchema = z
         });
       }
     }
+    for (const L of letters) {
+      const b = payload[L]?.b ?? [];
+      if (payload.ver < 11) {
+        if (b.length > V10_SECTION_BARS) {
+          ctx.addIssue({
+            code: 'custom',
+            path: [L, 'b'],
+            message: `a version ${payload.ver} code holds ${V10_SECTION_BARS} bars a section; a longer one needs version 11`,
+          });
+        }
+        if (b.some(isBarRepeat)) {
+          ctx.addIssue({
+            code: 'custom',
+            path: [L, 'b'],
+            message: `a version ${payload.ver} code writes every bar; a repeated one needs version 11`,
+          });
+        }
+        const past = pastV10(payload[L]);
+        if (past) {
+          ctx.addIssue({
+            code: 'custom',
+            path: [L, past],
+            message: `a version ${payload.ver} code holds ${V10_SECTION_BARS} bars a section; its ${past} past them needs version 11`,
+          });
+        }
+        continue;
+      }
+      b.forEach((bar, i) => {
+        if (!isBarRepeat(bar)) return;
+        const k = Number(bar.slice(1));
+        if (k < i && !isBarRepeat(b[k])) return;
+        ctx.addIssue({
+          code: 'custom',
+          path: [L, 'b', i],
+          message: 'a repeat points at a written bar before it',
+        });
+      });
+    }
     payload.arr?.forEach((L, i) => {
       if (!payload[L]) {
         ctx.addIssue({
@@ -724,7 +788,9 @@ export const sharePayloadSchema = z
         message: `a section of ${p.b.length} bars holds ${maxTuplets(p.b.length)} tuplets at most`,
       });
     }
-    const bars = letters.reduce((n, L) => n + (payload[L]?.b.length ?? 0), 0);
+    // a bar is counted once, however often the break plays it: a repeat, or a bar another section has
+    const bars = new Set(letters.flatMap((L) => payload[L]?.b.filter((b) => !isBarRepeat(b)) ?? []))
+      .size;
     if (bars > MAX_BREAK_BARS) {
       ctx.addIssue({
         code: 'custom',
@@ -746,6 +812,22 @@ export const sharePayloadSchema = z
       });
     }
   });
+
+/**
+ * The first field of a packed section that reaches past the eight bars a v10
+ * code holds — a bar index past 7, or more rows or spans than eight bars had —
+ * or null. What a v10 reader would refuse, a v10 header may not carry.
+ */
+function pastV10(p: PackedPattern | undefined): string | null {
+  if (!p) return null;
+  const n = V10_SECTION_BARS;
+  if ((p.fl ?? []).length > n || (p.fl ?? []).some(([bar]) => bar >= n)) return 'fl';
+  if ((p.ps ?? []).length > n || (p.ps ?? []).some((x) => x.b >= n)) return 'ps';
+  if ((p.tu ?? []).some((t) => t.b >= n)) return 'tu';
+  if (Array.isArray(p.pn) && p.pn.length > n) return 'pn';
+  if ((p.sk ?? []).length > n) return 'sk';
+  return null;
+}
 
 /** How slow and fast a packed section plays against the break: its ratio and its map's points. */
 function packedRange(p: { tr?: number; tm?: PackedTempoPoint[] } | undefined): [number, number] {
@@ -781,7 +863,8 @@ function isObject(v: unknown): v is Record<string, unknown> {
  * something v4 could say rather than into a value its version refuses.
  */
 function repairBar(bar: unknown, v5: boolean): unknown {
-  if (typeof bar !== 'string') return bar;
+  // a repeat (v11) is a pointer, not a row: the schema holds it to a bar before it
+  if (typeof bar !== 'string' || isBarRepeat(bar)) return bar;
   return bar
     .split('|')
     .slice(0, LANES.length)
@@ -822,7 +905,7 @@ function repairPacked(p: unknown, v5: boolean): unknown {
       .slice(0, LANES.length);
   }
   if (Array.isArray(p.pn)) {
-    out.pn = p.pn.slice(0, 8).map((bar) => {
+    out.pn = p.pn.slice(0, MAX_SECTION_BARS).map((bar) => {
       if (!isObject(bar)) return 0;
       const o: Record<string, string> = {};
       for (const [k, v] of Object.entries(bar)) {
@@ -837,7 +920,7 @@ function repairPacked(p: unknown, v5: boolean): unknown {
   delete out.th;
   if (Array.isArray(p.sk)) {
     out.sk = p.sk
-      .slice(0, 8)
+      .slice(0, MAX_SECTION_BARS)
       .map((row) =>
         typeof row === 'string' ? row.slice(0, MAX_ROW).replace(/[^.RLrl]/g, '.') : 0
       );

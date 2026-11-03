@@ -109,6 +109,7 @@ import {
 import { songBreak, writePart } from '@/lib/app/breaks/song-break';
 import {
   breakKit,
+  songBars,
   pickSong,
   songMeter,
   songPaces,
@@ -116,6 +117,7 @@ import {
   songPartOf,
   songTempo,
   withSong,
+  writtenLength,
 } from '@/lib/app/breaks/songs';
 import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
@@ -1687,7 +1689,7 @@ export function useBreakConsole(
            theirs, so a new section no longer than this keeps it within
            MAX_BREAK_BARS, which a save and a share code are held to. Never
            shorter than one bar — the section it replaces had at least that. */
-        const room = MAX_BREAK_BARS - (totalBars(patterns) - (patterns[which]?.bars.length ?? 0));
+        const room = MAX_BREAK_BARS - totalBars({ ...patterns, [which]: null });
         // used up: the section they were picked for is this one
         pickedForNext.current = false;
         generate(which, {
@@ -1853,14 +1855,16 @@ export function useBreakConsole(
     return {
       stage,
       song,
-      bars: written ? written.length : bars,
+      bars: written ? writtenLength(written) : bars,
+      // what it costs the break: a written part's distinct bars, its repeats counted once
+      cost: written ? songBars([{ written, bars: 0 }]) : bars,
       meter: written ? songMeter(params, part.song, part.section) : meter,
     };
   }, [patterns, editing, style, catalogue.styles, bars, meter]);
 
   const addSectionBlocked = useMemo((): string | null => {
     if (!nextLetter(patterns)) return 'A break has 26 sections at most';
-    if (totalBars(patterns) + nextSection.bars > MAX_BREAK_BARS) {
+    if (totalBars(patterns) + nextSection.cost > MAX_BREAK_BARS) {
       return `A break holds ${MAX_BREAK_BARS} bars across its sections — shorten one, or add a shorter one`;
     }
     if (!catalogue.styles[style]) return 'Pick a style to write the new section in';

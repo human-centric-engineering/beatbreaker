@@ -13,8 +13,8 @@ import { LANES, PERC_LANES } from '@/lib/app/breaks/lanes';
 import { patternFromLibrary } from '@/lib/app/breaks/library';
 import { buildMidi, vlq } from '@/lib/app/breaks/midi';
 import { readMidi } from '@/lib/app/breaks/midi-read';
-import { packPattern } from '@/lib/app/breaks/share';
-import { packedPatternSchema } from '@/lib/app/breaks/schema';
+import { breakPayload, decodeBreak, encodeBreak, packPattern } from '@/lib/app/breaks/share';
+import { packedPatternSchema, sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import type { Bar, Pattern } from '@/lib/app/breaks/types';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
@@ -186,7 +186,7 @@ describe('readMidi — what other software writes', () => {
     );
     expect(r.ok && r.pattern.bars).toHaveLength(128);
     expect(r.ok && r.pattern.notes).toContain(
-      'Only the first 128 of 140 bars were kept — a pattern holds 128, 8 to a section.'
+      'Only the first 128 of 140 bars were kept — a break holds 128.'
     );
   });
 
@@ -221,16 +221,20 @@ describe('readMidi — what other software writes', () => {
 
 describe('importedDoc', () => {
   it('fills A, then B, and each section packs as a valid wire pattern', () => {
+    // twelve bars of 4/4, then two of 3/4
     const r = readMidi(
       smf([
         [0, ...ON(9, 36, 100)],
         [480 * 4 * 11, ...ON(9, 38, 100)],
+        [480 * 4, 0xff, 0x58, 4, 3, 2, 24, 8],
+        [0, ...ON(9, 36, 100)],
+        [480 * 3, ...ON(9, 36, 100)],
       ])
     );
     if (!r.ok) throw new Error(r.error);
     const doc = importedDoc(r.pattern, 'rock');
-    expect(doc.A.bars).toHaveLength(8);
-    expect(doc.B.bars).toHaveLength(4);
+    expect(doc.A.bars).toHaveLength(12);
+    expect(doc.B.bars).toHaveLength(2);
     expect(doc.arrangement).toEqual(['A', 'B']);
     expect(doc.A.style).toBe('rock');
     for (const p of [doc.A, doc.B])
@@ -319,7 +323,7 @@ describe('importedDoc', () => {
     expect(doc.Z?.meter).toBe('7/8');
   });
 
-  it('cuts a long run of one meter every eight bars', () => {
+  it('keeps a long run of one meter as one section, not cut every eight bars (16-b-i)', () => {
     const r = readMidi(
       smf([
         [0, ...ON(9, 36, 100)],
@@ -328,16 +332,40 @@ describe('importedDoc', () => {
     );
     if (!r.ok) throw new Error(r.error);
     const doc = importedDoc(r.pattern, 'rock');
-    expect([doc.A, doc.B, doc.C].map((p) => p?.bars.length)).toEqual([8, 8, 4]);
-    expect(doc.arrangement).toEqual(['A', 'B', 'C']);
+    expect(doc.A.bars).toHaveLength(20);
+    expect(doc.C).toBeUndefined();
+    // B, which nothing plays, is A's first bar, not a copy of A to double what the break holds
+    expect(doc.B.bars).toEqual(doc.A.bars.slice(0, 1));
+    expect(doc.arrangement).toEqual(['A']);
+    // and its code is v11, the eighteen empty bars written once and pointed at
+    const payload = breakPayload(doc);
+    expect(payload.ver).toBe(11);
+    expect(payload.A.b.filter((b) => b.startsWith('='))).toHaveLength(18);
+    expect(decodeBreak(encodeBreak(doc)).A.bars).toEqual(doc.A.bars);
   });
 
-  it('plays one section on its own when the import fits in eight bars', () => {
+  it('saves a long import of one meter, every bar its own (16-b-i)', () => {
+    // 100 bars of 4/4, each its own: bar i's kick on step i % 16 and snare on step i / 16
+    const at: [number, number][] = [];
+    for (let i = 0; i < 100; i++) {
+      at.push([i * 1920 + 120 * (i % 16), 36]);
+      at.push([i * 1920 + 120 * Math.floor(i / 16), 38]);
+    }
+    at.sort((x, y) => x[0] - y[0]);
+    const events = at.map(([t, note], k): Ev => [t - (k ? at[k - 1][0] : 0), ...ON(9, note, 100)]);
+    const r = readMidi(smf(events));
+    if (!r.ok) throw new Error(r.error);
+    const doc = importedDoc(r.pattern, 'rock');
+    expect(doc.A.bars).toHaveLength(100);
+    expect(sharePayloadSchema.safeParse(breakPayload(doc)).success).toBe(true);
+  });
+
+  it('plays one section on its own when the import is one run of one meter', () => {
     const r = readMidi(smf([[0, ...ON(9, 36, 100)]]));
     if (!r.ok) throw new Error(r.error);
     const doc = importedDoc(r.pattern, 'rock');
     expect(doc.arrangement).toEqual(['A']);
-    expect(doc.B.bars).toEqual(doc.A.bars);
+    expect(doc.B.bars).toEqual(doc.A.bars.slice(0, 1));
   });
 
   it('reads backbeats off the snare and the time-keeper off the cymbals', () => {

@@ -13,6 +13,7 @@ import { MAX_ARRANGEMENT, SECTION_LETTERS } from '@/lib/app/breaks/sections';
 import { type BreakDoc, breakDocFromPayload, breakPayload } from '@/lib/app/breaks/share';
 import { deriveB, generatePattern } from '@/lib/app/breaks/generate';
 import { clonePattern, resolveLanes } from '@/lib/app/breaks/pattern';
+import type { Pattern } from '@/lib/app/breaks/types';
 import { styleIn } from '@/lib/app/breaks/styles';
 import { buddyStreamRequestSchema } from '@/lib/validations/buddy';
 import {
@@ -73,15 +74,23 @@ function fullPayload(): SharePayload {
     lanes: roster.lanes,
     perc: roster.perc,
   });
+  // every bar its own across the break (a crash row spelling its number), so none is held once (16-b-i)
+  const own = (p: Pattern, s: number): Pattern => {
+    const out = clonePattern(p);
+    out.bars.forEach((bar, i) => {
+      bar.c = bar.c.map((_, j) => ((8 * s + i) >> j) & 1);
+    });
+    return out;
+  };
   const letters = SECTION_LETTERS.slice(0, 16);
   return breakPayload({
     bpm: 94,
     swing: 0,
     level: 5,
     arrangement: [...letters],
-    A,
-    B: deriveB(A, funk.params),
-    ...Object.fromEntries(letters.slice(2).map((L) => [L, clonePattern(A)])),
+    A: own(A, 0),
+    B: own(deriveB(A, funk.params), 1),
+    ...Object.fromEntries(letters.slice(2).map((L, i) => [L, own(A, i + 2)])),
   });
 }
 
@@ -349,6 +358,14 @@ describe('write_bars adding a section', () => {
     const text = Array.from({ length: 8 }, (_, i) => `bar ${i + 1}${PLAIN}`).join('\n');
     const result = await runCap(new WriteBarsCapability(), { section: 'D', whole: true, text });
     expect(result.success).toBe(true);
+  });
+
+  it('writes a section past eight bars, as long as the part it is (16-b-i)', async () => {
+    seed(funkPayload());
+    const text = Array.from({ length: 12 }, (_, i) => `bar ${i + 1}${PLAIN}`).join('\n');
+    const result = await runCap(new WriteBarsCapability(), { section: 'A', whole: true, text });
+    expect(result.success).toBe(true);
+    expect(decoded(fake.rows.get('user-1')?.doc).A.bars).toHaveLength(12);
   });
 
   it('adds only the next letter, as the Studio does, and writes nothing otherwise', async () => {

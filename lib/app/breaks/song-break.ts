@@ -9,7 +9,16 @@ import {
   type Sections,
   type TempoRatio,
 } from '@/lib/app/breaks/sections';
-import { partKey, pickSong, songMeter, songOf, songPartOf, withSong } from '@/lib/app/breaks/songs';
+import {
+  partKey,
+  pickSong,
+  songMeter,
+  songOf,
+  songBars,
+  songPartOf,
+  withSong,
+  writtenLength,
+} from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
 import type { TempoPoint } from '@/lib/app/breaks/tempo-map';
 import type { Pattern, ResolvedStyle, SongSection, Style, StyleSong } from '@/lib/app/breaks/types';
@@ -66,13 +75,15 @@ const SECTION_SALT = 0x2545f491;
 /**
  * Bars for each section: its written bars, else its own, else the length
  * asked for — and only those last brought down (the longest first) until the
- * break fits {@link MAX_BREAK_BARS}. A length the song names is the record's,
- * and the schema has already held those to the limit.
+ * break fits {@link MAX_BREAK_BARS}. A written section counts its distinct
+ * bars against it, as the catalogue and the share code count them (16-b-i);
+ * a length the song names is the record's, and the schema has already held
+ * those to the limit.
  */
 function sectionBars(sections: SongSection[], bars: number): number[] {
-  const out = sections.map((x) => x.written?.length ?? x.bars ?? bars);
+  const out = sections.map((x) => (x.written ? writtenLength(x.written) : (x.bars ?? bars)));
   const free = sections.map((x) => !x.written && x.bars === undefined);
-  let total = out.reduce((n, b) => n + b, 0);
+  let total = songBars(sections.map((x, i) => ({ written: x.written, bars: out[i] })));
   while (total > MAX_BREAK_BARS) {
     const at = out.reduce((best, b, i) => (free[i] && (best < 0 || b > out[best]) ? i : best), -1);
     if (at < 0 || out[at] <= 1) break;

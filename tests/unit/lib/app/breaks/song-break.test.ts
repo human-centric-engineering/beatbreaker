@@ -15,7 +15,6 @@ import {
   SECTION_LETTERS,
   type SectionLetter,
   lettersOf,
-  totalBars,
 } from '@/lib/app/breaks/sections';
 import { type SongBreak, songBreak, songForSeed } from '@/lib/app/breaks/song-break';
 import {
@@ -26,6 +25,7 @@ import {
   songOf,
   songPartOf,
   withSong,
+  writtenLength,
 } from '@/lib/app/breaks/songs';
 import type { Bar, Style, StyleSong } from '@/lib/app/breaks/types';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
@@ -268,7 +268,7 @@ describe('songBreak', () => {
           expect(pat?.song, label).toBe(partKey(song, section));
           expect(pat?.meter, label).toBe(songMeter(style.params, song, section));
           expect(pat?.bars, label).toHaveLength(
-            section.written?.length ?? section.bars ?? opts.bars
+            section.written ? writtenLength(section.written) : (section.bars ?? opts.bars)
           );
         }
         expect(made.arrangement, label).toEqual(
@@ -350,6 +350,11 @@ describe('songBreak', () => {
       exact: true,
     });
     expect(lettersOf(made.sections)).toHaveLength(17);
-    expect(totalBars(made.sections)).toBe(MAX_BREAK_BARS);
+    // every bar written out, repeats and all: a generated section is not held to fewer
+    const written = lettersOf(made.sections).reduce(
+      (n, L) => n + (made.sections[L]?.bars.length ?? 0),
+      0
+    );
+    expect(written).toBe(MAX_BREAK_BARS);
   });
 });

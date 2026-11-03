@@ -397,9 +397,23 @@ export type KickCell = string;
 export type Figure = Partial<Record<LaneKey, string>>;
 
 /**
+ * Bars of a written section played again (16-b-i): the last `again` bars
+ * before it, `times` more times — a theme that alternates two bars is the two
+ * bars and `{ again: 2, times: 15 }`, not thirty bars written out. Their
+ * tuplets and beat grids repeat with them.
+ */
+export interface WrittenRepeat {
+  again: number;
+  times: number;
+}
+
+/** A written section's entry: a bar of the record, or bars before it again. */
+export type WrittenBar = Figure | WrittenRepeat;
+
+/**
  * A tuplet in a written section (D87): a figure laid over its bar's grid, or,
  * with `grid`, a beat on a grid of its own (D84).
- * `bar` counts the section's written bars from 0; each row is `n` notes, one
+ * `bar` counts the section's bars as played from 0; each row is `n` notes, one
  * digit a note and `.` for none, as a figure's are.
  */
 export interface SectionTuplet {
@@ -803,10 +817,16 @@ export interface SongSection {
   /**
    * The record's bars, in order, one figure a bar: New writes these as they
    * are — no groove drawn, no fill added, nothing varied — so a passage plays
-   * as the drummer played it. Its length is the bars written.
+   * as the drummer played it. A {@link WrittenRepeat} plays bars before it
+   * again. Its length is the bars played, its repeats played out
+   * (`playWritten` in `songs.ts`).
    */
-  written?: Figure[];
-  /** Its written bars' tuplets and beat grids (D84, D87). Only with `written`. */
+  written?: WrittenBar[];
+  /**
+   * Its written bars' tuplets and beat grids (D84, D87), each at the bar it is
+   * in as played, repeats played out; a repeat carries those of its bars with
+   * it. Only with `written`.
+   */
   tuplets?: SectionTuplet[];
   /**
    * What changes in this part. A `kit` here is the section's own (D86): the

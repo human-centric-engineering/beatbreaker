@@ -1,7 +1,12 @@
 import { BASE_LANES, FOOT_LANE, PERC_LANES, TOM_LANES } from '@/lib/app/breaks/lanes';
 import { isGroupStart, meterOf } from '@/lib/app/breaks/meter';
 import { cloneBar } from '@/lib/app/breaks/pattern';
-import { MAX_ARRANGEMENT, MAX_BREAK_BARS, SECTION_LETTERS } from '@/lib/app/breaks/sections';
+import {
+  MAX_ARRANGEMENT,
+  MAX_BREAK_BARS,
+  MAX_SECTION_BARS,
+  SECTION_LETTERS,
+} from '@/lib/app/breaks/sections';
 
 import type { BreakDoc } from '@/lib/app/breaks/share';
 import {
@@ -34,9 +39,13 @@ const MAX_IMPORT_SECTIONS = Math.min(MAX_ARRANGEMENT, SECTION_LETTERS.length);
  * imported pattern looks like.
  */
 
-/** Bars in one section of a document — the wire format's own limit. */
-export const SECTION_BARS = 8;
-/** An import fills sections from A, eight bars to each, up to what a break holds. */
+/**
+ * Bars in one section of an import (16-b-i): as many as a section holds. A
+ * file says nothing of where its parts begin, so a section is a run of one
+ * meter, not eight bars cut wherever they fall.
+ */
+export const SECTION_BARS = MAX_SECTION_BARS;
+/** An import fills sections from A, a section to each run of one meter, up to what a break holds. */
 export const MAX_IMPORT_BARS = MAX_BREAK_BARS;
 
 export interface ImportedPattern {
@@ -84,7 +93,7 @@ export type ImportResult = { ok: true; pattern: ImportedPattern } | { ok: false;
 export function capBars(pattern: ImportedPattern): ImportedPattern {
   const total = pattern.bars.length;
   let keep = Math.min(total, MAX_IMPORT_BARS);
-  let why = `a pattern holds ${MAX_IMPORT_BARS}, ${SECTION_BARS} to a section`;
+  let why = `a break holds ${MAX_IMPORT_BARS}`;
   /* Every section an import makes has a letter of its own and is played once
      by the arrangement. A file that changes meter nearly every bar makes a
      section a bar, so what would need more sections than there are letters is
@@ -170,7 +179,7 @@ function sectionOf(
 }
 
 /**
- * The bars cut into sections: a new one at every change of meter, and every
+ * The bars cut into sections: a new one at every change of meter, and past
  * {@link SECTION_BARS} bars within one meter. {@link capBars} keeps them to
  * what an arrangement plays.
  */
@@ -187,10 +196,12 @@ function runsOf(imp: ImportedPattern): { meter: string; bars: Bar[]; from: numbe
 
 /**
  * An import as a document: sections from A, in the order the source plays
- * them — a new one at every change of meter (11-e-ii) and every eight bars —
+ * them — a new one at every change of meter (11-e-ii) —
  * and an arrangement that plays each once. One section plays on its own, so
- * B is then a copy of A that the arrangement never reaches: the Studio
- * always has a B to edit.
+ * B is then A's first bar, which the arrangement never reaches: the Studio
+ * always has a B to edit. One bar, not a copy of A (16-b-i): A is now as long
+ * as the file's run of one meter, and a copy of it would double what the
+ * break holds for bars that never play.
  */
 export function importedDoc(imp: ImportedPattern, style: string): BreakDoc {
   // capBars has already cut a reader's bars to this; the slice holds a caller that skipped it
@@ -205,7 +216,7 @@ export function importedDoc(imp: ImportedPattern, style: string): BreakDoc {
     rangesFit(sections.map(paceRange));
   if (!fits) sections.forEach((p) => delete p.tempo);
   const A = sections[0] ?? sectionOf(imp, [], style);
-  const B = sections[1] ?? sectionOf(imp, A.bars, style, A.meter);
+  const B = sections[1] ?? sectionOf(imp, A.bars.slice(0, 1), style, A.meter);
   if (!fits) delete B.tempo;
   const doc: BreakDoc = {
     bpm: imp.bpm,
