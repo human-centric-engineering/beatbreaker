@@ -370,11 +370,46 @@
   font-size: 9px;
 }
 
-/* A slot a loop over bars is in (16-b-vi). */
-.bb .chapter.looped .chapter-letter::before {
-  content: '⟲ ';
+/* The slots a loop over bars plays (16-b-vi): bracketed together on the
+   strip, their tracks lit, with what is looping written over them. */
+.bb .chapters-loop {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 3px 4px 0;
+  border: 1px solid rgb(240 189 92 / 0.7);
+  border-radius: 6px;
+  background: rgb(240 189 92 / 0.12);
+}
+.bb .chapters-loop-label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   font-family: var(--f-mono);
-  font-size: 9px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brass-bright);
+}
+.bb .chapters-loop-range {
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  opacity: 0.85;
+}
+.bb .chapters-loop-run {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+}
+.bb .chapter.looped .chapter-track {
+  background: rgb(240 189 92 / 0.45);
+}
+.bb .chapter.looped .chapter-letter {
+  color: var(--brass-bright);
 }
 .bb .player-tool.loop.on {
   color: var(--brass-bright);
@@ -389,6 +424,13 @@
 }
 .bb .loop-deck .player-chip {
   justify-self: start;
+}
+.bb .loop-help {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-left: 16px;
+  max-width: 320px;
 }
 
 /* ---- the row ------------------------------------------------------ */

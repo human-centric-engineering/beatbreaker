@@ -151,10 +151,19 @@ export function LoopDeck({ drawer }: { drawer?: boolean }) {
       >
         Loop
       </Toggle>
-      <p className="hint">
-        R loops the bar you are in. On the chart, drag across bars to loop them; Shift-click a
-        chapter to loop on to it. A skip or a plain click on a chapter goes back to the whole break.
-      </p>
+      <ul className="hint loop-help">
+        <li>
+          <b>A few bars:</b> drag across them on the chart, or press R to loop the bar you are in.
+        </li>
+        <li>
+          <b>Whole sections, say B and C:</b> on the strip of section letters under the player,
+          click B, then hold Shift and click C.
+        </li>
+        <li>
+          <b>Exactly:</b> set From bar, To slot and To bar above, then press Loop.
+        </li>
+        <li>A plain click on the strip, or a skip, plays the whole song again.</li>
+      </ul>
     </div>
   );
 }

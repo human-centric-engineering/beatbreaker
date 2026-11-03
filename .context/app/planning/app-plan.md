@@ -5251,7 +5251,10 @@ Shift-click on a chapter stretches the loop to that slot, or with none loops
 the slots from the one you are in to it; the Loop bars panel has _To slot_.
 A drag on the chart stays within one section's stave: the chart draws each
 section once, not each slot, so a drag from one stave to another could not
-say which slots it meant.
+say which slots it meant. On the owner's word that a mark on each looped
+chapter was not enough, the strip brackets the looped slots together, their
+tracks lit, with _Looping_ and its range written over them; and the Loop bars
+panel says in plain words how to loop a few bars, whole sections, or exactly.
 
 **An idea of the owner's for after Phase 16 (2026-11-03):** an import that
 finds a transcription's common and telling grooves and builds its sections

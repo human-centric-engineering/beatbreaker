@@ -202,6 +202,10 @@ describe("the player's bar", () => {
     await user.click(screen.getByRole('button', { name: /^Go to slot 3:/ }));
     await user.keyboard('{/Shift}');
     expect(looped()).toEqual([true, true, true, false]);
+    // bracketed together on the strip, with what is looping written over them
+    const bracket = document.querySelector('.chapters-loop');
+    expect(bracket?.querySelectorAll('.chapter')).toHaveLength(3);
+    expect(bracket?.textContent).toMatch(/^Looping 1·bar 1 → 3·bar/);
     expect(screen.getByRole('button', { name: 'Loop bars' }).textContent).toContain(
       '1·bar 1 → 3·bar'
     );
@@ -213,6 +217,7 @@ describe("the player's bar", () => {
     // a plain click on a chapter is a place to go, and leaves the loop
     await user.click(screen.getByRole('button', { name: /^Go to slot 4:/ }));
     expect(looped()).toEqual([false, false, false, false]);
+    expect(document.querySelector('.chapters-loop')).toBeNull();
   });
 
   it('brings the section and the layer up under the chart as the pointer comes down to the bar', async () => {

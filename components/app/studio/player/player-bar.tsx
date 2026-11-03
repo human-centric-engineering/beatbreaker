@@ -18,6 +18,7 @@ import { beatOf, playableSlots } from '@/lib/app/breaks/audio/transport';
 import { type BarLoop, lastSlot, loopHas, loopReach, loopWords } from '@/lib/app/breaks/bar-loop';
 import { layerNamesFor } from '@/lib/app/breaks/layers';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
+import type { SectionLetter } from '@/lib/app/breaks/sections';
 import { barClock } from '@/lib/app/breaks/tempo-map';
 import type { Pattern } from '@/lib/app/breaks/types';
 import { cn } from '@/lib/utils';
@@ -38,10 +39,11 @@ function clockOf(pat: Pattern): ReturnType<typeof barClock> {
  *
  * Under "A only" the slots that do not play are dimmed, not hidden: the
  * arrangement is still the arrangement, and skipping passes over them. A loop
- * over bars (16-b-vi) marks the slots it plays; a chapter clicked leaves the
- * loop, and one Shift-clicked stretches it to take that slot in, or brings
- * its end in to a slot inside it — or, with no loop, loops the slots from the
- * one you are in to it. Its title says so only where a Shift-click would.
+ * over bars (16-b-vi) brackets the slots it plays, with what is looping
+ * written over them; a chapter clicked leaves the loop, and one Shift-clicked
+ * stretches it to take that slot in, or brings its end in to a slot inside it
+ * — or, with no loop, loops the slots from the one you are in to it. Its
+ * title says so only where a Shift-click would.
  */
 function Chapters() {
   const c = useStudio();
@@ -61,53 +63,75 @@ function Chapters() {
       ? { barIdx: held.barIdx, done: held.step }
       : null;
 
+  const weightOf = (letter: SectionLetter) => {
+    /* as long as it lasts: a section at double speed takes half the time,
+       and one that slows down (16-b-ii) longer, its fill slowing with it */
+    const timed = c.patterns[letter] ?? c.view[letter];
+    return (timed ? clockOf(timed).length : 0) || (c.view[letter]?.bars.length ?? 1);
+  };
+  const chip = (letter: SectionLetter, i: number) => {
+    const pat = c.view[letter];
+    const bars = pat?.bars.length ?? 1;
+    const timed = c.patterns[letter] ?? pat;
+    const clock = timed ? clockOf(timed) : null;
+    let fill = 0;
+    if (i === at && into && clock?.length) {
+      const done =
+        clock.at[into.barIdx]?.[into.done] ?? clock.at[into.barIdx + 1]?.[0] ?? clock.length;
+      fill = done / clock.length;
+    } else if (here >= 0 && (rank.get(i) ?? here) < here) fill = 1;
+    const cued = !c.playing && c.cue === i;
+    const looped = loopHas(c.barLoop, i);
+    const shift = shiftWords(c.barLoop, i, (sl) => rank.has(sl));
+    return (
+      <button
+        key={i}
+        type="button"
+        className={cn(
+          'chapter',
+          !rank.has(i) && 'skip',
+          i === at && 'now',
+          cued && 'cued',
+          looped && 'looped'
+        )}
+        style={{ flexGrow: weightOf(letter) }}
+        onClick={(e) => (e.shiftKey ? c.loopToSlot(i) : c.seekSlot(i))}
+        aria-label={`Go to slot ${i + 1}: ${letter}, ${bars} bar${bars === 1 ? '' : 's'}`}
+        title={`${letter} · ${bars} bar${bars === 1 ? '' : 's'}${looped && c.barLoop ? ` — looping ${loopWords(c.barLoop).toLowerCase()}` : rank.has(i) ? '' : ' — not playing under this section'}${shift ? ` · ${shift}` : ''}`}
+      >
+        <span className="chapter-track">
+          <span className="chapter-fill" style={{ transform: `scaleX(${Math.min(1, fill)})` }} />
+        </span>
+        <span className="chapter-letter" aria-hidden="true">
+          {letter}
+        </span>
+      </button>
+    );
+  };
+
+  const chips = c.arrangement.map(chip);
+  const loop = c.barLoop;
+  if (!loop) {
+    return (
+      <div className="chapters" role="group" aria-label="Arrangement: go to a slot">
+        {chips}
+      </div>
+    );
+  }
+  /* The slots the loop plays, bracketed and named, so it is plain from the
+     strip what goes round: as wide together as they are apart. */
+  const end = Math.min(lastSlot(loop) + 1, c.arrangement.length);
+  const span = c.arrangement.slice(loop.slot, end).reduce((n, l) => n + weightOf(l), 0);
   return (
     <div className="chapters" role="group" aria-label="Arrangement: go to a slot">
-      {c.arrangement.map((letter, i) => {
-        const pat = c.view[letter];
-        const bars = pat?.bars.length ?? 1;
-        /* as long as it lasts: a section at double speed takes half the time,
-           and one that slows down (16-b-ii) longer, its fill slowing with it */
-        const timed = c.patterns[letter] ?? pat;
-        const clock = timed ? clockOf(timed) : null;
-        const weight = clock?.length || bars;
-        let fill = 0;
-        if (i === at && into && clock?.length) {
-          const done =
-            clock.at[into.barIdx]?.[into.done] ?? clock.at[into.barIdx + 1]?.[0] ?? clock.length;
-          fill = done / clock.length;
-        } else if (here >= 0 && (rank.get(i) ?? here) < here) fill = 1;
-        const cued = !c.playing && c.cue === i;
-        const looped = loopHas(c.barLoop, i);
-        const shift = shiftWords(c.barLoop, i, (sl) => rank.has(sl));
-        return (
-          <button
-            key={i}
-            type="button"
-            className={cn(
-              'chapter',
-              !rank.has(i) && 'skip',
-              i === at && 'now',
-              cued && 'cued',
-              looped && 'looped'
-            )}
-            style={{ flexGrow: weight }}
-            onClick={(e) => (e.shiftKey ? c.loopToSlot(i) : c.seekSlot(i))}
-            aria-label={`Go to slot ${i + 1}: ${letter}, ${bars} bar${bars === 1 ? '' : 's'}`}
-            title={`${letter} · ${bars} bar${bars === 1 ? '' : 's'}${looped && c.barLoop ? ` — looping ${loopWords(c.barLoop).toLowerCase()}` : rank.has(i) ? '' : ' — not playing under this section'}${shift ? ` · ${shift}` : ''}`}
-          >
-            <span className="chapter-track">
-              <span
-                className="chapter-fill"
-                style={{ transform: `scaleX(${Math.min(1, fill)})` }}
-              />
-            </span>
-            <span className="chapter-letter" aria-hidden="true">
-              {letter}
-            </span>
-          </button>
-        );
-      })}
+      {chips.slice(0, loop.slot)}
+      <div className="chapters-loop" style={{ flexGrow: span }}>
+        <span className="chapters-loop-label" aria-hidden="true">
+          Looping <span className="chapters-loop-range">{loopWords(loop)}</span>
+        </span>
+        <div className="chapters-loop-run">{chips.slice(loop.slot, end)}</div>
+      </div>
+      {chips.slice(end)}
     </div>
   );
 }

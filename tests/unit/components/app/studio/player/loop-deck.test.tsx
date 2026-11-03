@@ -145,6 +145,12 @@ describe('LoopDeck', () => {
     expect(screen.getByText(/A · slot 1 · Bars 3–8 of 8/)).toBeTruthy();
   });
 
+  it('says how to loop a few bars, whole sections, or exactly', () => {
+    render(<LoopDeck />);
+    expect(screen.getByText(/click B, then hold Shift and click C/)).toBeTruthy();
+    expect(screen.getByText(/drag across them on the chart/)).toBeTruthy();
+  });
+
   it('has no To slot in an arrangement of one slot', () => {
     stage({ arrangement: ['A'] });
     render(<LoopDeck />);
