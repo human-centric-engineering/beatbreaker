@@ -18,7 +18,7 @@ import { Toggle } from '@/components/app/studio/toggle';
 import { SelectMenu } from '@/components/app/ui/select-menu';
 import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { GRID_SIZE, GRID_SIZE_MAX, GRID_SIZE_MIN, STAGE_VIEW } from '@/lib/app/breaks/browser-keys';
-import { loopOver, loopedBarsOf } from '@/lib/app/breaks/bar-loop';
+import { lastSlot, loopOver, loopedBarsOf } from '@/lib/app/breaks/bar-loop';
 import { type Engraving } from '@/lib/app/breaks/engrave';
 import {
   MAX_ARRANGEMENT,
@@ -226,11 +226,17 @@ export function Stage() {
       ? c.position.barIdx * (engravings[c.editing]?.steps ?? 16) + c.position.slot
       : null;
 
-  /* The slot a drag over a section's bars loops (16-b-vi): the loop's, where
-     it is on that section; the slot playing it; else the first that plays it.
+  /* The slot a drag over a section's bars loops (16-b-vi): the first the loop
+     plays that section in, where it plays it; the slot playing it; else the
+     first that plays it. The drag's bars are the new loop, in that slot.
      A section the arrangement never calls has no slot to loop. */
   const loopSlot = (letter: SectionLetter): number => {
-    if (c.barLoop && c.arrangement[c.barLoop.slot] === letter) return c.barLoop.slot;
+    const loop = c.barLoop;
+    if (loop) {
+      for (let sl = loop.slot; sl <= lastSlot(loop); sl++) {
+        if (c.arrangement[sl] === letter) return sl;
+      }
+    }
     const at = c.position && !c.position.count ? c.position : null;
     if (at?.letter === letter && at.secIdx !== undefined && at.secIdx >= 0) return at.secIdx;
     return c.arrangement.indexOf(letter);
@@ -257,7 +263,7 @@ export function Stage() {
      per section for as long as the loop and the bars stay, so the playhead
      moving does not draw the staves again. */
   const loopBands = useMemo(() => {
-    const out: Partial<Record<SectionLetter, { from: number; to: number } | null>> = {};
+    const out: Partial<Record<SectionLetter, number[] | null>> = {};
     for (const letter of c.letters) {
       out[letter] = loopedBarsOf(c.barLoop, c.arrangement, c.view, letter);
     }

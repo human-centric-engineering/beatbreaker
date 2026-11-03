@@ -15,7 +15,7 @@ import { useStudio } from '@/components/app/studio/studio-provider';
 import { TempoControl } from '@/components/app/studio/tempo-control';
 import { Toggle } from '@/components/app/studio/toggle';
 import { beatOf, playableSlots } from '@/lib/app/breaks/audio/transport';
-import { loopHas, loopWords } from '@/lib/app/breaks/bar-loop';
+import { type BarLoop, lastSlot, loopHas, loopReach, loopWords } from '@/lib/app/breaks/bar-loop';
 import { layerNamesFor } from '@/lib/app/breaks/layers';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { barClock } from '@/lib/app/breaks/tempo-map';
@@ -39,8 +39,9 @@ function clockOf(pat: Pattern): ReturnType<typeof barClock> {
  * Under "A only" the slots that do not play are dimmed, not hidden: the
  * arrangement is still the arrangement, and skipping passes over them. A loop
  * over bars (16-b-vi) marks the slots it plays; a chapter clicked leaves the
- * loop, and one Shift-clicked stretches it to take that slot in — or, with no
- * loop, loops the slots from the one you are in to it.
+ * loop, and one Shift-clicked stretches it to take that slot in, or brings
+ * its end in to a slot inside it — or, with no loop, loops the slots from the
+ * one you are in to it. Its title says so only where a Shift-click would.
  */
 function Chapters() {
   const c = useStudio();
@@ -78,6 +79,7 @@ function Chapters() {
         } else if (here >= 0 && (rank.get(i) ?? here) < here) fill = 1;
         const cued = !c.playing && c.cue === i;
         const looped = loopHas(c.barLoop, i);
+        const shift = shiftWords(c.barLoop, i, (sl) => rank.has(sl));
         return (
           <button
             key={i}
@@ -92,7 +94,7 @@ function Chapters() {
             style={{ flexGrow: weight }}
             onClick={(e) => (e.shiftKey ? c.loopToSlot(i) : c.seekSlot(i))}
             aria-label={`Go to slot ${i + 1}: ${letter}, ${bars} bar${bars === 1 ? '' : 's'}`}
-            title={`${letter} · ${bars} bar${bars === 1 ? '' : 's'}${looped && c.barLoop ? ` — looping ${loopWords(c.barLoop).toLowerCase()}` : rank.has(i) ? '' : ' — not playing under this section'} · Shift-click to loop to here`}
+            title={`${letter} · ${bars} bar${bars === 1 ? '' : 's'}${looped && c.barLoop ? ` — looping ${loopWords(c.barLoop).toLowerCase()}` : rank.has(i) ? '' : ' — not playing under this section'}${shift ? ` · ${shift}` : ''}`}
           >
             <span className="chapter-track">
               <span
@@ -108,6 +110,25 @@ function Chapters() {
       })}
     </div>
   );
+}
+
+/**
+ * What a Shift-click on slot `slot`'s chapter would do to the loop, as its
+ * title says it, the way {@link loopTo} does it; null where it would do
+ * nothing — on the loop's last slot, or a slot the loop cannot reach.
+ */
+function shiftWords(
+  loop: BarLoop | null,
+  slot: number,
+  plays: (slot: number) => boolean
+): string | null {
+  if (!plays(slot)) return null;
+  if (!loop) return 'Shift-click to loop to here';
+  const end = lastSlot(loop);
+  if (slot === end) return null;
+  if (slot >= loop.slot && slot < end) return 'Shift-click to end the loop here';
+  const edge = slot > end ? end : loop.slot;
+  return loopReach(edge, slot, plays) === edge ? null : 'Shift-click to loop to here';
 }
 
 /** Where the playhead is, in a drummer's words: the section, the bar and the beat. */

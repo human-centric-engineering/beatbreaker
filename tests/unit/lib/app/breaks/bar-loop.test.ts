@@ -14,6 +14,7 @@ import {
   loopHas,
   loopIn,
   loopOver,
+  loopReach,
   loopSpan,
   loopSpot,
   loopTo,
@@ -202,17 +203,45 @@ describe('a loop across slots', () => {
     expect(loopTo(null, 2, 0, lastBar)).toEqual({ slot: 0, from: 0, to: 3, toSlot: 2 });
   });
 
+  it('brings its end in to a slot inside it, and leaves it on its last', () => {
+    const lastBar = (slot: number) => (patterns[arrangement[slot]]?.bars.length ?? 1) - 1;
+    const loop = { slot: 0, from: 6, to: 2, toSlot: 3 };
+    expect(loopTo(loop, 0, 1, lastBar)).toEqual({ slot: 0, from: 6, to: 1, toSlot: 1 });
+    expect(loopTo(loop, 0, 0, lastBar)).toEqual({ slot: 0, from: 6, to: 7 });
+    expect(loopTo(loop, 0, 3, lastBar)).toBe(loop);
+  });
+
+  it('stretches only as far as the slots a solo plays, and not at all past one it leaves out', () => {
+    const soloed = ['A', 'A', 'B', 'A'] as const;
+    const lastBar = (slot: number) => (patterns[soloed[slot]]?.bars.length ?? 1) - 1;
+    const plays = (slot: number) => soloed[slot] === 'A';
+    expect(loopReach(0, 3, plays)).toBe(1);
+    expect(loopTo(null, 0, 3, lastBar, plays)).toEqual({ slot: 0, from: 0, to: 7, toSlot: 1 });
+    const loop = { slot: 0, from: 2, to: 3 };
+    expect(loopTo(loop, 0, 3, lastBar, plays)).toEqual({ slot: 0, from: 2, to: 7, toSlot: 1 });
+    const two = { slot: 0, from: 2, to: 3, toSlot: 1 };
+    expect(loopTo(two, 0, 3, lastBar, plays)).toBe(two);
+    expect(loopTo(null, 2, 0, lastBar, plays)).toBeNull();
+  });
+
+  it('passes over an empty section at its end, rather than being no loop', () => {
+    const empty: MaybeSections = { ...patterns, D: sectionOf(0) };
+    const loop: HeldLoop = { slot: 0, from: 6, to: 3, toSlot: 1, letters: ['A', 'D'] };
+    expect(loopIn(loop, ['A', 'D'], empty, null)).toEqual({ slot: 0, from: 6, to: 7 });
+    expect(loopIn({ ...loop, toSlot: undefined, letters: ['D'] }, ['D'], empty, null)).toBeNull();
+  });
+
   it('says which slots, and which slots it plays', () => {
     const loop = { slot: 1, from: 0, to: 3, toSlot: 2 };
-    expect(loopWords(loop)).toBe('Slots 2–3');
+    expect(loopWords(loop)).toBe('2·bar 1 → 3·bar 4');
     expect([0, 1, 2, 3].map((sl) => loopHas(loop, sl))).toEqual([false, true, true, false]);
     expect(loopHas(null, 0)).toBe(false);
   });
 
-  it('bands every bar of a section the loop plays, in any of its slots', () => {
-    const loop = { slot: 0, from: 6, to: 2, toSlot: 3 };
-    expect(loopedBarsOf(loop, arrangement, patterns, 'A')).toEqual({ from: 0, to: 7 });
-    expect(loopedBarsOf(loop, arrangement, patterns, 'C')).toEqual({ from: 0, to: 3 });
+  it('bands the bars of a section the loop plays, in any of its slots, and only those', () => {
+    const loop = { slot: 0, from: 6, to: 1, toSlot: 3 };
+    expect(loopedBarsOf(loop, arrangement, patterns, 'A')).toEqual([0, 1, 6, 7]);
+    expect(loopedBarsOf(loop, arrangement, patterns, 'C')).toEqual([0, 1, 2, 3]);
     expect(loopedBarsOf({ slot: 0, from: 0, to: 1 }, arrangement, patterns, 'C')).toBeNull();
     expect(loopedBarsOf(null, arrangement, patterns, 'A')).toBeNull();
   });

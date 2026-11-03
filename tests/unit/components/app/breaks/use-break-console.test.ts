@@ -3162,6 +3162,17 @@ describe('a loop over a range of bars (16-b-vi)', () => {
     expect(result.current.barLoop).toEqual({ slot: 0, from: 0, to: aBars - 1, toSlot: 2 });
   });
 
+  it('under a solo, stretches only over the slots it plays, keeping the loop it has', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'A', 'B', 'A']));
+    act(() => result.current.setViewMode('A'));
+    const aBars = result.current.view.A?.bars.length ?? 0;
+    act(() => result.current.loopToSlot(3));
+    expect(result.current.barLoop).toEqual({ slot: 0, from: 0, to: aBars - 1, toSlot: 1 });
+    act(() => result.current.loopToSlot(3));
+    expect(result.current.barLoop).toEqual({ slot: 0, from: 0, to: aBars - 1, toSlot: 1 });
+  });
+
   it('is no loop across slots once one of them plays another section', async () => {
     const { result } = await mount();
     act(() => result.current.setArrangement(['A', 'B', 'A']));

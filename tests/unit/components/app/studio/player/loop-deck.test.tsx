@@ -87,7 +87,7 @@ describe('LoopDeck', () => {
     expect(setBarLoop).toHaveBeenLastCalledWith({ slot: 0, from: 2, to: 2 });
   });
 
-  it('runs a loop on into a later slot, to its last bar, and back', () => {
+  it('runs a loop on into a later slot, to its last bar, and back to the bar it ended on', () => {
     stage({ barLoop: { slot: 0, from: 4, to: 5 } });
     const view = render(<LoopDeck />);
     fireEvent.change(slider('To slot'), { target: { value: '2' } });
@@ -98,8 +98,51 @@ describe('LoopDeck', () => {
     expect(slider('To bar').max).toBe('4');
     fireEvent.change(slider('To bar'), { target: { value: '2' } });
     expect(setBarLoop).toHaveBeenLastCalledWith({ slot: 0, from: 4, to: 1, toSlot: 1 });
+    stage({ barLoop: { slot: 0, from: 4, to: 1, toSlot: 1 } });
+    view.rerender(<LoopDeck />);
     fireEvent.change(slider('To slot'), { target: { value: '1' } });
-    expect(setBarLoop).toHaveBeenLastCalledWith({ slot: 0, from: 4, to: 4 });
+    expect(setBarLoop).toHaveBeenLastCalledWith({ slot: 0, from: 4, to: 5 });
+    stage({ barLoop: { slot: 0, from: 4, to: 5 } });
+    view.rerender(<LoopDeck />);
+    fireEvent.change(slider('To slot'), { target: { value: '2' } });
+    expect(setBarLoop).toHaveBeenLastCalledWith({ slot: 0, from: 4, to: 1, toSlot: 1 });
+  });
+
+  it('runs on only as far as the slots a solo plays', () => {
+    stage({
+      viewMode: 'A',
+      arrangement: ['A', 'A', 'B', 'A'],
+      barLoop: { slot: 0, from: 0, to: 0 },
+    });
+    render(<LoopDeck />);
+    expect(slider('To slot').max).toBe('2');
+  });
+
+  it('has no To slot where the next slot is one a solo leaves out', () => {
+    stage({ viewMode: 'A', barLoop: { slot: 0, from: 0, to: 0 } });
+    render(<LoopDeck />);
+    expect(screen.queryByRole('slider', { name: 'To slot' })).toBeNull();
+  });
+
+  it('keeps the bars it was moved to while the music goes on into another slot', () => {
+    stage({ position: { t: 0, slot: 0, secIdx: 0, barIdx: 4, letter: 'A' } });
+    const view = render(<LoopDeck />);
+    fireEvent.change(slider('To bar'), { target: { value: '8' } });
+    stage({ position: { t: 0, slot: 0, secIdx: 1, barIdx: 0, letter: 'B' } });
+    view.rerender(<LoopDeck />);
+    fireEvent.click(loop());
+    expect(setBarLoop).toHaveBeenCalledWith({ slot: 0, from: 4, to: 7 });
+  });
+
+  it('shows a loop ending on an empty section as the bars that play', () => {
+    stage({
+      arrangement: ['A', 'B'],
+      view: { A: bars(8), B: bars(0) },
+      barLoop: { slot: 0, from: 2, to: 0, toSlot: 1 },
+    });
+    render(<LoopDeck />);
+    expect(slider('To slot').value).toBe('1');
+    expect(screen.getByText(/A · slot 1 · Bars 3–8 of 8/)).toBeTruthy();
   });
 
   it('has no To slot in an arrangement of one slot', () => {

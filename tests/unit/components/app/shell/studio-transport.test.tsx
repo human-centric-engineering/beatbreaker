@@ -202,7 +202,14 @@ describe("the player's bar", () => {
     await user.click(screen.getByRole('button', { name: /^Go to slot 3:/ }));
     await user.keyboard('{/Shift}');
     expect(looped()).toEqual([true, true, true, false]);
-    expect(screen.getByRole('button', { name: 'Loop bars' }).textContent).toContain('Slots 1–3');
+    expect(screen.getByRole('button', { name: 'Loop bars' }).textContent).toContain(
+      '1·bar 1 → 3·bar'
+    );
+    // its title says what a Shift-click does there: nothing on the loop's last slot
+    const titles = chapters().map((el) => el.getAttribute('title') ?? '');
+    expect(titles[0]).toContain('Shift-click to end the loop here');
+    expect(titles[2]).not.toContain('Shift-click');
+    expect(titles[3]).toContain('Shift-click to loop to here');
     // a plain click on a chapter is a place to go, and leaves the loop
     await user.click(screen.getByRole('button', { name: /^Go to slot 4:/ }));
     expect(looped()).toEqual([false, false, false, false]);

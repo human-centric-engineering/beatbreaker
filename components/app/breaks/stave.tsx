@@ -43,8 +43,8 @@ interface StaveProps {
   flash?: readonly number[];
   /** `Flash.seq`: a new value remounts the rects, so the same steps flash again. */
   flashSeq?: number;
-  /** The bars a loop plays, of this section, both counted from 0. */
-  loop?: { from: number; to: number } | null;
+  /** The bars of this section a loop plays, counted from 0. */
+  loop?: readonly number[] | null;
   /** A drag across bars asks for them looped; absent, the chart takes no drag. */
   onLoop?: (from: number, to: number) => void;
 }
@@ -116,7 +116,9 @@ export const Stave = memo(
           },
         }
       : null;
-    const band = dragged ?? loop ?? null;
+    const band = dragged
+      ? Array.from({ length: dragged.to - dragged.from + 1 }, (_, i) => dragged.from + i)
+      : (loop ?? null);
 
     useImperativeHandle(ref, () => ({
       moveTo(anchor) {
@@ -169,22 +171,21 @@ export const Stave = memo(
           {/* The looped bars, under the notes. Never printed:
               a loop is where you are practising, not part of the part. */}
           {band
-            ? boxes
-                .slice(band.from, band.to + 1)
-                .map((b, i) =>
-                  b ? (
-                    <rect
-                      key={band.from + i}
-                      className="loop-band"
-                      x={b.x}
-                      y={b.y}
-                      width={b.w}
-                      height={b.h}
-                      fill="var(--brass)"
-                      opacity={dragged ? 0.14 : 0.08}
-                    />
-                  ) : null
-                )
+            ? band.map((bar) => {
+                const b = boxes[bar];
+                return b ? (
+                  <rect
+                    key={bar}
+                    className="loop-band"
+                    x={b.x}
+                    y={b.y}
+                    width={b.w}
+                    height={b.h}
+                    fill="var(--brass)"
+                    opacity={dragged ? 0.14 : 0.08}
+                  />
+                ) : null;
+              })
             : null}
           {flash?.map((idx) => {
             const a = engraving.map[idx];

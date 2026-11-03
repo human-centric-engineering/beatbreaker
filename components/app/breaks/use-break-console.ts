@@ -461,7 +461,9 @@ export interface BreakConsole {
   toggleBarLoop: () => void;
   /**
    * Stretch the loop to take in a whole slot, as a Shift-click on its chapter
-   * asks; with no loop, loop the slots from the one you are in to it, whole.
+   * asks, or bring its end in to a slot inside it; with no loop, loop the
+   * slots from the one you are in to it, whole. Under a solo it runs only as
+   * far as the slots the solo plays.
    */
   loopToSlot: (slot: number) => void;
   loops: number;
@@ -2993,7 +2995,14 @@ export function useBreakConsole(
       const lastBar = (sl: number) =>
         Math.max(0, (snap.patterns[snap.arrangement[sl]]?.bars.length ?? 1) - 1);
       if (slot < 0 || slot >= snap.arrangement.length) return;
-      setBarLoop(loopTo(snap.loop ?? null, spot?.slot ?? slot, slot, lastBar));
+      // a loop is unbroken, so under a solo it runs only over the slots that play
+      const plays = (sl: number) => {
+        const letter = snap.arrangement[sl];
+        return !!snap.patterns[letter] && (!snap.solo || letter === snap.solo);
+      };
+      const loop = snap.loop ?? null;
+      const next = loopTo(loop, spot?.slot ?? slot, slot, lastBar, plays);
+      if (next !== loop) setBarLoop(next);
     },
     [cue, pausedAt, setBarLoop]
   );

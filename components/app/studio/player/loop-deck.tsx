@@ -8,7 +8,15 @@ import { PlayerPop } from '@/components/app/studio/player/player-pop';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
 import { playableSlots } from '@/lib/app/breaks/audio/transport';
-import { type BarLoop, lastSlot, loopSpan, loopSpot, loopWords } from '@/lib/app/breaks/bar-loop';
+import {
+  type BarLoop,
+  lastSlot,
+  loopBars,
+  loopReach,
+  loopSpan,
+  loopSpot,
+  loopWords,
+} from '@/lib/app/breaks/bar-loop';
 import { cn } from '@/lib/utils';
 
 /**
@@ -18,14 +26,31 @@ import { cn } from '@/lib/utils';
  * The slot is the loop's, where one is on; else the one the playhead is in,
  * a Pause left or a skip cued, else the first that plays. While a loop is on
  * the bars move it as they are dragged; while it is off they say what
- * _Loop_ will loop: the bar you are in, as it plays, until they are moved.
- * _To slot_ runs it on into a later slot, its bars between played whole. R loops the bar you are in from
+ * _Loop_ will loop: the bar you are in, as it plays, until they are moved,
+ * and then the bars moved to, as the music goes on, until Loop is pressed or
+ * the panel shuts. _To slot_ runs it on into a later slot, its bars between
+ * played whole, as far as the slots a solo plays; back to a slot, it ends on
+ * the bar it last did there. What it shows is what plays ({@link loopBars}):
+ * an empty section at its end is passed over. R loops the bar you are in from
  * anywhere, and on the chart a drag across bars loops them. `drawer` is the
  * phone's Practise drawer, on the paper rather than the player's dark bar.
  */
 export function LoopDeck({ drawer }: { drawer?: boolean }) {
   const c = useStudio();
   const solo = c.viewMode === 'both' ? null : c.viewMode;
+  const barsIn = (slot: number) => c.view[c.arrangement[slot]]?.bars.length ?? 0;
+  const plays = (slot: number) => {
+    const letter = c.arrangement[slot];
+    return !!c.view[letter] && (!solo || letter === solo);
+  };
+
+  /* What Loop will loop while none is on: the bar you are in, as R does,
+     until a slider is moved; then the bars moved to, from that slot. */
+  const [draft, setDraft] = useState<BarLoop | null>(null);
+  /* The bar the loop last ended on in each slot To slot has been to, from
+     the slot it starts in, so going back to one finds it there. */
+  const [ends, setEnds] = useState<{ slot: number; to: Record<number, number> } | null>(null);
+
   const live = c.position && !c.position.count ? c.position : null;
   const at =
     live && live.secIdx !== undefined
@@ -33,38 +58,48 @@ export function LoopDeck({ drawer }: { drawer?: boolean }) {
       : c.pausedAt
         ? { slot: c.pausedAt.slot, barIdx: c.pausedAt.barIdx }
         : null;
+  const kept = draft && plays(draft.slot) && barsIn(draft.slot) ? draft : null;
   const spot = c.barLoop
     ? { slot: c.barLoop.slot, barIdx: c.barLoop.from }
-    : loopSpot(at, c.cue, playableSlots(c.arrangement, c.view, solo));
+    : kept
+      ? { slot: kept.slot, barIdx: kept.from }
+      : loopSpot(at, c.cue, playableSlots(c.arrangement, c.view, solo));
   const letter = spot ? c.arrangement[spot.slot] : undefined;
-  const bars = (letter && c.view[letter]?.bars.length) || 0;
-
-  /* What Loop will loop while none is on: the bar you are in, as R does,
-     until a slider is moved; then the bars moved to, from that slot. */
-  const [draft, setDraft] = useState<BarLoop | null>(null);
+  const bars = spot ? barsIn(spot.slot) : 0;
 
   if (!spot || !letter || !bars) {
     return <p className="hint">Nothing is playing that has bars to loop.</p>;
   }
-  const mine = draft && draft.slot === spot.slot ? draft : null;
-  const range = c.barLoop ?? mine ?? { slot: spot.slot, from: spot.barIdx, to: spot.barIdx };
-  const slots = c.arrangement.length;
-  const end = Math.min(Math.max(lastSlot(range), spot.slot), slots - 1);
+  const range = c.barLoop ?? kept ?? { slot: spot.slot, from: spot.barIdx, to: spot.barIdx };
+  // as far on as the loop can run unbroken: under a solo, the slots it plays
+  const reach = loopReach(spot.slot, c.arrangement.length - 1, plays);
+  const wanted = Math.min(Math.max(lastSlot(range), spot.slot), reach);
+  const played = loopBars(
+    loopSpan({ slot: spot.slot, barIdx: range.from }, { slot: wanted, barIdx: range.to }),
+    c.arrangement,
+    c.view
+  );
+  const shown = loopSpan(played[0], played[played.length - 1]);
+  const { from, to } = shown;
+  const end = lastSlot(shown);
   const endLetter = c.arrangement[end];
-  const endBars = c.view[endLetter]?.bars.length || 1;
+  const endBars = barsIn(end);
   const one = end === spot.slot;
-  const from = Math.min(range.from, bars - 1);
-  const to = Math.min(one ? Math.max(range.to, from) : range.to, endBars - 1);
+  const mark = (slot: number, bar: number) =>
+    setEnds((was) => ({
+      slot: spot.slot,
+      to: { ...(was?.slot === spot.slot ? was.to : {}), [slot]: bar },
+    }));
   /** The loop the panel shows, moved: on the Studio while one is on, else the draft. */
   const put = (next: { from: number; to: number; end: number }) => {
     const loop = loopSpan(
       { slot: spot.slot, barIdx: next.from },
       { slot: next.end, barIdx: next.to }
     );
+    mark(next.end, next.to);
     if (c.barLoop) c.setBarLoop(loop);
     else setDraft(loop);
   };
-  const shown = loopSpan({ slot: spot.slot, barIdx: from }, { slot: end, barIdx: to });
 
   return (
     <div className="loop-deck">
@@ -80,17 +115,18 @@ export function LoopDeck({ drawer }: { drawer?: boolean }) {
         max={bars}
         onChange={(n) => put({ from: n - 1, to: one ? Math.max(n - 1, to) : to, end })}
       />
-      {slots > 1 ? (
+      {reach > spot.slot ? (
         <Slider
           label="To slot"
           value={end + 1}
           min={spot.slot + 1}
-          max={slots}
+          max={reach + 1}
           onChange={(n) => {
             const next = n - 1;
-            const nBars = c.view[c.arrangement[next]]?.bars.length || 1;
-            // into another slot, the loop runs to its end; back to its own, to the bar it starts on
-            const last = next === spot.slot ? from : nBars - 1;
+            // back to a slot, the bar it ended on there; new to it, its last bar, or in its own the first
+            const been = ends?.slot === spot.slot ? ends.to[next] : undefined;
+            const last = been ?? (next === spot.slot ? from : Math.max(0, barsIn(next) - 1));
+            mark(end, to);
             put({ from, to: last, end: next });
           }}
         />
@@ -106,7 +142,10 @@ export function LoopDeck({ drawer }: { drawer?: boolean }) {
       <Toggle
         className={drawer ? 'mini' : 'player-chip'}
         pressed={!!c.barLoop}
-        onPressedChange={(on) => c.setBarLoop(on ? shown : null)}
+        onPressedChange={(on) => {
+          setDraft(null);
+          c.setBarLoop(on ? shown : null);
+        }}
         label="Loop these bars"
         keyshortcuts="R"
       >

@@ -74,8 +74,11 @@ export function loopBars(
 
 /**
  * The loop that holds, where it still does: its slots still play the
- * sections they did, none of them one a solo leaves out, and its bars are
- * held to the bars the sections have. Null where it no longer holds.
+ * sections they did, none of them one a solo leaves out, and it has bars to
+ * play. It is the bars {@link loopBars} plays, first to last, so an empty
+ * section at either end is passed over rather than costing the loop, and
+ * bars an edit took away are held to the bars there are. Null where it no
+ * longer holds.
  */
 export function loopIn(
   loop: HeldLoop | null,
@@ -89,16 +92,9 @@ export function loopIn(
   if (loop.slot < 0 || end < loop.slot || now.length !== loop.letters.length) return null;
   if (now.some((letter, i) => letter !== loop.letters[i])) return null;
   if (solo && now.some((letter) => letter !== solo)) return null;
-  const firstBars = patterns[now[0]]?.bars.length ?? 0;
-  const lastBars = patterns[now[now.length - 1]]?.bars.length ?? 0;
-  if (!firstBars || !lastBars) return null;
-  const to = Math.max(0, Math.min(loop.to, lastBars - 1));
-  let from = Math.max(0, Math.min(loop.from, firstBars - 1));
-  if (end === loop.slot) {
-    from = Math.min(from, to);
-    return { slot: loop.slot, from, to };
-  }
-  return { slot: loop.slot, from, to, toSlot: end };
+  const bars = loopBars(loop, arrangement, patterns);
+  if (!bars.length) return null;
+  return loopSpan(bars[0], bars[bars.length - 1]);
 }
 
 /** Two bars, in either order, as a loop of the slot: the first of them to the last. */
@@ -117,44 +113,75 @@ export function loopSpan(
 }
 
 /**
+ * How far from slot `from` toward slot `toward` a loop can run, one slot at
+ * a time, while `plays` says each slot on the way plays: a loop is unbroken,
+ * so under a solo it stops at the first slot the solo leaves out.
+ */
+export function loopReach(from: number, toward: number, plays: (slot: number) => boolean): number {
+  const step = toward > from ? 1 : -1;
+  let slot = from;
+  while (slot !== toward && plays(slot + step)) slot += step;
+  return slot;
+}
+
+/**
  * A loop stretched to take in a whole slot, as a Shift-click on its chapter
  * asks: past the loop's end, to that slot's last bar; before its start,
- * from that slot's first. Without a loop, the slots from `anchor` to it,
- * whole. `lastBar` is a slot's last bar.
+ * from that slot's first; inside it, brought in to end with that slot. Without
+ * a loop, the slots from `anchor` to it, whole. It goes only as far as
+ * `plays` lets it ({@link loopReach}). `lastBar` is a slot's last bar. The
+ * loop itself, or null with none, where the click changes nothing: on the
+ * loop's last slot, or on a slot it cannot reach.
  */
 export function loopTo(
   loop: BarLoop | null,
   anchor: number,
   slot: number,
-  lastBar: (slot: number) => number
-): BarLoop {
+  lastBar: (slot: number) => number,
+  plays: (slot: number) => boolean = () => true
+): BarLoop | null {
   if (!loop) {
-    const [a, b] = anchor <= slot ? [anchor, slot] : [slot, anchor];
+    if (!plays(anchor)) return null;
+    const reach = loopReach(anchor, slot, plays);
+    const [a, b] = anchor <= reach ? [anchor, reach] : [reach, anchor];
     return loopSpan({ slot: a, barIdx: 0 }, { slot: b, barIdx: lastBar(b) });
   }
   const end = lastSlot(loop);
-  if (slot > end)
-    return loopSpan({ slot: loop.slot, barIdx: loop.from }, { slot, barIdx: lastBar(slot) });
-  if (slot < loop.slot) return loopSpan({ slot, barIdx: 0 }, { slot: end, barIdx: loop.to });
-  return loop;
+  if (slot > end) {
+    const reach = loopReach(end, slot, plays);
+    if (reach === end) return loop;
+    return loopSpan(
+      { slot: loop.slot, barIdx: loop.from },
+      { slot: reach, barIdx: lastBar(reach) }
+    );
+  }
+  if (slot < loop.slot) {
+    const reach = loopReach(loop.slot, slot, plays);
+    if (reach === loop.slot) return loop;
+    return loopSpan({ slot: reach, barIdx: 0 }, { slot: end, barIdx: loop.to });
+  }
+  if (slot === end) return loop;
+  return loopSpan({ slot: loop.slot, barIdx: loop.from }, { slot, barIdx: lastBar(slot) });
 }
 
 /**
- * The bars of one section a loop plays, first to last, for the chart to
- * band: a section looped in two slots bands every bar either plays. Null
- * where the loop plays none of it.
+ * The bars of one section a loop plays, in order, for the chart to band: a
+ * section looped in two slots bands the bars either plays, and only those.
+ * Null where the loop plays none of it.
  */
 export function loopedBarsOf(
   loop: BarLoop | null,
   arrangement: readonly SectionLetter[],
   patterns: MaybeSections,
   letter: SectionLetter
-): { from: number; to: number } | null {
+): number[] | null {
   if (!loop) return null;
-  const mine = loopBars(loop, arrangement, patterns).filter((b) => b.letter === letter);
-  if (!mine.length) return null;
-  const at = mine.map((b) => b.barIdx);
-  return { from: Math.min(...at), to: Math.max(...at) };
+  const mine = new Set(
+    loopBars(loop, arrangement, patterns)
+      .filter((b) => b.letter === letter)
+      .map((b) => b.barIdx)
+  );
+  return mine.size ? [...mine].sort((a, b) => a - b) : null;
 }
 
 /**
@@ -173,10 +200,14 @@ export function loopSpot(
   return slots.length ? { slot: slots[0], barIdx: 0 } : null;
 }
 
-/** What a loop says on the player: `Bar 5`, `Bars 5–6`, or across slots `Slots 2–4`. */
+/**
+ * What a loop says on the player: `Bar 5`, `Bars 5–6`, or across slots
+ * where it starts and ends, slot then bar, `2·bar 7 → 4·bar 1`.
+ */
 export function loopWords(loop: BarLoop): string {
   const end = lastSlot(loop);
-  if (end !== loop.slot) return `Slots ${loop.slot + 1}–${end + 1}`;
+  if (end !== loop.slot)
+    return `${loop.slot + 1}·bar ${loop.from + 1} → ${end + 1}·bar ${loop.to + 1}`;
   return loop.from === loop.to ? `Bar ${loop.from + 1}` : `Bars ${loop.from + 1}–${loop.to + 1}`;
 }
 
