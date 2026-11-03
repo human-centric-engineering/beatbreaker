@@ -97,7 +97,7 @@ function Chapters() {
         style={{ flexGrow: weightOf(letter) }}
         onClick={(e) => (e.shiftKey ? c.loopToSlot(i) : c.seekSlot(i))}
         aria-label={`Go to slot ${i + 1}: ${letter}, ${bars} bar${bars === 1 ? '' : 's'}`}
-        title={`${letter} · ${bars} bar${bars === 1 ? '' : 's'}${looped && c.barLoop ? ` — looping ${loopWords(c.barLoop).toLowerCase()}` : rank.has(i) ? '' : ' — not playing under this section'}${shift ? ` · ${shift}` : ''}`}
+        title={`${letter} · ${bars} bar${bars === 1 ? '' : 's'}${looped && c.barLoop ? ` — looping ${loopWords(c.barLoop, c.arrangement).toLowerCase()}` : rank.has(i) ? '' : ' — not playing under this section'}${shift ? ` · ${shift}` : ''}`}
       >
         <span className="chapter-track">
           <span className="chapter-fill" style={{ transform: `scaleX(${Math.min(1, fill)})` }} />
@@ -127,7 +127,7 @@ function Chapters() {
       {chips.slice(0, loop.slot)}
       <div className="chapters-loop" style={{ flexGrow: span }}>
         <span className="chapters-loop-label" aria-hidden="true">
-          Looping <span className="chapters-loop-range">{loopWords(loop)}</span>
+          Looping <span className="chapters-loop-range">{loopWords(loop, c.arrangement)}</span>
         </span>
         <div className="chapters-loop-run">{chips.slice(loop.slot, end)}</div>
       </div>

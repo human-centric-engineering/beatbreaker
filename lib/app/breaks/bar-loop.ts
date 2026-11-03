@@ -1,5 +1,6 @@
 import type { StepAnchor } from '@/lib/app/breaks/engrave';
 import type { MaybeSections, SectionLetter } from '@/lib/app/breaks/sections';
+import { ordinal } from '@/lib/app/ordinal';
 
 /**
  * A loop over a range of bars (16-b-vi): from bar `from` of arrangement slot
@@ -201,13 +202,22 @@ export function loopSpot(
 }
 
 /**
- * What a loop says on the player: `Bar 5`, `Bars 5–6`, or across slots
- * where it starts and ends, slot then bar, `2·bar 7 → 4·bar 1`.
+ * A slot as the player names it: its section and its place in the song,
+ * `B (3rd)`, since a section the song plays twice is in two places.
  */
-export function loopWords(loop: BarLoop): string {
+export function slotName(arrangement: readonly SectionLetter[], slot: number): string {
+  return `${arrangement[slot] ?? '?'} (${ordinal(slot + 1)})`;
+}
+
+/**
+ * What a loop says on the player: `Bar 5`, `Bars 5–6`, or across slots
+ * where it starts and ends, `B (3rd) bar 7 → C (4th) bar 1`.
+ */
+export function loopWords(loop: BarLoop, arrangement: readonly SectionLetter[]): string {
   const end = lastSlot(loop);
-  if (end !== loop.slot)
-    return `${loop.slot + 1}·bar ${loop.from + 1} → ${end + 1}·bar ${loop.to + 1}`;
+  if (end !== loop.slot) {
+    return `${slotName(arrangement, loop.slot)} bar ${loop.from + 1} → ${slotName(arrangement, end)} bar ${loop.to + 1}`;
+  }
   return loop.from === loop.to ? `Bar ${loop.from + 1}` : `Bars ${loop.from + 1}–${loop.to + 1}`;
 }
 

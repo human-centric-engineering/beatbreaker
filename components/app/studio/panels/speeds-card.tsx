@@ -11,6 +11,7 @@ import {
   VIDEO_RULE,
 } from '@/lib/app/breaks/community/video-links';
 import { layerNameIn, layerNamesFor, recordedLevel } from '@/lib/app/breaks/layers';
+import { ordinal } from '@/lib/app/ordinal';
 import type { PinTarget } from '@/lib/validations/pins';
 import { SPEED_NOTE_MAX, type SpeedRecordView } from '@/lib/validations/speeds';
 
@@ -33,12 +34,6 @@ import { SPEED_NOTE_MAX, type SpeedRecordView } from '@/lib/validations/speeds';
 
 /** How many of your latest records the drawer lists. */
 export const RECENT_SHOWN = 5;
-
-function ordinal(n: number): string {
-  const tens = n % 100;
-  if (tens >= 11 && tens <= 13) return `${n}th`;
-  return `${n}${['th', 'st', 'nd', 'rd'][n % 10] ?? 'th'}`;
-}
 
 function tableUrl(
   target: PinTarget,

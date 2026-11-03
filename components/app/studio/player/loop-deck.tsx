@@ -16,6 +16,7 @@ import {
   loopSpan,
   loopSpot,
   loopWords,
+  slotName,
 } from '@/lib/app/breaks/bar-loop';
 import { cn } from '@/lib/utils';
 
@@ -28,7 +29,7 @@ import { cn } from '@/lib/utils';
  * the bars move it as they are dragged; while it is off they say what
  * _Loop_ will loop: the bar you are in, as it plays, until they are moved,
  * and then the bars moved to, as the music goes on, until Loop is pressed or
- * the panel shuts. _To slot_ runs it on into a later slot, its bars between
+ * the panel shuts. _Loop to_ runs it on into a later slot, its bars between
  * played whole, as far as the slots a solo plays; back to a slot, it ends on
  * the bar it last did there. What it shows is what plays ({@link loopBars}):
  * an empty section at its end is passed over. R loops the bar you are in from
@@ -47,7 +48,7 @@ export function LoopDeck({ drawer }: { drawer?: boolean }) {
   /* What Loop will loop while none is on: the bar you are in, as R does,
      until a slider is moved; then the bars moved to, from that slot. */
   const [draft, setDraft] = useState<BarLoop | null>(null);
-  /* The bar the loop last ended on in each slot To slot has been to, from
+  /* The bar the loop last ended on in each slot Loop to has been to, from
      the slot it starts in, so going back to one finds it there. */
   const [ends, setEnds] = useState<{ slot: number; to: Record<number, number> } | null>(null);
 
@@ -82,7 +83,6 @@ export function LoopDeck({ drawer }: { drawer?: boolean }) {
   const shown = loopSpan(played[0], played[played.length - 1]);
   const { from, to } = shown;
   const end = lastSlot(shown);
-  const endLetter = c.arrangement[end];
   const endBars = barsIn(end);
   const one = end === spot.slot;
   const mark = (slot: number, bar: number) =>
@@ -105,8 +105,8 @@ export function LoopDeck({ drawer }: { drawer?: boolean }) {
     <div className="loop-deck">
       <p className="hint mono">
         {one
-          ? `${letter} · slot ${spot.slot + 1} · ${loopWords(shown)} of ${bars}`
-          : `${letter} bar ${from + 1} · slot ${spot.slot + 1} → ${endLetter} bar ${to + 1} · slot ${end + 1}`}
+          ? `${slotName(c.arrangement, spot.slot)} · ${loopWords(shown, c.arrangement)} of ${bars}`
+          : loopWords(shown, c.arrangement)}
       </p>
       <Slider
         label="From bar"
@@ -117,10 +117,11 @@ export function LoopDeck({ drawer }: { drawer?: boolean }) {
       />
       {reach > spot.slot ? (
         <Slider
-          label="To slot"
+          label="Loop to"
           value={end + 1}
           min={spot.slot + 1}
           max={reach + 1}
+          format={(n) => slotName(c.arrangement, n - 1)}
           onChange={(n) => {
             const next = n - 1;
             // back to a slot, the bar it ended on there; new to it, its last bar, or in its own the first
@@ -160,7 +161,7 @@ export function LoopDeck({ drawer }: { drawer?: boolean }) {
           click B, then hold Shift and click C.
         </li>
         <li>
-          <b>Exactly:</b> set From bar, To slot and To bar above, then press Loop.
+          <b>Exactly:</b> set From bar, Loop to and To bar above, then press Loop.
         </li>
         <li>A plain click on the strip, or a skip, plays the whole song again.</li>
       </ul>
@@ -177,7 +178,7 @@ export function LoopPop() {
       title="Loop bars"
       tip="Loop a range of bars (R)"
       icon={<Repeat size={18} />}
-      face={c.barLoop ? loopWords(c.barLoop) : 'Loop'}
+      face={c.barLoop ? loopWords(c.barLoop, c.arrangement) : 'Loop'}
       className={cn('loop', c.barLoop && 'on')}
     >
       <LoopDeck />

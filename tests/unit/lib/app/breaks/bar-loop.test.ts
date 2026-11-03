@@ -20,6 +20,7 @@ import {
   loopTo,
   loopWords,
   loopedBarsOf,
+  slotName,
 } from '@/lib/app/breaks/bar-loop';
 import { emptyBar, styleAttrs } from '@/lib/app/breaks/pattern';
 import type { MaybeSections } from '@/lib/app/breaks/sections';
@@ -92,8 +93,8 @@ describe('loopOver and loopWords', () => {
   });
 
   it('names a bar, or bars, counted from 1', () => {
-    expect(loopWords({ slot: 0, from: 4, to: 4 })).toBe('Bar 5');
-    expect(loopWords({ slot: 0, from: 4, to: 5 })).toBe('Bars 5–6');
+    expect(loopWords({ slot: 0, from: 4, to: 4 }, ['A'])).toBe('Bar 5');
+    expect(loopWords({ slot: 0, from: 4, to: 5 }, ['A'])).toBe('Bars 5–6');
   });
 });
 
@@ -233,7 +234,8 @@ describe('a loop across slots', () => {
 
   it('says which slots, and which slots it plays', () => {
     const loop = { slot: 1, from: 0, to: 3, toSlot: 2 };
-    expect(loopWords(loop)).toBe('2·bar 1 → 3·bar 4');
+    expect(loopWords(loop, arrangement)).toBe('B (2nd) bar 1 → C (3rd) bar 4');
+    expect(slotName(arrangement, 3)).toBe('A (4th)');
     expect([0, 1, 2, 3].map((sl) => loopHas(loop, sl))).toEqual([false, true, true, false]);
     expect(loopHas(null, 0)).toBe(false);
   });

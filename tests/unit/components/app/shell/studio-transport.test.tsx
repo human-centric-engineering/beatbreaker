@@ -205,9 +205,9 @@ describe("the player's bar", () => {
     // bracketed together on the strip, with what is looping written over them
     const bracket = document.querySelector('.chapters-loop');
     expect(bracket?.querySelectorAll('.chapter')).toHaveLength(3);
-    expect(bracket?.textContent).toMatch(/^Looping 1·bar 1 → 3·bar/);
+    expect(bracket?.textContent).toMatch(/^Looping A \(1st\) bar 1 → A \(3rd\) bar/);
     expect(screen.getByRole('button', { name: 'Loop bars' }).textContent).toContain(
-      '1·bar 1 → 3·bar'
+      'A (1st) bar 1 → A (3rd) bar'
     );
     // its title says what a Shift-click does there: nothing on the loop's last slot
     const titles = chapters().map((el) => el.getAttribute('title') ?? '');
