@@ -2066,45 +2066,45 @@ describe('swing set by the style', () => {
 });
 
 describe('sections past B (11-e-ii)', () => {
+  /**
+   * A pattern whose bars all differ (bar i's crash row spells i), so none is
+   * a repeat the break counts once (16-b-i): what a test of the bar budget needs.
+   */
+  const ownBars = (bars: number, seed: number) => {
+    const p = generatePattern({
+      style: catalogue.styles.funk,
+      meter: '4/4',
+      seed,
+      bars,
+      density: 50,
+      ghosts: 50,
+    });
+    p.bars.forEach((bar, i) => {
+      bar.c = bar.c.map((_, j) => (i >> j) & 1);
+    });
+    return p;
+  };
+
+  /** A break of A, B and sections from C, of these lengths, every bar its own. */
+  const budgetBreak = (lengths: number[]) => {
+    const [A, B, ...rest] = lengths.map((n, i) => ownBars(n, i + 1));
+    const letters = SECTION_LETTERS.slice(0, lengths.length);
+    return breakPayload({
+      bpm: 120,
+      swing: 0,
+      level: 5,
+      arrangement: [...letters],
+      A,
+      B,
+      ...Object.fromEntries(rest.map((p, i) => [letters[i + 2], p])),
+    });
+  };
+
   it('writes a new section no longer than the break has room for', async () => {
     const { result } = await mount();
-    act(() => {
-      result.current.loadPayload(
-        breakPayload({
-          bpm: 120,
-          swing: 0,
-          level: 5,
-          arrangement: ['A', 'B'],
-          A: generatePattern({
-            style: catalogue.styles.funk,
-            meter: '4/4',
-            seed: 5,
-            bars: 2,
-            density: 50,
-            ghosts: 50,
-          }),
-          B: generatePattern({
-            style: catalogue.styles.funk,
-            meter: '4/4',
-            seed: 6,
-            bars: 1,
-            density: 50,
-            ghosts: 50,
-          }),
-        }),
-        'Room'
-      );
-    });
     // 2 + 1, then fifteen of 8 and one of 5: 128, the most a break holds
-    act(() => result.current.setBars(8));
-    for (let i = 0; i < 15; i++) {
-      act(() => {
-        result.current.addSection();
-      });
-    }
-    act(() => result.current.setBars(5));
     act(() => {
-      result.current.addSection();
+      result.current.loadPayload(budgetBreak([2, 1, ...Array(15).fill(8), 5]), 'Room');
     });
     expect(result.current.letters).toEqual(SECTION_LETTERS.slice(0, 18));
     expect(totalBars(result.current.patterns)).toBe(MAX_BREAK_BARS);
@@ -2256,19 +2256,11 @@ describe('sections past B (11-e-ii)', () => {
 
   it(`blocks a section that would take the break past ${MAX_BREAK_BARS} bars, and adds nothing`, async () => {
     const { result } = await mount();
-    act(() => result.current.setBars(8));
+    // sixteen sections of eight bars, every bar its own: 128
     act(() => {
-      result.current.newBreak('both');
+      result.current.loadPayload(budgetBreak(Array(16).fill(8)), 'Full');
     });
-    expect(result.current.patterns.A?.bars).toHaveLength(8);
-    expect(result.current.addSectionBlocked).toBeNull();
-
-    // sixteen sections of eight: 128
-    for (let i = 0; i < 14; i++) {
-      act(() => {
-        result.current.addSection();
-      });
-    }
+    act(() => result.current.setBars(8));
     const sixteen = SECTION_LETTERS.slice(0, 16);
     expect(result.current.letters).toEqual(sixteen);
 
