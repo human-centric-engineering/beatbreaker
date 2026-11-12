@@ -88,10 +88,12 @@ npm run db:migrate:dev
 npm run dev
 ```
 
-Open http://localhost:3040 — the port is set by `PORT` in the committed
-`.env.development`, which `npm run dev` reads. BeatBreaker claims **3040**,
-registered in the HCE [dev-proxy](https://github.com/human-centric-engineering/dev-proxy)
-(https://beatbreaker.test once the proxy is applied).
+Open http://localhost:3040, after setting `BETTER_AUTH_URL` and
+`NEXT_PUBLIC_APP_URL` in `.env.local` to that URL (`.env.example` ships them on
+`:3000`). The port is set by `PORT` in the committed `.env.development`, which
+`npm run dev` reads. BeatBreaker claims **3040**, registered in the HCE
+[dev-proxy](https://github.com/human-centric-engineering/dev-proxy). With the
+proxy applied, use https://beatbreaker.test instead, and point both URLs at it.
 
 ### First admin account
 
