@@ -88,20 +88,23 @@ npm run db:migrate:dev
 npm run dev
 ```
 
-Open http://localhost:3022 — the port is set by `PORT` in the committed
-`.env.development`, which `npm run dev` reads. BeatBreaker claims **3022**;
-Sunrise itself is on 3010.
+Open http://localhost:3040, after setting `BETTER_AUTH_URL` and
+`NEXT_PUBLIC_APP_URL` in `.env.local` to that URL (`.env.example` ships them on
+`:3000`). The port is set by `PORT` in the committed `.env.development`, which
+`npm run dev` reads. BeatBreaker claims **3040**, registered in the HCE
+[dev-proxy](https://github.com/human-centric-engineering/dev-proxy). With the
+proxy applied, use https://beatbreaker.test instead, and point both URLs at it.
 
 ### First admin account
 
 There are **no default credentials**. On a fresh database, the first account you
-create at [`/signup`](http://localhost:3022/signup) is promoted to `ADMIN`;
+create at [`/signup`](http://localhost:3040/signup) is promoted to `ADMIN`;
 every account after that is a regular `USER`.
 
 ## Essential Commands
 
 ```bash
-npm run dev              # Start dev server (port 3022)
+npm run dev              # Start dev server (port 3040)
 npm run validate         # CHANGELOG + Node version + type-check + lint + format
 npm run db:studio        # Open Prisma Studio
 npm test                 # Run tests
